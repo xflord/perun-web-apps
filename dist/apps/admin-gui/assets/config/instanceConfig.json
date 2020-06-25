@@ -1,0 +1,24 @@
+{
+  "thedme": {
+    "nav_bg_color": "#e395d5",
+    "sidemenu_bg_color": "#e395d5",
+    "footer_bg_color": "#e395d5",
+    "sidemenu_item_links_bg_color": "#000000",
+    "vo_color": "#008bf7",
+    "facility_color": "#e55700",
+    "group_color": "#00af3f",
+    "resource_color": "#b9006e",
+    "user_color": "#008c78",
+    "member_color": "#9100dc",
+    "admin_color": "#F01928",
+    "sidemenu_vo_bg_color":"#008bf7",
+    "sidemenu_member_bg_color": "#9100dc",
+    "sidemenu_group_bg_color":"#00af3f",
+    "sidemenu_facility_bg_color": "#e55700",
+    "sidemenu_resource_bg_color":"#b9006e",
+    "sidemenu_user_bg_color": "#008c78"
+  },
+  "skip_oidc": false,
+  "logo_padding": "16px 8px",
+  "logo": "<svg\n   xmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n   xmlns:cc=\"http://creativecommons.org/ns#\"\n   xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n   xmlns:svg=\"http://www.w3.org/2000/svg\"\n   xmlns=\"http://www.w3.org/2000/svg\"\n   id=\"svg57\"\n   height=\"8.4666672mm\"\n   width=\"29.546938mm\"\n   version=\"1.0\">\n  <metadata\n     id=\"metadata61\">\n    <rdf:RDF>\n      <cc:Work\n         rdf:about=\"\">\n        <dc:format>image/svg+xml</dc:format>\n        <dc:type\n           rdf:resource=\"http://purl.org/dc/dcmitype/StillImage\" />\n        <dc:title></dc:title>\n      </cc:Work>\n    </rdf:RDF>\n  </metadata>\n  <defs\n     id=\"defs47\">\n    <pattern\n       y=\"0\"\n       x=\"0\"\n       height=\"6\"\n       width=\"6\"\n       patternUnits=\"userSpaceOnUse\"\n       id=\"EMFhbasepattern\" />\n  </defs>\n  <path\n     id=\"path49\"\n     d=\"M 0,0 H 4.789116 V 31.564625 H 0 Z M 5.006803,0 H 6.748299 L 9.795918,31.564625 H 8.054422 Z m 8.054422,0 h 1.741496 l -3.047619,31.564625 h -1.741497 z m 1.959183,0 h 4.789116 v 31.564625 h -4.789116 z\"\n     style=\"fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.65306121\" />\n  <path\n     id=\"path51\"\n     d=\"m 38.530612,0 c 0,24.163265 0,24.163265 0,24.163265 0,1.741496 1.523809,3.047619 3.047619,3.047619 1.52381,0 3.047619,-1.306123 3.047619,-3.047619 C 44.62585,0 44.62585,0 44.62585,0 c 5.006803,0 5.006803,0 5.006803,0 0,24.380952 0,24.380952 0,24.380952 C 49.632653,28.517006 45.714286,32 41.578231,32 37.442177,32 33.523809,28.517006 33.523809,24.380952 33.523809,0 33.523809,0 33.523809,0 Z\"\n     style=\"fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.65306121\" />\n  <path\n     id=\"path53\"\n     d=\"M 69.877553,0 V 31.564625 H 64.870748 V 0 Z m 1.959184,0 4.57143,31.564625 h -1.52382 L 70.095238,0 Z m 9.79592,0 v 31.564625 h -5.00681 V 0 Z\"\n     style=\"fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.65306121\" />\n  <path\n     id=\"path55\"\n     d=\"M 102.53062,29.823129 V 1.7414966 H 98.176867 V 0 h 13.496603 v 1.7414966 h -4.13606 V 29.823129 h 4.13606 v 1.741496 H 98.176867 v -1.741496 z\"\n     style=\"fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.65306121\" />\n</svg>"
+}
