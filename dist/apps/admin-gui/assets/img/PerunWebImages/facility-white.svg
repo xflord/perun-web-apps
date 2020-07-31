@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+  <!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
+  <!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
+  <!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
+  <!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
+  <!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
+  <!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
+  <!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
+  <!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
+  ]>
+<svg enable-background="new 0 0 128 128" version="1.1" viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+<style type="text/css">
+	.st0{fill:#ffffff;}
+</style>
+  <switch>
+	<foreignObject width="1" height="1" requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/">
+	</foreignObject>
+    <g>
+			<rect class="st0" x="47.79" y="34.26" width="31.53" height="8.69"/>
+      <rect class="st0" x="47.79" y="51.09" width="31.53" height="8.69"/>
+      <path class="st0" d="m115.25 35.49h-20.27v-10.71c0-3.58-2.93-6.51-6.51-6.51h-49.62c-3.58 0-6.51 2.93-6.51 6.51v10.71h-19.98c-2.88 0-5.24 2.36-5.24 5.24v60.77c0 2.88 2.36 5.24 5.24 5.24h102.88c2.88 0 5.24-2.36 5.24-5.24v-60.77c0.01-2.88-2.35-5.24-5.23-5.24zm-100.24 61.38v-51.72c0-1.21 0.99-2.2 2.2-2.2h15.13v7.69h-9.38v8.69h9.38v7.69h-9.38v8.69h9.38v23.35h-15.13c-1.21 0.01-2.2-0.98-2.2-2.19zm28.11 2.2c-1.55 0-2.81-1.26-2.81-2.81v-67.51c0-1.55 1.26-2.81 2.81-2.81h41.08c1.55 0 2.81 1.26 2.81 2.81v67.51c0 1.55-1.26 2.81-2.81 2.81h-41.08zm69.47-2.2c0 1.21-0.99 2.2-2.2 2.2h-15.41v-23.36h9.66v-8.69h-9.66v-7.69h9.66v-8.69h-9.66v-7.69h15.41c1.21 0 2.2 0.99 2.2 2.2v51.72z"/>
+	</g>
+</switch>
+</svg>
