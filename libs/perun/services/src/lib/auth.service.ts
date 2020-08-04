@@ -77,7 +77,7 @@ export class AuthService {
 
   isLoggedInPromise(): Observable<boolean> {
     return from(this.manager.getUser()).pipe(map<User, boolean>((user) => {
-      return !!user;
+      return !!user && !user.expired;
     }));
   }
 
