@@ -361,7 +361,7 @@
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-boolean/attribute-value-boolean.component.html",
               "ext": ".html",
-              "mtime": 1596549612301.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-boolean/attribute-value-boolean.component.scss",
@@ -371,17 +371,17 @@
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-boolean/attribute-value-boolean.component.ts",
               "ext": ".ts",
-              "mtime": 1596549612301.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-integer/attribute-value-integer.component.css",
               "ext": ".css",
-              "mtime": 1596549612301.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-integer/attribute-value-integer.component.html",
               "ext": ".html",
-              "mtime": 1596549612301.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-integer/attribute-value-integer.component.spec.ts",
@@ -391,7 +391,7 @@
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-integer/attribute-value-integer.component.ts",
               "ext": ".ts",
-              "mtime": 1596549612301.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-list/attribute-value-list-delete-dialog/attribute-value-list-delete-dialog.component.html",
@@ -426,47 +426,47 @@
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-list/attribute-value-list.component.html",
               "ext": ".html",
-              "mtime": 1596549612301.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-list/attribute-value-list.component.scss",
               "ext": ".scss",
-              "mtime": 1596549612301.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-list/attribute-value-list.component.ts",
               "ext": ".ts",
-              "mtime": 1596549612301.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-map/attribute-value-map.component.html",
               "ext": ".html",
-              "mtime": 1596549612301.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-map/attribute-value-map.component.scss",
               "ext": ".scss",
-              "mtime": 1596549612301.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-map/attribute-value-map.component.ts",
               "ext": ".ts",
-              "mtime": 1596549612301.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-string/attribute-value-string.component.html",
               "ext": ".html",
-              "mtime": 1596549612301.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-string/attribute-value-string.component.scss",
               "ext": ".scss",
-              "mtime": 1596549612301.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-string/attribute-value-string.component.ts",
               "ext": ".ts",
-              "mtime": 1596549612301.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value.component.html",
@@ -496,7 +496,7 @@
             {
               "file": "libs/perun/components/src/lib/attributes-list/attributes-list.component.ts",
               "ext": ".ts",
-              "mtime": 1596549612305.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/attributes-list/edit-attribute-dialog/edit-attribute-dialog.component.css",
@@ -576,12 +576,12 @@
             {
               "file": "libs/perun/components/src/lib/groups-list/groups-list.component.html",
               "ext": ".html",
-              "mtime": 1596549612305.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/groups-list/groups-list.component.scss",
               "ext": ".scss",
-              "mtime": 1596549612305.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/groups-list/groups-list.component.ts",
@@ -671,7 +671,7 @@
             {
               "file": "libs/perun/components/src/lib/perun-components.module.ts",
               "ext": ".ts",
-              "mtime": 1596549612305.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/components/src/lib/refresh-button/refresh-button.component.html",
@@ -1120,7 +1120,7 @@
             {
               "file": "libs/perun/services/src/lib/auth.service.ts",
               "ext": ".ts",
-              "mtime": 1596549620009.2568
+              "mtime": 1596567082674.812
             },
             {
               "file": "libs/perun/services/src/lib/custom-icon.service.ts",
@@ -1130,7 +1130,7 @@
             {
               "file": "libs/perun/services/src/lib/gui-auth-resolver.service.ts",
               "ext": ".ts",
-              "mtime": 1596549612305.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/services/src/lib/init-auth.service.ts",
@@ -4185,7 +4185,7 @@
             {
               "file": "libs/perun/utils/src/lib/perun-utils.ts",
               "ext": ".ts",
-              "mtime": 1596549612305.1985
+              "mtime": 1596566993526.1753
             },
             {
               "file": "libs/perun/utils/tsconfig.json",
@@ -5192,7 +5192,7 @@
             {
               "file": "apps/admin-gui/src/app/core/services/common/admin-gui-config.service.ts",
               "ext": ".ts",
-              "mtime": 1596549612205.1978
+              "mtime": 1596566993398.1743
             },
             {
               "file": "apps/admin-gui/src/app/core/services/common/cache-helper.service.ts",
@@ -6347,7 +6347,7 @@
             {
               "file": "apps/admin-gui/src/app/shared/components/dialogs/invite-member-dialog/invite-member-dialog.component.html",
               "ext": ".html",
-              "mtime": 1596549612205.1978
+              "mtime": 1596566993402.1743
             },
             {
               "file": "apps/admin-gui/src/app/shared/components/dialogs/invite-member-dialog/invite-member-dialog.component.scss",
@@ -6357,7 +6357,7 @@
             {
               "file": "apps/admin-gui/src/app/shared/components/dialogs/invite-member-dialog/invite-member-dialog.component.ts",
               "ext": ".ts",
-              "mtime": 1596549612205.1978
+              "mtime": 1596566993402.1743
             },
             {
               "file": "apps/admin-gui/src/app/shared/components/dialogs/move-group-dialog/move-group-dialog.component.html",
@@ -7172,17 +7172,17 @@
             {
               "file": "apps/admin-gui/src/app/shared/perun-nav/perun-nav.component.html",
               "ext": ".html",
-              "mtime": 1596549612205.1978
+              "mtime": 1596566993402.1743
             },
             {
               "file": "apps/admin-gui/src/app/shared/perun-nav/perun-nav.component.scss",
               "ext": ".scss",
-              "mtime": 1596549612213.1978
+              "mtime": 1596566993402.1743
             },
             {
               "file": "apps/admin-gui/src/app/shared/perun-nav/perun-nav.component.ts",
               "ext": ".ts",
-              "mtime": 1596549612213.1978
+              "mtime": 1596566993402.1743
             },
             {
               "file": "apps/admin-gui/src/app/shared/pipes/any-to-string.pipe.ts",
@@ -7312,7 +7312,7 @@
             {
               "file": "apps/admin-gui/src/app/shared/side-menu/side-menu.component.html",
               "ext": ".html",
-              "mtime": 1596549612213.1978
+              "mtime": 1596566993402.1743
             },
             {
               "file": "apps/admin-gui/src/app/shared/side-menu/side-menu.component.scss",
@@ -7907,7 +7907,7 @@
             {
               "file": "apps/admin-gui/src/app/vos/pages/vo-detail-page/vo-groups/vo-groups.component.html",
               "ext": ".html",
-              "mtime": 1596549612213.1978
+              "mtime": 1596566993402.1743
             },
             {
               "file": "apps/admin-gui/src/app/vos/pages/vo-detail-page/vo-groups/vo-groups.component.scss",
@@ -7917,12 +7917,12 @@
             {
               "file": "apps/admin-gui/src/app/vos/pages/vo-detail-page/vo-groups/vo-groups.component.ts",
               "ext": ".ts",
-              "mtime": 1596549612213.1978
+              "mtime": 1596566993402.1743
             },
             {
               "file": "apps/admin-gui/src/app/vos/pages/vo-detail-page/vo-members/vo-members.component.html",
               "ext": ".html",
-              "mtime": 1596549612213.1978
+              "mtime": 1596566993402.1743
             },
             {
               "file": "apps/admin-gui/src/app/vos/pages/vo-detail-page/vo-members/vo-members.component.scss",
@@ -7932,7 +7932,7 @@
             {
               "file": "apps/admin-gui/src/app/vos/pages/vo-detail-page/vo-members/vo-members.component.ts",
               "ext": ".ts",
-              "mtime": 1596549612213.1978
+              "mtime": 1596566993402.1743
             },
             {
               "file": "apps/admin-gui/src/app/vos/pages/vo-detail-page/vo-overview/vo-overview.component.html",
@@ -8192,12 +8192,12 @@
             {
               "file": "apps/admin-gui/src/assets/config/defaultConfig.json",
               "ext": ".json",
-              "mtime": 1596549612213.1978
+              "mtime": 1596567082678.812
             },
             {
               "file": "apps/admin-gui/src/assets/i18n/en.json",
               "ext": ".json",
-              "mtime": 1596549612213.1978
+              "mtime": 1596566993402.1743
             },
             {
               "file": "apps/admin-gui/src/assets/img/PerunWebImages/application_form-blue.svg",
@@ -9097,7 +9097,7 @@
             {
               "file": "apps/admin-gui/src/styles.scss",
               "ext": ".scss",
-              "mtime": 1596549612213.1978
+              "mtime": 1596566993402.1743
             },
             {
               "file": "apps/admin-gui/src/test.ts",
@@ -11142,7 +11142,7 @@
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-boolean/attribute-value-boolean.component.html",
         "ext": ".html",
-        "mtime": 1596549612301.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-boolean/attribute-value-boolean.component.scss",
@@ -11152,17 +11152,17 @@
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-boolean/attribute-value-boolean.component.ts",
         "ext": ".ts",
-        "mtime": 1596549612301.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-integer/attribute-value-integer.component.css",
         "ext": ".css",
-        "mtime": 1596549612301.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-integer/attribute-value-integer.component.html",
         "ext": ".html",
-        "mtime": 1596549612301.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-integer/attribute-value-integer.component.spec.ts",
@@ -11172,7 +11172,7 @@
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-integer/attribute-value-integer.component.ts",
         "ext": ".ts",
-        "mtime": 1596549612301.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-list/attribute-value-list-delete-dialog/attribute-value-list-delete-dialog.component.html",
@@ -11207,47 +11207,47 @@
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-list/attribute-value-list.component.html",
         "ext": ".html",
-        "mtime": 1596549612301.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-list/attribute-value-list.component.scss",
         "ext": ".scss",
-        "mtime": 1596549612301.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-list/attribute-value-list.component.ts",
         "ext": ".ts",
-        "mtime": 1596549612301.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-map/attribute-value-map.component.html",
         "ext": ".html",
-        "mtime": 1596549612301.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-map/attribute-value-map.component.scss",
         "ext": ".scss",
-        "mtime": 1596549612301.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-map/attribute-value-map.component.ts",
         "ext": ".ts",
-        "mtime": 1596549612301.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-string/attribute-value-string.component.html",
         "ext": ".html",
-        "mtime": 1596549612301.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-string/attribute-value-string.component.scss",
         "ext": ".scss",
-        "mtime": 1596549612301.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value-string/attribute-value-string.component.ts",
         "ext": ".ts",
-        "mtime": 1596549612301.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/attributes-list/attribute-value/attribute-value.component.html",
@@ -11277,7 +11277,7 @@
       {
         "file": "libs/perun/components/src/lib/attributes-list/attributes-list.component.ts",
         "ext": ".ts",
-        "mtime": 1596549612305.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/attributes-list/edit-attribute-dialog/edit-attribute-dialog.component.css",
@@ -11357,12 +11357,12 @@
       {
         "file": "libs/perun/components/src/lib/groups-list/groups-list.component.html",
         "ext": ".html",
-        "mtime": 1596549612305.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/groups-list/groups-list.component.scss",
         "ext": ".scss",
-        "mtime": 1596549612305.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/groups-list/groups-list.component.ts",
@@ -11452,7 +11452,7 @@
       {
         "file": "libs/perun/components/src/lib/perun-components.module.ts",
         "ext": ".ts",
-        "mtime": 1596549612305.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/components/src/lib/refresh-button/refresh-button.component.html",
@@ -11750,7 +11750,7 @@
       {
         "file": "libs/perun/services/src/lib/auth.service.ts",
         "ext": ".ts",
-        "mtime": 1596549620009.2568
+        "mtime": 1596567082674.812
       },
       {
         "file": "libs/perun/services/src/lib/custom-icon.service.ts",
@@ -11760,7 +11760,7 @@
       {
         "file": "libs/perun/services/src/lib/gui-auth-resolver.service.ts",
         "ext": ".ts",
-        "mtime": 1596549612305.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/services/src/lib/init-auth.service.ts",
@@ -14348,7 +14348,7 @@
       {
         "file": "libs/perun/utils/src/lib/perun-utils.ts",
         "ext": ".ts",
-        "mtime": 1596549612305.1985
+        "mtime": 1596566993526.1753
       },
       {
         "file": "libs/perun/utils/tsconfig.json",
@@ -15028,7 +15028,7 @@
       {
         "file": "apps/admin-gui/src/app/core/services/common/admin-gui-config.service.ts",
         "ext": ".ts",
-        "mtime": 1596549612205.1978
+        "mtime": 1596566993398.1743
       },
       {
         "file": "apps/admin-gui/src/app/core/services/common/cache-helper.service.ts",
@@ -16183,7 +16183,7 @@
       {
         "file": "apps/admin-gui/src/app/shared/components/dialogs/invite-member-dialog/invite-member-dialog.component.html",
         "ext": ".html",
-        "mtime": 1596549612205.1978
+        "mtime": 1596566993402.1743
       },
       {
         "file": "apps/admin-gui/src/app/shared/components/dialogs/invite-member-dialog/invite-member-dialog.component.scss",
@@ -16193,7 +16193,7 @@
       {
         "file": "apps/admin-gui/src/app/shared/components/dialogs/invite-member-dialog/invite-member-dialog.component.ts",
         "ext": ".ts",
-        "mtime": 1596549612205.1978
+        "mtime": 1596566993402.1743
       },
       {
         "file": "apps/admin-gui/src/app/shared/components/dialogs/move-group-dialog/move-group-dialog.component.html",
@@ -17008,17 +17008,17 @@
       {
         "file": "apps/admin-gui/src/app/shared/perun-nav/perun-nav.component.html",
         "ext": ".html",
-        "mtime": 1596549612205.1978
+        "mtime": 1596566993402.1743
       },
       {
         "file": "apps/admin-gui/src/app/shared/perun-nav/perun-nav.component.scss",
         "ext": ".scss",
-        "mtime": 1596549612213.1978
+        "mtime": 1596566993402.1743
       },
       {
         "file": "apps/admin-gui/src/app/shared/perun-nav/perun-nav.component.ts",
         "ext": ".ts",
-        "mtime": 1596549612213.1978
+        "mtime": 1596566993402.1743
       },
       {
         "file": "apps/admin-gui/src/app/shared/pipes/any-to-string.pipe.ts",
@@ -17148,7 +17148,7 @@
       {
         "file": "apps/admin-gui/src/app/shared/side-menu/side-menu.component.html",
         "ext": ".html",
-        "mtime": 1596549612213.1978
+        "mtime": 1596566993402.1743
       },
       {
         "file": "apps/admin-gui/src/app/shared/side-menu/side-menu.component.scss",
@@ -17743,7 +17743,7 @@
       {
         "file": "apps/admin-gui/src/app/vos/pages/vo-detail-page/vo-groups/vo-groups.component.html",
         "ext": ".html",
-        "mtime": 1596549612213.1978
+        "mtime": 1596566993402.1743
       },
       {
         "file": "apps/admin-gui/src/app/vos/pages/vo-detail-page/vo-groups/vo-groups.component.scss",
@@ -17753,12 +17753,12 @@
       {
         "file": "apps/admin-gui/src/app/vos/pages/vo-detail-page/vo-groups/vo-groups.component.ts",
         "ext": ".ts",
-        "mtime": 1596549612213.1978
+        "mtime": 1596566993402.1743
       },
       {
         "file": "apps/admin-gui/src/app/vos/pages/vo-detail-page/vo-members/vo-members.component.html",
         "ext": ".html",
-        "mtime": 1596549612213.1978
+        "mtime": 1596566993402.1743
       },
       {
         "file": "apps/admin-gui/src/app/vos/pages/vo-detail-page/vo-members/vo-members.component.scss",
@@ -17768,7 +17768,7 @@
       {
         "file": "apps/admin-gui/src/app/vos/pages/vo-detail-page/vo-members/vo-members.component.ts",
         "ext": ".ts",
-        "mtime": 1596549612213.1978
+        "mtime": 1596566993402.1743
       },
       {
         "file": "apps/admin-gui/src/app/vos/pages/vo-detail-page/vo-overview/vo-overview.component.html",
@@ -18028,12 +18028,12 @@
       {
         "file": "apps/admin-gui/src/assets/config/defaultConfig.json",
         "ext": ".json",
-        "mtime": 1596549612213.1978
+        "mtime": 1596567082678.812
       },
       {
         "file": "apps/admin-gui/src/assets/i18n/en.json",
         "ext": ".json",
-        "mtime": 1596549612213.1978
+        "mtime": 1596566993402.1743
       },
       {
         "file": "apps/admin-gui/src/assets/img/PerunWebImages/application_form-blue.svg",
@@ -18933,7 +18933,7 @@
       {
         "file": "apps/admin-gui/src/styles.scss",
         "ext": ".scss",
-        "mtime": 1596549612213.1978
+        "mtime": 1596566993402.1743
       },
       {
         "file": "apps/admin-gui/src/test.ts",

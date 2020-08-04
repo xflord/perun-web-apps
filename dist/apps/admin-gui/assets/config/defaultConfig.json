@@ -10,6 +10,7 @@
     "oauth_redirect_uri": "http://gui-dev.org/api-callback",
     "oauth_silent_redirect_uri": "http://gui-dev.org/silent-refresh.html",
     "oauth_load_user_info": false,
+    "oauth_response_type": "id_token token",
     "oauth_scopes": "openid profile perun_api perun_admin"
   },
   "login_namespace_attributes": [
