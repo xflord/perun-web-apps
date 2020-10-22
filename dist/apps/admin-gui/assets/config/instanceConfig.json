@@ -1,0 +1,56 @@
+{
+  "api_url": "https://perun-dev.cesnet.cz/oauth/rpc",
+  "theme": {
+    "content_bg_color": "#f2f2f2",
+    "backButtonColor": "#0000dc",
+
+    "nav_bg_color": "#ffffff",
+    "nav_text_color": "#0000dc",
+    "nav_icon_color": "#0000dc",
+
+    "footer_bg_color": "#f0efef",
+    "footer_headers_text_color": "#0000dc",
+    "footer_links_text_color": "#000000",
+    "footer_copyright_text_color": "#000000",
+
+    "sidemenu_divider_color": "#cccccc",
+    "sidemenu_bg_color": "#cccccc",
+    "sidemenu_border_color": "#cccccc",
+
+    "sidemenu_hover_color": "#bdbdbd",
+    "sidemenu_root_active_color": "#a7a7a7",
+    "sidemenu_text_color": "#000000",
+
+    "sidemenu_item_links_bg_color": "#e5e5e5",
+    "sidemenu-link-hover": "#f0efef",
+    "sidemenu-link-active": "#ccccff",
+    "sidemenu_item_links_text_color": "#000000",
+
+    "sidemenu_item_icon_color": "#000000",
+
+    "sidemenu_vo_bg_color": "#000097",
+    "sidemenu_member_bg_color": "#0040ff",
+    "sidemenu_group_bg_color": "#0000DC",
+    "sidemenu_facility_bg_color": "#000097",
+    "sidemenu_resource_bg_color": "#0000DC",
+    "sidemenu_user_bg_color": "#0000dc",
+    "sidemenu_service_bg_color": "#0000dc",
+
+    "sidemenu_vo_text_color": "#ffffff",
+    "sidemenu_member_text_color": "#ffffff",
+    "sidemenu_group_text_color": "#ffffff",
+    "sidemenu_facility_text_color": "#ffffff",
+    "sidemenu_resource_text_color": "#ffffff",
+    "sidemenu_user_text_color": "#ffffff",
+    "sidemenu_service_text_color": "#ffffff",
+
+    "vo_color": "#000097",
+    "group_color": "#0000DC",
+    "facility_color": "#000097",
+    "resource_color": "#0000DC",
+    "user_color": "#0000dc",
+    "member_color": "#0040ff",
+    "admin_color": "#0000dc",
+    "service_color": "#0000dc"
+  }
+}
