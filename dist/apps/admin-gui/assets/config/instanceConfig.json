@@ -1,0 +1,8 @@
+{
+  "api_url": "https://perun-dev.cesnet.cz/oauth/rpc",
+  "isDevel": true,
+  "skip_oidc": false,
+  "oidc_client" : {
+    "oauth_response_type": "code"
+  }
+}
