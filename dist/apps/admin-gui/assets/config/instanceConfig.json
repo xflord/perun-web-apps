@@ -1,0 +1,18 @@
+{
+  "api_url": "https://perun-dev.cesnet.cz/oauth/rpc/",
+
+  "member_profile_attributes_friendly_names": [
+    "organization",
+    "login-namespace:mu",
+    "workplace",
+    "mail",
+    "phone",
+    "preferredLanguage",
+    "preferredMail",
+    "chipNumbers"
+  ],
+
+  "sponsor_namespace_attributes": [
+    "urn:perun:user:attribute-def:def:login-namespace:mu"
+  ]
+}
