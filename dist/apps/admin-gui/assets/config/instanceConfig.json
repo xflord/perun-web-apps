@@ -1,0 +1,26 @@
+{
+  "api_url": "https://idm-test.ics.muni.cz/oauth/rpc/",
+  "oidc_client" : {
+    "oauth_authority": "https://oidc.muni.cz/oidc/",
+    "oauth_callback": "http://gui-dev.org/api-callback",
+    "oauth_client_id": "a8c3052f-5deb-41c9-bf2b-f2eb83c3fe1f",
+    "oauth_post_logout_redirect_uri": "https://perun-test.muni.cz/api-callback",
+    "oauth_redirect_uri": "http://gui-dev.org/api-callback",
+    "oauth_silent_redirect_uri": "https://perun-test.muni.cz/silent-refresh.html"
+  },
+
+  "member_profile_attributes_friendly_names": [
+    "organization",
+    "login-namespace:mu",
+    "workplace",
+    "mail",
+    "phone",
+    "preferredLanguage",
+    "preferredMail"
+  ],
+
+  "sponsor_namespace_attributes": [
+    "urn:perun:user:attribute-def:def:login-namespace:mu"
+  ],
+  "user_profile_url": "https://profile.aai.elixir-czech.org/profile"
+}
