@@ -1,0 +1,346 @@
+{
+  "MENU_ITEMS": {
+    "PROFILE": "Profil",
+    "IDENTITIES": "Spojené identity",
+    "SERVICES": "Služby",
+    "GROUPS": "Skupiny",
+    "VOS": "Organizace",
+    "PRIVACY": "Soukromí",
+    "SETTINGS": "Nastavení"
+  },
+  "SETTINGS": {
+    "ALTERNATIVE_PASSWORDS": "Alternativní hesla",
+    "DATA_QUOTAS": "Kvóty dat",
+    "MAILING_LISTS": "Vyřazení ze seznamu adresátů",
+    "PREFERRED_SHELLS": "Preferované shelly",
+    "PREFERRED_UNIX_GROUP_NAMES": "Preferovaná jména Unixových skupin",
+    "SAMBA_PASSWORD": "Heslo pro službu SAMBA",
+    "SSH_KEYS": "SSH klíče",
+    "PASSWORD_RESET": "Změna hesla",
+    "AUTHENTICATION": "Autentizace"
+  },
+  "ORGANIZATIONS": {
+    "FILTER": "Filtrovat dle jména",
+    "NO_VOS_ALERT": "Žádné virtuální organizace nebyly nalezeny",
+    "TITLE": "Uživatelské organizace",
+    "IS_ADMIN": "Organizace, kde jste administrátorem",
+    "IS_MEMBER": "Organizace, kde jste členem"
+  },
+  "GROUPS": {
+    "TITLE": "Moje Skupiny",
+    "SELECT_VO": "Filtrovat dle organizace",
+    "ALL": "Všechny organizace",
+    "FILTER": "Filtrovat dle jména",
+    "MEMBER_GROUPS": "Skupiny ve kterých jste členem",
+    "ADMINS_GROUPS": "Skupiny ve kterých jste administrátorem",
+    "NO_GROUPS": "Nenalezeny žádné skupiny."
+  },
+  "SERVICES": {
+    "TITLE": "Moje služby",
+    "FILTER": "Filtrovat služby dle jména organizace"
+  },
+  "PROFILE_PAGE": {
+    "NAME": "Jméno",
+    "CHANGE_EMAIL": "Aktualizovat",
+    "MAIL_CHANGE_SUCCESS": "Preferovaný email byl změněn"
+  },
+  "IDENTITIES": {
+    "IDP": "Vaše spojené identity",
+    "CERT": "Vaše certifikáty",
+    "OTHER": "Ostatní",
+    "ADD": "Přidat",
+    "REMOVE": "Odstranit",
+    "EXT_SOURCE_NAME_CERT": "Poskytovatel certifikátu",
+    "EXT_SOURCE_NAME_OTHER": "Jméno externího zdroje",
+    "LOGIN_CERT": "DN",
+    "LOGIN_IDP": "Připojená identita",
+    "OTHER_TOOLTIP": "Identity, které nebyly získány cez Konsolidátor identit"
+  },
+  "PRIVACY": {
+    "TITLE": "Soukromí",
+    "FILTER": "Filtrovat osobní data dle jména organizace",
+    "USER_INFO": "Informace o Vás",
+    "DATA": "Informace využívané organizací "
+  },
+  "MEMBERSHIP_LIST": {
+    "NAME": "Jméno",
+    "DESCRIPTION": "Popis",
+    "EXPIRATION": "Expirace členství",
+    "NO_MEMBERSHIPS": "Žádné výsledky nesplňují zadané vyhledávací parametry.",
+    "EXTEND": "Prodloužit členství"
+  },
+  "SSH_KEYS": {
+    "SSH_KEYS_TITLE": "SSH klíče",
+    "SSH_KEYS_DESCRIPTION": "Zde je seznam Vašich SSH klíčů.",
+    "ADMIN_SSH_KEYS_TITLE": "Seznam vašich administratorských SSH klíčů",
+    "ADMIN_SSH_KEYS_DESCRIPTION": "Zde je seznam Vašich SSH klíčů, které jsou používány pro přístup na účet root.",
+    "COPY_TOOLTIP": "Zkopírovat klíč",
+    "REMOVE_TOOLTIP": "Odstranit",
+    "NEW_KEY": "Nový klíč",
+    "REMOVE_KEY": "Odstranit",
+    "REMOVE_DIALOG_TITLE": "Odstranit SSH klíč",
+    "REMOVE_DIALOG_DESCRIPTION": "Vámi vybrané SSH klíče budou odstraněny"
+  },
+  "SAMBA_PASSWORD": {
+    "TITLE": "Heslo pro službu SAMBA",
+    "INPUT_PLACEHOLDER": "Zadejte nové heslo",
+    "SET_PASSWORD": "Nastavit heslo",
+    "SUCCESS_MESSAGE": "Heslo pro službu SAMBA bylo nastaveno",
+    "PASSWORD_VALIDATION": "Heslo musí obsahovat alespoň 3 ze 4 skupin znaků: malá písmena, velká písmena, číslice, speciální znaky",
+    "SHOW_PWD_TOOLTIP": "Ukázat heslo",
+    "HIDE_PWD_TOOLTIP": "Schovat heslo"
+  },
+  "PREFERRED_UNIX_GROUP_NAMES": {
+    "TITLE": "Preferovaná jména Unixových skupin",
+    "NEW_BUTTON": "Přidat preferované jméno skupiny",
+    "REMOVE_BUTTON": "Odstranit",
+    "REMOVE_DIALOG_TITLE": "Odstranit preferované jméno Unixové skupiny",
+    "REMOVE_DIALOG_DESCRIPTION": "Vámi vybraná preferovaná jména Unixových skupin budou odstraněna",
+    "HEADER_COLUMN": "Jméno"
+  },
+  "PREFERRED_SHELLS": {
+    "TITLE": "Preferované shelly",
+    "NEW_BUTTON": "Přidat nový preferovaný shell",
+    "REMOVE_BUTTON": "Odstranit",
+    "NO_SHELLS": "Nemáte nastaveny žádné preferované shelly",
+    "REMOVE_DIALOG_TITLE": "Odstranění preferovaného shellu",
+    "REMOVE_DIALOG_DESCRIPTION": "Vámi vybrané preferované shelly budou odstraněny",
+    "DESCRIPTION": "Seznam shellů, seřazených od nejvíce preferovaných po nejméně preferované, je použit pro rozhodnutí při výběru shellu na vašich strojích. Pokud žádný z preferovaných shellů není na daném stroji dostupný (nebo není žádný preferovaný shell zvolen), použije se výchozí shell daného stroje."
+  },
+  "ALT_PASSWORDS": {
+    "TITLE_GENERATE": "Vygenerujte nové alternativní heslo",
+    "EXAMPLE_DESCRIPTIONS": "Příklady popisů hesel: \"email na mobilním telefonu\" nebo \"telekonference na tabletu\".",
+    "TITLE_PASSWORDS": "Vaše alternativní hesla",
+    "INPUT_PLACEHOLDER": "Popis hesla",
+    "REMOVE": "Odstranit",
+    "GENERATE": "Vygenerovat",
+    "HEADER_COLUMN":"Popis"
+  },
+  "DATA_QUOTAS": {
+    "TITLE": "Kvóty dat",
+    "FILTER": "Filtrovat kvóty dat dle jména organizace",
+    "QUOTA": "Datová kvóta: ",
+    "CHANGE": "Změnit",
+    "QUOTA_INFO": "Kvóty dat používají \"soft limit : hard limit\" notaci a jsou vázány na specifický objem dat.",
+    "NO_QUOTAS": "Nebyly nalezeny žádné služby, kde by bylo možné zažádat o změnu kvóty."
+  },
+  "OPT_OUT_MAILING_LISTS": {
+    "TITLE": "Vyřazení ze seznamu adresátů",
+    "FILTER": "Filtrovat seznamy adresátů dle jména organizace",
+    "OPT_OUT_LABEL": "Vyřadit mě z tohoto seznamu adresátů",
+    "NO_MAILING_LISTS_ALERT": "Nemáte žádné seznamy adresátů v této organizaci"
+  },
+  "AUTHENTICATION": {
+    "TITLE": "Proti-phishingová ochrana",
+    "MFA": "Multi-factor authentication",
+    "NEW_IMG": "Nový obrázek",
+    "DELETE_IMG": "Vymazat obrázek",
+    "ANTI_PHISHING_INFO": "Tento obrázek se vám ukáže při přihlašovaní",
+    "MFA_TOGGLE": "Zapnout multi-factor authentication",
+    "DELETE_IMG_DIALOG_TITLE": "Vymazat anti-phishing image",
+    "DELETE_IMG_DIALOG_DESC": "Váš obrázek na ochranu proti phishingu bude odstraněn a nebude použit během autentizace."
+  },
+  "DIALOGS": {
+    "CHANGE_EMAIL": {
+      "TITLE": "Aktualizovat email",
+      "INPUT_PLACEHOLDER": "Nový email",
+      "CANCEL": "Zrušit",
+      "CHANGE": "Změnit",
+      "SUCCESS": "Žádost o změnu preferovaného emailu byla odeslána na zadanou adresu.",
+      "PENDING_MAILS_BEGIN": "Potvrzovací email byl odeslán na ",
+      "PENDING_MAILS_END": ". Podívejte se do své mailové schránky a dokončete validaci kliknutím na link v emailu."
+    },
+    "ADD_SSH": {
+      "TITLE": "Přidat nový SSH klíč",
+      "INPUT_PLACEHOLDER": "Začíná 'ssh-rsa', 'ssh-ed25519', 'ecdsa-sha2-nistp256', 'ecdsa-sha2-nistp384' nebo 'ecdsa-sha2-nistp521'.",
+      "CANCEL": "Zrušit",
+      "ADD": "Přidat"
+    },
+    "ADD_UNIX_GROUP": {
+      "TITLE": "Přidat preferované jméno Unixové skupiny",
+      "CANCEL": "Zrušit",
+      "ADD": "Přidat"
+    },
+    "REMOVE_STRING_VALUE": {
+      "ASK": "Jste si jistí, že chcete pokračovat?",
+      "CANCEL": "Zrušit",
+      "REMOVE": "Odstranit"
+    },
+    "REMOVE_ALT_PASSWORD": {
+      "TITLE": "Odstranění alternativního hesla",
+      "DESCRIPTION": "Alternativní heslo s nasledujícím popisem bude odstraněno",
+      "ASK": "Jste si jistí, že chcete pokračovat?",
+      "CANCEL": "Zrušit",
+      "REMOVE": "Odstranit"
+    },
+    "SHOW_PASSWORD": {
+      "TITLE": "Vaše vygenerované heslo",
+      "LABEL": "Prosím zkopírujte si heslo nyní. Nebude vícekrát zobrazeno.",
+      "CLOSE": "Close",
+      "COPY": "Zkopírovat do schránky"
+    },
+    "REQUEST_DATA_QUOTA_CHANGE": {
+      "TITLE": "Žádost o změnu datové kvóty",
+      "RESOURCE": "Zdroj",
+      "CURRENT_QUOTA": "Momentální kvóta",
+      "REQUESTED_QUOTA": "Požadovaná kvóta",
+      "REASON": "Důvod",
+      "SEND": "Poslat",
+      "CANCEL": "Zrušit",
+      "SUCCESS": "Žádost o změnu datové kvóty byla odeslána"
+    },
+    "SHOW_SSH": {
+      "CLOSE": "Zrušit"
+    },
+    "ADD_AUTH_IMG": {
+      "TITLE": "Změna proti-phishingového obrázku",
+      "INFO": "Prosím, zvolte obrázek s velikostí alespoň 500x150 pixelů.",
+      "GENERATE": "Generate image",
+      "UPLOAD_IMG_LABEL": "Nahrát obrázek z vášho počítače",
+      "CANCEL": "Zrušit",
+      "ADD": "Uložit obrázek",
+      "LOAD_IMG": "Načítat obrázek"
+    }
+  },
+  "ALERTS": {
+    "NO_SSH_KEYS": "Nemáte žádné SSH klíče",
+    "NO_SAMBA": "Dosud nemáte heslo pro službu SAMBA.",
+    "SAMBA_EXISTS": "Heslo pro službu SAMBA již máte nastaveno. Můžete je změnit zadáním nového hesla.",
+    "NO_PREFERRED_UNIX_GROUPS": "Nemáte nastaveny žádná preferovaná jména Unixových skupin pro tento jmenný prostor",
+    "NO_ALT_PASSWORDS": "Nemáte žádná alternativní hesla"
+  },
+  "SHARED_LIB": {
+    "PERUN": {
+      "COMPONENTS": {
+        "GROUPS_LIST": {
+          "TABLE_GROUP_ID": "Id",
+          "TABLE_VO_NAME": "Vo",
+          "TABLE_GROUP_NAME": "Jméno",
+          "TABLE_SEARCH": "Filtrovat dle jména, popisu nebo ID",
+          "TABLE_GROUP_DESCRIPTION": "Popis"
+        },
+        "GROUP_MENU": {
+          "MOVE": "Přesunout skupinu",
+          "RENAME": "Aktualizovat jméno/skupinu"
+        },
+        "VO_SELECT_TABLE": {
+          "ID": "Id",
+          "NAME": "Jméno",
+          "RECENT": "Nedávno navštívené",
+          "SHORTNAME": "Skrácené jméno"
+        },
+        "RESOURCES_LIST": {
+          "TITLE": "Zdroje",
+          "DELETE": "Odstranit vybrané",
+          "TABLE_RESOURCE_ID": "id",
+          "TABLE_RESOURCE_NAME": "Jméno",
+          "TABLE_VO_NAME": "Organizace",
+          "TABLE_FACILITY_NAME": "Jméno zdroje z reálného světa",
+          "TABLE_RESOURCE_TAGS": "Tagy",
+          "TABLE_SEARCH": "Filtrovat dle jména, popisu nebo ID",
+          "TABLE_RESOURCE_DESCRIPTION": "Popis",
+          "NO_RESOURCES_WARNING": "Nemáte přiřazené žádné zdroje."
+        },
+        "ATTRIBUTE_VALUE_LIST": {
+          "EDIT_DIALOG": {
+            "TITLE": "Změnit hodnotu atributu",
+            "SUBMIT_BUTTON": "Potvrdit",
+            "CANCEL_BUTTON": "Zrušit"
+          },
+          "DELETE_DIALOG": {
+            "TITLE": "Vymazat hodnotu atributu",
+            "DESCRIPTION": "Skutečně chcete vymazat hodnotu atributu se seznamu?",
+            "SUBMIT_BUTTON": "Odstranit",
+            "CANCEL_BUTTON": "Zrušit"
+          }
+        },
+        "ATTRIBUTES_LIST": {
+          "FILTER": "Filtrovat dle id, jména, hodnoty nebo popisu",
+          "ID": "Id",
+          "NAME": "Jméno",
+          "VALUE": "Hodnota",
+          "DESCRIPTION": "Popis",
+          "EMPTY": "Žádné nastavení nebyly nalezeny. Použijte tlačidlo 'Přidat' pro přidání nových nastavení."
+        },
+        "USER_DONT_EXIST": {
+          "TITLE": "Požadovaný uživatel (dle ID nebo externí identity) neexistuje."
+        },
+        "TABLE_OPTIONS": {
+          "EXPORT_TO_FILE": "Exportovat do souboru"
+        },
+        "NOTIFICATOR": {
+          "NOTIFICATION": {
+            "DEFAULT_ACTION": "Zobrazit",
+            "DIALOG_CLOSE": "Zavřít",
+            "DIALOG_BUG_REPORT": "Nahlásit chybu",
+            "DEFAULT_RPC_ERROR_MESSAGE": "Operace se nezdařila.",
+            "PRIVILEGE_EXCEPTION": "Nemáte práva na tuto operaci."
+          }
+        },
+        "USER_EXT_SOURCES_LIST": {
+          "MAIL": "Email",
+          "EXT_SOURCE_NAME": "Původ připojené identity",
+          "LOGIN": "Jméno",
+          "LAST_ACCESS": "Poslední použití",
+          "NO_IDENTITIES": "Nenalezeny žádné identity",
+          "ID": "Id",
+          "LOA": "Úroveň důvěry"
+        },
+        "BUG_REPORT": {
+          "TITLE": "Nahlásit chybu",
+          "SUBJECT": "Předmět",
+          "SUBJECT_VALUE": "Nahlásený problém: ",
+          "SUBJECT_ERROR": "Předmět musí být vyplněn.",
+          "MESSAGE": "Zpráva",
+          "MESSAGE_PLACEHOLDER": "Popište, co jste delali když nastal problém. (Minimální délka je 60 znaků)",
+          "MESSAGE_ERROR": "Minimální délka je 60 znaků.",
+          "CANCEL": "Zrušit",
+          "SEND": "Poslat",
+          "SUCCESS": "Nahlášená chyba byla odoslána"
+        },
+        "REMOVE_USER_EXT_SOURCE": {
+          "TITLE": "Odstranit uživateli externi identitu",
+          "DESCRIPTION": "Následující externí identita bude odstraněna",
+          "ASK": "Jste si jistí, že chcete pokračovat?",
+          "CANCEL": "Zrušit",
+          "REMOVE": "Odstranit",
+          "SUCCESS": "Uživatelova externí identita byla odstraněna"
+        },
+        "PASSWORD_RESET": {
+          "TITLE": "Změna hesla",
+          "CHANGE_PASSWORD": "Změnit heslo",
+          "NAMESPACE": "Jmenný prostor",
+          "LOGIN": "Přihlašovací jméno",
+          "NOT_SUPPORTED": "Zména hesla není podporována ve vašich jmených prostorech"
+        },
+        "SHOW_VALUE": {
+          "CLOSE": "Zrušit",
+          "COPY": "Zkopírovat hodnotu"
+        }
+      },
+      "ORGANIZATIONS": {
+        "TITLE": "Uživatelské organizace",
+        "FILTER": "Filtrovat dle jména nebo ID",
+        "YOU_ARE_ADMIN": "Organizace, kde jste administrátorem",
+        "YOU_ARE_MEMBER": "Organizace, kde jste členem",
+        "USER_IS_ADMIN": "Organizace, kde je uživatel administrátorem",
+        "USER_IS_MEMBER": "Organizace, kde je uživatel členem"
+      },
+      "GROUPS": {
+        "MEMBER_GROUPS": "Členské skupiny",
+        "ADMINS_GROUPS": "Skupiny, kde je uživatel administrátorem"
+      },
+      "REFRESH_BUTTON": "Obnovit",
+      "SERVICES_CONFIGURATIONS": {
+        "ADD": "Přidat",
+        "SAVE": "Uložit"
+      }
+    },
+    "UI": {
+      "ALERTS": {
+        "NO_GROUPS": "Nebyly nalezeny žádné skupiny.",
+        "NO_FILTER_RESULTS_ALERT": "Žádné výsledky neodpovídají daným vyhledávacím kritériím."
+      }
+    }
+  }
+}
