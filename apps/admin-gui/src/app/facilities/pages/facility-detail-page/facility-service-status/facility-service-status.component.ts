@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   FacilitiesManagerService,
-  Facility, ResourcesManagerService,
+  Facility,
   ServicesManagerService,
   ServiceState,
   TasksManagerService
@@ -15,11 +15,6 @@ import {
 } from '@perun-web-apps/config/table-config';
 import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { MatDialog } from '@angular/material/dialog';
-import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { DeleteTaskResultDialogComponent } from '../../../../shared/components/dialogs/delete-task-result-dialog/delete-task-result-dialog.component';
-import { DeleteServiceFromFacilityComponent } from '../../../../shared/components/dialogs/delete-service-from-facility/delete-service-from-facility.component';
-import { DeleteTaskDialogComponent } from '../../../../shared/components/dialogs/delete-task-dialog/delete-task-dialog.component';
 
 @Component({
   selector: 'app-facility-service-status',
@@ -34,10 +29,7 @@ export class FacilityServiceStatusComponent implements OnInit {
               private servicesManager: ServicesManagerService,
               private notificator: NotificatorService,
               private translate: TranslateService,
-              private authResolver: GuiAuthResolver,
-              private facilityManager: FacilitiesManagerService,
-              private resourcesManager: ResourcesManagerService,
-              private dialog: MatDialog) {
+              private authResolver: GuiAuthResolver) {
     translate.get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_FORCE_PROPAGATION').subscribe(value => this.successFPMessage = value);
     translate.get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_ALLOW').subscribe(value => this.successAllowMessage = value);
     translate.get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_BLOCK').subscribe(value => this.successBlockMessage = value);
@@ -64,9 +56,7 @@ export class FacilityServiceStatusComponent implements OnInit {
 
   disableAllowButton = true;
   disableBlockButton = true;
-  disableRemoveButton = true;
-  taskIsNull: boolean;
-  taskId: number;
+  disableDeleteTaskButton = true;
 
   propagationAuth: boolean;
   allowAuth: boolean;
@@ -115,57 +105,17 @@ export class FacilityServiceStatusComponent implements OnInit {
     }
   }
 
-  removeTaskResults() {
-    this.tasksManager.getTaskResultsForGUIByTask(this.selected.selected[0].task.id).subscribe(taskResults => {
-      const config = getDefaultDialogConfig();
-      config.width = '600px';
-      config.data = {
-        theme: 'facility-theme',
-        taskResults: taskResults
-      };
-      this.dialog.open(DeleteTaskResultDialogComponent, config);
-    });
-  }
-
-  removeServiceFromFacility() {
-    this.facilityManager.getAssignedResourcesByAssignedServiceForFacility(this.selected.selected[0].facility.id, this.selected.selected[0].service.id).subscribe(resources => {
-      const config = getDefaultDialogConfig();
-      config.width = '600px';
-      this.taskId = this.taskIsNull ? null : this.selected.selected[0].task.id;
-
-      if (resources.length === 0) {
-        config.data = {
-          theme: 'facility-theme',
-          taskId: this.taskId
-        };
-        const dialogRef = this.dialog.open(DeleteTaskDialogComponent, config);
-
-        dialogRef.afterClosed().subscribe(result => {
-          if(result){
-            this.disableRemoveButton = true;
-            this.refreshTable();
-          }
+  delete() {
+    for (const ss of this.selected.selected) {
+      if (ss.task !== null) {
+        this.tasksManager.deleteTask({ task: ss.task.id }).subscribe(() => {
+          this.refreshTable();
+          this.notificator.showSuccess(this.successDeleteMessage);
         });
       } else {
-        this.resourcesManager.getRichResourcesByIds(resources.map(resource => resource.id)).subscribe(richResources => {
-          config.data = {
-            theme: 'facility-theme',
-            taskId: this.taskId,
-            serviceId: this.selected.selected[0].service.id,
-            facilityId: this.selected.selected[0].facility.id,
-            resource: richResources
-          };
-          const dialogRef = this.dialog.open(DeleteServiceFromFacilityComponent, config);
-
-          dialogRef.afterClosed().subscribe(result => {
-            if(result){
-              this.disableRemoveButton = true;
-              this.refreshTable();
-            }
-          });
-        });
+        this.notificator.showSuccess(this.allreadyDeletedMessage);
       }
-    });
+    }
   }
 
   refreshTable() {
@@ -198,17 +148,16 @@ export class FacilityServiceStatusComponent implements OnInit {
   selectionChanged() {
     this.disableBlockButton = true;
     this.disableAllowButton = true;
-    this.disableRemoveButton = this.selected.selected.length !== 1;
-
-    if (!this.disableRemoveButton) {
-      this.taskIsNull = this.selected.selected[0].task === null;
-    }
+    this.disableDeleteTaskButton = true;
 
     for (const ss of this.selected.selected) {
       if (ss.blockedOnFacility) {
         this.disableAllowButton = false;
       } else {
         this.disableBlockButton = false;
+      }
+      if (ss.task) {
+        this.disableDeleteTaskButton = false;
       }
     }
   }

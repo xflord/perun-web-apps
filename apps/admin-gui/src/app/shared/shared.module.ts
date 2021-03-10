@@ -174,8 +174,6 @@ import { AttributeFriendlyNamePipe } from './pipes/attribute-friendly-name.pipe'
 import { PasswordResetRequestDialogComponent } from './components/dialogs/password-reset-request-dialog/password-reset-request-dialog.component';
 import { NewVersionDialogComponent } from './components/dialogs/new-version-dialog/new-version-dialog.component';
 import { SponsorExistingMemberDialogComponent } from './components/dialogs/sponsor-existing-member-dialog/sponsor-existing-member-dialog.component';
-import { DeleteServiceFromFacilityComponent } from './components/dialogs/delete-service-from-facility/delete-service-from-facility.component';
-import { DeleteTaskDialogComponent } from './components/dialogs/delete-task-dialog/delete-task-dialog.component';
 
 @NgModule({
   imports: [
@@ -423,9 +421,7 @@ import { DeleteTaskDialogComponent } from './components/dialogs/delete-task-dial
     AttributeFriendlyNamePipe,
     PasswordResetRequestDialogComponent,
     NewVersionDialogComponent,
-    SponsorExistingMemberDialogComponent,
-    DeleteServiceFromFacilityComponent,
-    DeleteTaskDialogComponent
+    SponsorExistingMemberDialogComponent
   ],
   providers: [
     AnyToStringPipe,
