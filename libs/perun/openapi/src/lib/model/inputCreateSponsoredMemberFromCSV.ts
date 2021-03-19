@@ -14,7 +14,7 @@
 /**
  * input for createSponsoredMembersFromCSV
  */
-export interface InputCreateSponsoredMemberFromCSV { 
+export interface InputCreateSponsoredMemberFromCSV {
     /**
      * values separated with semicolons
      */
@@ -27,7 +27,7 @@ export interface InputCreateSponsoredMemberFromCSV {
     sponsor: number;
     namespace: string;
     validityTo?: string;
-    sendActivationLink?: boolean;
+    sendActivationLinks?: boolean;
     /**
      * groups to which should be the created users assigned
      */
