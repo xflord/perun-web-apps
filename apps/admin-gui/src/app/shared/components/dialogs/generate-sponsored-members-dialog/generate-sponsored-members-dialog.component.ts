@@ -157,7 +157,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit, AfterVie
       namespace: this.namespace.value,
       sponsor: this.store.getPerunPrincipal().userId,
       vo: this.data.voId,
-      sendActivationLink: this.passwordReset
+      sendActivationLinks: this.passwordReset
     }
 
     if(this.expiration !== 'never'){
