@@ -1,0 +1,438 @@
+{
+  "MENU_ITEMS": {
+    "PROFILE": "Profile",
+    "IDENTITIES": "Linked identities",
+    "SERVICES": "Services",
+    "GROUPS": "Groups",
+    "VOS": "Organizations",
+    "PRIVACY": "Privacy",
+    "SETTINGS": "Settings"
+  },
+  "SETTINGS": {
+    "ALTERNATIVE_PASSWORDS": "Alternative passwords",
+    "DATA_QUOTAS": "Data quotas",
+    "MAILING_LISTS": "Opt-out from mailing lists",
+    "PREFERRED_SHELLS": "Preferred shells",
+    "PREFERRED_UNIX_GROUP_NAMES": "Preferred unix group names",
+    "SAMBA_PASSWORD": "Samba password",
+    "SSH_KEYS": "SSH keys",
+    "PASSWORD_RESET": "Password reset",
+    "AUTHENTICATION": "Authentication"
+  },
+  "ORGANIZATIONS": {
+    "FILTER": "Filter by name",
+    "NO_VOS_ALERT": "No organizations found",
+    "TITLE": "User organizations",
+    "IS_ADMIN": "Organizations you are manager of",
+    "IS_MEMBER": "Organizations you are member of"
+  },
+  "GROUPS": {
+    "TITLE": "Groups",
+    "SELECT_VO": "Filter by organization",
+    "ALL": "All organizations",
+    "FILTER": "Filter by name",
+    "MEMBER_GROUPS": "Groups you are member of",
+    "ADMINS_GROUPS": "Groups you are manager of",
+    "NO_GROUPS": "No groups found"
+  },
+  "SERVICES": {
+    "TITLE": "My services",
+    "FILTER": "Filter services by organization's name"
+  },
+  "PROFILE_PAGE": {
+    "NAME": "Name",
+    "CHANGE_EMAIL": "Change",
+    "MAIL_CHANGE_SUCCESS": "Preferred mail has been changed"
+  },
+  "IDENTITIES": {
+    "IDP": "Your linked identities",
+    "CERT": "Your certificates",
+    "OTHER": "Other",
+    "ADD": "Add",
+    "REMOVE": "Remove",
+    "EXT_SOURCE_NAME_CERT": "Certificate issuer",
+    "EXT_SOURCE_NAME_OTHER": "External source name",
+    "LOGIN_CERT": "DN",
+    "LOGIN_IDP": "Linked identity",
+    "OTHER_TOOLTIP": "Identities that were not acquired through Identity consolidator"
+  },
+  "PRIVACY": {
+    "TITLE": "Privacy",
+    "FILTER": "Filter private data by organization's name",
+    "USER_INFO": "Information about you",
+    "DATA": "Information used by "
+  },
+  "MEMBERSHIP_LIST": {
+    "NAME": "Name",
+    "DESCRIPTION": "Description",
+    "EXPIRATION": "Expiration",
+    "NO_MEMBERSHIPS": "No results match current filter",
+    "EXTEND": "Extend"
+  },
+  "SSH_KEYS": {
+    "SSH_KEYS_TITLE": "SSH keys",
+    "SSH_KEYS_DESCRIPTION": "List of your ssh keys.",
+    "ADMIN_SSH_KEYS_TITLE": "Admin SSH keys",
+    "ADMIN_SSH_KEYS_DESCRIPTION": "List of your ssh keys for root access.",
+    "NEW_KEY": "Add new key",
+    "COPY_TOOLTIP": "Copy to clipboard",
+    "REMOVE_TOOLTIP": "Remove",
+    "REMOVE_KEY": "Remove selected key",
+    "REMOVE_DIALOG_TITLE": "Remove ssh key",
+    "REMOVE_DIALOG_DESCRIPTION": "Selected ssh key will be removed."
+  },
+  "SAMBA_PASSWORD": {
+    "TITLE": "SAMBA password",
+    "INPUT_PLACEHOLDER": "Enter new password",
+    "SET_PASSWORD": "Set password",
+    "SUCCESS_MESSAGE": "SAMBA password has been set",
+    "PASSWORD_VALIDATION": "The password must consist of at least 3 out of 4 character groups: lower-case letters, upper-case letters, digits, special characters",
+    "SHOW_PWD_TOOLTIP": "Show password",
+    "HIDE_PWD_TOOLTIP": "Hide password"
+  },
+  "PREFERRED_UNIX_GROUP_NAMES": {
+    "TITLE": "Preferred unix group names",
+    "NEW_BUTTON": "New",
+    "REMOVE_BUTTON": "Remove",
+    "REMOVE_DIALOG_TITLE": "Remove preferred unix group name",
+    "REMOVE_DIALOG_DESCRIPTION": "Selected preferred unix group names will be removed.",
+    "HEADER_COLUMN": "Name"
+  },
+  "PREFERRED_SHELLS": {
+    "TITLE": "Preferred shells",
+    "NEW_BUTTON": "New",
+    "REMOVE_BUTTON": "Remove",
+    "NO_SHELLS": "You don't have set any preferred shells",
+    "REMOVE_DIALOG_TITLE": "Remove preferred shell",
+    "REMOVE_DIALOG_DESCRIPTION": "Selected preferred shell will be removed.",
+    "DESCRIPTION": "List of preferred shells (ordered from the most preferred to least) is used to determine your shell on provided resources. If none of preferred shells is available on resource (or no preferred shell is set), resource`s default is used."
+  },
+  "ALT_PASSWORDS": {
+    "TITLE_GENERATE": "Generate new alternative password",
+    "EXAMPLE_DESCRIPTIONS": "Examples of password descriptions: “email on mobile phone” or “teleconferences on tablet”.",
+    "TITLE_PASSWORDS": "Your alternative passwords",
+    "INPUT_PLACEHOLDER": "Password description",
+    "REMOVE": "Remove",
+    "GENERATE": "Generate",
+    "HEADER_COLUMN":"Description"
+  },
+  "DATA_QUOTAS": {
+    "TITLE": "Data quotas",
+    "FILTER": "Filter data quotas by organization's name",
+    "QUOTA": "Data quota: ",
+    "CHANGE": "Change",
+    "QUOTA_INFO": "Quotas are using \"soft limit : hard limit\" notation and are bound to specific volume.",
+    "NO_QUOTAS": "No assigned data quotas"
+  },
+  "OPT_OUT_MAILING_LISTS": {
+    "TITLE": "Opt out mailing lists",
+    "FILTER": "Filter opt out mailing lists by organization's name",
+    "OPT_OUT_LABEL": "Exclude me from this mailing list",
+    "NO_MAILING_LISTS_ALERT": "You have no mailing lists assigned under this virtual organization"
+  },
+  "AUTHENTICATION": {
+    "TITLE": "Security image",
+    "MFA": "Multi-factor authentication",
+    "NEW_IMG": "New image",
+    "DELETE_IMG": "Delete image",
+    "ANTI_PHISHING_INFO": "You will be shown this security image before you enter your password so you will know that you are visiting the right site",
+    "MFA_TOGGLE": "Enforce multi-factor authentication for all services",
+    "DELETE_IMG_DIALOG_TITLE": "Delete anti-phishing image",
+    "DELETE_IMG_DIALOG_DESC": "Your security image will be deleted and will not be used during authentication process.",
+    "TYPE": "Type",
+    "NAME": "Name",
+    "REVOKE": "Revoke",
+    "ADDED": "Added",
+    "USED": "Used",
+    "NO_TOKENS": "You don't have any tokens for multi-factor authentication",
+    "ADD_WEBAUTHN": "Add Webauthn device",
+    "ADD_TOTP": "Add TOTP device"
+  },
+  "DIALOGS": {
+    "CHANGE_EMAIL": {
+      "TITLE": "Change email",
+      "INPUT_PLACEHOLDER": "New email",
+      "CANCEL": "Cancel",
+      "CHANGE": "Change",
+      "SUCCESS": "Request for changing preferred email has been sent. Please check your mailbox.",
+      "PENDING_MAILS_BEGIN": "Validation e-mail has been sent to ",
+      "PENDING_MAILS_END": ". Check your inbox and complete validation by clicking on link in received e-mail."
+    },
+    "ADD_SSH": {
+      "TITLE": "Add new ssh key",
+      "INPUT_PLACEHOLDER": "Begins with 'ssh-rsa', 'ssh-ed25519', 'ecdsa-sha2-nistp256', 'ecdsa-sha2-nistp384' or 'ecdsa-sha2-nistp521'.",
+      "CANCEL": "Cancel",
+      "ADD": "Add"
+    },
+    "ADD_UNIX_GROUP": {
+      "TITLE": "Add new preferred unix group name",
+      "CANCEL": "Cancel",
+      "ADD": "Add"
+    },
+    "REMOVE_STRING_VALUE": {
+      "ASK": "Are you sure you want to continue?",
+      "CANCEL": "Cancel",
+      "REMOVE": "Remove"
+    },
+    "REMOVE_ALT_PASSWORD": {
+      "TITLE": "Remove alternative password",
+      "DESCRIPTION": "Alternative password with following description will be removed",
+      "ASK": "Are you sure you want to continue?",
+      "CANCEL": "Cancel",
+      "REMOVE": "Remove"
+    },
+    "SHOW_PASSWORD": {
+      "TITLE": "Your generated alternative password is",
+      "LABEL": "Please copy the password now. It will not be shown again.",
+      "CLOSE": "Close",
+      "COPY": "Copy"
+    },
+    "REQUEST_DATA_QUOTA_CHANGE": {
+      "TITLE": "Data quota change request",
+      "RESOURCE": "Resource",
+      "CURRENT_QUOTA": "Current quota",
+      "REQUESTED_QUOTA": "Requested quota",
+      "REASON": "Reason",
+      "SEND": "Send",
+      "CANCEL": "Cancel",
+      "SUCCESS": "Request for changing the data quota has been sent"
+    },
+    "SHOW_SSH": {
+      "CLOSE": "Cancel"
+    },
+    "ADD_AUTH_IMG": {
+      "TITLE": "Change anti-phishing image",
+      "INFO": "Please, choose an image with size max 5kB",
+      "GENERATE": "Generate image",
+      "UPLOAD_IMG_LABEL": "Upload an image from your computer",
+      "CANCEL": "Cancel",
+      "ADD": "Save image",
+      "IMG_TOO_LONG": "The image size is more than 5kB.",
+      "DELAY_INFO": "New security image usually becomes effective in 5 minutes, in rare cases it might take a couple of hours."
+    },
+    "ADD_TOKEN_INFO": {
+      "INFO": "Get ready with your TOTP application (such as FreeOTP or Google Authenticator). Upon confirmation, a TOTP key and a QR code will be generated, which you have to immediately scan with your application. If you do not scan the QR code with your TOTP app, the key will be lost and cannot be recovered.",
+      "CANCEL": "Cancel",
+      "ADD": "Continue"
+    }
+  },
+  "ALERTS": {
+    "NO_SSH_KEYS": "No SSH keys found",
+    "NO_SAMBA": "You don't have password for SAMBA yet.",
+    "SAMBA_EXISTS": "You already have password for SAMBA. You can change it by setting new password.",
+    "NO_PREFERRED_UNIX_GROUPS": "No preferred group names for selected namespace found",
+    "NO_ALT_PASSWORDS": "No alternative passwords found"
+  },
+  "SHARED_LIB": {
+    "PERUN": {
+      "LOGIN": {
+        "SIGN_IN": "Sign in",
+        "TEXT": "You must sign in to continue."
+      },
+      "COMPONENTS": {
+        "GROUPS_LIST": {
+          "TABLE_GROUP_ID": "Id",
+          "TABLE_VO_NAME": "Organization",
+          "TABLE_GROUP_NAME": "Name",
+          "TABLE_SEARCH": "Filter by name, description or ID",
+          "TABLE_GROUP_DESCRIPTION": "Description",
+          "TABLE_GROUP_EXPIRATION": "Expiration",
+          "DISABLED_HINT": "You cannot add members to this group or user is already member.",
+          "ALREADY_MEMBER_TOOLTIP": "User is already member of group",
+          "CREATE_RELATION_AUTH_TOOLTIP": "You don't have permission to create relation with this group.",
+          "SYNCHRONIZED_GROUP": "Group is filled with members from external source"
+        },
+        "GROUP_MENU": {
+          "MOVE": "Move group",
+          "RENAME": "Update name/description",
+          "COPY": "Copy group name to clipboard"
+        },
+        "GROUP_SEARCH_SELECT": {
+          "SELECT_GROUP": "Select group",
+          "FIND_GROUP": "Find group...",
+          "NO_GROUP_FOUND": "No matching found"
+        },
+        "VO_SELECT_TABLE": {
+          "ID": "Id",
+          "NAME": "Name",
+          "RECENT": "Recently viewed",
+          "SHORTNAME": "Short name"
+        },
+        "VO_SEARCH_SELECT": {
+          "SELECT_VO": "Select organization",
+          "FIND_VO": "Find organization...",
+          "NO_VO_FOUND": "No matching vo found"
+        },
+        "RESOURCES_LIST": {
+          "TITLE": "Resources",
+          "DELETE": "Remove selected",
+          "TABLE_RESOURCE_ID": "id",
+          "TABLE_RESOURCE_NAME": "Name",
+          "TABLE_VO_NAME": "Organization",
+          "TABLE_FACILITY_NAME": "Facility name",
+          "TABLE_RESOURCE_TAGS": "Tags",
+          "TABLE_SEARCH": "Filter by name, description or ID",
+          "TABLE_RESOURCE_DESCRIPTION": "Description",
+          "NO_RESOURCES_WARNING": "No resources assigned."
+        },
+        "RESOURCE_SEARCH_SELECT": {
+          "SELECT_RESOURCE": "Select resource",
+          "FIND_RESOURCE": "Find resource...",
+          "NO_RESOURCE_FOUND": "No matching resource found"
+        },
+        "MEMBER_SEARCH_SELECT": {
+          "SELECT_MEMBER": "Select member",
+          "FIND_MEMBER": "Find member...",
+          "NO_MEMBER_FOUND": "No matching member found"
+        },
+        "FACILITY_SEARCH_SELECT": {
+          "SELECT_FACILITY": "Select facility",
+          "FIND_FACILITY": "Find facility...",
+          "NO_FACILITY_FOUND": "No matching facility found"
+        },
+        "USER_SEARCH_SELECT": {
+          "SELECT_USER": "Select user",
+          "FIND_USER": "Find user...",
+          "NO_USER_FOUND": "No matching user found"
+        },
+        "ATTRIBUTE_VALUE_LIST": {
+          "EDIT_DIALOG": {
+            "TITLE": "Edit attribute value",
+            "SUBMIT_BUTTON": "Submit",
+            "CANCEL_BUTTON": "Cancel"
+          },
+          "DELETE_DIALOG": {
+            "TITLE": "Delete attribute value",
+            "DESCRIPTION": "Do you really want to delete this attribute list value from list?",
+            "SUBMIT_BUTTON": "Delete",
+            "CANCEL_BUTTON": "Cancel"
+          }
+        },
+        "ATTRIBUTES_LIST": {
+          "FILTER": "Filter by id, name, value or description",
+          "ID": "Id",
+          "NAME": "Name",
+          "VALUE": "Value",
+          "DESCRIPTION": "Description",
+          "DISABLED_HINT": "You don't have permission to change this attribute.",
+          "EMPTY": "No settings found. Use 'Add' button to add new setting.",
+          "CHECKBOX_TOOLTIP": "You don't have privileges to edit this attribute"
+        },
+        "USER_DONT_EXIST": {
+          "TITLE": "Requested user (by ID or external identity) doesn't exist."
+        },
+        "TABLE_OPTIONS": {
+          "EXPORT_TO_FILE": "Export to file"
+        },
+        "NOTIFICATOR": {
+          "NOTIFICATION": {
+            "DEFAULT_ACTION": "Show",
+            "DIALOG_CLOSE": "Close",
+            "DIALOG_BUG_REPORT": "Report a bug",
+            "DEFAULT_RPC_ERROR_MESSAGE": "An operation failed.",
+            "PRIVILEGE_EXCEPTION": "You are not authorized to perform this action"
+          }
+        },
+        "USER_EXT_SOURCES_LIST": {
+          "MAIL": "Email",
+          "EXT_SOURCE_NAME": "Source of linked identity",
+          "LOGIN": "Login",
+          "LAST_ACCESS": "Last login",
+          "NO_IDENTITIES": "No external identities found",
+          "ID": "Id",
+          "LOA": "Level of assurance"
+        },
+        "BUG_REPORT": {
+          "TITLE": "Report a bug",
+          "SUBJECT": "Subject",
+          "SUBJECT_VALUE": "Reported error: ",
+          "SUBJECT_ERROR": "Subject cannot be empty.",
+          "MESSAGE": "Message",
+          "MESSAGE_PLACEHOLDER": "Please describe your problem and which of your actions lead to this problem.",
+          "MESSAGE_ERROR": "Please tell us something about the problem.",
+          "CANCEL": "Cancel",
+          "SEND": "Send",
+          "SUCCESS1": "Ticket with ID: ",
+          "SUCCESS2": " was created."
+        },
+        "REMOVE_USER_EXT_SOURCE": {
+          "TITLE": "Remove user's external identity",
+          "DESCRIPTION": "Following external identity will be removed",
+          "ASK": "Are you sure you want to continue?",
+          "CANCEL": "Cancel",
+          "REMOVE": "Remove",
+          "SUCCESS": "User external source successfully removed"
+        },
+        "PASSWORD_RESET": {
+          "TITLE": "Password reset",
+          "CHANGE_PASSWORD": "Change password",
+          "NAMESPACE": "Namespace",
+          "LOGIN": "Login",
+          "NOT_SUPPORTED": "Password reset is not supported for your current namespaces"
+        },
+        "SHOW_VALUE": {
+          "CLOSE": "Close",
+          "COPY": "Copy to clipboard"
+        },
+        "SERVICES_STATUS_LIST": {
+          "TABLE_SEARCH": "Filter by service name, id or state",
+          "TASK_ID": "Task ID",
+          "SERVICE_NAME": "Service",
+          "STATUS": "Status",
+          "BLOCKED": "Blocked",
+          "STARTED": "Started",
+          "ENDED": "Ended",
+          "NO_SERVICES_STATUS_WARNING": "No service configuration was propagated to this facility.",
+          "NOT_YET": "NOT YET"
+        },
+        "TASK_RESULTS_LIST": {
+          "RESULT_ID": "Result id",
+          "DESTINATION": "Destination",
+          "TYPE": "Type",
+          "SERVICE": "Service",
+          "STATUS": "Status",
+          "TIME": "Time",
+          "RETURN_CODE": "Return code",
+          "STANDARD_MESSAGE": "Standard message",
+          "ERROR_MESSAGE": "Error message",
+          "NO_RESULTS_WARNING": "No task results found"
+        },
+        "SESSION_EXPIRATION": {
+          "TITLE": "Session expiration",
+          "DESCRIPTION": "Your session has expired. Please sign in to continue.",
+          "SIGN_IN": "Sign in"
+        },
+        "MAIL_CHANGE_FAILED_DIALOG": {
+          "TITLE": "Preferred mail change failed",
+          "INFO": "Preferred email change request does not exist or is not valid anymore",
+          "CLOSE": "Close"
+        }
+      },
+      "ORGANIZATIONS": {
+        "TITLE": "User organizations",
+        "FILTER": "Filter by name or ID",
+        "YOU_ARE_ADMIN": "Organizations where you are admin",
+        "YOU_ARE_MEMBER": "Organizations where you are member",
+        "USER_IS_ADMIN": "Organizations where user is admin",
+        "USER_IS_MEMBER": "Organizations where user is member"
+      },
+      "GROUPS": {
+        "MEMBER_GROUPS": "Member groups",
+        "ADMINS_GROUPS": "Groups where user is admin"
+      },
+      "REFRESH_BUTTON": "Refresh",
+      "SERVICES_CONFIGURATIONS": {
+        "ADD": "Add",
+        "SAVE": "Save"
+      }
+    },
+    "UI": {
+      "ALERTS": {
+        "NO_GROUPS": "No groups found.",
+        "NO_ORGANIZATIONS": "No organizations found",
+        "NO_FILTER_RESULTS_ALERT": "No results match given search criteria.",
+        "NO_MEMBERS": "No members found"
+      }
+    }
+  }
+}
