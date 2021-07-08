@@ -581,9 +581,6 @@ export function parseMemberStatus(memberStatus: string, memberGroupStatus?:strin
   if(memberStatus.toLowerCase() === 'valid' && (!memberGroupStatus || memberStatus.toLowerCase() === 'valid')){
     return 'ACTIVE'
   }
-  if(memberStatus.toLowerCase() === 'invalid'  ||  (memberGroupStatus && memberStatus.toLowerCase() === 'invalid')){
-    return 'INACTIVE'
-  }
   return memberStatus;
 }
 
