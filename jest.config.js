@@ -1,6 +1,5 @@
 module.exports = {
   projects: [
-    '<rootDir>/apps/consolidator',
     '<rootDir>/libs/ui',
     '<rootDir>/libs/ui/material',
     '<rootDir>/libs/perun/services',
@@ -11,7 +10,6 @@ module.exports = {
     '<rootDir>/libs/ui/alerts',
     '<rootDir>/apps/admin-gui',
     '<rootDir>/libs/perun/openapi',
-    '<rootDir>/apps/statistics',
     '<rootDir>/libs/config',
     '<rootDir>/libs/general',
     '<rootDir>/libs/perun/components',

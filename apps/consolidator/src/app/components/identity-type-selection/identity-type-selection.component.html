@@ -1,8 +1,0 @@
-<h2 class="mat-subheading-2">
-  {{'ID_SELECT.TYPE_SELECT' | translate}}
-</h2>
-<div class="items-container">
-  <button mat-button *ngFor="let item of types" class="item-itself" (click)="typeSelected.emit(item.type)">
-    {{item.label | translate}}
-  </button>
-</div>

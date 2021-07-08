@@ -21,13 +21,6 @@
     "config-table-config": {
       "tags": []
     },
-    "consolidator": {
-      "tags": []
-    },
-    "consolidator-e2e": {
-      "tags": [],
-      "implicitDependencies": ["consolidator"]
-    },
     "general": {
       "tags": []
     },
@@ -86,13 +79,6 @@
     "publications-e2e": {
       "tags": [],
       "implicitDependencies": ["publications"]
-    },
-    "statistics": {
-      "tags": []
-    },
-    "statistics-e2e": {
-      "tags": [],
-      "implicitDependencies": ["statistics"]
     },
     "ui": {
       "tags": []
