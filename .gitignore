@@ -43,6 +43,5 @@ Thumbs.db
 # The instance specific configuration should not be part of the repository
 apps/admin-gui/src/assets/config/instanceConfig.json
 apps/user-profile/src/assets/config/instanceConfig.json
-apps/statistics/src/assets/config/instanceConfig.json
 apps/publications/src/assets/config/instanceConfig.json
 apps/password-reset/src/assets/config/instanceConfig.json

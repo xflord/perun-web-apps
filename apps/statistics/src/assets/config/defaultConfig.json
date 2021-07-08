@@ -1,6 +1,0 @@
-{
-  "github_token": "",
-  "graphana_token": "",
-  "proxy_stat_url": "https://id.muni.cz/simplesaml/module.php/proxystatistics/api.php",
-  "graphana_ids": [2, 4]
-}

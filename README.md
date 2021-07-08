@@ -20,11 +20,3 @@ Then you can serve the admin gui with the following command:
 ```shell script
 ng serve admin-gui
 ```
-
-## Consolidator
-
-Command to serve the consolidator:
-
-```shell script
-nx serve consolidator --disable-host-check --baseHref=/krb/nic/ --deployUrl=/krb/nic/ --publicHost=localhost:4200
-```

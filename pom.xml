@@ -52,18 +52,6 @@
             <phase>generate-resources</phase>
           </execution>
           <execution>
-            <id>consolidator</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <configuration>
-              <arguments>
-                run ng build consolidator -- --prod
-              </arguments>
-            </configuration>
-            <phase>generate-resources</phase>
-          </execution>
-          <execution>
             <id>user-profile</id>
             <goals>
               <goal>npm</goal>
