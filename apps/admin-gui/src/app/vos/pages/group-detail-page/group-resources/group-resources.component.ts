@@ -84,6 +84,7 @@ export class GroupResourcesComponent implements OnInit {
         const resWithStatus: ResourceWithStatus = r.enrichedResource.resource;
         resWithStatus.facility = r.facility;
         resWithStatus.status = r.status;
+        resWithStatus.resourceTags = r.resourceTags;
         return resWithStatus;
       });
       this.selected.clear();

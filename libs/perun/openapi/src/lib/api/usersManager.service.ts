@@ -3162,79 +3162,6 @@ export class UsersManagerService {
     }
 
     /**
-     * Validate new preferred email address. Request to validate is determined based on encrypted parameters sent in email notice by requestPreferredEmailChange() method.
-     * @param i encrypted request parameter
-     * @param m encrypted request parameter
-     * @param u id of user you want to validate preferred email request
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public validatePreferredEmailChange(i: string, m: string, u: number, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public validatePreferredEmailChange(i: string, m: string, u: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public validatePreferredEmailChange(i: string, m: string, u: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
-    public validatePreferredEmailChange(i: string, m: string, u: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (i === null || i === undefined) {
-            throw new Error('Required parameter i was null or undefined when calling validatePreferredEmailChange.');
-        }
-        if (m === null || m === undefined) {
-            throw new Error('Required parameter m was null or undefined when calling validatePreferredEmailChange.');
-        }
-        if (u === null || u === undefined) {
-            throw new Error('Required parameter u was null or undefined when calling validatePreferredEmailChange.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (i !== undefined && i !== null) {
-            queryParameters = queryParameters.set('i', <any>i);
-        }
-        if (m !== undefined && m !== null) {
-            queryParameters = queryParameters.set('m', <any>m);
-        }
-        if (u !== undefined && u !== null) {
-            queryParameters = queryParameters.set('u', <any>u);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<string>(`${this.configuration.basePath}/urlinjsonout/usersManager/validatePreferredEmailChange`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
      * Validate new preferred email address. Request to validate is determined based on token parameter sent in email notice by requestPreferredEmailChange() method.
      * @param token token for the email change request
      * @param u id of user you want to validate preferred email request
@@ -3288,7 +3215,7 @@ export class UsersManagerService {
         }
 
 
-        return this.httpClient.post<string>(`${this.configuration.basePath}/urlinjsonout/usersManager/validatePreferredEmailChange/token`,
+        return this.httpClient.post<string>(`${this.configuration.basePath}/urlinjsonout/usersManager/validatePreferredEmailChange`,
             null,
             {
                 params: queryParameters,

@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { EnrichedResource } from './enrichedResource';
+import { ResourceTag } from './resourceTag';
 import { Facility } from './facility';
 import { GroupResourceStatus } from './groupResourceStatus';
 
@@ -18,5 +19,6 @@ export interface AssignedResource {
     enrichedResource?: EnrichedResource;
     status?: GroupResourceStatus;
     facility?: Facility;
+    resourceTags?: Array<ResourceTag>;
 }
 

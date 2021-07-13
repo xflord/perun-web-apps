@@ -3016,7 +3016,7 @@ export class ResourcesManagerService {
     }
 
     /**
-     * Lists all of the resource assignments for the given group. Also, returns specified attributes for the resources.
+     * Lists all of the resource assignments for the given group. Also, returns specified attributes for the resources and resource tags.
      * @param group id of Group
      * @param attrNames list of attribute names List&lt;String&gt; or null
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
