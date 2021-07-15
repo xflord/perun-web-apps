@@ -73,7 +73,7 @@ export class GroupsListComponent implements OnInit, AfterViewInit, OnChanges {
   private hasMembersGroup = false;
 
   @Input()
-  displayedColumns: string[] = ['select', 'id', 'recent', 'vo', 'name', 'description', 'status', 'expiration', 'menu'];
+  displayedColumns: string[] = ['select', 'id', 'recent', 'vo', 'name', 'status', 'description', 'expiration', 'menu'];
 
   @Input()
   disableMembers: boolean;

@@ -2,23 +2,23 @@
   *ngIf="status === 'ACTIVE'"
   matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_RESOURCE_STATUS.ACTIVE' | translate}}"
   matTooltipPosition="above">
-  <mat-icon>check_circle_outline</mat-icon>
+  <mat-icon class ="green">check_circle_outline</mat-icon>
 </span>
 <span
   *ngIf="status === 'INACTIVE'"
   matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_RESOURCE_STATUS.INACTIVE' | translate}}"
   matTooltipPosition="above">
-  <mat-icon>block</mat-icon>
+  <mat-icon class="grey">block</mat-icon>
 </span>
 <span
   *ngIf="status === 'FAILED'"
   matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_RESOURCE_STATUS.FAILED' | translate}}"
   matTooltipPosition="above">
-  <mat-icon>report</mat-icon>
+  <mat-icon class="red">report</mat-icon>
 </span>
 <span
   *ngIf="status === 'PROCESSING'"
   matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_RESOURCE_STATUS.PROCESSING' | translate}}"
   matTooltipPosition="above">
-  <mat-icon>autorenew</mat-icon>
+  <mat-icon class="black">autorenew</mat-icon>
 </span>
