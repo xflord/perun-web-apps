@@ -103,6 +103,6 @@ export class ResourceAssignedServicesComponent implements OnInit {
     this.assignServiceAuth = this.guiAuthResolver.isAuthorized('assignServices_Resource_List<Service>_policy', [this.resource]);
     this.removeServiceAuth = this.guiAuthResolver.isAuthorized('removeServices_Resource_List<Service>_policy', [this.resource]);
     this.displayedColumns = this.removeServiceAuth ? ['select', 'id', 'name', 'enabled', 'script', 'description'] : ['id', 'name', 'enabled', 'script', 'description'];
-    this.serviceRoutingAuth = this.guiAuthResolver.isPerunAdmin();
+    this.serviceRoutingAuth = this.guiAuthResolver.isPerunAdminOrObserver();
   }
 }

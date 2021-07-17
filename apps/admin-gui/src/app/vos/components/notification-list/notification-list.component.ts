@@ -68,7 +68,7 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngOnChanges() {
-    if (!this.authResolver.isPerunAdmin()){
+    if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
     this.dataSource = new MatTableDataSource<ApplicationMail>(this.applicationMails);

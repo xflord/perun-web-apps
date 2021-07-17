@@ -36,7 +36,7 @@ export class FacilityAllowedUsersComponent implements OnInit {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(params => {
       this.facilityId = params['facilityId'];
-      this.routeAuth = this.authResolver.isPerunAdmin();
+      this.routeAuth = this.authResolver.isPerunAdminOrObserver();
       this.refreshTable();
     });
   }

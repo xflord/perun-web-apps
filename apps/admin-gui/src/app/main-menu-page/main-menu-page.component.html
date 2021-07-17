@@ -28,7 +28,7 @@
     <h1>{{'MAIN_MENU.FACILITIES' | translate}}</h1>
     <p>{{'MAIN_MENU.FACILITIES_DESC' | translate}}</p>
   </a>
-  <a *ngIf="authResolver.isPerunAdmin()"
+  <a *ngIf="authResolver.isPerunAdminOrObserver()"
      class="main-menu-button admin-btn"
      [routerLink]="['admin']"
      queryParamsHandling="merge"

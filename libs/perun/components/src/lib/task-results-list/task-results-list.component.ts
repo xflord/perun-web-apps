@@ -59,7 +59,7 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
   dataSource: MatTableDataSource<TaskResult>;
 
   ngOnChanges(changes: SimpleChanges) {
-    if (!this.authResolver.isPerunAdmin()){
+    if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
     this.dataSource = new MatTableDataSource<TaskResult>(this.taskResults);

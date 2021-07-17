@@ -93,7 +93,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
   }
 
   ngOnInit() {
-    if (!this.authResolver.isPerunAdmin()){
+    if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
 

@@ -40,7 +40,7 @@ export class MemberDetailPageComponent implements OnInit {
     this.route.params.subscribe(params => {
       const voId = params['voId'];
       const memberId = params['memberId'];
-      this.isAuthorized = this.authResolver.isPerunAdmin();
+      this.isAuthorized = this.authResolver.isPerunAdminOrObserver();
 
       this.voService.getVoById(voId).subscribe(vo => {
         this.vo = vo;
