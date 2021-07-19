@@ -15,6 +15,11 @@
       ></perun-web-apps-resources-list>
     </div>
     <div mat-dialog-actions>
+      <mat-checkbox
+        matTooltip="{{'DIALOGS.ADD_GROUP_RESOURCES.ASYNC_OPT_DESCRIPTION' | translate}}"
+        [(ngModel)]="async">
+        {{'DIALOGS.ADD_GROUP_RESOURCES.ASYNC_OPT' | translate}}
+      </mat-checkbox>
       <button
         mat-flat-button
         class="ml-auto"

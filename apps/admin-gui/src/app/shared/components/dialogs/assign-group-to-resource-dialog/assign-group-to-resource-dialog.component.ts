@@ -38,6 +38,7 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
   resource: Resource;
   unAssignedGroups: Group[];
   checkGroups = false;
+  async = true;
   selection = new SelectionModel<Group>(true, []);
   filterValue = '';
 
@@ -77,7 +78,8 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
       for (const group of this.selection.selected) {
         addedGroups.push(group.id);
       }
-      this.resourceManager.assignGroupsToResource(addedGroups, this.resource.id).subscribe(() => {
+
+      this.resourceManager.assignGroupsToResource(addedGroups, this.resource.id, this.async).subscribe(() => {
         this.translate.get('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.SUCCESS_MESSAGE').subscribe(message => {
           this.notificator.showSuccess(message);
           this.dialogRef.close(true);

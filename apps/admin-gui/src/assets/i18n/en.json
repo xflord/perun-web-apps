@@ -1394,7 +1394,9 @@
       "CANCEL_BUTTON": "Cancel",
       "SUCCESS_MESSAGE": "Selected groups were assigned to resource",
       "CONFIGURE_GROUPS": "Configure group(s) before assign",
-      "ADD_TOOLTIP": "You don't have privileges to perform this action for one or more groups."
+      "ADD_TOOLTIP": "You don't have privileges to perform this action for one or more groups.",
+      "ASYNC_OPT": "Add asynchronously",
+      "ASYNC_OPT_DESCRIPTION": "If selected, group(s) assignment is executed asynchronously (switched to PROCESSING state and waiting for assignment to run in the background). Otherwise, synchronous assignment is executed."
     },
     "ASSIGN_SERVICE_TO_RESOURCE": {
       "TITLE": "Assign service",
@@ -1493,7 +1495,10 @@
       "CANCEL": "Cancel",
       "ADD": "Add",
       "ADD_PERMISSION_TOOLTIP": "You don't have permission to assign some of the selected resources.",
-      "SUCCESS": "Resources successfully added"
+      "SUCCESS": "Resources successfully added",
+      "ASYNC_OPT": "Add asynchronously",
+      "ASYNC_OPT_DESCRIPTION": "If selected, group assignment is executed asynchronously (switched to PROCESSING state and waiting for assignment to run in the background). Otherwise, synchronous assignment is executed."
+
     },
     "ADD_GROUP_TO_REGISTRATION": {
       "TITLE": "Assing group to registration",

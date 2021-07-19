@@ -35,6 +35,7 @@ export class AddGroupResourceDialogComponent implements OnInit {
   resources: RichResource[] = [];
   selection = new SelectionModel<RichResource>(true, []);
   theme = '';
+  async = true;
 
   ngOnInit(): void {
     this.theme = this.data.theme;
@@ -56,7 +57,7 @@ export class AddGroupResourceDialogComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     const resourceIds = this.selection.selected.map(res => res.id);
-    this.resourcesManager.assignGroupToResources(this.data.group.id, resourceIds).subscribe(() => {
+    this.resourcesManager.assignGroupToResources(this.data.group.id, resourceIds, this.async).subscribe(() => {
       this.translate.get('DIALOGS.ADD_GROUP_RESOURCES.SUCCESS').subscribe(successMessage => {
         this.loading = false;
         this.notificator.showSuccess(successMessage);

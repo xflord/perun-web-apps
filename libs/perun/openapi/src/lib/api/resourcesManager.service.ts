@@ -483,16 +483,17 @@ export class ResourcesManagerService {
     }
 
     /**
-     * Assigns a group to a resource. Check if attributes for each member from group are valid. Fill members\&#39; attributes with missing value.
+     * Assigns a group to a resource. Check if attributes for each member from group are valid. Fill members\&#39; attributes with missing value. Work in sync/async mode.
      * @param group id of Group
      * @param resource id of Resource
+     * @param async asynchronous flag, if set to true, some operation will be performed asynchronously
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public assignGroupToResource(group: number, resource: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public assignGroupToResource(group: number, resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public assignGroupToResource(group: number, resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public assignGroupToResource(group: number, resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public assignGroupToResource(group: number, resource: number, async?: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public assignGroupToResource(group: number, resource: number, async?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public assignGroupToResource(group: number, resource: number, async?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public assignGroupToResource(group: number, resource: number, async?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling assignGroupToResource.');
         }
@@ -506,6 +507,9 @@ export class ResourcesManagerService {
         }
         if (resource !== undefined && resource !== null) {
             queryParameters = queryParameters.set('resource', <any>resource);
+        }
+        if (async !== undefined && async !== null) {
+            queryParameters = queryParameters.set('async', <any>async);
         }
 
         let headers = this.defaultHeaders;
@@ -549,16 +553,17 @@ export class ResourcesManagerService {
     }
 
     /**
-     * Assigns a group to resources. Check if attributes for each member from group are valid. Fill members\&#39; attributes with missing values.
+     * Assigns a group to resources. Check if attributes for each member from group are valid. Fill members\&#39; attributes with missing values. Work in sync/async mode.
      * @param group id of Group
      * @param resources list of Resource ids List&lt;Integer&gt;
+     * @param async asynchronous flag, if set to true, some operation will be performed asynchronously
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public assignGroupToResources(group: number, resources: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public assignGroupToResources(group: number, resources: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public assignGroupToResources(group: number, resources: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public assignGroupToResources(group: number, resources: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public assignGroupToResources(group: number, resources: Array<number>, async?: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public assignGroupToResources(group: number, resources: Array<number>, async?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public assignGroupToResources(group: number, resources: Array<number>, async?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public assignGroupToResources(group: number, resources: Array<number>, async?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling assignGroupToResources.');
         }
@@ -574,6 +579,9 @@ export class ResourcesManagerService {
             resources.forEach((element) => {
                 queryParameters = queryParameters.append('resources[]', <any>element);
             })
+        }
+        if (async !== undefined && async !== null) {
+            queryParameters = queryParameters.set('async', <any>async);
         }
 
         let headers = this.defaultHeaders;
@@ -617,16 +625,17 @@ export class ResourcesManagerService {
     }
 
     /**
-     * Assigns groups to a resource. Check if attributes for each member from groups are valid. Fill members\&#39; attributes with missing values.
+     * Assigns groups to a resource. Check if attributes for each member from groups are valid. Fill members\&#39; attributes with missing values. Work in sync/async mode.
      * @param groups list of Group ids List&lt;Integer&gt;
      * @param resource id of Resource
+     * @param async asynchronous flag, if set to true, some operation will be performed asynchronously
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public assignGroupsToResource(groups: Array<number>, resource: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public assignGroupsToResource(groups: Array<number>, resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public assignGroupsToResource(groups: Array<number>, resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public assignGroupsToResource(groups: Array<number>, resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public assignGroupsToResource(groups: Array<number>, resource: number, async?: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public assignGroupsToResource(groups: Array<number>, resource: number, async?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public assignGroupsToResource(groups: Array<number>, resource: number, async?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public assignGroupsToResource(groups: Array<number>, resource: number, async?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (groups === null || groups === undefined) {
             throw new Error('Required parameter groups was null or undefined when calling assignGroupsToResource.');
         }
@@ -642,6 +651,9 @@ export class ResourcesManagerService {
         }
         if (resource !== undefined && resource !== null) {
             queryParameters = queryParameters.set('resource', <any>resource);
+        }
+        if (async !== undefined && async !== null) {
+            queryParameters = queryParameters.set('async', <any>async);
         }
 
         let headers = this.defaultHeaders;
