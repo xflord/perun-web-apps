@@ -20,6 +20,7 @@
     "oauth_scopes": "openid profile perun_api perun_admin",
     "oauth_response_type": "id_token token",
     "filters": {
+      "default": "urn:cesnet:proxyidp:filter:eyJ2ZXIiOiIyIiwiYWxsb3dGZWVkcyI6eyJlZHVJRC5jeiI6e30sImVkdUdBSU4iOnt9LCJMb2dpbk11bmkiOnt9LCJTb2NpYWxJZFBzIjp7fSwiU3RhbmRhbG9uZUlkUCI6e30sIkhha2EiOnt9fX0=",
       "muni": "urn:cesnet:proxyidp:idpentityid:https://idp2.ics.muni.cz/idp/shibboleth",
       "soc_idp": "urn:cesnet:proxyidp:filter:eyJ2ZXIiOiIyIiwiYWxsb3dGZWVkcyI6eyJTb2NpYWxJZFBzIjp7fX19"
     }
