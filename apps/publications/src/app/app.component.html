@@ -7,21 +7,18 @@
       <perun-web-apps-side-menu [sideNav]="sidenav" class="overflow-hidden"></perun-web-apps-side-menu>
     </mat-sidenav>
     <mat-sidenav-content [ngStyle]="{'background': contentBackgroundColor}" id="content-inner">
-      <div [ngStyle]="{'min-height': getContentHeight()}" id="content-wrap">
+      <div [ngStyle]="{'min-height': contentHeight}" id="content-wrap">
         <!--      <perun-web-apps-breadcrumbs></perun-web-apps-breadcrumbs>-->
         <router-outlet></router-outlet>
       </div>
 
-      <div id="footer">
-        <perun-web-apps-footer></perun-web-apps-footer>
-      </div>
+      <perun-web-apps-footer (footerHeight)="setContentHeight($event)"></perun-web-apps-footer>
 
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
 <div *ngIf="isLoginScreenShow">
-  <perun-web-apps-login-screen-base [headerColorConfigLabel]="'header_bg_color'"
-                                    [application]="'publications'"
+  <perun-web-apps-login-screen-base [application]="'publications'"
                                     [headerTitle]="'HEADER.TITLE' | translate">
   </perun-web-apps-login-screen-base>
 </div>

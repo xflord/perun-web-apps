@@ -12,9 +12,7 @@
     [principal]="principal">
   </app-perun-nav-menu>
   <mat-sidenav-container
-    id="content"
-    [ngStyle]="{'margin-top': getSideNavMarginTop(),'min-height': getSideNavMinHeight()}"
-  >
+    [ngStyle]="{'margin-top': getSideNavMarginTop(),'min-height': getSideNavMinHeight()}">
     <mat-sidenav #sidenav
                  [ngStyle]="{'border-color': sideBarBorderColor}"
                  [mode]="sidebarMode"
@@ -42,7 +40,5 @@
 </ng-template>
 
 <ng-template [ngIf]="isLoginScreenShow">
-  <perun-web-apps-login-screen-base [headerColorConfigLabel]="'nav_bg_color'"
-                                    [application]="'admin-gui'">
-  </perun-web-apps-login-screen-base>
+  <perun-web-apps-login-screen-base [application]="'admin-gui'"></perun-web-apps-login-screen-base>
 </ng-template>

@@ -18,20 +18,19 @@ export class LoginScreenBaseComponent implements OnInit {
   application: string;
 
   @Input()
-  headerColorConfigLabel: string;
-
-  @Input()
   headerTitle: string;
 
   textColor: string;
 
   headerBackgroundColor: string;
+  headerTextColor: string;
   logoPadding: string;
   contentBackgroundColor = this.storeService.get('theme', 'content_bg_color');
   logo: any;
 
   ngOnInit(): void {
-    this.headerBackgroundColor = this.storeService.get('theme', this.headerColorConfigLabel);
+    this.headerBackgroundColor = this.storeService.get('theme', 'nav_bg_color');
+    this.headerTextColor = this.storeService.get('theme', 'nav_text_color');
     this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.get('logo'));
     !!this.headerTitle ? this.textColor = this.storeService.get('theme', 'header_text_color') : this.textColor = '';
     this.application === 'admin-gui' ? this.logoPadding = this.storeService.get('logo_padding'): this.logoPadding = '';

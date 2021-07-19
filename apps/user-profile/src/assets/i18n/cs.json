@@ -338,11 +338,11 @@
         },
         "REPORT_ISSUE": {
           "TITLE": "Nahlásit problém",
-          "SUBJECT": "Předmět správy",
+          "SUBJECT": "Předmět zprávy",
           "SUBJECT_ERROR": "Předmět nesmí být prázdný.",
           "MESSAGE": "Zpráva",
-          "MESSAGE_PLACEHOLDER": "Prosím, opište svůj problém",
-          "MESSAGE_HINT": "Prosím, opište svůj problém do detailu.",
+          "MESSAGE_PLACEHOLDER": "Prosím, popište svůj problém",
+          "MESSAGE_HINT": "Prosím, popište svůj problém do detailu.",
           "CANCEL": "Zrušit",
           "SEND": "Poslat",
           "SUCCESS": "Chyba byla nahlášena a dostala lístek s číslem: "

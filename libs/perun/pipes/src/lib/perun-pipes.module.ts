@@ -21,6 +21,7 @@ import { ParseDatePipe } from './parse-date.pipe';
 import { TechnicalOwnersPipe } from './technical-owners.pipe';
 import { FilterUniqueObjectsPipe } from './filter-unique-objects.pipe';
 import { ParseGroupNamePipe } from './parse-group-name.pipe';
+import { LocalisedTextPipe } from './localised-text.pipe';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ParseGroupNamePipe } from './parse-group-name.pipe';
     ParseDatePipe,
     TechnicalOwnersPipe,
     FilterUniqueObjectsPipe,
-    ParseGroupNamePipe
+    ParseGroupNamePipe,
+    LocalisedTextPipe
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -69,7 +71,8 @@ import { ParseGroupNamePipe } from './parse-group-name.pipe';
     ParseDatePipe,
     TechnicalOwnersPipe,
     FilterUniqueObjectsPipe,
-    ParseGroupNamePipe
+    ParseGroupNamePipe,
+    LocalisedTextPipe
   ],
   imports: [CommonModule],
 })

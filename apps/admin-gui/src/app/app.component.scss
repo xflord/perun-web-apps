@@ -1,21 +1,11 @@
-#content {
-  //margin-top: 112px;
-  //min-height: calc(100vh - 112px);
-}
-
 #content-inner {
   position: relative;
 }
 
 #footer {
   position: absolute;
-  height: 200px;
   bottom: 0;
   width: 100%;
-
-  @media (max-width: 768px) {
-    height: 450px;
-  }
 }
 
 #content-wrap {
