@@ -335,6 +335,17 @@
           "TITLE": "Zmněna preferovaného emailu se nezdařila",
           "INFO": "Žádost o změnu preferovaného emailu neexistuje nebo již není platná",
           "CLOSE": "Zavřít"
+        },
+        "REPORT_ISSUE": {
+          "TITLE": "Nahlásit problém",
+          "SUBJECT": "Předmět správy",
+          "SUBJECT_ERROR": "Předmět nesmí být prázdný.",
+          "MESSAGE": "Zpráva",
+          "MESSAGE_PLACEHOLDER": "Prosím, opište svůj problém",
+          "MESSAGE_HINT": "Prosím, opište svůj problém do detailu.",
+          "CANCEL": "Zrušit",
+          "SEND": "Poslat",
+          "SUCCESS": "Chyba byla nahlášena a dostala lístek s číslem: "
         }
       },
       "ORGANIZATIONS": {

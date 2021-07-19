@@ -448,7 +448,7 @@
           "MESSAGE_HINT": "Please try to describe in detail the problem.",
           "CANCEL": "Cancel",
           "SEND": "Send",
-          "SUCCESS": "Issue report was sended and got ticket number: "
+          "SUCCESS": "Issue report was sent and got ticket number: "
         },
         "OWNERS_LIST": {
           "ID": "Id",

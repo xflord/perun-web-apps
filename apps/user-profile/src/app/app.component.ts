@@ -49,6 +49,6 @@ export class AppComponent implements OnInit {
   }
 
   getContentHeight() {
-    return 'calc(100vh - 64px - ' + this.footerHeight + 'px)';
+    return 'calc(100vh - 64px - 40px - ' + this.footerHeight + 'px)';
   }
 }

@@ -149,6 +149,16 @@
             "link": "https://perun-aai.org/documentation/users-documentation",
             "label_en": "Documentation",
             "label_cs": "Dokumentace"
+          },
+          {
+            "link": "https://perun-aai.org/documentation/technical-documentation",
+            "label_en": "API Documentation",
+            "label_cs": "Dokumentace API"
+          },
+          {
+            "dialog": "reportIssue",
+            "label_en": "Report issue",
+            "label_cs": "Nahlásit problém"
           }
         ]
       },
@@ -157,6 +167,7 @@
         "title_cs": "PODPORA",
         "elements": [
           {
+            "icon": "mail",
             "link": "",
             "label_en": "perun@cesnet.cz",
             "label_cs": "perun@cesnet.cz"
@@ -173,7 +184,8 @@
         "name": "CERIT-SC",
         "url": "https://www.cerit-sc.cz/"
       }
-    ]
+    ],
+    "github_releases": "https://www.github.com/CESNET/perun-web-apps/releases/"
   },
   "theme": {
     "content_bg_color": "",
