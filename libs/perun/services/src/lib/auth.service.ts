@@ -44,6 +44,44 @@ export class AuthService {
 
   redirectUrl: string;
 
+  getClientSettings(): UserManagerSettings {
+    const queryParams = location.search.substr(1).split('&');
+    const filters = this.store.get('oidc_client', 'filters');
+    let filterValue = '';
+    let f;
+    queryParams.forEach(param => {
+      const parsedParam = param.split('=')
+      if(parsedParam[0]==='idpFilter'){
+        f = filters[parsedParam[1]];
+        if(f){
+          filterValue = f;
+          this.filterShortname = parsedParam[1];
+        }
+      }
+    })
+    if(!f){
+      filterValue = filters['default'];
+      this.filterShortname = 'default';
+    }
+    return {
+      authority: this.store.get('oidc_client', 'oauth_authority'),
+      client_id: this.store.get('oidc_client', 'oauth_client_id'),
+      redirect_uri: this.store.get('oidc_client', 'oauth_redirect_uri'),
+      post_logout_redirect_uri: this.store.get('oidc_client', 'oauth_post_logout_redirect_uri'),
+      response_type: this.store.get('oidc_client', 'oauth_response_type'),
+      scope: this.store.get('oidc_client', 'oauth_scopes'),
+      filterProtocolClaims: true,
+      loadUserInfo: this.store.get('oidc_client', 'oauth_load_user_info'),
+      automaticSilentRenew: true,
+      silent_redirect_uri: this.store.get('oidc_client', 'oauth_silent_redirect_uri'),
+      extraQueryParams: { 'acr_values': filterValue}
+    };
+  }
+
+  getUserManager(): UserManager {
+    return this.manager;
+  }
+
   /**
    * Subscribes to route events and keeps the idpFilter query parameter.
    *
@@ -58,44 +96,11 @@ export class AuthService {
           [],
           {
             relativeTo: this.route,
-            queryParams: idpFilterParams,
+            queryParams: idpFilterParams.idpFilter === 'default' ? {} : idpFilterParams,
             queryParamsHandling: 'merge',
             replaceUrl: true
           });
       });
-  }
-
-  getUserManager(): UserManager {
-    return this.manager;
-  }
-
-  getClientSettings(): UserManagerSettings {
-    const queryParams = location.search.substr(1).split('&');
-    const filters = this.store.get('oidc_client', 'filters');
-    let filterValue = '';
-    queryParams.forEach(param => {
-      const parsedParam = param.split('=')
-      if(parsedParam[0]==='idpFilter'){
-        const f = filters[parsedParam[1]];
-        if(f){
-          filterValue = f;
-          this.filterShortname = parsedParam[1];
-        }
-      }
-    })
-    return {
-      authority: this.store.get('oidc_client', 'oauth_authority'),
-      client_id: this.store.get('oidc_client', 'oauth_client_id'),
-      redirect_uri: this.store.get('oidc_client', 'oauth_redirect_uri'),
-      post_logout_redirect_uri: this.store.get('oidc_client', 'oauth_post_logout_redirect_uri'),
-      response_type: this.store.get('oidc_client', 'oauth_response_type'),
-      scope: this.store.get('oidc_client', 'oauth_scopes'),
-      filterProtocolClaims: true,
-      loadUserInfo: this.store.get('oidc_client', 'oauth_load_user_info'),
-      automaticSilentRenew: true,
-      silent_redirect_uri: this.store.get('oidc_client', 'oauth_silent_redirect_uri'),
-      extraQueryParams: { 'acr_values': filterValue}
-    };
   }
 
   loadConfigData() {
