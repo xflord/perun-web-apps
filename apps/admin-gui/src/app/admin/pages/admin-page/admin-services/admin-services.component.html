@@ -2,11 +2,13 @@
   <h1 class="page-subtitle">{{'ADMIN.SERVICES.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
+    *ngIf="authResolver.isPerunAdmin()"
     (click)="createService()"
     color="accent"
     mat-flat-button>
     {{'ADMIN.SERVICES.CREATE' | translate}}</button>
   <button
+    *ngIf="authResolver.isPerunAdmin()"
     (click)="deleteService()"
     [disabled]="selection.selected.length === 0"
     class="ml-2"

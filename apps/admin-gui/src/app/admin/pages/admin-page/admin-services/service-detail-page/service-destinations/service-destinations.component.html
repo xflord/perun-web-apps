@@ -5,7 +5,7 @@
     (refresh)="refreshTable()">
   </perun-web-apps-refresh-button>
   <button
-    *ngIf="!loading"
+    *ngIf="!loading && authResolver.isPerunAdmin()"
     mat-flat-button
     color="warn"
     class="mr-2"
@@ -14,7 +14,7 @@
     {{ 'SERVICE_DETAIL.DESTINATIONS.REMOVE' | translate}}
   </button>
   <button
-    *ngIf="!loading"
+    *ngIf="!loading && authResolver.isPerunAdmin()"
     mat-flat-button
     color="accent"
     class="mr-2"
@@ -23,7 +23,7 @@
     {{ 'SERVICE_DETAIL.DESTINATIONS.ALLOW' | translate}}
   </button>
   <button
-    *ngIf="!loading"
+    *ngIf="!loading && authResolver.isPerunAdmin()"
     mat-flat-button
     color="warn"
     class="mr-2"

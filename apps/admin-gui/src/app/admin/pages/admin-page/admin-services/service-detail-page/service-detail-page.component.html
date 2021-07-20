@@ -18,6 +18,7 @@
         &nbsp;  #{{service.id}}
         </span>
         <button
+          *ngIf="authResolver.isPerunAdmin()"
           (click)="editService()"
           aria-label="Edit service"
           mat-icon-button>

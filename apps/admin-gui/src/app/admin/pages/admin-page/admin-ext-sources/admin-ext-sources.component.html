@@ -1,7 +1,7 @@
 <div>
   <h1 class="page-subtitle">{{'ADMIN.EXT_SOURCES.TITLE' | translate}}</h1>
 
-  <button mat-stroked-button (click)="onLoad()" class="mr-2">
+  <button *ngIf="authResolver.isPerunAdmin()" mat-stroked-button (click)="onLoad()" class="mr-2">
     {{'ADMIN.EXT_SOURCES.LOAD' | translate}}
   </button>
 

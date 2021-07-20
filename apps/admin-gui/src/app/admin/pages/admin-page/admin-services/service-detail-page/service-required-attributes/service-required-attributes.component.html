@@ -5,7 +5,7 @@
     (refresh)="refreshTable()">
   </perun-web-apps-refresh-button>
   <button
-    *ngIf="!loading"
+    *ngIf="!loading && authResolver.isPerunAdmin()"
     mat-flat-button
     color="accent"
     class="ml-2"
@@ -13,7 +13,7 @@
     {{ 'SERVICE_DETAIL.REQUIRED_ATTRIBUTES.ADD' | translate}}
   </button>
   <button
-    *ngIf="!loading"
+    *ngIf="!loading && authResolver.isPerunAdmin()"
     mat-flat-button
     color="warn"
     class="ml-2"
@@ -34,6 +34,7 @@
     [definitions]="attrDefinitions"
     [selection]="selection"
     [filterValue]="filterValue"
+    [disableRouting]="!authResolver.isPerunAdmin()"
     (refreshEvent)="refreshTable()">
   </app-attr-def-list>
 </div>

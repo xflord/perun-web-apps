@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { ExtSource, ExtSourcesManagerService } from '@perun-web-apps/perun/openapi';
 import { PageEvent } from '@angular/material/paginator';
@@ -15,7 +15,8 @@ export class AdminExtSourcesComponent implements OnInit {
   constructor(private extSourceService: ExtSourcesManagerService,
               private notificator: NotificatorService,
               private tableConfigService: TableConfigService,
-              private translate: TranslateService
+              private translate: TranslateService,
+              public authResolver: GuiAuthResolver
   ) {
     this.translate.get('ADMIN.EXT_SOURCES.LOAD_SUCCESS').subscribe(result => this.loadSuccess = result);
   }

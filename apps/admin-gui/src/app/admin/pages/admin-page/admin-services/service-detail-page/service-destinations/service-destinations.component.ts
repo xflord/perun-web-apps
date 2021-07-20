@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { RemoveDestinationDialogComponent } from '../../../../../../shared/components/dialogs/remove-destination-dialog/remove-destination-dialog.component';
@@ -25,7 +25,9 @@ export class ServiceDestinationsComponent implements OnInit {
               private serviceManager: ServicesManagerService,
               private notificator: NotificatorService,
               private translate: TranslateService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              public authResolver: GuiAuthResolver
+              ) { }
 
   loading = false;
   filterValue = '';

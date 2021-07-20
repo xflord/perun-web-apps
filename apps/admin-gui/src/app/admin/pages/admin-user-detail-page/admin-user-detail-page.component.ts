@@ -6,6 +6,7 @@ import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { EditUserDialogComponent } from '../../../shared/components/dialogs/edit-user-dialog/edit-user-dialog.component';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-admin-user-detail-page',
@@ -19,7 +20,8 @@ export class AdminUserDetailPageComponent implements OnInit {
     private usersService: UsersManagerService,
     private sideMenuService: SideMenuService,
     private sideMenuItemService: SideMenuItemService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public authResolver: GuiAuthResolver
   ) { }
 
   user: User;

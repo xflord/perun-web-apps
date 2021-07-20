@@ -10,6 +10,7 @@ import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/p
 import { PageEvent } from '@angular/material/paginator';
 import { TABLE_ADMIN_ATTRIBUTES, TableConfigService } from '@perun-web-apps/config/table-config';
 import { AttributeImportDialogComponent } from '../../../../shared/components/dialogs/attribute-import-dialog/attribute-import-dialog.component';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-admin-attributes',
@@ -23,7 +24,8 @@ export class AdminAttributesComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private attributesManager: AttributesManagerService,
-    private tableConfigService: TableConfigService
+    private tableConfigService: TableConfigService,
+    public authResolver: GuiAuthResolver
   ) {
   }
 

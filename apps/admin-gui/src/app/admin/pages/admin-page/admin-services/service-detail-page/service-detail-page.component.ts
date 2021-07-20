@@ -7,6 +7,7 @@ import { SideMenuItemService } from '../../../../../shared/side-menu/side-menu-i
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateEditServiceDialogComponent } from '../../../../../shared/components/dialogs/create-edit-service-dialog/create-edit-service-dialog.component';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-service-detail-page',
@@ -23,7 +24,9 @@ export class ServiceDetailPageComponent implements OnInit {
     private serviceManager: ServicesManagerService,
     private sideMenuService: SideMenuService,
     private sideMenuItemService: SideMenuItemService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    public authResolver: GuiAuthResolver
+    ) {
   }
 
   service: Service;
