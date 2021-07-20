@@ -36,6 +36,7 @@ import { FacilityServiceStatusComponent } from './pages/facility-detail-page/fac
 import { FacilityAllowedUsersComponent } from './pages/facility-detail-page/facility-allowed-users/facility-allowed-users.component';
 import { ResourceAssignedMembersComponent } from './pages/resource-detail-page/resource-assigned-members/resource-assigned-members.component';
 import { FacilityTaskResultsComponent } from './pages/facility-detail-page/facility-service-status/facility-task-results/facility-task-results.component';
+import { ResourceTagsComponent } from './pages/resource-detail-page/resource-tags/resource-tags.component';
 
 const routes: Routes = [
   {
@@ -161,6 +162,11 @@ const routes: Routes = [
         path: 'members',
         component: ResourceAssignedMembersComponent,
         data: {animation: 'ResourceAssignedMembersComponent'}
+      },
+      {
+        path: 'tags',
+        component: ResourceTagsComponent,
+        data: {animation: 'ResourceTagsComponent'}
       },
       {
         path: 'settings',

@@ -71,6 +71,14 @@ export class ResourceOverviewComponent implements OnInit {
         style: 'resource-btn'
       });
     }
+    if(this.guiAuthResolver.isAuthorized('getAllResourcesTagsForResource_Resource_policy', [this.resource])){
+      this.navItems.push({
+        cssIcon: 'perun-resource-tags',
+        url: `${urlStart}/resources/${this.resource.id}/tags`,
+        label: 'MENU_ITEMS.RESOURCE.RESOURCE_TAGS',
+        style: 'resource-btn'
+      });
+    }
 
     this.navItems.push( {
       cssIcon: 'perun-attributes',

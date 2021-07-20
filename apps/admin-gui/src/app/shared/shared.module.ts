@@ -184,6 +184,7 @@ import { EditApplicationFormItemLineComponent } from './components/dialogs/edit-
 import { AddGroupToRegistrationComponent } from './components/dialogs/add-group-to-registration/add-group-to-registration.component';
 import { OneEntityAttributePageComponent} from './components/one-entity-attribute-page/one-entity-attribute-page.component';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
+import { AddResourceTagToResourceDialogComponent } from './components/dialogs/add-resource-tag-to-resource-dialog/add-resource-tag-to-resource-dialog.component';
 
 @NgModule({
   imports: [
@@ -440,7 +441,8 @@ import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
     DeleteEntityDialogComponent,
     EditApplicationFormItemLineComponent,
     AddGroupToRegistrationComponent,
-    OneEntityAttributePageComponent
+    OneEntityAttributePageComponent,
+    AddResourceTagToResourceDialogComponent
   ],
   providers: [
     AnyToStringPipe,

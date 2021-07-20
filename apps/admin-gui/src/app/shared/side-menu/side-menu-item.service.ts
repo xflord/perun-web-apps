@@ -283,6 +283,13 @@ export class SideMenuItemService {
         activatedRegex: `${regexStart}/\\d+/resources/\\d+/members$`
       });
     }
+    if(this.authResolver.isAuthorized('getAllResourcesTagsForResource_Resource_policy', [resource])){
+      links.push({
+        label: 'MENU_ITEMS.RESOURCE.RESOURCE_TAGS',
+        url: [baseUrl, 'tags'],
+        activatedRegex: `${regexStart}/\\d+/resources/\\d+/tags$`
+      });
+    }
     links.push({
       label: 'MENU_ITEMS.RESOURCE.ATTRIBUTES',
       url: [baseUrl,`attributes`],

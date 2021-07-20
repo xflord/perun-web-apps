@@ -74,6 +74,7 @@ import { GroupSettingsExtsourcesComponent } from './pages/group-detail-page/grou
 import { VoStatisticsComponent } from './pages/vo-detail-page/vo-statistics/vo-statistics.component';
 import { GroupStatisticsComponent } from './pages/group-detail-page/group-statistics/group-statistics.component';
 import { ApplicationFormManageGroupsComponent } from './components/application-form-manage-groups/application-form-manage-groups.component';
+import { ResourceTagsComponent } from '../facilities/pages/resource-detail-page/resource-tags/resource-tags.component';
 
 const routes: Routes = [
   {
@@ -352,6 +353,11 @@ const routes: Routes = [
         path: 'members',
         component: ResourceAssignedMembersComponent,
         data: {animation: 'ResourceAssignedMembersComponent'}
+      },
+      {
+        path: 'tags',
+        component: ResourceTagsComponent,
+        data: {animation: 'ResourceTagsComponent'}
       },
       {
         path: 'settings',
