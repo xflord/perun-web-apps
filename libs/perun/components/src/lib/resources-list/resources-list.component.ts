@@ -54,7 +54,7 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
   @Input()
   routingVo = false;
   @Input()
-  displayedColumns: string[] = ['select', 'id', 'recent', 'name', 'vo', 'facility', 'status', 'tags', 'description'];
+  displayedColumns: string[] = ['select', 'id', 'recent', 'name', 'vo', 'status', 'facility', 'tags', 'description'];
   @Input()
   groupToResource: Group;
   @Input()
