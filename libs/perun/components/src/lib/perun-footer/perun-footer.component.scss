@@ -1,6 +1,13 @@
-footer {
-  //background: #263238;
-  height: 100%;
+a {
+  text-decoration: none;
+}
+
+.font-fix {
+  font-size: 0.8rem;
+}
+
+.row-height {
+  height: 25px !important;
 }
 
 .footer-col {
@@ -8,16 +15,8 @@ footer {
   white-space: nowrap;
 }
 
-#copyright {
-}
-
-a {
-  color:inherit;
-  text-decoration: none;
-}
-
-li {
-  color: #E0E0E0;
+.wrap-content {
+  height: fit-content;
 }
 
 #clickable {

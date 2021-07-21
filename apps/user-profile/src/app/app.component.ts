@@ -22,8 +22,8 @@ export class AppComponent implements OnInit {
 
   sideMenuBgColor = this.store.get('theme', 'sidemenu_bg_color');
   contentBackgroundColor = this.store.get('theme', 'content_bg_color');
-  footerHeight = 180;
   isLoginScreenShown: boolean;
+  contentHeight =  'calc(100vh - 84px)';
 
   ngOnInit(): void {
     this.isLoginScreenShown = this.initAuth.isLoginScreenShown();
@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
     return window.innerWidth <= AppComponent.minWidth;
   }
 
-  getContentHeight() {
-    return 'calc(100vh - 64px - ' + this.footerHeight + 'px)';
+  setContentHeight(height: number) {
+    this.contentHeight =  'calc(100vh - 84px - '+height+'px)'
   }
 }

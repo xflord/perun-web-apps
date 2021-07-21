@@ -72,11 +72,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AddAuthImgDialogComponent } from './components/dialogs/add-auth-img-dialog/add-auth-img-dialog.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { AddTokenInfoDialogComponent } from './components/add-token-info-dialog/add-token-info-dialog.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { PerunLoginModule } from '@perun-web-apps/perun/login';
-import { ProfileLoginScreenBaseComponent } from './components/profile-login-screen-base/profile-login-screen-base.component';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
-import { LocalisedTextPipe } from './pipes/localised-text.pipe';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -135,10 +132,7 @@ const loadConfigs = (appConfig: UserProfileConfigService) => {
     BreadcrumbsComponent,
     SettingsAuthenticationComponent,
     AddAuthImgDialogComponent,
-    AddTokenInfoDialogComponent,
-    FooterComponent,
-    ProfileLoginScreenBaseComponent,
-    LocalisedTextPipe
+    AddTokenInfoDialogComponent
   ],
   imports: [
     BrowserModule,

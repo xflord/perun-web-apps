@@ -1,13 +1,13 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { CacheHelperService } from './core/services/common/cache-helper.service';
-import { AuthService, InitAuthService, StoreService } from '@perun-web-apps/perun/services';
+import { InitAuthService, StoreService } from '@perun-web-apps/perun/services';
 import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
 import { interval } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { NewVersionDialogComponent } from './shared/components/dialogs/new-version-dialog/new-version-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, NavigationEnd, NavigationStart, Params, Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 declare var require: any;
 
@@ -24,12 +24,10 @@ export class AppComponent implements OnInit {
     private http: HttpClient,
     private dialog: MatDialog,
     private router: Router,
-    private initAuth: InitAuthService,
-    private auth: AuthService,
-    private route: ActivatedRoute
+    private initAuth: InitAuthService
   ) {
     this.cache.init();
-    this.getScreenSize(null);
+    this.getScreenSize();
   }
 
   public static minWidth = 992;
@@ -51,7 +49,7 @@ export class AppComponent implements OnInit {
   version: string = require( '../../../../package.json').version;
 
   @HostListener('window:resize', ['$event'])
-  getScreenSize(event?) {
+  getScreenSize() {
     this.sidebarMode = this.isMobile() ? 'over' : 'side';
 
     this.lastScreenWidth = window.innerWidth;
@@ -157,7 +155,6 @@ export class AppComponent implements OnInit {
     // 64 for nav (+48) when alert is shown
     // 210 for footer, 510 for footer on mobile
 
-    const footerSpace = '0';
-    return this.displayWarning ? 'calc((100vh - 112px) + ' + footerSpace + 'px)' : 'calc((100vh - 64px) + ' + footerSpace + 'px)';
+    return this.displayWarning ? 'calc(100vh - 112px)' : 'calc(100vh - 64px)';
   }
 }

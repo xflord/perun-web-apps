@@ -2475,7 +2475,7 @@
           "MESSAGE_HINT": "Please try to describe in detail the problem.",
           "CANCEL": "Cancel",
           "SEND": "Send",
-          "SUCCESS": "Issue report was sended and got ticket number: "
+          "SUCCESS": "Issue report was sent and got ticket number: "
         },
         "UNIVERSAL_REMOVE_ITEMS_DIALOG": {
           "ASK": "Do you want to proceed?",
