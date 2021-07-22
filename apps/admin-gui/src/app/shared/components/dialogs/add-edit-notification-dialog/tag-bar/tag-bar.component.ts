@@ -40,6 +40,7 @@ export class TagBarComponent implements OnInit {
     tags.push(['mailFooter', 'MAILFOOTER_DESCRIPTION']);
     tags.push(['errors', 'ERRORS_DESCRIPTION']);
     tags.push(['customMessage', 'CUSTOMMESSAGE_DESCRIPTION']);
+    tags.push(['fromApp-itemName', 'FROMAPPITEMNAME_DESCRIPTION']);
     this.applicationRelatedTags = tags;
   }
 
