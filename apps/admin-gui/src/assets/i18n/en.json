@@ -212,6 +212,19 @@
       "TITLE": "Assigned members",
       "FILTER": "Filter members"
     },
+    "TAGS": {
+      "TITLE": "Assigned tags",
+      "ADD_BUTTON": "Add",
+      "REMOVE_BUTTON": "Remove",
+      "CANCEL": "Cancel",
+      "SEARCH": "Filter by ID or name",
+      "NO_TAGS": "No resource tags.",
+      "REMOVE_TAGS_DIALOG_TITLE": "Remove tags",
+      "REMOVE_TAGS_DIALOG_DESCRIPTION": "Following tags will be removed from the resource.",
+      "ADDED_SUCCESSFULLY": "Resource tags were added successfully.",
+      "REMOVED_SUCCESSFULLY": "Resource tags were removed successfully.",
+      "ADD_TAGS": "Add tags"
+    },
     "SETTINGS": {
       "ATTRIBUTES": {
         "TITLE": "Attributes",
@@ -798,7 +811,8 @@
       "ATTRIBUTES": "Attributes",
       "MANAGERS": "Managers",
       "ASSIGNED_SERVICES": "Assigned services",
-      "ASSIGNED_MEMBERS": "Assigned members"
+      "ASSIGNED_MEMBERS": "Assigned members",
+      "RESOURCE_TAGS":  "Assigned tags"
     },
     "GROUP": {
       "OVERVIEW": "Overview",

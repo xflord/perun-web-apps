@@ -79,7 +79,7 @@
 </div>
 
 <app-alert *ngIf="resourceTags.length === 0" alert_type="warn">
-  {{'VO_DETAIL.RESOURCES.TAGS.NO_TAGS' | translate}}
+  {{entity === 'vo' ? ('VO_DETAIL.RESOURCES.TAGS.NO_TAGS' | translate) : ('RESOURCE_DETAIL.TAGS.NO_TAGS' | translate)}}
 </app-alert>
 
 <app-alert *ngIf="dataSource.filteredData.length === 0 && resourceTags.length !== 0" alert_type="warn">

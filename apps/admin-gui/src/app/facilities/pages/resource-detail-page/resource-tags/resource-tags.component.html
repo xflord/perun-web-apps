@@ -1,25 +1,25 @@
-<h1 class="page-subtitle">{{'VO_DETAIL.RESOURCES.TAGS.TITLE' | translate}}</h1>
+<h1 class="page-subtitle">{{'RESOURCE_DETAIL.TAGS.TITLE' | translate}}</h1>
 <perun-web-apps-refresh-button (refresh)="updateData()"></perun-web-apps-refresh-button>
 <button
-  *ngIf="createAuth"
+  *ngIf="addAuth"
   mat-flat-button
   class="mr-2"
   color="accent"
-  (click)="create()">
-  {{'VO_DETAIL.RESOURCES.TAGS.CREATE_BUTTON' | translate}}
+  (click)="addTag()">
+  {{'RESOURCE_DETAIL.TAGS.ADD_BUTTON' | translate}}
 </button>
 
 <button
-  *ngIf="deleteAuth"
+  *ngIf="removeAuth"
   mat-flat-button
   color="warn"
   [disabled]="selection.selected.length === 0"
-  (click)="deleteTag()">
-  {{'VO_DETAIL.RESOURCES.TAGS.DELETE_BUTTON' | translate}}
+  (click)="removeTags()">
+  {{'RESOURCE_DETAIL.TAGS.REMOVE_BUTTON' | translate}}
 </button>
 <perun-web-apps-immediate-filter
   (filter)="applyFilter($event)"
-  [placeholder]="'VO_DETAIL.RESOURCES.TAGS.SEARCH'">
+  [placeholder]="'RESOURCE_DETAIL.TAGS.SEARCH'">
 </perun-web-apps-immediate-filter>
 
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
@@ -28,8 +28,8 @@
                          [selection]="selection"
                          [pageSize]="pageSize"
                          (page)="pageChanged($event)"
-                         [resourceTags]="resourceTag"
+                         [resourceTags]="resourceTags"
                          [filterValue]="filterValue"
                          [displayedColumns]="displayedColumns"
-                         [entity]="'vo'"
-></app-resources-tags-list>
+                         [entity]="'resource'">
+</app-resources-tags-list>

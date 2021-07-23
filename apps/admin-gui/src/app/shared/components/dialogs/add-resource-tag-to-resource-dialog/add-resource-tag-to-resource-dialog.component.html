@@ -1,0 +1,36 @@
+<div class="{{theme}}">
+  <h1 mat-dialog-title>{{'RESOURCE_DETAIL.TAGS.ADD_TAGS' | translate}}</h1>
+
+  <div mat-dialog-content>
+    <div class="overflow-hidden">
+      <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+    </div>
+    <app-resources-tags-list
+      *ngIf="!loading"
+      [selection]="selection"
+      [pageSize]="pageSize"
+      (page)="pageChanged($event)"
+      [resourceTags]="resourceTags"
+      [filterValue]="filterValue"
+      [displayedColumns]="displayedColumns"
+      [entity]="'resource'">
+    </app-resources-tags-list>
+  </div>
+
+  <div mat-dialog-actions>
+    <button
+      mat-flat-button
+      class="ml-auto"
+      (click)="onCancel()">
+      {{'RESOURCE_DETAIL.TAGS.CANCEL' | translate}}
+    </button>
+    <button
+      mat-flat-button
+      class="ml-2"
+      color="accent"
+      (click)="onSubmit(selection.selected)"
+      [disabled]="loading || resourceTags.length === 0">
+      {{'RESOURCE_DETAIL.TAGS.ADD_BUTTON' | translate}}
+    </button>
+  </div>
+</div>

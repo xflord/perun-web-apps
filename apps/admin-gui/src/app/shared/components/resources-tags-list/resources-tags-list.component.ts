@@ -44,6 +44,8 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
   pageSize = 10;
   @Input()
   displayedColumns = ['select', 'id', 'name', 'edit'];
+  @Input()
+  entity: string;
 
   @Output()
   page = new EventEmitter<PageEvent>();
