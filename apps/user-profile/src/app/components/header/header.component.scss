@@ -1,4 +1,14 @@
 .header-container {
   height: 64px !important;
   padding: 0 0 0 8px;
+  z-index: 999;
+}
+
+#nav-menu-user-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-right: 16px;
+  margin-left: auto;
+  margin-right: 0;
 }
