@@ -5,7 +5,7 @@ import {
   UserExtSource,
   UsersManagerService
 } from '@perun-web-apps/perun/openapi';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserExtSourceDialogComponent } from '../../../../shared/components/dialogs/add-user-ext-source-dialog/add-user-ext-source-dialog.component';
@@ -35,7 +35,9 @@ export class UserIdentitiesComponent implements OnInit {
               private registrarManagerService: RegistrarManagerService,
               private dialog:MatDialog,
               protected route: ActivatedRoute,
-              private tableConfigService: TableConfigService) { }
+              private tableConfigService: TableConfigService,
+              public authResolver: GuiAuthResolver
+              ) { }
 
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);

@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
-import { PerunBean, PerunPolicy, PerunPrincipal, RoleManagementRules} from '@perun-web-apps/perun/openapi';
+import {
+  AuthzResolverService,
+  PerunBean,
+  PerunPolicy,
+  PerunPrincipal,
+  RoleManagementRules
+} from '@perun-web-apps/perun/openapi';
 import { Role } from '@perun-web-apps/perun/models';
-import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 
 @Injectable({
   providedIn: 'root'
@@ -199,19 +204,23 @@ export class GuiAuthResolver {
   }
 
   public canManageFacilities(): boolean {
-    return this.hasAtLeasOne(Role.PERUNADMIN, Role.FACILITYADMIN, Role.FACILITIYOBSERVER);
+    return this.hasAtLeastOne(Role.PERUNADMIN, Role.PERUNOBSERVER, Role.FACILITYADMIN, Role.FACILITIYOBSERVER);
   }
 
   public isPerunAdmin(): boolean {
     return this.principalRoles.has(Role.PERUNADMIN);
   }
 
+  public isPerunAdminOrObserver(): boolean {
+    return this.hasAtLeastOne(Role.PERUNADMIN, Role.PERUNOBSERVER);
+  }
+
   public isVoAdmin(): boolean {
-    return this.hasAtLeasOne(Role.PERUNADMIN, Role.VOADMIN);
+    return this.hasAtLeastOne(Role.PERUNADMIN, Role.VOADMIN);
   }
 
   public isThisVoAdminOrObserver(id: number): boolean {
-    return (this.editableVos.includes(id) || this.observableVos.includes(id) || this.principalRoles.has(Role.PERUNADMIN));
+    return (this.editableVos.includes(id) || this.observableVos.includes(id) || this.hasAtLeastOne(Role.PERUNADMIN, Role.PERUNOBSERVER));
   }
 
   public isThisVoAdmin(id: number): boolean {
@@ -219,11 +228,11 @@ export class GuiAuthResolver {
   }
 
   public isGroupAdmin(): boolean {
-    return this.hasAtLeasOne(Role.PERUNADMIN, Role.GROUPADMIN);
+    return this.hasAtLeastOne(Role.PERUNADMIN, Role.GROUPADMIN);
   }
 
   public isOnlySponsor(): boolean {
-    return this.hasAtLeasOne(Role.SPONSOR);
+    return this.hasAtLeastOne(Role.SPONSOR);
   }
 
   public isThisGroupAdmin(id: number): boolean {
@@ -235,7 +244,7 @@ export class GuiAuthResolver {
   }
 
   public isFacilityAdmin(): boolean {
-    return this.hasAtLeasOne(Role.PERUNADMIN, Role.FACILITYADMIN);
+    return this.hasAtLeastOne(Role.PERUNADMIN, Role.FACILITYADMIN);
   }
 
   public isThisFacilityAdmin(id: number): boolean {
@@ -243,26 +252,26 @@ export class GuiAuthResolver {
   }
 
   public isResourceAdmin(): boolean {
-    return this.hasAtLeasOne(Role.PERUNADMIN, Role.RESOURCEADMIN);
+    return this.hasAtLeastOne(Role.PERUNADMIN, Role.RESOURCEADMIN);
   }
 
   public isTopGroupCreator(): boolean {
-    return this.hasAtLeasOne(Role.PERUNADMIN, Role.TOPGROUPCREATOR);
+    return this.hasAtLeastOne(Role.PERUNADMIN, Role.TOPGROUPCREATOR);
   }
   public isTopGroupCreatorOnly(): boolean {
-    return this.hasAtLeasOne(Role.TOPGROUPCREATOR);
+    return this.hasAtLeastOne(Role.TOPGROUPCREATOR);
   }
 
   public isCabinetAdmin(): boolean {
-    return this.hasAtLeasOne(Role.PERUNADMIN, Role.CABINETADMIN);
+    return this.hasAtLeastOne(Role.PERUNADMIN, Role.CABINETADMIN);
   }
 
   isVoObserver(): boolean {
-    return (this.hasAtLeasOne(Role.PERUNADMIN, Role.VOOBSERVER));
+    return (this.hasAtLeastOne(Role.PERUNADMIN, Role.VOOBSERVER, Role.PERUNOBSERVER));
   }
 
   isThisVoObserver(id: number): boolean {
-    return (this.principalRoles.has(Role.PERUNADMIN) || this.observableVos.includes(id));
+    return (this.hasAtLeastOne(Role.PERUNADMIN, Role.PERUNOBSERVER) || this.observableVos.includes(id));
   }
 
   public getMemberIds(): number[] {
@@ -405,7 +414,7 @@ export class GuiAuthResolver {
    *
    * @param roles specified roles
    */
-  private hasAtLeasOne(...roles: Role[]): boolean {
+  private hasAtLeastOne(...roles: Role[]): boolean {
     for (const role of roles) {
       if (this.principalRoles.has(role)) {
         return true;

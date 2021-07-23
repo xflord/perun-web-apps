@@ -1,13 +1,13 @@
 <div>
   <h1 class="page-subtitle">{{'ADMIN.ATTRIBUTES.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button mat-flat-button (click)="onCreate()" color="accent" class="mr-2">
+  <button *ngIf="authResolver.isPerunAdmin()" mat-flat-button (click)="onCreate()" color="accent" class="mr-2">
     {{'ADMIN.ATTRIBUTES.CREATE' | translate}}
   </button>
-  <button mat-flat-button (click)="onImport()" color="accent" class="mr-2">
+  <button *ngIf="authResolver.isPerunAdmin()" mat-flat-button (click)="onImport()" color="accent" class="mr-2">
     {{'ADMIN.ATTRIBUTES.IMPORT' | translate}}
   </button>
-  <button mat-flat-button color="warn" (click)="onDelete()" class="mr-2" [disabled]="selected.selected.length === 0">
+  <button *ngIf="authResolver.isPerunAdmin()" mat-flat-button color="warn" (click)="onDelete()" class="mr-2" [disabled]="selected.selected.length === 0">
     {{'ADMIN.ATTRIBUTES.DELETE' | translate}}
   </button>
   <perun-web-apps-immediate-filter
@@ -21,6 +21,7 @@
     [definitions]="attrDefinitions"
     [selection]="selected"
     [filterValue]="filterValue"
+    [disableRouting]="!authResolver.isPerunAdmin()"
     (refreshEvent)="refreshTable()">
   </app-attr-def-list>
 </div>

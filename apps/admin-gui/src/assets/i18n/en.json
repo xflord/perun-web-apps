@@ -2245,6 +2245,7 @@
     "TOPGROUPCREATOR": "Top group creator",
     "TOPGROUPCREATOR_VOS": "Organizations, where you can create groups",
     "PERUN_ADMIN": "Perun admin",
+    "PERUN_OBSERVER": "Perun observer",
     "SELF": "Self",
     "SELF_VOS": "Organizations you are member of",
     "SELF_IDENTITIES": "Identities linked to your Perun account",

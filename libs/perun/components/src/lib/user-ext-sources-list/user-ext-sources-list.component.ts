@@ -75,7 +75,7 @@ export class UserExtSourcesListComponent implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!this.authResolver.isPerunAdmin()){
+    if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
     this.dataSource = new MatTableDataSource<RichUserExtSource>(this.userExtSources);

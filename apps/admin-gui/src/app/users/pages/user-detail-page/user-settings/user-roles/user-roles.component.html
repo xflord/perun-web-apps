@@ -313,6 +313,15 @@
     </mat-expansion-panel-header>
   </mat-expansion-panel>
 
+  <mat-expansion-panel *ngIf="isPerunObserver">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon mat-card-avatar svgIcon='perun-user-dark' class="mr-2"></mat-icon>
+        <p class="mt-auto mb-auto">{{'ROLES.PERUN_OBSERVER' | translate}}</p>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+
   <mat-expansion-panel *ngFor="let role of roleNames" (opened)="getInnerKeys(role)">
     <mat-expansion-panel-header>
       <mat-panel-title>

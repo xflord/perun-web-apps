@@ -78,7 +78,7 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
   @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
 
   ngOnChanges(changes: SimpleChanges) {
-    if (!this.guiAuthResolver.isPerunAdmin()){
+    if (!this.guiAuthResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
     this.dataSource = new MatTableDataSource<ResourceWithStatus>(this.resources);

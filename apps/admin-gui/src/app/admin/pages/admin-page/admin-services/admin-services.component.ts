@@ -7,6 +7,7 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateEditServiceDialogComponent } from '../../../../shared/components/dialogs/create-edit-service-dialog/create-edit-service-dialog.component';
 import { DeleteServiceDialogComponent } from '../../../../shared/components/dialogs/delete-service-dialog/delete-service-dialog.component';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class AdminServicesComponent implements OnInit {
 
   constructor(private tableConfigService: TableConfigService,
               private serviceManager: ServicesManagerService,
-              private dialog: MatDialog
+              private dialog: MatDialog,
+              public authResolver: GuiAuthResolver
               ) { }
 
 

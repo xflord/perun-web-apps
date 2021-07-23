@@ -40,10 +40,11 @@ export class UserRolesComponent implements OnInit {
   isTrustedFacilityAdmin: boolean;
   isFacilityObserver: boolean;
   isPerunAdmin: boolean;
+  isPerunObserver: boolean;
 
   roleFilter = ['SELF', 'GROUPADMIN', 'VOADMIN', 'RESOURCEADMIN', 'FACILITYADMIN', 'TOPGROUPCREATOR', 'SPONSORSHIP',
     'SPONSOR', 'RESOURCESELFSERVICE', 'VOOBSERVER', 'RESOURCEOBSERVER', 'GROUPOBSERVER',
-    'TRUSTEDFACILITYADMIN', 'FACILITYOBSERVER', 'PERUNADMIN'];
+    'TRUSTEDFACILITYADMIN', 'FACILITYOBSERVER', 'PERUNADMIN', 'PERUNOBSERVER'];
   roleNames: string[] = [];
   groups: Group[] = [];
   vos: Vo[] = [];
@@ -140,6 +141,9 @@ export class UserRolesComponent implements OnInit {
           break;
         case 'PERUNADMIN':
           this.isPerunAdmin = true;
+          break;
+        case 'PERUNOBSERVER':
+          this.isPerunObserver = true;
           break;
       }
 

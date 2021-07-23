@@ -8,6 +8,7 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ConnectIdentity } from '../../../../../shared/components/dialogs/connect-identity/connect-identity';
 import { DisconnectIdentity } from '../../../../../shared/components/dialogs/disconnect-identity/disconnect-identity';
 import { PageEvent } from '@angular/material/paginator';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-user-settings-service-identities',
@@ -20,7 +21,9 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
               private dialog: MatDialog,
               private router: Router,
               private tableConfigService: TableConfigService,
-              private userManager: UsersManagerService) { }
+              private userManager: UsersManagerService,
+              public authResolver: GuiAuthResolver
+              ) { }
 
   loading = false;
   selection = new SelectionModel<User>(false, []);

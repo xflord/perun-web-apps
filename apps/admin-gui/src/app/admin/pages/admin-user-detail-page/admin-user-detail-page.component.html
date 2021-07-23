@@ -17,7 +17,7 @@
         <span class="text-muted">
           &nbsp;#{{user.id}}
         </span>
-        <button (click)="editUser()" mat-icon-button>
+        <button *ngIf="authResolver.isPerunAdmin()" (click)="editUser()" mat-icon-button>
           <mat-icon>edit</mat-icon>
         </button>
       </div>

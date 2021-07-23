@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AddRequiredAttributesDialogComponent } from '../../../../../../shared/components/dialogs/add-required-attributes-dialog/add-required-attributes-dialog.component';
 import { RemoveRequiredAttributesDialogComponent } from '../../../../../../shared/components/dialogs/remove-required-attributes-dialog/remove-required-attributes-dialog.component';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-service-required-attributes',
@@ -22,7 +23,9 @@ export class ServiceRequiredAttributesComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private tableConfigService: TableConfigService,
               private attributeManager: AttributesManagerService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              public authResolver: GuiAuthResolver
+              ) { }
 
   loading = false;
   filterValue = '';

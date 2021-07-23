@@ -67,7 +67,7 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngAfterViewInit(): void {
-    if (!this.authResolver.isPerunAdmin()){
+    if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
     this.setDataSource();

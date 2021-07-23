@@ -70,11 +70,11 @@
   </div>
   <app-side-menu-root-item
     [sideNav]="sideNav"
-    *ngIf="authResolver.isPerunAdmin()"
+    *ngIf="authResolver.isPerunAdminOrObserver()"
     [showOpen]="adminItemOpened"
     [item]="adminItem">
   </app-side-menu-root-item>
-  <div *ngIf="authResolver.isPerunAdmin()">
+  <div *ngIf="authResolver.isPerunAdminOrObserver()">
     <div
       *ngFor="let item of adminItems; let i = index"
       @rollInOut
