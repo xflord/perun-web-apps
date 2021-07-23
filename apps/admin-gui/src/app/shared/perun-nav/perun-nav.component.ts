@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { AuthzResolverService, PerunPrincipal } from '@perun-web-apps/perun/openapi';
+import { AuthzResolverService, PerunPrincipal, UtilsService } from '@perun-web-apps/perun/openapi';
 import { StoreService } from '@perun-web-apps/perun/services';
 import { AuthService } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
@@ -26,12 +26,16 @@ export class PerunNavComponent implements OnInit, AfterViewInit {
               private translateService: TranslateService,
               private store: StoreService,
               private sanitizer: DomSanitizer,
-              private notificationStorageService: NotificationStorageService) {
+              private notificationStorageService: NotificationStorageService,
+              private utilsService: UtilsService) {
   }
 
   logoutEnabled = true;
   navTextColor = this.store.get('theme', 'nav_text_color');
   iconColor = this.store.get('theme', 'nav_icon_color');
+
+  profileLabel: string;
+  profileUrl: string;
 
   @Input()
   sideNav: MatSidenav;
@@ -49,10 +53,10 @@ export class PerunNavComponent implements OnInit, AfterViewInit {
     this.isDevel = this.storeService.get('isDevel');
     this.logo = this.sanitizer.bypassSecurityTrustHtml(this.store.get('logo'));
     this.logoutEnabled = this.storeService.get('log_out_enabled');
-  }
-
-  onLogOut() {
-    this.authService.logout();
+    this.profileLabel = this.storeService.get('profile_label_en');
+    this.utilsService.getAppsConfig().subscribe(config => {
+      this.profileUrl = !!config.brands[0].newApps.profile ? config.brands[0].newApps.profile : null;
+    });
   }
 
   showNotificationHistory() {
