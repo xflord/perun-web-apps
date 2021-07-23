@@ -352,11 +352,13 @@ export class GroupsListComponent implements OnInit, AfterViewInit, OnChanges {
             this.voIds.add(grp.voId);
           }
         });
-        this.voService.getVosByIds([...this.voIds]).subscribe(vos => {
-          vos.forEach(vo => {
-            this.voNames.set(vo.id, vo.name);
+        if (this.voIds.size > 0) {
+          this.voService.getVosByIds([...this.voIds]).subscribe(vos => {
+            vos.forEach(vo => {
+              this.voNames.set(vo.id, vo.name);
+            });
           });
-        });
+        }
       }
   }
 
