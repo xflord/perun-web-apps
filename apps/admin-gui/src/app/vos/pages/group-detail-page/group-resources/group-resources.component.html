@@ -27,6 +27,7 @@
     #list
     *ngIf="resources && !loading"
     (page)="pageChanged($event)"
+    (refreshTable)="refreshTable()"
     [pageSize]="pageSize"
     [filterValue]="filterValue"
     [resources]="resources"
@@ -34,6 +35,7 @@
     [disableRouting]="!routingAuth"
     [selection]="selected"
     [groupToResource]="group"
+    [groupId]="groupId"
     [displayedColumns]="['select', 'id', 'name', 'status', 'facility', 'tags', 'description']">
   </perun-web-apps-resources-list>
 </div>

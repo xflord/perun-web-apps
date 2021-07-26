@@ -3,7 +3,7 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnChanges,
+  OnChanges, OnInit,
   Output,
   SimpleChanges,
   ViewChild
@@ -31,7 +31,7 @@ export interface ResourceWithStatus extends RichResource {
   templateUrl: './resources-list.component.html',
   styleUrls: ['./resources-list.component.scss']
 })
-export class ResourcesListComponent implements AfterViewInit, OnChanges {
+export class ResourcesListComponent implements OnInit, AfterViewInit, OnChanges {
 
   constructor(private guiAuthResolver: GuiAuthResolver,
               private tableCheckbox: TableCheckbox) { }
@@ -61,9 +61,13 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   @Input()
   recentIds: number[];
+  @Input()
+  groupId: number = null;
 
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
+  @Output()
+  refreshTable: EventEmitter<void> = new EventEmitter<void>();
   @Output()
   allSelected = new EventEmitter();
 
@@ -74,8 +78,13 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
   removeAuth = false;
 
   addAuth = false;
+  disabledRouting: boolean;
 
   @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+
+  ngOnInit() {
+    this.disabledRouting = this.disableRouting;
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (!this.guiAuthResolver.isPerunAdminOrObserver()){

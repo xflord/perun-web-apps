@@ -114,6 +114,9 @@ export class GroupsListComponent implements OnInit, AfterViewInit, OnChanges {
   @Input()
   recentIds: number[] = [];
 
+  @Input()
+  resourceId: number = null;
+
   @Output()
   page = new EventEmitter<PageEvent>();
 
