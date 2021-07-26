@@ -286,7 +286,9 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
   }
 
   private getOptions() {
+    this.options = {};
     for (const lang of this.languages) {
+      this.options[lang] = [];
       if (this.applicationFormItem.i18n[lang].options) {
         const temp = this.applicationFormItem.i18n[lang].options.split('|');
         for (const item of temp) {
