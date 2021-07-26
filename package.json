@@ -1,6 +1,6 @@
 {
   "name": "perun-web-apps",
-  "version": "0.25.0",
+  "version": "0.0.0-development",
   "license": "MIT",
   "scripts": {
     "analyze": "webpack-bundle-analyzer",
@@ -30,13 +30,14 @@
     "help": "nx help",
     "start-dev-admin-gui": "ng serve admin-gui --public-host=http://localhost:4200 --disable-host-check",
     "preversion": "npm run lint",
-    "version": "npm run build -- --prod && npm run build -- user-profile --prod && npm run build -- publications --prod && bash create-version-file.sh && git add -A -f dist",
+    "version": "npm run build -- --prod && npm run build -- user-profile --prod && npm run build -- publications --prod && bash create-version-file.sh",
     "start-user-profile": "ng serve user-profile --public-host=http://localhost:4200 --disable-host-check",
     "start-publications": "ng serve publications --public-host=http://localhost:4200 --disable-host-check",
     "start-password-reset": "ng serve password-reset --public-host=http://localhost:4200 --disable-host-check",
     "start-dev-admin-gui-with-external-database": "sudo ng serve admin-gui --port=80 --public-host=http://localhost:80 --disable-host-check",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
-    "workspace-generator": "nx workspace-generator"
+    "workspace-generator": "nx workspace-generator",
+    "semantic-release": "semantic-release"
   },
   "private": true,
   "dependencies": {
@@ -94,6 +95,8 @@
     "@nrwl/tao": "12.4.0",
     "@nrwl/workspace": "12.4.0",
     "@openapitools/openapi-generator-cli": "^2.1.9",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.2.3",
     "@types/file-saver": "^2.0.1",
     "@types/jest": "26.0.8",
     "@types/node": "14.14.33",
@@ -103,10 +106,15 @@
     "jest": "27.0.3",
     "jest-preset-angular": "^9.0.4",
     "prettier": "2.2.1",
+    "semantic-release": "^17.4.4",
     "ts-jest": "27.0.3",
     "ts-node": "9.1.1",
     "tslint": "6.1.3",
     "typescript": "4.2.4",
     "webpack-bundle-analyzer": "^3.9.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CESNET/perun-web-apps.git"
   }
 }
