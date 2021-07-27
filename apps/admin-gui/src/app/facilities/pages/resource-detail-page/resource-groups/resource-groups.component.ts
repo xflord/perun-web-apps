@@ -20,6 +20,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { GroupWithStatus } from '@perun-web-apps/perun/components';
+import { Urns } from '@perun-web-apps/perun/urns';
 
 @Component({
   selector: 'app-perun-web-apps-resource-groups',
@@ -62,7 +63,7 @@ export class ResourceGroupsComponent implements OnInit {
 
   loadAllGroups() {
     this.loading = true;
-    this.resourcesManager.getGroupAssignments(this.resourceId).subscribe(assignedGroups => {
+    this.resourcesManager.getGroupAssignments(this.resourceId, [Urns.GROUP_SYNC_ENABLED]).subscribe(assignedGroups => {
       this.assignedGroups = <GroupWithStatus[]>assignedGroups.map(g => {
         const gws: GroupWithStatus = g.enrichedGroup.group;
         gws.status = g.status;
