@@ -169,6 +169,8 @@ import { OneEntityAttributePageComponent } from './components/one-entity-attribu
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
 import { AddResourceTagToResourceDialogComponent } from './components/dialogs/add-resource-tag-to-resource-dialog/add-resource-tag-to-resource-dialog.component';
 import { CreateServiceMemberDialogComponent } from './components/create-service-member-dialog/create-service-member-dialog.component';
+import { MemberOverviewMembershipComponent } from './components/member-overview-membership/member-overview-membership.component';
+import { MemberOverviewGroupsComponent } from './components/member-overview-groups/member-overview-groups.component';
 
 @NgModule({
   imports: [
@@ -301,6 +303,8 @@ import { CreateServiceMemberDialogComponent } from './components/create-service-
     AttributeFriendlyNamePipe,
     StatisticsCardComponent,
     OneEntityAttributePageComponent,
+    MemberOverviewMembershipComponent,
+    MemberOverviewGroupsComponent,
   ],
   declarations: [
     PerunNavComponent,
@@ -426,7 +430,9 @@ import { CreateServiceMemberDialogComponent } from './components/create-service-
     AddGroupToRegistrationComponent,
     OneEntityAttributePageComponent,
     AddResourceTagToResourceDialogComponent,
-    CreateServiceMemberDialogComponent
+    CreateServiceMemberDialogComponent,
+    MemberOverviewMembershipComponent,
+    MemberOverviewGroupsComponent,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe],
 })

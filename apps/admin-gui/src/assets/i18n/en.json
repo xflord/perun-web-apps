@@ -882,7 +882,8 @@
       "RESOURCES": "Resources",
       "ASSOCIATED_USERS": "Associated users",
       "ENTITY": "User",
-      "USER_TYPE": "User type"
+      "USER_TYPE": "User type",
+      "ACCOUNTS": "Accounts"
     },
     "SERVICE": {
       "OVERVIEW": "Overview",
@@ -2150,6 +2151,15 @@
     },
     "RESOURCES": {
       "TITLE": "Resources"
+    },
+    "ACCOUNTS": {
+      "TITLE": "Accounts",
+      "STATUS": "Status",
+      "GROUPS": "Member groups",
+      "MEMBER": "Member ID",
+      "MEMBER_ATT": "Member attributes",
+      "MEMBER_GROUP_ATT": "Member-Group attributes",
+      "MEMBER_RESOURCE_ATT": "Member-Resource attributes"
     },
     "SETTINGS": {
       "ATTRIBUTES": {
