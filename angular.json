@@ -69,6 +69,26 @@
                   "maximumWarning": "6kb"
                 }
               ]
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "6mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
             }
           },
           "outputs": [
@@ -80,9 +100,13 @@
           "options": {
             "browserTarget": "admin-gui:build"
           },
+          "defaultConfiguration": "development",
           "configurations": {
             "production": {
               "browserTarget": "admin-gui:build:production"
+            },
+            "development": {
+              "browserTarget": "admin-gui:build:development"
             }
           }
         },
@@ -320,6 +344,26 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "6mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
             }
           },
           "outputs": [
@@ -331,9 +375,13 @@
           "options": {
             "browserTarget": "password-reset:build"
           },
+          "defaultConfiguration": "development",
           "configurations": {
             "production": {
               "browserTarget": "password-reset:build:production"
+            },
+            "development": {
+              "browserTarget": "password-reset:build:development"
             }
           }
         },
@@ -964,6 +1012,26 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "6mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
             }
           },
           "outputs": [
@@ -975,9 +1043,13 @@
           "options": {
             "browserTarget": "publications:build"
           },
+          "defaultConfiguration": "development",
           "configurations": {
             "production": {
               "browserTarget": "publications:build:production"
+            },
+            "development": {
+              "browserTarget": "publications:build:development"
             }
           }
         },
@@ -1215,6 +1287,26 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "6mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
             }
           },
           "outputs": [
@@ -1226,9 +1318,13 @@
           "options": {
             "browserTarget": "user-profile:build"
           },
+          "defaultConfiguration": "development",
           "configurations": {
             "production": {
               "browserTarget": "user-profile:build:production"
+            },
+            "development": {
+              "browserTarget": "user-profile:build:development"
             }
           }
         },
