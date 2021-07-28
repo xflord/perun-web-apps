@@ -1,0 +1,28 @@
+.display-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-disabled {
+  pointer-events: none;
+  color: #888888;
+}
+
+.truncate {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap;
+}
+
+.center-content {
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
+.white-space-pre {
+  white-space: pre;
+}
+
+.margin-bottom {
+  margin-bottom: 6px;
+}

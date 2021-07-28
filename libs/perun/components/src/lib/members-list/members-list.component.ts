@@ -164,7 +164,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     this.dataSource = new MatTableDataSource<RichMember>(this.members);
     this.setDataSource();
     this.disabledRouting = this.disableRouting;
-    this.route.parent.params.subscribe(params => {
+    this.route.parent?.params.subscribe(params => {
       if (params['groupId']){
         this.groupId = params['groupId'];
       }
