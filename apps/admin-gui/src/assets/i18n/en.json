@@ -1166,6 +1166,7 @@
       "OPTIONS": "Options",
       "OPTIONS_DESCRIPTION": "Define possible options for selection in SELECTIONBOX, COMBOBOX, CHECKBOX, RADIO widget. Empty options are not used.",
       "ADD_OPTION": "Add option",
+      "REMOVE_OPTION": "Remove",
       "VALUE": "Value",
       "SORT_BY_LABEL_AZ": "Sort by label(A-Z)",
       "SORT_BY_LABEL_ZA": "Sort by label(Z-A)",
