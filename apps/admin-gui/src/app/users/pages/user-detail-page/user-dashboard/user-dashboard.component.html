@@ -35,7 +35,7 @@
           </div>
           <div class="d-flex pt-3">
             <button mat-stroked-button class="ml-auto mr-auto text-bigger" [routerLink]="['/myProfile']">
-              <mat-icon svgIcon='perun-user-dark' class="mr-1 user-icon"></mat-icon>
+              <mat-icon svgIcon='perun-user-dark' class="mr-1 user-icon perun-icon"></mat-icon>
               {{'USER_DETAIL.DASHBOARD.GO_TO_MY_PROFILE' | translate}}
             </button>
 
@@ -43,7 +43,7 @@
                     class="ml-auto mr-auto text-bigger"
                     *ngIf="userProfileUrl"
                     (click)="goToUserProfile()">
-              <mat-icon class="mr-1">exit_to_app</mat-icon>{{'USER_DETAIL.DASHBOARD.GO_TO_USER_PROFILE' | translate}}
+              <mat-icon class="mr-1">exit_to_app</mat-icon>{{'USER_DETAIL.DASHBOARD.GO_TO_USER_PROFILE' | translate}} {{this.userProfileName}}
             </button>
           </div>
 
