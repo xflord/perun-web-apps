@@ -131,7 +131,11 @@ export class AdminGuiConfigService {
    */
   private setApiUrl() {
     return new Promise<void>((resolve) => {
-      this.authzSevice.configuration.basePath = this.store.get('api_url');
+      let apiUrl = this.store.get('api_url');
+      if (location.pathname === '/service-access' || sessionStorage.getItem("baPrincipal")) {
+        apiUrl = apiUrl.replace("oauth", "ba");
+      }
+      this.authzSevice.configuration.basePath = apiUrl;
       this.titleService.setTitle(this.store.get('document_title'));
       resolve();
     });

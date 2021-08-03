@@ -5,6 +5,7 @@ import { UserDashboardComponent } from './users/pages/user-detail-page/user-dash
 import { NotFoundPageComponent } from './shared/components/not-found-page/not-found-page.component';
 import { RedirectPageComponent } from '@perun-web-apps/perun/components';
 import { LoginScreenComponent } from '@perun-web-apps/perun/login';
+import { LoginScreenServiceAccessComponent } from '@perun-web-apps/perun/login';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginScreenComponent
+  },
+  {
+    path: 'service-access',
+    component: LoginScreenServiceAccessComponent
   },
   {
     path: 'organizations',

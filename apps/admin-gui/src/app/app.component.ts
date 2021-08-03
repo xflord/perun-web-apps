@@ -36,6 +36,7 @@ export class AppComponent implements OnInit {
   lastScreenWidth: number;
 
   isLoginScreenShow: boolean;
+  isServiceAccess: boolean;
 
   principal: PerunPrincipal;
   navBackgroundColor = this.store.get('theme', 'nav_bg_color');
@@ -55,12 +56,18 @@ export class AppComponent implements OnInit {
     this.lastScreenWidth = window.innerWidth;
   }
 
+  isServiceLogin(): boolean {
+    return !!sessionStorage.getItem("baLogout");
+  }
+
   isMobile(): boolean {
     return window.innerWidth <= AppComponent.minWidth;
   }
 
   ngOnInit(): void {
     this.isLoginScreenShow = this.initAuth.isLoginScreenShown();
+    this.isServiceAccess = this.initAuth.isServiceAccessLoginScreenShown();
+    sessionStorage.removeItem("baLogout");
 
     if (sessionStorage.getItem("initPage") === null) {
       sessionStorage.setItem("initPage", location.pathname);

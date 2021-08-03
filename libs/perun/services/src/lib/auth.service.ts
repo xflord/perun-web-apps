@@ -126,7 +126,15 @@ export class AuthService {
   }
 
   logout() {
-    this.oauthService.logOut();
+    if (sessionStorage.getItem("baPrincipal")) {
+      sessionStorage.removeItem("baPrincipal");
+      sessionStorage.removeItem("basicUsername");
+      sessionStorage.removeItem("basicPassword");
+      sessionStorage.setItem("baLogout", "true");
+      this.router.navigate(['/service-access']);
+    } else {
+      this.oauthService.logOut();
+    }
   }
 
   isLoggedInPromise(): Promise<boolean> {
@@ -154,6 +162,7 @@ export class AuthService {
    * @return true if path is valid, false otherwise
    */
   private isPotentiallyValidPath(path: string): boolean {
+    // add '/service-access' to valid paths to enable basic auth
     const validPaths = ['/home', '/organizations', '/facilities', '/myProfile', '/admin', '/login'];
     if (path === '/'){
       return true;
