@@ -10,3 +10,7 @@
   align-items: center;
   justify-content: center;
 }
+
+.italic_font {
+  font-style: italic;
+}

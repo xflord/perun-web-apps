@@ -3,11 +3,11 @@
   (refresh)="refreshTable()"
   *ngIf="!loading">
 </perun-web-apps-refresh-button>
-<perun-web-apps-immediate-filter
+<perun-web-apps-debounce-filter
   (filter)="applyFilter($event)"
   *ngIf="!loading"
   [placeholder]="'RESOURCE_DETAIL.ASSIGNED_MEMBERS.FILTER'">
-</perun-web-apps-immediate-filter>
+</perun-web-apps-debounce-filter>
 <mat-spinner
   *ngIf="loading"
   class="ml-auto mr-auto">

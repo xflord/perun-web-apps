@@ -41,7 +41,6 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
-    this.setDataSource();
   }
 
   @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
@@ -144,26 +143,28 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
   }
 
   setDataSource() {
-    if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: RichMember, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getFilterDataForColumn, this);
-      this.dataSource.sortData = (data: RichMember[], sort: MatSort) => customDataSourceSort(data, sort, this.getSortDataForColumn, this);
-      this.dataSource.filter = this.filter;
+    if (!this.dataSource) {
+      this.dataSource = new MatTableDataSource<RichMember>();
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
+      this.dataSource.filterPredicate = (data: RichMember, filter: string) =>
+        customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getFilterDataForColumn, this);
+      this.dataSource.sortData = (data: RichMember[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getSortDataForColumn, this);
     }
+    this.dataSource.filter = this.filter;
+    this.dataSource.data = this.members;
+
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.child.paginator;
-  }
-
-  ngOnChanges() {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
-    this.dataSource = new MatTableDataSource<RichMember>(this.members);
+  }
+
+  ngOnChanges() {
     this.setDataSource();
-    this.disabledRouting = this.disableRouting;
     this.route.parent.params.subscribe(params => {
       if (params['groupId']){
         this.groupId = params['groupId'];
@@ -173,7 +174,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
 
   canBeSelected = (member: RichMember): boolean => member.membershipType === 'DIRECT'
 
-   isAllSelected() {
+  isAllSelected() {
     return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(this.selection.selected.length, this.filter, this.pageSize, this.child.paginator.hasNextPage(), this.child.paginator.pageIndex, this.dataSource, this.sort, this.canBeSelected);
   }
 

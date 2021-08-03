@@ -1,4 +1,4 @@
-<div class="card mt-2" [hidden]="dataSource.filteredData.length === 0">
+<div class="card mt-2" [hidden]="this.users.length === 0 || !dataSource || dataSource.filteredData.length === 0">
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"

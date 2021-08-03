@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
-import { RichUser} from '@perun-web-apps/perun/openapi';
+import { RichUser } from '@perun-web-apps/perun/openapi';
 import {
   customDataSourceFilterPredicate, customDataSourceSort, downloadData, getDataForExport, parseFullName,
   parseLogins,
@@ -18,14 +18,13 @@ import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss']
 })
-export class UsersListComponent implements OnChanges {
+export class UsersListComponent implements OnChanges, AfterViewInit {
 
   constructor(private authResolver: GuiAuthResolver,
               private tableCheckbox: TableCheckbox) { }
 
-  @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
     this.sort = ms;
-    this.setDataSource();
   }
 
   @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
@@ -51,7 +50,7 @@ export class UsersListComponent implements OnChanges {
   filter = '';
 
   @Output()
-  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
+  page = new EventEmitter<PageEvent>();
 
   dataSource: MatTableDataSource<RichUser>;
 
@@ -106,20 +105,31 @@ export class UsersListComponent implements OnChanges {
   }
 
   setDataSource() {
-    if (this.dataSource) {
+    if (!this.dataSource) {
+      this.dataSource = new MatTableDataSource<RichUser>();
+      this.dataSource.paginator = this.child.paginator;
+      this.dataSource.filterPredicate = (data: RichUser, filter: string) =>
+        customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+     this.dataSource.sortData = (data: RichUser[], sort: MatSort) =>
+       customDataSourceSort(data, sort, this.getDataForColumn, this);
+    }
+    if (!this.dataSource.sort) {
       this.dataSource.sort = this.sort;
+    }
+    if (this.dataSource.sort) {
       this.dataSource.filter = this.filter;
-      this.dataSource.filterPredicate = (data: RichUser, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
-      this.dataSource.sortData = (data: RichUser[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.data = this.users;
     }
   }
 
-  ngOnChanges() {
+  ngAfterViewInit(): void {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
-    this.dataSource = new MatTableDataSource<RichUser>(this.users);
-    this.dataSource.paginator = this.child.paginator;
+    this.setDataSource();
+  }
+
+  ngOnChanges() {
     this.setDataSource();
   }
 

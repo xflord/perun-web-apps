@@ -31,14 +31,13 @@ export interface ResourceWithStatus extends RichResource {
   templateUrl: './resources-list.component.html',
   styleUrls: ['./resources-list.component.scss']
 })
-export class ResourcesListComponent implements OnInit, AfterViewInit, OnChanges {
+export class ResourcesListComponent implements OnInit, OnChanges {
 
   constructor(private guiAuthResolver: GuiAuthResolver,
               private tableCheckbox: TableCheckbox) { }
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
-    this.setDataSource();
   }
 
   @Input()
@@ -90,9 +89,7 @@ export class ResourcesListComponent implements OnInit, AfterViewInit, OnChanges 
     if (!this.guiAuthResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
-    this.dataSource = new MatTableDataSource<ResourceWithStatus>(this.resources);
     this.setDataSource();
-    this.dataSource.filter = this.filterValue;
     this.setAuth();
   }
 
@@ -140,12 +137,17 @@ export class ResourcesListComponent implements OnInit, AfterViewInit, OnChanges 
   }
 
   setDataSource() {
-    if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: RichResource, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this, true);
-      this.dataSource.sortData = (data: RichResource[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
+    if (!this.dataSource) {
+      this.dataSource = new MatTableDataSource<RichResource>();
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
+      this.dataSource.filterPredicate = (data: RichResource, filter: string) =>
+        customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this, true);
+      this.dataSource.sortData = (data: RichResource[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getDataForColumn, this);
     }
+    this.dataSource.filter = this.filterValue;
+    this.dataSource.data = this.resources;
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -167,10 +169,6 @@ export class ResourcesListComponent implements OnInit, AfterViewInit, OnChanges 
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.child.paginator;
   }
 
   setAuth() {

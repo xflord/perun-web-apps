@@ -1,13 +1,11 @@
 <div>
   <h1 class="page-subtitle">{{'FACILITY_DETAIL.ALLOWED_USERS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button
-    *ngIf="!loading"
     (refresh)="refreshTable()">
   </perun-web-apps-refresh-button>
-  <perun-web-apps-immediate-filter
-    *ngIf="!loading"
+  <perun-web-apps-debounce-filter
     [placeholder]="'FACILITY_DETAIL.ALLOWED_USERS.FILTER'"
-    (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
+    (filter)="applyFilter($event)"></perun-web-apps-debounce-filter>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <app-alert
     alert_type="warn"
