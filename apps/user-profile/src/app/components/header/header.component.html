@@ -7,6 +7,15 @@
   <a class="ml-3" [innerHTML]="logo" [routerLink]="disableLogo ? [] : ['/']" queryParamsHandling="merge"></a>
 
   <p [ngStyle]="{'color': textColor}" class="ml-3 mt-auto mb-auto">{{label}}</p>
+
+  <perun-web-apps-header-menu
+    id="nav-menu-user-info"
+    class="justify-content-end"
+    [url]="adminGuiUrl"
+    [label]="adminLabel"
+    [user]="principal.user"
+    [logoutEnabled]="logoutEnabled"
+    [iconColor]="iconColor"
+    [textColor]="textColor">
+  </perun-web-apps-header-menu>
 </mat-toolbar>
-
-
