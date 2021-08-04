@@ -2531,6 +2531,22 @@
           "INACTIVE": "Inactive",
           "FAILED": "Failed",
           "PROCESSING": "Processing"
+        },
+        "CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG": {
+          "TITLE": "Change group resource assigment status",
+          "CANCEL": "Cancel",
+          "SUBMIT": "Submit",
+          "ACTIVE": "Active",
+          "INACTIVE": "Inactive",
+          "CURRENT": "Current status",
+          "NEW": "New status",
+          "VALIDATE": "Validate attributes",
+          "SYNC": "Synchronously",
+          "ASYNC": "Asynchronously",
+          "SYNC_HINT": "Attributes will be validated synchronously. Validation will be processed immediately, it can take some time.",
+          "ASYNC_HINT": "Attributes will be validated asynchronously. Validation will be processed independently.",
+          "ACTIVE_HINT": "After validation of group members attributes, members can access given resource.",
+          "INACTIVE_HINT": "With 'Inactive' status, group members can no longer access given resource."
         }
       },
       "ORGANIZATIONS": {
