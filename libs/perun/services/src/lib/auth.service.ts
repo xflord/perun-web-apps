@@ -45,24 +45,7 @@ export class AuthService {
   redirectUrl: string;
 
   getClientSettings(): UserManagerSettings {
-    const queryParams = location.search.substr(1).split('&');
-    const filters = this.store.get('oidc_client', 'filters');
-    let filterValue = '';
-    let f;
-    queryParams.forEach(param => {
-      const parsedParam = param.split('=')
-      if(parsedParam[0]==='idpFilter'){
-        f = filters[parsedParam[1]];
-        if(f){
-          filterValue = f;
-          this.filterShortname = parsedParam[1];
-        }
-      }
-    })
-    if(!f){
-      filterValue = filters['default'];
-      this.filterShortname = 'default';
-    }
+    const filterValue = this.setIdpFilter();
     return {
       authority: this.store.get('oidc_client', 'oauth_authority'),
       client_id: this.store.get('oidc_client', 'oauth_client_id'),
@@ -74,8 +57,32 @@ export class AuthService {
       loadUserInfo: this.store.get('oidc_client', 'oauth_load_user_info'),
       automaticSilentRenew: true,
       silent_redirect_uri: this.store.get('oidc_client', 'oauth_silent_redirect_uri'),
-      extraQueryParams: { 'acr_values': filterValue}
+      extraQueryParams: { 'acr_values': filterValue }
     };
+  }
+
+  setIdpFilter(): string {
+    const queryParams = location.search.substr(1).split('&');
+    this.filterShortname = null;
+    const filters = this.store.get('oidc_client', 'filters');
+    if (!filters) {
+      return null;
+    }
+    let filterValue = null;
+    queryParams.forEach(param => {
+      const parsedParam = param.split('=')
+      if(parsedParam[0] === 'idpFilter') {
+        if (filters[parsedParam[1]]) {
+          this.filterShortname = parsedParam[1];
+          filterValue = filters[parsedParam[1]];
+        }
+      }
+    })
+    if(filters['default'] && !filterValue) {
+      this.filterShortname = 'default';
+      return filters['default'];
+    }
+    return filterValue;
   }
 
   getUserManager(): UserManager {
