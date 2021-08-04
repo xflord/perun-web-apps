@@ -65,6 +65,7 @@ export class ResourceGroupsComponent implements OnInit {
       this.assignedGroups = <GroupWithStatus[]>assignedGroups.map(g => {
         const gws: GroupWithStatus = g.enrichedGroup.group;
         gws.status = g.status;
+        gws.failureCause = g.failureCause;
         return gws;
       });
       this.selected.clear();

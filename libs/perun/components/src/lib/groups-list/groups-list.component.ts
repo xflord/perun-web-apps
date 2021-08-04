@@ -35,6 +35,7 @@ import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
 
 export interface GroupWithStatus extends RichGroup {
   status?: GroupResourceStatus;
+  failureCause?: string;
 }
 
 @Component({

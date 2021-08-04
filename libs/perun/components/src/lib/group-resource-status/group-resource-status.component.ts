@@ -20,6 +20,8 @@ export class GroupResourceStatusComponent {
   resourceId: number;
   @Input()
   theme: string;
+  @Input()
+  failureCause: string;
   @Output()
   statusChange: EventEmitter<void> = new EventEmitter<void>();
 

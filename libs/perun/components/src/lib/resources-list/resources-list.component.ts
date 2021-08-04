@@ -23,6 +23,7 @@ import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
 
 export interface ResourceWithStatus extends RichResource {
   status?: GroupResourceStatus;
+  failureCause?: string;
 }
 
 @Component({

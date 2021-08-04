@@ -85,6 +85,7 @@ export class GroupResourcesComponent implements OnInit {
         resWithStatus.facility = r.facility;
         resWithStatus.status = r.status;
         resWithStatus.resourceTags = r.resourceTags;
+        resWithStatus.failureCause = r.failureCause;
         return resWithStatus;
       });
       this.selected.clear();
