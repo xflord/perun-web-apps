@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -6,12 +6,9 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './session-expiration-dialog.component.html',
   styleUrls: ['./session-expiration-dialog.component.scss']
 })
-export class SessionExpirationDialogComponent implements OnInit {
+export class SessionExpirationDialogComponent {
 
   constructor(private dialogRef: MatDialogRef<SessionExpirationDialogComponent>) { }
-
-  ngOnInit(): void {
-  }
 
   close() {
     this.dialogRef.close(true);

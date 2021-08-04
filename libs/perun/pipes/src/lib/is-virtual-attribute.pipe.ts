@@ -7,7 +7,7 @@ import { Attribute } from '@perun-web-apps/perun/openapi';
 })
 export class IsVirtualAttributePipe implements PipeTransform {
 
-  transform(attribute: Attribute, args?: any): any {
+  transform(attribute: Attribute): any {
    return  attribute.namespace.split(':')[4] === 'virt';
   }
 }

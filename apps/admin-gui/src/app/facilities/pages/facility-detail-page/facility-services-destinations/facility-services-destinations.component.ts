@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import {
   FacilitiesManagerService,
   Facility, RichDestination,
-  RichResource,
   ServicesManagerService
 } from '@perun-web-apps/perun/openapi';
 import {

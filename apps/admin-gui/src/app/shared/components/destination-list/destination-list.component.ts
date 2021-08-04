@@ -5,7 +5,6 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
@@ -57,7 +56,7 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
 
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'destinationId');
     }
@@ -92,14 +91,10 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
   }
 
   setDataSource() {
-    if (!!this.dataSource) {
+    if (this.dataSource) {
       this.dataSource.sort = this.sort;
-      this.dataSource.filterPredicate = (data: RichDestination, filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this)
-      };
-      this.dataSource.sortData = (data: Vo[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getDataForColumn, this);
-      };
+      this.dataSource.filterPredicate = (data: RichDestination, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: Vo[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.paginator = this.child.paginator;
     }
   }

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import {
   BanOnFacility,
   FacilitiesManagerService,
-  Facility,
   User,
   UsersManagerService
 } from '@perun-web-apps/perun/openapi';

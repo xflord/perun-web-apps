@@ -72,7 +72,11 @@ export class SettingsSSHKeysComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(sshAdded => {
       if (sshAdded) {
-        admin ? this.getAdminSSH() : this.getUserSSH();
+        if(admin) {
+          this.getAdminSSH();
+        } else {
+          this.getUserSSH();
+        }
       }
     });
   }
@@ -93,8 +97,13 @@ export class SettingsSSHKeysComponent implements OnInit {
     dialogRef.afterClosed().subscribe(sshAdded => {
       if (sshAdded) {
         this.loading = true;
-        admin ? this.getAdminSSH() : this.getUserSSH();
-        admin ? this.selectionAdmin.clear() : this.selection.clear();
+        if(admin) {
+          this.getAdminSSH();
+          this.selectionAdmin.clear();
+        } else {
+          this.getUserSSH();
+          this.selection.clear();
+        }
       }
     });
   }

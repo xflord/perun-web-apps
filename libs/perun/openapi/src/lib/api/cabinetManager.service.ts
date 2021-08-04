@@ -9,13 +9,19 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-/* tslint:disable:no-unused-variable member-ordering */
+/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent, HttpParameterCodec }       from '@angular/common/http';
-import { CustomHttpParameterCodec }                          from '../encoder';
-import { Observable }                                        from 'rxjs';
+import { Inject, Injectable, Optional } from '@angular/core';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+  HttpEvent,
+  HttpParameterCodec,
+} from '@angular/common/http';
+import { CustomHttpParameterCodec } from '../encoder';
+import { Observable } from 'rxjs';
 
 import { Author } from '../model/author';
 import { Authorship } from '../model/authorship';
@@ -37,1685 +43,2529 @@ import { PublicationSystem } from '../model/publicationSystem';
 import { Thanks } from '../model/thanks';
 import { ThanksForGUI } from '../model/thanksForGUI';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
-
-
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CabinetManagerService {
+  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  public defaultHeaders = new HttpHeaders();
+  public configuration = new Configuration();
+  public encoder: HttpParameterCodec;
 
-    protected basePath = 'https://perun.cesnet.cz/krb/rpc';
-    public defaultHeaders = new HttpHeaders();
-    public configuration = new Configuration();
-    public encoder: HttpParameterCodec;
+  constructor(
+    protected httpClient: HttpClient,
+    @Optional() @Inject(BASE_PATH) basePath: string,
+    @Optional() configuration: Configuration
+  ) {
+    if (configuration) {
+      this.configuration = configuration;
+    }
+    if (typeof this.configuration.basePath !== 'string') {
+      if (typeof basePath !== 'string') {
+        basePath = this.basePath;
+      }
+      this.configuration.basePath = basePath;
+    }
+    this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
+  }
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-        if (configuration) {
-            this.configuration = configuration;
-        }
-        if (typeof this.configuration.basePath !== 'string') {
-            if (typeof basePath !== 'string') {
-                basePath = this.basePath;
-            }
-            this.configuration.basePath = basePath;
-        }
-        this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
+  /**
+   * Creates Authorship. Everything except current date must be already set in Authorship object. Authorship is checked for existence before creation, if exists, existing object is returned. When authorship is successfully created, users priority coefficient is updated.
+   * @param inputCreateAuthorship
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public createAutorship(
+    inputCreateAuthorship: InputCreateAuthorship,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Authorship>;
+  public createAutorship(
+    inputCreateAuthorship: InputCreateAuthorship,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Authorship>>;
+  public createAutorship(
+    inputCreateAuthorship: InputCreateAuthorship,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Authorship>>;
+  public createAutorship(
+    inputCreateAuthorship: InputCreateAuthorship,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (inputCreateAuthorship === null || inputCreateAuthorship === undefined) {
+      throw new Error(
+        'Required parameter inputCreateAuthorship was null or undefined when calling createAutorship.'
+      );
     }
 
+    let headers = this.defaultHeaders;
 
-
-    /**
-     * Creates Authorship. Everything except current date must be already set in Authorship object. Authorship is checked for existence before creation, if exists, existing object is returned. When authorship is successfully created, users priority coefficient is updated. 
-     * @param inputCreateAuthorship 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public createAutorship(inputCreateAuthorship: InputCreateAuthorship, observe?: 'body', reportProgress?: boolean): Observable<Authorship>;
-    public createAutorship(inputCreateAuthorship: InputCreateAuthorship, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Authorship>>;
-    public createAutorship(inputCreateAuthorship: InputCreateAuthorship, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Authorship>>;
-    public createAutorship(inputCreateAuthorship: InputCreateAuthorship, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (inputCreateAuthorship === null || inputCreateAuthorship === undefined) {
-            throw new Error('Required parameter inputCreateAuthorship was null or undefined when calling createAutorship.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<Authorship>(`${this.configuration.basePath}/json/cabinetManager/createAuthorship`,
-            inputCreateAuthorship,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Creates new Category for Publications with specified name and rank. Category object\&#39;s parameter name must be non-empty, max 128 chars long and rank must be double with single digit after decimal point. Other parameters are ignored. 
-     * @param inputCreateCategory 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public createCategoryCat(inputCreateCategory: InputCreateCategory, observe?: 'body', reportProgress?: boolean): Observable<Category>;
-    public createCategoryCat(inputCreateCategory: InputCreateCategory, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Category>>;
-    public createCategoryCat(inputCreateCategory: InputCreateCategory, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Category>>;
-    public createCategoryCat(inputCreateCategory: InputCreateCategory, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (inputCreateCategory === null || inputCreateCategory === undefined) {
-            throw new Error('Required parameter inputCreateCategory was null or undefined when calling createCategoryCat.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<Category>(`${this.configuration.basePath}/json/cabinetManager/createCategory/cat`,
-            inputCreateCategory,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Creates new Category for Publications with specified name and rank.
-     * @param inputCreateCategory1 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public createCategoryNR(inputCreateCategory1: InputCreateCategory1, observe?: 'body', reportProgress?: boolean): Observable<Category>;
-    public createCategoryNR(inputCreateCategory1: InputCreateCategory1, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Category>>;
-    public createCategoryNR(inputCreateCategory1: InputCreateCategory1, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Category>>;
-    public createCategoryNR(inputCreateCategory1: InputCreateCategory1, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (inputCreateCategory1 === null || inputCreateCategory1 === undefined) {
-            throw new Error('Required parameter inputCreateCategory1 was null or undefined when calling createCategoryNR.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<Category>(`${this.configuration.basePath}/json/cabinetManager/createCategory/n-r`,
-            inputCreateCategory1,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    /**
-     * Create Publication. If exists by its ID or EXT_ID,PUB_SYS_ID then existing publication is returned. 
-     * @param inputCreatePublication 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public createPublication(inputCreatePublication: InputCreatePublication, observe?: 'body', reportProgress?: boolean): Observable<Publication>;
-    public createPublication(inputCreatePublication: InputCreatePublication, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Publication>>;
-    public createPublication(inputCreatePublication: InputCreatePublication, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Publication>>;
-    public createPublication(inputCreatePublication: InputCreatePublication, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (inputCreatePublication === null || inputCreatePublication === undefined) {
-            throw new Error('Required parameter inputCreatePublication was null or undefined when calling createPublication.');
-        }
+    return this.httpClient.post<Authorship>(
+      `${this.configuration.basePath}/json/cabinetManager/createAuthorship`,
+      inputCreateAuthorship,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<Publication>(`${this.configuration.basePath}/json/cabinetManager/createPublication`,
-            inputCreatePublication,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Creates new Category for Publications with specified name and rank. Category object\&#39;s parameter name must be non-empty, max 128 chars long and rank must be double with single digit after decimal point. Other parameters are ignored.
+   * @param inputCreateCategory
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public createCategoryCat(
+    inputCreateCategory: InputCreateCategory,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Category>;
+  public createCategoryCat(
+    inputCreateCategory: InputCreateCategory,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Category>>;
+  public createCategoryCat(
+    inputCreateCategory: InputCreateCategory,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Category>>;
+  public createCategoryCat(
+    inputCreateCategory: InputCreateCategory,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (inputCreateCategory === null || inputCreateCategory === undefined) {
+      throw new Error(
+        'Required parameter inputCreateCategory was null or undefined when calling createCategoryCat.'
+      );
     }
 
-    /**
-     * Creates new PublicationSystem.
-     * @param inputCreatePublicationSystem 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public createPublicationSystem(inputCreatePublicationSystem: InputCreatePublicationSystem, observe?: 'body', reportProgress?: boolean): Observable<PublicationSystem>;
-    public createPublicationSystem(inputCreatePublicationSystem: InputCreatePublicationSystem, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PublicationSystem>>;
-    public createPublicationSystem(inputCreatePublicationSystem: InputCreatePublicationSystem, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PublicationSystem>>;
-    public createPublicationSystem(inputCreatePublicationSystem: InputCreatePublicationSystem, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (inputCreatePublicationSystem === null || inputCreatePublicationSystem === undefined) {
-            throw new Error('Required parameter inputCreatePublicationSystem was null or undefined when calling createPublicationSystem.');
-        }
+    let headers = this.defaultHeaders;
 
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<PublicationSystem>(`${this.configuration.basePath}/json/cabinetManager/createPublicationSystem`,
-            inputCreatePublicationSystem,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Creates new Thanks for Publication
-     * @param inputCreateThanks 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public createThanks(inputCreateThanks: InputCreateThanks, observe?: 'body', reportProgress?: boolean): Observable<Thanks>;
-    public createThanks(inputCreateThanks: InputCreateThanks, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Thanks>>;
-    public createThanks(inputCreateThanks: InputCreateThanks, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Thanks>>;
-    public createThanks(inputCreateThanks: InputCreateThanks, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (inputCreateThanks === null || inputCreateThanks === undefined) {
-            throw new Error('Required parameter inputCreateThanks was null or undefined when calling createThanks.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<Thanks>(`${this.configuration.basePath}/json/cabinetManager/createThanks`,
-            inputCreateThanks,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Delete Authorship by its userId and publicationId.
-     * @param publicationId id of publication
-     * @param userId id of user
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public deleteAuthorship(publicationId: number, userId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteAuthorship(publicationId: number, userId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteAuthorship(publicationId: number, userId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteAuthorship(publicationId: number, userId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (publicationId === null || publicationId === undefined) {
-            throw new Error('Required parameter publicationId was null or undefined when calling deleteAuthorship.');
-        }
-        if (userId === null || userId === undefined) {
-            throw new Error('Required parameter userId was null or undefined when calling deleteAuthorship.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (publicationId !== undefined && publicationId !== null) {
-            queryParameters = queryParameters.set('publicationId', <any>publicationId);
-        }
-        if (userId !== undefined && userId !== null) {
-            queryParameters = queryParameters.set('userId', <any>userId);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/cabinetManager/deleteAuthorship`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    /**
-     * Delete category by its ID. If category contains any publications, it can\&#39;t be deleted.
-     * @param id numeric id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public deleteCategory(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteCategory(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteCategory(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteCategory(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling deleteCategory.');
-        }
+    return this.httpClient.post<Category>(
+      `${this.configuration.basePath}/json/cabinetManager/createCategory/cat`,
+      inputCreateCategory,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (id !== undefined && id !== null) {
-            queryParameters = queryParameters.set('id', <any>id);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/cabinetManager/deleteCategory`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Creates new Category for Publications with specified name and rank.
+   * @param inputCreateCategory1
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public createCategoryNR(
+    inputCreateCategory1: InputCreateCategory1,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Category>;
+  public createCategoryNR(
+    inputCreateCategory1: InputCreateCategory1,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Category>>;
+  public createCategoryNR(
+    inputCreateCategory1: InputCreateCategory1,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Category>>;
+  public createCategoryNR(
+    inputCreateCategory1: InputCreateCategory1,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (inputCreateCategory1 === null || inputCreateCategory1 === undefined) {
+      throw new Error(
+        'Required parameter inputCreateCategory1 was null or undefined when calling createCategoryNR.'
+      );
     }
 
-    /**
-     * Delete publication by its ID. Only Author of the record or PerunAdmin can do this. - Author deletes Authorships and Thanks from publication. - PerunAdmin also delete publication record. 
-     * @param id numeric id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public deletePublication(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deletePublication(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deletePublication(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deletePublication(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling deletePublication.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (id !== undefined && id !== null) {
-            queryParameters = queryParameters.set('id', <any>id);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/cabinetManager/deletePublication`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Deletes PublicationSystem by its ID.
-     * @param id numeric id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public deletePublicationSystem(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deletePublicationSystem(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deletePublicationSystem(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deletePublicationSystem(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling deletePublicationSystem.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (id !== undefined && id !== null) {
-            queryParameters = queryParameters.set('id', <any>id);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/cabinetManager/deletePublicationSystem`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Delete Thanks by its ID.
-     * @param id numeric id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public deleteThanks(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteThanks(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteThanks(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteThanks(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling deleteThanks.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (id !== undefined && id !== null) {
-            queryParameters = queryParameters.set('id', <any>id);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/cabinetManager/deleteThanks`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    /**
-     * Return all Authors of Publications. Empty list of none found.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public findAllAuthors(observe?: 'body', reportProgress?: boolean): Observable<Array<Author>>;
-    public findAllAuthors(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Author>>>;
-    public findAllAuthors(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Author>>>;
-    public findAllAuthors(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    return this.httpClient.post<Category>(
+      `${this.configuration.basePath}/json/cabinetManager/createCategory/n-r`,
+      inputCreateCategory1,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<Author>>(`${this.configuration.basePath}/json/cabinetManager/findAllAuthors`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Create Publication. If exists by its ID or EXT_ID,PUB_SYS_ID then existing publication is returned.
+   * @param inputCreatePublication
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public createPublication(
+    inputCreatePublication: InputCreatePublication,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Publication>;
+  public createPublication(
+    inputCreatePublication: InputCreatePublication,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Publication>>;
+  public createPublication(
+    inputCreatePublication: InputCreatePublication,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Publication>>;
+  public createPublication(
+    inputCreatePublication: InputCreatePublication,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (
+      inputCreatePublication === null ||
+      inputCreatePublication === undefined
+    ) {
+      throw new Error(
+        'Required parameter inputCreatePublication was null or undefined when calling createPublication.'
+      );
     }
 
-    /**
-     * Return all Authors of Publication specified by its ID. Empty list of none found.
-     * @param id numeric id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public findAuthorsByPublicationId(id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Author>>;
-    public findAuthorsByPublicationId(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Author>>>;
-    public findAuthorsByPublicationId(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Author>>>;
-    public findAuthorsByPublicationId(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling findAuthorsByPublicationId.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (id !== undefined && id !== null) {
-            queryParameters = queryParameters.set('id', <any>id);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<Author>>(`${this.configuration.basePath}/json/cabinetManager/findAuthorsByPublicationId`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Finds publications of perun\&#39;s user specified in param Search is done in external publication systems (MU, ZCU) All parameters are required. 
-     * @param user id of User
-     * @param yearSince Year since
-     * @param yearTill Year till
-     * @param pubSysNamespace (MU or ZCU)
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public findExternalPublications(user: number, yearSince: number, yearTill: number, pubSysNamespace: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Publication>>;
-    public findExternalPublications(user: number, yearSince: number, yearTill: number, pubSysNamespace: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Publication>>>;
-    public findExternalPublications(user: number, yearSince: number, yearTill: number, pubSysNamespace: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Publication>>>;
-    public findExternalPublications(user: number, yearSince: number, yearTill: number, pubSysNamespace: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling findExternalPublications.');
-        }
-        if (yearSince === null || yearSince === undefined) {
-            throw new Error('Required parameter yearSince was null or undefined when calling findExternalPublications.');
-        }
-        if (yearTill === null || yearTill === undefined) {
-            throw new Error('Required parameter yearTill was null or undefined when calling findExternalPublications.');
-        }
-        if (pubSysNamespace === null || pubSysNamespace === undefined) {
-            throw new Error('Required parameter pubSysNamespace was null or undefined when calling findExternalPublications.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-        if (yearSince !== undefined && yearSince !== null) {
-            queryParameters = queryParameters.set('yearSince', <any>yearSince);
-        }
-        if (yearTill !== undefined && yearTill !== null) {
-            queryParameters = queryParameters.set('yearTill', <any>yearTill);
-        }
-        if (pubSysNamespace !== undefined && pubSysNamespace !== null) {
-            queryParameters = queryParameters.set('pubSysNamespace', <any>pubSysNamespace);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<Publication>>(`${this.configuration.basePath}/json/cabinetManager/findExternalPublications`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Find new Authors for Publication. Empty list of none found. Used by users to search for colleagues to add them as co-authors. 
-     * @param searchString Text to search by
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public findNewAuthors(searchString: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Author>>;
-    public findNewAuthors(searchString: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Author>>>;
-    public findNewAuthors(searchString: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Author>>>;
-    public findNewAuthors(searchString: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (searchString === null || searchString === undefined) {
-            throw new Error('Required parameter searchString was null or undefined when calling findNewAuthors.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (searchString !== undefined && searchString !== null) {
-            queryParameters = queryParameters.set('searchString', <any>searchString);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<Author>>(`${this.configuration.basePath}/json/cabinetManager/findNewAuthors`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    /**
-     * Return Publication by its ID. 
-     * @param id numeric id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public findPublicationById(id: number, observe?: 'body', reportProgress?: boolean): Observable<PublicationForGUI>;
-    public findPublicationById(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PublicationForGUI>>;
-    public findPublicationById(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PublicationForGUI>>;
-    public findPublicationById(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling findPublicationById.');
-        }
+    return this.httpClient.post<Publication>(
+      `${this.configuration.basePath}/json/cabinetManager/createPublication`,
+      inputCreatePublication,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (id !== undefined && id !== null) {
-            queryParameters = queryParameters.set('id', <any>id);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<PublicationForGUI>(`${this.configuration.basePath}/json/cabinetManager/findPublicationById`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Creates new PublicationSystem.
+   * @param inputCreatePublicationSystem
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public createPublicationSystem(
+    inputCreatePublicationSystem: InputCreatePublicationSystem,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<PublicationSystem>;
+  public createPublicationSystem(
+    inputCreatePublicationSystem: InputCreatePublicationSystem,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<PublicationSystem>>;
+  public createPublicationSystem(
+    inputCreatePublicationSystem: InputCreatePublicationSystem,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<PublicationSystem>>;
+  public createPublicationSystem(
+    inputCreatePublicationSystem: InputCreatePublicationSystem,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (
+      inputCreatePublicationSystem === null ||
+      inputCreatePublicationSystem === undefined
+    ) {
+      throw new Error(
+        'Required parameter inputCreatePublicationSystem was null or undefined when calling createPublicationSystem.'
+      );
     }
 
-    /**
-     * Finds publications in Cabinet by filter.
-     * @param userId User id
-     * @param yearSince Year since
-     * @param yearTill Year till
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public findPublicationsByFilter(userId: number, yearSince?: number, yearTill?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Publication>>;
-    public findPublicationsByFilter(userId: number, yearSince?: number, yearTill?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Publication>>>;
-    public findPublicationsByFilter(userId: number, yearSince?: number, yearTill?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Publication>>>;
-    public findPublicationsByFilter(userId: number, yearSince?: number, yearTill?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (userId === null || userId === undefined) {
-            throw new Error('Required parameter userId was null or undefined when calling findPublicationsByFilter.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (yearSince !== undefined && yearSince !== null) {
-            queryParameters = queryParameters.set('yearSince', <any>yearSince);
-        }
-        if (yearTill !== undefined && yearTill !== null) {
-            queryParameters = queryParameters.set('yearTill', <any>yearTill);
-        }
-        if (userId !== undefined && userId !== null) {
-            queryParameters = queryParameters.set('userId', <any>userId);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<Publication>>(`${this.configuration.basePath}/json/cabinetManager/findPublicationsByFilter`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Finds rich publications in Cabinet by GUI filter: id &#x3D; exact match (used when search for publication of authors) title &#x3D; if \&quot;like\&quot; this substring year &#x3D; exact match isbn &#x3D; if \&quot;like\&quot; this substring category &#x3D; exact match yearSince &#x3D; if year &gt;&#x3D; yearSince yearTill &#x3D; if year &lt;&#x3D; yearTill userId &#x3D; exact match or 0 If you don\&#39;t want to filter by publication params, do not include the attribute in the query. 
-     * @param title Title
-     * @param isbn ISBN
-     * @param doi DOI
-     * @param id Publication id
-     * @param year Year
-     * @param category Category
-     * @param yearSince Year since
-     * @param yearTill Year till
-     * @param userId User id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public findPublicationsByGUIFilter(title?: string, isbn?: string, doi?: string, id?: number, year?: number, category?: number, yearSince?: number, yearTill?: number, userId?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<PublicationForGUI>>;
-    public findPublicationsByGUIFilter(title?: string, isbn?: string, doi?: string, id?: number, year?: number, category?: number, yearSince?: number, yearTill?: number, userId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<PublicationForGUI>>>;
-    public findPublicationsByGUIFilter(title?: string, isbn?: string, doi?: string, id?: number, year?: number, category?: number, yearSince?: number, yearTill?: number, userId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<PublicationForGUI>>>;
-    public findPublicationsByGUIFilter(title?: string, isbn?: string, doi?: string, id?: number, year?: number, category?: number, yearSince?: number, yearTill?: number, userId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (title !== undefined && title !== null) {
-            queryParameters = queryParameters.set('title', <any>title);
-        }
-        if (isbn !== undefined && isbn !== null) {
-            queryParameters = queryParameters.set('isbn', <any>isbn);
-        }
-        if (doi !== undefined && doi !== null) {
-            queryParameters = queryParameters.set('doi', <any>doi);
-        }
-        if (id !== undefined && id !== null) {
-            queryParameters = queryParameters.set('id', <any>id);
-        }
-        if (year !== undefined && year !== null) {
-            queryParameters = queryParameters.set('year', <any>year);
-        }
-        if (category !== undefined && category !== null) {
-            queryParameters = queryParameters.set('category', <any>category);
-        }
-        if (yearSince !== undefined && yearSince !== null) {
-            queryParameters = queryParameters.set('yearSince', <any>yearSince);
-        }
-        if (yearTill !== undefined && yearTill !== null) {
-            queryParameters = queryParameters.set('yearTill', <any>yearTill);
-        }
-        if (userId !== undefined && userId !== null) {
-            queryParameters = queryParameters.set('userId', <any>userId);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<PublicationForGUI>>(`${this.configuration.basePath}/json/cabinetManager/findPublicationsByGUIFilter`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Finds similar publications
-     * @param title Title
-     * @param doi DOI
-     * @param isbn ISBN
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public findSimilarPublications(title?: string, doi?: string, isbn?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<PublicationForGUI>>;
-    public findSimilarPublications(title?: string, doi?: string, isbn?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<PublicationForGUI>>>;
-    public findSimilarPublications(title?: string, doi?: string, isbn?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<PublicationForGUI>>>;
-    public findSimilarPublications(title?: string, doi?: string, isbn?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (title !== undefined && title !== null) {
-            queryParameters = queryParameters.set('title', <any>title);
-        }
-        if (doi !== undefined && doi !== null) {
-            queryParameters = queryParameters.set('doi', <any>doi);
-        }
-        if (isbn !== undefined && isbn !== null) {
-            queryParameters = queryParameters.set('isbn', <any>isbn);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<PublicationForGUI>>(`${this.configuration.basePath}/json/cabinetManager/findSimilarPublications`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    /**
-     * Return list of all Categories in Perun or empty list of none present.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getCategories(observe?: 'body', reportProgress?: boolean): Observable<Array<Category>>;
-    public getCategories(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Category>>>;
-    public getCategories(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Category>>>;
-    public getCategories(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    return this.httpClient.post<PublicationSystem>(
+      `${this.configuration.basePath}/json/cabinetManager/createPublicationSystem`,
+      inputCreatePublicationSystem,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<Category>>(`${this.configuration.basePath}/json/cabinetManager/getCategories`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Creates new Thanks for Publication
+   * @param inputCreateThanks
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public createThanks(
+    inputCreateThanks: InputCreateThanks,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Thanks>;
+  public createThanks(
+    inputCreateThanks: InputCreateThanks,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Thanks>>;
+  public createThanks(
+    inputCreateThanks: InputCreateThanks,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Thanks>>;
+  public createThanks(
+    inputCreateThanks: InputCreateThanks,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (inputCreateThanks === null || inputCreateThanks === undefined) {
+      throw new Error(
+        'Required parameter inputCreateThanks was null or undefined when calling createThanks.'
+      );
     }
 
-    /**
-     * Get all PublicationSystems in Perun. If none, return empty list.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getPublicationSystems(observe?: 'body', reportProgress?: boolean): Observable<Array<PublicationSystem>>;
-    public getPublicationSystems(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<PublicationSystem>>>;
-    public getPublicationSystems(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<PublicationSystem>>>;
-    public getPublicationSystems(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    let headers = this.defaultHeaders;
 
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<PublicationSystem>>(`${this.configuration.basePath}/json/cabinetManager/getPublicationSystems`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Gets overall rank of given user as sum of all his publications Authorships.
-     * @param user id of User
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getRank(user: number, observe?: 'body', reportProgress?: boolean): Observable<number>;
-    public getRank(user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
-    public getRank(user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
-    public getRank(user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling getRank.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<number>(`${this.configuration.basePath}/json/cabinetManager/getRank`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Get ThanksForGUI of Publication specified by its ID or empty list.
-     * @param id numeric id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getRichThanksByPublicationId(id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ThanksForGUI>>;
-    public getRichThanksByPublicationId(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ThanksForGUI>>>;
-    public getRichThanksByPublicationId(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ThanksForGUI>>>;
-    public getRichThanksByPublicationId(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getRichThanksByPublicationId.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (id !== undefined && id !== null) {
-            queryParameters = queryParameters.set('id', <any>id);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<ThanksForGUI>>(`${this.configuration.basePath}/json/cabinetManager/getRichThanksByPublicationId`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    /**
-     * (Un)Lock passed Publications for changes.
-     * @param inputLockPublications 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public lockPublications(inputLockPublications: InputLockPublications, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public lockPublications(inputLockPublications: InputLockPublications, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public lockPublications(inputLockPublications: InputLockPublications, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public lockPublications(inputLockPublications: InputLockPublications, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (inputLockPublications === null || inputLockPublications === undefined) {
-            throw new Error('Required parameter inputLockPublications was null or undefined when calling lockPublications.');
-        }
+    return this.httpClient.post<Thanks>(
+      `${this.configuration.basePath}/json/cabinetManager/createThanks`,
+      inputCreateThanks,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/json/cabinetManager/lockPublications`,
-            inputLockPublications,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Delete Authorship by its userId and publicationId.
+   * @param publicationId id of publication
+   * @param userId id of user
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public deleteAuthorship(
+    publicationId: number,
+    userId: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public deleteAuthorship(
+    publicationId: number,
+    userId: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public deleteAuthorship(
+    publicationId: number,
+    userId: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public deleteAuthorship(
+    publicationId: number,
+    userId: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (publicationId === null || publicationId === undefined) {
+      throw new Error(
+        'Required parameter publicationId was null or undefined when calling deleteAuthorship.'
+      );
+    }
+    if (userId === null || userId === undefined) {
+      throw new Error(
+        'Required parameter userId was null or undefined when calling deleteAuthorship.'
+      );
     }
 
-    /**
-     * Updates publications category in Perun. Category to update is found by ID. When category rank is changed, priorityCoefficient for all authors of books from this category, is recalculated. 
-     * @param inputUpdateCategory 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public updateCategory(inputUpdateCategory: InputUpdateCategory, observe?: 'body', reportProgress?: boolean): Observable<Category>;
-    public updateCategory(inputUpdateCategory: InputUpdateCategory, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Category>>;
-    public updateCategory(inputUpdateCategory: InputUpdateCategory, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Category>>;
-    public updateCategory(inputUpdateCategory: InputUpdateCategory, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (inputUpdateCategory === null || inputUpdateCategory === undefined) {
-            throw new Error('Required parameter inputUpdateCategory was null or undefined when calling updateCategory.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<Category>(`${this.configuration.basePath}/json/cabinetManager/updateCategory`,
-            inputUpdateCategory,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (publicationId !== undefined && publicationId !== null) {
+      queryParameters = queryParameters.set(
+        'publicationId',
+        <any>publicationId
+      );
+    }
+    if (userId !== undefined && userId !== null) {
+      queryParameters = queryParameters.set('userId', <any>userId);
     }
 
-    /**
-     * Update existing publication by its ID.
-     * @param inputUpdatePublication 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public updatePublication(inputUpdatePublication: InputUpdatePublication, observe?: 'body', reportProgress?: boolean): Observable<Publication>;
-    public updatePublication(inputUpdatePublication: InputUpdatePublication, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Publication>>;
-    public updatePublication(inputUpdatePublication: InputUpdatePublication, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Publication>>;
-    public updatePublication(inputUpdatePublication: InputUpdatePublication, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (inputUpdatePublication === null || inputUpdatePublication === undefined) {
-            throw new Error('Required parameter inputUpdatePublication was null or undefined when calling updatePublication.');
-        }
+    let headers = this.defaultHeaders;
 
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<Publication>(`${this.configuration.basePath}/json/cabinetManager/updatePublication`,
-            inputUpdatePublication,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Updates PublicationSystem by its ID.
-     * @param inputUpdatePublicationSystem 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public updatePublicationSystem(inputUpdatePublicationSystem: InputUpdatePublicationSystem, observe?: 'body', reportProgress?: boolean): Observable<PublicationSystem>;
-    public updatePublicationSystem(inputUpdatePublicationSystem: InputUpdatePublicationSystem, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PublicationSystem>>;
-    public updatePublicationSystem(inputUpdatePublicationSystem: InputUpdatePublicationSystem, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PublicationSystem>>;
-    public updatePublicationSystem(inputUpdatePublicationSystem: InputUpdatePublicationSystem, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (inputUpdatePublicationSystem === null || inputUpdatePublicationSystem === undefined) {
-            throw new Error('Required parameter inputUpdatePublicationSystem was null or undefined when calling updatePublicationSystem.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<PublicationSystem>(`${this.configuration.basePath}/json/cabinetManager/updatePublicationSystem`,
-            inputUpdatePublicationSystem,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/cabinetManager/deleteAuthorship`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Delete category by its ID. If category contains any publications, it can\&#39;t be deleted.
+   * @param id numeric id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public deleteCategory(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public deleteCategory(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public deleteCategory(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public deleteCategory(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling deleteCategory.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (id !== undefined && id !== null) {
+      queryParameters = queryParameters.set('id', <any>id);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/cabinetManager/deleteCategory`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Delete publication by its ID. Only Author of the record or PerunAdmin can do this. - Author deletes Authorships and Thanks from publication. - PerunAdmin also delete publication record.
+   * @param id numeric id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public deletePublication(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public deletePublication(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public deletePublication(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public deletePublication(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling deletePublication.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (id !== undefined && id !== null) {
+      queryParameters = queryParameters.set('id', <any>id);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/cabinetManager/deletePublication`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Deletes PublicationSystem by its ID.
+   * @param id numeric id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public deletePublicationSystem(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public deletePublicationSystem(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public deletePublicationSystem(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public deletePublicationSystem(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling deletePublicationSystem.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (id !== undefined && id !== null) {
+      queryParameters = queryParameters.set('id', <any>id);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/cabinetManager/deletePublicationSystem`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Delete Thanks by its ID.
+   * @param id numeric id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public deleteThanks(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public deleteThanks(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public deleteThanks(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public deleteThanks(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling deleteThanks.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (id !== undefined && id !== null) {
+      queryParameters = queryParameters.set('id', <any>id);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/cabinetManager/deleteThanks`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Return all Authors of Publications. Empty list of none found.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public findAllAuthors(
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Author>>;
+  public findAllAuthors(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Author>>>;
+  public findAllAuthors(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Author>>>;
+  public findAllAuthors(
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Author>>(
+      `${this.configuration.basePath}/json/cabinetManager/findAllAuthors`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Return all Authors of Publication specified by its ID. Empty list of none found.
+   * @param id numeric id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public findAuthorsByPublicationId(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Author>>;
+  public findAuthorsByPublicationId(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Author>>>;
+  public findAuthorsByPublicationId(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Author>>>;
+  public findAuthorsByPublicationId(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling findAuthorsByPublicationId.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (id !== undefined && id !== null) {
+      queryParameters = queryParameters.set('id', <any>id);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Author>>(
+      `${this.configuration.basePath}/json/cabinetManager/findAuthorsByPublicationId`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Finds publications of perun\&#39;s user specified in param Search is done in external publication systems (MU, ZCU) All parameters are required.
+   * @param user id of User
+   * @param yearSince Year since
+   * @param yearTill Year till
+   * @param pubSysNamespace (MU or ZCU)
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public findExternalPublications(
+    user: number,
+    yearSince: number,
+    yearTill: number,
+    pubSysNamespace: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Publication>>;
+  public findExternalPublications(
+    user: number,
+    yearSince: number,
+    yearTill: number,
+    pubSysNamespace: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Publication>>>;
+  public findExternalPublications(
+    user: number,
+    yearSince: number,
+    yearTill: number,
+    pubSysNamespace: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Publication>>>;
+  public findExternalPublications(
+    user: number,
+    yearSince: number,
+    yearTill: number,
+    pubSysNamespace: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling findExternalPublications.'
+      );
+    }
+    if (yearSince === null || yearSince === undefined) {
+      throw new Error(
+        'Required parameter yearSince was null or undefined when calling findExternalPublications.'
+      );
+    }
+    if (yearTill === null || yearTill === undefined) {
+      throw new Error(
+        'Required parameter yearTill was null or undefined when calling findExternalPublications.'
+      );
+    }
+    if (pubSysNamespace === null || pubSysNamespace === undefined) {
+      throw new Error(
+        'Required parameter pubSysNamespace was null or undefined when calling findExternalPublications.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (yearSince !== undefined && yearSince !== null) {
+      queryParameters = queryParameters.set('yearSince', <any>yearSince);
+    }
+    if (yearTill !== undefined && yearTill !== null) {
+      queryParameters = queryParameters.set('yearTill', <any>yearTill);
+    }
+    if (pubSysNamespace !== undefined && pubSysNamespace !== null) {
+      queryParameters = queryParameters.set(
+        'pubSysNamespace',
+        <any>pubSysNamespace
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Publication>>(
+      `${this.configuration.basePath}/json/cabinetManager/findExternalPublications`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Find new Authors for Publication. Empty list of none found. Used by users to search for colleagues to add them as co-authors.
+   * @param searchString Text to search by
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public findNewAuthors(
+    searchString: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Author>>;
+  public findNewAuthors(
+    searchString: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Author>>>;
+  public findNewAuthors(
+    searchString: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Author>>>;
+  public findNewAuthors(
+    searchString: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (searchString === null || searchString === undefined) {
+      throw new Error(
+        'Required parameter searchString was null or undefined when calling findNewAuthors.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (searchString !== undefined && searchString !== null) {
+      queryParameters = queryParameters.set('searchString', <any>searchString);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Author>>(
+      `${this.configuration.basePath}/json/cabinetManager/findNewAuthors`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Return Publication by its ID.
+   * @param id numeric id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public findPublicationById(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<PublicationForGUI>;
+  public findPublicationById(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<PublicationForGUI>>;
+  public findPublicationById(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<PublicationForGUI>>;
+  public findPublicationById(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling findPublicationById.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (id !== undefined && id !== null) {
+      queryParameters = queryParameters.set('id', <any>id);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<PublicationForGUI>(
+      `${this.configuration.basePath}/json/cabinetManager/findPublicationById`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Finds publications in Cabinet by filter.
+   * @param userId User id
+   * @param yearSince Year since
+   * @param yearTill Year till
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public findPublicationsByFilter(
+    userId: number,
+    yearSince?: number,
+    yearTill?: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Publication>>;
+  public findPublicationsByFilter(
+    userId: number,
+    yearSince?: number,
+    yearTill?: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Publication>>>;
+  public findPublicationsByFilter(
+    userId: number,
+    yearSince?: number,
+    yearTill?: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Publication>>>;
+  public findPublicationsByFilter(
+    userId: number,
+    yearSince?: number,
+    yearTill?: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (userId === null || userId === undefined) {
+      throw new Error(
+        'Required parameter userId was null or undefined when calling findPublicationsByFilter.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (yearSince !== undefined && yearSince !== null) {
+      queryParameters = queryParameters.set('yearSince', <any>yearSince);
+    }
+    if (yearTill !== undefined && yearTill !== null) {
+      queryParameters = queryParameters.set('yearTill', <any>yearTill);
+    }
+    if (userId !== undefined && userId !== null) {
+      queryParameters = queryParameters.set('userId', <any>userId);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Publication>>(
+      `${this.configuration.basePath}/json/cabinetManager/findPublicationsByFilter`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Finds rich publications in Cabinet by GUI filter: id &#x3D; exact match (used when search for publication of authors) title &#x3D; if \&quot;like\&quot; this substring year &#x3D; exact match isbn &#x3D; if \&quot;like\&quot; this substring category &#x3D; exact match yearSince &#x3D; if year &gt;&#x3D; yearSince yearTill &#x3D; if year &lt;&#x3D; yearTill userId &#x3D; exact match or 0 If you don\&#39;t want to filter by publication params, do not include the attribute in the query.
+   * @param title Title
+   * @param isbn ISBN
+   * @param doi DOI
+   * @param id Publication id
+   * @param year Year
+   * @param category Category
+   * @param yearSince Year since
+   * @param yearTill Year till
+   * @param userId User id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public findPublicationsByGUIFilter(
+    title?: string,
+    isbn?: string,
+    doi?: string,
+    id?: number,
+    year?: number,
+    category?: number,
+    yearSince?: number,
+    yearTill?: number,
+    userId?: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<PublicationForGUI>>;
+  public findPublicationsByGUIFilter(
+    title?: string,
+    isbn?: string,
+    doi?: string,
+    id?: number,
+    year?: number,
+    category?: number,
+    yearSince?: number,
+    yearTill?: number,
+    userId?: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<PublicationForGUI>>>;
+  public findPublicationsByGUIFilter(
+    title?: string,
+    isbn?: string,
+    doi?: string,
+    id?: number,
+    year?: number,
+    category?: number,
+    yearSince?: number,
+    yearTill?: number,
+    userId?: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<PublicationForGUI>>>;
+  public findPublicationsByGUIFilter(
+    title?: string,
+    isbn?: string,
+    doi?: string,
+    id?: number,
+    year?: number,
+    category?: number,
+    yearSince?: number,
+    yearTill?: number,
+    userId?: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (title !== undefined && title !== null) {
+      queryParameters = queryParameters.set('title', <any>title);
+    }
+    if (isbn !== undefined && isbn !== null) {
+      queryParameters = queryParameters.set('isbn', <any>isbn);
+    }
+    if (doi !== undefined && doi !== null) {
+      queryParameters = queryParameters.set('doi', <any>doi);
+    }
+    if (id !== undefined && id !== null) {
+      queryParameters = queryParameters.set('id', <any>id);
+    }
+    if (year !== undefined && year !== null) {
+      queryParameters = queryParameters.set('year', <any>year);
+    }
+    if (category !== undefined && category !== null) {
+      queryParameters = queryParameters.set('category', <any>category);
+    }
+    if (yearSince !== undefined && yearSince !== null) {
+      queryParameters = queryParameters.set('yearSince', <any>yearSince);
+    }
+    if (yearTill !== undefined && yearTill !== null) {
+      queryParameters = queryParameters.set('yearTill', <any>yearTill);
+    }
+    if (userId !== undefined && userId !== null) {
+      queryParameters = queryParameters.set('userId', <any>userId);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<PublicationForGUI>>(
+      `${this.configuration.basePath}/json/cabinetManager/findPublicationsByGUIFilter`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Finds similar publications
+   * @param title Title
+   * @param doi DOI
+   * @param isbn ISBN
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public findSimilarPublications(
+    title?: string,
+    doi?: string,
+    isbn?: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<PublicationForGUI>>;
+  public findSimilarPublications(
+    title?: string,
+    doi?: string,
+    isbn?: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<PublicationForGUI>>>;
+  public findSimilarPublications(
+    title?: string,
+    doi?: string,
+    isbn?: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<PublicationForGUI>>>;
+  public findSimilarPublications(
+    title?: string,
+    doi?: string,
+    isbn?: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (title !== undefined && title !== null) {
+      queryParameters = queryParameters.set('title', <any>title);
+    }
+    if (doi !== undefined && doi !== null) {
+      queryParameters = queryParameters.set('doi', <any>doi);
+    }
+    if (isbn !== undefined && isbn !== null) {
+      queryParameters = queryParameters.set('isbn', <any>isbn);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<PublicationForGUI>>(
+      `${this.configuration.basePath}/json/cabinetManager/findSimilarPublications`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Return list of all Categories in Perun or empty list of none present.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getCategories(
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Category>>;
+  public getCategories(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Category>>>;
+  public getCategories(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Category>>>;
+  public getCategories(
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Category>>(
+      `${this.configuration.basePath}/json/cabinetManager/getCategories`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Get all PublicationSystems in Perun. If none, return empty list.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getPublicationSystems(
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<PublicationSystem>>;
+  public getPublicationSystems(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<PublicationSystem>>>;
+  public getPublicationSystems(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<PublicationSystem>>>;
+  public getPublicationSystems(
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<PublicationSystem>>(
+      `${this.configuration.basePath}/json/cabinetManager/getPublicationSystems`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Gets overall rank of given user as sum of all his publications Authorships.
+   * @param user id of User
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getRank(
+    user: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<number>;
+  public getRank(
+    user: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<number>>;
+  public getRank(
+    user: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<number>>;
+  public getRank(
+    user: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getRank.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<number>(
+      `${this.configuration.basePath}/json/cabinetManager/getRank`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Get ThanksForGUI of Publication specified by its ID or empty list.
+   * @param id numeric id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getRichThanksByPublicationId(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<ThanksForGUI>>;
+  public getRichThanksByPublicationId(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<ThanksForGUI>>>;
+  public getRichThanksByPublicationId(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<ThanksForGUI>>>;
+  public getRichThanksByPublicationId(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling getRichThanksByPublicationId.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (id !== undefined && id !== null) {
+      queryParameters = queryParameters.set('id', <any>id);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<ThanksForGUI>>(
+      `${this.configuration.basePath}/json/cabinetManager/getRichThanksByPublicationId`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * (Un)Lock passed Publications for changes.
+   * @param inputLockPublications
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public lockPublications(
+    inputLockPublications: InputLockPublications,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public lockPublications(
+    inputLockPublications: InputLockPublications,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public lockPublications(
+    inputLockPublications: InputLockPublications,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public lockPublications(
+    inputLockPublications: InputLockPublications,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (inputLockPublications === null || inputLockPublications === undefined) {
+      throw new Error(
+        'Required parameter inputLockPublications was null or undefined when calling lockPublications.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/json/cabinetManager/lockPublications`,
+      inputLockPublications,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Updates publications category in Perun. Category to update is found by ID. When category rank is changed, priorityCoefficient for all authors of books from this category, is recalculated.
+   * @param inputUpdateCategory
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public updateCategory(
+    inputUpdateCategory: InputUpdateCategory,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Category>;
+  public updateCategory(
+    inputUpdateCategory: InputUpdateCategory,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Category>>;
+  public updateCategory(
+    inputUpdateCategory: InputUpdateCategory,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Category>>;
+  public updateCategory(
+    inputUpdateCategory: InputUpdateCategory,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (inputUpdateCategory === null || inputUpdateCategory === undefined) {
+      throw new Error(
+        'Required parameter inputUpdateCategory was null or undefined when calling updateCategory.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.post<Category>(
+      `${this.configuration.basePath}/json/cabinetManager/updateCategory`,
+      inputUpdateCategory,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Update existing publication by its ID.
+   * @param inputUpdatePublication
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public updatePublication(
+    inputUpdatePublication: InputUpdatePublication,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Publication>;
+  public updatePublication(
+    inputUpdatePublication: InputUpdatePublication,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Publication>>;
+  public updatePublication(
+    inputUpdatePublication: InputUpdatePublication,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Publication>>;
+  public updatePublication(
+    inputUpdatePublication: InputUpdatePublication,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (
+      inputUpdatePublication === null ||
+      inputUpdatePublication === undefined
+    ) {
+      throw new Error(
+        'Required parameter inputUpdatePublication was null or undefined when calling updatePublication.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.post<Publication>(
+      `${this.configuration.basePath}/json/cabinetManager/updatePublication`,
+      inputUpdatePublication,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Updates PublicationSystem by its ID.
+   * @param inputUpdatePublicationSystem
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public updatePublicationSystem(
+    inputUpdatePublicationSystem: InputUpdatePublicationSystem,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<PublicationSystem>;
+  public updatePublicationSystem(
+    inputUpdatePublicationSystem: InputUpdatePublicationSystem,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<PublicationSystem>>;
+  public updatePublicationSystem(
+    inputUpdatePublicationSystem: InputUpdatePublicationSystem,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<PublicationSystem>>;
+  public updatePublicationSystem(
+    inputUpdatePublicationSystem: InputUpdatePublicationSystem,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (
+      inputUpdatePublicationSystem === null ||
+      inputUpdatePublicationSystem === undefined
+    ) {
+      throw new Error(
+        'Required parameter inputUpdatePublicationSystem was null or undefined when calling updatePublicationSystem.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.post<PublicationSystem>(
+      `${this.configuration.basePath}/json/cabinetManager/updatePublicationSystem`,
+      inputUpdatePublicationSystem,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 }

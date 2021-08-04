@@ -93,11 +93,7 @@ export function apiConfigFactory(store: StoreService): Configuration {
   return new Configuration(params);
 }
 
-const loadConfigs = (appConfig: UserProfileConfigService) => {
-  return () => {
-    return appConfig.initialize();
-  };
-};
+const loadConfigs = (appConfig: UserProfileConfigService) => () => appConfig.initialize();
 
 @NgModule({
   declarations: [

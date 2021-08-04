@@ -5,7 +5,6 @@ import {
   Input,
   OnChanges, OnInit,
   Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
@@ -86,7 +85,7 @@ export class ResourcesListComponent implements OnInit, AfterViewInit, OnChanges 
     this.disabledRouting = this.disableRouting;
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (!this.guiAuthResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
@@ -115,7 +114,7 @@ export class ResourcesListComponent implements OnInit, AfterViewInit, OnChanges 
           }
         }
         return data['name'];
-      case 'tags':
+      case 'tags': {
         if (!data.resourceTags) {
           return data[column];
         }
@@ -125,6 +124,7 @@ export class ResourcesListComponent implements OnInit, AfterViewInit, OnChanges 
           result = result.concat(tag.tagName);
         });
         return result;
+      }
       case 'status':
         return data.status;
       case 'uuid':
@@ -139,13 +139,9 @@ export class ResourcesListComponent implements OnInit, AfterViewInit, OnChanges 
   }
 
   setDataSource() {
-    if (!!this.dataSource) {
-      this.dataSource.filterPredicate = (data: RichResource, filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this, true);
-      };
-      this.dataSource.sortData = (data: RichResource[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getDataForColumn, this);
-      };
+    if (this.dataSource) {
+      this.dataSource.filterPredicate = (data: RichResource, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this, true);
+      this.dataSource.sortData = (data: RichResource[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }
@@ -177,7 +173,7 @@ export class ResourcesListComponent implements OnInit, AfterViewInit, OnChanges 
   }
 
   setAuth() {
-    const objects = !!this.groupToResource ? [this.groupToResource] : [];
+    const objects = this.groupToResource ? [this.groupToResource] : [];
     this.removeAuth = this.selection.selected.reduce((acc, res) => acc &&
       this.guiAuthResolver.isAuthorized('removeGroupFromResources_Group_List<Resource>_policy', objects.concat([res])), true);
     this.addAuth = this.selection.selected.reduce((acc, res) => acc &&

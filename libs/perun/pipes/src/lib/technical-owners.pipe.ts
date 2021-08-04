@@ -6,7 +6,7 @@ import { parseTechnicalOwnersNames } from '@perun-web-apps/perun/utils';
 })
 export class TechnicalOwnersPipe implements PipeTransform {
 
-  transform(value: any, ...args: any[]): any {
+  transform(value: any): any {
     return parseTechnicalOwnersNames(value);
   }
 }

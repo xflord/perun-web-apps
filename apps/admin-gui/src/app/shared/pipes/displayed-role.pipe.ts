@@ -12,7 +12,7 @@ export class DisplayedRolePipe implements PipeTransform {
 
   prefix = 'ROLES.';
 
-  transform(value: any, args?: any): any {
+  transform(value: any): any {
     const data = this.prefix.concat(value);
     return this.translate.instant(data);
   }

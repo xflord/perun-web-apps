@@ -24,7 +24,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     this.path = this.router.url;
-    this.router.events.subscribe(path => {
+    this.router.events.subscribe(() => {
       this.path = this.router.url;
     });
     this.principal = this.store.getPerunPrincipal();

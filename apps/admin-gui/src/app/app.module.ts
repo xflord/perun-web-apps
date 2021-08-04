@@ -17,9 +17,7 @@ import { CustomIconService } from '@perun-web-apps/perun/services';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { ApiService } from '@perun-web-apps/perun/services';
 import { AdminGuiConfigService } from './core/services/common/admin-gui-config.service';
-// @ts-ignore
 import { ApiModule, Configuration, ConfigurationParameters } from '@perun-web-apps/perun/openapi';
-// @ts-ignore
 import { StoreService } from '@perun-web-apps/perun/services';
 import { ApiInterceptor } from '@perun-web-apps/perun/services';
 import { GeneralModule } from '@perun-web-apps/general';
@@ -38,7 +36,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
   multi: true
 };
 
-export function HttpLoaderFactory(http: HttpClient) {
+export function httpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
@@ -56,11 +54,7 @@ export function apiConfigFactory(store: StoreService): Configuration {
   return new Configuration(params);
 }
 
-const loadConfigs = (appConfig: AdminGuiConfigService) => {
-  return () => {
-    return appConfig.initialize();
-  };
-};
+const loadConfigs = (appConfig: AdminGuiConfigService) => () => appConfig.initialize();
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -83,7 +77,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
+        useFactory: httpLoaderFactory,
         deps: [HttpClient]
       }
     }),

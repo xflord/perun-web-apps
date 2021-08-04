@@ -13,7 +13,7 @@ export class ApplicationStatePipe implements PipeTransform {
     private translate: TranslateService
   ) { }
 
-  transform(value: any, args?: any): any {
+  transform(value: any): any {
     switch (value) {
       case 'APPROVED': {
         this.translate.get('VO_DETAIL.APPLICATION.STATE.APPROVED').subscribe(response => {

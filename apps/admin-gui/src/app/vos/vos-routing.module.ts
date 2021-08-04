@@ -1,61 +1,44 @@
-import {RouterModule, Routes} from '@angular/router';
-import {VoSelectPageComponent} from './pages/vo-select-page/vo-select-page.component';
-import {NgModule} from '@angular/core';
-import {GroupDetailPageComponent} from './pages/group-detail-page/group-detail-page.component';
-import {MemberDetailPageComponent} from './pages/member-detail-page/member-detail-page.component';
-import {VoOverviewComponent} from './pages/vo-detail-page/vo-overview/vo-overview.component';
-import {VoGroupsComponent} from './pages/vo-detail-page/vo-groups/vo-groups.component';
-import {VoMembersComponent} from './pages/vo-detail-page/vo-members/vo-members.component';
-import {VoDetailPageComponent} from './pages/vo-detail-page/vo-detail-page.component';
-import {MemberOverviewComponent} from './pages/member-detail-page/member-overview/member-overview.component';
-import {MemberGroupsComponent} from './pages/member-detail-page/member-groups/member-groups.component';
-import {GroupOverviewComponent} from './pages/group-detail-page/group-overview/group-overview.component';
-import {GroupSubgroupsComponent} from './pages/group-detail-page/group-subgroups/group-subgroups.component';
-import {VoResourcesComponent} from './pages/vo-detail-page/vo-resources/vo-resources.component';
-import {VoApplicationsComponent} from './pages/vo-detail-page/vo-applications/vo-applications.component';
-import {VoSettingsComponent} from './pages/vo-detail-page/vo-settings/vo-settings.component';
-import {VoAttributesComponent} from './pages/vo-detail-page/vo-attributes/vo-attributes.component';
-import {VoSettingsOverviewComponent} from './pages/vo-detail-page/vo-settings/vo-settings-overview/vo-settings-overview.component';
-import {VoSettingsExpirationComponent} from './pages/vo-detail-page/vo-settings/vo-settings-expiration/vo-settings-expiration.component';
-import {GroupApplicationsComponent} from './pages/group-detail-page/group-applications/group-applications.component';
-import {VoSettingsManagersComponent} from './pages/vo-detail-page/vo-settings/vo-settings-managers/vo-settings-managers.component';
-import {ApplicationDetailComponent} from './components/application-detail/application-detail.component';
-import {GroupMembersComponent} from './pages/group-detail-page/group-members/group-members.component';
-import {GroupResourcesComponent} from './pages/group-detail-page/group-resources/group-resources.component';
-import {GroupSettingsComponent} from './pages/group-detail-page/group-settings/group-settings.component';
-import {
-  GroupAttributesComponent
-} from './pages/group-detail-page/group-attributes/group-attributes.component';
-import {GroupSettingsOverviewComponent
-} from './pages/group-detail-page/group-settings/group-settings-overview/group-settings-overview.component';
-import {
-  VoSettingsApplicationFormComponent
-} from './pages/vo-detail-page/vo-settings/vo-settings-application-form/vo-settings-application-form.component';
-// tslint:disable-next-line:max-line-length
+import { RouterModule, Routes } from '@angular/router';
+import { VoSelectPageComponent } from './pages/vo-select-page/vo-select-page.component';
+import { NgModule } from '@angular/core';
+import { GroupDetailPageComponent } from './pages/group-detail-page/group-detail-page.component';
+import { MemberDetailPageComponent } from './pages/member-detail-page/member-detail-page.component';
+import { VoOverviewComponent } from './pages/vo-detail-page/vo-overview/vo-overview.component';
+import { VoGroupsComponent } from './pages/vo-detail-page/vo-groups/vo-groups.component';
+import { VoMembersComponent } from './pages/vo-detail-page/vo-members/vo-members.component';
+import { VoDetailPageComponent } from './pages/vo-detail-page/vo-detail-page.component';
+import { MemberOverviewComponent } from './pages/member-detail-page/member-overview/member-overview.component';
+import { MemberGroupsComponent } from './pages/member-detail-page/member-groups/member-groups.component';
+import { GroupOverviewComponent } from './pages/group-detail-page/group-overview/group-overview.component';
+import { GroupSubgroupsComponent } from './pages/group-detail-page/group-subgroups/group-subgroups.component';
+import { VoResourcesComponent } from './pages/vo-detail-page/vo-resources/vo-resources.component';
+import { VoApplicationsComponent } from './pages/vo-detail-page/vo-applications/vo-applications.component';
+import { VoSettingsComponent } from './pages/vo-detail-page/vo-settings/vo-settings.component';
+import { VoAttributesComponent } from './pages/vo-detail-page/vo-attributes/vo-attributes.component';
+import { VoSettingsOverviewComponent } from './pages/vo-detail-page/vo-settings/vo-settings-overview/vo-settings-overview.component';
+import { VoSettingsExpirationComponent } from './pages/vo-detail-page/vo-settings/vo-settings-expiration/vo-settings-expiration.component';
+import { GroupApplicationsComponent } from './pages/group-detail-page/group-applications/group-applications.component';
+import { VoSettingsManagersComponent } from './pages/vo-detail-page/vo-settings/vo-settings-managers/vo-settings-managers.component';
+import { ApplicationDetailComponent } from './components/application-detail/application-detail.component';
+import { GroupMembersComponent } from './pages/group-detail-page/group-members/group-members.component';
+import { GroupResourcesComponent } from './pages/group-detail-page/group-resources/group-resources.component';
+import { GroupSettingsComponent } from './pages/group-detail-page/group-settings/group-settings.component';
+import { GroupAttributesComponent } from './pages/group-detail-page/group-attributes/group-attributes.component';
+import { GroupSettingsOverviewComponent } from './pages/group-detail-page/group-settings/group-settings-overview/group-settings-overview.component';
+import { VoSettingsApplicationFormComponent } from './pages/vo-detail-page/vo-settings/vo-settings-application-form/vo-settings-application-form.component';
+// eslint-disable-next-line max-len
 import { ApplicationFormPreviewComponent } from './components/application-form-preview/application-form-preview.component';
-// tslint:disable-next-line:max-line-length
-import {
-  MemberAttributesComponent
-} from './pages/member-detail-page/member-attributes/member-attributes.component';
-import {VoResourcesOverviewComponent} from './pages/vo-detail-page/vo-resources/vo-resources-overview/vo-resources-overview.component';
-import {VoResourcesPreviewComponent} from './pages/vo-detail-page/vo-resources/vo-resources-preview/vo-resources-preview.component';
-import {VoResourcesStatesComponent} from './pages/vo-detail-page/vo-resources/vo-resources-states/vo-resources-states.component';
-import {VoResourcesTagsComponent} from './pages/vo-detail-page/vo-resources/vo-resources-tags/vo-resources-tags.component';
-import {
-  GroupSettingsExpirationComponent
-} from './pages/group-detail-page/group-settings/group-settings-expiration/group-settings-expiration.component';
-import {
-  GroupSettingsManagersComponent
-} from './pages/group-detail-page/group-settings/group-settings-managers/group-settings-managers.component';
-import {
-  VoSettingsNotificationsComponent
-} from './pages/vo-detail-page/vo-settings/vo-settings-notifications/vo-settings-notifications.component';
-import {
-  GroupSettingsApplicationFormComponent
-} from './pages/group-detail-page/group-settings/group-settings-application-form/group-settings-application-form.component';
-import {
-  GroupSettingsNotificationsComponent
-} from './pages/group-detail-page/group-settings/group-settings-notifications/group-settings-notifications.component';
+// eslint-disable-next-line max-len
+import { MemberAttributesComponent } from './pages/member-detail-page/member-attributes/member-attributes.component';
+import { VoResourcesOverviewComponent } from './pages/vo-detail-page/vo-resources/vo-resources-overview/vo-resources-overview.component';
+import { VoResourcesPreviewComponent } from './pages/vo-detail-page/vo-resources/vo-resources-preview/vo-resources-preview.component';
+import { VoResourcesStatesComponent } from './pages/vo-detail-page/vo-resources/vo-resources-states/vo-resources-states.component';
+import { VoResourcesTagsComponent } from './pages/vo-detail-page/vo-resources/vo-resources-tags/vo-resources-tags.component';
+import { GroupSettingsExpirationComponent } from './pages/group-detail-page/group-settings/group-settings-expiration/group-settings-expiration.component';
+import { GroupSettingsManagersComponent } from './pages/group-detail-page/group-settings/group-settings-managers/group-settings-managers.component';
+import { VoSettingsNotificationsComponent } from './pages/vo-detail-page/vo-settings/vo-settings-notifications/vo-settings-notifications.component';
+import { GroupSettingsApplicationFormComponent } from './pages/group-detail-page/group-settings/group-settings-application-form/group-settings-application-form.component';
+import { GroupSettingsNotificationsComponent } from './pages/group-detail-page/group-settings/group-settings-notifications/group-settings-notifications.component';
 import { VoSettingsExtsourcesComponent } from './pages/vo-detail-page/vo-settings/vo-settings-extsources/vo-settings-extsources.component';
 import { GroupSettingsRelationsComponent } from './pages/group-detail-page/group-settings/group-settings-relations/group-settings-relations.component';
 import { MemberApplicationsComponent } from './pages/member-detail-page/member-applications/member-applications.component';
@@ -79,7 +62,7 @@ import { ResourceTagsComponent } from '../facilities/pages/resource-detail-page/
 const routes: Routes = [
   {
     path: '',
-    component: VoSelectPageComponent
+    component: VoSelectPageComponent,
   },
   {
     path: ':voId',
@@ -88,22 +71,22 @@ const routes: Routes = [
       {
         path: '',
         component: VoOverviewComponent,
-        data: {animation: 'VoOverviewPage'}
+        data: { animation: 'VoOverviewPage' },
       },
       {
         path: 'attributes',
         component: VoAttributesComponent,
-        data: {animation: 'VoAttributesPage'}
+        data: { animation: 'VoAttributesPage' },
       },
       {
         path: 'groups',
         component: VoGroupsComponent,
-        data: {animation: 'VoGroupsPage'}
+        data: { animation: 'VoGroupsPage' },
       },
       {
         path: 'members',
         component: VoMembersComponent,
-        data: {animation: 'VoMembersPage'}
+        data: { animation: 'VoMembersPage' },
       },
       {
         path: 'resources',
@@ -112,44 +95,44 @@ const routes: Routes = [
           {
             path: '',
             component: VoResourcesOverviewComponent,
-            data: {animation: 'VoResourcesOverviewPage'}
+            data: { animation: 'VoResourcesOverviewPage' },
           },
           {
             path: 'preview',
             component: VoResourcesPreviewComponent,
-            data: {animation: 'VoResourcesPreviewPage'}
+            data: { animation: 'VoResourcesPreviewPage' },
           },
           {
             path: 'states',
             component: VoResourcesStatesComponent,
-            data: {animation: 'VoResourcesStatesPage'}
+            data: { animation: 'VoResourcesStatesPage' },
           },
           {
             path: 'tags',
             component: VoResourcesTagsComponent,
-            data: {animation: 'VoResourcesTagsPage'}
-          }
-        ]
+            data: { animation: 'VoResourcesTagsPage' },
+          },
+        ],
       },
       {
         path: 'applications',
         component: VoApplicationsComponent,
-        data: {animation: 'VoApplicationsPage'}
+        data: { animation: 'VoApplicationsPage' },
       },
       {
         path: 'applications/:applicationId',
         component: ApplicationDetailComponent,
-        data: {animation: 'VoApplicationDetailPage'}
+        data: { animation: 'VoApplicationDetailPage' },
       },
       {
         path: 'sponsoredMembers',
         component: VoSettingsSponsoredMembersComponent,
-        data: {animation: 'VoSettingsSponsoredMembersPage'}
+        data: { animation: 'VoSettingsSponsoredMembersPage' },
       },
       {
         path: 'statistics',
         component: VoStatisticsComponent,
-        data: {animation: 'VoStatisticsPage'}
+        data: { animation: 'VoStatisticsPage' },
       },
       {
         path: 'settings',
@@ -158,45 +141,45 @@ const routes: Routes = [
           {
             path: '',
             component: VoSettingsOverviewComponent,
-            data: {animation: 'VoSettingsOverviewPage'}
+            data: { animation: 'VoSettingsOverviewPage' },
           },
           {
             path: 'expiration',
             component: VoSettingsExpirationComponent,
-            data: {animation: 'VoSettingsExpirationPage'}
+            data: { animation: 'VoSettingsExpirationPage' },
           },
           {
             path: 'managers',
             component: VoSettingsManagersComponent,
-            data: {animation: 'VoSettingsManagersPage'}
+            data: { animation: 'VoSettingsManagersPage' },
           },
           {
             path: 'applicationForm',
             component: VoSettingsApplicationFormComponent,
-            data: {animation: 'SettingsApplicationFormPage'}
+            data: { animation: 'SettingsApplicationFormPage' },
           },
           {
             path: 'applicationForm/preview',
             component: ApplicationFormPreviewComponent,
-            data: {animation: 'SettingsApplicationFormPreviewPage'}
+            data: { animation: 'SettingsApplicationFormPreviewPage' },
           },
           {
             path: 'applicationForm/manageGroups',
-            component: ApplicationFormManageGroupsComponent
+            component: ApplicationFormManageGroupsComponent,
           },
           {
             path: 'notifications',
             component: VoSettingsNotificationsComponent,
-            data: {animation: 'SettingsApplicationFormNotificationsPage'}
+            data: { animation: 'SettingsApplicationFormNotificationsPage' },
           },
           {
             path: 'extsources',
             component: VoSettingsExtsourcesComponent,
-            data: {animation: 'VoSettingsExtSourcesPage'}
-          }
-        ]
-      }
-    ]
+            data: { animation: 'VoSettingsExtSourcesPage' },
+          },
+        ],
+      },
+    ],
   },
   {
     path: ':voId/members/:memberId',
@@ -205,34 +188,34 @@ const routes: Routes = [
       {
         path: '',
         component: MemberOverviewComponent,
-        data: {animation: 'MemberOverviewPage'}
+        data: { animation: 'MemberOverviewPage' },
       },
       {
         path: 'attributes',
         component: MemberAttributesComponent,
-        data: {animation: 'MemberAttributesPage'}
+        data: { animation: 'MemberAttributesPage' },
       },
       {
         path: 'groups',
         component: MemberGroupsComponent,
-        data: {animation: 'MemberGroupsPage'}
+        data: { animation: 'MemberGroupsPage' },
       },
       {
         path: 'applications',
         component: MemberApplicationsComponent,
-        data: {animation: 'MemberApplicationsPage'}
+        data: { animation: 'MemberApplicationsPage' },
       },
       {
         path: 'applications/:applicationId',
         component: ApplicationDetailComponent,
-        data: {animation: 'MemberApplicationDetailPage'}
+        data: { animation: 'MemberApplicationDetailPage' },
       },
       {
         path: 'resources',
         component: MemberResourcesComponent,
-        data: {animation: 'MemberResourcesPage'}
-      }
-    ]
+        data: { animation: 'MemberResourcesPage' },
+      },
+    ],
   },
   {
     path: ':voId/groups/:groupId',
@@ -241,37 +224,37 @@ const routes: Routes = [
       {
         path: '',
         component: GroupOverviewComponent,
-        data: {animation: 'GroupOverviewPage'}
+        data: { animation: 'GroupOverviewPage' },
       },
       {
         path: 'members',
         component: GroupMembersComponent,
-        data: {animation: 'GroupMembersPage'}
+        data: { animation: 'GroupMembersPage' },
       },
       {
         path: 'subgroups',
         component: GroupSubgroupsComponent,
-        data: {animation: 'GroupSubgroupsPage'}
+        data: { animation: 'GroupSubgroupsPage' },
       },
       {
         path: 'applications',
         component: GroupApplicationsComponent,
-        data: {animation: 'GroupApplicationsPage'}
+        data: { animation: 'GroupApplicationsPage' },
       },
       {
         path: 'resources',
         component: GroupResourcesComponent,
-        data: {animation: 'GroupResourcesPage'}
+        data: { animation: 'GroupResourcesPage' },
       },
       {
         path: 'attributes',
         component: GroupAttributesComponent,
-        data: {animation: 'GroupAttributesPage'}
+        data: { animation: 'GroupAttributesPage' },
       },
       {
         path: 'statistics',
         component: GroupStatisticsComponent,
-        data: {animation: 'GroupStatisticsPage'}
+        data: { animation: 'GroupStatisticsPage' },
       },
       {
         path: 'settings',
@@ -280,22 +263,22 @@ const routes: Routes = [
           {
             path: '',
             component: GroupSettingsOverviewComponent,
-            data: {animation: 'GroupSettingsOverviewPage'}
+            data: { animation: 'GroupSettingsOverviewPage' },
           },
           {
             path: 'expiration',
             component: GroupSettingsExpirationComponent,
-            data: {animation: 'GroupSettingsExpirationPage'}
+            data: { animation: 'GroupSettingsExpirationPage' },
           },
           {
             path: 'managers',
             component: GroupSettingsManagersComponent,
-            data: {animation: 'GroupSettingsManagersPage'}
+            data: { animation: 'GroupSettingsManagersPage' },
           },
           {
             path: 'applicationForm',
             component: GroupSettingsApplicationFormComponent,
-            data: {animation: 'GroupSettingsApplicationFormPage'}
+            data: { animation: 'GroupSettingsApplicationFormPage' },
           },
           {
             path: 'applicationForm/preview',
@@ -304,26 +287,26 @@ const routes: Routes = [
           {
             path: 'notifications',
             component: GroupSettingsNotificationsComponent,
-            data: {animation: 'GroupSettingsNotificationsPage'}
+            data: { animation: 'GroupSettingsNotificationsPage' },
           },
           {
             path: 'relations',
             component: GroupSettingsRelationsComponent,
-            data: {animation: 'GroupSettingsRelationsPage'}
+            data: { animation: 'GroupSettingsRelationsPage' },
           },
           {
             path: 'extsources',
             component: GroupSettingsExtsourcesComponent,
-            data: {animation: 'GroupSettingsExtsourcesPage'}
-          }
-        ]
+            data: { animation: 'GroupSettingsExtsourcesPage' },
+          },
+        ],
       },
       {
         path: 'applications/:applicationId',
         component: ApplicationDetailComponent,
-        data: {animation: 'GroupApplicationDetailPage'}
-      }
-    ]
+        data: { animation: 'GroupApplicationDetailPage' },
+      },
+    ],
   },
   {
     path: ':voId/resources/:resourceId',
@@ -332,32 +315,32 @@ const routes: Routes = [
       {
         path: '',
         component: ResourceOverviewComponent,
-        data: {animation: 'ResourceOverviewPage'}
+        data: { animation: 'ResourceOverviewPage' },
       },
       {
         path: 'groups',
         component: ResourceGroupsComponent,
-        data: {animation: 'ResourceGroupsComponent'}
+        data: { animation: 'ResourceGroupsComponent' },
       },
       {
         path: 'services',
         component: ResourceAssignedServicesComponent,
-        data: { animation: 'ResourceAssignedServicesComponent' }
+        data: { animation: 'ResourceAssignedServicesComponent' },
       },
       {
         path: 'attributes',
         component: ResourceAttributesComponent,
-        data: {animation: 'ResourceAttributesPage'}
+        data: { animation: 'ResourceAttributesPage' },
       },
       {
         path: 'members',
         component: ResourceAssignedMembersComponent,
-        data: {animation: 'ResourceAssignedMembersComponent'}
+        data: { animation: 'ResourceAssignedMembersComponent' },
       },
       {
         path: 'tags',
         component: ResourceTagsComponent,
-        data: {animation: 'ResourceTagsComponent'}
+        data: { animation: 'ResourceTagsComponent' },
       },
       {
         path: 'settings',
@@ -366,22 +349,21 @@ const routes: Routes = [
           {
             path: '',
             component: ResourceSettingsOverviewComponent,
-            data: {animation: 'ResourceSettingsOverviewPage'}
+            data: { animation: 'ResourceSettingsOverviewPage' },
           },
           {
             path: 'managers',
             component: ResourceSettingsManagersComponent,
-            data: { animation: 'ResourceSettingsManagersPage' }
-          }
-        ]
+            data: { animation: 'ResourceSettingsManagersPage' },
+          },
+        ],
       },
-    ]
-  }
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-
-export class VosRoutingModule { }
+export class VosRoutingModule {}

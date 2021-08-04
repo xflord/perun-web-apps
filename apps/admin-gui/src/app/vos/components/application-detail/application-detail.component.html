@@ -15,7 +15,7 @@
     color="accent"
     class="mr-2"
     (click)="verifyApplication()"
-    *ngIf="this.application.state == 'NEW' && verifyAuth">
+    *ngIf="this.application.state === 'NEW' && verifyAuth">
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.VERIFY' | translate}}
   </button>
   <button
@@ -23,7 +23,7 @@
     color="accent"
     class="mr-2"
     (click)="approveApplication()"
-    *ngIf="(this.application.state == 'VERIFIED' || this.application.state == 'NEW') && approveAuth">
+    *ngIf="(this.application.state === 'VERIFIED' || this.application.state === 'NEW') && approveAuth">
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.APPROVE' | translate}}
   </button>
   <button
@@ -31,7 +31,7 @@
     color="warn"
     class="mr-2"
     (click)="rejectApplication()"
-    *ngIf="(this.application.state == 'VERIFIED' || this.application.state == 'NEW') && rejectAuth">
+    *ngIf="(this.application.state === 'VERIFIED' || this.application.state === 'NEW') && rejectAuth">
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.REJECT' | translate}}
   </button>
   <button
@@ -39,7 +39,7 @@
     color="warn"
     class="mr-2"
     (click)="deleteApplication()"
-    *ngIf="(this.application.state == 'REJECTED' || this.application.state == 'NEW') && deleteAuth">
+    *ngIf="(this.application.state === 'REJECTED' || this.application.state === 'NEW') && deleteAuth">
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DELETE' | translate}}
   </button>
   <button
@@ -64,26 +64,26 @@
   </div>
   <div>
     <span class="font-weight-bold">{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.TYPE' | translate}}</span>:
-    <span *ngIf="application.type == 'INITIAL'">
+    <span *ngIf="application.type === 'INITIAL'">
       <mat-icon class="align-text-top" >arrow_right_alt</mat-icon>
       Initial
     </span>
-    <span *ngIf="application.type == 'EXTENSION'">
+    <span *ngIf="application.type === 'EXTENSION'">
       <mat-icon class="align-text-top" >restore</mat-icon>
       Extension
     </span>
-    <span *ngIf="application.type == 'EMBEDDED'">
+    <span *ngIf="application.type === 'EMBEDDED'">
       <mat-icon class="align-text-top" >nat</mat-icon>
       Embedded
     </span>
   </div>
 
-  <div class="card p-3 mt-2" *ngIf="this.application.state == 'REJECTED'">
+  <div class="card p-3 mt-2" *ngIf="this.application.state === 'REJECTED'">
     <mat-card-title><i class="material-icons red">clear</i> {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.REJECTED_BY' | translate}}: {{getModifiedAtName(application.modifiedBy)}}</mat-card-title>
     <div><span class="font-weight-bold">{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DATE' | translate}}</span>: {{this.application.modifiedAt | date:'d.M.y H:mm:ss'}}</div>
   </div>
 
-  <div class="card p-3 mt-2" *ngIf="this.application.state == 'APPROVED'">
+  <div class="card p-3 mt-2" *ngIf="this.application.state === 'APPROVED'">
     <mat-card-title><i class="material-icons green">done</i> {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.APPROVED_BY' | translate}}: {{getModifiedAtName(application.modifiedBy)}}</mat-card-title>
     <div><span class="font-weight-bold">{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DATE' | translate}}</span>: {{this.application.modifiedAt | date:'d.M.y H:mm:ss'}}</div>
   </div>

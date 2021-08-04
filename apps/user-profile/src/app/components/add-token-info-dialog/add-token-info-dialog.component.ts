@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { StoreService } from '@perun-web-apps/perun/services';
 
@@ -7,13 +7,10 @@ import { StoreService } from '@perun-web-apps/perun/services';
   templateUrl: './add-token-info-dialog.component.html',
   styleUrls: ['./add-token-info-dialog.component.scss']
 })
-export class AddTokenInfoDialogComponent implements OnInit {
+export class AddTokenInfoDialogComponent {
 
   constructor(private dialogRef: MatDialogRef<AddTokenInfoDialogComponent>,
               private store: StoreService) { }
-
-  ngOnInit(): void {
-  }
 
   onCancel() {
     this.dialogRef.close()

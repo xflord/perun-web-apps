@@ -50,7 +50,7 @@
             mat-flat-button>{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CANCEL' | translate}}</button>
           <button
             (click)="loadGroups()"
-            [disabled]="selectedResource == null || processing || loading"
+            [disabled]="selectedResource === null || processing || loading"
             class="ml-2"
             color="accent"
             mat-flat-button

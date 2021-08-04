@@ -9,825 +9,1222 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-/* tslint:disable:no-unused-variable member-ordering */
+/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent, HttpParameterCodec }       from '@angular/common/http';
-import { CustomHttpParameterCodec }                          from '../encoder';
-import { Observable }                                        from 'rxjs';
+import { Inject, Injectable, Optional } from '@angular/core';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+  HttpEvent,
+  HttpParameterCodec,
+} from '@angular/common/http';
+import { CustomHttpParameterCodec } from '../encoder';
+import { Observable } from 'rxjs';
 
 import { ExtSource } from '../model/extSource';
 import { ExtSourceObject } from '../model/extSourceObject';
 import { PerunException } from '../model/perunException';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
-
-
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ExtSourcesManagerService {
+  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  public defaultHeaders = new HttpHeaders();
+  public configuration = new Configuration();
+  public encoder: HttpParameterCodec;
 
-    protected basePath = 'https://perun.cesnet.cz/krb/rpc';
-    public defaultHeaders = new HttpHeaders();
-    public configuration = new Configuration();
-    public encoder: HttpParameterCodec;
+  constructor(
+    protected httpClient: HttpClient,
+    @Optional() @Inject(BASE_PATH) basePath: string,
+    @Optional() configuration: Configuration
+  ) {
+    if (configuration) {
+      this.configuration = configuration;
+    }
+    if (typeof this.configuration.basePath !== 'string') {
+      if (typeof basePath !== 'string') {
+        basePath = this.basePath;
+      }
+      this.configuration.basePath = basePath;
+    }
+    this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
+  }
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-        if (configuration) {
-            this.configuration = configuration;
-        }
-        if (typeof this.configuration.basePath !== 'string') {
-            if (typeof basePath !== 'string') {
-                basePath = this.basePath;
-            }
-            this.configuration.basePath = basePath;
-        }
-        this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
+  /**
+   * Associate an external source definition with a GROUP.
+   * @param group id of Group
+   * @param source external source id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public addExtSourceWithGroupSource(
+    group: number,
+    source: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public addExtSourceWithGroupSource(
+    group: number,
+    source: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public addExtSourceWithGroupSource(
+    group: number,
+    source: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public addExtSourceWithGroupSource(
+    group: number,
+    source: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (group === null || group === undefined) {
+      throw new Error(
+        'Required parameter group was null or undefined when calling addExtSourceWithGroupSource.'
+      );
+    }
+    if (source === null || source === undefined) {
+      throw new Error(
+        'Required parameter source was null or undefined when calling addExtSourceWithGroupSource.'
+      );
     }
 
-
-
-    /**
-     * Associate an external source definition with a GROUP.
-     * @param group id of Group
-     * @param source external source id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public addExtSourceWithGroupSource(group: number, source: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public addExtSourceWithGroupSource(group: number, source: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public addExtSourceWithGroupSource(group: number, source: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public addExtSourceWithGroupSource(group: number, source: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (group === null || group === undefined) {
-            throw new Error('Required parameter group was null or undefined when calling addExtSourceWithGroupSource.');
-        }
-        if (source === null || source === undefined) {
-            throw new Error('Required parameter source was null or undefined when calling addExtSourceWithGroupSource.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (group !== undefined && group !== null) {
-            queryParameters = queryParameters.set('group', <any>group);
-        }
-        if (source !== undefined && source !== null) {
-            queryParameters = queryParameters.set('source', <any>source);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/extSourcesManager/addExtSource/g-s`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (group !== undefined && group !== null) {
+      queryParameters = queryParameters.set('group', <any>group);
+    }
+    if (source !== undefined && source !== null) {
+      queryParameters = queryParameters.set('source', <any>source);
     }
 
-    /**
-     * Associate an external source definition with a VO.
-     * @param vo id of Vo
-     * @param source external source id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public addExtSourceWithVoSource(vo: number, source: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public addExtSourceWithVoSource(vo: number, source: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public addExtSourceWithVoSource(vo: number, source: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public addExtSourceWithVoSource(vo: number, source: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (vo === null || vo === undefined) {
-            throw new Error('Required parameter vo was null or undefined when calling addExtSourceWithVoSource.');
-        }
-        if (source === null || source === undefined) {
-            throw new Error('Required parameter source was null or undefined when calling addExtSourceWithVoSource.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (vo !== undefined && vo !== null) {
-            queryParameters = queryParameters.set('vo', <any>vo);
-        }
-        if (source !== undefined && source !== null) {
-            queryParameters = queryParameters.set('source', <any>source);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/extSourcesManager/addExtSource/v-s`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Creates an external source. ExtSource object must contain: name, type. Other parameters are ignored.
-     * @param extSourceObject 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public createExtSourceFromExtSourceObject(extSourceObject: ExtSourceObject, observe?: 'body', reportProgress?: boolean): Observable<ExtSource>;
-    public createExtSourceFromExtSourceObject(extSourceObject: ExtSourceObject, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ExtSource>>;
-    public createExtSourceFromExtSourceObject(extSourceObject: ExtSourceObject, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ExtSource>>;
-    public createExtSourceFromExtSourceObject(extSourceObject: ExtSourceObject, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (extSourceObject === null || extSourceObject === undefined) {
-            throw new Error('Required parameter extSourceObject was null or undefined when calling createExtSourceFromExtSourceObject.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<ExtSource>(`${this.configuration.basePath}/json/extSourcesManager/createExtSource/es`,
-            extSourceObject,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Creates an external source.
-     * @param name name of entity
-     * @param type type of ExtSource
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public createExtSourceWithNameType(name: string, type: string, observe?: 'body', reportProgress?: boolean): Observable<ExtSource>;
-    public createExtSourceWithNameType(name: string, type: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ExtSource>>;
-    public createExtSourceWithNameType(name: string, type: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ExtSource>>;
-    public createExtSourceWithNameType(name: string, type: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (name === null || name === undefined) {
-            throw new Error('Required parameter name was null or undefined when calling createExtSourceWithNameType.');
-        }
-        if (type === null || type === undefined) {
-            throw new Error('Required parameter type was null or undefined when calling createExtSourceWithNameType.');
-        }
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/extSourcesManager/addExtSource/g-s`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (name !== undefined && name !== null) {
-            queryParameters = queryParameters.set('name', <any>name);
-        }
-        if (type !== undefined && type !== null) {
-            queryParameters = queryParameters.set('type', <any>type);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<ExtSource>(`${this.configuration.basePath}/urlinjsonout/extSourcesManager/createExtSource/n-t`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Associate an external source definition with a VO.
+   * @param vo id of Vo
+   * @param source external source id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public addExtSourceWithVoSource(
+    vo: number,
+    source: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public addExtSourceWithVoSource(
+    vo: number,
+    source: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public addExtSourceWithVoSource(
+    vo: number,
+    source: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public addExtSourceWithVoSource(
+    vo: number,
+    source: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (vo === null || vo === undefined) {
+      throw new Error(
+        'Required parameter vo was null or undefined when calling addExtSourceWithVoSource.'
+      );
+    }
+    if (source === null || source === undefined) {
+      throw new Error(
+        'Required parameter source was null or undefined when calling addExtSourceWithVoSource.'
+      );
     }
 
-    /**
-     * Delete an external source.
-     * @param id numeric id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public deleteExtSource(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteExtSource(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteExtSource(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteExtSource(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling deleteExtSource.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (id !== undefined && id !== null) {
-            queryParameters = queryParameters.set('id', <any>id);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/extSourcesManager/deleteExtSource`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (vo !== undefined && vo !== null) {
+      queryParameters = queryParameters.set('vo', <any>vo);
+    }
+    if (source !== undefined && source !== null) {
+      queryParameters = queryParameters.set('source', <any>source);
     }
 
-    /**
-     * Returns an external source by its id.
-     * @param id numeric id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getExtSourceById(id: number, observe?: 'body', reportProgress?: boolean): Observable<ExtSource>;
-    public getExtSourceById(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ExtSource>>;
-    public getExtSourceById(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ExtSource>>;
-    public getExtSourceById(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getExtSourceById.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (id !== undefined && id !== null) {
-            queryParameters = queryParameters.set('id', <any>id);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<ExtSource>(`${this.configuration.basePath}/json/extSourcesManager/getExtSourceById`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Returns an external source by its name.
-     * @param name name of entity
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getExtSourceByName(name: string, observe?: 'body', reportProgress?: boolean): Observable<ExtSource>;
-    public getExtSourceByName(name: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ExtSource>>;
-    public getExtSourceByName(name: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ExtSource>>;
-    public getExtSourceByName(name: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (name === null || name === undefined) {
-            throw new Error('Required parameter name was null or undefined when calling getExtSourceByName.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (name !== undefined && name !== null) {
-            queryParameters = queryParameters.set('name', <any>name);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<ExtSource>(`${this.configuration.basePath}/json/extSourcesManager/getExtSourceByName`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Returns the list of all external sources.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getExtSources(observe?: 'body', reportProgress?: boolean): Observable<Array<ExtSource>>;
-    public getExtSources(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ExtSource>>>;
-    public getExtSources(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ExtSource>>>;
-    public getExtSources(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/extSourcesManager/addExtSource/v-s`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<ExtSource>>(`${this.configuration.basePath}/json/extSourcesManager/getExtSources`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Creates an external source. ExtSource object must contain: name, type. Other parameters are ignored.
+   * @param extSourceObject
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public createExtSourceFromExtSourceObject(
+    extSourceObject: ExtSourceObject,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<ExtSource>;
+  public createExtSourceFromExtSourceObject(
+    extSourceObject: ExtSourceObject,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<ExtSource>>;
+  public createExtSourceFromExtSourceObject(
+    extSourceObject: ExtSourceObject,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<ExtSource>>;
+  public createExtSourceFromExtSourceObject(
+    extSourceObject: ExtSourceObject,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (extSourceObject === null || extSourceObject === undefined) {
+      throw new Error(
+        'Required parameter extSourceObject was null or undefined when calling createExtSourceFromExtSourceObject.'
+      );
     }
 
-    /**
-     * Returns the list of external sources associated with a GROUP.
-     * @param group id of Group
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getGroupExtSources(group: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ExtSource>>;
-    public getGroupExtSources(group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ExtSource>>>;
-    public getGroupExtSources(group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ExtSource>>>;
-    public getGroupExtSources(group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (group === null || group === undefined) {
-            throw new Error('Required parameter group was null or undefined when calling getGroupExtSources.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (group !== undefined && group !== null) {
-            queryParameters = queryParameters.set('group', <any>group);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<ExtSource>>(`${this.configuration.basePath}/json/extSourcesManager/getGroupExtSources`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Returns the list of external sources associated with a VO.
-     * @param vo id of Vo
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getVoExtSources(vo: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ExtSource>>;
-    public getVoExtSources(vo: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ExtSource>>>;
-    public getVoExtSources(vo: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ExtSource>>>;
-    public getVoExtSources(vo: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (vo === null || vo === undefined) {
-            throw new Error('Required parameter vo was null or undefined when calling getVoExtSources.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (vo !== undefined && vo !== null) {
-            queryParameters = queryParameters.set('vo', <any>vo);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<ExtSource>>(`${this.configuration.basePath}/json/extSourcesManager/getVoExtSources`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Loads ext source definitions from the configuration file and updates entries stored in the DB.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public loadExtSourcesDefinitions(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public loadExtSourcesDefinitions(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public loadExtSourcesDefinitions(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public loadExtSourcesDefinitions(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<any>(`${this.configuration.basePath}/json/extSourcesManager/loadExtSourcesDefinitions`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    /**
-     * Remove an association of an external source from a GROUP.
-     * @param group id of Group
-     * @param source external source id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public removeExtSourceWithGroupSource(group: number, source: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public removeExtSourceWithGroupSource(group: number, source: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public removeExtSourceWithGroupSource(group: number, source: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public removeExtSourceWithGroupSource(group: number, source: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (group === null || group === undefined) {
-            throw new Error('Required parameter group was null or undefined when calling removeExtSourceWithGroupSource.');
-        }
-        if (source === null || source === undefined) {
-            throw new Error('Required parameter source was null or undefined when calling removeExtSourceWithGroupSource.');
-        }
+    return this.httpClient.post<ExtSource>(
+      `${this.configuration.basePath}/json/extSourcesManager/createExtSource/es`,
+      extSourceObject,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (group !== undefined && group !== null) {
-            queryParameters = queryParameters.set('group', <any>group);
-        }
-        if (source !== undefined && source !== null) {
-            queryParameters = queryParameters.set('source', <any>source);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/extSourcesManager/removeExtSource/g-s`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Creates an external source.
+   * @param name name of entity
+   * @param type type of ExtSource
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public createExtSourceWithNameType(
+    name: string,
+    type: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<ExtSource>;
+  public createExtSourceWithNameType(
+    name: string,
+    type: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<ExtSource>>;
+  public createExtSourceWithNameType(
+    name: string,
+    type: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<ExtSource>>;
+  public createExtSourceWithNameType(
+    name: string,
+    type: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (name === null || name === undefined) {
+      throw new Error(
+        'Required parameter name was null or undefined when calling createExtSourceWithNameType.'
+      );
+    }
+    if (type === null || type === undefined) {
+      throw new Error(
+        'Required parameter type was null or undefined when calling createExtSourceWithNameType.'
+      );
     }
 
-    /**
-     * Remove an association of an external source from a VO.
-     * @param vo id of Vo
-     * @param source external source id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public removeExtSourceWithVoSource(vo: number, source: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public removeExtSourceWithVoSource(vo: number, source: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public removeExtSourceWithVoSource(vo: number, source: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public removeExtSourceWithVoSource(vo: number, source: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (vo === null || vo === undefined) {
-            throw new Error('Required parameter vo was null or undefined when calling removeExtSourceWithVoSource.');
-        }
-        if (source === null || source === undefined) {
-            throw new Error('Required parameter source was null or undefined when calling removeExtSourceWithVoSource.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (vo !== undefined && vo !== null) {
-            queryParameters = queryParameters.set('vo', <any>vo);
-        }
-        if (source !== undefined && source !== null) {
-            queryParameters = queryParameters.set('source', <any>source);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/extSourcesManager/removeExtSource/v-s`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (name !== undefined && name !== null) {
+      queryParameters = queryParameters.set('name', <any>name);
+    }
+    if (type !== undefined && type !== null) {
+      queryParameters = queryParameters.set('type', <any>type);
     }
 
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<ExtSource>(
+      `${this.configuration.basePath}/urlinjsonout/extSourcesManager/createExtSource/n-t`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Delete an external source.
+   * @param id numeric id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public deleteExtSource(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public deleteExtSource(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public deleteExtSource(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public deleteExtSource(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling deleteExtSource.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (id !== undefined && id !== null) {
+      queryParameters = queryParameters.set('id', <any>id);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/extSourcesManager/deleteExtSource`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns an external source by its id.
+   * @param id numeric id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getExtSourceById(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<ExtSource>;
+  public getExtSourceById(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<ExtSource>>;
+  public getExtSourceById(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<ExtSource>>;
+  public getExtSourceById(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling getExtSourceById.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (id !== undefined && id !== null) {
+      queryParameters = queryParameters.set('id', <any>id);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<ExtSource>(
+      `${this.configuration.basePath}/json/extSourcesManager/getExtSourceById`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns an external source by its name.
+   * @param name name of entity
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getExtSourceByName(
+    name: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<ExtSource>;
+  public getExtSourceByName(
+    name: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<ExtSource>>;
+  public getExtSourceByName(
+    name: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<ExtSource>>;
+  public getExtSourceByName(
+    name: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (name === null || name === undefined) {
+      throw new Error(
+        'Required parameter name was null or undefined when calling getExtSourceByName.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (name !== undefined && name !== null) {
+      queryParameters = queryParameters.set('name', <any>name);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<ExtSource>(
+      `${this.configuration.basePath}/json/extSourcesManager/getExtSourceByName`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns the list of all external sources.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getExtSources(
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<ExtSource>>;
+  public getExtSources(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<ExtSource>>>;
+  public getExtSources(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<ExtSource>>>;
+  public getExtSources(
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<ExtSource>>(
+      `${this.configuration.basePath}/json/extSourcesManager/getExtSources`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns the list of external sources associated with a GROUP.
+   * @param group id of Group
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getGroupExtSources(
+    group: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<ExtSource>>;
+  public getGroupExtSources(
+    group: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<ExtSource>>>;
+  public getGroupExtSources(
+    group: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<ExtSource>>>;
+  public getGroupExtSources(
+    group: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (group === null || group === undefined) {
+      throw new Error(
+        'Required parameter group was null or undefined when calling getGroupExtSources.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (group !== undefined && group !== null) {
+      queryParameters = queryParameters.set('group', <any>group);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<ExtSource>>(
+      `${this.configuration.basePath}/json/extSourcesManager/getGroupExtSources`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns the list of external sources associated with a VO.
+   * @param vo id of Vo
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getVoExtSources(
+    vo: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<ExtSource>>;
+  public getVoExtSources(
+    vo: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<ExtSource>>>;
+  public getVoExtSources(
+    vo: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<ExtSource>>>;
+  public getVoExtSources(
+    vo: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (vo === null || vo === undefined) {
+      throw new Error(
+        'Required parameter vo was null or undefined when calling getVoExtSources.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (vo !== undefined && vo !== null) {
+      queryParameters = queryParameters.set('vo', <any>vo);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<ExtSource>>(
+      `${this.configuration.basePath}/json/extSourcesManager/getVoExtSources`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Loads ext source definitions from the configuration file and updates entries stored in the DB.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public loadExtSourcesDefinitions(
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public loadExtSourcesDefinitions(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public loadExtSourcesDefinitions(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public loadExtSourcesDefinitions(
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<any>(
+      `${this.configuration.basePath}/json/extSourcesManager/loadExtSourcesDefinitions`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Remove an association of an external source from a GROUP.
+   * @param group id of Group
+   * @param source external source id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public removeExtSourceWithGroupSource(
+    group: number,
+    source: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public removeExtSourceWithGroupSource(
+    group: number,
+    source: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public removeExtSourceWithGroupSource(
+    group: number,
+    source: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public removeExtSourceWithGroupSource(
+    group: number,
+    source: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (group === null || group === undefined) {
+      throw new Error(
+        'Required parameter group was null or undefined when calling removeExtSourceWithGroupSource.'
+      );
+    }
+    if (source === null || source === undefined) {
+      throw new Error(
+        'Required parameter source was null or undefined when calling removeExtSourceWithGroupSource.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (group !== undefined && group !== null) {
+      queryParameters = queryParameters.set('group', <any>group);
+    }
+    if (source !== undefined && source !== null) {
+      queryParameters = queryParameters.set('source', <any>source);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/extSourcesManager/removeExtSource/g-s`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Remove an association of an external source from a VO.
+   * @param vo id of Vo
+   * @param source external source id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public removeExtSourceWithVoSource(
+    vo: number,
+    source: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public removeExtSourceWithVoSource(
+    vo: number,
+    source: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public removeExtSourceWithVoSource(
+    vo: number,
+    source: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public removeExtSourceWithVoSource(
+    vo: number,
+    source: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (vo === null || vo === undefined) {
+      throw new Error(
+        'Required parameter vo was null or undefined when calling removeExtSourceWithVoSource.'
+      );
+    }
+    if (source === null || source === undefined) {
+      throw new Error(
+        'Required parameter source was null or undefined when calling removeExtSourceWithVoSource.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (vo !== undefined && vo !== null) {
+      queryParameters = queryParameters.set('vo', <any>vo);
+    }
+    if (source !== undefined && source !== null) {
+      queryParameters = queryParameters.set('source', <any>source);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/extSourcesManager/removeExtSource/v-s`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 }

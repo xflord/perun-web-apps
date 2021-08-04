@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {fadeIn} from '@perun-web-apps/perun/animations';
 
@@ -10,12 +10,9 @@ import {fadeIn} from '@perun-web-apps/perun/animations';
     fadeIn
   ]
 })
-export class AnimatedRouterOutletComponent implements OnInit {
+export class AnimatedRouterOutletComponent {
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];

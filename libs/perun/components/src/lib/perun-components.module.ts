@@ -85,7 +85,7 @@ import { HeaderMenuComponent } from './header-menu/header-menu.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
-  format(date: Date, displayFormat: Object): string {
+  format(date: Date, displayFormat: string): string {
     if (displayFormat === 'input') {
       const day: string = date.getDate().toString();
       // day = +day < 10 ? '0' + day : day;

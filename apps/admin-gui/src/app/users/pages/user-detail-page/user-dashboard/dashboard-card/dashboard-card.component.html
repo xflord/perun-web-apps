@@ -9,7 +9,7 @@
   </div>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <div *ngIf="!loading">
-    <span *ngIf="primaryObject == 'Vo'">
+    <span *ngIf="primaryObject === 'Vo'">
       <perun-web-apps-vos-list [pageSizeOptions]="null"
                                       [pageSize]="5"
                                       [displayedColumns]="['id', 'recent', 'shortName', 'name']"
@@ -17,7 +17,7 @@
                                       [vos]="this.objects">
       </perun-web-apps-vos-list>
     </span>
-    <span *ngIf="primaryObject == 'Group'">
+    <span *ngIf="primaryObject === 'Group'">
       <perun-web-apps-groups-list [pageSizeOptions]="null"
                                   [pageSize]="5"
                                   [groups]="this.objects"
@@ -25,7 +25,7 @@
                                   [displayedColumns]="['id', 'recent', 'vo', 'name', 'description']">
       </perun-web-apps-groups-list>
     </span>
-    <span *ngIf="primaryObject == 'Resource'">
+    <span *ngIf="primaryObject === 'Resource'">
       <perun-web-apps-resources-list [pageSizeOptions]="null"
                                      [pageSize]="5"
                                      [resources]="this.objects"
@@ -34,7 +34,7 @@
                                      [routingVo]="true">
       </perun-web-apps-resources-list>
     </span>
-    <span *ngIf="primaryObject == 'Facility'">
+    <span *ngIf="primaryObject === 'Facility'">
       <perun-web-apps-facilities-list [pageSizeOptions]="null"
                                  [pageSize]="5"
                                  [facilities]="this.objects"

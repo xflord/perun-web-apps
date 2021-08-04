@@ -6,7 +6,7 @@ import { Attribute } from '@perun-web-apps/perun/openapi';
 })
 export class AnyToStringPipe implements PipeTransform {
 
-  transform(attribute: Attribute, args?: any): string {
+  transform(attribute: Attribute): string {
     if (attribute.value === undefined) {
       return '';
     }

@@ -5,7 +5,6 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -62,7 +61,7 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
   private sort: MatSort;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
@@ -106,16 +105,12 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
   }
 
   setDataSource() {
-    if (!!this.dataSource) {
+    if (this.dataSource) {
       this.dataSource.filter = this.filterValue;
 
       this.dataSource.sort = this.sort;
-      this.dataSource.filterPredicate = (data: AttributeDefinition, filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this)
-      };
-      this.dataSource.sortData = (data: AttributeDefinition[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getDataForColumn, this);
-      };
+      this.dataSource.filterPredicate = (data: AttributeDefinition, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: AttributeDefinition[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.paginator = this.child.paginator;
     }
   }

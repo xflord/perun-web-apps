@@ -8,7 +8,6 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import {
-  AuthzResolverService,
   Group,
   GroupsManagerService,
   RichGroup,
@@ -19,7 +18,7 @@ import { GroupFlatNode } from '@perun-web-apps/perun/models';
 import { TABLE_VO_GROUPS, TableConfigService } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { GuiAuthResolver, InitAuthService, StoreService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, InitAuthService } from '@perun-web-apps/perun/services';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { GroupsTreeComponent} from '@perun-web-apps/perun/components';
 import { GroupsListComponent } from '@perun-web-apps/perun/components';

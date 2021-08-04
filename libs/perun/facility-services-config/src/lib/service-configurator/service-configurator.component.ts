@@ -1,4 +1,11 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import {
   Attribute,
   AttributesManagerService,
@@ -6,21 +13,19 @@ import {
   Group,
   Resource,
   RichMember,
-  Service
+  Service,
 } from '@perun-web-apps/perun/openapi';
 import {
   TABLE_ATTRIBUTES_SETTINGS,
-  TableConfigService
+  TableConfigService,
 } from '@perun-web-apps/config/table-config';
 import { PageEvent } from '@angular/material/paginator';
-import {
-  AttributesListComponent
-} from '@perun-web-apps/perun/components';
+import { AttributesListComponent } from '@perun-web-apps/perun/components';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { EditAttributeDialogComponent } from '@perun-web-apps/perun/dialogs';
-// tslint:disable-next-line:nx-enforce-module-boundaries
+// eslint-disable-next-line
 import { CreateAttributeDialogComponent } from '../../../../../../apps/admin-gui/src/app/shared/components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
 
 export type ServiceSelectValue = 'ALL' | 'NOT_SELECTED';
@@ -28,16 +33,14 @@ export type ServiceSelectValue = 'ALL' | 'NOT_SELECTED';
 @Component({
   selector: 'perun-web-apps-service-configurator',
   templateUrl: './service-configurator.component.html',
-  styleUrls: ['./service-configurator.component.scss']
+  styleUrls: ['./service-configurator.component.scss'],
 })
 export class ServiceConfiguratorComponent implements OnInit, OnChanges {
-
   constructor(
     private attributesManager: AttributesManagerService,
     private tableConfigService: TableConfigService,
     private dialog: MatDialog
-  ) {
-  }
+  ) {}
 
   @Input()
   facility: Facility;
@@ -63,12 +66,10 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
   @ViewChild('MemberAList')
   memberAList: AttributesListComponent;
 
-
   selectionFacility = new SelectionModel<Attribute>(true, []);
   selectionResource = new SelectionModel<Attribute>(true, []);
   selectionGroup = new SelectionModel<Attribute>(true, []);
   selectionMember = new SelectionModel<Attribute>(true, []);
-
 
   showTab = 0;
 
@@ -104,7 +105,9 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
         this.showTab = 1;
       } else {
         this.showTab = 2;
-        this.attributesManager.getGroupAttributes(this.group.id).subscribe(attrs => this.groupAttributes = attrs);
+        this.attributesManager
+          .getGroupAttributes(this.group.id)
+          .subscribe((attrs) => (this.groupAttributes = attrs));
       }
     } else if (changes['member']) {
       if (changes['member'].currentValue === undefined) {
@@ -112,25 +115,26 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
         this.showTab = 2;
       } else {
         this.showTab = 3;
-        this.attributesManager.getMemberAttributes(this.member.id).subscribe(attrs => this.memberAttributes = attrs);
+        this.attributesManager
+          .getMemberAttributes(this.member.id)
+          .subscribe((attrs) => (this.memberAttributes = attrs));
       }
     }
-
   }
 
   loadResourceAttributes() {
     if (this.service === 'NOT_SELECTED') {
       this.attributesManager
         .getResourceAttributes(this.resource.id)
-        .subscribe(attrs => this.resourceAttributes = attrs);
+        .subscribe((attrs) => (this.resourceAttributes = attrs));
     } else if (this.service === 'ALL') {
       this.attributesManager
         .getRequiredAttributesResource(this.resource.id)
-        .subscribe(attrs => this.resourceAttributes = attrs);
+        .subscribe((attrs) => (this.resourceAttributes = attrs));
     } else {
       this.attributesManager
         .getRequiredAttributesResourceService(this.service.id, this.resource.id)
-        .subscribe(attrs => this.resourceAttributes = attrs);
+        .subscribe((attrs) => (this.resourceAttributes = attrs));
     }
   }
 
@@ -138,15 +142,15 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
     if (this.service === 'NOT_SELECTED') {
       this.attributesManager
         .getFacilityAttributes(this.facility.id)
-        .subscribe(attrs => this.facilityAttributes = attrs);
+        .subscribe((attrs) => (this.facilityAttributes = attrs));
     } else if (this.service === 'ALL') {
       this.attributesManager
         .getRequiredAttributesFacility(this.facility.id)
-        .subscribe(attrs => this.facilityAttributes = attrs);
+        .subscribe((attrs) => (this.facilityAttributes = attrs));
     } else {
       this.attributesManager
         .getRequiredAttributesFacilityService(this.service.id, this.facility.id)
-        .subscribe(attrs => this.facilityAttributes = attrs);
+        .subscribe((attrs) => (this.facilityAttributes = attrs));
     }
   }
 
@@ -169,12 +173,12 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
       entityId: this.facility.id,
       entity: 'facility',
       notEmptyAttributes: this.facilityAttributes,
-      style: 'facility-theme'
+      style: 'facility-theme',
     };
 
     const dialogRef = this.dialog.open(CreateAttributeDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === 'saved') {
         this.reloadAll();
       }
@@ -189,14 +193,14 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
       data: {
         entityId: this.facility.id,
         entity: 'facility',
-        attributes: this.selectionFacility.selected
-      }
+        attributes: this.selectionFacility.selected,
+      },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.selectionFacility.clear()
-        this.ngOnInit()
+        this.selectionFacility.clear();
+        this.ngOnInit();
       }
     });
   }
@@ -208,12 +212,12 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
       entityId: this.resource.id,
       entity: 'resource',
       notEmptyAttributes: this.resourceAttributes,
-      style: 'facility-theme'
+      style: 'facility-theme',
     };
 
     const dialogRef = this.dialog.open(CreateAttributeDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === 'saved') {
         this.reloadAll();
       }
@@ -228,14 +232,14 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
       data: {
         entityId: this.resource.id,
         entity: 'resource',
-        attributes: this.selectionResource.selected
-      }
+        attributes: this.selectionResource.selected,
+      },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.selectionResource.clear()
-        this.ngOnInit()
+        this.selectionResource.clear();
+        this.ngOnInit();
       }
     });
   }
@@ -247,12 +251,12 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
       entityId: this.group.id,
       entity: 'group',
       notEmptyAttributes: this.groupAttributes,
-      style: 'facility-theme'
+      style: 'facility-theme',
     };
 
     const dialogRef = this.dialog.open(CreateAttributeDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === 'saved') {
         this.reloadAll();
       }
@@ -267,14 +271,14 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
       data: {
         entityId: this.group.id,
         entity: 'group',
-        attributes: this.selectionGroup.selected
-      }
+        attributes: this.selectionGroup.selected,
+      },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.selectionGroup.clear()
-        this.ngOnInit()
+        this.selectionGroup.clear();
+        this.ngOnInit();
       }
     });
   }
@@ -286,12 +290,12 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
       entityId: this.member.id,
       entity: 'member',
       notEmptyAttributes: this.memberAttributes,
-      style: 'facility-theme'
+      style: 'facility-theme',
     };
 
     const dialogRef = this.dialog.open(CreateAttributeDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === 'saved') {
         this.reloadAll();
       }
@@ -306,14 +310,14 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
       data: {
         entityId: this.member.id,
         entity: 'member',
-        attributes: this.selectionMember.selected
-      }
+        attributes: this.selectionMember.selected,
+      },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.selectionMember.clear()
-        this.ngOnInit()
+        this.selectionMember.clear();
+        this.ngOnInit();
       }
     });
   }

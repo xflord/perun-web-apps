@@ -5,7 +5,6 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
@@ -57,7 +56,7 @@ export class BlacklistListComponent implements AfterViewInit, OnChanges {
   @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'userId');
     }
@@ -84,13 +83,9 @@ export class BlacklistListComponent implements AfterViewInit, OnChanges {
   }
 
   setDataSource() {
-    if (!!this.dataSource) {
-      this.dataSource.filterPredicate = (data: [BanOnFacility, User], filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this)
-      };
-      this.dataSource.sortData = (data: [BanOnFacility, User][], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getDataForColumn, this);
-      };
+    if (this.dataSource) {
+      this.dataSource.filterPredicate = (data: [BanOnFacility, User], filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: [BanOnFacility, User][], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }

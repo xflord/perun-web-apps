@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -6,12 +6,9 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './delete-application-form-item-dialog.component.html',
   styleUrls: ['./delete-application-form-item-dialog.component.scss']
 })
-export class DeleteApplicationFormItemDialogComponent implements OnInit {
+export class DeleteApplicationFormItemDialogComponent {
 
   constructor(private dialogRef: MatDialogRef<DeleteApplicationFormItemDialogComponent>) { }
-
-  ngOnInit() {
-  }
 
   onCancel() {
     this.dialogRef.close(false);

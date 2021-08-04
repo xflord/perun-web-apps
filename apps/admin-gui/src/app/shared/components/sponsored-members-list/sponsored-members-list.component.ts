@@ -5,7 +5,6 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { AttributesManagerService, MemberWithSponsors, Vo } from '@perun-web-apps/perun/openapi';
@@ -76,7 +75,7 @@ export class SponsoredMembersListComponent implements OnChanges, AfterViewInit {
 
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
@@ -123,15 +122,11 @@ export class SponsoredMembersListComponent implements OnChanges, AfterViewInit {
   }
 
   setDataSource() {
-    if (!!this.dataSource) {
+    if (this.dataSource) {
       this.dataSource.sort = this.sort;
 
-      this.dataSource.filterPredicate = (data: MemberWithSponsors, filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this)
-      };
-      this.dataSource.sortData = (data: MemberWithSponsors[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getSortDataForColumn, this);
-      };
+      this.dataSource.filterPredicate = (data: MemberWithSponsors, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: MemberWithSponsors[], sort: MatSort) => customDataSourceSort(data, sort, this.getSortDataForColumn, this);
       this.dataSource.filter = this.filterValue;
 
       this.dataSource.paginator = this.child.paginator;

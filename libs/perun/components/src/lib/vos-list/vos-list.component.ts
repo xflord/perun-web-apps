@@ -5,7 +5,6 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
@@ -68,7 +67,7 @@ export class VosListComponent implements OnChanges, AfterViewInit {
 
   dataSource: MatTableDataSource<Vo>;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
@@ -105,13 +104,9 @@ export class VosListComponent implements OnChanges, AfterViewInit {
   }
 
   setDataSource() {
-    if (!!this.dataSource) {
-      this.dataSource.filterPredicate = (data: Vo, filter: string) => {
-       return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this)
-      };
-      this.dataSource.sortData = (data: Vo[], sort: MatSort) => {
-       return customDataSourceSort(data, sort, this.getDataForColumn, this);
-      };
+    if (this.dataSource) {
+      this.dataSource.filterPredicate = (data: Vo, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: Vo[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.filter = this.filterValue;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;

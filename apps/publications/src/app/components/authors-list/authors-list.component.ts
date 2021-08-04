@@ -143,13 +143,9 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
   }
 
   private setDataSource() {
-    if (!!this.dataSource) {
-      this.dataSource.filterPredicate = (data: Author, filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getFilterDataForColumn, this)
-      };
-      this.dataSource.sortData = (data: Author[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getSortDataForColumn, this);
-      };
+    if (this.dataSource) {
+      this.dataSource.filterPredicate = (data: Author, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getFilterDataForColumn, this);
+      this.dataSource.sortData = (data: Author[], sort: MatSort) => customDataSourceSort(data, sort, this.getSortDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }

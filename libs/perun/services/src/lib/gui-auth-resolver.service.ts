@@ -371,7 +371,7 @@ export class GuiAuthResolver {
   private initData(principal: PerunPrincipal) {
     this.user = principal.user.id;
     for (const [key, value] of Object.entries(this.principal.roles)) {
-      if (principal.roles.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(principal.roles, key)) {
         this.principalRoles.add(<Role>key);
       }
       for (const [keyInner, valueInner] of Object.entries(value)) {

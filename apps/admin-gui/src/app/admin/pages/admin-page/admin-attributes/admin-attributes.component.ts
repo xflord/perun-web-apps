@@ -1,24 +1,29 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-// tslint:disable-next-line:max-line-length
+// eslint-disable-next-line max-len
 import { DeleteAttributeDefinitionDialogComponent } from '../../../../shared/components/dialogs/delete-attribute-definition-dialog/delete-attribute-definition-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-// tslint:disable-next-line:max-line-length
+// eslint-disable-next-line max-len
 import { CreateAttributeDefinitionDialogComponent } from '../../../../shared/components/dialogs/create-attribute-definition-dialog/create-attribute-definition-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  AttributeDefinition,
+  AttributesManagerService,
+} from '@perun-web-apps/perun/openapi';
 import { PageEvent } from '@angular/material/paginator';
-import { TABLE_ADMIN_ATTRIBUTES, TableConfigService } from '@perun-web-apps/config/table-config';
+import {
+  TABLE_ADMIN_ATTRIBUTES,
+  TableConfigService,
+} from '@perun-web-apps/config/table-config';
 import { AttributeImportDialogComponent } from '../../../../shared/components/dialogs/attribute-import-dialog/attribute-import-dialog.component';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-admin-attributes',
   templateUrl: './admin-attributes.component.html',
-  styleUrls: ['./admin-attributes.component.scss']
+  styleUrls: ['./admin-attributes.component.scss'],
 })
 export class AdminAttributesComponent implements OnInit {
-
   @HostBinding('class.router-component') true;
 
   constructor(
@@ -26,8 +31,7 @@ export class AdminAttributesComponent implements OnInit {
     private attributesManager: AttributesManagerService,
     private tableConfigService: TableConfigService,
     public authResolver: GuiAuthResolver
-  ) {
-  }
+  ) {}
 
   attrDefinitions: AttributeDefinition[] = [];
 
@@ -47,9 +51,12 @@ export class AdminAttributesComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '500px';
 
-    const dialogRef = this.dialog.open(CreateAttributeDefinitionDialogComponent, config);
+    const dialogRef = this.dialog.open(
+      CreateAttributeDefinitionDialogComponent,
+      config
+    );
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.refreshTable();
       }
@@ -61,12 +68,15 @@ export class AdminAttributesComponent implements OnInit {
     config.width = '450px';
     config.data = {
       attributes: this.selected.selected,
-      theme: 'admin-theme'
+      theme: 'admin-theme',
     };
 
-    const dialogRef = this.dialog.open(DeleteAttributeDefinitionDialogComponent, config);
+    const dialogRef = this.dialog.open(
+      DeleteAttributeDefinitionDialogComponent,
+      config
+    );
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.refreshTable();
         this.selected.clear();
@@ -76,10 +86,12 @@ export class AdminAttributesComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.attributesManager.getAllAttributeDefinitions().subscribe(attrDefs => {
-      this.attrDefinitions = attrDefs;
-      this.loading = false;
-    });
+    this.attributesManager
+      .getAllAttributeDefinitions()
+      .subscribe((attrDefs) => {
+        this.attrDefinitions = attrDefs;
+        this.loading = false;
+      });
   }
 
   applyFilter(filterValue: string) {
@@ -97,10 +109,10 @@ export class AdminAttributesComponent implements OnInit {
 
     const dialogRef = this.dialog.open(AttributeImportDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(value => {
+    dialogRef.afterClosed().subscribe((value) => {
       if (value === true) {
         this.refreshTable();
       }
-    })
+    });
   }
 }

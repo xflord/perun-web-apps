@@ -6,7 +6,7 @@ import { parseOrganization } from '@perun-web-apps/perun/utils';
 })
 export class MemberOrganizationPipe implements PipeTransform {
 
-  transform(value: any, ...args: unknown[]): unknown {
+  transform(value: any): unknown {
     return parseOrganization(value);
   }
 

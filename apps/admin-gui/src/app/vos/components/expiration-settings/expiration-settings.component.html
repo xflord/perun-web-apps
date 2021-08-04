@@ -58,7 +58,7 @@
       <mat-form-field>
         <mat-placeholder>{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.DONT_ALLOW_LOA_SELECT' | translate}}</mat-placeholder>
         <mat-select multiple [(ngModel)]="currentConfiguration.doNotAllowLoas">
-          <mat-option *ngFor="let loa of LOAS" [value]="loa">{{loa}}</mat-option>
+          <mat-option *ngFor="let loa of loas" [value]="loa">{{loa}}</mat-option>
         </mat-select>
       </mat-form-field>
     </app-settings-toggle-item>
@@ -71,7 +71,7 @@
       <mat-form-field>
         <mat-placeholder>{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.DONT_EXTEND_LOA_SELECT' | translate}}</mat-placeholder>
         <mat-select multiple [(ngModel)]="currentConfiguration.doNotExtendLoas">
-          <mat-option *ngFor="let loa of LOAS" [value]="loa">{{loa}}</mat-option>
+          <mat-option *ngFor="let loa of loas" [value]="loa">{{loa}}</mat-option>
         </mat-select>
       </mat-form-field>
     </app-settings-toggle-item>
@@ -108,7 +108,7 @@
           <mat-form-field>
             <mat-label>{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.SPECIAL_LOA_SELECT' | translate}}</mat-label>
             <mat-select #specialLoaSelect [(ngModel)]="currentConfiguration.specialLoa">
-              <mat-option *ngFor="let loa of LOAS" [value]="loa">
+              <mat-option *ngFor="let loa of loas" [value]="loa">
                 {{loa}}
               </mat-option>
             </mat-select>

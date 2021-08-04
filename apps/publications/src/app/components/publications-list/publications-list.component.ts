@@ -90,18 +90,20 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
         return String(data.locked);
       case 'title':
         return data.title;
-      case 'reportedBy':
+      case 'reportedBy': {
         let result = '';
-        data.authors.forEach(a => result+= parseFullName(a) + ';');
-        return result.slice(0,-1);
+        data.authors.forEach(a => result += parseFullName(a) + ';');
+        return result.slice(0, -1);
+      }
       case 'year':
         return data.year.toString();
       case 'category':
         return data.categoryName;
-      case 'thankedTo':
+      case 'thankedTo': {
         let res = '';
-        data.thanks.forEach(t => res+=t.ownerName + ';');
-        return res.slice(0,-1);
+        data.thanks.forEach(t => res += t.ownerName + ';');
+        return res.slice(0, -1);
+      }
       default:
         return data[column];
     }
@@ -122,10 +124,8 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
   }
 
   private setDataSource() {
-    if (!!this.dataSource) {
-      this.dataSource.sortData = (data: PublicationForGUI[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getDataForColumn, this);
-      };
+    if (this.dataSource) {
+      this.dataSource.sortData = (data: PublicationForGUI[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }

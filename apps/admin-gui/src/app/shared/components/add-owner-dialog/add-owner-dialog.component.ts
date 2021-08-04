@@ -28,7 +28,7 @@ export class AddOwnerDialogComponent implements OnInit {
   contactCtrl: FormControl;
   type = '1';
 
-  emailRegex = /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
+  emailRegex = /^(([^<>+()[\]\\.,;:\s@"-#$%&=]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
 
   ngOnInit() {
     this.nameCtrl = new FormControl(null, [Validators.required, Validators.pattern('^[\\w.-]+( [\\w.-]+)*$')]);

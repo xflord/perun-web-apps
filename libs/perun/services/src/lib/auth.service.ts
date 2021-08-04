@@ -29,7 +29,7 @@ export class AuthService {
     });
 
     this.route.queryParams.subscribe(params => {
-      if (!!params["idpFilter"]) {
+      if (params["idpFilter"]) {
         this.filterShortname = params["idpFilter"];
       }
     });
@@ -148,9 +148,7 @@ export class AuthService {
   }
 
   isLoggedInPromise(): Observable<boolean> {
-    return from(this.manager.getUser()).pipe(map<User, boolean>((user) => {
-      return !!user && !user.expired;
-    }));
+    return from(this.manager.getUser()).pipe(map<User, boolean>((user) => !!user && !user.expired));
   }
 
   isLoggedIn(): boolean {
@@ -162,7 +160,7 @@ export class AuthService {
   }
 
   getAuthorizationHeaderValue(): string {
-    return !!this.user ? 'Bearer ' + this.user.access_token : '';
+    return this.user ? 'Bearer ' + this.user.access_token : '';
   }
 
   startAuthentication(): Promise<void> {
@@ -262,7 +260,7 @@ export class AuthService {
     let redirectUrl = sessionStorage.getItem('auth:redirect');
     const storageParams = sessionStorage.getItem('auth:queryParams');
     let params: string[] = [];
-    if (!!storageParams) {
+    if (storageParams) {
       params = storageParams.split('&');
     }
     const queryParams: Params = {};
@@ -276,7 +274,7 @@ export class AuthService {
     sessionStorage.removeItem('auth:redirect');
     sessionStorage.removeItem('auth:queryParams');
 
-    if (!!queryParams['idpFilter']) {
+    if (queryParams['idpFilter']) {
       this.filterShortname = queryParams['idpFilter'];
     }
     return this.router.navigate([redirectUrl], {queryParams: queryParams, replaceUrl: true});

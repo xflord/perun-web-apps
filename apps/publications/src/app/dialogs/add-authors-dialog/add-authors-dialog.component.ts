@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, Validators } from '@angular/forms';
-import { Author, Authorship, CabinetManagerService } from '@perun-web-apps/perun/openapi';
+import { Author, CabinetManagerService } from '@perun-web-apps/perun/openapi';
 import { TableConfigService } from '@perun-web-apps/config/table-config';
 import {
   TABLE_PUBLICATION_AUTHORS

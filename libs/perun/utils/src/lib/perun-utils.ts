@@ -686,15 +686,16 @@ export function getDataForExport(data: any, columns: string[], getDataForColumn:
 
 export function downloadData(data: any, format = 'csv', filename = 'export') {
   switch (format){
-    case 'csv':
+    case 'csv': {
       const replacer = (key, value) => value === null ? '' : value;
       const header = Object.keys(data[0]);
       const csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
       csv.unshift(header.join(',').split(' ').join('_').split("\"").join('\'\''));
       const csvArray = csv.join('\r\n');
 
-      const blob = new Blob([csvArray], {type: 'text/csv' })
+      const blob = new Blob([csvArray], { type: 'text/csv' })
       saveAs(blob, `${filename}.${format}`);
+    }
   }
 }
 

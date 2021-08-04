@@ -5,7 +5,6 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { Host} from '@perun-web-apps/perun/openapi';
@@ -62,7 +61,7 @@ export class HostsListComponent implements AfterViewInit, OnChanges {
 
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
@@ -87,14 +86,10 @@ export class HostsListComponent implements AfterViewInit, OnChanges {
   }
 
   setDataSource() {
-    if (!!this.dataSource) {
+    if (this.dataSource) {
       this.dataSource.sort = this.sort;
-      this.dataSource.filterPredicate = (data: Host, filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this)
-      };
-      this.dataSource.sortData = (data: Host[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getDataForColumn, this);
-      };
+      this.dataSource.filterPredicate = (data: Host, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: Host[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.paginator = this.child.paginator;
     }
   }

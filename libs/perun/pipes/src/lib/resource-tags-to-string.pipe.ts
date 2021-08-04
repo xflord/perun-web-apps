@@ -6,7 +6,7 @@ import { ResourceTag } from '@perun-web-apps/perun/openapi';
 })
 export class ResourceTagsToStringPipe implements PipeTransform {
 
-  transform(value: any, args?: any): any {
+  transform(value: any): any {
     if (value == null) {
       return null;
     }

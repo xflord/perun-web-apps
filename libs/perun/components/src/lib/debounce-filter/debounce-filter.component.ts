@@ -21,9 +21,7 @@ export class DebounceFilterComponent implements OnInit {
 
   ngOnInit() {
     fromEvent(this.groupFilterInput.nativeElement, 'keyup').pipe(
-      map((event: any) => {
-        return event.target.value;
-      })
+      map((event: any) => event.target.value)
       , debounceTime(500)
       , distinctUntilChanged()
     ).subscribe((text: string) => {

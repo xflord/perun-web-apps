@@ -99,7 +99,7 @@ export class AddEditNotificationDialogComponent implements OnInit {
   }
 
   addTag(input: HTMLInputElement, textarea: HTMLTextAreaElement, language: string, tag: string) {
-    let place: any;
+    let place: HTMLInputElement | HTMLTextAreaElement;
     if (!this.isTextFocused) {
       place = input;
     } else {

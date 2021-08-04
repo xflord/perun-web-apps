@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -106,19 +106,15 @@ export class UsersListComponent implements OnChanges {
   }
 
   setDataSource() {
-    if (!!this.dataSource) {
+    if (this.dataSource) {
       this.dataSource.sort = this.sort;
       this.dataSource.filter = this.filter;
-      this.dataSource.filterPredicate = (data: RichUser, filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this)
-      };
-      this.dataSource.sortData = (data: RichUser[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getDataForColumn, this);
-      };
+      this.dataSource.filterPredicate = (data: RichUser, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: RichUser[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
     }
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }

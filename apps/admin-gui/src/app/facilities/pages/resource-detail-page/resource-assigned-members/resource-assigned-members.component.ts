@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ResourcesManagerService, RichMember } from '@perun-web-apps/perun/openapi';
-import { SelectionModel } from '@angular/cdk/collections';
 import { PageEvent } from '@angular/material/paginator';
 import { TABLE_RESOURCE_MEMBERS, TableConfigService } from '@perun-web-apps/config/table-config';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';

@@ -9,8 +9,8 @@ import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { ConnectIdentity } from '../../../../../shared/components/dialogs/connect-identity/connect-identity';
-import { DisconnectIdentity } from '../../../../../shared/components/dialogs/disconnect-identity/disconnect-identity';
+import { ConnectIdentityDialogComponent } from '../../../../../shared/components/dialogs/connect-identity-dialog/connect-identity-dialog.component';
+import { DisconnectIdentityDialogComponent } from '../../../../../shared/components/dialogs/disconnect-identity-dialog/disconnect-identity-dialog.component';
 
 @Component({
   selector: 'app-user-settings-associated-users',
@@ -66,7 +66,7 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
       isService: true
     };
 
-    const dialogRef = this.dialog.open(ConnectIdentity, config);
+    const dialogRef = this.dialog.open(ConnectIdentityDialogComponent, config);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -86,7 +86,7 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
       theme: "user-theme"
     };
 
-    const dialogRef = this.dialog.open(DisconnectIdentity, config);
+    const dialogRef = this.dialog.open(DisconnectIdentityDialogComponent, config);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

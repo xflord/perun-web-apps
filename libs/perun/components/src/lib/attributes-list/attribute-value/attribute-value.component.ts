@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {AttributeValueMapComponent} from './attribute-value-map/attribute-value-map.component';
 import { Attribute } from '@perun-web-apps/perun/openapi';
 
@@ -7,7 +7,7 @@ import { Attribute } from '@perun-web-apps/perun/openapi';
   templateUrl: './attribute-value.component.html',
   styleUrls: ['./attribute-value.component.scss']
 })
-export class AttributeValueComponent implements OnInit {
+export class AttributeValueComponent {
 
   constructor() {
   }
@@ -22,9 +22,6 @@ export class AttributeValueComponent implements OnInit {
   readonly = false;
 
   @Output() sendEventToParent2 = new EventEmitter();
-
-  ngOnInit(): void {
-  }
 
   updateMapAttribute() {
     if (this.attribute.type === 'java.util.LinkedHashMap') {

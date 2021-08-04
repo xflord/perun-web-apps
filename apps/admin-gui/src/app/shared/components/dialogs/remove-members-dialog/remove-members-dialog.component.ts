@@ -43,7 +43,7 @@ export class RemoveMembersDialogComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
-    if (!!this.data.groupId) {
+    if (this.data.groupId) {
       this.groupService.removeMembers(this.data.groupId, this.data.members.map(m => m.id))
         .subscribe(() => this.onSuccess(), () => this.onError());
     } else {
@@ -53,7 +53,7 @@ export class RemoveMembersDialogComponent implements OnInit {
   }
 
   onSuccess() {
-    const message = !!this.data.groupId ?
+    const message = this.data.groupId ?
       this.translate.instant('DIALOGS.REMOVE_MEMBERS.SUCCESS_GROUP'):
       this.translate.instant('DIALOGS.REMOVE_MEMBERS.SUCCESS');
     this.notificator.showSuccess(message);

@@ -5,7 +5,6 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
@@ -70,7 +69,7 @@ export class MembershipListComponent implements OnChanges, AfterViewInit {
     this.dataSource.paginator = this.child.paginator;
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     this.dataSource = new MatTableDataSource<Membership>(this.members);
     this.setDataSource();
   }
@@ -93,13 +92,9 @@ export class MembershipListComponent implements OnChanges, AfterViewInit {
   }
 
   setDataSource() {
-    if (!!this.dataSource) {
-      this.dataSource.filterPredicate = (data: Membership, filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this)
-      };
-      this.dataSource.sortData = (data: Membership[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getDataForColumn, this);
-      };
+    if (this.dataSource) {
+      this.dataSource.filterPredicate = (data: Membership, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: Membership[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;

@@ -14,7 +14,7 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { FormControl } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ApplicationFormItem, PerunBean } from '@perun-web-apps/perun/openapi';
+import { PerunBean } from '@perun-web-apps/perun/openapi';
 import { stringify } from 'querystring';
 
 @Component({
@@ -91,7 +91,7 @@ export class EntitySearchSelectComponent<T extends PerunBean> implements OnInit,
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!!changes['entities']) {
+    if (changes['entities']) {
 
       this.filteredEntities.next(this.entities.slice());
     }
@@ -130,7 +130,7 @@ export class EntitySearchSelectComponent<T extends PerunBean> implements OnInit,
     return data.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   }
 
-  openChange($event: boolean) {
+  openChange() {
     this.scrollViewport.scrollToIndex(0);
     this.scrollViewport.checkViewportSize();
   }
@@ -140,7 +140,7 @@ export class EntitySearchSelectComponent<T extends PerunBean> implements OnInit,
     if (height > 192) {
       height = 192;
     }
-    if (!!this.scrollViewport) {
+    if (this.scrollViewport) {
       this.scrollViewport.checkViewportSize();
     }
     return height;

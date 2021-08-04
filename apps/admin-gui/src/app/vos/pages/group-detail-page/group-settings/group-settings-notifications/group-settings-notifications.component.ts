@@ -18,7 +18,7 @@ import {
 } from '../../../../../shared/components/dialogs/edit-email-footer-dialog/edit-email-footer-dialog.component';
 import {
   ApplicationForm,
-  ApplicationMail, Attribute, AttributesManagerService,
+  ApplicationMail, AttributesManagerService,
   Group,
   GroupsManagerService,
   RegistrarManagerService
@@ -68,7 +68,7 @@ export class GroupSettingsNotificationsComponent implements OnInit {
   removeAuth = false;
   copyAuth = false;
   createFormAuth = false;
-  displayedColumns: String[] = [];
+  displayedColumns: string[] = [];
 
   private tableId = TABLE_GROUP_SETTINGS_NOTIFICATIONS;
 

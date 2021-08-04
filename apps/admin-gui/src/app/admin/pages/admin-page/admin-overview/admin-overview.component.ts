@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, HostBinding } from '@angular/core';
 import {MenuItem} from '@perun-web-apps/perun/models';
 
 @Component({
@@ -6,7 +6,7 @@ import {MenuItem} from '@perun-web-apps/perun/models';
   templateUrl: './admin-overview.component.html',
   styleUrls: ['./admin-overview.component.scss']
 })
-export class AdminOverviewComponent implements OnInit {
+export class AdminOverviewComponent {
 
   @HostBinding('class.router-component') true;
 
@@ -50,8 +50,5 @@ export class AdminOverviewComponent implements OnInit {
       style: 'admin-btn'
     }
   ];
-
-  ngOnInit() {
-  }
 
 }

@@ -8,7 +8,6 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { TABLE_PUBLICATION_AUTHOR_DETAIL_PUBLICATIONS, TableConfigService } from '@perun-web-apps/config/table-config';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'perun-web-apps-my-publications-page',

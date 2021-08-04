@@ -5,7 +5,6 @@ import { SelectionModel } from '@angular/cdk/collections';
 import {
   TABLE_ADD_GROUP_TO_REGISTRATION, TableConfigService
 } from '@perun-web-apps/config/table-config';
-import { NotificatorService } from '@perun-web-apps/perun/services';
 import { PageEvent } from '@angular/material/paginator';
 
 export interface AddGroupToRegistrationDialogData {

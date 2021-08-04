@@ -32,9 +32,7 @@
               "apps/admin-gui/src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.css"
             ],
-            "scripts": [
-              "./node_modules/tinycolor2/dist/tinycolor-min.js"
-            ]
+            "scripts": ["./node_modules/tinycolor2/dist/tinycolor-min.js"]
           },
           "configurations": {
             "production": {
@@ -91,9 +89,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -117,15 +113,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/admin-gui/tsconfig.app.json",
-              "apps/admin-gui/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/admin-gui/**/*"
+            "lintFilePatterns": [
+              "apps/admin-gui/src/**/*.ts",
+              "apps/admin-gui/src/**/*.html"
             ]
           }
         },
@@ -135,9 +127,7 @@
             "jestConfig": "apps/admin-gui/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/admin-gui"
-          ]
+          "outputs": ["coverage/apps/admin-gui"]
         }
       }
     },
@@ -160,15 +150,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/admin-gui-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/admin-gui-e2e/**/*"
-            ]
+            "lintFilePatterns": ["apps/admin-gui-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -180,15 +164,11 @@
       "prefix": "perun-web-apps",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/config/tsconfig.lib.json",
-              "libs/config/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/config/**/*"
+            "lintFilePatterns": [
+              "libs/config/src/**/*.ts",
+              "libs/config/src/**/*.html"
             ]
           }
         },
@@ -198,9 +178,7 @@
             "jestConfig": "libs/config/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/config"
-          ]
+          "outputs": ["coverage/libs/config"]
         }
       },
       "schematics": {
@@ -216,15 +194,11 @@
       "prefix": "perun-web-apps",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/config/table-config/tsconfig.lib.json",
-              "libs/config/table-config/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/config/table-config/**/*"
+            "lintFilePatterns": [
+              "libs/config/table-config/src/**/*.ts",
+              "libs/config/table-config/src/**/*.html"
             ]
           }
         },
@@ -234,9 +208,7 @@
             "jestConfig": "libs/config/table-config/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/config/table-config"
-          ]
+          "outputs": ["coverage/libs/config/table-config"]
         }
       },
       "schematics": {
@@ -252,15 +224,11 @@
       "prefix": "perun-web-apps",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/general/tsconfig.lib.json",
-              "libs/general/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/general/**/*"
+            "lintFilePatterns": [
+              "libs/general/src/**/*.ts",
+              "libs/general/src/**/*.html"
             ]
           }
         },
@@ -270,9 +238,7 @@
             "jestConfig": "libs/general/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/general"
-          ]
+          "outputs": ["coverage/libs/general"]
         }
       },
       "schematics": {
@@ -305,9 +271,7 @@
               "apps/password-reset/src/favicon.ico",
               "apps/password-reset/src/assets"
             ],
-            "styles": [
-              "apps/password-reset/src/styles.scss"
-            ],
+            "styles": ["apps/password-reset/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -366,9 +330,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -392,16 +354,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/password-reset/tsconfig.app.json",
-              "apps/password-reset/tsconfig.spec.json",
-              "apps/password-reset/tsconfig.editor.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/password-reset/**/*"
+            "lintFilePatterns": [
+              "apps/password-reset/src/**/*.ts",
+              "apps/password-reset/src/**/*.html"
             ]
           }
         },
@@ -411,9 +368,7 @@
             "jestConfig": "apps/password-reset/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/password-reset"
-          ]
+          "outputs": ["coverage/apps/password-reset"]
         }
       }
     },
@@ -436,15 +391,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/password-reset-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/password-reset-e2e/**/*"
-            ]
+            "lintFilePatterns": ["apps/password-reset-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -456,15 +405,11 @@
       "prefix": "perun-web-apps",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/perun/animations/tsconfig.lib.json",
-              "libs/perun/animations/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/perun/animations/**/*"
+            "lintFilePatterns": [
+              "libs/perun/animations/src/**/*.ts",
+              "libs/perun/animations/src/**/*.html"
             ]
           }
         },
@@ -474,9 +419,7 @@
             "jestConfig": "libs/perun/animations/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/perun/animations"
-          ]
+          "outputs": ["coverage/libs/perun/animations"]
         }
       },
       "schematics": {
@@ -492,15 +435,11 @@
       "prefix": "perun-web-apps",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/perun/components/tsconfig.lib.json",
-              "libs/perun/components/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/perun/components/**/*"
+            "lintFilePatterns": [
+              "libs/perun/components/src/**/*.ts",
+              "libs/perun/components/src/**/*.html"
             ]
           }
         },
@@ -510,9 +449,7 @@
             "jestConfig": "libs/perun/components/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/perun/components"
-          ]
+          "outputs": ["coverage/libs/perun/components"]
         }
       },
       "schematics": {
@@ -528,15 +465,11 @@
       "prefix": "perun-web-apps",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/perun/dialogs/tsconfig.lib.json",
-              "libs/perun/dialogs/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/perun/dialogs/**/*"
+            "lintFilePatterns": [
+              "libs/perun/dialogs/src/**/*.ts",
+              "libs/perun/dialogs/src/**/*.html"
             ]
           }
         },
@@ -546,9 +479,7 @@
             "jestConfig": "libs/perun/dialogs/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/perun/dialogs"
-          ]
+          "outputs": ["coverage/libs/perun/dialogs"]
         }
       },
       "schematics": {
@@ -564,15 +495,11 @@
       "prefix": "perun-web-apps",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/perun/directives/tsconfig.lib.json",
-              "libs/perun/directives/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/perun/directives/**/*"
+            "lintFilePatterns": [
+              "libs/perun/directives/src/**/*.ts",
+              "libs/perun/directives/src/**/*.html"
             ]
           }
         },
@@ -582,9 +509,7 @@
             "jestConfig": "libs/perun/directives/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/perun/directives"
-          ]
+          "outputs": ["coverage/libs/perun/directives"]
         }
       },
       "schematics": {
@@ -600,15 +525,11 @@
       "prefix": "perun-web-apps",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/perun/facility-services-config/tsconfig.lib.json",
-              "libs/perun/facility-services-config/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/perun/facility-services-config/**/*"
+            "lintFilePatterns": [
+              "libs/perun/facility-services-config/src/**/*.ts",
+              "libs/perun/facility-services-config/src/**/*.html"
             ]
           }
         },
@@ -618,9 +539,7 @@
             "jestConfig": "libs/perun/facility-services-config/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/perun/facility-services-config"
-          ]
+          "outputs": ["coverage/libs/perun/facility-services-config"]
         }
       },
       "schematics": {
@@ -636,15 +555,11 @@
       "prefix": "perun-web-apps",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/perun/login/tsconfig.lib.json",
-              "libs/perun/login/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/perun/login/**/*"
+            "lintFilePatterns": [
+              "libs/perun/login/src/**/*.ts",
+              "libs/perun/login/src/**/*.html"
             ]
           }
         },
@@ -654,9 +569,7 @@
             "jestConfig": "libs/perun/login/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/perun/login"
-          ]
+          "outputs": ["coverage/libs/perun/login"]
         }
       },
       "schematics": {
@@ -672,15 +585,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/perun/models/tsconfig.lib.json",
-              "libs/perun/models/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/perun/models/**/*"
+            "lintFilePatterns": [
+              "libs/perun/models/src/**/*.ts",
+              "libs/perun/models/src/**/*.html"
             ]
           }
         },
@@ -690,9 +599,7 @@
             "jestConfig": "libs/perun/models/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/perun/models"
-          ]
+          "outputs": ["coverage/libs/perun/models"]
         }
       }
     },
@@ -703,15 +610,11 @@
       "prefix": "perun-web-apps",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/perun/openapi/tsconfig.lib.json",
-              "libs/perun/openapi/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/perun/openapi/**/*"
+            "lintFilePatterns": [
+              "libs/perun/openapi/src/**/*.ts",
+              "libs/perun/openapi/src/**/*.html"
             ]
           }
         },
@@ -721,9 +624,7 @@
             "jestConfig": "libs/perun/openapi/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/perun/openapi"
-          ]
+          "outputs": ["coverage/libs/perun/openapi"]
         }
       },
       "schematics": {}
@@ -735,15 +636,11 @@
       "prefix": "perun-web-apps",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/perun/pipes/tsconfig.lib.json",
-              "libs/perun/pipes/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/perun/pipes/**/*"
+            "lintFilePatterns": [
+              "libs/perun/pipes/src/**/*.ts",
+              "libs/perun/pipes/src/**/*.html"
             ]
           }
         },
@@ -753,9 +650,7 @@
             "jestConfig": "libs/perun/pipes/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/perun/pipes"
-          ]
+          "outputs": ["coverage/libs/perun/pipes"]
         }
       },
       "schematics": {
@@ -771,15 +666,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/perun/services/tsconfig.lib.json",
-              "libs/perun/services/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/perun/services/**/*"
+            "lintFilePatterns": [
+              "libs/perun/services/src/**/*.ts",
+              "libs/perun/services/src/**/*.html"
             ]
           }
         },
@@ -789,9 +680,7 @@
             "jestConfig": "libs/perun/services/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/perun/services"
-          ]
+          "outputs": ["coverage/libs/perun/services"]
         }
       }
     },
@@ -802,15 +691,11 @@
       "prefix": "perun-web-apps",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/perun/session-expiration/tsconfig.lib.json",
-              "libs/perun/session-expiration/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/perun/session-expiration/**/*"
+            "lintFilePatterns": [
+              "libs/perun/session-expiration/src/**/*.ts",
+              "libs/perun/session-expiration/src/**/*.html"
             ]
           }
         },
@@ -820,9 +705,7 @@
             "jestConfig": "libs/perun/session-expiration/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/perun/session-expiration"
-          ]
+          "outputs": ["coverage/libs/perun/session-expiration"]
         }
       },
       "schematics": {
@@ -838,15 +721,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/perun/tokens/tsconfig.lib.json",
-              "libs/perun/tokens/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/perun/tokens/**/*"
+            "lintFilePatterns": [
+              "libs/perun/tokens/src/**/*.ts",
+              "libs/perun/tokens/src/**/*.html"
             ]
           }
         },
@@ -856,9 +735,7 @@
             "jestConfig": "libs/perun/tokens/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/perun/tokens"
-          ]
+          "outputs": ["coverage/libs/perun/tokens"]
         }
       }
     },
@@ -869,15 +746,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/perun/urns/tsconfig.lib.json",
-              "libs/perun/urns/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/perun/urns/**/*"
+            "lintFilePatterns": [
+              "libs/perun/urns/src/**/*.ts",
+              "libs/perun/urns/src/**/*.html"
             ]
           }
         },
@@ -887,9 +760,7 @@
             "jestConfig": "libs/perun/urns/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/perun/urns"
-          ]
+          "outputs": ["coverage/libs/perun/urns"]
         }
       }
     },
@@ -900,15 +771,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/perun/utils/tsconfig.lib.json",
-              "libs/perun/utils/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/perun/utils/**/*"
+            "lintFilePatterns": [
+              "libs/perun/utils/src/**/*.ts",
+              "libs/perun/utils/src/**/*.html"
             ]
           }
         },
@@ -918,9 +785,7 @@
             "jestConfig": "libs/perun/utils/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/perun/utils"
-          ]
+          "outputs": ["coverage/libs/perun/utils"]
         }
       }
     },
@@ -974,9 +839,7 @@
               "apps/publications/src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.css"
             ],
-            "scripts": [
-              "./node_modules/tinycolor2/dist/tinycolor-min.js"
-            ]
+            "scripts": ["./node_modules/tinycolor2/dist/tinycolor-min.js"]
           },
           "configurations": {
             "production": {
@@ -1034,9 +897,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -1060,16 +921,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/publications/tsconfig.app.json",
-              "apps/publications/tsconfig.spec.json",
-              "apps/publications/tsconfig.editor.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/publications/**/*"
+            "lintFilePatterns": [
+              "apps/publications/src/**/*.ts",
+              "apps/publications/src/**/*.html"
             ]
           }
         },
@@ -1079,9 +935,7 @@
             "jestConfig": "apps/publications/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/publications"
-          ]
+          "outputs": ["coverage/apps/publications"]
         }
       }
     },
@@ -1104,15 +958,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/publications-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/publications-e2e/**/*"
-            ]
+            "lintFilePatterns": ["apps/publications-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -1124,16 +972,9 @@
       "prefix": "perun-web-apps",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/ui/tsconfig.lib.json",
-              "libs/ui/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/ui/**/*"
-            ]
+            "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
           }
         },
         "test": {
@@ -1142,9 +983,7 @@
             "jestConfig": "libs/ui/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/ui"
-          ]
+          "outputs": ["coverage/libs/ui"]
         }
       },
       "schematics": {
@@ -1160,15 +999,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/ui/alerts/tsconfig.lib.json",
-              "libs/ui/alerts/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/ui/alerts/**/*"
+            "lintFilePatterns": [
+              "libs/ui/alerts/src/**/*.ts",
+              "libs/ui/alerts/src/**/*.html"
             ]
           }
         },
@@ -1178,9 +1013,7 @@
             "jestConfig": "libs/ui/alerts/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/ui/alerts"
-          ]
+          "outputs": ["coverage/libs/ui/alerts"]
         }
       }
     },
@@ -1191,15 +1024,11 @@
       "prefix": "perun-web-apps",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/ui/material/tsconfig.lib.json",
-              "libs/ui/material/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/ui/material/**/*"
+            "lintFilePatterns": [
+              "libs/ui/material/src/**/*.ts",
+              "libs/ui/material/src/**/*.html"
             ]
           }
         },
@@ -1209,9 +1038,7 @@
             "jestConfig": "libs/ui/material/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/ui/material"
-          ]
+          "outputs": ["coverage/libs/ui/material"]
         }
       },
       "schematics": {
@@ -1248,9 +1075,7 @@
               "apps/user-profile/src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.css"
             ],
-            "scripts": [
-              "./node_modules/tinycolor2/dist/tinycolor-min.js"
-            ]
+            "scripts": ["./node_modules/tinycolor2/dist/tinycolor-min.js"]
           },
           "configurations": {
             "production": {
@@ -1309,9 +1134,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -1335,15 +1158,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/user-profile/tsconfig.app.json",
-              "apps/user-profile/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/user-profile/**/*"
+            "lintFilePatterns": [
+              "apps/user-profile/src/**/*.ts",
+              "apps/user-profile/src/**/*.html"
             ]
           }
         },
@@ -1352,9 +1171,7 @@
           "options": {
             "jestConfig": "apps/user-profile/jest.config.js"
           },
-          "outputs": [
-            "coverage/apps/user-profile"
-          ]
+          "outputs": ["coverage/apps/user-profile"]
         }
       }
     },
@@ -1377,15 +1194,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/user-profile-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/user-profile-e2e/**/*"
-            ]
+            "lintFilePatterns": ["apps/user-profile-e2e/**/*.{js,ts}"]
           }
         }
       }

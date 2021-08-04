@@ -4,7 +4,6 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
@@ -67,7 +66,7 @@ export class FacilitiesListComponent implements OnChanges {
   dataSource: MatTableDataSource<EnrichedFacility>;
   disableRouting: boolean;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
@@ -112,12 +111,8 @@ export class FacilitiesListComponent implements OnChanges {
       this.dataSource = new MatTableDataSource<EnrichedFacility>();
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
-      this.dataSource.filterPredicate = (data: EnrichedFacility, filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this)
-      };
-      this.dataSource.sortData = (data: EnrichedFacility[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getDataForColumn, this);
-      };
+      this.dataSource.filterPredicate = (data: EnrichedFacility, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: EnrichedFacility[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
     }
     this.dataSource.filter = this.filterValue;
     this.dataSource.data = this.facilities;
@@ -132,9 +127,11 @@ export class FacilitiesListComponent implements OnChanges {
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
+    if (this.isAllSelected()) {
+      this.selection.clear();
+    } else {
       this.dataSource.data.forEach(row => this.selection.select(row));
+    }
   }
 
   /** The label for the checkbox on the passed row */

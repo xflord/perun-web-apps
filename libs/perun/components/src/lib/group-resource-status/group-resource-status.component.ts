@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ChangeGroupResourceAssigmentDialogComponent } from '../../../../dialogs/src/lib/change-group-resource-assigment-dialog/change-group-resource-assigment-dialog.component';
@@ -8,7 +8,7 @@ import { ChangeGroupResourceAssigmentDialogComponent } from '../../../../dialogs
   templateUrl: './group-resource-status.component.html',
   styleUrls: ['./group-resource-status.component.css']
 })
-export class GroupResourceStatusComponent implements OnInit{
+export class GroupResourceStatusComponent {
 
   constructor(private dialog: MatDialog) { }
 
@@ -22,9 +22,6 @@ export class GroupResourceStatusComponent implements OnInit{
   theme: string;
   @Output()
   statusChange: EventEmitter<void> = new EventEmitter<void>();
-
-  ngOnInit(): void {
-  }
 
   changeStatus() {
     const config = getDefaultDialogConfig();

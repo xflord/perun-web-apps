@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {PerunNavComponent} from './perun-nav/perun-nav.component';
-import {RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { PerunNavComponent } from './perun-nav/perun-nav.component';
+import { RouterModule } from '@angular/router';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -31,19 +31,18 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from '@angular/material/stepper';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {SideMenuComponent} from './side-menu/side-menu.component';
-import {SideMenuItemComponent} from './side-menu/side-menu-item/side-menu-item.component';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {CreateGroupDialogComponent} from './components/dialogs/create-group-dialog/create-group-dialog.component';
-import {InviteMemberDialogComponent} from './components/dialogs/invite-member-dialog/invite-member-dialog.component';
-import {DeleteGroupDialogComponent} from './components/dialogs/delete-group-dialog/delete-group-dialog.component';
-import {SettingsToggleItemComponent} from './components/settings-toggle-item/settings-toggle-item.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SideMenuComponent } from './side-menu/side-menu.component';
+import { SideMenuItemComponent } from './side-menu/side-menu-item/side-menu-item.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { CreateGroupDialogComponent } from './components/dialogs/create-group-dialog/create-group-dialog.component';
+import { InviteMemberDialogComponent } from './components/dialogs/invite-member-dialog/invite-member-dialog.component';
+import { DeleteGroupDialogComponent } from './components/dialogs/delete-group-dialog/delete-group-dialog.component';
+import { SettingsToggleItemComponent } from './components/settings-toggle-item/settings-toggle-item.component';
 import { ApplicationStatePipe } from './pipes/application-state.pipe';
 import { AttributeTypeCleanPipe } from './pipes/attribute-type-clean.pipe';
 import { NameSpaceToDefPipe } from './pipes/name-space-to-def.pipe';
-import { ApplicationReSendNotificationDialogComponent
-} from './components/dialogs/application-re-send-notification-dialog/application-re-send-notification-dialog.component';
+import { ApplicationReSendNotificationDialogComponent } from './components/dialogs/application-re-send-notification-dialog/application-re-send-notification-dialog.component';
 import { ApplicationRejectDialogComponent } from './components/dialogs/application-reject-dialog/application-reject-dialog.component';
 import { AnyToStringPipe } from './pipes/any-to-string.pipe';
 import { DeleteAttributeDialogComponent } from './components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
@@ -53,55 +52,37 @@ import { DebuggerPageComponent } from './debugger-page/debugger-page.component';
 import { RemoveResourceDialogComponent } from './components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
 import { AddManagerDialogComponent } from './components/dialogs/add-manager-dialog/add-manager-dialog.component';
 import { RemoveManagerDialogComponent } from './components/dialogs/remove-manager-dialog/remove-manager-dialog.component';
-import {AddGroupManagerDialogComponent } from './components/dialogs/add-group-manager-dialog/add-group-manager-dialog.component';
+import { AddGroupManagerDialogComponent } from './components/dialogs/add-group-manager-dialog/add-group-manager-dialog.component';
 import { RemoveGroupManagerDialogComponent } from './components/dialogs/remove-group-manager-dialog/remove-group-manager-dialog.component';
 import { ApplicationFormItemTypePipe } from './pipes/application-form-item-type.pipe';
-import {DragDropModule} from '@angular/cdk/drag-drop';
-import {
-  UpdateApplicationFormDialogComponent
-} from './components/dialogs/update-application-form-dialog/update-application-form-dialog.component';
-import {
-  DeleteApplicationFormItemDialogComponent
-} from './components/dialogs/delete-application-form-item-dialog/delete-application-form-item-dialog.component';
-import {
-  ApplicationFormCopyItemsDialogComponent
-} from './components/dialogs/application-form-copy-items-dialog/application-form-copy-items-dialog.component';
-import {
-  AddApplicationFormItemDialogComponent
-} from './components/dialogs/add-application-form-item-dialog/add-application-form-item-dialog.component';
-import {
-  EditApplicationFormItemDialogComponent
-} from './components/dialogs/edit-application-form-item-dialog/edit-application-form-item-dialog.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { UpdateApplicationFormDialogComponent } from './components/dialogs/update-application-form-dialog/update-application-form-dialog.component';
+import { DeleteApplicationFormItemDialogComponent } from './components/dialogs/delete-application-form-item-dialog/delete-application-form-item-dialog.component';
+import { ApplicationFormCopyItemsDialogComponent } from './components/dialogs/application-form-copy-items-dialog/application-form-copy-items-dialog.component';
+import { AddApplicationFormItemDialogComponent } from './components/dialogs/add-application-form-item-dialog/add-application-form-item-dialog.component';
+import { EditApplicationFormItemDialogComponent } from './components/dialogs/edit-application-form-item-dialog/edit-application-form-item-dialog.component';
 import { ApplicationFormWidgetDescriptionPipe } from './pipes/application-form-widget-description.pipe';
 import { AddMemberDialogComponent } from './components/dialogs/add-member-dialog/add-member-dialog.component';
-import {MembersCandidatesListComponent} from './components/members-candidates-list/members-candidates-list.component';
-import {UserVoPipe} from './pipes/vo-or-ext-source.pipe';
+import { MembersCandidatesListComponent } from './components/members-candidates-list/members-candidates-list.component';
+import { UserVoPipe } from './pipes/vo-or-ext-source.pipe';
 import { CreateResourceTagDialogComponent } from './components/dialogs/create-resource-tag-dialog/create-resource-tag-dialog.component';
 import { DeleteResourceTagDialogComponent } from './components/dialogs/delete-resource-tag-dialog/delete-resource-tag-dialog.component';
 import { MoveGroupDialogComponent } from './components/dialogs/move-group-dialog/move-group-dialog.component';
 import { ManagersPageComponent } from './components/managers-page/managers-page.component';
-import {
-  DeleteNotificationDialogComponent
-} from './components/dialogs/delete-notification-dialog/delete-notification-dialog.component';
-import {
-  EditEmailFooterDialogComponent
-} from './components/dialogs/edit-email-footer-dialog/edit-email-footer-dialog.component';
-import {
-  AddEditNotificationDialogComponent
-} from './components/dialogs/add-edit-notification-dialog/add-edit-notification-dialog.component';
-import {ScrollingModule} from '@angular/cdk/scrolling';
+import { DeleteNotificationDialogComponent } from './components/dialogs/delete-notification-dialog/delete-notification-dialog.component';
+import { EditEmailFooterDialogComponent } from './components/dialogs/edit-email-footer-dialog/edit-email-footer-dialog.component';
+import { AddEditNotificationDialogComponent } from './components/dialogs/add-edit-notification-dialog/add-edit-notification-dialog.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { TagSectionComponent } from './components/dialogs/add-edit-notification-dialog/tag-section/tag-section.component';
 import { TagBarComponent } from './components/dialogs/add-edit-notification-dialog/tag-bar/tag-bar.component';
-import {
-  NotificationsCopyMailsDialogComponent
-} from './components/dialogs/notifications-copy-mails-dialog/notifications-copy-mails-dialog.component';
-import {DisplayedRolePipe} from './pipes/displayed-role.pipe';
+import { NotificationsCopyMailsDialogComponent } from './components/dialogs/notifications-copy-mails-dialog/notifications-copy-mails-dialog.component';
+import { DisplayedRolePipe } from './pipes/displayed-role.pipe';
 import { AnimatedRouterOutletComponent } from './components/animated-router-outlet/animated-router-outlet.component';
 import { UserEmailPipe } from './pipes/user-email.pipe';
 import { ResourcesTagsListComponent } from './components/resources-tags-list/resources-tags-list.component';
-// tslint:disable-next-line:max-line-length
+// eslint-disable-next-line max-len
 import { DeleteAttributeDefinitionDialogComponent } from './components/dialogs/delete-attribute-definition-dialog/delete-attribute-definition-dialog.component';
-// tslint:disable-next-line:max-line-length
+// eslint-disable-next-line max-len
 import { CreateAttributeDefinitionDialogComponent } from './components/dialogs/create-attribute-definition-dialog/create-attribute-definition-dialog.component';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 import { EditAttributeDefinitionDialogComponent } from './components/dialogs/edit-attribute-definition-dialog/edit-attribute-definition-dialog.component';
@@ -121,7 +102,10 @@ import { ExtSourceTypePipe } from './pipes/ext-source-type.pipe';
 // @ts-ignore
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { ConfigTableConfigModule } from '@perun-web-apps/config/table-config';
-import { MemberStatusTooltipPipe, PerunPipesModule } from '@perun-web-apps/perun/pipes';
+import {
+  MemberStatusTooltipPipe,
+  PerunPipesModule,
+} from '@perun-web-apps/perun/pipes';
 import { RemoveDestinationDialogComponent } from './components/dialogs/remove-destination-dialog/remove-destination-dialog.component';
 import { DestinationListComponent } from './components/destination-list/destination-list.component';
 import { AddServicesDestinationDialogComponent } from './components/dialogs/add-services-destination-dialog/add-services-destination-dialog.component';
@@ -151,10 +135,10 @@ import { AddMemberGroupDialogComponent } from './components/dialogs/add-member-g
 import { RemoveMemberGroupDialogComponent } from './components/dialogs/remove-member-group-dialog/remove-member-group-dialog.component';
 import { AddRequiredAttributesDialogComponent } from './components/dialogs/add-required-attributes-dialog/add-required-attributes-dialog.component';
 import { RemoveRequiredAttributesDialogComponent } from './components/dialogs/remove-required-attributes-dialog/remove-required-attributes-dialog.component';
-import { AttrDefListComponent} from './components/attr-def-list/attr-def-list.component';
+import { AttrDefListComponent } from './components/attr-def-list/attr-def-list.component';
 import { TransformMemberStatusPipe } from './pipes/transform-member-status.pipe';
-import { ConnectIdentity } from './components/dialogs/connect-identity/connect-identity';
-import { DisconnectIdentity } from './components/dialogs/disconnect-identity/disconnect-identity';
+import { ConnectIdentityDialogComponent } from './components/dialogs/connect-identity-dialog/connect-identity-dialog.component';
+import { DisconnectIdentityDialogComponent } from './components/dialogs/disconnect-identity-dialog/disconnect-identity-dialog.component';
 import { EditUserDialogComponent } from './components/dialogs/edit-user-dialog/edit-user-dialog.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { DeleteTaskResultDialogComponent } from './components/dialogs/delete-task-result-dialog/delete-task-result-dialog.component';
@@ -182,7 +166,7 @@ import { DeleteEntityDialogComponent } from './components/dialogs/delete-entity-
 import { MatListModule } from '@angular/material/list';
 import { EditApplicationFormItemLineComponent } from './components/dialogs/edit-application-form-item-dialog/edit-application-form-item-line/edit-application-form-item-line.component';
 import { AddGroupToRegistrationComponent } from './components/dialogs/add-group-to-registration/add-group-to-registration.component';
-import { OneEntityAttributePageComponent} from './components/one-entity-attribute-page/one-entity-attribute-page.component';
+import { OneEntityAttributePageComponent } from './components/one-entity-attribute-page/one-entity-attribute-page.component';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
 import { AddResourceTagToResourceDialogComponent } from './components/dialogs/add-resource-tag-to-resource-dialog/add-resource-tag-to-resource-dialog.component';
 
@@ -233,7 +217,7 @@ import { AddResourceTagToResourceDialogComponent } from './components/dialogs/ad
     PerunPipesModule,
     NgxMatSelectSearchModule,
     MatListModule,
-    PerunUtilsModule
+    PerunUtilsModule,
   ],
   exports: [
     NgxMatSelectSearchModule,
@@ -316,7 +300,7 @@ import { AddResourceTagToResourceDialogComponent } from './components/dialogs/ad
     CreateAttributeDialogComponent,
     AttributeFriendlyNamePipe,
     StatisticsCardComponent,
-    OneEntityAttributePageComponent
+    OneEntityAttributePageComponent,
   ],
   declarations: [
     PerunNavComponent,
@@ -413,8 +397,8 @@ import { AddResourceTagToResourceDialogComponent } from './components/dialogs/ad
     AttrDefListComponent,
     TransformMemberStatusPipe,
     IdentityDetailComponent,
-    ConnectIdentity,
-    DisconnectIdentity,
+    ConnectIdentityDialogComponent,
+    DisconnectIdentityDialogComponent,
     EditUserDialogComponent,
     DeleteTaskResultDialogComponent,
     EditApplicationFormItemDataDialogComponent,
@@ -442,12 +426,9 @@ import { AddResourceTagToResourceDialogComponent } from './components/dialogs/ad
     EditApplicationFormItemLineComponent,
     AddGroupToRegistrationComponent,
     OneEntityAttributePageComponent,
-    AddResourceTagToResourceDialogComponent
+    AddResourceTagToResourceDialogComponent,
   ],
-  providers: [
-    AnyToStringPipe,
-    ExtSourceTypePipe
-  ]
+  providers: [AnyToStringPipe, ExtSourceTypePipe],
 })
 export class SharedModule {
   constructor(private translate: TranslateService) {

@@ -7,7 +7,6 @@ import {
   OnChanges,
   OnInit,
   Output, QueryList,
-  SimpleChanges,
   ViewChild, ViewChildren
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -58,7 +57,7 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit, 
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
   @Output()
-  switchView: EventEmitter<any> = new EventEmitter();
+  switchView: EventEmitter<void> = new EventEmitter();
 
   @ViewChildren(AttributeValueComponent)
   items: QueryList<AttributeValueComponent>;
@@ -76,7 +75,7 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit, 
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   loading: boolean;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     this.ngOnInit();
   }
 
@@ -102,7 +101,7 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit, 
     if(!this.child || !this.child.paginator){
       return
     }
-    if (!!this.dataSource) {
+    if (this.dataSource) {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }
@@ -160,9 +159,11 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit, 
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
+    if(this.isAllSelected()) {
+      this.selection.clear();
+    } else {
       this.dataSource.data.forEach(row => this.selection.select(row));
+    }
   }
 
   /** The label for the checkbox on the passed row */

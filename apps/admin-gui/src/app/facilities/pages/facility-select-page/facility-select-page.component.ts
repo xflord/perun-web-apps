@@ -10,9 +10,6 @@ import { PageEvent } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateFacilityDialogComponent } from '../../../shared/components/dialogs/create-facility-dialog/create-facility-dialog.component';
-import {
-  DeleteEntityDialogComponent,
-} from '../../../shared/components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { DeleteFacilityDialogComponent } from '../../../shared/components/dialogs/delete-facility-dialog/delete-facility-dialog.component';
 
 @Component({

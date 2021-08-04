@@ -64,9 +64,7 @@ export class UserDashboardComponent implements OnInit {
     this.userProfileUrl = this.storeService.get('user_profile_url');
     const allUserRoles = Object.keys(this.roles);
     this.isOnlySelfRole = allUserRoles.toString() === ['SELF'].toString();
-    this.roleNames = this.allowedRoles.filter(value => {
-      return allUserRoles.includes(value);
-    });
+    this.roleNames = this.allowedRoles.filter(value => allUserRoles.includes(value));
     this.getDashboardSettings();
     this.sideMenuService.setHomeItems([]);
   }
@@ -102,10 +100,10 @@ export class UserDashboardComponent implements OnInit {
 
   private getDashboardSettings() {
     const recentlyViewedShow = JSON.parse(localStorage.getItem('showRecentlyViewed'));
-    (recentlyViewedShow === null) ? this.recentlyViewedShow = true : this.recentlyViewedShow = recentlyViewedShow;
+    this.recentlyViewedShow = recentlyViewedShow === null ? true : recentlyViewedShow;
 
     const rolesToHide = JSON.parse(localStorage.getItem('rolesToHide'));
-    (rolesToHide === null) ? this.rolesToHide = [] : this.rolesToHide = rolesToHide;
+    this.rolesToHide = rolesToHide === null ? [] : rolesToHide;
   }
 
   changeRoleView(roleName: string) {

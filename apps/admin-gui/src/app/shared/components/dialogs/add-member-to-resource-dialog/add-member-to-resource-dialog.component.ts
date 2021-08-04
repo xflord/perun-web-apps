@@ -41,8 +41,8 @@ export class AddMemberToResourceDialogComponent implements OnInit {
 
   facilityCtrl: FormControl = new FormControl();
 
-  filteredFacilities: Observable<String[]>;
-  facilitiesNames: String[] = [];
+  filteredFacilities: Observable<string[]>;
+  facilitiesNames: string[] = [];
 
   filteredResources:  Observable<RichResource[]>;
   resources: RichResource[] = [];
@@ -67,7 +67,7 @@ export class AddMemberToResourceDialogComponent implements OnInit {
   }
 
   getResourceFacilities(){
-    const distinctFacilities = new Set<String>();
+    const distinctFacilities = new Set<string>();
     for(const resource of this.resources){
       distinctFacilities.add(resource.facility.name);
     }
@@ -85,7 +85,7 @@ export class AddMemberToResourceDialogComponent implements OnInit {
     );
   }
 
-  filterFacilities(value: string): String[] {
+  filterFacilities(value: string): string[] {
     const filterValue = value.toLowerCase();
     const filtered = this.facilitiesNames.filter(option => option.toLowerCase().indexOf(filterValue) >=0);
     return filtered.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 export type AlertType = 'error' | 'warn' | "info";
 
@@ -7,14 +7,11 @@ export type AlertType = 'error' | 'warn' | "info";
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.css']
 })
-export class AlertComponent implements OnInit {
+export class AlertComponent {
 
   constructor() { }
 
   @Input()
   alert_type: AlertType;
-
-  ngOnInit() {
-  }
 
 }

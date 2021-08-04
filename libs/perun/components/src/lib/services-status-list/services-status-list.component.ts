@@ -5,7 +5,6 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { ServiceState } from '@perun-web-apps/perun/openapi';
@@ -65,7 +64,7 @@ export class ServicesStatusListComponent implements OnChanges, AfterViewInit {
 
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'task.id');
     }
@@ -140,13 +139,9 @@ export class ServicesStatusListComponent implements OnChanges, AfterViewInit {
   }
 
   setDataSource() {
-    if (!!this.dataSource) {
-      this.dataSource.filterPredicate = (data: ServiceState, filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this)
-      };
-      this.dataSource.sortData = (data: ServiceState[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getSortDataForColumn, this);
-      };
+    if (this.dataSource) {
+      this.dataSource.filterPredicate = (data: ServiceState, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: ServiceState[], sort: MatSort) => customDataSourceSort(data, sort, this.getSortDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }

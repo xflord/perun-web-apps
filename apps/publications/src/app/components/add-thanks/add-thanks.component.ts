@@ -6,7 +6,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import {
-  TABLE_PUBLICATION_AUTHORS,
   TABLE_PUBLICATION_THANKS,
   TableConfigService
 } from '@perun-web-apps/config/table-config';

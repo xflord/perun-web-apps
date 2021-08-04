@@ -4,7 +4,7 @@ import { ReportIssueDialogComponent } from '../report-issue-dialog/report-issue-
 import { StoreService } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { TranslateService } from '@ngx-translate/core';
-declare var require: any;
+declare let require: any;
 
 @Component({
   selector: 'perun-web-apps-footer',

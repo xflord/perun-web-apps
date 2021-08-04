@@ -19,7 +19,7 @@ import {VoResourcesStatesComponent} from '../../../vos/pages/vo-detail-page/vo-r
 import { AdminUsersComponent } from '../../../admin/pages/admin-page/admin-users/admin-users.component';
 import { VoSettingsApplicationFormComponent } from '../../../vos/pages/vo-detail-page/vo-settings/vo-settings-application-form/vo-settings-application-form.component';
 import { GroupSettingsApplicationFormComponent } from '../../../vos/pages/group-detail-page/group-settings/group-settings-application-form/group-settings-application-form.component';
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { VoSelectPageComponent } from '../../../vos/pages/vo-select-page/vo-select-page.component';
 import { FacilitySelectPageComponent } from '../../../facilities/pages/facility-select-page/facility-select-page.component';
 import { VoSettingsSponsoredMembersComponent } from '../../../vos/pages/vo-detail-page/vo-settings/vo-settings-sponsored-members/vo-settings-sponsored-members.component';
@@ -255,7 +255,7 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
    *
    * @param component in string format
    */
-  private getComponentName(component: any) {
+  private getComponentName(component) {
     return component.id;
   }
 

@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
-  AssignedGroup,
-  Group,
   Resource,
   ResourcesManagerService,
   VosManagerService

@@ -40,6 +40,6 @@ export class RemovePublicationDialogComponent implements OnInit {
       } else {
         this.remove();
       }
-    }, error => this.loading = false);
+    }, () => this.loading = false);
   }
 }

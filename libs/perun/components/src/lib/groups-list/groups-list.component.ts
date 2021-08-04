@@ -5,7 +5,6 @@ import {
   HostListener,
   Input,
   OnChanges, OnInit, Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
@@ -144,7 +143,7 @@ export class GroupsListComponent implements OnInit, AfterViewInit, OnChanges {
     this.shouldHideButtons();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
@@ -177,9 +176,10 @@ export class GroupsListComponent implements OnInit, AfterViewInit, OnChanges {
         return data.name;
       case 'description':
         return  data.description;
-      case 'expiration':
+      case 'expiration': {
         const expirationStr = getGroupExpiration(data);
         return parseDate(expirationStr);
+      }
       case 'recent':
         return '';
       case 'status':
@@ -201,12 +201,13 @@ export class GroupsListComponent implements OnInit, AfterViewInit, OnChanges {
         return data.name;
       case 'description':
         return  data.description;
-      case 'expiration':
+      case 'expiration': {
         const expirationStr = getGroupExpiration(data);
         if(!expirationStr || expirationStr.toLowerCase() === 'never'){
           return expirationStr;
         }
         return formatDate(expirationStr, 'yyyy.MM.dd', 'en');
+      }
       case 'recent':
         if (otherThis.recentIds) {
           if (otherThis.recentIds.indexOf(data.id) > -1) {
@@ -226,22 +227,16 @@ export class GroupsListComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   setDataSource() {
-    if (!!this.dataSource) {
-      this.dataSource.filterPredicate = (data: Group|RichGroup, filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this, true);
-      };
-      this.dataSource.sortData = (data: Group[] | RichGroup[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getSortDataForColumn, this);
-      };
+    if (this.dataSource) {
+      this.dataSource.filterPredicate = (data: Group|RichGroup, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this, true);
+      this.dataSource.sortData = (data: Group[] | RichGroup[], sort: MatSort) => customDataSourceSort(data, sort, this.getSortDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.filter = this.filter;
       this.dataSource.paginator = this.child.paginator;
     }
   }
 
-  canBeSelected = (group: GroupWithStatus): boolean => {
-     return (group.name !== 'members' || !this.disableMembers) && !this.disableSelect(group);
-  }
+  canBeSelected = (group: GroupWithStatus): boolean => (group.name !== 'members' || !this.disableMembers) && !this.disableSelect(group)
 
   isAllSelected() {
     return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(this.selection.selected.length, this.filter, this.pageSize, this.child.paginator.hasNextPage(), this.child.paginator.pageIndex, this.dataSource, this.sort, this.canBeSelected);

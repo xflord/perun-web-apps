@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {fadeIn} from '@perun-web-apps/perun/animations';
 
 @Component({
@@ -9,11 +9,8 @@ import {fadeIn} from '@perun-web-apps/perun/animations';
     fadeIn
   ]
 })
-export class UserDetailPageComponent implements OnInit {
+export class UserDetailPageComponent {
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }

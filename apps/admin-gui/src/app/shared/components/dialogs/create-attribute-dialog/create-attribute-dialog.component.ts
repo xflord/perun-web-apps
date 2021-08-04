@@ -118,9 +118,7 @@ export class CreateAttributeDialogComponent implements OnInit {
     this.attributesManager.getAttributesDefinitionWithRights(memberId, userId, voId, groupId, resourceId, facilityId,
       hostId, uesId).subscribe(attributes => {
       this.attributes = attributes as Attribute[];
-      this.attributes = this.attributes.filter(attribute => {
-        return !unWanted.includes(attribute.id) && this.twoEntityValid(attribute);
-      });
+      this.attributes = this.attributes.filter(attribute => !unWanted.includes(attribute.id) && this.twoEntityValid(attribute));
       this.loading = false;
     });
   }

@@ -10,7 +10,6 @@ import { ApiRequestConfigurationService } from './api-request-configuration.serv
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { SessionExpirationDialogComponent } from '@perun-web-apps/perun/session-expiration';
-import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 import { InitAuthService } from './init-auth.service';
 
 

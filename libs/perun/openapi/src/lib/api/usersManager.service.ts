@@ -9,13 +9,19 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-/* tslint:disable:no-unused-variable member-ordering */
+/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent, HttpParameterCodec }       from '@angular/common/http';
-import { CustomHttpParameterCodec }                          from '../encoder';
-import { Observable }                                        from 'rxjs';
+import { Inject, Injectable, Optional } from '@angular/core';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+  HttpEvent,
+  HttpParameterCodec,
+} from '@angular/common/http';
+import { CustomHttpParameterCodec } from '../encoder';
+import { Observable } from 'rxjs';
 
 import { AddUserExtSourceInput } from '../model/addUserExtSourceInput';
 import { Group } from '../model/group';
@@ -30,3201 +36,4886 @@ import { User } from '../model/user';
 import { UserExtSource } from '../model/userExtSource';
 import { Vo } from '../model/vo';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
-
-
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersManagerService {
+  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  public defaultHeaders = new HttpHeaders();
+  public configuration = new Configuration();
+  public encoder: HttpParameterCodec;
 
-    protected basePath = 'https://perun.cesnet.cz/krb/rpc';
-    public defaultHeaders = new HttpHeaders();
-    public configuration = new Configuration();
-    public encoder: HttpParameterCodec;
+  constructor(
+    protected httpClient: HttpClient,
+    @Optional() @Inject(BASE_PATH) basePath: string,
+    @Optional() configuration: Configuration
+  ) {
+    if (configuration) {
+      this.configuration = configuration;
+    }
+    if (typeof this.configuration.basePath !== 'string') {
+      if (typeof basePath !== 'string') {
+        basePath = this.basePath;
+      }
+      this.configuration.basePath = basePath;
+    }
+    this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
+  }
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-        if (configuration) {
-            this.configuration = configuration;
-        }
-        if (typeof this.configuration.basePath !== 'string') {
-            if (typeof basePath !== 'string') {
-                basePath = this.basePath;
-            }
-            this.configuration.basePath = basePath;
-        }
-        this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
+  /**
+   * Add specific user owner.
+   * @param user id of User
+   * @param specificUser id of specific User
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public addSpecificUserOwner(
+    user: number,
+    specificUser: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public addSpecificUserOwner(
+    user: number,
+    specificUser: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public addSpecificUserOwner(
+    user: number,
+    specificUser: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public addSpecificUserOwner(
+    user: number,
+    specificUser: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling addSpecificUserOwner.'
+      );
+    }
+    if (specificUser === null || specificUser === undefined) {
+      throw new Error(
+        'Required parameter specificUser was null or undefined when calling addSpecificUserOwner.'
+      );
     }
 
-
-
-    /**
-     * Add specific user owner.
-     * @param user id of User
-     * @param specificUser id of specific User
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public addSpecificUserOwner(user: number, specificUser: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public addSpecificUserOwner(user: number, specificUser: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public addSpecificUserOwner(user: number, specificUser: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public addSpecificUserOwner(user: number, specificUser: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling addSpecificUserOwner.');
-        }
-        if (specificUser === null || specificUser === undefined) {
-            throw new Error('Required parameter specificUser was null or undefined when calling addSpecificUserOwner.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-        if (specificUser !== undefined && specificUser !== null) {
-            queryParameters = queryParameters.set('specificUser', <any>specificUser);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/addSpecificUserOwner`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (specificUser !== undefined && specificUser !== null) {
+      queryParameters = queryParameters.set('specificUser', <any>specificUser);
     }
 
-    /**
-     * Adds user\&#39;s external sources.
-     * @param addUserExtSourceInput 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public addUserExtSource(addUserExtSourceInput: AddUserExtSourceInput, observe?: 'body', reportProgress?: boolean): Observable<UserExtSource>;
-    public addUserExtSource(addUserExtSourceInput: AddUserExtSourceInput, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UserExtSource>>;
-    public addUserExtSource(addUserExtSourceInput: AddUserExtSourceInput, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UserExtSource>>;
-    public addUserExtSource(addUserExtSourceInput: AddUserExtSourceInput, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (addUserExtSourceInput === null || addUserExtSourceInput === undefined) {
-            throw new Error('Required parameter addUserExtSourceInput was null or undefined when calling addUserExtSource.');
-        }
+    let headers = this.defaultHeaders;
 
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<UserExtSource>(`${this.configuration.basePath}/json/usersManager/addUserExtSource`,
-            addUserExtSourceInput,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Changes user password in defined login-namespace based on token parameter.
-     * This method throws PasswordResetLinkExpiredException when the password reset request expired. This method throws PasswordResetLinkNotValidException when the password reset request was already used or has never existed. 
-     * @param token token for the password reset request
-     * @param password password
-     * @param lang language to get notifications in (optional)
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public changeNonAuthzPasswordByToken(token: string, password: string, lang?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public changeNonAuthzPasswordByToken(token: string, password: string, lang?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public changeNonAuthzPasswordByToken(token: string, password: string, lang?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public changeNonAuthzPasswordByToken(token: string, password: string, lang?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (token === null || token === undefined) {
-            throw new Error('Required parameter token was null or undefined when calling changeNonAuthzPasswordByToken.');
-        }
-        if (password === null || password === undefined) {
-            throw new Error('Required parameter password was null or undefined when calling changeNonAuthzPasswordByToken.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (token !== undefined && token !== null) {
-            queryParameters = queryParameters.set('token', <any>token);
-        }
-        if (password !== undefined && password !== null) {
-            queryParameters = queryParameters.set('password', <any>password);
-        }
-        if (lang !== undefined && lang !== null) {
-            queryParameters = queryParameters.set('lang', <any>lang);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/changeNonAuthzPassword/token`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Changes password for a user in specified login-namespace.
-     * @param login login
-     * @param namespace namespace
-     * @param newPassword 
-     * @param oldPassword 
-     * @param checkOldPassword True if the oldPassword has to be checked. When omitted it defaults to false.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public changePasswordForLogin(login: string, namespace: string, newPassword: string, oldPassword?: string, checkOldPassword?: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public changePasswordForLogin(login: string, namespace: string, newPassword: string, oldPassword?: string, checkOldPassword?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public changePasswordForLogin(login: string, namespace: string, newPassword: string, oldPassword?: string, checkOldPassword?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public changePasswordForLogin(login: string, namespace: string, newPassword: string, oldPassword?: string, checkOldPassword?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (login === null || login === undefined) {
-            throw new Error('Required parameter login was null or undefined when calling changePasswordForLogin.');
-        }
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling changePasswordForLogin.');
-        }
-        if (newPassword === null || newPassword === undefined) {
-            throw new Error('Required parameter newPassword was null or undefined when calling changePasswordForLogin.');
-        }
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/addSpecificUserOwner`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (login !== undefined && login !== null) {
-            queryParameters = queryParameters.set('login', <any>login);
-        }
-        if (namespace !== undefined && namespace !== null) {
-            queryParameters = queryParameters.set('namespace', <any>namespace);
-        }
-        if (newPassword !== undefined && newPassword !== null) {
-            queryParameters = queryParameters.set('newPassword', <any>newPassword);
-        }
-        if (oldPassword !== undefined && oldPassword !== null) {
-            queryParameters = queryParameters.set('oldPassword', <any>oldPassword);
-        }
-        if (checkOldPassword !== undefined && checkOldPassword !== null) {
-            queryParameters = queryParameters.set('checkOldPassword', <any>checkOldPassword);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/changePassword/login`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Adds user\&#39;s external sources.
+   * @param addUserExtSourceInput
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public addUserExtSource(
+    addUserExtSourceInput: AddUserExtSourceInput,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<UserExtSource>;
+  public addUserExtSource(
+    addUserExtSourceInput: AddUserExtSourceInput,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<UserExtSource>>;
+  public addUserExtSource(
+    addUserExtSourceInput: AddUserExtSourceInput,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<UserExtSource>>;
+  public addUserExtSource(
+    addUserExtSourceInput: AddUserExtSourceInput,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (addUserExtSourceInput === null || addUserExtSourceInput === undefined) {
+      throw new Error(
+        'Required parameter addUserExtSourceInput was null or undefined when calling addUserExtSource.'
+      );
     }
 
-    /**
-     * Changes password for a user in specified login-namespace.
-     * @param user id of User
-     * @param namespace namespace
-     * @param newPassword 
-     * @param oldPassword 
-     * @param checkOldPassword True if the oldPassword has to be checked. When omitted it defaults to false.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public changePasswordForUser(user: number, namespace: string, newPassword: string, oldPassword?: string, checkOldPassword?: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public changePasswordForUser(user: number, namespace: string, newPassword: string, oldPassword?: string, checkOldPassword?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public changePasswordForUser(user: number, namespace: string, newPassword: string, oldPassword?: string, checkOldPassword?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public changePasswordForUser(user: number, namespace: string, newPassword: string, oldPassword?: string, checkOldPassword?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling changePasswordForUser.');
-        }
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling changePasswordForUser.');
-        }
-        if (newPassword === null || newPassword === undefined) {
-            throw new Error('Required parameter newPassword was null or undefined when calling changePasswordForUser.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-        if (namespace !== undefined && namespace !== null) {
-            queryParameters = queryParameters.set('namespace', <any>namespace);
-        }
-        if (newPassword !== undefined && newPassword !== null) {
-            queryParameters = queryParameters.set('newPassword', <any>newPassword);
-        }
-        if (oldPassword !== undefined && oldPassword !== null) {
-            queryParameters = queryParameters.set('oldPassword', <any>oldPassword);
-        }
-        if (checkOldPassword !== undefined && checkOldPassword !== null) {
-            queryParameters = queryParameters.set('checkOldPassword', <any>checkOldPassword);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/changePassword/user`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Checks if the password reset request is valid.
-     * This method throws PasswordResetLinkExpiredException when the password reset request expired. This method throws PasswordResetLinkNotValidException when the password reset request was already used or has never existed. 
-     * @param token token for the password reset request
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public checkPasswordResetRequestByTokenIsValid(token: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public checkPasswordResetRequestByTokenIsValid(token: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public checkPasswordResetRequestByTokenIsValid(token: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public checkPasswordResetRequestByTokenIsValid(token: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (token === null || token === undefined) {
-            throw new Error('Required parameter token was null or undefined when calling checkPasswordResetRequestByTokenIsValid.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (token !== undefined && token !== null) {
-            queryParameters = queryParameters.set('token', <any>token);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<any>(`${this.configuration.basePath}/json/usersManager/checkPasswordResetRequestIsValid/token`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Check password strength for the given namespace.
-     * If the check fails, the PasswordStrengthException error is returned.
-     * @param password password
-     * @param namespace namespace
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public checkPasswordStrength(password: string, namespace: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public checkPasswordStrength(password: string, namespace: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public checkPasswordStrength(password: string, namespace: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public checkPasswordStrength(password: string, namespace: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (password === null || password === undefined) {
-            throw new Error('Required parameter password was null or undefined when calling checkPasswordStrength.');
-        }
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling checkPasswordStrength.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (password !== undefined && password !== null) {
-            queryParameters = queryParameters.set('password', <any>password);
-        }
-        if (namespace !== undefined && namespace !== null) {
-            queryParameters = queryParameters.set('namespace', <any>namespace);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<any>(`${this.configuration.basePath}/json/usersManager/checkPasswordStrength`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    /**
-     * Creates alternative password in external system.
-     * @param user id of User
-     * @param description 
-     * @param loginNamespace 
-     * @param password 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public createAlternativePassword(user: number, description: string, loginNamespace: string, password: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public createAlternativePassword(user: number, description: string, loginNamespace: string, password: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public createAlternativePassword(user: number, description: string, loginNamespace: string, password: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public createAlternativePassword(user: number, description: string, loginNamespace: string, password: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling createAlternativePassword.');
-        }
-        if (description === null || description === undefined) {
-            throw new Error('Required parameter description was null or undefined when calling createAlternativePassword.');
-        }
-        if (loginNamespace === null || loginNamespace === undefined) {
-            throw new Error('Required parameter loginNamespace was null or undefined when calling createAlternativePassword.');
-        }
-        if (password === null || password === undefined) {
-            throw new Error('Required parameter password was null or undefined when calling createAlternativePassword.');
-        }
+    return this.httpClient.post<UserExtSource>(
+      `${this.configuration.basePath}/json/usersManager/addUserExtSource`,
+      addUserExtSourceInput,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-        if (description !== undefined && description !== null) {
-            queryParameters = queryParameters.set('description', <any>description);
-        }
-        if (loginNamespace !== undefined && loginNamespace !== null) {
-            queryParameters = queryParameters.set('loginNamespace', <any>loginNamespace);
-        }
-        if (password !== undefined && password !== null) {
-            queryParameters = queryParameters.set('password', <any>password);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/createAlternativePassword`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Changes user password in defined login-namespace based on token parameter.
+   * This method throws PasswordResetLinkExpiredException when the password reset request expired. This method throws PasswordResetLinkNotValidException when the password reset request was already used or has never existed.
+   * @param token token for the password reset request
+   * @param password password
+   * @param lang language to get notifications in (optional)
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public changeNonAuthzPasswordByToken(
+    token: string,
+    password: string,
+    lang?: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public changeNonAuthzPasswordByToken(
+    token: string,
+    password: string,
+    lang?: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public changeNonAuthzPasswordByToken(
+    token: string,
+    password: string,
+    lang?: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public changeNonAuthzPasswordByToken(
+    token: string,
+    password: string,
+    lang?: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (token === null || token === undefined) {
+      throw new Error(
+        'Required parameter token was null or undefined when calling changeNonAuthzPasswordByToken.'
+      );
+    }
+    if (password === null || password === undefined) {
+      throw new Error(
+        'Required parameter password was null or undefined when calling changeNonAuthzPasswordByToken.'
+      );
     }
 
-    /**
-     * From given candidate, creates a service user and assign given owners to him.
-     * This method also checks if some of given userExtSources do exist. If so, this method throws a UserExtSourceExistsException. This method can also set only user-def and user-opt attributes for the given candidate. 
-     * @param inputCreateServiceUser 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public createServiceUser(inputCreateServiceUser: InputCreateServiceUser, observe?: 'body', reportProgress?: boolean): Observable<User>;
-    public createServiceUser(inputCreateServiceUser: InputCreateServiceUser, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<User>>;
-    public createServiceUser(inputCreateServiceUser: InputCreateServiceUser, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<User>>;
-    public createServiceUser(inputCreateServiceUser: InputCreateServiceUser, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (inputCreateServiceUser === null || inputCreateServiceUser === undefined) {
-            throw new Error('Required parameter inputCreateServiceUser was null or undefined when calling createServiceUser.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<User>(`${this.configuration.basePath}/json/usersManager/createServiceUser`,
-            inputCreateServiceUser,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (token !== undefined && token !== null) {
+      queryParameters = queryParameters.set('token', <any>token);
+    }
+    if (password !== undefined && password !== null) {
+      queryParameters = queryParameters.set('password', <any>password);
+    }
+    if (lang !== undefined && lang !== null) {
+      queryParameters = queryParameters.set('lang', <any>lang);
     }
 
-    /**
-     * Deletes alternative password in external system.
-     * @param user id of User
-     * @param loginNamespace 
-     * @param passwordId 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public deleteAlternativePassword(user: number, loginNamespace: string, passwordId: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteAlternativePassword(user: number, loginNamespace: string, passwordId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteAlternativePassword(user: number, loginNamespace: string, passwordId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteAlternativePassword(user: number, loginNamespace: string, passwordId: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling deleteAlternativePassword.');
-        }
-        if (loginNamespace === null || loginNamespace === undefined) {
-            throw new Error('Required parameter loginNamespace was null or undefined when calling deleteAlternativePassword.');
-        }
-        if (passwordId === null || passwordId === undefined) {
-            throw new Error('Required parameter passwordId was null or undefined when calling deleteAlternativePassword.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-        if (loginNamespace !== undefined && loginNamespace !== null) {
-            queryParameters = queryParameters.set('loginNamespace', <any>loginNamespace);
-        }
-        if (passwordId !== undefined && passwordId !== null) {
-            queryParameters = queryParameters.set('passwordId', <any>passwordId);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/deleteAlternativePassword`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Delete password for a user in specified login-namespace.
-     * @param login login
-     * @param namespace namespace
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public deletePasswordForLogin(login: string, namespace: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deletePasswordForLogin(login: string, namespace: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deletePasswordForLogin(login: string, namespace: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deletePasswordForLogin(login: string, namespace: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (login === null || login === undefined) {
-            throw new Error('Required parameter login was null or undefined when calling deletePasswordForLogin.');
-        }
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling deletePasswordForLogin.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (login !== undefined && login !== null) {
-            queryParameters = queryParameters.set('login', <any>login);
-        }
-        if (namespace !== undefined && namespace !== null) {
-            queryParameters = queryParameters.set('namespace', <any>namespace);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/deletePassword/login`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Delete password for a user in specified login-namespace.
-     * @param user id of User
-     * @param namespace namespace
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public deletePasswordForUser(user: number, namespace: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deletePasswordForUser(user: number, namespace: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deletePasswordForUser(user: number, namespace: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deletePasswordForUser(user: number, namespace: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling deletePasswordForUser.');
-        }
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling deletePasswordForUser.');
-        }
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/changeNonAuthzPassword/token`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-        if (namespace !== undefined && namespace !== null) {
-            queryParameters = queryParameters.set('namespace', <any>namespace);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/deletePassword/user`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Changes password for a user in specified login-namespace.
+   * @param login login
+   * @param namespace namespace
+   * @param newPassword
+   * @param oldPassword
+   * @param checkOldPassword True if the oldPassword has to be checked. When omitted it defaults to false.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public changePasswordForLogin(
+    login: string,
+    namespace: string,
+    newPassword: string,
+    oldPassword?: string,
+    checkOldPassword?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public changePasswordForLogin(
+    login: string,
+    namespace: string,
+    newPassword: string,
+    oldPassword?: string,
+    checkOldPassword?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public changePasswordForLogin(
+    login: string,
+    namespace: string,
+    newPassword: string,
+    oldPassword?: string,
+    checkOldPassword?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public changePasswordForLogin(
+    login: string,
+    namespace: string,
+    newPassword: string,
+    oldPassword?: string,
+    checkOldPassword?: boolean,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (login === null || login === undefined) {
+      throw new Error(
+        'Required parameter login was null or undefined when calling changePasswordForLogin.'
+      );
+    }
+    if (namespace === null || namespace === undefined) {
+      throw new Error(
+        'Required parameter namespace was null or undefined when calling changePasswordForLogin.'
+      );
+    }
+    if (newPassword === null || newPassword === undefined) {
+      throw new Error(
+        'Required parameter newPassword was null or undefined when calling changePasswordForLogin.'
+      );
     }
 
-    /**
-     * Deletes a user.
-     * @param user id of User
-     * @param force If true, delete entity forcefully.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public deleteUser(user: number, force?: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteUser(user: number, force?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteUser(user: number, force?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteUser(user: number, force?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling deleteUser.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-        if (force !== undefined && force !== null) {
-            queryParameters = queryParameters.set('force', <any>force);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/deleteUser`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (login !== undefined && login !== null) {
+      queryParameters = queryParameters.set('login', <any>login);
+    }
+    if (namespace !== undefined && namespace !== null) {
+      queryParameters = queryParameters.set('namespace', <any>namespace);
+    }
+    if (newPassword !== undefined && newPassword !== null) {
+      queryParameters = queryParameters.set('newPassword', <any>newPassword);
+    }
+    if (oldPassword !== undefined && oldPassword !== null) {
+      queryParameters = queryParameters.set('oldPassword', <any>oldPassword);
+    }
+    if (checkOldPassword !== undefined && checkOldPassword !== null) {
+      queryParameters = queryParameters.set(
+        'checkOldPassword',
+        <any>checkOldPassword
+      );
     }
 
-    /**
-     * Returns list of RichUsers with attributes who matches the searchString, searching name, email, logins.
-     * @param searchString Text to search by
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public findRichUsers(searchString: string, observe?: 'body', reportProgress?: boolean): Observable<Array<RichUser>>;
-    public findRichUsers(searchString: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichUser>>>;
-    public findRichUsers(searchString: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichUser>>>;
-    public findRichUsers(searchString: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (searchString === null || searchString === undefined) {
-            throw new Error('Required parameter searchString was null or undefined when calling findRichUsers.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (searchString !== undefined && searchString !== null) {
-            queryParameters = queryParameters.set('searchString', <any>searchString);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<RichUser>>(`${this.configuration.basePath}/json/usersManager/findRichUsers`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Returns list of RichUsers with attributes who matches the searchString.
-     * @param searchString Text to search by
-     * @param attrsNames list of attribute names List&lt;String&gt; or null
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public findRichUsersWithAttributes(searchString: string, attrsNames?: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<RichUser>>;
-    public findRichUsersWithAttributes(searchString: string, attrsNames?: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichUser>>>;
-    public findRichUsersWithAttributes(searchString: string, attrsNames?: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichUser>>>;
-    public findRichUsersWithAttributes(searchString: string, attrsNames?: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (searchString === null || searchString === undefined) {
-            throw new Error('Required parameter searchString was null or undefined when calling findRichUsersWithAttributes.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (searchString !== undefined && searchString !== null) {
-            queryParameters = queryParameters.set('searchString', <any>searchString);
-        }
-        if (attrsNames) {
-            attrsNames.forEach((element) => {
-                queryParameters = queryParameters.append('attrsNames[]', <any>element);
-            })
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<RichUser>>(`${this.configuration.basePath}/json/usersManager/findRichUsersWithAttributes`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Returns list of Users with attributes who matches the searchString, searching name, email, logins.
-     * @param searchString Text to search by
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public findUsers(searchString: string, observe?: 'body', reportProgress?: boolean): Observable<Array<User>>;
-    public findUsers(searchString: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<User>>>;
-    public findUsers(searchString: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<User>>>;
-    public findUsers(searchString: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (searchString === null || searchString === undefined) {
-            throw new Error('Required parameter searchString was null or undefined when calling findUsers.');
-        }
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/changePassword/login`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (searchString !== undefined && searchString !== null) {
-            queryParameters = queryParameters.set('searchString', <any>searchString);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<User>>(`${this.configuration.basePath}/json/usersManager/findUsers`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Changes password for a user in specified login-namespace.
+   * @param user id of User
+   * @param namespace namespace
+   * @param newPassword
+   * @param oldPassword
+   * @param checkOldPassword True if the oldPassword has to be checked. When omitted it defaults to false.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public changePasswordForUser(
+    user: number,
+    namespace: string,
+    newPassword: string,
+    oldPassword?: string,
+    checkOldPassword?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public changePasswordForUser(
+    user: number,
+    namespace: string,
+    newPassword: string,
+    oldPassword?: string,
+    checkOldPassword?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public changePasswordForUser(
+    user: number,
+    namespace: string,
+    newPassword: string,
+    oldPassword?: string,
+    checkOldPassword?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public changePasswordForUser(
+    user: number,
+    namespace: string,
+    newPassword: string,
+    oldPassword?: string,
+    checkOldPassword?: boolean,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling changePasswordForUser.'
+      );
+    }
+    if (namespace === null || namespace === undefined) {
+      throw new Error(
+        'Required parameter namespace was null or undefined when calling changePasswordForUser.'
+      );
+    }
+    if (newPassword === null || newPassword === undefined) {
+      throw new Error(
+        'Required parameter newPassword was null or undefined when calling changePasswordForUser.'
+      );
     }
 
-    /**
-     * Get all rich resources which have the user assigned.
-     * @param user id of User
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getAssignedRichResourcesForUser(user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<RichResource>>;
-    public getAssignedRichResourcesForUser(user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichResource>>>;
-    public getAssignedRichResourcesForUser(user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichResource>>>;
-    public getAssignedRichResourcesForUser(user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling getAssignedRichResourcesForUser.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<RichResource>>(`${this.configuration.basePath}/json/usersManager/getAssignedRichResources`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (namespace !== undefined && namespace !== null) {
+      queryParameters = queryParameters.set('namespace', <any>namespace);
+    }
+    if (newPassword !== undefined && newPassword !== null) {
+      queryParameters = queryParameters.set('newPassword', <any>newPassword);
+    }
+    if (oldPassword !== undefined && oldPassword !== null) {
+      queryParameters = queryParameters.set('oldPassword', <any>oldPassword);
+    }
+    if (checkOldPassword !== undefined && checkOldPassword !== null) {
+      queryParameters = queryParameters.set(
+        'checkOldPassword',
+        <any>checkOldPassword
+      );
     }
 
-    /**
-     * Get list of groups of user on specified facility where use is active.
-     * That means User is a VALID in the VO and the Group and groups are assigned to the facility. 
-     * @param user id of User
-     * @param facility id of Facility
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getGroupsForFacilityWhereUserIsActive(user: number, facility: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Group>>;
-    public getGroupsForFacilityWhereUserIsActive(user: number, facility: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Group>>>;
-    public getGroupsForFacilityWhereUserIsActive(user: number, facility: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Group>>>;
-    public getGroupsForFacilityWhereUserIsActive(user: number, facility: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling getGroupsForFacilityWhereUserIsActive.');
-        }
-        if (facility === null || facility === undefined) {
-            throw new Error('Required parameter facility was null or undefined when calling getGroupsForFacilityWhereUserIsActive.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-        if (facility !== undefined && facility !== null) {
-            queryParameters = queryParameters.set('facility', <any>facility);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<Group>>(`${this.configuration.basePath}/json/usersManager/getGroupsWhereUserIsActive/facility`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Get list of groups of user on specified resource where use is active.
-     * That means User is a VALID in the VO and the Group and groups are assigned to the resource. 
-     * @param user id of User
-     * @param resource id of Resource
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getGroupsForResourceWhereUserIsActive(user: number, resource: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Group>>;
-    public getGroupsForResourceWhereUserIsActive(user: number, resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Group>>>;
-    public getGroupsForResourceWhereUserIsActive(user: number, resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Group>>>;
-    public getGroupsForResourceWhereUserIsActive(user: number, resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling getGroupsForResourceWhereUserIsActive.');
-        }
-        if (resource === null || resource === undefined) {
-            throw new Error('Required parameter resource was null or undefined when calling getGroupsForResourceWhereUserIsActive.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-        if (resource !== undefined && resource !== null) {
-            queryParameters = queryParameters.set('resource', <any>resource);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<Group>>(`${this.configuration.basePath}/json/usersManager/getGroupsWhereUserIsActive/resource`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Returns list of Groups in selected Vo, where the User is a direct Administrator or he is a member of any group which is Administrator of some of these Groups.
-     * @param user id of User
-     * @param vo id of Vo
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getGroupsInVoWhereUserIsAdmin(user: number, vo: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Group>>;
-    public getGroupsInVoWhereUserIsAdmin(user: number, vo: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Group>>>;
-    public getGroupsInVoWhereUserIsAdmin(user: number, vo: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Group>>>;
-    public getGroupsInVoWhereUserIsAdmin(user: number, vo: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling getGroupsInVoWhereUserIsAdmin.');
-        }
-        if (vo === null || vo === undefined) {
-            throw new Error('Required parameter vo was null or undefined when calling getGroupsInVoWhereUserIsAdmin.');
-        }
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/changePassword/user`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-        if (vo !== undefined && vo !== null) {
-            queryParameters = queryParameters.set('vo', <any>vo);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<Group>>(`${this.configuration.basePath}/json/usersManager/getGroupsWhereUserIsAdmin/u-v`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Checks if the password reset request is valid.
+   * This method throws PasswordResetLinkExpiredException when the password reset request expired. This method throws PasswordResetLinkNotValidException when the password reset request was already used or has never existed.
+   * @param token token for the password reset request
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public checkPasswordResetRequestByTokenIsValid(
+    token: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public checkPasswordResetRequestByTokenIsValid(
+    token: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public checkPasswordResetRequestByTokenIsValid(
+    token: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public checkPasswordResetRequestByTokenIsValid(
+    token: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (token === null || token === undefined) {
+      throw new Error(
+        'Required parameter token was null or undefined when calling checkPasswordResetRequestByTokenIsValid.'
+      );
     }
 
-    /**
-     * Returns list of Groups in Perun, where the User is a direct Administrator or he is a member of any group which is Administrator of some of these Groups.
-     * @param user id of User
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getGroupsWhereUserIsAdmin(user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Group>>;
-    public getGroupsWhereUserIsAdmin(user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Group>>>;
-    public getGroupsWhereUserIsAdmin(user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Group>>>;
-    public getGroupsWhereUserIsAdmin(user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling getGroupsWhereUserIsAdmin.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<Group>>(`${this.configuration.basePath}/json/usersManager/getGroupsWhereUserIsAdmin/u`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (token !== undefined && token !== null) {
+      queryParameters = queryParameters.set('token', <any>token);
     }
 
-    /**
-     * Return list of email addresses of user, which are awaiting validation and are inside time window for validation. If there is no preferred email change request pending or requests are outside time window for validation, returns empty list.
-     * @param user id of User
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getPendingPreferredEmailChanges(user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<string>>;
-    public getPendingPreferredEmailChanges(user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<string>>>;
-    public getPendingPreferredEmailChanges(user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<string>>>;
-    public getPendingPreferredEmailChanges(user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling getPendingPreferredEmailChanges.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<string>>(`${this.configuration.basePath}/json/usersManager/getPendingPreferredEmailChanges`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Gets list of all user\&#39;s external sources with attributes.
-     * @param user id of User
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getRichUserExtSources(user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<RichUserExtSource>>;
-    public getRichUserExtSources(user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichUserExtSource>>>;
-    public getRichUserExtSources(user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichUserExtSource>>>;
-    public getRichUserExtSources(user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling getRichUserExtSources.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<RichUserExtSource>>(`${this.configuration.basePath}/json/usersManager/getRichUserExtSources/u`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Returns user with attributes
-     * Returns object representing the User with attributes
-     * @param user id of User
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getRichUserWithAttributes(user: number, observe?: 'body', reportProgress?: boolean): Observable<RichUser>;
-    public getRichUserWithAttributes(user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<RichUser>>;
-    public getRichUserWithAttributes(user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<RichUser>>;
-    public getRichUserWithAttributes(user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling getRichUserWithAttributes.');
-        }
+    return this.httpClient.get<any>(
+      `${this.configuration.basePath}/json/usersManager/checkPasswordResetRequestIsValid/token`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<RichUser>(`${this.configuration.basePath}/json/usersManager/getRichUserWithAttributes`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Check password strength for the given namespace.
+   * If the check fails, the PasswordStrengthException error is returned.
+   * @param password password
+   * @param namespace namespace
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public checkPasswordStrength(
+    password: string,
+    namespace: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public checkPasswordStrength(
+    password: string,
+    namespace: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public checkPasswordStrength(
+    password: string,
+    namespace: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public checkPasswordStrength(
+    password: string,
+    namespace: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (password === null || password === undefined) {
+      throw new Error(
+        'Required parameter password was null or undefined when calling checkPasswordStrength.'
+      );
+    }
+    if (namespace === null || namespace === undefined) {
+      throw new Error(
+        'Required parameter namespace was null or undefined when calling checkPasswordStrength.'
+      );
     }
 
-    /**
-     * Returns rich users without attributes by their IDs.
-     * @param ids list of ids List&lt;Integer&gt;
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getRichUsersByIds(ids: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<Array<RichUser>>;
-    public getRichUsersByIds(ids: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichUser>>>;
-    public getRichUsersByIds(ids: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichUser>>>;
-    public getRichUsersByIds(ids: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (ids === null || ids === undefined) {
-            throw new Error('Required parameter ids was null or undefined when calling getRichUsersByIds.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (ids) {
-            ids.forEach((element) => {
-                queryParameters = queryParameters.append('ids[]', <any>element);
-            })
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<RichUser>>(`${this.configuration.basePath}/json/usersManager/getRichUsersByIds`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (password !== undefined && password !== null) {
+      queryParameters = queryParameters.set('password', <any>password);
+    }
+    if (namespace !== undefined && namespace !== null) {
+      queryParameters = queryParameters.set('namespace', <any>namespace);
     }
 
-    /**
-     * Returns rich users with attributes by their IDs.
-     * @param ids list of ids List&lt;Integer&gt;
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getRichUsersWithAttributesByIds(ids: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<Array<RichUser>>;
-    public getRichUsersWithAttributesByIds(ids: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichUser>>>;
-    public getRichUsersWithAttributesByIds(ids: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichUser>>>;
-    public getRichUsersWithAttributesByIds(ids: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (ids === null || ids === undefined) {
-            throw new Error('Required parameter ids was null or undefined when calling getRichUsersWithAttributesByIds.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (ids) {
-            ids.forEach((element) => {
-                queryParameters = queryParameters.append('ids[]', <any>element);
-            })
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<RichUser>>(`${this.configuration.basePath}/json/usersManager/getRichUsersWithAttributesByIds`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Returns list of RichUsers which are not members of any VO with attributes.
-     * @param attrsNames list of attribute names List&lt;String&gt; or null
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getRichUsersWithoutVoWithAttributes(attrsNames?: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<RichUser>>;
-    public getRichUsersWithoutVoWithAttributes(attrsNames?: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichUser>>>;
-    public getRichUsersWithoutVoWithAttributes(attrsNames?: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichUser>>>;
-    public getRichUsersWithoutVoWithAttributes(attrsNames?: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (attrsNames) {
-            attrsNames.forEach((element) => {
-                queryParameters = queryParameters.append('attrsNames[]', <any>element);
-            })
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<RichUser>>(`${this.configuration.basePath}/json/usersManager/getRichUsersWithoutVoWithAttributes`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Get all specific users who are owned by the user.
-     * @param user id of User
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getSpecificUsersByUser(user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<User>>;
-    public getSpecificUsersByUser(user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<User>>>;
-    public getSpecificUsersByUser(user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<User>>>;
-    public getSpecificUsersByUser(user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling getSpecificUsersByUser.');
-        }
+    return this.httpClient.get<any>(
+      `${this.configuration.basePath}/json/usersManager/checkPasswordStrength`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<User>>(`${this.configuration.basePath}/json/usersManager/getSpecificUsersByUser`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Creates alternative password in external system.
+   * @param user id of User
+   * @param description
+   * @param loginNamespace
+   * @param password
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public createAlternativePassword(
+    user: number,
+    description: string,
+    loginNamespace: string,
+    password: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public createAlternativePassword(
+    user: number,
+    description: string,
+    loginNamespace: string,
+    password: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public createAlternativePassword(
+    user: number,
+    description: string,
+    loginNamespace: string,
+    password: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public createAlternativePassword(
+    user: number,
+    description: string,
+    loginNamespace: string,
+    password: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling createAlternativePassword.'
+      );
+    }
+    if (description === null || description === undefined) {
+      throw new Error(
+        'Required parameter description was null or undefined when calling createAlternativePassword.'
+      );
+    }
+    if (loginNamespace === null || loginNamespace === undefined) {
+      throw new Error(
+        'Required parameter loginNamespace was null or undefined when calling createAlternativePassword.'
+      );
+    }
+    if (password === null || password === undefined) {
+      throw new Error(
+        'Required parameter password was null or undefined when calling createAlternativePassword.'
+      );
     }
 
-    /**
-     * Gets sponsors for given member with optional attribute names.
-     * @param member id of Member
-     * @param attrNames list of attribute names List&lt;String&gt; or null
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getSponsorsForMember(member: number, attrNames?: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<Sponsor>>;
-    public getSponsorsForMember(member: number, attrNames?: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Sponsor>>>;
-    public getSponsorsForMember(member: number, attrNames?: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Sponsor>>>;
-    public getSponsorsForMember(member: number, attrNames?: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (member === null || member === undefined) {
-            throw new Error('Required parameter member was null or undefined when calling getSponsorsForMember.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (member !== undefined && member !== null) {
-            queryParameters = queryParameters.set('member', <any>member);
-        }
-        if (attrNames) {
-            attrNames.forEach((element) => {
-                queryParameters = queryParameters.append('attrNames[]', <any>element);
-            })
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<Sponsor>>(`${this.configuration.basePath}/json/usersManager/getSponsorsForMember/member`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (description !== undefined && description !== null) {
+      queryParameters = queryParameters.set('description', <any>description);
+    }
+    if (loginNamespace !== undefined && loginNamespace !== null) {
+      queryParameters = queryParameters.set(
+        'loginNamespace',
+        <any>loginNamespace
+      );
+    }
+    if (password !== undefined && password !== null) {
+      queryParameters = queryParameters.set('password', <any>password);
     }
 
-    /**
-     * Gets sponsors for member specified by VO, extSourceName and extLogin with optional attribute names.
-     * @param vo id of Vo
-     * @param extSourceName external source name, e.g. IdP entityId
-     * @param extLogin external login of user, e.g. john
-     * @param attrNames list of attribute names List&lt;String&gt; or null
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getSponsorsForMemberByVoAndLogin(vo: number, extSourceName: string, extLogin: string, attrNames?: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<Sponsor>>;
-    public getSponsorsForMemberByVoAndLogin(vo: number, extSourceName: string, extLogin: string, attrNames?: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Sponsor>>>;
-    public getSponsorsForMemberByVoAndLogin(vo: number, extSourceName: string, extLogin: string, attrNames?: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Sponsor>>>;
-    public getSponsorsForMemberByVoAndLogin(vo: number, extSourceName: string, extLogin: string, attrNames?: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (vo === null || vo === undefined) {
-            throw new Error('Required parameter vo was null or undefined when calling getSponsorsForMemberByVoAndLogin.');
-        }
-        if (extSourceName === null || extSourceName === undefined) {
-            throw new Error('Required parameter extSourceName was null or undefined when calling getSponsorsForMemberByVoAndLogin.');
-        }
-        if (extLogin === null || extLogin === undefined) {
-            throw new Error('Required parameter extLogin was null or undefined when calling getSponsorsForMemberByVoAndLogin.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (vo !== undefined && vo !== null) {
-            queryParameters = queryParameters.set('vo', <any>vo);
-        }
-        if (extSourceName !== undefined && extSourceName !== null) {
-            queryParameters = queryParameters.set('extSourceName', <any>extSourceName);
-        }
-        if (extLogin !== undefined && extLogin !== null) {
-            queryParameters = queryParameters.set('extLogin', <any>extLogin);
-        }
-        if (attrNames) {
-            attrNames.forEach((element) => {
-                queryParameters = queryParameters.append('attrNames[]', <any>element);
-            })
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<Sponsor>>(`${this.configuration.basePath}/json/usersManager/getSponsorsForMember/vo`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Returns user by its ExtSourceName and ExtLogin.
-     * Returns User found by its authentication data
-     * @param extLogin external login of user, e.g. john
-     * @param extSourceName external source name, e.g. IdP entityId
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getUserByExtSourceNameAndExtLogin(extLogin: string, extSourceName: string, observe?: 'body', reportProgress?: boolean): Observable<User>;
-    public getUserByExtSourceNameAndExtLogin(extLogin: string, extSourceName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<User>>;
-    public getUserByExtSourceNameAndExtLogin(extLogin: string, extSourceName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<User>>;
-    public getUserByExtSourceNameAndExtLogin(extLogin: string, extSourceName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (extLogin === null || extLogin === undefined) {
-            throw new Error('Required parameter extLogin was null or undefined when calling getUserByExtSourceNameAndExtLogin.');
-        }
-        if (extSourceName === null || extSourceName === undefined) {
-            throw new Error('Required parameter extSourceName was null or undefined when calling getUserByExtSourceNameAndExtLogin.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (extLogin !== undefined && extLogin !== null) {
-            queryParameters = queryParameters.set('extLogin', <any>extLogin);
-        }
-        if (extSourceName !== undefined && extSourceName !== null) {
-            queryParameters = queryParameters.set('extSourceName', <any>extSourceName);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<User>(`${this.configuration.basePath}/json/usersManager/getUserByExtSourceNameAndExtLogin`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Returns user by its id
-     * Returns object representing the User
-     * @param id numeric id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getUserById(id: number, observe?: 'body', reportProgress?: boolean): Observable<User>;
-    public getUserById(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<User>>;
-    public getUserById(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<User>>;
-    public getUserById(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getUserById.');
-        }
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/createAlternativePassword`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (id !== undefined && id !== null) {
-            queryParameters = queryParameters.set('id', <any>id);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<User>(`${this.configuration.basePath}/json/usersManager/getUserById`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * From given candidate, creates a service user and assign given owners to him.
+   * This method also checks if some of given userExtSources do exist. If so, this method throws a UserExtSourceExistsException. This method can also set only user-def and user-opt attributes for the given candidate.
+   * @param inputCreateServiceUser
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public createServiceUser(
+    inputCreateServiceUser: InputCreateServiceUser,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<User>;
+  public createServiceUser(
+    inputCreateServiceUser: InputCreateServiceUser,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<User>>;
+  public createServiceUser(
+    inputCreateServiceUser: InputCreateServiceUser,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<User>>;
+  public createServiceUser(
+    inputCreateServiceUser: InputCreateServiceUser,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (
+      inputCreateServiceUser === null ||
+      inputCreateServiceUser === undefined
+    ) {
+      throw new Error(
+        'Required parameter inputCreateServiceUser was null or undefined when calling createServiceUser.'
+      );
     }
 
-    /**
-     * Returns user ext source by its id.
-     * @param userExtSource id of UserExtSource
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getUserExtSourceById(userExtSource: number, observe?: 'body', reportProgress?: boolean): Observable<UserExtSource>;
-    public getUserExtSourceById(userExtSource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UserExtSource>>;
-    public getUserExtSourceById(userExtSource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UserExtSource>>;
-    public getUserExtSourceById(userExtSource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (userExtSource === null || userExtSource === undefined) {
-            throw new Error('Required parameter userExtSource was null or undefined when calling getUserExtSourceById.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (userExtSource !== undefined && userExtSource !== null) {
-            queryParameters = queryParameters.set('userExtSource', <any>userExtSource);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<UserExtSource>(`${this.configuration.basePath}/json/usersManager/getUserExtSourceById`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Gets list of all user\&#39;s external sources.
-     * @param user id of User
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getUserExtSources(user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<UserExtSource>>;
-    public getUserExtSources(user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<UserExtSource>>>;
-    public getUserExtSources(user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<UserExtSource>>>;
-    public getUserExtSources(user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling getUserExtSources.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<UserExtSource>>(`${this.configuration.basePath}/json/usersManager/getUserExtSources`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Returns list of user ext sources by their ids.
-     * @param ids list of ids List&lt;Integer&gt;
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getUserExtSourcesByIds(ids: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<Array<UserExtSource>>;
-    public getUserExtSourcesByIds(ids: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<UserExtSource>>>;
-    public getUserExtSourcesByIds(ids: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<UserExtSource>>>;
-    public getUserExtSourcesByIds(ids: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (ids === null || ids === undefined) {
-            throw new Error('Required parameter ids was null or undefined when calling getUserExtSourcesByIds.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (ids) {
-            ids.forEach((element) => {
-                queryParameters = queryParameters.append('ids[]', <any>element);
-            })
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<UserExtSource>>(`${this.configuration.basePath}/json/usersManager/getUserExtSourcesByIds`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    /**
-     * Returns list of Users by their ids.
-     * @param ids list of ids List&lt;Integer&gt;
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getUsersByIds(ids: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<Array<User>>;
-    public getUsersByIds(ids: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<User>>>;
-    public getUsersByIds(ids: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<User>>>;
-    public getUsersByIds(ids: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (ids === null || ids === undefined) {
-            throw new Error('Required parameter ids was null or undefined when calling getUsersByIds.');
-        }
+    return this.httpClient.post<User>(
+      `${this.configuration.basePath}/json/usersManager/createServiceUser`,
+      inputCreateServiceUser,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (ids) {
-            ids.forEach((element) => {
-                queryParameters = queryParameters.append('ids[]', <any>element);
-            })
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<User>>(`${this.configuration.basePath}/json/usersManager/getUsersByIds`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Deletes alternative password in external system.
+   * @param user id of User
+   * @param loginNamespace
+   * @param passwordId
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public deleteAlternativePassword(
+    user: number,
+    loginNamespace: string,
+    passwordId: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public deleteAlternativePassword(
+    user: number,
+    loginNamespace: string,
+    passwordId: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public deleteAlternativePassword(
+    user: number,
+    loginNamespace: string,
+    passwordId: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public deleteAlternativePassword(
+    user: number,
+    loginNamespace: string,
+    passwordId: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling deleteAlternativePassword.'
+      );
+    }
+    if (loginNamespace === null || loginNamespace === undefined) {
+      throw new Error(
+        'Required parameter loginNamespace was null or undefined when calling deleteAlternativePassword.'
+      );
+    }
+    if (passwordId === null || passwordId === undefined) {
+      throw new Error(
+        'Required parameter passwordId was null or undefined when calling deleteAlternativePassword.'
+      );
     }
 
-    /**
-     * Return all users who owns the specific user.
-     * @param specificUser id of specific User
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getUsersBySpecificUser(specificUser: number, observe?: 'body', reportProgress?: boolean): Observable<Array<User>>;
-    public getUsersBySpecificUser(specificUser: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<User>>>;
-    public getUsersBySpecificUser(specificUser: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<User>>>;
-    public getUsersBySpecificUser(specificUser: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (specificUser === null || specificUser === undefined) {
-            throw new Error('Required parameter specificUser was null or undefined when calling getUsersBySpecificUser.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (specificUser !== undefined && specificUser !== null) {
-            queryParameters = queryParameters.set('specificUser', <any>specificUser);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<User>>(`${this.configuration.basePath}/json/usersManager/getUsersBySpecificUser`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (loginNamespace !== undefined && loginNamespace !== null) {
+      queryParameters = queryParameters.set(
+        'loginNamespace',
+        <any>loginNamespace
+      );
+    }
+    if (passwordId !== undefined && passwordId !== null) {
+      queryParameters = queryParameters.set('passwordId', <any>passwordId);
     }
 
-    /**
-     * Returns list of VOs, where the user is an Administrator.
-     * @param user id of User
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getVosWhereUserIsAdmin(user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Vo>>;
-    public getVosWhereUserIsAdmin(user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Vo>>>;
-    public getVosWhereUserIsAdmin(user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Vo>>>;
-    public getVosWhereUserIsAdmin(user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling getVosWhereUserIsAdmin.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<Vo>>(`${this.configuration.basePath}/json/usersManager/getVosWhereUserIsAdmin`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Returns list of VOs, where the user is a Member.
-     * @param user id of User
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getVosWhereUserIsMember(user: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Vo>>;
-    public getVosWhereUserIsMember(user: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Vo>>>;
-    public getVosWhereUserIsMember(user: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Vo>>>;
-    public getVosWhereUserIsMember(user: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling getVosWhereUserIsMember.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<Vo>>(`${this.configuration.basePath}/json/usersManager/getVosWhereUserIsMember`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Check wheter login exists in specified login-namespace. Only available for some namespaces.
-     * @param user id of User
-     * @param namespace namespace
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public loginExist(user: number, namespace: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
-    public loginExist(user: number, namespace: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
-    public loginExist(user: number, namespace: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
-    public loginExist(user: number, namespace: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling loginExist.');
-        }
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling loginExist.');
-        }
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/deleteAlternativePassword`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-        if (namespace !== undefined && namespace !== null) {
-            queryParameters = queryParameters.set('namespace', <any>namespace);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<boolean>(`${this.configuration.basePath}/urlinjsonout/usersManager/loginExist`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Delete password for a user in specified login-namespace.
+   * @param login login
+   * @param namespace namespace
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public deletePasswordForLogin(
+    login: string,
+    namespace: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public deletePasswordForLogin(
+    login: string,
+    namespace: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public deletePasswordForLogin(
+    login: string,
+    namespace: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public deletePasswordForLogin(
+    login: string,
+    namespace: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (login === null || login === undefined) {
+      throw new Error(
+        'Required parameter login was null or undefined when calling deletePasswordForLogin.'
+      );
+    }
+    if (namespace === null || namespace === undefined) {
+      throw new Error(
+        'Required parameter namespace was null or undefined when calling deletePasswordForLogin.'
+      );
     }
 
-    /**
-     * Remove specific user owner.
-     * @param user id of User
-     * @param specificUser id of specific User
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public removeSpecificUserOwner(user: number, specificUser: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public removeSpecificUserOwner(user: number, specificUser: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public removeSpecificUserOwner(user: number, specificUser: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public removeSpecificUserOwner(user: number, specificUser: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling removeSpecificUserOwner.');
-        }
-        if (specificUser === null || specificUser === undefined) {
-            throw new Error('Required parameter specificUser was null or undefined when calling removeSpecificUserOwner.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-        if (specificUser !== undefined && specificUser !== null) {
-            queryParameters = queryParameters.set('specificUser', <any>specificUser);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/removeSpecificUserOwner`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (login !== undefined && login !== null) {
+      queryParameters = queryParameters.set('login', <any>login);
+    }
+    if (namespace !== undefined && namespace !== null) {
+      queryParameters = queryParameters.set('namespace', <any>namespace);
     }
 
-    /**
-     * Remove user\&#39;s external source. Persistent UserExtSources are not removed unless force param is present and set to true.
-     * @param user id of User
-     * @param userExtSource id of UserExtSource
-     * @param force If true, delete entity forcefully.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public removeUserExtSource(user: number, userExtSource: number, force?: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public removeUserExtSource(user: number, userExtSource: number, force?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public removeUserExtSource(user: number, userExtSource: number, force?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public removeUserExtSource(user: number, userExtSource: number, force?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling removeUserExtSource.');
-        }
-        if (userExtSource === null || userExtSource === undefined) {
-            throw new Error('Required parameter userExtSource was null or undefined when calling removeUserExtSource.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-        if (userExtSource !== undefined && userExtSource !== null) {
-            queryParameters = queryParameters.set('userExtSource', <any>userExtSource);
-        }
-        if (force !== undefined && force !== null) {
-            queryParameters = queryParameters.set('force', <any>force);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/removeUserExtSource`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Request to change preferred email address of user. Validation mail is sent on new address. Change is not saved until user validate new email address by calling validatePreferredEmailChange() method with proper set of parameters (sent in validation mail). Provide eiher linkPath (appended to referer) or whole custom url. Combination of linkPath and customUrl is not supported.
-     * @param user id of User
-     * @param email new email address to set
-     * @param lang language to get confirmation mail in (optional)
-     * @param linkPath path that is appended to the referer and creates the verification link (optional)
-     * @param customUrl url to verification link containing path (optional)
-     * @param idpFilter authentication method appended to query parameters of verification link (optional)
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public requestPreferredEmailChange(user: number, email: string, lang?: string, linkPath?: string, customUrl?: string, idpFilter?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public requestPreferredEmailChange(user: number, email: string, lang?: string, linkPath?: string, customUrl?: string, idpFilter?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public requestPreferredEmailChange(user: number, email: string, lang?: string, linkPath?: string, customUrl?: string, idpFilter?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public requestPreferredEmailChange(user: number, email: string, lang?: string, linkPath?: string, customUrl?: string, idpFilter?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling requestPreferredEmailChange.');
-        }
-        if (email === null || email === undefined) {
-            throw new Error('Required parameter email was null or undefined when calling requestPreferredEmailChange.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-        if (email !== undefined && email !== null) {
-            queryParameters = queryParameters.set('email', <any>email);
-        }
-        if (lang !== undefined && lang !== null) {
-            queryParameters = queryParameters.set('lang', <any>lang);
-        }
-        if (linkPath !== undefined && linkPath !== null) {
-            queryParameters = queryParameters.set('linkPath', <any>linkPath);
-        }
-        if (customUrl !== undefined && customUrl !== null) {
-            queryParameters = queryParameters.set('customUrl', <any>customUrl);
-        }
-        if (idpFilter !== undefined && idpFilter !== null) {
-            queryParameters = queryParameters.set('idpFilter', <any>idpFilter);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/requestPreferredEmailChange`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Reserves password for a user in specified login-namespace.
-     * @param login login
-     * @param namespace namespace
-     * @param password password
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public reservePasswordForLogin(login: string, namespace: string, password: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public reservePasswordForLogin(login: string, namespace: string, password: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public reservePasswordForLogin(login: string, namespace: string, password: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public reservePasswordForLogin(login: string, namespace: string, password: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (login === null || login === undefined) {
-            throw new Error('Required parameter login was null or undefined when calling reservePasswordForLogin.');
-        }
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling reservePasswordForLogin.');
-        }
-        if (password === null || password === undefined) {
-            throw new Error('Required parameter password was null or undefined when calling reservePasswordForLogin.');
-        }
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/deletePassword/login`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (login !== undefined && login !== null) {
-            queryParameters = queryParameters.set('login', <any>login);
-        }
-        if (namespace !== undefined && namespace !== null) {
-            queryParameters = queryParameters.set('namespace', <any>namespace);
-        }
-        if (password !== undefined && password !== null) {
-            queryParameters = queryParameters.set('password', <any>password);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/reservePassword/login`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Delete password for a user in specified login-namespace.
+   * @param user id of User
+   * @param namespace namespace
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public deletePasswordForUser(
+    user: number,
+    namespace: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public deletePasswordForUser(
+    user: number,
+    namespace: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public deletePasswordForUser(
+    user: number,
+    namespace: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public deletePasswordForUser(
+    user: number,
+    namespace: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling deletePasswordForUser.'
+      );
+    }
+    if (namespace === null || namespace === undefined) {
+      throw new Error(
+        'Required parameter namespace was null or undefined when calling deletePasswordForUser.'
+      );
     }
 
-    /**
-     * Reserves password for a user in specified login-namespace.
-     * @param user id of User
-     * @param namespace namespace
-     * @param password password
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public reservePasswordForUser(user: number, namespace: string, password: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public reservePasswordForUser(user: number, namespace: string, password: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public reservePasswordForUser(user: number, namespace: string, password: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public reservePasswordForUser(user: number, namespace: string, password: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling reservePasswordForUser.');
-        }
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling reservePasswordForUser.');
-        }
-        if (password === null || password === undefined) {
-            throw new Error('Required parameter password was null or undefined when calling reservePasswordForUser.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-        if (namespace !== undefined && namespace !== null) {
-            queryParameters = queryParameters.set('namespace', <any>namespace);
-        }
-        if (password !== undefined && password !== null) {
-            queryParameters = queryParameters.set('password', <any>password);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/reservePassword/user`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (namespace !== undefined && namespace !== null) {
+      queryParameters = queryParameters.set('namespace', <any>namespace);
     }
 
-    /**
-     * Updates user
-     * @param inputUpdateUser 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public updateUser(inputUpdateUser: InputUpdateUser, observe?: 'body', reportProgress?: boolean): Observable<User>;
-    public updateUser(inputUpdateUser: InputUpdateUser, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<User>>;
-    public updateUser(inputUpdateUser: InputUpdateUser, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<User>>;
-    public updateUser(inputUpdateUser: InputUpdateUser, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (inputUpdateUser === null || inputUpdateUser === undefined) {
-            throw new Error('Required parameter inputUpdateUser was null or undefined when calling updateUser.');
-        }
+    let headers = this.defaultHeaders;
 
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<User>(`${this.configuration.basePath}/json/usersManager/updateUser`,
-            inputUpdateUser,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
     }
 
-    /**
-     * Validate password for a user in specified login-namespace.
-     * @param login login
-     * @param namespace namespace
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public validatePasswordForLogin(login: string, namespace: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public validatePasswordForLogin(login: string, namespace: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public validatePasswordForLogin(login: string, namespace: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public validatePasswordForLogin(login: string, namespace: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (login === null || login === undefined) {
-            throw new Error('Required parameter login was null or undefined when calling validatePasswordForLogin.');
-        }
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling validatePasswordForLogin.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (login !== undefined && login !== null) {
-            queryParameters = queryParameters.set('login', <any>login);
-        }
-        if (namespace !== undefined && namespace !== null) {
-            queryParameters = queryParameters.set('namespace', <any>namespace);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/validatePassword/login`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Validate password for a user in specified login-namespace.
-     * @param user id of User
-     * @param namespace namespace
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public validatePasswordForUser(user: number, namespace: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public validatePasswordForUser(user: number, namespace: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public validatePasswordForUser(user: number, namespace: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public validatePasswordForUser(user: number, namespace: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling validatePasswordForUser.');
-        }
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling validatePasswordForUser.');
-        }
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/deletePassword/user`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (user !== undefined && user !== null) {
-            queryParameters = queryParameters.set('user', <any>user);
-        }
-        if (namespace !== undefined && namespace !== null) {
-            queryParameters = queryParameters.set('namespace', <any>namespace);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/usersManager/validatePassword/user`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Deletes a user.
+   * @param user id of User
+   * @param force If true, delete entity forcefully.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public deleteUser(
+    user: number,
+    force?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public deleteUser(
+    user: number,
+    force?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public deleteUser(
+    user: number,
+    force?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public deleteUser(
+    user: number,
+    force?: boolean,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling deleteUser.'
+      );
     }
 
-    /**
-     * Validate new preferred email address. Request to validate is determined based on token parameter sent in email notice by requestPreferredEmailChange() method.
-     * @param token token for the email change request
-     * @param u id of user you want to validate preferred email request
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public validatePreferredEmailChangeWithToken(token: string, u: number, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public validatePreferredEmailChangeWithToken(token: string, u: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public validatePreferredEmailChangeWithToken(token: string, u: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
-    public validatePreferredEmailChangeWithToken(token: string, u: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (token === null || token === undefined) {
-            throw new Error('Required parameter token was null or undefined when calling validatePreferredEmailChangeWithToken.');
-        }
-        if (u === null || u === undefined) {
-            throw new Error('Required parameter u was null or undefined when calling validatePreferredEmailChangeWithToken.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (token !== undefined && token !== null) {
-            queryParameters = queryParameters.set('token', <any>token);
-        }
-        if (u !== undefined && u !== null) {
-            queryParameters = queryParameters.set('u', <any>u);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.post<string>(`${this.configuration.basePath}/urlinjsonout/usersManager/validatePreferredEmailChange`,
-            null,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (force !== undefined && force !== null) {
+      queryParameters = queryParameters.set('force', <any>force);
     }
 
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/deleteUser`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns list of RichUsers with attributes who matches the searchString, searching name, email, logins.
+   * @param searchString Text to search by
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public findRichUsers(
+    searchString: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<RichUser>>;
+  public findRichUsers(
+    searchString: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<RichUser>>>;
+  public findRichUsers(
+    searchString: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<RichUser>>>;
+  public findRichUsers(
+    searchString: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (searchString === null || searchString === undefined) {
+      throw new Error(
+        'Required parameter searchString was null or undefined when calling findRichUsers.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (searchString !== undefined && searchString !== null) {
+      queryParameters = queryParameters.set('searchString', <any>searchString);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<RichUser>>(
+      `${this.configuration.basePath}/json/usersManager/findRichUsers`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns list of RichUsers with attributes who matches the searchString.
+   * @param searchString Text to search by
+   * @param attrsNames list of attribute names List&lt;String&gt; or null
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public findRichUsersWithAttributes(
+    searchString: string,
+    attrsNames?: Array<string>,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<RichUser>>;
+  public findRichUsersWithAttributes(
+    searchString: string,
+    attrsNames?: Array<string>,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<RichUser>>>;
+  public findRichUsersWithAttributes(
+    searchString: string,
+    attrsNames?: Array<string>,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<RichUser>>>;
+  public findRichUsersWithAttributes(
+    searchString: string,
+    attrsNames?: Array<string>,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (searchString === null || searchString === undefined) {
+      throw new Error(
+        'Required parameter searchString was null or undefined when calling findRichUsersWithAttributes.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (searchString !== undefined && searchString !== null) {
+      queryParameters = queryParameters.set('searchString', <any>searchString);
+    }
+    if (attrsNames) {
+      attrsNames.forEach((element) => {
+        queryParameters = queryParameters.append('attrsNames[]', <any>element);
+      });
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<RichUser>>(
+      `${this.configuration.basePath}/json/usersManager/findRichUsersWithAttributes`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns list of Users with attributes who matches the searchString, searching name, email, logins.
+   * @param searchString Text to search by
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public findUsers(
+    searchString: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<User>>;
+  public findUsers(
+    searchString: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<User>>>;
+  public findUsers(
+    searchString: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<User>>>;
+  public findUsers(
+    searchString: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (searchString === null || searchString === undefined) {
+      throw new Error(
+        'Required parameter searchString was null or undefined when calling findUsers.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (searchString !== undefined && searchString !== null) {
+      queryParameters = queryParameters.set('searchString', <any>searchString);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<User>>(
+      `${this.configuration.basePath}/json/usersManager/findUsers`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Get all rich resources which have the user assigned.
+   * @param user id of User
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getAssignedRichResourcesForUser(
+    user: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<RichResource>>;
+  public getAssignedRichResourcesForUser(
+    user: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<RichResource>>>;
+  public getAssignedRichResourcesForUser(
+    user: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<RichResource>>>;
+  public getAssignedRichResourcesForUser(
+    user: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getAssignedRichResourcesForUser.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<RichResource>>(
+      `${this.configuration.basePath}/json/usersManager/getAssignedRichResources`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Get list of groups of user on specified facility where use is active.
+   * That means User is a VALID in the VO and the Group and groups are assigned to the facility.
+   * @param user id of User
+   * @param facility id of Facility
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getGroupsForFacilityWhereUserIsActive(
+    user: number,
+    facility: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Group>>;
+  public getGroupsForFacilityWhereUserIsActive(
+    user: number,
+    facility: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Group>>>;
+  public getGroupsForFacilityWhereUserIsActive(
+    user: number,
+    facility: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Group>>>;
+  public getGroupsForFacilityWhereUserIsActive(
+    user: number,
+    facility: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getGroupsForFacilityWhereUserIsActive.'
+      );
+    }
+    if (facility === null || facility === undefined) {
+      throw new Error(
+        'Required parameter facility was null or undefined when calling getGroupsForFacilityWhereUserIsActive.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (facility !== undefined && facility !== null) {
+      queryParameters = queryParameters.set('facility', <any>facility);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Group>>(
+      `${this.configuration.basePath}/json/usersManager/getGroupsWhereUserIsActive/facility`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Get list of groups of user on specified resource where use is active.
+   * That means User is a VALID in the VO and the Group and groups are assigned to the resource.
+   * @param user id of User
+   * @param resource id of Resource
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getGroupsForResourceWhereUserIsActive(
+    user: number,
+    resource: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Group>>;
+  public getGroupsForResourceWhereUserIsActive(
+    user: number,
+    resource: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Group>>>;
+  public getGroupsForResourceWhereUserIsActive(
+    user: number,
+    resource: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Group>>>;
+  public getGroupsForResourceWhereUserIsActive(
+    user: number,
+    resource: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getGroupsForResourceWhereUserIsActive.'
+      );
+    }
+    if (resource === null || resource === undefined) {
+      throw new Error(
+        'Required parameter resource was null or undefined when calling getGroupsForResourceWhereUserIsActive.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (resource !== undefined && resource !== null) {
+      queryParameters = queryParameters.set('resource', <any>resource);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Group>>(
+      `${this.configuration.basePath}/json/usersManager/getGroupsWhereUserIsActive/resource`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns list of Groups in selected Vo, where the User is a direct Administrator or he is a member of any group which is Administrator of some of these Groups.
+   * @param user id of User
+   * @param vo id of Vo
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getGroupsInVoWhereUserIsAdmin(
+    user: number,
+    vo: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Group>>;
+  public getGroupsInVoWhereUserIsAdmin(
+    user: number,
+    vo: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Group>>>;
+  public getGroupsInVoWhereUserIsAdmin(
+    user: number,
+    vo: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Group>>>;
+  public getGroupsInVoWhereUserIsAdmin(
+    user: number,
+    vo: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getGroupsInVoWhereUserIsAdmin.'
+      );
+    }
+    if (vo === null || vo === undefined) {
+      throw new Error(
+        'Required parameter vo was null or undefined when calling getGroupsInVoWhereUserIsAdmin.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (vo !== undefined && vo !== null) {
+      queryParameters = queryParameters.set('vo', <any>vo);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Group>>(
+      `${this.configuration.basePath}/json/usersManager/getGroupsWhereUserIsAdmin/u-v`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns list of Groups in Perun, where the User is a direct Administrator or he is a member of any group which is Administrator of some of these Groups.
+   * @param user id of User
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getGroupsWhereUserIsAdmin(
+    user: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Group>>;
+  public getGroupsWhereUserIsAdmin(
+    user: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Group>>>;
+  public getGroupsWhereUserIsAdmin(
+    user: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Group>>>;
+  public getGroupsWhereUserIsAdmin(
+    user: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getGroupsWhereUserIsAdmin.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Group>>(
+      `${this.configuration.basePath}/json/usersManager/getGroupsWhereUserIsAdmin/u`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Return list of email addresses of user, which are awaiting validation and are inside time window for validation. If there is no preferred email change request pending or requests are outside time window for validation, returns empty list.
+   * @param user id of User
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getPendingPreferredEmailChanges(
+    user: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<string>>;
+  public getPendingPreferredEmailChanges(
+    user: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<string>>>;
+  public getPendingPreferredEmailChanges(
+    user: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<string>>>;
+  public getPendingPreferredEmailChanges(
+    user: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getPendingPreferredEmailChanges.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<string>>(
+      `${this.configuration.basePath}/json/usersManager/getPendingPreferredEmailChanges`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Gets list of all user\&#39;s external sources with attributes.
+   * @param user id of User
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getRichUserExtSources(
+    user: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<RichUserExtSource>>;
+  public getRichUserExtSources(
+    user: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<RichUserExtSource>>>;
+  public getRichUserExtSources(
+    user: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<RichUserExtSource>>>;
+  public getRichUserExtSources(
+    user: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getRichUserExtSources.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<RichUserExtSource>>(
+      `${this.configuration.basePath}/json/usersManager/getRichUserExtSources/u`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns user with attributes
+   * Returns object representing the User with attributes
+   * @param user id of User
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getRichUserWithAttributes(
+    user: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<RichUser>;
+  public getRichUserWithAttributes(
+    user: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<RichUser>>;
+  public getRichUserWithAttributes(
+    user: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<RichUser>>;
+  public getRichUserWithAttributes(
+    user: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getRichUserWithAttributes.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<RichUser>(
+      `${this.configuration.basePath}/json/usersManager/getRichUserWithAttributes`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns rich users without attributes by their IDs.
+   * @param ids list of ids List&lt;Integer&gt;
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getRichUsersByIds(
+    ids: Array<number>,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<RichUser>>;
+  public getRichUsersByIds(
+    ids: Array<number>,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<RichUser>>>;
+  public getRichUsersByIds(
+    ids: Array<number>,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<RichUser>>>;
+  public getRichUsersByIds(
+    ids: Array<number>,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (ids === null || ids === undefined) {
+      throw new Error(
+        'Required parameter ids was null or undefined when calling getRichUsersByIds.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (ids) {
+      ids.forEach((element) => {
+        queryParameters = queryParameters.append('ids[]', <any>element);
+      });
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<RichUser>>(
+      `${this.configuration.basePath}/json/usersManager/getRichUsersByIds`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns rich users with attributes by their IDs.
+   * @param ids list of ids List&lt;Integer&gt;
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getRichUsersWithAttributesByIds(
+    ids: Array<number>,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<RichUser>>;
+  public getRichUsersWithAttributesByIds(
+    ids: Array<number>,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<RichUser>>>;
+  public getRichUsersWithAttributesByIds(
+    ids: Array<number>,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<RichUser>>>;
+  public getRichUsersWithAttributesByIds(
+    ids: Array<number>,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (ids === null || ids === undefined) {
+      throw new Error(
+        'Required parameter ids was null or undefined when calling getRichUsersWithAttributesByIds.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (ids) {
+      ids.forEach((element) => {
+        queryParameters = queryParameters.append('ids[]', <any>element);
+      });
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<RichUser>>(
+      `${this.configuration.basePath}/json/usersManager/getRichUsersWithAttributesByIds`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns list of RichUsers which are not members of any VO with attributes.
+   * @param attrsNames list of attribute names List&lt;String&gt; or null
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getRichUsersWithoutVoWithAttributes(
+    attrsNames?: Array<string>,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<RichUser>>;
+  public getRichUsersWithoutVoWithAttributes(
+    attrsNames?: Array<string>,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<RichUser>>>;
+  public getRichUsersWithoutVoWithAttributes(
+    attrsNames?: Array<string>,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<RichUser>>>;
+  public getRichUsersWithoutVoWithAttributes(
+    attrsNames?: Array<string>,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (attrsNames) {
+      attrsNames.forEach((element) => {
+        queryParameters = queryParameters.append('attrsNames[]', <any>element);
+      });
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<RichUser>>(
+      `${this.configuration.basePath}/json/usersManager/getRichUsersWithoutVoWithAttributes`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Get all specific users who are owned by the user.
+   * @param user id of User
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getSpecificUsersByUser(
+    user: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<User>>;
+  public getSpecificUsersByUser(
+    user: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<User>>>;
+  public getSpecificUsersByUser(
+    user: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<User>>>;
+  public getSpecificUsersByUser(
+    user: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getSpecificUsersByUser.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<User>>(
+      `${this.configuration.basePath}/json/usersManager/getSpecificUsersByUser`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Gets sponsors for given member with optional attribute names.
+   * @param member id of Member
+   * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getSponsorsForMember(
+    member: number,
+    attrNames?: Array<string>,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Sponsor>>;
+  public getSponsorsForMember(
+    member: number,
+    attrNames?: Array<string>,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Sponsor>>>;
+  public getSponsorsForMember(
+    member: number,
+    attrNames?: Array<string>,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Sponsor>>>;
+  public getSponsorsForMember(
+    member: number,
+    attrNames?: Array<string>,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (member === null || member === undefined) {
+      throw new Error(
+        'Required parameter member was null or undefined when calling getSponsorsForMember.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (member !== undefined && member !== null) {
+      queryParameters = queryParameters.set('member', <any>member);
+    }
+    if (attrNames) {
+      attrNames.forEach((element) => {
+        queryParameters = queryParameters.append('attrNames[]', <any>element);
+      });
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Sponsor>>(
+      `${this.configuration.basePath}/json/usersManager/getSponsorsForMember/member`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Gets sponsors for member specified by VO, extSourceName and extLogin with optional attribute names.
+   * @param vo id of Vo
+   * @param extSourceName external source name, e.g. IdP entityId
+   * @param extLogin external login of user, e.g. john
+   * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getSponsorsForMemberByVoAndLogin(
+    vo: number,
+    extSourceName: string,
+    extLogin: string,
+    attrNames?: Array<string>,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Sponsor>>;
+  public getSponsorsForMemberByVoAndLogin(
+    vo: number,
+    extSourceName: string,
+    extLogin: string,
+    attrNames?: Array<string>,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Sponsor>>>;
+  public getSponsorsForMemberByVoAndLogin(
+    vo: number,
+    extSourceName: string,
+    extLogin: string,
+    attrNames?: Array<string>,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Sponsor>>>;
+  public getSponsorsForMemberByVoAndLogin(
+    vo: number,
+    extSourceName: string,
+    extLogin: string,
+    attrNames?: Array<string>,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (vo === null || vo === undefined) {
+      throw new Error(
+        'Required parameter vo was null or undefined when calling getSponsorsForMemberByVoAndLogin.'
+      );
+    }
+    if (extSourceName === null || extSourceName === undefined) {
+      throw new Error(
+        'Required parameter extSourceName was null or undefined when calling getSponsorsForMemberByVoAndLogin.'
+      );
+    }
+    if (extLogin === null || extLogin === undefined) {
+      throw new Error(
+        'Required parameter extLogin was null or undefined when calling getSponsorsForMemberByVoAndLogin.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (vo !== undefined && vo !== null) {
+      queryParameters = queryParameters.set('vo', <any>vo);
+    }
+    if (extSourceName !== undefined && extSourceName !== null) {
+      queryParameters = queryParameters.set(
+        'extSourceName',
+        <any>extSourceName
+      );
+    }
+    if (extLogin !== undefined && extLogin !== null) {
+      queryParameters = queryParameters.set('extLogin', <any>extLogin);
+    }
+    if (attrNames) {
+      attrNames.forEach((element) => {
+        queryParameters = queryParameters.append('attrNames[]', <any>element);
+      });
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Sponsor>>(
+      `${this.configuration.basePath}/json/usersManager/getSponsorsForMember/vo`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns user by its ExtSourceName and ExtLogin.
+   * Returns User found by its authentication data
+   * @param extLogin external login of user, e.g. john
+   * @param extSourceName external source name, e.g. IdP entityId
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getUserByExtSourceNameAndExtLogin(
+    extLogin: string,
+    extSourceName: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<User>;
+  public getUserByExtSourceNameAndExtLogin(
+    extLogin: string,
+    extSourceName: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<User>>;
+  public getUserByExtSourceNameAndExtLogin(
+    extLogin: string,
+    extSourceName: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<User>>;
+  public getUserByExtSourceNameAndExtLogin(
+    extLogin: string,
+    extSourceName: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (extLogin === null || extLogin === undefined) {
+      throw new Error(
+        'Required parameter extLogin was null or undefined when calling getUserByExtSourceNameAndExtLogin.'
+      );
+    }
+    if (extSourceName === null || extSourceName === undefined) {
+      throw new Error(
+        'Required parameter extSourceName was null or undefined when calling getUserByExtSourceNameAndExtLogin.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (extLogin !== undefined && extLogin !== null) {
+      queryParameters = queryParameters.set('extLogin', <any>extLogin);
+    }
+    if (extSourceName !== undefined && extSourceName !== null) {
+      queryParameters = queryParameters.set(
+        'extSourceName',
+        <any>extSourceName
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<User>(
+      `${this.configuration.basePath}/json/usersManager/getUserByExtSourceNameAndExtLogin`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns user by its id
+   * Returns object representing the User
+   * @param id numeric id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getUserById(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<User>;
+  public getUserById(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<User>>;
+  public getUserById(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<User>>;
+  public getUserById(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling getUserById.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (id !== undefined && id !== null) {
+      queryParameters = queryParameters.set('id', <any>id);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<User>(
+      `${this.configuration.basePath}/json/usersManager/getUserById`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns user ext source by its id.
+   * @param userExtSource id of UserExtSource
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getUserExtSourceById(
+    userExtSource: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<UserExtSource>;
+  public getUserExtSourceById(
+    userExtSource: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<UserExtSource>>;
+  public getUserExtSourceById(
+    userExtSource: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<UserExtSource>>;
+  public getUserExtSourceById(
+    userExtSource: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (userExtSource === null || userExtSource === undefined) {
+      throw new Error(
+        'Required parameter userExtSource was null or undefined when calling getUserExtSourceById.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (userExtSource !== undefined && userExtSource !== null) {
+      queryParameters = queryParameters.set(
+        'userExtSource',
+        <any>userExtSource
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<UserExtSource>(
+      `${this.configuration.basePath}/json/usersManager/getUserExtSourceById`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Gets list of all user\&#39;s external sources.
+   * @param user id of User
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getUserExtSources(
+    user: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<UserExtSource>>;
+  public getUserExtSources(
+    user: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<UserExtSource>>>;
+  public getUserExtSources(
+    user: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<UserExtSource>>>;
+  public getUserExtSources(
+    user: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getUserExtSources.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<UserExtSource>>(
+      `${this.configuration.basePath}/json/usersManager/getUserExtSources`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns list of user ext sources by their ids.
+   * @param ids list of ids List&lt;Integer&gt;
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getUserExtSourcesByIds(
+    ids: Array<number>,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<UserExtSource>>;
+  public getUserExtSourcesByIds(
+    ids: Array<number>,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<UserExtSource>>>;
+  public getUserExtSourcesByIds(
+    ids: Array<number>,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<UserExtSource>>>;
+  public getUserExtSourcesByIds(
+    ids: Array<number>,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (ids === null || ids === undefined) {
+      throw new Error(
+        'Required parameter ids was null or undefined when calling getUserExtSourcesByIds.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (ids) {
+      ids.forEach((element) => {
+        queryParameters = queryParameters.append('ids[]', <any>element);
+      });
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<UserExtSource>>(
+      `${this.configuration.basePath}/json/usersManager/getUserExtSourcesByIds`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns list of Users by their ids.
+   * @param ids list of ids List&lt;Integer&gt;
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getUsersByIds(
+    ids: Array<number>,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<User>>;
+  public getUsersByIds(
+    ids: Array<number>,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<User>>>;
+  public getUsersByIds(
+    ids: Array<number>,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<User>>>;
+  public getUsersByIds(
+    ids: Array<number>,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (ids === null || ids === undefined) {
+      throw new Error(
+        'Required parameter ids was null or undefined when calling getUsersByIds.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (ids) {
+      ids.forEach((element) => {
+        queryParameters = queryParameters.append('ids[]', <any>element);
+      });
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<User>>(
+      `${this.configuration.basePath}/json/usersManager/getUsersByIds`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Return all users who owns the specific user.
+   * @param specificUser id of specific User
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getUsersBySpecificUser(
+    specificUser: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<User>>;
+  public getUsersBySpecificUser(
+    specificUser: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<User>>>;
+  public getUsersBySpecificUser(
+    specificUser: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<User>>>;
+  public getUsersBySpecificUser(
+    specificUser: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (specificUser === null || specificUser === undefined) {
+      throw new Error(
+        'Required parameter specificUser was null or undefined when calling getUsersBySpecificUser.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (specificUser !== undefined && specificUser !== null) {
+      queryParameters = queryParameters.set('specificUser', <any>specificUser);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<User>>(
+      `${this.configuration.basePath}/json/usersManager/getUsersBySpecificUser`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns list of VOs, where the user is an Administrator.
+   * @param user id of User
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getVosWhereUserIsAdmin(
+    user: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Vo>>;
+  public getVosWhereUserIsAdmin(
+    user: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Vo>>>;
+  public getVosWhereUserIsAdmin(
+    user: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Vo>>>;
+  public getVosWhereUserIsAdmin(
+    user: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getVosWhereUserIsAdmin.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Vo>>(
+      `${this.configuration.basePath}/json/usersManager/getVosWhereUserIsAdmin`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Returns list of VOs, where the user is a Member.
+   * @param user id of User
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getVosWhereUserIsMember(
+    user: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Vo>>;
+  public getVosWhereUserIsMember(
+    user: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Vo>>>;
+  public getVosWhereUserIsMember(
+    user: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Vo>>>;
+  public getVosWhereUserIsMember(
+    user: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getVosWhereUserIsMember.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Vo>>(
+      `${this.configuration.basePath}/json/usersManager/getVosWhereUserIsMember`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Check wheter login exists in specified login-namespace. Only available for some namespaces.
+   * @param user id of User
+   * @param namespace namespace
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public loginExist(
+    user: number,
+    namespace: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<boolean>;
+  public loginExist(
+    user: number,
+    namespace: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<boolean>>;
+  public loginExist(
+    user: number,
+    namespace: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<boolean>>;
+  public loginExist(
+    user: number,
+    namespace: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling loginExist.'
+      );
+    }
+    if (namespace === null || namespace === undefined) {
+      throw new Error(
+        'Required parameter namespace was null or undefined when calling loginExist.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (namespace !== undefined && namespace !== null) {
+      queryParameters = queryParameters.set('namespace', <any>namespace);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<boolean>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/loginExist`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Remove specific user owner.
+   * @param user id of User
+   * @param specificUser id of specific User
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public removeSpecificUserOwner(
+    user: number,
+    specificUser: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public removeSpecificUserOwner(
+    user: number,
+    specificUser: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public removeSpecificUserOwner(
+    user: number,
+    specificUser: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public removeSpecificUserOwner(
+    user: number,
+    specificUser: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling removeSpecificUserOwner.'
+      );
+    }
+    if (specificUser === null || specificUser === undefined) {
+      throw new Error(
+        'Required parameter specificUser was null or undefined when calling removeSpecificUserOwner.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (specificUser !== undefined && specificUser !== null) {
+      queryParameters = queryParameters.set('specificUser', <any>specificUser);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/removeSpecificUserOwner`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Remove user\&#39;s external source. Persistent UserExtSources are not removed unless force param is present and set to true.
+   * @param user id of User
+   * @param userExtSource id of UserExtSource
+   * @param force If true, delete entity forcefully.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public removeUserExtSource(
+    user: number,
+    userExtSource: number,
+    force?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public removeUserExtSource(
+    user: number,
+    userExtSource: number,
+    force?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public removeUserExtSource(
+    user: number,
+    userExtSource: number,
+    force?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public removeUserExtSource(
+    user: number,
+    userExtSource: number,
+    force?: boolean,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling removeUserExtSource.'
+      );
+    }
+    if (userExtSource === null || userExtSource === undefined) {
+      throw new Error(
+        'Required parameter userExtSource was null or undefined when calling removeUserExtSource.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (userExtSource !== undefined && userExtSource !== null) {
+      queryParameters = queryParameters.set(
+        'userExtSource',
+        <any>userExtSource
+      );
+    }
+    if (force !== undefined && force !== null) {
+      queryParameters = queryParameters.set('force', <any>force);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/removeUserExtSource`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Request to change preferred email address of user. Validation mail is sent on new address. Change is not saved until user validate new email address by calling validatePreferredEmailChange() method with proper set of parameters (sent in validation mail). Provide eiher linkPath (appended to referer) or whole custom url. Combination of linkPath and customUrl is not supported.
+   * @param user id of User
+   * @param email new email address to set
+   * @param lang language to get confirmation mail in (optional)
+   * @param linkPath path that is appended to the referer and creates the verification link (optional)
+   * @param customUrl url to verification link containing path (optional)
+   * @param idpFilter authentication method appended to query parameters of verification link (optional)
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public requestPreferredEmailChange(
+    user: number,
+    email: string,
+    lang?: string,
+    linkPath?: string,
+    customUrl?: string,
+    idpFilter?: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public requestPreferredEmailChange(
+    user: number,
+    email: string,
+    lang?: string,
+    linkPath?: string,
+    customUrl?: string,
+    idpFilter?: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public requestPreferredEmailChange(
+    user: number,
+    email: string,
+    lang?: string,
+    linkPath?: string,
+    customUrl?: string,
+    idpFilter?: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public requestPreferredEmailChange(
+    user: number,
+    email: string,
+    lang?: string,
+    linkPath?: string,
+    customUrl?: string,
+    idpFilter?: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling requestPreferredEmailChange.'
+      );
+    }
+    if (email === null || email === undefined) {
+      throw new Error(
+        'Required parameter email was null or undefined when calling requestPreferredEmailChange.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (email !== undefined && email !== null) {
+      queryParameters = queryParameters.set('email', <any>email);
+    }
+    if (lang !== undefined && lang !== null) {
+      queryParameters = queryParameters.set('lang', <any>lang);
+    }
+    if (linkPath !== undefined && linkPath !== null) {
+      queryParameters = queryParameters.set('linkPath', <any>linkPath);
+    }
+    if (customUrl !== undefined && customUrl !== null) {
+      queryParameters = queryParameters.set('customUrl', <any>customUrl);
+    }
+    if (idpFilter !== undefined && idpFilter !== null) {
+      queryParameters = queryParameters.set('idpFilter', <any>idpFilter);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/requestPreferredEmailChange`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Reserves password for a user in specified login-namespace.
+   * @param login login
+   * @param namespace namespace
+   * @param password password
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public reservePasswordForLogin(
+    login: string,
+    namespace: string,
+    password: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public reservePasswordForLogin(
+    login: string,
+    namespace: string,
+    password: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public reservePasswordForLogin(
+    login: string,
+    namespace: string,
+    password: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public reservePasswordForLogin(
+    login: string,
+    namespace: string,
+    password: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (login === null || login === undefined) {
+      throw new Error(
+        'Required parameter login was null or undefined when calling reservePasswordForLogin.'
+      );
+    }
+    if (namespace === null || namespace === undefined) {
+      throw new Error(
+        'Required parameter namespace was null or undefined when calling reservePasswordForLogin.'
+      );
+    }
+    if (password === null || password === undefined) {
+      throw new Error(
+        'Required parameter password was null or undefined when calling reservePasswordForLogin.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (login !== undefined && login !== null) {
+      queryParameters = queryParameters.set('login', <any>login);
+    }
+    if (namespace !== undefined && namespace !== null) {
+      queryParameters = queryParameters.set('namespace', <any>namespace);
+    }
+    if (password !== undefined && password !== null) {
+      queryParameters = queryParameters.set('password', <any>password);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/reservePassword/login`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Reserves password for a user in specified login-namespace.
+   * @param user id of User
+   * @param namespace namespace
+   * @param password password
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public reservePasswordForUser(
+    user: number,
+    namespace: string,
+    password: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public reservePasswordForUser(
+    user: number,
+    namespace: string,
+    password: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public reservePasswordForUser(
+    user: number,
+    namespace: string,
+    password: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public reservePasswordForUser(
+    user: number,
+    namespace: string,
+    password: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling reservePasswordForUser.'
+      );
+    }
+    if (namespace === null || namespace === undefined) {
+      throw new Error(
+        'Required parameter namespace was null or undefined when calling reservePasswordForUser.'
+      );
+    }
+    if (password === null || password === undefined) {
+      throw new Error(
+        'Required parameter password was null or undefined when calling reservePasswordForUser.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (namespace !== undefined && namespace !== null) {
+      queryParameters = queryParameters.set('namespace', <any>namespace);
+    }
+    if (password !== undefined && password !== null) {
+      queryParameters = queryParameters.set('password', <any>password);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/reservePassword/user`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Updates user
+   * @param inputUpdateUser
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public updateUser(
+    inputUpdateUser: InputUpdateUser,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<User>;
+  public updateUser(
+    inputUpdateUser: InputUpdateUser,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<User>>;
+  public updateUser(
+    inputUpdateUser: InputUpdateUser,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<User>>;
+  public updateUser(
+    inputUpdateUser: InputUpdateUser,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (inputUpdateUser === null || inputUpdateUser === undefined) {
+      throw new Error(
+        'Required parameter inputUpdateUser was null or undefined when calling updateUser.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.post<User>(
+      `${this.configuration.basePath}/json/usersManager/updateUser`,
+      inputUpdateUser,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Validate password for a user in specified login-namespace.
+   * @param login login
+   * @param namespace namespace
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public validatePasswordForLogin(
+    login: string,
+    namespace: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public validatePasswordForLogin(
+    login: string,
+    namespace: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public validatePasswordForLogin(
+    login: string,
+    namespace: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public validatePasswordForLogin(
+    login: string,
+    namespace: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (login === null || login === undefined) {
+      throw new Error(
+        'Required parameter login was null or undefined when calling validatePasswordForLogin.'
+      );
+    }
+    if (namespace === null || namespace === undefined) {
+      throw new Error(
+        'Required parameter namespace was null or undefined when calling validatePasswordForLogin.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (login !== undefined && login !== null) {
+      queryParameters = queryParameters.set('login', <any>login);
+    }
+    if (namespace !== undefined && namespace !== null) {
+      queryParameters = queryParameters.set('namespace', <any>namespace);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/validatePassword/login`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Validate password for a user in specified login-namespace.
+   * @param user id of User
+   * @param namespace namespace
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public validatePasswordForUser(
+    user: number,
+    namespace: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public validatePasswordForUser(
+    user: number,
+    namespace: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public validatePasswordForUser(
+    user: number,
+    namespace: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public validatePasswordForUser(
+    user: number,
+    namespace: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling validatePasswordForUser.'
+      );
+    }
+    if (namespace === null || namespace === undefined) {
+      throw new Error(
+        'Required parameter namespace was null or undefined when calling validatePasswordForUser.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (namespace !== undefined && namespace !== null) {
+      queryParameters = queryParameters.set('namespace', <any>namespace);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/validatePassword/user`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Validate new preferred email address. Request to validate is determined based on token parameter sent in email notice by requestPreferredEmailChange() method.
+   * @param token token for the email change request
+   * @param u id of user you want to validate preferred email request
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public validatePreferredEmailChangeWithToken(
+    token: string,
+    u: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<string>;
+  public validatePreferredEmailChangeWithToken(
+    token: string,
+    u: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<string>>;
+  public validatePreferredEmailChangeWithToken(
+    token: string,
+    u: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<string>>;
+  public validatePreferredEmailChangeWithToken(
+    token: string,
+    u: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (token === null || token === undefined) {
+      throw new Error(
+        'Required parameter token was null or undefined when calling validatePreferredEmailChangeWithToken.'
+      );
+    }
+    if (u === null || u === undefined) {
+      throw new Error(
+        'Required parameter u was null or undefined when calling validatePreferredEmailChangeWithToken.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (token !== undefined && token !== null) {
+      queryParameters = queryParameters.set('token', <any>token);
+    }
+    if (u !== undefined && u !== null) {
+      queryParameters = queryParameters.set('u', <any>u);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys['Authorization']
+    ) {
+      headers = headers.set(
+        'Authorization',
+        this.configuration.apiKeys['Authorization']
+      );
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<string>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/validatePreferredEmailChange`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 }

@@ -59,7 +59,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
   selection = new SelectionModel<ApplicationMail>(true, []);
   pageSize: number;
   tableId = TABLE_VO_SETTINGS_NOTIFICATIONS;
-  displayedColumns: String[] = [];
+  displayedColumns: string[] = [];
 
   addAuth: boolean;
   removeAuth: boolean;

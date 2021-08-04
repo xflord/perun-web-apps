@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-// tslint:disable-next-line:nx-enforce-module-boundaries
+// eslint-disable-next-line
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { StoreService } from '@perun-web-apps/perun/services';
 
@@ -26,23 +26,24 @@ export interface ColorConfig {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppConfigService {
+  constructor(private http: HttpClient, private storeService: StoreService) {}
 
-  constructor(
-    private http: HttpClient,
-    private storeService: StoreService
-  ) { }
-
-  initializeColors(entityColorConfigs: EntityColorConfig[], colorConfigs: ColorConfig[]): Promise<void> {
-    return new Promise<void>((resolve => {
-      colorConfigs.forEach(cc => {        //configuration for single items
+  initializeColors(
+    entityColorConfigs: EntityColorConfig[],
+    colorConfigs: ColorConfig[]
+  ): Promise<void> {
+    return new Promise<void>((resolve) => {
+      colorConfigs.forEach((cc) => {
+        //configuration for single items
         const color = this.storeService.get('theme', cc.configValue);
         document.documentElement.style.setProperty(cc.cssVariable, color);
       });
 
-      entityColorConfigs.forEach(ecc => {       //configuration for whole entities
+      entityColorConfigs.forEach((ecc) => {
+        //configuration for whole entities
         const color = this.storeService.get('theme', ecc.configValue);
         // set CSS variable for given entity
         document.documentElement.style.setProperty(ecc.cssVariable, color);
@@ -50,7 +51,7 @@ export class AppConfigService {
         this.setEntityTheme(ecc.entity, color);
       });
       resolve();
-    }));
+    });
   }
 
   setEntityTheme(entity: string, color: string): void {
@@ -73,13 +74,14 @@ export class AppConfigService {
    */
   loadAppDefaultConfig(): Promise<void> {
     return new Promise((resolve) => {
-
-      this.http.get('/assets/config/defaultConfig.json', { headers: this.getNoCacheHeaders() })
-        .subscribe(config => {
+      this.http
+        .get('/assets/config/defaultConfig.json', {
+          headers: this.getNoCacheHeaders(),
+        })
+        .subscribe((config) => {
           this.storeService.setDefaultConfig(config);
           resolve();
         });
-
     });
   }
 
@@ -89,28 +91,37 @@ export class AppConfigService {
    * instance config and load additional data.
    */
   loadAppInstanceConfig(): Promise<void> {
-    return new Promise((resolve, reject) => {
-
-      this.http.get('/assets/config/instanceConfig.json', { headers: this.getNoCacheHeaders() })
-        .subscribe(config => {
-          this.storeService.setInstanceConfig(config);
-          const branding = document.location.hostname;
-          if (config['brandings'] !== undefined && config['brandings'][branding] !== undefined) {
-            this.storeService.setBanding(branding);
+    return new Promise((resolve) => {
+      this.http
+        .get('/assets/config/instanceConfig.json', {
+          headers: this.getNoCacheHeaders(),
+        })
+        .subscribe(
+          (config) => {
+            this.storeService.setInstanceConfig(config);
+            const branding = document.location.hostname;
+            if (
+              config['brandings'] !== undefined &&
+              config['brandings'][branding] !== undefined
+            ) {
+              this.storeService.setBanding(branding);
+            }
+            resolve();
+          },
+          () => {
+            console.log('instance config not detected');
+            resolve();
           }
-          resolve();
-        }, () => {
-          console.log('instance config not detected');
-          resolve();
-        });
+        );
     });
   }
 
   getNoCacheHeaders(): HttpHeaders {
     return new HttpHeaders({
-      'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+      'CacheControl':
+        'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
       'Pragma': 'no-cache',
-      'Expires': '0'
+      'Expires': '0',
     });
   }
 }
@@ -130,7 +141,7 @@ function computeColors(hex: string): Color[] {
     getColorObject(tinycolor(hex).lighten(50).saturate(30), 'A100'),
     getColorObject(tinycolor(hex).lighten(30).saturate(30), 'A200'),
     getColorObject(tinycolor(hex).lighten(10).saturate(15), 'A400'),
-    getColorObject(tinycolor(hex).lighten(5).saturate(5), 'A700')
+    getColorObject(tinycolor(hex).lighten(5).saturate(5), 'A700'),
   ];
 }
 
@@ -143,6 +154,6 @@ function getColorObject(value, name): Color {
     darkContrast: c.isLight(),
     red: rgb.r,
     green: rgb.g,
-    blue: rgb.b
+    blue: rgb.b,
   };
 }

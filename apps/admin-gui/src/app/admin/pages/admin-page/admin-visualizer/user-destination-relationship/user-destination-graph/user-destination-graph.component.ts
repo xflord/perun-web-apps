@@ -50,8 +50,8 @@ export class UserDestinationGraphComponent implements OnInit {
   hierarchialGraph = {nodes: [], links: []};
   curve = shape.curveBundle;
   zoomToFit$: Subject<boolean> = new Subject();
-  innerWidth: any;
-  innerHeight: any;
+  innerWidth: number;
+  innerHeight: number;
 
   localUser: string;
   localVo: string;

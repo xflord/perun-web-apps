@@ -16,7 +16,7 @@
           {{service.name}}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="serviceControl.value == undefined">
+      <mat-error *ngIf="serviceControl.value === undefined">
         {{'DIALOGS.ADD_SERVICE_DESTINATION.CHOOSE_SERVICE' | translate}}
       </mat-error>
     </mat-form-field>

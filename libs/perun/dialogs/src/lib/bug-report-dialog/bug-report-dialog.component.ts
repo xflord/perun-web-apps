@@ -4,7 +4,7 @@ import {TranslateService} from '@ngx-translate/core';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { RPCError } from '@perun-web-apps/perun/models';
 import { RTMessagesManagerService } from '@perun-web-apps/perun/openapi';
-declare var require: any;
+declare let require: any;
 
 
 export interface BugReportData {
@@ -49,7 +49,7 @@ export class BugReportDialogComponent implements OnInit {
           this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUCCESS2'));
       });
       this.dialogRef.close();
-    }, err => {
+    }, () => {
       this.loading = false;
       this.dialogRef.afterClosed().subscribe(() => {
         //TODO WHEN REPORT BUG FAIL

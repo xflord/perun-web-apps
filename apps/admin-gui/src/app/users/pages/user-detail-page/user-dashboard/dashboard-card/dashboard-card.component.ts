@@ -1,10 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
-  AuthzResolverService, EnrichedFacility, Facility,
-  Group,
-  ResourcesManagerService,
-  RichResource,
-  Vo
+  AuthzResolverService, EnrichedFacility,
+  Group, ResourcesManagerService,
+  RichResource, Vo
 } from '@perun-web-apps/perun/openapi';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';

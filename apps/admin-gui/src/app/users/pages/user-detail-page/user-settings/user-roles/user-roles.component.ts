@@ -1,8 +1,8 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import {
-  AuthzResolverService, EnrichedFacility, FacilitiesManagerService, Facility,
+  AuthzResolverService, EnrichedFacility, FacilitiesManagerService,
   Group, GroupsManagerService, MembersManagerService,
-  PerunPrincipal, Resource, ResourcesManagerService, RichMember, RichResource, User,
+  PerunPrincipal, ResourcesManagerService, RichMember, RichResource, User,
   UsersManagerService,
   Vo,
   VosManagerService

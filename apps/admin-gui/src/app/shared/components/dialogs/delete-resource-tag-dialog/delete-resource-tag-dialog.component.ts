@@ -39,7 +39,7 @@ export class DeleteResourceTagDialogComponent implements OnInit {
     for (const resourceTag of this.data.tagsForDelete) {
       this.resourceManager.deleteResourceTag({resourceTag: resourceTag}).subscribe( () => {
         this.dialogRef.close(true);
-      }, error => this.dialogRef.close(true));
+      }, () => this.dialogRef.close(true));
     }
   }
 

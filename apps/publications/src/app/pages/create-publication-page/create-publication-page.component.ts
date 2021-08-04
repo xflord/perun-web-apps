@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,12 +6,9 @@ import { Router } from '@angular/router';
   templateUrl: './create-publication-page.component.html',
   styleUrls: ['./create-publication-page.component.scss']
 })
-export class CreatePublicationPageComponent implements OnInit {
+export class CreatePublicationPageComponent {
 
   constructor(private router: Router) { }
-
-  ngOnInit(): void {
-  }
 
   importPublications() {
     this.router.navigate(["create-publication", "import"]);

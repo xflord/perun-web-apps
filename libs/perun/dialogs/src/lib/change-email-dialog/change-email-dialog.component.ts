@@ -37,7 +37,7 @@ export class ChangeEmailDialogComponent implements OnInit {
 
   ngOnInit() {
     this.emailControl = new FormControl(null, [Validators.required,
-      Validators.pattern(/^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i)]);
+      Validators.pattern(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i)]);
     this.usersManagerService.getPendingPreferredEmailChanges(this.data.userId).subscribe(mails => {
       this.pendingMails = mails.filter((el, i, a) => i === a.indexOf(el));
       let result = '';

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthzResolverService, PerunPrincipal, UtilsService } from '@perun-web-apps/perun/openapi';
 import { StoreService } from '@perun-web-apps/perun/services';
@@ -16,7 +16,7 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
   templateUrl: './perun-nav.component.html',
   styleUrls: ['./perun-nav.component.scss']
 })
-export class PerunNavComponent implements OnInit, AfterViewInit {
+export class PerunNavComponent implements OnInit {
 
   constructor(private storeService: StoreService,
               private authService: AuthService,
@@ -45,9 +45,6 @@ export class PerunNavComponent implements OnInit, AfterViewInit {
   logo: any;
   logoPadding = this.storeService.get('logo_padding');
   isDevel = false;
-
-  ngAfterViewInit(): void {
-  }
 
   ngOnInit(): void {
     this.isDevel = this.storeService.get('isDevel');

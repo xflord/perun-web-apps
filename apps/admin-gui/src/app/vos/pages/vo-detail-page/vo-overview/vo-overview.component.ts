@@ -1,13 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuItem} from '@perun-web-apps/perun/models';
-import {InviteMemberDialogComponent} from '../../../../shared/components/dialogs/invite-member-dialog/invite-member-dialog.component';
-import {MatDialog} from '@angular/material/dialog';
 import {SideMenuService} from '../../../../core/services/common/side-menu.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GuiAuthResolver} from '@perun-web-apps/perun/services';
-import { MembersManagerService, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
-import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { MatTableDataSource } from '@angular/material/table';
+import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-vo-overview',
@@ -130,57 +126,4 @@ export class VoOverviewComponent implements OnInit {
     }
   }
 
-  private initItems() {
-    this.items = [
-      {
-        cssIcon: 'perun-invite-member',
-        label: 'VO_DETAIL.OVERVIEW.INVITE_MEMBER',
-        style: 'vo-btn',
-        url: `/organizations/${this.vo.id}/invite-member`,
-        clickAction: function (dialog: MatDialog, voId: number) {
-          const config = getDefaultDialogConfig();
-          config.width = '450px';
-          config.data = {voId: voId};
-
-          dialog.open(InviteMemberDialogComponent, config);
-        }
-      },
-      {
-        cssIcon: 'perun-service-identity',
-        label: 'VO_DETAIL.OVERVIEW.CREATE_SERVICE_MEMBER',
-        style: 'vo-btn',
-        url: `/organizations/${this.vo.id}/create-service-member`,
-        clickAction: function (dialog: MatDialog, voId: number) {
-          return;
-        }
-      },
-      {
-        cssIcon: 'perun-manager',
-        label: 'VO_DETAIL.OVERVIEW.ADD_MANAGER',
-        style: 'vo-btn',
-        url: `/organizations/${this.vo.id}/add-manager`,
-        clickAction: function (dialog: MatDialog, voId: number) {
-          return;
-        }
-      },
-      {
-        cssIcon: 'perun-group',
-        label: 'VO_DETAIL.OVERVIEW.CREATE_GROUP',
-        style: 'vo-btn',
-        url: `/organizations/${this.vo.id}/create-group`,
-        clickAction: function (dialog: MatDialog, voId: number) {
-          return;
-        }
-      },
-      {
-        cssIcon: 'perun-create1',
-        label: 'VO_DETAIL.OVERVIEW.ADD_MEMBER',
-        style: 'vo-btn',
-        url: `/organizations/${this.vo.id}/invite-member`,
-        clickAction: function (dialog: MatDialog, voId: number) {
-          return;
-        }
-      }
-    ];
-  }
 }

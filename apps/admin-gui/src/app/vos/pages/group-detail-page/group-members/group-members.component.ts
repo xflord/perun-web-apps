@@ -21,7 +21,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { TABLE_GROUP_MEMBERS, TableConfigService } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { InviteMemberDialogComponent } from '../../../../shared/components/dialogs/invite-member-dialog/invite-member-dialog.component';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-group-members',
@@ -207,7 +207,7 @@ export class GroupMembersComponent implements OnInit {
   }
 
   isManualAddingBlocked(voId: number, groupId: number): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.apiRequest.dontHandleErrorForNext();
       this.attributesManager.getVoAttributeByName(voId, "urn:perun:vo:attribute-def:def:blockManualMemberAdding").subscribe(attrValue => {
         this.blockManualMemberAdding = attrValue.value !== null;

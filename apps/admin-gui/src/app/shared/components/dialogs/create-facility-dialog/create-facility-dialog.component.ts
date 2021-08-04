@@ -4,8 +4,6 @@ import { FacilitiesManagerService, Facility } from '@perun-web-apps/perun/openap
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 
 export interface CreateFacilityDialogData {
   theme: string;

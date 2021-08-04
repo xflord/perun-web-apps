@@ -1,14 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
-import {
-  Attribute,
-  AttributesManagerService,
-  GroupsManagerService,
-  MembersManagerService,
-  Sponsor
-} from '@perun-web-apps/perun/openapi';
 import { formatDate } from '@angular/common';
 
 @Component({

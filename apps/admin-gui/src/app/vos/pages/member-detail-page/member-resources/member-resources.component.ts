@@ -34,9 +34,9 @@ export class MemberResourcesComponent implements OnInit {
   member: Member;
   resources: RichResource[] = [];
 
-  filterValue: String = "";
+  filterValue = "";
   loading = false;
-  displayedColumns: String[] = ['id', 'name', 'vo', 'facility', 'tags', 'description'];
+  displayedColumns: string[] = ['id', 'name', 'vo', 'facility', 'tags', 'description'];
 
   pageSize: number;
   tableId = TABLE_MEMBER_RESOURCE_LIST;
@@ -98,7 +98,7 @@ export class MemberResourcesComponent implements OnInit {
     }
   }
 
-  applyFilter(filterValue: String){
+  applyFilter(filterValue: string){
     this.filterValue = filterValue;
   }
 

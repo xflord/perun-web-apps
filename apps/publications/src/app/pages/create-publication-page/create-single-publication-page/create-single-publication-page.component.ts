@@ -15,7 +15,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { FilterPublication } from '../../../components/publication-filter/publication-filter.component';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { MatTabGroup } from '@angular/material/tabs';
 
@@ -84,8 +83,8 @@ export class CreateSinglePublicationPageComponent implements OnInit {
       title: ['', Validators.required],
       year: ['', Validators.required],
       category: ['', Validators.required],
-      ISBN: [''],
-      DOI: [''],
+      isbn: [''],
+      doi: [''],
       cite: ['', Validators.required],
       }
     );
@@ -149,9 +148,9 @@ export class CreateSinglePublicationPageComponent implements OnInit {
 
   similarCheck(){
     this.innerLoading = true;
-    const title: string = !!this.publicationControl.get('title').value ? this.publicationControl.get('title').value : null;
-    const doi: string = !!this.publicationControl.get('DOI').value ? this.publicationControl.get('DOI').value : null;
-    const isbn: string = !!this.publicationControl.get('ISBN').value ? this.publicationControl.get('ISBN').value : null;
+    const title: string = this.publicationControl.get('title').value ? this.publicationControl.get('title').value : null;
+    const doi: string = this.publicationControl.get('DOI').value ? this.publicationControl.get('DOI').value : null;
+    const isbn: string = this.publicationControl.get('ISBN').value ? this.publicationControl.get('ISBN').value : null;
     this.cabinetService.findSimilarPublications(title, doi, isbn).subscribe(similarPubs => {
       this.similarPublications = similarPubs;
       this.filteredPublications = similarPubs;

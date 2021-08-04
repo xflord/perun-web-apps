@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewChild, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, ViewChild, Output, EventEmitter, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
@@ -76,7 +76,7 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
     this.isPrefilled = this.translate.instant('VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.IS_PREFILLED_HINT');
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     this.dataSource = this.applicationFormItems;
 
   }
@@ -190,7 +190,7 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
     applicationFormItem.forDelete = false;
   }
 
-  openManagingGroups(applicationFormItem: ApplicationFormItem) {
+  openManagingGroups() {
     this.router.navigate(['/organizations', this.applicationForm.vo.id, 'settings', 'applicationForm', 'manageGroups']);
   }
 }

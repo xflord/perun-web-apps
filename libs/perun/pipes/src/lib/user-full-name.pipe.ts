@@ -6,7 +6,7 @@ import { User } from '@perun-web-apps/perun/openapi';
 })
 export class UserFullNamePipe implements PipeTransform {
 
-  transform(value: any, args?: any): any {
+  transform(value: any): any {
     const user = <User> value;
 
     let fullName = '';

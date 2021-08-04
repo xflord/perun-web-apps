@@ -1,11 +1,11 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'perun-web-apps-recently-viewed-icon',
   templateUrl: './recently-viewed-icon.component.html',
   styleUrls: ['./recently-viewed-icon.component.css']
 })
-export class RecentlyViewedIconComponent implements OnChanges {
+export class RecentlyViewedIconComponent {
 
   constructor() { }
 
@@ -14,8 +14,5 @@ export class RecentlyViewedIconComponent implements OnChanges {
 
   @Input()
   id: number;
-
-  ngOnChanges(changes: SimpleChanges) {
-  }
 
 }

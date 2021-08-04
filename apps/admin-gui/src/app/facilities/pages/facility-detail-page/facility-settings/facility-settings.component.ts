@@ -1,5 +1,5 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {fadeIn} from '@perun-web-apps/perun/animations';
+import { Component, HostBinding } from '@angular/core';
+import { fadeIn } from '@perun-web-apps/perun/animations';
 
 @Component({
   selector: 'app-facility-settings',
@@ -9,12 +9,9 @@ import {fadeIn} from '@perun-web-apps/perun/animations';
     fadeIn
   ]
 })
-export class FacilitySettingsComponent implements OnInit {
+export class FacilitySettingsComponent {
 
   @HostBinding('class.router-component') true;
 
   constructor() { }
-
-  ngOnInit() {
-  }
 }

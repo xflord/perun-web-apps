@@ -46,7 +46,7 @@ export class RemoveExtSourceDialogComponent implements OnInit {
     }
 
     const extSource = this.extSources.pop();
-    this.extSourceService.removeExtSourceWithVoSource(this.data.voId, extSource.id).subscribe(_ => {
+    this.extSourceService.removeExtSourceWithVoSource(this.data.voId, extSource.id).subscribe(() => {
       this.onRemove();
     }, () => this.loading = false);
   }
@@ -61,7 +61,7 @@ export class RemoveExtSourceDialogComponent implements OnInit {
     }
 
     const extSource = this.extSources.pop();
-    this.extSourceService.removeExtSourceWithGroupSource(this.data.groupId, extSource.id).subscribe(_ => {
+    this.extSourceService.removeExtSourceWithGroupSource(this.data.groupId, extSource.id).subscribe(() => {
       this.onRemove();
     }, () => this.loading = false);
   }

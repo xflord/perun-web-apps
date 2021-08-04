@@ -80,7 +80,7 @@ export class MoveGroupDialogComponent implements OnInit {
     return group ? group.name : group;
   }
 
-  private _filterGroups(value: any): Group[] {
+  private _filterGroups(value: unknown & string): Group[] {
     // Hack that ensures proper autocomplete value displaying
     if (typeof value === 'object') {
       return [];

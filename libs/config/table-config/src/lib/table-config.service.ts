@@ -10,7 +10,7 @@ export class TableConfigService {
     private guiConfigService: GUIConfigService
   ) { }
 
-  getTablePageSize(tableId: String): number {
+  getTablePageSize(tableId: string): number {
     const tablePref = this.guiConfigService.getNumber(LS_TABLE_PREFIX + tableId);
     if (!isNaN(tablePref)) {
       return tablePref;
@@ -23,7 +23,7 @@ export class TableConfigService {
     return 10;
   }
 
-  setTablePageSize(tableId: String, value: number) {
+  setTablePageSize(tableId: string, value: number) {
     this.guiConfigService.setNumber(LS_TABLE_PREFIX + tableId, value);
   }
 }

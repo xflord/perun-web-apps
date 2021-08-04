@@ -5,7 +5,6 @@ import {
   AttributesManagerService,
   Group,
   GroupsManagerService,
-  Vo,
   VosManagerService
 } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
