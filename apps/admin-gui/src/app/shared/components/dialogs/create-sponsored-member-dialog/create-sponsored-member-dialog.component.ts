@@ -109,7 +109,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     this.voSponsors = this.data.sponsors;
     this.isSponsor = this.guiAuthResolver.principalHasRole(Role.SPONSOR, 'Vo', this.data.voId);
     this.isPerunAdmin = this.guiAuthResolver.isPerunAdmin();
-
+    this.sponsorType = this.isSponsor ? 'self' : 'other';
     this.userControl = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -262,6 +262,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
       this.enableFormControl(password, validators, [loginAsyncValidator(namespc, this.usersService, this.apiRequestConfiguration)]);
       this.enableFormControl(passwordReset, []);
       this.enableFormControl(showPassword, []);
+      this.namespaceControl.get('passwordReset').setValue(false);
     } else {
       password.disable();
       password.setValue('');
