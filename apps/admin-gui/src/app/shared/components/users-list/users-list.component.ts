@@ -23,7 +23,7 @@ export class UsersListComponent implements OnChanges, AfterViewInit {
   constructor(private authResolver: GuiAuthResolver,
               private tableCheckbox: TableCheckbox) { }
 
-  @ViewChild(MatSort) set matSort(ms: MatSort) {
+  @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
   }
 
@@ -107,26 +107,21 @@ export class UsersListComponent implements OnChanges, AfterViewInit {
   setDataSource() {
     if (!this.dataSource) {
       this.dataSource = new MatTableDataSource<RichUser>();
+      this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filterPredicate = (data: RichUser, filter: string) =>
         customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
      this.dataSource.sortData = (data: RichUser[], sort: MatSort) =>
        customDataSourceSort(data, sort, this.getDataForColumn, this);
     }
-    if (!this.dataSource.sort) {
-      this.dataSource.sort = this.sort;
-    }
-    if (this.dataSource.sort) {
-      this.dataSource.filter = this.filter;
-      this.dataSource.data = this.users;
-    }
+    this.dataSource.filter = this.filter;
+    this.dataSource.data = this.users;
   }
 
   ngAfterViewInit(): void {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
-    this.setDataSource();
   }
 
   ngOnChanges() {
