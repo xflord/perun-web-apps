@@ -60,7 +60,7 @@ export class HeaderComponent implements OnInit {
 
     if (this.activeLink) {
       this.utilsService.getAppsConfig().subscribe(config => {
-        this.adminGuiUrl = !!config.brands[0].newApps.admin ? config.brands[0].newApps.admin : null;
+        this.adminGuiUrl = config.brands[0].newApps.admin ? config.brands[0].newApps.admin : null;
       });
     }
   }

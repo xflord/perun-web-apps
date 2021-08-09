@@ -52,7 +52,7 @@ export class PerunNavComponent implements OnInit {
     this.logoutEnabled = this.storeService.get('log_out_enabled');
     this.profileLabel = this.storeService.get('profile_label_en');
     this.utilsService.getAppsConfig().subscribe(config => {
-      this.profileUrl = !!config.brands[0].newApps.profile ? config.brands[0].newApps.profile : null;
+      this.profileUrl = config.brands[0].newApps.profile ? config.brands[0].newApps.profile : null;
     });
   }
 
