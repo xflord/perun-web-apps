@@ -1,13 +1,10 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import {
-  FacilitiesManagerService,
-  ResourcesManagerService,
   User,
-  UsersManagerService
+  UsersManagerService, UtilsService
 } from '@perun-web-apps/perun/openapi';
 import {
   ApiRequestConfigurationService,
-  GuiAuthResolver,
   NotificatorService,
   StoreService
 } from '@perun-web-apps/perun/services';
@@ -29,16 +26,14 @@ export class UserDashboardComponent implements OnInit {
 
   constructor(private userManager: UsersManagerService,
               private storeService: StoreService,
-              private guiAuthResolver: GuiAuthResolver,
-              private facilitiesService: FacilitiesManagerService,
-              private resourcesService: ResourcesManagerService,
               private sideMenuService: SideMenuService,
               private route: ActivatedRoute,
               private router: Router,
               private notificator: NotificatorService,
               public translateService: TranslateService,
               private dialog: MatDialog,
-              private apiRequestConfiguration: ApiRequestConfigurationService
+              private apiRequestConfiguration: ApiRequestConfigurationService,
+              private utilsService: UtilsService
   ) {
     translateService.get('USER_DETAIL.DASHBOARD.MAIL_CHANGE_SUCCESS').subscribe(res => this.mailSuccessMessage = res);
   }
@@ -55,13 +50,14 @@ export class UserDashboardComponent implements OnInit {
   allowedRoles = ['VOADMIN', 'GROUPADMIN', 'FACILITYADMIN', 'SPONSOR', 'RESOURCEADMIN', 'TOPGROUPCREATOR',
     'VOOBSERVER', 'GROUPOBSERVER', 'FACILITYOBSERVER', 'RESOURCEOBSERVER'];
   mailSuccessMessage: string;
+  userProfileName: string;
 
   ngOnInit() {
     this.validatePreferredMailChange();
 
     this.user = this.storeService.getPerunPrincipal().user;
     this.roles = this.storeService.getPerunPrincipal().roles;
-    this.userProfileUrl = this.storeService.get('user_profile_url');
+    this.getUserProfile();
     const allUserRoles = Object.keys(this.roles);
     this.isOnlySelfRole = allUserRoles.toString() === ['SELF'].toString();
     this.roleNames = this.allowedRoles.filter(value => allUserRoles.includes(value));
@@ -131,5 +127,12 @@ export class UserDashboardComponent implements OnInit {
       }
     }
     return true;
+  }
+
+  private getUserProfile() {
+    this.utilsService.getAppsConfig().subscribe(config => {
+      this.userProfileUrl = !!config.brands[0].newApps.profile ? config.brands[0].newApps.profile : null;
+    });
+    this.userProfileName = this.storeService.get('profile_label_en');
   }
 }
