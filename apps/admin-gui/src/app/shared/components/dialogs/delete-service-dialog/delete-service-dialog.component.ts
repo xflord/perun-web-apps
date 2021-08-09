@@ -28,32 +28,42 @@ export class DeleteServiceDialogComponent implements OnInit {
   displayedColumns = ['name'];
   dataSource = new MatTableDataSource<Service>(this.data.services);
   loading = false;
+  force = false;
+  relations: string[] = [];
+  anotherMessage: string;
 
 
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.services = this.data.services;
+    this.relations.push(this.translate.instant('DIALOGS.DELETE_SERVICE.DESTINATION_RELATION'));
+    this.anotherMessage = this.translate.instant('DIALOGS.DELETE_SERVICE.MORE_INFORMATION');
   }
 
-  recDelete(): void{
+  onConfirm() {
     if(this.services.length === 0){
       this.dialogRef.close(true);
       this.notificator.showSuccess(this.translate.instant('DIALOGS.DELETE_SERVICE.SUCCESS'));
       return;
     }
     this.loading = true
-    this.serviceManager.deleteService(this.services.pop().id).subscribe(() =>{
-      this.recDelete();
+    this.serviceManager.deleteService(this.services.pop().id, this.force).subscribe(() =>{
+      this.onConfirm();
       this.loading = false;
     }, () => this.loading = false);
   }
 
-  onDelete() {
-    this.recDelete();
-  }
-
   onCancel() {
     this.dialogRef.close(false);
+  }
+
+  onSubmit(result: {deleted: boolean, force: boolean}) {
+    this.force = result.force;
+    if(result.deleted){
+      this.onConfirm();
+    } else {
+      this.onCancel();
+    }
   }
 
 }
