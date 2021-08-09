@@ -1,4 +1,8 @@
 {
+  "NAV": {
+    "LOGOUT": "Odhlásit se",
+    "OTHER_APPLICATIONS": "Další aplikace"
+  },
   "MENU_ITEMS": {
     "PROFILE": "Profil",
     "IDENTITIES": "Spojené identity",

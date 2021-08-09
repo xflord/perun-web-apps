@@ -1,4 +1,8 @@
 {
+  "NAV": {
+    "LOGOUT": "Log out",
+    "OTHER_APPLICATIONS": "Other applications"
+  },
   "MENU_ITEMS": {
     "PROFILE": "Profile",
     "IDENTITIES": "Linked identities",
