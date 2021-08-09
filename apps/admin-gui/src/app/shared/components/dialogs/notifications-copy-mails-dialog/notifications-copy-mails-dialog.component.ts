@@ -1,9 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {TranslateService} from '@ngx-translate/core';
-import {AbstractControl, FormControl, ValidatorFn, Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
 import {openClose} from '@perun-web-apps/perun/animations';
 import {
   Group,
@@ -82,10 +79,6 @@ export class NotificationsCopyMailsDialogComponent implements OnInit {
 
   cancel() {
     this.dialogRef.close(false);
-  }
-
-  displayFn(entity?: any): string | undefined {
-    return entity ? entity.name : undefined;
   }
 
   submit() {

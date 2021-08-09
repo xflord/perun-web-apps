@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AttributeForExportData } from '@perun-web-apps/perun/models';
@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './attribute-import-dialog.component.html',
   styleUrls: ['./attribute-import-dialog.component.scss']
 })
-export class AttributeImportDialogComponent implements OnInit {
+export class AttributeImportDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<AttributeImportDialogComponent>,
@@ -22,10 +22,6 @@ export class AttributeImportDialogComponent implements OnInit {
   value = "";
   attributeData: AttributeForExportData;
   loading = false
-
-  ngOnInit(): void {
-
-  }
 
   create() {
     try {

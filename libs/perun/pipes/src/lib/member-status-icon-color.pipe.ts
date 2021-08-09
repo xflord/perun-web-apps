@@ -9,7 +9,7 @@ export class MemberStatusIconColorPipe implements PipeTransform {
    * Return color which should be used for icon of given member's status.
    *
    */
-  transform(value: any, args?: any): any {
+  transform(value: any): any {
     switch (value) {
       case 'VALID':
         return 'green';

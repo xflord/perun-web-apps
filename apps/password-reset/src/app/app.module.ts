@@ -25,7 +25,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
 };
 
 
-export function HttpLoaderFactory(http: HttpClient) {
+export function httpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
@@ -36,11 +36,7 @@ export function apiConfigFactory(store: StoreService): Configuration {
   return new Configuration(params);
 }
 
-const loadConfigs = (appConfig: PasswordResetConfigService) => {
-  return () => {
-    return appConfig.loadConfigs();
-  };
-};
+const loadConfigs = (appConfig: PasswordResetConfigService) => appConfig.loadConfigs();
 
 @NgModule({
   declarations: [AppComponent, PasswordResetDialogComponent, TokenExpiredDialogComponent],
@@ -49,7 +45,7 @@ const loadConfigs = (appConfig: PasswordResetConfigService) => {
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
+        useFactory: httpLoaderFactory,
         deps: [HttpClient]
       }
     }),

@@ -168,7 +168,7 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
   }
 
   private setDataSource() {
-    if (!!this.dataSource) {
+    if (this.dataSource) {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }

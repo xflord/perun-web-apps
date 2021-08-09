@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { TABLE_ADMIN_FACILITIES, TableConfigService } from '@perun-web-apps/config/table-config';
-import { EnrichedFacility, FacilitiesManagerService, Facility } from '@perun-web-apps/perun/openapi';
+import { EnrichedFacility, FacilitiesManagerService } from '@perun-web-apps/perun/openapi';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

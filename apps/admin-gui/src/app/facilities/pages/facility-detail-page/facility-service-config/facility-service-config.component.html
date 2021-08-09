@@ -23,7 +23,7 @@
     <mat-checkbox (change)="onOfferAllServices($event)">
       {{'FACILITY_DETAIL.SERVICE_CONFIG.ALL_SERVICES' | translate}}
     </mat-checkbox>
-    <mat-form-field *ngIf="(resources !== undefined) && (resources.length != 0)" class="w-100">
+    <mat-form-field *ngIf="(resources !== undefined) && (resources.length !== 0)" class="w-100">
       <input type="text"
              placeholder="{{'FACILITY_DETAIL.SERVICE_CONFIG.RES_SELECT' | translate}}"
              matInput
@@ -36,7 +36,7 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <mat-form-field *ngIf="(selectedResource !== undefined) && (groups !== undefined) && (groups.length != 0)"
+    <mat-form-field *ngIf="(selectedResource !== undefined) && (groups !== undefined) && (groups.length !== 0)"
                     class="w-100">
       <input type="text"
              placeholder="{{'FACILITY_DETAIL.SERVICE_CONFIG.GROUP_SELECT' | translate}}"

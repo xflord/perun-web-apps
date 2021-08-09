@@ -1,4 +1,4 @@
-import {CollectionViewer, DataSource} from "@angular/cdk/collections";
+import {DataSource} from "@angular/cdk/collections";
 import {Observable, BehaviorSubject, of} from "rxjs";
 import {catchError, finalize} from "rxjs/operators";
 import {
@@ -10,7 +10,7 @@ import {
   VoMemberStatuses
 } from '@perun-web-apps/perun/openapi';
 import { DynamicPaginatingService } from './dynamic-paginating.service';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver } from './gui-auth-resolver.service';
 
 
 
@@ -62,11 +62,11 @@ export class MembersDataSource implements DataSource<RichMember> {
 
   }
 
-  connect(collectionViewer: CollectionViewer): Observable<RichMember[]> {
+  connect(): Observable<RichMember[]> {
     return this.membersSubject.asObservable();
   }
 
-  disconnect(collectionViewer: CollectionViewer): void {
+  disconnect(): void {
     this.membersSubject.complete();
     this.loadingSubject.complete();
   }

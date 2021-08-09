@@ -6,7 +6,7 @@ import { parseLogins } from '@perun-web-apps/perun/utils';
 })
 export class MemberLoginsPipe implements PipeTransform {
 
-  transform(value: any, args?: any): any {
+  transform(value: any): any {
     return parseLogins(value);
   }
 }

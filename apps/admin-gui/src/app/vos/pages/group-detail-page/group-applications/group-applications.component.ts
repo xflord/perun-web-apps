@@ -1,12 +1,10 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
-  Application, AppState,
-  AppType,
+  Application,
   Group,
   GroupsManagerService,
-  RegistrarManagerService, User,
-  Vo
+  RegistrarManagerService
 } from '@perun-web-apps/perun/openapi';
 import { PageEvent } from '@angular/material/paginator';
 import {

@@ -54,7 +54,7 @@ export class PublicationDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.initLoading = true;
-    if (!!this.publicationId){
+    if (this.publicationId){
       this.setMode();
       this.loadAllData();
     } else{

@@ -65,7 +65,6 @@ export class AddHostDialogComponent implements OnInit {
       for (const name of hostNames){
         generatedHostNames = generatedHostNames.concat(this.parseHostName(name));
       }
-      console.log(hostNames);
       for (const host of generatedHostNames) {
         if (!this.hostPattern.test(host)) {
           return {invalidHost: {value: host}}
@@ -76,7 +75,7 @@ export class AddHostDialogComponent implements OnInit {
   }
 
   parseHostName(name: string){
-    const rangeRegex = new RegExp('\[[0-9]+-[0-9]+\]','g');
+    const rangeRegex = new RegExp('[[0-9]+-[0-9]+]','g');
     const prefixes = name.split(rangeRegex);
     const suffixes = name.match(rangeRegex);
 

@@ -12,6 +12,7 @@ import { PreventProxyOverloadDialogComponent, ServerDownDialogComponent } from '
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Injectable({
@@ -135,7 +136,7 @@ export class AdminGuiConfigService {
     });
   }
 
-  private handleErr(err: any) {
+  private handleErr(err: string & HttpErrorResponse) {
     const config = getDefaultDialogConfig();
     // FIXME: during initialization phase, it might happen that the translations are not loaded.
     if (err === 'Invalid path') {

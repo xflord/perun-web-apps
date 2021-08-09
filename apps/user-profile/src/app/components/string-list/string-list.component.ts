@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -34,12 +34,12 @@ export class StringListComponent implements OnChanges, AfterViewInit {
 
   @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     this.values = this.values ? this.values : [];
     this.dataSource = new MatTableDataSource<string>(this.values);
     this.setDataSource();
   }
-  getExportDataForColumn(data: string, column: string){
+  getExportDataForColumn(data: string){
     return data;
   }
 
@@ -49,7 +49,7 @@ export class StringListComponent implements OnChanges, AfterViewInit {
 
 
   setDataSource() {
-    if (!!this.dataSource) {
+    if (this.dataSource) {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }

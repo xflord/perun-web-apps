@@ -65,7 +65,7 @@ export class AddThanksDialogComponent implements OnInit {
     } else {
       this.cabinetManagerService.createThanks({thanks: {publicationId: this.data.id, ownerId: this.selected.selected.pop().id,
           createdBy: this.storeService.getPerunPrincipal().actor, createdByUid: this.storeService.getPerunPrincipal().userId,
-          createdDate: Date.now().toString(), id: 0, beanName: 'Thanks'}}).subscribe(thanks => {
+          createdDate: Date.now().toString(), id: 0, beanName: 'Thanks'}}).subscribe(() => {
         this.onSubmit();
       }, () => this.loading = false);
     }

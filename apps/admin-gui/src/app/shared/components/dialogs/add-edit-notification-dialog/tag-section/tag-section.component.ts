@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-tag-section',
   templateUrl: './tag-section.component.html',
   styleUrls: ['./tag-section.component.scss']
 })
-export class TagSectionComponent implements OnChanges {
+export class TagSectionComponent {
 
   constructor() { }
 
@@ -14,9 +14,6 @@ export class TagSectionComponent implements OnChanges {
 
   @Output()
   addedTag = new EventEmitter<string>();
-
-  ngOnChanges(changes: SimpleChanges) {
-  }
 
   addTag(tag: string) {
     this.addedTag.emit(tag);

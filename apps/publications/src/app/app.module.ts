@@ -65,11 +65,7 @@ export function apiConfigFactory(store: StoreService): Configuration {
   return new Configuration(params);
 }
 
-const loadConfigs = (appConfig: PublicationsConfigService) => {
-  return () => {
-    return appConfig.loadConfigs();
-  };
-};
+const loadConfigs = (appConfig: PublicationsConfigService) => () => appConfig.loadConfigs();
 
 @NgModule({
   declarations: [

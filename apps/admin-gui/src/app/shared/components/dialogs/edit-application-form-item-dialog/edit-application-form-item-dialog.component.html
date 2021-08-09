@@ -217,6 +217,13 @@
               <mat-form-field>
                 <input matInput [(ngModel)]="option[1]">
               </mat-form-field>
+              <button
+                mat-icon-button
+                color="warn"
+                matTooltip="{{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REMOVE_OPTION' | translate}}"
+                (click)="removeOption(option, lang)">
+                <mat-icon>clear</mat-icon>
+              </button>
             </div>
 
 

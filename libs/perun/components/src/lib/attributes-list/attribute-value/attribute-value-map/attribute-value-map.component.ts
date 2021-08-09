@@ -43,7 +43,7 @@ export class AttributeValueMapComponent implements OnInit {
     }
   }
 
-  customTrackBy(index: number, obj: any): any {
+  customTrackBy(index: number): any {
     return index;
   }
 

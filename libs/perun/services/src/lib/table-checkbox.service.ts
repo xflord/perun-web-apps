@@ -51,7 +51,7 @@ export class TableCheckbox {
       this.numCanBeSelected = pageSize;
     } else {
       this.modulo = this.dataLength % pageSize;
-      this.numCanBeSelected = this.modulo = 0 ? pageSize : this.modulo;
+      this.numCanBeSelected = this.modulo === 0 ? pageSize : this.modulo;
     }
     return this.numSelected === this.numCanBeSelected;
   }

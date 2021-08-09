@@ -210,6 +210,10 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     this.options[lang].push(['', '']);
   }
 
+  removeOption(option: [string, string], lang: string) {
+    this.options[lang] = this.options[lang].filter(opt => !(opt[0] === option[0] && opt[1] === option[1]));
+  }
+
   updateOption(lang: string){
     let options = '';
     if (this.options && this.options[lang]){

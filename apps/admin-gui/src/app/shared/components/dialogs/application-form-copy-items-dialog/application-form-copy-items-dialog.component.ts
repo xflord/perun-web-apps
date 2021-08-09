@@ -8,7 +8,7 @@ import {
   Vo,
   VosManagerService
 } from '@perun-web-apps/perun/openapi';
-import { ApiRequestConfigurationService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import { ApiRequestConfigurationService, NotificatorService } from '@perun-web-apps/perun/services';
 
 export interface ApplicationFormCopyItemsDialogData {
   voId: number;
@@ -52,7 +52,7 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.theme = this.data.theme;
-    this.translateService.get('DIALOGS.APPLICATION_FORM_COPY_ITEMS.NO_GROUP_SELECTED').subscribe( text => {
+    this.translateService.get('DIALOGS.APPLICATION_FORM_COPY_ITEMS.NO_GROUP_SELECTED').subscribe( () => {
 
       this.voService.getMyVos().subscribe(vos => {
 

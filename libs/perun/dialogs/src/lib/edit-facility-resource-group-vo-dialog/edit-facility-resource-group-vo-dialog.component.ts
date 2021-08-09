@@ -68,11 +68,12 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
         this.nameCtrl = new FormControl(this.data.resource.name, [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.maxLength(129)]);
         this.descriptionCtrl = new FormControl(this.data.resource.description, [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.maxLength(129)]);
         break;
-      case EditFacilityResourceGroupVoDialogOptions.GROUP:
+      case EditFacilityResourceGroupVoDialogOptions.GROUP: {
         const nameParts = this.data.group.name.split(":");
-        this.nameCtrl = new FormControl(nameParts[nameParts.length-1], [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.pattern(this.secondaryRegex), Validators.maxLength(129)]);
+        this.nameCtrl = new FormControl(nameParts[nameParts.length - 1], [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.pattern(this.secondaryRegex), Validators.maxLength(129)]);
         this.descriptionCtrl = new FormControl(this.data.group.description, [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.maxLength(129)]);
         break;
+      }
       case EditFacilityResourceGroupVoDialogOptions.VO:
         this.shortName = this.data.vo.shortName;
         this.nameCtrl = new FormControl(this.data.vo.name, [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.maxLength(129)]);

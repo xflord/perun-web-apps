@@ -74,6 +74,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { AddTokenInfoDialogComponent } from './components/add-token-info-dialog/add-token-info-dialog.component';
 import { PerunLoginModule } from '@perun-web-apps/perun/login';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
+import { MatMenuModule } from '@angular/material/menu';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -92,11 +93,7 @@ export function apiConfigFactory(store: StoreService): Configuration {
   return new Configuration(params);
 }
 
-const loadConfigs = (appConfig: UserProfileConfigService) => {
-  return () => {
-    return appConfig.initialize();
-  };
-};
+const loadConfigs = (appConfig: UserProfileConfigService) => () => appConfig.initialize();
 
 @NgModule({
   declarations: [
@@ -176,7 +173,8 @@ const loadConfigs = (appConfig: UserProfileConfigService) => {
     MatRadioModule,
     FormsModule,
     PerunLoginModule,
-    PerunUtilsModule
+    PerunUtilsModule,
+    MatMenuModule
   ],
   providers: [
     CustomIconService,

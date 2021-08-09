@@ -5,7 +5,6 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { RichUserExtSource, UserExtSource} from '@perun-web-apps/perun/openapi';
@@ -74,7 +73,7 @@ export class UserExtSourcesListComponent implements AfterViewInit, OnChanges {
     this.setDataSource();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
@@ -86,9 +85,10 @@ export class UserExtSourcesListComponent implements AfterViewInit, OnChanges {
     switch (column) {
       case 'id':
         return data.userExtSource.id.toString();
-      case 'mail':
+      case 'mail': {
         const attribute = data.attributes.find(att => att.friendlyName === 'mail');
         return attribute ? attribute.value.toString() : 'N/A';
+      }
       case 'extSourceName':
         return  data.userExtSource.extSource.name;
       case 'login':
@@ -105,13 +105,9 @@ export class UserExtSourcesListComponent implements AfterViewInit, OnChanges {
   }
 
   setDataSource() {
-    if (!!this.dataSource) {
-      this.dataSource.filterPredicate = (data: RichUserExtSource, filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this)
-      };
-      this.dataSource.sortData = (data: RichUserExtSource[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getDataForColumn, this);
-      };
+    if (this.dataSource) {
+      this.dataSource.filterPredicate = (data: RichUserExtSource, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: RichUserExtSource[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;

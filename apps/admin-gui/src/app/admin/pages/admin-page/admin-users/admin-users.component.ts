@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Attribute, RichUser, UsersManagerService } from '@perun-web-apps/perun/openapi';
+import { RichUser, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import {
   TABLE_ADMIN_USER_SELECT,
   TableConfigService

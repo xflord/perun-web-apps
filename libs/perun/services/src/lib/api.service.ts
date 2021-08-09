@@ -52,7 +52,7 @@ export class ApiService implements PerunApiService {
       .pipe(catchError(err => this.formatErrors(err, url, null, showError)));
   }
 
-  put(path: string, body: Object = {}, showError = true): Observable<any> {
+  put(path: string, body = {}, showError = true): Observable<any> {
     const url = `${this.getApiUrl()}${path}`;
     const payload = JSON.stringify(body);
     return this.http.put(
@@ -61,7 +61,7 @@ export class ApiService implements PerunApiService {
     ).pipe(catchError(err => this.formatErrors(err, url, payload, showError)));
   }
 
-  post(path: string, body: Object = {}, showError = true): Observable<any> {
+  post(path: string, body = {}, showError = true): Observable<any> {
     const url = `${this.getApiUrl()}${path}`;
     const payload = JSON.stringify(body);
     let headers = this.getHeaders();

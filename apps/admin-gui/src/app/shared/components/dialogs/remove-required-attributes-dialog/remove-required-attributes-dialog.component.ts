@@ -46,7 +46,7 @@ export class RemoveRequiredAttributesDialogComponent implements OnInit {
       this.notificator.showSuccess(this.translate.instant('DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.SUCCESS'));
       this.dialogRef.close(true);
       this.loading = false;
-    }, error => this.loading = false);
+    }, () => this.loading = false);
   }
 
   onCancel(){

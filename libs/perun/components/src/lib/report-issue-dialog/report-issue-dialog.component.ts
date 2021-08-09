@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { RTMessagesManagerService } from '@perun-web-apps/perun/openapi';
-declare var require: any;
+declare let require: any;
 
 @Component({
   selector: 'perun-web-apps-report-issue-dialog',

@@ -19,7 +19,8 @@
     "PROFILE": "Profile",
     "NOTIFICATIONS_TOOLTIP": "Recent notifications",
     "RELOAD_ROLES": "Reload roles",
-    "RELOAD_ROLES_SUCCESS": "Roles reloaded"
+    "RELOAD_ROLES_SUCCESS": "Roles reloaded",
+    "OTHER_APPLICATIONS": "Other applications"
   },
   "MAIN_MENU": {
     "ACCESS": "Access management",
@@ -1166,6 +1167,7 @@
       "OPTIONS": "Options",
       "OPTIONS_DESCRIPTION": "Define possible options for selection in SELECTIONBOX, COMBOBOX, CHECKBOX, RADIO widget. Empty options are not used.",
       "ADD_OPTION": "Add option",
+      "REMOVE_OPTION": "Remove",
       "VALUE": "Value",
       "SORT_BY_LABEL_AZ": "Sort by label(A-Z)",
       "SORT_BY_LABEL_ZA": "Sort by label(Z-A)",
@@ -2530,6 +2532,22 @@
           "INACTIVE": "Inactive",
           "FAILED": "Failed",
           "PROCESSING": "Processing"
+        },
+        "CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG": {
+          "TITLE": "Change group resource assigment status",
+          "CANCEL": "Cancel",
+          "SUBMIT": "Submit",
+          "ACTIVE": "Active",
+          "INACTIVE": "Inactive",
+          "CURRENT": "Current status",
+          "NEW": "New status",
+          "VALIDATE": "Validate attributes",
+          "SYNC": "Synchronously",
+          "ASYNC": "Asynchronously",
+          "SYNC_HINT": "Attributes will be validated synchronously. Validation will be processed immediately, it can take some time.",
+          "ASYNC_HINT": "Attributes will be validated asynchronously. Validation will be processed independently.",
+          "ACTIVE_HINT": "After validation of group members attributes, members can access given resource.",
+          "INACTIVE_HINT": "With 'Inactive' status, group members can no longer access given resource."
         }
       },
       "ORGANIZATIONS": {

@@ -9,7 +9,7 @@ import { Pipe, PipeTransform } from '@angular/core';
  */
 export class ExtSourceTypePipe implements PipeTransform {
 
-  transform(type: string, args?: any): string {
+  transform(type: string): string {
     return type.substring(40);
   }
 }

@@ -81,10 +81,11 @@ import { OwnersListComponent } from './owners-list/owners-list.component';
 import { NotificatorComponent } from './notificator/notificator.component';
 import { GroupResourceStatusComponent } from './group-resource-status/group-resource-status.component';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
+import { HeaderMenuComponent } from './header-menu/header-menu.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
-  format(date: Date, displayFormat: Object): string {
+  format(date: Date, displayFormat: string): string {
     if (displayFormat === 'input') {
       const day: string = date.getDate().toString();
       // day = +day < 10 ? '0' + day : day;
@@ -192,7 +193,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     AppFormItemSearchSelectComponent,
     OwnersListComponent,
     NotificatorComponent,
-    GroupResourceStatusComponent
+    GroupResourceStatusComponent,
+    HeaderMenuComponent
   ],
   exports: [
     VosListComponent,
@@ -238,7 +240,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     MembersDynamicListComponent,
     AppFormItemSearchSelectComponent,
     OwnersListComponent,
-    NotificatorComponent
+    NotificatorComponent,
+    HeaderMenuComponent
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

@@ -5,7 +5,6 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { TaskResult} from '@perun-web-apps/perun/openapi';
@@ -58,7 +57,7 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
   private sort: MatSort;
   dataSource: MatTableDataSource<TaskResult>;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
@@ -122,16 +121,12 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
   }
 
   setDataSource() {
-    if (!!this.dataSource) {
+    if (this.dataSource) {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;
-      this.dataSource.filterPredicate = (data: TaskResult, filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this)
-      };
-      this.dataSource.sortData = (data: TaskResult[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getSortDataForColumn, this);
-      };
+      this.dataSource.filterPredicate = (data: TaskResult, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: TaskResult[], sort: MatSort) => customDataSourceSort(data, sort, this.getSortDataForColumn, this);
     }
   }
 

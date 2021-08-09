@@ -67,9 +67,9 @@ export class MemberOverviewGroupsComponent implements OnChanges {
 
   findInitiallySelectedGroupId(): Group {
     this.recentIds = getRecentlyVisitedIds('groups');
-    if(!!this.recentIds) {
+    if(this.recentIds) {
       const foundedGroup = this.groups.find(group => group.id === this.recentIds[0]);
-      if(!!foundedGroup) {
+      if(foundedGroup) {
         return foundedGroup;
       }
     }
@@ -83,7 +83,7 @@ export class MemberOverviewGroupsComponent implements OnChanges {
     this.groupsManager.getGroupRichMembersByIds(this.selectedGroup.id, [this.member.id], [Urns.MEMBER_DEF_GROUP_EXPIRATION]).subscribe(members => {
       this.selectedMember = members[0];
       this.expirationAtt = this.selectedMember.memberAttributes.find(att => att.baseFriendlyName === 'groupMembershipExpiration');
-      if (!!this.expirationAtt) {
+      if (this.expirationAtt) {
         this.groupMembershipDataSource = new MatTableDataSource<string>(['Status', 'Expiration']);
         this.expiration = !this.expirationAtt.value ? this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES') : this.expirationAtt.value;
       } else {

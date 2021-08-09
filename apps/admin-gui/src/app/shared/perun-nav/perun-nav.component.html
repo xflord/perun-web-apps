@@ -39,23 +39,13 @@
     </mat-icon>
   </button>
 
-  <button mat-button [matMenuTriggerFor]="menu">
-    <mat-icon [ngStyle]="{'color': iconColor}">
-      person
-    </mat-icon>
-    <span class="d-none d-lg-inline">
-    {{principal.user.titleBefore}}
-    {{principal.user.firstName}}
-    {{principal.user.middleName}}
-    {{principal.user.lastName}}
-    {{principal.user.titleAfter}}
-    </span>
-  </button>
-  <mat-menu #menu="matMenu">
-    <button [routerLink]="['/myProfile']" mat-menu-item>{{'NAV.PROFILE' | translate}}</button>
-    <button mat-menu-item *ngIf="authzResolverService.isPerunAdmin()" (click)="reloadRoles()">
-      {{'NAV.RELOAD_ROLES' | translate}}
-    </button>
-    <button mat-menu-item *ngIf="logoutEnabled" (click)="onLogOut()">{{'NAV.LOGOUT' | translate}}</button>
-  </mat-menu>
+  <perun-web-apps-header-menu
+    [url]="profileUrl"
+    [label]="profileLabel"
+    [user]="principal.user"
+    [showReloadRoles]="authzResolverService.isPerunAdmin()"
+    [logoutEnabled]="logoutEnabled"
+    [iconColor]="iconColor"
+    [textColor]="navTextColor">
+  </perun-web-apps-header-menu>
 </div>

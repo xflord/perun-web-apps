@@ -54,7 +54,7 @@ export class ExpirationSettingsComponent implements OnInit, OnChanges {
   initialConfiguration: ExpirationConfiguration;
   currentConfiguration: ExpirationConfiguration;
 
-  LOAS = [0, 1, 2];
+  loas = [0, 1, 2];
   datePattern = '^(3[01]|[12][0-9]|0?[1-9])\\.(1[012]|0?[1-9])\\.$';
   dynamicAmountPattern = '^[1-9]+$';
 
@@ -74,7 +74,7 @@ export class ExpirationSettingsComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     const loaPeriods = new Map();
-    this.LOAS.forEach(loa => loaPeriods.set(loa, ''));
+    this.loas.forEach(loa => loaPeriods.set(loa, ''));
 
     this.initialConfiguration = this.unParseAttrValue(<ExpirationAttrValue>this.expirationAttribute.value);
     this.currentConfiguration = this.unParseAttrValue(<ExpirationAttrValue>this.expirationAttribute.value);
@@ -128,7 +128,7 @@ export class ExpirationSettingsComponent implements OnInit, OnChanges {
 
   createInitConfiguration(): ExpirationConfiguration {
     const loaPeriods = new Map();
-    this.LOAS.forEach(loa => loaPeriods.set(loa, ''));
+    this.loas.forEach(loa => loaPeriods.set(loa, ''));
 
     return {
       enabled: false,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -7,13 +7,10 @@ import { Router } from '@angular/router';
   templateUrl: './mail-change-failed-dialog.component.html',
   styleUrls: ['./mail-change-failed-dialog.component.scss']
 })
-export class MailChangeFailedDialogComponent implements OnInit {
+export class MailChangeFailedDialogComponent {
 
   constructor(private dialogRef: MatDialogRef<MailChangeFailedDialogComponent>,
               private router: Router) { }
-
-  ngOnInit(): void {
-  }
 
   onClose() {
     this.router.navigate([])

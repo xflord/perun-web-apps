@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { InitAuthService, StoreService } from '@perun-web-apps/perun/services';
 import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { TranslateService } from '@ngx-translate/core';
@@ -16,7 +16,8 @@ export class AppComponent implements OnInit {
   constructor(private store:StoreService,
               private attributesManagerService: AttributesManagerService,
               private translateService:TranslateService,
-              private initAuth: InitAuthService) {
+              private initAuth: InitAuthService,
+              private changeDetector: ChangeDetectorRef) {
     this.getScreenSize();
   }
 
@@ -49,6 +50,7 @@ export class AppComponent implements OnInit {
   }
 
   setContentHeight(height: number) {
-    this.contentHeight =  'calc(100vh - 84px - '+height+'px)'
+    this.contentHeight =  'calc(100vh - 84px - '+height+'px)';
+    this.changeDetector.detectChanges();
   }
 }

@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {SideMenuItem} from '../side-menu.component';
 import {NavigationEnd, Router} from '@angular/router';
 import {openClose, rollInOut} from '@perun-web-apps/perun/animations';
@@ -14,7 +14,7 @@ import { StoreService } from '@perun-web-apps/perun/services';
     rollInOut
   ]
 })
-export class SideMenuItemComponent implements OnInit, OnChanges {
+export class SideMenuItemComponent {
 
   currentUrl: string;
 
@@ -50,14 +50,6 @@ export class SideMenuItemComponent implements OnInit, OnChanges {
 
   @Input()
   sideNav: MatSidenav;
-
-  ngOnInit() {
-    // this.expanded = this.showOpen;
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    // this.expanded = this.showOpen;
-  }
 
   toggle() {
     if (this.item.baseLink !== undefined) {

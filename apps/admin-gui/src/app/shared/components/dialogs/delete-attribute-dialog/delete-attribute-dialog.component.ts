@@ -50,7 +50,7 @@ export class DeleteAttributeDialogComponent implements OnInit {
       ids.push(attr.id);
     }
 
-    const payload: any = {};
+    const payload = {};
 
     payload[this.data.entity] = this.data.entityId;
     payload['attributes'] = ids;

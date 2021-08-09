@@ -41,7 +41,7 @@
         {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.TABLE_APPLICATION_TYPE' | translate}}
       </th>
       <td *matCellDef="let applicationMail" mat-cell>
-        <div *ngIf="applicationMail.appType == 'INITIAL'; else extension">
+        <div *ngIf="applicationMail.appType === 'INITIAL'; else extension">
           <mat-icon matTooltip="Initial" matTooltipPosition="above">arrow_right_alt</mat-icon>
           {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.TABLE_APPLICATION_TYPE_INITIAL' | translate}}
         </div>

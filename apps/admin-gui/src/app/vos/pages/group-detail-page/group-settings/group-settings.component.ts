@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, HostBinding } from '@angular/core';
 import {fadeIn} from '@perun-web-apps/perun/animations';
 
 @Component({
@@ -9,13 +9,11 @@ import {fadeIn} from '@perun-web-apps/perun/animations';
     fadeIn
   ]
 })
-export class GroupSettingsComponent implements OnInit {
+export class GroupSettingsComponent {
 
   @HostBinding('class.router-component') true;
 
   constructor() {
   }
 
-  ngOnInit(): void {
-  }
 }

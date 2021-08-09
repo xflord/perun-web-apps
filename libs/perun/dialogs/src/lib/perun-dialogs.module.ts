@@ -36,6 +36,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ChangeGroupExpirationDialogComponent } from './change-group-expiration-dialog/change-group-expiration-dialog.component';
 import { ChangeVoExpirationDialogComponent } from './change-vo-expiration-dialog/change-vo-expiration-dialog.component';
 import { ChangeSponsorshipExpirationDialogComponent } from './change-sponsorship-expiration-dialog/change-sponsorship-expiration-dialog.component';
+import { ChangeGroupResourceAssigmentDialogComponent } from './change-group-resource-assigment-dialog/change-group-resource-assigment-dialog.component';
 
 @NgModule({
   imports: [
@@ -78,7 +79,8 @@ import { ChangeSponsorshipExpirationDialogComponent } from './change-sponsorship
     UniversalConfirmationDialogComponent,
     ChangeGroupExpirationDialogComponent,
     ChangeVoExpirationDialogComponent,
-    ChangeSponsorshipExpirationDialogComponent
+    ChangeSponsorshipExpirationDialogComponent,
+    ChangeGroupResourceAssigmentDialogComponent
   ],
   exports: [
     ChangeExpirationDialogComponent,

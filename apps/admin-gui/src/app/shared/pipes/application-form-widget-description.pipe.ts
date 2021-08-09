@@ -10,7 +10,7 @@ export class ApplicationFormWidgetDescriptionPipe implements PipeTransform {
 
   constructor(private translateService: TranslateService) { }
 
-  transform(value: any, ...args: any[]): any {
+  transform(value: any): any {
     switch (value) {
       case 'HEADING': {
         this.translateService.get('VO_DETAIL.SETTINGS.APPLICATION_FORM.WIDGET_DESCRIPTION.HEADER').subscribe( text => {

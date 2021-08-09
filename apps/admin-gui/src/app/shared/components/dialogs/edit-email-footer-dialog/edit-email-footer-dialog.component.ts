@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {TranslateService} from '@ngx-translate/core';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import { NotificatorService } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
@@ -33,7 +33,11 @@ export class EditEmailFooterDialogComponent implements OnInit {
   ngOnInit() {
     this.theme = this.data.theme;
     this.loading = true;
-    this.data.groupId ? this.getFooterForGroup() : this.getFooterForVo();
+    if(this.data.groupId) {
+      this.getFooterForGroup();
+    } else {
+      this.getFooterForVo();
+    }
     this.loading = false;
   }
 

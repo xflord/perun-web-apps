@@ -38,9 +38,9 @@ export class UserDestinationRelationshipComponent implements OnInit {
     this.users = this.searchField.valueChanges.pipe(
       debounceTime(400),
       distinctUntilChanged(),
-      tap(_ => (this.loading = true)),
+      tap(() => (this.loading = true)),
       switchMap(term => this.usersService.findUsers(term)),
-      tap(_ => (this.loading = false))
+      tap(() => (this.loading = false))
     );
     this.translate.get('ADMIN.VISUALIZER.USER_DESTINATION.SELECT_NO_SERVICE').subscribe( text => {
       this.noServiceText = text;

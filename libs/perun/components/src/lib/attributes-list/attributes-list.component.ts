@@ -6,7 +6,6 @@ import {
   OnChanges,
   Output,
   QueryList,
-  SimpleChanges,
   ViewChild,
   ViewChildren
 } from '@angular/core';
@@ -81,7 +80,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
 
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
@@ -114,13 +113,9 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
 
   setDataSource() {
     this.displayedColumns = this.displayedColumns.filter(x => !this.hiddenColumns.includes(x));
-    if (!!this.dataSource) {
-      this.dataSource.filterPredicate = (data: Attribute, filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this)
-      };
-      this.dataSource.sortData = (data: Attribute[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getDataForColumn, this);
-      };
+    if (this.dataSource) {
+      this.dataSource.filterPredicate = (data: Attribute, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: Attribute[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;

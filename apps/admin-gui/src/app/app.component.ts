@@ -9,7 +9,7 @@ import { NewVersionDialogComponent } from './shared/components/dialogs/new-versi
 import { MatDialog } from '@angular/material/dialog';
 import { NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-declare var require: any;
+declare let require;
 
 @Component({
   selector: 'app-root',
@@ -75,9 +75,7 @@ export class AppComponent implements OnInit {
     this.router.events
       .pipe(
         filter(
-          ( event ) => {
-            return( event instanceof NavigationStart );
-          }
+          ( event ) => ( event instanceof NavigationStart )
         )
       )
       .subscribe(

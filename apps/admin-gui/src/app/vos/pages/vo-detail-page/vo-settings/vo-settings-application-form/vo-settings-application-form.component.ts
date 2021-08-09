@@ -54,7 +54,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
   vo: Vo;
 
   editAuth: boolean;
-  displayedColumns: String[] = [];
+  displayedColumns: string[] = [];
 
   // This counter is used to generate ids for newly added items. This fake ids are used in backend
   // to recognize new items in other items' dependencies

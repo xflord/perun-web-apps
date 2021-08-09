@@ -103,9 +103,17 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
   }
 
   ngOnChanges() {
-    if (!!this.dataSource) {
+    if (this.dataSource) {
       this.child.paginator.pageIndex = 0;
       this.loadMembersPage();
+    }
+  }
+
+  masterToggle() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+    } else {
+      this.dataSource.getData().forEach(row => this.selection.select(row));
     }
   }
 
@@ -113,12 +121,6 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
     const numSelected = this.selection.selected.length;
     const numRows = this.pageSize;
     return numSelected === numRows;
-  }
-
-  masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.getData().forEach(row => this.selection.select(row));
   }
 
   checkboxLabel(row?: RichMember): string {
@@ -155,7 +157,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
     downloadData(getDataForExport(this.dataSource.getData(), this.displayedColumns, this.getExportDataForColumn, this), format);
   }
 
-  getExportDataForColumn(data: RichMember, column: string, outerThis: MembersDynamicListComponent): string {
+  getExportDataForColumn(data: RichMember, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();

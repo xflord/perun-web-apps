@@ -3,9 +3,8 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnChanges,
+  OnChanges, OnInit,
   Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
@@ -24,6 +23,7 @@ import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
 
 export interface ResourceWithStatus extends RichResource {
   status?: GroupResourceStatus;
+  failureCause?: string;
 }
 
 @Component({
@@ -31,7 +31,7 @@ export interface ResourceWithStatus extends RichResource {
   templateUrl: './resources-list.component.html',
   styleUrls: ['./resources-list.component.scss']
 })
-export class ResourcesListComponent implements AfterViewInit, OnChanges {
+export class ResourcesListComponent implements OnInit, AfterViewInit, OnChanges {
 
   constructor(private guiAuthResolver: GuiAuthResolver,
               private tableCheckbox: TableCheckbox) { }
@@ -61,9 +61,13 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   @Input()
   recentIds: number[];
+  @Input()
+  groupId: number = null;
 
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
+  @Output()
+  refreshTable: EventEmitter<void> = new EventEmitter<void>();
   @Output()
   allSelected = new EventEmitter();
 
@@ -74,10 +78,15 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
   removeAuth = false;
 
   addAuth = false;
+  disabledRouting: boolean;
 
   @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnInit() {
+    this.disabledRouting = this.disableRouting;
+  }
+
+  ngOnChanges() {
     if (!this.guiAuthResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
@@ -106,7 +115,7 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
           }
         }
         return data['name'];
-      case 'tags':
+      case 'tags': {
         if (!data.resourceTags) {
           return data[column];
         }
@@ -116,6 +125,7 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
           result = result.concat(tag.tagName);
         });
         return result;
+      }
       case 'status':
         return data.status;
       case 'uuid':
@@ -130,13 +140,9 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
   }
 
   setDataSource() {
-    if (!!this.dataSource) {
-      this.dataSource.filterPredicate = (data: RichResource, filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this, true);
-      };
-      this.dataSource.sortData = (data: RichResource[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getDataForColumn, this);
-      };
+    if (this.dataSource) {
+      this.dataSource.filterPredicate = (data: RichResource, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this, true);
+      this.dataSource.sortData = (data: RichResource[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }
@@ -168,7 +174,7 @@ export class ResourcesListComponent implements AfterViewInit, OnChanges {
   }
 
   setAuth() {
-    const objects = !!this.groupToResource ? [this.groupToResource] : [];
+    const objects = this.groupToResource ? [this.groupToResource] : [];
     this.removeAuth = this.selection.selected.reduce((acc, res) => acc &&
       this.guiAuthResolver.isAuthorized('removeGroupFromResources_Group_List<Resource>_policy', objects.concat([res])), true);
     this.addAuth = this.selection.selected.reduce((acc, res) => acc &&

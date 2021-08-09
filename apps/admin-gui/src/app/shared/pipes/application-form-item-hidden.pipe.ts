@@ -8,7 +8,7 @@ export class ApplicationFormItemHiddenPipe implements PipeTransform {
 
   constructor(private translateService: TranslateService) { }
 
-  transform(value: unknown, ...args: unknown[]): unknown {
+  transform(value: unknown): unknown {
     switch (value) {
       case 'ALWAYS':
       case 'NEVER':

@@ -14,8 +14,6 @@ import { ApiRequestConfigurationService,GuiAuthResolver, StoreService } from '@p
 import {
   AsyncValidatorFn,
   FormControl,
-  FormGroupDirective,
-  NgForm,
   ValidatorFn,
   Validators,
   AbstractControl,
@@ -41,15 +39,13 @@ export interface CreateSponsoredMemberDialogData {
  * is shown after leaving the input field)
  */
 export class ImmediateStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: FormControl | null): boolean {
     return !!(control && control.invalid && control.dirty);
   }
 }
 
 export const loginAsyncValidator =
-  (namespace: string, usersManager: UsersManagerService, apiRequestConfiguration: ApiRequestConfigurationService, time: number = 500) => {
-    return (input: FormControl) => {
-      return timer(time).pipe(
+  (namespace: string, usersManager: UsersManagerService, apiRequestConfiguration: ApiRequestConfigurationService, time: number = 500) => (input: FormControl) => timer(time).pipe(
         switchMap(() => {
           apiRequestConfiguration.dontHandleErrorForNext();
           if (namespace === null || namespace === 'No namespace') {
@@ -61,8 +57,6 @@ export const loginAsyncValidator =
         // catch error and send it as a valid value
         catchError(err => of({backendError: err.error.message.substr(err.error.message.indexOf(":")+1)})),
       );
-    };
-  };
 
 @Component({
   selector: 'app-create-sponsored-member-dialog',
@@ -83,7 +77,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
   parsedRules: Map<string, {login: string, password: string}> =
     new Map<string, {login: string, password: string}>();
 
-  emailRegx = /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
+  emailRegx = /^(([^<>+()[\]\\.,;:\s@"-#$%&=]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
 
   userControl: FormGroup = null;
   namespaceControl: FormGroup = null;

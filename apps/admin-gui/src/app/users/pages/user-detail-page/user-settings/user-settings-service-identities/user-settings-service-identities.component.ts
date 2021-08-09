@@ -5,8 +5,8 @@ import { ActivatedRoute,  Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { TABLE_USER_SERVICE_IDENTITIES, TableConfigService } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { ConnectIdentity } from '../../../../../shared/components/dialogs/connect-identity/connect-identity';
-import { DisconnectIdentity } from '../../../../../shared/components/dialogs/disconnect-identity/disconnect-identity';
+import { ConnectIdentityDialogComponent } from '../../../../../shared/components/dialogs/connect-identity-dialog/connect-identity-dialog.component';
+import { DisconnectIdentityDialogComponent } from '../../../../../shared/components/dialogs/disconnect-identity-dialog/disconnect-identity-dialog.component';
 import { PageEvent } from '@angular/material/paginator';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
@@ -65,7 +65,7 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
       isService: false
     };
 
-    const dialogRef = this.dialog.open(ConnectIdentity, config);
+    const dialogRef = this.dialog.open(ConnectIdentityDialogComponent, config);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -84,7 +84,7 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
       theme: "user-theme"
     };
 
-    const dialogRef = this.dialog.open(DisconnectIdentity, config);
+    const dialogRef = this.dialog.open(DisconnectIdentityDialogComponent, config);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

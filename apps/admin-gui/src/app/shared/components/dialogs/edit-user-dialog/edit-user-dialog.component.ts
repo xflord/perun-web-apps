@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { InputUpdateUser, User, UsersManagerService } from '@perun-web-apps/perun/openapi';
+import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';

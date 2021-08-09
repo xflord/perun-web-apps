@@ -69,7 +69,7 @@ export class AddExtSourceDialogComponent implements OnInit {
     }
 
     const extSource = extSources.pop();
-    this.extSourceService.addExtSourceWithVoSource(this.data.voId, extSource.id).subscribe(_ => {
+    this.extSourceService.addExtSourceWithVoSource(this.data.voId, extSource.id).subscribe(() => {
       this.addVoExtSource(extSources);
     }, () => this.loading = false);
   }
@@ -84,7 +84,7 @@ export class AddExtSourceDialogComponent implements OnInit {
     }
 
     const extSource = extSources.pop();
-    this.extSourceService.addExtSourceWithGroupSource(this.data.groupId, extSource.id).subscribe(_ => {
+    this.extSourceService.addExtSourceWithGroupSource(this.data.groupId, extSource.id).subscribe(() => {
       this.addGroupExtSource(extSources);
     }, () => this.loading = false);
   }

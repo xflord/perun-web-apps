@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -15,7 +15,7 @@ export interface PasswordResetDialogData {
 }
 
 export class PasswordStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: FormControl | null): boolean {
     const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
     const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
 
@@ -28,28 +28,26 @@ export class PasswordStateMatcher implements ErrorStateMatcher {
  * is shown after leaving the input field)
  */
 export class ImmediateStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: FormControl | null): boolean {
     return !!(control && control.invalid && control.dirty);
   }
 }
 
 export const loginAsyncValidator =
-  (namespace: string, usersManager: UsersManagerService, apiRequestConfiguration: ApiRequestConfigurationService, time: number = 500) => {
-    return (input: FormControl) => {
-      return timer(time).pipe(
+  (namespace: string, usersManager: UsersManagerService, apiRequestConfiguration: ApiRequestConfigurationService, time: number = 500) =>
+    (input: FormControl) =>
+      timer(time).pipe(
         switchMap(() => {
           apiRequestConfiguration.dontHandleErrorForNext();
           if (namespace === null || namespace === 'No namespace') {
             return of(null);
           }
-          return usersManager.checkPasswordStrength(input.value, namespace)
+          return usersManager.checkPasswordStrength(input.value, namespace);
         }),
         map(() => null),
         // catch error and send it as a valid value
-        catchError(err => of({backendError: err.error.message.substr(err.error.message.indexOf(":")+1)})),
+        catchError(err => of({ backendError: err.error.message.substr(err.error.message.indexOf(':') + 1) }))
       );
-    };
-  };
 
 @Component({
   selector: 'perun-web-apps-password-reset-dialog',

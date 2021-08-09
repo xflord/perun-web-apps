@@ -63,8 +63,8 @@ export class FacilityServiceConfigComponent implements OnInit {
   filteredGroups: Observable<Group[]>;
   filteredMembers: Observable<RichMember[]>;
 
-  serviceAllTranslation: String;
-  serviceNotSelectedTranslation: String;
+  serviceAllTranslation: string;
+  serviceNotSelectedTranslation: string;
   allowedStatuses: string[] =  ['INVALID', 'VALID'];
 
   ngOnInit() {
@@ -137,25 +137,25 @@ export class FacilityServiceConfigComponent implements OnInit {
     this.selectedMember = m;
   }
 
-  private _filterServices(value: String): Service[] | ServiceSelectValue[] {
+  private _filterServices(value: string): Service[] | ServiceSelectValue[] {
     const filterValue = value.toString().toLowerCase();
 
     return this.services.filter(service => service.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(filterValue));
   }
 
-  private _filterResources(value: String): Resource[] {
+  private _filterResources(value: string): Resource[] {
     const filterValue = value.toString().toLowerCase();
 
     return this.resources.filter(resource => resource.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(filterValue));
   }
 
-  private _filterGroups(value: String): Group[] {
+  private _filterGroups(value: string): Group[] {
     const filterValue = value.toString().toLowerCase();
 
     return this.groups.filter(group => group.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(filterValue));
   }
 
-  private _filterMembers(value: String): RichMember[] {
+  private _filterMembers(value: string): RichMember[] {
     const filterValue = value.toString().toLowerCase();
     return this.members.filter(member => this.namePipe.transform(member.user).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(filterValue));
   }

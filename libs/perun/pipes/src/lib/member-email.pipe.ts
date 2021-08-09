@@ -6,7 +6,7 @@ import { parseEmail } from '@perun-web-apps/perun/utils';
 })
 export class MemberEmailPipe implements PipeTransform {
 
-  transform(value: any, args?: any): any {
+  transform(value: any): any {
     return parseEmail(value);
   }
 

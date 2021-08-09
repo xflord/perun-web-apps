@@ -5,7 +5,6 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import {MatSort} from '@angular/material/sort';
@@ -145,13 +144,9 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
   }
 
   setDataSource() {
-    if (!!this.dataSource) {
-      this.dataSource.filterPredicate = (data: RichMember, filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getFilterDataForColumn, this);
-      };
-      this.dataSource.sortData = (data: RichMember[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getSortDataForColumn, this);
-      };
+    if (this.dataSource) {
+      this.dataSource.filterPredicate = (data: RichMember, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getFilterDataForColumn, this);
+      this.dataSource.sortData = (data: RichMember[], sort: MatSort) => customDataSourceSort(data, sort, this.getSortDataForColumn, this);
       this.dataSource.filter = this.filter;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
@@ -162,7 +157,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     this.dataSource.paginator = this.child.paginator;
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
@@ -176,9 +171,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     })
   }
 
-  canBeSelected = (member: RichMember): boolean => {
-    return member.membershipType === 'DIRECT';
-  }
+  canBeSelected = (member: RichMember): boolean => member.membershipType === 'DIRECT'
 
    isAllSelected() {
     return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(this.selection.selected.length, this.filter, this.pageSize, this.child.paginator.hasNextPage(), this.child.paginator.pageIndex, this.dataSource, this.sort, this.canBeSelected);

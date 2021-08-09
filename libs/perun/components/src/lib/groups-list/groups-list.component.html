@@ -68,6 +68,13 @@
               mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.TABLE_GROUP_STATUS' | translate}}</th>
           <td *matCellDef="let group" class="wrap-content" mat-cell>
             <perun-web-apps-group-resource-status
+              (mouseenter)="disabledRouting = true"
+              (mouseleave)="disabledRouting = disableRouting"
+              (statusChange)="refreshTable.emit()"
+              [theme]="'resource-theme'"
+              [groupId]="group.id"
+              [resourceId]="resourceId"
+              [failureCause]="group.failureCause"
               [status]="group.status">
             </perun-web-apps-group-resource-status>
           </td>

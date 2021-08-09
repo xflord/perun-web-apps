@@ -69,9 +69,7 @@ export class ManagersPageComponent implements OnInit {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
 
     this.guiAuthResolver.getRolesAuthorization(this.availableRoles, this.complementaryObject, this.availableRolesPrivileges);
-    this.availableRoles = this.availableRoles.filter(role => {
-      return this.availableRolesPrivileges.get(role).readAuth;
-    });
+    this.availableRoles = this.availableRoles.filter(role => this.availableRolesPrivileges.get(role).readAuth);
 
     if (this.availableRoles.length !== 0){
       this.selectedRole = this.availableRoles[0];

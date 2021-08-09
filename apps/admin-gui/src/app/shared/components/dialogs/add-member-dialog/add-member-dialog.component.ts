@@ -86,17 +86,17 @@ export class AddMemberDialogComponent implements OnInit {
     const selectedMemberCandidate = this.selection.selected[0];
 
     if (this.data.type === 'vo') {
-      if (!!selectedMemberCandidate.richUser) {
+      if (selectedMemberCandidate.richUser) {
         this.addUserToVo(selectedMemberCandidate);
       } else {
         this.addCandidateToVo(selectedMemberCandidate);
       }
     } else if (this.data.type === 'group') {
-      if (!!selectedMemberCandidate.member) {
+      if (selectedMemberCandidate.member) {
         this.addMemberToGroup(selectedMemberCandidate);
-      } else if (!!selectedMemberCandidate.richUser) {
+      } else if (selectedMemberCandidate.richUser) {
         this.addUserToGroup(selectedMemberCandidate);
-      } else if (!!selectedMemberCandidate.candidate) {
+      } else if (selectedMemberCandidate.candidate) {
         this.addCandidateToGroup(selectedMemberCandidate);
       }
     }

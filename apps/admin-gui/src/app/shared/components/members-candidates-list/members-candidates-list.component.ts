@@ -5,7 +5,6 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
@@ -74,9 +73,10 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
     switch (column) {
       case 'status':
         return data.member ? data.member.status ?? '' : '';
-      case 'fullName':
-        const user = data.richUser ? data.richUser : data.candidate
-        return user.lastName ? user.lastName : user.firstName ?? ''
+      case 'fullName': {
+        const user = data.richUser ? data.richUser : data.candidate;
+        return user.lastName ? user.lastName : user.firstName ?? '';
+      }
       case 'voExtSource':
         return data.richUser ? parseVo(data.richUser) : getExtSourceNameOrOrganizationColumn(data.candidate);
       case 'email':
@@ -99,9 +99,10 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
     switch (column) {
       case 'status':
         return data.member ? data.member.status ?? '' : '';
-      case 'fullName':
-        const user = data.richUser ? data.richUser : data.candidate
+      case 'fullName': {
+        const user = data.richUser ? data.richUser : data.candidate;
         return parseFullName(user);
+      }
       case 'voExtSource':
         return data.richUser ? parseVo(data.richUser) : getExtSourceNameOrOrganizationColumn(data.candidate);
       case 'email':
@@ -128,15 +129,11 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
     if (this.child === null || this.child === undefined || !this.child.paginator) {
       return;
     }
-    if (!!this.dataSource) {
+    if (this.dataSource) {
       this.dataSource.sort = this.sort;
 
-      this.dataSource.filterPredicate = (data: MemberCandidate, filter: string) => {
-        return customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this)
-      };
-      this.dataSource.sortData = (data: MemberCandidate[], sort: MatSort) => {
-        return customDataSourceSort(data, sort, this.getDataForColumn, this);
-      };
+      this.dataSource.filterPredicate = (data: MemberCandidate, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: MemberCandidate[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.paginator = this.child.paginator;
     }
   }
@@ -145,7 +142,7 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
     this.setDataSource();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     this.dataSource = new MatTableDataSource<MemberCandidate>(this.members);
 
     this.setDataSource();
@@ -158,9 +155,11 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   }
 
   masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
+    if(this.isAllSelected()) {
+      this.selection.clear();
+    } else {
       this.dataSource.data.forEach(row => this.selection.select(row));
+    }
     this.setAddAuth();
   }
 
@@ -227,7 +226,7 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
     const attributesNamespace = 49;
     let logins = '';
     for (const prop in candidate.attributes) {
-      if (candidate.attributes.hasOwnProperty(prop)) {
+      if (Object.prototype.hasOwnProperty.call(candidate.attributes, prop)) {
         if (prop.indexOf('urn:perun:user:attribute-def:def:login-namespace:') !== -1) {
           if (candidate.attributes[prop] != null) {
             if (logins.length > 0) {
