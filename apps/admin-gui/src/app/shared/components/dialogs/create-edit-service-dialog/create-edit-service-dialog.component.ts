@@ -29,7 +29,7 @@ export class CreateEditServiceDialogComponent implements OnInit {
   description: string;
   status = true;
 
-  nameControl = new FormControl('', [Validators.required]);
+  nameControl = new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9_]+$')]);
   delayControl = new FormControl(10, [Validators.pattern('^[0-9]*$')]);
   recurrenceControl = new FormControl(2, [Validators.pattern('^[0-9]*$')]);
   pathControl = new FormControl('', [Validators.required]);

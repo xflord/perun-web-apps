@@ -6,11 +6,11 @@
       <input
         matInput
         required
-        (change)= "makePath()"
+        (change)="makePath()"
         [formControl]="nameControl"
         placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.NAME' | translate}}"
       >
-      <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.REQUIRE_NAME' | translate}}</mat-error>
+      <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.RESTRICTION_NAME' | translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
