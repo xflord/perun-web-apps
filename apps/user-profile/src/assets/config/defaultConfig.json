@@ -139,17 +139,17 @@
         "title_cs": "O NÁS",
         "elements": [
           {
-            "link": "https://perun-aai.org/",
+            "link_en": "https://perun-aai.org/",
             "label_en": "Perun web",
             "label_cs": "Perun web"
           },
           {
-            "link": "https://perun-aai.org/team",
+            "link_en": "https://perun-aai.org/team",
             "label_en": "Perun team",
             "label_cs": "Perun tým"
           },
           {
-            "link": "https://perun-aai.org/",
+            "link_en": "https://perun-aai.org/",
             "label_en": "Privacy policy",
             "label_cs": "Ochrana osobních údajů"
           }
@@ -160,12 +160,12 @@
         "title_cs": "POMOC",
         "elements": [
           {
-            "link": "https://perun-aai.org/documentation/users-documentation",
+            "link_en": "https://perun-aai.org/documentation/users-documentation",
             "label_en": "Documentation",
             "label_cs": "Dokumentace"
           },
           {
-            "link": "https://perun-aai.org/documentation/technical-documentation",
+            "link_en": "https://perun-aai.org/documentation/technical-documentation",
             "label_en": "API Documentation",
             "label_cs": "Dokumentace API"
           },
@@ -182,7 +182,7 @@
         "elements": [
           {
             "icon": "mail",
-            "link": "",
+            "link_en": "",
             "label_en": "perun@cesnet.cz",
             "label_cs": "perun@cesnet.cz"
           }
