@@ -1,6 +1,7 @@
 {
   "config": "default",
   "api_url": "https://perun-dev.cesnet.cz/oauth/rpc/",
+  "isInstanceFaviconContained": false,
   "document_title": "Perun Web Gui",
   "supportedLanguages": [
     "en"
