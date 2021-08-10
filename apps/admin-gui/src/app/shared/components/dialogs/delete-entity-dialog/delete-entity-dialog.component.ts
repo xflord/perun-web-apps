@@ -21,6 +21,8 @@ export class DeleteEntityDialogComponent {
   @Input()
   relations: string[] = [];
   @Input()
+  anotherMessage: string;
+  @Input()
   disableForce = false;
 
 

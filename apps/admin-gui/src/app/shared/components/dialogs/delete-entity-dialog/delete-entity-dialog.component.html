@@ -53,6 +53,9 @@
           </span>
         </mat-list-item>
       </mat-list>
+      <div *ngIf="anotherMessage">
+        {{anotherMessage}}
+      </div>
       <app-alert alert_type="warn">
         {{'DIALOGS.DELETE_ENTITY.ASK' | translate}} {{entityType}} ?
       </app-alert>

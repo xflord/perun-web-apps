@@ -1588,11 +1588,8 @@
       "EDIT_SUCCESS": "Service was edited"
     },
     "DELETE_SERVICE": {
-      "TITLE": "Delete service",
-      "DESCRIPTION": "Following items will be removed",
-      "ASK": "Do you want to proceed?",
-      "CANCEL": "Cancel",
-      "DELETE": "Delete",
+      "DESTINATION_RELATION": "Destinations",
+      "MORE_INFORMATION": "Force delete also stops (de)provisioning of these services. You should firstly delete all relations to users/groups and after propagation you can force delete these services.",
       "SUCCESS": "Service deleted"
     },
     "ADD_MEMBER_TO_RESOURCE": {
