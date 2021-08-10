@@ -13,9 +13,9 @@
                 [ngStyle]="{'color': linksTextColor}"
                 id="clickable">{{elem | localisedText: language:'label'}}
           </span>
-          <a *ngIf="elem.link && !elem.dialog" [href]="elem.link" [ngStyle]="{'color': linksTextColor}"
+          <a *ngIf="(elem | localisedLink:language) && !elem.dialog" [href]="elem | localisedLink:language" [ngStyle]="{'color': linksTextColor}"
              target="_blank">{{elem | localisedText: language:'label'}}</a>
-          <span *ngIf="!elem.link && !elem.dialog"
+          <span *ngIf="!(elem | localisedLink:language) && !elem.dialog"
              [ngStyle]="{'color': linksTextColor}">{{elem | localisedText: language:'label'}}</span>
         </div>
       </div>
