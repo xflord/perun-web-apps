@@ -1580,7 +1580,7 @@
       "RECURRENCE": "Recurrence:",
       "PATH": "Script path:",
       "STATUS_HINT": "Enabled/Disabled",
-      "REQUIRE_NAME": "Name cannot be empty",
+      "RESTRICTION_NAME": "Name cannot be empty and must contain only letters, digits and _",
       "REQUIRE_PATH": "Script path cannot be empty",
       "INVALID_DELAY": "Delay must be a number",
       "INVALID_RECURRENCE": "Recurrence must be a number",
