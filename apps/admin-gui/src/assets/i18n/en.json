@@ -1242,7 +1242,7 @@
       "AVAILABLE_TAGS": "Available tags",
       "SUBJECT": "Subject",
       "TEXT": "Text",
-      "SHOW_TAGS": "Show tags",
+      "SHOW_TAGS": "Add tags",
       "HIDE_TAGS": "Hide tags",
       "TAGS_DESCRIPTION": "Following tags can be used in mail's subject and text and are replaced by actual data on sending. Just choose place where you want tag and click on tag button. When no data for tag is found, it's replaced by whitespace.",
       "APPLICATION_RELATED_SECTION": "Application related",
@@ -1301,7 +1301,8 @@
       "INVITATIONLINKFED_DESCRIPTION": "link for Shibboleth IdP (federation) authentication",
       "INVITATIONLINKCERT_DESCRIPTION": "link for personal certificate authentication",
       "INVITATIONLINKNON_DESCRIPTION": "link without any authentication",
-      "INVALID_NOTIFICATION": "Notification with selected type and selected application type already exist."
+      "INVALID_NOTIFICATION": "Notification with selected type and selected application type already exist.",
+      "TAG_HINT": "Click to add tag"
     },
     "NOTIFICATIONS_COPY_MAILS": {
       "TITLE": "Copy mail notifications from Vo/group",

@@ -107,8 +107,13 @@
             <div class="d-flex w-100">
               <div class="pr-2 w-100">
                 <div class="pt-2">
-                  <span class="font-weight-bold pr-2">{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SUBJECT' | translate}}
-                    :</span>
+                  <button class="right-button" mat-stroked-button (click)="this.showTags = !this.showTags;">
+                    {{showTags ? ('DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.HIDE_TAGS' | translate) :
+                    ('DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SHOW_TAGS' | translate)}}
+                  </button>
+                  <span class="font-weight-bold pr-2">
+                    {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SUBJECT' | translate}}:
+                  </span>
                   <mat-form-field class="w-100">
                     <input
                       matInput
@@ -120,10 +125,7 @@
                 <div class="font-weight-bold">
                   {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.TEXT' | translate}}:
                 </div>
-                <button mat-flat-button (click)="this.showTags = !this.showTags;">
-                  {{showTags ? ('DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.HIDE_TAGS' | translate) :
-                  ('DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SHOW_TAGS' | translate)}}
-                </button>
+
                 <mat-form-field class="w-100">
                 <textarea matInput
                           #Textarea
@@ -134,9 +136,11 @@
                 </mat-form-field>
               </div>
 
+              <mat-divider *ngIf="showTags" class="ml-3 mr-3" vertical="true"></mat-divider>
+
               <div [@tagsOpenClose]="showTags ? 'open' : 'closed'">
                 <app-tag-bar
-                  (addedTag)="addTag(Input, Textarea, lang,$event)">
+                  (addedTag)="addTag(Input, Textarea, lang, $event)">
                 </app-tag-bar>
               </div>
             </div>
