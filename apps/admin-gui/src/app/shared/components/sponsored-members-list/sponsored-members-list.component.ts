@@ -28,7 +28,7 @@ import { PasswordResetRequestDialogComponent } from '../dialogs/password-reset-r
   templateUrl: './sponsored-members-list.component.html',
   styleUrls: ['./sponsored-members-list.component.scss']
 })
-export class SponsoredMembersListComponent implements OnChanges, AfterViewInit {
+export class SponsoredMembersListComponent implements OnChanges {
 
   constructor(private dialog: MatDialog,
               private authResolver: GuiAuthResolver,
@@ -38,7 +38,6 @@ export class SponsoredMembersListComponent implements OnChanges, AfterViewInit {
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
-    this.setDataSource();
   }
 
   @Input()
@@ -79,9 +78,7 @@ export class SponsoredMembersListComponent implements OnChanges, AfterViewInit {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
-    this.dataSource = new MatTableDataSource<MemberWithSponsors>(this.sponsoredMembers);
     this.setDataSource();
-    this.dataSource.filter = this.filterValue;
     this.routingStrategy = this.disableRouting;
   }
 
@@ -122,15 +119,17 @@ export class SponsoredMembersListComponent implements OnChanges, AfterViewInit {
   }
 
   setDataSource() {
-    if (this.dataSource) {
+    if (!this.dataSource) {
+      this.dataSource = new MatTableDataSource<MemberWithSponsors>();
       this.dataSource.sort = this.sort;
-
-      this.dataSource.filterPredicate = (data: MemberWithSponsors, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
-      this.dataSource.sortData = (data: MemberWithSponsors[], sort: MatSort) => customDataSourceSort(data, sort, this.getSortDataForColumn, this);
-      this.dataSource.filter = this.filterValue;
-
       this.dataSource.paginator = this.child.paginator;
+      this.dataSource.filterPredicate = (data: MemberWithSponsors, filter: string) =>
+        customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: MemberWithSponsors[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getSortDataForColumn, this);
     }
+    this.dataSource.filter = this.filterValue;
+    this.dataSource.data = this.sponsoredMembers;
   }
 
   showSponsors(member: MemberWithSponsors){
@@ -162,10 +161,6 @@ export class SponsoredMembersListComponent implements OnChanges, AfterViewInit {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.member.id + 1}`;
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.child.paginator;
   }
 
   resetPassword(sponsoredMember: MemberWithSponsors) {

@@ -25,7 +25,7 @@ import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
   templateUrl: './vos-list.component.html',
   styleUrls: ['./vos-list.component.scss']
 })
-export class VosListComponent implements OnChanges, AfterViewInit {
+export class VosListComponent implements OnChanges {
 
   constructor(private authResolver: GuiAuthResolver) { }
 
@@ -58,7 +58,6 @@ export class VosListComponent implements OnChanges, AfterViewInit {
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
-    this.setDataSource();
   }
 
   @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
@@ -71,12 +70,7 @@ export class VosListComponent implements OnChanges, AfterViewInit {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
-    this.dataSource = new MatTableDataSource<Vo>(this.vos);
     this.setDataSource();
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.child.paginator;
   }
 
   getDataForColumn(data: Vo, column: string, otherThis: VosListComponent): string{
@@ -104,13 +98,17 @@ export class VosListComponent implements OnChanges, AfterViewInit {
   }
 
   setDataSource() {
-    if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: Vo, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
-      this.dataSource.sortData = (data: Vo[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
-      this.dataSource.filter = this.filterValue;
+    if (!this.dataSource) {
+      this.dataSource = new MatTableDataSource<Vo>();
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
+      this.dataSource.filterPredicate = (data: Vo, filter: string) =>
+        customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: Vo[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getDataForColumn, this);
     }
+    this.dataSource.filter = this.filterValue;
+    this.dataSource.data = this.vos;
   }
 
   checkboxLabel(row?: Vo): string {
