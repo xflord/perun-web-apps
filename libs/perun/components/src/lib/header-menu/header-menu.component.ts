@@ -17,8 +17,6 @@ export class HeaderMenuComponent implements OnInit {
   @Input()
   textColor: string;
   @Input()
-  showReloadRoles = false;
-  @Input()
   logoutEnabled: boolean;
   @Input()
   url: string;
@@ -35,11 +33,6 @@ export class HeaderMenuComponent implements OnInit {
 
   redirectToUrl() {
     window.open(this.url, '_blank');
-  }
-
-  reloadRoles() {
-    this.authzResolverService.loadAuthorizationComponents().subscribe(() =>
-      this.notificator.showSuccess(this.translateService.instant('NAV.RELOAD_ROLES_SUCCESS')));
   }
 
   onLogOut() {
