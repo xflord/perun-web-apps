@@ -633,6 +633,7 @@ export function parseDate(value: string): string{
   return formatDate(value, 'd.M.yyyy', 'en');
 }
 
+const collator = new Intl.Collator('cs',{numeric: true});
 export function customDataSourceSort(data: any[], sort: MatSort, getDataForColumn: (data: any, column: string, outerThis: any) => string, outerThis:any){
   const active = sort.active;
   const direction = sort.direction;
@@ -642,7 +643,6 @@ export function customDataSourceSort(data: any[], sort: MatSort, getDataForColum
   return data.sort((a, b) => {
     const dataStrA = getDataForColumn(a, active, outerThis);
     const dataStrB = getDataForColumn(b, active, outerThis);
-    const collator = new Intl.Collator('cs',{numeric: true});
     return collator.compare(dataStrA, dataStrB) * (direction === 'asc' ? 1 : -1);
   });
 }

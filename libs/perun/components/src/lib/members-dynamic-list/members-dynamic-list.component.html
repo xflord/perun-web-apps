@@ -94,6 +94,7 @@
       <tr
         *matRowDef="let member; columns: displayedColumns;"
         [class.cursor-pointer]="this.dataSource.routeAuth"
+        [class.italic_font]="member.membershipType === 'INDIRECT'"
         [class.disable-outline]="!this.dataSource.routeAuth"
         [perunWebAppsMiddleClickRouterLink]="!this.dataSource.routeAuth ? null : ['/organizations', member.voId, 'members', member.id]"
         [routerLink]="!this.dataSource.routeAuth ? null : ['/organizations', member.voId, 'members', member.id]"

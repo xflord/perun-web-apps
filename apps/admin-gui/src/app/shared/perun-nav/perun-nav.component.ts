@@ -69,9 +69,4 @@ export class PerunNavComponent implements OnInit {
   getNewNotificationsCount(): number {
     return this.notificationStorageService.newNotificationsCount;
   }
-
-  reloadRoles() {
-    this.authzResolverService.loadAuthorizationComponents().subscribe(() =>
-      this.notificator.showSuccess(this.translateService.instant('NAV.RELOAD_ROLES_SUCCESS')));
-  }
 }

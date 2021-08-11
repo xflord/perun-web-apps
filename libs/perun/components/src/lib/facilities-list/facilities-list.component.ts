@@ -56,7 +56,6 @@ export class FacilitiesListComponent implements OnChanges {
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
-    this.setDataSource();
   }
 
   @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
@@ -104,9 +103,6 @@ export class FacilitiesListComponent implements OnChanges {
   }
 
   setDataSource() {
-    if (this.child === null || this.child === undefined || !this.child.paginator) {
-      return;
-    }
     if (!this.dataSource) {
       this.dataSource = new MatTableDataSource<EnrichedFacility>();
       this.dataSource.sort = this.sort;

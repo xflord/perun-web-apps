@@ -124,7 +124,25 @@ export class AppConfigService {
       'Expires': '0',
     });
   }
+
+  setInstanceFavicon(): Promise<void> {
+    return new Promise((resolve) => {
+      const link: any = document.querySelector(`link[rel*='icon']`) || document.createElement('link');
+      link.type = 'image/x-icon';
+      link.rel = 'shortcut icon';
+
+      if (this.storeService.get('isInstanceFaviconContained')) {
+        link.href = './assets/config/instanceFavicon.ico';
+      } else {
+        link.href = './assets/img/perun.ico';
+      }
+      document.getElementsByTagName('head')[ 0 ].appendChild(link);
+      resolve();
+    });
+  }
 }
+
+
 
 function computeColors(hex: string): Color[] {
   return [

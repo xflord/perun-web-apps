@@ -3,6 +3,7 @@ import { InitAuthService, StoreService } from '@perun-web-apps/perun/services';
 import { AppConfigService, ColorConfig, EntityColorConfig } from '@perun-web-apps/config';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 import { Location } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class UserProfileConfigService {
     private appConfigService: AppConfigService,
     private store: StoreService,
     private location: Location,
-    private authzSevice: AuthzResolverService
+    private authzSevice: AuthzResolverService,
+    private titleService: Title,
   ) {}
 
   entityColorConfigs: EntityColorConfig[] = [
@@ -49,6 +51,7 @@ export class UserProfileConfigService {
       .then(() => this.appConfigService.loadAppInstanceConfig())
       .then(() => this.setApiUrl())
       .then(() => this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs))
+      .then(() => this.appConfigService.setInstanceFavicon())
       .then(() => this.initAuthService.verifyAuth())
       .catch(err => {
         // if there is an error, it means user probably navigated to /api-callback without logging in
@@ -73,6 +76,7 @@ export class UserProfileConfigService {
   private setApiUrl(): Promise<void> {
     return new Promise((resolve) => {
       this.authzSevice.configuration.basePath = this.store.get('api_url');
+      this.titleService.setTitle(this.store.get('document_title'));
       resolve();
     });
   }
