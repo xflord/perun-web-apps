@@ -21,7 +21,8 @@ export class PasswordResetConfigService {
   loadConfigs(): Promise<void> {
     return this.appConfigService.loadAppDefaultConfig()
       .then(() => this.appConfigService.loadAppInstanceConfig())
-      .then(() => this.setApiUrl());
+      .then(() => this.setApiUrl())
+      .then(() => this.appConfigService.setInstanceFavicon());
   }
 
   private setApiUrl(): Promise<void> {
