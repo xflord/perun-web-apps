@@ -13,25 +13,25 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { PageEvent } from '@angular/material/paginator';
 import { Group, GroupResourceStatus, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import {
-  customDataSourceFilterPredicate, customDataSourceSort, downloadData, getDataForExport,
+  customDataSourceFilterPredicate,
+  customDataSourceSort,
+  downloadData,
+  getDataForExport,
   getDefaultDialogConfig,
   getGroupExpiration,
   parseDate,
-  TABLE_ITEMS_COUNT_OPTIONS
+  TABLE_ITEMS_COUNT_OPTIONS,
+  TableWrapperComponent
 } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import {
   ChangeGroupExpirationDialogComponent,
+  EditFacilityResourceGroupVoDialogComponent,
+  EditFacilityResourceGroupVoDialogOptions,
   GroupSyncDetailDialogComponent
 } from '@perun-web-apps/perun/dialogs';
 import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
-import {
-  EditFacilityResourceGroupVoDialogComponent,
-  EditFacilityResourceGroupVoDialogOptions
-} from '@perun-web-apps/perun/dialogs';
 import { formatDate } from '@angular/common';
-import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
-
 
 export interface GroupWithStatus extends RichGroup {
   status?: GroupResourceStatus;
@@ -72,7 +72,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   private hasMembersGroup = false;
 
   @Input()
-  displayedColumns: string[] = ['select', 'id', 'recent', 'vo', 'name', 'status', 'description', 'expiration', 'menu'];
+  displayedColumns: string[] = ['select', 'id', 'recent', 'vo', 'name', 'status', 'groupStatus', 'description', 'expiration', 'menu'];
 
   @Input()
   disableMembers: boolean;
@@ -380,5 +380,9 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
 
   canManageGroup(group: GroupWithStatus): boolean {
     return this.authResolver.isThisGroupAdmin(group.id) || this.authResolver.isThisVoAdmin(group.voId);
+  }
+
+  getStatusAttribute(grp: RichGroup) {
+    return grp.attributes.find(att => att.baseFriendlyName === 'groupStatus').value.toString();
   }
 }

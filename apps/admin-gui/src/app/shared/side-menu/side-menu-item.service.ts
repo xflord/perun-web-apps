@@ -601,6 +601,13 @@ export class SideMenuItemService {
       activatedRegex: `${regex}/groups`
     });
 
+    // Accounts
+    links.push({
+      label: 'MENU_ITEMS.USER.ACCOUNTS',
+      url: [`${path}/accounts`],
+      activatedRegex: `${regex}/accounts`
+    });
+
     // Identities
     links.push({
       label: 'MENU_ITEMS.USER.IDENTITIES',

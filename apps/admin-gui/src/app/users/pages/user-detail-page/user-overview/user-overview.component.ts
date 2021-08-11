@@ -77,6 +77,12 @@ export class UserOverviewComponent implements OnInit {
       ];
     if (window.location.pathname.startsWith('/admin')) {
       this.navItems.push({
+          cssIcon: 'perun-user',
+          url: `accounts`,
+          label: 'MENU_ITEMS.USER.ACCOUNTS',
+          style: 'user-btn'
+        },
+        {
           cssIcon: 'perun-group',
           url: `identities`,
           label: 'MENU_ITEMS.USER.IDENTITIES',
