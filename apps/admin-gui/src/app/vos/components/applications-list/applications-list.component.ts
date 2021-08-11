@@ -28,7 +28,7 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
   constructor(
     private authResolver: GuiAuthResolver) { }
 
-  @ViewChild(MatSort) set matSort(ms: MatSort) {
+  @ViewChild(MatSort, {static: true}) set matSort(ms: MatSort) {
     this.sort = ms;
   }
 
@@ -67,7 +67,6 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
-    this.setDataSource();
   }
 
   ngOnChanges() {
@@ -141,19 +140,15 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
   setDataSource() {
     if (!this.dataSource) {
       this.dataSource = new MatTableDataSource<Application>();
+      this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filterPredicate = (data: Application, filter: string) =>
         customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
       this.dataSource.sortData = (data: Application[], sort: MatSort) =>
         customDataSourceSort(data, sort, this.getSortDataForColumn, this);
     }
-    if (!this.dataSource.sort) {
-      this.dataSource.sort = this.sort;
-    }
-    if (this.dataSource.sort) {
-      this.dataSource.filter = this.filterValue;
-      this.dataSource.data = this.applications;
-    }
+    this.dataSource.filter = this.filterValue;
+    this.dataSource.data = this.applications;
   }
 
 
