@@ -486,6 +486,15 @@ export class SideMenuItemService {
       });
     }
 
+    // Service members
+    if(this.authResolver.isAuthorized(`createSpecificMember_Vo_Candidate_List<User>_SpecificUserType_List<Group>_policy`, [vo])){
+      links.push({
+        label: 'MENU_ITEMS.VO.SERVICE_MEMBERS',
+        url: [`/organizations/${vo.id}/serviceAccounts`],
+        activatedRegex: '/organizations/\\d+/serviceAccounts$'
+      });
+    }
+
     //Attributes
     links.push({
       label: 'MENU_ITEMS.VO.ATTRIBUTES',

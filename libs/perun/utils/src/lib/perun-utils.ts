@@ -16,6 +16,7 @@ import { MatDialogConfig } from '@angular/material/dialog';
 import { formatDate } from '@angular/common';
 import { MatSort } from '@angular/material/sort';
 import { saveAs } from 'file-saver';
+import { AbstractControl, AsyncValidatorFn, ValidatorFn } from '@angular/forms';
 
 
 export const TABLE_ITEMS_COUNT_OPTIONS = [5, 10, 25, 100];
@@ -713,4 +714,13 @@ export function compareFnUser(a,b) {
     second =  b.lastName ? b.lastName : b.firstName ?? '';
   }
   return first >second ? 1 : (first === second ? 0 : -1);
+}
+
+export function enableFormControl(control: AbstractControl, validators: ValidatorFn[], asyncValidators: AsyncValidatorFn[] = []) {
+  control.enable();
+  control.clearValidators();
+  control.clearAsyncValidators();
+  control.setValidators(validators);
+  control.setAsyncValidators(asyncValidators);
+  control.updateValueAndValidity();
 }

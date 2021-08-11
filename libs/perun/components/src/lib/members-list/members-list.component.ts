@@ -165,7 +165,8 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
 
   ngOnChanges() {
     this.setDataSource();
-    this.route.parent.params.subscribe(params => {
+    this.disabledRouting = this.disableRouting;
+    this.route.parent?.params.subscribe(params => {
       if (params['groupId']){
         this.groupId = params['groupId'];
       }

@@ -168,6 +168,7 @@ import { AddGroupToRegistrationComponent } from './components/dialogs/add-group-
 import { OneEntityAttributePageComponent } from './components/one-entity-attribute-page/one-entity-attribute-page.component';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
 import { AddResourceTagToResourceDialogComponent } from './components/dialogs/add-resource-tag-to-resource-dialog/add-resource-tag-to-resource-dialog.component';
+import { CreateServiceMemberDialogComponent } from './components/create-service-member-dialog/create-service-member-dialog.component';
 
 @NgModule({
   imports: [
@@ -425,6 +426,7 @@ import { AddResourceTagToResourceDialogComponent } from './components/dialogs/ad
     AddGroupToRegistrationComponent,
     OneEntityAttributePageComponent,
     AddResourceTagToResourceDialogComponent,
+    CreateServiceMemberDialogComponent
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe],
 })

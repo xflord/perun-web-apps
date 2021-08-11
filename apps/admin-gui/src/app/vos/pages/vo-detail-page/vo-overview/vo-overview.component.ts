@@ -93,6 +93,15 @@ export class VoOverviewComponent implements OnInit {
       });
     }
 
+    // Service members
+    if(this.authResolver.isAuthorized(`createSpecificMember_Vo_Candidate_List<User>_SpecificUserType_List<Group>_policy`, [this.vo])){
+      this.navItems.push({
+        cssIcon: 'perun-service-identity',
+        url: `/organizations/${this.vo.id}/serviceAccounts`,
+        label: 'MENU_ITEMS.VO.SERVICE_MEMBERS',
+        style: 'vo-btn'
+      });
+    }
 
     // Attributes
     this.navItems.push({

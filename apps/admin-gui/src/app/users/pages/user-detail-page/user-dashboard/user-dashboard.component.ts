@@ -131,7 +131,7 @@ export class UserDashboardComponent implements OnInit {
 
   private getUserProfile() {
     this.utilsService.getAppsConfig().subscribe(config => {
-      this.userProfileUrl = !!config.brands[0].newApps.profile ? config.brands[0].newApps.profile : null;
+      this.userProfileUrl = config.brands[0].newApps.profile ? config.brands[0].newApps.profile : null;
     });
     this.userProfileName = this.storeService.get('profile_label_en');
   }

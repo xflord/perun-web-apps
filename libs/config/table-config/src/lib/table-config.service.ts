@@ -107,3 +107,4 @@ export const TABLE_ADD_THANKS_DIALOG = '73';
 export const TABLE_IMPORT_PUBLICATIONS = '74';
 export const TABLE_RESOURCES_TAGS = '75';
 export const TABLE_ADD_RESOURCES_TAGS_TO_RESOURCE = '76';
+export const TABLE_SERVICE_MEMBERS = '77';
