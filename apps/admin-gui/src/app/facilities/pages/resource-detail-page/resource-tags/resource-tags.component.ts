@@ -10,6 +10,7 @@ import { UniversalRemoveItemsDialogComponent } from '@perun-web-apps/perun/dialo
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { AddResourceTagToResourceDialogComponent } from '../../../../shared/components/dialogs/add-resource-tag-to-resource-dialog/add-resource-tag-to-resource-dialog.component';
+import { CreateResourceTagDialogComponent } from '../../../../shared/components/dialogs/create-resource-tag-dialog/create-resource-tag-dialog.component';
 
 @Component({
   selector: 'app-perun-web-apps-resource-tags',
@@ -29,7 +30,6 @@ export class ResourceTagsComponent implements OnInit {
 
   loading = false;
   resourceTags: ResourceTag[] = [];
-  voId: number;
   resourceId: number;
   resource: Resource;
 
@@ -40,6 +40,7 @@ export class ResourceTagsComponent implements OnInit {
   tableId = TABLE_RESOURCES_TAGS;
   displayedColumns = [];
 
+  createAuth: boolean;
   addAuth: boolean;
   removeAuth: boolean;
 
@@ -47,7 +48,6 @@ export class ResourceTagsComponent implements OnInit {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
 
     this.route.parent.params.subscribe(params => {
-      this.voId = params['voId'];
       this.resourceId = params['resourceId'];
       this.resourcesManager.getResourceById(this.resourceId).subscribe(resource => {
         this.resource = resource;
@@ -90,13 +90,30 @@ export class ResourceTagsComponent implements OnInit {
   addTag() {
     const config = getDefaultDialogConfig();
     config.width = '600px';
-    config.data = {voId: this.voId, resourceId: this.resourceId, assignedTags: this.resourceTags, theme: 'resource-theme'};
+    config.data = {voId: this.resource.voId, resourceId: this.resourceId, assignedTags: this.resourceTags, theme: 'resource-theme'};
 
     const dialogRef = this.dialog.open(AddResourceTagToResourceDialogComponent, config);
 
     dialogRef.afterClosed().subscribe( success => {
       if (success) {
         this.notificator.showSuccess(this.translate.instant('RESOURCE_DETAIL.TAGS.ADDED_SUCCESSFULLY'));
+        this.updateData();
+      }
+    });
+  }
+
+  create() {
+    const config = getDefaultDialogConfig();
+    config.width = '450px';
+    config.data = {voId: this.resource.voId, theme: 'resource-theme'};
+
+    const dialogRef = this.dialog.open(CreateResourceTagDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe( success => {
+      if (success) {
+        this.translate.get('VO_DETAIL.RESOURCES.TAGS.CREATE_SUCCESS').subscribe( text => {
+          this.notificator.showSuccess(text);
+        });
         this.updateData();
       }
     });
@@ -114,7 +131,13 @@ export class ResourceTagsComponent implements OnInit {
   }
 
   setAuthRights() {
+    const vo = {
+      id: this.resource.voId,
+      beanName: 'Vo'
+    };
+
     this.displayedColumns = [];
+    this.createAuth = this.authResolver.isAuthorized('createResourceTag_ResourceTag_Vo_policy', [vo]);
     this.addAuth = this.authResolver.isAuthorized('assignResourceTagToResource_ResourceTag_Resource_policy', [this.resource]);
     this.removeAuth = this.authResolver.isAuthorized('removeResourceTagFromResource_ResourceTag_Resource_policy', [this.resource]);
     this.displayedColumns = this.removeAuth ? ['select', 'id', 'name'] : ['id', 'name'];
