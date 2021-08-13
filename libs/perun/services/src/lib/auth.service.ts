@@ -46,7 +46,7 @@ export class AuthService {
 
   getClientSettings(): UserManagerSettings {
     const filterValue = this.setIdpFilter();
-    return {
+    const data: any = {
       authority: this.store.get('oidc_client', 'oauth_authority'),
       client_id: this.store.get('oidc_client', 'oauth_client_id'),
       redirect_uri: this.store.get('oidc_client', 'oauth_redirect_uri'),
@@ -56,9 +56,12 @@ export class AuthService {
       filterProtocolClaims: true,
       loadUserInfo: this.store.get('oidc_client', 'oauth_load_user_info'),
       automaticSilentRenew: true,
-      silent_redirect_uri: this.store.get('oidc_client', 'oauth_silent_redirect_uri'),
-      extraQueryParams: { 'acr_values': filterValue }
+      silent_redirect_uri: this.store.get('oidc_client', 'oauth_silent_redirect_uri')
     };
+    if (filterValue) {
+      data.extraQueryParams = { 'acr_values': filterValue };
+    }
+    return data
   }
 
   setIdpFilter(): string {
