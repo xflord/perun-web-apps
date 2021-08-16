@@ -73,11 +73,14 @@ export class BugReportDialogComponent implements OnInit {
     text = text.concat(this.data.error.message + '\n' +
       'Perun instance: ' + instance + '\n' +
       'Request:\n' +
-      this.data.error.call + '\n\n');
+      this.data.error.urlWithParams + '\n\n');
 
     if (this.data.error.payload) {
+      const re = /"password":".+?"/;
+      let payload = JSON.stringify(this.data.error.payload);
+      payload = payload.replace(re, '"password":"####"');
       text = text.concat('Payload:\n' +
-        this.data.error.payload + '\n\n');
+        payload + '\n\n');
     }
 
     text = text.concat('Sended from new Perun Gui, version: ' + require( '../../../../../../package.json').version);

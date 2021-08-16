@@ -89,6 +89,7 @@ export class ApiInterceptor implements HttpInterceptor {
     if (rpcError === undefined) {
       return undefined;
     }
+    rpcError.urlWithParams = req.urlWithParams;
     rpcError.call = req.url;
     rpcError.payload = req.body;
     return rpcError;
