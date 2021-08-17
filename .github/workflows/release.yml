@@ -1,8 +1,10 @@
 name: Release
 on:
   push:
-    branches:
-      - production
+    branches-ignore:
+      - master
+    tags-ignore:
+      - v*
 jobs:
   release:
     name: Release
