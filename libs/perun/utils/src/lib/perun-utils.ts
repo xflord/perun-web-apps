@@ -287,7 +287,7 @@ export function addRecentlyVisitedObject(item: any) {
     const recent: any[] = JSON.parse(localStorage.getItem('recent'));
     let object;
     if (item.beanName === 'Group') {
-      object = {id: item.id, name: item.shortName, type: item.beanName, voId: item.voId};
+      object = {id: item.id, name: item.shortName, fullName: item.name, type: item.beanName, voId: item.voId};
     } else {
       object = {id: item.id, name: item.name, type: item.beanName, voId: item.voId};
     }
