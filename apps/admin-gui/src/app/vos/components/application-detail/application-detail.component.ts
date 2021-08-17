@@ -52,33 +52,34 @@ export class ApplicationDetailComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.route.params.subscribe(parentParams => {
-
-      if (parentParams['groupId']) {
-        this.dialogTheme = 'group-theme';
-      } else if (parentParams['memberId']) {
-        this.dialogTheme = 'member-theme';
-      } else {
-        this.dialogTheme = 'vo-theme';
-      }
-      const applicationId = parentParams['applicationId'];
-      this.registrarManager.getApplicationById(applicationId).subscribe(application => {
-        this.application = application;
-        if (this.application.type === 'EMBEDDED' && this.application.user){
-          this.usersService.getRichUserWithAttributes(this.application.user.id).subscribe(user => {
-            const preferredMail = user.userAttributes.find(att => att.friendlyName === 'preferredMail');
-            this.userMail = preferredMail?.value?.toString();
-            this.setAuthRights();
-            this.loading = false;
-          });
+    this.route.params.subscribe(params => {
+      this.route.parent.params.subscribe(parentParams =>{
+        if (parentParams['groupId']) {
+          this.dialogTheme = 'group-theme';
+        } else if (parentParams['memberId']) {
+          this.dialogTheme = 'member-theme';
         } else {
-          this.registrarManager.getApplicationDataById(this.application.id).subscribe(value => {
-            this.userData = value;
-            this.dataSource = new MatTableDataSource<ApplicationFormItemData>(this.userData);
-            this.setAuthRights();
-            this.loading = false;
-          });
+          this.dialogTheme = 'vo-theme';
         }
+        const applicationId = params['applicationId'];
+        this.registrarManager.getApplicationById(applicationId).subscribe(application => {
+          this.application = application;
+          if (this.application.type === 'EMBEDDED' && this.application.user){
+            this.usersService.getRichUserWithAttributes(this.application.user.id).subscribe(user => {
+              const preferredMail = user.userAttributes.find(att => att.friendlyName === 'preferredMail');
+              this.userMail = preferredMail?.value?.toString();
+              this.setAuthRights();
+              this.loading = false;
+            });
+          } else {
+            this.registrarManager.getApplicationDataById(this.application.id).subscribe(value => {
+              this.userData = value;
+              this.dataSource = new MatTableDataSource<ApplicationFormItemData>(this.userData);
+              this.setAuthRights();
+              this.loading = false;
+            });
+          }
+        });
       });
     });
   }
