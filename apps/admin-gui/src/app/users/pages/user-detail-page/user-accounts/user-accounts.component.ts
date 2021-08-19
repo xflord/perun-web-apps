@@ -7,10 +7,9 @@ import {
   Vo
 } from '@perun-web-apps/perun/openapi';
 import { ActivatedRoute } from '@angular/router';
-import { Urns } from '@perun-web-apps/perun/urns';
 
 @Component({
-  selector: 'perun-web-apps-user-accounts',
+  selector: 'app-perun-web-apps-user-accounts',
   templateUrl: './user-accounts.component.html',
   styleUrls: ['./user-accounts.component.css']
 })
