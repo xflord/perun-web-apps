@@ -1,5 +1,16 @@
 <div *ngFor="let tag of tags">
-  <button mat-flat-button
-          (click)="addTag('{' + tag[0] + '}')">{{tag[0]}}
-  </button> - {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.' + tag[1] | translate}}
+  <div class="d-flex flex-row">
+    <button
+      matTooltip="{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.TAG_HINT' | translate }}"
+      matTooltipPosition="above"
+      class="tag-text w-25"
+      mat-flat-button
+      (click)="addTag('{' + tag[0] + '}')">
+      {{tag[0]}}
+    </button>
+    <span class="w-75">
+    {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.' + tag[1] | translate}}
+    </span>
+  </div>
+  <mat-divider class="mt-1 mb-1"></mat-divider>
 </div>
