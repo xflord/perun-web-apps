@@ -5,8 +5,7 @@
       class="{{item.style}} item-itself"
       [routerLink]="item.url"
       queryParamsHandling="merge"
-      matTooltip="{{item.tooltip}}"
-      [matTooltipDisabled]="item.label === item.tooltip">
+      matTooltip="{{item.tooltip}}">
       <span class="item-type">{{item.type}}</span>
       <mat-icon [svgIcon]="item.cssIcon" class="item-pic perun-icon"></mat-icon>
       {{item.label}}

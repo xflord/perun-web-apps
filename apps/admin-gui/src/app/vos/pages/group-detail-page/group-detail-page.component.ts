@@ -64,7 +64,7 @@ export class GroupDetailPageComponent implements OnInit {
         this.groupService.getGroupById(groupId).subscribe( group => {
           this.group = group;
           addRecentlyVisited('groups', this.group);
-          addRecentlyVisitedObject(this.group);
+          addRecentlyVisitedObject(this.group, vo.name);
           if (this.guiAuthResolver.isAuthorized('getRichGroupByIdWithAttributesByNames_int_List<String>_policy', [this.group])) {
             this.groupService.getRichGroupByIdWithAttributesByNames(groupId, this.attrNames).subscribe(richGroup => {
               this.group = richGroup;
