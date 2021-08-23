@@ -1423,10 +1423,13 @@
     },
     "ASSIGN_SERVICE_TO_RESOURCE": {
       "TITLE": "Assign service",
+      "SELECT_PACKAGE": "Select service package",
+      "SELECT_SERVICE": "Select individual services",
       "FILTER_DESCRIPTION": "Find service",
       "ADD_BUTTON": "Add",
       "CANCEL_BUTTON": "Cancel",
-      "SUCCESS_MESSAGE": "Selected services were assigned to resource"
+      "SERVICE_SUCCESS_MESSAGE": "Selected services were assigned to resource",
+      "PACKAGE_SUCCESS_MESSAGE": "Selected service package was assigned to resource"
     },
     "REMOVE_SERVICE_FROM_RESOURCE": {
       "TITLE": "Confirm removal",
@@ -2380,6 +2383,11 @@
           "SELECT_VO": "Select organization",
           "FIND_VO": "Find organization...",
           "NO_VO_FOUND": "No matching vo found"
+        },
+        "SERVICE_PACKAGE_SEARCH_SELECT":  {
+          "SELECT_PACKAGE": "Select service package",
+          "FIND_PACKAGE": "Find service package...",
+          "NO_PACKAGE_FOUND": "No matching service package found"
         },
         "RESOURCES_LIST": {
           "TITLE": "Resources",
