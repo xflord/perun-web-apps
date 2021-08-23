@@ -6,6 +6,14 @@
   padding: 0;
 }
 
+#nav-devel-info {
+  font-weight: 500;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 #nav-menu-user-info {
   display: flex;
   flex-direction: row;

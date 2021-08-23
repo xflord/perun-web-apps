@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { InitAuthService, StoreService } from '@perun-web-apps/perun/services';
 
 @Component({
@@ -9,7 +9,8 @@ import { InitAuthService, StoreService } from '@perun-web-apps/perun/services';
 export class AppComponent implements OnInit{
 
   constructor(private store: StoreService,
-              private initAuth: InitAuthService) {
+              private initAuth: InitAuthService,
+              private changeDetector: ChangeDetectorRef) {
   }
 
   public static minWidth = 992;
@@ -34,6 +35,7 @@ export class AppComponent implements OnInit{
   }
 
   setContentHeight(height: number) {
-    this.contentHeight =  'calc(100vh - 84px - '+height+'px)'
+    this.contentHeight =  'calc(100vh - 84px - '+height+'px)';
+    this.changeDetector.detectChanges();
   }
 }
