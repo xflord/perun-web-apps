@@ -10,14 +10,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig, TableWrapperComponent } from '@perun-web-apps/perun/utils';
 import { AddAuthImgDialogComponent } from '../../../components/dialogs/add-auth-img-dialog/add-auth-img-dialog.component';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
-import { AuthService, StoreService } from '@perun-web-apps/perun/services';
+import { StoreService } from '@perun-web-apps/perun/services';
 import { MatTableDataSource } from '@angular/material/table';
 import { RemoveStringValueDialogComponent } from '../../../components/dialogs/remove-string-value-dialog/remove-string-value-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
-import { UserManager, UserManagerSettings } from 'oidc-client';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { MfaService } from '../../../services/mfa.service';
 import { AddTokenInfoDialogComponent } from '../../../components/add-token-info-dialog/add-token-info-dialog.component';
+import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'perun-web-apps-settings-authentication',
@@ -47,8 +47,8 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
               private attributesManagerService: AttributesManagerService,
               private store: StoreService,
               private translate: TranslateService,
-              private authService: AuthService,
-              private mfaService: MfaService) {
+              private mfaService: MfaService,
+              private oauthService: OAuthService) {
     translate.get('AUTHENTICATION.DELETE_IMG_DIALOG_TITLE').subscribe(res => this.removeDialogTitle = res);
     translate.get('AUTHENTICATION.DELETE_IMG_DIALOG_DESC').subscribe(res => this.removeDialogDescription = res);
   }
@@ -58,10 +58,8 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
   child: TableWrapperComponent;
 
   ngOnInit(): void {
-    this.authService.manager.getUser().then(user => {
-      this.accessToken = user.access_token;
-      this.idToken = user.id_token;
-    });
+    this.accessToken = this.oauthService.getAccessToken();
+    this.idToken = this.oauthService.getIdToken();
     this.translate.onLangChange.subscribe(() => {
       this.translate.get('AUTHENTICATION.DELETE_IMG_DIALOG_TITLE').subscribe(res => this.removeDialogTitle = res);
       this.translate.get('AUTHENTICATION.DELETE_IMG_DIALOG_DESC').subscribe(res => this.removeDialogDescription = res);
@@ -95,8 +93,8 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
 
   reAuthenticate() {
     sessionStorage.setItem('mfa_route', '/profile/settings/auth');
-    this.authService.manager = new UserManager(this.getClientSettings());
-    this.authService.manager.signinRedirect();
+    this.oauthService.configure(this.getClientSettings());
+    this.oauthService.loadDiscoveryDocumentAndLogin();
   }
 
   onDeleteImg() {
@@ -119,19 +117,18 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
     });
   }
 
-  getClientSettings(): UserManagerSettings {
+  getClientSettings(): AuthConfig {
     return {
-      authority: this.store.get('oidc_client', 'oauth_authority'),
-      client_id: this.store.get('oidc_client', 'oauth_client_id'),
-      redirect_uri: this.store.get('oidc_client', 'oauth_redirect_uri'),
-      post_logout_redirect_uri: this.store.get('oidc_client', 'oauth_post_logout_redirect_uri'),
-      response_type: this.store.get('oidc_client', 'oauth_response_type'),
+      requestAccessToken: true,
+      issuer: this.store.get('oidc_client', 'oauth_authority'),
+      clientId: this.store.get('oidc_client', 'oauth_client_id'),
+      redirectUri: this.store.get('oidc_client', 'oauth_redirect_uri'),
+      postLogoutRedirectUri: this.store.get('oidc_client', 'oauth_post_logout_redirect_uri'),
+      responseType: this.store.get('oidc_client', 'oauth_response_type'),
       scope: this.store.get('oidc_client', 'oauth_scopes'),
-      filterProtocolClaims: true,
-      loadUserInfo: this.store.get('oidc_client', 'oauth_load_user_info'),
-      automaticSilentRenew: true,
-      silent_redirect_uri: this.store.get('oidc_client', 'oauth_silent_redirect_uri'),
-      extraQueryParams: { 'max_age': 0, 'acr_values': 'https://refeds.org/profile/mfa' }
+      useSilentRefresh: false,
+      sessionChecksEnabled: true,
+      customQueryParams: { 'max_age': 0, 'acr_values': 'https://refeds.org/profile/mfa'}
     };
   }
 

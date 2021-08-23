@@ -46,7 +46,8 @@ export class InitAuthService {
   }
 
   startAuth(): Promise<void> {
-    return this.authService.startAuthentication();
+    this.authService.startAuthentication();
+    return new Promise<void>(() =>{});
   }
 
   /**
@@ -92,9 +93,5 @@ export class InitAuthService {
           .then(() => null)
       );
     }
-  }
-
-  redirectToOriginDestination(): Promise<boolean> {
-    return this.authService.redirectToOriginDestination();
   }
 }
