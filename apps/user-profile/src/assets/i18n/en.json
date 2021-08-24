@@ -45,7 +45,6 @@
   },
   "PROFILE_PAGE": {
     "NAME": "Name",
-    "CHANGE_EMAIL": "Change",
     "MAIL_CHANGE_SUCCESS": "Preferred mail has been changed"
   },
   "IDENTITIES": {
@@ -154,13 +153,14 @@
   },
   "DIALOGS": {
     "CHANGE_EMAIL": {
-      "TITLE": "Change email",
+      "TITLE": "Change preferred email",
       "INPUT_PLACEHOLDER": "New email",
       "CANCEL": "Cancel",
       "CHANGE": "Change",
       "SUCCESS": "Request for changing preferred email has been sent. Please check your mailbox.",
       "PENDING_MAILS_BEGIN": "Validation e-mail has been sent to ",
-      "PENDING_MAILS_END": ". Check your inbox and complete validation by clicking on link in received e-mail."
+      "PENDING_MAILS_END": ". Check your inbox and complete validation by clicking on link in received e-mail.",
+      "EMAIL_ERROR": "Input valid email"
     },
     "ADD_SSH": {
       "TITLE": "Add new ssh key",

@@ -45,7 +45,6 @@
   },
   "PROFILE_PAGE": {
     "NAME": "Jméno",
-    "CHANGE_EMAIL": "Aktualizovat",
     "MAIL_CHANGE_SUCCESS": "Preferovaný email byl změněn"
   },
   "IDENTITIES": {
@@ -154,13 +153,14 @@
   },
   "DIALOGS": {
     "CHANGE_EMAIL": {
-      "TITLE": "Aktualizovat email",
+      "TITLE": "Změnit preferovaný email",
       "INPUT_PLACEHOLDER": "Nový email",
       "CANCEL": "Zrušit",
       "CHANGE": "Změnit",
       "SUCCESS": "Žádost o změnu preferovaného emailu byla odeslána na zadanou adresu.",
       "PENDING_MAILS_BEGIN": "Potvrzovací email byl odeslán na ",
-      "PENDING_MAILS_END": ". Podívejte se do své mailové schránky a dokončete validaci kliknutím na link v emailu."
+      "PENDING_MAILS_END": ". Podívejte se do své mailové schránky a dokončete validaci kliknutím na link v emailu.",
+      "EMAIL_ERROR": "Zadejte validní email"
     },
     "ADD_SSH": {
       "TITLE": "Přidat nový SSH klíč",
