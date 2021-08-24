@@ -551,6 +551,8 @@
         "DATE": "Date",
         "VALUE_BY_EXTERNALS": "Value provided by external source.",
         "VERIFY": "Verify",
+        "DELETE_APPLICATION_TITLE": "Delete application",
+        "DELETE_APPLICATION_DESCRIPTION": "Application with following ID will be deleted.",
         "DELETE_MESSAGE": "Application was deleted",
         "APPROVE_MESSAGE": "Application was approved",
         "VERIFY_MESSAGE": "Application was verified"
