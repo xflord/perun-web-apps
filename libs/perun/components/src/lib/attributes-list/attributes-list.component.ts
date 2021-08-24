@@ -78,6 +78,9 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
   @Input()
   hiddenColumns: string[] = [];
 
+  @Input()
+  emptyListText = 'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.EMPTY_SETTINGS';
+
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngOnChanges() {
