@@ -7,6 +7,7 @@
       <perun-web-apps-group-search-select
         *ngIf="secondEntity === 'group'"
         [groups]="entityValues"
+        [firstSelectedGroup]="specificSecondEntity"
         (groupSelected)="specifySecondEntity($event)">
       </perun-web-apps-group-search-select>
 
