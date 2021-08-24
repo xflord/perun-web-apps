@@ -1,16 +1,18 @@
-<h1 mat-dialog-title>{{title}}</h1>
 <div class="{{theme}}">
+  <h1 mat-dialog-title>{{title}}</h1>
+
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+
   <div *ngIf="!loading" mat-dialog-content class="dialog-container">
     <mat-form-field>
       <input
         matInput
         required
-        (change)= "makePath()"
+        (change)="makePath()"
         [formControl]="nameControl"
         placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.NAME' | translate}}"
       >
-      <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.REQUIRE_NAME' | translate}}</mat-error>
+      <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.RESTRICTION_NAME' | translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -51,10 +53,11 @@
       <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.REQUIRE_PATH' | translate}}</mat-error>
     </mat-form-field>
 
-    <span>{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS' | translate}}</span>
-    <mat-checkbox
-      [(ngModel)]="status"
-      class="ml-5">{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS_HINT' | translate}}</mat-checkbox>
+    <span class="d-flex">{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS' | translate}}
+      <mat-checkbox
+        [(ngModel)]="status"
+        class="ml-3">{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS_HINT' | translate}}</mat-checkbox>
+    </span>
   </div>
   <div *ngIf="!loading" mat-dialog-actions>
     <button

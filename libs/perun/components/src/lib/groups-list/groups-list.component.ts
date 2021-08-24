@@ -13,25 +13,25 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { PageEvent } from '@angular/material/paginator';
 import { Group, GroupResourceStatus, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import {
-  customDataSourceFilterPredicate, customDataSourceSort, downloadData, getDataForExport,
+  customDataSourceFilterPredicate,
+  customDataSourceSort,
+  downloadData,
+  getDataForExport,
   getDefaultDialogConfig,
   getGroupExpiration,
   parseDate,
-  TABLE_ITEMS_COUNT_OPTIONS
+  TABLE_ITEMS_COUNT_OPTIONS,
+  TableWrapperComponent
 } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import {
   ChangeGroupExpirationDialogComponent,
+  EditFacilityResourceGroupVoDialogComponent,
+  EditFacilityResourceGroupVoDialogOptions,
   GroupSyncDetailDialogComponent
 } from '@perun-web-apps/perun/dialogs';
 import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
-import {
-  EditFacilityResourceGroupVoDialogComponent,
-  EditFacilityResourceGroupVoDialogOptions
-} from '@perun-web-apps/perun/dialogs';
 import { formatDate } from '@angular/common';
-import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
-
 
 export interface GroupWithStatus extends RichGroup {
   status?: GroupResourceStatus;
@@ -43,13 +43,12 @@ export interface GroupWithStatus extends RichGroup {
   templateUrl: './groups-list.component.html',
   styleUrls: ['./groups-list.component.scss']
 })
-export class GroupsListComponent implements OnInit, AfterViewInit, OnChanges {
+export class GroupsListComponent implements AfterViewInit, OnChanges {
 
   displayButtons = window.innerWidth > 800;
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
-    this.setDataSource();
   }
 
   @Input()
@@ -73,7 +72,7 @@ export class GroupsListComponent implements OnInit, AfterViewInit, OnChanges {
   private hasMembersGroup = false;
 
   @Input()
-  displayedColumns: string[] = ['select', 'id', 'recent', 'vo', 'name', 'status', 'description', 'expiration', 'menu'];
+  displayedColumns: string[] = ['select', 'id', 'recent', 'vo', 'name', 'status', 'groupStatus', 'description', 'expiration', 'menu'];
 
   @Input()
   disableMembers: boolean;
@@ -140,18 +139,10 @@ export class GroupsListComponent implements OnInit, AfterViewInit, OnChanges {
     this.displayButtons = window.innerWidth > 800;
   }
 
-  ngOnInit(): void {
-    this.shouldHideButtons();
-  }
-
   ngOnChanges() {
-    if (!this.authResolver.isPerunAdminOrObserver()){
-      this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
-    }
     this.disabledRouting = this.disableRouting;
     this.hasMembersGroup = this.checkIfHasMembersGroup();
     this.updateVoNames();
-    this.dataSource = new MatTableDataSource<GroupWithStatus>(this.groups);
     this.setDataSource();
     if (this.authType) {
       this.removeAuth = this.setAuth();
@@ -228,13 +219,17 @@ export class GroupsListComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   setDataSource() {
-    if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: Group|RichGroup, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this, true);
-      this.dataSource.sortData = (data: Group[] | RichGroup[], sort: MatSort) => customDataSourceSort(data, sort, this.getSortDataForColumn, this);
+    if (!this.dataSource) {
+      this.dataSource = new MatTableDataSource<GroupWithStatus>();
       this.dataSource.sort = this.sort;
-      this.dataSource.filter = this.filter;
       this.dataSource.paginator = this.child.paginator;
+      this.dataSource.filterPredicate = (data: Group|RichGroup, filter: string) =>
+        customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this, true);
+      this.dataSource.sortData = (data: Group[] | RichGroup[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getSortDataForColumn, this);
     }
+    this.dataSource.filter = this.filter;
+    this.dataSource.data = this.groups;
   }
 
   canBeSelected = (group: GroupWithStatus): boolean => (group.name !== 'members' || !this.disableMembers) && !this.disableSelect(group)
@@ -263,14 +258,16 @@ export class GroupsListComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit(): void {
-    if(this.vo === undefined && this.groups.length !== 0) {
-      this.vo  = {
+    if (this.vo === undefined && this.groups.length !== 0) {
+      this.vo = {
         id: this.groups[0].voId,
         beanName: "Vo"
       };
     }
-
-    this.dataSource.paginator = this.child.paginator;
+    this.shouldHideButtons();
+    if (!this.authResolver.isPerunAdminOrObserver()){
+      this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
+    }
   }
 
   onMoveGroup(group: GroupWithStatus) {
@@ -383,5 +380,9 @@ export class GroupsListComponent implements OnInit, AfterViewInit, OnChanges {
 
   canManageGroup(group: GroupWithStatus): boolean {
     return this.authResolver.isThisGroupAdmin(group.id) || this.authResolver.isThisVoAdmin(group.voId);
+  }
+
+  getStatusAttribute(grp: RichGroup) {
+    return grp.attributes.find(att => att.baseFriendlyName === 'groupStatus').value.toString();
   }
 }

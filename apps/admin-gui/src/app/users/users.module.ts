@@ -58,6 +58,7 @@ import { SharedModule } from '../shared/shared.module';
 import { DashboardCardComponent } from './pages/user-detail-page/user-dashboard/dashboard-card/dashboard-card.component';
 import { DashboardRecentlyViewedButtonFieldComponent } from './pages/user-detail-page/user-dashboard/dashboard-recently-viewed-button-field/dashboard-recently-viewed-button-field.component';
 import { UserFacilitiesComponent } from './pages/user-detail-page/user-facilities/user-facilities.component';
+import { UserAccountsComponent } from './pages/user-detail-page/user-accounts/user-accounts.component';
 
 
 @NgModule({
@@ -80,6 +81,7 @@ import { UserFacilitiesComponent } from './pages/user-detail-page/user-facilitie
     DashboardCardComponent,
     DashboardRecentlyViewedButtonFieldComponent,
     UserFacilitiesComponent,
+    UserAccountsComponent,
   ],
   exports: [
     UserDetailPageComponent,

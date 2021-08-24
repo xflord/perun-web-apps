@@ -150,7 +150,8 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
   }
 
   addWebAuthn() {
-    window.open('https://id.muni.cz/simplesaml/module.php/muni/register-webauthn.php', '_blank');
+    const url = this.store.get('mfa', 'webauthn_url')
+    window.open(url, '_blank');
   }
 
   private loadImage() {
@@ -218,6 +219,7 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
               }
             }
             this.dataSource = new MatTableDataSource<MFAToken>(this.tokens);
+            this.dataSource.paginator = this.children.first.paginator;
             this.loading = false;
           });
         }

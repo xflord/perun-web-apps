@@ -17,3 +17,4 @@ export * from './lib/change-group-expiration-dialog/change-group-expiration-dial
 export * from './lib/change-vo-expiration-dialog/change-vo-expiration-dialog.component';
 export * from './lib/change-sponsorship-expiration-dialog/change-sponsorship-expiration-dialog.component';
 export * from './lib/universal-confirmation-dialog/universal-confirmation-dialog.component';
+export * from './lib/change-group-resource-assigment-dialog/change-group-resource-assigment-dialog.component';

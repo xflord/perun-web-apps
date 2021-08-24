@@ -12,11 +12,8 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService,GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 import {
-  AsyncValidatorFn,
   FormControl,
-  ValidatorFn,
   Validators,
-  AbstractControl,
   FormBuilder,
   FormGroup,
 } from '@angular/forms';
@@ -26,6 +23,7 @@ import { Role } from '@perun-web-apps/perun/models';
 import { of, timer } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { enableFormControl } from '@perun-web-apps/perun/utils';
 
 export interface CreateSponsoredMemberDialogData {
   entityId?: number;
@@ -109,7 +107,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     this.voSponsors = this.data.sponsors;
     this.isSponsor = this.guiAuthResolver.principalHasRole(Role.SPONSOR, 'Vo', this.data.voId);
     this.isPerunAdmin = this.guiAuthResolver.isPerunAdmin();
-
+    this.sponsorType = this.isSponsor ? 'self' : 'other';
     this.userControl = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -234,15 +232,6 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
 
   }
 
-  enableFormControl(control: AbstractControl, validators: ValidatorFn[], asyncValidators: AsyncValidatorFn[] = []) {
-    control.enable();
-    control.clearValidators();
-    control.clearAsyncValidators();
-    control.setValidators(validators);
-    control.setAsyncValidators(asyncValidators);
-    control.updateValueAndValidity();
-  }
-
   onNamespaceChanged(namespc: string) {
     const rules = this.parsedRules.get(namespc);
     const login = this.namespaceControl.get('login');
@@ -252,16 +241,17 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
 
     if (rules.login !== 'disabled') {
       const validators = rules.login === 'optional' ? [] : [Validators.required];
-      this.enableFormControl(login, validators);
+      enableFormControl(login, validators);
     } else {
       login.disable();
       login.setValue('');
     }
     if (rules.password !== 'disabled') {
       const validators = rules.password === 'optional' ? [] : [Validators.required];
-      this.enableFormControl(password, validators, [loginAsyncValidator(namespc, this.usersService, this.apiRequestConfiguration)]);
-      this.enableFormControl(passwordReset, []);
-      this.enableFormControl(showPassword, []);
+      enableFormControl(password, validators, [loginAsyncValidator(namespc, this.usersService, this.apiRequestConfiguration)]);
+      enableFormControl(passwordReset, []);
+      enableFormControl(showPassword, []);
+      this.namespaceControl.get('passwordReset').setValue(false);
     } else {
       password.disable();
       password.setValue('');

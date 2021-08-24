@@ -100,6 +100,7 @@ export class AdminGuiConfigService {
       .then(() => this.appConfigService.loadAppInstanceConfig())
       .then(() => this.setApiUrl())
       .then(() => this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs))
+      .then(() => this.appConfigService.setInstanceFavicon())
       .then(() => this.initAuthService.verifyAuth())
       .catch(err => {
         if (err === 'Invalid path') {

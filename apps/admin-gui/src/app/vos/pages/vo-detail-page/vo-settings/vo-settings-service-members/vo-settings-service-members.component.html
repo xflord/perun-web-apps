@@ -1,0 +1,33 @@
+<h1 class="page-subtitle">{{'VO_DETAIL.SETTINGS.SERVICE_MEMBERS.TITLE' | translate}}</h1>
+<perun-web-apps-refresh-button (refresh)="refresh()"></perun-web-apps-refresh-button>
+<button
+  (click)="createServiceMember()"
+  *ngIf="!loading"
+  class="mr-2"
+  color="accent"
+  mat-flat-button>
+  {{'VO_DETAIL.SETTINGS.SERVICE_MEMBERS.CREATE' | translate}}
+</button>
+<button
+  (click)="onRemoveMembers()"
+  *ngIf="removeAuth"
+  [disabled]="selection.isEmpty()"
+  class="mr-2"
+  color="warn"
+  mat-flat-button>
+  {{'VO_DETAIL.SETTINGS.SERVICE_MEMBERS.DELETE' | translate}}
+</button>
+<perun-web-apps-immediate-filter
+  (filter)="applyFilter($event)"
+  [placeholder]="'VO_DETAIL.SETTINGS.SERVICE_MEMBERS.FILTER'">
+</perun-web-apps-immediate-filter>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+<perun-web-apps-members-list
+  (page)="pageChanged($event)"
+  *ngIf="!loading"
+  [displayedColumns]="['checkbox','id', 'type', 'fullName', 'status']"
+  [filter]="searchString"
+  [members]="members"
+  [pageSize]="pageSize"
+  [selection]="selection"
+></perun-web-apps-members-list>

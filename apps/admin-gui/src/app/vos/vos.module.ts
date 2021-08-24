@@ -59,9 +59,8 @@ import { GroupSettingsExtsourcesComponent } from './pages/group-detail-page/grou
 import { VoStatisticsComponent } from './pages/vo-detail-page/vo-statistics/vo-statistics.component';
 import { GroupStatisticsComponent } from './pages/group-detail-page/group-statistics/group-statistics.component';
 import { ApplicationFormManageGroupsComponent } from './components/application-form-manage-groups/application-form-manage-groups.component';
-import { MemberOverviewMembershipComponent } from './pages/member-detail-page/member-overview/member-overview-membership/member-overview-membership.component';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
-import { MemberOverviewGroupsComponent } from './pages/member-detail-page/member-overview/member-overview-groups/member-overview-groups.component';
+import { VoSettingsServiceMembersComponent } from './pages/vo-detail-page/vo-settings/vo-settings-service-members/vo-settings-service-members.component';
 
 @NgModule({
   imports: [
@@ -132,8 +131,7 @@ import { MemberOverviewGroupsComponent } from './pages/member-detail-page/member
     VoStatisticsComponent,
     GroupStatisticsComponent,
     ApplicationFormManageGroupsComponent,
-    MemberOverviewMembershipComponent,
-    MemberOverviewGroupsComponent,
+    VoSettingsServiceMembersComponent,
   ],
 })
 export class VosModule {}

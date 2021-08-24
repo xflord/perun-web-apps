@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -27,10 +26,9 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 export class ApplicationsListComponent implements OnChanges, AfterViewInit {
 
   constructor(
-    private authResolver: GuiAuthResolver,
-    private changeDetector: ChangeDetectorRef) { }
+    private authResolver: GuiAuthResolver) { }
 
-  @ViewChild(MatSort) set matSort(ms: MatSort) {
+  @ViewChild(MatSort, {static: true}) set matSort(ms: MatSort) {
     this.sort = ms;
   }
 
@@ -69,16 +67,13 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
-    this.setDataSource();
-    this.changeDetector.detectChanges();
   }
 
   ngOnChanges() {
-    this.dataSource = new MatTableDataSource<Application>(this.applications);
     this.setDataSource();
   }
 
-  getDataForColumn(data: Application, column: string, outerThis: ApplicationsListComponent): string{
+  getSortDataForColumn(data: Application, column: string, outerThis: ApplicationsListComponent): string{
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -102,7 +97,7 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  getExportDataForColumn(data: Application, column: string, outerThis: ApplicationsListComponent): string{
+  getDataForColumn(data: Application, column: string, outerThis: ApplicationsListComponent): string{
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -139,21 +134,21 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
   }
 
   exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getExportDataForColumn, this), format);
+    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getDataForColumn, this), format);
   }
 
   setDataSource() {
-    // don't set the data if the paginator was not loaded yet
-    if (!this.child.paginator) {
-      return;
-    }
-    if (this.dataSource) {
-      this.dataSource.paginator = this.child.paginator;
+    if (!this.dataSource) {
+      this.dataSource = new MatTableDataSource<Application>();
       this.dataSource.sort = this.sort;
-      this.dataSource.filterPredicate = (data: Application, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
-      this.dataSource.sortData = (data: Application[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.paginator = this.child.paginator;
+      this.dataSource.filterPredicate = (data: Application, filter: string) =>
+        customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: Application[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getSortDataForColumn, this);
     }
     this.dataSource.filter = this.filterValue;
+    this.dataSource.data = this.applications;
   }
 
 

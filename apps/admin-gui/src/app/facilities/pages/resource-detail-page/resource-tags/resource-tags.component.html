@@ -1,6 +1,15 @@
 <h1 class="page-subtitle">{{'RESOURCE_DETAIL.TAGS.TITLE' | translate}}</h1>
 <perun-web-apps-refresh-button (refresh)="updateData()"></perun-web-apps-refresh-button>
 <button
+  (click)="create()"
+  *ngIf="createAuth"
+  class="mr-2"
+  color="accent"
+  mat-flat-button>
+  {{'VO_DETAIL.RESOURCES.TAGS.CREATE_BUTTON' | translate}}
+</button>
+
+<button
   *ngIf="addAuth"
   mat-flat-button
   class="mr-2"

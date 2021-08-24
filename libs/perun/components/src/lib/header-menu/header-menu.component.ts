@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { AuthzResolverService, User } from '@perun-web-apps/perun/openapi';
 import { AuthService, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './header-menu.component.html',
   styleUrls: ['./header-menu.component.scss']
 })
-export class HeaderMenuComponent implements OnInit {
+export class HeaderMenuComponent {
 
   @Input()
   user: User;
@@ -16,8 +16,6 @@ export class HeaderMenuComponent implements OnInit {
   iconColor: string;
   @Input()
   textColor: string;
-  @Input()
-  showReloadRoles = false;
   @Input()
   logoutEnabled: boolean;
   @Input()
@@ -30,16 +28,8 @@ export class HeaderMenuComponent implements OnInit {
               private notificator: NotificatorService,
               private translateService: TranslateService) { }
 
-  ngOnInit(): void {
-  }
-
   redirectToUrl() {
     window.open(this.url, '_blank');
-  }
-
-  reloadRoles() {
-    this.authzResolverService.loadAuthorizationComponents().subscribe(() =>
-      this.notificator.showSuccess(this.translateService.instant('NAV.RELOAD_ROLES_SUCCESS')));
   }
 
   onLogOut() {

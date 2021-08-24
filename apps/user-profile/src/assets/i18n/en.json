@@ -149,7 +149,7 @@
     "ADDED": "Added",
     "USED": "Used",
     "NO_TOKENS": "You don't have any tokens for multi-factor authentication",
-    "ADD_WEBAUTHN": "Add Webauthn device",
+    "ADD_WEBAUTHN": "Add Webauthn authenticator",
     "ADD_TOTP": "Add TOTP device"
   },
   "DIALOGS": {

@@ -16,6 +16,7 @@ import { MatDialogConfig } from '@angular/material/dialog';
 import { formatDate } from '@angular/common';
 import { MatSort } from '@angular/material/sort';
 import { saveAs } from 'file-saver';
+import { AbstractControl, AsyncValidatorFn, ValidatorFn } from '@angular/forms';
 
 
 export const TABLE_ITEMS_COUNT_OPTIONS = [5, 10, 25, 100];
@@ -287,7 +288,7 @@ export function addRecentlyVisitedObject(item: any) {
     const recent: any[] = JSON.parse(localStorage.getItem('recent'));
     let object;
     if (item.beanName === 'Group') {
-      object = {id: item.id, name: item.shortName, type: item.beanName, voId: item.voId};
+      object = {id: item.id, name: item.shortName, fullName: item.name, type: item.beanName, voId: item.voId};
     } else {
       object = {id: item.id, name: item.name, type: item.beanName, voId: item.voId};
     }
@@ -632,6 +633,7 @@ export function parseDate(value: string): string{
   return formatDate(value, 'd.M.yyyy', 'en');
 }
 
+const collator = new Intl.Collator('cs',{numeric: true});
 export function customDataSourceSort(data: any[], sort: MatSort, getDataForColumn: (data: any, column: string, outerThis: any) => string, outerThis:any){
   const active = sort.active;
   const direction = sort.direction;
@@ -641,7 +643,6 @@ export function customDataSourceSort(data: any[], sort: MatSort, getDataForColum
   return data.sort((a, b) => {
     const dataStrA = getDataForColumn(a, active, outerThis);
     const dataStrB = getDataForColumn(b, active, outerThis);
-    const collator = new Intl.Collator('cs',{numeric: true});
     return collator.compare(dataStrA, dataStrB) * (direction === 'asc' ? 1 : -1);
   });
 }
@@ -713,4 +714,13 @@ export function compareFnUser(a,b) {
     second =  b.lastName ? b.lastName : b.firstName ?? '';
   }
   return first >second ? 1 : (first === second ? 0 : -1);
+}
+
+export function enableFormControl(control: AbstractControl, validators: ValidatorFn[], asyncValidators: AsyncValidatorFn[] = []) {
+  control.enable();
+  control.clearValidators();
+  control.clearAsyncValidators();
+  control.setValidators(validators);
+  control.setAsyncValidators(asyncValidators);
+  control.updateValueAndValidity();
 }

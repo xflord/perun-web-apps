@@ -1,6 +1,7 @@
 {
   "config": "default",
   "api_url": "https://perun-dev.cesnet.cz/oauth/rpc/",
+  "isInstanceFaviconContained": false,
   "document_title": "Perun Web Gui",
   "supportedLanguages": [
     "en"
@@ -53,15 +54,15 @@
         "title_en": "ABOUT",
         "elements": [
           {
-            "link": "https://perun-aai.org/",
+            "link_en": "https://perun-aai.org/",
             "label_en": "Perun web"
           },
           {
-            "link": "https://perun-aai.org/team",
+            "link_en": "https://perun-aai.org/team",
             "label_en": "Perun team"
           },
           {
-            "link": "https://perun-aai.org/",
+            "link_en": "https://perun-aai.org/",
             "label_en": "Privacy policy"
           }
         ]
@@ -70,11 +71,11 @@
         "title_en": "HELP",
         "elements": [
           {
-            "link": "https://perun-aai.org/documentation/users-documentation",
+            "link_en": "https://perun-aai.org/documentation/users-documentation",
             "label_en": "Documentation"
           },
           {
-            "link": "https://perun-aai.org/documentation/technical-documentation",
+            "link_en": "https://perun-aai.org/documentation/technical-documentation",
             "label_en": "API Documentation"
           },
           {
@@ -88,7 +89,7 @@
         "elements": [
           {
             "icon": "mail",
-            "link": "",
+            "link_en": "",
             "label_en": "perun@cesnet.cz"
           }
         ]

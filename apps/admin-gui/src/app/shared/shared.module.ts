@@ -143,7 +143,6 @@ import { EditUserDialogComponent } from './components/dialogs/edit-user-dialog/e
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { DeleteTaskResultDialogComponent } from './components/dialogs/delete-task-result-dialog/delete-task-result-dialog.component';
 import { EditApplicationFormItemDataDialogComponent } from './components/dialogs/edit-application-form-item-data-dialog/edit-application-form-item-data-dialog.component';
-import { CreateServiceDialogComponent } from './components/dialogs/create-service-dialog/create-service-dialog.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { CreateSponsoredMemberDialogComponent } from './components/dialogs/create-sponsored-member-dialog/create-sponsored-member-dialog.component';
 import { GenerateSponsoredMembersDialogComponent } from './components/dialogs/generate-sponsored-members-dialog/generate-sponsored-members-dialog.component';
@@ -169,6 +168,9 @@ import { AddGroupToRegistrationComponent } from './components/dialogs/add-group-
 import { OneEntityAttributePageComponent } from './components/one-entity-attribute-page/one-entity-attribute-page.component';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
 import { AddResourceTagToResourceDialogComponent } from './components/dialogs/add-resource-tag-to-resource-dialog/add-resource-tag-to-resource-dialog.component';
+import { CreateServiceMemberDialogComponent } from './components/create-service-member-dialog/create-service-member-dialog.component';
+import { MemberOverviewMembershipComponent } from './components/member-overview-membership/member-overview-membership.component';
+import { MemberOverviewGroupsComponent } from './components/member-overview-groups/member-overview-groups.component';
 
 @NgModule({
   imports: [
@@ -301,6 +303,8 @@ import { AddResourceTagToResourceDialogComponent } from './components/dialogs/ad
     AttributeFriendlyNamePipe,
     StatisticsCardComponent,
     OneEntityAttributePageComponent,
+    MemberOverviewMembershipComponent,
+    MemberOverviewGroupsComponent,
   ],
   declarations: [
     PerunNavComponent,
@@ -402,7 +406,6 @@ import { AddResourceTagToResourceDialogComponent } from './components/dialogs/ad
     EditUserDialogComponent,
     DeleteTaskResultDialogComponent,
     EditApplicationFormItemDataDialogComponent,
-    CreateServiceDialogComponent,
     UsersListComponent,
     EditUserDialogComponent,
     CreateSponsoredMemberDialogComponent,
@@ -427,6 +430,9 @@ import { AddResourceTagToResourceDialogComponent } from './components/dialogs/ad
     AddGroupToRegistrationComponent,
     OneEntityAttributePageComponent,
     AddResourceTagToResourceDialogComponent,
+    CreateServiceMemberDialogComponent,
+    MemberOverviewMembershipComponent,
+    MemberOverviewGroupsComponent,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe],
 })

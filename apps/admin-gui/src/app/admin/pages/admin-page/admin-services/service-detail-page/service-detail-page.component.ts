@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { fadeIn } from '@perun-web-apps/perun/animations';
 import { Service, ServicesManagerService } from '@perun-web-apps/perun/openapi';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SideMenuService } from '../../../../../core/services/common/side-menu.service';
 import { SideMenuItemService } from '../../../../../shared/side-menu/side-menu-item.service';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateEditServiceDialogComponent } from '../../../../../shared/components/dialogs/create-edit-service-dialog/create-edit-service-dialog.component';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { DeleteServiceDialogComponent } from '../../../../../shared/components/dialogs/delete-service-dialog/delete-service-dialog.component';
 
 @Component({
   selector: 'app-service-detail-page',
@@ -21,6 +22,7 @@ export class ServiceDetailPageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private serviceManager: ServicesManagerService,
     private sideMenuService: SideMenuService,
     private sideMenuItemService: SideMenuItemService,
@@ -60,6 +62,23 @@ export class ServiceDetailPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe( result => {
       if (result){
         this.ngOnInit();
+      }
+    });
+  }
+
+  removeService() {
+    const config = getDefaultDialogConfig();
+    config.width = '600px';
+    config.data = {
+      theme: 'service-theme',
+      services: [this.service]
+    };
+    const dialogRef = this.dialog.open(DeleteServiceDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log(result);
+        this.router.navigate(['/admin/services']);
       }
     });
   }

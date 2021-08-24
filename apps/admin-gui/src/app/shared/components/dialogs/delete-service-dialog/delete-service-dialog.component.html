@@ -1,32 +1,9 @@
-<h1 mat-dialog-title>{{'DIALOGS.DELETE_SERVICE.TITLE' | translate}}</h1>
 <div class="{{theme}}">
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <div *ngIf="!loading" mat-dialog-content>
-    <p>{{'DIALOGS.DELETE_SERVICE.DESCRIPTION' | translate}}</p>
-    <div class="font-weight-bold">
-      {{'DIALOGS.DELETE_SERVICE.ASK' | translate}}
-    </div>
-    <table mat-table [dataSource]="dataSource" class="w-100">
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let service"> {{service.name}} </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="font-weight-bolder"></tr>
-      <tr mat-row *matRowDef="let service; columns: displayedColumns;"></tr>
-    </table>
-  </div>
-  <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
-      {{'DIALOGS.DELETE_SERVICE.CANCEL' | translate}}</button>
-    <button
-      mat-flat-button
-      class="ml-2"
-      color="warn"
-      [disabled]="loading"
-      (click)="onDelete()">
-      {{'DIALOGS.DELETE_SERVICE.DELETE' | translate}}</button>
-  </div>
+  <app-delete-entity-dialog
+    (deleted)="onSubmit($event)"
+    [anotherMessage]="anotherMessage"
+    [entityNames]="dataSource"
+    [entityType]="'services'"
+    [relations]="relations">
+  </app-delete-entity-dialog>
 </div>

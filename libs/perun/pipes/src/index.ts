@@ -13,3 +13,4 @@ export * from './lib/parse-date.pipe';
 export * from './lib/technical-owners.pipe';
 export * from './lib/filter-unique-objects.pipe';
 export * from './lib/parse-group-name.pipe';
+export * from './lib/localised-link.pipe'

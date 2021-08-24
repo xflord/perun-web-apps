@@ -149,7 +149,7 @@
     "ADDED": "Přidáno",
     "USED": "Naposledy použito",
     "NO_TOKENS": "Nemáte žádné tokeny pro multi-factor authentication.",
-    "ADD_WEBAUTHN": "Přidat zařízení Webauthn",
+    "ADD_WEBAUTHN": "Přidat Webauthn autentikátor",
     "ADD_TOTP": "Přidat zařízení TOTP"
   },
   "DIALOGS": {

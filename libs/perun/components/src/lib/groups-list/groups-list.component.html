@@ -1,6 +1,4 @@
-<div
-     [hidden]="groups.length === 0 || dataSource.filteredData.length === 0"
-     class="card mt-2">
+<div [hidden]="groups.length === 0 || !dataSource || dataSource.filteredData.length === 0" class="card mt-2">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     (page)="page.emit($event)"
@@ -79,6 +77,19 @@
             </perun-web-apps-group-resource-status>
           </td>
         </ng-container>
+      <ng-container matColumnDef="groupStatus">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.TABLE_GROUP_STATUS' | translate}}</th>
+        <td *matCellDef="let group" mat-cell>
+          <i class="material-icons {{getStatusAttribute(group) | memberStatusIconColor}}"
+             matTooltip="{{getStatusAttribute(group)}}"
+             matTooltipClass="status-tooltip"
+             matTooltipPosition="left">
+              <span>
+                {{getStatusAttribute(group) | memberStatusIcon}}
+              </span>
+          </i>
+        </td>
+      </ng-container>
         <ng-container matColumnDef="description">
           <th *matHeaderCellDef mat-header-cell
               mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.TABLE_GROUP_DESCRIPTION' | translate}}</th>
@@ -133,6 +144,6 @@
   {{'SHARED_LIB.UI.ALERTS.NO_GROUPS' | translate}}
 </app-alert>
 
-<app-alert *ngIf="dataSource.filteredData.length === 0 && groups.length !== 0" alert_type="warn">
+<app-alert *ngIf="!!dataSource && dataSource.filteredData.length === 0 && groups.length !== 0" alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
 </app-alert>

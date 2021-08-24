@@ -1,0 +1,73 @@
+<h1 class="page-title">{{'USER_DETAIL.ACCOUNTS.TITLE' | translate}}</h1>
+<mat-spinner *ngIf="initLoading"></mat-spinner>
+<div class="d-flex">
+  <perun-web-apps-vo-search-select
+    (voSelected)="loadMember($event)"
+    *ngIf="!initLoading"
+    [vos]="vos"
+    class="w-50">
+
+  </perun-web-apps-vo-search-select>
+</div>
+<mat-tab-group *ngIf="!initLoading">
+  <mat-tab>
+    <ng-template matTabLabel>
+      {{'USER_DETAIL.ACCOUNTS.STATUS' | translate}}
+    </ng-template>
+    <ng-template matTabContent>
+      <mat-spinner *ngIf="loading"></mat-spinner>
+      <div *ngIf="!loading">
+        <div class="mt-4 mb-4">
+          <span class="subtitle mr-2">{{'USER_DETAIL.ACCOUNTS.MEMBER' | translate}}:</span>
+          <a [routerLink]="['/organizations', selectedVo.id, 'members', member.id]" class="member-link"
+             queryParamsHandling="merge">{{member.id}}
+          </a>
+        </div>
+        <app-member-overview-membership
+          [member]="member"
+          [vo]="selectedVo">
+        </app-member-overview-membership>
+        <p class="mt-4 subtitle">{{'USER_DETAIL.ACCOUNTS.GROUPS' | translate}}</p>
+        <perun-web-apps-groups-list
+          *ngIf="!loading"
+          [displayedColumns]="['id', 'recent', 'name', 'description', 'groupStatus', 'expiration']"
+          [groups]="groups">
+        </perun-web-apps-groups-list>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template matTabLabel>
+      {{'USER_DETAIL.ACCOUNTS.MEMBER_ATT' | translate}}
+    </ng-template>
+    <ng-template matTabContent>
+      <mat-spinner *ngIf="loading"></mat-spinner>
+      <app-one-entity-attribute-page *ngIf="!loading" [entityId]="member.id" [entity]="'member'">
+      </app-one-entity-attribute-page>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template matTabLabel>
+      {{'USER_DETAIL.ACCOUNTS.MEMBER_GROUP_ATT' | translate}}
+    </ng-template>
+    <ng-template matTabContent>
+      <mat-spinner *ngIf="loading"></mat-spinner>
+      <app-two-entity-attribute-page *ngIf="!loading" [firstEntityId]="member.id" [firstEntity]="'member'"
+                                     [secondEntity]="'group'"></app-two-entity-attribute-page>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template matTabLabel>
+      {{'USER_DETAIL.ACCOUNTS.MEMBER_RESOURCE_ATT' | translate}}
+    </ng-template>
+    <ng-template matTabContent>
+      <mat-spinner *ngIf="loading"></mat-spinner>
+      <app-two-entity-attribute-page *ngIf="!loading" [firstEntityId]="member.id" [firstEntity]="'member'"
+                                     [secondEntity]="'resource'"></app-two-entity-attribute-page>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
+

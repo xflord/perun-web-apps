@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { ChangeGroupResourceAssigmentDialogComponent } from '../../../../dialogs/src/lib/change-group-resource-assigment-dialog/change-group-resource-assigment-dialog.component';
+import { ChangeGroupResourceAssigmentDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 @Component({
   selector: 'perun-web-apps-group-resource-status',
