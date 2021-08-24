@@ -755,6 +755,10 @@
   },
   "SERVICE_DETAIL": {
     "ENTITY": "Service",
+    "STATUS": "Status",
+    "STATUS_CHANGE_SUCCESS": "Service status was successfully changed",
+    "ENABLED": "Enabled",
+    "DISABLED": "Disabled",
     "DESCRIPTION": "Description",
     "REQUIRED_ATTRIBUTES": {
       "TITLE": "Required attributes",
