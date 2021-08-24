@@ -18,8 +18,6 @@
     "LOGOUT": "Log out",
     "PROFILE": "Profile",
     "NOTIFICATIONS_TOOLTIP": "Recent notifications",
-    "RELOAD_ROLES": "Reload roles",
-    "RELOAD_ROLES_SUCCESS": "Roles reloaded",
     "OTHER_APPLICATIONS": "Other applications"
   },
   "MAIN_MENU": {
@@ -484,6 +482,12 @@
         "FILTER": "Filter by name or ID",
         "SPONSOR_EXISTING": "Sponsor existing member",
         "NO_SPONSORS": "This organization has no members with the role SPONSOR"
+      },
+      "SERVICE_MEMBERS": {
+        "TITLE": "Service accounts",
+        "FILTER": "Filter by name or id or whatever",
+        "CREATE": "Create",
+        "DELETE": "Remove"
       }
     },
     "APPLICATION": {
@@ -787,6 +791,7 @@
       "EXTSOURCES": "External sources",
       "SPONSORS": "Sponsors",
       "SPONSORED_MEMBERS": "Sponsored members",
+      "SERVICE_MEMBERS": "Service accounts",
       "STATISTICS": "Statistics"
     },
     "FACILITY": {
@@ -877,7 +882,8 @@
       "RESOURCES": "Resources",
       "ASSOCIATED_USERS": "Associated users",
       "ENTITY": "User",
-      "USER_TYPE": "User type"
+      "USER_TYPE": "User type",
+      "ACCOUNTS": "Accounts"
     },
     "SERVICE": {
       "OVERVIEW": "Overview",
@@ -1242,7 +1248,7 @@
       "AVAILABLE_TAGS": "Available tags",
       "SUBJECT": "Subject",
       "TEXT": "Text",
-      "SHOW_TAGS": "Show tags",
+      "SHOW_TAGS": "Add tags",
       "HIDE_TAGS": "Hide tags",
       "TAGS_DESCRIPTION": "Following tags can be used in mail's subject and text and are replaced by actual data on sending. Just choose place where you want tag and click on tag button. When no data for tag is found, it's replaced by whitespace.",
       "APPLICATION_RELATED_SECTION": "Application related",
@@ -1301,7 +1307,8 @@
       "INVITATIONLINKFED_DESCRIPTION": "link for Shibboleth IdP (federation) authentication",
       "INVITATIONLINKCERT_DESCRIPTION": "link for personal certificate authentication",
       "INVITATIONLINKNON_DESCRIPTION": "link without any authentication",
-      "INVALID_NOTIFICATION": "Notification with selected type and selected application type already exist."
+      "INVALID_NOTIFICATION": "Notification with selected type and selected application type already exist.",
+      "TAG_HINT": "Click to add tag"
     },
     "NOTIFICATIONS_COPY_MAILS": {
       "TITLE": "Copy mail notifications from Vo/group",
@@ -1580,7 +1587,7 @@
       "RECURRENCE": "Recurrence:",
       "PATH": "Script path:",
       "STATUS_HINT": "Enabled/Disabled",
-      "REQUIRE_NAME": "Name cannot be empty",
+      "RESTRICTION_NAME": "Name cannot be empty and must contain only letters, digits and _",
       "REQUIRE_PATH": "Script path cannot be empty",
       "INVALID_DELAY": "Delay must be a number",
       "INVALID_RECURRENCE": "Recurrence must be a number",
@@ -1588,11 +1595,8 @@
       "EDIT_SUCCESS": "Service was edited"
     },
     "DELETE_SERVICE": {
-      "TITLE": "Delete service",
-      "DESCRIPTION": "Following items will be removed",
-      "ASK": "Do you want to proceed?",
-      "CANCEL": "Cancel",
-      "DELETE": "Delete",
+      "DESTINATION_RELATION": "Destinations",
+      "MORE_INFORMATION": "Force delete also stops (de)provisioning of these services. You should firstly delete all relations to users/groups and after propagation you can force delete these services.",
       "SUCCESS": "Service deleted"
     },
     "ADD_MEMBER_TO_RESOURCE": {
@@ -1939,6 +1943,46 @@
     },
     "CHANGE_SPONSORSHIP_EXPIRATION": {
       "TITLE": "Change sponsorship expiration"
+    },
+    "CREATE_SERVICE_MEMBER": {
+      "TITLE": "Create service account",
+      "CREATE": "Create",
+      "CANCEL": "Cancel",
+      "CREATE_IDENTITY": "Create service identity",
+      "NAME": "Account name",
+      "EMAIL": "Email",
+      "NAMESPACE": "Namespace",
+      "LOGIN": "Login",
+      "SUBJECT_DN": "Subject DN",
+      "ISSUER_DN": "Issuer DN",
+      "ASSOCIATE_USERS": "Associate real users",
+      "ASSOCIATED_USERS": "To be associated:",
+      "SEARCH_PLACEHOLDER": "Search members by id or name",
+      "SEARCH_INFO": "Search for members to be added:",
+      "SET_PASSWORD": "Set password",
+      "PASSWORD": "Password",
+      "PASSWORD_AGAIN": "Re-type password",
+      "PASSWORD_INFO": "Password must:\n - contain only printing (non-accented) characters\n - be at least 10 characters long\n - consist of at least 3 of 4 character groups:\n    - lower-case letters\n    - upper-case letters\n    - digits\n    - special characters",
+      "ADD_USER": "Add",
+      "SUCCESS_MEMBER": "Service account has been created successfully",
+      "SUCCESS_PWD": "Password has been set successfully",
+      "PWD_DONT_MATCH": "Passwords do not match",
+      "PWD_WEAK": "Password does not meet the requirements",
+      "PWD_SHORT": "Password is too short",
+      "LOGIN_FORMAT": "Login has to start with a letter and consist only of characters: a-z0-9_-",
+      "LOGIN_LONG": "Login is too long",
+      "LOGIN_SHORT": "Login is too short",
+      "LOGIN_EXISTS": "Login already exists",
+      "NEXT": "Next",
+      "BACK": "Back",
+      "PASSWORD_NOT_SUPPORTED": "Currently selected namespace does not support setting of the password.",
+      "EMAIL_INVALID": "Enter a valid email address",
+      "FIELD_EMPTY": "This field cannot be empty",
+      "MINIMAL_USERS": "At least 1 user has to be assigned.",
+      "LOGIN_DISABLED": "To enter the login, you need to select a namespace first",
+      "SET_CREDENTIALS": "Set credentials",
+      "PASSWORD_RANDOM": "Set password later",
+      "ENTER_PASSWORD": "Set password now"
     }
   },
   "MEMBERS_LIST": {
@@ -2067,7 +2111,7 @@
       "NOT_MANAGER_INFO_NO_USER_PROFILE": "If you want to administrate information about yourself you can look on your profile",
       "NOT_MANAGER_INFO": "If you want to administrate information about yourself please choose one of the options",
       "GO_TO_MY_PROFILE": "See My profile",
-      "GO_TO_USER_PROFILE": "Go User Profile Application",
+      "GO_TO_USER_PROFILE": "Go to",
       "MANAGEABLE_ENTITIES": "Manageable entities",
       "CARD_TITLE_VOADMIN": "Manager in Organizations",
       "ROLE_INFO_VOADMIN": "You can manage organizations that are listed below",
@@ -2108,6 +2152,15 @@
     },
     "RESOURCES": {
       "TITLE": "Resources"
+    },
+    "ACCOUNTS": {
+      "TITLE": "Accounts",
+      "STATUS": "Status",
+      "GROUPS": "Member groups",
+      "MEMBER": "Member ID",
+      "MEMBER_ATT": "Member attributes",
+      "MEMBER_GROUP_ATT": "Member-Group attributes",
+      "MEMBER_RESOURCE_ATT": "Member-Resource attributes"
     },
     "SETTINGS": {
       "ATTRIBUTES": {
