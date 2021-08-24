@@ -22,8 +22,11 @@
 
         <div *ngSwitchCase="'preferredMail'">
           <a class="center-self" href="mailto:{{email}}">{{email}}</a>
-          <button (click)="changeEmail()" class="ml-2"
-                  mat-stroked-button>{{'PROFILE_PAGE.CHANGE_EMAIL'|customTranslate | translate}}</button>
+          <button (click)="changeEmail()" class="ml-2" mat-icon-button>
+            <mat-icon>
+              edit
+            </mat-icon>
+          </button>
         </div>
 
         <mat-form-field *ngSwitchCase="'timezone'" class="center-self">
