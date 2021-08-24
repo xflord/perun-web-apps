@@ -31,7 +31,7 @@ interface DisplayedAttribute {
 export class ProfilePageComponent implements OnInit {
 
   currentLang = 'en';
-  languages = this.storeService.get('supportedLanguages');
+  languages = this.storeService.get('supported_languages');
   timeZones = moment.tz.names().filter(name => !name.startsWith('Etc/'));
 
   successMessage: string;
@@ -108,7 +108,7 @@ export class ProfilePageComponent implements OnInit {
         this.currentTimezone = this.timezoneAttribute && this.timezoneAttribute.value ? this.timezoneAttribute.value : '-';
 
         const additionalAttributesSpecs = this.storeService.get('profile_page_attributes');
-        const langs = this.storeService.get('supportedLanguages');
+        const langs = this.storeService.get('supported_languages');
         let count = 0;
         additionalAttributesSpecs.forEach(spec => {
           const attribute = richUser.userAttributes.find(att => att.friendlyName === spec.friendly_name);

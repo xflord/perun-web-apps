@@ -35,7 +35,7 @@ export interface EditFacilityResourceGroupVoDialogData {
 })
 export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
 
-  invalidNameMessage = this.data.dialogType === EditFacilityResourceGroupVoDialogOptions.GROUP ? this.store.get('groupNameErrorMessage') : '';
+  invalidNameMessage = this.data.dialogType === EditFacilityResourceGroupVoDialogOptions.GROUP ? this.store.get('group_name_error_message') : '';
 
   theme: string;
   nameCtrl: FormControl;
@@ -43,7 +43,7 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
   shortName: string;
   dialogType: EditFacilityResourceGroupVoDialogOptions;
   loading = false;
-  secondaryRegex = this.data.dialogType === EditFacilityResourceGroupVoDialogOptions.GROUP ? this.store.get('groupNameSecondaryRegex'): '';
+  secondaryRegex = this.data.dialogType === EditFacilityResourceGroupVoDialogOptions.GROUP ? this.store.get('group_name_secondary_regex'): '';
 
   constructor(private dialogRef: MatDialogRef<EditFacilityResourceGroupVoDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private data: EditFacilityResourceGroupVoDialogData,

@@ -16,7 +16,7 @@
       "soc_idp": "urn:cesnet:proxyidp:filter:eyJ2ZXIiOiIyIiwiYWxsb3dGZWVkcyI6eyJTb2NpYWxJZFBzIjp7fX19"
     }
   },
-  "supportedLanguages": [
+  "supported_languages": [
     "en"
   ],
   "auto_auth_redirect": true,

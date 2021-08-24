@@ -17,7 +17,7 @@ export class BackButtonComponent implements OnInit {
   backButtonColor: string;
 
   ngOnInit() {
-    this.backButtonColor = this.storeService.get('theme', 'backButtonColor');
+    this.backButtonColor = this.storeService.get('theme', 'back_button_color');
   }
 
   goBack() {

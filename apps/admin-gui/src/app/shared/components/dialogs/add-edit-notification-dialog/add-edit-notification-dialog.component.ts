@@ -46,7 +46,7 @@ export class AddEditNotificationDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.languages = this.store.get('supportedLanguages');
+    this.languages = this.store.get('supported_languages');
     this.applicationMail = this.data.applicationMail;
     this.theme = this.data.theme;
 

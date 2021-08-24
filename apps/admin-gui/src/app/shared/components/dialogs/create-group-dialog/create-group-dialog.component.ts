@@ -23,8 +23,8 @@ export class CreateGroupDialogComponent implements OnInit{
 
   isNotSubGroup: boolean;
   asSubgroup = false;
-  invalidNameMessage = this.store.get('groupNameErrorMessage');
-  secondaryRegex = this.store.get('groupNameSecondaryRegex');
+  invalidNameMessage = this.store.get('group_name_error_message');
+  secondaryRegex = this.store.get('group_name_secondary_regex');
   nameControl: FormControl;
   descriptionControl: FormControl;
   selectedParent: Group;
