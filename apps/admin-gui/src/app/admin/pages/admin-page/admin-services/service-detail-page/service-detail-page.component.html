@@ -35,6 +35,17 @@
       <span class="mt-1 entity-info">
         {{'SERVICE_DETAIL.DESCRIPTION' | translate}}: {{service.description}}
       </span>
+      <div class="mt-1 entity-info">
+        {{'SERVICE_DETAIL.STATUS' | translate}}:
+        <span>
+          {{service.enabled ? ('SERVICE_DETAIL.ENABLED' | translate) : ('SERVICE_DETAIL.DISABLED' | translate)}}
+          <button mat-icon-button (click)="changeServiceStatus()">
+            <mat-icon class="align-content-center">
+              {{service.enabled ? "check_circle_outline" : "block"}}
+            </mat-icon>
+          </button>
+        </span>
+      </div>
     </div>
   </div>
   <app-animated-router-outlet></app-animated-router-outlet>
