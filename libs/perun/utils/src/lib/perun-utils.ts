@@ -273,13 +273,14 @@ export function addRecentlyVisited(key: string, item: any) {
  * Add object that was just visited to 'recent' localStorage.
  *
  * @param item entity that was visited
+ * @param voName is used for group tooltip on dashboard (we want to know parent VO of this group)
  */
-export function addRecentlyVisitedObject(item: any) {
+export function addRecentlyVisitedObject(item: any, voName?: string) {
   if (localStorage.getItem('recent') === null) {
     // if user not have any in local storage
     let recent;
     if (item.beanName === 'Group') {
-      recent = [{id: item.id, name: item.shortName, type: item.beanName, voId: item.voId}];
+      recent = [{id: item.id, name: item.shortName, fullName: item.name, type: item.beanName, voId: item.voId, voName: voName}];
     } else {
       recent = [{id: item.id, name: item.name, type: item.beanName, voId: item.voId}];
     }
@@ -288,7 +289,7 @@ export function addRecentlyVisitedObject(item: any) {
     const recent: any[] = JSON.parse(localStorage.getItem('recent'));
     let object;
     if (item.beanName === 'Group') {
-      object = {id: item.id, name: item.shortName, fullName: item.name, type: item.beanName, voId: item.voId};
+      object = {id: item.id, name: item.shortName, fullName: item.name, type: item.beanName, voId: item.voId, voName: voName};
     } else {
       object = {id: item.id, name: item.name, type: item.beanName, voId: item.voId};
     }

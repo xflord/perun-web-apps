@@ -86,6 +86,7 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
             cssIcon: 'perun-vo',
             url: `/organizations/${item.id}`,
             label: item.name,
+            tooltip: item.name,
             style: 'vo-btn',
             type: 'Organization'
           });
@@ -96,7 +97,7 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
             cssIcon: 'perun-group',
             url: `/organizations/${item.voId}/groups/${item.id}`,
             label: item.name,
-            tooltip: item.fullName,
+            tooltip: `${item.voName} : ${item.fullName.replace(/:/g, " : ")}`,
             style: 'group-btn',
             type: 'Group'
           });
@@ -107,6 +108,7 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
             cssIcon: 'perun-facility-white',
             url: `/facilities/${item.id}`,
             label: item.name,
+            tooltip: item.name,
             style: 'facility-btn',
             type: 'Facility'
           });
