@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AuthService, StoreService } from '@perun-web-apps/perun/services';
+import { StoreService } from '@perun-web-apps/perun/services';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthzResolverService, UtilsService } from '@perun-web-apps/perun/openapi';
+import { UtilsService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'perun-web-apps-header',
@@ -29,18 +29,19 @@ export class HeaderComponent implements OnInit {
   textColor = this.storeService.get('theme', 'nav_text_color');
   iconColor = this.storeService.get('theme', 'nav_icon_color');
 
-  constructor( private storeService: StoreService,
-               private sanitizer: DomSanitizer,
-               private translate: TranslateService,
-               private utilsService: UtilsService,
-               private authzResolverService: AuthzResolverService,
-               private authService: AuthService,) { }
+  isDevel = false;
   logo: any;
   adminGuiUrl: string;
   linkRoles: string[];
   activeLink = false;
 
+  constructor( private storeService: StoreService,
+               private sanitizer: DomSanitizer,
+               private translate: TranslateService,
+               private utilsService: UtilsService) { }
+
   ngOnInit() {
+    this.isDevel = this.storeService.get('isDevel');
     this.translate.onLangChange.subscribe(lang => {
       this.label = this.storeService.get(`header_label_${lang.lang}`)
       this.adminLabel = this.storeService.get(`admin_gui_label_${lang.lang}`);

@@ -9,6 +9,18 @@
     <p [ngStyle]="{'color': textColor}" class="mt-auto mb-auto page-subtitle">{{'HEADER.TITLE' | translate}}</p>
   </div>
 
+  <div *ngIf="isDevel" id="nav-devel-info">
+  <span class="text-warning">
+    ~ 🗲&nbsp;
+  </span>
+    <span class="text-danger">
+    DEVEL
+  </span>
+    <span class="text-warning">
+    &nbsp;🗲 ~
+  </span>
+  </div>
+
   <div id="nav-menu-user-info" [ngStyle]="{'color': textColor}">
     <button mat-button [matMenuTriggerFor]="menu">
       <mat-icon [ngStyle]="{'color': iconColor}">
