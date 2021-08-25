@@ -57,7 +57,7 @@
     "EXT_SOURCE_NAME_OTHER": "Jméno externího zdroje",
     "LOGIN_CERT": "DN",
     "LOGIN_IDP": "Připojená identita",
-    "OTHER_TOOLTIP": "Identity, které nebyly získány cez Konsolidátor identit"
+    "OTHER_TOOLTIP": "Identity, které nebyly získány přes Konsolidátor identit"
   },
   "PRIVACY": {
     "TITLE": "Soukromí",
