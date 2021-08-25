@@ -63,7 +63,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
               private store: StoreService) { }
 
   ngOnInit() {
-    this.languages = this.store.get('supportedLanguages');
+    this.languages = this.store.get('supported_languages');
     this.hiddenDependencyItem = this.data.allItems.find(item => item.id === this.data.applicationFormItem.hiddenDependencyItemId);
     if (!this.hiddenDependencyItem) {
       this.hiddenDependencyItem = NO_FORM_ITEM;

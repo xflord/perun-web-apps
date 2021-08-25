@@ -161,7 +161,7 @@ export class AddMemberDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.languages = this.store.get('supportedLanguages');
+    this.languages = this.store.get('supported_languages');
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.theme = this.data.theme;
     if (this.data.type === 'group') {

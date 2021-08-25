@@ -131,7 +131,7 @@ export class AppConfigService {
       link.type = 'image/x-icon';
       link.rel = 'shortcut icon';
 
-      if (this.storeService.get('isInstanceFaviconContained')) {
+      if (this.storeService.get('instance_favicon')) {
         link.href = './assets/config/instanceFavicon.ico';
       } else {
         link.href = './assets/img/perun.ico';

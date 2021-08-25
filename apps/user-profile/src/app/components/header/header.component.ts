@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit {
                private utilsService: UtilsService) { }
 
   ngOnInit() {
-    this.isDevel = this.storeService.get('isDevel');
+    this.isDevel = this.storeService.get('is_devel');
     this.translate.onLangChange.subscribe(lang => {
       this.label = this.storeService.get(`header_label_${lang.lang}`)
       this.adminLabel = this.storeService.get(`admin_gui_label_${lang.lang}`);

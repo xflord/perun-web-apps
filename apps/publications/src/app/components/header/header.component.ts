@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
   logo: any;
 
   ngOnInit() {
-    this.isDevel = this.storeService.get('isDevel');
+    this.isDevel = this.storeService.get('is_devel');
     this.principal = this.storeService.getPerunPrincipal();
     this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.get('logo'));
   }

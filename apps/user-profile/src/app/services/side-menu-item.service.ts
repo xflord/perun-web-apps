@@ -87,7 +87,7 @@ export class SideMenuItemService {
         tabName: 'external',
         external: true
       }
-      this.store.get('supportedLanguages').forEach(lang => {
+      this.store.get('supported_languages').forEach(lang => {
         item[`label_${lang}`] = service[`label_${lang}`] ?? service[`label_en`];
       })
       items.push(item)
