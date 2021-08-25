@@ -43,7 +43,7 @@ export class IdentitiesPageComponent implements OnInit {
 
   displayedColumnsIdp = ['select', 'extSourceName', 'login', 'lastAccess']
   displayedColumnsCert= ['select', 'extSourceName', 'login', 'lastAccess']
-  displayedColumnsOther = ['select', 'extSourceName', 'login', 'lastAccess']
+  displayedColumnsOther = ['extSourceName', 'login', 'lastAccess']
 
   ngOnInit() {
     this.userId = this.storage.getPerunPrincipal().userId;
