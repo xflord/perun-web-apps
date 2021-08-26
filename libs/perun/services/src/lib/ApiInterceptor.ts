@@ -43,7 +43,7 @@ export class ApiInterceptor implements HttpInterceptor {
       const dialogRef = this.dialog.open(SessionExpirationDialogComponent, config);
 
       dialogRef.afterClosed().subscribe(() => {
-        this.authService.startAuthentication().then(() => {});
+        this.authService.startAuthentication();
       });
     }
     // Apply the headers
