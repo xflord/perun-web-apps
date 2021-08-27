@@ -651,13 +651,22 @@ export class AttributesManagerService {
 
     /**
      * Returns all AttributeDefinitions in a namespace.
+     * @param namespace name of namespace to obtain attribute definitions from
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAttributeDefinitionsByNamespace(observe?: 'body', reportProgress?: boolean): Observable<Array<AttributeDefinition>>;
-    public getAttributeDefinitionsByNamespace(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<AttributeDefinition>>>;
-    public getAttributeDefinitionsByNamespace(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<AttributeDefinition>>>;
-    public getAttributeDefinitionsByNamespace(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAttributeDefinitionsByNamespace(namespace: string, observe?: 'body', reportProgress?: boolean): Observable<Array<AttributeDefinition>>;
+    public getAttributeDefinitionsByNamespace(namespace: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<AttributeDefinition>>>;
+    public getAttributeDefinitionsByNamespace(namespace: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<AttributeDefinition>>>;
+    public getAttributeDefinitionsByNamespace(namespace: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getAttributeDefinitionsByNamespace.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (namespace !== undefined && namespace !== null) {
+            queryParameters = queryParameters.set('namespace', <any>namespace);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -689,6 +698,7 @@ export class AttributesManagerService {
 
         return this.httpClient.get<Array<AttributeDefinition>>(`${this.configuration.basePath}/json/attributesManager/getAttributesDefinitionByNamespace`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

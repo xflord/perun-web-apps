@@ -35,7 +35,7 @@ export class MemberAttributesComponent implements OnInit {
        this.member = member;
 
        this.memberGroupAttAuth = this.authResolver.isAuthorized('getMemberGroups_Member_policy', [this.member]);
-       this.memberResourceAttAuth = this.authResolver.isAuthorized('getAllowedResources_Member_policy', [this.member]);
+       this.memberResourceAttAuth = this.authResolver.isAuthorized('getAssignedResourcesWithStatus_Member_policy', [this.member]);
        this.userFacilityAttAuth = this.authResolver.isAuthorized('getAssignedFacilities_User_policy', [{beanName: 'User', id: member.userId}]);
      });
     });

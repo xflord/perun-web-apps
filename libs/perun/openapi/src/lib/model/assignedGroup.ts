@@ -16,6 +16,7 @@ import { GroupResourceStatus } from './groupResourceStatus';
 export interface AssignedGroup { 
     enrichedGroup?: EnrichedGroup;
     status?: GroupResourceStatus;
+    sourceGroupId?: number;
     failureCause?: string;
 }
 
