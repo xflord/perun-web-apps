@@ -9,12 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Member } from './member';
+import { RichMember } from './richMember';
 import { GroupResourceStatus } from './groupResourceStatus';
 
 
-export interface AssignedMember { 
-    member?: Member;
+export interface AssignedMember {
+    richMember?: RichMember;
     status?: GroupResourceStatus;
 }
 
