@@ -1,0 +1,13 @@
+.top-padding {
+  padding: 120px 0;
+}
+
+mat-form-field.mat-form-field {
+  font-size: 14px;
+  width: 250px;
+}
+
+.black {
+  background-color: black;
+  color: white;
+}
