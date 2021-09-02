@@ -8,6 +8,7 @@ export * from './applicationFormItem';
 export * from './applicationFormItemData';
 export * from './applicationMail';
 export * from './assignedGroup';
+export * from './assignedMember';
 export * from './assignedResource';
 export * from './attribute';
 export * from './attributeDefinition';

@@ -1846,19 +1846,16 @@ export class GroupsManagerService {
      * Returns RichGroup selected by id containing selected attributes
      * Throws GroupNotExistsException when the group doesn\&#39;t exist.
      * @param groupId id of Group
-     * @param attrNames list of attribute names List&lt;String&gt;
+     * @param attrNames list of attribute names List&lt;String&gt; or null
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRichGroupByIdWithAttributesByNames(groupId: number, attrNames: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<RichGroup>;
-    public getRichGroupByIdWithAttributesByNames(groupId: number, attrNames: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<RichGroup>>;
-    public getRichGroupByIdWithAttributesByNames(groupId: number, attrNames: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<RichGroup>>;
-    public getRichGroupByIdWithAttributesByNames(groupId: number, attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getRichGroupByIdWithAttributesByNames(groupId: number, attrNames?: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<RichGroup>;
+    public getRichGroupByIdWithAttributesByNames(groupId: number, attrNames?: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<RichGroup>>;
+    public getRichGroupByIdWithAttributesByNames(groupId: number, attrNames?: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<RichGroup>>;
+    public getRichGroupByIdWithAttributesByNames(groupId: number, attrNames?: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (groupId === null || groupId === undefined) {
             throw new Error('Required parameter groupId was null or undefined when calling getRichGroupByIdWithAttributesByNames.');
-        }
-        if (attrNames === null || attrNames === undefined) {
-            throw new Error('Required parameter attrNames was null or undefined when calling getRichGroupByIdWithAttributesByNames.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});

@@ -9,18 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EnrichedResource } from './enrichedResource';
-import { ResourceTag } from './resourceTag';
-import { Facility } from './facility';
+import { Member } from './member';
 import { GroupResourceStatus } from './groupResourceStatus';
 
 
-export interface AssignedResource { 
-    enrichedResource?: EnrichedResource;
+export interface AssignedMember { 
+    member?: Member;
     status?: GroupResourceStatus;
-    sourceGroupId?: number;
-    failureCause?: string;
-    facility?: Facility;
-    resourceTags?: Array<ResourceTag>;
 }
 

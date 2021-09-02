@@ -64,8 +64,8 @@ export class TwoEntityAttributePageComponent implements OnInit {
       case 'member':
         switch (this.secondEntity) {
           case 'resource':
-            this.resourcesManagerService.getAllowedResources(this.firstEntityId).subscribe(resources => {
-              this.entityValues = resources;
+            this.resourcesManagerService.getAssignedResourcesWithStatus(this.firstEntityId).subscribe(resources => {
+              this.entityValues = resources.map(resource => resource.enrichedResource.resource);
               this.preselectEntity();
               this.loading = false;
             })
