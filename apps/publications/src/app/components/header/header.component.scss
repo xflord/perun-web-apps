@@ -28,6 +28,10 @@
   outline: 0;
 }
 
-.router-icon-scale{
-  transform: scale(0.75);
+.logo-container {
+  padding: 0 8px 0 8px;
+}
+
+.logo-container ::ng-deep img, .logo-container ::ng-deep svg {
+  max-height: 50px;
 }

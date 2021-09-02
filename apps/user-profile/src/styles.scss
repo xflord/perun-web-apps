@@ -90,6 +90,10 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
   @include mat.all-component-themes($user-theme);
 }
 
+button {
+  border-radius: 0 !important;
+}
+
 button:focus {
   outline: none !important;
 }

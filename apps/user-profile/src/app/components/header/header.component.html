@@ -4,7 +4,7 @@
       <mat-icon>menu</mat-icon>
     </button>
 
-    <a [innerHTML]="logo" [routerLink]="disableLogo ? [] : ['/']" class="ml-3" queryParamsHandling="merge"></a>
+    <a [innerHTML]="logo" [routerLink]="disableLogo ? [] : ['/']" class="logo-container mt-auto mb-auto" queryParamsHandling="merge"></a>
 
     <p [ngStyle]="{'color': textColor}" class="ml-3 mt-auto mb-auto hide-label">{{label}}</p>
   </div>

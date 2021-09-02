@@ -8,11 +8,9 @@
   </button>
   <a [routerLink]="['/']"
      queryParamsHandling="merge"
-     [ngStyle]="{'padding': logoPadding}">
+     class="mt-auto mb-auto">
     <div [innerHTML]="logo"
-         #logoContainer
-         class="logo-container"
-         [ngStyle]="{'height': '56px'}">
+         class="logo-container">
     </div>
   </a>
 </div>
