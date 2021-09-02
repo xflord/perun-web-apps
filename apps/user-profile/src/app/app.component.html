@@ -19,5 +19,8 @@
     </mat-sidenav-container>
   </div>
 </ng-template>
-<perun-web-apps-login-screen-base *ngIf="isLoginScreenShown"
-                                  [application]="'user-profile'"></perun-web-apps-login-screen-base>
+<perun-web-apps-login-screen-base
+  *ngIf="isLoginScreenShown"
+  [application]="'user-profile'"
+  [headerTitle]="headerLabel">
+</perun-web-apps-login-screen-base>

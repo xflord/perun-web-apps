@@ -19,9 +19,14 @@
   width: 200px;
 }
 
-.logo-container ::slotted(svg) {
-  height: 56px;
+.logo-container {
+  padding: 0 8px 0 8px;
 }
+
+.logo-container ::ng-deep img, .logo-container ::ng-deep svg {
+  max-height: 50px;
+}
+
 #nav-link-items {
   display: flex;
   flex-direction: row;
