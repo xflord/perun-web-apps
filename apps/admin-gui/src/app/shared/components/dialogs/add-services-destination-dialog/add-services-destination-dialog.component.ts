@@ -11,6 +11,7 @@ import {
   ServicesManagerService
 } from '@perun-web-apps/perun/openapi';
 import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { emailRegexString } from '@perun-web-apps/perun/utils';
 
 export interface  AddServicesDestinationDialogData {
   facility: Facility;
@@ -46,7 +47,7 @@ export class AddServicesDestinationDialogComponent implements OnInit {
   loading = false;
   emailControl: FormControl;
 
-  emailRegex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+  emailRegex = new RegExp(emailRegexString);
   hostPattern = new RegExp("^(?!:\\/\\/)(?=.{1,255}$)((.{1,63}\\.){1,127}(?![0-9]*$)[a-z0-9-]+\\.?)$|^(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}$");
   urlPattern = new RegExp("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;()*$']*[-a-zA-Z0-9+&@#/%=~_|()*$']$");
   userAtHostPattern = new RegExp("^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\\$)@(?:(?!:\\/\\/)(?=.{1,255}$)((.{1,63}\\.){1,127}(?![0-9]*$)[a-z0-9-]+\\.?)$|(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}$)");

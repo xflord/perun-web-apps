@@ -23,7 +23,7 @@ import { Role } from '@perun-web-apps/perun/models';
 import { of, timer } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { enableFormControl } from '@perun-web-apps/perun/utils';
+import { emailRegexString, enableFormControl } from '@perun-web-apps/perun/utils';
 
 export interface CreateSponsoredMemberDialogData {
   entityId?: number;
@@ -75,8 +75,6 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
   parsedRules: Map<string, {login: string, password: string}> =
     new Map<string, {login: string, password: string}>();
 
-  emailRegx = /^(([^<>+()[\]\\.,;:\s@"-#$%&=]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
-
   userControl: FormGroup = null;
   namespaceControl: FormGroup = null;
   passwordStateMatcher = new ImmediateStateMatcher();
@@ -121,7 +119,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
       password: ['', Validators.required, [loginAsyncValidator(null, this.usersService, this.apiRequestConfiguration)]],
       passwordReset: [false, []],
       showPassword: [false, []],
-      email: ['', [Validators.required, Validators.pattern(this.emailRegx)]]
+      email: ['', [Validators.required, Validators.pattern(emailRegexString)]]
     });
 
     this.membersService.getAllNamespacesRules().subscribe(rules => {
