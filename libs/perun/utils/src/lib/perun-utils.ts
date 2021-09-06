@@ -20,6 +20,8 @@ import { saveAs } from 'file-saver';
 
 export const TABLE_ITEMS_COUNT_OPTIONS = [5, 10, 25, 100];
 
+export const emailRegexString = /^(([^<>+()[\]\\.,;:\s@"-#$%&=]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]+))$/;
+
 /**
  * Gets email of given member. The preferred email has top priority, the vo-email
  * has lower priority. If there are no emails, an empty string is returned.
