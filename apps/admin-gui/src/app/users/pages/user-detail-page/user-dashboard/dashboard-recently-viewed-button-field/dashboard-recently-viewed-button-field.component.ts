@@ -5,6 +5,7 @@ import {
   GroupsManagerService,
   VosManagerService
 } from '@perun-web-apps/perun/openapi';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 export interface RecentItem {
   url: string;
@@ -24,6 +25,7 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
 
   constructor(private vosManager: VosManagerService,
               private groupsManager: GroupsManagerService,
+              private authResolver: GuiAuthResolver,
               private facilitiesManager: FacilitiesManagerService) { }
 
   items: RecentItem[] = [];
@@ -32,11 +34,14 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
   groupsIds: number[] = [];
   facilitiesIds: number[] = [];
   existingRecentIds: number[] = [];
+  recentIds: any[];
+  loading: boolean;
 
   ngOnInit() {
-    let recent = getRecentlyVisitedIds('recent');
+    this.loading = true;
+    this.recentIds = getRecentlyVisitedIds('recent');
 
-    for (const item of recent) {
+    for (const item of this.recentIds) {
       switch (item.type) {
         case 'Vo': {
           this.vosIds.push(item.id);
@@ -64,18 +69,44 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
       this.facilitiesIds.push(-1);
     }
 
-    this.vosManager.getVosByIds(this.vosIds).subscribe(vos => {
-      this.existingRecentIds.push(...vos.map(vo => vo.id));
+    this.getVos();
+
+  }
+
+  getVos() {
+    if (this.authResolver.isAuthorized('getVosByIds_List<Integer>_policy', [])) {
+      this.vosManager.getVosByIds(this.vosIds).subscribe(vos => {
+        this.existingRecentIds.push(...vos.map(vo => vo.id));
+        this.getGroups();
+      });
+    } else {
+      this.getGroups();
+    }
+  }
+
+  getGroups() {
+    if (this.authResolver.isAuthorized('getGroupsByIds_List<Integer>_policy', [])) {
       this.groupsManager.getGroupsByIds(this.groupsIds).subscribe(groups => {
         this.existingRecentIds.push(...groups.map(group => group.id));
-        this.facilitiesManager.getFacilitiesByIds(this.facilitiesIds).subscribe(facilities => {
-          this.existingRecentIds.push(...facilities.map(facility => facility.id));
-          recent = recent.filter(rec => this.existingRecentIds.indexOf(rec.id) > -1);
-          this.addRecentlyViewedToDashboard(recent);
-        });
+        this.getFacilities();
       });
-    });
+    } else {
+      this.getFacilities();
+    }
 
+  }
+
+  getFacilities() {
+    if (this.authResolver.isAuthorized('getFacilitiesByIds_List<Integer>_policy', [])) {
+      this.facilitiesManager.getFacilitiesByIds(this.facilitiesIds).subscribe(facilities => {
+        this.existingRecentIds.push(...facilities.map(facility => facility.id));
+        this.recentIds = this.recentIds.filter(rec => this.existingRecentIds.indexOf(rec.id) > -1);
+        this.addRecentlyViewedToDashboard(this.recentIds);
+      });
+    } else {
+      this.recentIds = this.recentIds.filter(rec => this.existingRecentIds.indexOf(rec.id) > -1);
+      this.addRecentlyViewedToDashboard(this.recentIds);
+    }
   }
 
   private addRecentlyViewedToDashboard(recent: any[]) {
@@ -117,5 +148,6 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
       }
 
     }
+    this.loading = false;
   }
 }
