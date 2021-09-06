@@ -13,6 +13,7 @@ a {
 .footer-col {
   padding-top: 35px;
   white-space: nowrap;
+  text-align: center;
 }
 
 .wrap-content {
@@ -21,4 +22,17 @@ a {
 
 #clickable {
   cursor: pointer;
+}
+
+.footer-columns-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+.footer-container {
+  height: fit-content;
 }
