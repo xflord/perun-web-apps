@@ -15,7 +15,7 @@ import { formatDate } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { TABLE_VO_GROUPS, TableConfigService } from '@perun-web-apps/config/table-config';
-import { downloadData } from '@perun-web-apps/perun/utils';
+import { downloadData, emailRegexString } from '@perun-web-apps/perun/utils';
 
 export interface GenerateSponsoredMembersDialogData {
   voId: number;
@@ -32,8 +32,6 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   theme: string;
   loading = false;
   functionalityNotSupported = false;
-
-  emailRegx = /^(([^<>+()[\]\\.,;:\s@"-#$%&=]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
 
   namespaceOptions: string[] = [];
   namespaceRules: NamespaceRules[] = [];
@@ -241,7 +239,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
     }
     //now we expect that mail is always on the same index - third position
     if (arrayOfAttributes[2].slice(arrayOfAttributes[2].length - 4).toLowerCase() === 'mail') { //check if the third attribute is mail
-      if (!memberAttributes[2].trim().match(this.emailRegx)) {      //check if the email is valid email
+      if (!memberAttributes[2].trim().match(emailRegexString)) {      //check if the email is valid email
         return 'email';
       }
     }
