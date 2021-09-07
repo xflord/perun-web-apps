@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
 import {
-  FacilitiesManagerService,
-  GroupsManagerService,
+  FacilitiesManagerService, Facility, Group,
+  GroupsManagerService, Vo,
   VosManagerService
 } from '@perun-web-apps/perun/openapi';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
@@ -34,14 +34,17 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
   groupsIds: number[] = [];
   facilitiesIds: number[] = [];
   existingRecentIds: number[] = [];
-  recentIds: any[];
+  recentItems: any[];
   loading: boolean;
+  vos: Vo[];
+  groups: Group[];
+  facilities: Facility[];
 
   ngOnInit() {
     this.loading = true;
-    this.recentIds = getRecentlyVisitedIds('recent');
+    this.recentItems = getRecentlyVisitedIds('recent');
 
-    for (const item of this.recentIds) {
+    for (const item of this.recentItems) {
       switch (item.type) {
         case 'Vo': {
           this.vosIds.push(item.id);
@@ -76,7 +79,7 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
   getVos() {
     if (this.authResolver.isAuthorized('getVosByIds_List<Integer>_policy', [])) {
       this.vosManager.getVosByIds(this.vosIds).subscribe(vos => {
-        this.existingRecentIds.push(...vos.map(vo => vo.id));
+        this.vos = vos;
         this.getGroups();
       });
     } else {
@@ -87,7 +90,7 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
   getGroups() {
     if (this.authResolver.isAuthorized('getGroupsByIds_List<Integer>_policy', [])) {
       this.groupsManager.getGroupsByIds(this.groupsIds).subscribe(groups => {
-        this.existingRecentIds.push(...groups.map(group => group.id));
+        this.groups = groups;
         this.getFacilities();
       });
     } else {
@@ -99,54 +102,60 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
   getFacilities() {
     if (this.authResolver.isAuthorized('getFacilitiesByIds_List<Integer>_policy', [])) {
       this.facilitiesManager.getFacilitiesByIds(this.facilitiesIds).subscribe(facilities => {
-        this.existingRecentIds.push(...facilities.map(facility => facility.id));
-        this.recentIds = this.recentIds.filter(rec => this.existingRecentIds.indexOf(rec.id) > -1);
-        this.addRecentlyViewedToDashboard(this.recentIds);
+        this.facilities = facilities;
+        this.addRecentlyViewedToDashboard();
       });
     } else {
-      this.recentIds = this.recentIds.filter(rec => this.existingRecentIds.indexOf(rec.id) > -1);
-      this.addRecentlyViewedToDashboard(this.recentIds);
+      this.addRecentlyViewedToDashboard();
     }
   }
 
-  private addRecentlyViewedToDashboard(recent: any[]) {
-    for (const item of recent) {
+  private addRecentlyViewedToDashboard() {
+    for (const item of this.recentItems) {
       switch (item.type) {
         case 'Vo': {
-          this.items.push({
-            cssIcon: 'perun-vo',
-            url: `/organizations/${item.id}`,
-            label: item.name,
-            tooltip: item.name,
-            style: 'vo-btn',
-            type: 'Organization'
-          });
+          const filteredVo = this.vos.filter(vo => vo.id === item.id)[0];
+          if (filteredVo) {
+            this.items.push({
+              cssIcon: 'perun-vo',
+              url: `/organizations/${filteredVo.id}`,
+              label: filteredVo.name,
+              tooltip: filteredVo.name,
+              style: 'vo-btn',
+              type: 'Organization'
+            });
+          }
           break;
         }
         case 'Group': {
-          this.items.push({
-            cssIcon: 'perun-group',
-            url: `/organizations/${item.voId}/groups/${item.id}`,
-            label: item.name,
-            tooltip: `${item.voName} : ${item.fullName.replace(/:/g, " : ")}`,
-            style: 'group-btn',
-            type: 'Group'
-          });
+          const filteredGroup = this.groups.filter(group => group.id === item.id)[0];
+          if (filteredGroup) {
+            this.items.push({
+              cssIcon: 'perun-group',
+              url: `/organizations/${filteredGroup.voId}/groups/${filteredGroup.id}`,
+              label: filteredGroup.shortName,
+              tooltip: `${item.voName} : ${filteredGroup.name.replace(/:/g, " : ")}`,
+              style: 'group-btn',
+              type: 'Group'
+            });
+          }
           break;
         }
         case 'Facility': {
-          this.items.push({
-            cssIcon: 'perun-facility-white',
-            url: `/facilities/${item.id}`,
-            label: item.name,
-            tooltip: item.name,
-            style: 'facility-btn',
-            type: 'Facility'
-          });
+          const filteredFacility = this.facilities.filter(facility => facility.id === item.id)[0];
+          if (filteredFacility) {
+            this.items.push({
+              cssIcon: 'perun-facility-white',
+              url: `/facilities/${filteredFacility.id}`,
+              label: filteredFacility.name,
+              tooltip: filteredFacility.name,
+              style: 'facility-btn',
+              type: 'Facility'
+            });
+          }
           break;
         }
       }
-
     }
     this.loading = false;
   }
