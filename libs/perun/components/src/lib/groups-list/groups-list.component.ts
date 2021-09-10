@@ -32,11 +32,7 @@ import {
 } from '@perun-web-apps/perun/dialogs';
 import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
 import { formatDate } from '@angular/common';
-
-export interface GroupWithStatus extends RichGroup {
-  status?: GroupResourceStatus;
-  failureCause?: string;
-}
+import { GroupWithStatus } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'perun-web-apps-groups-list',

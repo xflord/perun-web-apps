@@ -21,6 +21,9 @@ export class GroupSearchSelectComponent implements OnInit{
   @Input()
   firstSelectedGroup: Group;
 
+  @Input()
+  displayStatus = false;
+
   nameFunction = (group: Group) => group.name;
 
   ngOnInit(): void {

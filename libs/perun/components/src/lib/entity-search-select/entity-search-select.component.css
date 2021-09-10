@@ -2,3 +2,19 @@
   visibility: hidden;
   position: absolute;
 }
+
+.green {
+  color: green;
+}
+
+.grey {
+  color: grey;
+}
+
+.red {
+  color: red;
+}
+
+.black {
+  color: black;
+}
