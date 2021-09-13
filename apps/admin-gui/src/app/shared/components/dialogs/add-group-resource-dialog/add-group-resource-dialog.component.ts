@@ -36,10 +36,19 @@ export class AddGroupResourceDialogComponent implements OnInit {
   selection = new SelectionModel<RichResource>(true, []);
   theme = '';
   async = true;
+  autoAssignSubgroups = false;
+  asInactive = false;
+
+  autoAssignHint: string;
+  asInactiveHint: string;
+  asyncHint: string;
 
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.loading = true;
+    this.autoAssignHint = this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.AUTO_SUBGROUPS_OFF_HINT');
+    this.asInactiveHint = this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.INACTIVE_OFF_HINT');
+    this.asyncHint = this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ASYNC_ON_HINT');
     this.resourcesManager.getRichResources(this.data.voId).subscribe(resources => {
       this.resources = resources.filter(res => !this.data.unwantedResources.includes(res.id));
       this.loading = false;
@@ -57,12 +66,31 @@ export class AddGroupResourceDialogComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     const resourceIds = this.selection.selected.map(res => res.id);
-    this.resourcesManager.assignGroupToResources(this.data.group.id, resourceIds, this.async).subscribe(() => {
-      this.translate.get('DIALOGS.ADD_GROUP_RESOURCES.SUCCESS').subscribe(successMessage => {
-        this.loading = false;
-        this.notificator.showSuccess(successMessage);
-        this.dialogRef.close(true);
-      });
+    this.resourcesManager.assignGroupToResources(this.data.group.id, resourceIds, this.async, this.asInactive, this.autoAssignSubgroups)
+      .subscribe(() => {
+        this.translate.get('DIALOGS.ADD_GROUP_RESOURCES.SUCCESS').subscribe(successMessage => {
+          this.loading = false;
+          this.notificator.showSuccess(successMessage);
+          this.dialogRef.close(true);
+        });
     }, () => this.loading = false);
+  }
+
+  changeSubgroupsMessage() {
+    this.autoAssignHint = this.autoAssignSubgroups ?
+      this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.AUTO_SUBGROUPS_OFF_HINT') :
+      this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.AUTO_SUBGROUPS_ON_HINT');
+  }
+
+  changeInactiveMessage() {
+    this.asInactiveHint = this.asInactive ?
+      this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.INACTIVE_OFF_HINT') :
+      this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.INACTIVE_ON_HINT');
+  }
+
+  changeAsyncMessage() {
+    this.asyncHint = this.async ?
+      this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ASYNC_OFF_HINT') :
+      this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ASYNC_ON_HINT');
   }
 }
