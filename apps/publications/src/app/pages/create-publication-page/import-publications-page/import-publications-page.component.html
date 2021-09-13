@@ -42,7 +42,7 @@
     </div>
     <app-alert
       *ngIf="!firstSearchDone"
-      [alert_type]="'info'">
+      alert_type="info">
       {{'IMPORT_PUBLICATIONS.INFO' | translate}}
     </app-alert>
     <perun-web-apps-publications-list
@@ -60,7 +60,7 @@
 
   <div *ngIf="importDone">
     <app-alert
-      [alert_type]="'info'">
+      alert_type="info">
       {{'IMPORT_PUBLICATIONS.IMPORTED_INFO' | translate}}
     </app-alert>
     <mat-accordion>
