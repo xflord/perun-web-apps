@@ -18,5 +18,6 @@ export interface AssignedGroup {
     status?: GroupResourceStatus;
     sourceGroupId?: number;
     failureCause?: string;
+    autoAssignSubgroups?: boolean;
 }
 
