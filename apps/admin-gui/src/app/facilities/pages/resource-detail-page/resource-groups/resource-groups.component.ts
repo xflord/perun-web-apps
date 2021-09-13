@@ -75,7 +75,7 @@ export class ResourceGroupsComponent implements OnInit {
 
   addGroup() {
     const config = getDefaultDialogConfig();
-    config.width = '800px';
+    config.width = '1000px';
     config.data = { theme: 'resource-theme', resource: this.resource };
 
     const dialogRef = this.dialog.open(AssignGroupToResourceDialogComponent, config);

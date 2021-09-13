@@ -39,6 +39,8 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
   unAssignedGroups: Group[];
   checkGroups = false;
   async = true;
+  autoAssignSubgroups = false;
+  asInactive = false;
   selection = new SelectionModel<Group>(true, []);
   filterValue = '';
 
@@ -79,11 +81,12 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
         addedGroups.push(group.id);
       }
 
-      this.resourceManager.assignGroupsToResource(addedGroups, this.resource.id, this.async).subscribe(() => {
-        this.translate.get('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.SUCCESS_MESSAGE').subscribe(message => {
-          this.notificator.showSuccess(message);
-          this.dialogRef.close(true);
-        });
+      this.resourceManager.assignGroupsToResource(addedGroups, this.resource.id, this.async, this.asInactive, this.autoAssignSubgroups)
+        .subscribe(() => {
+          this.translate.get('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.SUCCESS_MESSAGE').subscribe(message => {
+            this.notificator.showSuccess(message);
+            this.dialogRef.close(true);
+          });
       }, () => this.loading = false);
     }
   }
