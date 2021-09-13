@@ -20,7 +20,7 @@
     "PREFERRED_UNIX_GROUP_NAMES": "Preferred unix group names",
     "SAMBA_PASSWORD": "Samba password",
     "SSH_KEYS": "SSH keys",
-    "PASSWORD_RESET": "Password reset",
+    "PASSWORD_RESET": "Change password",
     "AUTHENTICATION": "Authentication"
   },
   "ORGANIZATIONS": {
@@ -45,7 +45,6 @@
   },
   "PROFILE_PAGE": {
     "NAME": "Name",
-    "CHANGE_EMAIL": "Change",
     "MAIL_CHANGE_SUCCESS": "Preferred mail has been changed"
   },
   "IDENTITIES": {
@@ -154,13 +153,14 @@
   },
   "DIALOGS": {
     "CHANGE_EMAIL": {
-      "TITLE": "Change email",
+      "TITLE": "Change preferred email",
       "INPUT_PLACEHOLDER": "New email",
       "CANCEL": "Cancel",
       "CHANGE": "Change",
       "SUCCESS": "Request for changing preferred email has been sent. Please check your mailbox.",
       "PENDING_MAILS_BEGIN": "Validation e-mail has been sent to ",
-      "PENDING_MAILS_END": ". Check your inbox and complete validation by clicking on link in received e-mail."
+      "PENDING_MAILS_END": ". Check your inbox and complete validation by clicking on link in received e-mail.",
+      "EMAIL_ERROR": "Input valid email"
     },
     "ADD_SSH": {
       "TITLE": "Add new ssh key",
@@ -368,8 +368,9 @@
           "SUCCESS": "User external source successfully removed"
         },
         "PASSWORD_RESET": {
-          "TITLE": "Password reset",
+          "TITLE": "Change password",
           "CHANGE_PASSWORD": "Change password",
+          "RESET_PASSWORD": "Reset password",
           "NAMESPACE": "Namespace",
           "LOGIN": "Login",
           "NOT_SUPPORTED": "Password reset is not supported for your current namespaces"
@@ -421,6 +422,20 @@
           "CANCEL": "Cancel",
           "SEND": "Send",
           "SUCCESS": "Issue report was sent and got ticket number: "
+        },
+        "CHANGE_PASSWORD_DIALOG": {
+          "TITLE": "Change password",
+          "CANCEL": "Cancel",
+          "CHANGE": "Confirm",
+          "OLD_PASSWORD": "Old password",
+          "NEW_PASSWORD": "New password",
+          "NEW_PASSWORD_AGAIN": "Re-type new password",
+          "PWD_DONT_MATCH": "Passwords do not match",
+          "PWD_WEAK": "Password does not meet the requirements",
+          "PWD_SHORT": "Password is too short",
+          "FIELD_EMPTY": "This field cannot be empty",
+          "PASSWORD_INFO": "Password must:\n - contain only printing non-accented characters\n - be at least 10 characters long\n - consist of at least 3 of 4 character groups:\n    - lower-case letters\n    - upper-case letters\n    - digits\n    - special characters",
+          "SUCCESS": "Password has been changed successfully,"
         }
       },
       "ORGANIZATIONS": {

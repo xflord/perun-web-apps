@@ -45,7 +45,6 @@
   },
   "PROFILE_PAGE": {
     "NAME": "Jméno",
-    "CHANGE_EMAIL": "Aktualizovat",
     "MAIL_CHANGE_SUCCESS": "Preferovaný email byl změněn"
   },
   "IDENTITIES": {
@@ -58,7 +57,7 @@
     "EXT_SOURCE_NAME_OTHER": "Jméno externího zdroje",
     "LOGIN_CERT": "DN",
     "LOGIN_IDP": "Připojená identita",
-    "OTHER_TOOLTIP": "Identity, které nebyly získány cez Konsolidátor identit"
+    "OTHER_TOOLTIP": "Identity, které nebyly získány přes Konsolidátor identit"
   },
   "PRIVACY": {
     "TITLE": "Soukromí",
@@ -154,13 +153,14 @@
   },
   "DIALOGS": {
     "CHANGE_EMAIL": {
-      "TITLE": "Aktualizovat email",
+      "TITLE": "Změnit preferovaný email",
       "INPUT_PLACEHOLDER": "Nový email",
       "CANCEL": "Zrušit",
       "CHANGE": "Změnit",
       "SUCCESS": "Žádost o změnu preferovaného emailu byla odeslána na zadanou adresu.",
       "PENDING_MAILS_BEGIN": "Potvrzovací email byl odeslán na ",
-      "PENDING_MAILS_END": ". Podívejte se do své mailové schránky a dokončete validaci kliknutím na link v emailu."
+      "PENDING_MAILS_END": ". Podívejte se do své mailové schránky a dokončete validaci kliknutím na link v emailu.",
+      "EMAIL_ERROR": "Zadejte validní email"
     },
     "ADD_SSH": {
       "TITLE": "Přidat nový SSH klíč",
@@ -327,6 +327,7 @@
         "PASSWORD_RESET": {
           "TITLE": "Změna hesla",
           "CHANGE_PASSWORD": "Změnit heslo",
+          "RESET_PASSWORD": "Resetovat heslo",
           "NAMESPACE": "Jmenný prostor",
           "LOGIN": "Přihlašovací jméno",
           "NOT_SUPPORTED": "Zména hesla není podporována ve vašich jmených prostorech"
@@ -350,6 +351,20 @@
           "CANCEL": "Zrušit",
           "SEND": "Poslat",
           "SUCCESS": "Chyba byla nahlášena a dostala lístek s číslem: "
+        },
+        "CHANGE_PASSWORD_DIALOG": {
+          "TITLE": "Změna hesla",
+          "CANCEL": "Zrušit",
+          "CHANGE": "Potvrdit",
+          "OLD_PASSWORD": "Staré heslo",
+          "NEW_PASSWORD": "Nové heslo",
+          "NEW_PASSWORD_AGAIN": "Znovu zadejte nové heslo",
+          "PWD_DONT_MATCH": "Hesla se neshodují.",
+          "PWD_WEAK": "Heslo nesplňuje požadavky.",
+          "PWD_SHORT": "Heslo je příliš krátké.",
+          "FIELD_EMPTY": "Tohle políčko musí být vyplněné.",
+          "PASSWORD_INFO": "Heslo musí:\n - obsahovat pouze tisknutelné znaky bez diakritiky \n - být alespoň 10 znaků dlouhé\n - obsahovat nejméně 3 ze 4 skupin znaků:\n    - malá písmena\n    - velká písmena\n    - čísla\n    - speciální znaky",
+          "SUCCESS": "Heslo bylo úspěšně změněno"
         }
       },
       "ORGANIZATIONS": {
