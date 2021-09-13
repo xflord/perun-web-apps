@@ -1,10 +1,11 @@
-<app-alert *ngIf="items.length === 0" alert_type="info">{{'USER_DETAIL.DASHBOARD.NO_RECENTLY_VIEWED' | translate}}</app-alert>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+<app-alert *ngIf="items.length === 0 && !loading" alert_type="info">{{'USER_DETAIL.DASHBOARD.NO_RECENTLY_VIEWED' | translate}}</app-alert>
 <div *ngIf="items.length > 0" class="items-container">
   <div *ngFor="let item of items" class="item-itself-container" mat-ripple>
     <a
-      [matTooltipDisabled]="item.label === item.tooltip"
-      [routerLink]="item.url"
       class="{{item.style}} item-itself"
+      [perunWebAppsMiddleClickRouterLink]="[item.url]"
+      [routerLink]="item.url"
       matTooltip="{{item.tooltip}}"
       queryParamsHandling="merge">
       <span class="item-type">{{item.type}}</span>

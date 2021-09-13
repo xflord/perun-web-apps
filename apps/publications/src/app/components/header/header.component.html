@@ -4,9 +4,21 @@
       <mat-icon>menu</mat-icon>
     </button>
 
-    <a [innerHTML]="logo" routerLink="/all-publications" class="router-icon-scale"></a>
+    <a [innerHTML]="logo" class="logo-container mt-auto mb-auto" routerLink="/all-publications"></a>
     <mat-icon svgIcon="perun-publications-white" class="mt-auto mb-auto router-icon ml-2 mr-4" routerLink="/all-publications"></mat-icon>
     <p [ngStyle]="{'color': textColor}" class="mt-auto mb-auto page-subtitle">{{'HEADER.TITLE' | translate}}</p>
+  </div>
+
+  <div *ngIf="isDevel" id="nav-devel-info">
+  <span class="text-warning">
+    ~ 🗲&nbsp;
+  </span>
+    <span class="text-danger">
+    DEVEL
+  </span>
+    <span class="text-warning">
+    &nbsp;🗲 ~
+  </span>
   </div>
 
   <div id="nav-menu-user-info" [ngStyle]="{'color': textColor}">

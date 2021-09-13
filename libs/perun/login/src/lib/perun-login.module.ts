@@ -7,6 +7,11 @@ import { LoginScreenBaseComponent } from './login-screen-base/login-screen-base.
 import { RouterModule } from '@angular/router';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { TranslateModule } from '@ngx-translate/core';
+import { LoginScreenServiceAccessComponent } from './login-screen-service-access/login-screen-service-access.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 
 @NgModule({
   imports: [
@@ -15,15 +20,21 @@ import { TranslateModule } from '@ngx-translate/core';
     MatIconModule,
     RouterModule,
     PerunSharedComponentsModule,
-    TranslateModule
+    TranslateModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    UiAlertsModule
   ],
   declarations: [
     LoginScreenComponent,
-    LoginScreenBaseComponent
+    LoginScreenBaseComponent,
+    LoginScreenServiceAccessComponent
   ],
   exports: [
     LoginScreenBaseComponent,
-    LoginScreenComponent
+    LoginScreenComponent,
+    LoginScreenServiceAccessComponent
   ],
 })
 export class PerunLoginModule {}

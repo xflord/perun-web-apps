@@ -21,6 +21,8 @@ import { AbstractControl, AsyncValidatorFn, ValidatorFn } from '@angular/forms';
 
 export const TABLE_ITEMS_COUNT_OPTIONS = [5, 10, 25, 100];
 
+export const emailRegexString = /^(([^<>+()[\]\\.,;:\s@"-#$%&=]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]+))$/;
+
 /**
  * Gets email of given member. The preferred email has top priority, the vo-email
  * has lower priority. If there are no emails, an empty string is returned.
@@ -273,13 +275,14 @@ export function addRecentlyVisited(key: string, item: any) {
  * Add object that was just visited to 'recent' localStorage.
  *
  * @param item entity that was visited
+ * @param voName is used for group tooltip on dashboard (we want to know parent VO of this group)
  */
-export function addRecentlyVisitedObject(item: any) {
+export function addRecentlyVisitedObject(item: any, voName?: string) {
   if (localStorage.getItem('recent') === null) {
     // if user not have any in local storage
     let recent;
     if (item.beanName === 'Group') {
-      recent = [{id: item.id, name: item.shortName, type: item.beanName, voId: item.voId}];
+      recent = [{id: item.id, name: item.shortName, fullName: item.name, type: item.beanName, voId: item.voId, voName: voName}];
     } else {
       recent = [{id: item.id, name: item.name, type: item.beanName, voId: item.voId}];
     }
@@ -288,7 +291,7 @@ export function addRecentlyVisitedObject(item: any) {
     const recent: any[] = JSON.parse(localStorage.getItem('recent'));
     let object;
     if (item.beanName === 'Group') {
-      object = {id: item.id, name: item.shortName, fullName: item.name, type: item.beanName, voId: item.voId};
+      object = {id: item.id, name: item.shortName, fullName: item.name, type: item.beanName, voId: item.voId, voName: voName};
     } else {
       object = {id: item.id, name: item.name, type: item.beanName, voId: item.voId};
     }

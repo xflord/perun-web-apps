@@ -18,7 +18,7 @@ export interface AddApplicationFormItemDialogComponentData {
 })
 export class AddApplicationFormItemDialogComponent implements OnInit {
 
-  languages = this.store.get('supportedLanguages');
+  languages = this.store.get('supported_languages');
 
   items: string[] = [];
   selectedItem: string;

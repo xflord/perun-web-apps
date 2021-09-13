@@ -47,6 +47,7 @@ import { AddThanksComponent } from './components/add-thanks/add-thanks.component
 import { ImportPublicationsPageComponent } from './pages/create-publication-page/import-publications-page/import-publications-page.component';
 import { YearRangeComponent } from './components/year-range/year-range.component';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -119,7 +120,8 @@ const loadConfigs = (appConfig: PublicationsConfigService) => () => appConfig.lo
     PerunPipesModule,
     PerunLoginModule,
     MatTabsModule,
-    PerunUtilsModule
+    PerunUtilsModule,
+    OAuthModule.forRoot()
   ],
   providers: [
     CustomIconService,

@@ -18,6 +18,7 @@ import { GroupResourceStatus } from './groupResourceStatus';
 export interface AssignedResource { 
     enrichedResource?: EnrichedResource;
     status?: GroupResourceStatus;
+    sourceGroupId?: number;
     failureCause?: string;
     facility?: Facility;
     resourceTags?: Array<ResourceTag>;

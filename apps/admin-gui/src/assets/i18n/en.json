@@ -551,6 +551,8 @@
         "DATE": "Date",
         "VALUE_BY_EXTERNALS": "Value provided by external source.",
         "VERIFY": "Verify",
+        "DELETE_APPLICATION_TITLE": "Delete application",
+        "DELETE_APPLICATION_DESCRIPTION": "Application with following ID will be deleted.",
         "DELETE_MESSAGE": "Application was deleted",
         "APPROVE_MESSAGE": "Application was approved",
         "VERIFY_MESSAGE": "Application was verified"
@@ -755,6 +757,10 @@
   },
   "SERVICE_DETAIL": {
     "ENTITY": "Service",
+    "STATUS": "Status",
+    "STATUS_CHANGE_SUCCESS": "Service status was successfully changed",
+    "ENABLED": "Enabled",
+    "DISABLED": "Disabled",
     "DESCRIPTION": "Description",
     "REQUIRED_ATTRIBUTES": {
       "TITLE": "Required attributes",
@@ -1423,10 +1429,13 @@
     },
     "ASSIGN_SERVICE_TO_RESOURCE": {
       "TITLE": "Assign service",
+      "SELECT_PACKAGE": "Select service package",
+      "SELECT_SERVICE": "Select individual services",
       "FILTER_DESCRIPTION": "Find service",
       "ADD_BUTTON": "Add",
       "CANCEL_BUTTON": "Cancel",
-      "SUCCESS_MESSAGE": "Selected services were assigned to resource"
+      "SERVICE_SUCCESS_MESSAGE": "Selected services were assigned to resource",
+      "PACKAGE_SUCCESS_MESSAGE": "Selected service package was assigned to resource"
     },
     "REMOVE_SERVICE_FROM_RESOURCE": {
       "TITLE": "Confirm removal",
@@ -2347,7 +2356,20 @@
         "SIGN_IN": "Sign in",
         "TEXT": "You must sign in to continue."
       },
+      "LOGIN_SERVICE_ACCESS": {
+        "LABEL": "Sign in",
+        "USERNAME": "Username:",
+        "USERNAME_ERROR": "Username cannot be empty",
+        "PASSWORD": "Password:",
+        "PASSWORD_ERROR": "Password cannot be empty",
+        "SIGN_IN": "Sign in",
+        "WRONG_LOGIN_OR_PASSWORD": "Wrong username or password. Please try it again."
+      },
       "COMPONENTS": {
+        "UNIVERSAL_CONFIRMATION_DIALOG": {
+          "CANCEL_BUTTON": "Cancel",
+          "SUBMIT_BUTTON": "Ok"
+        },
         "GROUPS_LIST": {
           "TABLE_GROUP_ID": "Id",
           "TABLE_VO_NAME": "Organization",
@@ -2380,6 +2402,11 @@
           "SELECT_VO": "Select organization",
           "FIND_VO": "Find organization...",
           "NO_VO_FOUND": "No matching vo found"
+        },
+        "SERVICE_PACKAGE_SEARCH_SELECT":  {
+          "SELECT_PACKAGE": "Select service package",
+          "FIND_PACKAGE": "Find service package...",
+          "NO_PACKAGE_FOUND": "No matching service package found"
         },
         "RESOURCES_LIST": {
           "TITLE": "Resources",
@@ -2441,7 +2468,8 @@
           "VALUE": "Value",
           "DESCRIPTION": "Description",
           "DISABLED_HINT": "You don't have permission to change this attribute.",
-          "EMPTY": "No settings found. Use 'Add' button to add new setting.",
+          "EMPTY_ATTRIBUTES": "No attributes found.",
+          "EMPTY_SETTINGS": "No settings found. Use 'Add' button to add new setting.",
           "CHECKBOX_TOOLTIP": "You don't have privileges to edit this attribute"
         },
         "USER_DONT_EXIST": {

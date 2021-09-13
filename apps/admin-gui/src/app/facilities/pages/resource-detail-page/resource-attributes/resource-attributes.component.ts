@@ -33,7 +33,7 @@ export class ResourceAttributesComponent implements OnInit {
         this.resource = resource;
 
         this.resourceGroupAttAuth = this.authResolver.isAuthorized('getAssignedGroups_Resource_policy', [this.resource]);
-        this.resourceMemberAttAuth = this.authResolver.isAuthorized('getAssignedRichMembers_Resource_policy', [this.resource]);
+        this.resourceMemberAttAuth = this.authResolver.isAuthorized('getAssignedMembersWithStatus_Resource_policy', [this.resource]);
       });
     });
   }

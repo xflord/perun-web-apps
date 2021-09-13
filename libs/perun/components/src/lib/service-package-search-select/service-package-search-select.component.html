@@ -1,0 +1,10 @@
+<perun-web-apps-entity-search-select
+  (entitySelected)="this.packageSelected.emit($event)"
+  [entities]="servicePackages"
+  [findPlaceholder]="'SHARED_LIB.PERUN.COMPONENTS.SERVICE_PACKAGE_SEARCH_SELECT.FIND_PACKAGE' | translate"
+  [mainTextFunction]="nameFunction"
+  [noEntriesText]="'SHARED_LIB.PERUN.COMPONENTS.SERVICE_PACKAGE_SEARCH_SELECT.NO_PACKAGE_FOUND' | translate"
+  [searchFunction]="searchFunction"
+  [secondaryTextFunction]="shortNameFunction"
+  [selectPlaceholder]="'SHARED_LIB.PERUN.COMPONENTS.SERVICE_PACKAGE_SEARCH_SELECT.SELECT_PACKAGE' | translate">
+</perun-web-apps-entity-search-select>

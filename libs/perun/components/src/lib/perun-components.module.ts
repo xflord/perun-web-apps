@@ -82,6 +82,7 @@ import { NotificatorComponent } from './notificator/notificator.component';
 import { GroupResourceStatusComponent } from './group-resource-status/group-resource-status.component';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
 import { HeaderMenuComponent } from './header-menu/header-menu.component';
+import { ServicePackageSearchSelectComponent } from './service-package-search-select/service-package-search-select.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -194,7 +195,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     OwnersListComponent,
     NotificatorComponent,
     GroupResourceStatusComponent,
-    HeaderMenuComponent
+    HeaderMenuComponent,
+    ServicePackageSearchSelectComponent
   ],
   exports: [
     VosListComponent,
@@ -241,7 +243,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     AppFormItemSearchSelectComponent,
     OwnersListComponent,
     NotificatorComponent,
-    HeaderMenuComponent
+    HeaderMenuComponent,
+    ServicePackageSearchSelectComponent
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

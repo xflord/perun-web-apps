@@ -36,23 +36,30 @@ export class ApiInterceptor implements HttpInterceptor {
         }
       });
     }
-    if (apiUrl !== undefined && req.url.toString().indexOf(apiUrl) !== -1 && !this.store.skipOidc() && !this.authService.isLoggedIn()) {
+    if (apiUrl !== undefined && req.url.toString().indexOf(apiUrl) !== -1 && !this.store.skipOidc() && !this.authService.isLoggedIn() && !this.initAuthService.isServiceAccess()) {
       const config = getDefaultDialogConfig();
       config.width = '450px';
 
       const dialogRef = this.dialog.open(SessionExpirationDialogComponent, config);
 
       dialogRef.afterClosed().subscribe(() => {
-        this.authService.startAuthentication().then(() => {});
+        this.authService.startAuthentication();
       });
     }
     // Apply the headers
-    req = req.clone({
-      setHeaders: {
-        'Authorization': this.authService.getAuthorizationHeaderValue()
-      }
-    });
-
+    if (this.initAuthService.isServiceAccess()) {
+      req = req.clone({
+        setHeaders: {
+          'Authorization': 'Basic ' + btoa(sessionStorage.getItem('basicUsername') + ':' + sessionStorage.getItem('basicPassword'))
+        }
+      });
+    } else {
+      req = req.clone({
+        setHeaders: {
+          'Authorization': this.authService.getAuthorizationHeaderValue()
+        }
+      });
+    }
     // Also handle errors globally, if not disabled
     const shouldHandleError = this.apiRequestConfiguration.shouldHandleError();
 

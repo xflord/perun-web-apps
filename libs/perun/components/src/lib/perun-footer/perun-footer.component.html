@@ -1,6 +1,6 @@
-<footer [ngStyle]="{'background': bgColor}" class="wrap-content container-fluid text-center text-md-left pr-xl-5 pl-xl-5">
-  <div class="row">
-    <div *ngFor="let item of items" class="footer-col col-md-4 mx-auto">
+<footer [ngStyle]="{'background': bgColor}" class="footer-container">
+  <div class="footer-columns-container">
+    <div *ngFor="let item of items" class="footer-col mx-auto">
       <h6 [ngStyle]="{'color': headersTextColor}" class="font-weight-bold">
         {{item | localisedText: language:'title'}}
       </h6>

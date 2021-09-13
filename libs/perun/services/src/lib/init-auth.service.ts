@@ -22,6 +22,9 @@ export class InitAuthService {
     private router: Router
   ) {}
   private loginScreenShown = false;
+  private serviceAccess = false;
+  private serviceAccessLoginScreen = false;
+
 
   setLoginScreen(shown): void {
     this.loginScreenShown = shown;
@@ -31,11 +34,29 @@ export class InitAuthService {
     return this.loginScreenShown;
   }
 
+  isServiceAccess() {
+    return this.serviceAccess;
+  }
+
+  isServiceAccessLoginScreenShown(){
+    return this.serviceAccessLoginScreen;
+  }
+
+
   /**
    * Load additional data. First it init authService with necessarily data, then
    * start authentication.
    */
   verifyAuth(): Promise<boolean> {
+    if (sessionStorage.getItem("baPrincipal")) {
+      this.serviceAccess = true;
+      if (location.pathname === '/service-access') {
+        return this.router.navigate([]).then(() => true);
+      } else {
+        return this.router.navigate([location.pathname]).then(() => true);
+      }
+    }
+
     this.authService.loadConfigData();
 
     if (this.storeService.skipOidc()) {
@@ -46,7 +67,8 @@ export class InitAuthService {
   }
 
   startAuth(): Promise<void> {
-    return this.authService.startAuthentication();
+    this.authService.startAuthentication();
+    return new Promise<void>(() =>{});
   }
 
   /**
@@ -74,7 +96,11 @@ export class InitAuthService {
    * made.
    */
   handleAuthStart(): Promise<void> {
-    if (this.storeService.get('auto_auth_redirect')) {
+    if (location.pathname === '/service-access' || sessionStorage.getItem("baPrincipal")) {
+      this.serviceAccess = true;
+      this.serviceAccessLoginScreen = true;
+      return new Promise<void>((resolve) => {resolve()});
+    } else if (this.storeService.get('auto_auth_redirect')) {
       return (
         this.startAuth()
           // start a promise that will never resolve, so the app loading won't finish in case
@@ -92,9 +118,5 @@ export class InitAuthService {
           .then(() => null)
       );
     }
-  }
-
-  redirectToOriginDestination(): Promise<boolean> {
-    return this.authService.redirectToOriginDestination();
   }
 }

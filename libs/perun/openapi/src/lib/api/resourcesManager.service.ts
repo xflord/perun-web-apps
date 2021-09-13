@@ -18,6 +18,7 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { AssignedGroup } from '../model/assignedGroup';
+import { AssignedMember } from '../model/assignedMember';
 import { AssignedResource } from '../model/assignedResource';
 import { BanOnResource } from '../model/banOnResource';
 import { EnrichedResource } from '../model/enrichedResource';
@@ -2185,6 +2186,64 @@ export class ResourcesManagerService {
     }
 
     /**
+     * Returns members of groups assigned to resource with status of group-resource assignment.
+     * @param resource id of Resource
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAssignedMembersWithStatus(resource: number, observe?: 'body', reportProgress?: boolean): Observable<Array<AssignedMember>>;
+    public getAssignedMembersWithStatus(resource: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<AssignedMember>>>;
+    public getAssignedMembersWithStatus(resource: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<AssignedMember>>>;
+    public getAssignedMembersWithStatus(resource: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (resource === null || resource === undefined) {
+            throw new Error('Required parameter resource was null or undefined when calling getAssignedMembersWithStatus.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (resource !== undefined && resource !== null) {
+            queryParameters = queryParameters.set('resource', <any>resource);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<Array<AssignedMember>>(`${this.configuration.basePath}/json/resourcesManager/getAssignedMembersWithStatus`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * List all resources associated with a group.
      * @param group id of Group
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -2290,6 +2349,64 @@ export class ResourcesManagerService {
 
 
         return this.httpClient.get<Array<Resource>>(`${this.configuration.basePath}/json/resourcesManager/getAssignedResources/m`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Returns all assigned resources with statuses where member is assigned through the groups.
+     * @param member id of Member
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAssignedResourcesWithStatus(member: number, observe?: 'body', reportProgress?: boolean): Observable<Array<AssignedResource>>;
+    public getAssignedResourcesWithStatus(member: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<AssignedResource>>>;
+    public getAssignedResourcesWithStatus(member: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<AssignedResource>>>;
+    public getAssignedResourcesWithStatus(member: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (member === null || member === undefined) {
+            throw new Error('Required parameter member was null or undefined when calling getAssignedResourcesWithStatus.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (member !== undefined && member !== null) {
+            queryParameters = queryParameters.set('member', <any>member);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<Array<AssignedResource>>(`${this.configuration.basePath}/json/resourcesManager/getAssignedResourcesWithStatus`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

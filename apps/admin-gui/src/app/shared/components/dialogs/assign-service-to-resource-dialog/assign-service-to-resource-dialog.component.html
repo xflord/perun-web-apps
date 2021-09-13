@@ -2,6 +2,12 @@
   <h1 mat-dialog-title>{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.TITLE' | translate}}</h1>
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content>
+    <p><strong>{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.SELECT_PACKAGE' | translate}}</strong></p>
+    <perun-web-apps-service-package-search-select
+      (packageSelected)="servicePackageSelected($event)"
+      [servicePackages]="servicePackages">
+    </perun-web-apps-service-package-search-select>
+    <p><strong>{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.SELECT_SERVICE' | translate}}</strong></p>
     <perun-web-apps-debounce-filter
       placeholder="{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.FILTER_DESCRIPTION' | translate}}"
       (filter)="applyFilter($event)">
@@ -28,7 +34,7 @@
       class="ml-2"
       color="accent"
       (click)="onAdd()"
-      [disabled]="selection.selected.length === 0 || loading">
+      [disabled]="(selection.selected.length === 0 && selectedPackage.id === -1) || loading">
       {{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.ADD_BUTTON' | translate}}
     </button>
   </div>

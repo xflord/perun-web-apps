@@ -23,10 +23,11 @@ export class HeaderComponent implements OnInit {
   bgColor = this.storeService.get('theme', 'nav_bg_color');
   textColor = this.storeService.get('theme', 'nav_text_color');
   iconColor = this.storeService.get('theme', 'nav_icon_color');
-
+  isDevel = false;
   logo: any;
 
   ngOnInit() {
+    this.isDevel = this.storeService.get('is_devel');
     this.principal = this.storeService.getPerunPrincipal();
     this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.get('logo'));
   }

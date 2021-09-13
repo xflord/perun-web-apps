@@ -24,7 +24,6 @@ export class LoginScreenBaseComponent implements OnInit {
 
   headerBackgroundColor: string;
   headerTextColor: string;
-  logoPadding: string;
   contentBackgroundColor = this.storeService.get('theme', 'content_bg_color');
   logo: any;
 
@@ -33,7 +32,6 @@ export class LoginScreenBaseComponent implements OnInit {
     this.headerTextColor = this.storeService.get('theme', 'nav_text_color');
     this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.get('logo'));
     this.textColor = this.headerTitle ? this.storeService.get('theme', 'header_text_color') : '';
-    this.logoPadding = this.application === 'admin-gui' ? this.storeService.get('logo_padding') : '';
   }
 
   getContentInnerMinHeight() {

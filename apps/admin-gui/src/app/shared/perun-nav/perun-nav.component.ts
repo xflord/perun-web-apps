@@ -43,11 +43,10 @@ export class PerunNavComponent implements OnInit {
   @Input()
   principal: PerunPrincipal;
   logo: any;
-  logoPadding = this.storeService.get('logo_padding');
   isDevel = false;
 
   ngOnInit(): void {
-    this.isDevel = this.storeService.get('isDevel');
+    this.isDevel = this.storeService.get('is_devel');
     this.logo = this.sanitizer.bypassSecurityTrustHtml(this.store.get('logo'));
     this.logoutEnabled = this.storeService.get('log_out_enabled');
     this.profileLabel = this.storeService.get('profile_label_en');

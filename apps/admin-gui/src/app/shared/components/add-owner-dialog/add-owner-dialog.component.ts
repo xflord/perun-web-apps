@@ -4,6 +4,7 @@ import { NotificatorService } from '@perun-web-apps/perun/services';
 import { OwnersManagerService } from '@perun-web-apps/perun/openapi';
 import { TranslateService } from '@ngx-translate/core';
 import { FormControl, Validators } from '@angular/forms';
+import { emailRegexString } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-add-owner-dialog',
@@ -28,11 +29,9 @@ export class AddOwnerDialogComponent implements OnInit {
   contactCtrl: FormControl;
   type = '1';
 
-  emailRegex = /^(([^<>+()[\]\\.,;:\s@"-#$%&=]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
-
   ngOnInit() {
     this.nameCtrl = new FormControl(null, [Validators.required, Validators.pattern('^[\\w.-]+( [\\w.-]+)*$')]);
-    this.contactCtrl = new FormControl(null, [Validators.required, Validators.pattern(this.emailRegex)]);
+    this.contactCtrl = new FormControl(null, [Validators.required, Validators.pattern(emailRegexString)]);
   }
 
   onCancel() {

@@ -87,5 +87,5 @@
 </app-alert>
 
 <app-alert *ngIf="dataSource.data.length === 0" alert_type="warn">
-  {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.EMPTY' | translate}}
+  {{emptyListText | translate}}
 </app-alert>

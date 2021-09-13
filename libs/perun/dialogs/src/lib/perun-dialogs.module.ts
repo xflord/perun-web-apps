@@ -37,6 +37,7 @@ import { ChangeGroupExpirationDialogComponent } from './change-group-expiration-
 import { ChangeVoExpirationDialogComponent } from './change-vo-expiration-dialog/change-vo-expiration-dialog.component';
 import { ChangeSponsorshipExpirationDialogComponent } from './change-sponsorship-expiration-dialog/change-sponsorship-expiration-dialog.component';
 import { ChangeGroupResourceAssigmentDialogComponent } from './change-group-resource-assigment-dialog/change-group-resource-assigment-dialog.component';
+import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 
 @NgModule({
   imports: [
@@ -80,7 +81,8 @@ import { ChangeGroupResourceAssigmentDialogComponent } from './change-group-reso
     ChangeGroupExpirationDialogComponent,
     ChangeVoExpirationDialogComponent,
     ChangeSponsorshipExpirationDialogComponent,
-    ChangeGroupResourceAssigmentDialogComponent
+    ChangeGroupResourceAssigmentDialogComponent,
+    ChangePasswordDialogComponent
   ],
   exports: [
     ChangeExpirationDialogComponent,

@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
   contentBackgroundColor = this.store.get('theme', 'content_bg_color');
   isLoginScreenShown: boolean;
   contentHeight =  'calc(100vh - 84px)';
+  headerLabel = this.store.get('header_label_en');
 
   ngOnInit(): void {
     this.isLoginScreenShown = this.initAuth.isLoginScreenShown();

@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AttributesListComponent } from '@perun-web-apps/perun/components';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DeleteAttributeDialogComponent } from '../dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
-import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { getDefaultDialogConfig, getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
 import { EditAttributeDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { CreateAttributeDialogComponent } from '../dialogs/create-attribute-dialog/create-attribute-dialog.component';
 import { Urns } from '@perun-web-apps/perun/urns';
@@ -64,8 +64,8 @@ export class TwoEntityAttributePageComponent implements OnInit {
       case 'member':
         switch (this.secondEntity) {
           case 'resource':
-            this.resourcesManagerService.getAllowedResources(this.firstEntityId).subscribe(resources => {
-              this.entityValues = resources;
+            this.resourcesManagerService.getAssignedResourcesWithStatus(this.firstEntityId).subscribe(resources => {
+              this.entityValues = resources.map(resource => resource.enrichedResource.resource);
               this.preselectEntity();
               this.loading = false;
             })
@@ -107,8 +107,8 @@ export class TwoEntityAttributePageComponent implements OnInit {
       case 'resource':
         switch (this.secondEntity){
           case 'member':
-            this.resourcesManagerService.getAssignedRichMembers(this.firstEntityId).subscribe(members => {
-              this.entityValues = members;
+            this.resourcesManagerService.getAssignedMembersWithStatus(this.firstEntityId).subscribe(members => {
+              this.entityValues = members.map(member => member.richMember);
               this.preselectEntity();
               this.loading = false;
             })
@@ -134,7 +134,29 @@ export class TwoEntityAttributePageComponent implements OnInit {
 
   preselectEntity() {
     if(this.entityValues.length !== 0){
-      this.specifySecondEntity(this.entityValues[0]);
+      this.findInitiallySelectedEntity();
+    }
+  }
+
+  findInitiallySelectedEntity() {
+    let initialEntity = this.entityValues[0];
+    const recentIds = getRecentlyVisitedIds(this.entityKey());
+    if(recentIds) {
+      for (const entity of this.entityValues) {
+        if (entity.id === recentIds[0]) {
+          initialEntity = entity;
+          break;
+        }
+      }
+    }
+    this.specifySecondEntity(initialEntity);
+  }
+
+  entityKey() {
+    // Can be extended to support different entities in the future
+    switch (this.secondEntity){
+      case 'group': return 'groups';
+      default: return '';
     }
   }
 

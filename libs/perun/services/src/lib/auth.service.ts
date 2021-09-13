@@ -1,12 +1,11 @@
-import { EventEmitter, Injectable, Injector } from '@angular/core';
-import {User, UserManager, UserManagerSettings} from 'oidc-client';
-import {from, Observable} from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { Injectable, Injector } from '@angular/core';
+import { filter} from 'rxjs/operators';
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import { StoreService } from './store.service';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { SessionExpirationDialogComponent } from '@perun-web-apps/perun/session-expiration';
+import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 
 
 @Injectable({
@@ -19,8 +18,8 @@ export class AuthService {
     private injector: Injector,
     private store: StoreService,
     private dialog: MatDialog,
-    private route: ActivatedRoute
-
+    private route: ActivatedRoute,
+    private oauthService: OAuthService
   ) {
     setTimeout(() => {
       this.router = this.injector.get(Router);
@@ -34,34 +33,25 @@ export class AuthService {
       }
     });
   }
-  manager: UserManager;
-
-  userSet: EventEmitter<User> = new EventEmitter<User>();
-
-  user: User = null;
   loggedIn = false;
   filterShortname: string;
 
   redirectUrl: string;
 
-  getClientSettings(): UserManagerSettings {
+  getClientConfig(): AuthConfig {
     const filterValue = this.setIdpFilter();
-    const data: any = {
-      authority: this.store.get('oidc_client', 'oauth_authority'),
-      client_id: this.store.get('oidc_client', 'oauth_client_id'),
-      redirect_uri: this.store.get('oidc_client', 'oauth_redirect_uri'),
-      post_logout_redirect_uri: this.store.get('oidc_client', 'oauth_post_logout_redirect_uri'),
-      response_type: this.store.get('oidc_client', 'oauth_response_type'),
+    return {
+      requestAccessToken: true,
+      issuer: this.store.get('oidc_client', 'oauth_authority'),
+      clientId: this.store.get('oidc_client', 'oauth_client_id'),
+      redirectUri: this.store.get('oidc_client', 'oauth_redirect_uri'),
+      postLogoutRedirectUri: this.store.get('oidc_client', 'oauth_post_logout_redirect_uri'),
+      responseType: this.store.get('oidc_client', 'oauth_response_type'),
       scope: this.store.get('oidc_client', 'oauth_scopes'),
-      filterProtocolClaims: true,
-      loadUserInfo: this.store.get('oidc_client', 'oauth_load_user_info'),
-      automaticSilentRenew: true,
-      silent_redirect_uri: this.store.get('oidc_client', 'oauth_silent_redirect_uri')
+      useSilentRefresh: false,
+      // sessionChecksEnabled: true,
+      customQueryParams: !filterValue ? {} : { 'acr_values': filterValue}
     };
-    if (filterValue) {
-      data.extraQueryParams = { 'acr_values': filterValue };
-    }
-    return data
   }
 
   setIdpFilter(): string {
@@ -88,10 +78,6 @@ export class AuthService {
     return filterValue;
   }
 
-  getUserManager(): UserManager {
-    return this.manager;
-  }
-
   /**
    * Subscribes to route events and keeps the idpFilter query parameter.
    *
@@ -114,19 +100,15 @@ export class AuthService {
   }
 
   loadConfigData() {
-    this.manager = new UserManager(this.getClientSettings());
-    this.setUser();
-    this.manager.events.addUserLoaded(user => {
-      this.user = user;
-    });
-    this.manager.events.addAccessTokenExpired(() => {
+    this.oauthService.configure(this.getClientConfig());
+    this.oauthService.events.pipe(filter(e => e.type === 'token_expires')).subscribe(() => {
       const config = getDefaultDialogConfig();
       config.width = '450px';
 
       const dialogRef = this.dialog.open(SessionExpirationDialogComponent, config);
 
       dialogRef.afterClosed().subscribe(() => {
-        this.startAuthentication().then(() => {});
+        this.startAuthentication();
       });
     });
   }
@@ -144,73 +126,42 @@ export class AuthService {
   }
 
   logout() {
-    this.manager.signoutRedirect()
-      .catch(function(error) {
-        console.log(error);
-      });
+    if (sessionStorage.getItem("baPrincipal")) {
+      sessionStorage.removeItem("baPrincipal");
+      sessionStorage.removeItem("basicUsername");
+      sessionStorage.removeItem("basicPassword");
+      sessionStorage.setItem("baLogout", "true");
+      this.router.navigate(['/service-access']);
+    } else {
+      this.oauthService.logOut();
+    }
   }
 
-  isLoggedInPromise(): Observable<boolean> {
-    return from(this.manager.getUser()).pipe(map<User, boolean>((user) => !!user && !user.expired));
+  isLoggedInPromise(): Promise<boolean> {
+    return this.isLoggedIn() ? Promise.resolve(true) : Promise.resolve(false);
   }
 
   isLoggedIn(): boolean {
-    return this.user != null && !this.user.expired;
-  }
-
-  getClaims(): any {
-    return this.user.profile;
+    return this.oauthService.hasValidAccessToken();
   }
 
   getAuthorizationHeaderValue(): string {
-    return this.user ? 'Bearer ' + this.user.access_token : '';
+    return this.oauthService.hasValidAccessToken() ? 'Bearer ' + this.oauthService.getAccessToken() : '';
   }
 
-  startAuthentication(): Promise<void> {
-    return this.manager.signinRedirect();
-  }
-
-  completeAuthentication(): Promise<void> {
-    return this.manager.signinRedirectCallback().then(user => {
-      this.user = user;
-      this.userSet.emit(this.user);
-    });
-  }
-
-  startSigninMainWindow() {
-    this.manager.signinRedirect({ data: this.redirectUrl }).then(function () {
-      console.log('signinRedirect done');
-    }).catch(function (err) {
-      console.log(err);
-    });
-  }
-
-  setUser() {
-    this.manager.getUser().then( user => {
-      this.user = user;
-    });
+  startAuthentication(): void {
+    this.oauthService.loadDiscoveryDocumentAndLogin();
   }
 
   /**
-   * This method serves as a simple check
-   * that decides if the page user
-   * is accessing is valid.
+   * This method is used to handle oauth callbacks.
    *
-   * @param path current url path
-   * @return true if path is valid, false otherwise
+   * First, it finishes the authentication and then redirects user to the url
+   * he wanted to visit.
+   *
    */
-  private isPotentiallyValidPath(path: string): boolean {
-    const validPaths = ['/home', '/organizations', '/facilities', '/myProfile', '/admin', '/login'];
-    if (path === '/'){
-      return true;
-    }
-    for (const validPath of validPaths){
-      if (path.startsWith(validPath)) {
-        return  true;
-      }
-    }
-
-    return false;
+  public handleAuthCallback(): Promise<boolean> {
+    return this.oauthService.loadDiscoveryDocumentAndTryLogin();
   }
 
   /**
@@ -227,7 +178,6 @@ export class AuthService {
    */
   private verifyAuthentication(path: string, queryParams: string): Promise<any> {
     return this.isLoggedInPromise()
-      .toPromise()
       .then(isLoggedIn => {
         if (!isLoggedIn) {
           if (!this.isPotentiallyValidPath(path)) {
@@ -244,15 +194,26 @@ export class AuthService {
   }
 
   /**
-   * This method is used to handle oauth callbacks.
+   * This method serves as a simple check
+   * that decides if the page user
+   * is accessing is valid.
    *
-   * First, it finishes the authentication and then redirects user to the url
-   * he wanted to visit.
-   *
+   * @param path current url path
+   * @return true if path is valid, false otherwise
    */
-  public handleAuthCallback(): Promise<boolean> {
-    return this.completeAuthentication()
-      .then(() => true);
+  private isPotentiallyValidPath(path: string): boolean {
+    // add '/service-access' to valid paths to enable basic auth
+    const validPaths = ['/home', '/organizations', '/facilities', '/myProfile', '/admin', '/login', '/service-access'];
+    if (path === '/'){
+      return true;
+    }
+    for (const validPath of validPaths){
+      if (path.startsWith(validPath)) {
+        return  true;
+      }
+    }
+
+    return false;
   }
 
   public redirectToOriginDestination(): Promise<boolean> {

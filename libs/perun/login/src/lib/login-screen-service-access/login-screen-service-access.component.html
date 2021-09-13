@@ -1,0 +1,41 @@
+<div class="container login-con vo-theme top-padding">
+  <div class="row">
+    <div class="ml-auto mr-auto d-flex flex-column align-items-center">
+      <h2>{{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.LABEL' | translate}}</h2>
+      <app-alert *ngIf="wrongUsernameOrPassword" alert_type="error">
+        {{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.WRONG_LOGIN_OR_PASSWORD' | translate}}
+      </app-alert>
+      <mat-form-field appearance="outline">
+        <mat-label>{{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.USERNAME' | translate}}</mat-label>
+        <input
+          [formControl]="usernameCtrl"
+          matInput
+          required>
+        <mat-error>
+          {{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.USERNAME_ERROR' | translate}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.PASSWORD' | translate}}</mat-label>
+        <input
+          [formControl]="passwordCtrl"
+          [type]="'password'"
+          matInput
+          required>
+        <mat-error>
+          {{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.PASSWORD_ERROR' | translate}}
+        </mat-error>
+      </mat-form-field>
+      <button
+        (click)="startAuth()"
+        [disabled]="usernameCtrl.invalid || passwordCtrl.invalid"
+        class="black"
+        mat-raised-button>
+        {{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.SIGN_IN' | translate}}
+        <mat-icon>
+          login
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

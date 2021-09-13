@@ -75,6 +75,7 @@ import { AddTokenInfoDialogComponent } from './components/add-token-info-dialog/
 import { PerunLoginModule } from '@perun-web-apps/perun/login';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
 import { MatMenuModule } from '@angular/material/menu';
+import { OAuthModule} from 'angular-oauth2-oidc';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -174,7 +175,8 @@ const loadConfigs = (appConfig: UserProfileConfigService) => () => appConfig.ini
     FormsModule,
     PerunLoginModule,
     PerunUtilsModule,
-    MatMenuModule
+    MatMenuModule,
+    OAuthModule.forRoot()
   ],
   providers: [
     CustomIconService,
