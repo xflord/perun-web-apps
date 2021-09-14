@@ -56,10 +56,20 @@
               mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.TABLE_VO_NAME' | translate}}</th>
           <td *matCellDef="let group" class="static-column-size" mat-cell>{{voNames.get(group.voId)}}</td>
         </ng-container>
+        <ng-container matColumnDef="indirectGroupAssigment">
+          <th *matHeaderCellDef mat-header-cell></th>
+          <td *matCellDef="let group" mat-cell>
+            <mat-icon *ngIf="group.sourceGroupId"
+                      matTooltipPosition="above"
+                      [matTooltip]="'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.INDIRECT_GROUP' | translate">account_tree</mat-icon>
+          </td>
+        </ng-container>
         <ng-container matColumnDef="name">
           <th *matHeaderCellDef mat-header-cell
               mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.TABLE_GROUP_NAME' | translate}}</th>
-          <td *matCellDef="let group" mat-cell>{{group.name}}</td>
+          <td *matCellDef="let group" mat-cell>
+            {{group.name}}
+          </td>
         </ng-container>
         <ng-container matColumnDef="status">
           <th *matHeaderCellDef mat-header-cell
@@ -129,10 +139,10 @@
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
       <tr
         *matRowDef="let group; columns: displayedColumns;"
-        [class.cursor-pointer]="!disableRouting && !groupsToDisable.has(group.id)"
-        [class.disable-outline]="disabledRouting || groupsToDisable.has(group.id)"
-        [perunWebAppsMiddleClickRouterLink]="(disabledRouting || groupsToDisable.has(group.id)) ? null : ['/organizations', group.voId, 'groups', group.id]"
-        [routerLink]="(disabledRouting || groupsToDisable.has(group.id)) ? null : ['/organizations', group.voId, 'groups', group.id]"
+        [class.cursor-pointer]="!disableRouting && !groupsToDisableRouting.has(group.id)"
+        [class.disable-outline]="disabledRouting || groupsToDisableRouting.has(group.id)"
+        [perunWebAppsMiddleClickRouterLink]="(disabledRouting || groupsToDisableRouting.has(group.id)) ? null : ['/organizations', group.voId, 'groups', group.id]"
+        [routerLink]="(disabledRouting || groupsToDisableRouting.has(group.id)) ? null : ['/organizations', group.voId, 'groups', group.id]"
         class="dark-hover-list-item"
         mat-row>
       </tr>

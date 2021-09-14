@@ -68,7 +68,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   private hasMembersGroup = false;
 
   @Input()
-  displayedColumns: string[] = ['select', 'id', 'recent', 'vo', 'name', 'status', 'groupStatus', 'description', 'expiration', 'menu'];
+  displayedColumns: string[] = ['select', 'id', 'recent', 'vo', 'indirectGroupAssigment', 'name', 'status', 'groupStatus', 'description', 'expiration', 'menu'];
 
   @Input()
   disableMembers: boolean;
@@ -77,7 +77,10 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   disableGroups: boolean;
 
   @Input()
-  groupsToDisable: Set<number> = new Set<number>();
+  groupsToDisableCheckbox: Set<number> = new Set<number>();
+
+  @Input()
+  groupsToDisableRouting: Set<number> = new Set<number>();
 
   @Input()
   pageSize = 10;
@@ -250,7 +253,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   }
 
   disableSelect(grp: GroupWithStatus): boolean {
-    return this.disableGroups && (this.groupsToDisable.has(grp.id) || this.isSynchronized(grp));
+    return this.disableGroups && (this.groupsToDisableCheckbox.has(grp.id) || this.isSynchronized(grp));
   }
 
   ngAfterViewInit(): void {
@@ -332,6 +335,8 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
       return 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.CREATE_RELATION_AUTH_TOOLTIP';
     } else if (this.isSynchronized(row)){
       return 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.SYNCHRONIZED_GROUP';
+    } else if (row.sourceGroupId) {
+      return 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.INDIRECT_GROUP';
     } else {
       return 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.ALREADY_MEMBER_TOOLTIP';
     }

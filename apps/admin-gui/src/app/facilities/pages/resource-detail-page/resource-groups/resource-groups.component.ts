@@ -35,6 +35,7 @@ export class ResourceGroupsComponent implements OnInit {
   selected = new SelectionModel<GroupWithStatus>(true, []);
   loading: boolean;
   filteredValue = '';
+  groupsToDisable: Set<number>;
 
   tableId = TABLE_RESOURCE_ALLOWED_GROUPS;
   pageSize: number;
@@ -66,8 +67,10 @@ export class ResourceGroupsComponent implements OnInit {
         const gws: GroupWithStatus = g.enrichedGroup.group;
         gws.status = g.status;
         gws.failureCause = g.failureCause;
+        gws.sourceGroupId = g.sourceGroupId;
         return gws;
       });
+      this.groupsToDisable = new Set(this.assignedGroups.filter(group => !!group.sourceGroupId).map(group => group.id));
       this.selected.clear();
       this.loading = false;
     });

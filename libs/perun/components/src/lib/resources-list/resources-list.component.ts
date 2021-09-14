@@ -47,7 +47,7 @@ export class ResourcesListComponent implements OnInit, OnChanges {
   @Input()
   routingVo = false;
   @Input()
-  displayedColumns: string[] = ['select', 'id', 'recent', 'name', 'vo', 'status', 'facility', 'tags', 'description'];
+  displayedColumns: string[] = ['select', 'id', 'recent', 'indirectResourceAssigment', 'name', 'vo', 'status', 'facility', 'tags', 'description'];
   @Input()
   groupToResource: Group;
   @Input()
@@ -56,6 +56,8 @@ export class ResourcesListComponent implements OnInit, OnChanges {
   recentIds: number[];
   @Input()
   groupId: number = null;
+  @Input()
+  resourcesToDisableCheckbox: Set<number> = new Set<number>();
 
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
@@ -144,16 +146,18 @@ export class ResourcesListComponent implements OnInit, OnChanges {
     this.dataSource.data = this.resources;
   }
 
+  canBeSelected = (group: ResourceWithStatus): boolean => !this.disableSelect(group)
+
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-    const isAllSelected = this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    const isAllSelected = this.tableCheckbox.isAllSelectedWithDisabledCheckbox(this.selection.selected.length, this.filterValue, this.pageSize, this.child.paginator.hasNextPage(), this.child.paginator.pageIndex, this.dataSource, this.sort, this.canBeSelected);
     this.allSelected.emit(isAllSelected)
     return isAllSelected;
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.pageSize, this.child.paginator.pageIndex, false);
+    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.pageSize, this.child.paginator.pageIndex, true, this.canBeSelected);
     this.setAuth();
   }
 
@@ -176,5 +180,9 @@ export class ResourcesListComponent implements OnInit, OnChanges {
   itemSelectionToggle(item: ResourceWithStatus) {
     this.selection.toggle(item);
     this.setAuth();
+  }
+
+  disableSelect(resource: ResourceWithStatus) {
+    return this.resourcesToDisableCheckbox.has(resource.id);
   }
 }
