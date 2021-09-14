@@ -32,7 +32,7 @@ export class ResourceAttributesComponent implements OnInit {
       this.resourceManager.getResourceById(this.resourceId).subscribe(resource => {
         this.resource = resource;
 
-        this.resourceGroupAttAuth = this.authResolver.isAuthorized('getAssignedGroups_Resource_policy', [this.resource]);
+        this.resourceGroupAttAuth = this.authResolver.isAuthorized('getGroupAssignments_Resource_policy', [this.resource]);
         this.resourceMemberAttAuth = this.authResolver.isAuthorized('getAssignedMembersWithStatus_Resource_policy', [this.resource]);
       });
     });
