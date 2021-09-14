@@ -1,6 +1,7 @@
 <perun-web-apps-entity-search-select
   [entities]="resources"
   (entitySelected)="this.resourceSelected.emit($event)"
+  [displayStatus]="true"
   [searchFunction]="nameFunction"
   [mainTextFunction]="nameFunction"
   [selectPlaceholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCE_SEARCH_SELECT.SELECT_RESOURCE' | translate"

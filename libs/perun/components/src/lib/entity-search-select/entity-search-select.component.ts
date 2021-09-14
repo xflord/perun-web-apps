@@ -46,6 +46,9 @@ export class EntitySearchSelectComponent<T extends PerunBean> implements OnInit,
   @Input()
   entity: T = null;
 
+  @Input()
+  displayStatus = false;
+
   @Output()
   entitySelected = new EventEmitter<T>();
 
@@ -69,6 +72,7 @@ export class EntitySearchSelectComponent<T extends PerunBean> implements OnInit,
   @Input()
   secondaryTextFunction: (entity: T) => string = entity => '#' + entity.id;
 
+  statusTextFunction: (entity) => string = entity => entity.status;
 
   ngOnInit(): void {
     this.entitiesCtrl.valueChanges.subscribe(entity => this.entitySelected.emit(entity));
@@ -87,6 +91,21 @@ export class EntitySearchSelectComponent<T extends PerunBean> implements OnInit,
 
     if (this.entity !== null) {
       this.entitiesCtrl.setValue(this.entity);
+    }
+  }
+
+  colorByStatus(entity): string {
+    switch (entity.status) {
+      case "ACTIVE":
+        return "green";
+      case "INACTIVE":
+        return "grey";
+      case "FAILED":
+        return "red";
+      case "PROCESSING":
+        return "black";
+      default:
+        break;
     }
   }
 

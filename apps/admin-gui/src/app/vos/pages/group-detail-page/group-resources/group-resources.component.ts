@@ -13,7 +13,8 @@ import { AddGroupResourceDialogComponent } from '../../../../shared/components/d
 import { RemoveGroupResourceDialogComponent } from '../../../../shared/components/dialogs/remove-group-resource-dialog/remove-group-resource-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
-import { ResourcesListComponent, ResourceWithStatus } from '@perun-web-apps/perun/components';
+import { ResourcesListComponent } from '@perun-web-apps/perun/components';
+import { ResourceWithStatus } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-group-resources',

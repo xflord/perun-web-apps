@@ -17,8 +17,8 @@ import {
 import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
-import { GroupWithStatus } from '@perun-web-apps/perun/components';
 import { Urns } from '@perun-web-apps/perun/urns';
+import { GroupWithStatus } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-perun-web-apps-resource-groups',
