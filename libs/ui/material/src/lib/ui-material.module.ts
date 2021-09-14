@@ -16,7 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
@@ -56,7 +56,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatSortModule,
     MatPaginatorModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatRippleModule
   ],
   exports: [
     MatCardModule,
@@ -85,7 +86,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatSortModule,
     MatPaginatorModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatRippleModule
   ]
 })
 export class UiMaterialModule {}
