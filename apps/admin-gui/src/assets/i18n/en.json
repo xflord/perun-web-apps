@@ -2489,6 +2489,11 @@
           "EMPTY_SETTINGS": "No settings found. Use 'Add' button to add new setting.",
           "CHECKBOX_TOOLTIP": "You don't have privileges to edit this attribute"
         },
+        "SELECTION_ITEM_SEARCH_SELECT": {
+          "SELECT_ITEM": "Select attribute",
+          "FIND_ITEM": "Find attribute...",
+          "NO_ITEM_FOUND": "No matching attribute found"
+        },
         "USER_DONT_EXIST": {
           "TITLE": "Requested user (by ID or external identity) doesn't exist."
         },

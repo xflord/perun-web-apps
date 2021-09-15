@@ -51,34 +51,38 @@
             </div>
             <app-edit-application-form-item-line [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SOURCE_ATTRIBUTE' | translate"
                                                  [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SOURCE_ATTRIBUTE_DESCRIPTION' | translate">
-              <mat-form-field class="w-100">
-                <mat-select [(value)]="applicationFormItem.perunSourceAttribute" disableOptionCentering>
-                  <mat-option *ngFor="let attribute of sourceAttributes" [value]="attribute.value">
-                    {{attribute.displayName}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+              <div class="w-100">
+                <perun-web-apps-selection-item-search-select
+                  [attributes]="attributeDefinitions"
+                  [selectedAttribute]="applicationFormItem.perunSourceAttribute"
+                  [asGroup]="!!data.group"
+                  [type]="itemType.SOURCE"
+                  (itemSelected)="applicationFormItem.perunSourceAttribute = $event.value">
+                </perun-web-apps-selection-item-search-select>
+              </div>
             </app-edit-application-form-item-line>
             <app-edit-application-form-item-line [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DESTINATION_ATTRIBUTE' | translate"
                                                  [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DESTINATION_ATTRIBUTE_DESCRIPTION' | translate">
-              <mat-form-field class="w-100">
-                <mat-select [(value)]="applicationFormItem.perunDestinationAttribute" disableOptionCentering>
-                  <mat-option *ngFor="let attribute of destinationAttributes" [value]="attribute.value">
-                    {{attribute.displayName}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+              <div class="w-100">
+                <perun-web-apps-selection-item-search-select
+                  [attributes]="attributeDefinitions"
+                  [selectedAttribute]="applicationFormItem.perunDestinationAttribute"
+                  [asGroup]="!!data.group"
+                  [type]="itemType.DESTINATION"
+                  (itemSelected)="applicationFormItem.perunDestinationAttribute = $event.value">
+                </perun-web-apps-selection-item-search-select>
+              </div>
             </app-edit-application-form-item-line>
             <app-edit-application-form-item-line [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.FEDERATION_ATTRIBUTE' | translate"
                                                  [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.FEDERATION_ATTRIBUTE_DESCRIPTION' | translate">
-              <mat-form-field class="w-100">
-                <mat-select (selectionChange)="federationAttributeschanged()" [(value)]="federationAttribute"
-                            disableOptionCentering>
-                  <mat-option *ngFor="let attribute of federationAttributes" [value]="attribute.value">
-                    {{attribute.displayName}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+              <div class="w-100">
+                <perun-web-apps-selection-item-search-select
+                  [selectedAttribute]="applicationFormItem.federationAttribute"
+                  [asGroup]="!!data.group"
+                  [type]="itemType.FEDERATION"
+                  (itemSelected)="federationAttribute = $event.value">
+                </perun-web-apps-selection-item-search-select>
+              </div>
               <div *ngIf="federationAttribute === 'custom'" class="w-100">
                 <mat-form-field class="w-100">
                   <input matInput [(ngModel)]="applicationFormItem.federationAttribute">

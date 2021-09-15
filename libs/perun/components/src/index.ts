@@ -17,3 +17,4 @@ export * from './lib/perun-footer/perun-footer.component'
 export * from './lib/create-group-form/create-group-form.component';
 export * from './lib/app-form-item-search-select/app-form-item-search-select.component';
 export * from './lib/header-menu/header-menu.component';
+export * from './lib/selection-item-search-select/selection-item-search-select.component';

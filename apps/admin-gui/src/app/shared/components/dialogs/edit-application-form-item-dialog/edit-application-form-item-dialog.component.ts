@@ -6,7 +6,7 @@ import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/p
 import { createNewApplicationFormItem } from '@perun-web-apps/perun/utils';
 import DisabledEnum = ApplicationFormItem.DisabledEnum;
 import HiddenEnum = ApplicationFormItem.HiddenEnum;
-import { NO_FORM_ITEM } from '@perun-web-apps/perun/components';
+import { ItemType, NO_FORM_ITEM } from '@perun-web-apps/perun/components';
 import { StoreService } from '@perun-web-apps/perun/services';
 
 export interface EditApplicationFormItemDialogComponentData {
@@ -15,16 +15,6 @@ export interface EditApplicationFormItemDialogComponentData {
   group: Group;
   applicationFormItem: ApplicationFormItem;
   allItems: ApplicationFormItem[];
-}
-
-export class SelectionItem {
-  value: string;
-  displayName: string;
-
-  constructor(displayName: string, value: string) {
-    this.value = value;
-    this.displayName = displayName;
-  }
 }
 
 @Component({
@@ -36,10 +26,8 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
 
   applicationFormItem: ApplicationFormItem;
   attributeDefinitions: AttributeDefinition[];
-  federationAttributes: SelectionItem[] = [];
   federationAttribute = '';
-  sourceAttributes: SelectionItem[] = [];
-  destinationAttributes: SelectionItem[] = [];
+  itemType = ItemType;
   options: {[key:string]:[string, string][]};
   theme: string;
   loading = false;
@@ -79,11 +67,8 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     this.loading = true;
     this.attributesManager.getAllAttributeDefinitions().subscribe( attributeDefinitions => {
       this.attributeDefinitions = attributeDefinitions;
-      this.getDestinationAndSourceAttributes();
       this.loading = false;
     }, () => this.loading = false);
-    this.getFederationAttributes();
-    this.getFederationAttribute();
     if (this.applicationFormItem.perunDestinationAttribute === null) {
       this.applicationFormItem.perunDestinationAttribute = '';
     }
@@ -119,91 +104,6 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     } else {
       this.applicationFormItem.applicationTypes.push(type);
     }
-  }
-
-  getDestinationAndSourceAttributes() {
-    this.translateService.get('DIALOGS.APPLICATION_FORM_EDIT_ITEM.NO_SELECTED_ITEM').subscribe( noItem => {
-      this.sourceAttributes.push(new SelectionItem(noItem, ''));
-      this.destinationAttributes.push(new SelectionItem(noItem, ''));
-    });
-
-    for (const attribute of this.attributeDefinitions) {
-      if (attribute.entity.toLowerCase() === 'user' || attribute.entity.toLowerCase() === 'member') {
-        // add only member and user attributes
-        this.sourceAttributes.push(
-          new SelectionItem(attribute.friendlyName + ' (' + attribute.entity + ' / ' + this.getDefinition(attribute) + ')',
-            attribute.namespace + ':' + attribute.friendlyName)
-        );
-        this.destinationAttributes.push(
-          new SelectionItem(attribute.friendlyName + ' (' + attribute.entity + ' / ' + this.getDefinition(attribute) + ')',
-            attribute.namespace + ':' + attribute.friendlyName)
-        );
-      } else if (attribute.entity.toLowerCase() === 'vo') {
-        // source attributes can be VO too
-        this.sourceAttributes.push(
-          new SelectionItem(attribute.friendlyName + ' (' + attribute.entity + ' / ' + this.getDefinition(attribute) + ')',
-            attribute.namespace + ':' + attribute.friendlyName)
-        );
-      } else if (attribute.entity.toLowerCase() === 'group' && this.data.group) {
-        // if dialog is for group
-        this.sourceAttributes.push(
-          new SelectionItem(attribute.friendlyName + ' (' + attribute.entity + ' / ' + this.getDefinition(attribute) + ')',
-            attribute.namespace + ':' + attribute.friendlyName)
-        );
-      }
-    }
-  }
-
-  getFederationAttributes() {
-    this.translateService.get('DIALOGS.APPLICATION_FORM_EDIT_ITEM.NO_SELECTED_ITEM').subscribe( noItem => {
-      this.federationAttributes.push(new SelectionItem(noItem, ''));
-      this.translateService.get('DIALOGS.APPLICATION_FORM_EDIT_ITEM.CUSTOM_VALUE').subscribe( custom => {
-        this.federationAttributes.push(new SelectionItem(custom, 'custom'));
-        this.federationAttributes.push(new SelectionItem('Display name', 'displayName'));
-        this.federationAttributes.push(new SelectionItem('Common name', 'cn'));
-        this.federationAttributes.push(new SelectionItem('Mail', 'mail'));
-        this.federationAttributes.push(new SelectionItem('Organization', 'o'));
-        this.federationAttributes.push(new SelectionItem('Level of Assurance (LoA)', 'loa'));
-        this.federationAttributes.push(new SelectionItem('First name', 'givenName'));
-        this.federationAttributes.push(new SelectionItem('Surname', 'sn'));
-        this.federationAttributes.push(new SelectionItem('EPPN', 'eppn'));
-        this.federationAttributes.push(new SelectionItem('IdP Category', 'md_entityCategory'));
-        this.federationAttributes.push(new SelectionItem('IdP Affiliation', 'affiliation'));
-        this.federationAttributes.push(new SelectionItem('EduPersonScopedAffiliation', 'eduPersonScopedAffiliation'));
-        this.federationAttributes.push(new SelectionItem('Forwarded Affiliation from Proxy', 'forwardedScopedAffiliation'));
-        this.federationAttributes.push(new SelectionItem('schacHomeOrganization', 'schacHomeOrganization'));
-        this.federationAttributes.push(new SelectionItem('Login', 'uid'));
-        this.federationAttributes.push(new SelectionItem('Alternative login name', 'alternativeLoginName'));
-      });
-    });
-  }
-
-  getFederationAttribute() {
-    if (this.applicationFormItem.federationAttribute) {
-      for (const attribute of this.federationAttributes) {
-        if (attribute.value === this.applicationFormItem.federationAttribute) {
-          this.federationAttribute = attribute.value;
-          return;
-        }
-      }
-      this.federationAttribute = 'custom';
-    }
-  }
-
-  federationAttributeschanged() {
-    if (this.federationAttribute !== 'custom') {
-      this.applicationFormItem.federationAttribute = this.federationAttribute;
-    } else {
-      this.applicationFormItem.federationAttribute = '';
-    }
-  }
-
-  private getDefinition(attribute: AttributeDefinition) {
-    const temp = attribute.namespace.split(':');
-    if (temp[4] === null ) {
-      return 'null';
-    }
-    return temp[4];
   }
 
   addOption(lang: string) {
