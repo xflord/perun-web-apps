@@ -1,6 +1,7 @@
 <perun-web-apps-entity-search-select
   [entities]="servicePackages"
   (entitySelected)="this.packageSelected.emit($event)"
+  [entity]='selectedPackage'
   [searchFunction]="searchFunction"
   [mainTextFunction]="nameFunction"
   [secondaryTextFunction]="shortNameFunction"
