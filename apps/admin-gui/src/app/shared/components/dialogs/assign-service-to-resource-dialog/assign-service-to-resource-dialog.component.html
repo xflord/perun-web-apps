@@ -2,25 +2,41 @@
   <h1 mat-dialog-title>{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.TITLE' | translate}}</h1>
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content>
-    <p><strong>{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.SELECT_PACKAGE' | translate}}</strong></p>
-    <perun-web-apps-service-package-search-select
-      [servicePackages]="servicePackages"
-      (packageSelected)="servicePackageSelected($event)">
-    </perun-web-apps-service-package-search-select>
-    <p><strong>{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.SELECT_SERVICE' | translate}}</strong></p>
-    <perun-web-apps-debounce-filter
-      placeholder="{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.FILTER_DESCRIPTION' | translate}}"
-      (filter)="applyFilter($event)">
-    </perun-web-apps-debounce-filter>
-    <app-services-list
-      (page)="pageChanged($event)"
-      [pageSize]="pageSize"
-      *ngIf="!loading"
-      [disableRouting]="true"
-      [services]="unAssignedServices"
-      [filterValue]="filterValue"
-      [selection]="selection">
-    </app-services-list>
+    <mat-tab-group (selectedTabChange)="tabChanged()">
+      <mat-tab label="{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.SELECT_SERVICE' | translate}}">
+        <perun-web-apps-debounce-filter
+          (filter)="applyFilter($event)"
+          placeholder="{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.FILTER_DESCRIPTION' | translate}}">
+        </perun-web-apps-debounce-filter>
+        <app-services-list
+          (page)="pageChanged($event)"
+          *ngIf="!loading"
+          [disableRouting]="true"
+          [displayedColumns]="['select', 'id', 'name', 'enabled', 'description']"
+          [filterValue]="filterValue"
+          [pageSize]="pageSize"
+          [selection]="selection"
+          [services]="unAssignedServices">
+        </app-services-list>
+      </mat-tab>
+      <mat-tab label="{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.SELECT_PACKAGE' | translate}}">
+        <perun-web-apps-service-package-search-select
+          (packageSelected)="servicePackageSelected($event)"
+          [servicePackages]="servicePackages">
+        </perun-web-apps-service-package-search-select>
+        <app-services-list
+          (page)="pageChanged($event)"
+          *ngIf="!loading && filteredServices.length"
+          [disableRouting]="true"
+          [displayedColumns]="['id', 'name', 'enabled', 'description']"
+          [filterValue]="filterValue"
+          [pageSize]="pageSize"
+          [selection]="selection"
+          [services]="filteredServices">
+        </app-services-list>
+      </mat-tab>
+    </mat-tab-group>
+
   </div>
   <div mat-dialog-actions>
     <button
@@ -35,7 +51,7 @@
       color="accent"
       (click)="onAdd()"
       [disabled]="(selection.selected.length === 0 && selectedPackage.id === -1) || loading">
-      {{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.ADD_BUTTON' | translate}}
+      {{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.'+(selectedPackage.id === -1 ? 'ADD_SERVICES' : 'ADD_PACKAGE') | translate}}
     </button>
   </div>
 </div>

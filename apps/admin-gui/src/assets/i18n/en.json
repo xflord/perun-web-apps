@@ -1432,7 +1432,8 @@
       "SELECT_PACKAGE": "Select service package",
       "SELECT_SERVICE": "Select individual services",
       "FILTER_DESCRIPTION": "Find service",
-      "ADD_BUTTON": "Add",
+      "ADD_SERVICES": "Add individual services",
+      "ADD_PACKAGE": "Add service package",
       "CANCEL_BUTTON": "Cancel",
       "SERVICE_SUCCESS_MESSAGE": "Selected services were assigned to resource",
       "PACKAGE_SUCCESS_MESSAGE": "Selected service package was assigned to resource"
