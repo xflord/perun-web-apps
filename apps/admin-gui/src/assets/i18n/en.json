@@ -2381,7 +2381,8 @@
           "DISABLED_HINT": "You cannot add members to this group or user is already member.",
           "ALREADY_MEMBER_TOOLTIP": "User is already member of group",
           "CREATE_RELATION_AUTH_TOOLTIP": "You don't have permission to create relation with this group.",
-          "SYNCHRONIZED_GROUP": "Group is filled with members from external source"
+          "SYNCHRONIZED_GROUP": "Group is filled with members from external source",
+          "INDIRECT_GROUP": "This group is assigned as a part of groups tree."
         },
         "GROUP_MENU": {
           "MOVE": "Move group",
@@ -2419,7 +2420,8 @@
           "TABLE_SEARCH": "Filter",
           "TABLE_RESOURCE_DESCRIPTION": "Description",
           "TABLE_GROUP_RESOURCE_STATUS": "Status",
-          "NO_RESOURCES_WARNING": "No resources assigned."
+          "NO_RESOURCES_WARNING": "No resources assigned.",
+          "INDIRECT_RESOURCE": "This resource is assigned indirectly."
         },
         "RESOURCE_SEARCH_SELECT": {
           "SELECT_RESOURCE": "Select resource",

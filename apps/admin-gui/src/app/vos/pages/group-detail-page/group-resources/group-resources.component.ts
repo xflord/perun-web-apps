@@ -39,6 +39,7 @@ export class GroupResourcesComponent implements OnInit {
   group: Group;
   resources: ResourceWithStatus[] = null;
   selected = new SelectionModel<ResourceWithStatus>(true, []);
+  resourcesToDisable: Set<number>;
 
   loading: boolean;
   filterValue = '';
@@ -87,9 +88,11 @@ export class GroupResourcesComponent implements OnInit {
         resWithStatus.status = r.status;
         resWithStatus.resourceTags = r.resourceTags;
         resWithStatus.failureCause = r.failureCause;
+        resWithStatus.sourceGroupId = r.sourceGroupId;
         return resWithStatus;
       });
       this.selected.clear();
+      this.resourcesToDisable = new Set(this.resources.filter(resource => resource.sourceGroupId !== null).map(resource => resource.id));
       this.setAuthorization();
       this.loading = false;
     });

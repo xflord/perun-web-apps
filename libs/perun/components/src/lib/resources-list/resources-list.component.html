@@ -25,12 +25,18 @@
           </mat-checkbox>
         </th>
         <td *matCellDef="let resource" class="static-column-size" mat-cell>
-          <mat-checkbox (change)="$event ? itemSelectionToggle(resource) : null"
-                        (click)="$event.stopPropagation()"
-                        [aria-label]="checkboxLabel(resource)"
-                        [checked]="selection.isSelected(resource)"
-                        color="primary">
-          </mat-checkbox>
+          <span
+            matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.INDIRECT_RESOURCE' | translate}}"
+            [matTooltipPosition]="'above'"
+            [matTooltipDisabled]="!disableSelect(resource)">
+              <mat-checkbox (change)="$event ? itemSelectionToggle(resource) : null"
+                            (click)="$event.stopPropagation()"
+                            [aria-label]="checkboxLabel(resource)"
+                            [checked]="selection.isSelected(resource)"
+                            [disabled]="disableSelect(resource)"
+                            color="primary">
+              </mat-checkbox>
+            </span>
         </td>
       </ng-container>
 
@@ -47,6 +53,14 @@
               [recentIds]="recentIds"
               [id]="resource.id">
             </perun-web-apps-recently-viewed-icon>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="indirectResourceAssigment">
+          <th *matHeaderCellDef mat-header-cell></th>
+          <td *matCellDef="let resource" mat-cell>
+            <mat-icon *ngIf="resource.sourceGroupId"
+                      matTooltipPosition="above"
+                      [matTooltip]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.INDIRECT_RESOURCE' | translate">account_tree</mat-icon>
           </td>
         </ng-container>
         <ng-container matColumnDef="name">

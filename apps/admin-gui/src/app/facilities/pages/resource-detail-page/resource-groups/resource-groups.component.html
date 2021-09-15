@@ -23,6 +23,8 @@
 <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
 <div class="mt-3" *ngIf="!loading && assignedGroups.length !== 0">
   <perun-web-apps-groups-list
+    [disableGroups]="true"
+    [groupsToDisableCheckbox]="groupsToDisable"
     (page)="pageChanged($event)"
     (refreshTable)="loadAllGroups()"
     [pageSize]="pageSize"
@@ -32,7 +34,7 @@
     [disableMembers]="false"
     [resourceId]="resourceId"
     [disableRouting]="!guiAuthResolver.isAuthorized('getGroupById_int_policy', [assignedGroups[0]])"
-    [displayedColumns]="['select', 'id', 'name', 'status', 'description']">
+    [displayedColumns]="['select', 'id', 'indirectGroupAssigment', 'name', 'status', 'description']">
   </perun-web-apps-groups-list>
 </div>
 <app-alert *ngIf="assignedGroups.length === 0 && !loading" alert_type="warn">
