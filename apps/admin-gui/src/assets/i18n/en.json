@@ -485,7 +485,7 @@
       },
       "SERVICE_MEMBERS": {
         "TITLE": "Service accounts",
-        "FILTER": "Filter by name or id or whatever",
+        "FILTER": "Filter by name or id",
         "CREATE": "Create",
         "DELETE": "Remove"
       }
