@@ -1,17 +1,17 @@
 import {
-  AfterViewInit,
+  AfterViewInit, ChangeDetectorRef,
   Component,
   EventEmitter,
   HostListener,
   Input,
-  OnChanges, OnInit, Output,
+  OnChanges, Output,
   ViewChild
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { PageEvent } from '@angular/material/paginator';
-import { Group, GroupResourceStatus, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { Group, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import {
   customDataSourceFilterPredicate,
   customDataSourceSort,
@@ -53,7 +53,8 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   constructor(private dialog: MatDialog,
               private authResolver: GuiAuthResolver,
               private voService: VosManagerService,
-              private tableCheckbox: TableCheckbox) { }
+              private tableCheckbox: TableCheckbox,
+              private changeDetector: ChangeDetectorRef) { }
 
   @Output()
   moveGroup = new EventEmitter<GroupWithStatus>();
@@ -266,6 +267,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     this.shouldHideButtons();
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
+      this.changeDetector.detectChanges();
     }
   }
 
