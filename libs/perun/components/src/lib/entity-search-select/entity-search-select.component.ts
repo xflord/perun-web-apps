@@ -110,8 +110,10 @@ export class EntitySearchSelectComponent<T extends PerunBean> implements OnInit,
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (this.entity !== null) {
+      this.entitiesCtrl.setValue(this.entity);
+    }
     if (changes['entities']) {
-
       this.filteredEntities.next(this.entities.slice());
     }
   }

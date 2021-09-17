@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ServicesPackage, Vo } from '@perun-web-apps/perun/openapi';
+import { ServicesPackage} from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'perun-web-apps-service-package-search-select',
@@ -12,6 +12,9 @@ export class ServicePackageSearchSelectComponent {
 
   @Input()
   servicePackages: ServicesPackage[] = [];
+
+  @Input()
+  selectedPackage: ServicesPackage = null;
 
   @Output()
   packageSelected = new EventEmitter<ServicesPackage>();
