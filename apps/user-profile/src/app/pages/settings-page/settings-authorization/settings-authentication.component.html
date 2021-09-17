@@ -12,7 +12,7 @@
 <button (click)="addTOTP()" class="mr-2" color="accent" mat-flat-button>{{'AUTHENTICATION.ADD_TOTP' | customTranslate | translate}}</button>
 <button (click)="addWebAuthn()" class="mb-3" color="accent" mat-flat-button>{{'AUTHENTICATION.ADD_WEBAUTHN' | customTranslate | translate}}</button>
 
-<app-alert *ngIf="!tokens.length" alert_type="info">{{'AUTHENTICATION.NO_TOKENS' | customTranslate | translate}}</app-alert>
+<app-alert *ngIf="!tokens.length" alert_type="warn">{{'AUTHENTICATION.NO_TOKENS' | customTranslate | translate}}</app-alert>
 <div [hidden]="!tokens.length">
 <!--  <mat-slide-toggle #toggle color="primary">{{'AUTHENTICATION.MFA_TOGGLE' | customTranslate | translate}}</mat-slide-toggle>-->
   <div class="card mt-2">

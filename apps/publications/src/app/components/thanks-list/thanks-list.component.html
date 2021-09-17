@@ -56,12 +56,12 @@
 
 <app-alert
   *ngIf="thanks.length !== 0 && dataSource.filteredData.length === 0"
-  [alert_type]="'warn'">
+  alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
 </app-alert>
 
 <app-alert
   *ngIf="thanks.length === 0"
-  [alert_type]="'warn'">
+  alert_type="warn">
   {{'THANKS_LIST.NO_THANKS' | translate}}
 </app-alert>

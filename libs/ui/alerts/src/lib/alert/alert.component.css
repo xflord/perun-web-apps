@@ -6,7 +6,8 @@
 }
 
 .perun-alert.info-alert {
-  font-weight: bold;
+  font-style: italic;
+  color: grey;
   text-align: left;
   border: 1px #b3b3b3 solid;
   border-radius: 10px;
@@ -15,17 +16,18 @@
 .perun-alert.warn-alert {
   font-weight: bold;
   text-align: left;
-  border: 1px #b3b3b3 solid;
+  border: 1px #ececec solid;
   border-radius: 10px;
+  background-color: #ececec;
 }
 
-.perun-warn-alert-icon {
+.perun-alert-icon {
   padding-right: 2rem;
 }
 
 .perun-alert.error-alert {
-  border-left: 4px solid;
-  color: #000000;
-  background-color: #fae2e2;
-  border-color: #d32f2f;
+  text-align: left;
+  border: 1px #fedcda solid;
+  border-radius: 10px;
+  background-color: #fedcda;
 }
