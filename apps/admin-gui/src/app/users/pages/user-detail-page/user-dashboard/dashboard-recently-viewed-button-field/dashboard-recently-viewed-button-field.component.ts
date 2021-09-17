@@ -36,9 +36,9 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
   existingRecentIds: number[] = [];
   recentItems: any[];
   loading: boolean;
-  vos: Vo[];
-  groups: Group[];
-  facilities: Facility[];
+  vos: Vo[] = [];
+  groups: Group[] = [];
+  facilities: Facility[] = [];
 
   ngOnInit() {
     this.loading = true;
