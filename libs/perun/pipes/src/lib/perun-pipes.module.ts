@@ -23,6 +23,9 @@ import { FilterUniqueObjectsPipe } from './filter-unique-objects.pipe';
 import { ParseGroupNamePipe } from './parse-group-name.pipe';
 import { LocalisedTextPipe } from './localised-text.pipe';
 import { LocalisedLinkPipe } from './localised-link.pipe';
+import { UserEmailPipe } from './user-email.pipe'
+import { UserLoginsPipe } from './user-logins.pipe';
+import { UserVoPipe } from './vo-or-ext-source.pipe';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,10 @@ import { LocalisedLinkPipe } from './localised-link.pipe';
     FilterUniqueObjectsPipe,
     ParseGroupNamePipe,
     LocalisedTextPipe,
-    LocalisedLinkPipe
+    LocalisedLinkPipe,
+    UserEmailPipe,
+    UserLoginsPipe,
+    UserVoPipe
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -75,7 +81,10 @@ import { LocalisedLinkPipe } from './localised-link.pipe';
     FilterUniqueObjectsPipe,
     ParseGroupNamePipe,
     LocalisedTextPipe,
-    LocalisedLinkPipe
+    LocalisedLinkPipe,
+    UserEmailPipe,
+    UserLoginsPipe,
+    UserVoPipe
   ],
   imports: [CommonModule],
 })

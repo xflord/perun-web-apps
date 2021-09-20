@@ -21,7 +21,7 @@ import { ChangeMemberStatusDialogComponent, MemberTreeViewDialogComponent } from
 import {
   DynamicPaginatingService,
   GuiAuthResolver,
-  MembersDataSource,
+  DynamicDataSource,
   TableCheckbox
 } from '@perun-web-apps/perun/services';
 import { merge } from 'rxjs';
@@ -77,9 +77,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
   @Output()
   page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
-  exporting = false;
-
-  dataSource: MembersDataSource;
+  dataSource: DynamicDataSource<RichMember>;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngAfterViewInit(): void {
@@ -97,7 +95,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
 
-    this.dataSource = new MembersDataSource(this.dynamicPaginatingService, this.authResolver);
+    this.dataSource = new DynamicDataSource<RichMember>(this.dynamicPaginatingService, this.authResolver);
     this.dataSource.loadMembers(this.voId, this.attrNames,'ASCENDING', 0, this.pageSize,
       'NAME', this.selectedStatuses, this.searchString, this.groupId, this.selectedGroupStatuses);
   }

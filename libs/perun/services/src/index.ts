@@ -12,5 +12,5 @@ export {ApiService} from './lib/api.service';
 export {ForceRouterService} from './lib/force-router.service';
 export {TableCheckbox} from './lib/table-checkbox.service';
 export { DynamicPaginatingService } from './lib/dynamic-paginating.service'
-export { MembersDataSource } from './lib/members.datasource'
+export { DynamicDataSource } from './lib/dynamicDataSource'
 

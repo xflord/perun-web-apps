@@ -64,7 +64,6 @@ import { EditApplicationFormItemDialogComponent } from './components/dialogs/edi
 import { ApplicationFormWidgetDescriptionPipe } from './pipes/application-form-widget-description.pipe';
 import { AddMemberDialogComponent } from './components/dialogs/add-member-dialog/add-member-dialog.component';
 import { MembersCandidatesListComponent } from './components/members-candidates-list/members-candidates-list.component';
-import { UserVoPipe } from './pipes/vo-or-ext-source.pipe';
 import { CreateResourceTagDialogComponent } from './components/dialogs/create-resource-tag-dialog/create-resource-tag-dialog.component';
 import { DeleteResourceTagDialogComponent } from './components/dialogs/delete-resource-tag-dialog/delete-resource-tag-dialog.component';
 import { MoveGroupDialogComponent } from './components/dialogs/move-group-dialog/move-group-dialog.component';
@@ -78,7 +77,6 @@ import { TagBarComponent } from './components/dialogs/add-edit-notification-dial
 import { NotificationsCopyMailsDialogComponent } from './components/dialogs/notifications-copy-mails-dialog/notifications-copy-mails-dialog.component';
 import { DisplayedRolePipe } from './pipes/displayed-role.pipe';
 import { AnimatedRouterOutletComponent } from './components/animated-router-outlet/animated-router-outlet.component';
-import { UserEmailPipe } from './pipes/user-email.pipe';
 import { ResourcesTagsListComponent } from './components/resources-tags-list/resources-tags-list.component';
 // eslint-disable-next-line max-len
 import { DeleteAttributeDefinitionDialogComponent } from './components/dialogs/delete-attribute-definition-dialog/delete-attribute-definition-dialog.component';
@@ -112,7 +110,6 @@ import { AddServicesDestinationDialogComponent } from './components/dialogs/add-
 import { AddGroupResourceDialogComponent } from './components/dialogs/add-group-resource-dialog/add-group-resource-dialog.component';
 import { RemoveGroupResourceDialogComponent } from './components/dialogs/remove-group-resource-dialog/remove-group-resource-dialog.component';
 import { TwoEntityAttributePageComponent } from './components/two-entity-attribute-page/two-entity-attribute-page.component';
-import { UserLoginsPipe } from './pipes/user-logins.pipe';
 import { AttributeImportDialogComponent } from './components/dialogs/attribute-import-dialog/attribute-import-dialog.component';
 import { HostsListComponent } from './components/hosts-list/hosts-list.component';
 import { BlacklistListComponent } from './components/blacklist-list/blacklist-list.component';
@@ -270,7 +267,6 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
     AnyToStringPipe,
     AddMemberDialogComponent,
     MembersCandidatesListComponent,
-    UserVoPipe,
     MatChipsModule,
     MatChipsModule,
     MatExpansionModule,
@@ -296,8 +292,6 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
     AttrDefListComponent,
     TransformMemberStatusPipe,
     MemberStatusTooltipPipe,
-    UserLoginsPipe,
-    UserEmailPipe,
     UsersListComponent,
     SponsoredMembersListComponent,
     EditMemberSponsorsDialogComponent,
@@ -340,7 +334,6 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
     DeleteAttributeDialogComponent,
     AddMemberDialogComponent,
     MembersCandidatesListComponent,
-    UserVoPipe,
     CreateResourceTagDialogComponent,
     DeleteResourceTagDialogComponent,
     MoveGroupDialogComponent,
@@ -353,7 +346,6 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
     ManagersPageComponent,
     DisplayedRolePipe,
     AnimatedRouterOutletComponent,
-    UserEmailPipe,
     ResourcesTagsListComponent,
     DeleteAttributeDefinitionDialogComponent,
     CreateAttributeDefinitionDialogComponent,
@@ -377,7 +369,6 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
     AddGroupResourceDialogComponent,
     RemoveGroupResourceDialogComponent,
     TwoEntityAttributePageComponent,
-    UserLoginsPipe,
     AttributeImportDialogComponent,
     HostsListComponent,
     BlacklistListComponent,

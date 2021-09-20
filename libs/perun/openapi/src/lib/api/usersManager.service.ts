@@ -20,7 +20,9 @@ import { Observable }                                        from 'rxjs';
 import { AddUserExtSourceInput } from '../model/addUserExtSourceInput';
 import { Group } from '../model/group';
 import { InputCreateServiceUser } from '../model/inputCreateServiceUser';
+import { InputGetPaginatedUsers } from '../model/inputGetPaginatedUsers';
 import { InputUpdateUser } from '../model/inputUpdateUser';
+import { PaginatedRichUsers } from '../model/paginatedRichUsers';
 import { PerunException } from '../model/perunException';
 import { RichResource } from '../model/richResource';
 import { RichUser } from '../model/richUser';
@@ -2304,6 +2306,136 @@ export class UsersManagerService {
     }
 
     /**
+     * Return userExtSource for specific attribute definition (specified by id) and unique value.
+     * @param attributeId id of AttributeDefinition
+     * @param attributeValue string value of Attribute
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getUserExtSourceByUniqueAttributeValueAndAttributeId(attributeId: number, attributeValue: string, observe?: 'body', reportProgress?: boolean): Observable<UserExtSource>;
+    public getUserExtSourceByUniqueAttributeValueAndAttributeId(attributeId: number, attributeValue: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UserExtSource>>;
+    public getUserExtSourceByUniqueAttributeValueAndAttributeId(attributeId: number, attributeValue: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UserExtSource>>;
+    public getUserExtSourceByUniqueAttributeValueAndAttributeId(attributeId: number, attributeValue: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (attributeId === null || attributeId === undefined) {
+            throw new Error('Required parameter attributeId was null or undefined when calling getUserExtSourceByUniqueAttributeValueAndAttributeId.');
+        }
+        if (attributeValue === null || attributeValue === undefined) {
+            throw new Error('Required parameter attributeValue was null or undefined when calling getUserExtSourceByUniqueAttributeValueAndAttributeId.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (attributeId !== undefined && attributeId !== null) {
+            queryParameters = queryParameters.set('attributeId', <any>attributeId);
+        }
+        if (attributeValue !== undefined && attributeValue !== null) {
+            queryParameters = queryParameters.set('attributeValue', <any>attributeValue);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<UserExtSource>(`${this.configuration.basePath}/json/usersManager/getUserExtSourceByUniqueAttributeValue/id`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Return userExtSource for specific attribute definition (specified by name) and unique value.
+     * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+     * @param attributeValue string value of Attribute
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getUserExtSourceByUniqueAttributeValueAndAttributeName(attributeName: string, attributeValue: string, observe?: 'body', reportProgress?: boolean): Observable<UserExtSource>;
+    public getUserExtSourceByUniqueAttributeValueAndAttributeName(attributeName: string, attributeValue: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UserExtSource>>;
+    public getUserExtSourceByUniqueAttributeValueAndAttributeName(attributeName: string, attributeValue: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UserExtSource>>;
+    public getUserExtSourceByUniqueAttributeValueAndAttributeName(attributeName: string, attributeValue: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (attributeName === null || attributeName === undefined) {
+            throw new Error('Required parameter attributeName was null or undefined when calling getUserExtSourceByUniqueAttributeValueAndAttributeName.');
+        }
+        if (attributeValue === null || attributeValue === undefined) {
+            throw new Error('Required parameter attributeValue was null or undefined when calling getUserExtSourceByUniqueAttributeValueAndAttributeName.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (attributeName !== undefined && attributeName !== null) {
+            queryParameters = queryParameters.set('attributeName', <any>attributeName);
+        }
+        if (attributeValue !== undefined && attributeValue !== null) {
+            queryParameters = queryParameters.set('attributeValue', <any>attributeValue);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<UserExtSource>(`${this.configuration.basePath}/json/usersManager/getUserExtSourceByUniqueAttributeValue/name`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Gets list of all user\&#39;s external sources.
      * @param user id of User
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -2580,6 +2712,68 @@ export class UsersManagerService {
         return this.httpClient.get<Array<User>>(`${this.configuration.basePath}/json/usersManager/getUsersBySpecificUser`,
             {
                 params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get page of users with the given attributes.
+     * @param inputGetPaginatedUsers 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getUsersPage(inputGetPaginatedUsers: InputGetPaginatedUsers, observe?: 'body', reportProgress?: boolean): Observable<PaginatedRichUsers>;
+    public getUsersPage(inputGetPaginatedUsers: InputGetPaginatedUsers, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginatedRichUsers>>;
+    public getUsersPage(inputGetPaginatedUsers: InputGetPaginatedUsers, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginatedRichUsers>>;
+    public getUsersPage(inputGetPaginatedUsers: InputGetPaginatedUsers, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (inputGetPaginatedUsers === null || inputGetPaginatedUsers === undefined) {
+            throw new Error('Required parameter inputGetPaginatedUsers was null or undefined when calling getUsersPage.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<PaginatedRichUsers>(`${this.configuration.basePath}/json/usersManager/getUsersPage`,
+            inputGetPaginatedUsers,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

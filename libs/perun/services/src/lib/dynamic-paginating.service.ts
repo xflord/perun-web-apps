@@ -3,8 +3,8 @@ import {
   MemberGroupStatus,
   MembersManagerService,
   MembersOrderColumn,
-  PaginatedRichMembers,
-  SortingOrder, VoMemberStatuses
+  PaginatedRichMembers, PaginatedRichUsers,
+  SortingOrder, UsersManagerService, UsersOrderColumn, VoMemberStatuses
 } from '@perun-web-apps/perun/openapi';
 import { Observable } from 'rxjs';
 
@@ -13,7 +13,8 @@ import { Observable } from 'rxjs';
 })
 export class DynamicPaginatingService {
 
-  constructor(private membersService: MembersManagerService) { }
+  constructor(private membersService: MembersManagerService,
+              private usersService: UsersManagerService) { }
 
   getMembers(voId: number,
              attrNames: string[],
@@ -37,5 +38,25 @@ export class DynamicPaginatingService {
         groupId: groupId,
         groupStatuses: groupStatuses}})
 
+  }
+
+  getUsers(attrNames: string[],
+           order: SortingOrder,
+           pageNumber: number,
+           pageSize: number,
+           sortColumn: UsersOrderColumn,
+           searchString: string,
+           withoutVo: boolean): Observable<PaginatedRichUsers> {
+    return this.usersService.getUsersPage({
+      attrNames: attrNames,
+      query: {
+        offset: pageSize*pageNumber,
+        pageSize: pageSize,
+        order: order,
+        sortColumn: sortColumn,
+        searchString: searchString,
+        withoutVo: withoutVo
+      }
+    });
   }
 }
