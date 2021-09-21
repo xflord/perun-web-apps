@@ -62,16 +62,16 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
     switch (this.dialogType) {
       case EditFacilityResourceGroupVoDialogOptions.FACILITY:
         this.nameCtrl = new FormControl(this.data.facility.name, [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.maxLength(129)]);
-        this.descriptionCtrl = new FormControl(this.data.facility.description, [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.maxLength(129)]);
+        this.descriptionCtrl = new FormControl(this.data.facility.description);
         break;
       case EditFacilityResourceGroupVoDialogOptions.RESOURCE:
-        this.nameCtrl = new FormControl(this.data.resource.name, [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.maxLength(129)]);
-        this.descriptionCtrl = new FormControl(this.data.resource.description, [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.maxLength(129)]);
+        this.nameCtrl = new FormControl(this.data.resource.name, [Validators.required, Validators.pattern('.*[\\S]+.*')]);
+        this.descriptionCtrl = new FormControl(this.data.resource.description);
         break;
       case EditFacilityResourceGroupVoDialogOptions.GROUP: {
         const nameParts = this.data.group.name.split(":");
         this.nameCtrl = new FormControl(nameParts[nameParts.length - 1], [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.pattern(this.secondaryRegex), Validators.maxLength(129)]);
-        this.descriptionCtrl = new FormControl(this.data.group.description, [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.maxLength(129)]);
+        this.descriptionCtrl = new FormControl(this.data.group.description);
         break;
       }
       case EditFacilityResourceGroupVoDialogOptions.VO:

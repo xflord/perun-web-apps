@@ -19,13 +19,11 @@
         <label class="w-100">
           <textarea
             [formControl]="descriptionControl"
+            mat-autosize
             matInput
-            placeholder="{{'DIALOGS.CREATE_GROUP.DESCRIPTION' | translate}}"
-            required></textarea>
+            placeholder="{{'DIALOGS.CREATE_GROUP.DESCRIPTION' | translate}}">
+          </textarea>
         </label>
-        <mat-error>
-          {{'DIALOGS.CREATE_GROUP.INVALID_DESCRIPTION' | translate}}
-        </mat-error>
       </mat-form-field>
       <mat-checkbox
         *ngIf="isNotSubGroup"
