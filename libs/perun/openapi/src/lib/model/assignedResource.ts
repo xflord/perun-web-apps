@@ -22,5 +22,6 @@ export interface AssignedResource {
     failureCause?: string;
     facility?: Facility;
     resourceTags?: Array<ResourceTag>;
+    autoAssignSubgroups?: boolean;
 }
 

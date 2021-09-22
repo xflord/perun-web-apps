@@ -13,7 +13,7 @@ import { RichMember } from './richMember';
 import { GroupResourceStatus } from './groupResourceStatus';
 
 
-export interface AssignedMember {
+export interface AssignedMember { 
     richMember?: RichMember;
     status?: GroupResourceStatus;
 }
