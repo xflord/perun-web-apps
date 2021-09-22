@@ -14,3 +14,7 @@
 .italic_font {
   font-style: italic;
 }
+
+.cursor-pointer{
+  cursor: pointer;
+}
