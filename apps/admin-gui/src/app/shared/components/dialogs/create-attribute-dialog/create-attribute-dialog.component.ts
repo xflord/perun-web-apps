@@ -248,6 +248,14 @@ export class CreateAttributeDialogComponent implements OnInit {
           this.handleSuccess();
         });
         break;
+      case 'ues':
+        this.attributesManager.setUserExtSourceAttributes({
+          userExtSource: this.data.entityId,
+          attributes: this.selected.selected
+        }).subscribe(() => {
+          this.handleSuccess();
+        })
+        break;
     }
   }
 
