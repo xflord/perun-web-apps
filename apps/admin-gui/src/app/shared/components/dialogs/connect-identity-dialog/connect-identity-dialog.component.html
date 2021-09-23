@@ -31,7 +31,7 @@
         [selection]="selection">
       </app-users-list>
     </div>
-    <app-alert *ngIf="!firstSearchDone" [alert_type]="'info'">
+    <app-alert *ngIf="!firstSearchDone" alert_type="info">
       {{'DIALOGS.CONNECT_IDENTITY.SEARCH_HINT' | translate}}
     </app-alert>
     <app-alert *ngIf="!loading && firstSearchDone && identities.length === 0" alert_type="warn">

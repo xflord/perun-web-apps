@@ -116,12 +116,12 @@
 
 <app-alert
   *ngIf="!!dataSource && members.length !== 0 && dataSource.filteredData.length === 0"
-  [alert_type]="'warn'">
+  alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
 </app-alert>
 
 <app-alert
   *ngIf="members.length === 0"
-  [alert_type]="'warn'">
+  alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_MEMBERS' | translate}}
 </app-alert>

@@ -2,48 +2,102 @@
   <h1 mat-dialog-title>{{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.TITLE' | translate}}</h1>
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content class="dialog-container">
-    <perun-web-apps-debounce-filter
-      placeholder="{{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.FILTER_DESCRIPTION' | translate}}"
-      (filter)="applyFilter($event)">
-    </perun-web-apps-debounce-filter>
-<!-- first do the functionality to this checkbox then you can show it<mat-checkbox-->
-<!--      color="primary"-->
-<!--      [(ngModel)]="checkGroups">-->
-<!--      {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.CONFIGURE_GROUPS' | translate}}-->
-<!--    </mat-checkbox>-->
-    <perun-web-apps-groups-list
-      (page)="pageChanged($event)"
-      [pageSize]="pageSize"
-      [groups]="unAssignedGroups"
-      [selection]="selection"
-      [filter]="filterValue"
-      [displayedColumns]="['select', 'id', 'name', 'description']"
-      [disableRouting]="true"
-      [disableMembers]="false">
-    </perun-web-apps-groups-list>
-  </div>
-  <div mat-dialog-actions>
-    <mat-checkbox
-      matTooltip="{{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_OPT_DESCRIPTION' | translate}}"
-      [(ngModel)]="async">
-      {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_OPT' | translate}}
-    </mat-checkbox>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
-      {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.CANCEL_BUTTON' | translate}}
-    </button>
-    <button
-      mat-flat-button
-      class="ml-2"
-      color="accent"
-      [disabled]="selection.selected.length === 0 || !canAddGroups() || loading"
-      [matTooltipDisabled]="canAddGroups()"
-      matTooltip="{{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ADD_TOOLTIP'| translate}}"
-      (click)="onAdd()"
-      matTooltipPosition="above">
-      {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ADD_BUTTON' | translate}}
-    </button>
+    <mat-horizontal-stepper [linear]="true">
+      <mat-step [completed]="selection.selected.length !== 0 && canAddGroups()">
+        <ng-template matStepLabel>{{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.GROUPS' | translate}}</ng-template>
+        <perun-web-apps-debounce-filter
+          placeholder="{{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.FILTER_DESCRIPTION' | translate}}"
+          (filter)="applyFilter($event)">
+        </perun-web-apps-debounce-filter>
+        <!-- first do the functionality to this checkbox then you can show it<mat-checkbox-->
+        <!--      color="primary"-->
+        <!--      [(ngModel)]="checkGroups">-->
+        <!--      {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.CONFIGURE_GROUPS' | translate}}-->
+        <!--    </mat-checkbox>-->
+        <perun-web-apps-groups-list
+          (page)="pageChanged($event)"
+          [pageSize]="pageSize"
+          [groups]="unAssignedGroups"
+          [selection]="selection"
+          [filter]="filterValue"
+          [displayedColumns]="['select', 'id', 'name', 'description']"
+          [disableRouting]="true"
+          [disableMembers]="false">
+        </perun-web-apps-groups-list>
+        <div mat-dialog-actions>
+          <button
+            mat-flat-button
+            (click)="onCancel()">
+            {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.CANCEL_BUTTON' | translate}}
+          </button>
+          <button
+            [disabled]="selection.selected.length === 0 || !canAddGroups()"
+            class="ml-auto"
+            mat-flat-button
+            type="button"
+            color="accent"
+            matStepperNext>
+            {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.NEXT' | translate}}
+          </button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>{{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.OPTIONS' | translate}}</ng-template>
+
+        <mat-slide-toggle
+          (toggleChange)="changeSubgroupsMessage()"
+          class="mt-3 slide-text"
+          [(ngModel)]="autoAssignSubgroups"
+          labelPosition="before">
+          {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.AUTO_SUBGROUPS' | translate}}
+        </mat-slide-toggle>
+        <div class="text-muted new-line mt-2">
+          <i [innerHTML]="autoAssignHint"></i>
+        </div>
+
+        <mat-slide-toggle
+          (toggleChange)="changeInactiveMessage()"
+          class="mt-3 slide-text"
+          [(ngModel)]="asActive"
+          labelPosition="before">
+          {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.AS_ACTIVE' | translate}}
+        </mat-slide-toggle>
+        <div class="text-muted new-line mt-2">
+          {{asActiveHint}}
+        </div>
+
+        <mat-slide-toggle
+          (toggleChange)="changeAsyncMessage()"
+          class="mt-3 slide-text"
+          [(ngModel)]="async"
+          labelPosition="before">
+          {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_OPT' | translate}}
+        </mat-slide-toggle>
+        <div class="text-muted new-line mt-2">
+          {{asyncHint}}
+        </div>
+
+        <div mat-dialog-actions>
+          <button
+            mat-flat-button
+            (click)="onCancel()">
+            {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.CANCEL_BUTTON' | translate}}
+          </button>
+          <button
+            mat-flat-button
+            class="ml-auto mr-2"
+            matStepperPrevious>
+            {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.BACK' | translate}}
+          </button>
+          <button
+            mat-flat-button
+            type="button"
+            (click)="onAdd()"
+            color="accent">
+            {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ADD_BUTTON' | translate}}
+          </button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
   </div>
 </div>

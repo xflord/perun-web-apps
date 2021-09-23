@@ -17,8 +17,8 @@ import {
 import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
-import { GroupWithStatus } from '@perun-web-apps/perun/components';
 import { Urns } from '@perun-web-apps/perun/urns';
+import { GroupWithStatus } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-perun-web-apps-resource-groups',
@@ -35,6 +35,7 @@ export class ResourceGroupsComponent implements OnInit {
   selected = new SelectionModel<GroupWithStatus>(true, []);
   loading: boolean;
   filteredValue = '';
+  groupsToDisable: Set<number>;
 
   tableId = TABLE_RESOURCE_ALLOWED_GROUPS;
   pageSize: number;
@@ -66,8 +67,10 @@ export class ResourceGroupsComponent implements OnInit {
         const gws: GroupWithStatus = g.enrichedGroup.group;
         gws.status = g.status;
         gws.failureCause = g.failureCause;
+        gws.sourceGroupId = g.sourceGroupId;
         return gws;
       });
+      this.groupsToDisable = new Set(this.assignedGroups.filter(group => !!group.sourceGroupId).map(group => group.id));
       this.selected.clear();
       this.loading = false;
     });
@@ -75,7 +78,7 @@ export class ResourceGroupsComponent implements OnInit {
 
   addGroup() {
     const config = getDefaultDialogConfig();
-    config.width = '800px';
+    config.width = '1000px';
     config.data = { theme: 'resource-theme', resource: this.resource };
 
     const dialogRef = this.dialog.open(AssignGroupToResourceDialogComponent, config);

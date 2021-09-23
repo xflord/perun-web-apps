@@ -484,17 +484,19 @@ export class ResourcesManagerService {
     }
 
     /**
-     * Assigns a group to a resource. Check if attributes for each member from group are valid. Fill members\&#39; attributes with missing value. Work in sync/async mode.
+     * Assigns a group to a resource. Check if attributes for each member from group are valid. Fill members\&#39; attributes with missing value. Work in sync/async mode. Provide options for creating inactive or automatic subgroups group-resource assignments.
      * @param group id of Group
      * @param resource id of Resource
      * @param async asynchronous flag, if set to true, some operation will be performed asynchronously
+     * @param assignInactive flag, if set to true, group-resource assignment will have status INACTIVE
+     * @param autoAssignSubgroups flag, if set to true, subgroups are assigned to resource as well
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public assignGroupToResource(group: number, resource: number, async?: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public assignGroupToResource(group: number, resource: number, async?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public assignGroupToResource(group: number, resource: number, async?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public assignGroupToResource(group: number, resource: number, async?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public assignGroupToResource(group: number, resource: number, async?: boolean, assignInactive?: boolean, autoAssignSubgroups?: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public assignGroupToResource(group: number, resource: number, async?: boolean, assignInactive?: boolean, autoAssignSubgroups?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public assignGroupToResource(group: number, resource: number, async?: boolean, assignInactive?: boolean, autoAssignSubgroups?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public assignGroupToResource(group: number, resource: number, async?: boolean, assignInactive?: boolean, autoAssignSubgroups?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling assignGroupToResource.');
         }
@@ -511,6 +513,12 @@ export class ResourcesManagerService {
         }
         if (async !== undefined && async !== null) {
             queryParameters = queryParameters.set('async', <any>async);
+        }
+        if (assignInactive !== undefined && assignInactive !== null) {
+            queryParameters = queryParameters.set('assignInactive', <any>assignInactive);
+        }
+        if (autoAssignSubgroups !== undefined && autoAssignSubgroups !== null) {
+            queryParameters = queryParameters.set('autoAssignSubgroups', <any>autoAssignSubgroups);
         }
 
         let headers = this.defaultHeaders;
@@ -554,17 +562,19 @@ export class ResourcesManagerService {
     }
 
     /**
-     * Assigns a group to resources. Check if attributes for each member from group are valid. Fill members\&#39; attributes with missing values. Work in sync/async mode.
+     * Assigns a group to resources. Check if attributes for each member from group are valid. Fill members\&#39; attributes with missing values. Work in sync/async mode. Provide options for creating inactive or automatic subgroups group-resource assignments.
      * @param group id of Group
      * @param resources list of Resource ids List&lt;Integer&gt;
      * @param async asynchronous flag, if set to true, some operation will be performed asynchronously
+     * @param assignInactive flag, if set to true, group-resource assignment will have status INACTIVE
+     * @param autoAssignSubgroups flag, if set to true, subgroups are assigned to resource as well
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public assignGroupToResources(group: number, resources: Array<number>, async?: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public assignGroupToResources(group: number, resources: Array<number>, async?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public assignGroupToResources(group: number, resources: Array<number>, async?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public assignGroupToResources(group: number, resources: Array<number>, async?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public assignGroupToResources(group: number, resources: Array<number>, async?: boolean, assignInactive?: boolean, autoAssignSubgroups?: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public assignGroupToResources(group: number, resources: Array<number>, async?: boolean, assignInactive?: boolean, autoAssignSubgroups?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public assignGroupToResources(group: number, resources: Array<number>, async?: boolean, assignInactive?: boolean, autoAssignSubgroups?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public assignGroupToResources(group: number, resources: Array<number>, async?: boolean, assignInactive?: boolean, autoAssignSubgroups?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling assignGroupToResources.');
         }
@@ -583,6 +593,12 @@ export class ResourcesManagerService {
         }
         if (async !== undefined && async !== null) {
             queryParameters = queryParameters.set('async', <any>async);
+        }
+        if (assignInactive !== undefined && assignInactive !== null) {
+            queryParameters = queryParameters.set('assignInactive', <any>assignInactive);
+        }
+        if (autoAssignSubgroups !== undefined && autoAssignSubgroups !== null) {
+            queryParameters = queryParameters.set('autoAssignSubgroups', <any>autoAssignSubgroups);
         }
 
         let headers = this.defaultHeaders;
@@ -626,17 +642,19 @@ export class ResourcesManagerService {
     }
 
     /**
-     * Assigns groups to a resource. Check if attributes for each member from groups are valid. Fill members\&#39; attributes with missing values. Work in sync/async mode.
+     * Assigns groups to a resource. Check if attributes for each member from groups are valid. Fill members\&#39; attributes with missing values. Work in sync/async mode. Provide options for creating inactive or automatic subgroups group-resource assignments.
      * @param groups list of Group ids List&lt;Integer&gt;
      * @param resource id of Resource
      * @param async asynchronous flag, if set to true, some operation will be performed asynchronously
+     * @param assignInactive flag, if set to true, group-resource assignment will have status INACTIVE
+     * @param autoAssignSubgroups flag, if set to true, subgroups are assigned to resource as well
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public assignGroupsToResource(groups: Array<number>, resource: number, async?: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public assignGroupsToResource(groups: Array<number>, resource: number, async?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public assignGroupsToResource(groups: Array<number>, resource: number, async?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public assignGroupsToResource(groups: Array<number>, resource: number, async?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public assignGroupsToResource(groups: Array<number>, resource: number, async?: boolean, assignInactive?: boolean, autoAssignSubgroups?: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public assignGroupsToResource(groups: Array<number>, resource: number, async?: boolean, assignInactive?: boolean, autoAssignSubgroups?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public assignGroupsToResource(groups: Array<number>, resource: number, async?: boolean, assignInactive?: boolean, autoAssignSubgroups?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public assignGroupsToResource(groups: Array<number>, resource: number, async?: boolean, assignInactive?: boolean, autoAssignSubgroups?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (groups === null || groups === undefined) {
             throw new Error('Required parameter groups was null or undefined when calling assignGroupsToResource.');
         }
@@ -655,6 +673,12 @@ export class ResourcesManagerService {
         }
         if (async !== undefined && async !== null) {
             queryParameters = queryParameters.set('async', <any>async);
+        }
+        if (assignInactive !== undefined && assignInactive !== null) {
+            queryParameters = queryParameters.set('assignInactive', <any>assignInactive);
+        }
+        if (autoAssignSubgroups !== undefined && autoAssignSubgroups !== null) {
+            queryParameters = queryParameters.set('autoAssignSubgroups', <any>autoAssignSubgroups);
         }
 
         let headers = this.defaultHeaders;

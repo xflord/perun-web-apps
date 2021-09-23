@@ -8,4 +8,6 @@ export * from './lib/TreeGroup';
 export * from './lib/GroupFlatNode';
 export * from './lib/MenuItem'
 export * from './lib/NotificationData'
+export * from './lib/GroupWithStatus'
+export * from './lib/ResourceWithStatus'
 

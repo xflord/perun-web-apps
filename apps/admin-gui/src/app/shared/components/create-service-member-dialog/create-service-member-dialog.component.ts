@@ -161,7 +161,7 @@ export class CreateServiceMemberDialogComponent implements OnInit {
     if (generateRandom) {
       this.usersManagerService.reserveRandomPassword(member.userId, namespace).subscribe(() => {
         this.usersManagerService.validatePasswordForUser(member.userId, namespace).subscribe(() => {
-          this.validateMember(member.id);
+          this.validateMember(member.id, false);
         }, () => {
           this.processing = false;
           this.dialogRef.close(true);
@@ -185,9 +185,11 @@ export class CreateServiceMemberDialogComponent implements OnInit {
     }
   }
 
-  validateMember(memberId: number){
+  validateMember(memberId: number, showNotification=true){
     this.membersManagerService.validateMemberAsync(memberId).subscribe(() => {
-      this.notificator.showSuccess(this.successMessagePwd);
+      if(showNotification){
+        this.notificator.showSuccess(this.successMessagePwd);
+      }
       this.dialogRef.close(true);
       this.processing = false;
     }, () => {

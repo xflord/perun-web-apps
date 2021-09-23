@@ -119,8 +119,8 @@ export class CreateSinglePublicationPageComponent implements OnInit {
         title: this.publicationControl.get("title").value,
         categoryId: this.publicationControl.get("category").value.id,
         year: this.publicationControl.get("year").value.year(),
-        isbn: this.publicationControl.get("ISBN").value,
-        doi: this.publicationControl.get("DOI").value,
+        isbn: this.publicationControl.get("isbn").value,
+        doi: this.publicationControl.get("doi").value,
         main: this.publicationControl.get("cite").value
       }
     };
@@ -149,8 +149,8 @@ export class CreateSinglePublicationPageComponent implements OnInit {
   similarCheck(){
     this.innerLoading = true;
     const title: string = this.publicationControl.get('title').value ? this.publicationControl.get('title').value : null;
-    const doi: string = this.publicationControl.get('DOI').value ? this.publicationControl.get('DOI').value : null;
-    const isbn: string = this.publicationControl.get('ISBN').value ? this.publicationControl.get('ISBN').value : null;
+    const doi: string = this.publicationControl.get('doi').value ? this.publicationControl.get('doi').value : null;
+    const isbn: string = this.publicationControl.get('isbn').value ? this.publicationControl.get('isbn').value : null;
     this.cabinetService.findSimilarPublications(title, doi, isbn).subscribe(similarPubs => {
       this.similarPublications = similarPubs;
       this.filteredPublications = similarPubs;

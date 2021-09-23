@@ -16,7 +16,7 @@ export class SideMenuItemsService {
         icon: 'perun-publications-white',
         isSVG: true,
         link: '/all-publications',
-        activatedRegex: '^/all-publications$',
+        activatedRegex: '^/all-publications',
         tabName: 'all-publications'
       });
     }
@@ -24,21 +24,21 @@ export class SideMenuItemsService {
       label: 'MENU_ITEMS.MY_PUBLICATIONS',
       icon: 'local_library',
       link: '/my-publications',
-      activatedRegex: '^/my-publications$',
+      activatedRegex: '^/my-publications',
       tabName: 'my-publications'
     });
     items.push({
       label: 'MENU_ITEMS.CREATE_PUBLICATION',
       icon: 'add_box',
       link: '/create-publication',
-      activatedRegex: '^/create-publication$',
+      activatedRegex: '^/create-publication',
       tabName: 'create-publication'
     });
     items.push({
       label: 'MENU_ITEMS.AUTHORS',
       icon: 'assignment_ind',
       link: '/authors',
-      activatedRegex: '^/authors$',
+      activatedRegex: '^/authors',
       tabName: 'authors'
     });
     items.push({

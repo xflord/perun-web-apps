@@ -31,9 +31,9 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
   facilitiesIds: number[] = [];
   existingRecentIds: number[] = [];
   loading: boolean;
-  vos: Vo[];
-  groups: Group[];
-  facilities: Facility[];
+  vos: Vo[] = [];
+  groups: Group[] = [];
+  facilities: Facility[] = [];
 
   constructor(private vosManager: VosManagerService,
               private groupsManager: GroupsManagerService,

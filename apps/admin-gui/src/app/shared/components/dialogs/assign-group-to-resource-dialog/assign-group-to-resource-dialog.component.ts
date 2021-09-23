@@ -39,17 +39,26 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
   unAssignedGroups: Group[];
   checkGroups = false;
   async = true;
+  autoAssignSubgroups = false;
+  asActive = true;
   selection = new SelectionModel<Group>(true, []);
   filterValue = '';
 
   tableId = TABLE_ASSIGN_GROUP_TO_RESOURCE_DIALOG;
   pageSize: number;
 
+  autoAssignHint: string;
+  asActiveHint: string;
+  asyncHint: string;
+
   ngOnInit() {
     this.loading = true;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.theme = this.data.theme;
     this.resource = this.data.resource;
+    this.autoAssignHint = this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.AUTO_SUBGROUPS_OFF_HINT');
+    this.asActiveHint = this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ACTIVE_ON_HINT');
+    this.asyncHint = this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_ON_HINT');
     this.resourceManager.getAssignedGroups(this.resource.id).subscribe(assignedGroups => {
       this.groupService.getAllGroups(this.resource.voId).subscribe(allGroups => {
         this.unAssignedGroups = allGroups;
@@ -79,11 +88,12 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
         addedGroups.push(group.id);
       }
 
-      this.resourceManager.assignGroupsToResource(addedGroups, this.resource.id, this.async).subscribe(() => {
-        this.translate.get('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.SUCCESS_MESSAGE').subscribe(message => {
-          this.notificator.showSuccess(message);
-          this.dialogRef.close(true);
-        });
+      this.resourceManager.assignGroupsToResource(addedGroups, this.resource.id, this.async, !this.asActive, this.autoAssignSubgroups)
+        .subscribe(() => {
+          this.translate.get('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.SUCCESS_MESSAGE').subscribe(message => {
+            this.notificator.showSuccess(message);
+            this.dialogRef.close(true);
+          });
       }, () => this.loading = false);
     }
   }
@@ -103,7 +113,25 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
       if(!this.guiAuthResolver.isAuthorized('assignGroupsToResource_List<Group>_Resource_policy',[this.resource, group])){
         canAdd = false;
       }
-    })
+    });
     return canAdd;
+  }
+
+  changeSubgroupsMessage() {
+    this.autoAssignHint = this.autoAssignSubgroups ?
+      this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.AUTO_SUBGROUPS_OFF_HINT') :
+      this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.AUTO_SUBGROUPS_ON_HINT');
+  }
+
+  changeInactiveMessage() {
+    this.asActiveHint = this.asActive ?
+      this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ACTIVE_OFF_HINT') :
+      this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ACTIVE_ON_HINT');
+  }
+
+  changeAsyncMessage() {
+    this.asyncHint = this.async ?
+      this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_OFF_HINT') :
+      this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_ON_HINT');
   }
 }

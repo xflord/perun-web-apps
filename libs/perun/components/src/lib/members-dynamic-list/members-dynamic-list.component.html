@@ -109,6 +109,6 @@
 
 <app-alert
   *ngIf="this.dataSource.allMemberCount === 0 && (dataSource.loading$ | async) === false"
-  [alert_type]="'warn'">
+  alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_MEMBERS' | translate}}
 </app-alert>

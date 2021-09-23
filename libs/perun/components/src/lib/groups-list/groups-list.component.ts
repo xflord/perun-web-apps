@@ -1,17 +1,17 @@
 import {
-  AfterViewInit,
+  AfterViewInit, ChangeDetectorRef,
   Component,
   EventEmitter,
   HostListener,
   Input,
-  OnChanges, OnInit, Output,
+  OnChanges, Output,
   ViewChild
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { PageEvent } from '@angular/material/paginator';
-import { Group, GroupResourceStatus, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { Group, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import {
   customDataSourceFilterPredicate,
   customDataSourceSort,
@@ -32,11 +32,7 @@ import {
 } from '@perun-web-apps/perun/dialogs';
 import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
 import { formatDate } from '@angular/common';
-
-export interface GroupWithStatus extends RichGroup {
-  status?: GroupResourceStatus;
-  failureCause?: string;
-}
+import { GroupWithStatus } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'perun-web-apps-groups-list',
@@ -57,7 +53,8 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   constructor(private dialog: MatDialog,
               private authResolver: GuiAuthResolver,
               private voService: VosManagerService,
-              private tableCheckbox: TableCheckbox) { }
+              private tableCheckbox: TableCheckbox,
+              private changeDetector: ChangeDetectorRef) { }
 
   @Output()
   moveGroup = new EventEmitter<GroupWithStatus>();
@@ -72,7 +69,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   private hasMembersGroup = false;
 
   @Input()
-  displayedColumns: string[] = ['select', 'id', 'recent', 'vo', 'name', 'status', 'groupStatus', 'description', 'expiration', 'menu'];
+  displayedColumns: string[] = ['select', 'id', 'recent', 'vo', 'indirectGroupAssigment', 'name', 'status', 'groupStatus', 'description', 'expiration', 'menu'];
 
   @Input()
   disableMembers: boolean;
@@ -81,7 +78,10 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   disableGroups: boolean;
 
   @Input()
-  groupsToDisable: Set<number> = new Set<number>();
+  groupsToDisableCheckbox: Set<number> = new Set<number>();
+
+  @Input()
+  groupsToDisableRouting: Set<number> = new Set<number>();
 
   @Input()
   pageSize = 10;
@@ -254,7 +254,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   }
 
   disableSelect(grp: GroupWithStatus): boolean {
-    return this.disableGroups && (this.groupsToDisable.has(grp.id) || this.isSynchronized(grp));
+    return this.disableGroups && (this.groupsToDisableCheckbox.has(grp.id) || this.isSynchronized(grp));
   }
 
   ngAfterViewInit(): void {
@@ -267,6 +267,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     this.shouldHideButtons();
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
+      this.changeDetector.detectChanges();
     }
   }
 
@@ -336,6 +337,8 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
       return 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.CREATE_RELATION_AUTH_TOOLTIP';
     } else if (this.isSynchronized(row)){
       return 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.SYNCHRONIZED_GROUP';
+    } else if (row.sourceGroupId) {
+      return 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.INDIRECT_GROUP';
     } else {
       return 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.ALREADY_MEMBER_TOOLTIP';
     }

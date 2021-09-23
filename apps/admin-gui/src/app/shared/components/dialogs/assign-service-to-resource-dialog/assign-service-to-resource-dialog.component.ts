@@ -34,8 +34,8 @@ export class AssignServiceToResourceDialogComponent implements OnInit {
 
   loading = false;
   theme: string;
-  unAssignedServices: Service[];
-  filteredServices: Service[];
+  unAssignedServices: Service[] = [];
+  filteredServices: Service[] = [];
   servicePackages: ServicesPackage[] = [];
   selectedPackage: ServicesPackage = {name: 'Not selected', description: "", id: -1, beanName: "ServicePackage"};
   selection = new SelectionModel<Service>(true, []);
@@ -60,7 +60,6 @@ export class AssignServiceToResourceDialogComponent implements OnInit {
               }
             }
           }
-          this.filteredServices = this.unAssignedServices;
           this.loading = false;
         });
       });
@@ -118,5 +117,18 @@ export class AssignServiceToResourceDialogComponent implements OnInit {
 
   servicePackageSelected(servicesPackage: ServicesPackage) {
     this.selectedPackage = servicesPackage;
+    if(servicesPackage.id !== -1){
+      this.servicesManager.getServicesFromServicesPackage(servicesPackage.id).subscribe(services => {
+        this.filteredServices = services;
+      });
+    }else {
+      this.filteredServices = [];
+    }
+  }
+
+  tabChanged() {
+    this.selection.clear();
+    this.filterValue = '';
+    this.selectedPackage = this.servicePackages[0];
   }
 }

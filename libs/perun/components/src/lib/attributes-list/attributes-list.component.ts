@@ -105,6 +105,8 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
         return  data.description;
       case 'value':
         return JSON.stringify(data.value);
+      case 'urn':
+        return data.namespace+':'+data.baseFriendlyName;
       default:
         return '';
     }
@@ -117,7 +119,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
   setDataSource() {
     this.displayedColumns = this.displayedColumns.filter(x => !this.hiddenColumns.includes(x));
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: Attribute, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+      this.dataSource.filterPredicate = (data: Attribute, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns.concat('urn'), this.getDataForColumn, this);
       this.dataSource.sortData = (data: Attribute[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;

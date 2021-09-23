@@ -34,7 +34,7 @@ export class GroupAttributesComponent implements OnInit {
       this.groupManager.getGroupById(this.groupId).subscribe(group => {
         this.group = group;
 
-        this.groupResourceAttAuth = this.authResolver.isAuthorized('getAssignedResources_Group_policy', [this.group]);
+        this.groupResourceAttAuth = this.authResolver.isAuthorized('getResourceAssignments_Group_policy', [this.group]);
         this.groupMemberAttAuth = this.authResolver.isAuthorized('getCompleteRichMembers_Group_List<String>_List<String>_List<String>_boolean_policy', [this.group]);
       });
     });

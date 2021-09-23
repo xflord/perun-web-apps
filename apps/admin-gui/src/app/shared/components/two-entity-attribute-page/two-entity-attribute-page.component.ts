@@ -14,6 +14,8 @@ import { getDefaultDialogConfig, getRecentlyVisitedIds } from '@perun-web-apps/p
 import { EditAttributeDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { CreateAttributeDialogComponent } from '../dialogs/create-attribute-dialog/create-attribute-dialog.component';
 import { Urns } from '@perun-web-apps/perun/urns';
+import { ResourceWithStatus } from '@perun-web-apps/perun/models';
+import { GroupWithStatus } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-two-entity-attribute-page',
@@ -81,8 +83,12 @@ export class TwoEntityAttributePageComponent implements OnInit {
       case 'group':
         switch (this.secondEntity){
           case 'resource':
-            this.resourcesManagerService.getAssignedResourcesWithGroup(this.firstEntityId).subscribe(resources => {
-              this.entityValues = resources;
+            this.resourcesManagerService.getResourceAssignments(this.firstEntityId).subscribe(resources => {
+              this.entityValues = <ResourceWithStatus[]>resources.map(r =>{
+                const resWithStatus: ResourceWithStatus = r.enrichedResource.resource;
+                resWithStatus.status = r.status;
+                return resWithStatus;
+              });
               this.preselectEntity();
               this.loading = false;
             });
@@ -114,11 +120,15 @@ export class TwoEntityAttributePageComponent implements OnInit {
             })
             break;
           case 'group':
-            this.resourcesManagerService.getAssignedGroups(this.firstEntityId).subscribe(groups => {
-              this.entityValues = groups;
+            this.resourcesManagerService.getGroupAssignments(this.firstEntityId).subscribe(groups => {
+              this.entityValues = <GroupWithStatus[]>groups.map(g =>{
+                const resWithStatus: GroupWithStatus = g.enrichedGroup.group;
+                resWithStatus.status = g.status;
+                return resWithStatus;
+              });
               this.preselectEntity();
               this.loading = false;
-            })
+            });
             break;
         }
         break;

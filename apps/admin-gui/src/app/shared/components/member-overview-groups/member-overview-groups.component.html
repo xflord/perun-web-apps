@@ -11,7 +11,7 @@
                                         [firstSelectedGroup]="selectedGroup">
     </perun-web-apps-group-search-select>
     <mat-spinner *ngIf="(loading || initLoading) && !noGroups" class="mr-auto ml-auto"></mat-spinner>
-    <app-alert alert_type="info" *ngIf="noGroups">{{'MEMBER_DETAIL.OVERVIEW.NO_GROUPS_FOUND' | translate}}</app-alert>
+    <app-alert alert_type="warn" *ngIf="noGroups">{{'MEMBER_DETAIL.OVERVIEW.NO_GROUPS_FOUND' | translate}}</app-alert>
     <div *ngIf="!loading">
       <table mat-table [dataSource]="groupMembershipDataSource" class="ml-auto mr-auto">
         <ng-container matColumnDef="attName">

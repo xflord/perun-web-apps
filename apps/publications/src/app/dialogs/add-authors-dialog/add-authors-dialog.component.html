@@ -31,7 +31,7 @@
           [displayedColumns]="['id', 'name', 'organization', 'email', 'add']"
           (page)="pageChangedAuthors($event)">
         </perun-web-apps-authors-list>
-        <app-alert *ngIf="!firstSearchDone" [alert_type]="'info'">
+        <app-alert *ngIf="!firstSearchDone" alert_type="info">
           {{'DIALOGS.ADD_AUTHORS.SEARCH_INFO' | translate}}
         </app-alert>
       </div>
@@ -49,7 +49,7 @@
           (page)="pageChangedAuthorsToAdd($event)">
         </perun-web-apps-authors-list>
       </div>
-      <app-alert *ngIf="authorsToAdd.length === 0" [alert_type]="'warn'">
+      <app-alert *ngIf="authorsToAdd.length === 0" alert_type="warn">
         {{'DIALOGS.ADD_AUTHORS.NO_AUTHORS_TO_ADD' | translate}}
       </app-alert>
     </div>

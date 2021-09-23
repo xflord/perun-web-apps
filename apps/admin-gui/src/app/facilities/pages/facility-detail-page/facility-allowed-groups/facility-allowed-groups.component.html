@@ -21,7 +21,7 @@
     *ngIf="!loading && groupsToShow.length !== 0"
     [displayedColumns]="['id', 'vo', 'name', 'description']"
     [groups] = "groupsToShow"
-    [groupsToDisable]="groupsWithoutRouteAuth"
+    [groupsToDisableRouting]="groupsWithoutRouteAuth"
     [filter]="filterValue"
     [disableMembers]="false">
   </perun-web-apps-groups-list>
