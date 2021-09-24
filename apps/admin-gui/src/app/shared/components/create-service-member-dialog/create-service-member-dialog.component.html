@@ -86,23 +86,15 @@
                   {{'DIALOGS.CREATE_SERVICE_MEMBER.ENTER_PASSWORD' | translate}}
                 </mat-radio-button>
             </mat-radio-group>
+
             <div  [class.input-disabled]="secondFormGroup.get('generatePasswordCtrl').value" class="display-flex">
-              <mat-form-field (click)="secondFormGroup.get('generatePasswordCtrl').setValue(false)">
-                <mat-label>{{'DIALOGS.CREATE_SERVICE_MEMBER.PASSWORD' | translate}}</mat-label>
-                <input [required]="!secondFormGroup.get('generatePasswordCtrl').value" formControlName="passwordCtrl" matInput type="password">
-                <mat-error *ngIf="secondFormGroup.get('passwordCtrl').hasError('isWeak') && !secondFormGroup.get('passwordCtrl').hasError('minlength')">{{'DIALOGS.CREATE_SERVICE_MEMBER.PWD_WEAK' | translate}}</mat-error>
-                <mat-error *ngIf="secondFormGroup.get('passwordCtrl').hasError('minlength')">{{'DIALOGS.CREATE_SERVICE_MEMBER.PWD_SHORT' | translate}}</mat-error>
-              </mat-form-field>
-
-              <mat-form-field (click)="secondFormGroup.get('generatePasswordCtrl').setValue(false)">
-                <mat-label>{{'DIALOGS.CREATE_SERVICE_MEMBER.PASSWORD_AGAIN' | translate}}</mat-label>
-                <input [required]="!secondFormGroup.get('generatePasswordCtrl').value" formControlName="passwordAgainCtrl" matInput type="password">
-                <mat-error *ngIf="secondFormGroup.get('passwordAgainCtrl').hasError('required')">{{'DIALOGS.CREATE_SERVICE_MEMBER.FIELD_EMPTY' | translate}}</mat-error>
-                <mat-error *ngIf="secondFormGroup.get('passwordAgainCtrl').hasError('noPasswordMatch')">{{'DIALOGS.CREATE_SERVICE_MEMBER.PWD_DONT_MATCH' | translate}}</mat-error>
-              </mat-form-field>
-
-              <p class="white-space-pre">{{'DIALOGS.CREATE_SERVICE_MEMBER.PASSWORD_INFO' | translate}}</p>
+              <perun-web-apps-password-form
+                [formGroup]="secondFormGroup"
+                [passwordRequired]="!secondFormGroup.get('generatePasswordCtrl').value"
+                [namespace]="selectedNamespace">
+              </perun-web-apps-password-form>
             </div>
+
           </div>
         </form>
         <div mat-dialog-actions>
@@ -118,7 +110,7 @@
             {{'DIALOGS.CREATE_SERVICE_MEMBER.BACK' | translate}}
           </button>
           <button
-            [disabled]="secondFormGroup.invalid || secondFormGroup.pending"
+            [disabled]="secondFormGroup.invalid || secondFormGroup.pending || secondFormGroup.get('namespaceCtrl').value === 'Not selected'"
             class="ml-2"
             color="accent"
             mat-flat-button

@@ -38,6 +38,7 @@ import { ChangeVoExpirationDialogComponent } from './change-vo-expiration-dialog
 import { ChangeSponsorshipExpirationDialogComponent } from './change-sponsorship-expiration-dialog/change-sponsorship-expiration-dialog.component';
 import { ChangeGroupResourceAssigmentDialogComponent } from './change-group-resource-assigment-dialog/change-group-resource-assigment-dialog.component';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
+import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespace-password-form';
 
 @NgModule({
   imports: [
@@ -59,7 +60,8 @@ import { ChangePasswordDialogComponent } from './change-password-dialog/change-p
     UiAlertsModule,
     RouterModule,
     MatTreeModule,
-    MatSelectModule
+    MatSelectModule,
+    PerunNamespacePasswordFormModule
   ],
   declarations: [
     BugReportDialogComponent,

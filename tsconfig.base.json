@@ -38,6 +38,9 @@
       ],
       "@perun-web-apps/perun/login": ["libs/perun/login/src/index.ts"],
       "@perun-web-apps/perun/models": ["libs/perun/models/src/index.ts"],
+      "@perun-web-apps/perun/namespace-password-form": [
+        "libs/perun/namespace-password-form/src/index.ts"
+      ],
       "@perun-web-apps/perun/openapi": ["libs/perun/openapi/src/index.ts"],
       "@perun-web-apps/perun/pipes": ["libs/perun/pipes/src/index.ts"],
       "@perun-web-apps/perun/services": ["libs/perun/services/src/index.ts"],

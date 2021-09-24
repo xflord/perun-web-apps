@@ -358,14 +358,15 @@
           "CANCEL": "Zrušit",
           "CHANGE": "Potvrdit",
           "OLD_PASSWORD": "Staré heslo",
-          "NEW_PASSWORD": "Nové heslo",
-          "NEW_PASSWORD_AGAIN": "Znovu zadejte nové heslo",
-          "PWD_DONT_MATCH": "Hesla se neshodují.",
-          "PWD_WEAK": "Heslo nesplňuje požadavky.",
-          "PWD_SHORT": "Heslo je příliš krátké.",
           "FIELD_EMPTY": "Tohle políčko musí být vyplněné.",
-          "PASSWORD_INFO": "Heslo musí:\n - obsahovat pouze tisknutelné znaky bez diakritiky \n - být alespoň 10 znaků dlouhé\n - obsahovat nejméně 3 ze 4 skupin znaků:\n    - malá písmena\n    - velká písmena\n    - čísla\n    - speciální znaky",
           "SUCCESS": "Heslo bylo úspěšně změněno"
+        },
+        "PASSWORD_FORM_FIELD": {
+          "PASSWORD": "Nové heslo",
+          "PASSWORD_AGAIN": "Znovu zadejte nové heslo",
+          "BACKEND_ERROR": "Zadané heslo nesplňuje požadavky pro daný namespace",
+          "FIELD_EMPTY": "Tohle políčko musí být vyplněné",
+          "PWD_DONT_MATCH": "Hesla se neshodují"
         }
       },
       "ORGANIZATIONS": {

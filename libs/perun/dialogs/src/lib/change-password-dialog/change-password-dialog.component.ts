@@ -3,7 +3,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '@perun-web-apps/perun/utils';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { loginAsyncValidator } from '@perun-web-apps/perun/namespace-password-form';
+import { ApiRequestConfigurationService, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 
 export interface ChangePasswordDialogData {
@@ -29,6 +30,7 @@ export class ChangePasswordDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) private data: ChangePasswordDialogData,
               private _formBuilder: FormBuilder,
               private usersManagerService: UsersManagerService,
+              private apiRequestConfiguration: ApiRequestConfigurationService,
               private notificator: NotificatorService,
               private translate: TranslateService) {
     translate.get('SHARED_LIB.PERUN.COMPONENTS.CHANGE_PASSWORD_DIALOG.SUCCESS').subscribe(m => this.successMessage = m);
@@ -37,10 +39,7 @@ export class ChangePasswordDialogComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
       oldPasswordCtrl: ['', Validators.required],
-      passwordCtrl: ['', Validators.compose([
-        CustomValidators.patternValidator([/\d/, /[A-Z]/, /[a-z]/, /[$&+,:;=?@#|'<>.^*()%!-]/]),
-        Validators.minLength(10)])
-      ],
+      passwordCtrl: ['', Validators.required, [loginAsyncValidator(this.data.namespace, this.usersManagerService, this.apiRequestConfiguration)]],
       passwordAgainCtrl: ['']
     }, {
       validator: CustomValidators.passwordMatchValidator

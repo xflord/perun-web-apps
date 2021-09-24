@@ -12,7 +12,6 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService,GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 import {
-  FormControl,
   Validators,
   FormBuilder,
   FormGroup,
@@ -20,10 +19,8 @@ import {
 import { formatDate } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { Role } from '@perun-web-apps/perun/models';
-import { of, timer } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { emailRegexString, enableFormControl } from '@perun-web-apps/perun/utils';
+import { CustomValidators, emailRegexString, enableFormControl } from '@perun-web-apps/perun/utils';
+import { loginAsyncValidator } from '@perun-web-apps/perun/namespace-password-form';
 
 export interface CreateSponsoredMemberDialogData {
   entityId?: number;
@@ -32,29 +29,6 @@ export interface CreateSponsoredMemberDialogData {
   theme: string;
 }
 
-/**
- * State matcher that shows error on inputs whenever the input is changed and invalid (by default, the error
- * is shown after leaving the input field)
- */
-export class ImmediateStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null): boolean {
-    return !!(control && control.invalid && control.dirty);
-  }
-}
-
-export const loginAsyncValidator =
-  (namespace: string, usersManager: UsersManagerService, apiRequestConfiguration: ApiRequestConfigurationService, time: number = 500) => (input: FormControl) => timer(time).pipe(
-        switchMap(() => {
-          apiRequestConfiguration.dontHandleErrorForNext();
-          if (namespace === null || namespace === 'No namespace') {
-            return of(null);
-          }
-          return usersManager.checkPasswordStrength(input.value, namespace)
-        }),
-        map(() => null),
-        // catch error and send it as a valid value
-        catchError(err => of({backendError: err.error.message.substr(err.error.message.indexOf(":")+1)})),
-      );
 
 @Component({
   selector: 'app-create-sponsored-member-dialog',
@@ -72,12 +46,12 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
 
   namespaceOptions: string[] = [];
   namespaceRules: NamespaceRules[] = [];
+  selectedNamespace = null;
   parsedRules: Map<string, {login: string, password: string}> =
     new Map<string, {login: string, password: string}>();
 
   userControl: FormGroup = null;
   namespaceControl: FormGroup = null;
-  passwordStateMatcher = new ImmediateStateMatcher();
 
   voSponsors: RichUser[] = [];
 
@@ -116,10 +90,12 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     this.namespaceControl = this.formBuilder.group({
       namespace: ['', Validators.required],
       login: ['', [Validators.required]],
-      password: ['', Validators.required, [loginAsyncValidator(null, this.usersService, this.apiRequestConfiguration)]],
+      passwordCtrl: ['', Validators.required, [loginAsyncValidator(null, this.usersService, this.apiRequestConfiguration)]],
+      passwordAgainCtrl: [''],
       passwordReset: [false, []],
-      showPassword: [false, []],
       email: ['', [Validators.required, Validators.pattern(emailRegexString)]]
+    }, {
+      validator: CustomValidators.passwordMatchValidator
     });
 
     this.membersService.getAllNamespacesRules().subscribe(rules => {
@@ -195,7 +171,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
 
     if (rules.password !== 'disabled') {
       sponsoredMember.sendActivationLink = this.namespaceControl.get('passwordReset').value;
-      sponsoredMember.userData.password = this.namespaceControl.get('password').value;
+      sponsoredMember.userData.password = this.namespaceControl.get('passwordCtrl').value;
     }
 
     if(this.expiration !== 'never'){
@@ -231,11 +207,12 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
   }
 
   onNamespaceChanged(namespc: string) {
+    this.selectedNamespace = namespc;
     const rules = this.parsedRules.get(namespc);
     const login = this.namespaceControl.get('login');
-    const password = this.namespaceControl.get('password');
+    const password = this.namespaceControl.get('passwordCtrl');
+    const passwordAgain = this.namespaceControl.get('passwordAgainCtrl');
     const passwordReset = this.namespaceControl.get('passwordReset');
-    const showPassword = this.namespaceControl.get('showPassword');
 
     if (rules.login !== 'disabled') {
       const validators = rules.login === 'optional' ? [] : [Validators.required];
@@ -247,26 +224,30 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     if (rules.password !== 'disabled') {
       const validators = rules.password === 'optional' ? [] : [Validators.required];
       enableFormControl(password, validators, [loginAsyncValidator(namespc, this.usersService, this.apiRequestConfiguration)]);
+      enableFormControl(passwordAgain, []);
       enableFormControl(passwordReset, []);
-      enableFormControl(showPassword, []);
       this.namespaceControl.get('passwordReset').setValue(false);
     } else {
       password.disable();
       password.setValue('');
+      passwordAgain.disable();
+      passwordAgain.setValue('');
       passwordReset.disable();
       passwordReset.setValue(false);
-      showPassword.disable();
-      showPassword.setValue(false);
     }
   }
 
   passwordResetChange() {
-    const password = this.namespaceControl.get('password');
+    const password = this.namespaceControl.get('passwordCtrl');
+    const passwordAgain = this.namespaceControl.get('passwordAgainCtrl');
     if (this.namespaceControl.get('passwordReset').value){
       password.disable();
       password.setValue('');
+      passwordAgain.disable();
+      passwordAgain.setValue('');
     } else {
       password.enable();
+      passwordAgain.enable();
     }
   }
 
@@ -278,11 +259,4 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     }
   }
 
-  getPasswordDisabledTooltip(): string {
-    if (this.namespaceControl.get('passwordReset').value) {
-      return this.translator.instant('DIALOGS.CREATE_SPONSORED_MEMBER.PASSWORD_VIA_EMAIL');
-    } else {
-      return this.translator.instant('DIALOGS.CREATE_SPONSORED_MEMBER.PASSWORD_DISABLED');
-    }
-  }
 }

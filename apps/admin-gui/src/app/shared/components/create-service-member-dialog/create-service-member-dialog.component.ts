@@ -6,7 +6,7 @@ import {
   RichMember,
   UsersManagerService
 } from '@perun-web-apps/perun/openapi';
-import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
+import { ApiRequestConfigurationService, NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import {
   AbstractControl,
@@ -21,6 +21,7 @@ import { TABLE_VO_MEMBERS, TableConfigService } from '@perun-web-apps/config/tab
 import { Observable } from 'rxjs';
 import { debounceTime, map, switchMap, take} from 'rxjs/operators';
 import { CustomValidators, enableFormControl } from '@perun-web-apps/perun/utils';
+import { loginAsyncValidator } from '@perun-web-apps/perun/namespace-password-form';
 
 export interface CreateServiceMemberDialogData {
   voId: number;
@@ -36,6 +37,7 @@ export class CreateServiceMemberDialogComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   passwordNamespaces: string[] = [];
+  selectedNamespace = null;
   loading: boolean;
   firstSearchDone = false;
   searchCtrl = new FormControl('');
@@ -57,6 +59,7 @@ export class CreateServiceMemberDialogComponent implements OnInit {
               private notificator: NotificatorService,
               private translate: TranslateService,
               private store: StoreService,
+              private apiRequestConfiguration: ApiRequestConfigurationService,
               private _formBuilder: FormBuilder,
               private tableConfigService: TableConfigService) {
     translate.get('DIALOGS.CREATE_SERVICE_MEMBER.SUCCESS_MEMBER').subscribe(m => this.successMessageMember = m);
@@ -73,10 +76,7 @@ export class CreateServiceMemberDialogComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       namespaceCtrl: ['Not selected'],
       loginCtrl: ['', [Validators.pattern('^[a-z][a-z0-9_-]+$'), Validators.maxLength(15), Validators.minLength(2)]],
-      passwordCtrl: ['', Validators.compose([
-        CustomValidators.patternValidator([/\d/, /[A-Z]/, /[a-z]/, /[$&+,:;=?@#|'<>.^*()%!-]/]),
-        Validators.minLength(10)])
-      ],
+      passwordCtrl: ['', Validators.required, [loginAsyncValidator(null, this.usersManagerService, this.apiRequestConfiguration)]],
       passwordAgainCtrl: [''],
       generatePasswordCtrl: [true]
     }, {
@@ -226,6 +226,7 @@ export class CreateServiceMemberDialogComponent implements OnInit {
   }
 
   onNamespaceChanged(namespace: string) {
+    this.selectedNamespace = namespace.toLowerCase();
     const login = this.secondFormGroup.get('loginCtrl');
     const password = this.secondFormGroup.get('passwordCtrl');
     const passwordAgain = this.secondFormGroup.get('passwordAgainCtrl');
@@ -258,9 +259,7 @@ export class CreateServiceMemberDialogComponent implements OnInit {
       passwordAgain.disable();
       passwordAgain.setValue('');
     } else {
-      const passwordValidators = [Validators.required, CustomValidators.patternValidator([/\d/, /[A-Z]/, /[a-z]/, /[$&+,:;=?@#|'<>.^*()%!-]/]),
-        Validators.minLength(10)];
-      enableFormControl(password, passwordValidators);
+      enableFormControl(password, [Validators.required], [loginAsyncValidator(this.selectedNamespace, this.usersManagerService, this.apiRequestConfiguration)]);
       enableFormControl(passwordAgain, []);
     }
   }

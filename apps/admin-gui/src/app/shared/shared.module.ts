@@ -171,6 +171,7 @@ import { AddResourceTagToResourceDialogComponent } from './components/dialogs/ad
 import { CreateServiceMemberDialogComponent } from './components/create-service-member-dialog/create-service-member-dialog.component';
 import { MemberOverviewMembershipComponent } from './components/member-overview-membership/member-overview-membership.component';
 import { MemberOverviewGroupsComponent } from './components/member-overview-groups/member-overview-groups.component';
+import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespace-password-form';
 
 @NgModule({
   imports: [
@@ -220,6 +221,7 @@ import { MemberOverviewGroupsComponent } from './components/member-overview-grou
     NgxMatSelectSearchModule,
     MatListModule,
     PerunUtilsModule,
+    PerunNamespacePasswordFormModule,
   ],
   exports: [
     NgxMatSelectSearchModule,

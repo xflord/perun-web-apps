@@ -92,6 +92,15 @@
             </mat-error>
           </mat-form-field>
 
+          <mat-form-field>
+            <input matInput required formControlName="email"
+                   placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.EMAIL' | translate}}">
+            <mat-error *ngIf="namespaceControl.hasError('required', 'email') ||
+            namespaceControl.hasError('pattern', 'email')">
+              {{'DIALOGS.CREATE_SPONSORED_MEMBER.EMAIL_ERROR' | translate}}
+            </mat-error>
+          </mat-form-field>
+
           <span
             matTooltip="{{'DIALOGS.CREATE_SPONSORED_MEMBER.PASSWORD_RESET_DISABLED' | translate}}"
             matTooltipPosition="left"
@@ -102,42 +111,13 @@
               formControlName="passwordReset">{{'DIALOGS.CREATE_SPONSORED_MEMBER.PASSWORD_RESET' | translate}}
             </mat-checkbox>
           </span>
-          <mat-form-field
-            [matTooltip]="getPasswordDisabledTooltip()"
-            matTooltipPosition="left"
-            [matTooltipDisabled]="namespaceControl.get('password').enabled">
-            <input
-              [type]="namespaceControl.get('showPassword').value ? 'text' : 'password'"
-              matInput
-              formControlName="password"
-              [errorStateMatcher]="passwordStateMatcher"
-              placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.PASSWORD' | translate}}">
-            <mat-spinner *ngIf="this.namespaceControl.get('password').pending" matSuffix [diameter]="18"
-                         class="input-spinner"></mat-spinner>
-            <mat-icon
-              *ngIf="this.namespaceControl.get('password').dirty && this.namespaceControl.get('password').errors !== null"
-              color="warn" matSuffix
-              [matTooltip]="'DIALOGS.CREATE_SPONSORED_MEMBER.BACKEND_ERROR_LONG' | translate">
-              error
-            </mat-icon>
-            <mat-error
-              *ngIf="namespaceControl.get('password').hasError('required')">{{'DIALOGS.CREATE_SPONSORED_MEMBER.LENGTH_ERROR' | translate}}</mat-error>
-            <mat-error
-              *ngIf="namespaceControl.get('password').hasError('backendError')">{{'DIALOGS.CREATE_SPONSORED_MEMBER.BACKEND_ERROR' | translate}}</mat-error>
-          </mat-form-field>
-          <mat-checkbox class="example-margin"
-                        formControlName="showPassword">
-            {{'DIALOGS.CREATE_SPONSORED_MEMBER.SHOW_PASSWORD' | translate}}
-          </mat-checkbox>
 
-          <mat-form-field>
-            <input matInput required formControlName="email"
-                   placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.EMAIL' | translate}}">
-            <mat-error *ngIf="namespaceControl.hasError('required', 'email') ||
-            namespaceControl.hasError('pattern', 'email')">
-              {{'DIALOGS.CREATE_SPONSORED_MEMBER.EMAIL_ERROR' | translate}}
-            </mat-error>
-          </mat-form-field>
+          <perun-web-apps-password-form
+            [formGroup]="namespaceControl"
+            [tooltipPwdViaEmail]="this.namespaceControl.get('passwordReset').value"
+            [namespace]="selectedNamespace">
+          </perun-web-apps-password-form>
+
           <div mat-dialog-actions>
             <button
               mat-flat-button
@@ -151,7 +131,7 @@
               {{'DIALOGS.CREATE_SPONSORED_MEMBER.BACK' | translate}}
             </button>
             <button
-              [disabled]="namespaceControl.invalid || namespaceControl.get('password').pending"
+              [disabled]="namespaceControl.invalid || namespaceControl.get('passwordCtrl').pending"
               class="ml-2"
               mat-flat-button
               type="button"
@@ -245,7 +225,7 @@
     </div>
     <div>{{'DIALOGS.CREATE_SPONSORED_MEMBER.LOGIN' | translate}}: {{this.loginThatWasSet}}</div>
     <div>{{'DIALOGS.CREATE_SPONSORED_MEMBER.PASSWORD' | translate}}
-      : {{this.namespaceControl.get('password').value}} </div>
+      : {{this.namespaceControl.get('passwordCtrl').value}} </div>
     <app-alert alert_type="warn">{{'DIALOGS.CREATE_SPONSORED_MEMBER.COPY_INFORMATION' | translate}}</app-alert>
 
   </div>
