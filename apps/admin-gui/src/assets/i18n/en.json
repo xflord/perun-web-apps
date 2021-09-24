@@ -1703,7 +1703,8 @@
       "CANCEL": "Cancel",
       "SAVE": "Save",
       "SUCCESS": "Expiration successfully changed",
-      "SAVE_HINT": "You don't have permission to change expiration date."
+      "SAVE_HINT": "You don't have permission to change expiration date.",
+      "STATUS_CHANGE_INFO": "This action will result in changing the status to 'VALID'."
     },
     "EDIT_GROUP": {
       "SUCCESS": "Changes were successfully saved",

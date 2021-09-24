@@ -45,16 +45,17 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
   expirationAttr: Attribute = null;
   currentExpiration: string;
   newExpiration: string;
-
+  status: string;
   canExtendMembership = false;
-
+  changeStatus: boolean;
   successMessage: string;
 
   ngOnInit(): void {
+    this.status = this.data.status;
     this.loading = true;
     const currentDate = new Date();
     if(this.data.status !== 'VALID') {
-      this.maxDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+      this.maxDate = this.data.status === 'EXPIRED' ? undefined : new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
     } else {
       this.minDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
     }
@@ -65,7 +66,8 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
 
     if(this.data.statusChanged) {
       if(this.data.status !== 'VALID') {
-        this.newExpiration = formatDate(this.maxDate, 'yyyy-MM-dd', 'en');
+        this.newExpiration = formatDate(currentDate, 'yyyy-MM-dd', 'en');
+        this.maxDate = currentDate;
       } else {
         this.newExpiration = 'never';
       }
@@ -93,7 +95,7 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
       this.groupManager.extendMembershipInGroup(this.data.memberId, this.data.groupId).subscribe(() => {
         this.loading = false;
         this.notificator.showSuccess(this.successMessage);
-        this.dialogRef.close(true);
+        this.dialogRef.close({ success: true });
       }, () => this.loading = false);
     } else {
       // @ts-ignore
@@ -104,9 +106,20 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
         group: this.data.groupId,
         attributes: [this.expirationAttr]
       }).subscribe(() => {
-        this.loading = false;
-        this.notificator.showSuccess(this.successMessage);
-        this.dialogRef.close(true);
+        if(this.changeStatus && this.status === 'EXPIRED'){
+          this.groupManager.setGroupsMemberStatus(this.data.memberId, this.data.groupId, 'VALID').subscribe(member => {
+            this.translate.get('DIALOGS.CHANGE_STATUS.SUCCESS').subscribe( success => {
+              this.notificator.showSuccess(success);
+              this.loading = false;
+              this.notificator.showSuccess(this.successMessage);
+              this.dialogRef.close({success: true, member:member});
+            });
+          }, () => this.loading = false);
+        }else {
+          this.loading = false;
+          this.notificator.showSuccess(this.successMessage);
+          this.dialogRef.close({success:true});
+        }
       }, () => this.loading = false);
     }
   }

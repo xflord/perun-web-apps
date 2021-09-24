@@ -22,6 +22,7 @@
           {{'DIALOGS.CHANGE_EXPIRATION.EXPIRATION_NEVER'|translate}}
         </mat-radio-button>
       </mat-radio-group>
+      <app-alert alert_type='info' *ngIf="status === 'EXPIRED' && (newExpiration === 'never' || parseDate(expirationControl.value) > currentDate)">{{'DIALOGS.CHANGE_EXPIRATION.STATUS_CHANGE_INFO' | translate}}</app-alert>
     </div>
     <div mat-dialog-actions>
       <button
