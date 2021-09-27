@@ -302,6 +302,7 @@
           "LAST_ACCESS": "Poslední použití",
           "NO_IDENTITIES": "Nenalezeny žádné identity",
           "ID": "Id",
+          "CANNOT_BE_DELETED_TOOLTIP": "Tato identita je trvalá, takže nemůže být odstraněna",
           "LOA": "Úroveň důvěry"
         },
         "BUG_REPORT": {

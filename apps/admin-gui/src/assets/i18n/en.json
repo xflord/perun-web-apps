@@ -2521,6 +2521,7 @@
           "LAST_ACCESS": "Last access",
           "NO_IDENTITIES": "No external identities found",
           "ID": "Id",
+          "CANNOT_BE_DELETED_TOOLTIP": "This identity is persistent, so it cannot be deleted",
           "LOA": "Level of assurance"
         },
         "BUG_REPORT": {
