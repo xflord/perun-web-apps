@@ -14,6 +14,7 @@ export * from './lib/universal-remove-items-dialog/universal-remove-items-dialog
 export * from './lib/member-tree-view-dialog/member-tree-view-dialog.component';
 export * from './lib/mail-change-failed-dialog/mail-change-failed-dialog.component';
 export * from './lib/change-group-expiration-dialog/change-group-expiration-dialog.component';
+export * from './lib/change-password-dialog/change-password-dialog.component';
 export * from './lib/change-vo-expiration-dialog/change-vo-expiration-dialog.component';
 export * from './lib/change-sponsorship-expiration-dialog/change-sponsorship-expiration-dialog.component';
 export * from './lib/universal-confirmation-dialog/universal-confirmation-dialog.component';

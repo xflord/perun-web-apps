@@ -100,7 +100,8 @@ import { ChangePasswordDialogComponent } from './change-password-dialog/change-p
     MemberTreeViewDialogComponent,
     MailChangeFailedDialogComponent,
     ChangeGroupExpirationDialogComponent,
-    ChangeVoExpirationDialogComponent
+    ChangeVoExpirationDialogComponent,
+    ChangePasswordDialogComponent
   ]
 })
 export class PerunDialogsModule {

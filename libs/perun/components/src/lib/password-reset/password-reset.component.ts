@@ -4,7 +4,7 @@ import { StoreService } from '@perun-web-apps/perun/services';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { ChangePasswordDialogComponent } from '../../../../dialogs/src/lib/change-password-dialog/change-password-dialog.component';
+import { ChangePasswordDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 @Component({
   selector: 'perun-web-apps-password-reset',
