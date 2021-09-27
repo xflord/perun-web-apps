@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import { RPCError } from '@perun-web-apps/perun/models';
@@ -46,7 +46,7 @@ export class ApiService implements PerunApiService {
     return headers;
   }
 
-  get(path: string, params: HttpParams = new HttpParams(), showError = true): Observable<any> {
+  get(path: string, showError = true): Observable<any> {
     const url = `${this.getApiUrl()}${path}`;
     return this.http.get(url, { headers: this.getHeaders() })
       .pipe(catchError(err => this.formatErrors(err, url, null, showError)));
