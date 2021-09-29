@@ -40,6 +40,9 @@ export class SideMenuRootItemComponent implements OnInit, OnChanges {
   @Input()
   showOpen: boolean;
 
+  @Input()
+  id = "";
+
   @ViewChild('collapse') collapseDiv: ElementRef;
 
   expanded = false;

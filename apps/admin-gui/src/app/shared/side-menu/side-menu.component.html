@@ -1,6 +1,7 @@
 <div id="sideMenuSpacer">
 <div class="accordion entity-menu-accordion" id="sideMenuAccordion">
   <app-side-menu-root-item
+    [id]="'home-item-btn'"
     [sideNav]="sideNav"
     [item]="homeItem">
   </app-side-menu-root-item>
@@ -16,6 +17,7 @@
   </div>
 
   <app-side-menu-root-item
+    [id]="'access-item-btn'"
     [sideNav]="sideNav"
     [item]="accessItem">
   </app-side-menu-root-item>
@@ -34,6 +36,7 @@
   </div>
 
   <app-side-menu-root-item
+    [id]="'facilities-item-btn'"
     [sideNav]="sideNav"
     *ngIf="authResolver.canManageFacilities()"
     [item]="facilityItem">
@@ -53,6 +56,7 @@
   </div>
 
   <app-side-menu-root-item
+    [id]="'profile-item-btn'"
     [sideNav]="sideNav"
     [showOpen]="userItemOpened"
     [item]="userItem">
@@ -69,6 +73,7 @@
     </app-side-menu-item>
   </div>
   <app-side-menu-root-item
+    [id]="'admin-item-btn'"
     [sideNav]="sideNav"
     *ngIf="authResolver.isPerunAdminOrObserver()"
     [showOpen]="adminItemOpened"

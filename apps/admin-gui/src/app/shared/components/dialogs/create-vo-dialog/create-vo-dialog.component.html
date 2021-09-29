@@ -5,6 +5,7 @@
     <div mat-dialog-content class="dialog-container">
       <mat-form-field>
         <input
+          id="vo-name-input"
           matInput
           required
           placeholder="{{'DIALOGS.CREATE_VO.FULL_NAME' | translate}}"
@@ -15,6 +16,7 @@
       </mat-form-field>
       <mat-form-field>
         <input
+          id="vo-shortname-input"
           matInput
           required
           placeholder="{{'DIALOGS.CREATE_VO.SHORT_NAME' | translate}}"
@@ -34,6 +36,7 @@
       <div matTooltip="{{'DIALOGS.CREATE_VO.TOOLTIP' | translate}}" matTooltipPosition="above"
            [matTooltipDisabled]="shortNameCtrl.valid && fullNameCtrl.valid">
         <button
+          id="create-vo-button"
           mat-flat-button
           class="ml-2"
           color="accent"
