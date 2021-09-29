@@ -54,7 +54,7 @@
       color="accent"
       [disabled]="loading"
       (click)="onSubmit()">
-      {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.SUBMIT' | translate}}
+      {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.'+(status === 'ACTIVE' ? 'DEACTIVATE' : 'ACTIVATE') | translate}}
     </button>
   </div>
 </div>
