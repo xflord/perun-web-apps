@@ -111,9 +111,15 @@ export class InitAuthService {
       );
     } else {
       this.setLoginScreen(true);
+      const query = location.search.substr(1).split('&');
+      const queryParams = {};
+      for(const param of query) {
+        const p = param.split('=');
+        queryParams[p[0]] = p[1];
+      }
       return (
         this.router
-          .navigate(['login'])
+          .navigate(['login'], {queryParams: queryParams, queryParamsHandling: 'merge'})
           // forget the navigate result
           .then(() => null)
       );

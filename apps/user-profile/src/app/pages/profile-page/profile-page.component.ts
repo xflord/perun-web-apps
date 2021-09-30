@@ -12,7 +12,7 @@ import {
 import { UserFullNamePipe } from '@perun-web-apps/perun/pipes';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiRequestConfigurationService, NotificatorService, StoreService } from '@perun-web-apps/perun/services';
+import { ApiRequestConfigurationService, NotificatorService, StoreService, PreferredLanguageService } from '@perun-web-apps/perun/services';
 import { MailChangeFailedDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 interface DisplayedAttribute {
@@ -58,7 +58,8 @@ export class ProfilePageComponent implements OnInit {
     private router: Router,
     private notificator: NotificatorService,
     private storeService: StoreService,
-    private apiRequestConfiguration: ApiRequestConfigurationService
+    private apiRequestConfiguration: ApiRequestConfigurationService,
+    private preferredLangService: PreferredLanguageService
   ) {
     translateService.get('PROFILE_PAGE.MAIL_CHANGE_SUCCESS').subscribe(res => this.successMessage = res);
   }
@@ -100,16 +101,18 @@ export class ProfilePageComponent implements OnInit {
         this.email = emailAttribute.value;
 
         this.languageAttribute = richUser.userAttributes.find(att => att.friendlyName === 'preferredLanguage');
-        // @ts-ignore
-        this.currentLang = this.languageAttribute && this.languageAttribute.value ? this.languageAttribute.value : 'en';
+        const userLang = this.languageAttribute && this.languageAttribute.value ? this.languageAttribute.value.toString() : null;
+        const prefLang = this.preferredLangService.getPreferredLanguage(userLang);
+        this.translateService.use(prefLang);
+        this.currentLang = prefLang;
 
         this.timezoneAttribute = richUser.userAttributes.find(att => att.friendlyName === 'timezone');
         // @ts-ignore
         this.currentTimezone = this.timezoneAttribute && this.timezoneAttribute.value ? this.timezoneAttribute.value : '-';
 
         const additionalAttributesSpecs = this.storeService.get('profile_page_attributes');
-        const langs = this.storeService.get('supported_languages');
         let count = 0;
+        const langs = this.storeService.get('supported_languages');
         additionalAttributesSpecs.forEach(spec => {
           const attribute = richUser.userAttributes.find(att => att.friendlyName === spec.friendly_name);
           if (!attribute) {
@@ -161,6 +164,10 @@ export class ProfilePageComponent implements OnInit {
       attribute: this.languageAttribute
     }).subscribe(() => {
       // this.notificator.showSuccess("done");
+      this.router.navigate([], {
+        queryParams: {lang: null},
+        queryParamsHandling: 'merge'
+      });
     });
   }
 

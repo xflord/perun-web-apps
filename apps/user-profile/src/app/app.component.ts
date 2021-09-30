@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
-import { InitAuthService, StoreService } from '@perun-web-apps/perun/services';
+import { InitAuthService, StoreService, PreferredLanguageService } from '@perun-web-apps/perun/services';
 import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -17,7 +17,8 @@ export class AppComponent implements OnInit {
               private attributesManagerService: AttributesManagerService,
               private translateService:TranslateService,
               private initAuth: InitAuthService,
-              private changeDetector: ChangeDetectorRef) {
+              private changeDetector: ChangeDetectorRef,
+              private preferredLangService: PreferredLanguageService) {
     this.getScreenSize();
   }
 
@@ -30,14 +31,15 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.isLoginScreenShown = this.initAuth.isLoginScreenShown();
     if (this.isLoginScreenShown) {
+      this.headerLabel = this.store.get(`header_label_${this.preferredLangService.getPreferredLanguage(null)}`);
       return;
     }
     this.attributesManagerService.getUserAttributes(this.store.getPerunPrincipal().userId).subscribe(atts =>{
-     const prefLang = atts.find(elem => elem.friendlyName === 'preferredLanguage');
-      if(prefLang && prefLang.value) {
-        // @ts-ignore
-        this.translateService.use(prefLang.value);
-      }
+      const userPrefLang = atts.find(elem => elem.friendlyName === 'preferredLanguage');
+      const userLang = userPrefLang && userPrefLang.value ? userPrefLang.value.toString() : null;
+
+      const prefLang = this.preferredLangService.getPreferredLanguage(userLang);
+      this.translateService.use(prefLang);
     });
   }
 

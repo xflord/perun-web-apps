@@ -229,6 +229,10 @@
   },
   "SHARED_LIB": {
     "PERUN": {
+      "LOGIN": {
+        "SIGN_IN": "Přihlásit se",
+        "TEXT": "Pro pokračování se přihlaste."
+      },
       "COMPONENTS": {
         "GROUPS_LIST": {
           "TABLE_GROUP_ID": "Id",

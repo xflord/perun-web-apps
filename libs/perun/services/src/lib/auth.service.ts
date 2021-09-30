@@ -163,7 +163,7 @@ export class AuthService {
    */
   private isPotentiallyValidPath(path: string): boolean {
     // add '/service-access' to valid paths to enable basic auth
-    const validPaths = ['/home', '/organizations', '/facilities', '/myProfile', '/admin', '/login', '/service-access'];
+    const validPaths = ['/home', '/organizations', '/facilities', '/myProfile', '/admin', '/login', '/service-access', '/profile'];
     if (path === '/'){
       return true;
     }

@@ -3,7 +3,9 @@
                  [class.activated]="isActive(item.activatedRegex)" [ngStyle]="{'color': textColor}"
                  mat-ripple
                  [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
-                 class="side-menu-item-height" routerLink="{{item.external ? null: item.link}}">
+                 class="side-menu-item-height"
+                 routerLink="{{item.external ? null: item.link}}"
+                 queryParamsHandling="merge">
     <mat-icon [ngStyle]="{'color': iconColor}">{{item.icon}}</mat-icon>
     <span class="nav-caption ml-3">{{item.external ? (item | localisedText: lang:'label') : item.label | customTranslate: lang | translate}}</span>
   </mat-list-item>
