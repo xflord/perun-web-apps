@@ -1,0 +1,51 @@
+<div class="card p-4 mat-elevation-z3">
+  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <div *ngIf="!loading">
+    <span *ngIf="unknownIdentity" class="mt-n3">{{
+      'LIST_OF_IDENTITIES.SIGN_NOT_KNOW' | translate
+    }}</span>
+    <span *ngIf="!unknownIdentity" class="mt-n3">{{
+      'LIST_OF_IDENTITIES.SIGN_KNOW' | translate
+    }}</span>
+    <div class="identity-flexbox">
+      <div class="d-flex align-items-center justify-content-center">
+        <img
+          *ngIf="logo"
+          class="logo text-center"
+          [height]="this.height"
+          [width]="this.width"
+          src="{{ this.logo }}" />
+        <mat-icon
+          *ngIf="!logo && !unknownIdentity"
+          svgIcon="perun-verify-grey"
+          class="perun-icon perun-icon-identity">
+        </mat-icon>
+        <mat-icon
+          *ngIf="!logo && unknownIdentity"
+          svgIcon="perun-info-grey"
+          class="perun-icon perun-icon-identity">
+        </mat-icon>
+      </div>
+      <div>
+        <h2 class="px-3">{{ this.idpProvider }}</h2>
+        <mat-divider></mat-divider>
+
+        <table [dataSource]="dataSource" mat-table class="w-100">
+          <ng-container matColumnDef="name">
+            <th *matHeaderCellDef mat-header-cell></th>
+            <td *matCellDef="let attribute" class="font-weight-bold px-3" mat-cell>
+              {{attribute.name}}:
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="value">
+            <th *matHeaderCellDef mat-header-cell></th>
+            <td *matCellDef="let attribute" class="pr-3" mat-cell>
+              {{attribute.value}}
+            </td>
+          </ng-container>
+          <tr *matRowDef="let attribute; columns: ['name', 'value'];" mat-row></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -67,9 +67,11 @@ model/consentStatus.ts
 model/destination.ts
 model/destinationPropagationType.ts
 model/destinationType.ts
+model/enrichedExtSource.ts
 model/enrichedFacility.ts
 model/enrichedGroup.ts
 model/enrichedHost.ts
+model/enrichedIdentity.ts
 model/enrichedResource.ts
 model/enrichedVo.ts
 model/extSource.ts
@@ -102,6 +104,7 @@ model/inputChangeNonAuthzPasswordByToken.ts
 model/inputChangePasswordForLogin.ts
 model/inputChangePasswordForUser.ts
 model/inputCheckPasswordStrength.ts
+model/inputConsolidate.ts
 model/inputCopyResource.ts
 model/inputCreateAlternativePassword.ts
 model/inputCreateAttributeDefinition.ts

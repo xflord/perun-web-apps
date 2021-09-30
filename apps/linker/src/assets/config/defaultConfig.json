@@ -1,0 +1,20 @@
+{
+  "config": "default",
+  "api_url": "https://cloud4.perun-aai.org/oauth/rpc/",
+  "oidc_client": {
+    "oauth_authority": "https://proxy.aai.muni.cz",
+    "oauth_callback": "http://localhost:4201/api-callback",
+    "oauth_client_id": "091cd0a6-18a1-4511-b331-d17c1b08608d",
+    "oauth_post_logout_redirect_uri": "",
+    "oauth_redirect_uri": "http://localhost:4201/api-callback",
+    "oauth_load_user_info": true,
+    "oauth_scopes": "openid profile perun_api perun_admin target user_identifiers",
+    "oauth_response_type": "code",
+    "oauth_offline_access_consent_prompt": true
+  },
+  "application": "Linker",
+  "document_title": "Linker",
+  "support_mail": "perun@cesnet.cz",
+  "instance_favicon": false,
+  "auto_auth_redirect": true
+}

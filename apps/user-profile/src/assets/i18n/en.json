@@ -60,7 +60,9 @@
     "EXT_SOURCE_NAME_OTHER": "External source name",
     "LOGIN_CERT": "DN",
     "LOGIN_IDP": "Linked identity",
-    "OTHER_TOOLTIP": "Identities that were not acquired through Identity consolidator"
+    "OTHER_TOOLTIP": "Identities that were not acquired through Identity consolidator",
+    "SUCCESSFULLY_ADDED": "Identity was successfully added",
+    "MESSAGE_SENT_TO_SUPPORT": "Email was sent to support team"
   },
   "PRIVACY": {
     "TITLE": "Privacy",
@@ -518,6 +520,12 @@
         "NO_ORGANIZATIONS": "No organizations found",
         "NO_FILTER_RESULTS_ALERT": "No results match given search criteria.",
         "NO_MEMBERS": "No members found"
+      }
+    },
+    "CONSOLIDATOR": {
+      "FOCUS_ON_LINKER": {
+        "MODAL": "Modal window is opened.",
+        "MODAL_WARNING": "Please check your browser settings if no modal window is open."
       }
     }
   }

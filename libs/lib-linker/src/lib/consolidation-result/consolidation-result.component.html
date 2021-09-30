@@ -1,0 +1,22 @@
+<div class="p-4 m-3" [ngStyle]="{'background-color': color }">
+  <div class="d-flex pb-5 flex-row">
+    <div>
+      <mat-icon *ngIf="result !== 'OK'" class="mat-icon-war mr-4"> {{icon}} </mat-icon>
+      <mat-icon
+        *ngIf="result === 'OK'"
+        svgIcon="perun-verify-grey"
+        class="perun-icon perun-icon-detail">
+      </mat-icon>
+    </div>
+    <div class="ml-5">
+      <h1>
+        {{('SHARED_LIB.CONSOLIDATOR.' + result + '_TITLE') | translate}}
+      </h1>
+      <h5>
+        {{('SHARED_LIB.CONSOLIDATOR.' + result + '_SUBTITLE') | translate}}
+        <span *ngIf="result === 'UNKNOWN_ERROR'"> {{supportMail}} </span>
+      </h5>
+    </div>
+  </div>
+  <ng-content></ng-content>
+</div>

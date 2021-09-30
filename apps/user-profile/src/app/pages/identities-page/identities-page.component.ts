@@ -7,10 +7,12 @@ import {
   UsersManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { RemoveUserExtSourceDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { LinkerResult, OpenLinkerService } from '@perun-web-apps/lib-linker';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'perun-web-apps-identities-page',
@@ -41,9 +43,12 @@ export class IdentitiesPageComponent implements OnInit {
   constructor(
     private usersManagerService: UsersManagerService,
     private storage: StoreService,
-    private registrarManagerService: RegistrarManagerService,
     private dialog: MatDialog,
-    private attributesManagerService: AttributesManagerService
+    private attributesManagerService: AttributesManagerService,
+    private translate: TranslateService,
+    private notificator: NotificatorService,
+    private registrarManagerService: RegistrarManagerService,
+    private openLinkerService: OpenLinkerService
   ) {}
 
   ngOnInit(): void {
@@ -91,16 +96,6 @@ export class IdentitiesPageComponent implements OnInit {
     });
   }
 
-  addIdentity(): void {
-    this.registrarManagerService.getConsolidatorToken().subscribe((token) => {
-      const type = this.storage.getPerunPrincipal().extSourceType;
-      const consolidatorBaseUrl = this.storage.get('consolidator_base_url') as string;
-      window.location.href = `${consolidatorBaseUrl}${
-        type?.endsWith('X509') ? 'cert' : 'fed'
-      }-ic/ic/?target_url=${window.location.href}&token=${token}`;
-    });
-  }
-
   removeIdentity(selection: SelectionModel<UserExtSource>): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
@@ -117,6 +112,33 @@ export class IdentitiesPageComponent implements OnInit {
         this.refreshTables();
       }
     });
+  }
+
+  addIdentity(): void {
+    if (this.storage.getProperty('use_new_consolidator')) {
+      this.openLinkerService.openLinkerWindow((result: LinkerResult) => {
+        if (result === 'TOKEN_EXPIRED') {
+          location.reload();
+        } else if (result === 'OK') {
+          this.notificator.showSuccess(
+            this.translate.instant('IDENTITIES.SUCCESSFULLY_ADDED') as string
+          );
+          this.refreshTables();
+        } else if (result === 'MESSAGE_SENT_TO_SUPPORT') {
+          this.notificator.showSuccess(
+            this.translate.instant('IDENTITIES.MESSAGE_SENT_TO_SUPPORT') as string
+          );
+        }
+      });
+    } else {
+      this.registrarManagerService.getConsolidatorToken().subscribe((token) => {
+        const type = this.storage.getPerunPrincipal().extSourceType;
+        const consolidatorBaseUrl = this.storage.get('consolidator_base_url') as string;
+        window.location.href = `${consolidatorBaseUrl}${
+          type?.endsWith('X509') ? 'cert' : 'fed'
+        }-ic/ic/?target_url=${window.location.href}&token=${token}`;
+      });
+    }
   }
 
   private addToList(ues: RichUserExtSource): void {

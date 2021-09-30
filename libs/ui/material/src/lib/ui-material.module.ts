@@ -27,6 +27,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   imports: [
@@ -60,6 +61,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatRippleModule,
     MatTableModule,
     MatSlideToggleModule,
+    MatChipsModule,
   ],
   exports: [
     MatCardModule,
@@ -91,6 +93,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatRippleModule,
     MatTabsModule,
     MatSlideToggleModule,
+    MatChipsModule,
   ],
 })
 export class UiMaterialModule {}

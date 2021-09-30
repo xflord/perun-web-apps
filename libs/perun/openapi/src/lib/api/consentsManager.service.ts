@@ -328,7 +328,7 @@ export class ConsentsManagerService {
   }
 
   /**
-   * Evaluates consents for all consent hubs with given service.
+   * Evaluates consents ONLY for given service on consent hubs containing it. If new consent is created, attributes from ALL services under given consent hub are gathered for it.
    * @param service id of Service
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.

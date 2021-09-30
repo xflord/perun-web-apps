@@ -85,7 +85,10 @@ export class ApiInterceptor implements HttpInterceptor {
     const shouldHandleError = this.apiRequestConfiguration.shouldHandleError();
 
     const shouldReloadPrincipal =
-      req.method === 'POST' && !this.store.skipOidc() && this.isCallToPerunApi(req.url);
+      req.method === 'POST' &&
+      !this.store.skipOidc() &&
+      this.isNotConsolidatorOrLinker() &&
+      this.isCallToPerunApi(req.url);
 
     return next.handle(req).pipe(
       tap(
@@ -132,5 +135,10 @@ export class ApiInterceptor implements HttpInterceptor {
     rpcError.call = req.url;
     rpcError.payload = req.body as unknown as object;
     return rpcError;
+  }
+
+  private isNotConsolidatorOrLinker(): boolean {
+    const application = this.store.getProperty('application');
+    return !(application === 'Linker' || application === 'Consolidator');
   }
 }

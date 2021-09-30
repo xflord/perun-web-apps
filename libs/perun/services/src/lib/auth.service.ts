@@ -4,6 +4,7 @@ import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import { StoreService } from './store.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthConfig, OAuthInfoEvent, OAuthService } from 'angular-oauth2-oidc';
+import { parseQueryParams } from '@perun-web-apps/perun/utils';
 
 @Injectable({
   providedIn: 'root',
@@ -41,11 +42,13 @@ export class AuthService {
     // id_token's iat and exp values. Default value is 10 minutes. This set it up to 1 sec.
     const clockSkewInSec = 1;
     const randomSalt = Math.random() * 0.25;
-    //expiration of tokens was moved from 0.75(default) to random number from 0.5 to 0.75
-    // so the refreshing of the token is not triggered by multiple tabs at the same time
+    //Defines when the token_timeout event should be raised.
+    //Expiration of tokens was moved from 0.75(default) to random number from 0.5 to 0.75
+    //So the refreshing of the token is not triggered by multiple tabs at the same time
     const timeoutFactor = 0.5 + randomSalt;
 
     const customQueryParams = !filterValue ? {} : { acr_values: filterValue };
+
     if (
       (this.store.get('oidc_client', 'oauth_scopes') as string)
         .split(' ')
@@ -58,6 +61,13 @@ export class AuthService {
       customQueryParams['acr_values'] = 'https://refeds.org/profile/mfa';
       customQueryParams['prompt'] = 'login';
       customQueryParams['max_age'] = '0';
+    }
+    if (this.store.getProperty('application') === 'Linker') {
+      customQueryParams['prompt'] = 'login';
+      const selectedIdP = parseQueryParams('idphint', location.search.substring(1));
+      if (selectedIdP) {
+        customQueryParams['idphint'] = selectedIdP;
+      }
     }
     return {
       requestAccessToken: true,
@@ -72,7 +82,7 @@ export class AuthService {
       scope: this.store.get('oidc_client', 'oauth_scopes') as string,
       clockSkewInSec: clockSkewInSec,
       timeoutFactor: timeoutFactor,
-      // sessionChecksEnabled: true,
+      userinfoEndpoint: this.store.getProperty('oidc_client').user_info_endpoint_url,
       customQueryParams: customQueryParams,
     };
   }
@@ -117,9 +127,13 @@ export class AuthService {
         .then(() => this.startRefreshToken())
         .then(() => this.redirectToOriginDestination());
     } else {
-      return this.verifyAuthentication(currentPathname, queryParams).then(() =>
-        this.startRefreshToken()
-      );
+      return this.verifyAuthentication(currentPathname, queryParams).then((isVerified) => {
+        if (isVerified) {
+          return this.startRefreshToken();
+        } else {
+          return new Promise<boolean>((resolve) => resolve(false));
+        }
+      });
     }
   }
 
@@ -303,6 +317,12 @@ export class AuthService {
       .then(() => this.tryRefreshToken())
       .then(() => this.isLoggedInPromise())
       .then((isLoggedIn) => {
+        if (this.store.getProperty('application') === 'Linker') {
+          sessionStorage.setItem('auth:queryParams', queryParams);
+          localStorage.removeItem('access_token');
+
+          return false;
+        }
         if (!isLoggedIn) {
           if (!this.isPotentiallyValidPath(path)) {
             return new Promise<boolean>((resolve, reject) => reject('Invalid path'));

@@ -1,1 +1,21 @@
-<perun-web-apps-nx-welcome></perun-web-apps-nx-welcome> <router-outlet></router-outlet>
+<div *ngIf="!isLoginScreenShow">
+  <perun-web-apps-header id="nav-menu"></perun-web-apps-header>
+  <div
+    id="content-inner"
+    [ngStyle]="{
+      'background-color': contentBackgroundColor
+    }">
+    <div id="content-wrap">
+      <router-outlet></router-outlet>
+    </div>
+    <div id="footer">
+      <perun-web-apps-footer></perun-web-apps-footer>
+    </div>
+  </div>
+</div>
+<div *ngIf="isLoginScreenShow">
+  <perun-web-apps-login-screen-base
+    [application]="'consolidator'"
+    [headerTitle]="'HEADER.TITLE' | translate">
+  </perun-web-apps-login-screen-base>
+</div>

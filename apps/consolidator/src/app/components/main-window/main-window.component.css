@@ -1,0 +1,10 @@
+.identities-list {
+  max-width: 650px;
+}
+
+.main-flexbox {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}

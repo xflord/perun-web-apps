@@ -1,0 +1,12 @@
+<div class="d-flex">
+  <div class="d-inline-block ml-auto mr-auto">
+    <perun-web-apps-alert *ngIf="unknownIdentity" alert_type="warn">{{
+      'LIST_OF_IDENTITIES.IS_NOT_KNOWN_IDENTITY' | translate
+    }}</perun-web-apps-alert>
+    <div class="main-flexbox">
+      <perun-web-apps-list-of-identities class="identities-list">
+      </perun-web-apps-list-of-identities>
+      <perun-web-apps-connect-identity-section></perun-web-apps-connect-identity-section>
+    </div>
+  </div>
+</div>

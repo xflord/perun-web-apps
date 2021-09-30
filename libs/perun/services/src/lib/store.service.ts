@@ -67,7 +67,7 @@ export class StoreService {
 
   getProperty<T extends keyof PerunConfig>(key: T): PerunConfig[T] {
     const configs: PerunConfig[] = [
-      this.instanceConfig.brandings?.[this.branding],
+      this.instanceConfig?.brandings?.[this.branding],
       this.instanceConfig,
       this.defaultConfig,
     ];

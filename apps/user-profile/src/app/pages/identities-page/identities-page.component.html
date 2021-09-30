@@ -1,8 +1,8 @@
 <div class="user-theme">
+  <h1 class="page-title">{{'IDENTITIES.IDP' | customTranslate | translate}}</h1>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <div *ngIf="!loading">
-    <h1 class="page-title">{{'IDENTITIES.IDP' | customTranslate | translate}}</h1>
-    <button mat-flat-button class="action-button" color="accent" (click)="addIdentity()">
+    <button mat-flat-button color="accent" (click)="addIdentity()">
       {{'IDENTITIES.ADD' | customTranslate | translate}}
     </button>
     <button
@@ -22,7 +22,7 @@
 
     <div *ngIf="displayCertificates">
       <h1 class="page-title mt-5">{{'IDENTITIES.CERT' | customTranslate | translate}}</h1>
-      <button mat-flat-button class="action-button" color="accent" (click)="addIdentity()">
+      <button mat-flat-button color="accent" (click)="addIdentity()">
         {{'IDENTITIES.ADD' | customTranslate | translate}}
       </button>
       <button

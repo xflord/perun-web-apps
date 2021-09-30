@@ -1,0 +1,26 @@
+#content-inner {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 64px;
+  justify-content: space-between;
+}
+
+#content-wrap {
+  padding: 25px;
+}
+
+#footer {
+  bottom: 0;
+  width: 100%;
+}
+
+#nav-menu {
+  top: 0;
+  background: #102027;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  height: 64px;
+  max-height: 64px;
+}

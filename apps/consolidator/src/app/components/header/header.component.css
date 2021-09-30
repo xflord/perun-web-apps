@@ -1,0 +1,31 @@
+#nav-devel-info {
+  font-weight: 500;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+#login-nav {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  display: flex;
+  height: 64px;
+  max-height: 64px;
+  top: 0;
+}
+
+.logo-container {
+  padding: 0 8px 0 8px;
+}
+
+.logo-container ::ng-deep img,
+.logo-container ::ng-deep svg {
+  max-height: 50px;
+}
+
+.page-subtitle {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}

@@ -1,0 +1,21 @@
+.logo {
+  display: block;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.perun-icon-identity {
+  transform: scale(3.5);
+  margin-left: 0.9rem;
+  margin-top: 1rem;
+  color: black;
+}
+
+.identity-flexbox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  gap: 0.5rem 1rem;
+  margin-top: 0.5rem;
+}

@@ -1,0 +1,30 @@
+<div class="position-relative">
+  <perun-web-apps-consolidation-result [result]="linkerResult">
+    <div class="d-flex mt-5">
+      <button mat-flat-button class="ml-auto" (click)="closeWindow()">
+        {{'SHOW_RESULT.CLOSE_WINDOW_BUTTON' | translate}}
+      </button>
+      <button
+        mat-flat-button
+        *ngIf="linkerResult === 'IDENTITY_IDENTICAL' ||
+                linkerResult === 'IDENTITY_UNKNOWN' ||
+                linkerResult === 'IDENTITY_LINKED'"
+        color="accent"
+        class="ml-2"
+        (click)="loginAgain()">
+        {{'SHOW_RESULT.LOG_OTHER_BUTTON' | translate}}
+      </button>
+      <button
+        mat-flat-button
+        *ngIf="linkerResult === 'IDENTITY_REGISTERED_ALREADY'"
+        color="accent"
+        class="ml-2"
+        (click)="sendMessageToSupport()">
+        {{'SHOW_RESULT.CONTACT_SUPPORT_BUTTON' | translate}}
+      </button>
+    </div>
+  </perun-web-apps-consolidation-result>
+  <div class="spinner-container" *ngIf="loading">
+    <mat-spinner class="ml-auto mr-auto"></mat-spinner>
+  </div>
+</div>

@@ -834,3 +834,14 @@ export function isGroupSynchronized(group: RichGroup): boolean {
     hasBooleanAttributeEnabled(group.attributes, Urns.GROUP_STRUCTURE_SYNC_ENABLED)
   );
 }
+
+export function parseQueryParams(paramName: string, queryParams: string): string {
+  const parameters = queryParams.split('&');
+  for (const param of parameters) {
+    const [name, value] = param.split('=');
+    if (name.includes(paramName)) {
+      return value;
+    }
+  }
+  return '';
+}

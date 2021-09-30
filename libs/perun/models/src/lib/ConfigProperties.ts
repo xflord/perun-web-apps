@@ -8,6 +8,7 @@ interface OidcClient {
   oauth_redirect_uri: string;
   oauth_scopes: string;
   oauth_response_type: string;
+  user_info_endpoint_url: string;
   filters: Record<string, string>;
 }
 
@@ -135,7 +136,7 @@ export interface PerunConfig {
   document_title?: DocumentTitle;
   footer?: Footer;
   brandings?: Record<string, PerunConfig>;
-  logo?: SafeHtml;
+  logo?: string;
   theme?: PerunTheme;
 
   // Admin gui specific
@@ -168,6 +169,7 @@ export interface PerunConfig {
   external_services?: ProfileExtService[];
   custom_labels?: ProfileCustomLabel[];
   display_identity_certificates?: boolean;
+  use_new_consolidator: boolean;
 
   // Publications specific
   // Optional
@@ -178,4 +180,17 @@ export interface PerunConfig {
   password_requirements_help_en?: string;
   password_requirements_help_cs?: string;
   password_reset_logo?: SafeHtml;
+
+  //Consolidator + Linker
+  application: string;
+  support_mail: string;
+
+  // Consolidator specific
+  path_to_idp_provider_userinfo: string[];
+  path_to_idp_logo_userinfo: string[];
+  path_to_idp_logo_width_userinfo: string[];
+  path_to_idp_logo_height_userinfo: string[];
+
+  //User profile + Consolidator
+  use_localhost_linker_url: boolean;
 }

@@ -1,1 +1,217 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+
+@function mat-color-from-palette($palette, $hue: default, $opacity: null) {
+  @if type-of($hue) == number and $hue >= 0 and $hue <= 1 {
+    @return mat-color-from-palette($palette, default, $hue);
+  }
+
+  $color: map-get($palette, $hue);
+
+  @if (type-of($color) != color) {
+    @if ($opacity == null) {
+      @return $color;
+    }
+
+    // Here is the change from the original function:
+    // If the $color resolved to something different from a color, we assume it is a CSS variable
+    // in the form of rgba(var(--rgba-css-var),a) and replace the 'a' value.
+    @return #{str-slice($color, 0, str-index($color, ',')) + $opacity + ')'};
+  }
+
+  @return rgba($color, if($opacity == null, opacity($color), $opacity));
+}
+
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$perun-primary: mat.define-palette(mat.$gray-palette, 900);
+$perun-accent: mat.define-palette(mat.$green-palette, 600);
+
+// The warn palette is optional (defaults to red).
+$perun-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($perun-theme);
+
+.user-theme {
+  $user-dynamic-colors: (
+    50: rgba(var(--user-theme-primary-50), 1),
+    100: rgba(var(--user-theme-primary-100), 1),
+    200: rgba(var(--user-theme-primary-200), 1),
+    300: rgba(var(--user-theme-primary-300), 1),
+    400: rgba(var(--user-theme-primary-400), 1),
+    500: rgba(var(--user-theme-primary-500), 1),
+    600: rgba(var(--user-theme-primary-600), 1),
+    700: rgba(var(--user-theme-primary-700), 1),
+    800: rgba(var(--user-theme-primary-800), 1),
+    900: rgba(var(--user-theme-primary-900), 1),
+    A100: rgba(var(--user-theme-primary-A100), 1),
+    A200: rgba(var(--user-theme-primary-A200), 1),
+    A400: rgba(var(--user-theme-primary-A400), 1),
+    A700: rgba(var(--user-theme-primary-A700), 1),
+    contrast: (
+      50: rgba(var(--user-theme-primary-contrast-50), 1),
+      100: rgba(var(--user-theme-primary-contrast-100), 1),
+      200: rgba(var(--user-theme-primary-contrast-200), 1),
+      300: rgba(var(--user-theme-primary-contrast-300), 1),
+      400: rgba(var(--user-theme-primary-contrast-400), 1),
+      500: rgba(var(--user-theme-primary-contrast-500), 1),
+      600: rgba(var(--user-theme-primary-contrast-600), 1),
+      700: rgba(var(--user-theme-primary-contrast-700), 1),
+      800: rgba(var(--user-theme-primary-contrast-800), 1),
+      900: rgba(var(--user-theme-primary-contrast-900), 1),
+      A100: rgba(var(--user-theme-primary-contrast-A100), 1),
+      A200: rgba(var(--user-theme-primary-contrast-A200), 1),
+      A400: rgba(var(--user-theme-primary-contrast-A400), 1),
+      A700: rgba(var(--user-theme-primary-contrast-A700), 1),
+    ),
+  );
+
+  $user-primary: mat.define-palette($user-dynamic-colors, 500);
+  $user-accent: mat.define-palette(mat.$green-palette, 600);
+
+  $user-theme: mat.define-light-theme($user-primary, $user-accent);
+
+  @include mat.all-component-themes($user-theme);
+}
+
+button {
+  border-radius: 0 !important;
+}
+
+button:focus {
+  outline: none !important;
+}
+
+.page-subtitle {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.dark-hover-list-item {
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog-container > * {
+  width: 100%;
+}
+
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#loader {
+  display: block;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #414141;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+#loader:before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #afafaf;
+  -webkit-animation: spin 3s linear infinite;
+  animation: spin 3s linear infinite;
+}
+#loader:after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #e5e5e5;
+  -webkit-animation: spin 1.5s linear infinite;
+  animation: spin 1.5s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.perun-icon {
+  path {
+    fill: currentColor;
+  }
+  rect {
+    fill: currentColor;
+  }
+  polygon {
+    fill: currentColor;
+  }
+}
+
+.perun-icon-detail {
+  transform: scale(2.7);
+  margin-left: 1.4rem;
+  margin-top: 1.4rem;
+}
+
+.noBorderDialog .mat-dialog-container {
+  background-color: black;
+}
+
+mat-chip-list {
+  pointer-events: none;
+}

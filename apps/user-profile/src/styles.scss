@@ -208,3 +208,7 @@ td.mat-cell {
 .action-button::after {
   content: '\2026';
 }
+
+.noBorderDialog .mat-dialog-container {
+  background-color: black;
+}

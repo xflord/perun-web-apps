@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AttributesManagerService, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { PreferredLanguageService, StoreService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
+import { parseQueryParams } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'perun-web-apps-root',
@@ -43,10 +44,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     const queryParams = location.search.substr(1);
     this.mode = queryParams.includes('activation') ? 'activation' : 'reset';
-    this.namespace = this.parseQueryParams('namespace', queryParams);
+    this.namespace = parseQueryParams('namespace', queryParams);
 
     if (queryParams.includes('token')) {
-      this.token = this.parseQueryParams('token', queryParams);
+      this.token = parseQueryParams('token', queryParams);
 
       this.usersService.checkPasswordResetRequestByTokenIsValid(this.token).subscribe(
         () => {
@@ -66,16 +67,6 @@ export class AppComponent implements OnInit, AfterViewInit {
           );
           this.login = selectedLogin ? String(selectedLogin.value) : '';
         });
-    }
-  }
-
-  parseQueryParams(paramName: string, queryParams: string): string {
-    const parameters = queryParams.split('&');
-    for (const param of parameters) {
-      const [name, value] = param.split('=');
-      if (name.includes(paramName)) {
-        return value;
-      }
     }
   }
 

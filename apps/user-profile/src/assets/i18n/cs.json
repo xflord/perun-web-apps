@@ -441,6 +441,12 @@
         "NO_GROUPS": "Nebyly nalezeny žádné skupiny.",
         "NO_FILTER_RESULTS_ALERT": "Žádné výsledky neodpovídají daným vyhledávacím kritériím."
       }
+    },
+    "CONSOLIDATOR": {
+      "FOCUS_ON_LINKER": {
+        "MODAL": "Modální okno je otevřeno.",
+        "MODAL_WARNING": "Prosím zkontrolujte své nastavení prohlížeče, pokud žádné modální okno nebylo otevřeno."
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { InitAuthService, StoreService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'perun-web-apps-root',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'consolidator';
+  contentBackgroundColor = this.store.getProperty('theme').content_bg_color;
+  isLoginScreenShow = this.initAuth.isLoginScreenShown();
+
+  constructor(private store: StoreService, private initAuth: InitAuthService) {}
 }

@@ -1,0 +1,49 @@
+{
+  "HEADER": {
+    "TITLE": "Account linking"
+  },
+  "LIST_OF_IDENTITIES": {
+    "IS_NOT_KNOWN_IDENTITY": "The account is not registered in the system",
+    "SIGN_NOT_KNOW": "You are trying to sign in with",
+    "SIGN_KNOW": "You are signed in with",
+    "LINKED_ACCOUNTS": "Linked accounts"
+  },
+  "CONNECT_IDENTITY_SECTION": {
+    "TITLE_NO_SIMILAR_FOUND": "We didn't find any similar account",
+    "NO_SIMILAR_FOUND_HELP": "Please prove your account by logging in using one of the registered accounts.",
+    "CONNECT_OTHER_ACCOUNT": "Connect another account",
+    "TITLE_SIMILAR_FOUND": "We found account(s) that might be yours",
+    "SIMILAR_FOUND_HELP": "Please prove it's yours by logging in using one of the registered accounts.",
+    "CONNECT_THIS_ACCOUNT": "Connect this account",
+    "LINKED_ACCOUNTS": "Linked accounts"
+  },
+  "SHOW_RESULT": {
+    "TRY_AGAIN": "Try it again",
+    "ADD_ANOTHER": "Add another account"
+  },
+  "SHARED_LIB": {
+    "PERUN": {
+      "LOGIN": {
+        "SIGN_IN": "Sign in",
+        "TEXT": "You must sign in to continue."
+      },
+      "COMPONENTS": {
+        "SESSION_EXPIRATION": {
+          "TITLE": "Session expiration",
+          "DESCRIPTION": "Your session has expired. Please sign in to continue.",
+          "SIGN_IN": "Sign in"
+        }
+      }
+    },
+    "CONSOLIDATOR": {
+      "OK_TITLE": "Success!",
+      "OK_SUBTITLE": "Accounts successfully linked.",
+      "MESSAGE_SENT_TO_SUPPORT_TITLE": "Email was sent to user support.",
+      "MESSAGE_SENT_TO_SUPPORT_SUBTITLE": "Our user support will answer your email as soon as possible.",
+      "FOCUS_ON_LINKER": {
+        "MODAL": "Modal window is opened.",
+        "MODAL_WARNING": "Please check your browser settings if no modal window is open."
+      }
+    }
+  }
+}

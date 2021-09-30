@@ -19,7 +19,9 @@ export class OtherApplicationsService {
       if (
         brand.newApps.admin === domain ||
         brand.newApps.profile === domain ||
-        brand.newApps.pwdReset === domain
+        brand.newApps.pwdReset === domain ||
+        brand.newApps.consolidator === domain ||
+        brand.newApps.linker === domain
       ) {
         return brand;
       }
@@ -38,7 +40,10 @@ export class OtherApplicationsService {
    * @param appType type of requested app (admin | profile | pwdReset)
    * @param login login namespace for pwd reset app
    */
-  getUrlForOtherApplication(appType: 'admin' | 'profile' | 'pwdReset', login?: string): string {
+  getUrlForOtherApplication(
+    appType: 'admin' | 'profile' | 'pwdReset' | 'consolidator' | 'linker',
+    login?: string
+  ): string {
     const currentUrl = window.location.href;
     const splittedUrl = currentUrl.split('/');
     const domain = splittedUrl[0] + '//' + splittedUrl[2]; // protocol with domain

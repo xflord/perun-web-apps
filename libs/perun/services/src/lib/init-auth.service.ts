@@ -93,6 +93,18 @@ export class InitAuthService {
   }
 
   /**
+   * Load principal
+   */
+  simpleLoadPrincipal(): Promise<void> {
+    return this.authzService
+      .getPerunPrincipal()
+      .toPromise()
+      .then((perunPrincipal) => {
+        this.storeService.setPerunPrincipal(perunPrincipal);
+      });
+  }
+
+  /**
    * Handles the auth start. If the configuration property `auto_auth_redirect`
    * is set to true, a rediret to the oidc server will be made.
    * If the property is set to false, a redirect to local page /login will be

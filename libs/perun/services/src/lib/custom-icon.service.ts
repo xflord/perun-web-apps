@@ -214,6 +214,14 @@ export class CustomIconService {
       url: 'assets/img/PerunWebImages/propagation-blue.svg',
       name: 'perun-hierarchical-inclusion',
     },
+    {
+      url: 'assets/img/PerunWebImages/verify-grey.svg',
+      name: 'perun-verify-grey',
+    },
+    {
+      url: 'assets/img/PerunWebImages/info-grey.svg',
+      name: 'perun-info-grey',
+    },
   ];
 
   constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {}

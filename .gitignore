@@ -49,5 +49,9 @@ apps/user-profile/src/assets/config/instanceFavicon.ico
 apps/publications/src/assets/config/instanceConfig.json
 apps/password-reset/src/assets/config/instanceConfig.json
 apps/password-reset/src/assets/config/instanceFavicon.ico
+apps/consolidator/src/assets/config/instanceConfig.json
+apps/consolidator/src/assets/config/instanceFavicon.ico
+apps/linker/src/assets/config/instanceConfig.json
+apps/linker/src/assets/config/instanceFavicon.ico
 
 .angular

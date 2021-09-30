@@ -1,0 +1,48 @@
+{
+  "SHOW_RESULT": {
+    "YOU_CAN_CLOSE": "You can close this window now",
+    "CLOSE WINDOW_BUTTON": "Close the window",
+    "LOG_OTHER_BUTTON": "Log in with another account",
+    "LOG_ANOTHER_BUTTON": "Log in with another account",
+    "CLOSE_WINDOW_BUTTON": "Close the window",
+    "CONTACT_SUPPORT_BUTTON": "Send message to user support"
+  },
+  "SHARED_LIB": {
+    "PERUN": {
+      "LOGIN": {
+        "SIGN_IN": "Sign in",
+        "TEXT": "You must sign in to continue."
+      },
+      "SESSION_EXPIRATION": {
+        "TITLE": "Session expiration",
+        "DESCRIPTION": "Your session has expired. Please sign in to continue.",
+        "SIGN_IN": "Sign in"
+      }
+    },
+    "CONSOLIDATOR": {
+      "OK_TITLE": "Success!",
+      "OK_SUBTITLE": "Accounts successfully linked.",
+      "IDENTITY_REGISTERED_ALREADY_TITLE": "This account is linked to another user. The account could not be automatically linked.",
+      "IDENTITY_REGISTERED_ALREADY_SUBTITLE": "Please contact the user support.",
+      "IDENTITY_IDENTICAL_TITLE": "You logged in with the same account.",
+      "IDENTITY_IDENTICAL_SUBTITLE": "",
+      "IDENTITY_LINKED_TITLE": "The accounts were already linked.",
+      "IDENTITY_LINKED_SUBTITLE": "You tried to link an account that was linked to you already.",
+      "IDENTITY_UNKNOWN_TITLE": "The account is not registered in the system!",
+      "IDENTITY_UNKNOWN_SUBTITLE": "Please log in with an account you are registered in the system!",
+      "TOKEN_EXPIRED_TITLE": "Some logins are expired!",
+      "TOKEN_EXPIRED_SUBTITLE": "Please close this window and refresh the web application you came from.",
+      "MESSAGE_SENT_TO_SUPPORT_TITLE": "Email was sent to user support.",
+      "MESSAGE_SENT_TO_SUPPORT_SUBTITLE": "Our user support will answer your email as soon as possible.",
+      "UNKNOWN_ERROR_TITLE": "Something went wrong.",
+      "UNKNOWN_ERROR_SUBTITLE": "Please try again later or contact the user support at",
+      "SEND_MESSAGE_TO_SUPPORT_DIALOG": {
+        "TITLE": "Send message to User Support",
+        "SUBTITLE": "Technical info will be sent automatically",
+        "SELECT_PREFERRED_EMAIL": "Select your preferable contact email",
+        "CANCEL": "Cancel",
+        "SUBMIT": "Send"
+      }
+    }
+  }
+}
