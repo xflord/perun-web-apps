@@ -3,9 +3,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Group, GroupsManagerService, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
-  TABLE_ADD_GROUP_TO_REGISTRATION, TableConfigService
+  TABLE_ADD_GROUP_TO_REGISTRATION
 } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
 
 export interface AddGroupToRegistrationDialogData {
   theme: string;
@@ -23,8 +22,7 @@ export class AddGroupToRegistrationComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AddGroupToRegistrationComponent>,
               @Inject(MAT_DIALOG_DATA) public data: AddGroupToRegistrationDialogData,
               private groupService: GroupsManagerService,
-              private registrarService: RegistrarManagerService,
-              private tableConfigService: TableConfigService) { }
+              private registrarService: RegistrarManagerService) { }
 
   loading = false;
   theme: string;
@@ -33,11 +31,9 @@ export class AddGroupToRegistrationComponent implements OnInit {
   filterValue = '';
 
   tableId = TABLE_ADD_GROUP_TO_REGISTRATION;
-  pageSize: number;
 
   ngOnInit(): void {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.theme = this.data.theme;
     this.groupService.getAllGroups(this.data.voId).subscribe(groups => {
       this.unAssignedGroups = groups.filter(group => this.data.assignedGroups.indexOf(group.id) <= -1);
@@ -47,11 +43,6 @@ export class AddGroupToRegistrationComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   onCancel() {

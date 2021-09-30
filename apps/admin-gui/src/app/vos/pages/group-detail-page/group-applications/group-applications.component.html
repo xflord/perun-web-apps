@@ -28,9 +28,8 @@
 <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
 <div *ngIf="!loading">
   <app-applications-list
-    [pageSize]="pageSize"
+    [tableId]="tableId"
     [disableRouting]="!routeAuth"
-    (page)="pageChanged($event)"
     *ngIf="!showAllDetails"
     [filterValue]="filterValue"
     [applications]="applications"
@@ -38,8 +37,7 @@
     [group]="group">
   </app-applications-list>
   <app-perun-web-apps-application-list-details
-    [pageSize]="detailPageSize"
-    (page)="detailPageChanged($event)"
+    [tableId]="detailTableId"
     [disableRouting]="!routeAuth"
     [filterValue]="filterValue"
     [applications]="applications"

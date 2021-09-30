@@ -1,12 +1,9 @@
 import {
   Component,
-  EventEmitter,
   Input,
   OnChanges,
-  Output,
   ViewChild
 } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Vo } from '@perun-web-apps/perun/openapi';
@@ -44,16 +41,13 @@ export class VosListComponent implements OnChanges {
   displayedColumns: string[] = [];
 
   @Input()
-  pageSize = 10;
-
-  @Input()
   disableRouting = false;
 
   @Input()
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
-  @Output()
-  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
+  @Input()
+  tableId: string;
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;

@@ -1,11 +1,10 @@
-<div [hidden]="dataSource.filteredData.length === 0 || bansOnFacilitiesWithUsers.length === 0" class="card mt-3">
+<div class="card mt-3">
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
-    (page)="page.emit($event)"
+    [tableId]="tableId"
     [dataLength]="dataSource.filteredData.length"
-    [pageSizeOptions]="pageSizeOptions"
-    [pageSize]="pageSize">
+    [pageSizeOptions]="pageSizeOptions">
     <table
       [dataSource]="dataSource"
       class="w-100"
@@ -53,17 +52,19 @@
       <tr
         *matRowDef="let banOnFacilityWithUser; columns: displayedColumns;"
         class="dark-hover-list-item"
-        mat-row
-      >
+        mat-row>
+      </tr>
+      <tr *matNoDataRow>
+        <td [attr.colspan]="displayedColumns.length">
+          <app-alert *ngIf="dataSource.filteredData.length === 0 && bansOnFacilitiesWithUsers.length !== 0" alert_type="warn">
+            {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
+          </app-alert>
+
+          <app-alert *ngIf="bansOnFacilitiesWithUsers.length === 0" alert_type="warn">
+            {{'SHARED.COMPONENTS.BLACKLIST_LIST.NO_BANS_WARNING' | translate}}
+          </app-alert>
+        </td>
       </tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
-
-<app-alert *ngIf="dataSource.filteredData.length === 0 && bansOnFacilitiesWithUsers.length !== 0" alert_type="warn">
-  {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
-</app-alert>
-
-<app-alert *ngIf="bansOnFacilitiesWithUsers.length === 0" alert_type="warn">
-  {{'SHARED.COMPONENTS.BLACKLIST_LIST.NO_BANS_WARNING' | translate}}
-</app-alert>

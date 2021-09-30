@@ -43,18 +43,14 @@
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto">
 </mat-spinner>
 
-<div *ngIf="applicationMails.length !== 0 && !loading" class="card mt-2">
-  <app-notification-list
-    [applicationMails]="applicationMails"
-    [pageSize]="pageSize"
-    (page)="pageChanged($event)"
-    [voId]="voId"
-    [displayedColumns]="displayedColumns"
-    [disableSend]="!addAuth"
-    [selection]="selection"
-    [theme]="'vo-theme'"
-    (selectionChange)="changeSelection($event)"></app-notification-list>
-</div>
-<app-alert *ngIf="this.applicationMails.length === 0 && !loading" alert_type="warn">
-  {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.NO_EMAILS' | translate}}
-</app-alert>
+<app-notification-list
+  *ngIf="!loading"
+  [applicationMails]="applicationMails"
+  [tableId]="tableId"
+  [voId]="voId"
+  [displayedColumns]="displayedColumns"
+  [disableSend]="!addAuth"
+  [selection]="selection"
+  [theme]="'vo-theme'"
+  (selectionChange)="changeSelection($event)">
+</app-notification-list>

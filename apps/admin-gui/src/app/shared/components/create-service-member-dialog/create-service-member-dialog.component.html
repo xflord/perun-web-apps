@@ -162,7 +162,7 @@
             [disableRouting]="true"
             [displayedColumns]="['checkbox', 'id', 'fullName']"
             [members]="members"
-            [pageSize]="pageSize"
+            [tableId]="tableId"
             [selection]="selection"></perun-web-apps-members-list>
           <app-alert *ngIf="!firstSearchDone" alert_type="info">
             {{'DIALOGS.CREATE_SERVICE_MEMBER.SEARCH_INFO' | translate}}

@@ -6,8 +6,7 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
-import { TABLE_RESOURCE_DELETE_SERVICE, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_RESOURCE_DELETE_SERVICE } from '@perun-web-apps/config/table-config';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 
@@ -28,7 +27,6 @@ export class DeleteServiceFromFacilityComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<DeleteServiceFromFacilityComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DeleteServiceFromFacilityData,
-              private tableConfigService: TableConfigService,
               private resourcesManager: ResourcesManagerService,
               private tasksManager: TasksManagerService,
               private serviceManager: ServicesManagerService,
@@ -52,11 +50,9 @@ export class DeleteServiceFromFacilityComponent implements OnInit {
   taskResultsChecked = true;
   destinationChecked = true;
 
-  pageSize: number;
   tableId = TABLE_RESOURCE_DELETE_SERVICE;
 
   ngOnInit(): void {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.theme = this.data.theme;
     this.taskId = this.data.taskId;
     this.serviceId = this.data.serviceId;
@@ -144,10 +140,5 @@ export class DeleteServiceFromFacilityComponent implements OnInit {
         break;
       }
     }
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

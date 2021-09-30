@@ -4,8 +4,7 @@
   <perun-web-apps-immediate-filter (filter)="applyFilter($event)" [placeholder]="'FACILITY_DETAIL.SETTINGS.BLACKLIST.FILTER' | translate"></perun-web-apps-immediate-filter>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <app-perun-web-apps-blacklist-list
-    [pageSize]="pageSize"
-    (page)="pageChanged($event)"
+    [tableId]="tableId"
     *ngIf="!loading"
     [filterValue]="filterValue"
     [bansOnFacilitiesWithUsers]="bansOnFacilitiesWithUsers"

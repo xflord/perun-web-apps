@@ -21,8 +21,7 @@
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <perun-web-apps-attributes-list
     #list
-    (page)="pageChanged($event)"
-    [pageSize]="pageSize"
+    [tableId]="tableId"
     *ngIf="!loading"
     [attributes]="attributes"
     [selection]="selection">

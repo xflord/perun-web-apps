@@ -17,9 +17,7 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import {
   TABLE_ATTRIBUTES_SETTINGS,
-  TableConfigService,
 } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
 import { AttributesListComponent } from '@perun-web-apps/perun/components';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
@@ -38,7 +36,6 @@ export type ServiceSelectValue = 'ALL' | 'NOT_SELECTED';
 export class ServiceConfiguratorComponent implements OnInit, OnChanges {
   constructor(
     private attributesManager: AttributesManagerService,
-    private tableConfigService: TableConfigService,
     private dialog: MatDialog
   ) {}
 
@@ -79,10 +76,8 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
   memberAttributes: Attribute[];
 
   tableId = TABLE_ATTRIBUTES_SETTINGS;
-  pageSize: number;
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.loadFacilityAttributes();
   }
 
@@ -159,11 +154,6 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
     if (this.resource !== undefined) {
       this.loadResourceAttributes();
     }
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   onAddAttFacility() {

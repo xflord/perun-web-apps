@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
-import { TABLE_TASK_RESULTS, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_TASK_RESULTS } from '@perun-web-apps/config/table-config';
 import { Facility, Task, TaskResult, TasksManagerService } from '@perun-web-apps/perun/openapi';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,7 +16,6 @@ import { DeleteTaskResultDialogComponent } from '../../../../../shared/component
 export class FacilityTaskResultsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-              private tableConfigService: TableConfigService,
               private taskManager: TasksManagerService,
               private authResolver: GuiAuthResolver,
               private dialog: MatDialog) { }
@@ -31,7 +29,6 @@ export class FacilityTaskResultsComponent implements OnInit {
   facility: Facility;
   taskResults: TaskResult[];
 
-  pageSize: number;
   tableId = TABLE_TASK_RESULTS;
   displayedColumns = ['select', 'id', 'destination', 'type', 'service', 'status', 'time', 'returnCode', 'standardMessage', 'errorMessage'];
 
@@ -39,7 +36,6 @@ export class FacilityTaskResultsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(parentParams => {
       this.facility = {
        id: parseInt(parentParams['facilityId'], 10),
@@ -90,10 +86,4 @@ export class FacilityTaskResultsComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
   }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
-  }
-
 }

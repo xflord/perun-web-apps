@@ -10,10 +10,8 @@ import {
   AttributeDefinition,
   AttributesManagerService,
 } from '@perun-web-apps/perun/openapi';
-import { PageEvent } from '@angular/material/paginator';
 import {
   TABLE_ADMIN_ATTRIBUTES,
-  TableConfigService,
 } from '@perun-web-apps/config/table-config';
 import { AttributeImportDialogComponent } from '../../../../shared/components/dialogs/attribute-import-dialog/attribute-import-dialog.component';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
@@ -29,7 +27,6 @@ export class AdminAttributesComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private attributesManager: AttributesManagerService,
-    private tableConfigService: TableConfigService,
     public authResolver: GuiAuthResolver
   ) {}
 
@@ -39,11 +36,9 @@ export class AdminAttributesComponent implements OnInit {
   filterValue = '';
 
   loading: boolean;
-  pageSize: number;
   tableId = TABLE_ADMIN_ATTRIBUTES;
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.refreshTable();
   }
 
@@ -96,11 +91,6 @@ export class AdminAttributesComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   onImport() {

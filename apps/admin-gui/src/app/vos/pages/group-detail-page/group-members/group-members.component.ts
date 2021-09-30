@@ -17,8 +17,7 @@ import {
   RichGroup,
   RichMember
 } from '@perun-web-apps/perun/openapi';
-import { PageEvent } from '@angular/material/paginator';
-import { TABLE_GROUP_MEMBERS, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_GROUP_MEMBERS } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { InviteMemberDialogComponent } from '../../../../shared/components/dialogs/invite-member-dialog/invite-member-dialog.component';
 import { FormControl } from '@angular/forms';
@@ -38,7 +37,6 @@ export class GroupMembersComponent implements OnInit {
   constructor(
     private groupService: GroupsManagerService,
     protected route: ActivatedRoute,
-    private tableConfigService: TableConfigService,
     private dialog: MatDialog,
     private guiAuthResolver: GuiAuthResolver,
     private storeService: StoreService,
@@ -73,7 +71,6 @@ export class GroupMembersComponent implements OnInit {
     Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
     Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
   ];
-  pageSize: number;
 
   addAuth: boolean;
   removeAuth: boolean;
@@ -91,7 +88,6 @@ export class GroupMembersComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.selection = new SelectionModel<RichMember>(true, []);
     this.statuses.setValue(this.selectedStatuses);
     this.groupStatuses.setValue(this.selectedGroupStatuses);
@@ -181,11 +177,6 @@ export class GroupMembersComponent implements OnInit {
 
     this.dialog.open(InviteMemberDialogComponent, config);
 
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   displaySelectedStatuses(): string {

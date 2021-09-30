@@ -6,7 +6,6 @@ import {
   RichResource
 } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import {
   customDataSourceSort, downloadData, getDataForExport, getDefaultDialogConfig, parseFullName,
@@ -46,9 +45,7 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
   @Input()
   displayedColumns: string[] = ['select', 'id', 'lock', 'title', 'reportedBy', 'year', 'category', 'thankedTo', 'cite'];
   @Input()
-  pageSize = 10;
-  @Output()
-  page = new EventEmitter<PageEvent>();
+  tableId: string;
   @Input()
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   @Input()
@@ -115,12 +112,12 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, '', this.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(this.selection.selected.length, '', this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, '', this.dataSource, this.sort, this.pageSize, this.child.paginator.pageIndex, false);
+    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, '', this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex, false);
   }
 
   private setDataSource() {

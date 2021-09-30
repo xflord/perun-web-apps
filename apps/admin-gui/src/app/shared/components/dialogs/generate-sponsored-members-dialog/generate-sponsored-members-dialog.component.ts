@@ -10,11 +10,10 @@ import {
 import { GuiAuthResolver, NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { PageEvent } from '@angular/material/paginator';
 import { formatDate } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { TABLE_VO_GROUPS, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_VO_GROUPS } from '@perun-web-apps/config/table-config';
 import { downloadData, emailRegexString } from '@perun-web-apps/perun/utils';
 
 export interface GenerateSponsoredMembersDialogData {
@@ -57,7 +56,6 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
 
   filterValue = '';
   tableId = TABLE_VO_GROUPS;
-  pageSize: number;
 
   private groupAttrNames = [
     Urns.GROUP_SYNC_ENABLED,
@@ -73,14 +71,12 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
               private guiAuthResolver: GuiAuthResolver,
               private groupsService: GroupsManagerService,
               private attributesService: AttributesManagerService,
-              private formBuilder: FormBuilder,
-              private tableConfigService: TableConfigService) { }
+              private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.loading = true;
     this.theme = this.data.theme;
     this.createGroupAuth = this.guiAuthResolver.isAuthorized('createGroup_Vo_Group_policy', [{id: this.data.voId , beanName: 'Vo'}]);
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.usersInfoFormGroup = this.formBuilder.group({
       namespace: ['', Validators.required],
       sponsoredMembers: ['', [Validators.required, this.userInputValidator()]]
@@ -282,11 +278,6 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
     } else {
       this.expiration = formatDate(newExpiration,'yyyy-MM-dd','en-GB');
     }
-  }
-
-  groupTablePageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   applyFilter(filterValue: string) {

@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { RichUser } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 import {
   downloadData, getDataForExport,
    parseFullName, parseLogins,  parseUserEmail, parseVo,
@@ -17,6 +16,7 @@ import {
 } from '@perun-web-apps/perun/services';
 import { merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { TableConfigService } from '@perun-web-apps/config/table-config';
 
 @Component({
   selector: 'perun-web-apps-users-dynamic-list',
@@ -27,6 +27,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
 
   constructor(private authResolver: GuiAuthResolver,
               private tableCheckbox: TableCheckbox,
+              private tableConfigService: TableConfigService,
               private dynamicPaginatingService: DynamicPaginatingService) { }
 
   @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
@@ -40,7 +41,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
   displayedColumns: string[] = ['select', 'user', 'id', 'name', 'email', 'logins', 'organization'];
 
   @Input()
-  pageSize = 10;
+  tableId: string;
 
   @Input()
   disableRouting = false;
@@ -53,9 +54,6 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
 
   @Input()
   withoutVo: boolean;
-
-  @Output()
-  page = new EventEmitter<PageEvent>();
 
   dataSource: DynamicDataSource<RichUser>;
 
@@ -77,7 +75,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
     }
 
     this.dataSource = new DynamicDataSource<RichUser>(this.dynamicPaginatingService, this.authResolver);
-    this.dataSource.loadUsers(this.attrNames, this.pageSize, 0, 'ASCENDING',
+    this.dataSource.loadUsers(this.attrNames, this.tableConfigService.getTablePageSize(this.tableId), 0, 'ASCENDING',
       'NAME', this.searchString, this.withoutVo);
   }
 
@@ -98,7 +96,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.pageSize;
+    const numRows = this.child.paginator.pageSize;
     return numSelected === numRows;
   }
 
@@ -112,7 +110,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
   loadUsersPage() {
     const sortDirection = this.sort.direction === 'asc' ? 'ASCENDING' : 'DESCENDING';
     const sortColumn = this.sort.active === 'name' ? 'NAME' : 'ID';
-    this.dataSource.loadUsers(this.attrNames, this.pageSize, this.child.paginator.pageIndex, sortDirection,
+    this.dataSource.loadUsers(this.attrNames, this.child.paginator.pageSize, this.child.paginator.pageIndex, sortDirection,
       sortColumn, this.searchString, this.withoutVo);
   }
 
@@ -141,5 +139,4 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
         return '';
     }
   }
-
 }

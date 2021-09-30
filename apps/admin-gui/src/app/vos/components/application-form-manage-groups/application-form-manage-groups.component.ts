@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Group, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
-import { TABLE_APPLICATION_FORM_ITEM_MANAGE_GROUP, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_APPLICATION_FORM_ITEM_MANAGE_GROUP } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,8 +17,7 @@ import { GroupsListComponent } from '@perun-web-apps/perun/components';
 })
 export class ApplicationFormManageGroupsComponent implements OnInit {
 
-  constructor(private tableConfigService: TableConfigService,
-              private registrarService: RegistrarManagerService,
+  constructor(private registrarService: RegistrarManagerService,
               public authResolver: GuiAuthResolver,
               private dialog: MatDialog,
               protected route: ActivatedRoute) { }
@@ -28,7 +26,6 @@ export class ApplicationFormManageGroupsComponent implements OnInit {
   voId: number;
   groups: Group[] = [];
   selected = new SelectionModel<Group>(true, []);
-  pageSize: number;
   tableId = TABLE_APPLICATION_FORM_ITEM_MANAGE_GROUP;
   filterValue = '';
   addAuth: boolean;
@@ -38,7 +35,6 @@ export class ApplicationFormManageGroupsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.parent.params.subscribe(params => {
       this.voId = params['voId'];
       this.loadGroups();
@@ -88,11 +84,6 @@ export class ApplicationFormManageGroupsComponent implements OnInit {
         });
       }
     });
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   private setAuthRights() {

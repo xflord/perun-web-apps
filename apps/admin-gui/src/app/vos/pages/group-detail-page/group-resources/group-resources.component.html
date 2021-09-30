@@ -26,9 +26,8 @@
   <perun-web-apps-resources-list
     #list
     *ngIf="resources && !loading"
-    (page)="pageChanged($event)"
+    [tableId]="tableId"
     (refreshTable)="refreshTable()"
-    [pageSize]="pageSize"
     [filterValue]="filterValue"
     [resources]="resources"
     [routingVo]="true"

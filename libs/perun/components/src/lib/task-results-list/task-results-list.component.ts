@@ -1,15 +1,12 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter,
   Input,
   OnChanges,
-  Output,
   ViewChild
 } from '@angular/core';
 import { TaskResult} from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {
@@ -47,12 +44,9 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
   @Input()
   filterValue: string;
   @Input()
-  pageSize = 10;
+  tableId: string;
   @Input()
   displayedColumns: string[] = ['select', 'id', 'destination', 'type', 'service', 'status', 'time', 'returnCode', 'standardMessage', 'errorMessage'];
-
-  @Output()
-  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
   private sort: MatSort;
   dataSource: MatTableDataSource<TaskResult>;
@@ -131,11 +125,11 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
   }
 
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
   }
 
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.pageSize, this.child.paginator.pageIndex,false);
+    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex,false);
   }
 
   checkboxLabel(row?: TaskResult): string {

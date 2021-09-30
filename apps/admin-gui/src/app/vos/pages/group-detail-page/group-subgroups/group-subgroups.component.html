@@ -48,8 +48,7 @@
     </perun-web-apps-groups-tree>
     <perun-web-apps-groups-list
       #list
-      (page)="pageChanged($event)"
-      [pageSize]="pageSize"
+      [tableId]="tableId"
       [groups]="groups"
       [selection]="selected"
       [authType]="'group-subgroups'"

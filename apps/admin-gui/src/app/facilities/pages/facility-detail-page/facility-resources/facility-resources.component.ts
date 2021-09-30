@@ -5,10 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { RemoveResourceDialogComponent } from '../../../../shared/components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
 import { FacilitiesManagerService, Facility, RichResource } from '@perun-web-apps/perun/openapi';
 import { CreateResourceDialogComponent } from '../../../../shared/components/dialogs/create-resource-dialog/create-resource-dialog.component';
-import { PageEvent } from '@angular/material/paginator';
 import {
-  TABLE_FACILITY_RESOURCES_LIST,
-  TableConfigService
+  TABLE_FACILITY_RESOURCES_LIST
 } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
@@ -27,7 +25,6 @@ export class FacilityResourcesComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
               private facilitiesManager: FacilitiesManagerService,
-              private tableConfigService: TableConfigService,
               private route: ActivatedRoute,
               private authResolver: GuiAuthResolver) {
   }
@@ -39,7 +36,6 @@ export class FacilityResourcesComponent implements OnInit {
   filterValue = '';
 
   loading: boolean;
-  pageSize: number;
   tableId = TABLE_FACILITY_RESOURCES_LIST;
   displayedColumns = ['id', 'vo', 'facility', 'description'];
 
@@ -48,8 +44,6 @@ export class FacilityResourcesComponent implements OnInit {
   routeAuth: boolean;
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-
     this.route.parent.params.subscribe(parentParams => {
       const facilityId = parentParams['facilityId'];
 
@@ -114,10 +108,5 @@ export class FacilityResourcesComponent implements OnInit {
         this.refreshTable();
       }
     });
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

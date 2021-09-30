@@ -3,10 +3,8 @@ import {SideMenuService} from '../../../core/services/common/side-menu.service';
 import { EnrichedFacility, FacilitiesManagerService} from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
 import {
-  TABLE_FACILITY_SELECT,
-  TableConfigService
+  TABLE_FACILITY_SELECT
 } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateFacilityDialogComponent } from '../../../shared/components/dialogs/create-facility-dialog/create-facility-dialog.component';
@@ -26,7 +24,6 @@ export class FacilitySelectPageComponent implements OnInit, AfterViewChecked {
   constructor(
     private facilityManager: FacilitiesManagerService,
     private sideMenuService: SideMenuService,
-    private tableConfigService: TableConfigService,
     private dialog: MatDialog
   ) { }
 
@@ -34,14 +31,11 @@ export class FacilitySelectPageComponent implements OnInit, AfterViewChecked {
   recentIds: number[] = [];
   loading: boolean;
   filterValue = '';
-  pageSize: number;
   tableId = TABLE_FACILITY_SELECT;
   selection = new SelectionModel<EnrichedFacility>(false, []);
   includeDestinations: boolean;
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-
     this.refreshTable();
   }
 
@@ -94,10 +88,5 @@ export class FacilitySelectPageComponent implements OnInit, AfterViewChecked {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

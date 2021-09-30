@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CabinetManagerService, Category} from '@perun-web-apps/perun/openapi';
-import { PageEvent } from '@angular/material/paginator';
-import { TABLE_GROUP_RESOURCES_LIST, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_GROUP_RESOURCES_LIST } from '@perun-web-apps/config/table-config';
 import { SelectionModel } from '@angular/cdk/collections';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -17,7 +16,6 @@ import { MatDialog } from '@angular/material/dialog';
 export class CategoriesPageComponent implements OnInit {
 
   constructor(private cabinetManagerService: CabinetManagerService,
-              private tableConfigService: TableConfigService,
               private dialog: MatDialog,
               private guiAuthResolver: GuiAuthResolver) {
   }
@@ -26,7 +24,6 @@ export class CategoriesPageComponent implements OnInit {
   selected = new SelectionModel<Category>(true, []);
   loading: boolean;
   filterValue = '';
-  pageSize: number;
   tableId = TABLE_GROUP_RESOURCES_LIST;
 
   removeAuth: boolean;
@@ -52,11 +49,6 @@ export class CategoriesPageComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   addCategory() {

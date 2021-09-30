@@ -7,8 +7,7 @@ import {
   MembersManagerService,
   Vo
 } from '@perun-web-apps/perun/openapi';
-import { PageEvent } from '@angular/material/paginator';
-import { TABLE_MEMBER_DETAIL_GROUPS, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_MEMBER_DETAIL_GROUPS } from '@perun-web-apps/config/table-config';
 import { SelectionModel } from '@angular/cdk/collections';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
@@ -34,7 +33,6 @@ export class MemberGroupsComponent implements OnInit {
 
   constructor(
     private groupsService: GroupsManagerService,
-    private tableConfigService: TableConfigService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private authResolver: GuiAuthResolver,
@@ -50,7 +48,6 @@ export class MemberGroupsComponent implements OnInit {
   filterValue = '';
 
   tableId = TABLE_MEMBER_DETAIL_GROUPS;
-  pageSize: number;
   selection = new SelectionModel<Group>(true, []);
 
   addAuth: boolean;
@@ -59,7 +56,6 @@ export class MemberGroupsComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(parentParams => {
       this.memberId = parentParams['memberId'];
       this.memberService.getMemberById(this.memberId).subscribe(member => {
@@ -135,10 +131,5 @@ export class MemberGroupsComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

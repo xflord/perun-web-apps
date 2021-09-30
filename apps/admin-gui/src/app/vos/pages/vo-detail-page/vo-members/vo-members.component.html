@@ -52,8 +52,7 @@
   <perun-web-apps-members-dynamic-list
     *ngIf="!loading"
     [voId]="vo.id"
-    [pageSize]="pageSize"
-    (page)="pageChanged($event)"
+    [tableId]="tableId"
     [selection]="selection"
     [displayedColumns]="displayedColumns"
     [attrNames]="attrNames"

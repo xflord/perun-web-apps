@@ -23,9 +23,8 @@
     *ngIf="!loading"
     [thanks]="publication.thanks"
     [filterValue]="filterValue"
-    [pageSize]="pageSize"
+    [tableId]="tableId"
     [displayedColumns]="publication.locked ? ['id', 'name', 'createdBy'] : ['select', 'id', 'name', 'createdBy']"
-    [selection]="selection"
-    (page)="pageChanged($event)">
+    [selection]="selection">
   </perun-web-apps-thanks-list>
 </div>

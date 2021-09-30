@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { RemovePublicationDialogComponent } from '../../dialogs/remove-publication-dialog/remove-publication-dialog.component';
-import { PageEvent } from '@angular/material/paginator';
 import { FilterPublication } from '../../components/publication-filter/publication-filter.component';
 import { CabinetManagerService, PublicationForGUI } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { TABLE_PUBLICATION_AUTHOR_DETAIL_PUBLICATIONS, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_PUBLICATION_AUTHOR_DETAIL_PUBLICATIONS } from '@perun-web-apps/config/table-config';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconRegistry } from "@angular/material/icon";
@@ -20,7 +19,6 @@ export class AllPublicationsPageComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private cabinetService: CabinetManagerService,
-              private tableConfigService: TableConfigService,
               private dialog: MatDialog,
               private matIconRegistry: MatIconRegistry,
               private domSanitizer: DomSanitizer,) {
@@ -33,11 +31,9 @@ export class AllPublicationsPageComponent implements OnInit {
   loading: boolean;
   publications: PublicationForGUI[];
   selected = new SelectionModel<PublicationForGUI>(true, []);
-  pageSize: number;
   tableId = TABLE_PUBLICATION_AUTHOR_DETAIL_PUBLICATIONS;
 
   ngOnInit(): void {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.refreshTable();
   }
 
@@ -53,11 +49,6 @@ export class AllPublicationsPageComponent implements OnInit {
         this.refreshTable();
       }
     });
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   refreshTable() {

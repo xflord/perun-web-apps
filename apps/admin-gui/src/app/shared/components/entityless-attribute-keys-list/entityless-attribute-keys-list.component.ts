@@ -10,7 +10,6 @@ import {
   ViewChild, ViewChildren
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NotificatorService } from '@perun-web-apps/perun/services';
@@ -52,10 +51,8 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit, 
   @Input()
   attDef: AttributeDefinition;
   @Input()
-  pageSize = 10;
+  tableId: string;
 
-  @Output()
-  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
   @Output()
   switchView: EventEmitter<void> = new EventEmitter();
 

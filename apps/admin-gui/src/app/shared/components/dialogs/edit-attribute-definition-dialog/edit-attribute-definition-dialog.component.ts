@@ -12,10 +12,8 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { slideInOutLeft, slideInOutRight, switchAnimation } from '@perun-web-apps/perun/animations';
 import { Role } from '@perun-web-apps/perun/models';
-import { PageEvent } from '@angular/material/paginator';
 import {
   TABLE_ENTITYLESS_ATTRIBUTE_KEYS,
-  TableConfigService
 } from '@perun-web-apps/config/table-config';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Clipboard } from '@angular/cdk/clipboard';
@@ -40,7 +38,6 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
               private translate: TranslateService,
               private clipboard: Clipboard,
               private attributesManager: AttributesManagerService,
-              private tableConfigService: TableConfigService,
               private serviceService: ServicesManagerService) {
   }
 
@@ -67,13 +64,11 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
   writeVo = false;
   writeGroup = false;
   writeFacility = false;
-  pageSize: number;
   tableId = TABLE_ENTITYLESS_ATTRIBUTE_KEYS;
   loading = false;
 
   ngOnInit() {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.dialogRef.addPanelClass('mat-dialog-height-transition');
     this.attDef = this.data.attDef;
     this.serviceService.getServicesByAttributeDefinition(this.attDef.id).subscribe(response => {
@@ -252,11 +247,6 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
       this.dialogRef.updateSize('700px');
       this.activatedComponent = 'Edit';
     }
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   onCopy() {

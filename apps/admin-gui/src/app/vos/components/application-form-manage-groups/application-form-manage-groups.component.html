@@ -34,9 +34,8 @@
 </mat-spinner>
 <perun-web-apps-groups-list
   #list
-  (page)="pageChanged($event)"
+  [tableId]="tableId"
   [selection]="selected"
-  [pageSize]="pageSize"
   [displayedColumns]="['select', 'id', 'name', 'description']"
   [disableRouting]="true"
   [filter]="filterValue"

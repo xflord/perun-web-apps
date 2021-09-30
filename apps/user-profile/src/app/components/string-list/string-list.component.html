@@ -1,9 +1,8 @@
-<div class="card mt-2" [hidden]="!values.length">
+<div class="card mt-2">
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
-    [dataLength]="dataSource.filteredData.length"
-    [pageSize]="pageSize">
+    [dataLength]="dataSource.filteredData.length">
     <table [dataSource]="dataSource" class="w-100" mat-table>
       <ng-container matColumnDef="select">
         <th *matHeaderCellDef mat-header-cell>
@@ -28,10 +27,13 @@
         class="dark-hover-list-item"
         mat-row>
       </tr>
+      <tr *matNoDataRow>
+        <td [attr.colspan]="displayedColumns.length">
+          <app-alert *ngIf="values.length === 0" alert_type="warn">
+            {{alertText}}
+          </app-alert>
+        </td>
+      </tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
-
-<app-alert *ngIf="values.length === 0" alert_type="warn">
-  {{alertText}}
-</app-alert>

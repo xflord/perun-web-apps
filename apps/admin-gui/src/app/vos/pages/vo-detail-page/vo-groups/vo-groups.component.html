@@ -47,8 +47,7 @@
     </perun-web-apps-groups-tree>
     <perun-web-apps-groups-list
       #list
-      (page)="pageChanged($event)"
-      [pageSize]="pageSize"
+      [tableId]="tableId"
       (moveGroup)="onMoveGroup($event)"
       [groups]="groups"
       [selection]="selected"

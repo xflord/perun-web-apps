@@ -4,9 +4,7 @@ import { CabinetManagerService, PublicationForGUI, User, UsersManagerService } f
 import { SelectionModel } from '@angular/cdk/collections';
 import {
   TABLE_PUBLICATION_AUTHOR_DETAIL_PUBLICATIONS,
-  TableConfigService
 } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { RemovePublicationDialogComponent } from '../../dialogs/remove-publication-dialog/remove-publication-dialog.component';
@@ -21,7 +19,6 @@ export class AuthorDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private cabinetService: CabinetManagerService,
-              private tableConfigService: TableConfigService,
               private userService: UsersManagerService,
               private dialog: MatDialog,) { }
 
@@ -29,14 +26,12 @@ export class AuthorDetailComponent implements OnInit {
   initLoading: boolean;
   publications: PublicationForGUI[];
   selected = new SelectionModel<PublicationForGUI>(true, []);
-  pageSize: number;
   tableId = TABLE_PUBLICATION_AUTHOR_DETAIL_PUBLICATIONS;
   author: User;
 
 
   ngOnInit(): void {
     this.initLoading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.params.subscribe(params => {
       const authorId = params['authorId'];
       this.userService.getUserById(authorId).subscribe(user => {
@@ -59,11 +54,6 @@ export class AuthorDetailComponent implements OnInit {
         this.refreshTable();
       }
     });
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   refreshTable() {

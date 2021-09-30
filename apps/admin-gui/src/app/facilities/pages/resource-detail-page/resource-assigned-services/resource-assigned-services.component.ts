@@ -4,10 +4,9 @@ import {
   Resource,
   ResourcesManagerService, Service
 } from '@perun-web-apps/perun/openapi';
-import { TABLE_RESOURCE_ASSIGNED_SERVICES, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_RESOURCE_ASSIGNED_SERVICES } from '@perun-web-apps/config/table-config';
 import { MatDialog } from '@angular/material/dialog';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AssignServiceToResourceDialogComponent } from '../../../../shared/components/dialogs/assign-service-to-resource-dialog/assign-service-to-resource-dialog.component';
 import { RemoveServiceFromResourceDialogComponent } from '../../../../shared/components/dialogs/remove-service-from-resource-dialog/remove-service-from-resource-dialog.component';
@@ -26,7 +25,6 @@ export class ResourceAssignedServicesComponent implements OnInit {
   selected = new SelectionModel<Service>(true, []);
   loading: boolean;
   tableId = TABLE_RESOURCE_ASSIGNED_SERVICES;
-  pageSize: number;
   filterValue = '';
   loadingResource: boolean;
   assignServiceAuth: boolean;
@@ -36,14 +34,12 @@ export class ResourceAssignedServicesComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private resourcesManager: ResourcesManagerService,
-              private tableConfigService: TableConfigService,
               private dialog: MatDialog,
               public guiAuthResolver: GuiAuthResolver) {
   }
 
   ngOnInit(): void {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(parentParams => {
       this.resourceId = parentParams['resourceId'];
       this.resourcesManager.getResourceById(this.resourceId).subscribe(resource => {
@@ -92,11 +88,6 @@ export class ResourceAssignedServicesComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   getDataForAuthorization() {

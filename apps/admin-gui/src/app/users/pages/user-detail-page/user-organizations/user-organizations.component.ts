@@ -1,10 +1,8 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { UsersManagerService, Vo } from '@perun-web-apps/perun/openapi';
 import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
-import { PageEvent } from '@angular/material/paginator';
 import {
   TABLE_USER_PROFILE_ADMIN_SELECT, TABLE_USER_PROFILE_MEMBER_SELECT,
-  TableConfigService
 } from '@perun-web-apps/config/table-config';
 import { ActivatedRoute } from '@angular/router';
 
@@ -20,7 +18,6 @@ export class UserOrganizationsComponent implements OnInit {
   constructor(
     private usersService: UsersManagerService,
     private authResolver: GuiAuthResolver,
-    private tableConfigService: TableConfigService,
     private store: StoreService,
     private route: ActivatedRoute
   ) {
@@ -35,15 +32,11 @@ export class UserOrganizationsComponent implements OnInit {
   memberFilterValue = '';
 
   displayedColumns = ['id', 'name'];
-  adminPageSize: number;
-  memberPageSize: number;
   adminTableId = TABLE_USER_PROFILE_ADMIN_SELECT;
   memberTableId = TABLE_USER_PROFILE_MEMBER_SELECT;
   isMyProfile: boolean;
 
   ngOnInit() {
-    this.adminPageSize = this.tableConfigService.getTablePageSize(this.adminTableId);
-    this.memberPageSize = this.tableConfigService.getTablePageSize(this.memberTableId);
     if ((this.isMyProfile = this.route.snapshot.data.showPrincipal) === true) {
       this.userId = this.store.getPerunPrincipal().user.id;
     } else {
@@ -71,16 +64,6 @@ export class UserOrganizationsComponent implements OnInit {
 
   applyMemberFilter(filterValue: string) {
     this.memberFilterValue = filterValue;
-  }
-
-  adminPageChanged(event: PageEvent) {
-    this.adminPageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.adminTableId, event.pageSize);
-  }
-
-  memberPageChanged(event: PageEvent) {
-    this.memberPageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.memberTableId, event.pageSize);
   }
 
   applyAdminFilter(filterValue: string) {

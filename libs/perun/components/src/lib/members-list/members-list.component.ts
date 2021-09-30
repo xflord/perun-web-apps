@@ -10,7 +10,6 @@ import {
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
 import {SelectionModel} from '@angular/cdk/collections';
 import { RichMember } from '@perun-web-apps/perun/openapi';
 import {
@@ -61,16 +60,13 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
   displayedColumns: string[] = ['checkbox', 'id', 'type', 'fullName', 'status', 'groupStatus', 'sponsored', 'organization', 'email', 'logins'];
 
   @Input()
-  pageSize = 10;
+  tableId: string;
 
   @Input()
   disableRouting = false;
 
   @Input()
   filter = '';
-
-  @Output()
-  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
   @Output()
   updateTable = new EventEmitter<boolean>();
@@ -176,11 +172,11 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
   canBeSelected = (member: RichMember): boolean => member.membershipType === 'DIRECT'
 
   isAllSelected() {
-    return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(this.selection.selected.length, this.filter, this.pageSize, this.child.paginator.hasNextPage(), this.child.paginator.pageIndex, this.dataSource, this.sort, this.canBeSelected);
+    return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(this.selection.selected.length, this.filter, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.child.paginator.pageIndex, this.dataSource, this.sort, this.canBeSelected);
   }
 
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filter, this.dataSource, this.sort, this.pageSize, this.child.paginator.pageIndex, true, this.canBeSelected);
+    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filter, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex, true, this.canBeSelected);
   }
 
   checkboxLabel(row?: RichMember): string {

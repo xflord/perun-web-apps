@@ -2,13 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MembersManagerService, RichMember, Vo } from '@perun-web-apps/perun/openapi';
 import {
-  TABLE_SERVICE_MEMBERS,
-  TableConfigService
+  TABLE_SERVICE_MEMBERS
 } from '@perun-web-apps/config/table-config';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
-import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { CreateServiceMemberDialogComponent } from '../../../../../shared/components/create-service-member-dialog/create-service-member-dialog.component';
 import { RemoveMembersDialogComponent } from '../../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
@@ -25,7 +23,6 @@ export class VoSettingsServiceMembersComponent implements OnInit {
   selection = new SelectionModel<RichMember>(true, []);
   searchString = '';
   loading = false;
-  pageSize: number;
   tableId = TABLE_SERVICE_MEMBERS;
   removeAuth: boolean;
 
@@ -33,13 +30,11 @@ export class VoSettingsServiceMembersComponent implements OnInit {
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private authResolver: GuiAuthResolver,
-              private tableConfigService: TableConfigService,
               private authzService: GuiAuthResolver) {
   }
 
   ngOnInit(): void {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(parentParentParams => {
       this.voId = parentParentParams ['voId'];
       this.refresh();
@@ -95,10 +90,5 @@ export class VoSettingsServiceMembersComponent implements OnInit {
       this.members = members;
       this.loading = false;
     });
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

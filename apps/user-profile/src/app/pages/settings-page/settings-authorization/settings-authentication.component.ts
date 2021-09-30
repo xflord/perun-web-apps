@@ -37,7 +37,6 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<MFAToken> = new MatTableDataSource<MFAToken>();
   @ViewChild('toggle')
   toggle: MatSlideToggle;
-  pageSize = 5;
   loading: boolean;
   mfaAtt: Attribute;
   accessToken: string;
@@ -221,7 +220,7 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
           });
         }
       }
-    });
+    }, () => this.loading = false);
   }
 }
 

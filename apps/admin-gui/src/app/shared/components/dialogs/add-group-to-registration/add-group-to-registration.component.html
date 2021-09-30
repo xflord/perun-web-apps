@@ -7,8 +7,7 @@
       (filter)="applyFilter($event)">
     </perun-web-apps-debounce-filter>
     <perun-web-apps-groups-list
-      (page)="pageChanged($event)"
-      [pageSize]="pageSize"
+      [tableId]="tableId"
       [groups]="unAssignedGroups"
       [selection]="selection"
       [filter]="filterValue"

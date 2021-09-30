@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Owner, OwnersManagerService } from '@perun-web-apps/perun/openapi';
-import { TABLE_GROUP_RESOURCES_LIST, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_GROUP_RESOURCES_LIST } from '@perun-web-apps/config/table-config';
 import { MatDialog } from '@angular/material/dialog';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { DeleteOwnerDialogComponent } from '../../../../shared/components/delete-owner-dialog/delete-owner-dialog.component';
 import { AddOwnerDialogComponent } from '../../../../shared/components/add-owner-dialog/add-owner-dialog.component';
@@ -17,7 +16,6 @@ import { AddOwnerDialogComponent } from '../../../../shared/components/add-owner
 export class AdminOwnersComponent implements OnInit {
 
   constructor(private ownersManagerService:OwnersManagerService,
-              private tableConfigService: TableConfigService,
               private dialog: MatDialog,
               private guiAuthResolver: GuiAuthResolver) {
   }
@@ -26,14 +24,12 @@ export class AdminOwnersComponent implements OnInit {
   selected = new SelectionModel<Owner>(true, []);
   loading: boolean;
   filterValue = '';
-  pageSize: number;
   tableId = TABLE_GROUP_RESOURCES_LIST;
 
   removeAuth: boolean;
   addAuth: boolean;
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.setAuth();
     this.refreshTable();
   }
@@ -54,11 +50,6 @@ export class AdminOwnersComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   addOwner() {

@@ -8,7 +8,6 @@ import {
   ViewChild
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -40,14 +39,12 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
   @Input()
   filterValue: string;
   @Input()
-  pageSize = 10;
+  tableId: string;
   @Input()
   disableRouting = false;
 
   @Output()
   refreshEvent = new EventEmitter<void>();
-  @Output()
-  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -116,11 +113,11 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
   }
 
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
   }
 
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.pageSize, this.child.paginator.pageIndex, false);
+    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex, false);
   }
 
   checkboxLabel(row?: AttributeDefinition): string {

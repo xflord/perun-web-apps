@@ -50,10 +50,9 @@
       [publications]="publications"
       [displayedColumns]="displayedColumns"
       [selection]="selected"
-      [pageSize]="pageSize"
+      [tableId]="tableId"
       [disabledRouting]="true"
-      [allowAlert]="firstSearchDone"
-      (page)="pageChanged($event)">
+      [allowAlert]="firstSearchDone">
     </perun-web-apps-publications-list>
   </div>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>

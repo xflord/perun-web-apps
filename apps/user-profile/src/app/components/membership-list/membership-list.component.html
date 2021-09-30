@@ -1,10 +1,10 @@
-<div [hidden]="!dataSource.filteredData.length" class="card mt-2">
+<div class="card mt-2">
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [dataLength]="dataSource.filteredData.length"
-    [pageSizeOptions]="pageSizeOptions"
-    [pageSize]="pageSize">
+    [tableId]="tableId"
+    [pageSizeOptions]="pageSizeOptions">
     <table
       [dataSource]="dataSource"
       class="w-100"
@@ -53,7 +53,11 @@
         class="dark-hover-list-item"
         mat-row>
       </tr>
+      <tr *matNoDataRow>
+        <td [attr.colspan]="displayedColumns.length">
+          <app-alert *ngIf="!dataSource.filteredData.length" alert_type="warn">{{'MEMBERSHIP_LIST.NO_MEMBERSHIPS' | customTranslate | translate}}</app-alert>
+        </td>
+      </tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
-<app-alert *ngIf="!dataSource.filteredData.length" alert_type="warn">{{'MEMBERSHIP_LIST.NO_MEMBERSHIPS' | customTranslate | translate}}</app-alert>

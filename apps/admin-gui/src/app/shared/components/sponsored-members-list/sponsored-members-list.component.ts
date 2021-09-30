@@ -10,7 +10,6 @@ import { AttributesManagerService, MemberWithSponsors, Vo } from '@perun-web-app
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { PageEvent } from '@angular/material/paginator';
 import {
   customDataSourceFilterPredicate, customDataSourceSort, downloadData, getDataForExport,
   getDefaultDialogConfig,
@@ -55,10 +54,7 @@ export class SponsoredMembersListComponent implements OnChanges {
   disableRouting = false;
 
   @Input()
-  pageSize = 10;
-
-  @Output()
-  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
+  tableId: string;
 
   @Output()
   refreshTable = new EventEmitter<void>();
@@ -148,11 +144,11 @@ export class SponsoredMembersListComponent implements OnChanges {
   }
 
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
   }
 
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.pageSize, this.child.paginator.pageIndex,false);
+    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex,false);
   }
 
   checkboxLabel(row?: MemberWithSponsors): string {

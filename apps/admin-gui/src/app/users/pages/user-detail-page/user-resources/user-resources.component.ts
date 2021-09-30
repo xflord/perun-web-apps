@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {
   RichResource, UsersManagerService
 } from '@perun-web-apps/perun/openapi';
-import { TABLE_ADMIN_USER_RESOURCES_LIST, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_ADMIN_USER_RESOURCES_LIST } from '@perun-web-apps/config/table-config';
 import { ActivatedRoute } from '@angular/router';
-import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-perun-web-apps-user-resources',
@@ -14,18 +13,15 @@ import { PageEvent } from '@angular/material/paginator';
 export class UserResourcesComponent implements OnInit {
 
   constructor(private userManager: UsersManagerService,
-              private tableConfigService: TableConfigService,
               private route: ActivatedRoute) {
   }
 
   resources: RichResource[] = [];
   loading: boolean;
-  pageSize: number;
   tableId = TABLE_ADMIN_USER_RESOURCES_LIST;
   filterValue = '';
 
   ngOnInit(): void {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.refreshTable();
   }
 
@@ -38,11 +34,6 @@ export class UserResourcesComponent implements OnInit {
         this.loading = false;
       });
     });
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   resourceFilter(filterValue: string) {

@@ -6,10 +6,9 @@
   <perun-web-apps-immediate-filter (filter)="applyFilter($event)" [placeholder]="'GROUP_DETAIL.SETTINGS.RELATIONS.FILTER'"></perun-web-apps-immediate-filter>
   <div mat-dialog-content class="dialog-container">
     <perun-web-apps-groups-list
-        (page)="pageChanged($event)"
+        [tableId]="tableId"
         [groupsToDisableCheckbox]="groupsToDisable"
         [disableGroups]="true"
-        [pageSize]="pageSize"
         [groups]="groups"
         [selection]="selection"
         [displayedColumns]="['select', 'id', 'name', 'description']"

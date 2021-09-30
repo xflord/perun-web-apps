@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { Application, Group, Member, RegistrarManagerService} from '@perun-web-apps/perun/openapi';
-import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import {
@@ -34,13 +33,10 @@ export class ApplicationListDetailsComponent implements OnChanges {
   filterValue: string;
 
   @Input()
-  pageSize = 10;
+  tableId: string;
 
   @Input()
   disableRouting = false;
-
-  @Output()
-  page = new EventEmitter<PageEvent>();
 
   displayedColumns: string[] = ['id', 'voId', 'voName', 'groupId', 'groupName', 'type',
     'state', 'extSourceName', 'extSourceType', 'user', 'createdBy', 'createdAt',

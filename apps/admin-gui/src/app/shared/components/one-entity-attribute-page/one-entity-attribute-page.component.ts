@@ -5,15 +5,13 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { CreateAttributeDialogComponent } from '../dialogs/create-attribute-dialog/create-attribute-dialog.component';
 import { EditAttributeDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { DeleteAttributeDialogComponent } from '../dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
 import { AttributesListComponent } from '@perun-web-apps/perun/components';
 import {
-  TABLE_ATTRIBUTES_SETTINGS,
-  TableConfigService
+  TABLE_ATTRIBUTES_SETTINGS
 } from '@perun-web-apps/config/table-config';
 
 @Component({
@@ -24,7 +22,6 @@ import {
 export class OneEntityAttributePageComponent implements OnInit {
 
   constructor(private attributesManagerService: AttributesManagerService,
-              private tableConfigService: TableConfigService,
               private dialog: MatDialog) { }
 
   @Input()
@@ -40,12 +37,10 @@ export class OneEntityAttributePageComponent implements OnInit {
   selection = new SelectionModel<Attribute>(true, []);
   filterValue = '';
   tableId = TABLE_ATTRIBUTES_SETTINGS;
-  pageSize: number;
 
   loading = false;
 
   ngOnInit(): void {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.refreshTable();
   }
 
@@ -99,11 +94,6 @@ export class OneEntityAttributePageComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   onCreate() {

@@ -12,11 +12,10 @@
         </div>
 
         <app-services-list
-          (page)="pageChanged($event)"
+          [tableId]="tableId"
           [disableRouting]="true"
           [displayedColumns]="['select', 'id', 'name', 'enabled', 'description']"
           [filterValue]="filterValue"
-          [pageSize]="pageSize"
           [selection]="selection"
           [services]="unAssignedServices">
         </app-services-list>
@@ -31,11 +30,10 @@
         </div>
 
         <app-services-list
-          (page)="pageChanged($event)"
+          [tableId]="tableId"
           [disableRouting]="true"
           *ngIf='selectedPackage.id !== -1'
           [displayedColumns]="['id', 'name', 'enabled', 'description']"
-          [pageSize]="pageSize"
           [selection]="selection"
           [services]="filteredServices">
         </app-services-list>

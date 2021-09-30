@@ -23,11 +23,10 @@
 </perun-web-apps-immediate-filter>
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 <perun-web-apps-members-list
-  (page)="pageChanged($event)"
+  [tableId]="tableId"
   *ngIf="!loading"
   [displayedColumns]="['checkbox','id', 'type', 'fullName', 'status']"
   [selection]="selection"
   [filter]="searchString"
   [members]="members"
-  [pageSize]="pageSize"
 ></perun-web-apps-members-list>

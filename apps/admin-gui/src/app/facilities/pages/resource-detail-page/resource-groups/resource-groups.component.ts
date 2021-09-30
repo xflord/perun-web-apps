@@ -1,20 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   Resource,
-  ResourcesManagerService,
-  VosManagerService
+  ResourcesManagerService
 } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatCheckbox } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveGroupFromResourceDialogComponent } from '../../../../shared/components/dialogs/remove-group-from-resource-dialog/remove-group-from-resource-dialog.component';
 import { AssignGroupToResourceDialogComponent } from '../../../../shared/components/dialogs/assign-group-to-resource-dialog/assign-group-to-resource-dialog.component';
 import {
   TABLE_RESOURCE_ALLOWED_GROUPS,
-  TableConfigService
 } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
@@ -27,9 +23,6 @@ import { GroupWithStatus } from '@perun-web-apps/perun/models';
 })
 export class ResourceGroupsComponent implements OnInit {
 
-  @ViewChild('checkbox', { static: true })
-  checkbox: MatCheckbox;
-
   resourceId: number;
   assignedGroups: GroupWithStatus[] = [];
   selected = new SelectionModel<GroupWithStatus>(true, []);
@@ -38,20 +31,16 @@ export class ResourceGroupsComponent implements OnInit {
   groupsToDisable: Set<number>;
 
   tableId = TABLE_RESOURCE_ALLOWED_GROUPS;
-  pageSize: number;
   resource: Resource;
   loadingResource: boolean;
 
   constructor(private route: ActivatedRoute,
               private resourcesManager: ResourcesManagerService,
-              private vosManagerService: VosManagerService,
-              private tableConfigService: TableConfigService,
               private dialog: MatDialog,
               public guiAuthResolver: GuiAuthResolver) {
   }
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.loading = true;
     this.route.parent.params.subscribe(parentParams => {
       this.resourceId = parentParams['resourceId'];
@@ -114,11 +103,6 @@ export class ResourceGroupsComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filteredValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   private getDataForAuthorization() {

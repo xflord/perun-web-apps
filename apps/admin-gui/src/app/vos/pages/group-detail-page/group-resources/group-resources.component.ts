@@ -6,8 +6,7 @@ import {
   GroupsManagerService,
   ResourcesManagerService,
 } from '@perun-web-apps/perun/openapi';
-import { PageEvent } from '@angular/material/paginator';
-import { TableConfigService, TABLE_GROUP_RESOURCES_LIST } from '@perun-web-apps/config/table-config';
+import { TABLE_GROUP_RESOURCES_LIST } from '@perun-web-apps/config/table-config';
 import { MatDialog } from '@angular/material/dialog';
 import { AddGroupResourceDialogComponent } from '../../../../shared/components/dialogs/add-group-resource-dialog/add-group-resource-dialog.component';
 import { RemoveGroupResourceDialogComponent } from '../../../../shared/components/dialogs/remove-group-resource-dialog/remove-group-resource-dialog.component';
@@ -30,7 +29,6 @@ export class GroupResourcesComponent implements OnInit {
 
   constructor(private resourcesManager: ResourcesManagerService,
               private groupService: GroupsManagerService,
-              private tableConfigService: TableConfigService,
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private guiAuthResolver: GuiAuthResolver) {
@@ -43,7 +41,6 @@ export class GroupResourcesComponent implements OnInit {
 
   loading: boolean;
   filterValue = '';
-  pageSize: number;
   tableId = TABLE_GROUP_RESOURCES_LIST;
 
   groupId: number;
@@ -58,8 +55,6 @@ export class GroupResourcesComponent implements OnInit {
 
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-
     this.route.parent.params.subscribe(parentParams => {
       this.groupId = parentParams['groupId'];
       this.voId = parentParams['voId'];
@@ -101,11 +96,6 @@ export class GroupResourcesComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   addResource() {

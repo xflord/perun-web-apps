@@ -9,8 +9,7 @@
     <div mat-dialog-content>
       <perun-web-apps-owners-list
         [filterValue]="filterValue"
-        (page)="pageChanged($event)"
-        [pageSize]="pageSize"
+        [tableId]="tableId"
         [owners]="owners"
         [selection]="selection">
       </perun-web-apps-owners-list>

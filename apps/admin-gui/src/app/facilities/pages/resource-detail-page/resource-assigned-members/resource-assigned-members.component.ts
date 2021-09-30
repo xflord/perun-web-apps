@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ResourcesManagerService, RichMember } from '@perun-web-apps/perun/openapi';
-import { PageEvent } from '@angular/material/paginator';
-import { TABLE_RESOURCE_MEMBERS, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_RESOURCE_MEMBERS } from '@perun-web-apps/config/table-config';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
@@ -14,13 +13,10 @@ export class ResourceAssignedMembersComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private resourceService: ResourcesManagerService,
-              private tableConfigService: TableConfigService,
               private authResolver: GuiAuthResolver) { }
 
   loading = false;
   filterValue = '';
-
-  pageSize: number;
   tableId = TABLE_RESOURCE_MEMBERS;
 
   resourceId: number;
@@ -31,7 +27,6 @@ export class ResourceAssignedMembersComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(params => {
       this.resourceId = params['resourceId'];
       this.refreshTable();
@@ -55,10 +50,5 @@ export class ResourceAssignedMembersComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

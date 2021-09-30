@@ -7,10 +7,9 @@ import {
   OwnersManagerService
 } from '@perun-web-apps/perun/openapi';
 import { NotificatorService } from '@perun-web-apps/perun/services';
-import { TABLE_ADD_EXTSOURCE_DIALOG, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_ADD_EXTSOURCE_DIALOG } from '@perun-web-apps/config/table-config';
 import { TranslateService } from '@ngx-translate/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 
 interface AddFacilityOwnerDialogData {
   theme: string;
@@ -31,14 +30,12 @@ export class AddFacilityOwnerDialogComponent implements OnInit {
   loading: boolean;
   filterValue = '';
   successMessage: string;
-  pageSize: number;
   tableId = TABLE_ADD_EXTSOURCE_DIALOG;
   owners: Owner[] = [];
 
   constructor(private dialogRef: MatDialogRef<AddFacilityOwnerDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private data: AddFacilityOwnerDialogData,
               private notificator: NotificatorService,
-              private tableConfigService: TableConfigService,
               private translate: TranslateService,
               private ownersManagerService: OwnersManagerService,
               private facilitiesManagerService: FacilitiesManagerService) {
@@ -46,7 +43,6 @@ export class AddFacilityOwnerDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.theme = this.data.theme;
     this.loading = true;
     this.ownersManagerService.getAllOwners().subscribe(owners => {
@@ -73,10 +69,4 @@ export class AddFacilityOwnerDialogComponent implements OnInit {
   onCancel() {
     this.dialogRef.close(false);
   }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
-  }
-
 }

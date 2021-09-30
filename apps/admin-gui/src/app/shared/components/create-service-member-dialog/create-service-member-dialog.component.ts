@@ -17,7 +17,7 @@ import {
   Validators
 } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
-import { TABLE_VO_MEMBERS, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_VO_MEMBERS } from '@perun-web-apps/config/table-config';
 import { Observable } from 'rxjs';
 import { debounceTime, map, switchMap, take} from 'rxjs/operators';
 import { CustomValidators, enableFormControl } from '@perun-web-apps/perun/utils';
@@ -43,7 +43,6 @@ export class CreateServiceMemberDialogComponent implements OnInit {
   searchCtrl = new FormControl('');
   members: RichMember[] = [];
   selection = new SelectionModel<RichMember>(true, []);
-  pageSize: number;
   tableId = TABLE_VO_MEMBERS;
   assignedMembers: RichMember[] = [];
   // @ts-ignore
@@ -60,8 +59,7 @@ export class CreateServiceMemberDialogComponent implements OnInit {
               private translate: TranslateService,
               private store: StoreService,
               private apiRequestConfiguration: ApiRequestConfigurationService,
-              private _formBuilder: FormBuilder,
-              private tableConfigService: TableConfigService) {
+              private _formBuilder: FormBuilder) {
     translate.get('DIALOGS.CREATE_SERVICE_MEMBER.SUCCESS_MEMBER').subscribe(m => this.successMessageMember = m);
     translate.get('DIALOGS.CREATE_SERVICE_MEMBER.SUCCESS_PWD').subscribe(m => this.successMessagePwd = m);
   }
@@ -84,7 +82,6 @@ export class CreateServiceMemberDialogComponent implements OnInit {
     });
     this.onNamespaceChanged('Not selected');
     this.passwordNamespaces = ['Not selected'].concat(this.store.get('password_namespace_attributes').map(att => att.split(':')[6].toUpperCase()));
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     const user = this.store.getPerunPrincipal().user;
     this.membersManagerService.getMembersByUser(user.id).subscribe(members => {
       let tempMember: RichMember = <RichMember>{};

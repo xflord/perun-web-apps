@@ -7,8 +7,7 @@
   <mat-spinner class="mr-auto ml-auto" *ngIf="loading"></mat-spinner>
   <div mat-dialog-content *ngIf="!loading">
     <app-ext-sources-list
-      [pageSize]="pageSize"
-      (page)="pageChanged($event)"
+      [tableId]="tableId"
       [extSources]="extSources"
       [filterValue]="filterValue"
       [selection]="selection">

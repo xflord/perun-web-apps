@@ -1,16 +1,13 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter,
   Input,
   OnChanges,
-  Output,
   ViewChild
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { RichDestination, Vo } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import {
   customDataSourceFilterPredicate,
@@ -36,12 +33,9 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
   @Input()
   filterValue = "";
   @Input()
-  pageSize = 10;
+  tableId: string;
   @Input()
   displayedColumns: string[];
-
-  @Output()
-  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -101,12 +95,12 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.pageSize, this.child.paginator.pageIndex, false);
+    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex, false);
   }
 
   /** The label for the checkbox on the passed row */

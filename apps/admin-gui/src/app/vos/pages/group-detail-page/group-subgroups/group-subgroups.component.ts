@@ -7,12 +7,11 @@ import { DeleteGroupDialogComponent } from '../../../../shared/components/dialog
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { TABLE_GROUP_SUBGROUPS, TableConfigService } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
+import { TABLE_GROUP_SUBGROUPS } from '@perun-web-apps/config/table-config';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { GroupFlatNode } from '@perun-web-apps/perun/models';
 import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
-import { GuiAuthResolver, InitAuthService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { GroupsTreeComponent } from '@perun-web-apps/perun/components';
 import { GroupsListComponent } from '@perun-web-apps/perun/components';
 
@@ -31,10 +30,8 @@ export class GroupSubgroupsComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private groupService: GroupsManagerService,
-    private tableConfigService: TableConfigService,
     private route: ActivatedRoute,
-    private guiAuthResolver: GuiAuthResolver,
-    private initAuthService: InitAuthService
+    private guiAuthResolver: GuiAuthResolver
   ) {
   }
   group: Group;
@@ -44,7 +41,6 @@ export class GroupSubgroupsComponent implements OnInit {
   loading: boolean;
   filtering = false;
   tableId = TABLE_GROUP_SUBGROUPS;
-  pageSize: number;
   filterValue = '';
 
   createAuth: boolean;
@@ -77,7 +73,6 @@ export class GroupSubgroupsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     if (localStorage.getItem('preferedValue') === 'list') {
       this.toggle.toggle();
       this.selected.clear();
@@ -143,11 +138,6 @@ export class GroupSubgroupsComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
     this.filtering = filterValue !== '';
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   onMoveGroup(group: GroupFlatNode | Group) {

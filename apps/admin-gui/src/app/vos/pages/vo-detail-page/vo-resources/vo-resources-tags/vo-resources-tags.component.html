@@ -26,8 +26,7 @@
 
 <app-resources-tags-list *ngIf="!loading"
                          [selection]="selection"
-                         [pageSize]="pageSize"
-                         (page)="pageChanged($event)"
+                         [tableId]="tableId"
                          [resourceTags]="resourceTag"
                          [filterValue]="filterValue"
                          [displayedColumns]="displayedColumns"

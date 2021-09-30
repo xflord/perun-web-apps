@@ -8,8 +8,7 @@ import {
   PublicationForGUI
 } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
-import { TABLE_ADD_THANKS_DIALOG, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_ADD_THANKS_DIALOG } from '@perun-web-apps/config/table-config';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -23,7 +22,6 @@ export class AddThanksDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: PublicationForGUI,
               private ownersManagerService: OwnersManagerService,
               private storeService: StoreService,
-              private tableConfigService: TableConfigService,
               private notificator: NotificatorService,
               private translate: TranslateService,
               private cabinetManagerService: CabinetManagerService) { }
@@ -32,12 +30,10 @@ export class AddThanksDialogComponent implements OnInit {
   owners: Owner[];
   selected = new SelectionModel<Owner>(true, []);
   filterValue: string;
-  pageSize: number;
   tableId = TABLE_ADD_THANKS_DIALOG;
 
     ngOnInit(): void {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     const allowedOwners = this.storeService.get('allowed_owners_for_thanks');
     this.ownersManagerService.getAllOwners().subscribe(owners => {
       if (allowedOwners.length !== 0) {
@@ -70,10 +66,5 @@ export class AddThanksDialogComponent implements OnInit {
       }, () => this.loading = false);
     }
 
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

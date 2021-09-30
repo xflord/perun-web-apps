@@ -24,8 +24,7 @@
     [authors]="publication.authors"
     [selection]="selection"
     [filterValue]="filterValue"
-    [pageSize]="pageSize"
-    [displayedColumns]="publication.locked ? ['id', 'name', 'organization', 'email'] : ['select', 'id', 'name', 'organization', 'email']"
-    (page)="pageChanged($event)">
+    [tableId]="tableId"
+    [displayedColumns]="publication.locked ? ['id', 'name', 'organization', 'email'] : ['select', 'id', 'name', 'organization', 'email']">
   </perun-web-apps-authors-list>
 </div>

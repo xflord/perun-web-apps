@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
-import { TABLE_ADMIN_FACILITIES, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_ADMIN_FACILITIES } from '@perun-web-apps/config/table-config';
 import { EnrichedFacility, FacilitiesManagerService } from '@perun-web-apps/perun/openapi';
 import { ActivatedRoute } from '@angular/router';
 
@@ -13,7 +12,6 @@ export class UserFacilitiesComponent implements OnInit {
 
   constructor(
     private facilityManager: FacilitiesManagerService,
-    private tableConfigService: TableConfigService,
     private route: ActivatedRoute,
   ) { }
 
@@ -23,14 +21,12 @@ export class UserFacilitiesComponent implements OnInit {
 
   loading: boolean;
   filterValue = '';
-  pageSize: number;
   tableId = TABLE_ADMIN_FACILITIES;
   displayedColumns = ['id', 'name', 'description'];
 
 
   ngOnInit(): void {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(params => {
       this.userId = params['userId'];
       this.refreshTable();
@@ -48,10 +44,4 @@ export class UserFacilitiesComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
   }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
-  }
-
 }

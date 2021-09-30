@@ -13,8 +13,7 @@
 
       <perun-web-apps-attributes-list
         #FacilityAList
-        (page)="pageChanged($event)"
-        [pageSize]="pageSize"
+        [tableId]="tableId"
         *ngIf="!!facilityAttributes"
         [attributes]="facilityAttributes"
         [selection]="selectionFacility">
@@ -32,8 +31,7 @@
 
       <perun-web-apps-attributes-list
         #ResourceAList
-        (page)="pageChanged($event)"
-        [pageSize]="pageSize"
+        [tableId]="tableId"
         *ngIf="!!resourceAttributes"
         [attributes]="resourceAttributes"
         [selection]="selectionResource">
@@ -51,8 +49,7 @@
 
       <perun-web-apps-attributes-list
         #GroupAList
-        (page)="pageChanged($event)"
-        [pageSize]="pageSize"
+        [tableId]="tableId"
         *ngIf="!!groupAttributes"
         [attributes]="groupAttributes"
         [selection]="selectionGroup">
@@ -70,8 +67,7 @@
 
       <perun-web-apps-attributes-list
           #MemberAList
-          (page)="pageChanged($event)"
-          [pageSize]="pageSize"
+          [tableId]="tableId"
           *ngIf="!!memberAttributes"
           [attributes]="memberAttributes"
           [selection]="selectionMember">

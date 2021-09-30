@@ -6,10 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddExtSourceDialogComponent } from '../../../../../shared/components/dialogs/add-ext-source-dialog/add-ext-source-dialog.component';
 import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { PageEvent } from '@angular/material/paginator';
 import {
   TABLE_VO_EXTSOURCES_SETTINGS,
-  TableConfigService
 } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { RemoveExtSourceDialogComponent } from '../../../../../shared/components/dialogs/remove-ext-source-dialog/remove-ext-source-dialog.component';
@@ -25,7 +23,6 @@ export class VoSettingsExtsourcesComponent implements OnInit {
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private notificator: NotificatorService,
-              private tableConfigService: TableConfigService,
               private translate: TranslateService,
               private authResolver: GuiAuthResolver,
               private voService: VosManagerService) {
@@ -39,7 +36,6 @@ export class VoSettingsExtsourcesComponent implements OnInit {
   loading: boolean;
   filterValue = '';
   successMessage: string;
-  pageSize: number;
   tableId = TABLE_VO_EXTSOURCES_SETTINGS;
   displayedColumns = [];
 
@@ -47,7 +43,6 @@ export class VoSettingsExtsourcesComponent implements OnInit {
   removeAuth: boolean;
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.parent.params.subscribe(parentParams => {
       this.voId = parentParams['voId'];
 
@@ -110,10 +105,5 @@ export class VoSettingsExtsourcesComponent implements OnInit {
         this.refreshTable();
       }
     });
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

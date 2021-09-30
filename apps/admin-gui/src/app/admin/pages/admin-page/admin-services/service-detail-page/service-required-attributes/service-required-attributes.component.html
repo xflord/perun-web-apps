@@ -29,8 +29,7 @@
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <app-attr-def-list
     *ngIf="!loading"
-    [pageSize]="pageSize"
-    (page)="pageChanged($event)"
+    [tableId]="tableId"
     [definitions]="attrDefinitions"
     [selection]="selection"
     [filterValue]="filterValue"

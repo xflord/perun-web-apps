@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
-import { TABLE_FACILITY_ALLOWED_USERS, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_FACILITY_ALLOWED_USERS } from '@perun-web-apps/config/table-config';
 import { ActivatedRoute } from '@angular/router';
 import { FacilitiesManagerService, Facility, User } from '@perun-web-apps/perun/openapi';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
@@ -15,7 +14,6 @@ export class FacilityAllowedUsersComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private facilityService: FacilitiesManagerService,
-    private tableConfigService: TableConfigService,
     private authResolver: GuiAuthResolver) { }
 
   loading = false;
@@ -25,7 +23,6 @@ export class FacilityAllowedUsersComponent implements OnInit {
   facility: Facility;
   users: User[];
 
-  pageSize: number;
   tableId = TABLE_FACILITY_ALLOWED_USERS;
 
   routeAuth: boolean;
@@ -33,7 +30,6 @@ export class FacilityAllowedUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(params => {
       this.facilityId = params['facilityId'];
       this.routeAuth = this.authResolver.isPerunAdminOrObserver();
@@ -53,10 +49,4 @@ export class FacilityAllowedUsersComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
   }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
-  }
-
 }

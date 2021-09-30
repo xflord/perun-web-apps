@@ -13,12 +13,11 @@
   class="ml-auto mr-auto">
 </mat-spinner>
 <perun-web-apps-members-list
-  (page)="pageChanged($event)"
+  [tableId]="tableId"
   (updateTable)="refreshTable()"
   *ngIf="!loading"
   [disableRouting]="!routeAuth"
   [filter]="filterValue"
   [displayedColumns]="['id', 'fullName']"
-  [members]="members"
-  [pageSize]="pageSize">
+  [members]="members">
 </perun-web-apps-members-list>

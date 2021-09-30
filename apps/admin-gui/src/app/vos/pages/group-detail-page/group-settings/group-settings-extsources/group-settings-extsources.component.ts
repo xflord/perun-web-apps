@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
-import { TABLE_GROUP_EXTSOURCES_SETTINGS, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_GROUP_EXTSOURCES_SETTINGS } from '@perun-web-apps/config/table-config';
 import { ExtSource, ExtSourcesManagerService, Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ActivatedRoute } from '@angular/router';
@@ -22,7 +21,6 @@ export class GroupSettingsExtsourcesComponent implements OnInit {
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private notificator: NotificatorService,
-              private tableConfigService: TableConfigService,
               private translate: TranslateService,
               private authResolver: GuiAuthResolver,
               private groupService: GroupsManagerService) {
@@ -37,7 +35,6 @@ export class GroupSettingsExtsourcesComponent implements OnInit {
   loading: boolean;
   filterValue = '';
   successMessage: string;
-  pageSize: number;
   tableId = TABLE_GROUP_EXTSOURCES_SETTINGS;
   displayedColumns = [];
 
@@ -45,7 +42,6 @@ export class GroupSettingsExtsourcesComponent implements OnInit {
   removeAuth: boolean;
 
   ngOnInit(): void {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.parent.params.subscribe(parentParams => {
       this.voId = parentParams['voId'];
       this.groupId = parentParams['groupId'];
@@ -112,10 +108,4 @@ export class GroupSettingsExtsourcesComponent implements OnInit {
       }
     });
   }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
-  }
-
 }

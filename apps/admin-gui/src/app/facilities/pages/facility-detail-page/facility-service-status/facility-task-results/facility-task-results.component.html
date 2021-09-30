@@ -19,11 +19,10 @@
     [placeholder]="'FACILITY_DETAIL.TASK_RESULTS.FILTER'"></perun-web-apps-immediate-filter>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <perun-web-apps-task-results-list
-    (page)="pageChanged($event)"
+    [tableId]="tableId"
     *ngIf="!loading"
     [displayedColumns]="displayedColumns"
     [filterValue]="filterValue"
-    [pageSize]="pageSize"
     [selection]="selection"
     [taskResults]="taskResults">
   </perun-web-apps-task-results-list>

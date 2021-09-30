@@ -3,8 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RichUser, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { PageEvent } from '@angular/material/paginator';
-import { TABLE_USER_SERVICE_IDENTITIES, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_USER_SERVICE_IDENTITIES } from '@perun-web-apps/config/table-config';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { FormControl, Validators } from '@angular/forms';
@@ -24,7 +23,6 @@ export class ConnectIdentityDialogComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<ConnectIdentityDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private data: AddUserServiceIdentityData,
-              private tableConfigService: TableConfigService,
               public userManager: UsersManagerService,
               private storeService: StoreService,
               private notificator: NotificatorService,
@@ -42,13 +40,11 @@ export class ConnectIdentityDialogComponent implements OnInit {
   firstSearchDone = false;
   displayedColumns = ['select', 'id', 'user', 'name', 'email', 'logins', 'organization'];
 
-  pageSize: number;
   tableId = TABLE_USER_SERVICE_IDENTITIES;
 
   searchCtrl: FormControl;
 
   ngOnInit(): void {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.theme = this.data.theme;
     this.userId = this.data.userId;
     this.isService = this.data.isService;
@@ -110,10 +106,4 @@ export class ConnectIdentityDialogComponent implements OnInit {
 
     return identities.filter(identity => identity.serviceUser);
   }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
-  }
-
 }

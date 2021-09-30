@@ -39,8 +39,7 @@
         {{'DIALOGS.ADD_MANAGERS.NO_USERS_FOUND' | translate}}
       </app-alert>
       <app-users-list
-        [pageSize]="pageSize"
-        (page)="pageChanged($event)"
+        [tableId]="tableId"
         [disableRouting]="true"
         [selection]="selection"
         [displayedColumns]="['select', 'id', 'name', 'email', 'logins', 'organization']"

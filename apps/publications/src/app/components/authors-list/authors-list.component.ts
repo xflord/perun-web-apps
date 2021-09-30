@@ -7,7 +7,6 @@ import {
 } from '@perun-web-apps/perun/utils';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { PageEvent } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
@@ -24,7 +23,7 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
   @Input()
   filterValue: string;
   @Input()
-  pageSize = 10;
+  tableId: string;
   @Input()
   displayedColumns: string[] = ['select', 'id', 'name', 'organization', 'email', 'numberOfPublications', 'add', 'remove'];
   @Input()
@@ -35,8 +34,6 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
   selection: SelectionModel<Author>;
   @Input()
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-  @Output()
-  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
   @Output()
   addAuthor = new EventEmitter();
   @Output()

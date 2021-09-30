@@ -1,12 +1,9 @@
 import {
   Component,
-  EventEmitter,
   Input,
   OnChanges,
-  Output,
   ViewChild
 } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { EnrichedFacility} from '@perun-web-apps/perun/openapi';
@@ -40,7 +37,7 @@ export class FacilitiesListComponent implements OnChanges {
   filterValue: string;
 
   @Input()
-  pageSize = 10;
+  tableId: string;
 
   @Input()
   displayedColumns: string[] = ['select', 'id', 'recent', 'name', 'description', 'technicalOwners', 'destinations', 'hosts'];
@@ -50,9 +47,6 @@ export class FacilitiesListComponent implements OnChanges {
 
   @Input()
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
-  @Output()
-  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;

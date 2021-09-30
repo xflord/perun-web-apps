@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
@@ -40,8 +39,6 @@ export class UsersListComponent implements OnChanges, AfterViewInit {
   @Input()
   displayedColumns: string[] = ['select', 'user', 'id', 'name', 'email', 'logins', 'organization'];
 
-  @Input()
-  pageSize = 10;
 
   @Input()
   disableRouting = false;
@@ -49,8 +46,11 @@ export class UsersListComponent implements OnChanges, AfterViewInit {
   @Input()
   filter = '';
 
-  @Output()
-  page = new EventEmitter<PageEvent>();
+  @Input()
+  tableId: string;
+
+  @Input()
+  noUsersFoundLabel: string;
 
   dataSource: MatTableDataSource<RichUser>;
 
@@ -130,11 +130,11 @@ export class UsersListComponent implements OnChanges, AfterViewInit {
 
 
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filter, this.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filter, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
   }
 
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filter, this.dataSource, this.sort, this.pageSize, this.child.paginator.pageIndex,false);
+    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filter, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex,false);
   }
 
   checkboxLabel(row?: RichUser): string {

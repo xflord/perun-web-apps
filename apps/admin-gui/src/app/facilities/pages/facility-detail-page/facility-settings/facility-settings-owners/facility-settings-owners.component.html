@@ -20,8 +20,7 @@
 <perun-web-apps-immediate-filter (filter)="applyFilter($event)" *ngIf="!loading" [placeholder]="'VO_MANAGEMENT.FILTER_PLACEHOLDER'"></perun-web-apps-immediate-filter>
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <perun-web-apps-owners-list
-  (page)="pageChanged($event)"
-  [pageSize]="pageSize"
+  [tableId]="tableId"
   *ngIf="!loading"
   [filterValue]="filterValue"
   [owners]="owners"

@@ -36,16 +36,14 @@
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 <div *ngIf="!loading">
   <app-applications-list
-    [pageSize]="pageSize"
-    (page)="pageChanged($event)"
+    [tableId]="tableId"
     [filterValue]="filterValue"
     [applications]="applications"
     [displayedColumns]="displayedColumns"
     *ngIf="!showAllDetails">
   </app-applications-list>
   <app-perun-web-apps-application-list-details
-    [pageSize]="detailPageSize"
-    (page)="detailPageChanged($event)"
+    [tableId]="detailTableId"
     [filterValue]="filterValue"
     [applications]="applications"
     *ngIf="showAllDetails">

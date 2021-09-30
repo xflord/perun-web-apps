@@ -79,13 +79,12 @@
   *ngIf="!loading"
   [voId]="group.voId"
   [groupId]="group.id"
-  [pageSize]="pageSize"
+  [tableId]="tableId"
   [selection]="selection"
   [displayedColumns]="displayedColumns"
   [updateTable]="updateTable"
   [searchString]="searchString"
   [selectedStatuses]="selectedStatuses"
   [selectedGroupStatuses]="selectedGroupStatuses"
-  [attrNames]="memberAttrNames"
-  (page)="pageChanged($event)">
+  [attrNames]="memberAttrNames">
 </perun-web-apps-members-dynamic-list>

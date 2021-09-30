@@ -3,11 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { FacilitiesManagerService, Facility, Host } from '@perun-web-apps/perun/openapi';
 import {
   TABLE_FACILITY_HOSTS_LIST,
-  TableConfigService
 } from '@perun-web-apps/config/table-config';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AddHostDialogComponent } from '../../../../shared/components/dialogs/add-host-dialog/add-host-dialog.component';
 import { RemoveHostDialogComponent } from '../../../../shared/components/dialogs/remove-host-dialog/remove-host-dialog.component';
@@ -23,7 +21,6 @@ export class FacilityHostsComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
               private facilitiesManager: FacilitiesManagerService,
-              private tableConfigService: TableConfigService,
               private route: ActivatedRoute,
               private authResolver: GuiAuthResolver) {
 
@@ -35,7 +32,6 @@ export class FacilityHostsComponent implements OnInit {
   selected = new SelectionModel<Host>(true, []);
   loading: boolean;
   filterValue = '';
-  pageSize: number;
   tableId = TABLE_FACILITY_HOSTS_LIST;
   displayedColumns: string[] = ['id', 'name'];
 
@@ -44,7 +40,6 @@ export class FacilityHostsComponent implements OnInit {
   routeAuth: boolean;
 
   ngOnInit(): void {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(parentParams => {
       this.facilityId = parentParams['facilityId'];
       this.facilitiesManager.getFacilityById(this.facilityId).subscribe(facility => {
@@ -114,10 +109,4 @@ export class FacilityHostsComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
   }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
-  }
-
 }

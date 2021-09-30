@@ -5,10 +5,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Group, GroupsManagerService, Resource, ResourcesManagerService } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
-  TABLE_ASSIGN_GROUP_TO_RESOURCE_DIALOG,
-  TableConfigService
+  TABLE_ASSIGN_GROUP_TO_RESOURCE_DIALOG
 } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
 
 export interface AssignGroupToResourceDialogData {
   theme: string;
@@ -27,7 +25,6 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
               private notificator: NotificatorService,
               private translate: TranslateService,
               private resourceManager: ResourcesManagerService,
-              private tableConfigService: TableConfigService,
               private groupService: GroupsManagerService,
               public guiAuthResolver: GuiAuthResolver) {
   }
@@ -45,7 +42,6 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
   filterValue = '';
 
   tableId = TABLE_ASSIGN_GROUP_TO_RESOURCE_DIALOG;
-  pageSize: number;
 
   autoAssignHint: string;
   asActiveHint: string;
@@ -53,7 +49,6 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.theme = this.data.theme;
     this.resource = this.data.resource;
     this.autoAssignHint = this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.AUTO_SUBGROUPS_OFF_HINT');
@@ -100,11 +95,6 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   canAddGroups() {

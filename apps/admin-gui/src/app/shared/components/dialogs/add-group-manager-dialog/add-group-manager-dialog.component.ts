@@ -18,9 +18,7 @@ import {
 import { Role } from '@perun-web-apps/perun/models';
 import {
   TABLE_SELECT_GROUP_MANAGER_DIALOG,
-  TableConfigService
 } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 export interface AddGroupManagerDialogData {
@@ -46,7 +44,6 @@ export class AddGroupManagerDialogComponent implements OnInit {
     private translate: TranslateService,
     private notificator: NotificatorService,
     protected route: ActivatedRoute,
-    private tableConfigService: TableConfigService,
     protected router: Router
   ) {
     translate.get('DIALOGS.ADD_GROUPS.TITLE').subscribe(value => this.title = value);
@@ -73,7 +70,6 @@ export class AddGroupManagerDialogComponent implements OnInit {
   theme: string;
 
   tableId = TABLE_SELECT_GROUP_MANAGER_DIALOG;
-  pageSize: number;
 
   displayFn(vo?: Vo): string | undefined {
     return vo ? vo.name : null;
@@ -89,7 +85,7 @@ export class AddGroupManagerDialogComponent implements OnInit {
       .subscribe(() => {
         this.notificator.showSuccess(this.successMessage);
         this.loading = false;
-        this.dialogRef.close();
+        this.dialogRef.close(true);
     }, () => this.loading = false);
   }
 
@@ -122,11 +118,6 @@ export class AddGroupManagerDialogComponent implements OnInit {
       this.loading = false;
       this.firstSearchDone = true;
     }, () => this.loading = false);
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   applyFilter(filterValue: string) {

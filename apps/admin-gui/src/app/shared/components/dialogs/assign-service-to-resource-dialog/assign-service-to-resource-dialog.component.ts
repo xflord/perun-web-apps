@@ -7,9 +7,8 @@ import {
   Service,
   ServicesManagerService, ServicesPackage
 } from '@perun-web-apps/perun/openapi';
-import { TABLE_ASSIGN_SERVICE_TO_RESOURCE_DIALOG, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_ASSIGN_SERVICE_TO_RESOURCE_DIALOG } from '@perun-web-apps/config/table-config';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 
 export interface AssignServiceToResourceDialogData {
   theme: string;
@@ -28,8 +27,7 @@ export class AssignServiceToResourceDialogComponent implements OnInit {
               private notificator: NotificatorService,
               private translate: TranslateService,
               private resourceManager: ResourcesManagerService,
-              private servicesManager: ServicesManagerService,
-              private tableConfigService: TableConfigService) {
+              private servicesManager: ServicesManagerService) {
   }
 
   loading = false;
@@ -40,12 +38,10 @@ export class AssignServiceToResourceDialogComponent implements OnInit {
   selectedPackage: ServicesPackage = {name: 'Not selected', description: "", id: -1, beanName: "ServicePackage"};
   selection = new SelectionModel<Service>(true, []);
   tableId = TABLE_ASSIGN_SERVICE_TO_RESOURCE_DIALOG;
-  pageSize: number;
   filterValue = '';
 
   ngOnInit(): void {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.theme = this.data.theme;
     this.resourceManager.getAssignedServicesToResource(this.data.resourceId).subscribe(assignedServices => {
       this.servicesManager.getServices().subscribe(allServices => {
@@ -108,11 +104,6 @@ export class AssignServiceToResourceDialogComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   servicePackageSelected(servicesPackage: ServicesPackage) {

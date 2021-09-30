@@ -22,8 +22,7 @@
     (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <app-hosts-list
-    [pageSize]="pageSize"
-    (page)="pageChanged($event)"
+    [tableId]="tableId"
     *ngIf="!loading"
     [filterValue]="filterValue"
     [hosts]="hosts"

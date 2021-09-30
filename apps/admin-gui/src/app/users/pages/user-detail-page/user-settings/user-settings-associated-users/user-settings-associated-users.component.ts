@@ -2,12 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import {
-  TABLE_USER_ASSOCIATED_USERS,
-  TableConfigService
+  TABLE_USER_ASSOCIATED_USERS
 } from '@perun-web-apps/config/table-config';
 import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ConnectIdentityDialogComponent } from '../../../../../shared/components/dialogs/connect-identity-dialog/connect-identity-dialog.component';
 import { DisconnectIdentityDialogComponent } from '../../../../../shared/components/dialogs/disconnect-identity-dialog/disconnect-identity-dialog.component';
@@ -22,20 +20,17 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private dialog: MatDialog,
               private router: Router,
-              private tableConfigService: TableConfigService,
               private userManager: UsersManagerService) {
   }
 
   loading = false;
   selection = new SelectionModel<User>(false, []);
   associatedUsers: User[] = [];
-  pageSize: number;
   userId: number;
   tableId = TABLE_USER_ASSOCIATED_USERS;
   displayedColumns = [ 'select', 'id', 'user', 'name' ];
 
   ngOnInit(): void {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.loading = true;
 
     this.route.parent.parent.params
@@ -94,10 +89,4 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
       }
     });
   }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
-  }
-
 }

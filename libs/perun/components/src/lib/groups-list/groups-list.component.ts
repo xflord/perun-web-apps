@@ -10,7 +10,6 @@ import {
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 import { Group, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import {
   customDataSourceFilterPredicate,
@@ -84,9 +83,6 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   groupsToDisableRouting: Set<number> = new Set<number>();
 
   @Input()
-  pageSize = 10;
-
-  @Input()
   filter = '';
 
   @Input()
@@ -116,8 +112,8 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   @Input()
   resourceId: number = null;
 
-  @Output()
-  page = new EventEmitter<PageEvent>();
+  @Input()
+  tableId: string;
 
   @Output()
   refreshTable = new EventEmitter<void>();
@@ -235,11 +231,11 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   canBeSelected = (group: GroupWithStatus): boolean => (group.name !== 'members' || !this.disableMembers) && !this.disableSelect(group)
 
   isAllSelected() {
-    return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(this.selection.selected.length, this.filter, this.pageSize, this.child.paginator.hasNextPage(), this.child.paginator.pageIndex, this.dataSource, this.sort, this.canBeSelected);
+    return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(this.selection.selected.length, this.filter, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.child.paginator.pageIndex, this.dataSource, this.sort, this.canBeSelected);
   }
 
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filter, this.dataSource, this.sort, this.pageSize, this.child.paginator.pageIndex,true, this.canBeSelected);
+    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filter, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex,true, this.canBeSelected);
 
     if(this.authType){
       this.removeAuth = this.setAuth();

@@ -3,11 +3,9 @@ import { RichDestination, ServicesManagerService } from '@perun-web-apps/perun/o
 import { SelectionModel } from '@angular/cdk/collections';
 import {
   TABLE_FACILITY_SERVICES_DESTINATION_LIST,
-  TableConfigService
 } from '@perun-web-apps/config/table-config';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
 import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -21,7 +19,6 @@ import { RemoveDestinationDialogComponent } from '../../../../../../shared/compo
 export class ServiceDestinationsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-              private tableConfigService: TableConfigService,
               private serviceManager: ServicesManagerService,
               private notificator: NotificatorService,
               private translate: TranslateService,
@@ -36,12 +33,10 @@ export class ServiceDestinationsComponent implements OnInit {
   destinations: RichDestination[] = [];
   selection = new SelectionModel<RichDestination>(true, []);
 
-  pageSize: number;
   tableId = TABLE_FACILITY_SERVICES_DESTINATION_LIST;
 
   ngOnInit(): void {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(params => {
       this.serviceId = params['serviceId'];
       this.refreshTable();
@@ -109,11 +104,6 @@ export class ServiceDestinationsComponent implements OnInit {
         this.refreshTable();
       }
     });
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   applyFilter(filterValue: string) {

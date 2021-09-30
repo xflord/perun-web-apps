@@ -3,11 +3,10 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { ActivatedRoute,  Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { TABLE_USER_SERVICE_IDENTITIES, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_USER_SERVICE_IDENTITIES } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ConnectIdentityDialogComponent } from '../../../../../shared/components/dialogs/connect-identity-dialog/connect-identity-dialog.component';
 import { DisconnectIdentityDialogComponent } from '../../../../../shared/components/dialogs/disconnect-identity-dialog/disconnect-identity-dialog.component';
-import { PageEvent } from '@angular/material/paginator';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
@@ -20,7 +19,6 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private dialog: MatDialog,
               private router: Router,
-              private tableConfigService: TableConfigService,
               private userManager: UsersManagerService,
               public authResolver: GuiAuthResolver
               ) { }
@@ -28,13 +26,11 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
   loading = false;
   selection = new SelectionModel<User>(false, []);
   identities: User[] = [];
-  pageSize: number;
   userId: number;
   tableId = TABLE_USER_SERVICE_IDENTITIES;
   displayedColumns = [ 'select', 'id', 'user', 'name' ];
 
   ngOnInit(): void {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.loading = true;
 
     this.route.parent.parent.params
@@ -92,10 +88,4 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
       }
     });
   }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
-  }
-
 }

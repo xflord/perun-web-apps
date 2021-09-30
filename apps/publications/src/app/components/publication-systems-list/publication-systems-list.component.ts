@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { PublicationSystem } from '@perun-web-apps/perun/openapi';
 import {
@@ -6,7 +6,6 @@ import {
   customDataSourceSort, downloadData, getDataForExport,
   TABLE_ITEMS_COUNT_OPTIONS, TableWrapperComponent
 } from '@perun-web-apps/perun/utils';
-import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -28,14 +27,11 @@ export class PublicationSystemsListComponent implements AfterViewInit, OnChanges
   @Input()
   filterValue: string;
   @Input()
-  pageSize = 10;
+  tableId: string;
   @Input()
   displayedColumns: string[] = ['id', 'friendlyName', 'loginNamespace', 'url', 'type'];
   @Input()
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
-  @Output()
-  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
   private sort: MatSort;
 

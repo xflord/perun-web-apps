@@ -21,9 +21,8 @@
       *ngIf="!loading"
       [publications]="publications"
       [selection]="selected"
-      [pageSize]="pageSize"
-      [routerPath]="'/my-publications'"
-      (page)="pageChanged($event)">
+      [tableId]="tableId"
+      [routerPath]="'/my-publications'">
     </perun-web-apps-publications-list>
   </div>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading || initLoading"></mat-spinner>

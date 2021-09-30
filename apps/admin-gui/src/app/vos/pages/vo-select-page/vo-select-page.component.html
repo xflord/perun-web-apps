@@ -26,8 +26,7 @@
   </perun-web-apps-immediate-filter>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <perun-web-apps-vos-list *ngIf="!loading"
-                            (page)="pageChanged($event)"
-                            [pageSize]="pageSize"
+                            [tableId]="tableId"
                             [displayedColumns]="displayedColumns"
                             [filterValue]="filterValue"
                             [recentIds]="recentIds"

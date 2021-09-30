@@ -1,15 +1,12 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter,
   Input,
   OnChanges,
-  Output,
   ViewChild
 } from '@angular/core';
 import { ExtSource, UserExtSource} from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {
@@ -39,10 +36,7 @@ export class ExtSourcesListComponent implements AfterViewInit, OnChanges {
   @Input()
   displayedColumns: string[] = ['select', 'id', 'name', 'type'];
   @Input()
-  pageSize = 5;
-
-  @Output()
-  page = new EventEmitter<PageEvent>();
+  tableId: string;
 
   @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
 
@@ -97,11 +91,11 @@ export class ExtSourcesListComponent implements AfterViewInit, OnChanges {
   }
 
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
   }
 
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.pageSize, this.child.paginator.pageIndex,false);
+    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex,false);
   }
 
   checkboxLabel(row?: ExtSource): string {

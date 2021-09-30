@@ -6,8 +6,7 @@ import {
   UserExtSource,
   UsersManagerService
 } from '@perun-web-apps/perun/openapi';
-import { TABLE_ATTRIBUTES_SETTINGS, TableConfigService } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
+import { TABLE_ATTRIBUTES_SETTINGS } from '@perun-web-apps/config/table-config';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { filterCoreAttributes, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -25,7 +24,6 @@ export class IdentityDetailComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
               private attributesManager: AttributesManagerService,
-              private tableConfigService: TableConfigService,
               private userService: UsersManagerService,
               private route: ActivatedRoute) {
 
@@ -38,11 +36,9 @@ export class IdentityDetailComponent implements OnInit {
   selection = new SelectionModel<Attribute>(true , []);
   tableId = TABLE_ATTRIBUTES_SETTINGS;
   attributes: Attribute[] = [];
-  pageSize: number;
   userExtSource: UserExtSource;
 
   ngOnInit(): void {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.params.subscribe(params => {
       const identityId = params["identityId"];
       this.userService.getUserExtSourceById(identityId).subscribe(extSource => {
@@ -116,10 +112,5 @@ export class IdentityDetailComponent implements OnInit {
         this.refreshTable();
       }
     });
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

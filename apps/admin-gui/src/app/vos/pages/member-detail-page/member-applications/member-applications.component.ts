@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import {
   Application, Member, MembersManagerService,
   RegistrarManagerService
 } from '@perun-web-apps/perun/openapi';
 import {
   TABLE_MEMBER_APPLICATIONS_DETAILED,
-  TABLE_MEMBER_APPLICATIONS_NORMAL,
-  TableConfigService
+  TABLE_MEMBER_APPLICATIONS_NORMAL
 } from '@perun-web-apps/config/table-config';
 import { ActivatedRoute } from '@angular/router';
 
@@ -20,7 +18,6 @@ export class MemberApplicationsComponent implements OnInit {
 
   constructor(private registrarManager: RegistrarManagerService,
               private memberManager: MembersManagerService,
-              private tableConfigService: TableConfigService,
               protected route: ActivatedRoute) { }
 
 
@@ -31,15 +28,11 @@ export class MemberApplicationsComponent implements OnInit {
   displayedColumns: string[] = ['id', 'createdAt', 'type', 'state', 'user', 'group', 'modifiedBy'];
   filterValue = '';
   showAllDetails = false;
-  detailPageSize: number;
-  pageSize: number;
   detailTableId = TABLE_MEMBER_APPLICATIONS_DETAILED;
   tableId = TABLE_MEMBER_APPLICATIONS_NORMAL;
 
 
   ngOnInit(): void {
-    this.detailPageSize = this.tableConfigService.getTablePageSize(this.detailTableId);
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.loading = true;
     this.route.parent.params.subscribe(parentParams => {
       this.memberId = parentParams['memberId'];
@@ -66,15 +59,4 @@ export class MemberApplicationsComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
   }
-
-  detailPageChanged(event: PageEvent) {
-    this.detailPageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.detailTableId, event.pageSize);
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
-  }
-
 }

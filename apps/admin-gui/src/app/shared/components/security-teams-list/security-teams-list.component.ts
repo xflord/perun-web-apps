@@ -1,17 +1,14 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter,
   Input,
   OnChanges,
-  Output,
   ViewChild
 } from '@angular/core';
 import { SecurityTeam, Vo } from '@perun-web-apps/perun/openapi';
 import { MatSort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
-import { PageEvent } from '@angular/material/paginator';
 import {
   customDataSourceFilterPredicate,
   customDataSourceSort, downloadData, getDataForExport,
@@ -41,12 +38,9 @@ export class SecurityTeamsListComponent implements AfterViewInit, OnChanges {
   @Input()
   filterValue: string;
   @Input()
-  pageSize = 10;
+  tableId: string;
   @Input()
   displayedColumns: string[] = ['select', 'id', "name", "description"];
-
-  @Output()
-  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
   private sort: MatSort;
 
@@ -93,12 +87,12 @@ export class SecurityTeamsListComponent implements AfterViewInit, OnChanges {
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.pageSize, this.child.paginator.pageIndex, false);
+    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex, false);
   }
 
   /** The label for the checkbox on the passed row */

@@ -14,10 +14,8 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { getCandidateEmail } from '@perun-web-apps/perun/utils';
-import { PageEvent } from '@angular/material/paginator';
 import {
   TABLE_ADD_MEMBER_CANDIDATES_DIALOG,
-  TableConfigService
 } from '@perun-web-apps/config/table-config';
 import { MembersCandidatesListComponent } from '../../members-candidates-list/members-candidates-list.component';
 import { FormControl, Validators } from '@angular/forms';
@@ -49,7 +47,6 @@ export class AddMemberDialogComponent implements OnInit {
   firstSearchDone = false;
 
   theme: string;
-  pageSize: number;
   tableId = TABLE_ADD_MEMBER_CANDIDATES_DIALOG;
 
   @ViewChild('list', {})
@@ -68,7 +65,6 @@ export class AddMemberDialogComponent implements OnInit {
     private translate: TranslateService,
     private notificator: NotificatorService,
     protected route: ActivatedRoute,
-    private tableConfigService: TableConfigService,
     protected router: Router,
     private guiAuthResolver: GuiAuthResolver,
     private store: StoreService
@@ -162,7 +158,6 @@ export class AddMemberDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.languages = this.store.get('supported_languages');
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.theme = this.data.theme;
     if (this.data.type === 'group') {
       this.inviteAuth = this.guiAuthResolver.isAuthorized('group-sendInvitation_Vo_Group_User_policy', [this.data.group]);
@@ -254,11 +249,6 @@ export class AddMemberDialogComponent implements OnInit {
     //   this.notificator.showSuccess(msg);
     //   this.dialogRef.close(true);
     // });
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   //perun is expecting precisely this set of values that will be in the object Candidate

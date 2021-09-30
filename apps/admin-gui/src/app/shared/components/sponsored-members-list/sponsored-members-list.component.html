@@ -1,11 +1,10 @@
-<div [hidden]="dataSource.filteredData.length === 0 || sponsoredMembers.length === 0" class="card mt-3">
+<div class="card mt-3">
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
-    (page)="page.emit($event)"
+    [tableId]="tableId"
     [dataLength]="dataSource.filteredData.length"
-    [pageSizeOptions]="pageSizeOptions"
-    [pageSize]="pageSize">
+    [pageSizeOptions]="pageSizeOptions">
     <table
       [dataSource]="dataSource"
       class="w-100"
@@ -90,18 +89,19 @@
         [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/organizations', sponsoredMember.member.voId, 'members', sponsoredMember.member.id]"
         [routerLink]="disableRouting ? null : ['/organizations', sponsoredMember.member.voId, 'members', sponsoredMember.member.id]"
         class="dark-hover-list-item"
-        mat-row
-      >
+        mat-row>
+      </tr>
+      <tr *matNoDataRow>
+        <td [attr.colspan]="displayedColumns.length">
+          <app-alert *ngIf="dataSource.filteredData.length === 0 && sponsoredMembers.length !== 0" alert_type="warn">
+            {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
+          </app-alert>
+
+          <app-alert *ngIf="sponsoredMembers.length === 0" alert_type="warn">
+            {{'SHARED.COMPONENTS.SPONSORED_MEMBERS_LIST.NO_SPONSORED_MEMBERS_WARNING' | translate}}
+          </app-alert>
+        </td>
       </tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
-
-<app-alert *ngIf="dataSource.filteredData.length === 0 && sponsoredMembers.length !== 0" alert_type="warn">
-  {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
-</app-alert>
-
-<app-alert *ngIf="sponsoredMembers.length === 0" alert_type="warn">
-  {{'SHARED.COMPONENTS.SPONSORED_MEMBERS_LIST.NO_SPONSORED_MEMBERS_WARNING' | translate}}
-</app-alert>
-

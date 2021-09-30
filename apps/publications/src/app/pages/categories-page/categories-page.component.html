@@ -28,7 +28,6 @@
     [filterValue]="filterValue"
     (refreshTable)="refreshTable()"
     [displayedColumns]="removeAuth ? ['select', 'id', 'name', 'rank'] : ['name', 'rank']"
-    [pageSize]="pageSize"
-    [selection]="selected"
-    (page)="pageChanged($event)"></perun-web-apps-categories-list>
+    [tableId]="tableId"
+    [selection]="selected"></perun-web-apps-categories-list>
 </div>

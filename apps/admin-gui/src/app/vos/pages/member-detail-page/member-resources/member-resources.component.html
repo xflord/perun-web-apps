@@ -16,8 +16,7 @@
   >
   </perun-web-apps-immediate-filter>
   <perun-web-apps-resources-list
-    [pageSize]="pageSize"
-    (page)="pageChanged($event)"
+    [tableId]="tableId"
     *ngIf="!loading"
     [filterValue]="filterValue"
     [displayedColumns]="displayedColumns"

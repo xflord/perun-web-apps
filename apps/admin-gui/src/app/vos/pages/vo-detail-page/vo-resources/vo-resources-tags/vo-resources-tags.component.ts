@@ -7,8 +7,7 @@ import { DeleteResourceTagDialogComponent } from '../../../../../shared/componen
 import { TranslateService } from '@ngx-translate/core';
 import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { ResourcesManagerService, ResourceTag, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
-import { PageEvent } from '@angular/material/paginator';
-import { TABLE_VO_RESOURCES_TAGS, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_VO_RESOURCES_TAGS } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 
 @Component({
@@ -23,7 +22,6 @@ export class VoResourcesTagsComponent implements OnInit {
               private resourceManager: ResourcesManagerService,
               private dialog: MatDialog,
               private notificator: NotificatorService,
-              private tableConfigService: TableConfigService,
               private translator: TranslateService,
               private authResolver: GuiAuthResolver,
               private voService: VosManagerService) { }
@@ -36,7 +34,6 @@ export class VoResourcesTagsComponent implements OnInit {
   selection = new SelectionModel<ResourceTag>(true, []);
 
   filterValue: string;
-  pageSize: number;
   tableId = TABLE_VO_RESOURCES_TAGS;
   displayedColumns = [];
 
@@ -45,7 +42,6 @@ export class VoResourcesTagsComponent implements OnInit {
   editAuth: boolean;
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.parent.params.subscribe(parentParams => {
       this.voId = parentParams['voId'];
 
@@ -117,10 +113,5 @@ export class VoResourcesTagsComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

@@ -15,8 +15,7 @@
 <perun-web-apps-vos-list
   *ngIf="!memberRefresh"
   [displayedColumns]="displayedColumns"
-  [pageSize]="memberPageSize"
-  (page)="memberPageChanged($event)"
+  [tableId]="memberTableId"
   [filterValue]="memberFilterValue"
   [vos]="vosWhereIsMember">
 </perun-web-apps-vos-list>
@@ -32,8 +31,7 @@
   <perun-web-apps-vos-list
     *ngIf="!adminRefresh"
     [displayedColumns]="displayedColumns"
-    [pageSize]="adminPageSize"
-    (page)="adminPageChanged($event)"
+    [tableId]="adminTableId"
     [filterValue]="adminFilterValue"
     [vos]="vosWhereIsAdmin">
   </perun-web-apps-vos-list>

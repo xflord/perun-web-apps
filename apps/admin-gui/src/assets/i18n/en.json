@@ -106,7 +106,6 @@
       "TABLE_GROUP_ID": "Id",
       "TABLE_GROUP_NAME": "Name",
       "ALL": "All",
-      "NO_GROUPS_ALERT": "No groups found.",
       "FILTER": "Filter by name, id or description"
     },
     "SERVICES_DESTINATIONS": {
@@ -197,7 +196,6 @@
       "ADD_GROUP": "Assign groups",
       "REMOVE_GROUP": "Remove groups",
       "FILTER_GROUPS": "Filter groups",
-      "NO_GROUPS": "No groups.",
       "REMOVE_TOOLTIP": "You are not authorized to remove one or more of the selected groups."
     },
     "ASSIGNED_SERVICES": {
@@ -462,7 +460,7 @@
         "MAIL_TYPE_APP_ERROR_VO_ADMIN": "Error / manager",
         "MAIL_TYPE_USER_INVITE": "Invitation / user",
         "DELETE_SUCCESS": "Email notification deleted.",
-        "NO_EMAILS": "No mail notifications found for this VO.",
+        "NO_EMAILS": "No mail notifications found.",
         "EDIT_SUCCESS": "Email notification was successfully edited",
         "ADD_SUCCESS": "Email notification was successfully added",
         "DISABLED_HINT": "You don't have permission to change sending settings."
@@ -2201,7 +2199,7 @@
         "TITLE": "Service identities",
         "CREATE": "Add",
         "DELETE": "Remove",
-        "NO_IDENTITIES": "You have no service identities assigned."
+        "NO_IDENTITIES": "No service identities assigned."
       },
       "GUI_CONFIG": {
         "PREF_TABLE_PAGE_SIZE": "Preferred table page size",
@@ -2211,7 +2209,7 @@
         "TITLE": "Associated users",
         "ADD": "Add",
         "REMOVE": "Remove",
-        "NO_ASSOCIATED_USERS": "You have no associated users assigned."
+        "NO_ASSOCIATED_USERS": "No associated users assigned."
       },
       "FACILITY_ATTRIBUTES": {
         "TITLE": "Facility attributes"

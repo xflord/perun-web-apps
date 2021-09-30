@@ -2,10 +2,9 @@
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
-    (page)="page.emit($event)"
+    [tableId]="tableId"
     [dataLength]="dataSource.filteredData.length"
-    [pageSizeOptions]="pageSizeOptions"
-    [pageSize]="pageSize">
+    [pageSizeOptions]="pageSizeOptions">
     <table
       [dataSource]="dataSource"
       class="w-100"
@@ -78,6 +77,13 @@
         *matRowDef="let memberCandidate; columns: displayedColumns;"
         class="dark-hover-list-item"
         mat-row>
+      </tr>
+      <tr *matNoDataRow>
+        <td [attr.colspan]="displayedColumns.length">
+          <app-alert *ngIf="members.length === 0" alert_type="warn">
+            {{'DIALOGS.ADD_MEMBERS.NO_USERS_FOUND' | translate}}
+          </app-alert>
+        </td>
       </tr>
     </table>
   </perun-web-apps-table-wrapper>

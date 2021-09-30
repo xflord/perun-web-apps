@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Author, CabinetManagerService } from '@perun-web-apps/perun/openapi';
 import {
   TABLE_PUBLICATION_AUTHORS,
-  TableConfigService
 } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'perun-web-apps-authors-page',
@@ -13,17 +11,14 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class AuthorsPageComponent implements OnInit {
 
-  constructor(private tableConfigService: TableConfigService,
-              private cabinetService: CabinetManagerService) { }
+  constructor(private cabinetService: CabinetManagerService) { }
 
   filterValue = '';
   loading: boolean;
   authors: Author[];
-  pageSize: number;
   tableId = TABLE_PUBLICATION_AUTHORS;
 
   ngOnInit(): void {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.refreshTable();
   }
 
@@ -37,10 +32,5 @@ export class AuthorsPageComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

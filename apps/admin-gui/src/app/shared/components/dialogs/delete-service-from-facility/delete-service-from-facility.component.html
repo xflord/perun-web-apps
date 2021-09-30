@@ -45,8 +45,7 @@
     </div>
     <perun-web-apps-resources-list
       (allSelected)="disableCheckboxes($event)"
-      [pageSize]="pageSize"
-      (page)="pageChanged($event)"
+      [tableId]="tableId"
       *ngIf="!loading"
       [disableRouting]=true
       [resources]="resources"

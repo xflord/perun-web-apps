@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Resource, ResourcesManagerService, ResourceTag, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { TABLE_RESOURCES_TAGS, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_RESOURCES_TAGS } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { PageEvent } from '@angular/material/paginator';
 import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { UniversalRemoveItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,7 +20,6 @@ export class ResourceTagsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private authResolver: GuiAuthResolver,
-              private tableConfigService: TableConfigService,
               private resourcesManager: ResourcesManagerService,
               private voService: VosManagerService,
               private dialog: MatDialog,
@@ -36,7 +34,6 @@ export class ResourceTagsComponent implements OnInit {
   selection = new SelectionModel<ResourceTag>(true, []);
 
   filterValue: string;
-  pageSize: number;
   tableId = TABLE_RESOURCES_TAGS;
   displayedColumns = [];
 
@@ -45,8 +42,6 @@ export class ResourceTagsComponent implements OnInit {
   removeAuth: boolean;
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-
     this.route.parent.params.subscribe(params => {
       this.resourceId = params['resourceId'];
       this.resourcesManager.getResourceById(this.resourceId).subscribe(resource => {
@@ -145,10 +140,5 @@ export class ResourceTagsComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

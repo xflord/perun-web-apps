@@ -4,15 +4,14 @@ import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
 import {
   ApiRequestConfigurationService,
-  GuiAuthResolver, InitAuthService,
+  GuiAuthResolver,
   NotificatorService
 } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveVoDialogComponent } from '../../../shared/components/dialogs/remove-vo-dialog/remove-vo-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CreateVoDialogComponent } from '../../../shared/components/dialogs/create-vo-dialog/create-vo-dialog.component';
-import { TABLE_VO_SELECT, TableConfigService } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
+import { TABLE_VO_SELECT } from '@perun-web-apps/config/table-config';
 
 @Component({
   selector: 'app-vo-select-page',
@@ -29,11 +28,9 @@ export class VoSelectPageComponent implements OnInit, AfterViewChecked{
     private sideMenuService: SideMenuService,
     private voService: VosManagerService,
     private guiAuthResolver: GuiAuthResolver,
-    private tableConfigService: TableConfigService,
     private dialog: MatDialog,
     private notificator: NotificatorService,
-    private apiRequest: ApiRequestConfigurationService,
-    private initAuthService: InitAuthService
+    private apiRequest: ApiRequestConfigurationService
   ) { }
 
   vos: Vo[] = [];
@@ -48,11 +45,9 @@ export class VoSelectPageComponent implements OnInit, AfterViewChecked{
 
   displayedColumns: string[];
   tableId = TABLE_VO_SELECT;
-  pageSize: number;
 
   ngOnInit() {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.selection = new SelectionModel<Vo>(false, []);
     this.createAuth = this.guiAuthResolver.isAuthorized('createVo_Vo_policy', []);
     this.deleteAuth = this.guiAuthResolver.isAuthorized('deleteVo_Vo_policy', []);
@@ -115,10 +110,5 @@ export class VoSelectPageComponent implements OnInit, AfterViewChecked{
         this.refreshTable();
       }
     });
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

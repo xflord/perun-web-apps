@@ -22,8 +22,7 @@
     </button>
     <div *ngIf="!loading">
       <app-users-list
-        (page)="pageChanged($event)"
-        [pageSize]="pageSize"
+        [tableId]="tableId"
         [displayedColumns]="displayedColumns"
         *ngIf="identities !== undefined && identities.length > 0"
         [users]="identities"

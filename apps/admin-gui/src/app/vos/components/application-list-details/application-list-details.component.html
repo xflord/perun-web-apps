@@ -1,12 +1,13 @@
-<div class="card mt-2 w-100" [class.hide-table]="loading" [hidden]="this.table.length === 0 || (dataSource ? dataSource.filteredData.length === 0 : false)">
+<div class="card mt-2 w-100" [hidden]="loading || !dataSource">
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
-    (page)="page.emit($event)"
+    [tableId]="tableId"
     [dataLength]="dataSource.filteredData.length"
-    [pageSizeOptions]="pageSizeOptions"
-    [pageSize]="pageSize">
-    <table [dataSource]="dataSource" mat-table >
+    [pageSizeOptions]="pageSizeOptions">
+    <table [dataSource]="dataSource"
+           mat-table
+           class="w-100">
       <ng-container matColumnDef="id">
         <th *matHeaderCellDef mat-header-cell >{{'VO_DETAIL.APPLICATION.TABLE_ID' | translate}}</th>
         <td *matCellDef="let application" class="static-column-size" mat-cell>{{application['id']}}</td>
@@ -87,19 +88,19 @@
         class="dark-hover-list-item"
         mat-row>
       </tr>
+      <tr *matNoDataRow>
+        <td [attr.colspan]="displayedColumns.length">
+          <app-alert *ngIf="this.dataSource.data.length === 0" alert_type="warn">
+            {{'VO_DETAIL.APPLICATION.NO_APPLICATION_FOUND' | translate}}
+          </app-alert>
+
+          <app-alert *ngIf="dataSource.filteredData.length === 0 && table.length !== 0" alert_type="warn">
+            {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
+          </app-alert>
+        </td>
+      </tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
 
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-
-<div *ngIf="!loading">
-  <app-alert *ngIf="this.dataSource.data.length === 0" alert_type="warn">
-    {{'VO_DETAIL.APPLICATION.NO_APPLICATION_FOUND' | translate}}
-  </app-alert>
-
-  <app-alert *ngIf="dataSource.filteredData.length === 0 && table.length !== 0" alert_type="warn">
-    {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
-  </app-alert>
-
-</div>

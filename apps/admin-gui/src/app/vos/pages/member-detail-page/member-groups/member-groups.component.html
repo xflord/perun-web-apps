@@ -30,8 +30,7 @@
 <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
 <perun-web-apps-groups-list
   #list
-  [pageSize]="pageSize"
-  (page)="pageChanged($event)"
+  [tableId]="tableId"
   [groups]="groups"
   [displayedColumns]="['select', 'id', 'vo', 'name', 'description', 'expiration']"
   [selection]="selection"

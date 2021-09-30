@@ -1,14 +1,12 @@
 import {
   Component,
-  EventEmitter,
   Input,
-  OnChanges, OnInit,
-  Output,
+  OnChanges,
+  OnInit,
   ViewChild
 } from '@angular/core';
 import { RichUserExtSource, UserExtSource} from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
@@ -40,15 +38,13 @@ export class UserExtSourcesListComponent implements OnInit, OnChanges {
   @Input()
   displayedColumns: string[] = ['select', 'id', 'mail', 'extSourceName', 'login', 'lastAccess'];
   @Input()
-  pageSize = 5;
+  tableId: string;
   @Input()
   extSourceNameHeader: string;
   @Input()
   loginHeader: string;
   @Input()
   disableRouting: boolean;
-  @Output()
-  page = new EventEmitter<PageEvent>();
 
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 

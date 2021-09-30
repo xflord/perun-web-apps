@@ -3,11 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { FacilitiesManagerService, Facility, SecurityTeam } from '@perun-web-apps/perun/openapi';
 import {
   TABLE_FACILITY_SECURITY_TEAMS_LIST,
-  TableConfigService
 } from '@perun-web-apps/config/table-config';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
@@ -19,7 +17,6 @@ export class FacilitySecurityTeamsComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
               private facilitiesManager: FacilitiesManagerService,
-              private tableConfigService: TableConfigService,
               private route: ActivatedRoute,
               private authResolver: GuiAuthResolver) { }
 
@@ -30,7 +27,6 @@ export class FacilitySecurityTeamsComponent implements OnInit {
   filterValue = '';
 
   loading: boolean;
-  pageSize: number;
   tableId = TABLE_FACILITY_SECURITY_TEAMS_LIST;
   displayedColumns: string[] = [];
 
@@ -39,8 +35,6 @@ export class FacilitySecurityTeamsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-
     this.route.parent.params.subscribe(parentParams => {
       const facilityId = parentParams['facilityId'];
 
@@ -79,11 +73,6 @@ export class FacilitySecurityTeamsComponent implements OnInit {
 
   removeSecurityTeam(){
     //TODO
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }
 

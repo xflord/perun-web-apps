@@ -31,8 +31,7 @@
     </div>
     <div class="mt-3" *ngIf="groups !== null && !loading">
       <perun-web-apps-groups-list
-        (page)="pageChanged($event)"
-        [pageSize]="pageSize"
+        [tableId]="tableId"
         [disableRouting]="true"
         [displayedColumns]="['select', 'id', 'name', 'description']"
         [selection]="selection"

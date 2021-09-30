@@ -1,15 +1,12 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter,
   Input,
   OnChanges,
-  Output,
   QueryList,
   ViewChild,
   ViewChildren
 } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -67,10 +64,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
   filterValue = '';
 
   @Input()
-  pageSize = 10;
-
-  @Output()
-  page = new EventEmitter<PageEvent>();
+  tableId: string;
 
   @Input()
   readonly = false;
@@ -128,11 +122,11 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
   }
 
   isAllSelected() {
-    return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(this.selection.selected.length, this.filterValue, this.pageSize, this.child.paginator.hasNextPage(), this.child.paginator.pageIndex, this.dataSource, this.sort, this.canBeSelected);
+    return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.child.paginator.pageIndex, this.dataSource, this.sort, this.canBeSelected);
   }
 
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.pageSize, this.child.paginator.pageIndex, true, this.canBeSelected);
+    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex, true, this.canBeSelected);
   }
 
   checkboxLabel(row?: Attribute): string {

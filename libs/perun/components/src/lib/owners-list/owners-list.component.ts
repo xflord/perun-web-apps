@@ -1,14 +1,11 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter,
   Input,
   OnChanges,
-  Output,
   ViewChild
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
-import { PageEvent } from '@angular/material/paginator';
 import { Owner} from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
@@ -40,16 +37,13 @@ export class OwnersListComponent implements OnChanges, AfterViewInit {
   selection = new SelectionModel<Owner>(true, []);
 
   @Input()
-  pageSize = 10;
+  tableId: string;
 
   @Input()
   filterValue = '';
 
   @Input()
   displayedColumns: string[] = ['select', 'id', 'name', 'contact', 'type'];
-
-  @Output()
-  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
   dataSource: MatTableDataSource<Owner>;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
@@ -102,11 +96,11 @@ export class OwnersListComponent implements OnChanges, AfterViewInit {
   }
 
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
   }
 
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.pageSize, this.child.paginator.pageIndex,false);
+    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex,false);
   }
 
   checkboxLabel(row?: Owner): string {

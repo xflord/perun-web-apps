@@ -8,10 +8,8 @@ import {
   TasksManagerService
 } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 import {
-  TABLE_FACILITY_SERVICES_STATUS_LIST,
-  TableConfigService
+  TABLE_FACILITY_SERVICES_STATUS_LIST
 } from '@perun-web-apps/config/table-config';
 import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
@@ -30,7 +28,6 @@ export class FacilityServiceStatusComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private tasksManager: TasksManagerService,
-              private tableConfigService: TableConfigService,
               private servicesManager: ServicesManagerService,
               private notificator: NotificatorService,
               private translate: TranslateService,
@@ -52,7 +49,6 @@ export class FacilityServiceStatusComponent implements OnInit {
   selected = new SelectionModel<ServiceState>(true, []);
   filterValue = '';
   loading: boolean;
-  pageSize: number;
 
   tableId = TABLE_FACILITY_SERVICES_STATUS_LIST;
 
@@ -76,8 +72,6 @@ export class FacilityServiceStatusComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-
     this.route.parent.params.subscribe(params => {
       this.facilityId = parseInt(params['facilityId'], 10);
       this.facility = {
@@ -188,11 +182,6 @@ export class FacilityServiceStatusComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   selectionChanged() {

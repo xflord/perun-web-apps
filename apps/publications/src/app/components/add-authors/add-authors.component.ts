@@ -7,8 +7,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { TABLE_PUBLICATION_AUTHORS, TableConfigService } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
+import { TABLE_PUBLICATION_AUTHORS } from '@perun-web-apps/config/table-config';
 
 @Component({
   selector: 'perun-web-apps-add-authors',
@@ -20,8 +19,7 @@ export class AddAuthorsComponent implements OnInit {
   constructor(private dialog: MatDialog,
               private cabinetService: CabinetManagerService,
               private notificator: NotificatorService,
-              private translate: TranslateService,
-              private tableConfigService: TableConfigService) { }
+              private translate: TranslateService) { }
 
 
   @Input()
@@ -33,10 +31,8 @@ export class AddAuthorsComponent implements OnInit {
   loading = false;
 
   tableId = TABLE_PUBLICATION_AUTHORS;
-  pageSize: number;
 
   ngOnInit(): void {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.refresh();
   }
 
@@ -102,10 +98,5 @@ export class AddAuthorsComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

@@ -30,7 +30,6 @@ export class StringListComponent implements OnChanges, AfterViewInit {
 
   displayedColumns: string[] = ['select', 'value'];
   dataSource: MatTableDataSource<string>;
-  pageSize = 5;
 
   @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
 

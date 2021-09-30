@@ -12,10 +12,8 @@ import * as _moment from 'moment';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
-  TABLE_IMPORT_PUBLICATIONS,
-  TableConfigService
+  TABLE_IMPORT_PUBLICATIONS
 } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -53,7 +51,6 @@ export class ImportPublicationsPageComponent implements OnInit {
 
   constructor(private cabinetService: CabinetManagerService,
               private storeService: StoreService,
-              private tableConfigService: TableConfigService,
               private notificator: NotificatorService,
               private translate: TranslateService,
               private router: Router,
@@ -67,7 +64,6 @@ export class ImportPublicationsPageComponent implements OnInit {
   publications: PublicationForGUI[] = [];
 
   selected = new SelectionModel<PublicationForGUI>(true, []);
-  pageSize: number;
   tableId = TABLE_IMPORT_PUBLICATIONS;
   displayedColumns = ['select', 'id', 'lock', 'title', 'reportedBy', 'year', 'category'];
   firstSearchDone: boolean;
@@ -86,7 +82,6 @@ export class ImportPublicationsPageComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.firstSearchDone = false;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.userId = this.storeService.getPerunPrincipal().user.id;
 
     this.startYear = new FormControl(moment().subtract(1, 'year'));
@@ -152,11 +147,6 @@ export class ImportPublicationsPageComponent implements OnInit {
         this.importPublications(publications);
       }
     }, () => this.loading = false);
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   editPublication(index: number) {

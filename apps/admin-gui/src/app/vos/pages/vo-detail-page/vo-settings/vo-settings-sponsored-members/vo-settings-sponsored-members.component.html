@@ -42,8 +42,7 @@
       [disableRouting]="!routeAuth"
       [selection]="selection"
       [filterValue]="searchString"
-      [pageSize]="pageSize"
-      (page)="pageChanged($event)"
+      [tableId]="tableId"
       (refreshTable)="refresh()"
   ></app-sponsored-members-list>
 </div>

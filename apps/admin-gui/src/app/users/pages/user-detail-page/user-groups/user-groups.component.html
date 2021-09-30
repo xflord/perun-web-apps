@@ -14,8 +14,7 @@
 <mat-spinner class="ml-auto mr-auto" *ngIf="memberRefresh"></mat-spinner>
 <perun-web-apps-groups-list
   *ngIf="!memberRefresh"
-  (page)="pageChanged($event)"
-  [pageSize]="pageSize"
+  [tableId]="tableId"
   [groups]="membersGroups"
   [displayedColumns]="['id', 'vo', 'name', 'description', 'status']"
   [disableMembers]="false"
@@ -34,8 +33,7 @@
   <mat-spinner class="ml-auto mr-auto" *ngIf="adminRefresh"></mat-spinner>
   <perun-web-apps-groups-list
     *ngIf="!adminRefresh"
-    (page)="adminPageChanged($event)"
-    [pageSize]="adminPageSize"
+    [tableId]="adminTableId"
     [groups]="adminsGroups"
     [displayedColumns]="['id', 'vo', 'name', 'description']"
     [disableMembers]="false"

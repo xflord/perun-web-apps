@@ -1,24 +1,17 @@
-<div>
-  <h1 class="page-subtitle">{{'FACILITY_DETAIL.ALLOWED_USERS.TITLE' | translate}}</h1>
-  <perun-web-apps-refresh-button
-    (refresh)="refreshTable()">
-  </perun-web-apps-refresh-button>
-  <perun-web-apps-debounce-filter
-    [placeholder]="'FACILITY_DETAIL.ALLOWED_USERS.FILTER'"
-    (filter)="applyFilter($event)"></perun-web-apps-debounce-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <app-alert
-    alert_type="warn"
-    *ngIf="!loading && (users === undefined || users.length === 0)">
-    {{'FACILITY_DETAIL.ALLOWED_USERS.NO_USERS' | translate}}
-  </app-alert>
-  <app-users-list
-    *ngIf="!loading && (users.length !== 0)"
-    (page)="pageChanged($event)"
-    [pageSize]="pageSize"
-    [users]="users"
-    [displayedColumns]="['id', 'name']"
-    [disableRouting]="!routeAuth"
-    [filter]="filterValue">
-  </app-users-list>
-</div>
+<h1 class="page-subtitle">{{'FACILITY_DETAIL.ALLOWED_USERS.TITLE' | translate}}</h1>
+<perun-web-apps-refresh-button
+  (refresh)="refreshTable()">
+</perun-web-apps-refresh-button>
+<perun-web-apps-debounce-filter
+  [placeholder]="'FACILITY_DETAIL.ALLOWED_USERS.FILTER'"
+  (filter)="applyFilter($event)"></perun-web-apps-debounce-filter>
+<mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+<app-users-list
+  *ngIf="!loading"
+  [noUsersFoundLabel]="'FACILITY_DETAIL.ALLOWED_USERS.NO_USERS' | translate"
+  [tableId]="tableId"
+  [users]="users"
+  [displayedColumns]="['id', 'name']"
+  [disableRouting]="!routeAuth"
+  [filter]="filterValue">
+</app-users-list>

@@ -11,7 +11,6 @@
                                    [searchString]="searchString"
                                    [withoutVo]="usersWithoutVo"
                                    [displayedColumns]="['user', 'id', 'name', 'email', 'logins', 'organization']"
-                                   [pageSize]="pageSize"
-                                   (page)="pageChanged($event)"
+                                   [tableId]="tableId"
                                    [attrNames]="attributes">
 </perun-web-apps-users-dynamic-list>

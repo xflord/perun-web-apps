@@ -144,8 +144,7 @@
     <!--  <div *ngIf="showKeys" [@slideInOutRight]>-->
     <div *ngIf="showKeys">
       <app-entityless-attribute-keys-list
-        [pageSize]="pageSize"
-        (page)="pageChanged($event)"
+        [tableId]="tableId"
         [attDef]="attDef"
         (switchView)="this.switchShowKeys()">
       </app-entityless-attribute-keys-list>

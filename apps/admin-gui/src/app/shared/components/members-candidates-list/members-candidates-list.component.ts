@@ -1,13 +1,10 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter,
   Input,
   OnChanges,
-  Output,
   ViewChild
 } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -54,13 +51,10 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   type: string;
 
   @Input()
-  pageSize = 10;
+  tableId: string;
 
   @Input()
   group: Group;
-
-  @Output()
-  page = new EventEmitter<PageEvent>();
 
   displayedColumns: string[] = ['checkbox', 'status', 'fullName', 'voExtSource', 'email', 'logins', 'alreadyMember', 'local'];
   dataSource: MatTableDataSource<MemberCandidate>;

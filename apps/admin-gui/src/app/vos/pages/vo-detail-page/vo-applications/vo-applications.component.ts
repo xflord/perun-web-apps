@@ -1,10 +1,8 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { Application, RegistrarManagerService, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
-import { PageEvent } from '@angular/material/paginator';
 import {
   TABLE_VO_APPLICATIONS_DETAILED, TABLE_VO_APPLICATIONS_NORMAL,
-  TableConfigService
 } from '@perun-web-apps/config/table-config';
 import { FormControl } from '@angular/forms';
 import { formatDate } from '@angular/common';
@@ -22,7 +20,6 @@ export class VoApplicationsComponent implements OnInit {
 
   constructor(private voService: VosManagerService,
               private registrarManager: RegistrarManagerService,
-              private tableConfigService: TableConfigService,
               protected route: ActivatedRoute) { }
 
   state = 'pending';
@@ -33,8 +30,6 @@ export class VoApplicationsComponent implements OnInit {
   firstSearchDone: boolean;
   filterValue = '';
   showAllDetails = false;
-  detailPageSize: number;
-  pageSize: number;
   detailTableId = TABLE_VO_APPLICATIONS_DETAILED;
   tableId = TABLE_VO_APPLICATIONS_NORMAL;
 
@@ -43,9 +38,6 @@ export class VoApplicationsComponent implements OnInit {
   checked = false;
 
   ngOnInit() {
-    this.detailPageSize = this.tableConfigService.getTablePageSize(this.detailTableId);
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-
     this.loading = true;
     this.route.parent.params.subscribe(parentParams => {
       const voId = parentParams['voId'];
@@ -118,15 +110,5 @@ export class VoApplicationsComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  detailPageChanged(event: PageEvent) {
-    this.detailPageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.detailTableId, event.pageSize);
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

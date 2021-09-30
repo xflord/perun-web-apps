@@ -54,7 +54,7 @@ export class MembershipListComponent implements OnChanges, AfterViewInit {
   displayedColumns: string[] = ['checkbox', 'name', 'description', 'expirationAttribute', 'extend'];
 
   @Input()
-  pageSize = 10;
+  tableId: string;
 
   @Input()
   filterValue = '';

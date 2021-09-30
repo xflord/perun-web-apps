@@ -2,11 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, Validators } from '@angular/forms';
 import { Author, CabinetManagerService } from '@perun-web-apps/perun/openapi';
-import { TableConfigService } from '@perun-web-apps/config/table-config';
 import {
   TABLE_PUBLICATION_AUTHORS
 } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
@@ -27,7 +25,6 @@ export class AddAuthorsDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<AddAuthorsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: AddAuthorsDialogData,
     private notificator: NotificatorService,
-    private tableConfigService: TableConfigService,
     private cabinetService: CabinetManagerService,
     private translate: TranslateService,
   ) {
@@ -45,16 +42,12 @@ export class AddAuthorsDialogComponent implements OnInit {
   authors: Author[] = [];
   alreadyAddedAuthors: Author[] = [];
   authorsToAdd: Author[] = [];
-  pageSizeAuthors: number;
-  pageSizeAddAuthors: number;
   tableIdAuthors = TABLE_PUBLICATION_AUTHORS;
   selection = new SelectionModel<Author>(false, []);
   reloadTable= false;
 
   ngOnInit(): void {
     this.searchControl = new FormControl('', [Validators.required, Validators.pattern('.*[\\S]+.*')]);
-    this.pageSizeAuthors = 5;
-    this.pageSizeAddAuthors = 5;
   }
 
   onSearchByString() {
@@ -97,15 +90,4 @@ export class AddAuthorsDialogComponent implements OnInit {
   removeAuthor(author: Author) {
     this.authorsToAdd = this.authorsToAdd.filter(a => a !== author);
   }
-
-  pageChangedAuthors(event: PageEvent) {
-    this.pageSizeAuthors = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableIdAuthors, event.pageSize);
-  }
-
-  pageChangedAuthorsToAdd(event: PageEvent) {
-    this.pageSizeAddAuthors = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableIdAuthors, event.pageSize);
-  }
-
 }

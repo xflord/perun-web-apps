@@ -8,8 +8,7 @@
       </perun-web-apps-immediate-filter>
       <perun-web-apps-owners-list [owners]="owners"
                                   [filterValue]="filterValue"
-                                  (page)="pageChanged($event)"
-                                  [pageSize]="pageSize"
+                                  [tableId]="tableId"
                                   [displayedColumns]="['select', 'id', 'name', 'contact']"
                                   [selection]="selected">
       </perun-web-apps-owners-list>

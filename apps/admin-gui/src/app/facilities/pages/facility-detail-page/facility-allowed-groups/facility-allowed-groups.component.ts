@@ -3,9 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FacilitiesManagerService, Facility, Group, Vo } from '@perun-web-apps/perun/openapi';
 import {
   TABLE_FACILITY_ALLOWED_GROUPS,
-  TableConfigService
 } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
@@ -22,7 +20,6 @@ export class FacilityAllowedGroupsComponent implements OnInit {
   constructor(
     private facilityManager: FacilitiesManagerService,
     private route: ActivatedRoute,
-    private tableConfigService: TableConfigService,
     private authResolver: GuiAuthResolver
   ) { }
 
@@ -42,12 +39,10 @@ export class FacilityAllowedGroupsComponent implements OnInit {
 
   groupsToShow: Group[] = this.groups;
   tableId = TABLE_FACILITY_ALLOWED_GROUPS;
-  pageSize: number;
 
   groupsWithoutRouteAuth: Set<number> = new Set<number>();
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(parentParams => {
       this.facilityId = parentParams['facilityId'];
 
@@ -94,10 +89,5 @@ export class FacilityAllowedGroupsComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

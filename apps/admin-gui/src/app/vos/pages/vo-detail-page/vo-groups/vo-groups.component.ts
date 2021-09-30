@@ -15,10 +15,9 @@ import {
   VosManagerService
 } from '@perun-web-apps/perun/openapi';
 import { GroupFlatNode } from '@perun-web-apps/perun/models';
-import { TABLE_VO_GROUPS, TableConfigService } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
+import { TABLE_VO_GROUPS } from '@perun-web-apps/config/table-config';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { GuiAuthResolver, InitAuthService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { GroupsTreeComponent} from '@perun-web-apps/perun/components';
 import { GroupsListComponent } from '@perun-web-apps/perun/components';
@@ -40,9 +39,7 @@ export class VoGroupsComponent implements OnInit {
     private sideMenuService: SideMenuService,
     private voService: VosManagerService,
     private route: ActivatedRoute,
-    private tableConfigService: TableConfigService,
-    public authResolver: GuiAuthResolver,
-    private initAuthService: InitAuthService
+    public authResolver: GuiAuthResolver
   ) { }
 
   vo: Vo;
@@ -54,7 +51,6 @@ export class VoGroupsComponent implements OnInit {
   filtering = false;
   filterValue = '';
   tableId = TABLE_VO_GROUPS;
-  pageSize: number;
 
   @ViewChild('toggle', {static: true})
   toggle: MatSlideToggle;
@@ -85,7 +81,6 @@ export class VoGroupsComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     if (localStorage.getItem('preferedValue') === 'list') {
       this.toggle.toggle();
       this.selected.clear();
@@ -180,10 +175,5 @@ export class VoGroupsComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
     this.filtering = filterValue !== '';
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

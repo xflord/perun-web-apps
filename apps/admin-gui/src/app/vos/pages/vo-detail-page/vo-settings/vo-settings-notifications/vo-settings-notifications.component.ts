@@ -26,9 +26,7 @@ import {
 import { createNewApplicationMail, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import {
   TABLE_VO_SETTINGS_NOTIFICATIONS,
-  TableConfigService
 } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-vo-settings-notifications',
@@ -44,7 +42,6 @@ export class VoSettingsNotificationsComponent implements OnInit {
     private registrarService: RegistrarManagerService,
     private translate: TranslateService,
     private dialog: MatDialog,
-    private tableConfigService: TableConfigService,
     private notificator: NotificatorService,
     private authResolver: GuiAuthResolver,
     private voService: VosManagerService,
@@ -57,7 +54,6 @@ export class VoSettingsNotificationsComponent implements OnInit {
   applicationForm: ApplicationForm;
   applicationMails: ApplicationMail[] = [];
   selection = new SelectionModel<ApplicationMail>(true, []);
-  pageSize: number;
   tableId = TABLE_VO_SETTINGS_NOTIFICATIONS;
   displayedColumns: string[] = [];
 
@@ -68,7 +64,6 @@ export class VoSettingsNotificationsComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.parent.params.subscribe(params => {
       this.voId = params['voId'];
       this.registrarService.getVoApplicationForm(this.voId).subscribe( form => {
@@ -164,10 +159,5 @@ export class VoSettingsNotificationsComponent implements OnInit {
 
   changeSelection(selection: SelectionModel<ApplicationMail>) {
     this.selection = selection;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

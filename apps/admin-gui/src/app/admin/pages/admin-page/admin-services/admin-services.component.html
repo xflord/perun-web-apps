@@ -23,11 +23,9 @@
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
   <app-services-list
     *ngIf="!loading"
-    [pageSize]="pageSize"
-    (page)="pageChanged($event)"
+    [tableId]="tableId"
     [selection]="selection"
     [services]="services"
-    [filterValue]="filterValue"
-  >
+    [filterValue]="filterValue">
   </app-services-list>
 </div>

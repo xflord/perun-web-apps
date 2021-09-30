@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Service, ServicesManagerService } from '@perun-web-apps/perun/openapi';
-import { TABLE_ADMIN_SERVICES, TableConfigService } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
+import { TABLE_ADMIN_SERVICES } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateEditServiceDialogComponent } from '../../../../shared/components/dialogs/create-edit-service-dialog/create-edit-service-dialog.component';
@@ -17,8 +16,7 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 })
 export class AdminServicesComponent implements OnInit {
 
-  constructor(private tableConfigService: TableConfigService,
-              private serviceManager: ServicesManagerService,
+  constructor(private serviceManager: ServicesManagerService,
               private dialog: MatDialog,
               public authResolver: GuiAuthResolver
               ) { }
@@ -28,11 +26,9 @@ export class AdminServicesComponent implements OnInit {
   selection = new SelectionModel<Service>(true, []);
   loading = false;
   filterValue = "";
-  pageSize: number;
   tableId = TABLE_ADMIN_SERVICES;
 
   ngOnInit(): void {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.serviceManager.getServices().subscribe(services => {
       this.services= services;
       this.refreshTable();
@@ -84,10 +80,5 @@ export class AdminServicesComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

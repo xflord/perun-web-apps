@@ -1,13 +1,10 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter,
   Input,
   OnChanges,
-  Output,
   ViewChild
 } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Application, Group, Member} from '@perun-web-apps/perun/openapi';
@@ -48,13 +45,10 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
   filterValue: string;
 
   @Input()
-  pageSize = 10;
+  tableId: string;
 
   @Input()
   disableRouting = false;
-
-  @Output()
-  page = new EventEmitter<PageEvent>();
 
   dataSource: MatTableDataSource<Application>;
 

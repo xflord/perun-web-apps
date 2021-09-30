@@ -186,8 +186,7 @@
             [selection]="selection"
             [displayedColumns]="['select', 'id', 'name', 'description']"
             [disableRouting]="true"
-            [pageSize]="pageSize"
-            (page)="groupTablePageChanged($event)"
+            [tableId]="tableId"
             [filter]="filterValue">
           </perun-web-apps-groups-list>
         </div>

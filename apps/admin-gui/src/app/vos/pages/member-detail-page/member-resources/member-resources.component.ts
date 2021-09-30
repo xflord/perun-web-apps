@@ -7,11 +7,8 @@ import {
   RichResource
 } from '@perun-web-apps/perun/openapi';
 import { MatDialog} from '@angular/material/dialog';
-import {
-  TABLE_MEMBER_RESOURCE_LIST,
-  TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_MEMBER_RESOURCE_LIST } from '@perun-web-apps/config/table-config';
 import { ActivatedRoute } from '@angular/router';
-import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AddMemberToResourceDialogComponent } from '../../../../shared/components/dialogs/add-member-to-resource-dialog/add-member-to-resource-dialog.component';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
@@ -24,7 +21,6 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 export class MemberResourcesComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
-              private tableConfigService: TableConfigService,
               private memberManager: MembersManagerService,
               private resourceManager: ResourcesManagerService,
               private route: ActivatedRoute,
@@ -38,15 +34,12 @@ export class MemberResourcesComponent implements OnInit {
   loading = false;
   displayedColumns: string[] = ['id', 'name', 'vo', 'facility', 'tags', 'description'];
 
-  pageSize: number;
   tableId = TABLE_MEMBER_RESOURCE_LIST;
 
   routeAuth: boolean;
   addAuth: boolean;
 
   ngOnInit(): void {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-
     this.route.parent.params.subscribe( parentParams => {
       const memberId = parentParams['memberId'];
 
@@ -101,10 +94,4 @@ export class MemberResourcesComponent implements OnInit {
   applyFilter(filterValue: string){
     this.filterValue = filterValue;
   }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
-  }
-
 }

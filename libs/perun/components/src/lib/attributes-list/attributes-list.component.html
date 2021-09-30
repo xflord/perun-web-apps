@@ -1,11 +1,10 @@
-<div [hidden]="dataSource.filteredData.length === 0" class="card mt-3">
+<div class="card mt-3">
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
-    (page)="page.emit($event)"
+    [tableId]="tableId"
     [dataLength]="dataSource.filteredData.length"
-    [pageSizeOptions]="pageSizeOptions"
-    [pageSize]="pageSize">
+    [pageSizeOptions]="pageSizeOptions">
     <table
       mat-table
       [dataSource]="dataSource"
@@ -78,14 +77,17 @@
         *matRowDef="let attribute; columns: displayedColumns;"
         class="dark-hover-list-item">
       </tr>
+      <tr *matNoDataRow>
+        <td [attr.colspan]="displayedColumns.length">
+          <app-alert *ngIf="dataSource.filteredData.length === 0 && dataSource.data.length !== 0" alert_type="warn">
+            {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
+          </app-alert>
+
+          <app-alert *ngIf="dataSource.data.length === 0" alert_type="warn">
+            {{emptyListText | translate}}
+          </app-alert>
+        </td>
+      </tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
-
-<app-alert *ngIf="dataSource.filteredData.length === 0 && dataSource.data.length !== 0" alert_type="warn">
-  {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
-</app-alert>
-
-<app-alert *ngIf="dataSource.data.length === 0" alert_type="warn">
-  {{emptyListText | translate}}
-</app-alert>

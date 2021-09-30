@@ -19,20 +19,13 @@
     {{'USER_DETAIL.SETTINGS.ASSOCIATED_USERS.REMOVE' | translate}}
   </button>
   <app-users-list
-    (page)="pageChanged($event)"
-    [pageSize]="pageSize"
-    *ngIf="associatedUsers !== undefined && associatedUsers.length > 0"
+    [tableId]="tableId"
+    [noUsersFoundLabel]="'USER_DETAIL.SETTINGS.ASSOCIATED_USERS.NO_ASSOCIATED_USERS' | translate"
+    *ngIf="!loading"
     [users]="associatedUsers"
     [selection]="selection"
-    [displayedColumns]="displayedColumns"
-  >
+    [displayedColumns]="displayedColumns">
   </app-users-list>
-
-  <app-alert
-    alert_type="warn"
-    *ngIf="!loading && (associatedUsers === undefined || associatedUsers.length === 0)">
-    {{'USER_DETAIL.SETTINGS.ASSOCIATED_USERS.NO_ASSOCIATED_USERS' | translate}}
-  </app-alert>
 </div>
 
 <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>

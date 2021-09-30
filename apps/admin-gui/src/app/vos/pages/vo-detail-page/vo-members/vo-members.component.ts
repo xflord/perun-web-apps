@@ -18,8 +18,7 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { FormControl } from '@angular/forms';
-import { TABLE_VO_MEMBERS, TableConfigService } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
+import { TABLE_VO_MEMBERS } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { InviteMemberDialogComponent } from '../../../../shared/components/dialogs/invite-member-dialog/invite-member-dialog.component';
 
@@ -38,7 +37,6 @@ export class VoMembersComponent implements OnInit {
     private voService: VosManagerService,
     private route: ActivatedRoute,
     private notificator: NotificatorService,
-    private tableConfigService: TableConfigService,
     private dialog: MatDialog,
     private authzService: GuiAuthResolver,
     private storeService: StoreService,
@@ -64,7 +62,6 @@ export class VoMembersComponent implements OnInit {
   statuses = new FormControl();
   statusList = ['VALID', 'INVALID', 'EXPIRED', 'DISABLED'];
   selectedStatuses: string[] = [];
-  pageSize: number;
   tableId = TABLE_VO_MEMBERS;
   displayedColumns = ['checkbox', 'id', 'fullName', 'status', 'organization', 'email', 'logins'];
   searchString: string;
@@ -78,7 +75,6 @@ export class VoMembersComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.statuses.setValue(this.selectedStatuses);
     this.attrNames = this.attrNames.concat(this.storeService.getLoginAttributeNames());
     this.route.parent.params.subscribe(parentParams => {
@@ -168,11 +164,6 @@ export class VoMembersComponent implements OnInit {
       return `${this.statuses.value[0]}  ${this.statuses.value.length > 1 ? ('(+' + (this.statuses.value.length - 1) +' '+ (this.statuses.value.length === 2 ? 'other)' : 'others)')) : ''}`;
     }
     return '';
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   isManualAddingBlocked(voId: number): Promise<void> {

@@ -1,17 +1,14 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter,
   Input,
   OnChanges,
-  Output,
   ViewChild
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Service} from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 import {
   customDataSourceFilterPredicate,
   customDataSourceSort, downloadData, getDataForExport,
@@ -41,7 +38,7 @@ export class ServicesListComponent implements AfterViewInit, OnChanges {
   filterValue = '';
 
   @Input()
-  pageSize = 10;
+  tableId: string;
 
   @Input()
   displayedColumns: string[] = ['select', 'id', 'name', 'enabled', 'script', 'description'];
@@ -51,9 +48,6 @@ export class ServicesListComponent implements AfterViewInit, OnChanges {
 
   @Input()
   disableRouting = false;
-
-  @Output()
-  page = new EventEmitter<PageEvent>();
 
   private sort: MatSort;
 
@@ -104,12 +98,12 @@ export class ServicesListComponent implements AfterViewInit, OnChanges {
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.pageSize, this.child.paginator.pageIndex, false);
+    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex, false);
   }
 
   /** The label for the checkbox on the passed row */

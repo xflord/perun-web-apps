@@ -27,9 +27,8 @@
           [authors]="authors"
           (addAuthor)="addAuthor($event)"
           [disableRouting]="true"
-          [pageSize]="pageSizeAuthors"
-          [displayedColumns]="['id', 'name', 'organization', 'email', 'add']"
-          (page)="pageChangedAuthors($event)">
+          [tableId]="tableIdAuthors"
+          [displayedColumns]="['id', 'name', 'organization', 'email', 'add']">
         </perun-web-apps-authors-list>
         <app-alert *ngIf="!firstSearchDone" alert_type="info">
           {{'DIALOGS.ADD_AUTHORS.SEARCH_INFO' | translate}}
@@ -44,9 +43,8 @@
           [authors]="authorsToAdd"
           (removeAuthor)="removeAuthor($event)"
           [disableRouting]="true"
-          [pageSize]="pageSizeAddAuthors"
-          [displayedColumns]="['id', 'name', 'organization', 'email', 'remove']"
-          (page)="pageChangedAuthorsToAdd($event)">
+          [tableId]="tableIdAuthors"
+          [displayedColumns]="['id', 'name', 'organization', 'email', 'remove']">
         </perun-web-apps-authors-list>
       </div>
       <app-alert *ngIf="authorsToAdd.length === 0" alert_type="warn">

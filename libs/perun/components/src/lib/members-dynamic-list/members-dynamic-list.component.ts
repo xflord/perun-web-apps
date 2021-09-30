@@ -1,15 +1,12 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter,
   Input, OnChanges,
   OnInit,
-  Output,
   ViewChild
 } from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
 import {SelectionModel} from '@angular/cdk/collections';
 import { MemberGroupStatus, RichMember, VoMemberStatuses } from '@perun-web-apps/perun/openapi';
 import {
@@ -27,6 +24,7 @@ import {
 import { merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
+import { TableConfigService } from '@perun-web-apps/config/table-config';
 
 @Component({
   selector: 'perun-web-apps-members-dynamic-list',
@@ -38,6 +36,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
   constructor(private dialog: MatDialog,
               private authResolver: GuiAuthResolver,
               private tableCheckbox: TableCheckbox,
+              private tableConfigService: TableConfigService,
               private dynamicPaginatingService: DynamicPaginatingService) { }
 
   @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
@@ -49,9 +48,6 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
 
   @Input()
   displayedColumns: string[] = ['checkbox', 'id', 'type', 'fullName', 'status', 'groupStatus', 'organization', 'email', 'logins'];
-
-  @Input()
-  pageSize = 10;
 
   @Input()
   voId: number;
@@ -72,10 +68,10 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
   selectedStatuses: VoMemberStatuses[];
 
   @Input()
-  updateTable: boolean;
+  tableId: string;
 
-  @Output()
-  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
+  @Input()
+  updateTable: boolean;
 
   dataSource: DynamicDataSource<RichMember>;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
@@ -94,9 +90,8 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
-
     this.dataSource = new DynamicDataSource<RichMember>(this.dynamicPaginatingService, this.authResolver);
-    this.dataSource.loadMembers(this.voId, this.attrNames,'ASCENDING', 0, this.pageSize,
+    this.dataSource.loadMembers(this.voId, this.attrNames,'ASCENDING', 0, this.tableConfigService.getTablePageSize(this.tableId),
       'NAME', this.selectedStatuses, this.searchString, this.groupId, this.selectedGroupStatuses);
   }
 
@@ -117,7 +112,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.pageSize;
+    const numRows = this.child.paginator.pageSize;
     return numSelected === numRows;
   }
 

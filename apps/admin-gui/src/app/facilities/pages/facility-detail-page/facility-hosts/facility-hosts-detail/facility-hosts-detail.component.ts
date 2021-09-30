@@ -2,9 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Attribute, AttributesManagerService, FacilitiesManagerService, Host } from '@perun-web-apps/perun/openapi';
 import { MatDialog } from '@angular/material/dialog';
-import { TABLE_ATTRIBUTES_SETTINGS, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_ATTRIBUTES_SETTINGS } from '@perun-web-apps/config/table-config';
 import { ActivatedRoute } from '@angular/router';
-import { PageEvent } from '@angular/material/paginator';
 import { filterCoreAttributes, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AttributesListComponent } from '@perun-web-apps/perun/components';
 import { DeleteAttributeDialogComponent } from '../../../../../shared/components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
@@ -21,7 +20,6 @@ export class FacilityHostsDetailComponent implements OnInit {
   constructor(private dialog: MatDialog,
               private attributesManager: AttributesManagerService,
               private facilityManager: FacilitiesManagerService,
-              private tableConfigService: TableConfigService,
               private route: ActivatedRoute) {
   }
 
@@ -34,10 +32,8 @@ export class FacilityHostsDetailComponent implements OnInit {
   host: Host = { beanName: '', id: 0 };
   loading: boolean;
   tableId = TABLE_ATTRIBUTES_SETTINGS;
-  pageSize: number;
 
   ngOnInit(): void {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.params.subscribe(params => {
       this.hostId = params['hostId'];
       this.facilityManager.getHostById(this.hostId).subscribe(host => {
@@ -113,10 +109,4 @@ export class FacilityHostsDetailComponent implements OnInit {
       }
     });
   }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
-  }
-
 }

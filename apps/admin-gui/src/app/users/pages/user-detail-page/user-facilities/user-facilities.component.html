@@ -7,11 +7,10 @@
   </perun-web-apps-immediate-filter>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <perun-web-apps-facilities-list
-    (page)="pageChanged($event)"
+    [tableId]="tableId"
     *ngIf="!loading"
     [filterValue]="filterValue"
     [facilities]="facilities"
-    [displayedColumns]="displayedColumns"
-    [pageSize]="pageSize">
+    [displayedColumns]="displayedColumns">
   </perun-web-apps-facilities-list>
 </div>

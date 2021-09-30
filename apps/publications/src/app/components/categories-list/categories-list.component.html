@@ -1,12 +1,10 @@
-<div [hidden]="dataSource.filteredData.length === 0 || categories.length === 0"
-     class="card mt-3">
+<div class="card mt-3">
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
-    (page)="page.emit($event)"
+    [tableId]="tableId"
     [dataLength]="dataSource.filteredData.length"
-    [pageSizeOptions]="pageSizeOptions"
-    [pageSize]="pageSize">
+    [pageSizeOptions]="pageSizeOptions">
     <table [dataSource]="dataSource"
            class="w-100"
            mat-table
@@ -52,10 +50,13 @@
         class="dark-hover-list-item"
         mat-row>
       </tr>
+      <tr *matNoDataRow>
+        <td [attr.colspan]="displayedColumns.length">
+          <app-alert *ngIf="dataSource.filteredData.length === 0 && categories.length !== 0" alert_type="warn">
+            {{'CATEGORIES_PAGE.NO_FILTER_RESULTS' | translate}}
+          </app-alert>
+        </td>
+      </tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
-
-<app-alert *ngIf="dataSource.filteredData.length === 0 && categories.length !== 0" alert_type="warn">
-  {{'CATEGORIES_PAGE.NO_FILTER_RESULTS' | translate}}
-</app-alert>

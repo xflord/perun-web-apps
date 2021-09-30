@@ -39,8 +39,7 @@
 
       <div *ngIf="!loading">
         <app-users-list
-          (page)="pageChanged($event)"
-          [pageSize]="pageSize"
+          [tableId]="tableId"
           *ngIf="managers"
           [users]="managers"
           [disableRouting]="!routeAuth"
@@ -87,8 +86,7 @@
 
       <div *ngIf="!loading">
         <perun-web-apps-groups-list
-          (page)="pageChanged($event)"
-          [pageSize]="pageSize"
+          [tableId]="tableId"
           *ngIf="groups"
           [displayedColumns]="manageAuth ? ['select', 'id', 'vo', 'name', 'description'] : ['id', 'vo', 'name', 'description']"
           [groups]="groups"

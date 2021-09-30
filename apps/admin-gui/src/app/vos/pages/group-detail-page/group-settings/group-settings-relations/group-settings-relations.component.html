@@ -21,8 +21,7 @@
 
   <perun-web-apps-groups-list
     #list
-    (page)="pageChanged($event)"
-    [pageSize]="pageSize"
+    [tableId]="tableId"
     *ngIf="!loading"
     [groups]="groups"
     [parentGroup]="group"

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CabinetManagerService, PublicationSystem } from '@perun-web-apps/perun/openapi';
-import { TABLE_GROUP_RESOURCES_LIST, TableConfigService } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
+import { TABLE_GROUP_RESOURCES_LIST } from '@perun-web-apps/config/table-config';
 
 @Component({
   selector: 'perun-web-apps-publication-systems-page',
@@ -10,14 +9,12 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class PublicationSystemsPageComponent implements OnInit {
 
-  constructor(private cabinetManagerService: CabinetManagerService,
-              private tableConfigService: TableConfigService) {
+  constructor(private cabinetManagerService: CabinetManagerService) {
   }
 
   publicationSystems: PublicationSystem[] = [];
   loading: boolean;
   filterValue = '';
-  pageSize: number;
   tableId = TABLE_GROUP_RESOURCES_LIST;
 
   ngOnInit() {
@@ -35,10 +32,4 @@ export class PublicationSystemsPageComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
   }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
-  }
-
 }

@@ -7,13 +7,12 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
-import { TABLE_SPONSORED_MEMBERS, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_SPONSORED_MEMBERS } from '@perun-web-apps/config/table-config';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { CreateSponsoredMemberDialogComponent } from '../../../../../shared/components/dialogs/create-sponsored-member-dialog/create-sponsored-member-dialog.component';
 import { GenerateSponsoredMembersDialogComponent } from '../../../../../shared/components/dialogs/generate-sponsored-members-dialog/generate-sponsored-members-dialog.component';
 import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
-import { PageEvent } from '@angular/material/paginator';
 import { SponsorExistingMemberDialogComponent } from '../../../../../shared/components/dialogs/sponsor-existing-member-dialog/sponsor-existing-member-dialog.component';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { Role } from '@perun-web-apps/perun/models';
@@ -33,7 +32,6 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private authResolver: GuiAuthResolver,
-              private tableConfigService: TableConfigService,
               private storeService: StoreService,
               private authzResolver: AuthzResolverService) {
   }
@@ -62,12 +60,10 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
   selection = new SelectionModel<MemberWithSponsors>(true, []);
   searchString = '';
   loading = false;
-  pageSize: number;
   tableId = TABLE_SPONSORED_MEMBERS;
 
   ngOnInit(): void {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(parentParentParams => {
       this.voId = parentParentParams ['voId'];
       this.vo = {
@@ -188,10 +184,5 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.searchString = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

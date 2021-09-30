@@ -5,10 +5,9 @@ import {
   User,
   UsersManagerService
 } from '@perun-web-apps/perun/openapi';
-import { TABLE_FACILITY_BLACKLIST_LIST, TableConfigService } from '@perun-web-apps/config/table-config';
+import { TABLE_FACILITY_BLACKLIST_LIST } from '@perun-web-apps/config/table-config';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-perun-web-apps-facility-settings-blacklist',
@@ -19,7 +18,6 @@ export class FacilitySettingsBlacklistComponent implements OnInit {
 
   constructor(private facilitiesManager: FacilitiesManagerService,
               private usersManager: UsersManagerService,
-              private tableConfigService: TableConfigService,
               private route: ActivatedRoute) {
   }
 
@@ -27,12 +25,10 @@ export class FacilitySettingsBlacklistComponent implements OnInit {
   selected = new SelectionModel<[BanOnFacility, User]>(true, []);
   filterValue = '';
   loading: boolean;
-  pageSize: number;
   tableId = TABLE_FACILITY_BLACKLIST_LIST;
 
 
   ngOnInit(): void {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.refreshTable();
   }
 
@@ -58,10 +54,5 @@ export class FacilitySettingsBlacklistComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

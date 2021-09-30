@@ -1,11 +1,10 @@
-<div [hidden]="this.members.length === 0 || !dataSource || dataSource.filteredData.length === 0" class="card mt-2">
+<div [hidden]="!dataSource" class="card mt-2">
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
-    (page)="page.emit($event)"
     [dataLength]="dataSource.filteredData.length"
-    [pageSizeOptions]="pageSizeOptions"
-    [pageSize]="pageSize">
+    [tableId]="tableId"
+    [pageSizeOptions]="pageSizeOptions">
     <table
       [dataSource]="dataSource"
       class="w-100"
@@ -110,18 +109,21 @@
         class="dark-hover-list-item"
         mat-row>
       </tr>
+      <tr *matNoDataRow>
+        <td [attr.colspan]="displayedColumns.length">
+          <app-alert
+            *ngIf="members.length !== 0 && dataSource.filteredData.length === 0"
+            alert_type="warn">
+            {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
+          </app-alert>
+
+          <app-alert
+            *ngIf="members.length === 0"
+            alert_type="warn">
+            {{'SHARED_LIB.UI.ALERTS.NO_MEMBERS' | translate}}
+          </app-alert>
+        </td>
+      </tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
-
-<app-alert
-  *ngIf="!!dataSource && members.length !== 0 && dataSource.filteredData.length === 0"
-  alert_type="warn">
-  {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
-</app-alert>
-
-<app-alert
-  *ngIf="members.length === 0"
-  alert_type="warn">
-  {{'SHARED_LIB.UI.ALERTS.NO_MEMBERS' | translate}}
-</app-alert>

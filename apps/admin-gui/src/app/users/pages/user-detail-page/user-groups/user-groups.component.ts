@@ -9,10 +9,8 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import {
   TABLE_USER_DETAIL_ADMIN_GROUPS,
-  TABLE_USER_DETAIL_MEMBER_GROUPS,
-  TableConfigService
+  TABLE_USER_DETAIL_MEMBER_GROUPS
 } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -35,23 +33,18 @@ export class UserGroupsComponent implements OnInit {
   userId: number;
 
   tableId = TABLE_USER_DETAIL_MEMBER_GROUPS;
-  pageSize: number;
 
   adminTableId = TABLE_USER_DETAIL_ADMIN_GROUPS;
-  adminPageSize: number;
   showPrincipal: boolean;
 
   constructor(private usersService: UsersManagerService,
               private memberService: MembersManagerService,
-              private tableConfigService: TableConfigService,
               private groupService: GroupsManagerService,
               private store: StoreService,
               private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
-    this.adminPageSize = this.tableConfigService.getTablePageSize(this.adminTableId);
     if ((this.showPrincipal = this.route.snapshot.data.showPrincipal) === true) {
       this.userId = this.store.getPerunPrincipal().user.id;
     } else {
@@ -59,16 +52,6 @@ export class UserGroupsComponent implements OnInit {
     }
     this.refreshAdminTable();
     this.refreshMemberTable();
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
-  }
-
-  adminPageChanged(event: PageEvent) {
-    this.adminPageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.adminTableId, event.pageSize);
   }
 
   memberFilter(filterValue: string) {

@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/perun/openapi';
-import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import {
   TABLE_REQUIRED_ATTRIBUTES,
-  TableConfigService
 } from '@perun-web-apps/config/table-config';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -21,7 +19,6 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 export class ServiceRequiredAttributesComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-              private tableConfigService: TableConfigService,
               private attributeManager: AttributesManagerService,
               private dialog: MatDialog,
               public authResolver: GuiAuthResolver
@@ -33,13 +30,10 @@ export class ServiceRequiredAttributesComponent implements OnInit {
   serviceId: number;
   selection = new SelectionModel<AttributeDefinition>(true, []);
   attrDefinitions: AttributeDefinition[] = [];
-
-  pageSize: number;
   tableId = TABLE_REQUIRED_ATTRIBUTES;
 
   ngOnInit(): void {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.params.subscribe(params => {
       this.serviceId = params['serviceId'];
       this.refreshTable();
@@ -88,11 +82,6 @@ export class ServiceRequiredAttributesComponent implements OnInit {
         this.refreshTable();
       }
     });
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   applyFilter(filterValue: string) {

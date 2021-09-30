@@ -5,8 +5,7 @@ import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { AttrEntity } from '@perun-web-apps/perun/models';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
-import { TableConfigService, TABLE_ATTRIBUTES_SETTINGS } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
+import { TABLE_ATTRIBUTES_SETTINGS } from '@perun-web-apps/config/table-config';
 import { AttributesListComponent } from '@perun-web-apps/perun/components';
 
 export interface CreateAttributeDialogData {
@@ -28,26 +27,23 @@ export class CreateAttributeDialogComponent implements OnInit {
 
   @ViewChild('list')
   list: AttributesListComponent;
-  attributes: Attribute[];
+  attributes: Attribute[] = [];
   selected = new SelectionModel<Attribute>(true, []);
   saveSuccessMessage: string;
   showError = false;
   filterValue = '';
   tableId = TABLE_ATTRIBUTES_SETTINGS;
-  pageSize: number;
   loading: boolean;
 
   constructor(private dialogRef: MatDialogRef<CreateAttributeDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: CreateAttributeDialogData,
               private attributesManager: AttributesManagerService,
               private notificator: NotificatorService,
-              private tableConfigService: TableConfigService,
               private translate: TranslateService) {
     this.translate.get('DIALOGS.CREATE_ATTRIBUTE.SUCCESS_SAVE').subscribe(value => this.saveSuccessMessage = value);
   }
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     const unWanted = new Array<number>();
     this.data.notEmptyAttributes.forEach(attribute => {
       unWanted.push(attribute.id);
@@ -267,11 +263,6 @@ export class CreateAttributeDialogComponent implements OnInit {
     this.notificator.showSuccess(this.saveSuccessMessage);
     this.selected.clear();
     this.dialogRef.close('saved');
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   private twoEntityValid(attribute: Attribute) {

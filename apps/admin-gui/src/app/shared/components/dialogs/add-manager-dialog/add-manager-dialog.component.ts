@@ -13,8 +13,7 @@ import {
   Vo
 } from '@perun-web-apps/perun/openapi';
 import { Role } from '@perun-web-apps/perun/models';
-import { TABLE_ADD_MANAGER, TableConfigService } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
+import { TABLE_ADD_MANAGER } from '@perun-web-apps/config/table-config';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { FormControl, Validators } from '@angular/forms';
 
@@ -41,8 +40,7 @@ export class AddManagerDialogComponent implements OnInit {
     private notificator: NotificatorService,
     private storeService: StoreService,
     protected route: ActivatedRoute,
-    protected router: Router,
-    private tableConfigService: TableConfigService
+    protected router: Router
   ) {
     translate.get('DIALOGS.ADD_MANAGERS.TITLE').subscribe(value => this.title = value);
     translate.get('DIALOGS.ADD_MANAGERS.SUCCESS').subscribe(value => this.successMessage = value);
@@ -59,12 +57,10 @@ export class AddManagerDialogComponent implements OnInit {
   firstSearchDone = false;
   availableRoles: Role[];
   theme: string;
-  pageSize: number;
   tableId = TABLE_ADD_MANAGER;
   searchCtrl: FormControl;
 
   ngOnInit(): void {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.theme = this.data.theme;
     this.availableRoles = this.data.availableRoles;
     this.selectedRole = this.data.selectedRole;
@@ -106,10 +102,5 @@ export class AddManagerDialogComponent implements OnInit {
       },
       () => this.loading = false
     );
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

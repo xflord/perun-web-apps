@@ -15,8 +15,7 @@
         <!--      {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.CONFIGURE_GROUPS' | translate}}-->
         <!--    </mat-checkbox>-->
         <perun-web-apps-groups-list
-          (page)="pageChanged($event)"
-          [pageSize]="pageSize"
+          [tableId]="tableId"
           [groups]="unAssignedGroups"
           [selection]="selection"
           [filter]="filterValue"
@@ -99,5 +98,6 @@
         </div>
       </mat-step>
     </mat-horizontal-stepper>
+
   </div>
 </div>

@@ -6,13 +6,11 @@ import {
   GroupsManagerService,
   RegistrarManagerService
 } from '@perun-web-apps/perun/openapi';
-import { PageEvent } from '@angular/material/paginator';
 import {
   TABLE_GROUP_APPLICATIONS_DETAILED,
-  TABLE_GROUP_APPLICATIONS_NORMAL,
-  TableConfigService
+  TABLE_GROUP_APPLICATIONS_NORMAL
 } from '@perun-web-apps/config/table-config';
-import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { FormControl } from '@angular/forms';
 import { formatDate } from '@angular/common';
 
@@ -30,10 +28,8 @@ export class GroupApplicationsComponent implements OnInit {
 
   constructor(private groupService: GroupsManagerService,
               private registrarManager: RegistrarManagerService,
-              private tableConfigService: TableConfigService,
               protected route: ActivatedRoute,
-              private guiAuthResolver: GuiAuthResolver,
-              private store: StoreService) { }
+              private guiAuthResolver: GuiAuthResolver) { }
 
   state = 'pending';
   loading = false;
@@ -42,8 +38,6 @@ export class GroupApplicationsComponent implements OnInit {
   displayedColumns: string[] = ['id', 'createdAt', 'type', 'state', 'user', 'modifiedBy'];
   filterValue = '';
   showAllDetails = false;
-  detailPageSize: number;
-  pageSize: number;
   detailTableId = TABLE_GROUP_APPLICATIONS_DETAILED;
   tableId = TABLE_GROUP_APPLICATIONS_NORMAL;
   routeAuth = false;
@@ -52,8 +46,6 @@ export class GroupApplicationsComponent implements OnInit {
   endDate: FormControl;
 
   ngOnInit() {
-    this.detailPageSize = this.tableConfigService.getTablePageSize(this.detailTableId);
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.loading = true;
     this.route.parent.params.subscribe(parentParams => {
       const groupId = parentParams['groupId'];
@@ -124,15 +116,5 @@ export class GroupApplicationsComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  detailPageChanged(event: PageEvent) {
-    this.detailPageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.detailTableId, event.pageSize);
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

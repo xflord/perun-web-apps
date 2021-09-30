@@ -6,10 +6,8 @@ import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
 import { CreateRelationDialogComponent } from '../../../../../shared/components/dialogs/create-relation-dialog/create-relation-dialog.component';
 import { RemoveRelationDialogComponent } from '../../../../../shared/components/dialogs/remove-relation-dialog/remove-relation-dialog.component';
 import {
-  TABLE_GROUP_SETTINGS_RELATIONS,
-  TableConfigService
+  TABLE_GROUP_SETTINGS_RELATIONS
 } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { GroupsListComponent } from '@perun-web-apps/perun/components';
 
@@ -24,7 +22,6 @@ export class GroupSettingsRelationsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private groupService: GroupsManagerService,
-    private tableConfigService: TableConfigService,
     private dialog: MatDialog
   ) { }
 
@@ -39,13 +36,11 @@ export class GroupSettingsRelationsComponent implements OnInit {
   filterValue = '';
 
   tableId = TABLE_GROUP_SETTINGS_RELATIONS;
-  pageSize: number;
 
   @ViewChild('list', {})
   list: GroupsListComponent;
 
   ngOnInit() {
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.route.parent.parent.params.subscribe(params => {
       this.groupId = params['groupId'];
       this.voId = params['voId'];
@@ -111,10 +106,5 @@ export class GroupSettingsRelationsComponent implements OnInit {
   showReverseUnions() {
     this.reverse = !this.reverse;
     this.refreshTable();
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

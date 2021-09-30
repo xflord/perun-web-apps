@@ -7,8 +7,7 @@ import { RemoveGroupManagerDialogComponent } from '../dialogs/remove-group-manag
 import { AddGroupManagerDialogComponent } from '../dialogs/add-group-manager-dialog/add-group-manager-dialog.component';
 import { AuthzResolverService, Facility, Group, Resource, RichUser, Vo } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { TABLE_GROUP_MANAGERS_PAGE, TableConfigService } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
+import { TABLE_GROUP_MANAGERS_PAGE } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 import { MatTabChangeEvent } from '@angular/material/tabs';
@@ -24,7 +23,6 @@ export class ManagersPageComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private tableConfigService: TableConfigService,
     private authzService: AuthzResolverService,
     private storeService: StoreService,
     public guiAuthResolver: GuiAuthResolver
@@ -56,7 +54,6 @@ export class ManagersPageComponent implements OnInit {
   loading = false;
 
   tableId = TABLE_GROUP_MANAGERS_PAGE;
-  pageSize: number;
 
   routeAuth: boolean;
   manageAuth: boolean;
@@ -66,7 +63,6 @@ export class ManagersPageComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
 
     this.guiAuthResolver.getRolesAuthorization(this.availableRoles, this.complementaryObject, this.availableRolesPrivileges);
     this.availableRoles = this.availableRoles.filter(role => this.availableRolesPrivileges.get(role).readAuth);
@@ -210,10 +206,5 @@ export class ManagersPageComponent implements OnInit {
         this.refreshGroups();
       }
     });
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 }

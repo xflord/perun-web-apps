@@ -11,13 +11,12 @@
     <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
     <perun-web-apps-attributes-list
       #list
-      (page)="pageChanged($event)"
-      *ngIf="attributes !== undefined && !loading"
+      [tableId]="tableId"
+      *ngIf="!loading"
       [attributes]="attributes"
       [filterValue]="filterValue"
       [inDialog]="true"
       [emptyListText]="'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.EMPTY_ATTRIBUTES'"
-      [pageSize]="pageSize"
       [selection]="selected">
     </perun-web-apps-attributes-list>
   </div>

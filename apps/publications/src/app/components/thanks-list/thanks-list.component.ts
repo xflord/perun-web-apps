@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { Owner, ThanksForGUI } from '@perun-web-apps/perun/openapi';
-import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import {
   customDataSourceFilterPredicate,
@@ -25,16 +24,13 @@ export class ThanksListComponent implements AfterViewInit, OnChanges {
   @Input()
   filterValue = '';
   @Input()
-  pageSize = 10;
+  tableId: string;
   @Input()
   displayedColumns = ['select', 'id', 'name', 'createdBy'];
   @Input()
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   @Input()
   selection = new SelectionModel<Owner>(true, []);
-
-  @Output()
-  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
   private sort: MatSort;
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
@@ -57,7 +53,7 @@ export class ThanksListComponent implements AfterViewInit, OnChanges {
   }
 
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
   }
 
   getDataForColumn(data: ThanksForGUI, column: string):string {
@@ -76,7 +72,7 @@ export class ThanksListComponent implements AfterViewInit, OnChanges {
   }
 
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.pageSize, this.child.paginator.pageIndex,false);
+    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex,false);
   }
 
   private setDataSource() {

@@ -5,10 +5,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import {
-  TABLE_CREATE_RELATION_GROUP_DIALOG,
-  TableConfigService
+  TABLE_CREATE_RELATION_GROUP_DIALOG
 } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
 
 export interface CreateRelationDialogData {
   theme: string,
@@ -29,7 +27,6 @@ export class CreateRelationDialogComponent implements OnInit {
               private groupService: GroupsManagerService,
               private notificator: NotificatorService,
               private translate: TranslateService,
-              private tableConfigService: TableConfigService,
               private guiAuthResolver: GuiAuthResolver,
               @Inject(MAT_DIALOG_DATA) public data: CreateRelationDialogData
   ) {
@@ -44,13 +41,11 @@ export class CreateRelationDialogComponent implements OnInit {
   loading:boolean;
 
   tableId = TABLE_CREATE_RELATION_GROUP_DIALOG;
-  pageSize: number;
 
   groupsToDisable: Set<number> = new Set<number>();
 
   ngOnInit() {
     this.loading = true;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.groupService.getGroupUnions(this.data.group.id, !this.data.reverse).subscribe( unionGroups => {
       unionGroups = unionGroups.concat(this.data.groups);
       this.groupService.getAllGroups(this.data.voId).subscribe(allGroups => {
@@ -78,11 +73,6 @@ export class CreateRelationDialogComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   private setGroupsToDisable() {

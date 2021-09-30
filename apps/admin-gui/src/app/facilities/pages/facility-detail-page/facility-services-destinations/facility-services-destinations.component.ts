@@ -7,11 +7,9 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import {
   TABLE_FACILITY_SERVICES_DESTINATION_LIST,
-  TableConfigService
 } from '@perun-web-apps/config/table-config';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PageEvent } from '@angular/material/paginator';
 import { RemoveDestinationDialogComponent } from '../../../../shared/components/dialogs/remove-destination-dialog/remove-destination-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
@@ -33,7 +31,6 @@ export class FacilityServicesDestinationsComponent implements OnInit {
   constructor(private dialog: MatDialog,
               private facilitiesManager: FacilitiesManagerService,
               private servicesManager: ServicesManagerService,
-              private tableConfigService: TableConfigService,
               private translate: TranslateService,
               private notificator: NotificatorService,
               private route: ActivatedRoute,
@@ -48,7 +45,6 @@ export class FacilityServicesDestinationsComponent implements OnInit {
   filterValue = '';
 
   loading: boolean;
-  pageSize: number;
   tableId = TABLE_FACILITY_SERVICES_DESTINATION_LIST;
 
   addAuth: boolean;
@@ -57,8 +53,6 @@ export class FacilityServicesDestinationsComponent implements OnInit {
   blockAuth: boolean;
 
   ngOnInit() {
-
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.loading = true;
     this.route.parent.params.subscribe(parentParams => {
       const facilityId = parentParams['facilityId'];
@@ -160,11 +154,6 @@ export class FacilityServicesDestinationsComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
-  }
-
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
   allSelectedAllowed() {

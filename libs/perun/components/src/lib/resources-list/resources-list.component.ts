@@ -6,7 +6,6 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Group, ResourceTag, RichResource } from '@perun-web-apps/perun/openapi';
@@ -41,8 +40,6 @@ export class ResourcesListComponent implements OnInit, OnChanges {
   @Input()
   filterValue: string;
   @Input()
-  pageSize = 10;
-  @Input()
   disableRouting = false;
   @Input()
   routingVo = false;
@@ -58,9 +55,9 @@ export class ResourcesListComponent implements OnInit, OnChanges {
   groupId: number = null;
   @Input()
   resourcesToDisableCheckbox: Set<number> = new Set<number>();
+  @Input()
+  tableId: string;
 
-  @Output()
-  page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
   @Output()
   refreshTable: EventEmitter<void> = new EventEmitter<void>();
   @Output()
@@ -150,14 +147,14 @@ export class ResourcesListComponent implements OnInit, OnChanges {
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-    const isAllSelected = this.tableCheckbox.isAllSelectedWithDisabledCheckbox(this.selection.selected.length, this.filterValue, this.pageSize, this.child.paginator.hasNextPage(), this.child.paginator.pageIndex, this.dataSource, this.sort, this.canBeSelected);
+    const isAllSelected = this.tableCheckbox.isAllSelectedWithDisabledCheckbox(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.child.paginator.pageIndex, this.dataSource, this.sort, this.canBeSelected);
     this.allSelected.emit(isAllSelected)
     return isAllSelected;
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.pageSize, this.child.paginator.pageIndex, true, this.canBeSelected);
+    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex, true, this.canBeSelected);
     this.setAuth();
   }
 
