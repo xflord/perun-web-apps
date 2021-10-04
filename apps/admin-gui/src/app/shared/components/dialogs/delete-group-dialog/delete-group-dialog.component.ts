@@ -44,7 +44,8 @@ export class DeleteGroupDialogComponent implements OnInit {
 
   onDelete() {
     this.loading = true;
-    this.groupService.deleteGroups(this.data.groups.map(elem => elem.id), this.force).subscribe( () => {
+    const groups: number[] = this.data.groups.map(elem => elem.id);
+    this.groupService.deleteGroups({groups: groups, forceDelete: this.force}).subscribe( () => {
       this.translate.get('DIALOGS.DELETE_GROUP.SUCCESS').subscribe(successMessage => {
         this.notificator.showSuccess(successMessage);
         this.dialogRef.close(true);

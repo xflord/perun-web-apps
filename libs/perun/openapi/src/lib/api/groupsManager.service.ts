@@ -18,6 +18,7 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { Group } from '../model/group';
+import { InputDeleteGroups } from '../model/inputDeleteGroups';
 import { InputUpdateGroup } from '../model/inputUpdateGroup';
 import { Member } from '../model/member';
 import { PerunException } from '../model/perunException';
@@ -532,30 +533,16 @@ export class GroupsManagerService {
 
     /**
      * Forcefully deletes a list of groups (remove all group members, remove group from resources).
-     * @param groups list of Group ids List&lt;Integer&gt;
-     * @param forceDelete If true use force delete
+     * @param inputDeleteGroups 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteGroups(groups: Array<number>, forceDelete: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteGroups(groups: Array<number>, forceDelete: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteGroups(groups: Array<number>, forceDelete: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteGroups(groups: Array<number>, forceDelete: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (groups === null || groups === undefined) {
-            throw new Error('Required parameter groups was null or undefined when calling deleteGroups.');
-        }
-        if (forceDelete === null || forceDelete === undefined) {
-            throw new Error('Required parameter forceDelete was null or undefined when calling deleteGroups.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (groups) {
-            groups.forEach((element) => {
-                queryParameters = queryParameters.append('groups[]', <any>element);
-            })
-        }
-        if (forceDelete !== undefined && forceDelete !== null) {
-            queryParameters = queryParameters.set('forceDelete', <any>forceDelete);
+    public deleteGroups(inputDeleteGroups: InputDeleteGroups, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteGroups(inputDeleteGroups: InputDeleteGroups, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteGroups(inputDeleteGroups: InputDeleteGroups, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteGroups(inputDeleteGroups: InputDeleteGroups, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (inputDeleteGroups === null || inputDeleteGroups === undefined) {
+            throw new Error('Required parameter inputDeleteGroups was null or undefined when calling deleteGroups.');
         }
 
         let headers = this.defaultHeaders;
@@ -586,10 +573,18 @@ export class GroupsManagerService {
         }
 
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/groupsManager/deleteGroups`,
-            null,
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/json/groupsManager/deleteGroups`,
+            inputDeleteGroups,
             {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

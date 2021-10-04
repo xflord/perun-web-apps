@@ -71,6 +71,7 @@ export * from './inputCreateSponsoredMember1';
 export * from './inputCreateSponsoredMemberFromCSV';
 export * from './inputCreateThanks';
 export * from './inputCreateVoWithVo';
+export * from './inputDeleteGroups';
 export * from './inputDeleteResourceTag';
 export * from './inputEntitylessAttribute';
 export * from './inputFormItemData';
