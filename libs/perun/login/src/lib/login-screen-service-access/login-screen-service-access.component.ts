@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthzResolverService, PerunPrincipal } from '@perun-web-apps/perun/openapi';
 import { FormControl, Validators } from '@angular/forms';
-import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { UniversalConfirmationDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 

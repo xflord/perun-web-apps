@@ -1,9 +1,8 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   Input,
-  OnChanges,
+  OnChanges, OnInit,
   Output,
   ViewChild
 } from '@angular/core';
@@ -26,7 +25,7 @@ import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
   templateUrl: './user-ext-sources-list.component.html',
   styleUrls: ['./user-ext-sources-list.component.scss']
 })
-export class UserExtSourcesListComponent implements AfterViewInit, OnChanges {
+export class UserExtSourcesListComponent implements OnInit, OnChanges {
 
   constructor(private route: ActivatedRoute,
               private authResolver: GuiAuthResolver) {
@@ -64,7 +63,7 @@ export class UserExtSourcesListComponent implements AfterViewInit, OnChanges {
   dataSource: MatTableDataSource<RichUserExtSource>;
   userId: number;
 
-  ngAfterViewInit() {
+  ngOnInit() {
     if(!this.disableRouting){
       this.route.parent.params.subscribe(params => {
         this.userId = params["userId"];

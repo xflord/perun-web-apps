@@ -60,7 +60,7 @@ export class CreateGroupDialogComponent implements OnInit{
     this.theme = this.data.theme;
     this.invalidNameMessage = this.invalidNameMessage && this.secondaryRegex ? this.invalidNameMessage : '';
     this.nameControl = new FormControl('', [Validators.required, Validators.pattern(this.secondaryRegex ? this.secondaryRegex : ''), Validators.pattern('.*[\\S]+.*')]);
-    this.descriptionControl = new FormControl('', [Validators.required, Validators.maxLength(129)]);
+    this.descriptionControl = new FormControl('');
     this.selectedParent = null;
   }
 

@@ -603,6 +603,31 @@
         }
       }
     },
+    "perun-namespace-password-form": {
+      "projectType": "library",
+      "root": "libs/perun/namespace-password-form",
+      "sourceRoot": "libs/perun/namespace-password-form/src",
+      "prefix": "perun-web-apps",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/perun/namespace-password-form"],
+          "options": {
+            "jestConfig": "libs/perun/namespace-password-form/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/perun/namespace-password-form/src/**/*.ts",
+              "libs/perun/namespace-password-form/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "perun-openapi": {
       "projectType": "library",
       "root": "libs/perun/openapi",
@@ -1208,12 +1233,15 @@
   },
   "schematics": {
     "@nrwl/angular:application": {
+      "linter": "eslint",
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress"
     },
     "@nrwl/angular:library": {
+      "linter": "eslint",
       "unitTestRunner": "jest"
-    }
+    },
+    "@nrwl/angular:component": {}
   },
   "defaultProject": "admin-gui"
 }

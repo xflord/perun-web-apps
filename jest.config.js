@@ -25,5 +25,6 @@ module.exports = {
     '<rootDir>/apps/publications',
     '<rootDir>/apps/password-reset',
     '<rootDir>/libs/perun/login',
+    '<rootDir>/libs/perun/namespace-password-form',
   ],
 };

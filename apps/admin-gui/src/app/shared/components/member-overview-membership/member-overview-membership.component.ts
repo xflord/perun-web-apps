@@ -76,8 +76,11 @@ export class MemberOverviewMembershipComponent implements OnChanges {
     }
 
     const dialogRef = this.dialog.open(ChangeVoExpirationDialogComponent, config);
-    dialogRef.afterClosed().subscribe(success => {
-      if (success) {
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.success) {
+        if(result.member){
+          this.member = result.member;
+        }
         this.refreshVoExpiration();
       }
     });

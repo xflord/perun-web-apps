@@ -1,43 +1,17 @@
-<div (keyup)="onKeyInput($event)">
-  <h1 class="page-subtitle">{{'ADMIN.USERS.TITLE' | translate}}</h1>
-  <mat-form-field class="mr-2 search-field no-border-mat-input">
-    <input matInput
-           autocomplete="false"
-           placeholder="{{'ADMIN.USERS.SEARCH_PLACEHOLDER' | translate}}"
-           [formControl]="searchControl">
-    <mat-error>
-      {{'ADMIN.USERS.EMPTY_SEARCH' | translate }}
-    </mat-error>
-  </mat-form-field>
-  <button mat-flat-button
-          color="primary"
-          class="mr-2"
-          [disabled]="loading"
-          (click)="onSearchByString()">
-    <mat-icon>search</mat-icon>
-  </button>
-  <button
-    mat-stroked-button
-    class="mr-2"
-    [disabled]="loading"
-    (click)="findUsersWithoutVO()">
-    {{'ADMIN.USERS.USERS_WITHOUT_VO' | translate}}
-  </button>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto">
-  </mat-spinner>
-  <div *ngIf="!loading">
-    <app-users-list
-      (page)="pageChanged($event)"
-      [pageSize]="pageSize"
-      [displayedColumns]="['user', 'id', 'name', 'email', 'logins', 'organization']"
-      *ngIf="users !== undefined && users.length > 0"
-      [users]="users">
-    </app-users-list>
-    <app-alert *ngIf="!firstSearchDone" alert_type="info">
-      {{'ADMIN.USERS.SEARCH_INFO' | translate}}
-    </app-alert>
-    <app-alert *ngIf="firstSearchDone && users.length === 0" alert_type="warn">
-      {{'ADMIN.USERS.NO_USERS_FOUND' | translate}}
-    </app-alert>
-  </div>
-</div>
+<h1 class="page-subtitle">{{'ADMIN.USERS.TITLE' | translate}}</h1>
+<perun-web-apps-debounce-filter
+  class="mt-2 search-field"
+  [placeholder]="'ADMIN.USERS.SEARCH_PLACEHOLDER'"
+  (filter)="onSearchByString($event)">
+</perun-web-apps-debounce-filter>
+<mat-checkbox color="primary" class="ml-2" [checked]="usersWithoutVo" (change)="findUsersWithoutVO()">
+  {{'ADMIN.USERS.USERS_WITHOUT_VO' | translate}}
+</mat-checkbox>
+<perun-web-apps-users-dynamic-list [disableRouting]="false"
+                                   [searchString]="searchString"
+                                   [withoutVo]="usersWithoutVo"
+                                   [displayedColumns]="['user', 'id', 'name', 'email', 'logins', 'organization']"
+                                   [pageSize]="pageSize"
+                                   (page)="pageChanged($event)"
+                                   [attrNames]="attributes">
+</perun-web-apps-users-dynamic-list>

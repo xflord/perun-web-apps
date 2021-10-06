@@ -4,9 +4,9 @@ import {catchError, finalize} from "rxjs/operators";
 import {
   MemberGroupStatus,
   MembersOrderColumn,
-  PaginatedRichMembers,
-  RichMember,
-  SortingOrder,
+  PaginatedRichMembers, PaginatedRichUsers,
+  RichMember, RichUser,
+  SortingOrder, UsersOrderColumn,
   VoMemberStatuses
 } from '@perun-web-apps/perun/openapi';
 import { DynamicPaginatingService } from './dynamic-paginating.service';
@@ -14,15 +14,15 @@ import { GuiAuthResolver } from './gui-auth-resolver.service';
 
 
 
-export class MembersDataSource implements DataSource<RichMember> {
+export class DynamicDataSource<T> implements DataSource<T> {
 
-  private membersSubject = new BehaviorSubject<RichMember[]>([]);
+  private dataSubject = new BehaviorSubject<T[]>([]);
 
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
   public loading$ = this.loadingSubject.asObservable();
 
-  public allMemberCount = 0;
+  public allObjectCount = 0;
 
   public routeAuth = true;
 
@@ -55,23 +55,47 @@ export class MembersDataSource implements DataSource<RichMember> {
         if(data !== null && data.length !== 0){
           this.routeAuth = this.authzService.isAuthorized('getMemberById_int_policy', [{beanName: 'Vo', id: voId}, data[0]]);
         }
-        this.allMemberCount = (<PaginatedRichMembers>paginatedRichMembers).totalCount;
-        this.membersSubject.next((<PaginatedRichMembers>paginatedRichMembers).data);
+        this.allObjectCount = (<PaginatedRichMembers>paginatedRichMembers).totalCount;
+        // @ts-ignore
+        this.dataSubject.next(data);
       }
     });
-
   }
 
-  connect(): Observable<RichMember[]> {
-    return this.membersSubject.asObservable();
+  loadUsers(attrNames: string[],
+            pageSize: number,
+            pageIndex: number,
+            sortOrder: SortingOrder,
+            sortColumn: UsersOrderColumn,
+            searchString: string,
+            withoutVo: boolean) {
+    this.loadingSubject.next(true);
+    this.latestQueryTime = Date.now();
+    const thisQueryTime = this.latestQueryTime;
+
+    this.dynamicPaginatingService.getUsers(attrNames, sortOrder, pageIndex, pageSize, sortColumn, searchString, withoutVo).pipe(
+      catchError(() => of([])),
+      finalize(() => this.loadingSubject.next(false))
+    ).subscribe(paginatedRichUsers => {
+      if (this.latestQueryTime <= thisQueryTime) {
+        const data: RichUser[] = (<PaginatedRichUsers>paginatedRichUsers).data;
+        this.allObjectCount = (<PaginatedRichUsers>paginatedRichUsers).totalCount;
+        // @ts-ignore
+        this.dataSubject.next(data);
+      }
+    });
+  }
+
+  connect(): Observable<T[]> {
+    return this.dataSubject.asObservable();
   }
 
   disconnect(): void {
-    this.membersSubject.complete();
+    this.dataSubject.complete();
     this.loadingSubject.complete();
   }
 
-  getData(): RichMember[] {
-    return this.membersSubject.value;
+  getData(): T[] {
+    return this.dataSubject.value;
   }
 }
