@@ -1703,7 +1703,8 @@
       "CANCEL": "Cancel",
       "SAVE": "Save",
       "SUCCESS": "Expiration successfully changed",
-      "SAVE_HINT": "You don't have permission to change expiration date."
+      "SAVE_HINT": "You don't have permission to change expiration date.",
+      "STATUS_CHANGE_INFO": "This action will result in changing the status to 'VALID'."
     },
     "EDIT_GROUP": {
       "SUCCESS": "Changes were successfully saved",
@@ -1807,7 +1808,6 @@
       "LAST_NAME": "Last name",
       "TITLE_BEFORE": "Title before",
       "TITLE_AFTER": "Title after",
-      "PASSWORD": "Password",
       "NAMESPACE": "Namespace",
       "SPONSOR_ID": "Sponsor ID",
       "CANCEL": "Cancel",
@@ -1818,9 +1818,6 @@
       "SUCCESS": "Sponsored user created",
       "EMAIL_ERROR": "Email is not valid",
       "LENGTH_ERROR": "Empty value is not allowed",
-      "BACKEND_ERROR": "Entered password doesn't meet the selected namespace's criteria",
-      "BACKEND_ERROR_LONG": "Entered password doesn't match criteria for strong password and it can't be accepted. Please, make sure that the entered password is at least 8 characters long, contains at least one of: A-z, 0-9, and special characters.",
-      "SHOW_PASSWORD": "Show password",
       "NAMESPACE_ERROR": "Selection of namespace is required",
       "FUNCTIONALITY_NOT_SUPPORTED": "This functionality is not yet supported.",
       "LOGIN_DISABLED": "Setting login is disabled for this namespace",
@@ -1993,15 +1990,9 @@
       "SEARCH_PLACEHOLDER": "Search members by id or name",
       "SEARCH_INFO": "Search for members to be added:",
       "SET_PASSWORD": "Set password",
-      "PASSWORD": "Password",
-      "PASSWORD_AGAIN": "Re-type password",
-      "PASSWORD_INFO": "Password must:\n - contain only printing (non-accented) characters\n - be at least 10 characters long\n - consist of at least 3 of 4 character groups:\n    - lower-case letters\n    - upper-case letters\n    - digits\n    - special characters",
       "ADD_USER": "Add",
       "SUCCESS_MEMBER": "Service account has been created successfully",
       "SUCCESS_PWD": "Password has been set successfully",
-      "PWD_DONT_MATCH": "Passwords do not match",
-      "PWD_WEAK": "Password does not meet the requirements",
-      "PWD_SHORT": "Password is too short",
       "LOGIN_FORMAT": "Login has to start with a letter and consist only of characters: a-z0-9_-",
       "LOGIN_LONG": "Login is too long",
       "LOGIN_SHORT": "Login is too short",
@@ -2076,7 +2067,7 @@
       "SEARCH_INFO": "You can search users by name, email or login or you can list all users without vo.",
       "NO_USERS_FOUND": "No users found.",
       "EMPTY_SEARCH": "Search field cannot be empty",
-      "USERS_WITHOUT_VO": "Find users without organization"
+      "USERS_WITHOUT_VO": "Search for users without organization"
     },
     "OWNERS": {
       "TITLE": "Owners",
@@ -2498,6 +2489,11 @@
           "EMPTY_SETTINGS": "No settings found. Use 'Add' button to add new setting.",
           "CHECKBOX_TOOLTIP": "You don't have privileges to edit this attribute"
         },
+        "SELECTION_ITEM_SEARCH_SELECT": {
+          "SELECT_ITEM": "Select attribute",
+          "FIND_ITEM": "Find attribute...",
+          "NO_ITEM_FOUND": "No matching attribute found"
+        },
         "USER_DONT_EXIST": {
           "TITLE": "Requested user (by ID or external identity) doesn't exist."
         },
@@ -2520,6 +2516,7 @@
           "LAST_ACCESS": "Last access",
           "NO_IDENTITIES": "No external identities found",
           "ID": "Id",
+          "CANNOT_BE_DELETED_TOOLTIP": "This identity is persistent, so it cannot be deleted",
           "LOA": "Level of assurance"
         },
         "BUG_REPORT": {
@@ -2543,9 +2540,27 @@
           "REMOVE": "Remove",
           "SUCCESS": "User external source successfully removed"
         },
+        "CHANGE_PASSWORD_DIALOG": {
+          "TITLE": "Change password",
+          "CANCEL": "Cancel",
+          "CHANGE": "Confirm",
+          "OLD_PASSWORD": "Old password",
+          "FIELD_EMPTY": "This field cannot be empty",
+          "SUCCESS": "Password has been changed successfully,"
+        },
+        "PASSWORD_FORM_FIELD": {
+          "PASSWORD": "Password",
+          "PASSWORD_AGAIN": "Confirm password",
+          "BACKEND_ERROR": "Entered password doesn't meet the selected namespace's criteria",
+          "FIELD_EMPTY": "Empty value is not allowed",
+          "PWD_DONT_MATCH": "Passwords do not match",
+          "TOOLTIP_PASSWORD_VIA_EMAIL": "User will choose his password via an email sent to the entered e-mail address",
+          "TOOLTIP_PASSWORD_DISABLED": "Setting password is disabled for this namespace"
+        },
         "PASSWORD_RESET": {
           "TITLE": "Password reset",
           "CHANGE_PASSWORD": "Change password",
+          "RESET_PASSWORD": "Reset password",
           "NAMESPACE": "Namespace",
           "LOGIN": "Login",
           "NOT_SUPPORTED": "Password reset is not supported for your current namespaces"
@@ -2643,7 +2658,8 @@
         "CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG": {
           "TITLE": "Change group resource assigment status",
           "CANCEL": "Cancel",
-          "SUBMIT": "Submit",
+          "ACTIVATE": "Activate",
+          "DEACTIVATE": "Deactivate",
           "ACTIVE": "Active",
           "INACTIVE": "Inactive",
           "CURRENT": "Current status",
