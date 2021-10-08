@@ -24,12 +24,13 @@ export class DeleteEntityDialogComponent {
   anotherMessage: string;
   @Input()
   disableForce = false;
+  @Input()
+  loading = false;
 
 
   @Output()
   deleted: EventEmitter<{deleted:boolean, force: boolean}> = new EventEmitter<{deleted:boolean, force: boolean}>()
 
-  loading = false;
   force = false;
 
   deleteReg = /^DELETE$/;
