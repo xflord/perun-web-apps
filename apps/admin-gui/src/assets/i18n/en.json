@@ -194,7 +194,7 @@
     "FACILITY": "Facility",
     "ASSIGNED_GROUPS": {
       "TITLE": "Assigned groups",
-      "ADD_GROUP": "Add..",
+      "ADD_GROUP": "Assign groups",
       "REMOVE_GROUP": "Remove groups",
       "FILTER_GROUPS": "Filter groups",
       "NO_GROUPS": "No groups.",
@@ -598,7 +598,7 @@
     "RESOURCES": {
       "TITLE": "Resources",
       "DELETE": "Remove selected",
-      "ADD": "Add",
+      "ADD": "Assign resources",
       "DELETE_PERMISSION_HINT": "You don't have permission to remove some of the selected resources.",
       "NO_RESOURCES_WARNING": "Group has no resources assigned."
     },
@@ -1419,7 +1419,7 @@
     "ASSIGN_GROUP_TO_RESOURCE": {
       "TITLE": "Assign group",
       "FILTER_DESCRIPTION": "Find group",
-      "ADD_BUTTON": "Add",
+      "ADD_BUTTON": "Assign groups",
       "CANCEL_BUTTON": "Cancel",
       "SUCCESS_MESSAGE": "Selected groups were assigned to resource",
       "CONFIGURE_GROUPS": "Configure group(s) before assign",
@@ -1429,8 +1429,8 @@
       "ASYNC_OFF_HINT": "Synchronous assignment is executed",
       "ASYNC_OPT_DESCRIPTION": "If selected, group(s) assignment is executed asynchronously (switched to PROCESSING state and waiting for assignment to run in the background). Otherwise, synchronous assignment is executed.",
       "AS_ACTIVE": "Assign with active status",
-      "ACTIVE_ON_HINT": "Groups will be assigned to group with ACTIVE status",
-      "ACTIVE_OFF_HINT": "Groups will be assigned to group with INACTIVE status, members will not be able to access services until activation",
+      "ACTIVE_ON_HINT": "Groups will be assigned to resource with ACTIVE status",
+      "ACTIVE_OFF_HINT": "Groups will be assigned to resource with INACTIVE status, members will not be able to access services until activation",
       "AUTO_SUBGROUPS": "Assign with subgroups",
       "AUTO_SUBGROUPS_OFF_HINT": "Resource will be assigned only to selected groups and will not propagate to their subgroups",
       "AUTO_SUBGROUPS_ON_HINT": "All current and future <b>subgroups</b> will be assigned to this resource<br> In case of 'members' group this extends to <b>all groups of it's organization</b>",
@@ -1535,13 +1535,13 @@
       "ADD": "Add"
     },
     "ADD_GROUP_RESOURCES": {
-      "TITLE": "Add resources",
+      "TITLE": "Assign resources",
       "FILTER": "Filter by ID, name or description",
       "CANCEL": "Cancel",
-      "ADD": "Add",
+      "ADD": "Assign resources",
       "ADD_PERMISSION_TOOLTIP": "You don't have permission to assign some of the selected resources.",
-      "SUCCESS": "Resources successfully added",
-      "ASYNC_OPT": "Add asynchronously",
+      "SUCCESS": "Resources successfully assigned",
+      "ASYNC_OPT": "Assign asynchronously",
       "ASYNC_ON_HINT": "Selected resource(s) assignment is executed asynchronously (switched to PROCESSING state and waiting for assignment to run in the background)",
       "ASYNC_OFF_HINT": "Synchronous assignment is executed",
       "AS_ACTIVE": "Assign with active status",
