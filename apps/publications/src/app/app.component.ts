@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
-import { InitAuthService, StoreService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, InitAuthService, StoreService } from '@perun-web-apps/perun/services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'perun-web-apps-root',
@@ -10,7 +11,9 @@ export class AppComponent implements OnInit{
 
   constructor(private store: StoreService,
               private initAuth: InitAuthService,
-              private changeDetector: ChangeDetectorRef) {
+              private changeDetector: ChangeDetectorRef,
+              private authResolver: GuiAuthResolver,
+              private router: Router) {
   }
 
   public static minWidth = 992;
@@ -23,6 +26,10 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     this.isLoginScreenShow = this.initAuth.isLoginScreenShown();
+    const url = location.pathname;
+    if(!this.authResolver.isCabinetAdmin() && (url === '/' || url.includes('/all-publications'))){
+      this.router.navigate(['my-publications']);
+    }
   }
 
   @HostListener('window:resize', ['$event'])

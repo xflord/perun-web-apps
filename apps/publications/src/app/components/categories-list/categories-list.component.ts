@@ -30,7 +30,8 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
 
   constructor(private guiAuthResolver: GuiAuthResolver,
               private tableCheckbox: TableCheckbox,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private authResolver: GuiAuthResolver) { }
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -59,6 +60,8 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
   private sort: MatSort;
 
   dataSource: MatTableDataSource<Category>;
+
+  editAuth = false;
 
   @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
 
@@ -113,6 +116,7 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit(): void {
+    this.editAuth = this.authResolver.isCabinetAdmin();
     this.dataSource.paginator = this.child.paginator;
   }
 

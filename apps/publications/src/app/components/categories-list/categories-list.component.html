@@ -41,7 +41,9 @@
       <ng-container matColumnDef="rank">
         <th *matHeaderCellDef mat-header-cell
             mat-sort-header>{{'CATEGORIES_LIST.RANK' | translate}}</th>
-        <td *matCellDef="let category" mat-cell>{{category.rank}}<button (click)="updateCategory(category)" mat-icon-button><mat-icon>edit</mat-icon></button></td>
+        <td *matCellDef="let category" mat-cell>{{category.rank}}
+          <button *ngIf="editAuth" (click)="updateCategory(category)" mat-icon-button><mat-icon>edit</mat-icon></button>
+        </td>
       </ng-container>
 
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>

@@ -34,13 +34,15 @@ export class SideMenuItemsService {
       activatedRegex: '^/create-publication',
       tabName: 'create-publication'
     });
-    items.push({
-      label: 'MENU_ITEMS.AUTHORS',
-      icon: 'assignment_ind',
-      link: '/authors',
-      activatedRegex: '^/authors',
-      tabName: 'authors'
-    });
+    if(this.authResolver.isCabinetAdmin()){
+      items.push({
+        label: 'MENU_ITEMS.AUTHORS',
+        icon: 'assignment_ind',
+        link: '/authors',
+        activatedRegex: '^/authors',
+        tabName: 'authors'
+      });
+    }
     items.push({
       label: 'MENU_ITEMS.CATEGORIES',
       icon: 'all_inbox',
