@@ -55,6 +55,24 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
   @Input()
   withoutVo: boolean;
 
+  @Input()
+  updateTable: boolean;
+
+  @Input()
+  facilityId: number;
+
+  @Input()
+  voId: number;
+
+  @Input()
+  resourceId: number;
+
+  @Input()
+  serviceId: number;
+
+  @Input()
+  onlyAllowed: boolean;
+
   dataSource: DynamicDataSource<RichUser>;
 
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
@@ -76,7 +94,8 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
 
     this.dataSource = new DynamicDataSource<RichUser>(this.dynamicPaginatingService, this.authResolver);
     this.dataSource.loadUsers(this.attrNames, this.tableConfigService.getTablePageSize(this.tableId), 0, 'ASCENDING',
-      'NAME', this.searchString, this.withoutVo);
+      'NAME', this.searchString, this.withoutVo, this.facilityId, this.voId, this.resourceId,
+      this.serviceId, this.onlyAllowed);
   }
 
   ngOnChanges() {
@@ -111,7 +130,8 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
     const sortDirection = this.sort.direction === 'asc' ? 'ASCENDING' : 'DESCENDING';
     const sortColumn = this.sort.active === 'name' ? 'NAME' : 'ID';
     this.dataSource.loadUsers(this.attrNames, this.child.paginator.pageSize, this.child.paginator.pageIndex, sortDirection,
-      sortColumn, this.searchString, this.withoutVo);
+      sortColumn, this.searchString, this.withoutVo, this.facilityId, this.voId, this.resourceId,
+      this.serviceId, this.onlyAllowed);
   }
 
   exportData(format: string) {

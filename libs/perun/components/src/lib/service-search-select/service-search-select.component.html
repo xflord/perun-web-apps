@@ -1,0 +1,11 @@
+<perun-web-apps-entity-search-select
+  [entity]="service"
+  [entities]="services"
+  (entitySelected)="this.serviceSelected.emit($event)"
+  [searchFunction]="searchFunction"
+  [mainTextFunction]="nameFunction"
+  [secondaryTextFunction]="secondaryFunction"
+  [selectPlaceholder]="'SHARED_LIB.PERUN.COMPONENTS.SERVICE_SEARCH_SELECT.SELECT_SERVICE' | translate"
+  [findPlaceholder]="'SHARED_LIB.PERUN.COMPONENTS.SERVICE_SEARCH_SELECT.FIND_SERVICE' | translate"
+  [noEntriesText]="'SHARED_LIB.PERUN.COMPONENTS.SERVICE_SEARCH_SELECT.NO_SERVICE_FOUND' | translate">
+</perun-web-apps-entity-search-select>

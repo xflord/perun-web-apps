@@ -11,6 +11,9 @@ export class VoSearchSelectComponent {
   constructor() { }
 
   @Input()
+  vo: Vo;
+
+  @Input()
   vos: Vo[];
 
   @Output()

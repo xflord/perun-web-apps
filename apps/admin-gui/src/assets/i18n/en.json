@@ -175,9 +175,11 @@
       "ALREADY_DELETED": "Task was already deleted"
     },
     "ALLOWED_USERS": {
-      "TITLE": "Allowed users",
-      "FILTER": "Filter allowed users",
-      "NO_USERS": "No users assigned."
+      "TITLE": "Assigned users",
+      "FILTER": "Search by name or email",
+      "FILTER_ALLOWED": "Show only allowed users",
+      "FILTER_ALLOWED_MSG": "Only users with correctly set attributes are shown. Their data is propagated to facility.",
+      "FILTER_ASSIGNED_MSG": "All assigned users are shown. Data of some users may not be propagated to facility due to invalid user attributes."
     },
     "TASK_RESULTS": {
       "TITLE": "Task results",
@@ -812,7 +814,7 @@
       "BLACKLIST": "Blacklist",
       "SECURITY_TEAMS": "Security teams",
       "SERVICES_STATUS": "Services status",
-      "ALLOWED_USERS": "Allowed users"
+      "ALLOWED_USERS": "Assigned users"
     },
     "RESOURCE": {
       "OVERVIEW": "Overview",
@@ -2423,6 +2425,11 @@
           "SELECT_PACKAGE": "Select service package",
           "FIND_PACKAGE": "Find service package...",
           "NO_PACKAGE_FOUND": "No matching service package found"
+        },
+        "SERVICE_SEARCH_SELECT": {
+          "SELECT_SERVICE": "Select service",
+          "FIND_SERVICE": "Find service...",
+          "NO_SERVICE_FOUND": "No matching service found"
         },
         "RESOURCES_LIST": {
           "TITLE": "Resources",

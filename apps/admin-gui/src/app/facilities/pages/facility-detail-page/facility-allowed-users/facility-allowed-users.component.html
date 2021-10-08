@@ -1,17 +1,57 @@
-<h1 class="page-subtitle">{{'FACILITY_DETAIL.ALLOWED_USERS.TITLE' | translate}}</h1>
-<perun-web-apps-refresh-button
-  (refresh)="refreshTable()">
-</perun-web-apps-refresh-button>
-<perun-web-apps-debounce-filter
-  [placeholder]="'FACILITY_DETAIL.ALLOWED_USERS.FILTER'"
-  (filter)="applyFilter($event)"></perun-web-apps-debounce-filter>
-<mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-<app-users-list
-  *ngIf="!loading"
-  [noUsersFoundLabel]="'FACILITY_DETAIL.ALLOWED_USERS.NO_USERS' | translate"
-  [tableId]="tableId"
-  [users]="users"
-  [displayedColumns]="['id', 'name']"
-  [disableRouting]="!routeAuth"
-  [filter]="filterValue">
-</app-users-list>
+<div>
+  <h1 class="page-subtitle">{{'FACILITY_DETAIL.ALLOWED_USERS.TITLE' | translate}}</h1>
+  <div class="filters">
+    <perun-web-apps-refresh-button
+      class="mr-2"
+      (refresh)="refreshPage()">
+    </perun-web-apps-refresh-button>
+    <perun-web-apps-debounce-filter
+      class="mr-2 filter"
+      [placeholder]="'FACILITY_DETAIL.ALLOWED_USERS.FILTER'"
+      (filter)="applyFilter($event)"></perun-web-apps-debounce-filter>
+    <div class="toggle">
+      <mat-slide-toggle
+        [(ngModel)]="allowed"
+        class="mr-2"
+        labelPosition="before">
+        {{'FACILITY_DETAIL.ALLOWED_USERS.FILTER_ALLOWED' | translate}}
+      </mat-slide-toggle>
+      <span class="text-muted">{{toggle_messages[allowed ? 1 : 0] | translate}}</span>
+    </div>
+  </div>
+  <div class="filters">
+    <perun-web-apps-vo-search-select
+      class="search-select"
+      (voSelected)="voSelected($event)"
+      [vo]="selectedVo"
+      [vos]="vos">
+    </perun-web-apps-vo-search-select>
+    <perun-web-apps-resource-search-select
+      class="search-select"
+      (resourceSelected)="resourceSelected($event)"
+      [displayStatus]="false"
+      [resource]="selectedResource"
+      [resources]="filteredResources">
+    </perun-web-apps-resource-search-select>
+    <perun-web-apps-service-search-select
+      class="search-select"
+      (serviceSelected)="serviceSelected($event)"
+      [service]="selectedService"
+      [services]="filteredServices">
+    </perun-web-apps-service-search-select>
+  </div>
+  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <perun-web-apps-users-dynamic-list
+    *ngIf="!loading"
+    [tableId]="tableId"
+    [searchString]="filterValue"
+    [displayedColumns]="['id', 'name', 'email', 'logins', 'organization']"
+    [attrNames]="attributes"
+    [facilityId]="facilityId"
+    [voId]="selectedVo.id === -1 ? null : selectedVo.id"
+    [resourceId]="selectedResource.id === -1 ? null : selectedResource.id"
+    [serviceId]="selectedService.id === -1 ? null : selectedService.id"
+    [onlyAllowed]="allowed"
+    [disableRouting]="!routeAuth">
+  </perun-web-apps-users-dynamic-list>
+</div>

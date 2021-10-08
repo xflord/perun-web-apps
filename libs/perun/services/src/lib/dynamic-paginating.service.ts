@@ -46,7 +46,12 @@ export class DynamicPaginatingService {
            pageSize: number,
            sortColumn: UsersOrderColumn,
            searchString: string,
-           withoutVo: boolean): Observable<PaginatedRichUsers> {
+           withoutVo: boolean,
+           facilityId: number,
+           voId: number,
+           resourceId: number,
+           serviceId: number,
+           onlyAllowed: boolean): Observable<PaginatedRichUsers> {
     return this.usersService.getUsersPage({
       attrNames: attrNames,
       query: {
@@ -55,7 +60,12 @@ export class DynamicPaginatingService {
         order: order,
         sortColumn: sortColumn,
         searchString: searchString,
-        withoutVo: withoutVo
+        withoutVo: withoutVo,
+        facilityId: facilityId,
+        voId: voId,
+        resourceId: resourceId,
+        serviceId: serviceId,
+        onlyAllowed: onlyAllowed
       }
     });
   }

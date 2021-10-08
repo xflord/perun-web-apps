@@ -9,21 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { UsersOrderColumn } from './usersOrderColumn';
 import { SortingOrder } from './sortingOrder';
 
 
-export interface UsersPageQuery { 
+export interface AuditMessagesPageQuery { 
     pageSize: number;
     offset: number;
     order: SortingOrder;
-    sortColumn: UsersOrderColumn;
-    searchString?: string;
-    withoutVo?: boolean;
-    facilityId?: number;
-    voId?: number;
-    serviceId?: number;
-    resourceId?: number;
-    onlyAllowed?: boolean;
 }
 

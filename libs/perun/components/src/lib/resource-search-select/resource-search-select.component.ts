@@ -12,12 +12,19 @@ export class ResourceSearchSelectComponent implements OnInit{
   constructor() { }
 
   @Input()
+  resource: Resource = null;
+
+  @Input()
   resources: Resource[];
+
+  @Input()
+  displayStatus = true;
 
   @Output()
   resourceSelected = new EventEmitter<Resource>();
 
   nameFunction = (resource: Resource) => resource.name;
+  secondaryFunction = () => null;
 
   ngOnInit(): void {
     this.resources = this.resources.sort(compareFnName);

@@ -68,12 +68,18 @@ export class DynamicDataSource<T> implements DataSource<T> {
             sortOrder: SortingOrder,
             sortColumn: UsersOrderColumn,
             searchString: string,
-            withoutVo: boolean) {
+            withoutVo: boolean,
+            facilityId: number,
+            voId: number,
+            resourceId: number,
+            serviceId: number,
+            onlyAllowed: boolean) {
     this.loadingSubject.next(true);
     this.latestQueryTime = Date.now();
     const thisQueryTime = this.latestQueryTime;
 
-    this.dynamicPaginatingService.getUsers(attrNames, sortOrder, pageIndex, pageSize, sortColumn, searchString, withoutVo).pipe(
+    this.dynamicPaginatingService.getUsers(attrNames, sortOrder, pageIndex, pageSize, sortColumn, searchString,
+      withoutVo, facilityId, voId, resourceId, serviceId, onlyAllowed).pipe(
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
     ).subscribe(paginatedRichUsers => {

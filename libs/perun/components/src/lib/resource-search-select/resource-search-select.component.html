@@ -1,9 +1,11 @@
 <perun-web-apps-entity-search-select
+  [entity]="resource"
   [entities]="resources"
   (entitySelected)="this.resourceSelected.emit($event)"
-  [displayStatus]="true"
+  [displayStatus]="displayStatus"
   [searchFunction]="nameFunction"
   [mainTextFunction]="nameFunction"
+  [secondaryTextFunction]="secondaryFunction"
   [selectPlaceholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCE_SEARCH_SELECT.SELECT_RESOURCE' | translate"
   [findPlaceholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCE_SEARCH_SELECT.FIND_RESOURCE' | translate"
   [noEntriesText]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCE_SEARCH_SELECT.NO_RESOURCE_FOUND' | translate">

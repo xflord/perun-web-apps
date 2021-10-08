@@ -1,0 +1,20 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.filter {
+  min-width: 350px;
+}
+
+.search-select {
+  width: 32%;
+  margin-right: 20px;
+  margin-top: 30px;
+}
+
+.toggle {
+  display: flex;
+  flex-direction: column;
+}

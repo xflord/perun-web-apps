@@ -18,6 +18,8 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { AuditMessage } from '../model/auditMessage';
+import { InputGetPaginatedMessages } from '../model/inputGetPaginatedMessages';
+import { PaginatedAuditMessages } from '../model/paginatedAuditMessages';
 import { PerunException } from '../model/perunException';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -97,7 +99,7 @@ export class AuditMessagesManagerService {
         }
 
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/AuditMessagesManager/log`,
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/auditMessagesManager/log`,
             null,
             {
                 params: queryParameters,
@@ -156,7 +158,7 @@ export class AuditMessagesManagerService {
         }
 
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/AuditMessagesManager/createAuditerConsumer`,
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/auditMessagesManager/createAuditerConsumer`,
             null,
             {
                 params: queryParameters,
@@ -206,7 +208,7 @@ export class AuditMessagesManagerService {
         }
 
 
-        return this.httpClient.get<{ [key: string]: number; }>(`${this.configuration.basePath}/json/AuditMessagesManager/getAllAuditerConsumers`,
+        return this.httpClient.get<{ [key: string]: number; }>(`${this.configuration.basePath}/json/auditMessagesManager/getAllAuditerConsumers`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -254,7 +256,7 @@ export class AuditMessagesManagerService {
         }
 
 
-        return this.httpClient.get<number>(`${this.configuration.basePath}/json/AuditMessagesManager/getAuditerMessagesCount`,
+        return this.httpClient.get<number>(`${this.configuration.basePath}/json/auditMessagesManager/getAuditerMessagesCount`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -302,7 +304,7 @@ export class AuditMessagesManagerService {
         }
 
 
-        return this.httpClient.get<number>(`${this.configuration.basePath}/json/AuditMessagesManager/getLastMessageId`,
+        return this.httpClient.get<number>(`${this.configuration.basePath}/json/auditMessagesManager/getLastMessageId`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -356,7 +358,7 @@ export class AuditMessagesManagerService {
         }
 
 
-        return this.httpClient.get<Array<AuditMessage>>(`${this.configuration.basePath}/json/AuditMessagesManager/getMessages`,
+        return this.httpClient.get<Array<AuditMessage>>(`${this.configuration.basePath}/json/auditMessagesManager/getMessages`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -414,9 +416,71 @@ export class AuditMessagesManagerService {
         }
 
 
-        return this.httpClient.get<Array<AuditMessage>>(`${this.configuration.basePath}/json/AuditMessagesManager/getMessagesByCount`,
+        return this.httpClient.get<Array<AuditMessage>>(`${this.configuration.basePath}/json/auditMessagesManager/getMessagesByCount`,
             {
                 params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get page of audit messages.
+     * @param inputGetPaginatedMessages 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getMessagesPage(inputGetPaginatedMessages: InputGetPaginatedMessages, observe?: 'body', reportProgress?: boolean): Observable<PaginatedAuditMessages>;
+    public getMessagesPage(inputGetPaginatedMessages: InputGetPaginatedMessages, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginatedAuditMessages>>;
+    public getMessagesPage(inputGetPaginatedMessages: InputGetPaginatedMessages, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginatedAuditMessages>>;
+    public getMessagesPage(inputGetPaginatedMessages: InputGetPaginatedMessages, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (inputGetPaginatedMessages === null || inputGetPaginatedMessages === undefined) {
+            throw new Error('Required parameter inputGetPaginatedMessages was null or undefined when calling getMessagesPage.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<PaginatedAuditMessages>(`${this.configuration.basePath}/json/auditMessagesManager/getMessagesPage`,
+            inputGetPaginatedMessages,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -472,7 +536,7 @@ export class AuditMessagesManagerService {
         }
 
 
-        return this.httpClient.get<Array<AuditMessage>>(`${this.configuration.basePath}/json/AuditMessagesManager/pollConsumerMessages`,
+        return this.httpClient.get<Array<AuditMessage>>(`${this.configuration.basePath}/json/auditMessagesManager/pollConsumerMessages`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -537,7 +601,7 @@ export class AuditMessagesManagerService {
         }
 
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/AuditMessagesManager/setLastProcessedId`,
+        return this.httpClient.post<any>(`${this.configuration.basePath}/urlinjsonout/auditMessagesManager/setLastProcessedId`,
             null,
             {
                 params: queryParameters,
