@@ -103,7 +103,8 @@ export class GroupSettingsNotificationsComponent implements OnInit {
           });
         }, error => {
           if (error.error.name === 'FormNotExistsException') {
-            this.setAuthRights()
+            this.noApplicationForm = true;
+            this.setAuthRights();
             this.loading = false;
           } else {
             this.notificator.showRPCError(error);
