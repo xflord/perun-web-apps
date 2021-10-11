@@ -1,4 +1,5 @@
-<div class="card mt-2 w-100" [hidden]="loading || !dataSource">
+<div class="card mt-2 w-100" [class.hide-table]="loading"
+     [hidden]="this.table.length === 0 || (dataSource ? dataSource.filteredData.length === 0 : false)">
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
@@ -88,19 +89,16 @@
         class="dark-hover-list-item"
         mat-row>
       </tr>
-      <tr *matNoDataRow>
-        <td [attr.colspan]="displayedColumns.length">
-          <app-alert *ngIf="this.dataSource.data.length === 0" alert_type="warn">
-            {{'VO_DETAIL.APPLICATION.NO_APPLICATION_FOUND' | translate}}
-          </app-alert>
-
-          <app-alert *ngIf="dataSource.filteredData.length === 0 && table.length !== 0" alert_type="warn">
-            {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
-          </app-alert>
-        </td>
-      </tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
+
+<app-alert *ngIf="this.dataSource.data.length === 0" alert_type="warn">
+  {{'VO_DETAIL.APPLICATION.NO_APPLICATION_FOUND' | translate}}
+</app-alert>
+
+<app-alert *ngIf="dataSource.filteredData.length === 0 && table.length !== 0" alert_type="warn">
+  {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
+</app-alert>
 
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>

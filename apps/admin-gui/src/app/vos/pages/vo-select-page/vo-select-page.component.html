@@ -11,7 +11,7 @@
     {{'VO_MANAGEMENT.TITLE' | translate}}
   </h1>
 
-  <perun-web-apps-refresh-button (refresh)="refreshTable()" *ngIf="!loading"></perun-web-apps-refresh-button>
+  <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button id="new-vo-btn" mat-flat-button color="accent" class="mr-2" (click)="onCreateVo()" *ngIf="!loading && createAuth">
     {{'VO_MANAGEMENT.CREATE_VO' | translate}}
   </button>
@@ -19,7 +19,6 @@
     {{'VO_MANAGEMENT.REMOVE_VO' | translate}}
   </button>
   <perun-web-apps-immediate-filter
-    *ngIf="!loading"
     [autoFocus]="true"
     (filter)="applyFilter($event)"
     [placeholder]="'VO_MANAGEMENT.FILTER_PLACEHOLDER'">

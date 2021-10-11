@@ -1,4 +1,4 @@
-<div class="card mt-3">
+<div [hidden]="dataSource.filteredData.length === 0 || publications.length === 0" class="card mt-3">
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
@@ -112,13 +112,10 @@
         class="dark-hover-list-item"
         mat-row>
       </tr>
-      <tr *matNoDataRow>
-        <td [attr.colspan]="displayedColumns.length">
-          <app-alert *ngIf="publications.length === 0 && allowAlert" alert_type="warn">
-            {{'PUBLICATIONS_LIST.NO_PUBLICATIONS_FOUND' | translate}}
-          </app-alert>
-        </td>
-      </tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
+
+<app-alert *ngIf="publications.length === 0 && allowAlert" alert_type="warn">
+  {{'PUBLICATIONS_LIST.NO_PUBLICATIONS_FOUND' | translate}}
+</app-alert>

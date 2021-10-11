@@ -1,4 +1,4 @@
-<div class="card mt-3" [hidden]="!dataSource">
+<div class="card mt-3" [hidden]="!dataSource || dataSource.filteredData.length === 0 || facilities.length === 0">
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
@@ -80,17 +80,14 @@
         class="dark-hover-list-item"
         mat-row>
       </tr>
-      <tr *matNoDataRow>
-        <td [attr.colspan]="displayedColumns.length">
-          <app-alert *ngIf="dataSource.filteredData.length === 0 && facilities.length !== 0" alert_type="warn">
-            {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
-          </app-alert>
-
-          <app-alert *ngIf="facilities.length === 0" alert_type="warn">
-            {{'SHARED_LIB.UI.ALERTS.NO_FACILITIES' | translate}}
-          </app-alert>
-        </td>
-      </tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
+
+<app-alert *ngIf="dataSource.filteredData.length === 0 && facilities.length !== 0" alert_type="warn">
+  {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
+</app-alert>
+
+<app-alert *ngIf="facilities.length === 0" alert_type="warn">
+  {{'SHARED_LIB.UI.ALERTS.NO_FACILITIES' | translate}}
+</app-alert>

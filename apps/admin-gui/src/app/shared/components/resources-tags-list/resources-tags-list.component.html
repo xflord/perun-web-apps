@@ -1,4 +1,4 @@
-<div class="card mt-2 ">
+<div [hidden]="resourceTags.length === 0 || dataSource.filteredData.length === 0" class="card mt-2 ">
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
@@ -73,17 +73,14 @@
           class="dark-hover-list-item"
           mat-row>
       </tr>
-      <tr *matNoDataRow>
-        <td [attr.colspan]="displayedColumns.length">
-          <app-alert *ngIf="resourceTags.length === 0" alert_type="warn">
-            {{entity === 'vo' ? ('VO_DETAIL.RESOURCES.TAGS.NO_TAGS' | translate) : ('RESOURCE_DETAIL.TAGS.NO_TAGS' | translate)}}
-          </app-alert>
-
-          <app-alert *ngIf="dataSource.filteredData.length === 0 && resourceTags.length !== 0" alert_type="warn">
-            {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
-          </app-alert>
-        </td>
-      </tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
+
+<app-alert *ngIf="resourceTags.length === 0" alert_type="warn">
+  {{entity === 'vo' ? ('VO_DETAIL.RESOURCES.TAGS.NO_TAGS' | translate) : ('RESOURCE_DETAIL.TAGS.NO_TAGS' | translate)}}
+</app-alert>
+
+<app-alert *ngIf="dataSource.filteredData.length === 0 && resourceTags.length !== 0" alert_type="warn">
+  {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
+</app-alert>

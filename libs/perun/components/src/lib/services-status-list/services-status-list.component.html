@@ -1,4 +1,4 @@
-<div class="card mt-3">
+<div [hidden]="dataSource.filteredData.length === 0 || servicesStatus.length === 0" class="card mt-3">
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
@@ -90,17 +90,14 @@
         [routerLink]="disableRouting || serviceState.task === null ? null : ['/facilities', serviceState.facility.id, 'services-status', serviceState.taskId]"
         [perunWebAppsMiddleClickRouterLink]="disableRouting || serviceState.task === null ? null : ['/facilities', serviceState.facility.id, 'services-status', serviceState.taskId]">
       </tr>
-      <tr *matNoDataRow>
-        <td [attr.colspan]="displayedColumns.length">
-          <app-alert *ngIf="dataSource.filteredData.length === 0 && servicesStatus.length !== 0" alert_type="warn">
-            {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
-          </app-alert>
-
-          <app-alert *ngIf="servicesStatus.length === 0" alert_type="warn">
-            {{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.NO_SERVICES_STATUS_WARNING' | translate}}
-          </app-alert>
-        </td>
-      </tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
+
+<app-alert *ngIf="dataSource.filteredData.length === 0 && servicesStatus.length !== 0" alert_type="warn">
+  {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
+</app-alert>
+
+<app-alert *ngIf="servicesStatus.length === 0" alert_type="warn">
+  {{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.NO_SERVICES_STATUS_WARNING' | translate}}
+</app-alert>

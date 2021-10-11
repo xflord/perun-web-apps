@@ -1,4 +1,4 @@
-<div class="card mt-2">
+<div class="card mt-2" [hidden]="!values.length">
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
@@ -27,13 +27,10 @@
         class="dark-hover-list-item"
         mat-row>
       </tr>
-      <tr *matNoDataRow>
-        <td [attr.colspan]="displayedColumns.length">
-          <app-alert *ngIf="values.length === 0" alert_type="warn">
-            {{alertText}}
-          </app-alert>
-        </td>
-      </tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
+
+<app-alert *ngIf="values.length === 0" alert_type="warn">
+  {{alertText}}
+</app-alert>

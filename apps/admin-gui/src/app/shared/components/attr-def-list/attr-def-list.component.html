@@ -1,4 +1,4 @@
-<div class="card mt-2">
+<div [hidden]="dataSource.filteredData.length === 0 || definitions.length === 0" class="card mt-2">
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
@@ -58,19 +58,16 @@
           class="dark-hover-list-item"
           mat-row>
         </tr>
-        <tr *matNoDataRow>
-          <td [attr.colspan]="displayedColumns.length">
-            <app-alert *ngIf="definitions.length === 0" alert_type="warn">
-              {{'ADMIN.ATTRIBUTES.NO_ATTRIBUTES' | translate}}
-            </app-alert>
-
-            <app-alert *ngIf="dataSource.filteredData.length === 0 && definitions.length !== 0" alert_type="warn">
-              {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
-            </app-alert>
-
-          </td>
-        </tr>
       </table>
     </div>
   </perun-web-apps-table-wrapper>
 </div>
+
+
+<app-alert *ngIf="definitions.length === 0" alert_type="warn">
+  {{'ADMIN.ATTRIBUTES.NO_ATTRIBUTES' | translate}}
+</app-alert>
+
+<app-alert *ngIf="dataSource.filteredData.length === 0 && definitions.length !== 0" alert_type="warn">
+  {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
+</app-alert>

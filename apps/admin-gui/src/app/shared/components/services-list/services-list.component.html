@@ -1,4 +1,4 @@
-<div class="card mt-3">
+<div [hidden]="this.services === undefined || this.services.length === 0 || this.dataSource.filteredData.length === 0" class="card mt-3">
 
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
@@ -79,17 +79,14 @@
         class="dark-hover-list-item"
         mat-row>
       </tr>
-      <tr *matNoDataRow>
-        <td [attr.colspan]="displayedColumns.length">
-          <app-alert *ngIf="dataSource.filteredData.length === 0 && (this.services !== undefined && this.services.length !== 0)"
-                     alert_type="warn">
-            {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
-          </app-alert>
-          <app-alert *ngIf="this.services === undefined || this.services.length === 0"
-                     alert_type="warn"> {{'SHARED.COMPONENTS.SERVICES_LIST.NO_SERVICES_WARNING' | translate}}
-          </app-alert>
-        </td>
-      </tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
+
+<app-alert *ngIf="dataSource.filteredData.length === 0 && (this.services !== undefined && this.services.length !== 0)"
+           alert_type="warn">
+  {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
+</app-alert>
+<app-alert *ngIf="this.services === undefined || this.services.length === 0"
+           alert_type="warn"> {{'SHARED.COMPONENTS.SERVICES_LIST.NO_SERVICES_WARNING' | translate}}
+</app-alert>
