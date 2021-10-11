@@ -52,18 +52,18 @@
     <mat-label>{{'GROUP_DETAIL.MEMBERS.FILTER_STATUS' | translate}}</mat-label>
     <mat-select [formControl]="statuses" (closed)="changeVoStatuses()" multiple>
       <mat-select-trigger>
-        {{displaySelectedStatuses()}}
+        {{displaySelectedStatuses() | memberStatus}}
       </mat-select-trigger>
-      <mat-option class="group-theme" *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
+      <mat-option class="group-theme" *ngFor="let status of statusList" [value]="status">{{status | memberStatus}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field class="mr-2 fix-select">
     <mat-label>{{'GROUP_DETAIL.MEMBERS.FILTER_GROUP_STATUS' | translate}}</mat-label>
     <mat-select [formControl]="groupStatuses" (closed)="changeGroupStatuses()" multiple>
       <mat-select-trigger>
-        {{displaySelectedGroupStatuses()}}
+        {{displaySelectedGroupStatuses() | memberStatus}}
       </mat-select-trigger>
-      <mat-option class="group-theme" *ngFor="let status of groupStatusList" [value]="status">{{status}}</mat-option>
+      <mat-option class="group-theme" *ngFor="let status of groupStatusList" [value]="status">{{status | memberStatus}}</mat-option>
     </mat-select>
   </mat-form-field>
 

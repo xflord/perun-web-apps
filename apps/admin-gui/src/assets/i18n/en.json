@@ -1391,7 +1391,7 @@
       "TITLE": "Change status",
       "CURRENT_STATUS": "Current status: ",
       "VALID_DESCRIPTION": "Member is properly configured and has access to all provided resources.",
-      "INVALID_DESCRIPTION": "Member have configuration error and DON'T have access on provided resources. You can check what is wrong by changing member's status to VALID. If possible, procedure will configure all necessary settings by itself.",
+      "INVALID_DESCRIPTION": "Member have configuration error and DON'T have access on provided resources. You can check what is wrong by changing member's status to ACTIVE. If possible, procedure will configure all necessary settings by itself.",
       "EXPIRED_DESCRIPTION": "Member didn't extend membership and might NOT have access to all services.",
       "DISABLED_DESCRIPTION": "Member was manually disabled and DON'T have access on provided resources.",
       "NEW_STATUS": "New status: ",
@@ -1399,7 +1399,7 @@
       "CHANGE_VALID_TO_INVALID": "Changing status to INVALID will <b>prevent the member from accessing all services.</b>\n\nINVALID members might not have correct configuration (required by services) and have to be validated before accessing them.",
       "CHANGE_VALID_TO_EXPIRED": "Changing status to EXPIRED <b>might prevent the member from accessing some of the services (based on provided service's rules).</b>\n\nEXPIRED status means, that member didn't extend his membership in VO, but it's still possible for him to do so.",
       "CHANGE_VALID_TO_DISABLED": "Changing status to DISABLED will <b>prevent the member from accessing all of the services. </b>\n\nDISABLED status means that the member is archived and is not allowed to any services.",
-      "CHANGE_NO_VALID_TO_VALID": "Changing status to VALID <b>will trigger attribute validation</b>. \n\n<b>If successful</b>, member will have access on all services. \n\n<b>If not</b>, see displayed error message and do manual configuration of invalid attributes.",
+      "CHANGE_NO_VALID_TO_VALID": "Changing status to ACTIVE <b>will trigger attribute validation</b>. \n\n<b>If successful</b>, member will have access on all services. \n\n<b>If not</b>, see displayed error message and do manual configuration of invalid attributes.",
       "CHANGE_NO_VALID_TO_INVALID": "INVALID status means there is a configuration error, which prevents the member from accessing provided services.",
       "CHANGE_NO_VALID_TO_EXPIRED": "EXPIRED status means, that member didn't extend his membership in VO, but it's still possible for him to do so.",
       "CHANGE_NO_VALID_TO_DISABLED": "DISABLED status means that the member is archived and is not allowed to any services. Member can't enable/extend membership by himself.",
@@ -1704,7 +1704,7 @@
       "SAVE": "Save",
       "SUCCESS": "Expiration successfully changed",
       "SAVE_HINT": "You don't have permission to change expiration date.",
-      "STATUS_CHANGE_INFO": "This action will result in changing the status to 'VALID'."
+      "STATUS_CHANGE_INFO": "This action will result in changing the status to 'ACTIVE'."
     },
     "EDIT_GROUP": {
       "SUCCESS": "Changes were successfully saved",

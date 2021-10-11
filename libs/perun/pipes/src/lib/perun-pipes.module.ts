@@ -26,6 +26,7 @@ import { LocalisedLinkPipe } from './localised-link.pipe';
 import { UserEmailPipe } from './user-email.pipe'
 import { UserLoginsPipe } from './user-logins.pipe';
 import { UserVoPipe } from './vo-or-ext-source.pipe';
+import { MemberStatusPipe } from './member-status.pipe';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { UserVoPipe } from './vo-or-ext-source.pipe';
     LocalisedLinkPipe,
     UserEmailPipe,
     UserLoginsPipe,
-    UserVoPipe
+    UserVoPipe,
+    MemberStatusPipe
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -84,7 +86,8 @@ import { UserVoPipe } from './vo-or-ext-source.pipe';
     LocalisedLinkPipe,
     UserEmailPipe,
     UserLoginsPipe,
-    UserVoPipe
+    UserVoPipe,
+    MemberStatusPipe
   ],
   imports: [CommonModule],
 })
