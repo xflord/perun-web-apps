@@ -42,7 +42,6 @@ export class UserSettingsOverviewComponent implements OnInit {
     this.navItems = [
     ];
     // if at user profile, add user gui config item
-    // if at admin profile, add service identities
     if (!window.location.pathname.startsWith('/admin')) {
       this.navItems.push(
         {
@@ -57,22 +56,6 @@ export class UserSettingsOverviewComponent implements OnInit {
           label: 'MENU_ITEMS.USER.GUI_CONFIG',
           style: 'user-btn'
         });
-    } else {
-      if(this.isServiceUser){
-        this.navItems.push({
-          cssIcon: 'perun-service-identity',
-          url:`associated-users`,
-          label: 'MENU_ITEMS.USER.ASSOCIATED_USERS',
-          style: 'user-btn'
-        });
-      } else {
-        this.navItems.push({
-          cssIcon: 'perun-service-identity',
-          url:`service-identities`,
-          label: 'MENU_ITEMS.USER.SERVICE_IDENTITIES',
-          style: 'user-btn'
-        });
-      }
     }
   }
 }

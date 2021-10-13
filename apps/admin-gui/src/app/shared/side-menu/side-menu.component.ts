@@ -141,7 +141,7 @@ export class SideMenuComponent implements OnInit {
   }
 
   private setUserItems(items: SideMenuItem[]) {
-    this.userItemOpened = true;
+    this.userItemOpened = items.length === 0;
     this.resetExceptUser();
     this.setNewItems(this.userItems, items);
   }

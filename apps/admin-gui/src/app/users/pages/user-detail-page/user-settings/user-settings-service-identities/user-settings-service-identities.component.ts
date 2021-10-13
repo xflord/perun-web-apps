@@ -7,7 +7,7 @@ import { TABLE_USER_SERVICE_IDENTITIES } from '@perun-web-apps/config/table-conf
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ConnectIdentityDialogComponent } from '../../../../../shared/components/dialogs/connect-identity-dialog/connect-identity-dialog.component';
 import { DisconnectIdentityDialogComponent } from '../../../../../shared/components/dialogs/disconnect-identity-dialog/disconnect-identity-dialog.component';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-user-settings-service-identities',
@@ -20,7 +20,8 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
               private dialog: MatDialog,
               private router: Router,
               private userManager: UsersManagerService,
-              public authResolver: GuiAuthResolver
+              public authResolver: GuiAuthResolver,
+              private store: StoreService,
               ) { }
 
   loading = false;
@@ -28,18 +29,23 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
   identities: User[] = [];
   userId: number;
   tableId = TABLE_USER_SERVICE_IDENTITIES;
-  displayedColumns = [ 'select', 'id', 'user', 'name' ];
+  displayedColumns = ['select', 'id', 'user', 'name']
+  addIdentity: boolean;
+  removeIdentity: boolean;
+  routeToAdminSection = true;
 
   ngOnInit(): void {
     this.loading = true;
 
-    this.route.parent.parent.params
+    this.route.parent.params
         .subscribe(params => {
       this.userId = params["userId"];
-      this.userManager.getSpecificUsersByUser(this.userId).subscribe(identities => {
-        this.identities = identities;
-        this.loading = false;
-      });
+      if(this.userId === undefined) {
+        this.userId = this.store.getPerunPrincipal().userId;
+        this.routeToAdminSection = false;
+      }
+      this.setAuthRights();
+      this.refreshTable();
     });
   }
 
@@ -50,6 +56,11 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
       this.selection.clear();
       this.loading = false;
     });
+  }
+
+  setAuthRights() {
+    this.addIdentity = this.authResolver.isPerunAdmin();
+    this.removeIdentity = this.authResolver.isAuthorized('removeSpecificUserOwner_User_User_policy',[{id: this.userId, beanName: 'User'}]);
   }
 
   onAdd(){

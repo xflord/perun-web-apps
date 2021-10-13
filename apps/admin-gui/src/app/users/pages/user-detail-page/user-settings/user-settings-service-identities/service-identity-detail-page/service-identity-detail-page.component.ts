@@ -1,54 +1,54 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {SideMenuService} from '../../../core/services/common/side-menu.service';
-import {SideMenuItemService} from '../../../shared/side-menu/side-menu-item.service';
-import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
-import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { MatDialog } from '@angular/material/dialog';
-import { EditUserDialogComponent } from '../../../shared/components/dialogs/edit-user-dialog/edit-user-dialog.component';
+import { SideMenuService } from '../../../../../../core/services/common/side-menu.service';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { ActivatedRoute } from '@angular/router';
+import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
+import { SideMenuItemService } from '../../../../../../shared/side-menu/side-menu-item.service';
+import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { EditUserDialogComponent } from '../../../../../../shared/components/dialogs/edit-user-dialog/edit-user-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-admin-user-detail-page',
-  templateUrl: './admin-user-detail-page.component.html',
-  styleUrls: ['./admin-user-detail-page.component.scss']
+  selector: 'app-service-identity-detail-page',
+  templateUrl: './service-identity-detail-page.component.html',
+  styleUrls: ['./service-identity-detail-page.component.css']
 })
-export class AdminUserDetailPageComponent implements OnInit {
+export class ServiceIdentityDetailPageComponent implements OnInit {
 
   constructor(
-    private route: ActivatedRoute,
-    private usersService: UsersManagerService,
     private sideMenuService: SideMenuService,
+    private usersService: UsersManagerService,
     private sideMenuItemService: SideMenuItemService,
+    private route: ActivatedRoute,
     private dialog: MatDialog,
     public authResolver: GuiAuthResolver
-  ) { }
+  ) {
+  }
 
   user: User;
-  path: string;
-  regex: string;
   loading = false;
-  svgIcon = 'perun-user-dark';
+
 
   ngOnInit() {
     this.loading = true;
     this.route.params.subscribe(params => {
       const userId = params['userId'];
 
-      this.path = `/admin/users/${userId}`;
-      this.regex = `/admin/users/\\d+`;
-
       this.usersService.getUserById(userId).subscribe(user => {
         this.user = user;
-        if(this.user.serviceUser) {
-          this.svgIcon = 'perun-service-identity';
-        }
 
-        const userItem = this.sideMenuItemService.parseUser(user, this.path, this.regex);
-        this.sideMenuService.setAdminItems([userItem]);
+        const userItem = this.sideMenuItemService.parseServiceIdentity(user);
+        this.sideMenuService.setUserItems([userItem]);
         this.loading = false;
       }, () => this.loading = false);
     });
+  }
+
+  getUserType(){
+    if (this.user.serviceUser){
+      return "Service";
+    }
+    return "Person";
   }
 
   editUser() {
@@ -68,13 +68,5 @@ export class AdminUserDetailPageComponent implements OnInit {
         });
       }
     });
-
-  }
-
-  getUserType(){
-    if (this.user.serviceUser){
-      return "Service";
-    }
-    return "Person";
   }
 }

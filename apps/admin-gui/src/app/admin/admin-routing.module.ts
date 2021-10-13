@@ -158,26 +158,26 @@ const routes: Routes = [
         data: {animation: 'UserRolesPage'}
       },
       {
-        path: 'settings',
-        component: UserSettingsComponent,
-        children: [
-          {
-            path: '',
-            component: UserSettingsOverviewComponent,
-            data: {animation: 'UserSettingsOverviewPage'}
-          },
-          {
-            path: 'service-identities',
-            component: UserSettingsServiceIdentitiesComponent,
-            data: {animation: 'UserServiceIdentities'}
-          },
-          {
-            path: 'associated-users',
-            component: UserSettingsAssociatedUsersComponent,
-            data: {animation: 'AssociatedUsersPage'}
-          }
-        ]
+        path: 'service-identities',
+        component: UserSettingsServiceIdentitiesComponent,
+        data: {animation: 'UserServiceIdentities'}
+      },
+      {
+        path: 'associated-users',
+        component: UserSettingsAssociatedUsersComponent,
+        data: {animation: 'AssociatedUsersPage'}
       }
+      // {
+      //   path: 'settings',
+      //   component: UserSettingsComponent,
+      //   children: [
+      //     {
+      //       path: '',
+      //       component: UserSettingsOverviewComponent,
+      //       data: {animation: 'UserSettingsOverviewPage'}
+      //     }
+      //   ]
+      // }
     ]
   },
   {

@@ -59,6 +59,8 @@ import { DashboardCardComponent } from './pages/user-detail-page/user-dashboard/
 import { DashboardRecentlyViewedButtonFieldComponent } from './pages/user-detail-page/user-dashboard/dashboard-recently-viewed-button-field/dashboard-recently-viewed-button-field.component';
 import { UserFacilitiesComponent } from './pages/user-detail-page/user-facilities/user-facilities.component';
 import { UserAccountsComponent } from './pages/user-detail-page/user-accounts/user-accounts.component';
+import { ServiceIdentityDetailPageComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-detail-page/service-identity-detail-page.component';
+import { ServiceIdentityOverviewComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-detail-page/service-identity-overview/service-identity-overview.component';
 
 
 @NgModule({
@@ -82,6 +84,8 @@ import { UserAccountsComponent } from './pages/user-detail-page/user-accounts/us
     DashboardRecentlyViewedButtonFieldComponent,
     UserFacilitiesComponent,
     UserAccountsComponent,
+    ServiceIdentityDetailPageComponent,
+    ServiceIdentityOverviewComponent
   ],
   exports: [
     UserDetailPageComponent,

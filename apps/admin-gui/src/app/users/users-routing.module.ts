@@ -10,6 +10,10 @@ import { UserSettingsAppConfigurationComponent } from './pages/user-detail-page/
 import { UserOverviewComponent } from './pages/user-detail-page/user-overview/user-overview.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserRolesComponent } from './pages/user-detail-page/user-settings/user-roles/user-roles.component';
+import { UserSettingsServiceIdentitiesComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/user-settings-service-identities.component';
+import { ServiceIdentityDetailPageComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-detail-page/service-identity-detail-page.component';
+import { ServiceIdentityOverviewComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-detail-page/service-identity-overview/service-identity-overview.component';
+import { UserSettingsAssociatedUsersComponent } from './pages/user-detail-page/user-settings/user-settings-associated-users/user-settings-associated-users.component';
 
 
 const routes: Routes = [
@@ -43,6 +47,11 @@ const routes: Routes = [
         data: {animation: 'UserRolesPage'}
       },
       {
+        path: 'service-identities',
+        component: UserSettingsServiceIdentitiesComponent,
+        data: {animation: 'UserServiceIdentities'}
+      },
+      {
         path: 'settings',
         component: UserSettingsComponent,
         children: [
@@ -62,6 +71,20 @@ const routes: Routes = [
             data: { animation: 'UserAppConfigurationPage' }
           }
         ]
+      }
+    ]
+  },
+  {
+    path: 'service-identities/:userId',
+    component: ServiceIdentityDetailPageComponent,
+    children: [
+      {
+        path: '',
+        component: ServiceIdentityOverviewComponent,
+      },
+      {
+        path: 'associated-users',
+        component: UserSettingsAssociatedUsersComponent
       }
     ]
   }

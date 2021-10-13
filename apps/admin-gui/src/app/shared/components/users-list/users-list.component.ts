@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
@@ -17,7 +17,7 @@ import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss']
 })
-export class UsersListComponent implements OnChanges, AfterViewInit {
+export class UsersListComponent implements OnChanges{
 
   constructor(private authResolver: GuiAuthResolver,
               private tableCheckbox: TableCheckbox) { }
@@ -39,6 +39,9 @@ export class UsersListComponent implements OnChanges, AfterViewInit {
   @Input()
   displayedColumns: string[] = ['select', 'user', 'id', 'name', 'email', 'logins', 'organization'];
 
+
+  @Input()
+  routeToAdmin = true;
 
   @Input()
   disableRouting = false;
@@ -118,13 +121,10 @@ export class UsersListComponent implements OnChanges, AfterViewInit {
     this.dataSource.data = this.users;
   }
 
-  ngAfterViewInit(): void {
+  ngOnChanges() {
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }
-  }
-
-  ngOnChanges() {
     this.setDataSource();
   }
 

@@ -879,7 +879,7 @@
       "TITLE": "User - ",
       "ROLES": "Roles",
       "GUI_CONFIG": "Gui configuration",
-      "SERVICE_IDENTITIES": "Service Identities",
+      "SERVICE_IDENTITIES": "Service Accounts",
       "IDENTITIES": "Identities",
       "PASSWORD_RESET": "Password reset",
       "FACILITIES": "Facilities",
@@ -1978,7 +1978,7 @@
       "TITLE": "Create service account",
       "CREATE": "Create",
       "CANCEL": "Cancel",
-      "CREATE_IDENTITY": "Create service identity",
+      "CREATE_IDENTITY": "Create service account",
       "NAME": "Account name",
       "EMAIL": "Email",
       "NAMESPACE": "Namespace",
@@ -2198,10 +2198,10 @@
         "SUCCESS_SAVE": "Attributes saved successfully"
       },
       "SERVICE_IDENTITIES": {
-        "TITLE": "Service identities",
+        "TITLE": "Service accounts",
         "CREATE": "Add",
         "DELETE": "Remove",
-        "NO_IDENTITIES": "No service identities assigned."
+        "NO_IDENTITIES": "No service accounts assigned."
       },
       "GUI_CONFIG": {
         "PREF_TABLE_PAGE_SIZE": "Preferred table page size",

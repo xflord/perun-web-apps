@@ -29,6 +29,7 @@ export class UserOverviewComponent implements OnInit {
 
   navItems: MenuItem[] = [];
   user: User;
+  isServiceUser = false;
   userID: number;
   path: string;
   mailDataSource: MatTableDataSource<Attribute>;
@@ -41,7 +42,7 @@ export class UserOverviewComponent implements OnInit {
       if(params['userId'] !== undefined) {
         this.userService.getUserById(params['userId']).subscribe(user => {
           this.user = user;
-
+          this.isServiceUser = user.serviceUser;
           this.initNavItems();
         });
       } else {
@@ -113,13 +114,30 @@ export class UserOverviewComponent implements OnInit {
         url: `roles`,
         label: 'MENU_ITEMS.USER.ROLES',
         style: 'user-btn'
-      },
-      {
-        cssIcon: 'perun-settings2',
-        url: `settings`,
-        label: 'MENU_ITEMS.ADMIN.SETTINGS',
+      });
+    if(this.isServiceUser){
+      this.navItems.push({
+        cssIcon: 'perun-user-dark',
+        url:`associated-users`,
+        label: 'MENU_ITEMS.USER.ASSOCIATED_USERS',
         style: 'user-btn'
       });
+    } else {
+      this.navItems.push({
+        cssIcon: 'perun-service-identity',
+        url:`service-identities`,
+        label: 'MENU_ITEMS.USER.SERVICE_IDENTITIES',
+        style: 'user-btn'
+      });
+    }
+    if (!window.location.pathname.startsWith('/admin')) {
+      this.navItems.push({
+          cssIcon: 'perun-settings2',
+          url: `settings`,
+          label: 'MENU_ITEMS.ADMIN.SETTINGS',
+          style: 'user-btn'
+        });
+    }
   }
 
   changeEmail() {

@@ -9,6 +9,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ConnectIdentityDialogComponent } from '../../../../../shared/components/dialogs/connect-identity-dialog/connect-identity-dialog.component';
 import { DisconnectIdentityDialogComponent } from '../../../../../shared/components/dialogs/disconnect-identity-dialog/disconnect-identity-dialog.component';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-user-settings-associated-users',
@@ -20,6 +21,7 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private dialog: MatDialog,
               private router: Router,
+              public authResolver: GuiAuthResolver,
               private userManager: UsersManagerService) {
   }
 
@@ -29,15 +31,19 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
   userId: number;
   tableId = TABLE_USER_ASSOCIATED_USERS;
   displayedColumns = [ 'select', 'id', 'user', 'name' ];
+  addAuth: boolean;
+  removeAuth: boolean;
+  disableRouting: boolean;
 
   ngOnInit(): void {
     this.loading = true;
 
-    this.route.parent.parent.params
+    this.route.parent.params
       .subscribe(params => {
         this.userId = params["userId"];
         this.userManager.getUsersBySpecificUser(this.userId).subscribe(associatedUsers => {
           this.associatedUsers = associatedUsers;
+          this.setAuth();
           this.loading = false;
         });
       });
@@ -50,6 +56,12 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
       this.selection.clear();
       this.loading = false;
     });
+  }
+
+  setAuth() {
+    this.addAuth = this.authResolver.isAuthorized('addSpecificUserOwner_User_User_policy', [{id: this.userId, beanName: 'User'}]);
+    this.removeAuth = this.authResolver.isAuthorized('removeSpecificUserOwner_User_User_policy', [{id: this.userId, beanName: 'User'}]);
+    this.disableRouting = !this.authResolver.isPerunAdminOrObserver();
   }
 
   onAdd(){
@@ -85,7 +97,11 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.refreshTable();
+        if(!this.authResolver.isAuthorized('getUsersBySpecificUser_User_policy', [{id: this.userId, beanName: 'User'}])) {
+          this.router.navigate(['/myProfile']);
+        } else {
+          this.refreshTable();
+        }
       }
     });
   }
