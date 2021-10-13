@@ -1,0 +1,4 @@
+externalTest:
+  variables:
+    GUI_COMMIT_HASH: ${CI_COMMIT_SHA}
+  trigger: Perun/e2e-perun
