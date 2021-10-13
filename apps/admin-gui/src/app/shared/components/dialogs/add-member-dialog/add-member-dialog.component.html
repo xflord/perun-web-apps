@@ -62,7 +62,7 @@
       </button>
       <mat-menu #menu="matMenu">
         <button (click)="onInvite(lang)" *ngFor="let lang of languages" mat-menu-item>
-          {{'SHARED_LIB.LANGUAGES.'+lang | uppercase | translate}}
+          {{'DIALOGS.ADD_MEMBERS.INVITE_IN_LANGUAGE' | translate}} {{'SHARED_LIB.LANGUAGES.'+lang | uppercase | translate}} {{'DIALOGS.ADD_MEMBERS.LANGUAGE' | translate}}
         </button>
       </mat-menu>
     </span>

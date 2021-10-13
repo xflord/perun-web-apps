@@ -1035,6 +1035,8 @@
       "CANCEL": "Cancel",
       "CREATE": "Add",
       "INVITE": "Invite",
+      "INVITE_IN_LANGUAGE": "Send invintation in",
+      "LANGUAGE": "language",
       "SUCCESS": "Selected members were added",
       "SUCCESS_INVITE": "Invite was send to given user",
       "VALIDATION_SUCCESS": "Member validation was successful",
