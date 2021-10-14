@@ -14,7 +14,12 @@ import {
   getDefaultDialogConfig, parseEmail, parseFullName, parseLogins, parseOrganization,
   TABLE_ITEMS_COUNT_OPTIONS
 } from '@perun-web-apps/perun/utils';
-import { ChangeMemberStatusDialogComponent, MemberTreeViewDialogComponent } from '@perun-web-apps/perun/dialogs';
+import {
+  ChangeGroupExpirationDialogComponent,
+  ChangeMemberStatusDialogComponent,
+  ChangeVoExpirationDialogComponent,
+  MemberTreeViewDialogComponent
+} from '@perun-web-apps/perun/dialogs';
 import {
   DynamicPaginatingService,
   GuiAuthResolver,
@@ -123,20 +128,54 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-  changeStatus(event: any, member: RichMember) {
+  changeStatus(event: any, member: RichMember, groupId?: number) {
     event.stopPropagation();
-    if (member.status === 'INVALID') {
-      const config = getDefaultDialogConfig();
-      config.width = '500px';
-      config.data = {member: member};
+    const config = getDefaultDialogConfig();
+    config.width = '500px';
+    config.data = {member: member, voId: this.voId, groupId: groupId};
+    const oldStatus = groupId ? member.groupStatus : member.status;
 
-      const dialogRef = this.dialog.open(ChangeMemberStatusDialogComponent, config);
-      dialogRef.afterClosed().subscribe( success => {
-        if (success) {
+    const dialogRef = this.dialog.open(ChangeMemberStatusDialogComponent, config);
+    dialogRef.afterClosed().subscribe( changedMember => {
+      if (changedMember) {
+        const changedStatus = groupId ? changedMember.groupStatus : changedMember.status;
+        if ((oldStatus === 'VALID' && (changedStatus === 'EXPIRED' || changedStatus === 'DISABLED')) || changedStatus === 'VALID') {
+          if (groupId) {
+            member.groupStatus = changedStatus;
+          } else {
+            member.status = changedStatus;
+          }
+          this.changeExpiration(member, groupId);
+        } else {
           this.loadMembersPage();
         }
-      });
+      }
+    });
+  }
+
+  changeExpiration(member: RichMember, groupId?: number) {
+    const expirationAttr = groupId ? member.memberAttributes.find(att => att.friendlyName === 'groupMembershipExpiration') :
+      member.memberAttributes.find(att => att.friendlyName === 'membershipExpiration');
+    const config = getDefaultDialogConfig();
+    config.width = '400px';
+    config.data = {
+      voId: this.voId,
+      groupId: groupId,
+      memberId: member.id,
+      expirationAttr: expirationAttr,
+      status: groupId ? member.groupStatus : member.status,
+      statusChanged: true,
     }
+    let dialogRef;
+    if(groupId) {
+      dialogRef = this.dialog.open(ChangeGroupExpirationDialogComponent, config);
+    } else {
+      dialogRef = this.dialog.open(ChangeVoExpirationDialogComponent, config);
+    }
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadMembersPage();
+    });
   }
 
   loadMembersPage() {
