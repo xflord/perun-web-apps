@@ -1,4 +1,6 @@
-externalTest:
+e2e_tests:
   variables:
     GUI_COMMIT_HASH: ${CI_COMMIT_SHA}
-  trigger: Perun/e2e-perun
+  trigger:
+    project: Perun/e2e-perun
+    strategy: depend
