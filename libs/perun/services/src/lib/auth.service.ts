@@ -5,7 +5,7 @@ import { StoreService } from './store.service';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { SessionExpirationDialogComponent } from '@perun-web-apps/perun/session-expiration';
-import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
+import { AuthConfig, OAuthService, OAuthInfoEvent } from 'angular-oauth2-oidc';
 
 
 @Injectable({
@@ -49,6 +49,10 @@ export class AuthService {
       responseType: this.store.get('oidc_client', 'oauth_response_type'),
       scope: this.store.get('oidc_client', 'oauth_scopes'),
       useSilentRefresh: false,
+      //quickfix for implicit flow to successfully refresh access token, will be removed with code flow
+      timeoutFactor: 1,
+      //quickfix for implicit flow to successfully refresh access token, will be removed with code flow
+      clockSkewInSec: 1,
       // sessionChecksEnabled: true,
       customQueryParams: !filterValue ? {} : { 'acr_values': filterValue}
     };
@@ -101,15 +105,19 @@ export class AuthService {
 
   loadConfigData() {
     this.oauthService.configure(this.getClientConfig());
-    this.oauthService.events.pipe(filter(e => e.type === 'token_expires')).subscribe(() => {
-      const config = getDefaultDialogConfig();
-      config.width = '450px';
+    this.oauthService.events.pipe(filter(e => e.type === 'token_expires')).subscribe(e => {
+      if (e instanceof OAuthInfoEvent) {
+        if (e.info === 'access_token') {
+          const c = getDefaultDialogConfig();
+          c.width = '450px';
 
-      const dialogRef = this.dialog.open(SessionExpirationDialogComponent, config);
+          const dialogRef = this.dialog.open(SessionExpirationDialogComponent, c);
 
-      dialogRef.afterClosed().subscribe(() => {
-        this.startAuthentication();
-      });
+          dialogRef.afterClosed().subscribe(() => {
+            this.startAuthentication();
+          });
+        }
+      }
     });
   }
 
