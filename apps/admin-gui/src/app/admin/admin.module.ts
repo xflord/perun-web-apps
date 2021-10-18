@@ -31,6 +31,7 @@ import { ServiceRequiredAttributesComponent } from './pages/admin-page/admin-ser
 import { UsersModule } from '../users/users.module';
 import { ServiceDestinationsComponent } from './pages/admin-page/admin-services/service-detail-page/service-destinations/service-destinations.component';
 import { AdminOwnersComponent } from './pages/admin-page/admin-owners/admin-owners.component';
+import { AdminAuditLogComponent } from './pages/admin-page/admin-audit-log/admin-audit-log.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { AdminOwnersComponent } from './pages/admin-page/admin-owners/admin-owne
     ServiceOverviewComponent,
     ServiceRequiredAttributesComponent,
     ServiceDestinationsComponent,
-    AdminOwnersComponent
+    AdminOwnersComponent,
+    AdminAuditLogComponent
   ],
   imports: [
     NgxGraphModule,

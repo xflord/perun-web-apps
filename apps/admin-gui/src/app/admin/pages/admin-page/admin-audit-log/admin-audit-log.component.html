@@ -1,0 +1,6 @@
+<h1 class="page-subtitle">{{'ADMIN.AUDIT_LOG.TITLE'|translate}}</h1>
+<perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
+<app-audit-messages-list
+  [refresh]="refresh"
+  [tableId]="tableId"
+></app-audit-messages-list>

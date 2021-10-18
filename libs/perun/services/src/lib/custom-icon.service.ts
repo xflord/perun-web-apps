@@ -183,6 +183,10 @@ export class CustomIconService {
     {
       url: 'assets/img/PerunWebImages/statistics-blue.svg',
       name: 'perun-statistics'
+    },
+    {
+      url: 'assets/img/PerunWebImages/audit_log-blue.svg',
+      name: 'perun-audit-log'
     }
   ];
 

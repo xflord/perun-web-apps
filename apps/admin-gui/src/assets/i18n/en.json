@@ -864,7 +864,8 @@
       "SETTINGS": "Advanced settings",
       "ORGANIZATIONS": "Organizations",
       "SERVICES": "Services",
-      "OWNERS": "Owners"
+      "OWNERS": "Owners",
+      "AUDIT_LOG": "Audit log"
     },
     "VISUALIZER": {
       "ATTR_DEPENDENCIES": "Modules dependencies",
@@ -2009,6 +2010,13 @@
       "SET_CREDENTIALS": "Set credentials",
       "PASSWORD_RANDOM": "Set password later",
       "ENTER_PASSWORD": "Set password now"
+    },
+    "AUDIT_MESSAGE_DETAIL": {
+      "TITLE": "Audit message detail",
+      "CLOSE": "Close",
+      "NAME": "Event name",
+      "MESSAGE": "Message",
+      "ADDITIONAL_INFO": "Additional info"
     }
   },
   "MEMBERS_LIST": {
@@ -2041,6 +2049,14 @@
     "LOGINS": "Logins",
     "PERSON": "Person",
     "SERVICE": "Service"
+  },
+  "AUDIT_MESSAGES_LIST": {
+    "ID": "Message ID",
+    "TIMESTAMP": "Created at",
+    "EVENT_NAME": "Event name",
+    "ACTOR": "Actor",
+    "VIEW_DETAIL": "View details",
+    "MESSAGE": "Message"
   },
   "ADMIN_USER": {
     "ENTITY": "User",
@@ -2126,6 +2142,9 @@
       "CREATE": "Create service",
       "DELETE": "Delete",
       "FILTER": "Filter"
+    },
+    "AUDIT_LOG": {
+      "TITLE": "Audit log"
     }
   },
   "USER_DETAIL": {

@@ -1,0 +1,14 @@
+<div class="admin-theme">
+  <h1 mat-dialog-title>{{(title | parseEventName) ?? 'DIALOGS.AUDIT_MESSAGE_DETAIL.TITLE' | translate}}</h1>
+  <div mat-dialog-content>
+    <pre>{{eventData | json}}</pre>
+  </div>
+  <div mat-dialog-actions>
+      <button
+        (click)="onClose()"
+        class="ml-auto"
+        mat-flat-button>
+        {{'DIALOGS.AUDIT_MESSAGE_DETAIL.CLOSE' | translate}}
+      </button>
+  </div>
+</div>

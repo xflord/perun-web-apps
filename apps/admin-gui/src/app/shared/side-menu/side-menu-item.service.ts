@@ -222,6 +222,11 @@ export class SideMenuItemService {
           label: 'MENU_ITEMS.ADMIN.EXT_SOURCES',
           url: ['/admin/ext_sources'],
           activatedRegex: '^/admin/ext_sources$'
+        },
+        {
+          label: 'MENU_ITEMS.ADMIN.AUDIT_LOG',
+          url: ['/admin/audit_log'],
+          activatedRegex: '^/admin/audit_log$'
         }
       ]
     };

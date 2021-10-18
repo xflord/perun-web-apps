@@ -169,6 +169,9 @@ import { CreateServiceMemberDialogComponent } from './components/create-service-
 import { MemberOverviewMembershipComponent } from './components/member-overview-membership/member-overview-membership.component';
 import { MemberOverviewGroupsComponent } from './components/member-overview-groups/member-overview-groups.component';
 import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespace-password-form';
+import { AuditMessagesListComponent } from './components/audit-messages-list/audit-messages-list.component';
+import { AuditMessageDetailDialogComponent } from './components/dialogs/audit-message-detail-dialog/audit-message-detail-dialog.component';
+import { ParseEventNamePipe } from './pipes/parse-event-name.pipe';
 
 @NgModule({
   imports: [
@@ -301,6 +304,7 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
     OneEntityAttributePageComponent,
     MemberOverviewMembershipComponent,
     MemberOverviewGroupsComponent,
+    AuditMessagesListComponent
   ],
   declarations: [
     PerunNavComponent,
@@ -426,6 +430,9 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
     CreateServiceMemberDialogComponent,
     MemberOverviewMembershipComponent,
     MemberOverviewGroupsComponent,
+    AuditMessagesListComponent,
+    AuditMessageDetailDialogComponent,
+    ParseEventNamePipe,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe],
 })

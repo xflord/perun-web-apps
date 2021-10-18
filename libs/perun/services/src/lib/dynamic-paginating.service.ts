@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
+  AuditMessagesManagerService,
   MemberGroupStatus,
   MembersManagerService,
-  MembersOrderColumn,
+  MembersOrderColumn, PaginatedAuditMessages,
   PaginatedRichMembers, PaginatedRichUsers,
   SortingOrder, UsersManagerService, UsersOrderColumn, VoMemberStatuses
 } from '@perun-web-apps/perun/openapi';
@@ -14,7 +15,8 @@ import { Observable } from 'rxjs';
 export class DynamicPaginatingService {
 
   constructor(private membersService: MembersManagerService,
-              private usersService: UsersManagerService) { }
+              private usersService: UsersManagerService,
+              private auditMessagesManagerService: AuditMessagesManagerService) { }
 
   getMembers(voId: number,
              attrNames: string[],
@@ -66,6 +68,18 @@ export class DynamicPaginatingService {
         resourceId: resourceId,
         serviceId: serviceId,
         onlyAllowed: onlyAllowed
+      }
+    });
+  }
+
+  getAuditMessages(order: SortingOrder,
+           pageNumber: number,
+           pageSize: number): Observable<PaginatedAuditMessages> {
+    return this.auditMessagesManagerService.getMessagesPage({
+      query: {
+        offset: pageSize*pageNumber,
+        pageSize: pageSize,
+        order: order
       }
     });
   }

@@ -48,6 +48,12 @@ export class AdminOverviewComponent {
       url: '/admin/ext_sources',
       label: 'MENU_ITEMS.ADMIN.EXT_SOURCES',
       style: 'admin-btn'
+    },
+    {
+      cssIcon: 'perun-audit-log',
+      url: '/admin/audit_log',
+      label: 'MENU_ITEMS.ADMIN.AUDIT_LOG',
+      style: 'admin-btn'
     }
   ];
 

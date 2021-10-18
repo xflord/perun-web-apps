@@ -2,8 +2,9 @@ import {DataSource} from "@angular/cdk/collections";
 import {Observable, BehaviorSubject, of} from "rxjs";
 import {catchError, finalize} from "rxjs/operators";
 import {
+  AuditMessage,
   MemberGroupStatus,
-  MembersOrderColumn,
+  MembersOrderColumn, PaginatedAuditMessages,
   PaginatedRichMembers, PaginatedRichUsers,
   RichMember, RichUser,
   SortingOrder, UsersOrderColumn,
@@ -86,6 +87,26 @@ export class DynamicDataSource<T> implements DataSource<T> {
       if (this.latestQueryTime <= thisQueryTime) {
         const data: RichUser[] = (<PaginatedRichUsers>paginatedRichUsers).data;
         this.allObjectCount = (<PaginatedRichUsers>paginatedRichUsers).totalCount;
+        // @ts-ignore
+        this.dataSubject.next(data);
+      }
+    });
+  }
+
+  loadAuditMessages(pageSize: number,
+            pageIndex: number,
+            sortOrder: SortingOrder) {
+    this.loadingSubject.next(true);
+    this.latestQueryTime = Date.now();
+    const thisQueryTime = this.latestQueryTime;
+
+    this.dynamicPaginatingService.getAuditMessages(sortOrder, pageIndex, pageSize).pipe(
+      catchError(() => of([])),
+      finalize(() => this.loadingSubject.next(false))
+    ).subscribe(paginatedAuditMessages => {
+      if (this.latestQueryTime <= thisQueryTime) {
+        const data: AuditMessage[] = (<PaginatedAuditMessages>paginatedAuditMessages).data;
+        this.allObjectCount = (<PaginatedAuditMessages>paginatedAuditMessages).totalCount;
         // @ts-ignore
         this.dataSubject.next(data);
       }

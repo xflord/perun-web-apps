@@ -35,6 +35,7 @@ import { ServiceDestinationsComponent } from './pages/admin-page/admin-services/
 import { AdminOwnersComponent } from './pages/admin-page/admin-owners/admin-owners.component';
 import { UserFacilitiesComponent } from '../users/pages/user-detail-page/user-facilities/user-facilities.component';
 import { UserAccountsComponent } from '../users/pages/user-detail-page/user-accounts/user-accounts.component';
+import { AdminAuditLogComponent } from './pages/admin-page/admin-audit-log/admin-audit-log.component';
 
 const routes: Routes = [
   {
@@ -65,6 +66,11 @@ const routes: Routes = [
         path: 'services',
         component: AdminServicesComponent,
         data: {animation: 'AdminServicesPage'}
+      },
+      {
+        path: 'audit_log',
+        component: AdminAuditLogComponent,
+        data: {animation: 'AdminAuditLogPage'}
       },
       {
         path: 'visualizer',
