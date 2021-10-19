@@ -50,8 +50,20 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
       this.actualStatus = this.data.member.status;
     }
 
+    this.changeStatusButton = this.translate.instant('DIALOGS.CHANGE_STATUS.CHANGE_STATUS');
+    this.changeStatusWithExpButton = this.translate.instant('DIALOGS.CHANGE_STATUS.CHANGE_STATUS_WITH_EXPIRATION');
+    this.submitButtonText = this.changeStatusButton;
+
     if (this.data.groupId) {
-      this.allStatuses = this.actualStatus === 'VALID' ? ['EXPIRED'] : ['VALID'];
+      if( this.actualStatus === 'VALID'){
+        this.allStatuses = ['EXPIRED'];
+        this.selectedStatus = 'EXPIRED';
+      } else {
+        this.allStatuses = ['VALID'];
+        this.selectedStatus = 'VALID';
+      }
+      this.submitButtonText = this.changeStatusWithExpButton;
+      this.changeStatusMessage(this.actualStatus, this.selectedStatus);
     } else {
       if (this.actualStatus === 'INVALID') {
         this.allStatuses = ['VALID', 'EXPIRED'];
@@ -59,10 +71,6 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
         this.allStatuses = this.allStatuses.filter(status => status !== this.actualStatus);
       }
     }
-
-    this.changeStatusButton = this.translate.instant('DIALOGS.CHANGE_STATUS.CHANGE_STATUS');
-    this.changeStatusWithExpButton = this.translate.instant('DIALOGS.CHANGE_STATUS.CHANGE_STATUS_WITH_EXPIRATION');
-    this.submitButtonText = this.changeStatusButton;
 
     switch (this.actualStatus) {
       case "VALID":
