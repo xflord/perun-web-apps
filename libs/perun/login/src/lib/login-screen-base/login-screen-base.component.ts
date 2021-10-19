@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { PreferredLanguageService, StoreService } from '@perun-web-apps/perun/services';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'perun-web-apps-login-screen-base',
@@ -12,6 +13,8 @@ export class LoginScreenBaseComponent implements OnInit {
   constructor(
     private storeService: StoreService,
     private sanitizer: DomSanitizer,
+    private preferredLangService: PreferredLanguageService,
+    private translateService: TranslateService,
   ) { }
 
   @Input()
@@ -32,6 +35,11 @@ export class LoginScreenBaseComponent implements OnInit {
     this.headerTextColor = this.storeService.get('theme', 'nav_text_color');
     this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.get('logo'));
     this.textColor = this.headerTitle ? this.storeService.get('theme', 'header_text_color') : '';
+
+    if(this.application === 'user-profile') {
+      const prefLang = this.preferredLangService.getPreferredLanguage(null);
+      this.translateService.use(prefLang);
+    }
   }
 
   getContentInnerMinHeight() {

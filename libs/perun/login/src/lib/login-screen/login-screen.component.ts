@@ -1,22 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService, PreferredLanguageService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
+import { Component } from '@angular/core';
+import { AuthService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'perun-web-apps-login-screen',
   templateUrl: './login-screen.component.html',
   styleUrls: ['./login-screen.component.scss']
 })
-export class LoginScreenComponent implements OnInit{
+export class LoginScreenComponent {
 
-  constructor(private auth: AuthService,
-              private translateService: TranslateService,
-              private preferredLangService: PreferredLanguageService) { }
-
-  ngOnInit() {
-    const prefLang = this.preferredLangService.getPreferredLanguage(null);
-    this.translateService.use(prefLang);
-  }
+  constructor(private auth: AuthService) { }
 
   startAuth(): void {
     this.auth.startAuthentication();
