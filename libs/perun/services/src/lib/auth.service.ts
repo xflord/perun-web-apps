@@ -114,6 +114,8 @@ export class AuthService {
           const dialogRef = this.dialog.open(SessionExpirationDialogComponent, c);
 
           dialogRef.afterClosed().subscribe(() => {
+            sessionStorage.setItem('auth:redirect', location.pathname);
+            sessionStorage.setItem('auth:queryParams', location.search.substr(1));
             this.startAuthentication();
           });
         }
