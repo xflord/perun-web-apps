@@ -63,7 +63,9 @@ export class ApiInterceptor implements HttpInterceptor {
     // Also handle errors globally, if not disabled
     const shouldHandleError = this.apiRequestConfiguration.shouldHandleError();
 
-    const shouldReloadPrincipal = req.method === "POST" && !this.store.skipOidc();
+    const shouldReloadPrincipal = req.method === "POST" &&
+                                  !this.store.skipOidc() &&
+                                  this.isCallToPerunApi(req.url);
 
     return next.handle(req).pipe(
       tap(x => {
@@ -83,6 +85,10 @@ export class ApiInterceptor implements HttpInterceptor {
         }
       })
     );
+  }
+
+  private isCallToPerunApi(url: string): boolean {
+    return url.startsWith(this.store.get("api_url"));
   }
 
   private formatErrors(error: any, req: HttpRequest<any>) {
