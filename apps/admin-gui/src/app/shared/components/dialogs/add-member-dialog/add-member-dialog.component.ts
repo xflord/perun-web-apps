@@ -24,6 +24,7 @@ export interface AddMemberDialogData {
   voId?: number;
   entityId: number;
   group?: Group;
+  manualAddingBlocked?: boolean;
   theme: string;
   type: 'vo' | 'group';
 }
@@ -54,6 +55,8 @@ export class AddMemberDialogComponent implements OnInit {
 
   inviteAuth = false;
   searchCtrl: FormControl;
+
+  manualAddingBlocked = false;
 
   constructor(
     private dialogRef: MatDialogRef<AddMemberDialogComponent>,
@@ -159,6 +162,7 @@ export class AddMemberDialogComponent implements OnInit {
   ngOnInit(): void {
     this.languages = this.store.get('supported_languages');
     this.theme = this.data.theme;
+    this.manualAddingBlocked = this.data.manualAddingBlocked;
     if (this.data.type === 'group') {
       this.inviteAuth = this.guiAuthResolver.isAuthorized('group-sendInvitation_Vo_Group_User_policy', [this.data.group]);
     }

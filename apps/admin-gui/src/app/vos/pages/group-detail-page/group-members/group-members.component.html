@@ -8,11 +8,12 @@
     [matTooltipDisabled]="!synchEnabled"
     [matTooltipPosition]="'above'"
     matTooltip="{{'GROUP_DETAIL.MEMBERS.SYNCHRONIZED' | translate}}">
-    <div matTooltip="{{'GROUP_DETAIL.MEMBERS.ADD_MEMBER_DISABLED' | translate}}" [matTooltipDisabled]="!blockManualMemberAdding">
+    <div matTooltip="{{'GROUP_DETAIL.MEMBERS.ADD_MEMBER_DISABLED' | translate}}"
+         [matTooltipDisabled]="!blockGroupManualMemberAdding">
       <button
         (click)="onAddMember()"
         *ngIf="addAuth"
-        [disabled]="synchEnabled || blockManualMemberAdding"
+        [disabled]="synchEnabled || blockGroupManualMemberAdding"
         class="mr-2"
         color="accent"
         mat-flat-button>

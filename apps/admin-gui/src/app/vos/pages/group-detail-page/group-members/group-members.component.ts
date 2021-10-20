@@ -76,6 +76,7 @@ export class GroupMembersComponent implements OnInit {
   removeAuth: boolean;
   inviteAuth: boolean;
   blockManualMemberAdding: boolean;
+  blockGroupManualMemberAdding: boolean;
   displayedColumns = ['checkbox', 'id', 'type', 'fullName', 'status', 'groupStatus', 'organization', 'email', 'logins'];
 
   statuses = new FormControl();
@@ -133,6 +134,7 @@ export class GroupMembersComponent implements OnInit {
       voId: this.group.voId,
       group: this.group,
       entityId: this.group.id,
+      manualAddingBlocked: this.blockManualMemberAdding,
       theme: 'group-theme',
       type: 'group',
     };
@@ -200,22 +202,18 @@ export class GroupMembersComponent implements OnInit {
   isManualAddingBlocked(voId: number, groupId: number): Promise<void> {
     return new Promise((resolve) => {
       this.apiRequest.dontHandleErrorForNext();
-      this.attributesManager.getVoAttributeByName(voId, "urn:perun:vo:attribute-def:def:blockManualMemberAdding").subscribe(attrValue => {
+      this.attributesManager.getVoAttributeByName(voId, 'urn:perun:vo:attribute-def:def:blockManualMemberAdding').subscribe(attrValue => {
         this.blockManualMemberAdding = attrValue.value !== null;
-        if (this.blockManualMemberAdding !== true) {
-          this.apiRequest.dontHandleErrorForNext();
-          this.attributesManager.getGroupAttributeByName(groupId, "urn:perun:group:attribute-def:def:blockManualMemberAdding").subscribe(groupAttrValue => {
-            this.blockManualMemberAdding = groupAttrValue.value !== null;
-            resolve();
-          }, error => {
-            if (error.error.name !== 'PrivilegeException') {
-              this.notificator.showError(error);
-            }
-            resolve();
-          });
-        } else {
+        this.apiRequest.dontHandleErrorForNext();
+        this.attributesManager.getGroupAttributeByName(groupId, 'urn:perun:group:attribute-def:def:blockManualMemberAdding').subscribe(groupAttrValue => {
+          this.blockGroupManualMemberAdding = groupAttrValue.value !== null;
           resolve();
-        }
+        }, error => {
+          if (error.error.name !== 'PrivilegeException') {
+            this.notificator.showError(error);
+          }
+          resolve();
+        });
       }, error => {
         if (error.error.name !== 'PrivilegeException') {
           this.notificator.showError(error);

@@ -297,7 +297,7 @@
     "MEMBERS": {
       "TITLE": "Members",
       "ADD_MEMBER": "Add",
-      "ADD_MEMBER_DISABLED": "You cannot add members manually into this Vo.",
+      "ADD_MEMBER_DISABLED": "You cannot add members manually into this organization.",
       "REMOVE_MEMBERS": "Remove",
       "SEARCH_DESCRIPTION": "Search by name, login, email or UUID",
       "FILTER_STATUS": "Filter by Status",
@@ -586,7 +586,7 @@
       "TITLE": "Members",
       "ACTIONS_DISABLED": "Actions with members are disabled, because this group is filled with members from external source.",
       "ADD_MEMBER": "Add",
-      "ADD_MEMBER_DISABLED": "You cannot add members manually into this group.",
+      "ADD_MEMBER_DISABLED": "Manual adding of members is blocked for this group.",
       "REMOVE_MEMBERS": "Remove",
       "SEARCH_DESCRIPTION": "Search by name, login, email or UUID",
       "LIST_ALL": "List all members",
@@ -2039,7 +2039,8 @@
     "ORGANIZATION": "Organization or Ext source",
     "EMAIL": "Email",
     "LOGINS": "Logins",
-    "ALREADY_MEMBER": "Already member"
+    "ALREADY_MEMBER": "Already member",
+    "ADDING_BLOCKED": "Manual adding of users outside of organization is blocked."
   },
   "MANAGERS_LIST": {
     "ID": "User ID",

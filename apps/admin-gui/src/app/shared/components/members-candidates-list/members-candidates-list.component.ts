@@ -8,7 +8,7 @@ import {
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { RichUser, Candidate, MemberCandidate, Attribute, Group} from '@perun-web-apps/perun/openapi';
+import { RichUser, Candidate, MemberCandidate, Attribute, Group } from '@perun-web-apps/perun/openapi';
 import {
   getCandidateEmail,
   getExtSourceNameOrOrganizationColumn,
@@ -55,6 +55,9 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
 
   @Input()
   group: Group;
+
+  @Input()
+  blockManualAdding = false;
 
   displayedColumns: string[] = ['checkbox', 'status', 'fullName', 'voExtSource', 'email', 'logins', 'alreadyMember', 'local'];
   dataSource: MatTableDataSource<MemberCandidate>;
@@ -260,7 +263,7 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
           memberCandidate.member.membershipType === 'DIRECT';
       }
     }
-    return false;
+    return this.blockManualAdding;
   }
 
   setAddAuth() {
@@ -277,5 +280,9 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   itemSelectionToggle(item: MemberCandidate) {
     this.selection.toggle(item);
     this.setAddAuth();
+  }
+
+  getTooltip(memberCandidate: MemberCandidate) {
+    return memberCandidate.member ? 'MEMBERS_CANDIDATES_LIST.ALREADY_MEMBER' : 'MEMBERS_CANDIDATES_LIST.ADDING_BLOCKED';
   }
 }
