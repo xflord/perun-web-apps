@@ -48,11 +48,6 @@ export class AuthService {
       postLogoutRedirectUri: this.store.get('oidc_client', 'oauth_post_logout_redirect_uri'),
       responseType: this.store.get('oidc_client', 'oauth_response_type'),
       scope: this.store.get('oidc_client', 'oauth_scopes'),
-      useSilentRefresh: false,
-      //quickfix for implicit flow to successfully refresh access token, will be removed with code flow
-      timeoutFactor: 1,
-      //quickfix for implicit flow to successfully refresh access token, will be removed with code flow
-      clockSkewInSec: 1,
       // sessionChecksEnabled: true,
       customQueryParams: !filterValue ? {} : { 'acr_values': filterValue}
     };
@@ -105,22 +100,6 @@ export class AuthService {
 
   loadConfigData() {
     this.oauthService.configure(this.getClientConfig());
-    this.oauthService.events.pipe(filter(e => e.type === 'token_expires')).subscribe(e => {
-      if (e instanceof OAuthInfoEvent) {
-        if (e.info === 'access_token') {
-          const c = getDefaultDialogConfig();
-          c.width = '450px';
-
-          const dialogRef = this.dialog.open(SessionExpirationDialogComponent, c);
-
-          dialogRef.afterClosed().subscribe(() => {
-            sessionStorage.setItem('auth:redirect', location.pathname);
-            sessionStorage.setItem('auth:queryParams', location.search.substr(1));
-            this.startAuthentication();
-          });
-        }
-      }
-    });
   }
 
   verifyAuth(): Promise<boolean> {
@@ -129,10 +108,26 @@ export class AuthService {
 
     if (currentPathname === '/api-callback') {
       return this.handleAuthCallback()
+        .then(() => this.startRefreshToken())
         .then(() => this.redirectToOriginDestination())
     } else {
-      return this.verifyAuthentication(currentPathname, queryParams);
+      return this.verifyAuthentication(currentPathname, queryParams)
+        .then(() => this.startRefreshToken());
     }
+  }
+
+  startRefreshToken(): Promise<any> {
+    return this.isLoggedInPromise()
+      .then(isLoggedIn => {
+        if (isLoggedIn) {
+          this.oauthService.events.pipe(filter(e => e.type === 'token_expires')).subscribe(() => {
+            this.oauthService.refreshToken();
+          });
+          return true;
+        }
+        return false;
+      });
+
   }
 
   logout() {
@@ -211,6 +206,7 @@ export class AuthService {
 
           return false;
         }
+        this.oauthService.loadDiscoveryDocument();
         return true;
       });
   }
