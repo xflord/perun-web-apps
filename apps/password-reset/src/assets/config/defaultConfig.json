@@ -10,5 +10,7 @@
     "oauth_scopes": "openid profile perun_api offline_access",
     "oauth_response_type": "code"
   },
-  "skip_oidc": true
+  "skip_oidc": false,
+  "auto_auth_redirect": true,
+  "supported_languages": ["en"]
 }

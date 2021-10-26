@@ -4,6 +4,8 @@ import { PasswordResetDialogComponent } from './dialogs/password-reset-dialog/pa
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { TokenExpiredDialogComponent } from './dialogs/token-expired-dialog/token-expired-dialog.component';
+import { PreferredLanguageService } from '@perun-web-apps/perun/services';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'perun-web-apps-root',
@@ -13,10 +15,14 @@ import { TokenExpiredDialogComponent } from './dialogs/token-expired-dialog/toke
 export class AppComponent implements OnInit{
 
   constructor(private dialog: MatDialog,
-              private usersService: UsersManagerService) {
-  }
+              private usersService: UsersManagerService,
+              private preferredLangService: PreferredLanguageService,
+              private translateService:TranslateService) { }
 
   ngOnInit() {
+    const prefLang = this.preferredLangService.getPreferredLanguage(null);
+    this.translateService.use(prefLang);
+
     const queryParams = location.search.substr(1);
     let mode = ''
     if (queryParams.includes('activation')) {
