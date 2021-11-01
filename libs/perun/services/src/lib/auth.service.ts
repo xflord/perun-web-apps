@@ -2,10 +2,8 @@ import { Injectable, Injector } from '@angular/core';
 import { filter} from 'rxjs/operators';
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import { StoreService } from './store.service';
-import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
-import { SessionExpirationDialogComponent } from '@perun-web-apps/perun/session-expiration';
-import { AuthConfig, OAuthService, OAuthInfoEvent } from 'angular-oauth2-oidc';
+import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 
 
 @Injectable({
