@@ -1732,6 +1732,8 @@
       "REMOVE": "Disconnect",
       "CANCEL": "Cancel",
       "DESCRIPTION": "Following identities will be disconnected from user.",
+      "WARNING_DISCONNECT_YOURSELF": "You will be disconnected from the service account - you will immediately lose rights to access and manage the account. If you want to move rights to another user, you should do it before disconnecting yourself.",
+      "WARNING_LAST_USER": "You want to disconnect the last identity from the service account - the account will be unattended.",
       "ASK": "Do you want to proceed?",
       "SUCCESS": "Identity was disconnected."
     },

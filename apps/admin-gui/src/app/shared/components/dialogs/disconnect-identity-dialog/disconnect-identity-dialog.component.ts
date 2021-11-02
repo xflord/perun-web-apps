@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -23,7 +23,8 @@ export class DisconnectIdentityDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) private data: RemoveUserServiceIdentityDialogData,
               public userManager: UsersManagerService,
               private notificator: NotificatorService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private store: StoreService) {
 
   }
 
@@ -33,11 +34,26 @@ export class DisconnectIdentityDialogComponent implements OnInit {
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<User>;
 
+  disconnectingLastOwner: boolean;
+  disconnectingSelf: boolean;
+
   ngOnInit(): void {
     this.theme = this.data.theme;
-    this.userId = this.data.userId;
+    this.userId = Number(this.data.userId);
     this.dataSource = new MatTableDataSource<User>([this.data.specificUser]);
     this.isService = this.data.isService;
+
+    let specificUser: number;
+    if(this.isService) {
+      specificUser = this.userId;
+      this.disconnectingSelf = this.dataSource.data[0].id === this.store.getPerunPrincipal().userId;
+    } else {
+      specificUser = this.dataSource.data[0].id;
+      this.disconnectingSelf = this.userId === this.store.getPerunPrincipal().userId;
+    }
+    this.userManager.getUsersBySpecificUser(specificUser).subscribe(associatedUsers => {
+      this.disconnectingLastOwner = associatedUsers.length === 1;
+    });
   }
 
   onConfirm(){
