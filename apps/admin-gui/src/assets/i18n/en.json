@@ -2206,7 +2206,8 @@
       "MEMBER": "Member ID",
       "MEMBER_ATT": "Member attributes",
       "MEMBER_GROUP_ATT": "Member-Group attributes",
-      "MEMBER_RESOURCE_ATT": "Member-Resource attributes"
+      "MEMBER_RESOURCE_ATT": "Member-Resource attributes",
+      "NO_VOS": "User is not member of any organization."
     },
     "SETTINGS": {
       "ATTRIBUTES": {

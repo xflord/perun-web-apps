@@ -1,21 +1,22 @@
 <h1 class="page-title">{{'USER_DETAIL.ACCOUNTS.TITLE' | translate}}</h1>
-<mat-spinner *ngIf="initLoading"></mat-spinner>
+<mat-spinner class="ml-auto mr-auto" *ngIf="initLoading"></mat-spinner>
 <div class="d-flex">
   <perun-web-apps-vo-search-select
-    *ngIf="!initLoading"
+    *ngIf="!(initLoading || vos.length === 0)"
     class="w-50"
     [vos]="vos"
+    [vo]="vos[0]"
     (voSelected)="loadMember($event)">
 
   </perun-web-apps-vo-search-select>
 </div>
-<mat-tab-group *ngIf="!initLoading">
+<mat-tab-group *ngIf="!(initLoading || vos.length === 0)">
   <mat-tab>
     <ng-template matTabLabel>
       {{'USER_DETAIL.ACCOUNTS.STATUS' | translate}}
     </ng-template>
     <ng-template matTabContent>
-      <mat-spinner *ngIf="loading"></mat-spinner>
+      <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
       <div *ngIf="!loading">
         <div class="mt-4 mb-4">
           <span class="subtitle mr-2">{{'USER_DETAIL.ACCOUNTS.MEMBER' | translate}}:</span>
@@ -70,4 +71,6 @@
     </ng-template>
   </mat-tab>
 </mat-tab-group>
+
+<app-alert alert_type="warn" *ngIf="!initLoading && vos.length === 0">{{'USER_DETAIL.ACCOUNTS.NO_VOS' | translate}}</app-alert>
 
