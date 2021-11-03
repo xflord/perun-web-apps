@@ -1,6 +1,6 @@
-<h1 class="page-subtitle">{{'AUTHENTICATION.TITLE' | customTranslate | translate}}</h1>
-<p>{{'AUTHENTICATION.ANTI_PHISHING_INFO' | customTranslate | translate}}</p>
-<ng-container *ngIf='displayImageBlock'>
+<div class="mb-5" *ngIf='displayImageBlock'>
+  <h1 class="page-subtitle">{{'AUTHENTICATION.TITLE' | customTranslate | translate}}</h1>
+  <p>{{'AUTHENTICATION.ANTI_PHISHING_INFO' | customTranslate | translate}}</p>
   <div *ngIf="imageSrc && imageSrc.length">
     <img [src]="imageSrc" alt="" class="img-size"/>
   </div>
@@ -8,9 +8,9 @@
           mat-flat-button>{{'AUTHENTICATION.NEW_IMG' | customTranslate | translate}}</button>
   <button (click)="onDeleteImg()" class="m-1" color="warn" [disabled]="!imgAtt || !imgAtt.value"
           mat-flat-button>{{'AUTHENTICATION.DELETE_IMG' | customTranslate | translate}}</button>
-</ng-container>
+</div>
 
-<h1 class="page-subtitle mt-5">{{'AUTHENTICATION.MFA' | customTranslate | translate}}</h1>
+<h1 class="page-subtitle">{{'AUTHENTICATION.MFA' | customTranslate | translate}}</h1>
 <button (click)="addTOTP()" class="mr-2" color="accent" mat-flat-button>{{'AUTHENTICATION.ADD_TOTP' | customTranslate | translate}}</button>
 <button (click)="addWebAuthn()" class="mb-3" color="accent" mat-flat-button>{{'AUTHENTICATION.ADD_WEBAUTHN' | customTranslate | translate}}</button>
 
