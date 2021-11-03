@@ -41,6 +41,7 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
   mfaAtt: Attribute;
   accessToken: string;
   idToken: string;
+  displayImageBlock: boolean;
 
   constructor(private dialog: MatDialog,
               private attributesManagerService: AttributesManagerService,
@@ -152,6 +153,7 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
 
   private loadImage() {
     const imgAttributeName = this.store.get('mfa', 'security_image_attribute');
+    this.displayImageBlock = this.store.get('mfa', 'enable_security_image');
     this.attributesManagerService.getUserAttributeByName(this.store.getPerunPrincipal().userId, imgAttributeName).subscribe(attr => {
       if (!attr) {
         this.attributesManagerService.getAttributeDefinitionByName(imgAttributeName).subscribe(att => {
