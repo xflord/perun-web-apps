@@ -30,6 +30,8 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
               private tableConfigService: TableConfigService,
               private dynamicPaginatingService: DynamicPaginatingService) { }
 
+  svgIcon = 'perun-service-identity-black';
+
   @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
 
   @ViewChild(MatSort) sort: MatSort;

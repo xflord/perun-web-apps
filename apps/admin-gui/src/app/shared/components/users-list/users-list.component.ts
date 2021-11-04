@@ -22,6 +22,8 @@ export class UsersListComponent implements OnChanges{
   constructor(private authResolver: GuiAuthResolver,
               private tableCheckbox: TableCheckbox) { }
 
+  svgIcon = 'perun-service-identity-black';
+
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
   }

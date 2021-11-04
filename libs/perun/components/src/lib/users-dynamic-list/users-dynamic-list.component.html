@@ -45,9 +45,9 @@
           </mat-icon>
           <mat-icon
             *ngIf="user.serviceUser"
-            class="align-bottom"
-            matTooltip="{{'MANAGERS_LIST.SERVICE' | translate}}">
-            traffic
+            matTooltip="{{'MANAGERS_LIST.SERVICE' | translate}}"
+            [svgIcon]="svgIcon"
+            class="align-bottom">
           </mat-icon>
         </td>
       </ng-container>
