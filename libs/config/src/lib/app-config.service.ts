@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { StoreService } from '@perun-web-apps/perun/services';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 import { Title } from '@angular/platform-browser';
+import { UtilsService } from '@perun-web-apps/perun/openapi';
 
 declare const tinycolor: any;
 
@@ -34,7 +35,8 @@ export class AppConfigService {
   constructor(private http: HttpClient,
               private storeService: StoreService,
               private authzSevice: AuthzResolverService,
-              private titleService: Title) {}
+              private titleService: Title,
+              private utilsService: UtilsService) {}
 
   initializeColors(
     entityColorConfigs: EntityColorConfig[],
@@ -159,6 +161,15 @@ export class AppConfigService {
       this.authzSevice.configuration.basePath = apiUrl;
       this.titleService.setTitle(this.storeService.get('document_title'));
       resolve();
+    });
+  }
+
+  loadAppsConfig(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.utilsService.getAppsConfig().subscribe(appsConfig => {
+        this.storeService.setAppsConfig(appsConfig);
+        resolve();
+      }, error => reject(error));
     });
   }
 }

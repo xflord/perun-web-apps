@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { OtherApplicationsService, StoreService } from '@perun-web-apps/perun/services';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
-import { UtilsService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'perun-web-apps-header',
@@ -38,7 +37,7 @@ export class HeaderComponent implements OnInit {
   constructor( private storeService: StoreService,
                private sanitizer: DomSanitizer,
                private translate: TranslateService,
-               private utilsService: UtilsService) { }
+               private otherApplicationService: OtherApplicationsService) { }
 
   ngOnInit() {
     this.isDevel = this.storeService.get('is_devel');
@@ -60,9 +59,7 @@ export class HeaderComponent implements OnInit {
     }
 
     if (this.activeLink) {
-      this.utilsService.getAppsConfig().subscribe(config => {
-        this.adminGuiUrl = config.brands[0].newApps.admin ? config.brands[0].newApps.admin : null;
-      });
+      this.adminGuiUrl = this.otherApplicationService.getUrlForOtherApplication("admin");
     }
   }
 

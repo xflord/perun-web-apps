@@ -16,3 +16,4 @@ export { DynamicDataSource } from './lib/dynamicDataSource'
 export { PreferredLanguageService } from './lib/preferred-language.service'
 export { SponsoredMembersPdfService } from './lib/sponsored-members-pdf.service';
 export { PDFService } from './lib/pdf.service';
+export { OtherApplicationsService } from './lib/other-applications.service';

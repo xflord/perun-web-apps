@@ -112,6 +112,7 @@ export class AdminGuiConfigService {
           return this.initAuthService.loadPrincipal()
             .catch(err => this.handleErr(err))
             .then(() => this.loadPolicies())
+            .then(() => this.appConfigService.loadAppsConfig())
             .then(() => this.guiAuthResolver.loadRolesManagementRules());
         } else {
           return this.initAuthService.handleAuthStart();

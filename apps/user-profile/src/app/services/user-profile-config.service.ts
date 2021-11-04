@@ -58,7 +58,8 @@ export class UserProfileConfigService {
       .then(isAuthenticated => {
         // if the authentication is successful, continue
         if (isAuthenticated) {
-          return this.initAuthService.loadPrincipal();
+          return this.initAuthService.loadPrincipal()
+            .then(() => this.appConfigService.loadAppsConfig());
         } else {
           return this.initAuthService.handleAuthStart();
         }

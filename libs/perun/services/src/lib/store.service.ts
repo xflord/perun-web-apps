@@ -12,6 +12,7 @@ export class StoreService {
 
   private instanceConfig;
   private defaultConfig;
+  private appsConfig;
   private principal: PerunPrincipal;
   private initialPageId: number;
   private branding = '';
@@ -24,6 +25,14 @@ export class StoreService {
 
   setDefaultConfig(defaultConfig: any) {
     this.defaultConfig = defaultConfig;
+  }
+
+  getAppsConfig() {
+    return this.appsConfig;
+  }
+
+  setAppsConfig(appsConfig: any) {
+    this.appsConfig = appsConfig;
   }
 
   setPerunPrincipal(principal: PerunPrincipal): void {

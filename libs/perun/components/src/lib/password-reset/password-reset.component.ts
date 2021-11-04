@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Attribute, AttributesManagerService} from '@perun-web-apps/perun/openapi';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import { OtherApplicationsService, StoreService } from '@perun-web-apps/perun/services';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -26,7 +26,8 @@ export class PasswordResetComponent implements OnInit {
               private store: StoreService,
               private dialog: MatDialog,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private otherApplicationService: OtherApplicationsService) {
   }
 
   ngOnInit(): void {
@@ -53,8 +54,7 @@ export class PasswordResetComponent implements OnInit {
   }
 
   resetPassword(login: string) {
-    const url = this.store.get('pwd_reset_base_url');
-    location.href = `${url}?login-namespace=${login}`;
+    window.open(this.otherApplicationService.getUrlForOtherApplication("pwdReset", login), '_blank');
   }
 
   changePassword(login){

@@ -1,10 +1,11 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import {
   User,
-  UsersManagerService, UtilsService
+  UsersManagerService
 } from '@perun-web-apps/perun/openapi';
 import {
   ApiRequestConfigurationService,
+  OtherApplicationsService,
   NotificatorService,
   StoreService
 } from '@perun-web-apps/perun/services';
@@ -33,7 +34,7 @@ export class UserDashboardComponent implements OnInit {
               public translateService: TranslateService,
               private dialog: MatDialog,
               private apiRequestConfiguration: ApiRequestConfigurationService,
-              private utilsService: UtilsService
+              private otherApplicationService: OtherApplicationsService
   ) {
     translateService.get('USER_DETAIL.DASHBOARD.MAIL_CHANGE_SUCCESS').subscribe(res => this.mailSuccessMessage = res);
   }
@@ -130,9 +131,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   private getUserProfile() {
-    this.utilsService.getAppsConfig().subscribe(config => {
-      this.userProfileUrl = config.brands[0].newApps.profile ? config.brands[0].newApps.profile : null;
-    });
+    this.userProfileUrl = this.otherApplicationService.getUrlForOtherApplication("profile");
     this.userProfileName = this.storeService.get('profile_label_en');
   }
 }
