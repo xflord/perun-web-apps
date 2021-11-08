@@ -55,13 +55,16 @@
             <mat-form-field>
               <mat-label>{{'DIALOGS.CREATE_SERVICE_MEMBER.NAMESPACE' | translate}}</mat-label>
               <mat-select (valueChange)="onNamespaceChanged($event)" formControlName="namespaceCtrl">
-                <mat-option *ngFor="let namespace of passwordNamespaces" [value]="namespace">
+                <mat-option *ngFor="let namespace of namespaceOptions" [value]="namespace">
                   {{namespace}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field [matTooltipDisabled]="secondFormGroup.get('loginCtrl').enabled" matTooltip="{{'DIALOGS.CREATE_SERVICE_MEMBER.LOGIN_DISABLED' | translate}}" matTooltipPosition="left">
+            <mat-form-field
+              [matTooltipDisabled]="secondFormGroup.get('loginCtrl').enabled"
+              matTooltip="{{(secondFormGroup.get('namespaceCtrl').value === 'Not selected' ? 'DIALOGS.CREATE_SERVICE_MEMBER.LOGIN_DISABLED' : 'DIALOGS.CREATE_SERVICE_MEMBER.LOGIN_DISABLED_FOR_NAMESPACE') | translate}}"
+              matTooltipPosition="left">
               <mat-label>{{'DIALOGS.CREATE_SERVICE_MEMBER.LOGIN' | translate}}</mat-label>
               <input formControlName="loginCtrl" matInput required>
               <mat-error *ngIf="secondFormGroup.get('loginCtrl').hasError('required')">{{'DIALOGS.CREATE_SERVICE_MEMBER.FIELD_EMPTY' | translate}}</mat-error>

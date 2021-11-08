@@ -18,7 +18,7 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { AuditMessage } from '../model/auditMessage';
-import { InputGetPaginatedMessages } from '../model/inputGetPaginatedMessages';
+import { InputGetMessagesPage } from '../model/inputGetMessagesPage';
 import { PaginatedAuditMessages } from '../model/paginatedAuditMessages';
 import { PerunException } from '../model/perunException';
 
@@ -429,16 +429,16 @@ export class AuditMessagesManagerService {
 
     /**
      * Get page of audit messages.
-     * @param inputGetPaginatedMessages 
+     * @param inputGetMessagesPage 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMessagesPage(inputGetPaginatedMessages: InputGetPaginatedMessages, observe?: 'body', reportProgress?: boolean): Observable<PaginatedAuditMessages>;
-    public getMessagesPage(inputGetPaginatedMessages: InputGetPaginatedMessages, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginatedAuditMessages>>;
-    public getMessagesPage(inputGetPaginatedMessages: InputGetPaginatedMessages, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginatedAuditMessages>>;
-    public getMessagesPage(inputGetPaginatedMessages: InputGetPaginatedMessages, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (inputGetPaginatedMessages === null || inputGetPaginatedMessages === undefined) {
-            throw new Error('Required parameter inputGetPaginatedMessages was null or undefined when calling getMessagesPage.');
+    public getMessagesPage(inputGetMessagesPage: InputGetMessagesPage, observe?: 'body', reportProgress?: boolean): Observable<PaginatedAuditMessages>;
+    public getMessagesPage(inputGetMessagesPage: InputGetMessagesPage, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginatedAuditMessages>>;
+    public getMessagesPage(inputGetMessagesPage: InputGetMessagesPage, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginatedAuditMessages>>;
+    public getMessagesPage(inputGetMessagesPage: InputGetMessagesPage, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (inputGetMessagesPage === null || inputGetMessagesPage === undefined) {
+            throw new Error('Required parameter inputGetMessagesPage was null or undefined when calling getMessagesPage.');
         }
 
         let headers = this.defaultHeaders;
@@ -479,7 +479,7 @@ export class AuditMessagesManagerService {
         }
 
         return this.httpClient.post<PaginatedAuditMessages>(`${this.configuration.basePath}/json/auditMessagesManager/getMessagesPage`,
-            inputGetPaginatedMessages,
+            inputGetMessagesPage,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

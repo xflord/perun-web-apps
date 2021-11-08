@@ -1999,6 +1999,7 @@
       "SUCCESS_MEMBER": "The service account has been created successfully",
       "SUCCESS_PWD": "Password has been set successfully",
       "LOGIN_FORMAT": "Login has to start with a letter and consist only of characters: a-z0-9_-",
+      "LOGIN_DISABLED_FOR_NAMESPACE": "Setting login is disabled for this namespace",
       "LOGIN_LONG": "Login is too long",
       "LOGIN_SHORT": "Login is too short",
       "LOGIN_EXISTS": "Login already exists",

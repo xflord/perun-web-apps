@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   Candidate, Member,
-  MembersManagerService,
+  MembersManagerService, NamespaceRules,
   RichMember,
   UsersManagerService
 } from '@perun-web-apps/perun/openapi';
@@ -36,8 +36,12 @@ export class CreateServiceMemberDialogComponent implements OnInit {
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-  passwordNamespaces: string[] = [];
+
+  namespaceOptions: string[] = [];
   selectedNamespace = null;
+  namespaceRules: NamespaceRules[] = [];
+  parsedRules: Map<string, {login: string}> = new Map<string, {login: string}>();
+
   loading: boolean;
   firstSearchDone = false;
   searchCtrl = new FormControl('');
@@ -80,8 +84,15 @@ export class CreateServiceMemberDialogComponent implements OnInit {
     }, {
       validator: CustomValidators.passwordMatchValidator
     });
+
+    this.namespaceOptions = ['Not selected'];
+    this.membersManagerService.getAllNamespacesRules().subscribe(rules => {
+      this.namespaceRules = rules;
+      this.parseNamespaceRules();
+      this.loading = false;
+    })
+
     this.onNamespaceChanged('Not selected');
-    this.passwordNamespaces = ['Not selected'].concat(this.store.get('password_namespace_attributes').map(att => att.split(':')[6].toUpperCase()));
     const user = this.store.getPerunPrincipal().user;
     this.membersManagerService.getMembersByUser(user.id).subscribe(members => {
       let tempMember: RichMember = <RichMember>{};
@@ -118,9 +129,6 @@ export class CreateServiceMemberDialogComponent implements OnInit {
     this.candidate['lastName'] = this.firstFormGroup.get('nameCtrl').value;
     this.candidate['attributes'] = {};
     this.candidate['attributes']['urn:perun:member:attribute-def:def:mail'] = this.firstFormGroup.get('emailCtrl').value;
-    if (this.secondFormGroup.get('namespaceCtrl').value !== 'Not selected') {
-      this.candidate['attributes'][`urn:perun:user:attribute-def:def:login-namespace:${this.secondFormGroup.get('namespaceCtrl').value.toLowerCase()}`] = this.secondFormGroup.get('loginCtrl').value;
-    }
     const subject = this.firstFormGroup.get('subjectCtrl');
     if (subject && subject.value) {
       // @ts-ignore
@@ -133,6 +141,23 @@ export class CreateServiceMemberDialogComponent implements OnInit {
       this.candidate['userExtSource']['extSource']['type'] = 'cz.metacentrum.perun.core.impl.ExtSourceX509';
     }
 
+    const namespace = this.secondFormGroup.get('namespaceCtrl').value.toLowerCase();
+    const rules = this.parsedRules.get(namespace);
+    const namespaceUrn = `urn:perun:user:attribute-def:def:login-namespace:${namespace}`;
+    if (this.secondFormGroup.get('namespaceCtrl').value !== 'Not selected' && rules.login === 'disabled') {
+      this.usersManagerService.generateAccountForName(namespace, this.firstFormGroup.get('nameCtrl').value).subscribe(params => {
+        this.candidate['attributes'][namespaceUrn] = params[namespaceUrn];
+        this.createSpecificMember();
+      }, () => this.processing = false);
+    } else {
+        if (this.secondFormGroup.get('namespaceCtrl').value !== 'Not selected') {
+          this.candidate['attributes'][namespaceUrn] = this.secondFormGroup.get('loginCtrl').value;
+        }
+        this.createSpecificMember();
+    }
+  }
+
+  createSpecificMember() {
     this.membersManagerService.createSpecificMember({
       vo: this.data.voId,
       specificUserType: 'SERVICE',
@@ -151,11 +176,39 @@ export class CreateServiceMemberDialogComponent implements OnInit {
     }, () => this.processing = false);
   }
 
+  parseNamespaceRules(){
+    for (const rule of this.namespaceRules) {
+      this.namespaceOptions.push(rule.namespaceName);
+
+      const fieldTypes =  {login: 'disabled'};
+      this.parseAttributes(fieldTypes, rule.requiredAttributes, 'required');
+      this.parseAttributes(fieldTypes, rule.optionalAttributes, 'optional');
+
+      this.parsedRules.set(rule.namespaceName, fieldTypes);
+    }
+  }
+
+  parseAttributes(field, attributes, type: string) {
+    for (const att of attributes) {
+      switch (att) {
+        case 'login': {
+          field.login = type;
+          break;
+        }
+        default: break;
+      }
+    }
+  }
+
   setPassword(member: Member, generateRandom: boolean) {
     const login = this.secondFormGroup.get('loginCtrl').value;
     const namespace = this.secondFormGroup.get('namespaceCtrl').value.toLowerCase();
     const password = this.secondFormGroup.get('passwordCtrl').value;
     if (generateRandom) {
+      if (this.parsedRules.get(namespace).login === 'disabled') {
+        this.validateMember(member.id);
+        return; // password already set when account was generated
+      }
       this.usersManagerService.reserveRandomPassword(member.userId, namespace).subscribe(() => {
         this.usersManagerService.validatePasswordForUser(member.userId, namespace).subscribe(() => {
           this.validateMember(member.id, false);
@@ -229,8 +282,13 @@ export class CreateServiceMemberDialogComponent implements OnInit {
     const passwordAgain = this.secondFormGroup.get('passwordAgainCtrl');
     const generatePassword = this.secondFormGroup.get('generatePasswordCtrl');
     if (namespace !== 'Not selected') {
-      const loginValidators = [Validators.required, Validators.pattern('^[a-z][a-z0-9_-]+$'), Validators.maxLength(15), Validators.minLength(2)];
-      enableFormControl(login, loginValidators, [this.existingLoginValidator()]);
+      if (this.parsedRules.get(this.selectedNamespace).login === 'disabled') {
+        login.disable();
+        login.setValue('');
+      } else {
+        const loginValidators = [Validators.required, Validators.pattern('^[a-z][a-z0-9_-]+$'), Validators.maxLength(15), Validators.minLength(2)];
+        enableFormControl(login, loginValidators, [this.existingLoginValidator()]);
+      }
       enableFormControl(generatePassword,[]);
       this.passwordOptionChanged();
     } else {

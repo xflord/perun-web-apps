@@ -1199,6 +1199,69 @@ export class UsersManagerService {
     }
 
     /**
+     * Generates user account in a backend system associated with login-namespace in Perun. Parameters are implementation-dependent for each login-namespace. Returns map with 1) key&#x3D;login-namespace attribute urn, value&#x3D;generated login 2) rest of opt response attributes.
+     * @param namespace namespace
+     * @param name 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public generateAccountForName(namespace: string, name?: string, observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: string; }>;
+    public generateAccountForName(namespace: string, name?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: string; }>>;
+    public generateAccountForName(namespace: string, name?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: string; }>>;
+    public generateAccountForName(namespace: string, name?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling generateAccountForName.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (namespace !== undefined && namespace !== null) {
+            queryParameters = queryParameters.set('namespace', <any>namespace);
+        }
+        if (name !== undefined && name !== null) {
+            queryParameters = queryParameters.set('name', <any>name);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<{ [key: string]: string; }>(`${this.configuration.basePath}/urlinjsonout/usersManager/generateAccount/name`,
+            null,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Returns users with attributes
      * Returns list of objects representing the User with attributes
      * @param includedSpecificUsers if you want to or don\&#39;t want to get specificUsers too

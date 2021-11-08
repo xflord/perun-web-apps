@@ -19,8 +19,11 @@ import { Observable }                                        from 'rxjs';
 
 import { Group } from '../model/group';
 import { InputDeleteGroups } from '../model/inputDeleteGroups';
+import { InputGetPaginatedGroups } from '../model/inputGetPaginatedGroups';
+import { InputGetPaginatedSubgroups } from '../model/inputGetPaginatedSubgroups';
 import { InputUpdateGroup } from '../model/inputUpdateGroup';
 import { Member } from '../model/member';
+import { PaginatedRichGroups } from '../model/paginatedRichGroups';
 import { PerunException } from '../model/perunException';
 import { RichGroup } from '../model/richGroup';
 import { RichMember } from '../model/richMember';
@@ -895,6 +898,54 @@ export class GroupsManagerService {
     }
 
     /**
+     * Get all groups from all vos. Returned groups are filtered based on the principal rights.
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAllGroupsFromAllVos(observe?: 'body', reportProgress?: boolean): Observable<Array<Group>>;
+    public getAllGroupsFromAllVos(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Group>>>;
+    public getAllGroupsFromAllVos(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Group>>>;
+    public getAllGroupsFromAllVos(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<Array<Group>>(`${this.configuration.basePath}/json/groupsManager/getAllGroups/all`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Returns all groups for a member including group \&#39;members\&#39;
      * @param member id of Member
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -942,6 +993,66 @@ export class GroupsManagerService {
 
 
         return this.httpClient.get<Array<Group>>(`${this.configuration.basePath}/json/groupsManager/getAllMemberGroups`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get all groups with their specified attributes. If the attrNames are null or empty, all group attributes are returned.
+     * @param attrNames list of attribute names List&lt;String&gt;
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAllRichGroups(attrNames: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<Array<RichGroup>>;
+    public getAllRichGroups(attrNames: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RichGroup>>>;
+    public getAllRichGroups(attrNames: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RichGroup>>>;
+    public getAllRichGroups(attrNames: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (attrNames === null || attrNames === undefined) {
+            throw new Error('Required parameter attrNames was null or undefined when calling getAllRichGroups.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (attrNames) {
+            attrNames.forEach((element) => {
+                queryParameters = queryParameters.append('attrNames[]', <any>element);
+            })
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<Array<RichGroup>>(`${this.configuration.basePath}/json/groupsManager/getAllRichGroups`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -1273,6 +1384,64 @@ export class GroupsManagerService {
     }
 
     /**
+     * Returns list of members of a group.
+     * @param group id of Group
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getGroupMembers(group: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Member>>;
+    public getGroupMembers(group: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Member>>>;
+    public getGroupMembers(group: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Member>>>;
+    public getGroupMembers(group: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (group === null || group === undefined) {
+            throw new Error('Required parameter group was null or undefined when calling getGroupMembers.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (group !== undefined && group !== null) {
+            queryParameters = queryParameters.set('group', <any>group);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<Array<Member>>(`${this.configuration.basePath}/json/groupsManager/getGroupMembers`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Returns count of group members.
      * @param group id of Group
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -1529,9 +1698,9 @@ export class GroupsManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getGroupUnions(group: number, reverseDirection: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public getGroupUnions(group: number, reverseDirection: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public getGroupUnions(group: number, reverseDirection: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getGroupUnions(group: number, reverseDirection: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<Group>>;
+    public getGroupUnions(group: number, reverseDirection: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Group>>>;
+    public getGroupUnions(group: number, reverseDirection: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Group>>>;
     public getGroupUnions(group: number, reverseDirection: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (group === null || group === undefined) {
             throw new Error('Required parameter group was null or undefined when calling getGroupUnions.');
@@ -1576,7 +1745,7 @@ export class GroupsManagerService {
         }
 
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/json/groupsManager/getGroupUnions`,
+        return this.httpClient.get<Array<Group>>(`${this.configuration.basePath}/json/groupsManager/getGroupUnions`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -1639,6 +1808,68 @@ export class GroupsManagerService {
         return this.httpClient.get<Array<Group>>(`${this.configuration.basePath}/json/groupsManager/getGroupsByIds`,
             {
                 params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get page of groups from the given vo.
+     * @param inputGetPaginatedGroups 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getGroupsPage(inputGetPaginatedGroups: InputGetPaginatedGroups, observe?: 'body', reportProgress?: boolean): Observable<PaginatedRichGroups>;
+    public getGroupsPage(inputGetPaginatedGroups: InputGetPaginatedGroups, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginatedRichGroups>>;
+    public getGroupsPage(inputGetPaginatedGroups: InputGetPaginatedGroups, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginatedRichGroups>>;
+    public getGroupsPage(inputGetPaginatedGroups: InputGetPaginatedGroups, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (inputGetPaginatedGroups === null || inputGetPaginatedGroups === undefined) {
+            throw new Error('Required parameter inputGetPaginatedGroups was null or undefined when calling getGroupsPage.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<PaginatedRichGroups>(`${this.configuration.basePath}/json/groupsManager/getGroupsPage`,
+            inputGetPaginatedGroups,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1894,6 +2125,68 @@ export class GroupsManagerService {
         return this.httpClient.get<RichGroup>(`${this.configuration.basePath}/json/groupsManager/getRichGroupByIdWithAttributesByNames`,
             {
                 params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get page of subgroups from the given parent group.
+     * @param inputGetPaginatedSubgroups 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getSubgroupsPage(inputGetPaginatedSubgroups: InputGetPaginatedSubgroups, observe?: 'body', reportProgress?: boolean): Observable<PaginatedRichGroups>;
+    public getSubgroupsPage(inputGetPaginatedSubgroups: InputGetPaginatedSubgroups, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginatedRichGroups>>;
+    public getSubgroupsPage(inputGetPaginatedSubgroups: InputGetPaginatedSubgroups, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginatedRichGroups>>;
+    public getSubgroupsPage(inputGetPaginatedSubgroups: InputGetPaginatedSubgroups, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (inputGetPaginatedSubgroups === null || inputGetPaginatedSubgroups === undefined) {
+            throw new Error('Required parameter inputGetPaginatedSubgroups was null or undefined when calling getSubgroupsPage.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<PaginatedRichGroups>(`${this.configuration.basePath}/json/groupsManager/getSubgroupsPage`,
+            inputGetPaginatedSubgroups,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
