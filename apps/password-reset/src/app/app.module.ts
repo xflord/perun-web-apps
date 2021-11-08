@@ -16,7 +16,7 @@ import { PasswordResetConfigService } from './services/password-reset-config.ser
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { UiMaterialModule } from '@perun-web-apps/ui/material';
 import { TokenExpiredDialogComponent } from './dialogs/token-expired-dialog/token-expired-dialog.component';
-
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -36,7 +36,7 @@ export function apiConfigFactory(store: StoreService): Configuration {
   return new Configuration(params);
 }
 
-const loadConfigs = (appConfig: PasswordResetConfigService) => appConfig.loadConfigs();
+const loadConfigs = (appConfig: PasswordResetConfigService) => () => appConfig.loadConfigs();
 
 @NgModule({
   declarations: [AppComponent, PasswordResetDialogComponent, TokenExpiredDialogComponent],
@@ -55,7 +55,8 @@ const loadConfigs = (appConfig: PasswordResetConfigService) => appConfig.loadCon
     ApiModule,
     HttpClientModule,
     AppRoutingModule,
-    UiMaterialModule
+    UiMaterialModule,
+    OAuthModule.forRoot()
   ],
   providers: [
     CustomIconService,

@@ -13,6 +13,12 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns" class="font-weight-bolder"></tr>
       <tr mat-row *matRowDef="let identity; columns: displayedColumns;"></tr>
     </table>
+    <app-alert *ngIf="disconnectingSelf" alert_type="warn">
+      {{'DIALOGS.DISCONNECT_IDENTITY.WARNING_DISCONNECT_YOURSELF' | translate}}
+    </app-alert>
+    <app-alert *ngIf="disconnectingLastOwner" alert_type="warn">
+      {{'DIALOGS.DISCONNECT_IDENTITY.WARNING_LAST_USER' | translate}}
+    </app-alert>
   </div>
   <div mat-dialog-actions>
     <button

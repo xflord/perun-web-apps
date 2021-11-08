@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GuiAuthResolver, InitAuthService, StoreService } from '@perun-web-apps/perun/services';
+import { InitAuthService, StoreService } from '@perun-web-apps/perun/services';
 import { AppConfigService } from '@perun-web-apps/config';
 import { Location } from '@angular/common';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
@@ -14,15 +14,36 @@ export class PasswordResetConfigService {
     private appConfigService: AppConfigService,
     private storeService: StoreService,
     private location: Location,
-    private authzSevice: AuthzResolverService,
-    private guiAuthResolver: GuiAuthResolver
+    private authzSevice: AuthzResolverService
   ) { }
 
   loadConfigs(): Promise<void> {
     return this.appConfigService.loadAppDefaultConfig()
       .then(() => this.appConfigService.loadAppInstanceConfig())
       .then(() => this.setApiUrl())
-      .then(() => this.appConfigService.setInstanceFavicon());
+      .then(() => this.appConfigService.setInstanceFavicon())
+      .then(() => {
+        const queryParams = location.search.substr(1);
+        if(!queryParams.includes('token')) {
+          return this.initAuthService.verifyAuth();
+        } else {
+          return Promise.resolve(true);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        this.location.go("/");
+        location.reload();
+        throw err;
+      })
+      .then(isAuthenticated => {
+        // if the authentication is successful, continue
+        if (isAuthenticated) {
+          return;
+        } else {
+          return this.initAuthService.handleAuthStart();
+        }
+      });
   }
 
   private setApiUrl(): Promise<void> {

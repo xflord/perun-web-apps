@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ChangePasswordDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'perun-web-apps-password-reset',
@@ -23,7 +24,9 @@ export class PasswordResetComponent implements OnInit {
 
   constructor(private attributesManagerService: AttributesManagerService,
               private store: StoreService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -37,6 +40,15 @@ export class PasswordResetComponent implements OnInit {
 
       this.logins = logins.filter(login => parsedNamespaces.includes(login.friendlyNameParameter));
       this.dataSource = new MatTableDataSource<Attribute>(logins);
+
+      const params = this.route.snapshot.queryParamMap;
+      const namespace = params.get('namespace');
+      if (namespace) {
+        const login = this.logins.find(a => a.friendlyNameParameter === namespace);
+        if (login) {
+          this.changePassword(login);
+        }
+      }
     });
   }
 
@@ -46,6 +58,13 @@ export class PasswordResetComponent implements OnInit {
   }
 
   changePassword(login){
+    this.router.navigate([], {
+      queryParams: {
+        namespace: login.friendlyNameParameter
+      },
+      queryParamsHandling: 'merge',
+    });
+
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {
@@ -53,6 +72,15 @@ export class PasswordResetComponent implements OnInit {
       namespace: login.friendlyName.split(':')[1]
     };
 
-   this.dialog.open(ChangePasswordDialogComponent, config);
+    const dialogRef = this.dialog.open(ChangePasswordDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate([], {
+        queryParams: {
+          namespace: null
+        },
+        queryParamsHandling: 'merge',
+      });
+    });
   }
 }
