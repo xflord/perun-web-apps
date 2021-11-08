@@ -1,0 +1,16 @@
+{
+  "api_url": "https://perun-dev.cesnet.cz/non/rpc/",
+  "instance_favicon": false,
+  "oidc_client": {
+    "oauth_authority": "https://login.cesnet.cz/oidc/",
+    "oauth_callback": "http://localhost:4200/api-callback",
+    "oauth_client_id": "411471d9-5e3d-48bd-9717-25f1fa634d20",
+    "oauth_post_logout_redirect_uri": "",
+    "oauth_redirect_uri": "http://localhost:4200/api-callback",
+    "oauth_scopes": "openid profile perun_api offline_access",
+    "oauth_response_type": "code"
+  },
+  "skip_oidc": false,
+  "auto_auth_redirect": true,
+  "supported_languages": ["en"]
+}
