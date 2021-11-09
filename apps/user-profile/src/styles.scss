@@ -199,3 +199,7 @@ th, td {
     transform: rotate(360deg);
   }
 }
+
+.action-button::after {
+  content: '\2026';
+}

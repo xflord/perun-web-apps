@@ -8,7 +8,7 @@
         [disabled]="blockManualMemberAdding"
         mat-flat-button
         color="accent"
-        class="mr-2"
+        class="mr-2 action-button"
         (click)="onAddMember()">
         {{'VO_DETAIL.MEMBERS.ADD_MEMBER' | translate}}
       </button>
@@ -17,7 +17,7 @@
       *ngIf="inviteAuth"
       mat-flat-button
       color="accent"
-      class="mr-2"
+      class="mr-2 action-button"
       (click)="onInviteMember()">
       {{'VO_DETAIL.MEMBERS.INVITE' | translate}}
     </button>

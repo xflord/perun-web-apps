@@ -1,6 +1,6 @@
 <h1 class="page-title">{{'SSH_KEYS.SSH_KEYS_TITLE'|customTranslate | translate}}</h1>
 <p>{{'SSH_KEYS.SSH_KEYS_DESCRIPTION'|customTranslate | translate}}</p>
-<button mat-flat-button color="accent" (click)="addKey(false)">{{'SSH_KEYS.NEW_KEY'|customTranslate | translate}}</button>
+<button mat-flat-button class="action-button" color="accent" (click)="addKey(false)">{{'SSH_KEYS.NEW_KEY'|customTranslate | translate}}</button>
 <mat-list>
   <mat-list-item *ngFor="let key of userKeys" class="dark-hover-list-item" matRipple style="width: auto">
     <p (click)="showWholeKey(key)" class="truncate center-content cursor-pointer">{{key}}</p>
@@ -19,7 +19,7 @@
 
 <h1 class="page-title mt-5">{{'SSH_KEYS.ADMIN_SSH_KEYS_TITLE'|customTranslate | translate}}</h1>
 <p>{{'SSH_KEYS.ADMIN_SSH_KEYS_DESCRIPTION'|customTranslate | translate}}</p>
-<button mat-flat-button color="accent" (click)="addKey(true)">{{'SSH_KEYS.NEW_KEY'|customTranslate | translate}}</button>
+<button mat-flat-button class="action-button" color="accent" (click)="addKey(true)">{{'SSH_KEYS.NEW_KEY'|customTranslate | translate}}</button>
 <mat-list>
   <mat-list-item *ngFor="let key of adminKeys" class="dark-hover-list-item" matRipple style="width: auto">
     <label class="truncate center-content" (click)="showWholeKey(key)">{{key}}</label>

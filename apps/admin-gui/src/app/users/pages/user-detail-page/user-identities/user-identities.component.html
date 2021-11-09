@@ -1,7 +1,21 @@
 <h1 class="page-subtitle">{{'USER_DETAIL.IDENTITIES.TITLE'|translate}}</h1>
 <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-<button *ngIf="authResolver.isPerunAdmin()" (click)="addIdentity()" color="accent" mat-flat-button>{{'USER_DETAIL.IDENTITIES.ADD'|translate}}</button>
-<button *ngIf="authResolver.isPerunAdmin()" (click)="removeIdentity()" [disabled]="selection.selected.length === 0" class="ml-2" color="warn" mat-flat-button>{{'USER_DETAIL.IDENTITIES.REMOVE'|translate}}</button>
+<button
+  *ngIf="authResolver.isPerunAdmin()"
+  (click)="addIdentity()"
+  class="mr-2 action-button"
+  color="accent"
+  mat-flat-button>
+  {{'USER_DETAIL.IDENTITIES.ADD'|translate}}
+</button>
+<button
+  *ngIf="authResolver.isPerunAdmin()"
+  (click)="removeIdentity()"
+  [disabled]="selection.selected.length === 0"
+  color="warn"
+  mat-flat-button>
+  {{'USER_DETAIL.IDENTITIES.REMOVE'|translate}}
+</button>
 <div class="admin-theme">
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 </div>

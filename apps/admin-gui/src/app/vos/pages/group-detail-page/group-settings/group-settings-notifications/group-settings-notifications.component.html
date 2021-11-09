@@ -9,7 +9,7 @@
       *ngIf="addAuth"
       mat-flat-button
       color="accent"
-      class="mr-2"
+      class="mr-2 action-button"
       (click)="add()">
       {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.ADD' | translate}}
     </button>
@@ -26,7 +26,7 @@
 
     <button
       mat-stroked-button
-      class="mr-2"
+      class="mr-2 action-button"
       (click)="changeEmailFooter()">
       <i class="material-icons">email</i>
       {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.EMAIL_FOOTER' | translate}}
@@ -35,7 +35,7 @@
     <button
       *ngIf="copyAuth"
       mat-stroked-button
-      class="ml-auto"
+      class="action-button"
       (click)="copy()">
       <i class="material-icons">file_copy</i>
       {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.COPY_FROM_VO' | translate}}

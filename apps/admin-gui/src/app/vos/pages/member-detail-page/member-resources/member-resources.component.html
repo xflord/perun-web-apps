@@ -4,6 +4,7 @@
   <button
     *ngIf="!loading && addAuth"
     mat-flat-button
+    class="action-button"
     color="accent"
     (click)="addResource()">
     {{ 'MEMBER_DETAIL.RESOURCES.ADD' | translate}}

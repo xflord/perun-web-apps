@@ -26,7 +26,7 @@
         *ngIf="editAuth"
         mat-stroked-button
         (click)="settings()"
-        class="ml-auto">
+        class="ml-auto action-button">
         <i class="material-icons">edit</i>
         {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.SETTINGS_BUTTON' | translate}}
       </button>
@@ -42,7 +42,7 @@
       *ngIf="editAuth"
       mat-flat-button
       color="accent"
-      class="mr-2"
+      class="mr-2 action-button"
       (click)="add()">
       {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.ADD_BUTTON' | translate}}
     </button>
@@ -61,7 +61,7 @@
     <button
       *ngIf="editAuth"
       mat-stroked-button
-      class="mr-2"
+      class="mr-2 action-button"
       (click)="copy()">
       <i class="material-icons">file_copy</i>
       {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.COPY_VO_BUTTON' | translate}}

@@ -39,7 +39,11 @@
 
     <perun-web-apps-refresh-button (refresh)="getAttributes(specificSecondEntity.id)"></perun-web-apps-refresh-button>
 
-    <button mat-flat-button class="mr-2" color="accent" (click)="onAdd(specificSecondEntity.id)">
+    <button
+      mat-flat-button
+      class="mr-2 action-button"
+      color="accent"
+      (click)="onAdd(specificSecondEntity.id)">
       {{'MEMBER_DETAIL.SETTINGS.ATTRIBUTES.CREATE' | translate}}
     </button>
 

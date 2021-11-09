@@ -4,15 +4,15 @@
   <div *ngIf="imageSrc && imageSrc.length">
     <img [src]="imageSrc" alt="" class="img-size"/>
   </div>
-  <button (click)="onAddImg()" class="m-1" color="accent"
+  <button (click)="onAddImg()" class="m-1 action-button" color="accent"
           mat-flat-button>{{'AUTHENTICATION.NEW_IMG' | customTranslate | translate}}</button>
   <button (click)="onDeleteImg()" class="m-1" color="warn" [disabled]="!imgAtt || !imgAtt.value"
           mat-flat-button>{{'AUTHENTICATION.DELETE_IMG' | customTranslate | translate}}</button>
 </div>
 
 <h1 class="page-subtitle">{{'AUTHENTICATION.MFA' | customTranslate | translate}}</h1>
-<button (click)="addTOTP()" class="mr-2" color="accent" mat-flat-button>{{'AUTHENTICATION.ADD_TOTP' | customTranslate | translate}}</button>
-<button (click)="addWebAuthn()" class="mb-3" color="accent" mat-flat-button>{{'AUTHENTICATION.ADD_WEBAUTHN' | customTranslate | translate}}</button>
+<button (click)="addTOTP()" class="mr-2 action-button" color="accent" mat-flat-button>{{'AUTHENTICATION.ADD_TOTP' | customTranslate | translate}}</button>
+<button (click)="addWebAuthn()" class="mb-3 action-button" color="accent" mat-flat-button>{{'AUTHENTICATION.ADD_WEBAUTHN' | customTranslate | translate}}</button>
 
 <!--  <mat-slide-toggle #toggle color="primary">{{'AUTHENTICATION.MFA_TOGGLE' | customTranslate | translate}}</mat-slide-toggle>-->
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>

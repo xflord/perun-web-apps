@@ -49,7 +49,7 @@
         <mat-card-content class="column-center">
           <div  [matTooltip]="'MEMBER_DETAIL.OVERVIEW.RESET_DISABLED' | translate"
                 [matTooltipDisabled]="logins.length>0">
-            <button mat-flat-button color="accent" (click)="requestPwdReset()"  [disabled]="!logins.length">
+            <button mat-flat-button class="action-button" color="accent" (click)="requestPwdReset()"  [disabled]="!logins.length">
               {{'MEMBER_DETAIL.OVERVIEW.SEND_REQUEST'|translate}}
             </button>
           </div>

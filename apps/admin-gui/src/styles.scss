@@ -1492,3 +1492,7 @@ th, td.mat-cell {
 .cdk-virtual-scroll-content-wrapper {
   contain: size !important;
 }
+
+.action-button::after {
+  content: '\2026';
+}
