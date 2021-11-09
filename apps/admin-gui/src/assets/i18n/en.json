@@ -92,7 +92,7 @@
       "FAC_SELECT": "Facility",
       "RES_SELECT": "Resource",
       "GROUP_SELECT": "Group",
-      "VO_SELECT": "Vo",
+      "VO_SELECT": "Organization",
       "MEMBER_SELECT": "Member",
       "GROUP_SELECT_DEFAULT": " -- Select resource first -- ",
       "VO_SELECT_DEFAULT": " -- Select resource first -- ",
@@ -178,8 +178,8 @@
       "TITLE": "Assigned users",
       "FILTER": "Search by name or email",
       "FILTER_ALLOWED": "Show only allowed users",
-      "FILTER_ALLOWED_MSG": "Only users with correctly set attributes are shown. Their data is propagated to facility.",
-      "FILTER_ASSIGNED_MSG": "All assigned users are shown. Data of some users may not be propagated to facility due to invalid user attributes."
+      "FILTER_ALLOWED_MSG": "Only users with correctly set attributes are shown. Their data is propagated to the facility.",
+      "FILTER_ASSIGNED_MSG": "All assigned users are shown. Data of some users may not be propagated to the facility due to invalid user attributes."
     },
     "TASK_RESULTS": {
       "TITLE": "Task results",
@@ -275,7 +275,7 @@
         "SEARCH": "Filter by ID or name",
         "DELETE_SUCCESS": "Resource tags were successfully deleted.",
         "CREATE_SUCCESS": "Resource tag was successfully created.",
-        "NO_TAGS": "VO has no resource tags defined."
+        "NO_TAGS": "Organization has no resource tags defined."
       }
     },
     "GROUPS": {
@@ -319,7 +319,7 @@
         "TITLE": "Application form",
         "DRAG_AND_DROP_INFO": "You can move the table items by dragging them with the handle on the left side.",
         "ADD_BUTTON": "Add",
-        "COPY_VO_BUTTON": "Copy from VO/Group",
+        "COPY_VO_BUTTON": "Copy from Organization/Group",
         "PREVIEW_BUTTON": "Preview",
         "SETTINGS_BUTTON": "Change Settings",
         "NO_APPLICATION_FORM": "Application form have no items.",
@@ -378,23 +378,23 @@
           "IF_EMPTY": "If empty (self or other item)"
         },
         "WIDGET_DESCRIPTION": {
-          "HEADER": "Item is used to display customizable heading of form. Can have any HTML content.",
-          "SUBMIT_BUTTON": "Button used to submit the form with custom label. All other form items are checked on valid input before submission. If it fails, form is not sent.",
-          "HTML_COMMENT": "Item is used to display custom HTML content anywhere on form. Useful for explanation descriptions, dividing parts of form etc.",
+          "HEADER": "Item is used to display customizable heading of the form. Can have any HTML content.",
+          "SUBMIT_BUTTON": "Button used to submit the form with a custom label. All other form items are checked on valid input before submission. If it fails, form is not sent.",
+          "HTML_COMMENT": "Item is used to display custom HTML content anywhere on the form. Useful for explanation descriptions, dividing parts of form, etc.",
           "TEXTFIELD": "Editable text field useful to gather short text input, e.g. name, phone.",
-          "FROM_FEDERATION_SHOW": "Non-editable and visible form item. Form is submitted even on invalid input ! Useful to automatically gather information provided by AUTH mechanism (IdP federation, certificate).",
-          "FROM_FEDERATION_HIDDEN": "Non-editable and hidden form item. Form is submitted even on invalid input ! Useful to automatically gather information provided by AUTH mechanism (IdP federation, certificate).",
-          "VALIDATED_EMAIL": "Special text field to gather and verify user`s email address. Input is checked on email address format. If user enters new value, then validation email is sent. Application then can't be approved unless provided email address is validated.",
+          "FROM_FEDERATION_SHOW": "Non-editable and visible form item. The form is submitted even on invalid input! Useful to automatically gather information provided by AUTH mechanism (IdP federation, certificate).",
+          "FROM_FEDERATION_HIDDEN": "Non-editable and hidden form item. The form is submitted even on invalid input! Useful to automatically gather information provided by AUTH mechanism (IdP federation, certificate).",
+          "VALIDATED_EMAIL": "Special text field to gather and verify user`s email address. Input is checked on email address format. If a user enters a new value, then a validation email is sent. The application then can't be approved unless the provided email address is validated.",
           "SELECTIONBOX": "Simple selection box with defined custom values that user can choose.",
           "USERNAME": "Special text field to gather user`s login. It checks login availability on user input.",
-          "PASSWORD": "Two password fields to gather user`s new password. Input is never displayed. User must type same password in both fields.",
+          "PASSWORD": "Two password fields to gather the user's new password. Input is never displayed. The user must type the same password in both fields.",
           "TEXTAREA": "Editable text area useful to gather longer text input with linebreaks, e.g. comments, SSH key",
-          "COMBOBOX": "Selection box with defined custom values and one special option: \"--custom value--\", which allows users to input own text (as simple text field).",
-          "CHECKBOX": "List of defined custom options with checkboxes. Selected values are gathered as comma separated string.",
-          "RADIO": "List of defined custom options with radio buttons. Single selection model. Value is stored as string.",
-          "TIMEZONE": "Selection box with pre-defined values of UTC timezones.",
-          "AUTO_SUBMIT_BUTTON": "Button used to auto-submit the form with custom label. All other form items are checked on valid input before submission. If validation fail (at least once) user must submit form manually. If it's OK, then form is automatically submitted.",
-          "EMBEDDED_GROUP_APPLICATION": "Checkbox of real organization groups which the user can check and thus submit an application to these groups"
+          "COMBOBOX": "Selection box with defined custom values and one special option: \"--custom value--\", which allows users to input their text (as a simple text field).",
+          "CHECKBOX": "List of defined custom options with checkboxes. Selected values are gathered as a comma-separated string.",
+          "RADIO": "List of defined custom options with radio buttons. Single selection model. Value is stored as a string.",
+          "TIMEZONE": "Selection box with predefined values of UTC timezones.",
+          "AUTO_SUBMIT_BUTTON": "Button used to auto-submit the form with a custom label. All other form items are checked on valid input before submission. If validation fails (at least once) the user must submit the form manually. If it's OK, then the form is automatically submitted.",
+          "EMBEDDED_GROUP_APPLICATION": "The checkbox of real organization groups which the user can check and thus submit an application to these groups"
         },
         "DISABLED_HIDDEN_ICON": {
           "IF_EMPTY": "If empty",
@@ -447,7 +447,7 @@
         "ADD": "Add",
         "REMOVE": "Remove",
         "EMAIL_FOOTER": "E-mail footer",
-        "COPY_FROM_VO": "Copy from Vo",
+        "COPY_FROM_VO": "Copy from organization",
         "TABLE_EMAIL_ID": "E-Mail ID",
         "TABLE_EMAIL_TYPE": "E-Mail type",
         "TABLE_APPLICATION_TYPE": "Application type",
@@ -509,7 +509,7 @@
       "TABLE_LOA": "LoA",
       "TABLE_GROUP_NAME": "Group name",
       "TABLE_MODIFIED_BY": "Modified by",
-      "TABLE_VO_ID": "Vo ID",
+      "TABLE_VO_ID": "Organiztion Id",
       "TABLE_GROUP_ID": "Group ID",
       "TABLE_FEDINFO": "FedInfo",
       "TABLE_EXTSOURCENAME": "extSourceName",
@@ -517,8 +517,8 @@
       "TABLE_MODIFIED_AT": "Modified at",
       "TABLE_USER": "User",
       "TABLE_CREATED_BY": "Created by",
-      "TABLE_VO_NAME": "Vo name",
-      "NO_APPLICATION_FOUND": "No applications matching search criteria found for this VO or it's groups.",
+      "TABLE_VO_NAME": "Organization name",
+      "NO_APPLICATION_FOUND": "No applications matching search criteria found for this organization or it's groups.",
       "SHOW_ALL_DETAILS": "Show more details",
       "SHOW_LESS_DETAILS": "Show less details",
       "STATE": {
@@ -581,7 +581,7 @@
     },
     "SUBGROUP_INFO": "This group is a subgroup of ",
     "STATS_BY_GROUP_STATUS": "Members by group status",
-    "STATS_BY_VO_STATUS": "Members by VO status",
+    "STATS_BY_VO_STATUS": "Members by organization status",
     "MEMBERS": {
       "TITLE": "Members",
       "ACTIONS_DISABLED": "Actions with members are disabled, because this group is filled with members from external source.",
@@ -639,7 +639,7 @@
         "MANUAL": "Manual",
         "SETTINGS_BUTTON": "Change Settings",
         "ADD_BUTTON": "Add",
-        "COPY_GROUP_BUTTON": "Copy from VO/Group",
+        "COPY_GROUP_BUTTON": "Copy from Organization/Group",
         "PREVIEW_BUTTON": "Preview",
         "DRAG_AND_DROP_INFO": "You can move with table items by dragging and dropping",
         "NO_APPLICATION_FORM": "Application form doesn't exists",
@@ -654,7 +654,7 @@
         "ADD": "Add",
         "REMOVE": "Remove",
         "EMAIL_FOOTER": "E-mail footer",
-        "COPY_FROM_VO": "Copy from Vo/Group",
+        "COPY_FROM_VO": "Copy from Organization/Group",
         "NO_EMAILS": "No mail notifications found for this group.",
         "ADD_SUCCESS": "Email notification was successfully added",
         "DELETE_SUCCESS": "Email notification deleted.",
@@ -922,7 +922,7 @@
     },
     "MOVE_GROUP": {
       "TITLE": "Move group - ",
-      "INFO": "Selected group will be moved (including all its sub-groups).",
+      "INFO": "The selected group will be moved (including all its sub-groups).",
       "GROUP_SELECT": "Select a new parent group",
       "CANCEL": "Cancel",
       "CONFIRM": "Move",
@@ -956,8 +956,8 @@
       "CREATE": "Create",
       "SUCCESS": "New organization was successfully created",
       "TOOLTIP": "Short name and full name have to be filled and valid",
-      "FILL_FULL_NAME": "Length of full name has to be between 1 to 128 characters",
-      "FILL_SHORT_NAME": "Length of short name has to be between 1 to 32 characters, allowed characters are a-z, A-Z, 0-9, ., _, -"
+      "FILL_FULL_NAME": "Length of a full name has to be between 1 to 128 characters",
+      "FILL_SHORT_NAME": "Length of a short name has to be between 1 to 32 characters, allowed characters are a-z, A-Z, 0-9, ., _, -"
     },
     "REMOVE_VO": {
       "SUCCESS": "Organization was successfully removed",
@@ -967,8 +967,8 @@
     },
     "INVITE_MEMBER": {
       "TITLE": "Invite member",
-      "DESCRIPTION_VO": "The person you are inviting will receive an email with a link to VOs application form. You can set up an email template in: (Vo) Settings -> Notifications.",
-      "DESCRIPTION_GROUP": "The person you are inviting will receive an email with a link to Groups application form. You can set up an email template in: (Group) Settings -> Notifications.",
+      "DESCRIPTION_VO": "The person you are inviting will receive an email with a link to organizations application form. You can set up an email template in: (Organization) Settings -> Notifications.",
+      "DESCRIPTION_GROUP": "The person you are inviting will receive an email with a link to the groups application form. You can set up an email template in: (Group) Settings -> Notifications.",
       "INVITE": "Invite",
       "CANCEL": "Cancel",
       "NAME": "Name",
@@ -995,8 +995,8 @@
     },
     "REMOVE_MEMBERS": {
       "TITLE": "Confirm removal",
-      "DESCRIPTION": "Following members will be removed from VO and their settings will be lost.\n\nYou can consider changing their status to \"DISABLED\", which will prevent them from accessing VO resources.",
-      "DESCRIPTION_GROUP": "Following members will be removed from group. They will lose access to resources provided by this group.",
+      "DESCRIPTION": "Following members will be removed from the organization and their settings will be lost.\n\nYou can consider changing their status to \"DISABLED\", which will prevent them from accessing organization resources.",
+      "DESCRIPTION_GROUP": "Following members will be removed from the group. They will lose access to resources provided by this group.",
       "ASK": "Do you want to proceed?",
       "SUCCESS": "Selected members were deleted",
       "SUCCESS_GROUP": "Selected members were removed",
@@ -1029,7 +1029,7 @@
       "SUCCESS": "Selected managers were added",
       "COUNT": "Count",
       "NO_USERS_FOUND": "No users found",
-      "EMPTY_SEARCH_MESSAGE": "Search field cannot be empty"
+      "EMPTY_SEARCH_MESSAGE": "The search field cannot be empty"
     },
     "ADD_MEMBERS": {
       "TITLE": "Add member",
@@ -1044,8 +1044,8 @@
       "SUCCESS_INVITE": "Invite was send to given user",
       "VALIDATION_SUCCESS": "Member validation was successful",
       "NO_USERS_FOUND": "No users found",
-      "ADD_MEMBER_PERMISSION_TOOLTIP": "You don't have permission to add member",
-      "EMPTY_SEARCH_MESSAGE": "Search field cannot be empty"
+      "ADD_MEMBER_PERMISSION_TOOLTIP": "You don't have permission to add a member",
+      "EMPTY_SEARCH_MESSAGE": "The search field cannot be empty"
     },
     "ADD_GROUPS": {
       "TITLE": "Add group",
@@ -1092,7 +1092,7 @@
     },
     "REJECT_APPLICATION": {
       "TITLE": "Specify reason",
-      "TEXT": "Please specify reason of rejection to let user know why was application rejected.",
+      "TEXT": "Please specify the reason for rejection to let the user know why was application rejected.",
       "SUBMIT": "Reject",
       "CANCEL": "Cancel",
       "SUCCESS": "Application was rejected"
@@ -1111,26 +1111,26 @@
     "DELETE_APPLICATION_FORM_ITEM": {
       "TITLE": "Delete confirm",
       "INFO_1": "Deleting of form items is NOT RECOMMENDED!",
-      "INFO_2": "You will loose access to data users submitted in older applications within this form item!",
+      "INFO_2": "You will lose access to data users submitted in older applications within this form item!",
       "INFO_3": "Do you want to continue?",
       "CANCEL_BUTTON": "Cancel",
       "SUBMIT_BUTTON": "Delete"
     },
     "APPLICATION_FORM_COPY_ITEMS": {
-      "TITLE": "Copy form items from VO / group",
-      "SOURCE_VO": "Source VO",
+      "TITLE": "Copy form items from organization / group",
+      "SOURCE_VO": "Source organization",
       "SOURCE_GROUP": "Source group",
       "CANCEL_BUTTON": "Cancel",
       "SUBMIT_BUTTON": "Submit",
       "NO_GROUP_SELECTED": "Not selected",
-      "DESCRIPTION": "All form items from selected Group or VO will be added to yours.",
-      "ERROR_INVALID_VO": "Please choose Vo from options",
-      "ERROR_NO_VO": "Please choose Vo",
+      "DESCRIPTION": "All form items from the selected group or organization will be added to yours.",
+      "ERROR_INVALID_VO": "Please choose organization from options",
+      "ERROR_NO_VO": "Please choose organization",
       "ERROR_INVALID_GROUP": "Please choose group from options",
       "ERROR_NO_GROUP": "Please choose group",
       "SUCCESS": "Form items copied",
-      "PRIVILEGE": "You cannot copy application form for this combination of organization and group",
-      "NO_FORM": "Selected entity has no form"
+      "PRIVILEGE": "You cannot copy the application form for this combination of organization and group",
+      "NO_FORM": "The selected entity has no form"
     },
     "APPLICATION_FORM_ADD_ITEM": {
       "TITLE": "Add form item",
@@ -1141,12 +1141,12 @@
       "INSERT_AFTER": "Insert after",
       "INSERT_TO_BEGINNING": "- insert to the beginning -",
       "NO_SHORTNAME_ERROR": "Please fill the shortname",
-      "FILL_NAME": "Length of name has to be between 1 to 128 characters"
+      "FILL_NAME": "Length of the name has to be between 1 to 128 characters"
     },
     "APPLICATION_FORM_EDIT_ITEM": {
       "TITLE": "Edit form item",
       "SHORT_NAME": "Short name",
-      "SHORT_NAME_DESCRIPTION": "Internal item identification (used as fallback when you forgot to set \"Label\" for some language).",
+      "SHORT_NAME_DESCRIPTION": "Internal item identification (used as a fallback when you forgot to set \"Label\" for some language).",
       "CANCEL_BUTTON": "Cancel",
       "SUBMIT_BUTTON": "Submit",
       "BASIC_SETTINGS": "Basic settings",
@@ -1161,26 +1161,26 @@
       "CONTENT": "Content",
       "CONTENT_DESCRIPTION": "HTML formatted content of form item. It spans through all columns to full form width.",
       "LABEL": "Label",
-      "LABEL_DESCRIPTION": "Label displayed to users to identify item on application form. If empty, \"Short name\" from basic settings is used as fallback.",
+      "LABEL_DESCRIPTION": "Label displayed to users to identify the item on the application form. If empty, \"Short name\" from basic settings is used as a fallback.",
       "LABEL_BUTTON_DESCRIPTION": "Label displayed on submit button.",
       "HELP": "Help",
-      "HELP_DESCRIPTION": "Help text displayed to user along with input widget.",
+      "HELP_DESCRIPTION": "Help text displayed to a user along with input widget.",
       "ERROR": "Error",
-      "ERROR_DESCRIPTION": "Error message displayed to user when enters wrong value.",
+      "ERROR_DESCRIPTION": "Error message displayed to a user when when wrong value is entered.",
       "REGEX": "Regular expression",
-      "REGEX_DESCRIPTION": "Regular expression used for item value validation (before submitting by user).",
+      "REGEX_DESCRIPTION": "A regular expression is used for item value validation (before submitting by user).",
       "SOURCE_ATTRIBUTE": "Source attribute",
-      "SOURCE_ATTRIBUTE_DESCRIPTION": "Select attribute, which will be used to pre-fill form value. You can select also VO attributes.",
+      "SOURCE_ATTRIBUTE_DESCRIPTION": "Select attribute, which will be used to pre-fill form value. You can select also organization attributes.",
       "DESTINATION_ATTRIBUTE": "Destination attribute",
       "DESTINATION_ATTRIBUTE_DESCRIPTION": "Select attribute, where will be submitted value stored after accepting user`s application.",
       "FEDERATION_ATTRIBUTE": "Federation attribute",
       "FEDERATION_ATTRIBUTE_DESCRIPTION": "Select federation attribute to get pre-filed value from.",
       "REQUIRED": "Required",
-      "REQUIRED_DESCRIPTION": "If checked, user can`t submit empty value (doesn't apply to non-editable fields).",
+      "REQUIRED_DESCRIPTION": "If checked, the user can`t submit an empty value (doesn't apply to non-editable fields).",
       "NO_SELECTED_ITEM": "No item selected (empty value)",
       "CUSTOM_VALUE": " -- custom value -- ",
       "OPTIONS": "Options",
-      "OPTIONS_DESCRIPTION": "Define possible options for selection in SELECTIONBOX, COMBOBOX, CHECKBOX, RADIO widget. Empty options are not used.",
+      "OPTIONS_DESCRIPTION": "Define possible options for selection in SELECTIONBOX, COMBOBOX, CHECKBOX, RADIO widgets. Empty options are not used.",
       "ADD_OPTION": "Add option",
       "REMOVE_OPTION": "Remove",
       "VALUE": "Value",
@@ -1209,7 +1209,7 @@
       "SAVE": "Save selected",
       "CANCEL": "Cancel",
       "SUCCESS_SAVE": "Attributes saved successfully",
-      "ERROR_EMPTY_VALUE": "You can't save attribute with empty value"
+      "ERROR_EMPTY_VALUE": "You can't save an attribute with an empty value"
     },
     "CREATE_RESOURCE_TAG": {
       "TITLE": "Create resource tag",
@@ -1220,14 +1220,14 @@
     },
     "DELETE_RESOURCE_TAG": {
       "TITLE": "Confirm delete action",
-      "DESCRIPTION": "Following tags will be deleted and won't be used to tag VO resources.",
+      "DESCRIPTION": "Following tags will be deleted and won't be used to tag organization resources.",
       "ASK": "Do you want to proceed?",
       "SUBMIT": "Delete",
       "CANCEL": "Cancel"
     },
     "NOTIFICATIONS_EDIT_FOOTER": {
       "TITLE": "Edit mail footer",
-      "DESCRIPTION": "This text will be added as footer for all email notifications (replacing {mailFooter} tag in mail definition).",
+      "DESCRIPTION": "This text will be added as a footer for all email notifications (replacing {mailFooter} tag in mail definition).",
       "LABEL": "Footer text",
       "SUBMIT_BUTTON": "Save",
       "CANCEL_BUTTON": "Cancel",
@@ -1243,15 +1243,15 @@
       "EDIT_HINT": "You don't have permission to edit notifications.",
       "BASIC_SETTINGS": "Basic settings",
       "EMAIL_TYPE": "Email type",
-      "EMAIL_TYPE_DESCRIPTION_CREATE": "Selected type of notification (action which trigger sending and who is notified).",
-      "EMAIL_TYPE_DESCRIPTION_EDIT": "Type of notification (action which trigger sending and who is notified).",
+      "EMAIL_TYPE_DESCRIPTION_CREATE": "Selected type of notification (action which triggers sending and who is notified).",
+      "EMAIL_TYPE_DESCRIPTION_EDIT": "Type of notification (action which triggers sending and who is notified).",
       "APPLICATION_TYPE": "Application type",
       "INITIAL": "Initial",
       "EXTENSION": "Extension",
       "APPLICATION_TYPE_DESCRIPTION_CREATE": "Select which application type will trigger sending.",
       "APPLICATION_TYPE_DESCRIPTION_EDIT": "Application type which will trigger sending.",
       "SENDING_ENABLED": "Sending enabled",
-      "SENDING_ENABLED_DESCRIPTION": "If checked, notification will be sent. Un-check it to temporary disable sending.",
+      "SENDING_ENABLED_DESCRIPTION": "If checked, a notification will be sent. Un-check it to temporarily disable sending.",
       "LANG_EN": "Language: en",
       "LANG_CS": "Language: cz",
       "AVAILABLE_TAGS": "Available tags",
@@ -1259,7 +1259,7 @@
       "TEXT": "Text",
       "SHOW_TAGS": "Add tags",
       "HIDE_TAGS": "Hide tags",
-      "TAGS_DESCRIPTION": "Following tags can be used in mail's subject and text and are replaced by actual data on sending. Just choose place where you want tag and click on tag button. When no data for tag is found, it's replaced by whitespace.",
+      "TAGS_DESCRIPTION": "Following tags can be used in mail's subject and text and are replaced by actual data on sending. Just choose the place where you want the tag and click on the tag button. When no data for the tag is found, it's replaced by whitespace.",
       "APPLICATION_RELATED_SECTION": "Application related",
       "USER_RELATED_SECTION": "User related",
       "VALIDATION_LINKS_USERS_SECTION": "Validation links for users",
@@ -1269,11 +1269,11 @@
       "USER_INVITATIONS_SECTION": "User invitations",
       "APPID_DESCRIPTION": "application ID",
       "ACTOR_DESCRIPTION": "user's login used when submitting application",
-      "EXTSOURCE_DESCRIPTION": "user's identity provider when submitting application",
-      "VONAME_DESCRIPTION": "name of VO of application form",
+      "EXTSOURCE_DESCRIPTION": "user's identity provider when submitting an application",
+      "VONAME_DESCRIPTION": "name of organization of application form",
       "GROUPNAME_DESCRIPTION": "name of group, if application form is for group membership",
-      "MAILFOOTER_DESCRIPTION": "common mail footer defined by VO",
-      "ERRORS_DESCRIPTION": "errors description, what happened while processing new application. Useful for VO administrators",
+      "MAILFOOTER_DESCRIPTION": "common mail footer defined by organization",
+      "ERRORS_DESCRIPTION": "errors description, what happened while processing new application. Useful for organization administrators",
       "CUSTOMMESSAGE_DESCRIPTION": "optional message passed by administrators when rejecting an application",
       "FROMAPPITEMNAME_DESCRIPTION": "value of a form item in user's application. You MUST specify the itemName, e.g. {fromApp-mail} will print value of item with short name 'mail' from user's application.",
       "FIRSTNAME_DESCRIPTION": "users first name taken from application form or Perun",
@@ -1284,34 +1284,34 @@
       "LOGINNAMESPACE_DESCRIPTION": "user's login in selected namespace, taken from registration form or Perun. You MUST specify the namespace, e.g. {login-einfra} will print user's login in einfra namespace.",
       "MEMBERSHIPEXPIRATION_DESCRIPTION": "membership expiration date decided after membership creation or extension",
       "VALIDATION_LINKS_DESCRIPTION": "Works only for \"Mail validation / user \" mail type! Used to verify email address provided by users => verify application.",
-      "VALIDATIONLINK_DESCRIPTION": "link for email address verification. Please make sure you set \"Registrar URL\" setting of your VO/group. If you don't specify authorization in \"Registrar URL\", you can use following options:",
+      "VALIDATIONLINK_DESCRIPTION": "link for email address verification. Please make sure you set \"Registrar URL\" setting of your organization/group. If you don't specify authorization in \"Registrar URL\", you can use following options:",
       "VALIDATIONKRB_DESCRIPTION": "link for Kerberos authentication",
       "VALIDATIONFED_DESCRIPTION": "link for Shibboleth IdP (federation) authentication",
       "VALIDATIONCERT_DESCRIPTION": "link for personal certificate authentication",
       "VALIDATIONNON_DESCRIPTION": "link without any authentication",
       "REDIRECTURL_DESCRIPTION": "contains the URL parameter which was present during the application submission. If the application was initial, contains the value of the 'targetnew' URL parameter. If the application was extensional, contains the value of the 'targetexisting' parameter.",
       "APPLICATION_LINKS_DESCRIPTION": "Used to navigate users to the list of theirs applications.",
-      "APPGUIURL_DESCRIPTION": "link to overview of submitted registrations for users. Please make sure you set \"Registrar URL\" setting of your VO/group. If you don't specify authorization in \"Registrar URL\", you can use following options:",
+      "APPGUIURL_DESCRIPTION": "link to overview of submitted registrations for users. Please make sure you set \"Registrar URL\" setting of your organization/group. If you don't specify authorization in \"Registrar URL\", you can use following options:",
       "APPGUIURLKRB_DESCRIPTION": "link for Kerberos authentication",
       "APPGUIURLFED_DESCRIPTION": "link for Shibboleth IdP (federation) authentication",
       "APPGUIURLCERT_DESCRIPTION": "link for personal certificate authentication",
       "APPGUIURLNON_DESCRIPTION": "link without any authentication",
       "APPLICATION_LINKS_ADMINISTRATOR_DESCRIPTION": "Used to navigate administrators to the registration detail, where they can check and approve or reject the application.",
-      "APPDETAILURL_DESCRIPTION": "link to registration detail in administrative GUI. Please make sure you set \"Registrar URL\" setting of your VO/group. If you don't specify authorization in \"Registrar URL\", you can use following options:",
+      "APPDETAILURL_DESCRIPTION": "link to registration detail in administrative GUI. Please make sure you set \"Registrar URL\" setting of your organization/group. If you don't specify authorization in \"Registrar URL\", you can use following options:",
       "APPDETAILURLKRB_DESCRIPTION": "link for Kerberos authentication",
       "APPDETAILURLFED_DESCRIPTION": "link for Shibboleth IdP (federation) authentication",
       "APPDETAILURLCERT_DESCRIPTION": "link for personal certificate authentication",
       "PERUN_LINKS_ADMINISTRATOR_DESCRIPTION": "Used to navigate administrators to the administrative GUI of Perun. Can be used for users to locate user detail too.",
-      "PERUNGUIURL_DESCRIPTION": "link to administrative GUI. Please make sure you set \"Registrar URL\" setting of your VO/group. If you don't specify authorization in \"Registrar URL\", you can use following options:",
+      "PERUNGUIURL_DESCRIPTION": "link to administrative GUI. Please make sure you set \"Registrar URL\" setting of your organization/group. If you don't specify authorization in \"Registrar URL\", you can use following options:",
       "PERUNGUIURLKRB_DESCRIPTION": "link for Kerberos authentication",
       "PERUNGUIURLFED_DESCRIPTION": "link for Shibboleth IdP (federation) authentication",
       "PERUNGUIURLCERT_DESCRIPTION": "link for personal certificate authentication",
       "USER_INVITATIONS_DESCRIPTION": "Following tags can be used on user invitation template",
-      "USER_INVITATIONS_VONAME_DESCRIPTION": "name of VO to invite user into",
+      "USER_INVITATIONS_VONAME_DESCRIPTION": "name of organization to invite user into",
       "USER_INVITATIONS_GROUPNAME_DESCRIPTION": "name of Group to invite user into",
       "USER_INVITATIONS_DISPLAYNAME_DESCRIPTION": "invited user's name",
-      "USER_INVITATIONS_MAILFOOTER_DESCRIPTION": "common mail footer defined by VO",
-      "INVITATIONLINK_DESCRIPTION": "link to registration form. Please make sure you set \"Registrar URL\" setting of your VO/group. If you don't specify authorization in \"Registrar URL\", you can use following options:",
+      "USER_INVITATIONS_MAILFOOTER_DESCRIPTION": "common mail footer defined by organization",
+      "INVITATIONLINK_DESCRIPTION": "link to registration form. Please make sure you set \"Registrar URL\" setting of your organization/group. If you don't specify authorization in \"Registrar URL\", you can use following options:",
       "INVITATIONLINKKRB_DESCRIPTION": "link for Kerberos authentication",
       "INVITATIONLINKFED_DESCRIPTION": "link for Shibboleth IdP (federation) authentication",
       "INVITATIONLINKCERT_DESCRIPTION": "link for personal certificate authentication",
@@ -1320,15 +1320,15 @@
       "TAG_HINT": "Click to add tag"
     },
     "NOTIFICATIONS_COPY_MAILS": {
-      "TITLE": "Copy mail notifications from Vo/group",
-      "SOURCE_VO": "Source VO",
+      "TITLE": "Copy mail notifications from Organization/group",
+      "SOURCE_VO": "Source organization",
       "SOURCE_GROUP": "Source group",
       "CANCEL_BUTTON": "Cancel",
       "SUBMIT_BUTTON": "Submit",
       "NO_GROUP_SELECTED": "Not selected",
       "DESCRIPTION": "All mail definitions will be added to yours.",
-      "ERROR_INVALID_VO": "Please choose Vo from options",
-      "ERROR_NO_VO": "Please choose Vo",
+      "ERROR_INVALID_VO": "Please choose organization from options",
+      "ERROR_NO_VO": "Please choose organization",
       "ERROR_INVALID_GROUP": "Please choose Group from options",
       "ERROR_NO_GROUP": "Please choose Group"
     },
@@ -1348,8 +1348,8 @@
       "WRITE": "Write",
       "SELF": "Self",
       "SELF_PUBLIC": "Self Public",
-      "SELF_VO": "Self Vo",
-      "VO": "Vo",
+      "SELF_VO": "Self organization",
+      "VO": "Organization",
       "GROUP": "Group",
       "FACILITY": "Facility",
       "CANCEL": "Cancel",
@@ -1368,7 +1368,7 @@
       "CANCEL": "Cancel",
       "CONFIRM": "Delete",
       "WARNING": "This action will also delete all assigned values",
-      "SUCCESS": "Selected attributes has been deleted successfully"
+      "SUCCESS": "Selected attributes have been deleted successfully"
     },
     "NOTIFICATION_LIST": {
       "TITLE": "Recent notifications",
@@ -1394,17 +1394,17 @@
       "TITLE": "Change status",
       "CURRENT_STATUS": "Current status: ",
       "VALID_DESCRIPTION": "Member is properly configured and has access to all provided resources.",
-      "INVALID_DESCRIPTION": "Member have configuration error and DON'T have access on provided resources. You can check what is wrong by changing member's status to ACTIVE. If possible, procedure will configure all necessary settings by itself.",
+      "INVALID_DESCRIPTION": "Member has configuration error and DOESN'T have access to provided resources. You can check what is wrong by changing the member's status to ACTIVE. If possible, the procedure will configure all necessary settings by itself.",
       "EXPIRED_DESCRIPTION": "Member didn't extend membership and might NOT have access to all services.",
-      "DISABLED_DESCRIPTION": "Member was manually disabled and DON'T have access on provided resources.",
+      "DISABLED_DESCRIPTION": "Member was manually disabled and DON'T have access to provided resources.",
       "NEW_STATUS": "New status: ",
       "SELECT_STATUS": "Select status",
-      "CHANGE_VALID_TO_INVALID": "Changing status to INVALID will <b>prevent the member from accessing all services.</b>\n\nINVALID members might not have correct configuration (required by services) and have to be validated before accessing them.",
-      "CHANGE_VALID_TO_EXPIRED": "Changing status to EXPIRED <b>might prevent the member from accessing some of the services (based on provided service's rules).</b>\n\nEXPIRED status means, that member didn't extend his membership in VO, but it's still possible for him to do so.",
+      "CHANGE_VALID_TO_INVALID": "Changing status to INVALID will <b>prevent the member from accessing all services.</b>\n\nINVALID members might not have the correct configuration (required by services) and have to be validated before accessing them.",
+      "CHANGE_VALID_TO_EXPIRED": "Changing status to EXPIRED <b>might prevent the member from accessing some of the services (based on provided service's rules).</b>\n\nEXPIRED status means, that member didn't extend his membership in the organization, but it's still possible for him to do so.",
       "CHANGE_VALID_TO_DISABLED": "Changing status to DISABLED will <b>prevent the member from accessing all of the services. </b>\n\nDISABLED status means that the member is archived and is not allowed to any services.",
-      "CHANGE_NO_VALID_TO_VALID": "Changing status to ACTIVE <b>will trigger attribute validation</b>. \n\n<b>If successful</b>, member will have access on all services. \n\n<b>If not</b>, see displayed error message and do manual configuration of invalid attributes.",
+      "CHANGE_NO_VALID_TO_VALID": "Changing status to ACTIVE <b>will trigger attribute validation</b>. \n\n<b>If successful</b>, the member will have access to all services. \n\n<b>If not</b>, see the displayed error message and do a manual configuration of invalid attributes.",
       "CHANGE_NO_VALID_TO_INVALID": "INVALID status means there is a configuration error, which prevents the member from accessing provided services.",
-      "CHANGE_NO_VALID_TO_EXPIRED": "EXPIRED status means, that member didn't extend his membership in VO, but it's still possible for him to do so.",
+      "CHANGE_NO_VALID_TO_EXPIRED": "EXPIRED status means, that member didn't extend his membership in the organization, but it's still possible for him to do so.",
       "CHANGE_NO_VALID_TO_DISABLED": "DISABLED status means that the member is archived and is not allowed to any services. Member can't enable/extend membership by himself.",
       "SUCCESS": "Member status was changed",
       "CANCEL": "Cancel",
@@ -1413,30 +1413,30 @@
     },
     "REMOVE_GROUP_FROM_RESOURCE": {
       "TITLE": "Confirm delete action",
-      "DESCRIPTION": "Following groups will be removed from resource.",
+      "DESCRIPTION": "Following groups will be removed from the resource.",
       "ASK": "Do you want to proceed?",
       "CANCEL": "Cancel",
       "DELETE": "Delete",
-      "SUCCESS": "Selected groups were removed from resource"
+      "SUCCESS": "Selected groups were removed from the resource"
     },
     "ASSIGN_GROUP_TO_RESOURCE": {
       "TITLE": "Assign group",
       "FILTER_DESCRIPTION": "Find group",
       "ADD_BUTTON": "Assign groups",
       "CANCEL_BUTTON": "Cancel",
-      "SUCCESS_MESSAGE": "Selected groups were assigned to resource",
+      "SUCCESS_MESSAGE": "Selected groups were assigned to the resource",
       "CONFIGURE_GROUPS": "Configure group(s) before assign",
       "ADD_TOOLTIP": "You don't have privileges to perform this action for one or more groups.",
       "ASYNC_OPT": "Add asynchronously",
       "ASYNC_ON_HINT": "Selected group(s) assignment is executed asynchronously (switched to PROCESSING state and waiting for assignment to run in the background)",
       "ASYNC_OFF_HINT": "Synchronous assignment is executed",
-      "ASYNC_OPT_DESCRIPTION": "If selected, group(s) assignment is executed asynchronously (switched to PROCESSING state and waiting for assignment to run in the background). Otherwise, synchronous assignment is executed.",
+      "ASYNC_OPT_DESCRIPTION": "If selected, group(s) assignment is executed asynchronously (switched to PROCESSING state and waiting for assignment to run in the background). Otherwise, a synchronous assignment is executed.",
       "AS_ACTIVE": "Assign with active status",
-      "ACTIVE_ON_HINT": "Groups will be assigned to resource with ACTIVE status",
-      "ACTIVE_OFF_HINT": "Groups will be assigned to resource with INACTIVE status, members will not be able to access services until activation",
+      "ACTIVE_ON_HINT": "Groups will be assigned to the resource with ACTIVE status",
+      "ACTIVE_OFF_HINT": "Groups will be assigned to the resource with INACTIVE status, members will not be able to access services until activation",
       "AUTO_SUBGROUPS": "Assign with subgroups",
-      "AUTO_SUBGROUPS_OFF_HINT": "Resource will be assigned only to selected groups and will not propagate to their subgroups",
-      "AUTO_SUBGROUPS_ON_HINT": "All current and future <b>subgroups</b> will be assigned to this resource<br> In case of 'members' group this extends to <b>all groups of it's organization</b>",
+      "AUTO_SUBGROUPS_OFF_HINT": "The resource will be assigned only to selected groups and will not propagate to their subgroups",
+      "AUTO_SUBGROUPS_ON_HINT": "All current and future <b>subgroups</b> will be assigned to this resource<br> In the case of 'members' groups this extends to <b>all groups of its organization</b>",
       "GROUPS": "Choose groups",
       "OPTIONS": "Set options",
       "NEXT": "Next",
@@ -1450,16 +1450,16 @@
       "ADD_SERVICES": "Add individual services",
       "ADD_PACKAGE": "Add service package",
       "CANCEL_BUTTON": "Cancel",
-      "SERVICE_SUCCESS_MESSAGE": "Selected services were assigned to resource",
-      "PACKAGE_SUCCESS_MESSAGE": "Selected service package was assigned to resource"
+      "SERVICE_SUCCESS_MESSAGE": "Selected services were assigned to the resource",
+      "PACKAGE_SUCCESS_MESSAGE": "The selected service package was assigned to the resource"
     },
     "REMOVE_SERVICE_FROM_RESOURCE": {
       "TITLE": "Confirm removal",
-      "DESCRIPTION": "Following services will be removed from resource.",
+      "DESCRIPTION": "Following services will be removed from the resource.",
       "ASK": "Do you want to proceed?",
       "CANCEL": "Cancel",
       "DELETE": "Delete",
-      "SUCCESS": "Selected services were removed from resource"
+      "SUCCESS": "Selected services were removed from the resource"
     },
     "CREATE_RESOURCE": {
       "NAME": "Name",
@@ -1499,8 +1499,8 @@
       "WRITE": "Write",
       "SELF": "Self",
       "SELF_PUBLIC": "Self Public",
-      "SELF_VO": "Self Vo",
-      "VO": "Vo",
+      "SELF_VO": "Self organization",
+      "VO": "Organization",
       "GROUP": "Group",
       "FACILITY": "Facility",
       "CANCEL": "Cancel",
@@ -1511,7 +1511,7 @@
     },
     "REMOVE_DESTINATIONS": {
       "TITLE": "Remove destination from service",
-      "WARNING": "Removing destination will stop propagation of service's configuration for this destination/service.",
+      "WARNING": "Removing the destination will stop propagation of the service's configuration for this destination/service.",
       "DESCRIPTION": "Following destinations will be removed.",
       "ASK": "Do you want to proceed?",
       "CANCEL": "Cancel",
@@ -1520,7 +1520,7 @@
     },
     "ADD_SERVICE_DESTINATION": {
       "TITLE": "Add destination",
-      "DESCRIPTION": "Please add destinations for service configuration delivery. New service configuration can be performed directly on facility (dest. type HOST) or sent to URL or by an email.",
+      "DESCRIPTION": "Please add destinations for service configuration delivery. New service configuration can be performed directly on the facility (dest. type HOST) or sent to URL or by an email.",
       "SERVICE": "Service",
       "SELECTION_ALL": "All",
       "NO_SERVICE": "No service available",
@@ -1548,11 +1548,11 @@
       "ASYNC_ON_HINT": "Selected resource(s) assignment is executed asynchronously (switched to PROCESSING state and waiting for assignment to run in the background)",
       "ASYNC_OFF_HINT": "Synchronous assignment is executed",
       "AS_ACTIVE": "Assign with active status",
-      "ACTIVE_ON_HINT": "Resources will be assigned to group with ACTIVE status",
-      "ACTIVE_OFF_HINT": "Resources will be assigned to group with INACTIVE status, members will not be able to access services until activation",
+      "ACTIVE_ON_HINT": "Resources will be assigned to a group with ACTIVE status",
+      "ACTIVE_OFF_HINT": "Resources will be assigned to a group with INACTIVE status, members will not be able to access services until activation",
       "AUTO_SUBGROUPS": "Assign with subgroups",
-      "AUTO_SUBGROUPS_OFF_HINT": "Resources will be assigned only to this group and will not propagate to it's subgroups",
-      "AUTO_SUBGROUPS_ON_HINT": "All current and future <b>subgroups</b> will be assigned to selected resource(s)<br> In case of 'members' group this extends to <b>all groups of this organization</b>",
+      "AUTO_SUBGROUPS_OFF_HINT": "Resources will be assigned only to this group and will not propagate to its subgroups",
+      "AUTO_SUBGROUPS_ON_HINT": "All current and future <b>subgroups</b> will be assigned to selected resource(s)<br> In the case of 'members' groups, this extends to <b>all groups of this organization</b>",
       "RESOURCES": "Choose resources",
       "OPTIONS": "Set options",
       "NEXT": "Next",
@@ -1560,7 +1560,7 @@
 
     },
     "ADD_GROUP_TO_REGISTRATION": {
-      "TITLE": "Assing group to registration",
+      "TITLE": "Assign group to registration",
       "FILTER_DESCRIPTION": "Filter",
       "CANCEL_BUTTON": "Cancel",
       "ADD_BUTTON": "Assign groups"
@@ -1589,7 +1589,7 @@
     "REMOVE_HOST": {
       "TITLE": "Confirm removal",
       "WARNING": "Removing host(s) won't stop services propagation. For this please remove proper 'Services destinations'.",
-      "DESCRIPTION": "Following hosts will be removed from facility.",
+      "DESCRIPTION": "Following hosts will be removed from the facility.",
       "CONFIRM": "Delete",
       "CANCEL": "Cancel",
       "ASK": "Do you want to proceed?",
@@ -1632,7 +1632,7 @@
     },
     "DELETE_SERVICE": {
       "DESTINATION_RELATION": "Destinations",
-      "MORE_INFORMATION": "Force delete also stops (de)provisioning of these services. You should firstly delete all relations to users/groups and after propagation you can force delete these services.",
+      "MORE_INFORMATION": "Force delete also stops (de)provisioning of these services. You should first delete all relations to users/groups and after propagation, you can force delete these services.",
       "SUCCESS": "Service deleted"
     },
     "ADD_MEMBER_TO_RESOURCE": {
@@ -1699,14 +1699,14 @@
       "CURRENT_EXPIRATION": "Current expiration: ",
       "NEW_EXPIRATION": "New expiration:         ",
       "DATE_LABEL": "Expire to a date",
-      "VO_RULES": "Set by Vo rules",
+      "VO_RULES": "Set by organization rules",
       "GROUP_RULES": "Set by Group rules",
       "EXPIRATION_NEVER": "Never expire",
       "WRONG_FORMAT": "The date has to be in format yyyy-mm-dd",
       "CANCEL": "Cancel",
       "SAVE": "Save",
       "SUCCESS": "Expiration successfully changed",
-      "SAVE_HINT": "You don't have permission to change expiration date.",
+      "SAVE_HINT": "You don't have permission to change the expiration date.",
       "STATUS_CHANGE_INFO": "This action will result in changing the status to 'ACTIVE'."
     },
     "EDIT_GROUP": {
@@ -1723,15 +1723,15 @@
       "CANCEL": "Cancel",
       "SEARCH": "Search",
       "EMPTY_SEARCH_MESSAGE": "Search field cannot be empty",
-      "SEARCH_HINT": "Type in user`s First name, Last name (or both) or Login or Email.",
-      "NO_IDENTITIES": "No user matching search criteria found.",
+      "SEARCH_HINT": "Type in user's First name, Last name (or both), or Login or Email.",
+      "NO_IDENTITIES": "No users matching search criteria were found.",
       "SUCCESS": "Identity was connected."
     },
     "DISCONNECT_IDENTITY": {
       "TITLE": "Disconnect identity",
       "REMOVE": "Disconnect",
       "CANCEL": "Cancel",
-      "DESCRIPTION": "Following identities will be disconnected from user.",
+      "DESCRIPTION": "Following identities will be disconnected from the user.",
       "WARNING_DISCONNECT_YOURSELF": "You will be disconnected from the service account - you will immediately lose rights to access and manage the account. If you want to move rights to another user, you should do it before disconnecting yourself.",
       "WARNING_LAST_USER": "You want to disconnect the last identity from the service account - the account will be unattended.",
       "ASK": "Do you want to proceed?",
@@ -1750,7 +1750,7 @@
       "RESOURCE_SUCCESS": "Resource successfully updated",
       "FACILITY_SUCCESS": "Facility successfully updated",
       "GROUP_SUCCESS": "Group successfully updated",
-      "VO_SUCCESS": "Vo successfully updated",
+      "VO_SUCCESS": "Organization successfully updated",
       "FILL_NAME": "Length of name has to be between 1 to 128 characters",
       "FILL_DESCRIPTION": "This field has to contain between 1 to 128 characters"
     },
@@ -1858,7 +1858,7 @@
       "NAMESPACE": "Namespace",
       "NAMESPACE_ERROR": "Selection of namespace is required",
       "NAMES_ERROR": "This field cannot be empty",
-      "HINT": "Please insert to the field below correctly formated text. List and order of valid attributes is:",
+      "HINT": "Please insert to the field below a correctly formatted text. List and order of valid attributes are:",
       "INSERT_HERE": "Here insert correctly formatted text",
       "ERROR_FORMAT": "This line is not filled with all mandatory attributes",
       "ERROR_EMAIL": "Email on this line is not valid",
@@ -1868,12 +1868,12 @@
       "SUCCESS": "Members successfully created",
       "EMAIL": "Email",
       "PASSWORD_MANAGEMENT": "Password management",
-      "PASSWORD_RESET": "Let created users change their password via given email addresses.",
+      "PASSWORD_RESET": "Let created users change their passwords via given email addresses.",
       "GENERATE_PASSWORD": "Generate random passwords",
       "EXPIRATION": "Sponsorship expiration",
       "GROUP_ASSIGMENT": "Group assigment",
       "NO_ASSIGN": "Do not assign to any group",
-      "ASSIGN_TO_NEW": "Create new group to be assigned to",
+      "ASSIGN_TO_NEW": "Create a new group to be assigned to",
       "ASSIGN_EXISTING": "Assign to existing groups",
       "DISABLED_ASSIGN_NEW": "You don't have permission to create groups in this organization, or manual adding of members is disabled",
       "DISABLED_ASSIGN_EXISTING": "You don't have permission to add members to any existing group in this organization, or manual adding of members is disabled",
@@ -1887,7 +1887,7 @@
       "CREATE_NEW_GROUP": "Create new group",
       "SELECT_EXISTING_GROUPS": "Select from existing groups",
       "DONT_ASSIGN_INFO": "Created users will become members of this organization, but won't be assigned to any additional groups. You will be able to change this manually later.",
-      "NO_NAMESPACE_PASSWORD_INFO": "Generated members will not have password."
+      "NO_NAMESPACE_PASSWORD_INFO": "Generated members will not have a password."
     },
     "EDIT_MEMBER_SPONSORS": {
       "TITLE": "Edit sponsors of sponsored member",
@@ -1911,18 +1911,18 @@
       "SUCCESS": "Request has successfully been sent."
     },
     "CHANGE_EMAIL": {
-      "TITLE": "Change preffered email",
+      "TITLE": "Change preferred email",
       "INPUT_PLACEHOLDER": "New email",
       "CANCEL": "Cancel",
       "CHANGE": "Change",
       "SUCCESS": "Request for changing preferred email has been sent. Please check your mailbox.",
       "PENDING_MAILS_BEGIN": "Validation e-mail has been sent to ",
-      "PENDING_MAILS_END": ". Check your inbox and complete validation by clicking on link in received e-mail.",
+      "PENDING_MAILS_END": ". Check your inbox and complete validation by clicking on the link in the received e-mail.",
       "EMAIL_ERROR": "Email is not valid"
     },
     "NEW_VERSION": {
       "TITLE": "New version is available!",
-      "DESCRIPTION": "New version is available. Please, reload the page to apply the changes.",
+      "DESCRIPTION": "A new version is available. Please, reload the page to apply the changes.",
       "LATER": "Got it! I will reload later",
       "RELOAD": "Reload"
     },
@@ -1996,7 +1996,7 @@
       "SEARCH_INFO": "Search for members to be added:",
       "SET_PASSWORD": "Set password",
       "ADD_USER": "Add",
-      "SUCCESS_MEMBER": "Service account has been created successfully",
+      "SUCCESS_MEMBER": "The service account has been created successfully",
       "SUCCESS_PWD": "Password has been set successfully",
       "LOGIN_FORMAT": "Login has to start with a letter and consist only of characters: a-z0-9_-",
       "LOGIN_LONG": "Login is too long",
@@ -2004,7 +2004,7 @@
       "LOGIN_EXISTS": "Login already exists",
       "NEXT": "Next",
       "BACK": "Back",
-      "PASSWORD_NOT_SUPPORTED": "Currently selected namespace does not support setting of the password.",
+      "PASSWORD_NOT_SUPPORTED": "The selected namespace does not support setting of the password.",
       "EMAIL_INVALID": "Enter a valid email address",
       "FIELD_EMPTY": "This field cannot be empty",
       "MINIMAL_USERS": "At least 1 user has to be assigned.",
@@ -2024,14 +2024,14 @@
   "MEMBERS_LIST": {
     "ID": "Id",
     "NAME": "Name",
-    "STATUS": "VO status",
+    "STATUS": "Organization status",
     "GROUP_STATUS": "Group status",
     "ALREADY_SPONSORED": "Already \nsponsored",
     "EMAIL": "Email",
     "LOGINS": "Logins",
     "ORGANIZATION": "Organization",
     "NO_MEMBERS_ALERT": "No members present",
-    "NO_FILTER_RESULTS_ALERT": "There are no members matching your query",
+    "NO_FILTER_RESULTS_ALERT": "No members are matching your query",
     "INDIRECT_MEMBER": "Indirect member",
     "CHECKBOX_TOOLTIP": "Indirect members cannot be removed"
   },
@@ -2042,7 +2042,7 @@
     "EMAIL": "Email",
     "LOGINS": "Logins",
     "ALREADY_MEMBER": "Already member",
-    "ADDING_BLOCKED": "Manual adding of users outside of organization is blocked."
+    "ADDING_BLOCKED": "Manual adding of users outside of the organization is blocked."
   },
   "MANAGERS_LIST": {
     "ID": "User ID",
@@ -2085,7 +2085,6 @@
     "USERS": {
       "TITLE": "Users",
       "SEARCH_PLACEHOLDER": "Search by name, email, login or UUID",
-      "SEARCH_INFO": "You can search users by name, email or login or you can list all users without vo.",
       "NO_USERS_FOUND": "No users found.",
       "EMPTY_SEARCH": "Search field cannot be empty",
       "USERS_WITHOUT_VO": "Search for users without organization"
@@ -2127,7 +2126,7 @@
         "NOT_FOUND_4": "weren't found any connection in database",
         "USER": "User",
         "GROUP": "Group",
-        "VO": "Vo",
+        "VO": "Organization",
         "RESOURCE": "Resource",
         "FACILITY": "Facility",
         "SERVICE": "Service",
@@ -2264,14 +2263,14 @@
         "GROUP": "Groups",
         "NO_MANAGERS": "This role has no managers.",
         "NO_GROUP_MANAGERS": "This role has no group managers.",
-        "NO_AVAILABLE_ROLES": "This entity has no available manager roles or you dont have privileges to manage them"
+        "NO_AVAILABLE_ROLES": "This entity has no available manager roles or you don't have privileges to manage them"
       },
       "EXT_SOURCES_LIST": {
         "ID": "ID",
         "NAME": "Name",
         "TYPE": "Type",
         "NO_EXT_SOURCES": "No external sources",
-        "NO_FILTER_RESULTS": "There are no external sources matching your query"
+        "NO_FILTER_RESULTS": "No external sources are matching your query"
       },
       "SERVICES_LIST": {
         "ID": "Service Id",
@@ -2356,9 +2355,9 @@
   },
   "ROLES": {
     "TITLE": "Roles",
-    "VOADMIN": "Vo admin",
+    "VOADMIN": "Organization admin",
     "VOADMIN_VOS": "Organizations you are manager of",
-    "VOOBSERVER": "Vo observer",
+    "VOOBSERVER": "Organization observer",
     "VOOBSERVER_VOS": "Organizations you are observer of",
     "TOPGROUPCREATOR": "Top group creator",
     "TOPGROUPCREATOR_VOS": "Organizations, where you can create groups",
@@ -2418,11 +2417,11 @@
           "TABLE_GROUP_DESCRIPTION": "Description",
           "TABLE_GROUP_EXPIRATION": "Expiration",
           "TABLE_GROUP_STATUS": "Status",
-          "DISABLED_HINT": "You cannot add members to this group or user is already member.",
+          "DISABLED_HINT": "You cannot add members to this group or the user is already member.",
           "ALREADY_MEMBER_TOOLTIP": "User is already member of group",
           "CREATE_RELATION_AUTH_TOOLTIP": "You don't have permission to create relation with this group.",
-          "SYNCHRONIZED_GROUP": "Group is filled with members from external source",
-          "INDIRECT_GROUP": "This group is assigned as a part of groups tree."
+          "SYNCHRONIZED_GROUP": "Group is filled with members from an external source",
+          "INDIRECT_GROUP": "This group is assigned as a part of a groups tree."
         },
         "GROUP_MENU": {
           "MOVE": "Move group",
@@ -2442,7 +2441,7 @@
         "VO_SEARCH_SELECT": {
           "SELECT_VO": "Select organization",
           "FIND_VO": "Find organization...",
-          "NO_VO_FOUND": "No matching vo found"
+          "NO_VO_FOUND": "No matching organization found"
         },
         "SERVICE_PACKAGE_SEARCH_SELECT":  {
           "SELECT_PACKAGE": "Select service package",
@@ -2525,7 +2524,7 @@
           "NO_ITEM_FOUND": "No matching attribute found"
         },
         "USER_DONT_EXIST": {
-          "TITLE": "Requested user (by ID or external identity) doesn't exist."
+          "TITLE": "The requested user (by ID or external identity) doesn't exist."
         },
         "TABLE_OPTIONS": {
           "EXPORT_TO_FILE": "Export to file"
@@ -2584,8 +2583,8 @@
           "BACKEND_ERROR": "Entered password doesn't meet the selected namespace's criteria",
           "FIELD_EMPTY": "Empty value is not allowed",
           "PWD_DONT_MATCH": "Passwords do not match",
-          "TOOLTIP_PASSWORD_VIA_EMAIL": "User will choose his password via an email sent to the entered e-mail address",
-          "TOOLTIP_PASSWORD_DISABLED": "Setting password is disabled for this namespace"
+          "TOOLTIP_PASSWORD_VIA_EMAIL": "The user will choose his password via an email sent to the entered e-mail address",
+          "TOOLTIP_PASSWORD_DISABLED": "Setting the password is disabled for this namespace"
         },
         "PASSWORD_RESET": {
           "TITLE": "Password reset",
@@ -2699,8 +2698,8 @@
           "ASYNC": "Asynchronously",
           "SYNC_HINT": "Attributes will be validated synchronously. Validation will be processed immediately, it can take some time.",
           "ASYNC_HINT": "Attributes will be validated asynchronously. Validation will be processed independently.",
-          "ACTIVE_HINT": "After validation of group members attributes, members can access given resource.",
-          "INACTIVE_HINT": "With 'Inactive' status, group members can no longer access given resource."
+          "ACTIVE_HINT": "After validation of group members attributes, members can access the given resource.",
+          "INACTIVE_HINT": "With 'Inactive' status, group members can no longer access the given resource."
         }
       },
       "ORGANIZATIONS": {
@@ -2729,7 +2728,7 @@
       "ALERTS": {
         "NO_GROUPS": "No groups found.",
         "NO_ORGANIZATIONS": "No organizations found",
-        "NO_FILTER_RESULTS_ALERT": "No results match given search criteria.",
+        "NO_FILTER_RESULTS_ALERT": "No results match the given search criteria.",
         "NO_MEMBERS": "No members found",
         "NO_USERS": "No users found.",
         "NO_FACILITIES": "No facilities found."
