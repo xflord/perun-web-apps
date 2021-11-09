@@ -11,7 +11,7 @@
            matSortDirection="asc"
            matSortDisableClear>
       <ng-container matColumnDef="select">
-        <th *matHeaderCellDef mat-header-cell>
+        <th *matHeaderCellDef mat-header-cell class="align-checkbox">
           <mat-checkbox (change)="$event ? masterToggle() : null"
                         *ngIf="!disableHeadCheckbox"
                         [aria-label]="checkboxLabel()"
@@ -20,7 +20,7 @@
                         color="primary">
           </mat-checkbox>
         </th>
-        <td *matCellDef="let row" class="static-column-size" mat-cell>
+        <td *matCellDef="let row" class="static-column-size align-checkbox" mat-cell>
             <span
               matTooltip="{{getCheckboxTooltipMessage(row) | translate}}"
               [matTooltipPosition]="'above'"

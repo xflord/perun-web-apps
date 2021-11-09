@@ -14,8 +14,8 @@
       matSortDirection="asc"
       matSortDisableClear>
       <ng-container matColumnDef="select">
-        <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let author" class="static-column-size" mat-cell>
+        <th *matHeaderCellDef mat-header-cell class="align-checkbox"></th>
+        <td *matCellDef="let author" class="static-column-size align-checkbox" mat-cell>
           <mat-checkbox (change)="$event ? selection.toggle(author) : null"
                         (click)="$event.stopPropagation()"
                         [aria-label]="checkboxLabel(author)"
