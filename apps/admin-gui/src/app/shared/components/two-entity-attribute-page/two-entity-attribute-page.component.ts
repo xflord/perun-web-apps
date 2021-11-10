@@ -52,7 +52,7 @@ export class TwoEntityAttributePageComponent implements OnInit {
 
   loading = false;
   innerLoading = false;
-
+  filterValue = '';
   noEntityMessage: string;
 
   ngOnInit(): void {
@@ -312,5 +312,9 @@ export class TwoEntityAttributePageComponent implements OnInit {
       this.specificSecondEntity = entity;
       this.getAttributes(this.specificSecondEntity.id);
     }
+  }
+
+  applyFilter(filterValue: string) {
+    this.filterValue = filterValue;
   }
 }

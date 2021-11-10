@@ -2509,7 +2509,7 @@
           }
         },
         "ATTRIBUTES_LIST": {
-          "FILTER": "Filter by id, name, value or description",
+          "FILTER": "Filter attributes by id, name, value or description",
           "ID": "Id",
           "NAME": "Name",
           "VALUE": "Value",
