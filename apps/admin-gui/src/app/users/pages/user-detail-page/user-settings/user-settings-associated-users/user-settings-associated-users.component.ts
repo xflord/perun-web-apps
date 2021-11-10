@@ -70,7 +70,8 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
     config.data = {
       userId : this.userId,
       theme: "user-theme",
-      isService: true
+      isService: true,
+      target: 'USER'
     };
 
     const dialogRef = this.dialog.open(ConnectIdentityDialogComponent, config);
@@ -90,7 +91,9 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
       userId: this.userId,
       specificUser: this.selection.selected[0],
       isService: true,
-      theme: "user-theme"
+      theme: "user-theme",
+      targetTitle: 'USER',
+      targetDescription: 'SERVICE'
     };
 
     const dialogRef = this.dialog.open(DisconnectIdentityDialogComponent, config);

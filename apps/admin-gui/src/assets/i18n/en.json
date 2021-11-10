@@ -887,7 +887,7 @@
       "PASSWORD_RESET": "Password reset",
       "FACILITIES": "Facilities",
       "RESOURCES": "Resources",
-      "ASSOCIATED_USERS": "Associated users",
+      "ASSOCIATED_USERS": "Account managers",
       "ENTITY": "User",
       "USER_TYPE": "User type",
       "ACCOUNTS": "Accounts"
@@ -1718,24 +1718,29 @@
       "CANCEL": "Cancel"
     },
     "CONNECT_IDENTITY": {
-      "TITLE": "Connect identity",
+      "TITLE_SERVICE": "Connect account",
+      "TITLE_USER": "Connect user",
+      "TITLE_SELF": "Connect account",
       "CONNECT": "Connect",
       "CANCEL": "Cancel",
       "SEARCH": "Search",
       "EMPTY_SEARCH_MESSAGE": "Search field cannot be empty",
       "SEARCH_HINT": "Type in user's First name, Last name (or both), or Login or Email.",
       "NO_IDENTITIES": "No users matching search criteria were found.",
-      "SUCCESS": "Identity was connected."
+      "SUCCESS": "Identity has been connected."
     },
     "DISCONNECT_IDENTITY": {
-      "TITLE": "Disconnect identity",
+      "TITLE_SERVICE": "Disconnect service account",
+      "TITLE_USER": "Disconnect user",
       "REMOVE": "Disconnect",
       "CANCEL": "Cancel",
-      "DESCRIPTION": "Following identities will be disconnected from the user.",
+      "DESCRIPTION_SERVICE": "Following users will be disconnected from service account.",
+      "DESCRIPTION_USER": "Following service accounts will be disconnected from the user.",
+      "DESCRIPTION_SELF": "Following service accounts will be disconnected from you.",
       "WARNING_DISCONNECT_YOURSELF": "You will be disconnected from the service account - you will immediately lose rights to access and manage the account. If you want to move rights to another user, you should do it before disconnecting yourself.",
       "WARNING_LAST_USER": "You want to disconnect the last identity from the service account - the account will be unattended.",
       "ASK": "Do you want to proceed?",
-      "SUCCESS": "Identity was disconnected."
+      "SUCCESS": "Identity has been disconnected."
     },
     "EDIT_FACILITY_RESOURCE_GROUP_VO": {
       "EDIT_FACILITY": "Edit facility",
@@ -2232,19 +2237,19 @@
       },
       "SERVICE_IDENTITIES": {
         "TITLE": "Service accounts",
-        "CREATE": "Add",
-        "DELETE": "Remove",
-        "NO_IDENTITIES": "No service accounts assigned."
+        "CREATE": "Connect",
+        "DELETE": "Disconnect",
+        "NO_IDENTITIES": "No service accounts connected."
       },
       "GUI_CONFIG": {
         "PREF_TABLE_PAGE_SIZE": "Preferred table page size",
         "TITLE": "Gui Configuration"
       },
       "ASSOCIATED_USERS": {
-        "TITLE": "Associated users",
-        "ADD": "Add",
-        "REMOVE": "Remove",
-        "NO_ASSOCIATED_USERS": "No associated users assigned."
+        "TITLE": "Account managers",
+        "ADD": "Connect",
+        "REMOVE": "Disconnect",
+        "NO_ASSOCIATED_USERS": "No accounts connected."
       },
       "FACILITY_ATTRIBUTES": {
         "TITLE": "Facility attributes"
