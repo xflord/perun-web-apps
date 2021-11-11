@@ -15,6 +15,7 @@
     <button
       mat-flat-button
       color="warn"
+      class="mr-2"
       [disabled]="selected.selected.length === 0 || (list !== undefined && !list.removeAuth)"
       (click)="removeResource()">
     {{'GROUP_DETAIL.RESOURCES.DELETE' | translate}}

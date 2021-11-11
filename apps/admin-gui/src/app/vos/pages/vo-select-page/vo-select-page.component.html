@@ -15,7 +15,7 @@
   <button id="new-vo-btn" mat-flat-button color="accent" class="mr-2 action-button" (click)="onCreateVo()" *ngIf="!loading && createAuth">
     {{'VO_MANAGEMENT.CREATE_VO' | translate}}
   </button>
-  <button mat-flat-button color="warn" (click)="onRemoveVo()" *ngIf="!loading && deleteAuth" [disabled]="selection.selected.length === 0">
+  <button (click)="onRemoveVo()" *ngIf="!loading && deleteAuth" [disabled]="selection.selected.length === 0" class="mr-2" color="warn" mat-flat-button>
     {{'VO_MANAGEMENT.REMOVE_VO' | translate}}
   </button>
   <perun-web-apps-immediate-filter

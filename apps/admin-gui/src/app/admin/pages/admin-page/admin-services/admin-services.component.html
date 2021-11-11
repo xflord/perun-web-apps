@@ -5,20 +5,19 @@
     *ngIf="authResolver.isPerunAdmin()"
     (click)="createService()"
     color="accent"
-    class="action-button"
+    class="action-button mr-2"
     mat-flat-button>
     {{'ADMIN.SERVICES.CREATE' | translate}}</button>
   <button
     *ngIf="authResolver.isPerunAdmin()"
     (click)="deleteService()"
     [disabled]="selection.selected.length === 0"
-    class="ml-2"
+    class="mr-2"
     color="warn"
     mat-flat-button>
     {{'ADMIN.SERVICES.DELETE' | translate}}</button>
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
-    class="ml-2"
     [placeholder]="'ADMIN.SERVICES.FILTER'">
   </perun-web-apps-immediate-filter>
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>

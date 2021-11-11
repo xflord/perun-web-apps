@@ -6,12 +6,12 @@
     mat-flat-button
     class="action-button"
     color="accent"
+    class="mr-2"
     (click)="addResource()">
     {{ 'MEMBER_DETAIL.RESOURCES.ADD' | translate}}
   </button>
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
-    class="mr-2"
     *ngIf="!loading"
     [placeholder]="'MEMBER_DETAIL.RESOURCES.FILTER'"
   >

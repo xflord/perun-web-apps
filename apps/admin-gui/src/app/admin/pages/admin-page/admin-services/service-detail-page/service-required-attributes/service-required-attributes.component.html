@@ -8,7 +8,7 @@
     *ngIf="!loading && authResolver.isPerunAdmin()"
     mat-flat-button
     color="accent"
-    class="ml-2 action-button"
+    class="mr-2 action-button"
     (click)="onAdd()">
     {{ 'SERVICE_DETAIL.REQUIRED_ATTRIBUTES.ADD' | translate}}
   </button>
@@ -16,7 +16,7 @@
     *ngIf="!loading && authResolver.isPerunAdmin()"
     mat-flat-button
     color="warn"
-    class="ml-2"
+    class="mr-2"
     [disabled]="selection.selected.length === 0"
     (click)="onRemove()">
     {{ 'SERVICE_DETAIL.REQUIRED_ATTRIBUTES.REMOVE' | translate}}

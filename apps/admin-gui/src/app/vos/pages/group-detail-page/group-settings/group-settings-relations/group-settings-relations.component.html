@@ -7,6 +7,7 @@
   <button
     mat-flat-button
     color="warn"
+    class="mr-2"
     (click)="onDelete()"
     matTooltip="{{'GROUP_DETAIL.SETTINGS.RELATIONS.DELETE_TOOLTIP' | translate}}"
     [matTooltipDisabled]="selection.selected.length === 0 || (this.list !== undefined && this.list.removeAuth)"

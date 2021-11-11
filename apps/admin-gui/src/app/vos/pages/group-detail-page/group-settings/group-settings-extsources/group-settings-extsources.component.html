@@ -13,6 +13,7 @@
     *ngIf="removeAuth"
     mat-flat-button
     color="warn"
+    class="mr-2"
     (click)="onRemove()"
     [disabled]="selection.selected.length === 0">
     {{'GROUP_DETAIL.SETTINGS.EXT_SOURCES.REMOVE' | translate}}

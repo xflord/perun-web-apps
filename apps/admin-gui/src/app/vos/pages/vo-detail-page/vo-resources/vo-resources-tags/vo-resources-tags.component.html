@@ -13,6 +13,7 @@
   *ngIf="deleteAuth"
   mat-flat-button
   color="warn"
+  class="mr-2"
   [disabled]="selection.selected.length === 0"
   (click)="deleteTag()">
   {{'VO_DETAIL.RESOURCES.TAGS.DELETE_BUTTON' | translate}}

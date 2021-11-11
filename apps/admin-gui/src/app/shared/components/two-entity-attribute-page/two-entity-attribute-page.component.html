@@ -58,6 +58,7 @@
 
     <button
       mat-flat-button color="warn"
+      class="mr-2"
       (click)="onDelete(specificSecondEntity.id)"
       [disabled]="selection.selected.length === 0">
       {{'MEMBER_DETAIL.SETTINGS.ATTRIBUTES.DELETE' | translate}}

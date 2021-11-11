@@ -73,6 +73,7 @@
         *matRowDef="let author; columns: displayedColumns;"
         [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/authors', author.id]"
         [routerLink]="disableRouting ? null : ['/authors', author.id]"
+        [class.cursor-pointer]="!disableRouting"
         class="dark-hover-list-item"
         mat-row>
       </tr>

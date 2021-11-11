@@ -109,6 +109,7 @@
         *matRowDef="let publication; columns: displayedColumns;"
         [perunWebAppsMiddleClickRouterLink]="disabledRouting || buttonPressed ? null : [routerPath, publication.id]"
         [routerLink]="disabledRouting || buttonPressed ? null : [routerPath, publication.id]"
+        [class.cursor-pointer]="!disabledRouting"
         class="dark-hover-list-item"
         mat-row>
       </tr>

@@ -22,6 +22,7 @@
   *ngIf="removeAuth"
   mat-flat-button
   color="warn"
+  class="mr-2"
   [disabled]="selection.selected.length === 0"
   (click)="removeTags()">
   {{'RESOURCE_DETAIL.TAGS.REMOVE_BUTTON' | translate}}
