@@ -18,7 +18,7 @@ import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.componen
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { PasswordResetComponent } from '@perun-web-apps/perun/components';
 import { SettingsAuthenticationComponent } from './pages/settings-page/settings-authorization/settings-authentication.component';
-import { LoginScreenComponent } from '@perun-web-apps/perun/login';
+import { LoginScreenComponent, LoginScreenServiceAccessComponent } from '@perun-web-apps/perun/login';
 
 const routes: Routes = [
   {
@@ -29,6 +29,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginScreenComponent
+  },
+  {
+    path: 'service-access',
+    component: LoginScreenServiceAccessComponent
   },
   {
     path: 'profile',

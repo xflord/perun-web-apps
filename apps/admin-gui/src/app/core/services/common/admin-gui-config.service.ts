@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
 import {
   GuiAuthResolver,
-  InitAuthService, StoreService
+  InitAuthService
 } from '@perun-web-apps/perun/services';
 import { AppConfigService, ColorConfig, EntityColorConfig } from '@perun-web-apps/config';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 import { MatDialog } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
 import { Location } from '@angular/common';
 import { PreventProxyOverloadDialogComponent, ServerDownDialogComponent } from '@perun-web-apps/general';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
 
@@ -23,14 +20,10 @@ export class AdminGuiConfigService {
   constructor(
     private initAuthService: InitAuthService,
     private appConfigService: AppConfigService,
-    private store: StoreService,
     private authzSevice: AuthzResolverService,
     private dialog: MatDialog,
     private location: Location,
-    private translate: TranslateService,
-    private guiAuthResolver: GuiAuthResolver,
-    private titleService: Title,
-    private router: Router
+    private guiAuthResolver: GuiAuthResolver
   ) {}
 
   entityColorConfigs: EntityColorConfig[] = [
@@ -98,7 +91,7 @@ export class AdminGuiConfigService {
   initialize(): Promise<void> {
     return this.appConfigService.loadAppDefaultConfig()
       .then(() => this.appConfigService.loadAppInstanceConfig())
-      .then(() => this.setApiUrl())
+      .then(() => this.appConfigService.setApiUrl())
       .then(() => this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs))
       .then(() => this.appConfigService.setInstanceFavicon())
       .then(() => this.initAuthService.verifyAuth())
@@ -124,21 +117,6 @@ export class AdminGuiConfigService {
           return this.initAuthService.handleAuthStart();
         }
       });
-  }
-
-  /**
-   *  We need to set basePath for authzService before loading principal, otherwise authzService uses its default basePath
-   */
-  private setApiUrl() {
-    return new Promise<void>((resolve) => {
-      let apiUrl = this.store.get('api_url');
-      if (location.pathname === '/service-access' || sessionStorage.getItem("baPrincipal")) {
-        apiUrl = apiUrl.replace("oauth", "ba");
-      }
-      this.authzSevice.configuration.basePath = apiUrl;
-      this.titleService.setTitle(this.store.get('document_title'));
-      resolve();
-    });
   }
 
   private handleErr(err: string & HttpErrorResponse) {

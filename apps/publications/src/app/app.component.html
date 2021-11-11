@@ -1,5 +1,5 @@
 <perun-web-apps-notificator></perun-web-apps-notificator>
-<div *ngIf="!isLoginScreenShow">
+<div *ngIf="!isLoginScreenShow && !isServiceAccess && !isServiceLogin()">
   <perun-web-apps-header [sideNav]="sidenav" id="nav-menu"></perun-web-apps-header>
   <mat-sidenav-container>
     <mat-sidenav #sidenav [mode]="sidebarMode" [ngStyle]="{'background': sideMenuBgColor}"
@@ -17,7 +17,7 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
-<div *ngIf="isLoginScreenShow">
+<div *ngIf="isLoginScreenShow || isServiceAccess || isServiceLogin()">
   <perun-web-apps-login-screen-base [application]="'publications'"
                                     [headerTitle]="'HEADER.TITLE' | translate">
   </perun-web-apps-login-screen-base>

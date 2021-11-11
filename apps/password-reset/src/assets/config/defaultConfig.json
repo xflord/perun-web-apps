@@ -1,5 +1,6 @@
 {
   "api_url": "https://perun-dev.cesnet.cz/non/rpc/",
+  "document_title": "Password Reset",
   "instance_favicon": false,
   "oidc_client": {
     "oauth_authority": "https://login.cesnet.cz/oidc/",

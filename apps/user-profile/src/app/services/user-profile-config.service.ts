@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { InitAuthService, StoreService } from '@perun-web-apps/perun/services';
+import { InitAuthService } from '@perun-web-apps/perun/services';
 import { AppConfigService, ColorConfig, EntityColorConfig } from '@perun-web-apps/config';
-import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 import { Location } from '@angular/common';
-import { Title } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +11,7 @@ export class UserProfileConfigService {
   constructor(
     private initAuthService: InitAuthService,
     private appConfigService: AppConfigService,
-    private store: StoreService,
-    private location: Location,
-    private authzSevice: AuthzResolverService,
-    private titleService: Title,
+    private location: Location
   ) {}
 
   entityColorConfigs: EntityColorConfig[] = [
@@ -49,7 +44,7 @@ export class UserProfileConfigService {
   initialize(): Promise<void> {
     return this.appConfigService.loadAppDefaultConfig()
       .then(() => this.appConfigService.loadAppInstanceConfig())
-      .then(() => this.setApiUrl())
+      .then(() => this.appConfigService.setApiUrl())
       .then(() => this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs))
       .then(() => this.appConfigService.setInstanceFavicon())
       .then(() => this.initAuthService.verifyAuth())
@@ -68,16 +63,5 @@ export class UserProfileConfigService {
           return this.initAuthService.handleAuthStart();
         }
       });
-  }
-
-  /**
-   *  We need to set basePath for authzService before loading principal, otherwise authzService uses its default basePath
-   */
-  private setApiUrl(): Promise<void> {
-    return new Promise((resolve) => {
-      this.authzSevice.configuration.basePath = this.store.get('api_url');
-      this.titleService.setTitle(this.store.get('document_title'));
-      resolve();
-    });
   }
 }
