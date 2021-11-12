@@ -3,8 +3,8 @@
 </h1>
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto">
 </mat-spinner>
-<div *ngIf="!loading">
-  <div class="d-flex w-50">
+<div>
+  <div *ngIf="!loading" class="d-flex w-50">
     <div class="w-50">
       <div class="font-weight-bold">{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MODULE_NAME' | translate}}:
         {{applicationForm.moduleClassName}}

@@ -6,7 +6,12 @@ import {TranslateService} from '@ngx-translate/core';
 import {
   DeleteNotificationDialogComponent
 } from '../../../../../shared/components/dialogs/delete-notification-dialog/delete-notification-dialog.component';
-import { GuiAuthResolver, NotificatorService, StoreService } from '@perun-web-apps/perun/services';
+import {
+  EntityStorageService,
+  GuiAuthResolver,
+  NotificatorService,
+  StoreService
+} from '@perun-web-apps/perun/services';
 import {
   EditEmailFooterDialogComponent
 } from '../../../../../shared/components/dialogs/edit-email-footer-dialog/edit-email-footer-dialog.component';
@@ -45,11 +50,11 @@ export class VoSettingsNotificationsComponent implements OnInit {
     private notificator: NotificatorService,
     private authResolver: GuiAuthResolver,
     private voService: VosManagerService,
-    private store: StoreService) {
+    private store: StoreService,
+    private entityStorageService: EntityStorageService) {
   }
 
   loading = false;
-  voId: number;
   vo: Vo;
   applicationForm: ApplicationForm;
   applicationMails: ApplicationMail[] = [];
@@ -64,18 +69,13 @@ export class VoSettingsNotificationsComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.route.parent.parent.params.subscribe(params => {
-      this.voId = params['voId'];
-      this.registrarService.getVoApplicationForm(this.voId).subscribe( form => {
-        this.applicationForm = form;
-        this.registrarService.getApplicationMailsForVo(this.voId).subscribe( mails => {
-          this.applicationMails = mails;
-          this.voService.getVoById(this.voId).subscribe(vo => {
-            this.vo = vo;
-            this.setAuthRights();
-            this.loading = false;
-          });
-        });
+    this.vo = this.entityStorageService.getEntity();
+    this.setAuthRights();
+    this.registrarService.getVoApplicationForm(this.vo.id).subscribe( form => {
+      this.applicationForm = form;
+      this.registrarService.getApplicationMailsForVo(this.vo.id).subscribe( mails => {
+        this.applicationMails = mails;
+        this.loading = false;
       });
     });
   }
@@ -96,7 +96,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '1400px';
     config.height = '700px';
-    config.data = { theme: 'vo-theme', voId: this.voId, createMailNotification: true, applicationMail: applicationMail, applicationMails: this.applicationMails};
+    config.data = { theme: 'vo-theme', voId: this.vo.id, createMailNotification: true, applicationMail: applicationMail, applicationMails: this.applicationMails};
 
     const dialog = this.dialog.open(AddEditNotificationDialogComponent, config);
     dialog.afterClosed().subscribe( success => {
@@ -113,7 +113,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
   remove() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {voId: this.voId, mails: this.selection.selected, theme: 'vo-theme'};
+    config.data = {voId: this.vo.id, mails: this.selection.selected, theme: 'vo-theme'};
 
     const dialog = this.dialog.open(DeleteNotificationDialogComponent, config);
     dialog.afterClosed().subscribe( success => {
@@ -130,7 +130,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
   copy() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {voId: this.voId, theme: 'vo-theme'};
+    config.data = {voId: this.vo.id, theme: 'vo-theme'};
 
     const dialog = this.dialog.open(NotificationsCopyMailsDialogComponent, config);
     dialog.afterClosed().subscribe( copyFrom => {
@@ -143,7 +143,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
 
   updateTable() {
     this.loading = true;
-    this.registrarService.getApplicationMailsForVo(this.voId).subscribe( mails => {
+    this.registrarService.getApplicationMailsForVo(this.vo.id).subscribe( mails => {
       this.applicationMails = mails;
       this.loading = false;
     });
@@ -152,7 +152,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
   changeEmailFooter() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {voId: this.voId, theme: 'vo-theme'};
+    config.data = {voId: this.vo.id, theme: 'vo-theme'};
 
     this.dialog.open(EditEmailFooterDialogComponent, config);
   }

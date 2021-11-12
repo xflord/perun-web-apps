@@ -6,7 +6,7 @@ import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.se
 import { FacilitiesManagerService, Facility } from '@perun-web-apps/perun/openapi';
 import { addRecentlyVisited, addRecentlyVisitedObject, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import {
   EditFacilityResourceGroupVoDialogComponent,
   EditFacilityResourceGroupVoDialogOptions
@@ -30,7 +30,8 @@ export class FacilityDetailPageComponent implements OnInit {
     private sideMenuService: SideMenuService,
     private sideMenuItemService: SideMenuItemService,
     public guiAuthResolver:GuiAuthResolver,
-    private router: Router
+    private router: Router,
+    private entityStorageService: EntityStorageService
   ) {
   }
 
@@ -46,6 +47,7 @@ export class FacilityDetailPageComponent implements OnInit {
 
       this.facilityManager.getFacilityById(facilityId).subscribe(facility => {
         this.facility = facility;
+        this.entityStorageService.setEntity({id: facility.id, beanName: facility.beanName})
         const facilityItem = this.sideMenuItemService.parseFacility(facility);
 
         this.sideMenuService.setFacilityMenuItems([facilityItem]);

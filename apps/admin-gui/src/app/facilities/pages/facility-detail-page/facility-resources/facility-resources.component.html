@@ -2,7 +2,7 @@
   <h1 class="page-subtitle">{{'FACILITY_DETAIL.RESOURCES.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
-    *ngIf="!loading && addAuth"
+    *ngIf="addAuth"
     mat-flat-button
     color="accent"
     class="mr-2 action-button"
@@ -10,7 +10,7 @@
     {{'FACILITY_DETAIL.RESOURCES.CREATE' | translate}}
   </button>
   <button
-    *ngIf="!loading && removeAuth"
+    *ngIf="removeAuth"
     mat-flat-button
     color="warn"
     class="mr-2"

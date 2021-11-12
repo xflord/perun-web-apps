@@ -1,5 +1,4 @@
 import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
   Group,
@@ -11,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddGroupResourceDialogComponent } from '../../../../shared/components/dialogs/add-group-resource-dialog/add-group-resource-dialog.component';
 import { RemoveGroupResourceDialogComponent } from '../../../../shared/components/dialogs/remove-group-resource-dialog/remove-group-resource-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { ResourcesListComponent } from '@perun-web-apps/perun/components';
 import { ResourceWithStatus } from '@perun-web-apps/perun/models';
 
@@ -29,9 +28,9 @@ export class GroupResourcesComponent implements OnInit {
 
   constructor(private resourcesManager: ResourcesManagerService,
               private groupService: GroupsManagerService,
-              private route: ActivatedRoute,
               private dialog: MatDialog,
-              private guiAuthResolver: GuiAuthResolver) {
+              private guiAuthResolver: GuiAuthResolver,
+              private entityStorageService: EntityStorageService) {
   }
 
   group: Group;
@@ -43,9 +42,6 @@ export class GroupResourcesComponent implements OnInit {
   filterValue = '';
   tableId = TABLE_GROUP_RESOURCES_LIST;
 
-  groupId: number;
-  voId: number;
-
   routingAuth: boolean;
   addAuth = false;
 
@@ -55,16 +51,9 @@ export class GroupResourcesComponent implements OnInit {
 
 
   ngOnInit() {
-    this.route.parent.params.subscribe(parentParams => {
-      this.groupId = parentParams['groupId'];
-      this.voId = parentParams['voId'];
-
-      this.groupService.getGroupById(this.groupId).subscribe(group => {
-        this.group = group;
-
-        this.refreshTable();
-      });
-    });
+    this.group = this.entityStorageService.getEntity();
+    this.setAuthorization();
+    this.refreshTable();
   }
 
   setAuthorization() {
@@ -101,7 +90,7 @@ export class GroupResourcesComponent implements OnInit {
   addResource() {
     const config = getDefaultDialogConfig();
     config.width = '1000px';
-    config.data = {theme: 'group-theme', group: this.group, voId: this.voId, unwantedResources: this.resources.map(res => res.id)};
+    config.data = {theme: 'group-theme', group: this.group, voId: this.group.voId, unwantedResources: this.resources.map(res => res.id)};
 
     const dialogRef = this.dialog.open(AddGroupResourceDialogComponent, config);
 
@@ -115,7 +104,7 @@ export class GroupResourcesComponent implements OnInit {
   removeResource() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {theme: 'group-theme', resources: this.selected.selected, groupId: this.groupId};
+    config.data = {theme: 'group-theme', resources: this.selected.selected, groupId: this.group.id};
 
     const dialogRef = this.dialog.open(RemoveGroupResourceDialogComponent, config);
 

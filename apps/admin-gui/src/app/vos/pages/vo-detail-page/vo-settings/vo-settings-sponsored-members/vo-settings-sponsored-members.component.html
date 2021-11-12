@@ -6,7 +6,7 @@
     [matTooltipDisabled]="!(findSponsorsAuth && voSponsors.length === 0)"
     matTooltipPosition="above">
     <button
-      *ngIf="!loading && (createAuth || generateAuth)"
+      *ngIf="createAuth || generateAuth"
       mat-flat-button
       color="accent"
       class="mr-2 dropdown-toggle"
@@ -24,7 +24,7 @@
     </button>
   </mat-menu>
   <button
-    *ngIf="!loading && setSponsorshipAuth"
+    *ngIf="setSponsorshipAuth"
     mat-flat-button
     color="accent"
     class="mr-2 action-button"

@@ -1,10 +1,10 @@
 <h1 class="page-subtitle">{{'RESOURCE_DETAIL.ASSIGNED_SERVICES.TITLE' | translate}}</h1>
 <perun-web-apps-refresh-button (refresh)="loadAllServices()"></perun-web-apps-refresh-button>
-<button (click)="addService()" *ngIf="!loadingResource && assignServiceAuth" class="action-button mr-2" color="accent" mat-flat-button>
+<button (click)="addService()" *ngIf="assignServiceAuth" class="action-button mr-2" color="accent" mat-flat-button>
   {{'RESOURCE_DETAIL.ASSIGNED_SERVICES.ADD_SERVICE' | translate}}
 </button>
 <button [disabled]="selected.selected.length === 0" class="mr-2" color="warn" mat-flat-button
-        (click)="removeServices()" *ngIf="!loadingResource && removeServiceAuth">
+        (click)="removeServices()" *ngIf="removeServiceAuth">
   {{'RESOURCE_DETAIL.ASSIGNED_SERVICES.REMOVE_SERVICE' | translate}}
 </button>
 <perun-web-apps-immediate-filter

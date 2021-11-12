@@ -2,21 +2,21 @@
   <h1 class="page-subtitle">{{'GROUP_DETAIL.SUBGROUPS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
-    *ngIf="!loading && createAuth"
+    *ngIf="createAuth"
     (click)="onCreateGroup()"
     class="mr-2 action-button"
     color="accent"
     mat-flat-button>
     {{'GROUP_DETAIL.SUBGROUPS.CREATE_GROUP' | translate}}
   </button>
-  <span *ngIf="!loading"
+  <span
     matTooltip="{{'GROUP_DETAIL.SUBGROUPS.DELETE_PERMISSION_HINT' | translate}}"
     [matTooltipDisabled]="(tree === undefined && list === undefined) ||
           (tree !== undefined && tree.removeAuth) ||
           (list !== undefined && list.removeAuth)">
 
     <button (click)="deleteGroup()"
-            *ngIf="!loading && deleteAuth"
+            *ngIf="deleteAuth"
             mat-flat-button
             color="warn"
             class="mr-2"

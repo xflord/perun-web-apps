@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import {
   FacilitiesManagerService,
   Facility, ResourcesManagerService,
@@ -11,7 +10,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import {
   TABLE_FACILITY_SERVICES_STATUS_LIST
 } from '@perun-web-apps/config/table-config';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -26,15 +25,15 @@ import { DeleteTaskDialogComponent } from '../../../../shared/components/dialogs
 })
 export class FacilityServiceStatusComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute,
-              private tasksManager: TasksManagerService,
+  constructor(private tasksManager: TasksManagerService,
               private servicesManager: ServicesManagerService,
               private notificator: NotificatorService,
               private translate: TranslateService,
               private authResolver: GuiAuthResolver,
               private facilityManager: FacilitiesManagerService,
               private resourcesManager: ResourcesManagerService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private entityStorageService: EntityStorageService) {
     translate.get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_FORCE_PROPAGATION').subscribe(value => this.successFPMessage = value);
     translate.get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_ALLOW').subscribe(value => this.successAllowMessage = value);
     translate.get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_BLOCK').subscribe(value => this.successBlockMessage = value);
@@ -42,7 +41,6 @@ export class FacilityServiceStatusComponent implements OnInit {
     translate.get('FACILITY_DETAIL.SERVICES_STATUS.ALREADY_DELETED').subscribe(value => this.allreadyDeletedMessage = value);
   }
 
-  facilityId: number;
   facility: Facility;
   servicesStates: ServiceState[] = [];
 
@@ -72,14 +70,9 @@ export class FacilityServiceStatusComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.route.parent.params.subscribe(params => {
-      this.facilityId = parseInt(params['facilityId'], 10);
-      this.facility = {
-        id: this.facilityId,
-        beanName: 'Facility'
-      };
-      this.refreshTable();
-    });
+    this.facility = this.entityStorageService.getEntity();
+    this.setAuthRights();
+    this.refreshTable();
   }
 
   forcePropagation() {
@@ -164,7 +157,7 @@ export class FacilityServiceStatusComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.tasksManager.getFacilityServicesState(this.facilityId).subscribe(states => {
+    this.tasksManager.getFacilityServicesState(this.facility.id).subscribe(states => {
       this.servicesStates = states;
       this.selected.clear();
       this.setAuthRights();

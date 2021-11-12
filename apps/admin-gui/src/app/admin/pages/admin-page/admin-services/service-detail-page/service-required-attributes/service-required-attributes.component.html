@@ -1,11 +1,10 @@
 <div>
   <h1 class="page-subtitle">{{ 'SERVICE_DETAIL.REQUIRED_ATTRIBUTES.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button
-    *ngIf="!loading"
     (refresh)="refreshTable()">
   </perun-web-apps-refresh-button>
   <button
-    *ngIf="!loading && authResolver.isPerunAdmin()"
+    *ngIf="authResolver.isPerunAdmin()"
     mat-flat-button
     color="accent"
     class="mr-2 action-button"
@@ -13,7 +12,7 @@
     {{ 'SERVICE_DETAIL.REQUIRED_ATTRIBUTES.ADD' | translate}}
   </button>
   <button
-    *ngIf="!loading && authResolver.isPerunAdmin()"
+    *ngIf="authResolver.isPerunAdmin()"
     mat-flat-button
     color="warn"
     class="mr-2"
@@ -23,7 +22,6 @@
   </button>
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
-    *ngIf="!loading"
     [placeholder]="'SERVICE_DETAIL.REQUIRED_ATTRIBUTES.FILTER'">
   </perun-web-apps-immediate-filter>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>

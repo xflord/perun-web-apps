@@ -6,7 +6,7 @@ import { fadeIn } from '@perun-web-apps/perun/animations';
 import { GroupsManagerService, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { addRecentlyVisited, addRecentlyVisitedObject, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 import {
   EditFacilityResourceGroupVoDialogComponent,
@@ -33,7 +33,8 @@ export class GroupDetailPageComponent implements OnInit {
     private groupService: GroupsManagerService,
     private dialog: MatDialog,
     private guiAuthResolver: GuiAuthResolver,
-    private router: Router
+    private router: Router,
+    private entityStorageService: EntityStorageService
   ) {
   }
 
@@ -63,6 +64,7 @@ export class GroupDetailPageComponent implements OnInit {
         this.vo = vo;
         this.groupService.getGroupById(groupId).subscribe( group => {
           this.group = group;
+          this.entityStorageService.setEntity({id: group.id, voId: vo.id, parentGroupId: group.parentGroupId, beanName: group.beanName});
           addRecentlyVisited('groups', this.group);
           addRecentlyVisitedObject(this.group, vo.name);
           if (this.guiAuthResolver.isAuthorized('getRichGroupByIdWithAttributesByNames_int_List<String>_policy', [this.group])) {

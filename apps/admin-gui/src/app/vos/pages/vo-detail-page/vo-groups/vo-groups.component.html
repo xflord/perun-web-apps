@@ -2,7 +2,7 @@
   <h1 class="page-subtitle">{{'VO_DETAIL.GROUPS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="loadAllGroups()"></perun-web-apps-refresh-button>
   <button
-    *ngIf="!loading && createAuth"
+    *ngIf="createAuth"
     mat-flat-button
     color="accent"
     class="mr-2 action-button"
@@ -10,11 +10,9 @@
     {{'VO_DETAIL.GROUPS.CREATE_GROUP' | translate}}
   </button>
   <span
-    *ngIf="!loading"
     [matTooltipDisabled]="(tree === undefined && list === undefined) || disableTooltip()"
     matTooltip="{{'VO_DETAIL.GROUPS.DELETE_PERMISSION_HINT' | translate}}">
     <button
-      *ngIf="!loading"
       mat-flat-button
       color="warn"
       class="mr-2"

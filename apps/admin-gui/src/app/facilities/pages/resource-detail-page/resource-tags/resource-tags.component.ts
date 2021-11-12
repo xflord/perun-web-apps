@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Resource, ResourcesManagerService, ResourceTag, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { Resource, ResourcesManagerService, ResourceTag } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TABLE_RESOURCES_TAGS } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { UniversalRemoveItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
@@ -18,17 +17,15 @@ import { CreateResourceTagDialogComponent } from '../../../../shared/components/
 })
 export class ResourceTagsComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute,
-              private authResolver: GuiAuthResolver,
+  constructor(private authResolver: GuiAuthResolver,
               private resourcesManager: ResourcesManagerService,
-              private voService: VosManagerService,
               private dialog: MatDialog,
               private notificator: NotificatorService,
-              private translate: TranslateService) { }
+              private translate: TranslateService,
+              private entityStorageService: EntityStorageService) { }
 
   loading = false;
   resourceTags: ResourceTag[] = [];
-  resourceId: number;
   resource: Resource;
 
   selection = new SelectionModel<ResourceTag>(true, []);
@@ -42,13 +39,10 @@ export class ResourceTagsComponent implements OnInit {
   removeAuth: boolean;
 
   ngOnInit() {
-    this.route.parent.params.subscribe(params => {
-      this.resourceId = params['resourceId'];
-      this.resourcesManager.getResourceById(this.resourceId).subscribe(resource => {
-        this.resource = resource;
-        this.updateData();
-      })
-    });
+    this.loading = true;
+    this.resource = this.entityStorageService.getEntity();
+    this.setAuthRights();
+    this.updateData();
   }
 
   removeTags() {
@@ -75,7 +69,7 @@ export class ResourceTagsComponent implements OnInit {
     }
     const tag = tags.pop();
     this.resourcesManager.removeResourceTagFromResource({
-      resource: this.resourceId,
+      resource: this.resource.id,
       resourceTag: tag
     }).subscribe(() => {
       this.removeTag(tags);
@@ -85,7 +79,7 @@ export class ResourceTagsComponent implements OnInit {
   addTag() {
     const config = getDefaultDialogConfig();
     config.width = '600px';
-    config.data = {voId: this.resource.voId, resourceId: this.resourceId, assignedTags: this.resourceTags, theme: 'resource-theme'};
+    config.data = {voId: this.resource.voId, resourceId: this.resource.id, assignedTags: this.resourceTags, theme: 'resource-theme'};
 
     const dialogRef = this.dialog.open(AddResourceTagToResourceDialogComponent, config);
 
@@ -117,10 +111,9 @@ export class ResourceTagsComponent implements OnInit {
   updateData() {
     this.loading = true;
     this.selection.clear();
-    this.resourcesManager.getAllResourcesTagsForResource(this.resourceId).subscribe(tags => {
+    this.resourcesManager.getAllResourcesTagsForResource(this.resource.id).subscribe(tags => {
       this.resourceTags = tags;
       this.selection.clear();
-      this.setAuthRights();
       this.loading = false;
     });
   }

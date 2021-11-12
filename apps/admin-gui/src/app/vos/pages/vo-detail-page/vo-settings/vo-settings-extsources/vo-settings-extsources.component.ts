@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ExtSource, ExtSourcesManagerService, VosManagerService, Vo } from '@perun-web-apps/perun/openapi';
+import { ExtSource, ExtSourcesManagerService, Vo } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { AddExtSourceDialogComponent } from '../../../../../shared/components/dialogs/add-ext-source-dialog/add-ext-source-dialog.component';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import {
   TABLE_VO_EXTSOURCES_SETTINGS,
@@ -20,16 +19,14 @@ import { RemoveExtSourceDialogComponent } from '../../../../../shared/components
 export class VoSettingsExtsourcesComponent implements OnInit {
 
   constructor(private extSourceService: ExtSourcesManagerService,
-              private route: ActivatedRoute,
               private dialog: MatDialog,
               private notificator: NotificatorService,
               private translate: TranslateService,
               private authResolver: GuiAuthResolver,
-              private voService: VosManagerService) {
+              private entityStorageService: EntityStorageService) {
     this.translate.get('VO_DETAIL.SETTINGS.EXT_SOURCES.SUCCESS_REMOVED').subscribe(result => this.successMessage = result);
   }
 
-  voId: number;
   vo: Vo;
   extSources: ExtSource[] = [];
   selection = new SelectionModel<ExtSource>(true, []);
@@ -43,14 +40,10 @@ export class VoSettingsExtsourcesComponent implements OnInit {
   removeAuth: boolean;
 
   ngOnInit() {
-    this.route.parent.parent.params.subscribe(parentParams => {
-      this.voId = parentParams['voId'];
-
-      this.voService.getVoById(this.voId).subscribe( vo => {
-        this.vo = vo;
-        this.refreshTable();
-      });
-    });
+    this.loading = true;
+    this.vo = this.entityStorageService.getEntity();
+    this.setAuthRights();
+    this.refreshTable();
   }
 
   setAuthRights(){
@@ -61,7 +54,7 @@ export class VoSettingsExtsourcesComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.extSourceService.getVoExtSources(this.voId).subscribe(sources => {
+    this.extSourceService.getVoExtSources(this.vo.id).subscribe(sources => {
       this.extSources = sources;
       this.selection.clear();
       this.setAuthRights();
@@ -77,7 +70,7 @@ export class VoSettingsExtsourcesComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '1000px';
     config.data= {
-      voId: this.voId,
+      voId: this.vo.id,
       extSources: this.extSources,
       theme: 'vo-theme'
     };
@@ -94,7 +87,7 @@ export class VoSettingsExtsourcesComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data= {
-      voId: this.voId,
+      voId: this.vo.id,
       extSources: this.selection.selected,
       theme: 'vo-theme'
     };

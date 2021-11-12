@@ -1,6 +1,5 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { Facility } from '@perun-web-apps/perun/openapi';
 
 @Component({
@@ -12,22 +11,16 @@ export class FacilityAttributesComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
-  constructor(private route: ActivatedRoute,
-              private authResolver: GuiAuthResolver) {}
+  constructor(
+    private authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
 
-  facilityId: number;
+  facility: Facility;
   facilityUserAttAuth: boolean;
 
   ngOnInit() {
-    this.route.parent.params.subscribe(params => {
-      this.facilityId = params['facilityId'];
-
-      const facility: Facility = {
-        id: this.facilityId,
-        beanName: 'Facility'
-      }
-      this.facilityUserAttAuth = this.authResolver.isAuthorized('getAssignedUsers_Facility_policy', [facility]);
-
-    });
+    this.facility = this.entityStorageService.getEntity();
+    this.facilityUserAttAuth = this.authResolver.isAuthorized('getAssignedUsers_Facility_policy', [this.facility]);
   }
 }

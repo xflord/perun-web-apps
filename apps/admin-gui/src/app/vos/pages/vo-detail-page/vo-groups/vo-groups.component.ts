@@ -1,8 +1,6 @@
 import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateGroupDialogComponent } from '../../../../shared/components/dialogs/create-group-dialog/create-group-dialog.component';
-import { SideMenuService } from '../../../../core/services/common/side-menu.service';
-import { ActivatedRoute } from '@angular/router';
 import { DeleteGroupDialogComponent } from '../../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
@@ -11,13 +9,12 @@ import {
   Group,
   GroupsManagerService,
   RichGroup,
-  Vo,
-  VosManagerService
+  Vo
 } from '@perun-web-apps/perun/openapi';
 import { GroupFlatNode } from '@perun-web-apps/perun/models';
 import { TABLE_VO_GROUPS } from '@perun-web-apps/config/table-config';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { GroupsTreeComponent} from '@perun-web-apps/perun/components';
 import { GroupsListComponent } from '@perun-web-apps/perun/components';
@@ -36,10 +33,8 @@ export class VoGroupsComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private groupService: GroupsManagerService,
-    private sideMenuService: SideMenuService,
-    private voService: VosManagerService,
-    private route: ActivatedRoute,
-    public authResolver: GuiAuthResolver
+    public authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
   ) { }
 
   vo: Vo;
@@ -92,15 +87,10 @@ export class VoGroupsComponent implements OnInit {
       this.loadAllGroups();
     });
 
-    this.route.parent.params.subscribe(parentParams => {
-      const voId = parentParams['voId'];
 
-      this.voService.getVoById(voId).subscribe(vo => {
-        this.vo = vo;
-
-        this.loadAllGroups();
-      });
-    });
+    this.vo = this.entityStorageService.getEntity();
+    this.setAuthRights();
+    this.loadAllGroups();
   }
 
   setAuthRights() {

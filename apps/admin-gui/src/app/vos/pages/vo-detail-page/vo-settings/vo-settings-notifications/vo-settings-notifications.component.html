@@ -4,7 +4,7 @@
 
 <div class="w-100 d-flex">
   <button
-    *ngIf="!loading && addAuth"
+    *ngIf="addAuth"
     mat-flat-button
     color="accent"
     class="mr-2 action-button"
@@ -13,7 +13,7 @@
   </button>
 
   <button
-    *ngIf="!loading && removeAuth"
+    *ngIf="removeAuth"
     mat-flat-button
     color="warn"
     class="mr-2"
@@ -23,7 +23,6 @@
   </button>
 
   <button
-    *ngIf="!loading"
     mat-stroked-button
     class="mr-2 action-button"
     (click)="changeEmailFooter()">
@@ -32,7 +31,7 @@
   </button>
 
   <button
-    *ngIf="!loading && copyAuth"
+    *ngIf="copyAuth"
     mat-stroked-button
     class="action-button"
     (click)="copy()">
@@ -48,7 +47,7 @@
   *ngIf="!loading"
   [applicationMails]="applicationMails"
   [tableId]="tableId"
-  [voId]="voId"
+  [voId]="vo.id"
   [displayedColumns]="displayedColumns"
   [disableSend]="!addAuth"
   [selection]="selection"

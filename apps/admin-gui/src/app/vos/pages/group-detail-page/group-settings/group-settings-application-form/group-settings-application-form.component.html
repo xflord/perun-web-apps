@@ -3,8 +3,8 @@
 </h1>
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto">
 </mat-spinner>
-<div *ngIf="!loading && !noApplicationForm">
-  <div class="d-flex w-50">
+<div *ngIf="!noApplicationForm">
+  <div *ngIf="!loading" class="d-flex w-50">
     <div [ngClass]="autoRegistrationEnabled ? 'w-75' : 'w-50'">
       <div class="font-weight-bold">{{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.MODULE_NAME' | translate}}:
         {{applicationForm.moduleClassName}}

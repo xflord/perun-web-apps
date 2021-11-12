@@ -1,7 +1,7 @@
 <h1 class="page-subtitle">{{'FACILITY_DETAIL.SETTINGS.OWNERS.TITLE' | translate}}</h1>
-<perun-web-apps-refresh-button (refresh)="refreshTable()" *ngIf="!loading"></perun-web-apps-refresh-button>
+<perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
 <button
-  *ngIf="!loading && addAuth"
+  *ngIf="addAuth"
   (click)="onCreate()"
   class="mr-2 action-button"
   color="accent"
@@ -9,7 +9,7 @@
   {{'FACILITY_DETAIL.SETTINGS.OWNERS.ADD' | translate}}
 </button>
 <button
-  *ngIf="!loading && removeAuth"
+  *ngIf="removeAuth"
   (click)="onRemove()"
   [disabled]="selection.selected.length === 0"
   class="mr-2"
@@ -17,7 +17,7 @@
   mat-flat-button>
   {{'FACILITY_DETAIL.SETTINGS.OWNERS.DELETE' | translate}}
 </button>
-<perun-web-apps-immediate-filter (filter)="applyFilter($event)" *ngIf="!loading" [placeholder]="'VO_MANAGEMENT.FILTER_PLACEHOLDER'"></perun-web-apps-immediate-filter>
+<perun-web-apps-immediate-filter (filter)="applyFilter($event)" [placeholder]="'VO_MANAGEMENT.FILTER_PLACEHOLDER'"></perun-web-apps-immediate-filter>
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <perun-web-apps-owners-list
   [tableId]="tableId"

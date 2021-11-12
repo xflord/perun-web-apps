@@ -2,7 +2,7 @@
   <h1 class="page-subtitle">{{'VO_DETAIL.RESOURCES.LIST.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
-    *ngIf="!loading && removeAuth"
+    *ngIf="removeAuth"
     class="mr-2" color="warn" mat-flat-button
     [disabled]="selected.selected.length === 0"
     (click)="deleteSelectedResources()">

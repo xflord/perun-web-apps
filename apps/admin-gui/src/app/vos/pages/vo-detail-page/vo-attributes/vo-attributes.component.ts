@@ -1,5 +1,6 @@
-import {ActivatedRoute} from '@angular/router';
 import {Component, HostBinding, OnInit} from '@angular/core';
+import { EntityStorageService } from '@perun-web-apps/perun/services';
+import { Vo } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-vo-attributes',
@@ -10,13 +11,11 @@ export class VoAttributesComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private entityStorageService: EntityStorageService) { }
 
-  voId: number;
+  vo: Vo;
 
   ngOnInit() {
-    this.route.parent.params.subscribe(parentParams => {
-      this.voId = parentParams['voId'];
-    });
+    this.vo = this.entityStorageService.getEntity();
   }
 }

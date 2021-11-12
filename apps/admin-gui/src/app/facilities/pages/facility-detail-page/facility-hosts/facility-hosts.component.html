@@ -2,7 +2,7 @@
   <h1 class="page-subtitle">{{'FACILITY_DETAIL.HOSTS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
-    *ngIf="!loading && addAuth"
+    *ngIf="addAuth"
     mat-flat-button
     color="accent"
     class="mr-2 action-button"
@@ -10,7 +10,7 @@
     {{'FACILITY_DETAIL.HOSTS.ADD' | translate}}
   </button>
   <button
-    *ngIf="!loading && removeAuth"
+    *ngIf="removeAuth"
     mat-flat-button
     color="warn"
     class="mr-2"
@@ -29,6 +29,6 @@
     [selection]="selected"
     [displayedColumns]="displayedColumns"
     [disableRouting]="!routeAuth"
-    [facilityId]="facilityId">
+    [facilityId]="facility.id">
   </app-hosts-list>
 </div>

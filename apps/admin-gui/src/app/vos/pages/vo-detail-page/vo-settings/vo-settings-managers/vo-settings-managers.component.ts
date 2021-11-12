@@ -1,8 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-vo-settings-managers',
@@ -16,8 +15,8 @@ export class VoSettingsManagersComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private voService: VosManagerService,
-    private route: ActivatedRoute,
-    private guiAuthResolver: GuiAuthResolver
+    private guiAuthResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
   ) { }
 
   vo: Vo;
@@ -31,14 +30,7 @@ export class VoSettingsManagersComponent implements OnInit {
   theme = 'vo-theme';
 
   ngOnInit() {
-    this.route.parent.parent.params.subscribe(parentParentParams => {
-      const voId = parentParentParams ['voId'];
-
-      this.voService.getVoById(voId).subscribe(vo => {
-        this.vo = vo;
-      });
-    });
-
+    this.vo = this.entityStorageService.getEntity();
     this.guiAuthResolver.assignAvailableRoles(this.availableRoles, 'Vo');
   }
 }

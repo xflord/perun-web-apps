@@ -18,3 +18,4 @@ export { SponsoredMembersPdfService } from './lib/sponsored-members-pdf.service'
 export { PDFService } from './lib/pdf.service';
 export { OtherApplicationsService } from './lib/other-applications.service';
 export { CustomMatPaginator } from './lib/custom-mat-paginator';
+export { EntityStorageService } from './lib/entity-storage.service';

@@ -1,7 +1,7 @@
 import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import {
   AddApplicationFormItemDialogComponent
@@ -20,7 +20,6 @@ import {
   ApplicationFormItem,
   AttributesManagerService,
   Group,
-  GroupsManagerService,
   RegistrarManagerService
 } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '@perun-web-apps/perun/services';
@@ -40,15 +39,14 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
 
   constructor(
     private registrarManager: RegistrarManagerService,
-    protected route: ActivatedRoute,
     private dialog: MatDialog,
     private notificator: NotificatorService,
     private translate: TranslateService,
     private apiRequest: ApiRequestConfigurationService,
     private router: Router,
     private guiAuthResolver: GuiAuthResolver,
-    private groupsManager: GroupsManagerService,
-    private attributesManager: AttributesManagerService) {
+    private attributesManager: AttributesManagerService,
+    private entityStorageService: EntityStorageService) {
   }
 
   @ViewChild('autoRegToggle')
@@ -57,8 +55,6 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   loading = false;
   applicationForm: ApplicationForm;
   applicationFormItems: ApplicationFormItem[] = [];
-  voId: number;
-  groupId: number;
   noApplicationForm = false;
   itemsChanged = false;
   group: Group;
@@ -74,34 +70,27 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.route.parent.parent.params.subscribe(params => {
-      this.voId = params['voId'];
-      this.groupId = params['groupId'];
-      this.groupsManager.getGroupById(this.groupId).subscribe(group => {
-        this.group = group;
-        // FIXME this might not work in case of some race condition (other request finishes sooner)
-        this.apiRequest.dontHandleErrorForNext();
-        this.registrarManager.getGroupApplicationForm(this.groupId).subscribe(form => {
-          this.applicationForm = form;
-          this.registrarManager.getFormItemsForGroup(this.groupId).subscribe(formItems => {
-            this.applicationFormItems = formItems;
-            this.attributesManager.getGroupAttributeByName(this.groupId, "urn:perun:group:attribute-def:virt:autoRegistrationEnabled").subscribe(attr => {
-              this.voHasEmbeddedGroupApplication = attr.value !== null;
-              this.autoRegistrationEnabled = !!attr.value;
-              this.setAuth();
-              this.loading = false;
-            });
-          }, () => this.loading = false);
-        }, error => {
-          if (error.error.name === 'FormNotExistsException') {
-            this.noApplicationForm = true;
-            this.setAuth();
-            this.loading = false;
-          } else {
-            this.notificator.showRPCError(error.error);
-          }
+    this.group = this.entityStorageService.getEntity();
+    this.setAuth();
+    // FIXME this might not work in case of some race condition (other request finishes sooner)
+    this.apiRequest.dontHandleErrorForNext();
+    this.registrarManager.getGroupApplicationForm(this.group.id).subscribe(form => {
+      this.applicationForm = form;
+      this.registrarManager.getFormItemsForGroup(this.group.id).subscribe(formItems => {
+        this.applicationFormItems = formItems;
+        this.attributesManager.getGroupAttributeByName(this.group.id, 'urn:perun:group:attribute-def:virt:autoRegistrationEnabled').subscribe(attr => {
+          this.voHasEmbeddedGroupApplication = attr.value !== null;
+          this.autoRegistrationEnabled = !!attr.value;
+          this.loading = false;
         });
       }, () => this.loading = false);
+    }, error => {
+      if (error.error.name === 'FormNotExistsException') {
+        this.noApplicationForm = true;
+        this.loading = false;
+      } else {
+        this.notificator.showRPCError(error.error);
+      }
     });
   }
 
@@ -130,8 +119,8 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
         config.width = '600px';
         config.height = '600px';
         config.data = {
-          voId: this.voId,
-          groupId: this.groupId,
+          voId: this.group.voId,
+          groupId: this.group.id,
           applicationFormItem: success[1],
           theme: 'group-theme',
           allItems: this.applicationFormItems
@@ -146,7 +135,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   copy() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = { voId: this.voId, groupId: this.groupId, theme: 'group-theme' };
+    config.data = { voId: this.group.voId, groupId: this.group.id, theme: 'group-theme' };
 
     const dialog = this.dialog.open(ApplicationFormCopyItemsDialogComponent, config);
     dialog.afterClosed().subscribe(copyFrom => {
@@ -178,13 +167,13 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   }
 
   preview() {
-    this.router.navigate(['/organizations', this.voId, 'groups', this.groupId, 'settings', 'applicationForm', 'preview'],
+    this.router.navigate(['/organizations', this.group.voId, 'groups', this.group.id, 'settings', 'applicationForm', 'preview'],
       { queryParams: { applicationFormItems: JSON.stringify(this.applicationFormItems) } });
   }
 
   updateFormItems() {
     this.loading = true;
-    this.registrarManager.getFormItemsForGroup(this.groupId).subscribe(formItems => {
+    this.registrarManager.getFormItemsForGroup(this.group.id).subscribe(formItems => {
       this.applicationFormItems = formItems;
       this.itemsChanged = false;
       this.loading = false;
@@ -196,7 +185,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   }
 
   createEmptyApplicationForm() {
-    this.registrarManager.createApplicationFormInGroup(this.groupId).subscribe(() => {
+    this.registrarManager.createApplicationFormInGroup(this.group.id).subscribe(() => {
       this.noApplicationForm = false;
       this.ngOnInit();
     });
@@ -213,7 +202,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     // @ts-ignore
     // TODO reimplement this
     this.registrarManager.updateFormItemsForGroup({
-      group: this.groupId,
+      group: this.group.id,
       items: this.applicationFormItems
     }).subscribe(() => {
       this.translate.get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_APPLICATION_FORM_ITEMS_SUCCESS')

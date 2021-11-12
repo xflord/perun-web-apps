@@ -1,7 +1,7 @@
 <h1 class="page-subtitle">{{'USER_DETAIL.SETTINGS.SERVICE_IDENTITIES.TITLE' | translate}}</h1>
 <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
 <button
-  *ngIf="!loading && addIdentity"
+  *ngIf="addIdentity"
   (click)="onAdd()"
   mat-flat-button
   class="mr-2 action-button"
@@ -9,7 +9,7 @@
   {{'USER_DETAIL.SETTINGS.SERVICE_IDENTITIES.CREATE' | translate}}
 </button>
 <button
-  *ngIf="!loading && removeIdentity"
+  *ngIf="removeIdentity"
   (click)="onRemove()"
   [disabled]="selection.selected.length === 0"
   mat-flat-button

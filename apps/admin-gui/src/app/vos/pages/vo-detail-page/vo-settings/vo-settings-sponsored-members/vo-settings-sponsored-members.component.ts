@@ -5,14 +5,13 @@ import {
   MemberWithSponsors, RichUser,
   Vo
 } from '@perun-web-apps/perun/openapi';
-import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TABLE_SPONSORED_MEMBERS } from '@perun-web-apps/config/table-config';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { CreateSponsoredMemberDialogComponent } from '../../../../../shared/components/dialogs/create-sponsored-member-dialog/create-sponsored-member-dialog.component';
 import { GenerateSponsoredMembersDialogComponent } from '../../../../../shared/components/dialogs/generate-sponsored-members-dialog/generate-sponsored-members-dialog.component';
-import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 import { SponsorExistingMemberDialogComponent } from '../../../../../shared/components/dialogs/sponsor-existing-member-dialog/sponsor-existing-member-dialog.component';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { Role } from '@perun-web-apps/perun/models';
@@ -29,14 +28,13 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
   constructor(private membersManager: MembersManagerService,
-              private route: ActivatedRoute,
               private dialog: MatDialog,
               private authResolver: GuiAuthResolver,
               private storeService: StoreService,
-              private authzResolver: AuthzResolverService) {
+              private authzResolver: AuthzResolverService,
+              private entityStorageService: EntityStorageService) {
   }
 
-  voId: number;
   vo: Vo;
   members: MemberWithSponsors[] = [];
 
@@ -64,33 +62,26 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.route.parent.params.subscribe(parentParentParams => {
-      this.voId = parentParentParams ['voId'];
-      this.vo = {
-        id: this.voId,
-        beanName: 'Vo'
-      };
+    this.vo = this.entityStorageService.getEntity();
+    this.setAuthRights();
 
-      const availableRoles = ['SPONSOR'];
-      const availableRolesPrivileges = new Map<string, any>();
+    const availableRoles = ['SPONSOR'];
+    const availableRolesPrivileges = new Map<string, any>();
 
-      this.authResolver.getRolesAuthorization(availableRoles, this.vo, availableRolesPrivileges);
-      this.findSponsorsAuth = availableRolesPrivileges.get(availableRoles[0]).readAuth;
+    this.authResolver.getRolesAuthorization(availableRoles, this.vo, availableRolesPrivileges);
+    this.findSponsorsAuth = availableRolesPrivileges.get(availableRoles[0]).readAuth;
 
-      if (this.findSponsorsAuth) {
-        const attributes = [ Urns.USER_DEF_PREFERRED_MAIL ];
+    if (this.findSponsorsAuth) {
+      const attributes = [Urns.USER_DEF_PREFERRED_MAIL];
 
-        this.authzResolver.getAuthzRichAdmins(Role.SPONSOR, this.vo.id, 'Vo',
-          attributes,false, false).subscribe(sponsors => {
-          this.voSponsors = sponsors;
-          this.setAuthRights();
-          this.refresh();
-        });
-      } else {
-        this.setAuthRights();
+      this.authzResolver.getAuthzRichAdmins(Role.SPONSOR, this.vo.id, 'Vo',
+        attributes, false, false).subscribe(sponsors => {
+        this.voSponsors = sponsors;
         this.refresh();
-      }
-    });
+      });
+    } else {
+      this.refresh();
+    }
   }
 
   setAuthRights() {
@@ -109,8 +100,8 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '620px';
     config.data = {
-      entityId: this.voId,
-      voId: this.voId,
+      entityId: this.vo.id,
+      voId: this.vo.id,
       sponsors: this.voSponsors,
       theme: 'vo-theme'
     };
@@ -132,7 +123,7 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '750px';
     config.data = {
-      voId: this.voId,
+      voId: this.vo.id,
       theme: 'vo-theme',
     };
 
@@ -154,7 +145,7 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '650px';
     config.data = {
-      voId: this.voId,
+      voId: this.vo.id,
       theme: 'vo-theme',
     };
 
@@ -174,7 +165,7 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
 
   refresh() {
     this.loading = true;
-    this.membersManager.getSponsoredMembersAndTheirSponsors(this.voId, this.attrNames).subscribe(members => {
+    this.membersManager.getSponsoredMembersAndTheirSponsors(this.vo.id, this.attrNames).subscribe(members => {
       this.selection.clear();
       this.members = members;
       this.setAuthRights();

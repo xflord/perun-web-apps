@@ -1,16 +1,14 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import {
   Application,
   Group,
-  GroupsManagerService,
   RegistrarManagerService
 } from '@perun-web-apps/perun/openapi';
 import {
   TABLE_GROUP_APPLICATIONS_DETAILED,
   TABLE_GROUP_APPLICATIONS_NORMAL
 } from '@perun-web-apps/config/table-config';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { FormControl } from '@angular/forms';
 import { formatDate } from '@angular/common';
 
@@ -26,10 +24,9 @@ export class GroupApplicationsComponent implements OnInit {
   // used for router animation
   @HostBinding('class.router-component') true;
 
-  constructor(private groupService: GroupsManagerService,
-              private registrarManager: RegistrarManagerService,
-              protected route: ActivatedRoute,
-              private guiAuthResolver: GuiAuthResolver) { }
+  constructor(private registrarManager: RegistrarManagerService,
+              private guiAuthResolver: GuiAuthResolver,
+              private entityStorageService: EntityStorageService) { }
 
   state = 'pending';
   loading = false;
@@ -47,15 +44,10 @@ export class GroupApplicationsComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.route.parent.params.subscribe(parentParams => {
-      const groupId = parentParams['groupId'];
-      this.groupService.getGroupById(groupId).subscribe( group => {
-        this.group = group;
-        this.setData(['NEW', 'VERIFIED']);
-      });
-      this.startDate = new FormControl(formatDate(this.yearAgo(),'yyyy-MM-dd','en-GB'));
-      this.endDate =new FormControl(formatDate(new Date(),'yyyy-MM-dd','en-GB'));
-    });
+    this.group = this.entityStorageService.getEntity();
+    this.startDate = new FormControl(formatDate(this.yearAgo(),'yyyy-MM-dd','en-GB'));
+    this.endDate =new FormControl(formatDate(new Date(),'yyyy-MM-dd','en-GB'));
+    this.setData(['NEW', 'VERIFIED']);
   }
 
   setAuth() {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Resource, ResourcesManagerService } from '@perun-web-apps/perun/openapi';
-import { ActivatedRoute } from '@angular/router';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { Resource } from '@perun-web-apps/perun/openapi';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-resource-settings-managers',
@@ -11,9 +10,8 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 export class ResourceSettingsManagersComponent implements OnInit {
 
   constructor(
-    private route: ActivatedRoute,
-    private resourceService: ResourcesManagerService,
-    private guiAuthResolver: GuiAuthResolver
+    private guiAuthResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
   ) { }
 
   resource: Resource;
@@ -24,14 +22,7 @@ export class ResourceSettingsManagersComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.route.parent.parent.params.subscribe(params => {
-      const resourceId = params["resourceId"];
-
-      this.resourceService.getResourceById(resourceId).subscribe(resource => {
-        this.resource = resource;
-      });
-    });
-
+    this.resource = this.entityStorageService.getEntity();
     this.guiAuthResolver.assignAvailableRoles(this.availableRoles, 'Resource');
   }
 }

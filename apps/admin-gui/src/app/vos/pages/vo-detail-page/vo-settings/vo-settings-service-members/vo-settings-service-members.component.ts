@@ -4,9 +4,8 @@ import { MembersManagerService, RichMember, Vo } from '@perun-web-apps/perun/ope
 import {
   TABLE_SERVICE_MEMBERS
 } from '@perun-web-apps/config/table-config';
-import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { CreateServiceMemberDialogComponent } from '../../../../../shared/components/create-service-member-dialog/create-service-member-dialog.component';
 import { RemoveMembersDialogComponent } from '../../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
@@ -18,7 +17,7 @@ import { RemoveMembersDialogComponent } from '../../../../../shared/components/d
 })
 export class VoSettingsServiceMembersComponent implements OnInit {
 
-  voId: number;
+  vo: Vo;
   members: RichMember[] = [];
   selection = new SelectionModel<RichMember>(true, []);
   searchString = '';
@@ -27,29 +26,24 @@ export class VoSettingsServiceMembersComponent implements OnInit {
   removeAuth: boolean;
 
   constructor(private membersManager: MembersManagerService,
-              private route: ActivatedRoute,
               private dialog: MatDialog,
               private authResolver: GuiAuthResolver,
-              private authzService: GuiAuthResolver) {
+              private authzService: GuiAuthResolver,
+              private entityStorageService: EntityStorageService) {
   }
 
   ngOnInit(): void {
     this.loading = true;
-    this.route.parent.params.subscribe(parentParentParams => {
-      this.voId = parentParentParams ['voId'];
-      this.refresh();
-    });
-    const vo: Vo = {
-      beanName: '', id: this.voId
-    }
-    this.removeAuth = this.authzService.isAuthorized('deleteMembers_List<Member>_policy', [vo]);
+    this.vo = this.entityStorageService.getEntity();
+    this.removeAuth = this.authzService.isAuthorized('deleteMembers_List<Member>_policy', [this.vo]);
+    this.refresh();
   }
 
   createServiceMember() {
     const config = getDefaultDialogConfig();
     config.width = '750px';
     config.data = {
-      voId: this.voId
+      voId: this.vo.id
     };
 
     const dialogRef = this.dialog.open(CreateServiceMemberDialogComponent, config);
@@ -86,7 +80,7 @@ export class VoSettingsServiceMembersComponent implements OnInit {
 
   refresh() {
     this.loading = true;
-    this.membersManager.findCompleteRichMembersForVo(this.voId, [null], '(Service)').subscribe(members => {
+    this.membersManager.findCompleteRichMembersForVo(this.vo.id, [null], '(Service)').subscribe(members => {
       this.members = members;
       this.loading = false;
     });

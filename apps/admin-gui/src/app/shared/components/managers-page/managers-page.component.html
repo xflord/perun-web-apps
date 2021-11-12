@@ -8,9 +8,9 @@
       {{'SHARED.COMPONENTS.MANAGERS_PAGE.USER' | translate}}
     </ng-template>
     <ng-template matTabContent>
-      <perun-web-apps-refresh-button class="mt-2" *ngIf="!loading" (refresh)="refreshUsers()"></perun-web-apps-refresh-button>
+      <perun-web-apps-refresh-button class="mt-2" (refresh)="refreshUsers()"></perun-web-apps-refresh-button>
       <button
-        *ngIf="!loading && manageAuth"
+        *ngIf="manageAuth"
         mat-flat-button
         color="accent"
         class="mr-2 mt-2 action-button"
@@ -19,7 +19,7 @@
       </button>
 
       <button
-        *ngIf="!loading && manageAuth"
+        *ngIf="manageAuth"
         mat-flat-button
         color="warn"
         class="mr-2 mt-2"
@@ -28,7 +28,7 @@
         {{'SHARED.COMPONENTS.MANAGERS_PAGE.REMOVE' | translate}}
       </button>
 
-      <mat-form-field *ngIf="!loading" class="mr-2 mt-2">
+      <mat-form-field class="mr-2 mt-2">
         <mat-label>{{'SHARED.COMPONENTS.MANAGERS_PAGE.SELECT_ROLE' | translate}}</mat-label>
         <mat-select [(value)]="selectedRole" (selectionChange)="refreshUsers()">
           <mat-option *ngFor="let role of availableRoles" [value]="role">{{role | displayedRole}}</mat-option>
@@ -37,16 +37,14 @@
 
       <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 
-      <div *ngIf="!loading">
-        <app-users-list
-          [tableId]="tableId"
-          *ngIf="managers"
-          [users]="managers"
-          [disableRouting]="!routeAuth"
-          [displayedColumns]="manageAuth ? ['select', 'id', 'name', 'email', 'logins', 'organization'] : ['id', 'name', 'email', 'logins', 'organization']"
-          [selection]="selectionUsers">
-        </app-users-list>
-      </div>
+      <app-users-list
+        *ngIf="!loading && managers"
+        [tableId]="tableId"
+        [users]="managers"
+        [disableRouting]="!routeAuth"
+        [displayedColumns]="manageAuth ? ['select', 'id', 'name', 'email', 'logins', 'organization'] : ['id', 'name', 'email', 'logins', 'organization']"
+        [selection]="selectionUsers">
+      </app-users-list>
     </ng-template>
   </mat-tab>
 
@@ -55,9 +53,9 @@
       {{'SHARED.COMPONENTS.MANAGERS_PAGE.GROUP' | translate}}
     </ng-template>
     <ng-template matTabContent>
-      <perun-web-apps-refresh-button class="mt-2" *ngIf="!loading" (refresh)="refreshGroups()"></perun-web-apps-refresh-button>
+      <perun-web-apps-refresh-button class="mt-2" (refresh)="refreshGroups()"></perun-web-apps-refresh-button>
       <button
-        *ngIf="!loading && manageAuth"
+        *ngIf="manageAuth"
         mat-flat-button
         color="accent"
         class="mr-2 mt-2 action-button"
@@ -66,7 +64,7 @@
       </button>
 
       <button
-        *ngIf="!loading && manageAuth"
+        *ngIf="manageAuth"
         mat-flat-button
         color="warn"
         class="mr-2 mt-2"
@@ -75,7 +73,7 @@
         {{'SHARED.COMPONENTS.MANAGERS_PAGE.REMOVE' | translate}}
       </button>
 
-      <mat-form-field *ngIf="!loading" class="mr-2 mt-2">
+      <mat-form-field class="mr-2 mt-2">
         <mat-label>{{'SHARED.COMPONENTS.MANAGERS_PAGE.SELECT_ROLE' | translate}}</mat-label>
         <mat-select [(value)]="selectedRole" (selectionChange)="refreshGroups()">
           <mat-option *ngFor="let role of availableRoles" [value]="role">{{role | displayedRole}}</mat-option>
@@ -84,16 +82,14 @@
 
       <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 
-      <div *ngIf="!loading">
-        <perun-web-apps-groups-list
-          [tableId]="tableId"
-          *ngIf="groups"
-          [displayedColumns]="manageAuth ? ['select', 'id', 'vo', 'name', 'description'] : ['id', 'vo', 'name', 'description']"
-          [groups]="groups"
-          [selection]="selectionGroups"
-          [disableMembers]="false">
-        </perun-web-apps-groups-list>
-      </div>
+      <perun-web-apps-groups-list
+        *ngIf="!loading && groups"
+        [tableId]="tableId"
+        [displayedColumns]="manageAuth ? ['select', 'id', 'vo', 'name', 'description'] : ['id', 'vo', 'name', 'description']"
+        [groups]="groups"
+        [selection]="selectionGroups"
+        [disableMembers]="false">
+      </perun-web-apps-groups-list>
     </ng-template>
   </mat-tab>
 </mat-tab-group>

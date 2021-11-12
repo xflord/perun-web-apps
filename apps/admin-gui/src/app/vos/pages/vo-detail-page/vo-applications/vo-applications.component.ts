@@ -1,11 +1,11 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import { Application, RegistrarManagerService, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { Application, RegistrarManagerService, Vo } from '@perun-web-apps/perun/openapi';
 import {
   TABLE_VO_APPLICATIONS_DETAILED, TABLE_VO_APPLICATIONS_NORMAL,
 } from '@perun-web-apps/config/table-config';
 import { FormControl } from '@angular/forms';
 import { formatDate } from '@angular/common';
+import { EntityStorageService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-vo-applications',
@@ -18,9 +18,8 @@ export class VoApplicationsComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
-  constructor(private voService: VosManagerService,
-              private registrarManager: RegistrarManagerService,
-              protected route: ActivatedRoute) { }
+  constructor(private registrarManager: RegistrarManagerService,
+              private entityStorageService: EntityStorageService) { }
 
   state = 'pending';
   loading = false;
@@ -39,15 +38,10 @@ export class VoApplicationsComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.route.parent.params.subscribe(parentParams => {
-      const voId = parentParams['voId'];
-      this.voService.getVoById(voId).subscribe(vo => {
-        this.vo = vo;
-        this.setData(['NEW', 'VERIFIED']);
-      });
-      this.startDate = new FormControl(formatDate(this.yearAgo(),'yyyy-MM-dd','en-GB'));
-      this.endDate = new FormControl(formatDate(new Date(),'yyyy-MM-dd','en-GB'));
-    });
+    this.vo = this.entityStorageService.getEntity();
+    this.startDate = new FormControl(formatDate(this.yearAgo(),'yyyy-MM-dd','en-GB'));
+    this.endDate = new FormControl(formatDate(new Date(),'yyyy-MM-dd','en-GB'));
+    this.setData(['NEW', 'VERIFIED']);
   }
 
 

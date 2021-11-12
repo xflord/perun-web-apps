@@ -12,7 +12,7 @@ import {
 import { addRecentlyVisited, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { Resource } from '@perun-web-apps/perun/openapi';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, EntityStorageService } from '@perun-web-apps/perun/services';
 import { GetResourceRoutePipe } from '@perun-web-apps/perun/pipes';
 import {
   EditFacilityResourceGroupVoDialogComponent,
@@ -39,7 +39,8 @@ export class ResourceDetailPageComponent implements OnInit {
     private sideMenuItemService: SideMenuItemService,
     private dialog: MatDialog,
     public guiAuthResolver:GuiAuthResolver,
-    private router: Router
+    private router: Router,
+    private entityStorageService: EntityStorageService
   ) {
   }
 
@@ -58,6 +59,11 @@ export class ResourceDetailPageComponent implements OnInit {
 
       this.resourcesManager.getRichResourceById(resourceId).subscribe(resource => {
         this.resource = resource;
+        this.entityStorageService.setEntity({
+          id: resource.id,
+          voId: resource.voId,
+          facilityId: resource.facilityId,
+          beanName: resource.beanName});
         this.setAuth();
         if (this.route.parent.snapshot.url[0].path === 'facilities') {
           this.baseUrl = new GetResourceRoutePipe().transform(resource, false);

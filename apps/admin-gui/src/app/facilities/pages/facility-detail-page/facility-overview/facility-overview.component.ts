@@ -1,8 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { MenuItem } from '@perun-web-apps/perun/models';
 import { FacilitiesManagerService, Facility } from '@perun-web-apps/perun/openapi';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-facility-overview',
@@ -19,23 +18,16 @@ export class FacilityOverviewComponent implements OnInit {
 
   constructor(
     private facilityManager: FacilitiesManagerService,
-    private route: ActivatedRoute,
-    private authResolver: GuiAuthResolver
+    private authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
   ) {
   }
 
   ngOnInit() {
     this.loading = true;
-    this.route.params.subscribe(params => {
-      const facilityId = params['facilityId'];
-
-      this.facilityManager.getFacilityById(facilityId).subscribe(facility => {
-        this.facility = facility;
-
-        this.initItems();
-        this.loading = false;
-      }, () => this.loading = false);
-    });
+    this.facility = this.entityStorageService.getEntity();
+    this.initItems();
+    this.loading = false;
   }
 
   private initItems() {

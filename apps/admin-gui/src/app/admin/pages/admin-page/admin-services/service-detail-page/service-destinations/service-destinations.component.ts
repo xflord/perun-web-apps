@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { RichDestination, ServicesManagerService } from '@perun-web-apps/perun/openapi';
+import { RichDestination, Service, ServicesManagerService } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
   TABLE_FACILITY_SERVICES_DESTINATION_LIST,
 } from '@perun-web-apps/config/table-config';
-import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { RemoveDestinationDialogComponent } from '../../../../../../shared/components/dialogs/remove-destination-dialog/remove-destination-dialog.component';
@@ -18,18 +17,18 @@ import { RemoveDestinationDialogComponent } from '../../../../../../shared/compo
 })
 export class ServiceDestinationsComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute,
-              private serviceManager: ServicesManagerService,
+  constructor(private serviceManager: ServicesManagerService,
               private notificator: NotificatorService,
               private translate: TranslateService,
               private dialog: MatDialog,
-              public authResolver: GuiAuthResolver
+              public authResolver: GuiAuthResolver,
+              private entityStorageService: EntityStorageService
               ) { }
 
   loading = false;
   filterValue = '';
 
-  serviceId: number;
+  service: Service;
   destinations: RichDestination[] = [];
   selection = new SelectionModel<RichDestination>(true, []);
 
@@ -37,15 +36,13 @@ export class ServiceDestinationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.route.parent.params.subscribe(params => {
-      this.serviceId = params['serviceId'];
-      this.refreshTable();
-    });
+    this.service = this.entityStorageService.getEntity();
+    this.refreshTable();
   }
 
   refreshTable() {
     this.loading = true;
-    this.serviceManager.getAllRichDestinationsForService(this.serviceId).subscribe(destinations => {
+    this.serviceManager.getAllRichDestinationsForService(this.service.id).subscribe(destinations => {
       this.selection.clear();
       this.filterValue = "";
       this.destinations = destinations;
@@ -61,7 +58,7 @@ export class ServiceDestinationsComponent implements OnInit {
     }
 
     const destination = destinations.pop();
-    this.serviceManager.blockServiceOnDestination(this.serviceId, destination.id).subscribe(() => {
+    this.serviceManager.blockServiceOnDestination(this.service.id, destination.id).subscribe(() => {
       this.blockServiceOnDestinations(destinations);
     }, () => this.loading = false);
   }
@@ -79,7 +76,7 @@ export class ServiceDestinationsComponent implements OnInit {
     }
 
     const destination = destinations.pop();
-    this.serviceManager.unblockServiceOnDestinationById(this.serviceId, destination.id).subscribe(() => {
+    this.serviceManager.unblockServiceOnDestinationById(this.service.id, destination.id).subscribe(() => {
       this.allowServiceOnDestinations(destinations);
     }, () => this.loading = false);
   }

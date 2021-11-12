@@ -2,21 +2,21 @@
   <h1 class="page-subtitle">{{'FACILITY_DETAIL.SERVICES_DESTINATIONS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
-    *ngIf="!loading && addAuth"
+    *ngIf="addAuth"
     mat-flat-button color="accent"
     class="mr-2 action-button"
     (click)="addDestination()">
     {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.ADD' | translate}}
   </button>
   <button
-    *ngIf="!loading && removeAuth"
+    *ngIf="removeAuth"
     mat-flat-button color="warn"
     class="mr-2"
     [disabled]="selected.selected.length === 0"  (click)="removeDestination()">
     {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.REMOVE' | translate}}
   </button>
   <button
-    *ngIf="!loading && allowAuth"
+    *ngIf="allowAuth"
     mat-stroked-button
     class="mr-2"
     [disabled]="selected.selected.length === 0 || allSelectedAllowed()"
@@ -27,7 +27,7 @@
     {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.ALLOW' | translate}}
   </button>
   <button
-    *ngIf="!loading && blockAuth"
+    *ngIf="blockAuth"
     mat-stroked-button
     class="mr-2"
     [disabled]="selected.selected.length === 0 || allSelectedBlocked()"

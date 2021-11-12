@@ -4,12 +4,11 @@ import { FacilitiesManagerService, Facility, Host } from '@perun-web-apps/perun/
 import {
   TABLE_FACILITY_HOSTS_LIST,
 } from '@perun-web-apps/config/table-config';
-import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AddHostDialogComponent } from '../../../../shared/components/dialogs/add-host-dialog/add-host-dialog.component';
 import { RemoveHostDialogComponent } from '../../../../shared/components/dialogs/remove-host-dialog/remove-host-dialog.component';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-facility-hosts',
@@ -21,13 +20,12 @@ export class FacilityHostsComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
               private facilitiesManager: FacilitiesManagerService,
-              private route: ActivatedRoute,
-              private authResolver: GuiAuthResolver) {
+              private authResolver: GuiAuthResolver,
+              private entityStorageService: EntityStorageService) {
 
   }
 
   facility: Facility;
-  facilityId: number;
   hosts: Host[] = [];
   selected = new SelectionModel<Host>(true, []);
   loading: boolean;
@@ -40,18 +38,18 @@ export class FacilityHostsComponent implements OnInit {
   routeAuth: boolean;
 
   ngOnInit(): void {
-    this.route.parent.params.subscribe(parentParams => {
-      this.facilityId = parentParams['facilityId'];
-      this.facilitiesManager.getFacilityById(this.facilityId).subscribe(facility => {
-        this.facility = facility;
-        this.refreshTable();
-      });
+    this.loading = true;
+    this.facility = this.entityStorageService.getEntity();
+    this.setAuthRights();
+    this.facilitiesManager.getFacilityById(this.facility.id).subscribe(facility => {
+      this.facility = facility;
+      this.refreshTable();
     });
   }
 
   refreshTable() {
     this.loading = true;
-    this.facilitiesManager.getHosts(this.facilityId).subscribe(hosts => {
+    this.facilitiesManager.getHosts(this.facility.id).subscribe(hosts => {
       this.hosts = hosts;
       this.selected.clear();
       this.setAuthRights();

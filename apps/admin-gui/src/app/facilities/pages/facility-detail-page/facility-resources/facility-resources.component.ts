@@ -1,5 +1,4 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveResourceDialogComponent } from '../../../../shared/components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
@@ -9,7 +8,7 @@ import {
   TABLE_FACILITY_RESOURCES_LIST
 } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-facility-resources',
@@ -25,8 +24,8 @@ export class FacilityResourcesComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
               private facilitiesManager: FacilitiesManagerService,
-              private route: ActivatedRoute,
-              private authResolver: GuiAuthResolver) {
+              private authResolver: GuiAuthResolver,
+              private entityStorageService: EntityStorageService) {
   }
 
   facility: Facility;
@@ -44,15 +43,9 @@ export class FacilityResourcesComponent implements OnInit {
   routeAuth: boolean;
 
   ngOnInit() {
-    this.route.parent.params.subscribe(parentParams => {
-      const facilityId = parentParams['facilityId'];
-
-      this.facilitiesManager.getFacilityById(facilityId).subscribe(facility => {
-        this.facility = facility;
-
-        this.refreshTable();
-      });
-    });
+    this.facility = this.entityStorageService.getEntity();
+    this.setAuthRights();
+    this.refreshTable();
   }
 
   removeResource() {

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ResourcesManagerService, RichMember } from '@perun-web-apps/perun/openapi';
+import { Resource, ResourcesManagerService, RichMember } from '@perun-web-apps/perun/openapi';
 import { TABLE_RESOURCE_MEMBERS } from '@perun-web-apps/config/table-config';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-resource-assigned-members',
@@ -13,13 +13,14 @@ export class ResourceAssignedMembersComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private resourceService: ResourcesManagerService,
-              private authResolver: GuiAuthResolver) { }
+              private authResolver: GuiAuthResolver,
+              private entityStorageService: EntityStorageService) { }
 
   loading = false;
   filterValue = '';
   tableId = TABLE_RESOURCE_MEMBERS;
 
-  resourceId: number;
+  resource: Resource;
   members: RichMember[];
 
   routeAuth: boolean;
@@ -27,15 +28,13 @@ export class ResourceAssignedMembersComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.route.parent.params.subscribe(params => {
-      this.resourceId = params['resourceId'];
-      this.refreshTable();
-    });
+    this.resource = this.entityStorageService.getEntity();
+    this.refreshTable();
   }
 
   refreshTable(){
     this.loading = true;
-    this.resourceService.getAssignedRichMembers(this.resourceId).subscribe(members => {
+    this.resourceService.getAssignedRichMembers(this.resource.id).subscribe(members => {
       this.members = members;
       this.setAuthRights();
       this.loading = false;

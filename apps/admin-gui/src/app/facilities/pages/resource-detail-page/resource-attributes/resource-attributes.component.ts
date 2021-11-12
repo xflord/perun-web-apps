@@ -1,6 +1,5 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import {
   Resource,
   ResourcesManagerService
@@ -15,9 +14,11 @@ export class ResourceAttributesComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
-  constructor(private route: ActivatedRoute,
-              private authResolver: GuiAuthResolver,
-              private resourceManager: ResourcesManagerService) { }
+  constructor(
+    private authResolver: GuiAuthResolver,
+    private resourceManager: ResourcesManagerService,
+    private entityStorageService: EntityStorageService
+  ) { }
 
   resourceId: number;
   resource: Resource;
@@ -26,15 +27,8 @@ export class ResourceAttributesComponent implements OnInit {
   resourceMemberAttAuth: boolean;
 
   ngOnInit() {
-    this.route.parent.params.subscribe(params => {
-      this.resourceId = parseInt(params['resourceId'], 10);
-
-      this.resourceManager.getResourceById(this.resourceId).subscribe(resource => {
-        this.resource = resource;
-
-        this.resourceGroupAttAuth = this.authResolver.isAuthorized('getGroupAssignments_Resource_policy', [this.resource]);
-        this.resourceMemberAttAuth = this.authResolver.isAuthorized('getAssignedMembersWithStatus_Resource_policy', [this.resource]);
-      });
-    });
+    this.resource = this.entityStorageService.getEntity();
+    this.resourceGroupAttAuth = this.authResolver.isAuthorized('getGroupAssignments_Resource_policy', [this.resource]);
+    this.resourceMemberAttAuth = this.authResolver.isAuthorized('getAssignedMembersWithStatus_Resource_policy', [this.resource]);
   }
 }

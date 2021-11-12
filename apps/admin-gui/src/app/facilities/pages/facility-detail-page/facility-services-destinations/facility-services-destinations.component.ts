@@ -8,11 +8,10 @@ import {
 import {
   TABLE_FACILITY_SERVICES_DESTINATION_LIST,
 } from '@perun-web-apps/config/table-config';
-import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { RemoveDestinationDialogComponent } from '../../../../shared/components/dialogs/remove-destination-dialog/remove-destination-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { AddServicesDestinationDialogComponent } from '../../../../shared/components/dialogs/add-services-destination-dialog/add-services-destination-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 
@@ -33,9 +32,9 @@ export class FacilityServicesDestinationsComponent implements OnInit {
               private servicesManager: ServicesManagerService,
               private translate: TranslateService,
               private notificator: NotificatorService,
-              private route: ActivatedRoute,
               private authResolver: GuiAuthResolver,
-              private serviceManager: ServicesManagerService) { }
+              private serviceManager: ServicesManagerService,
+              private entityStorageService: EntityStorageService) { }
 
   facility: Facility;
   destinations: RichDestination[];
@@ -54,15 +53,9 @@ export class FacilityServicesDestinationsComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.route.parent.params.subscribe(parentParams => {
-      const facilityId = parentParams['facilityId'];
-
-      this.facilitiesManager.getFacilityById(facilityId).subscribe(facility => {
-        this.facility = facility;
-
-        this.refreshTable();
-      });
-    });
+    this.facility = this.entityStorageService.getEntity();
+    this.setAuthRights();
+    this.refreshTable();
   }
 
   refreshTable() {

@@ -1,10 +1,10 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import {
   UpdateApplicationFormDialogComponent
 } from '../../../../../shared/components/dialogs/update-application-form-dialog/update-application-form-dialog.component';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import {TranslateService} from '@ngx-translate/core';
 import {
   ApplicationFormCopyItemsDialogComponent
@@ -37,20 +37,19 @@ export class VoSettingsApplicationFormComponent implements OnInit {
 
   constructor(
     private registrarManager: RegistrarManagerService,
-    protected route: ActivatedRoute,
     private dialog: MatDialog,
     private notificator: NotificatorService,
     private translate: TranslateService,
     private router: Router,
     private authResolver: GuiAuthResolver,
-    private voService: VosManagerService) {
+    private voService: VosManagerService,
+    private entityStorageService: EntityStorageService) {
   }
 
   loading = false;
   applicationForm: ApplicationForm;
   applicationFormItems: ApplicationFormItem[] = [];
   itemsChanged = false;
-  voId: number;
   vo: Vo;
 
   editAuth: boolean;
@@ -62,19 +61,13 @@ export class VoSettingsApplicationFormComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.route.parent.parent.params.subscribe(params => {
-      const voId = params['voId'];
-      this.voId = voId;
-      this.registrarManager.getVoApplicationForm(voId).subscribe( form => {
-        this.applicationForm = form;
-        this.registrarManager.getFormItemsForVo(voId).subscribe( formItems => {
-          this.applicationFormItems = formItems;
-          this.voService.getVoById(this.voId).subscribe(vo => {
-            this.vo = vo;
-            this.setAuthRights();
-            this.loading = false;
-          });
-        });
+    this.vo = this.entityStorageService.getEntity();
+    this.setAuthRights();
+    this.registrarManager.getVoApplicationForm(this.vo.id).subscribe(form => {
+      this.applicationForm = form;
+      this.registrarManager.getFormItemsForVo(this.vo.id).subscribe(formItems => {
+        this.applicationFormItems = formItems;
+        this.loading = false;
       });
     });
   }
@@ -104,7 +97,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
         config.width = '600px';
         config.height = '600px';
         config.data = {
-          voId: this.voId,
+          voId: this.vo.id,
           applicationFormItem: success[1],
           theme: 'vo-theme',
           allItems: this.applicationFormItems
@@ -119,7 +112,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
   copy() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {voId: this.voId, theme: 'vo-theme'};
+    config.data = {voId: this.vo.id, theme: 'vo-theme'};
 
     const dialog = this.dialog.open(ApplicationFormCopyItemsDialogComponent, config);
     dialog.afterClosed().subscribe( copyFrom => {
@@ -150,15 +143,16 @@ export class VoSettingsApplicationFormComponent implements OnInit {
   }
 
   preview() {
-    this.router.navigate(['/organizations', this.voId, 'settings', 'applicationForm', 'preview'],
+    this.router.navigate(['/organizations', this.vo.id, 'settings', 'applicationForm', 'preview'],
       {queryParams: {applicationFormItems: JSON.stringify(this.applicationFormItems)}});
   }
 
   updateFormItems() {
     this.loading = true;
-    this.registrarManager.getFormItemsForVo(this.voId).subscribe( formItems => {
+    this.registrarManager.getFormItemsForVo(this.vo.id).subscribe( formItems => {
       this.applicationFormItems = formItems;
       this.itemsChanged = false;
+      this.setAuthRights();
       this.loading = false;
     });
   }
@@ -176,7 +170,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
       }
     }
     // @ts-ignore
-    this.registrarManager.updateFormItemsForVo({vo: this.voId, items: this.applicationFormItems}).subscribe( () => {
+    this.registrarManager.updateFormItemsForVo({vo: this.vo.id, items: this.applicationFormItems}).subscribe( () => {
       this.translate.get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_APPLICATION_FORM_ITEMS_SUCCESS')
         .subscribe( successMessage => {
         this.notificator.showSuccess(successMessage);

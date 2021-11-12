@@ -6,7 +6,7 @@ import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { EditUserDialogComponent } from '../../../shared/components/dialogs/edit-user-dialog/edit-user-dialog.component';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-admin-user-detail-page',
@@ -21,7 +21,8 @@ export class AdminUserDetailPageComponent implements OnInit {
     private sideMenuService: SideMenuService,
     private sideMenuItemService: SideMenuItemService,
     private dialog: MatDialog,
-    public authResolver: GuiAuthResolver
+    public authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
   ) { }
 
   user: User;
@@ -34,6 +35,7 @@ export class AdminUserDetailPageComponent implements OnInit {
     this.loading = true;
     this.route.params.subscribe(params => {
       const userId = params['userId'];
+      this.entityStorageService.setEntity({id: userId, beanName: 'User'});
 
       this.path = `/admin/users/${userId}`;
       this.regex = `/admin/users/\\d+`;

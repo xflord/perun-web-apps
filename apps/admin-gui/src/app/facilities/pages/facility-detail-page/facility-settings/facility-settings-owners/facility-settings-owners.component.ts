@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FacilitiesManagerService, Facility, Owner } from '@perun-web-apps/perun/openapi';
-import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { AddFacilityOwnerDialogComponent } from '../../../../../shared/components/dialogs/add-facility-owner-dialog/add-facility-owner-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { RemoveFacilityOwnerDialogComponent } from '../../../../../shared/components/dialogs/remove-facility-owner-dialog/remove-facility-owner-dialog.component';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import {
   TABLE_FACILITY_OWNERS
 } from '@perun-web-apps/config/table-config';
@@ -18,7 +17,6 @@ import {
 })
 export class FacilitySettingsOwnersComponent implements OnInit {
 
-  facilityId: number;
   facility: Facility;
   owners: Owner[] = [];
   selection = new SelectionModel<Owner>(true, []);
@@ -31,30 +29,23 @@ export class FacilitySettingsOwnersComponent implements OnInit {
   removeAuth: boolean;
 
   constructor(private facilitiesManagerService: FacilitiesManagerService,
-              private route: ActivatedRoute,
               private dialog: MatDialog,
-              private authResolver: GuiAuthResolver) {
+              private authResolver: GuiAuthResolver,
+              private entityStorageService: EntityStorageService) {
   }
 
   ngOnInit(): void {
     this.filterValue = '';
-    this.route.parent.parent.params.subscribe(params => {
-      this.facilityId = parseInt(params['facilityId'], 10);
-      this.facility = {
-        id: this.facilityId,
-        beanName: 'Facility'
-      };
-
-      this.refreshTable();
-    });
+    this.facility = this.entityStorageService.getEntity();
+    this.setAuthRights();
+    this.refreshTable();
   }
 
   refreshTable() {
     this.loading = true;
     this.selection.clear();
-    this.facilitiesManagerService.getFacilityOwners(this.facilityId).subscribe(owners => {
+    this.facilitiesManagerService.getFacilityOwners(this.facility.id).subscribe(owners => {
       this.owners = owners;
-      this.setAuthRights();
       this.loading = false;
     });
   }
@@ -73,7 +64,7 @@ export class FacilitySettingsOwnersComponent implements OnInit {
   onCreate() {
     const config = getDefaultDialogConfig();
     config.width = '800px';
-    config.data = { theme: 'facility-theme', facilityId: this.facilityId, forbiddenOwners: this.owners.map(owner => owner.id) };
+    config.data = { theme: 'facility-theme', facilityId: this.facility.id, forbiddenOwners: this.owners.map(owner => owner.id) };
 
     const dialogRef = this.dialog.open(AddFacilityOwnerDialogComponent, config);
 
@@ -87,7 +78,7 @@ export class FacilitySettingsOwnersComponent implements OnInit {
   onRemove() {
     const config = getDefaultDialogConfig();
     config.width = '600px';
-    config.data = { theme: 'facility-theme', owners: this.selection.selected, facilityId: this.facilityId };
+    config.data = { theme: 'facility-theme', owners: this.selection.selected, facilityId: this.facility.id};
 
     const dialogRef = this.dialog.open(RemoveFacilityOwnerDialogComponent, config);
 

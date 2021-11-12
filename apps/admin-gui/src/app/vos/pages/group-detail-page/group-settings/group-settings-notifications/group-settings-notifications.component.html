@@ -1,9 +1,7 @@
 <h1 class="page-subtitle">
   {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.TITLE' | translate}}
 </h1>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto">
-</mat-spinner>
-<div *ngIf="!noApplicationForm && !loading">
+<div *ngIf="!noApplicationForm">
   <div class="w-100 d-flex">
     <button
       *ngIf="addAuth"
@@ -41,6 +39,8 @@
       {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.COPY_FROM_VO' | translate}}
     </button>
   </div>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto">
+  </mat-spinner>
 
   <app-notification-list
     *ngIf="!loading"
@@ -48,7 +48,7 @@
     [displayedColumns]="displayedColumns"
     [applicationMails]="applicationMails"
     [tableId]="tableId"
-    [groupId]="groupId"
+    [groupId]="group.id"
     [selection]="selection"
     [theme]="'group-theme'"
     (selectionChange)="changeSelection($event)">

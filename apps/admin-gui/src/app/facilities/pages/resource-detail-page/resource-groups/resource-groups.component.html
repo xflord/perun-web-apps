@@ -1,7 +1,7 @@
 <h1 class="page-subtitle">{{'RESOURCE_DETAIL.ASSIGNED_GROUPS.TITLE' | translate}}</h1>
 <perun-web-apps-refresh-button (refresh)="loadAllGroups()"></perun-web-apps-refresh-button>
 <button (click)="addGroup()"
-        *ngIf="!loadingResource && guiAuthResolver.isAuthorized('assignGroupsToResource_List<Group>_Resource_policy',[resource])"
+        *ngIf="guiAuthResolver.isAuthorized('assignGroupsToResource_List<Group>_Resource_policy',[resource])"
         class="action-button"
         color="accent"
         mat-flat-button>
@@ -32,7 +32,7 @@
   [filter]="filteredValue"
   [selection]="selected"
   [disableMembers]="false"
-  [resourceId]="resourceId"
+  [resourceId]="resource.id"
   [disableRouting]="assignedGroups[0] ? !guiAuthResolver.isAuthorized('getGroupById_int_policy', [assignedGroups[0]]) : false"
   [displayedColumns]="['select', 'id', 'indirectGroupAssigment', 'name', 'status', 'description']">
 </perun-web-apps-groups-list>
