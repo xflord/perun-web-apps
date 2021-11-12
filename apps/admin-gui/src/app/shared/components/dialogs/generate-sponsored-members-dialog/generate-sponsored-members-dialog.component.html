@@ -2,7 +2,7 @@
   <h1 mat-dialog-title>{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.TITLE' | translate}}</h1>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content class="dialog-container">
-    <mat-horizontal-stepper [linear]="true">
+    <mat-horizontal-stepper [linear]="true" *ngIf='state === "user-input"'>
       <mat-step [stepControl]="usersInfoFormGroup">
         <ng-template matStepLabel>{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.USERS_LABEL' | translate}}</ng-template>
         <app-alert alert_type="error" *ngIf="this.functionalityNotSupported">
@@ -213,5 +213,35 @@
         </div>
       </mat-step>
     </mat-horizontal-stepper>
+    <div *ngIf='state === "results"'>
+      <app-alert *ngIf='this.finishedWithErrors === false' [alert_type]="'success'">
+        {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.SUCCESS' | translate}}
+      </app-alert>
+      <app-alert *ngIf='this.finishedWithErrors' [alert_type]="'warn'">
+        {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.FINISHED_WITH_ERRORS' | translate}}
+      </app-alert>
+    </div>
+  </div>
+  <div mat-dialog-actions *ngIf='state === "results"'>
+    <button
+      mat-flat-button
+      (click)="onClose()">
+      {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.CLOSE' | translate}}
+    </button>
+    <button
+      mat-flat-button
+      color="accent"
+      class="ml-auto dropdown-toggle"
+      [matMenuTriggerFor]="menu">
+      {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DOWNLOAD' | translate}}
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)='generatePdf()'>
+        {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DOWNLOAD_PDF' | translate}}
+      </button>
+      <button mat-menu-item (click)='downloadCsv()'>
+        {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DOWNLOAD_CSV' | translate}}
+      </button>
+    </mat-menu>
   </div>
 </div>

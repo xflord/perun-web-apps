@@ -1887,7 +1887,12 @@
       "CREATE_NEW_GROUP": "Create new group",
       "SELECT_EXISTING_GROUPS": "Select from existing groups",
       "DONT_ASSIGN_INFO": "Created users will become members of this organization, but won't be assigned to any additional groups. You will be able to change this manually later.",
-      "NO_NAMESPACE_PASSWORD_INFO": "Generated members will not have a password."
+      "NO_NAMESPACE_PASSWORD_INFO": "Generated members will not have a password.",
+      "DOWNLOAD": "Download results",
+      "DOWNLOAD_PDF": "PDF",
+      "DOWNLOAD_CSV": "CSV",
+      "CLOSE": "Close",
+      "FINISHED_WITH_ERRORS": "Some of the members were not generated properly. See the results for more information."
     },
     "EDIT_MEMBER_SPONSORS": {
       "TITLE": "Edit sponsors of sponsored member",

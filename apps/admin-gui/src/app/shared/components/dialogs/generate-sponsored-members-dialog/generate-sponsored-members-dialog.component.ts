@@ -15,6 +15,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { TABLE_VO_GROUPS } from '@perun-web-apps/config/table-config';
 import { downloadData, emailRegexString } from '@perun-web-apps/perun/utils';
+import { SponsoredMembersPdfService } from '@perun-web-apps/perun/services';
 
 export interface GenerateSponsoredMembersDialogData {
   voId: number;
@@ -35,6 +36,8 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   namespaceOptions: string[] = [];
   namespaceRules: NamespaceRules[] = [];
   usersInfoFormGroup: FormGroup;
+
+  state: 'user-input' | 'results' = 'user-input';
 
   passwordReset = 'generate';
   groupAssignment = null;
@@ -57,6 +60,10 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   filterValue = '';
   tableId = TABLE_VO_GROUPS;
 
+  finishedWithErrors = false;
+
+  private resultData;
+
   private groupAttrNames = [
     Urns.GROUP_SYNC_ENABLED,
     Urns.GROUP_BLOCK_MANUAL_MEMBER_ADDING
@@ -71,7 +78,17 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
               private guiAuthResolver: GuiAuthResolver,
               private groupsService: GroupsManagerService,
               private attributesService: AttributesManagerService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private sponsoredMembersPDFService: SponsoredMembersPdfService) { }
+
+  private static didSomeGenerationFailed(resultData: any) {
+    for (const memberName of Object.keys(resultData)) {
+      if (resultData[memberName].status !== "OK") {
+        return true;
+      }
+    }
+    return false;
+  }
 
   ngOnInit(): void {
     this.loading = true;
@@ -212,15 +229,20 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
       inputSponsoredMembersFromCSV.namespace = this.usersInfoFormGroup.get('namespace').value;
     }
 
-    this.membersService.createSponsoredMembersFromCSV(inputSponsoredMembersFromCSV).subscribe(logins => {
-      downloadData(this.createOutputObjects(logins), 'csv', 'member-logins')
-      this.notificator.showSuccess(this.translate.instant('DIALOGS.GENERATE_SPONSORED_MEMBERS.SUCCESS'));
-      this.dialogRef.close(true);
+    this.membersService.createSponsoredMembersFromCSV(inputSponsoredMembersFromCSV).subscribe(resultData => {
+      this.state = 'results';
+      this.finishedWithErrors = GenerateSponsoredMembersDialogComponent.didSomeGenerationFailed(resultData);
+      this.loading = false;
+      this.resultData = resultData;
     }, () => this.loading = false);
   }
 
   onCancel() {
     this.dialogRef.close(false);
+  }
+
+  onClose() {
+    this.dialogRef.close(true);
   }
 
   parseMemberLine(line: string): string{
@@ -317,5 +339,22 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
 
   getSelectedNamespaceRules(): NamespaceRules {
     return this.namespaceRules.find(item => item.namespaceName === this.usersInfoFormGroup.get('namespace').value);
+  }
+
+  generatePdf() {
+    if (!this.resultData) {
+      throw new Error("Cannot generate pdf because there is no result");
+    }
+
+    this.loading = true;
+    this.sponsoredMembersPDFService.generate(this.resultData)
+      .then(() => this.loading = false);
+  }
+
+  downloadCsv() {
+    if (!this.resultData) {
+      throw new Error("Cannot generate pdf because there is no result");
+    }
+    downloadData(this.createOutputObjects(this.resultData), 'csv', 'member-logins')
   }
 }

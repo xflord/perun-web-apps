@@ -14,3 +14,5 @@ export {TableCheckbox} from './lib/table-checkbox.service';
 export { DynamicPaginatingService } from './lib/dynamic-paginating.service'
 export { DynamicDataSource } from './lib/dynamicDataSource'
 export { PreferredLanguageService } from './lib/preferred-language.service'
+export { SponsoredMembersPdfService } from './lib/sponsored-members-pdf.service';
+export { PDFService } from './lib/pdf.service';
