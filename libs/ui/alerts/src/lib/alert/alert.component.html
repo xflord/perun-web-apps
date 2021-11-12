@@ -2,6 +2,7 @@
   class="perun-alert d-flex align-items-flex-start"
   [class.warn-alert]="alert_type === 'warn'"
   [class.error-alert]="alert_type === 'error'"
+  [class.success-alert]="alert_type === 'success'"
   [class.info-alert]="alert_type === 'info'">
   <mat-icon *ngIf="alert_type === 'info'" class="perun-alert-icon">
     info
@@ -11,6 +12,9 @@
   </mat-icon>
   <mat-icon *ngIf="alert_type === 'error'" class="perun-alert-icon">
     dangerous
+  </mat-icon>
+  <mat-icon *ngIf="alert_type === 'success'" class="perun-alert-icon">
+    check_circle
   </mat-icon>
   <ng-content></ng-content>
 </div>

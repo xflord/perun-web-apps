@@ -31,3 +31,10 @@
   border-radius: 10px;
   background-color: #fedcda;
 }
+
+.perun-alert.success-alert {
+  text-align: left;
+  border: 1px #d7ffd7 solid;
+  border-radius: 10px;
+  background-color: #d7ffd7;
+}
