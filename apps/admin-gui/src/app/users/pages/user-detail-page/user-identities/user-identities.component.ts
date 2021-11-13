@@ -27,6 +27,7 @@ export class UserIdentitiesComponent implements OnInit {
   displayedColumns = ['select', 'id', 'extSourceName', 'login', 'lastAccess'];
   loading: boolean;
   tableId = TABLE_USER_IDENTITIES;
+  filterValue = '';
 
   constructor(private usersManagerService: UsersManagerService,
               private storage: StoreService,
@@ -54,7 +55,7 @@ export class UserIdentitiesComponent implements OnInit {
 
   addIdentity() {
     const config = getDefaultDialogConfig();
-    config.width = '400px';
+    config.width = '1000px';
     config.data = { userId: this.userId };
     const dialogRef = this.dialog.open(AddUserExtSourceDialogComponent, config);
     dialogRef.afterClosed().subscribe(success => {
@@ -66,7 +67,7 @@ export class UserIdentitiesComponent implements OnInit {
 
   removeIdentity() {
     const config = getDefaultDialogConfig();
-    config.width = '400px';
+    config.width = '450px';
     config.data = {
       showSuccess: true,
       theme: 'user-theme',
@@ -79,5 +80,9 @@ export class UserIdentitiesComponent implements OnInit {
         this.refreshTable();
       }
     });
+  }
+
+  applyFilter(filterValue: string) {
+    this.filterValue = filterValue;
   }
 }

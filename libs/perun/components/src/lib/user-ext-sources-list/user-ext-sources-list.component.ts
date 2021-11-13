@@ -91,7 +91,7 @@ export class UserExtSourcesListComponent implements OnInit, OnChanges {
       case 'lastAccess':
         return  data.userExtSource.lastAccess.split('.')[0];
       default:
-        return '';
+        return data[column];
     }
   }
 

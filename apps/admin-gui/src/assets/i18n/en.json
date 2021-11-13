@@ -1566,10 +1566,10 @@
       "ADD_BUTTON": "Assign groups"
     },
     "ADD_USER_EXT_SOURCE": {
-      "TITLE": "Add user ext source",
+      "TITLE": "Add Identity",
       "ADD": "Add",
       "CANCEL": "Cancel",
-      "SUCCESS": "User external source has been added",
+      "SUCCESS": "User identity has been added",
       "LOGIN": "Login",
       "EXT_SOURCE": "External source",
       "EMPTY_LOGIN": "Login cannot be empty",
@@ -2197,7 +2197,8 @@
     "IDENTITIES": {
       "TITLE": "Identities",
       "ADD": "Add",
-      "REMOVE": "Remove"
+      "REMOVE": "Remove",
+      "FILTER_PLACEHOLDER": "Filter"
     },
     "FACILITIES": {
       "TITLE": "Facilities",
@@ -2568,12 +2569,12 @@
           "SUCCESS2": " was created."
         },
         "REMOVE_USER_EXT_SOURCE": {
-          "TITLE": "Remove user's external identity",
-          "DESCRIPTION": "Following external identity will be removed",
+          "TITLE": "Remove user's identity",
+          "DESCRIPTION": "Following identity will be removed",
           "ASK": "Are you sure you want to continue?",
           "CANCEL": "Cancel",
           "REMOVE": "Remove",
-          "SUCCESS": "User external source successfully removed"
+          "SUCCESS": "User identity successfully removed"
         },
         "CHANGE_PASSWORD_DIALOG": {
           "TITLE": "Change password",

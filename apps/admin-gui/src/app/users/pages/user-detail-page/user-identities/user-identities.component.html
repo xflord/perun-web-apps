@@ -16,6 +16,10 @@
   mat-flat-button>
   {{'USER_DETAIL.IDENTITIES.REMOVE'|translate}}
 </button>
+<perun-web-apps-immediate-filter
+  (filter)="applyFilter($event)"
+  [placeholder]="'USER_DETAIL.IDENTITIES.FILTER_PLACEHOLDER'">
+</perun-web-apps-immediate-filter>
 <div class="admin-theme">
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 </div>
@@ -23,6 +27,7 @@
 <div *ngIf="!loading">
   <perun-web-apps-user-ext-sources-list
     [displayedColumns]="displayedColumns"
+    [filterValue]="filterValue"
     [selection]="selection"
     [userExtSources]="userExtSources"
     [tableId]="tableId"
