@@ -37,8 +37,7 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
   theme: string;
 
   resource: Resource;
-  unAssignedGroups: Group[];
-  checkGroups = false;
+  unAssignedGroups: Group[] = [];
   async = true;
   autoAssignSubgroups = false;
   asActive = true;
@@ -60,12 +59,10 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
     this.asyncHint = this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_ON_HINT');
     this.resourceManager.getAssignedGroups(this.resource.id).subscribe(assignedGroups => {
       this.groupService.getAllGroups(this.resource.voId).subscribe(allGroups => {
-        this.unAssignedGroups = allGroups;
-        for (const assignedGroup of assignedGroups) {
-          for (const allGroup of allGroups) {
-            if (assignedGroup.id === allGroup.id) {
-              this.unAssignedGroups.splice(this.unAssignedGroups.indexOf(allGroup), 1);
-            }
+        for (const allGroup of allGroups) {
+          if (assignedGroups.findIndex(item => item.id === allGroup.id) === -1
+            && this.guiAuthResolver.isAuthorized('assignGroupsToResource_List<Group>_Resource_policy',[this.resource, allGroup])) {
+            this.unAssignedGroups.push(allGroup);
           }
         }
         this.loading = false;
@@ -79,23 +76,20 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
   }
 
   onAdd() {
-    if (this.checkGroups) {
-      //TODO when checkbox is checked
-    } else {
-      this.loading = true;
-      const addedGroups: number[] = [];
-      for (const group of this.selection.selected) {
-        addedGroups.push(group.id);
-      }
-
-      this.resourceManager.assignGroupsToResource(addedGroups, this.resource.id, this.async, !this.asActive, this.autoAssignSubgroups)
-        .subscribe(() => {
-          this.translate.get('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.SUCCESS_MESSAGE').subscribe(message => {
-            this.notificator.showSuccess(message);
-            this.dialogRef.close(true);
-          });
-      }, () => this.loading = false);
+    this.loading = true;
+    const addedGroups: number[] = [];
+    for (const group of this.selection.selected) {
+      addedGroups.push(group.id);
     }
+
+    this.resourceManager.assignGroupsToResource(addedGroups, this.resource.id, this.async, !this.asActive, this.autoAssignSubgroups)
+      .subscribe(() => {
+        this.translate.get('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.SUCCESS_MESSAGE').subscribe(message => {
+          this.notificator.showSuccess(message);
+          this.dialogRef.close(true);
+        });
+    }, () => this.loading = false);
+
   }
 
   applyFilter(filterValue: string) {

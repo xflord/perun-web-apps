@@ -1,7 +1,7 @@
 <h1 class="page-subtitle">{{'RESOURCE_DETAIL.ASSIGNED_GROUPS.TITLE' | translate}}</h1>
 <perun-web-apps-refresh-button (refresh)="loadAllGroups()"></perun-web-apps-refresh-button>
 <button (click)="addGroup()"
-        *ngIf="guiAuthResolver.isAuthorized('assignGroupsToResource_List<Group>_Resource_policy',[resource])"
+        *ngIf="guiAuthResolver.isAuthorized('getAllGroups_Vo_policy',[resource])"
         class="action-button"
         color="accent"
         mat-flat-button>

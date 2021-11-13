@@ -9,11 +9,6 @@
           placeholder="{{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.FILTER_DESCRIPTION' | translate}}"
           (filter)="applyFilter($event)">
         </perun-web-apps-debounce-filter>
-        <!-- first do the functionality to this checkbox then you can show it<mat-checkbox-->
-        <!--      color="primary"-->
-        <!--      [(ngModel)]="checkGroups">-->
-        <!--      {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.CONFIGURE_GROUPS' | translate}}-->
-        <!--    </mat-checkbox>-->
         <perun-web-apps-groups-list
           [tableId]="tableId"
           [groups]="unAssignedGroups"
