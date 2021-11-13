@@ -65,7 +65,7 @@
   },
   "FACILITY_MANAGEMENT": {
     "TITLE": "Select facility",
-    "FILTER_PLACEHOLDER": "Filter by name, id, description, owner, host or destination",
+    "FILTER_PLACEHOLDER": "Filter by name, Id, description, owner, host or destination",
     "CREATE": "Create",
     "DELETE": "Delete"
   },
@@ -106,7 +106,7 @@
       "TABLE_GROUP_ID": "Id",
       "TABLE_GROUP_NAME": "Name",
       "ALL": "All",
-      "FILTER": "Filter by name, id or description"
+      "FILTER": "Filter by name, Id or description"
     },
     "SERVICES_DESTINATIONS": {
       "TITLE": "Services Destinations",
@@ -124,7 +124,7 @@
       "ATTRIBUTES": {
         "TITLE": "Attributes",
         "DELETE": "Remove selected",
-        "FILTER": "Filter by id, name, value or description",
+        "FILTER": "Filter by Id, name, value or description",
         "SAVE": "Save selected",
         "CREATE": "Add",
         "CANCEL": "Cancel",
@@ -184,7 +184,7 @@
     "TASK_RESULTS": {
       "TITLE": "Task results",
       "REMOVE": "Remove",
-      "FILTER": "Filter by id, destination, service or status"
+      "FILTER": "Filter by Id, destination, service or status"
     }
   },
   "RESOURCE_DETAIL": {
@@ -216,7 +216,7 @@
       "ADD_BUTTON": "Add",
       "REMOVE_BUTTON": "Remove",
       "CANCEL": "Cancel",
-      "SEARCH": "Filter by ID or name",
+      "SEARCH": "Filter by Id or name",
       "NO_TAGS": "No resource tags.",
       "REMOVE_TAGS_DIALOG_TITLE": "Remove tags",
       "REMOVE_TAGS_DIALOG_DESCRIPTION": "Following tags will be removed from the resource.",
@@ -228,7 +228,7 @@
       "ATTRIBUTES": {
         "TITLE": "Attributes",
         "DELETE": "Remove selected",
-        "FILTER": "Filter by id, name, value or description",
+        "FILTER": "Filter by Id, name, value or description",
         "SAVE": "Save selected",
         "CREATE": "Add",
         "CANCEL": "Cancel",
@@ -257,7 +257,7 @@
         "NOT_YET": "Not yet",
         "NO_RESOURCES_IN_ERROR": "No resources with task in error state",
         "NO_RESOURCES_IN_OK": "No resources with task in success state",
-        "TABLE_ID": "Task Id",
+        "TABLE_ID": "Id",
         "TABLE_SERVICE": "Service",
         "TABLE_STATUS": "Status",
         "TABLE_SCHEDULED": "Scheduled",
@@ -266,13 +266,13 @@
       },
       "TAGS": {
         "TITLE": "Resource tags",
-        "TAG_ID": "Tag ID",
+        "TAG_ID": "Id",
         "TAG_NAME": "Tag name",
         "CREATE_BUTTON": "Create",
         "DELETE_BUTTON": "Delete",
         "EDIT_BUTTON": "Edit",
         "SAVE_BUTTON": "Save",
-        "SEARCH": "Filter by ID or name",
+        "SEARCH": "Filter by Id or name",
         "DELETE_SUCCESS": "Resource tags were successfully deleted.",
         "CREATE_SUCCESS": "Resource tag was successfully created.",
         "NO_TAGS": "Organization has no resource tags defined."
@@ -435,7 +435,7 @@
       "ATTRIBUTES": {
         "TITLE": "Attributes",
         "DELETE": "Remove selected",
-        "FILTER": "Filter by id, name, value or description",
+        "FILTER": "Filter by Id, name, value or description",
         "SAVE": "Save selected",
         "CREATE": "Add",
         "CANCEL": "Cancel",
@@ -448,7 +448,7 @@
         "REMOVE": "Remove",
         "EMAIL_FOOTER": "E-mail footer",
         "COPY_FROM_VO": "Copy from organization",
-        "TABLE_EMAIL_ID": "E-Mail ID",
+        "TABLE_EMAIL_ID": "Id",
         "TABLE_EMAIL_TYPE": "E-Mail type",
         "TABLE_APPLICATION_TYPE": "Application type",
         "TABLE_SENDING_ENABLED": "Sending enabled",
@@ -471,7 +471,7 @@
         "TITLE": "External sources",
         "ADD": "Add",
         "REMOVE": "Remove",
-        "FILTER": "Filter by ID, name or type",
+        "FILTER": "Filter by Id, name or type",
         "SUCCESS_REMOVED": "External source successfully removed: "
       },
       "SPONSORED_MEMBERS": {
@@ -479,13 +479,13 @@
         "CREATE": "Create",
         "CREATE_ONE": "Create sponsored member",
         "GENERATE": "Generate sponsored members",
-        "FILTER": "Filter by name or ID",
+        "FILTER": "Filter by name or Id",
         "SPONSOR_EXISTING": "Sponsor existing member",
         "NO_SPONSORS": "This organization has no members with the role SPONSOR"
       },
       "SERVICE_MEMBERS": {
         "TITLE": "Service accounts",
-        "FILTER": "Filter by name or id",
+        "FILTER": "Filter by name or Id",
         "CREATE": "Create",
         "DELETE": "Remove"
       }
@@ -500,7 +500,7 @@
       "SELECTION_APPROVED": "Approved",
       "SELECTION_REJECTED": "Rejected",
       "SHOW_GROUP_APPLICATIONS": "Show group applications",
-      "TABLE_ID": "App ID",
+      "TABLE_ID": "Id",
       "TABLE_CREATED_DATE": "Created Date",
       "TABLE_TYPE": "Type",
       "TABLE_STATE": "State",
@@ -509,8 +509,8 @@
       "TABLE_LOA": "LoA",
       "TABLE_GROUP_NAME": "Group name",
       "TABLE_MODIFIED_BY": "Modified by",
-      "TABLE_VO_ID": "Organiztion Id",
-      "TABLE_GROUP_ID": "Group ID",
+      "TABLE_VO_ID": "Organization Id",
+      "TABLE_GROUP_ID": "Group Id",
       "TABLE_FEDINFO": "FedInfo",
       "TABLE_EXTSOURCENAME": "extSourceName",
       "TABLE_EXTSOURCETYPE": "extSourceType",
@@ -552,7 +552,7 @@
         "VALUE_BY_EXTERNALS": "Value provided by external source.",
         "VERIFY": "Verify",
         "DELETE_APPLICATION_TITLE": "Delete application",
-        "DELETE_APPLICATION_DESCRIPTION": "Application with following ID will be deleted.",
+        "DELETE_APPLICATION_DESCRIPTION": "Application with following Id will be deleted.",
         "DELETE_MESSAGE": "Application was deleted",
         "APPROVE_MESSAGE": "Application was approved",
         "VERIFY_MESSAGE": "Application was verified"
@@ -606,7 +606,7 @@
       "ATTRIBUTES": {
         "TITLE": "Attributes",
         "DELETE": "Remove selected",
-        "FILTER": "Filter by id, name, value or description",
+        "FILTER": "Filter by Id, name, value or description",
         "SAVE": "Save selected",
         "CREATE": "Add",
         "CANCEL": "Cancel",
@@ -665,7 +665,7 @@
         "TITLE": "Relations",
         "DELETE": "Remove selected",
         "CREATE": "Add",
-        "FILTER": "Filter by name, id or description",
+        "FILTER": "Filter by name, Id or description",
         "REVERSE_UNIONS": "Show reverse unions",
         "DELETE_TOOLTIP": "You don't have permission to remove some of the selected relations."
       },
@@ -673,7 +673,7 @@
         "TITLE": "External sources",
         "ADD": "Add",
         "REMOVE": "Remove",
-        "FILTER": "Filter by ID, name or type",
+        "FILTER": "Filter by Id, name or type",
         "SUCCESS_REMOVED": "External source successfully removed: "
       }
     },
@@ -685,7 +685,7 @@
   },
   "MEMBER_DETAIL": {
     "ENTITY": "Member",
-    "USER_ID": "User ID",
+    "USER_ID": "User Id",
     "USER_LINK": "See user detail",
     "OVERVIEW": {
       "NEVER_EXPIRES": "never",
@@ -725,7 +725,7 @@
       "ATTRIBUTES": {
         "TITLE": "Attributes",
         "DELETE": "Remove selected",
-        "FILTER": "Filter by id, name, value or description",
+        "FILTER": "Filter by Id, name, value or description",
         "SAVE": "Save selected",
         "CREATE": "Add",
         "CANCEL": "Cancel",
@@ -770,7 +770,7 @@
     },
     "DESTINATIONS": {
       "TITLE": "Service destinations",
-      "FILTER": "Filter by id, facility or destination",
+      "FILTER": "Filter by Id, facility or destination",
       "ALLOW": "Allow",
       "BLOCK": "Block",
       "REMOVE": "Remove",
@@ -1056,7 +1056,7 @@
       "COUNT": "Count",
       "NO_GROUPS_FOUND": "No groups found",
       "SELECT_VO": "Select organization",
-      "FILTER_GROUPS": "Filter groups by id, name or description"
+      "FILTER_GROUPS": "Filter groups by Id, name or description"
     },
     "REMOVE_GROUPS": {
       "TITLE": "Confirm removal",
@@ -1267,7 +1267,7 @@
       "APPLICATION_LINKS_ADMINISTRATOR_SECTION": "Application GUI links for administrators",
       "PERUN_LINKS_ADMINISTRATOR_SECTION": "Perun GUI links for administrators",
       "USER_INVITATIONS_SECTION": "User invitations",
-      "APPID_DESCRIPTION": "application ID",
+      "APPID_DESCRIPTION": "application Id",
       "ACTOR_DESCRIPTION": "user's login used when submitting application",
       "EXTSOURCE_DESCRIPTION": "user's identity provider when submitting an application",
       "VONAME_DESCRIPTION": "name of organization of application form",
@@ -1472,7 +1472,7 @@
     },
     "ADD_EXT_SOURCES": {
       "TITLE": "Add external sources",
-      "FILTER": "Filter by ID, name or type",
+      "FILTER": "Filter by Id, name or type",
       "CANCEL": "Cancel",
       "ADD": "Add",
       "SUCCESS_ADDED": "External sources were successfully added"
@@ -1539,7 +1539,7 @@
     },
     "ADD_GROUP_RESOURCES": {
       "TITLE": "Assign resources",
-      "FILTER": "Filter by ID, name or description",
+      "FILTER": "Filter by Id, name or description",
       "CANCEL": "Cancel",
       "ADD": "Assign resources",
       "ADD_PERMISSION_TOOLTIP": "You don't have permission to assign some of the selected resources.",
@@ -1597,7 +1597,7 @@
     },
     "ADD_OWNERS": {
       "TITLE": "Add facility owners",
-      "FILTER": "Filter by id, name, contact or type",
+      "FILTER": "Filter by Id, name, contact or type",
       "CANCEL": "Cancel",
       "ADD": "Add",
       "SUCCESS": "Owners were successfully added"
@@ -1775,7 +1775,7 @@
       "DESCRIPTION": "Following task results will be removed.",
       "ASK": "Do you want to proceed?",
       "SUCCESS": "Task results were successfully removed",
-      "RESULT_ID": "Result id",
+      "RESULT_ID": "Id",
       "DESTINATION": "Destination",
       "TIME": "Time"
     },
@@ -1814,7 +1814,6 @@
       "TITLE_BEFORE": "Title before",
       "TITLE_AFTER": "Title after",
       "NAMESPACE": "Namespace",
-      "SPONSOR_ID": "Sponsor ID",
       "CANCEL": "Cancel",
       "OK": "Ok",
       "CREATE": "Create",
@@ -1897,7 +1896,7 @@
     "EDIT_MEMBER_SPONSORS": {
       "TITLE": "Edit sponsors of sponsored member",
       "EXPIRATION": "Sponsorship expiration",
-      "TABLE_ID": "id",
+      "TABLE_ID": "Id",
       "TABLE_NAME": "name",
       "TABLE_EXPIRATION": "expiration",
       "CANCEL": "Close",
@@ -1997,7 +1996,7 @@
       "ISSUER_DN": "Issuer DN",
       "ASSOCIATE_USERS": "Associate real users",
       "ASSOCIATED_USERS": "To be associated:",
-      "SEARCH_PLACEHOLDER": "Search members by id or name",
+      "SEARCH_PLACEHOLDER": "Search members by Id or name",
       "SEARCH_INFO": "Search for members to be added:",
       "SET_PASSWORD": "Set password",
       "ADD_USER": "Add",
@@ -2051,7 +2050,7 @@
     "ADDING_BLOCKED": "Manual adding of users outside of the organization is blocked."
   },
   "MANAGERS_LIST": {
-    "ID": "User ID",
+    "ID": "Id",
     "NAME": "Name",
     "ORGANIZATION": "Organization",
     "EMAIL": "Email",
@@ -2060,7 +2059,7 @@
     "SERVICE": "Service"
   },
   "AUDIT_MESSAGES_LIST": {
-    "ID": "Message ID",
+    "ID": "Id",
     "TIMESTAMP": "Created at",
     "EVENT_NAME": "Event name",
     "ACTOR": "Actor",
@@ -2085,7 +2084,7 @@
       "CREATE": "New attribute definition",
       "IMPORT": "Import",
       "DELETE": "Delete",
-      "SEARCH": "Filter by ID, name, entity, definition, or type",
+      "SEARCH": "Filter by Id, name, entity, definition, or type",
       "NO_ATTRIBUTES": "There are no attributes available."
     },
     "USERS": {
@@ -2142,7 +2141,7 @@
     "EXT_SOURCES": {
       "TITLE": "External sources",
       "LOAD": "Load External sources",
-      "SEARCH": "Search by ID, Name or Type",
+      "SEARCH": "Search by Id, Name or Type",
       "LOAD_SUCCESS": "External sources successfully loaded"
     },
     "SERVICES": {
@@ -2202,7 +2201,7 @@
     },
     "FACILITIES": {
       "TITLE": "Facilities",
-      "FILTER_PLACEHOLDER": "Filter by id, name or description"
+      "FILTER_PLACEHOLDER": "Filter by Id, name or description"
     },
     "RESOURCES": {
       "TITLE": "Resources"
@@ -2211,7 +2210,7 @@
       "TITLE": "Accounts",
       "STATUS": "Status",
       "GROUPS": "Member groups",
-      "MEMBER": "Member ID",
+      "MEMBER": "Member Id",
       "MEMBER_ATT": "Member attributes",
       "MEMBER_GROUP_ATT": "Member-Group attributes",
       "MEMBER_RESOURCE_ATT": "Member-Resource attributes",
@@ -2221,7 +2220,7 @@
       "ATTRIBUTES": {
         "TITLE": "Attributes",
         "DELETE": "Remove selected",
-        "FILTER": "Filter by id, name, value or description",
+        "FILTER": "Filter by Id, name, value or description",
         "SAVE": "Save selected",
         "CREATE": "Add",
         "CANCEL": "Cancel",
@@ -2255,7 +2254,7 @@
         "EDIT_SUCCESS": "Resource tag was successfully edited."
       },
       "USERS_LIST": {
-        "TABLE_SEARCH": "Filter by name or ID"
+        "TABLE_SEARCH": "Filter by name or Id"
       },
       "REFRESH_BUTTON": {
         "TOOLTIP": "Refresh"
@@ -2273,14 +2272,14 @@
         "NO_AVAILABLE_ROLES": "This entity has no available manager roles or you don't have privileges to manage them"
       },
       "EXT_SOURCES_LIST": {
-        "ID": "ID",
+        "ID": "Id",
         "NAME": "Name",
         "TYPE": "Type",
         "NO_EXT_SOURCES": "No external sources",
         "NO_FILTER_RESULTS": "No external sources are matching your query"
       },
       "SERVICES_LIST": {
-        "ID": "Service Id",
+        "ID": "Id",
         "NAME": "Name",
         "ENABLED": "Enabled",
         "SCRIPT": "Script",
@@ -2305,22 +2304,22 @@
           "YOU_ARE_ADMIN": "Groups where you are admin",
           "USER_IS_MEMBER": "Groups where user is member",
           "USER_IS_ADMIN": "Groups where user is admin",
-          "FILTER": "Filter by name or ID"
+          "FILTER": "Filter by name or Id"
         }
       },
       "HOSTS_LIST": {
-        "TABLE_HOST_ID": "Host ID",
+        "TABLE_HOST_ID": "Id",
         "TABLE_HOST_NAME": "Host name",
         "NO_HOST_WARNING": "No hosts found"
       },
       "BLACKLIST_LIST": {
-        "USER_ID": "User ID",
+        "USER_ID": "Id",
         "NAME": "Name",
         "REASON": "Reason",
         "NO_BANS_WARNING": "No bans found"
       },
       "SECURITY_TEAMS_LIST": {
-        "ID": "id",
+        "ID": "Id",
         "NAME": "name",
         "DESCRIPTION": "description",
         "NO_SECURITY_TEAMS_WARNING": "No security teams found"
@@ -2333,7 +2332,7 @@
         "PASSWORD_RESET": "Reset password"
       },
       "DESTINATIONS_LIST": {
-        "DESTINATION_ID": "Destination ID",
+        "DESTINATION_ID": "Id",
         "SERVICE": "Service",
         "FACILITY": "Facility",
         "DESTINATION": "Destination",
@@ -2420,7 +2419,7 @@
           "TABLE_GROUP_ID": "Id",
           "TABLE_VO_NAME": "Organization",
           "TABLE_GROUP_NAME": "Name",
-          "TABLE_SEARCH": "Filter by name, description or ID",
+          "TABLE_SEARCH": "Filter by name, description or Id",
           "TABLE_GROUP_DESCRIPTION": "Description",
           "TABLE_GROUP_EXPIRATION": "Expiration",
           "TABLE_GROUP_STATUS": "Status",
@@ -2463,7 +2462,7 @@
         "RESOURCES_LIST": {
           "TITLE": "Resources",
           "DELETE": "Remove selected",
-          "TABLE_RESOURCE_ID": "id",
+          "TABLE_RESOURCE_ID": "Id",
           "TABLE_RESOURCE_NAME": "Name",
           "TABLE_VO_NAME": "Organization",
           "TABLE_FACILITY_NAME": "Facility name",
@@ -2515,7 +2514,7 @@
           }
         },
         "ATTRIBUTES_LIST": {
-          "FILTER": "Filter attributes by id, name, value or description",
+          "FILTER": "Filter attributes by Id, name, value or description",
           "ID": "Id",
           "NAME": "Name",
           "VALUE": "Value",
@@ -2531,7 +2530,7 @@
           "NO_ITEM_FOUND": "No matching attribute found"
         },
         "USER_DONT_EXIST": {
-          "TITLE": "The requested user (by ID or external identity) doesn't exist."
+          "TITLE": "The requested user (by Id or external identity) doesn't exist."
         },
         "TABLE_OPTIONS": {
           "EXPORT_TO_FILE": "Export to file"
@@ -2565,7 +2564,7 @@
           "MESSAGE_ERROR": "Please tell us something about the problem.",
           "CANCEL": "Cancel",
           "SEND": "Send",
-          "SUCCESS1": "Ticket with ID: ",
+          "SUCCESS1": "Ticket with Id: ",
           "SUCCESS2": " was created."
         },
         "REMOVE_USER_EXT_SOURCE": {
@@ -2606,8 +2605,8 @@
           "COPY": "Copy to clipboard"
         },
         "SERVICES_STATUS_LIST": {
-          "TABLE_SEARCH": "Filter by service name, id or state",
-          "TASK_ID": "Task ID",
+          "TABLE_SEARCH": "Filter by service name, Id or state",
+          "TASK_ID": "Id",
           "SERVICE_NAME": "Service",
           "STATUS": "Status",
           "BLOCKED": "Blocked",
@@ -2617,7 +2616,7 @@
           "NOT_YET": "NOT YET"
         },
         "TASK_RESULTS_LIST": {
-          "RESULT_ID": "Result id",
+          "RESULT_ID": "Id",
           "DESTINATION": "Destination",
           "TYPE": "Type",
           "SERVICE": "Service",
@@ -2711,7 +2710,7 @@
       },
       "ORGANIZATIONS": {
         "TITLE": "User organizations",
-        "FILTER": "Filter by name or ID",
+        "FILTER": "Filter by name or Id",
         "YOU_ARE_ADMIN": "Organizations where you are admin",
         "YOU_ARE_MEMBER": "Organizations where you are member",
         "USER_IS_ADMIN": "Organizations where user is admin",
