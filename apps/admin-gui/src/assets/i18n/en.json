@@ -856,7 +856,7 @@
     "ADMIN": {
       "TITLE": "Perun admin",
       "OVERVIEW": "Overview",
-      "ATTRIBUTES": "Attributes",
+      "ATTRIBUTES": "Attribute definitions",
       "VISUALIZER": "Visualizer",
       "USERS": "Users",
       "EXT_SOURCES": "External sources",
