@@ -2738,7 +2738,8 @@
         "NO_FILTER_RESULTS_ALERT": "No results match the given search criteria.",
         "NO_MEMBERS": "No members found",
         "NO_USERS": "No users found.",
-        "NO_FACILITIES": "No facilities found."
+        "NO_FACILITIES": "No facilities found.",
+        "NO_AUDIT_MESSAGES": "No audit messages found."
       }
     }
   }

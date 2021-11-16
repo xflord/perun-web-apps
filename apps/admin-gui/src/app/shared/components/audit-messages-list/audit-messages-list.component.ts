@@ -8,7 +8,8 @@ import {
 } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { AuditMessageDetailDialogComponent } from '../dialogs/audit-message-detail-dialog/audit-message-detail-dialog.component';
-import { DynamicDataSource, DynamicPaginatingService } from '@perun-web-apps/perun/services';
+import { CustomMatPaginator, DynamicDataSource, DynamicPaginatingService } from '@perun-web-apps/perun/services';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -18,7 +19,11 @@ import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-audit-messages-list',
   templateUrl: './audit-messages-list.component.html',
-  styleUrls: ['./audit-messages-list.component.scss']
+  styleUrls: ['./audit-messages-list.component.scss'],
+  providers: [{
+    provide: MatPaginatorIntl,
+    useClass: CustomMatPaginator
+  }]
 })
 export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewInit {
 
