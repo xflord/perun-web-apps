@@ -201,7 +201,6 @@ export class CreateServiceMemberDialogComponent implements OnInit {
   }
 
   setPassword(member: Member, generateRandom: boolean) {
-    const login = this.secondFormGroup.get('loginCtrl').value;
     const namespace = this.secondFormGroup.get('namespaceCtrl').value.toLowerCase();
     const password = this.secondFormGroup.get('passwordCtrl').value;
     if (generateRandom) {
@@ -221,8 +220,8 @@ export class CreateServiceMemberDialogComponent implements OnInit {
         this.dialogRef.close(true);
       });
     } else {
-      this.usersManagerService.reservePasswordForLogin(login, namespace, password).subscribe(() => {
-        this.usersManagerService.validatePasswordForLogin(login, namespace).subscribe(() => {
+      this.usersManagerService.reservePasswordForUser(member.userId, namespace, password).subscribe(() => {
+        this.usersManagerService.validatePasswordForUser(member.userId, namespace).subscribe(() => {
          this.validateMember(member.id);
         }, () => {
           this.processing = false;
