@@ -2022,9 +2022,11 @@
     "AUDIT_MESSAGE_DETAIL": {
       "TITLE": "Audit message detail",
       "CLOSE": "Close",
-      "NAME": "Event name",
+      "ACTOR": "Actor",
+      "CREATED_AT": "Created at",
+      "OBJECTS": "Objects",
       "MESSAGE": "Message",
-      "ADDITIONAL_INFO": "Additional info"
+      "COPY": "Copy"
     }
   },
   "MEMBERS_LIST": {

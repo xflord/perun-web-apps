@@ -74,6 +74,8 @@ export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewI
   viewDetails(auditMessage: AuditMessage){
     const config = getDefaultDialogConfig();
     const tmp = JSON.parse(JSON.stringify(auditMessage));
+    config.minWidth = "700px";
+    config.maxWidth = "1000px";
     config.data = {
       message: tmp
     };
