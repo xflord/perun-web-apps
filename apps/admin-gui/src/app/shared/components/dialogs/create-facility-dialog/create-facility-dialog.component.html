@@ -33,6 +33,9 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <app-alert alert_type="info">
+      <i [innerHTML]="'DIALOGS.CREATE_FACILITY.HINT' | translate"></i>
+    </app-alert>
   </div>
   <div mat-dialog-actions>
     <button
@@ -43,8 +46,15 @@
       mat-flat-button
       class="ml2"
       [disabled]="nameControl.value.trim().length === 0 || loading"
-      (click)="onCreate()"
+      (click)="onCreate(false)"
       color="accent">{{"DIALOGS.CREATE_FACILITY.CREATE" | translate}}</button>
+    <button
+      mat-flat-button
+      class="ml2"
+      [disabled]="nameControl.value.trim().length === 0 || !!srcFacility || loading"
+      (click)="onCreate(true)"
+      color="accent">{{"DIALOGS.CREATE_FACILITY.CREATE_AND_CONFIGURE" | translate}}
+    </button>
   </div>
 </div>
 

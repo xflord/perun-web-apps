@@ -53,6 +53,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
 
   private sort: MatSort;
 
+  @Input()
   displayedColumns: string[] = ['select', 'id', 'displayName', 'value', 'description'];
   dataSource: MatTableDataSource<Attribute>;
 

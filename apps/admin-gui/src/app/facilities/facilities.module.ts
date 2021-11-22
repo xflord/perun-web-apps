@@ -44,6 +44,11 @@ import { ResourceAssignedMembersComponent } from './pages/resource-detail-page/r
 import { FacilityTaskResultsComponent } from './pages/facility-detail-page/facility-service-status/facility-task-results/facility-task-results.component';
 import { UsersModule } from '../users/users.module';
 import { ResourceTagsComponent } from './pages/resource-detail-page/resource-tags/resource-tags.component';
+import { FacilityConfigurationPageComponent } from './pages/facility-configuration-page/facility-configuration-page.component';
+import { AdminModule } from '../admin/admin.module';
+import { NoServiceDialogComponent } from './components/no-service-dialog/no-service-dialog.component';
+import { ConfigUnsavedDialogComponent } from './components/config-unsaved-dialog/config-unsaved-dialog.component';
+import { CancelConfigurationDialogComponent } from './components/cancel-configuration-dialog/cancel-configuration-dialog.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +80,11 @@ import { ResourceTagsComponent } from './pages/resource-detail-page/resource-tag
     FacilityAllowedUsersComponent,
     ResourceAssignedMembersComponent,
     FacilityTaskResultsComponent,
-    ResourceTagsComponent
+    ResourceTagsComponent,
+    FacilityConfigurationPageComponent,
+    NoServiceDialogComponent,
+    ConfigUnsavedDialogComponent,
+    CancelConfigurationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -84,7 +93,8 @@ import { ResourceTagsComponent } from './pages/resource-detail-page/resource-tag
     UiAlertsModule,
     PerunSharedComponentsModule,
     PerunPipesModule,
-    UsersModule
+    UsersModule,
+    AdminModule
   ],
   providers: [
     UserFullNamePipe

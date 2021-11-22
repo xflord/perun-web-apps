@@ -28,7 +28,7 @@
     [hosts]="hosts"
     [selection]="selected"
     [displayedColumns]="displayedColumns"
-    [disableRouting]="!routeAuth"
+    [disableRouting]="!routeAuth || disableRouting"
     [facilityId]="facility.id">
   </app-hosts-list>
 </div>

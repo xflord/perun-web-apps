@@ -42,6 +42,18 @@
             mat-sort-header>{{'SHARED.COMPONENTS.DESTINATIONS_LIST.SERVICE' | translate}}</th>
         <td *matCellDef="let destination" mat-cell>{{destination.service.name}}</td>
       </ng-container>
+      <ng-container matColumnDef="warn">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let destination" mat-cell>
+          <mat-icon
+            *ngIf="!services.has(destination.service.id)"
+            class="warn"
+            matTooltipPosition="above"
+            matTooltip="{{'SHARED.COMPONENTS.DESTINATIONS_LIST.WARN' | translate}}">
+            warning
+          </mat-icon>
+        </td>
+      </ng-container>
       <ng-container matColumnDef="facility">
         <th *matHeaderCellDef mat-header-cell
             mat-sort-header>{{'SHARED.COMPONENTS.DESTINATIONS_LIST.FACILITY' | translate}}</th>

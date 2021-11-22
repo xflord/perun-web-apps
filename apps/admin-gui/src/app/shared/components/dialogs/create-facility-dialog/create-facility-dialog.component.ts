@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FacilitiesManagerService, Facility } from '@perun-web-apps/perun/openapi';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { EntityStorageService, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 export interface CreateFacilityDialogData {
   theme: string;
@@ -22,13 +23,16 @@ export class CreateFacilityDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: CreateFacilityDialogData,
     public facilitiesManager: FacilitiesManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService) { }
+    private translate: TranslateService,
+    private router: Router,
+    private entityStorageService: EntityStorageService) { }
 
   theme: string;
   nameControl = new FormControl('', [Validators.required]);
   descControl = new FormControl('');
   facilities: Facility[];
   srcFacility: Facility = null;
+  configure = false;
   loading = false;
 
   ngOnInit(): void {
@@ -45,25 +49,31 @@ export class CreateFacilityDialogComponent implements OnInit {
     this.facilitiesManager.copyAttributes(this.srcFacility.id, destFacility).subscribe(() => {
       this.facilitiesManager.copyManagers(this.srcFacility.id, destFacility).subscribe(() => {
         this.facilitiesManager.copyOwners(this.srcFacility.id, destFacility).subscribe(() => {
-          this.handleSuccess();
+          this.handleSuccess(destFacility);
         }, () => this.loading = false);
       }, () => this.loading = false);
     }, () => this.loading = false);
   }
 
-  onCreate(){
+  onCreate(configure: boolean){
     this.loading = true;
+    this.configure = configure;
     this.facilitiesManager.createFacility(this.nameControl.value, this.descControl.value).subscribe(facility => {
+      this.entityStorageService.setEntity({id: facility.id, beanName: facility.beanName});
+      sessionStorage.setItem('newFacilityId', String(facility.id));
       if(this.srcFacility !== null){
         this.copyFacilitySettings(facility.id);
       }else {
-        this.handleSuccess();
+        this.handleSuccess(facility.id);
       }
     });
   }
 
-  handleSuccess(){
+  handleSuccess(facilityId){
     this.notificator.showSuccess(this.translate.instant('DIALOGS.CREATE_FACILITY.SUCCESS'));
+    if(this.configure) {
+      this.router.navigate(['facilities', facilityId.toString(),'configuration']);
+    }
     this.dialogRef.close(true);
   }
 

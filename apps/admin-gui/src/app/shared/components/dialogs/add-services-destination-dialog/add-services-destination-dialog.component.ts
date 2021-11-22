@@ -16,6 +16,7 @@ import { emailRegexString } from '@perun-web-apps/perun/utils';
 export interface  AddServicesDestinationDialogData {
   facility: Facility;
   theme: string;
+  configServices: Service[];
 }
 
 @Component({
@@ -145,9 +146,13 @@ export class AddServicesDestinationDialogComponent implements OnInit {
   getServices() {
     this.loading = true;
     if (this.servicesOnFacility) {
-      this.servicesManager.getAssignedServices(this.data.facility.id).subscribe( services => {
-        this.services = services;
-      }, () => this.loading = false);
+      if(this.data.configServices.length !== 0){
+        this.services = this.data.configServices;
+      } else {
+        this.servicesManager.getAssignedServices(this.data.facility.id).subscribe( services => {
+          this.services = services;
+        }, () => this.loading = false);
+      }
     } else {
       this.servicesManager.getServices().subscribe( services => {
         this.services = services;

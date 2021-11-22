@@ -16,6 +16,15 @@ export class ServicePackageSearchSelectComponent {
   @Input()
   selectedPackage: ServicesPackage = null;
 
+  @Input()
+  multiple = false;
+
+  @Input()
+  disableAutoSelect = false;
+
+  @Input()
+  theme = '';
+
   @Output()
   packageSelected = new EventEmitter<ServicesPackage>();
 

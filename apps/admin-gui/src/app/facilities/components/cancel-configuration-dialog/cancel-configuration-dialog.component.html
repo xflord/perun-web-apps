@@ -1,0 +1,20 @@
+<div class="{{theme}}">
+  <h1 mat-dialog-title>{{title | translate}}</h1>
+  <div *ngIf="!loading" mat-dialog-content>
+    <i [innerHTML]="info | translate"></i>
+  </div>
+  <div *ngIf="!loading" matDialogActions>
+    <button (click)="onCancel()" class="mr-2" mat-flat-button>
+      {{'DIALOGS.CANCEL_CONFIG.CANCEL' | translate}}
+    </button>
+    <button (click)="onDelete()" class="ml-auto mr-2" color="warn" mat-flat-button>
+      <mat-icon>
+        warning
+      </mat-icon>
+      {{'DIALOGS.CANCEL_CONFIG.DELETE' | translate}}
+    </button>
+    <button *ngIf="!lastStep" (click)="onKeep()" color="accent" mat-flat-button>
+      {{'DIALOGS.CANCEL_CONFIG.KEEP' | translate}}
+    </button>
+  </div>
+</div>

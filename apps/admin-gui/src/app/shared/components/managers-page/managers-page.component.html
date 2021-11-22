@@ -10,7 +10,7 @@
     <ng-template matTabContent>
       <perun-web-apps-refresh-button class="mt-2" (refresh)="refreshUsers()"></perun-web-apps-refresh-button>
       <button
-        *ngIf="manageAuth"
+        *ngIf="manageAuth && !configMode"
         mat-flat-button
         color="accent"
         class="mr-2 mt-2 action-button"
@@ -19,7 +19,7 @@
       </button>
 
       <button
-        *ngIf="manageAuth"
+        *ngIf="manageAuth && !configMode"
         mat-flat-button
         color="warn"
         class="mr-2 mt-2"
@@ -41,9 +41,10 @@
         *ngIf="!loading && managers"
         [tableId]="tableId"
         [users]="managers"
-        [disableRouting]="!routeAuth"
-        [displayedColumns]="manageAuth ? ['select', 'id', 'name', 'email', 'logins', 'organization'] : ['id', 'name', 'email', 'logins', 'organization']"
-        [selection]="selectionUsers">
+        [disableRouting]="!routeAuth || disableRouting"
+        [displayedColumns]="displayedUserColumns"
+        [selection]="selectionUsers"
+        [disableSelf]="disableSelf">
       </app-users-list>
     </ng-template>
   </mat-tab>
@@ -55,7 +56,7 @@
     <ng-template matTabContent>
       <perun-web-apps-refresh-button class="mt-2" (refresh)="refreshGroups()"></perun-web-apps-refresh-button>
       <button
-        *ngIf="manageAuth"
+        *ngIf="manageAuth && !configMode"
         mat-flat-button
         color="accent"
         class="mr-2 mt-2 action-button"
@@ -64,7 +65,7 @@
       </button>
 
       <button
-        *ngIf="manageAuth"
+        *ngIf="manageAuth && !configMode"
         mat-flat-button
         color="warn"
         class="mr-2 mt-2"
@@ -85,7 +86,8 @@
       <perun-web-apps-groups-list
         *ngIf="!loading && groups"
         [tableId]="tableId"
-        [displayedColumns]="manageAuth ? ['select', 'id', 'vo', 'name', 'description'] : ['id', 'vo', 'name', 'description']"
+        [disableRouting]="disableRouting"
+        [displayedColumns]="displayedGroupColumns"
         [groups]="groups"
         [selection]="selectionGroups"
         [disableMembers]="false">
