@@ -2,7 +2,7 @@
   <h1 mat-dialog-title>{{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.TITLE' | translate}}</h1>
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content class="dialog-container">
-    <mat-horizontal-stepper [linear]="true">
+    <mat-stepper #stepper [linear]="true">
       <mat-step [completed]="selection.selected.length !== 0 && canAddGroups()">
         <ng-template matStepLabel>{{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.GROUPS' | translate}}</ng-template>
         <perun-web-apps-debounce-filter
@@ -23,22 +23,6 @@
           [disableRouting]="true"
           [disableMembers]="false">
         </perun-web-apps-groups-list>
-        <div mat-dialog-actions>
-          <button
-            mat-flat-button
-            (click)="onCancel()">
-            {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.CANCEL_BUTTON' | translate}}
-          </button>
-          <button
-            [disabled]="selection.selected.length === 0 || !canAddGroups()"
-            class="ml-auto"
-            mat-flat-button
-            type="button"
-            color="accent"
-            matStepperNext>
-            {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.NEXT' | translate}}
-          </button>
-        </div>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>{{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.OPTIONS' | translate}}</ng-template>
@@ -75,29 +59,42 @@
         <div class="text-muted new-line mt-2">
           {{asyncHint}}
         </div>
-
-        <div mat-dialog-actions>
-          <button
-            mat-flat-button
-            (click)="onCancel()">
-            {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.CANCEL_BUTTON' | translate}}
-          </button>
-          <button
-            mat-flat-button
-            class="ml-auto mr-2"
-            matStepperPrevious>
-            {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.BACK' | translate}}
-          </button>
-          <button
-            mat-flat-button
-            type="button"
-            (click)="onAdd()"
-            color="accent">
-            {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ADD_BUTTON' | translate}}
-          </button>
-        </div>
       </mat-step>
-    </mat-horizontal-stepper>
+    </mat-stepper>
 
+  </div>
+  <div *ngIf="!loading && stepper" mat-dialog-actions>
+    <button
+      (click)="onCancel()"
+      mat-flat-button>
+      {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.CANCEL_BUTTON' | translate}}
+    </button>
+    <button
+      (click)="stepperPrevious()"
+      *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
+      class="ml-auto"
+      mat-flat-button>
+      {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.BACK' | translate}}
+    </button>
+    <button
+      (click)="stepperNext()"
+      *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
+      [class.ml-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+      [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+      [disabled]="selection.selected.length === 0 || !canAddGroups()"
+      color="accent"
+      mat-flat-button
+      type="button">
+      {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.NEXT' | translate}}
+    </button>
+    <button
+      (click)="onAdd()"
+      *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
+      class="ml-2"
+      color="accent"
+      mat-flat-button
+      type="button">
+      {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ADD_BUTTON' | translate}}
+    </button>
   </div>
 </div>

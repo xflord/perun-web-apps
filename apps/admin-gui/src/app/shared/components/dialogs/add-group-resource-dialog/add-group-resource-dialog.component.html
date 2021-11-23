@@ -2,7 +2,7 @@
   <h1 mat-dialog-title>{{'DIALOGS.ADD_GROUP_RESOURCES.TITLE'| translate}}</h1>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content>
-    <mat-horizontal-stepper [linear]="true">
+    <mat-stepper #stepper [linear]="true">
       <mat-step [completed]="selection.selected.length !== 0 && (list !== undefined && list.addAuth)">
         <ng-template matStepLabel>{{'DIALOGS.ADD_GROUP_RESOURCES.RESOURCES' | translate}}</ng-template>
         <perun-web-apps-debounce-filter
@@ -11,31 +11,14 @@
         </perun-web-apps-debounce-filter>
         <perun-web-apps-resources-list
           #list
+          [tableId]="tableId"
           [resources]="resources"
-          [pageSize]="pageSize"
-          (page)="pageChanged($event)"
           [disableRouting]="true"
           [selection]="selection"
           [groupToResource]="this.data.group"
           [displayedColumns]="['select', 'id', 'name', 'facility', 'tags', 'description']"
           [filterValue]="filterValue"
         ></perun-web-apps-resources-list>
-        <div mat-dialog-actions>
-          <button
-            mat-flat-button
-            (click)="onCancel()">
-            {{'DIALOGS.ADD_GROUP_RESOURCES.CANCEL' | translate}}
-          </button>
-          <button
-            [disabled]="selection.selected.length === 0 || (list !== undefined && !list.addAuth)"
-            class="ml-auto"
-            mat-flat-button
-            type="button"
-            color="accent"
-            matStepperNext>
-            {{'DIALOGS.ADD_GROUP_RESOURCES.NEXT' | translate}}
-          </button>
-        </div>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>{{'DIALOGS.ADD_GROUP_RESOURCES.OPTIONS' | translate}}</ng-template>
@@ -72,33 +55,46 @@
         <div class="text-muted new-line mt-2">
           {{asyncHint}}
         </div>
-
-        <div mat-dialog-actions>
-          <button
-            mat-flat-button
-            (click)="onCancel()">
-            {{'DIALOGS.ADD_GROUP_RESOURCES.CANCEL' | translate}}
-          </button>
-          <button
-            mat-flat-button
-            class="ml-auto mr-2"
-            matStepperPrevious>
-            {{'DIALOGS.ADD_GROUP_RESOURCES.BACK' | translate}}
-          </button>
-          <span
-            matTooltip="{{'DIALOGS.ADD_GROUP_RESOURCES.ADD_PERMISSION_TOOLTIP' | translate}}"
-            [matTooltipDisabled]="list === undefined || list.addAuth">
+      </mat-step>
+    </mat-stepper>
+  </div>
+  <div *ngIf="!loading && stepper !== undefined" mat-dialog-actions>
+    <button
+      (click)="onCancel()"
+      mat-flat-button>
+      {{'DIALOGS.ADD_GROUP_RESOURCES.CANCEL' | translate}}
+    </button>
+    <button
+      (click)="stepperPrevious()"
+      *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
+      class="ml-auto"
+      mat-flat-button>
+      {{'DIALOGS.ADD_GROUP_RESOURCES.BACK' | translate}}
+    </button>
+    <button
+      (click)="stepperNext()"
+      *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
+      [class.ml-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+      [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+      [disabled]="selection.selected.length === 0 || (list !== undefined && !list.addAuth)"
+      class="ml-auto"
+      color="accent"
+      mat-flat-button
+      type="button">
+      {{'DIALOGS.ADD_GROUP_RESOURCES.NEXT' | translate}}
+    </button>
+    <span
+      [matTooltipDisabled]="list === undefined || list.addAuth"
+      matTooltip="{{'DIALOGS.ADD_GROUP_RESOURCES.ADD_PERMISSION_TOOLTIP' | translate}}">
             <button
               mat-flat-button
               class="ml-2"
               color="accent"
+              *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
               [disabled]="selection.selected.length === 0 || loading"
               (click)="onSubmit()">
               {{'DIALOGS.ADD_GROUP_RESOURCES.ADD' | translate}}
             </button>
           </span>
-        </div>
-      </mat-step>
-    </mat-horizontal-stepper>
   </div>
 </div>

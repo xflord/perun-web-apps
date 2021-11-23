@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
@@ -7,6 +7,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import {
   TABLE_ASSIGN_GROUP_TO_RESOURCE_DIALOG
 } from '@perun-web-apps/config/table-config';
+import { MatStepper } from '@angular/material/stepper';
 
 export interface AssignGroupToResourceDialogData {
   theme: string;
@@ -20,13 +21,16 @@ export interface AssignGroupToResourceDialogData {
 })
 export class AssignGroupToResourceDialogComponent implements OnInit {
 
+  @ViewChild('stepper') stepper: MatStepper;
+
   constructor(private dialogRef: MatDialogRef<AssignGroupToResourceDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: AssignGroupToResourceDialogData,
               private notificator: NotificatorService,
               private translate: TranslateService,
               private resourceManager: ResourcesManagerService,
               private groupService: GroupsManagerService,
-              public guiAuthResolver: GuiAuthResolver) {
+              public guiAuthResolver: GuiAuthResolver,
+              private cd: ChangeDetectorRef) {
   }
 
   loading = false;
@@ -65,6 +69,7 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
           }
         }
         this.loading = false;
+        this.cd.detectChanges();
       }, () => this.loading = false);
     }, () => this.loading = false);
   }
@@ -123,5 +128,13 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
     this.asyncHint = this.async ?
       this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_OFF_HINT') :
       this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_ON_HINT');
+  }
+
+  stepperPrevious() {
+    this.stepper.previous();
+  }
+
+  stepperNext() {
+    this.stepper.next();
   }
 }

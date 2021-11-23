@@ -2,7 +2,7 @@
   <h1 mat-dialog-title>{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.TITLE' | translate}}</h1>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content class="dialog-container">
-    <mat-horizontal-stepper [linear]="true" *ngIf='state === "user-input"'>
+    <mat-stepper #stepper *ngIf='state === "user-input"' [linear]="true">
       <mat-step [stepControl]="usersInfoFormGroup">
         <ng-template matStepLabel>{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.USERS_LABEL' | translate}}</ng-template>
         <app-alert alert_type="error" *ngIf="this.functionalityNotSupported">
@@ -51,22 +51,6 @@
             {{usersInfoFormGroup.get('sponsoredMembers').getError('invalidLogin').value}}
           </mat-error>
         </mat-form-field>
-          <div mat-dialog-actions>
-            <button
-              mat-flat-button
-              (click)="onCancel()">
-              {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.CANCEL' | translate}}
-            </button>
-            <button
-              [disabled]="usersInfoFormGroup.invalid"
-              class="ml-auto"
-              mat-flat-button
-              type="button"
-              color="accent"
-              matStepperNext>
-              {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NEXT' | translate}}
-            </button>
-          </div>
         </form>
       </mat-step>
       <mat-step>
@@ -87,26 +71,6 @@
             </mat-radio-button>
           </mat-radio-group>
         </div>
-        <div mat-dialog-actions>
-          <button
-            mat-flat-button
-            (click)="onCancel()">
-            {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.CANCEL' | translate}}
-          </button>
-          <button
-            class="ml-auto"
-            mat-flat-button
-            matStepperPrevious>
-            {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.BACK' | translate}}
-          </button>
-          <button
-            [disabled]="passwordReset === null"
-            mat-flat-button
-            color="accent"
-            matStepperNext>
-            {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NEXT' | translate}}
-          </button>
-        </div>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.EXPIRATION_LABEL' | translate}}</ng-template>
@@ -116,24 +80,6 @@
             [expiration]="expiration"
             (datePicker)="setExpiration($event)">
           </perun-web-apps-expiration-select>
-        </div>
-        <div mat-dialog-actions>
-          <button
-            mat-flat-button
-            (click)="onCancel()">
-            {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.CANCEL' | translate}}
-          </button>
-          <button
-            class="ml-auto"
-            mat-flat-button
-            matStepperPrevious>
-            {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.BACK' | translate}}
-          </button>
-          <button
-            [disabled]="expiration === null"
-            mat-flat-button color="accent"
-            matStepperNext>{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NEXT' | translate}}
-          </button>
         </div>
       </mat-step>
       <mat-step>
@@ -190,29 +136,8 @@
             [filter]="filterValue">
           </perun-web-apps-groups-list>
         </div>
-        <div mat-dialog-actions>
-          <button
-            mat-flat-button
-            (click)="onCancel()">
-            {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.CANCEL' | translate}}
-          </button>
-          <button
-            class="ml-auto"
-            mat-flat-button
-            matStepperPrevious>
-            {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.BACK' | translate}}
-          </button>
-          <button
-            [disabled]="groupAssignment === null ||
-            (groupAssignment === 'existing' && selection.selected.length === 0) ||
-            (groupAssignment === 'new' && (name.length === 0 || description.length === 0) || (asSubGroup === true && parentGroup === null))"
-            mat-flat-button color="accent"
-            (click)="onSubmit()">
-            {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.SUBMIT' | translate}}
-          </button>
-        </div>
       </mat-step>
-    </mat-horizontal-stepper>
+    </mat-stepper>
     <div *ngIf='state === "results"'>
       <app-alert *ngIf='this.finishedWithErrors === false' [alert_type]="'success'">
         {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.SUCCESS' | translate}}
@@ -221,6 +146,37 @@
         {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.FINISHED_WITH_ERRORS' | translate}}
       </app-alert>
     </div>
+  </div>
+  <div *ngIf="!loading && stepper !== undefined && state !== 'results'" mat-dialog-actions>
+    <button
+      (click)="onCancel()"
+      mat-flat-button>
+      {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.CANCEL' | translate}}
+    </button>
+    <button
+      (click)="stepperPrevious()"
+      *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
+      class="ml-auto"
+      mat-flat-button>
+      {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.BACK' | translate}}
+    </button>
+    <button
+      (click)="stepperNext()"
+      *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
+      [class.ml-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+      [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+      [disabled]="getStepperNextConditions()" color="accent"
+      mat-flat-button>{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NEXT' | translate}}
+    </button>
+    <button
+      (click)="onSubmit()"
+      *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
+      [disabled]="groupAssignment === null ||
+            (groupAssignment === 'existing' && selection.selected.length === 0) ||
+            (groupAssignment === 'new' && (name.length === 0 || description.length === 0) || (asSubGroup === true && parentGroup === null))" color="accent"
+      mat-flat-button>
+      {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.SUBMIT' | translate}}
+    </button>
   </div>
   <div mat-dialog-actions *ngIf='state === "results"'>
     <button

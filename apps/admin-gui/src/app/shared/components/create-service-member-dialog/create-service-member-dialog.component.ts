@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   Candidate, Member,
@@ -22,6 +22,7 @@ import { Observable } from 'rxjs';
 import { debounceTime, map, switchMap, take} from 'rxjs/operators';
 import { CustomValidators, enableFormControl } from '@perun-web-apps/perun/utils';
 import { loginAsyncValidator } from '@perun-web-apps/perun/namespace-password-form';
+import { MatStepper } from '@angular/material/stepper';
 
 export interface CreateServiceMemberDialogData {
   voId: number;
@@ -32,7 +33,7 @@ export interface CreateServiceMemberDialogData {
   templateUrl: './create-service-member-dialog.component.html',
   styleUrls: ['./create-service-member-dialog.component.scss']
 })
-export class CreateServiceMemberDialogComponent implements OnInit {
+export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit {
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -53,7 +54,9 @@ export class CreateServiceMemberDialogComponent implements OnInit {
   candidate: Candidate = {};
   successMessageMember = '';
   successMessagePwd = '';
-  processing: boolean;
+  processing = false;
+
+  @ViewChild('stepper') stepper: MatStepper;
 
   constructor(private dialogRef: MatDialogRef<CreateServiceMemberDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private data: CreateServiceMemberDialogData,
@@ -63,10 +66,15 @@ export class CreateServiceMemberDialogComponent implements OnInit {
               private translate: TranslateService,
               private store: StoreService,
               private apiRequestConfiguration: ApiRequestConfigurationService,
-              private _formBuilder: FormBuilder) {
+              private _formBuilder: FormBuilder,
+              private cd: ChangeDetectorRef) {
     translate.get('DIALOGS.CREATE_SERVICE_MEMBER.SUCCESS_MEMBER').subscribe(m => this.successMessageMember = m);
     translate.get('DIALOGS.CREATE_SERVICE_MEMBER.SUCCESS_PWD').subscribe(m => this.successMessagePwd = m);
   }
+
+  ngAfterViewInit(): void {
+        this.cd.detectChanges();
+    }
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
@@ -316,5 +324,24 @@ export class CreateServiceMemberDialogComponent implements OnInit {
       enableFormControl(password, [Validators.required], [loginAsyncValidator(this.selectedNamespace, this.usersManagerService, this.apiRequestConfiguration)]);
       enableFormControl(passwordAgain, []);
     }
+  }
+
+  getStepperNextConditions(){
+    switch (this.stepper.selectedIndex) {
+      case 0:
+        return this.firstFormGroup.invalid || this.firstFormGroup.pending;
+      case 1:
+        return this.secondFormGroup.invalid || this.secondFormGroup.pending || this.secondFormGroup.get('namespaceCtrl').value === 'Not selected';
+      default:
+        return false;
+    }
+  }
+
+  stepperPrevious() {
+    this.stepper.previous();
+  }
+
+  stepperNext() {
+    this.stepper.next();
   }
 }

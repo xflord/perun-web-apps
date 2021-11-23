@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   Attribute,
@@ -16,6 +16,7 @@ import { Urns } from '@perun-web-apps/perun/urns';
 import { TABLE_VO_GROUPS } from '@perun-web-apps/config/table-config';
 import { downloadData, emailRegexString } from '@perun-web-apps/perun/utils';
 import { SponsoredMembersPdfService } from '@perun-web-apps/perun/services';
+import { MatStepper } from '@angular/material/stepper';
 
 export interface GenerateSponsoredMembersDialogData {
   voId: number;
@@ -69,6 +70,8 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
     Urns.GROUP_BLOCK_MANUAL_MEMBER_ADDING
   ];
 
+  @ViewChild('stepper') stepper: MatStepper;
+
   constructor(private dialogRef: MatDialogRef<GenerateSponsoredMembersDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private data: GenerateSponsoredMembersDialogData,
               private store: StoreService,
@@ -79,7 +82,8 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
               private groupsService: GroupsManagerService,
               private attributesService: AttributesManagerService,
               private formBuilder: FormBuilder,
-              private sponsoredMembersPDFService: SponsoredMembersPdfService) { }
+              private sponsoredMembersPDFService: SponsoredMembersPdfService,
+              private cd: ChangeDetectorRef) { }
 
   private static didSomeGenerationFailed(resultData: any) {
     for (const memberName of Object.keys(resultData)) {
@@ -128,10 +132,12 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
               this.usersInfoFormGroup.setValue({namespace: this.namespaceOptions[0], sponsoredMembers: ''})
             }
             this.loading = false;
+            this.cd.detectChanges();
           });
         }, () => this.loading = false);
       } else {
         this.loading = false;
+        this.cd.detectChanges();
       }
     }, () => this.loading = false);
   }
@@ -356,5 +362,26 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
       throw new Error("Cannot generate pdf because there is no result");
     }
     downloadData(this.createOutputObjects(this.resultData), 'csv', 'member-logins')
+  }
+
+  getStepperNextConditions(){
+    switch (this.stepper.selectedIndex) {
+      case 0:
+        return this.usersInfoFormGroup.invalid;
+      case 1:
+        return this.passwordReset === null;
+      case 2:
+        return this.expiration === null;
+      default:
+        return false;
+    }
+  }
+
+  stepperPrevious() {
+    this.stepper.previous();
+  }
+
+  stepperNext() {
+    this.stepper.next();
   }
 }

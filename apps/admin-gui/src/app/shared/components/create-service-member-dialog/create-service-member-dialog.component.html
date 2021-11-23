@@ -1,7 +1,7 @@
 <div class="vo-theme">
   <h1 class="mat-dialog-title">{{'DIALOGS.CREATE_SERVICE_MEMBER.TITLE' | translate}}</h1>
   <div *ngIf="!processing" class="dialog-container" mat-dialog-content>
-    <mat-stepper [linear]="true">
+    <mat-stepper #stepper [linear]="true">
       <mat-step [stepControl]="firstFormGroup">
         <form [formGroup]="firstFormGroup">
           <ng-template matStepLabel>{{'DIALOGS.CREATE_SERVICE_MEMBER.CREATE_IDENTITY' | translate}}</ng-template>
@@ -32,21 +32,6 @@
             </mat-form-field>
           </div>
         </form>
-        <div mat-dialog-actions>
-          <button
-            (click)="onCancel()"
-            mat-flat-button>
-            {{'DIALOGS.CREATE_SERVICE_MEMBER.CANCEL' | translate}}
-          </button>
-          <button
-            [disabled]="firstFormGroup.invalid || firstFormGroup.pending"
-            class="ml-auto"
-            mat-flat-button
-            color="accent"
-            matStepperNext>
-            {{'DIALOGS.CREATE_SERVICE_MEMBER.NEXT' | translate}}
-          </button>
-        </div>
       </mat-step>
       <mat-step [stepControl]="secondFormGroup">
         <form [formGroup]="secondFormGroup">
@@ -100,27 +85,6 @@
 
           </div>
         </form>
-        <div mat-dialog-actions>
-          <button
-            (click)="onCancel()"
-            mat-flat-button>
-            {{'DIALOGS.CREATE_SERVICE_MEMBER.CANCEL' | translate}}
-          </button>
-          <button
-            class="ml-auto"
-            mat-flat-button
-            matStepperPrevious>
-            {{'DIALOGS.CREATE_SERVICE_MEMBER.BACK' | translate}}
-          </button>
-          <button
-            [disabled]="secondFormGroup.invalid || secondFormGroup.pending || secondFormGroup.get('namespaceCtrl').value === 'Not selected'"
-            class="ml-2"
-            color="accent"
-            mat-flat-button
-            matStepperNext>
-            {{'DIALOGS.CREATE_SERVICE_MEMBER.NEXT' | translate}}
-          </button>
-        </div>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>{{'DIALOGS.CREATE_SERVICE_MEMBER.ASSOCIATE_USERS' | translate}}</ng-template>
@@ -171,28 +135,40 @@
             {{'DIALOGS.CREATE_SERVICE_MEMBER.SEARCH_INFO' | translate}}
           </app-alert>
         </div>
-        <div mat-dialog-actions>
-          <button
-            (click)="onCancel()"
-            mat-flat-button>
-            {{'DIALOGS.CREATE_SERVICE_MEMBER.CANCEL' | translate}}
-          </button>
-          <button
-            class="ml-auto"
-            mat-flat-button
-            matStepperPrevious>
-            {{'DIALOGS.CREATE_SERVICE_MEMBER.BACK' | translate}}
-          </button>
-          <button
-            (click)="onCreate()"
-            [disabled]="firstFormGroup.invalid || (secondFormGroup.get('namespaceCtrl').value !== 'Not selected' && secondFormGroup.invalid)"
-            class="ml-2"
-            color="accent"
-            mat-flat-button>{{"DIALOGS.CREATE_SERVICE_MEMBER.CREATE" | translate}}</button>
-        </div>
       </mat-step>
     </mat-stepper>
   </div>
   <mat-spinner *ngIf="processing" class="ml-auto mr-auto"></mat-spinner>
+  <div *ngIf="!processing" mat-dialog-actions>
+    <button
+      (click)="onCancel()"
+      mat-flat-button>
+      {{'DIALOGS.CREATE_SERVICE_MEMBER.CANCEL' | translate}}
+    </button>
+    <button
+      (click)="stepperPrevious()"
+      *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
+      class="ml-auto"
+      mat-flat-button>
+      {{'DIALOGS.CREATE_SERVICE_MEMBER.BACK' | translate}}
+    </button>
+    <button
+      (click)="stepperNext()"
+      *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
+      [class.ml-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+      [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+      [disabled]="getStepperNextConditions()"
+      color="accent"
+      mat-flat-button>
+      {{'DIALOGS.CREATE_SERVICE_MEMBER.NEXT' | translate}}
+    </button>
+    <button
+      (click)="onCreate()"
+      *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
+      [disabled]="firstFormGroup.invalid || (secondFormGroup.get('namespaceCtrl').value !== 'Not selected' && secondFormGroup.invalid)"
+      class="ml-2"
+      color="accent"
+      mat-flat-button>{{"DIALOGS.CREATE_SERVICE_MEMBER.CREATE" | translate}}</button>
+  </div>
 </div>
 

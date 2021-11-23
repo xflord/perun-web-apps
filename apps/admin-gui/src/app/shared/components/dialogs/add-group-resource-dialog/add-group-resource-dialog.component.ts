@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
@@ -6,7 +6,7 @@ import { Group, ResourcesManagerService, RichResource } from '@perun-web-apps/pe
 import { SelectionModel } from '@angular/cdk/collections';
 import { ResourcesListComponent } from '@perun-web-apps/perun/components';
 import { TABLE_ASSIGN_RESOURCE_TO_GROUP, TableConfigService } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
+import { MatStepper } from '@angular/material/stepper';
 
 export interface AddGroupResourceDialogData {
   theme: string;
@@ -22,13 +22,7 @@ export interface AddGroupResourceDialogData {
 })
 export class AddGroupResourceDialogComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<AddGroupResourceDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: AddGroupResourceDialogData,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private resourcesManager: ResourcesManagerService,
-              private tableConfigService: TableConfigService) {
-  }
+  @ViewChild('stepper') stepper: MatStepper;
 
   @ViewChild('list', {})
   list: ResourcesListComponent;
@@ -49,6 +43,15 @@ export class AddGroupResourceDialogComponent implements OnInit {
   asActiveHint: string;
   asyncHint: string;
 
+  constructor(public dialogRef: MatDialogRef<AddGroupResourceDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: AddGroupResourceDialogData,
+              private notificator: NotificatorService,
+              private translate: TranslateService,
+              private resourcesManager: ResourcesManagerService,
+              private tableConfigService: TableConfigService,
+              private cd: ChangeDetectorRef) {
+  }
+
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
@@ -59,6 +62,7 @@ export class AddGroupResourceDialogComponent implements OnInit {
     this.resourcesManager.getRichResources(this.data.voId).subscribe(resources => {
       this.resources = resources.filter(res => !this.data.unwantedResources.includes(res.id));
       this.loading = false;
+      this.cd.detectChanges();
     }, () => this.loading = false );
   }
 
@@ -100,8 +104,11 @@ export class AddGroupResourceDialogComponent implements OnInit {
       this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ASYNC_ON_HINT');
   }
 
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
+  stepperPrevious() {
+    this.stepper.previous();
+  }
+
+  stepperNext() {
+    this.stepper.next();
   }
 }
