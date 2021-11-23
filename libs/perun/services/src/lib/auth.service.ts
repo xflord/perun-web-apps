@@ -38,6 +38,11 @@ export class AuthService {
 
   getClientConfig(): AuthConfig {
     const filterValue = this.setIdpFilter();
+    const customQueryParams = !filterValue ? {} : { 'acr_values': filterValue};
+    if (this.store.get('oidc_client', 'oauth_scopes').split(' ').includes('offline_access') && this.store.get('oidc_client', 'oauth_offline_access_consent_prompt')) {
+      customQueryParams['prompt'] = 'consent';
+    }
+
     return {
       requestAccessToken: true,
       issuer: this.store.get('oidc_client', 'oauth_authority'),
@@ -47,7 +52,7 @@ export class AuthService {
       responseType: this.store.get('oidc_client', 'oauth_response_type'),
       scope: this.store.get('oidc_client', 'oauth_scopes'),
       // sessionChecksEnabled: true,
-      customQueryParams: !filterValue ? {} : { 'acr_values': filterValue}
+      customQueryParams: customQueryParams
     };
   }
 
