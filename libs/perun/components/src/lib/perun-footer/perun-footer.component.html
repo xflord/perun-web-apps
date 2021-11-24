@@ -6,16 +6,17 @@
       </h6>
       <div *ngIf="item.elements">
         <div *ngFor="let elem of item.elements" class="row-height">
+          <a *ngIf="elem.logo" [href]="elem | localisedLink:language" [innerHTML]="elem.logo | styleInnerHtml | sanitizeHtml"></a>
           <i *ngIf="elem.icon"  [ngStyle]="{'color': linksTextColor}" class="material-icons align-bottom mr-1">
             {{elem.icon}}
           </i>
-          <span (click)="openDialog(elem.dialog)" *ngIf="elem.dialog"
+          <span (click)="openDialog(elem.dialog)" *ngIf="elem.dialog && !elem.logo"
                 [ngStyle]="{'color': linksTextColor}"
                 id="clickable">{{elem | localisedText: language:'label'}}
           </span>
-          <a *ngIf="(elem | localisedLink:language) && !elem.dialog" [href]="elem | localisedLink:language" [ngStyle]="{'color': linksTextColor}"
+          <a *ngIf="(elem | localisedLink:language) && !elem.dialog && !elem.logo" [href]="elem | localisedLink:language" [ngStyle]="{'color': linksTextColor}"
              target="_blank">{{elem | localisedText: language:'label'}}</a>
-          <span *ngIf="!(elem | localisedLink:language) && !elem.dialog"
+          <span *ngIf="!(elem | localisedLink:language) && !elem.dialog && !elem.logo"
              [ngStyle]="{'color': linksTextColor}">{{elem | localisedText: language:'label'}}</span>
         </div>
       </div>
