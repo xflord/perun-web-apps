@@ -129,7 +129,7 @@ export class ApplicationDetailComponent implements OnInit {
   resendNotification() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = { applicationId: this.application.id, theme: this.dialogTheme };
+    config.data = { applicationId: this.application.id, theme: this.dialogTheme, groupId: this.application.group?.id };
 
     this.dialog.open(ApplicationReSendNotificationDialogComponent, config);
   }

@@ -7,6 +7,7 @@ import { MailType, RegistrarManagerService } from '@perun-web-apps/perun/openapi
 export interface DialogData {
   applicationId: number;
   theme: string;
+  groupId: number;
 }
 
 @Component({

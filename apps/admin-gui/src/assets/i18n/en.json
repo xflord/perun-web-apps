@@ -455,6 +455,7 @@
         "TABLE_APPLICATION_TYPE_INITIAL": "Initial",
         "TABLE_APPLICATION_TYPE_EXTENSION": "Extension",
         "MAIL_TYPE_APP_CREATED_USER": "Created / user",
+        "MAIL_TYPE_APPROVABLE_GROUP_APP_USER": "Approvable / user",
         "MAIL_TYPE_APP_CREATED_VO_ADMIN": "Created / manager",
         "MAIL_TYPE_MAIL_VALIDATION": "Mail validation / user",
         "MAIL_TYPE_APP_APPROVED_USER": "Approved / user",
@@ -1075,6 +1076,7 @@
       "SUCCESS": "Notification was sent",
       "NOTIFICATION_TYPE": {
         "APP_CREATED_USER": "Created / user",
+        "APPROVABLE_GROUP_APP_USER": "Approvable / user",
         "APP_CREATED_VO_ADMIN": "Created / manager",
         "MAIL_VALIDATION": "Mail validation / user",
         "APP_APPROVED_USER": "Approved / user",

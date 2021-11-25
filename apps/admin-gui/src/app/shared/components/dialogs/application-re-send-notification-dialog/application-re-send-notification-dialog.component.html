@@ -7,6 +7,8 @@
       <mat-select [(value)]="mailType" disableOptionCentering>
         <mat-option
           value="APP_CREATED_USER">{{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APP_CREATED_USER' | translate}}</mat-option>
+        <mat-option *ngIf="data.groupId"
+          value="APPROVABLE_GROUP_APP_USER">{{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APPROVABLE_GROUP_APP_USER' | translate}}</mat-option>
         <mat-option
           value="APP_CREATED_VO_ADMIN">{{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APP_CREATED_VO_ADMIN' | translate}}</mat-option>
         <mat-option
