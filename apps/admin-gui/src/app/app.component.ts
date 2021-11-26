@@ -1,4 +1,12 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { CacheHelperService } from './core/services/common/cache-helper.service';
 import { InitAuthService, StoreService } from '@perun-web-apps/perun/services';
 import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
@@ -16,21 +24,11 @@ declare let require;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-
-  constructor(
-    private cache: CacheHelperService,
-    private store: StoreService,
-    private http: HttpClient,
-    private dialog: MatDialog,
-    private router: Router,
-    private initAuth: InitAuthService
-  ) {
-    this.cache.init();
-    this.getScreenSize();
-  }
+export class AppComponent implements OnInit, AfterViewInit {
 
   public static minWidth = 992;
+
+  @ViewChild('footer') footer: ElementRef;
 
   sidebarMode: 'over' | 'push' | 'side' = 'side';
   lastScreenWidth: number;
@@ -48,6 +46,20 @@ export class AppComponent implements OnInit {
   warningMessage: string = this.store.get('warning_message');
 
   version: string = require( '../../../../package.json').version;
+  contentInnerMinHeight =  this.displayWarning ? 'calc(100vh - 112px)' : 'calc(100vh - 64px)';
+
+  constructor(
+    private cache: CacheHelperService,
+    private store: StoreService,
+    private http: HttpClient,
+    private dialog: MatDialog,
+    private router: Router,
+    private initAuth: InitAuthService,
+    private cd:ChangeDetectorRef
+  ) {
+    this.cache.init();
+    this.getScreenSize();
+  }
 
   @HostListener('window:resize', ['$event'])
   getScreenSize() {
@@ -156,10 +168,8 @@ export class AppComponent implements OnInit {
     return this.displayWarning ? '48px' : '0';
   }
 
-  getContentInnerMinHeight() {
-    // 64 for nav (+48) when alert is shown
-    // 210 for footer, 510 for footer on mobile
-
-    return this.displayWarning ? 'calc(100vh - 112px)' : 'calc(100vh - 64px)';
+  ngAfterViewInit(): void {
+   this.contentInnerMinHeight = this.displayWarning ? 'calc(100vh - '+this.footer.nativeElement.offsetHeight+'px - 112px)' : 'calc(100vh - '+this.footer.nativeElement.offsetHeight+'px - 64px)';
+   this.cd.detectChanges();
   }
 }

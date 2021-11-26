@@ -1,4 +1,12 @@
-import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { GuiAuthResolver, InitAuthService, StoreService } from '@perun-web-apps/perun/services';
 import { Router } from '@angular/router';
 
@@ -7,7 +15,7 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, AfterViewInit{
 
   constructor(private store: StoreService,
               private initAuth: InitAuthService,
@@ -23,7 +31,8 @@ export class AppComponent implements OnInit{
 
   sideMenuBgColor = this.store.get('theme', 'sidemenu_bg_color');
   contentBackgroundColor = this.store.get('theme', 'content_bg_color');
-  contentHeight =  'calc(100vh - 84px)';
+  contentHeight =  'calc(100vh - 64px)';
+  @ViewChild('footer') footer: ElementRef;
 
   ngOnInit() {
     this.isLoginScreenShow = this.initAuth.isLoginScreenShown();
@@ -51,5 +60,10 @@ export class AppComponent implements OnInit{
 
   isServiceLogin(): boolean {
     return !!sessionStorage.getItem("baLogout");
+  }
+
+  ngAfterViewInit(): void {
+    this.contentHeight =  'calc(100vh - 84px - '+this.footer.nativeElement.offsetHeight+'px)';
+    this.changeDetector.detectChanges();
   }
 }

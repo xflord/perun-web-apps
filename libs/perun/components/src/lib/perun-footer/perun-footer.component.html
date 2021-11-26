@@ -1,23 +1,32 @@
 <footer [ngStyle]="{'background': bgColor}" class="footer-container">
   <div class="footer-columns-container">
-    <div *ngFor="let item of items" class="footer-col mx-auto">
+    <div *ngFor="let item of items" [class.my-auto]="containsLogos" class="footer-col mx-auto">
       <h6 [ngStyle]="{'color': headersTextColor}" class="font-weight-bold">
         {{item | localisedText: language:'title'}}
       </h6>
-      <div *ngIf="item.elements">
-        <div *ngFor="let elem of item.elements" class="row-height">
-          <a *ngIf="elem.logo" [href]="elem | localisedLink:language" [innerHTML]="elem.logo | styleInnerHtml | sanitizeHtml"></a>
-          <i *ngIf="elem.icon"  [ngStyle]="{'color': linksTextColor}" class="material-icons align-bottom mr-1">
-            {{elem.icon}}
-          </i>
-          <span (click)="openDialog(elem.dialog)" *ngIf="elem.dialog && !elem.logo"
-                [ngStyle]="{'color': linksTextColor}"
-                id="clickable">{{elem | localisedText: language:'label'}}
+      <div *ngIf="item.logos" [ngStyle]="{'min-height': columnContentHeight+'px'}">
+        <div *ngFor="let elem of item.elements">
+          <a *ngIf="elem | localisedLink:language" [href]="elem | localisedLink:language">
+            <img alt="image" src="/assets/config/{{elem.logo}}">
+          </a>
+          <span *ngIf="!(elem | localisedLink:language)">
+             <img alt="image" src="/assets/config/{{elem.logo}}">
           </span>
-          <a *ngIf="(elem | localisedLink:language) && !elem.dialog && !elem.logo" [href]="elem | localisedLink:language" [ngStyle]="{'color': linksTextColor}"
-             target="_blank">{{elem | localisedText: language:'label'}}</a>
-          <span *ngIf="!(elem | localisedLink:language) && !elem.dialog && !elem.logo"
-             [ngStyle]="{'color': linksTextColor}">{{elem | localisedText: language:'label'}}</span>
+        </div>
+      </div>
+      <div *ngIf="item.elements && !item.logos" [ngStyle]="{'height': columnContentHeight+'px'}">
+        <div *ngFor="let elem of item.elements" class="row-height">
+            <i *ngIf="elem.icon"  [ngStyle]="{'color': linksTextColor}" class="material-icons align-bottom mr-1">
+              {{elem.icon}}
+            </i>
+            <span (click)="openDialog(elem.dialog)" *ngIf="elem.dialog"
+                  [ngStyle]="{'color': linksTextColor}"
+                  id="clickable">{{elem | localisedText: language:'label'}}
+          </span>
+            <a *ngIf="(elem | localisedLink:language) && !elem.dialog" [href]="elem | localisedLink:language" [ngStyle]="{'color': linksTextColor}"
+               target="_blank">{{elem | localisedText: language:'label'}}</a>
+            <span *ngIf="!(elem | localisedLink:language) && !elem.dialog"
+                  [ngStyle]="{'color': linksTextColor}">{{elem | localisedText: language:'label'}}</span>
         </div>
       </div>
     </div>

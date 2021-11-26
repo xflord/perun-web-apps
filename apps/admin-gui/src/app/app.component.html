@@ -24,15 +24,12 @@
       </perfect-scrollbar>
     </mat-sidenav>
 
-    <mat-sidenav-content id="content-inner"
-      [ngStyle]="{
-         'min-height' : getContentInnerMinHeight(),
-         'background-color': contentBackgroundColor
-      }">
-      <div id="content-wrap">
+    <mat-sidenav-content [ngStyle]="{'background-color': contentBackgroundColor}"
+                         id="content-inner">
+      <div [ngStyle]="{'min-height' : contentInnerMinHeight}" id="content-wrap">
         <router-outlet></router-outlet>
       </div>
-      <div id="footer">
+      <div #footer>
         <perun-web-apps-footer></perun-web-apps-footer>
       </div>
     </mat-sidenav-content>
