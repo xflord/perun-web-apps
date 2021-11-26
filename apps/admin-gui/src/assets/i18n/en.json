@@ -2364,6 +2364,9 @@
     },
     "IDENTITY_DETAIL": {
       "TITLE": "Identity detail",
+      "TYPE": "Type",
+      "LOGIN": "Login",
+      "LAST_ACCESS": "Last access",
       "ADD": "Add",
       "REMOVE": "Remove",
       "SAVE": "Save"
