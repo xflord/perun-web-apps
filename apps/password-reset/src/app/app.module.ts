@@ -10,13 +10,17 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GeneralModule } from '@perun-web-apps/general';
 import { MatIconModule } from '@angular/material/icon';
-import { PasswordResetDialogComponent } from './dialogs/password-reset-dialog/password-reset-dialog.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PasswordResetConfigService } from './services/password-reset-config.service';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { UiMaterialModule } from '@perun-web-apps/ui/material';
-import { TokenExpiredDialogComponent } from './dialogs/token-expired-dialog/token-expired-dialog.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { HeaderComponent } from './components/header/header.component';
+import { PasswordResetPageComponent } from './pages/password-reset-page/password-reset-page.component';
+import { PasswordResetFormComponent } from './components/password-reset-form/password-reset-form.component';
+import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { InvalidRequestAlertComponent } from './components/invalid-request-alert/invalid-request-alert.component';
+import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespace-password-form';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -39,7 +43,13 @@ export function apiConfigFactory(store: StoreService): Configuration {
 const loadConfigs = (appConfig: PasswordResetConfigService) => () => appConfig.loadConfigs();
 
 @NgModule({
-  declarations: [AppComponent, PasswordResetDialogComponent, TokenExpiredDialogComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    PasswordResetPageComponent,
+    PasswordResetFormComponent,
+    InvalidRequestAlertComponent
+  ],
   imports: [
     BrowserModule,
     TranslateModule.forRoot({
@@ -56,6 +66,8 @@ const loadConfigs = (appConfig: PasswordResetConfigService) => () => appConfig.l
     HttpClientModule,
     AppRoutingModule,
     UiMaterialModule,
+    UiAlertsModule,
+    PerunNamespacePasswordFormModule,
     OAuthModule.forRoot()
   ],
   providers: [

@@ -1,0 +1,30 @@
+.header-container {
+  height: 64px !important;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 8px;
+  padding: 0;
+}
+
+.logo-container {
+  padding: 0 8px 0 8px;
+}
+
+.logo-container ::ng-deep img, .logo-container ::ng-deep svg {
+  max-height: 50px;
+}
+
+#nav-devel-info {
+  font-weight: 500;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+#nav-menu-language {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-right: 16px;
+}

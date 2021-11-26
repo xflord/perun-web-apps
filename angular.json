@@ -271,7 +271,10 @@
               "apps/password-reset/src/favicon.ico",
               "apps/password-reset/src/assets"
             ],
-            "styles": ["apps/password-reset/src/styles.scss"],
+            "styles": [
+              "apps/password-reset/src/styles.scss",
+              "./node_modules/bootstrap/dist/css/bootstrap.css"
+            ],
             "scripts": []
           },
           "configurations": {
