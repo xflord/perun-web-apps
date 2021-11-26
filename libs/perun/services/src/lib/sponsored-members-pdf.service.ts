@@ -10,15 +10,15 @@ export class SponsoredMembersPdfService {
     private pdfService: PDFService
   ) { }
 
-  private static generateTableForUser(rawName, result): any {
-    const name = rawName.replace(';', ' ').split(';')[0];
-    if (result.status !== "OK") {
-      const error = result.status;
+  private static generateTableForUser(memberData): any {
+    const name = memberData['name'].replace(';', ' ').split(';')[0];
+    if (memberData['status'] !== "OK") {
+      const error = memberData['status'];
       return this.generateErrorRowForUser(name, error);
     }
 
-    const login = result.login;
-    const password = result.password;
+    const login = memberData['login'];
+    const password = memberData['password'];
     return SponsoredMembersPdfService.generateRowForUser(name, login, password);
   }
 
@@ -125,22 +125,24 @@ export class SponsoredMembersPdfService {
 
   /**
    * Example input:
-   * {
-   *   John;Doe;john.d@mail.com;note : {
+   * [
+   *   {
+   *     name: "John;Doe;john.d@mail.com;note"
    *     status: "OK",
    *     login: "guest",
    *     password: "blabla"
    *   },
-   *   John;Indie;john.I@mail.com;note : {
+   *   {
+   *     name: "John;Indie;john.I@mail.com;note"
    *     status: "Error: sdfsdfsdf"
    *   }
-   * }
+   * ]
    * @param results generated members' data, see example above
    */
   public async generate(results: any) {
     const userData = [];
-    for (const memberName of Object.keys(results)) {
-      userData.push(SponsoredMembersPdfService.generateTableForUser(memberName, results[memberName]));
+    for (const memberData of results) {
+      userData.push(SponsoredMembersPdfService.generateTableForUser(memberData));
     }
 
     const data = {

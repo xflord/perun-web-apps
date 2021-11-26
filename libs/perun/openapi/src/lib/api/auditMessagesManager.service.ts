@@ -428,7 +428,7 @@ export class AuditMessagesManagerService {
     }
 
     /**
-     * Get page of audit messages.
+     * Get page of audit messages. Total count is only estimated.
      * @param inputGetMessagesPage 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.

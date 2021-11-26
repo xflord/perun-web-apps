@@ -17,7 +17,7 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { GroupMemberRelations } from '../model/groupMemberRelations';
+import { GroupMemberData } from '../model/groupMemberData';
 import { PerunException } from '../model/perunException';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -55,10 +55,10 @@ export class IntegrationManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getGroupMemberRelations(observe?: 'body', reportProgress?: boolean): Observable<Array<GroupMemberRelations>>;
-    public getGroupMemberRelations(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<GroupMemberRelations>>>;
-    public getGroupMemberRelations(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<GroupMemberRelations>>>;
-    public getGroupMemberRelations(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getGroupMemberData(observe?: 'body', reportProgress?: boolean): Observable<GroupMemberData>;
+    public getGroupMemberData(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<GroupMemberData>>;
+    public getGroupMemberData(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<GroupMemberData>>;
+    public getGroupMemberData(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -88,7 +88,7 @@ export class IntegrationManagerService {
         }
 
 
-        return this.httpClient.get<Array<GroupMemberRelations>>(`${this.configuration.basePath}/json/integrationManager/getGroupMemberRelations`,
+        return this.httpClient.get<GroupMemberData>(`${this.configuration.basePath}/json/integrationManager/getGroupMemberData`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -23,6 +23,7 @@ import { ApplicationFormItem } from '../model/applicationFormItem';
 import { ApplicationFormItemData } from '../model/applicationFormItemData';
 import { ApplicationMail } from '../model/applicationMail';
 import { Group } from '../model/group';
+import { Identity } from '../model/identity';
 import { InputAddApplicationMailForGroup } from '../model/inputAddApplicationMailForGroup';
 import { InputAddApplicationMailForVo } from '../model/inputAddApplicationMailForVo';
 import { InputFormItemData } from '../model/inputFormItemData';
@@ -304,6 +305,55 @@ export class RegistrarManagerService {
             null,
             {
                 params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Check for similar users by name and email in session (authz) information
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public checkForSimilarUsersWithAuthInfo(observe?: 'body', reportProgress?: boolean): Observable<Array<Identity>>;
+    public checkForSimilarUsersWithAuthInfo(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Identity>>>;
+    public checkForSimilarUsersWithAuthInfo(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Identity>>>;
+    public checkForSimilarUsersWithAuthInfo(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<Array<Identity>>(`${this.configuration.basePath}/urlinjsonout/registrarManager/checkForSimilarUsers/authInfo`,
+            null,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

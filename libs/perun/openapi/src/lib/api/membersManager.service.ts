@@ -439,9 +439,9 @@ export class MembersManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createSponsoredMembers(inputCreateSponsoredMember1: InputCreateSponsoredMember1, observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: { [key: string]: string; }; }>;
-    public createSponsoredMembers(inputCreateSponsoredMember1: InputCreateSponsoredMember1, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: { [key: string]: string; }; }>>;
-    public createSponsoredMembers(inputCreateSponsoredMember1: InputCreateSponsoredMember1, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: { [key: string]: string; }; }>>;
+    public createSponsoredMembers(inputCreateSponsoredMember1: InputCreateSponsoredMember1, observe?: 'body', reportProgress?: boolean): Observable<Array<{ [key: string]: string; }>>;
+    public createSponsoredMembers(inputCreateSponsoredMember1: InputCreateSponsoredMember1, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<{ [key: string]: string; }>>>;
+    public createSponsoredMembers(inputCreateSponsoredMember1: InputCreateSponsoredMember1, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<{ [key: string]: string; }>>>;
     public createSponsoredMembers(inputCreateSponsoredMember1: InputCreateSponsoredMember1, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputCreateSponsoredMember1 === null || inputCreateSponsoredMember1 === undefined) {
             throw new Error('Required parameter inputCreateSponsoredMember1 was null or undefined when calling createSponsoredMembers.');
@@ -484,7 +484,7 @@ export class MembersManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<{ [key: string]: { [key: string]: string; }; }>(`${this.configuration.basePath}/json/membersManager/createSponsoredMembers`,
+        return this.httpClient.post<Array<{ [key: string]: string; }>>(`${this.configuration.basePath}/json/membersManager/createSponsoredMembers`,
             inputCreateSponsoredMember1,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -501,9 +501,9 @@ export class MembersManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createSponsoredMembersFromCSV(inputCreateSponsoredMemberFromCSV: InputCreateSponsoredMemberFromCSV, observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: { [key: string]: string; }; }>;
-    public createSponsoredMembersFromCSV(inputCreateSponsoredMemberFromCSV: InputCreateSponsoredMemberFromCSV, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: { [key: string]: string; }; }>>;
-    public createSponsoredMembersFromCSV(inputCreateSponsoredMemberFromCSV: InputCreateSponsoredMemberFromCSV, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: { [key: string]: string; }; }>>;
+    public createSponsoredMembersFromCSV(inputCreateSponsoredMemberFromCSV: InputCreateSponsoredMemberFromCSV, observe?: 'body', reportProgress?: boolean): Observable<Array<{ [key: string]: string; }>>;
+    public createSponsoredMembersFromCSV(inputCreateSponsoredMemberFromCSV: InputCreateSponsoredMemberFromCSV, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<{ [key: string]: string; }>>>;
+    public createSponsoredMembersFromCSV(inputCreateSponsoredMemberFromCSV: InputCreateSponsoredMemberFromCSV, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<{ [key: string]: string; }>>>;
     public createSponsoredMembersFromCSV(inputCreateSponsoredMemberFromCSV: InputCreateSponsoredMemberFromCSV, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputCreateSponsoredMemberFromCSV === null || inputCreateSponsoredMemberFromCSV === undefined) {
             throw new Error('Required parameter inputCreateSponsoredMemberFromCSV was null or undefined when calling createSponsoredMembersFromCSV.');
@@ -546,7 +546,7 @@ export class MembersManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<{ [key: string]: { [key: string]: string; }; }>(`${this.configuration.basePath}/json/membersManager/createSponsoredMembersFromCSV`,
+        return this.httpClient.post<Array<{ [key: string]: string; }>>(`${this.configuration.basePath}/json/membersManager/createSponsoredMembersFromCSV`,
             inputCreateSponsoredMemberFromCSV,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -2822,7 +2822,7 @@ export class MembersManagerService {
      * @param namespace namespace
      * @param emailAttributeURN urn of the attribute with stored mail
      * @param language language of the message
-     * @param baseUrl source url (optional)
+     * @param baseUrl base url of Perun instance (optional)
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */

@@ -85,12 +85,12 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
               private sponsoredMembersPDFService: SponsoredMembersPdfService,
               private cd: ChangeDetectorRef) { }
 
-  private static didSomeGenerationFailed(resultData: any) {
-    for (const memberName of Object.keys(resultData)) {
-      if (resultData[memberName].status !== "OK") {
+  private static didSomeGenerationFailed(resultData: {[p: string]: string}[]) {
+    resultData.forEach((entry: {[p: string]: string}) => {
+      if (entry['status'] !== "OK") {
         return true;
       }
-    }
+    });
     return false;
   }
 
@@ -159,40 +159,26 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
       att.friendlyName === attName && att.value !== null && att.value.toString() === "true");
   }
 
-  createOutputObjects(data: {[p: string]: {[p: string]: string}}) {
+  createOutputObjects(data: {[p: string]: string}[]) {
     let name = '';
     let status = '';
     let login = '';
     let password = '';
     const output = [];
 
-    for (const memberName of Object.keys(data)) {
-      name = memberName.replace(';', ' ').split(';')[0];
-      for (const memberData of Object.keys(data[memberName])) {
-        switch (memberData) {
-          case 'status': {
-            status = data[memberName][memberData];
-            break;
-          }
-          case 'login': {
-            login = data[memberName][memberData];
-            break;
-          }
-          case 'password': {
-            password = data[memberName][memberData];
-            break;
-          }
-          default:
-            break;
-        }
-      }
+    data.forEach((memberData: {[p: string]: string}) => {
+      name = memberData['name'].replace(';', ' ').split(';')[0];
+      status = memberData['status'];
+      login = memberData['login'] ? memberData['login'] : login;
+      password = memberData['password'] ? memberData['password'] : password;
+
       output.push({
         name: name,
         status: status,
         login: login,
         password: password
       });
-    }
+  });
 
     return output;
   }
