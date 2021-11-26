@@ -20,7 +20,6 @@ export class ResourceAttributesComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) { }
 
-  resourceId: number;
   resource: Resource;
 
   resourceGroupAttAuth: boolean;
