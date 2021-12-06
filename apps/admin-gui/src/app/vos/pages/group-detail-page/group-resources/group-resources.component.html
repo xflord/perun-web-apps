@@ -6,7 +6,7 @@
     mat-flat-button
     color="accent"
     (click)="addResource()"
-    class="mr-2">
+    class="mr-2 action-button">
     {{'GROUP_DETAIL.RESOURCES.ADD' | translate}}
   </button>
   <span
@@ -15,6 +15,7 @@
     <button
       mat-flat-button
       color="warn"
+      class="mr-2"
       [disabled]="selected.selected.length === 0 || (list !== undefined && !list.removeAuth)"
       (click)="removeResource()">
     {{'GROUP_DETAIL.RESOURCES.DELETE' | translate}}
@@ -34,7 +35,7 @@
     [disableRouting]="!routingAuth"
     [selection]="selected"
     [groupToResource]="group"
-    [groupId]="groupId"
+    [groupId]="group.id"
     [resourcesToDisableCheckbox]="resourcesToDisable"
     [displayedColumns]="['select', 'id', 'indirectResourceAssigment', 'name', 'status', 'facility', 'tags', 'description']">
   </perun-web-apps-resources-list>

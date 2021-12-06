@@ -1,7 +1,6 @@
 import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateGroupDialogComponent } from '../../../../shared/components/dialogs/create-group-dialog/create-group-dialog.component';
-import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DeleteGroupDialogComponent } from '../../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -11,7 +10,7 @@ import { TABLE_GROUP_SUBGROUPS } from '@perun-web-apps/config/table-config';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { GroupFlatNode } from '@perun-web-apps/perun/models';
 import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { GroupsTreeComponent } from '@perun-web-apps/perun/components';
 import { GroupsListComponent } from '@perun-web-apps/perun/components';
 
@@ -30,8 +29,8 @@ export class GroupSubgroupsComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private groupService: GroupsManagerService,
-    private route: ActivatedRoute,
-    private guiAuthResolver: GuiAuthResolver
+    private guiAuthResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
   ) {
   }
   group: Group;
@@ -83,15 +82,10 @@ export class GroupSubgroupsComponent implements OnInit {
       localStorage.setItem('preferedValue', value);
     });
 
-    this.route.parent.params.subscribe(parentParams => {
-      const groupId = parentParams['groupId'];
-      this.groupService.getGroupById(groupId).subscribe(group => {
-        // @ts-ignore
-        this.group = group;
 
-        this.refreshTable();
-      });
-    });
+    this.group = this.entityStorageService.getEntity();
+    this.setAuthRights();
+    this.refreshTable();
   }
 
   setAuthRights() {

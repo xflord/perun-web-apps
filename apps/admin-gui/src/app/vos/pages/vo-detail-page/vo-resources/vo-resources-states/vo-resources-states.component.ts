@@ -1,7 +1,6 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {CustomIconService} from '@perun-web-apps/perun/services';
-import { ResourceState, TasksManagerService } from '@perun-web-apps/perun/openapi';
+import { EntityStorageService } from '@perun-web-apps/perun/services';
+import { ResourceState, TasksManagerService, Vo } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-vo-resources-states',
@@ -14,31 +13,26 @@ export class VoResourcesStatesComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
-  constructor(private route: ActivatedRoute,
-              private taskService: TasksManagerService,
-              private customIconService: CustomIconService) { }
+  constructor(private taskService: TasksManagerService,
+              private entityStorageService: EntityStorageService) { }
 
   loading = false;
-  okPropagation: ResourceState[];
-  errorPropagation: ResourceState[];
+  okPropagation: ResourceState[] = [];
+  errorPropagation: ResourceState[] = [];
   resourceStates: ResourceState[] = [];
 
-  voId: number;
+  vo: Vo;
   selectedIndex = 0;
 
   ngOnInit() {
-    this.customIconService.registerPerunRefreshIcon();
     this.loading = true;
-    this.route.parent.parent.params.subscribe(parentParams => {
-      this.voId = parentParams['voId'];
-      this.refreshTable();
-    });
+    this.vo = this.entityStorageService.getEntity();
+    this.refreshTable();
   }
 
   refreshTable() {
-    console.log(this.selectedIndex);
     this.loading = true;
-    this.taskService.getAllResourcesState(this.voId).subscribe( resourceStates => {
+    this.taskService.getAllResourcesState(this.vo.id).subscribe( resourceStates => {
       this.resourceStates = resourceStates;
       this.okPropagation = [];
       this.errorPropagation = [];
@@ -58,6 +52,6 @@ export class VoResourcesStatesComponent implements OnInit {
         }
       }
       this.loading = false;
-    });
+    }, () => this.loading = false);
   }
 }

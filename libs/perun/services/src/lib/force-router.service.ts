@@ -2,6 +2,14 @@ import { Injectable } from '@angular/core';
 import { NavigationExtras, NavigationStart, Router } from '@angular/router';
 
 export type NavigateType = 'back' | 'forward';
+
+/**
+ * This class fixes one specific Angular routing bug. When user wants to redirect
+ * from one entity to other entity with the same type, but with another id, then
+ * the routing didn't use to work correctly.
+ *
+ * Example: Perun admin -> Users -> Select user -> Service Accounts -> Select service account
+ */
 @Injectable({
   providedIn: 'root'
 })

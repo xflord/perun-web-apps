@@ -39,7 +39,11 @@
 
     <perun-web-apps-refresh-button (refresh)="getAttributes(specificSecondEntity.id)"></perun-web-apps-refresh-button>
 
-    <button mat-flat-button class="mr-2" color="accent" (click)="onAdd(specificSecondEntity.id)">
+    <button
+      mat-flat-button
+      class="mr-2 action-button"
+      color="accent"
+      (click)="onAdd(specificSecondEntity.id)">
       {{'MEMBER_DETAIL.SETTINGS.ATTRIBUTES.CREATE' | translate}}
     </button>
 
@@ -54,12 +58,20 @@
 
     <button
       mat-flat-button color="warn"
+      class="mr-2"
       (click)="onDelete(specificSecondEntity.id)"
       [disabled]="selection.selected.length === 0">
       {{'MEMBER_DETAIL.SETTINGS.ATTRIBUTES.DELETE' | translate}}
     </button>
+    <perun-web-apps-immediate-filter (filter)="applyFilter($event)"
+                                     [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.FILTER'"></perun-web-apps-immediate-filter>
     <mat-spinner class="ml-auto mr-auto" *ngIf="innerLoading"></mat-spinner>
-    <perun-web-apps-attributes-list [attributes]="attributes" [selection]="selection" #list
-                                    *ngIf="!innerLoading"></perun-web-apps-attributes-list>
+    <perun-web-apps-attributes-list
+      #list
+      *ngIf="!innerLoading"
+      [attributes]="attributes"
+      [filterValue]="filterValue"
+      [selection]="selection">
+    </perun-web-apps-attributes-list>
   </div>
 </div>

@@ -14,7 +14,7 @@
         (click)="onAddMember()"
         *ngIf="addAuth"
         [disabled]="synchEnabled || blockGroupManualMemberAdding"
-        class="mr-2"
+        class="mr-2 action-button"
         color="accent"
         mat-flat-button>
         {{'GROUP_DETAIL.MEMBERS.ADD_MEMBER' | translate}}
@@ -29,7 +29,7 @@
       (click)="onInviteMember()"
       *ngIf="inviteAuth"
       [disabled]="synchEnabled"
-      class="mr-2"
+      class="mr-2 action-button"
       color="accent"
       mat-flat-button>
     {{'GROUP_DETAIL.MEMBERS.INVITE_MEMBER' | translate}}

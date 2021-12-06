@@ -439,9 +439,9 @@ export class MembersManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createSponsoredMembers(inputCreateSponsoredMember1: InputCreateSponsoredMember1, observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: { [key: string]: string; }; }>;
-    public createSponsoredMembers(inputCreateSponsoredMember1: InputCreateSponsoredMember1, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: { [key: string]: string; }; }>>;
-    public createSponsoredMembers(inputCreateSponsoredMember1: InputCreateSponsoredMember1, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: { [key: string]: string; }; }>>;
+    public createSponsoredMembers(inputCreateSponsoredMember1: InputCreateSponsoredMember1, observe?: 'body', reportProgress?: boolean): Observable<Array<{ [key: string]: string; }>>;
+    public createSponsoredMembers(inputCreateSponsoredMember1: InputCreateSponsoredMember1, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<{ [key: string]: string; }>>>;
+    public createSponsoredMembers(inputCreateSponsoredMember1: InputCreateSponsoredMember1, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<{ [key: string]: string; }>>>;
     public createSponsoredMembers(inputCreateSponsoredMember1: InputCreateSponsoredMember1, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputCreateSponsoredMember1 === null || inputCreateSponsoredMember1 === undefined) {
             throw new Error('Required parameter inputCreateSponsoredMember1 was null or undefined when calling createSponsoredMembers.');
@@ -484,7 +484,7 @@ export class MembersManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<{ [key: string]: { [key: string]: string; }; }>(`${this.configuration.basePath}/json/membersManager/createSponsoredMembers`,
+        return this.httpClient.post<Array<{ [key: string]: string; }>>(`${this.configuration.basePath}/json/membersManager/createSponsoredMembers`,
             inputCreateSponsoredMember1,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -501,9 +501,9 @@ export class MembersManagerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createSponsoredMembersFromCSV(inputCreateSponsoredMemberFromCSV: InputCreateSponsoredMemberFromCSV, observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: { [key: string]: string; }; }>;
-    public createSponsoredMembersFromCSV(inputCreateSponsoredMemberFromCSV: InputCreateSponsoredMemberFromCSV, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: { [key: string]: string; }; }>>;
-    public createSponsoredMembersFromCSV(inputCreateSponsoredMemberFromCSV: InputCreateSponsoredMemberFromCSV, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: { [key: string]: string; }; }>>;
+    public createSponsoredMembersFromCSV(inputCreateSponsoredMemberFromCSV: InputCreateSponsoredMemberFromCSV, observe?: 'body', reportProgress?: boolean): Observable<Array<{ [key: string]: string; }>>;
+    public createSponsoredMembersFromCSV(inputCreateSponsoredMemberFromCSV: InputCreateSponsoredMemberFromCSV, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<{ [key: string]: string; }>>>;
+    public createSponsoredMembersFromCSV(inputCreateSponsoredMemberFromCSV: InputCreateSponsoredMemberFromCSV, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<{ [key: string]: string; }>>>;
     public createSponsoredMembersFromCSV(inputCreateSponsoredMemberFromCSV: InputCreateSponsoredMemberFromCSV, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (inputCreateSponsoredMemberFromCSV === null || inputCreateSponsoredMemberFromCSV === undefined) {
             throw new Error('Required parameter inputCreateSponsoredMemberFromCSV was null or undefined when calling createSponsoredMembersFromCSV.');
@@ -546,7 +546,7 @@ export class MembersManagerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<{ [key: string]: { [key: string]: string; }; }>(`${this.configuration.basePath}/json/membersManager/createSponsoredMembersFromCSV`,
+        return this.httpClient.post<Array<{ [key: string]: string; }>>(`${this.configuration.basePath}/json/membersManager/createSponsoredMembersFromCSV`,
             inputCreateSponsoredMemberFromCSV,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -1120,6 +1120,54 @@ export class MembersManagerService {
         return this.httpClient.get<Array<RichMember>>(`${this.configuration.basePath}/json/membersManager/findCompleteRichMembers/v-sponsored`,
             {
                 params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get all members from all vos.
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAllMembers(observe?: 'body', reportProgress?: boolean): Observable<Array<Member>>;
+    public getAllMembers(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Member>>>;
+    public getAllMembers(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Member>>>;
+    public getAllMembers(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (BasicAuth) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+        // authentication (BearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<Array<Member>>(`${this.configuration.basePath}/json/membersManager/getAllMembers`,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2774,13 +2822,14 @@ export class MembersManagerService {
      * @param namespace namespace
      * @param emailAttributeURN urn of the attribute with stored mail
      * @param language language of the message
+     * @param baseUrl base url of Perun instance (optional)
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public sendPasswordResetLinkEmail(member: number, namespace: string, emailAttributeURN: string, language: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public sendPasswordResetLinkEmail(member: number, namespace: string, emailAttributeURN: string, language: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public sendPasswordResetLinkEmail(member: number, namespace: string, emailAttributeURN: string, language: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public sendPasswordResetLinkEmail(member: number, namespace: string, emailAttributeURN: string, language: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public sendPasswordResetLinkEmail(member: number, namespace: string, emailAttributeURN: string, language: string, baseUrl?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public sendPasswordResetLinkEmail(member: number, namespace: string, emailAttributeURN: string, language: string, baseUrl?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public sendPasswordResetLinkEmail(member: number, namespace: string, emailAttributeURN: string, language: string, baseUrl?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public sendPasswordResetLinkEmail(member: number, namespace: string, emailAttributeURN: string, language: string, baseUrl?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (member === null || member === undefined) {
             throw new Error('Required parameter member was null or undefined when calling sendPasswordResetLinkEmail.');
         }
@@ -2806,6 +2855,9 @@ export class MembersManagerService {
         }
         if (language !== undefined && language !== null) {
             queryParameters = queryParameters.set('language', <any>language);
+        }
+        if (baseUrl !== undefined && baseUrl !== null) {
+            queryParameters = queryParameters.set('baseUrl', <any>baseUrl);
         }
 
         let headers = this.defaultHeaders;

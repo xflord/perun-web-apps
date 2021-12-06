@@ -33,6 +33,8 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
   addIdentity: boolean;
   removeIdentity: boolean;
   routeToAdminSection = true;
+  targetTitle = 'SERVICE';
+  targetDescription = 'SERVICE';
 
   ngOnInit(): void {
     this.loading = true;
@@ -41,6 +43,8 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
         .subscribe(params => {
       this.userId = params["userId"];
       if(this.userId === undefined) {
+        this.targetTitle = 'SERVICE';
+        this.targetDescription = 'SELF';
         this.userId = this.store.getPerunPrincipal().userId;
         this.routeToAdminSection = false;
       }
@@ -69,7 +73,8 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
     config.data = {
       userId : this.userId,
       theme: "user-theme",
-      isService: false
+      isService: false,
+      target: this.targetTitle
     };
 
     const dialogRef = this.dialog.open(ConnectIdentityDialogComponent, config);
@@ -88,7 +93,9 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
       identities: this.selection.selected,
       userId: this.userId,
       specificUser: this.selection.selected[0],
-      theme: "user-theme"
+      theme: "user-theme",
+      targetTitle: this.targetTitle,
+      targetDescription: this.targetDescription
     };
 
     const dialogRef = this.dialog.open(DisconnectIdentityDialogComponent, config);

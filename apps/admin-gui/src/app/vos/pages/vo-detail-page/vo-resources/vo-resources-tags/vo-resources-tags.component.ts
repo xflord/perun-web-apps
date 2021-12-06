@@ -1,12 +1,11 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CreateResourceTagDialogComponent } from '../../../../../shared/components/dialogs/create-resource-tag-dialog/create-resource-tag-dialog.component';
 import { DeleteResourceTagDialogComponent } from '../../../../../shared/components/dialogs/delete-resource-tag-dialog/delete-resource-tag-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
-import { ResourcesManagerService, ResourceTag, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { EntityStorageService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import { ResourcesManagerService, ResourceTag, Vo } from '@perun-web-apps/perun/openapi';
 import { TABLE_VO_RESOURCES_TAGS } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 
@@ -18,17 +17,15 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 export class VoResourcesTagsComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
-  constructor(private route: ActivatedRoute,
-              private resourceManager: ResourcesManagerService,
+  constructor(private resourceManager: ResourcesManagerService,
               private dialog: MatDialog,
               private notificator: NotificatorService,
               private translator: TranslateService,
               private authResolver: GuiAuthResolver,
-              private voService: VosManagerService) { }
+              private entityStorageService: EntityStorageService) { }
 
   loading = false;
   resourceTag: ResourceTag[] = [];
-  voId: number;
   vo: Vo;
 
   selection = new SelectionModel<ResourceTag>(true, []);
@@ -42,14 +39,10 @@ export class VoResourcesTagsComponent implements OnInit {
   editAuth: boolean;
 
   ngOnInit() {
-    this.route.parent.parent.params.subscribe(parentParams => {
-      this.voId = parentParams['voId'];
-
-      this.voService.getVoById(this.voId).subscribe(vo => {
-        this.vo = vo;
-        this.updateData();
-      });
-    });
+    this.loading = true;
+    this.vo = this.entityStorageService.getEntity();
+    this.setAuthRights();
+    this.updateData();
   }
 
   deleteTag() {
@@ -72,7 +65,7 @@ export class VoResourcesTagsComponent implements OnInit {
   create() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {voId: this.voId, theme: 'vo-theme'};
+    config.data = {voId: this.vo.id, theme: 'vo-theme'};
 
     const dialogRef = this.dialog.open(CreateResourceTagDialogComponent, config);
 
@@ -89,7 +82,7 @@ export class VoResourcesTagsComponent implements OnInit {
   updateData() {
     this.loading = true;
     this.selection.clear();
-    this.resourceManager.getAllResourcesTagsForVo(this.voId).subscribe(tags => {
+    this.resourceManager.getAllResourcesTagsForVo(this.vo.id).subscribe(tags => {
       this.resourceTag = tags;
       this.selection.clear();
       this.setAuthRights();

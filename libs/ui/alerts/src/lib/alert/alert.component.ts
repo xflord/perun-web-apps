@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-export type AlertType = 'error' | 'warn' | "info";
+export type AlertType = 'error' | 'warn' | "info" | "success";
 
 @Component({
   selector: 'app-alert',

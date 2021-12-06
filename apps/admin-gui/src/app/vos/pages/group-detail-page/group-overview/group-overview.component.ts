@@ -7,7 +7,12 @@ import {
   GroupsManagerService,
   VosManagerService
 } from '@perun-web-apps/perun/openapi';
-import { ApiRequestConfigurationService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import {
+  ApiRequestConfigurationService,
+  EntityStorageService,
+  GuiAuthResolver,
+  NotificatorService
+} from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 
 @Component({
@@ -27,12 +32,12 @@ export class GroupOverviewComponent implements OnInit {
     private guiAuthResolver: GuiAuthResolver,
     private apiRequest: ApiRequestConfigurationService,
     private attributesManager: AttributesManagerService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
+    private entityStorageService: EntityStorageService
   ) {
   }
 
   navItems: MenuItem[] = [];
-  groupId: number;
   group: Group;
   parentGroup: Group = null;
   loading = false;
@@ -40,20 +45,14 @@ export class GroupOverviewComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.route.params.subscribe(params => {
-      this.groupId = params['groupId'];
-
-      this.groupService.getGroupById(this.groupId).subscribe(group => {
-        this.group = group;
-        if (this.group.parentGroupId !== null) {
-          this.loadParentGroupData();
-        } else {
-          this.parentGroup = null;
-          this.initNavItems();
-          this.loading = false;
-        }
-      }, () => this.loading = false);
-    });
+    this.group =  this.entityStorageService.getEntity();
+    if (this.group.parentGroupId !== null) {
+      this.loadParentGroupData();
+    } else {
+      this.parentGroup = null;
+      this.initNavItems();
+      this.loading = false;
+    }
   }
 
   private loadParentGroupData() {
@@ -71,7 +70,7 @@ export class GroupOverviewComponent implements OnInit {
       this.navItems.push(
         {
           cssIcon: 'perun-user',
-          url: `/organizations/${this.group.voId}/groups/${this.groupId}/members`,
+          url: `/organizations/${this.group.voId}/groups/${this.group.id}/members`,
           label: 'MENU_ITEMS.GROUP.MEMBERS',
           style: 'group-btn'
         });
@@ -81,7 +80,7 @@ export class GroupOverviewComponent implements OnInit {
         && this.group.name !== 'members') {
       this.navItems.push({
         cssIcon: 'perun-group',
-        url: `/organizations/${this.group.voId}/groups/${this.groupId}/subgroups`,
+        url: `/organizations/${this.group.voId}/groups/${this.group.id}/subgroups`,
         label: 'MENU_ITEMS.GROUP.SUBGROUPS',
         style: 'group-btn'
       });
@@ -90,7 +89,7 @@ export class GroupOverviewComponent implements OnInit {
     if (this.guiAuthResolver.isAuthorized('getAssignedRichResources_Group_policy', [this.group])) {
       this.navItems.push({
         cssIcon: 'perun-manage-facility',
-        url: `/organizations/${this.group.voId}/groups/${this.groupId}/resources`,
+        url: `/organizations/${this.group.voId}/groups/${this.group.id}/resources`,
         label: 'MENU_ITEMS.GROUP.RESOURCES',
         style: 'group-btn'
       });
@@ -99,7 +98,7 @@ export class GroupOverviewComponent implements OnInit {
     if (this.guiAuthResolver.isAuthorized('getApplicationsForGroup_Group_List<String>_policy', [this.group])) {
       this.navItems.push({
         cssIcon: 'perun-applications',
-        url: `/organizations/${this.group.voId}/groups/${this.groupId}/applications`,
+        url: `/organizations/${this.group.voId}/groups/${this.group.id}/applications`,
         label: 'MENU_ITEMS.GROUP.APPLICATIONS',
         style: 'group-btn'
       });
@@ -144,7 +143,7 @@ export class GroupOverviewComponent implements OnInit {
     if(expirationAuth || managerAuth || appFormAuth || notificationAuth || relationAuth){
       this.navItems.push({
         cssIcon: 'perun-settings2',
-        url: `/organizations/${this.group.voId}/groups/${this.groupId}/settings`,
+        url: `/organizations/${this.group.voId}/groups/${this.group.id}/settings`,
         label: 'MENU_ITEMS.GROUP.SETTINGS',
         style: 'group-btn'
       });

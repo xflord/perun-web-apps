@@ -1,8 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
-  ApiRequestConfigurationService,
+  ApiRequestConfigurationService, EntityStorageService,
   GuiAuthResolver,
   NotificatorService,
   StoreService
@@ -36,13 +35,13 @@ export class GroupMembersComponent implements OnInit {
 
   constructor(
     private groupService: GroupsManagerService,
-    protected route: ActivatedRoute,
     private dialog: MatDialog,
     private guiAuthResolver: GuiAuthResolver,
     private storeService: StoreService,
     private attributesManager: AttributesManagerService,
     private apiRequest: ApiRequestConfigurationService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
+    private entityStorageService: EntityStorageService
   ) { }
 
   group: RichGroup;
@@ -93,18 +92,15 @@ export class GroupMembersComponent implements OnInit {
     this.statuses.setValue(this.selectedStatuses);
     this.groupStatuses.setValue(this.selectedGroupStatuses);
     this.memberAttrNames = this.memberAttrNames.concat(this.storeService.getLoginAttributeNames());
-    this.route.parent.params.subscribe(parentParams => {
-      const groupId = parentParams['groupId'];
-      const voId = parentParams['voId'];
-      this.isManualAddingBlocked(voId, groupId).then(() => this.loadPage(groupId));
-    });
+    this.group = this.entityStorageService.getEntity();
+    this.setAuthRights();
+    this.isManualAddingBlocked(this.group.voId, this.group.id).then(() => this.loadPage(this.group.id));
   }
 
   loadPage(groupId: number) {
     this.groupService.getRichGroupByIdWithAttributesByNames(groupId, this.groupAttrNames).subscribe(group => {
       this.group = group;
       this.synchEnabled = this.isSynchronized();
-      this.setAuthRights();
       this.loading = false;
     });
   }

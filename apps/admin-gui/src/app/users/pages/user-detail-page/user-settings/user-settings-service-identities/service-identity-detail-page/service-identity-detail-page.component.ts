@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SideMenuService } from '../../../../../../core/services/common/side-menu.service';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { ActivatedRoute } from '@angular/router';
 import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { SideMenuItemService } from '../../../../../../shared/side-menu/side-menu-item.service';
@@ -21,7 +21,8 @@ export class ServiceIdentityDetailPageComponent implements OnInit {
     private sideMenuItemService: SideMenuItemService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    public authResolver: GuiAuthResolver
+    public authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
   ) {
   }
 
@@ -33,6 +34,7 @@ export class ServiceIdentityDetailPageComponent implements OnInit {
     this.loading = true;
     this.route.params.subscribe(params => {
       const userId = params['userId'];
+      this.entityStorageService.setEntity({id: userId, beanName: 'User'});
 
       this.usersService.getUserById(userId).subscribe(user => {
         this.user = user;

@@ -1,8 +1,8 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.TITLE' | translate}}</h1>
   <div class="dialog-container" mat-dialog-content>
-    <mat-horizontal-stepper #stepper [linear]="true">
-      <mat-step completed=false>
+    <mat-stepper [linear]="true">
+      <mat-step completed="false">
         <ng-template matStepLabel>{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.SELECT_RESOURCE' | translate}}</ng-template>
         <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
         <div *ngIf="!loading">
@@ -24,9 +24,11 @@
             <mat-form-field class="input-style">
               <mat-select
                 disableOptionCentering="true"
+                required
                 placeholder="{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.SELECTED' | translate}}">
                 <mat-option (click)="setResource(resource);
-                           stepper.selected.completed = true" *ngFor="let resource of filteredResources | async"
+                           stepper.selected.completed = true"
+                            *ngFor="let resource of filteredResources | async"
                             [value]="resource">
                   {{resource.name}}
                 </mat-option>
@@ -41,21 +43,6 @@
             <span class="font-weight-bold">{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.SERVICES' | translate}}</span>
             <div *ngFor="let service of services" class="ml-5">{{service.name}}</div>
           </div>
-        </div>
-
-        <div mat-dialog-actions>
-          <button
-            (click)="onCancel()"
-            class="ml-auto"
-            mat-flat-button>{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CANCEL' | translate}}</button>
-          <button
-            (click)="loadGroups()"
-            [disabled]="selectedResource === null || processing || loading"
-            class="ml-2"
-            color="accent"
-            mat-flat-button
-            matStepperNext
-          >{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CONTINUE' | translate}}</button>
         </div>
       </mat-step>
       <mat-step>
@@ -75,24 +62,36 @@
         <app-alert *ngIf="groups.length === 0 && !processing" alert_type="warn">
           {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.NO_GROUPS' | translate}}
         </app-alert>
-        <div mat-dialog-actions>
-          <button
-            (click)="selectedGroups.clear()"
-            class="ml-auto"
-            mat-flat-button
-            matStepperPrevious>
-            {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.BACK' | translate}}</button>
-          <button
-            (click)="onFinish()"
-            [disabled]="selectedGroups.selected.length === 0 || processing"
-            class="ml-2"
-            color="accent"
-            mat-flat-button
-            matStepperNext>
-            {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.SUBMIT' | translate}}</button>
-        </div>
       </mat-step>
-    </mat-horizontal-stepper>
+    </mat-stepper>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      (click)="onCancel()"
+      mat-flat-button>{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CANCEL' | translate}}</button>
+    <button
+      (click)="stepperPrevious()"
+      *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
+      class="ml-auto"
+      mat-flat-button>
+      {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.BACK' | translate}}</button>
+    <button
+      (click)="stepperNext(); loadGroups()"
+      *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
+      [class.ml-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+      [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+      [disabled]="selectedResource === null || processing || loading"
+      color="accent"
+      mat-flat-button
+    >{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CONTINUE' | translate}}</button>
+    <button
+      (click)="onFinish()"
+      *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
+      [disabled]="selectedGroups.selected.length === 0 || processing"
+      class="ml-2"
+      color="accent"
+      mat-flat-button>
+      {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.SUBMIT' | translate}}</button>
   </div>
 </div>
 

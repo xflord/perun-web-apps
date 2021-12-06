@@ -1,4 +1,5 @@
-<div class="p-2">
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+<div *ngIf="!loading" class="p-2">
   <mat-accordion multi="true" class="headers-align" togglePosition="before">
     <mat-expansion-panel *ngFor="let resourceStatus of propagation">
       <mat-expansion-panel-header>

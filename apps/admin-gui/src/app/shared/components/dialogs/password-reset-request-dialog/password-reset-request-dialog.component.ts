@@ -60,7 +60,11 @@ export class PasswordResetRequestDialogComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     const namespace: string = this.selectedLogin.friendlyNameParameter as unknown as string;
-    this.membersManagerService.sendPasswordResetLinkEmail(this.data.memberId, namespace, this.pwdMails.get(this.selectedMail), this.selectedLang).subscribe(() => {
+    const currentUrl = window.location.href;
+    const splittedUrl = currentUrl.split("/");
+    const domain = splittedUrl[0] + "//" + splittedUrl[2]; // protocol with domain
+
+    this.membersManagerService.sendPasswordResetLinkEmail(this.data.memberId, namespace, this.pwdMails.get(this.selectedMail), this.selectedLang, domain).subscribe(() => {
       this.notificator.showSuccess(this.successMessage);
       this.loading = false;
       this.dialogRef.close();

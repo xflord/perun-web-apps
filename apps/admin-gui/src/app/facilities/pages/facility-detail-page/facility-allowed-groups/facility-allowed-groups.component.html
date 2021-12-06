@@ -1,7 +1,7 @@
 <div>
   <h1 class="page-subtitle">{{'MENU_ITEMS.FACILITY.ALLOWED_GROUPS' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <mat-form-field>
+  <mat-form-field class="mr-2">
     <mat-label>{{'FACILITY_DETAIL.ALLOWED_GROUPS.SHOW_VOS_GROUPS' | translate}}</mat-label>
     <mat-select  [(value)]="selected" (selectionChange)="showGroup()">
       <mat-option value="all">{{'FACILITY_DETAIL.ALLOWED_GROUPS.ALL' | translate}}</mat-option>

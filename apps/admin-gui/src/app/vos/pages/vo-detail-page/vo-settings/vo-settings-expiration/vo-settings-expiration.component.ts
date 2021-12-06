@@ -1,11 +1,10 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {openClose} from '@perun-web-apps/perun/animations';
-import {ActivatedRoute} from '@angular/router';
-import {NotificatorService} from '@perun-web-apps/perun/services';
+import { EntityStorageService, NotificatorService } from '@perun-web-apps/perun/services';
 import {TranslateService} from '@ngx-translate/core';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { ApiRequestConfigurationService } from '@perun-web-apps/perun/services';
-import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import { Attribute, AttributesManagerService, Vo } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-vo-settings-expiration',
@@ -21,10 +20,10 @@ export class VoSettingsExpirationComponent implements OnInit {
 
   constructor(
     private attributesManager: AttributesManagerService,
-    private route: ActivatedRoute,
     private translate: TranslateService,
     private notificator: NotificatorService,
-    private apiRequest: ApiRequestConfigurationService
+    private apiRequest: ApiRequestConfigurationService,
+    private entityStorageService: EntityStorageService
   ) {
     this.translate.get('VO_DETAIL.SETTINGS.EXPIRATION.SUCCESS_MESSAGE').subscribe(value => this.successMessage = value);
     this.translate.get('VO_DETAIL.SETTINGS.EXPIRATION.ERROR_MESSAGE').subscribe(value => this.errorMessage = value);
@@ -35,18 +34,15 @@ export class VoSettingsExpirationComponent implements OnInit {
   successMessage: string;
   errorMessage: string;
 
-  voId: number;
+  vo: Vo;
 
   ngOnInit() {
-    this.route.parent.parent.params.subscribe(params => {
-      this.voId = params['voId'];
-
-      this.loadSettings();
-    });
+    this.vo = this.entityStorageService.getEntity();
+    this.loadSettings();
   }
 
   private loadSettings(): void {
-    this.attributesManager.getVoAttributeByName(this.voId, Urns.VO_DEF_EXPIRATION_RULES).subscribe(attr => {
+    this.attributesManager.getVoAttributeByName(this.vo.id, Urns.VO_DEF_EXPIRATION_RULES).subscribe(attr => {
       this.expirationAttribute = attr;
     });
   }
@@ -55,7 +51,7 @@ export class VoSettingsExpirationComponent implements OnInit {
     // FIXME this might not work in case of some race condition (other request finishes sooner)
     this.apiRequest.dontHandleErrorForNext();
 
-    this.attributesManager.setVoAttribute({vo: this.voId, attribute: attribute}).subscribe(() => {
+    this.attributesManager.setVoAttribute({vo: this.vo.id, attribute: attribute}).subscribe(() => {
         this.loadSettings();
         this.notificator.showSuccess(this.successMessage);
       }, error => {

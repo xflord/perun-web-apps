@@ -1,7 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { Group } from '@perun-web-apps/perun/openapi';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-group-settings-managers',
@@ -12,11 +11,8 @@ export class GroupSettingsManagersComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
-  constructor(
-    private groupService: GroupsManagerService,
-    private route: ActivatedRoute,
-    private guiAuthResolver: GuiAuthResolver
-  ) { }
+  constructor(private guiAuthResolver: GuiAuthResolver,
+              private entityStorageService: EntityStorageService) { }
 
   group: Group;
 
@@ -29,14 +25,7 @@ export class GroupSettingsManagersComponent implements OnInit {
   theme = 'group-theme';
 
   ngOnInit() {
-    this.route.parent.parent.params.subscribe(parentParentParams => {
-      const groupId = parentParentParams ['groupId'];
-
-      this.groupService.getGroupById(groupId).subscribe(group => {
-        this.group = group;
-      });
-    });
-
+    this.group = this.entityStorageService.getEntity();
     this.guiAuthResolver.assignAvailableRoles(this.availableRoles, 'Group');
   }
 }

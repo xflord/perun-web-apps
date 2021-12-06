@@ -1492,3 +1492,16 @@ th, td.mat-cell {
 .cdk-virtual-scroll-content-wrapper {
   contain: size !important;
 }
+
+.action-button::after {
+  content: '\2026';
+}
+
+.align-checkbox {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+.align-checkbox mat-checkbox {
+  margin-top: 7px !important;
+}

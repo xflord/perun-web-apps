@@ -6,7 +6,7 @@
     [matTooltipDisabled]="!(findSponsorsAuth && voSponsors.length === 0)"
     matTooltipPosition="above">
     <button
-      *ngIf="!loading && (createAuth || generateAuth)"
+      *ngIf="createAuth || generateAuth"
       mat-flat-button
       color="accent"
       class="mr-2 dropdown-toggle"
@@ -16,18 +16,18 @@
     </button>
   </span>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item *ngIf="createAuth" (click)="onCreate()">
+    <button mat-menu-item *ngIf="createAuth" (click)="onCreate()" class="action-button">
       {{'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.CREATE_ONE' | translate}}
     </button>
-    <button mat-menu-item *ngIf="generateAuth" (click)="onGenerate()">
+    <button mat-menu-item *ngIf="generateAuth" (click)="onGenerate()" class="action-button">
       {{'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.GENERATE' | translate}}
     </button>
   </mat-menu>
   <button
-    *ngIf="!loading && setSponsorshipAuth"
+    *ngIf="setSponsorshipAuth"
     mat-flat-button
     color="accent"
-    class="mr-2"
+    class="mr-2 action-button"
     (click)="onSponsorExistingMember()">
     {{'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.SPONSOR_EXISTING' | translate}}
   </button>

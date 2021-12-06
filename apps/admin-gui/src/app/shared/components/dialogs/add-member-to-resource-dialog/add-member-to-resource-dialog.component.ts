@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
@@ -11,6 +11,7 @@ import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatStepper } from '@angular/material/stepper';
 
 export interface AddMemberToResourceDialogData {
   memberId: number;
@@ -23,7 +24,9 @@ export interface AddMemberToResourceDialogData {
   templateUrl: './add-member-to-resource-dialog.component.html',
   styleUrls: ['./add-member-to-resource-dialog.component.scss']
 })
-export class AddMemberToResourceDialogComponent implements OnInit {
+export class AddMemberToResourceDialogComponent implements OnInit, AfterViewInit {
+
+  @ViewChild(MatStepper) stepper: MatStepper;
 
   constructor(private dialogRef: MatDialogRef<AddMemberToResourceDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private data: AddMemberToResourceDialogData,
@@ -31,7 +34,8 @@ export class AddMemberToResourceDialogComponent implements OnInit {
               private groupManager: GroupsManagerService,
               private notificator: NotificatorService,
               private translate: TranslateService,
-              private authResolver: GuiAuthResolver) {
+              private authResolver: GuiAuthResolver,
+              private cd: ChangeDetectorRef) {
   }
 
   theme: string;
@@ -54,6 +58,12 @@ export class AddMemberToResourceDialogComponent implements OnInit {
   groups: Group[] = [];
   selectedGroups =  new SelectionModel<Group>(false, []);
 
+  ngAfterViewInit(): void {
+    this.stepper.selectionChange.subscribe(() => {
+      this.selectedGroups.clear()
+    })
+    this.cd.detectChanges();
+  }
 
   ngOnInit(): void {
     this.loading = true;
@@ -144,4 +154,11 @@ export class AddMemberToResourceDialogComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
+  stepperPrevious() {
+    this.stepper.previous();
+  }
+
+  stepperNext() {
+    this.stepper.next();
+  }
 }

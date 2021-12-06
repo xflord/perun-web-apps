@@ -1,15 +1,13 @@
 <h1 class="page-subtitle">
   {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.TITLE' | translate}}
 </h1>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto">
-</mat-spinner>
-<div *ngIf="!noApplicationForm && !loading">
+<div *ngIf="!noApplicationForm">
   <div class="w-100 d-flex">
     <button
       *ngIf="addAuth"
       mat-flat-button
       color="accent"
-      class="mr-2"
+      class="mr-2 action-button"
       (click)="add()">
       {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.ADD' | translate}}
     </button>
@@ -26,7 +24,7 @@
 
     <button
       mat-stroked-button
-      class="mr-2"
+      class="mr-2 action-button"
       (click)="changeEmailFooter()">
       <i class="material-icons">email</i>
       {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.EMAIL_FOOTER' | translate}}
@@ -35,12 +33,14 @@
     <button
       *ngIf="copyAuth"
       mat-stroked-button
-      class="ml-auto"
+      class="action-button"
       (click)="copy()">
       <i class="material-icons">file_copy</i>
       {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.COPY_FROM_VO' | translate}}
     </button>
   </div>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto">
+  </mat-spinner>
 
   <app-notification-list
     *ngIf="!loading"
@@ -48,7 +48,7 @@
     [displayedColumns]="displayedColumns"
     [applicationMails]="applicationMails"
     [tableId]="tableId"
-    [groupId]="groupId"
+    [groupId]="group.id"
     [selection]="selection"
     [theme]="'group-theme'"
     (selectionChange)="changeSelection($event)">

@@ -10,6 +10,8 @@ export interface RemoveUserServiceIdentityDialogData {
   userId: number;
   specificUser: User;
   isService: boolean;
+  targetTitle: 'USER' | 'SELF' | 'SERVICE';
+  targetDescription: 'USER' | 'SELF' | 'SERVICE';
 }
 
 @Component({
@@ -33,11 +35,14 @@ export class DisconnectIdentityDialogComponent implements OnInit {
   isService: boolean;
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<User>;
-
+  targetTitle: string;
+  targetDescription: string;
   disconnectingLastOwner: boolean;
   disconnectingSelf: boolean;
 
   ngOnInit(): void {
+    this.targetTitle = this.data.targetTitle;
+    this.targetDescription = this.data.targetDescription;
     this.theme = this.data.theme;
     this.userId = Number(this.data.userId);
     this.dataSource = new MatTableDataSource<User>([this.data.specificUser]);

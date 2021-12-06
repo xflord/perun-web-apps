@@ -1,18 +1,16 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { Group, ResourcesManagerService, RichResource } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ResourcesListComponent } from '@perun-web-apps/perun/components';
-import { TABLE_ASSIGN_RESOURCE_TO_GROUP, TableConfigService } from '@perun-web-apps/config/table-config';
-import { PageEvent } from '@angular/material/paginator';
+import { MatStepper } from '@angular/material/stepper';
+import { TABLE_ASSIGN_RESOURCE_TO_GROUP } from '@perun-web-apps/config/table-config';
 
 export interface AddGroupResourceDialogData {
   theme: string;
-  voId: number;
-  group: Group
-  unwantedResources: number[];
+  group: Group;
 }
 
 @Component({
@@ -27,11 +25,14 @@ export class AddGroupResourceDialogComponent implements OnInit {
               private notificator: NotificatorService,
               private translate: TranslateService,
               private resourcesManager: ResourcesManagerService,
-              private tableConfigService: TableConfigService) {
+              public guiAuthResolver: GuiAuthResolver,
+              private cd: ChangeDetectorRef) {
   }
 
   @ViewChild('list', {})
   list: ResourcesListComponent;
+
+  @ViewChild('stepper') stepper: MatStepper;
 
   loading: boolean;
   filterValue = '';
@@ -43,7 +44,6 @@ export class AddGroupResourceDialogComponent implements OnInit {
   asActive = true;
 
   tableId = TABLE_ASSIGN_RESOURCE_TO_GROUP;
-  pageSize: number;
 
   autoAssignHint: string;
   asActiveHint: string;
@@ -51,14 +51,21 @@ export class AddGroupResourceDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.theme = this.data.theme;
-    this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     this.loading = true;
     this.autoAssignHint = this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.AUTO_SUBGROUPS_OFF_HINT');
     this.asActiveHint = this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ACTIVE_ON_HINT');
     this.asyncHint = this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ASYNC_ON_HINT');
-    this.resourcesManager.getRichResources(this.data.voId).subscribe(resources => {
-      this.resources = resources.filter(res => !this.data.unwantedResources.includes(res.id));
-      this.loading = false;
+    this.resourcesManager.getRichResources(this.data.group.voId).subscribe(allResources => {
+      this.resourcesManager.getAssignedResourcesWithGroup(this.data.group.id).subscribe(assignedResources => {
+        for (const allResource of allResources) {
+          if (assignedResources.findIndex(item => item.id === allResource.id) === -1
+            && this.guiAuthResolver.isAuthorized('assignGroupToResources_Group_List<Resource>_policy',[this.data.group, allResource])) {
+            this.resources.push(allResource);
+          }
+        }
+        this.loading = false;
+        this.cd.detectChanges();
+      }, () => this.loading = false);
     }, () => this.loading = false );
   }
 
@@ -100,8 +107,11 @@ export class AddGroupResourceDialogComponent implements OnInit {
       this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ASYNC_ON_HINT');
   }
 
-  pageChanged(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
+  stepperPrevious() {
+    this.stepper.previous();
+  }
+
+  stepperNext() {
+    this.stepper.next();
   }
 }

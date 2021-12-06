@@ -28,6 +28,9 @@
                   <mat-option value="APP_CREATED_USER">
                     {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.MAIL_TYPE_APP_CREATED_USER' | translate}}
                   </mat-option>
+                  <mat-option *ngIf="data.groupId" value="APPROVABLE_GROUP_APP_USER">
+                    {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.MAIL_TYPE_APPROVABLE_GROUP_APP_USER' | translate}}
+                  </mat-option>
                   <mat-option value="APP_CREATED_VO_ADMIN">
                     {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.MAIL_TYPE_APP_CREATED_VO_ADMIN' | translate}}
                   </mat-option>

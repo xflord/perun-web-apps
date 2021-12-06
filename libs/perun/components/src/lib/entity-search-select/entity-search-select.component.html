@@ -12,9 +12,9 @@
       </ngx-mat-select-search>
     </mat-option>
     <mat-option class="selected-options-bottom" *ngIf="entitiesCtrl?.value" [value]="entitiesCtrl?.value">
-      {{mainTextFunction(entitiesCtrl?.value)}} <span class="text-muted muted">{{secondaryTextFunction(entitiesCtrl?.value)}}</span>
+      {{mainTextFunction(entitiesCtrl?.value)}} <span class="text-muted">{{secondaryTextFunction(entitiesCtrl?.value)}}</span>
       <span *ngIf="displayStatus" class="{{colorByStatus(entitiesCtrl?.value)}}">
-        ({{statusTextFunction(entitiesCtrl?.value)}})
+        {{statusTextFunction(entitiesCtrl?.value) ? '('+statusTextFunction(entitiesCtrl?.value)+')' : ''}}
       </span>
     </mat-option>
     <cdk-virtual-scroll-viewport
@@ -24,9 +24,9 @@
       [minBufferPx]="5 * 48"
       [maxBufferPx]="10 * 48">
       <mat-option *cdkVirtualFor="let entity of filteredEntities | async" [value]="entity">
-        {{mainTextFunction(entity)}} <span class="text-muted muted">{{secondaryTextFunction(entity)}}</span>
+        {{mainTextFunction(entity)}} <span class="text-muted">{{secondaryTextFunction(entity)}}</span>
         <span *ngIf="displayStatus" class="{{colorByStatus(entity)}}">
-          ({{statusTextFunction(entity)}})
+          {{statusTextFunction(entity) ? '('+statusTextFunction(entity)+')' : ''}}
         </span>
       </mat-option>
     </cdk-virtual-scroll-viewport>

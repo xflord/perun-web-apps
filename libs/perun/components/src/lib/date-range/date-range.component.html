@@ -1,4 +1,4 @@
-<mat-form-field appearance="standard" class="space-right" (click)="datePickerStart.open()">
+<mat-form-field (click)="datePickerStart.open()" appearance="standard" class="mr-2">
   <mat-label>{{'VO_DETAIL.APPLICATION.DATE.START' | translate}}</mat-label>
   <input matInput [matDatepicker]="datePickerStart" [min]="startMinDate" [max]="startMaxDate" [formControl]="startDate" (dateChange)="dateChange()" readonly>
   <mat-datepicker-toggle [for]="datePickerStart" matSuffix></mat-datepicker-toggle>

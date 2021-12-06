@@ -12,6 +12,7 @@ export interface AddUserServiceIdentityData {
   userId: number;
   theme: string;
   isService: boolean;
+  target: 'USER' | 'SELF' | 'SERVICE';
 }
 
 @Component({
@@ -33,7 +34,7 @@ export class ConnectIdentityDialogComponent implements OnInit {
   userId: number;
   isService: boolean;
   loading = false;
-
+  target: string;
   identities: RichUser[];
   selection = new SelectionModel<RichUser>(false, []);
 
@@ -45,6 +46,7 @@ export class ConnectIdentityDialogComponent implements OnInit {
   searchCtrl: FormControl;
 
   ngOnInit(): void {
+    this.target = this.data.target;
     this.theme = this.data.theme;
     this.userId = this.data.userId;
     this.isService = this.data.isService;

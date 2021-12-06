@@ -1,42 +1,38 @@
 <h1 class="page-subtitle">{{'VO_DETAIL.RESOURCES.STATES.TITLE' | translate}}</h1>
+<perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
+<mat-tab-group animationDuration="0ms" [selectedIndex]="selectedIndex" (selectedIndexChange)="selectedIndex = $event">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      {{'VO_DETAIL.RESOURCES.STATES.ERROR_RESOURCES' | translate}}
+      <span class="badge badge-danger ml-1">{{errorPropagation.length}}</span>
+    </ng-template>
+    <ng-template matTabContent>
+      <app-alert *ngIf=" !loading && errorPropagation.length === 0" alert_type="warn">
+        {{'VO_DETAIL.RESOURCES.STATES.NO_RESOURCES_IN_ERROR' | translate}}
+      </app-alert>
 
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto">
-</mat-spinner>
-
-<div *ngIf="!loading">
-  <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <mat-tab-group animationDuration="0ms" [selectedIndex]="selectedIndex" (selectedIndexChange)="selectedIndex = $event">
-    <mat-tab>
-      <ng-template mat-tab-label>
-        {{'VO_DETAIL.RESOURCES.STATES.ERROR_RESOURCES' | translate}}
-        <span class="badge badge-danger ml-1">{{errorPropagation.length}}</span>
-      </ng-template>
-      <ng-template matTabContent>
-        <app-alert *ngIf="errorPropagation.length === 0" alert_type="warn">
-          {{'VO_DETAIL.RESOURCES.STATES.NO_RESOURCES_IN_ERROR' | translate}}
-        </app-alert>
-
-        <app-state-tab
+      <app-state-tab
+        [loading]="loading"
         [propagation]="errorPropagation">
-        </app-state-tab>
-      </ng-template>
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        {{'VO_DETAIL.RESOURCES.STATES.OK_RESOURCES' | translate}}
-        <span class="badge badge-success ml-1">{{okPropagation.length}}</span>
-      </ng-template>
+      </app-state-tab>
+    </ng-template>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      {{'VO_DETAIL.RESOURCES.STATES.OK_RESOURCES' | translate}}
+      <span class="badge badge-success ml-1">{{okPropagation.length}}</span>
+    </ng-template>
 
-      <ng-template matTabContent>
+    <ng-template matTabContent>
 
-        <app-alert *ngIf="okPropagation.length === 0" alert_type="warn">
-          {{'VO_DETAIL.RESOURCES.STATES.NO_RESOURCES_IN_OK' | translate}}
-        </app-alert>
+      <app-alert *ngIf="!loading && okPropagation.length === 0" alert_type="warn">
+        {{'VO_DETAIL.RESOURCES.STATES.NO_RESOURCES_IN_OK' | translate}}
+      </app-alert>
 
-        <app-state-tab
+      <app-state-tab
+        [loading]="loading"
         [propagation]="okPropagation">
-        </app-state-tab>
-      </ng-template>
-    </mat-tab>
-  </mat-tab-group>
-</div>
+      </app-state-tab>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

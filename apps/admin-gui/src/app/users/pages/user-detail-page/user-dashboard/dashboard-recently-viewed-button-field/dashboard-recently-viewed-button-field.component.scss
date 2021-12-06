@@ -14,6 +14,7 @@
   transform: scale(3);
   height: 74px;
   margin-bottom: 22px;
+  align-self: center;
 }
 
 .item-itself-container {
@@ -27,7 +28,6 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   font-size: 1.25rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -60,4 +60,10 @@
 
 .item-type {
   font-size: 0.75rem;
+}
+
+.truncate {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap;
 }

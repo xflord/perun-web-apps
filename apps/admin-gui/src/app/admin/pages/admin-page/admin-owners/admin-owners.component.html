@@ -6,13 +6,14 @@
     mat-flat-button
     color="accent"
     (click)="addOwner()"
-    class="mr-2">
+    class="mr-2 action-button">
     {{'ADMIN.OWNERS.ADD' | translate}}
   </button>
 
   <button
     mat-flat-button
     color="warn"
+    class="mr-2"
     *ngIf="removeAuth"
     [disabled]="!selected.selected.length"
     (click)="removeOwner()">

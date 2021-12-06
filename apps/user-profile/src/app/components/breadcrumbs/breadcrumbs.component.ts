@@ -34,7 +34,7 @@ export class BreadcrumbsComponent implements OnInit {
   private createBreadcrumbs(route: ActivatedRoute, routerLink: string = '') {
     const children: ActivatedRoute[] = route.children;
 
-    if (children.length === 0) {
+    if (children.length === 0 || children[0].snapshot.routeConfig.path === 'service-access') {
       return;
     }
 

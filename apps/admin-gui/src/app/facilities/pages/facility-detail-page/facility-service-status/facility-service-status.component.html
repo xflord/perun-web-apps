@@ -2,7 +2,7 @@
   <h1 class="page-subtitle">{{'FACILITY_DETAIL.SERVICES_STATUS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
-    *ngIf="!loading && propagationAuth"
+    *ngIf="propagationAuth"
     mat-flat-button
     color="accent"
     class="mr-2"
@@ -11,7 +11,7 @@
     {{'FACILITY_DETAIL.SERVICES_STATUS.FORCE_PROPAGATION' | translate}}
   </button>
   <button
-    *ngIf="!loading && allowAuth"
+    *ngIf="allowAuth"
     mat-flat-button
     color="accent"
     class="mr-2"
@@ -19,7 +19,7 @@
     {{'FACILITY_DETAIL.SERVICES_STATUS.ALLOW' | translate}}
   </button>
   <button
-    *ngIf="!loading && blockAuth"
+    *ngIf="blockAuth"
     mat-flat-button
     color="warn"
     class="mr-2"
@@ -27,7 +27,7 @@
     {{'FACILITY_DETAIL.SERVICES_STATUS.BLOCK' | translate}}
   </button>
   <button
-    *ngIf="!loading && deleteAuth"
+    *ngIf="deleteAuth"
     mat-flat-button
     color="warn"
     class="mr-2 dropdown-toggle"

@@ -25,13 +25,19 @@ export class AppComponent implements OnInit {
   sideMenuBgColor = this.store.get('theme', 'sidemenu_bg_color');
   contentBackgroundColor = this.store.get('theme', 'content_bg_color');
   isLoginScreenShown: boolean;
+  isServiceAccess: boolean;
   contentHeight =  'calc(100vh - 84px)';
   headerLabel = this.store.get('header_label_en');
 
   ngOnInit(): void {
     this.isLoginScreenShown = this.initAuth.isLoginScreenShown();
+    this.isServiceAccess = this.initAuth.isServiceAccessLoginScreenShown();
+    sessionStorage.removeItem("baLogout");
     if (this.isLoginScreenShown) {
       this.headerLabel = this.store.get(`header_label_${this.preferredLangService.getPreferredLanguage(null)}`);
+      return;
+    }
+    if (this.isServiceAccess) {
       return;
     }
     this.attributesManagerService.getUserAttributes(this.store.getPerunPrincipal().userId).subscribe(atts =>{
@@ -55,5 +61,9 @@ export class AppComponent implements OnInit {
   setContentHeight(height: number) {
     this.contentHeight =  'calc(100vh - 84px - '+height+'px)';
     this.changeDetector.detectChanges();
+  }
+
+  isServiceLogin(): boolean {
+    return !!sessionStorage.getItem("baLogout");
   }
 }

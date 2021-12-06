@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ResourceState, Task } from '@perun-web-apps/perun/openapi';
 
@@ -7,19 +7,19 @@ import { ResourceState, Task } from '@perun-web-apps/perun/openapi';
   templateUrl: './state-tab.component.html',
   styleUrls: ['./state-tab.component.scss']
 })
-export class StateTabComponent implements OnInit {
+export class StateTabComponent implements OnChanges {
 
   constructor() { }
 
   @Input()
   propagation: ResourceState[] = [];
 
+  @Input()
+  loading = false;
+
   datasources: MatTableDataSource<Task>[] = [];
   displayedColumns = ['id', 'service', 'status', 'scheduled', 'started', 'ended'];
 
-  ngOnInit() {
-    this.getDataSource();
-  }
   getErrorCountStates(resourceStatus: ResourceState) {
     let counter = 0;
     for (const task of resourceStatus.taskList) {
@@ -31,8 +31,13 @@ export class StateTabComponent implements OnInit {
   }
 
   getDataSource() {
+    this.datasources = [];
     for (const resourceState of this.propagation) {
       this.datasources.push(new MatTableDataSource(resourceState.taskList));
     }
+  }
+
+  ngOnChanges(): void {
+    this.getDataSource();
   }
 }

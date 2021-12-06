@@ -4,7 +4,7 @@
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
 
   <div mat-dialog-content class="dialog-container" *ngIf="!loading && !successfullyCreated">
-    <mat-horizontal-stepper [linear]="true">
+    <mat-stepper #stepper [linear]="true">
       <mat-step [stepControl]="userControl">
         <ng-template matStepLabel>{{'DIALOGS.CREATE_SPONSORED_MEMBER.USER_LABEL' | translate}}</ng-template>
         <app-alert alert_type="error" *ngIf="this.functionalityNotSupported">
@@ -44,22 +44,6 @@
                    placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.TITLE_AFTER' | translate}}">
           </mat-form-field>
         </form>
-        <div mat-dialog-actions>
-          <button
-            mat-flat-button
-            (click)="onCancel()">
-            {{'DIALOGS.CREATE_SPONSORED_MEMBER.CANCEL' | translate}}
-          </button>
-          <button
-            [disabled]="userControl.invalid"
-            class="ml-auto"
-            mat-flat-button
-            type="button"
-            color="accent"
-            matStepperNext>
-            {{'DIALOGS.CREATE_SPONSORED_MEMBER.NEXT' | translate}}
-          </button>
-        </div>
       </mat-step>
       <mat-step [stepControl]="namespaceControl">
         <ng-template matStepLabel>{{'DIALOGS.CREATE_SPONSORED_MEMBER.NAMESPACE_LABEL' | translate}}</ng-template>
@@ -79,12 +63,12 @@
             </mat-error>
           </mat-form-field>
 
-
           <mat-form-field
             matTooltip="{{'DIALOGS.CREATE_SPONSORED_MEMBER.LOGIN_DISABLED' | translate}}"
             matTooltipPosition="left"
             [matTooltipDisabled]="namespaceControl.get('login').enabled">
             <input matInput
+                   required
                    formControlName="login"
                    placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.LOGIN' | translate}}">
             <mat-error *ngIf="namespaceControl.hasError('required', 'login')">
@@ -117,29 +101,6 @@
             [tooltipPwdViaEmail]="this.namespaceControl.get('passwordReset').value"
             [namespace]="selectedNamespace">
           </perun-web-apps-password-form>
-
-          <div mat-dialog-actions>
-            <button
-              mat-flat-button
-              (click)="onCancel()">
-              {{'DIALOGS.CREATE_SPONSORED_MEMBER.CANCEL' | translate}}
-            </button>
-            <button
-              class="ml-auto"
-              mat-flat-button
-              matStepperPrevious>
-              {{'DIALOGS.CREATE_SPONSORED_MEMBER.BACK' | translate}}
-            </button>
-            <button
-              [disabled]="namespaceControl.invalid || namespaceControl.get('passwordCtrl').pending"
-              class="ml-2"
-              mat-flat-button
-              type="button"
-              color="accent"
-              matStepperNext>
-              {{'DIALOGS.CREATE_SPONSORED_MEMBER.NEXT' | translate}}
-            </button>
-          </div>
         </form>
       </mat-step>
       <mat-step>
@@ -187,31 +148,8 @@
             (datePicker)="setExpiration($event)">
           </perun-web-apps-expiration-select>
         </div>
-        <div mat-dialog-actions>
-          <button
-            mat-flat-button
-            (click)="onCancel()">
-            {{'DIALOGS.CREATE_SPONSORED_MEMBER.CANCEL' | translate}}
-          </button>
-          <button
-            class="ml-auto"
-            mat-flat-button
-            matStepperPrevious>
-            {{'DIALOGS.CREATE_SPONSORED_MEMBER.BACK' | translate}}
-          </button>
-          <button
-            [disabled]="sponsorType === null || (sponsorType === 'other' && selectedSponsor === null)"
-            class="ml-2"
-            mat-flat-button
-            type="button"
-            color="accent"
-            (click)="onConfirm()"
-            matStepperNext>
-            {{'DIALOGS.CREATE_SPONSORED_MEMBER.SUBMIT' | translate}}
-          </button>
-        </div>
       </mat-step>
-    </mat-horizontal-stepper>
+    </mat-stepper>
 
   </div>
 
@@ -236,6 +174,42 @@
       class="ml-auto"
       mat-flat-button>
       {{'DIALOGS.CREATE_SPONSORED_MEMBER.OK' | translate}}
+    </button>
+  </div>
+
+  <div *ngIf="!loading && !successfullyCreated" mat-dialog-actions>
+    <button
+      (click)="onCancel()"
+      mat-flat-button>
+      {{'DIALOGS.CREATE_SPONSORED_MEMBER.CANCEL' | translate}}
+    </button>
+    <button
+      (click)="stepperPrevious()"
+      *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
+      class="ml-auto"
+      mat-flat-button>
+      {{'DIALOGS.CREATE_SPONSORED_MEMBER.BACK' | translate}}
+    </button>
+    <button
+      (click)="stepperNext()"
+      *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
+      [class.ml-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+      [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+      [disabled]="getStepperNextConditions()"
+      color="accent"
+      mat-flat-button
+      type="button">
+      {{'DIALOGS.CREATE_SPONSORED_MEMBER.NEXT' | translate}}
+    </button>
+    <button
+      (click)="onConfirm()"
+      *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
+      [disabled]="sponsorType === null || (sponsorType === 'other' && selectedSponsor === null)"
+      class="ml-2"
+      color="accent"
+      mat-flat-button
+      type="button">
+      {{'DIALOGS.CREATE_SPONSORED_MEMBER.SUBMIT' | translate}}
     </button>
   </div>
 </div>

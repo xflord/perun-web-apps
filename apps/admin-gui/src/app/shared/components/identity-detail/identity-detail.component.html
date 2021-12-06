@@ -3,19 +3,19 @@
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
     mat-flat-button
-    class="ml-2"
+    class="mr-2"
     color="accent"
     [disabled]="selection.selected.length === 0"
     (click)="onSave()" >{{ 'SHARED.IDENTITY_DETAIL.SAVE' | translate}}</button>
   <button
     mat-flat-button
     color="accent"
-    class="ml-2"
+    class="mr-2"
     (click)="onAdd()">{{ 'SHARED.IDENTITY_DETAIL.ADD' | translate}}</button>
   <button
     mat-flat-button
     color="warn"
-    class="ml-2"
+    class="mr-2"
     [disabled]="selection.selected.length === 0"
     (click)="onRemove()">{{ 'SHARED.IDENTITY_DETAIL.REMOVE' | translate}}</button>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>

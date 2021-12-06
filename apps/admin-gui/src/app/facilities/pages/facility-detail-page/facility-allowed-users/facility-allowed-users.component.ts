@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TABLE_FACILITY_ALLOWED_USERS } from '@perun-web-apps/config/table-config';
-import { ActivatedRoute } from '@angular/router';
 import {
   FacilitiesManagerService,
   Facility,
@@ -9,7 +8,7 @@ import {
   User,
   Vo
 } from '@perun-web-apps/perun/openapi';
-import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 
 @Component({
@@ -20,17 +19,16 @@ import { Urns } from '@perun-web-apps/perun/urns';
 export class FacilityAllowedUsersComponent implements OnInit {
 
   constructor(
-    private route: ActivatedRoute,
     private facilityService: FacilitiesManagerService,
     private serviceService: ServicesManagerService,
     private resourceService: ResourcesManagerService,
     private authResolver: GuiAuthResolver,
-    private storeService: StoreService) { }
+    private storeService: StoreService,
+    private entityStorageService: EntityStorageService) { }
 
   loading = false;
   filterValue = '';
 
-  facilityId: number;
   facility: Facility;
   users: User[];
   attributes: string[] = []
@@ -66,24 +64,21 @@ export class FacilityAllowedUsersComponent implements OnInit {
       Urns.USER_DEF_PREFERRED_MAIL
     ];
     this.attributes = this.attributes.concat(this.storeService.getLoginAttributeNames());
-
-    this.route.parent.params.subscribe(params => {
-      this.facilityId = params['facilityId'];
-      this.routeAuth = this.authResolver.isPerunAdminOrObserver();
-      this.refreshPage();
-    }, () => this.loading = false);
+    this.facility = this.entityStorageService.getEntity();
+    this.routeAuth = this.authResolver.isPerunAdminOrObserver();
+    this.refreshPage();
   }
 
   refreshPage() {
     this.loading = true;
 
-    this.facilityService.getAssignedResourcesForFacility(this.facilityId)
+    this.facilityService.getAssignedResourcesForFacility(this.facility.id)
       .subscribe(resources => {
         this.resources = [this.emptyResource].concat(resources);
         this.filteredResources = this.resources;
         this.selectedResource = this.emptyResource;
 
-        this.facilityService.getAllowedVos(this.facilityId)
+        this.facilityService.getAllowedVos(this.facility.id)
           .subscribe(vos => {
             this.vos = [this.emptyVo].concat(vos);
             this.selectedVo = this.emptyVo;

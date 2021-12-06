@@ -1,7 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { FacilitiesManagerService, Facility } from '@perun-web-apps/perun/openapi';
-import { ActivatedRoute } from '@angular/router';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-perun-web-apps-facility-settings-managers',
@@ -14,8 +13,8 @@ export class FacilitySettingsManagersComponent implements OnInit {
 
   constructor(
     private facilityService: FacilitiesManagerService,
-    private route: ActivatedRoute,
-    private guiAuthResolver: GuiAuthResolver
+    private guiAuthResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
   ) { }
 
   facility: Facility;
@@ -29,14 +28,7 @@ export class FacilitySettingsManagersComponent implements OnInit {
   theme = 'facility-theme';
 
   ngOnInit() {
-    this.route.parent.parent.params.subscribe(parentParentParams => {
-      const facilityId = parentParentParams ['facilityId'];
-
-      this.facilityService.getFacilityById(facilityId).subscribe( facility => {
-        this.facility = facility;
-      });
-    });
-
+    this.facility = this.entityStorageService.getEntity();
     this.guiAuthResolver.assignAvailableRoles(this.availableRoles, 'Facility');
   }
 }

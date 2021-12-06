@@ -8,7 +8,7 @@ import { CategoriesPageComponent } from './pages/categories-page/categories-page
 import { PublicationSystemsPageComponent } from './pages/publication-systems-page/publication-systems-page.component';
 import { AuthorDetailComponent } from './pages/author-detail/author-detail.component';
 import { PublicationDetailComponent } from './pages/publication-detail/publication-detail.component';
-import { LoginScreenComponent } from '@perun-web-apps/perun/login';
+import { LoginScreenComponent, LoginScreenServiceAccessComponent } from '@perun-web-apps/perun/login';
 import { CreateSinglePublicationPageComponent } from './pages/create-publication-page/create-single-publication-page/create-single-publication-page.component';
 import { ImportPublicationsPageComponent } from './pages/create-publication-page/import-publications-page/import-publications-page.component';
 
@@ -21,6 +21,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginScreenComponent
+  },
+  {
+    path: 'service-access',
+    component: LoginScreenServiceAccessComponent
   },
   {
     path: 'all-publications',

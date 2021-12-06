@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import {
   FacilitiesManagerService,
   Facility,
@@ -13,6 +12,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { UserFullNamePipe } from '@perun-web-apps/perun/pipes';
 import { TranslateService } from '@ngx-translate/core';
+import { EntityStorageService } from '@perun-web-apps/perun/services';
 
 export type ServiceSelectValue = 'ALL' | 'NOT_SELECTED';
 
@@ -24,13 +24,13 @@ export type ServiceSelectValue = 'ALL' | 'NOT_SELECTED';
 export class FacilityServiceConfigComponent implements OnInit {
 
   constructor(
-    private route: ActivatedRoute,
     private facilityManager: FacilitiesManagerService,
     private resourceManager: ResourcesManagerService,
     private serviceManager: ServicesManagerService,
     private membersManager: MembersManagerService,
     private namePipe: UserFullNamePipe,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private entityStorageService: EntityStorageService
   ) {
     this.translate.get('FACILITY_DETAIL.SERVICE_CONFIG.ALL').subscribe(value => this.serviceAllTranslation = value);
     this.translate.get('FACILITY_DETAIL.SERVICE_CONFIG.NOT_SELECTED').subscribe(value => this.serviceNotSelectedTranslation = value);
@@ -68,17 +68,14 @@ export class FacilityServiceConfigComponent implements OnInit {
   allowedStatuses: string[] =  ['INVALID', 'VALID'];
 
   ngOnInit() {
-    this.route.parent.params.subscribe(parentParams => {
-      const facilityId = parentParams['facilityId'];
+    this.facility = this.entityStorageService.getEntity();
+    this.facilityManager.getFacilityById(this.facility.id).subscribe(facility => {
+      this.facility = facility;
 
-      this.facilityManager.getFacilityById(facilityId).subscribe(facility => {
-        this.facility = facility;
+      this.facilityManager.getAssignedResourcesForFacility(facility.id)
+        .subscribe(resources => this.resources = resources);
 
-        this.facilityManager.getAssignedResourcesForFacility(facility.id)
-          .subscribe(resources => this.resources = resources);
-
-        this.serviceManager.getAssignedServices(facility.id).subscribe(services => this.services = services);
-      });
+      this.serviceManager.getAssignedServices(facility.id).subscribe(services => this.services = services);
     });
     this.filteredServices = this.serviceField.valueChanges
       .pipe(

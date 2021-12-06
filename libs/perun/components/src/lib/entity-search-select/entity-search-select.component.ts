@@ -70,7 +70,7 @@ export class EntitySearchSelectComponent<T extends PerunBean> implements OnInit,
   mainTextFunction: (entity: T) => string = entity => stringify(entity);
 
   @Input()
-  secondaryTextFunction: (entity: T) => string = entity => '#' + entity.id;
+  secondaryTextFunction: (entity: T) => string = entity => '#' + entity.id + (entity['description'] ? '  ' + entity['description'] : '');
 
   statusTextFunction: (entity) => string = entity => entity.status;
 

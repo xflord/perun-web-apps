@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TABLE_TASK_RESULTS } from '@perun-web-apps/config/table-config';
 import { Facility, Task, TaskResult, TasksManagerService } from '@perun-web-apps/perun/openapi';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { DeleteTaskResultDialogComponent } from '../../../../../shared/components/dialogs/delete-task-result-dialog/delete-task-result-dialog.component';
@@ -18,7 +18,8 @@ export class FacilityTaskResultsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private taskManager: TasksManagerService,
               private authResolver: GuiAuthResolver,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private entityStorageService: EntityStorageService) { }
 
   loading = false;
   filterValue = '';
@@ -36,23 +37,17 @@ export class FacilityTaskResultsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.route.parent.params.subscribe(parentParams => {
-      this.facility = {
-       id: parseInt(parentParams['facilityId'], 10),
-       beanName: "Facility"
-      };
+    this.facility = this.entityStorageService.getEntity();
+    this.removeAuth = this.authResolver.isAuthorized('deleteTask_Task_policy', [this.facility]);
+    if(!this.removeAuth){
+      this.displayedColumns = ['id', 'destination', 'type', 'service', 'status', 'time', 'returnCode', 'standardMessage', 'errorMessage'];
+    }
 
-      this.removeAuth = this.authResolver.isAuthorized('deleteTask_Task_policy', [this.facility]);
-      if(!this.removeAuth){
-        this.displayedColumns = ['id', 'destination', 'type', 'service', 'status', 'time', 'returnCode', 'standardMessage', 'errorMessage'];
-      }
-
-      this.route.params.subscribe(params => {
-        this.taskId = params['taskId'];
-        this.taskManager.getTaskById(this.taskId).subscribe(task => {
-          this.task = task;
-          this.refreshTable();
-        });
+    this.route.params.subscribe(params => {
+      this.taskId = params['taskId'];
+      this.taskManager.getTaskById(this.taskId).subscribe(task => {
+        this.task = task;
+        this.refreshTable();
       });
     });
   }

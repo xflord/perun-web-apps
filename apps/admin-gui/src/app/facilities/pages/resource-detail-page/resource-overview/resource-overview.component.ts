@@ -2,7 +2,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MenuItem } from '@perun-web-apps/perun/models';
 import { Resource, ResourcesManagerService } from '@perun-web-apps/perun/openapi';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-resource-overview',
@@ -17,7 +17,8 @@ export class ResourceOverviewComponent implements OnInit {
   constructor(
     private resourcesManager: ResourcesManagerService,
     private route: ActivatedRoute,
-    public guiAuthResolver: GuiAuthResolver
+    public guiAuthResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
   ) {
   }
 
@@ -27,20 +28,13 @@ export class ResourceOverviewComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.route.params.subscribe(params => {
-      const resourceId = params['resourceId'];
-
-      this.resourcesManager.getResourceById(resourceId).subscribe(resource => {
-        this.resource = resource;
-
-        if (this.route.parent.parent.snapshot.url[0].path === 'facilities') {
-          this.initItems(false);
-        } else {
-          this.initItems(true);
-        }
-        this.loading = false;
-      }, () => this.loading = false);
-    });
+    this.resource = this.entityStorageService.getEntity();
+    if (this.route.parent.parent.snapshot.url[0].path === 'facilities') {
+      this.initItems(false);
+    } else {
+      this.initItems(true);
+    }
+    this.loading = false;
   }
 
   private initItems(inVo: boolean) {

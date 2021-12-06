@@ -1,8 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import {SelectionModel} from '@angular/cdk/collections';
 import {
   AddEditNotificationDialogComponent
@@ -19,9 +18,7 @@ import {
 import {
   ApplicationForm,
   ApplicationMail, AttributesManagerService,
-  Group,
-  GroupsManagerService,
-  RegistrarManagerService
+  Group, RegistrarManagerService
 } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '@perun-web-apps/perun/services';
 import { createNewApplicationMail, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -40,20 +37,17 @@ export class GroupSettingsNotificationsComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
   constructor(
-    private route: ActivatedRoute,
     private registrarService: RegistrarManagerService,
     private translate: TranslateService,
     private dialog: MatDialog,
     private apiRequest: ApiRequestConfigurationService,
     private notificator: NotificatorService,
-    private groupsService: GroupsManagerService,
     public guiAuthResolver: GuiAuthResolver,
-    private attributesService: AttributesManagerService) {
+    private attributesService: AttributesManagerService,
+    private entityStorageService: EntityStorageService) {
   }
 
   loading = false;
-  voId: number;
-  groupId: number;
   applicationForm: ApplicationForm;
   applicationMails: ApplicationMail[] = [];
   selection = new SelectionModel<ApplicationMail>(true, []);
@@ -70,41 +64,36 @@ export class GroupSettingsNotificationsComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.route.parent.parent.params.subscribe(params => {
-      this.voId = params['voId'];
-      this.groupId = params['groupId'];
+    this.group = this.entityStorageService.getEntity();
+    this.setAuthRights();
 
-      // FIXME this might not work in case of some race condition (other request finishes sooner)
-      this.groupsService.getGroupById(this.groupId).subscribe(group => {
-        this.group = group;
+    // FIXME this might not work in case of some race condition (other request finishes sooner)
+    this.apiRequest.dontHandleErrorForNext();
+    this.registrarService.getGroupApplicationForm(this.group.id).subscribe(form => {
+      this.applicationForm = form;
+      this.registrarService.getApplicationMailsForGroup(this.group.id).subscribe(mails => {
+        this.applicationMails = mails;
+        //not implemented in authorization....probably must be hardcoded
         this.apiRequest.dontHandleErrorForNext();
-        this.registrarService.getGroupApplicationForm(this.groupId).subscribe(form => {
-          this.applicationForm = form;
-          this.registrarService.getApplicationMailsForGroup(this.groupId).subscribe(mails => {
-            this.applicationMails = mails;
-            //not implemented in authorization....probably must be hardcoded
-            this.apiRequest.dontHandleErrorForNext();
-            this.attributesService.getGroupAttributeByName(this.groupId, Urns.GROUP_DEF_EXPIRATION_RULES).subscribe(() => {
-              this.setAuthRights();
-              this.loading = false;
-            }, error => {
-              if (error.name !== 'HttpErrorResponse') {
-                this.notificator.showRPCError(error)
-              }
-              this.setAuthRights();
-              this.loading = false;
-            });
-          });
+        this.attributesService.getGroupAttributeByName(this.group.id, Urns.GROUP_DEF_EXPIRATION_RULES).subscribe(() => {
+          this.setAuthRights();
+          this.loading = false;
         }, error => {
-          if (error.error.name === 'FormNotExistsException') {
-            this.noApplicationForm = true;
-            this.setAuthRights();
-            this.loading = false;
-          } else {
+          if (error.name !== 'HttpErrorResponse') {
             this.notificator.showRPCError(error);
           }
+          this.setAuthRights();
+          this.loading = false;
         });
       });
+    }, error => {
+      if (error.error.name === 'FormNotExistsException') {
+        this.noApplicationForm = true;
+        this.setAuthRights();
+        this.loading = false;
+      } else {
+        this.notificator.showRPCError(error);
+      }
     });
   }
 
@@ -125,8 +114,8 @@ export class GroupSettingsNotificationsComponent implements OnInit {
     config.height = '700px';
     config.data = {
       theme: 'group-theme',
-      voId: this.voId,
-      groupId: this.groupId,
+      voId: this.group.voId,
+      groupId: this.group.id,
       createMailNotification: true,
       applicationMail: applicationMail,
       applicationMails: this.applicationMails
@@ -147,7 +136,7 @@ export class GroupSettingsNotificationsComponent implements OnInit {
   remove() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = { voId: this.voId, groupId: this.groupId, mails: this.selection.selected, theme: 'group-theme' };
+    config.data = { voId: this.group.voId, groupId: this.group.id, mails: this.selection.selected, theme: 'group-theme' };
 
     const dialog = this.dialog.open(DeleteNotificationDialogComponent, config);
     dialog.afterClosed().subscribe(success => {
@@ -164,7 +153,7 @@ export class GroupSettingsNotificationsComponent implements OnInit {
   copy() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = { voId: this.voId, groupId: this.groupId, theme: 'group-theme' };
+    config.data = { voId: this.group.voId, groupId: this.group.id, theme: 'group-theme' };
 
     const dialog = this.dialog.open(NotificationsCopyMailsDialogComponent, config);
     dialog.afterClosed().subscribe(copyFrom => {
@@ -177,7 +166,7 @@ export class GroupSettingsNotificationsComponent implements OnInit {
 
   updateTable() {
     this.loading = true;
-    this.registrarService.getApplicationMailsForGroup(this.groupId).subscribe(mails => {
+    this.registrarService.getApplicationMailsForGroup(this.group.id).subscribe(mails => {
       this.applicationMails = mails;
       this.loading = false;
     });
@@ -186,7 +175,7 @@ export class GroupSettingsNotificationsComponent implements OnInit {
   changeEmailFooter() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = { voId: this.voId, groupId: this.groupId, theme: 'group-theme' };
+    config.data = { voId: this.group.voId, groupId: this.group.id, theme: 'group-theme' };
 
     this.dialog.open(EditEmailFooterDialogComponent, config);
   }
@@ -196,7 +185,7 @@ export class GroupSettingsNotificationsComponent implements OnInit {
   }
 
   createEmptyApplicationForm() {
-    this.registrarService.createApplicationFormInGroup(this.groupId).subscribe(() => {
+    this.registrarService.createApplicationFormInGroup(this.group.id).subscribe(() => {
       this.noApplicationForm = false;
       this.ngOnInit();
     });

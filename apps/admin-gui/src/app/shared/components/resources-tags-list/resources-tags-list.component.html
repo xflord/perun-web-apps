@@ -7,7 +7,7 @@
     [pageSizeOptions]="pageSizeOptions">
     <table [dataSource]="dataSource" class="w-100" mat-table matSort matSortActive="id" matSortDirection="asc" matSortDisableClear>
       <ng-container matColumnDef="select">
-        <th *matHeaderCellDef mat-header-cell>
+        <th *matHeaderCellDef mat-header-cell class="align-checkbox">
           <mat-checkbox (change)="$event ? masterToggle() : null"
                         [aria-label]="checkboxLabel()"
                         [checked]="selection.hasValue() && isAllSelected()"
@@ -15,7 +15,7 @@
                         color="primary">
           </mat-checkbox>
         </th>
-        <td *matCellDef="let row" class="static-column-size" mat-cell>
+        <td *matCellDef="let row" class="static-column-size align-checkbox" mat-cell>
           <mat-checkbox (change)="$event ? selection.toggle(row) : null"
                         (click)="$event.stopPropagation()"
                         [aria-label]="checkboxLabel(row)"

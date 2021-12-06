@@ -1,4 +1,4 @@
-<ng-template [ngIf]="!isLoginScreenShown">
+<ng-template [ngIf]="!isLoginScreenShown && !isServiceAccess && !isServiceLogin()">
   <perun-web-apps-notificator></perun-web-apps-notificator>
   <div class="app-min-width">
     <perun-web-apps-header (sidenavToggle)="sidenav.toggle()"></perun-web-apps-header>
@@ -20,7 +20,7 @@
   </div>
 </ng-template>
 <perun-web-apps-login-screen-base
-  *ngIf="isLoginScreenShown"
+  *ngIf="isLoginScreenShown || isServiceAccess || isServiceLogin()"
   [application]="'user-profile'"
   [headerTitle]="headerLabel">
 </perun-web-apps-login-screen-base>

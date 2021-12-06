@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   AuthzResolverService,
@@ -21,6 +21,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Role } from '@perun-web-apps/perun/models';
 import { CustomValidators, emailRegexString, enableFormControl } from '@perun-web-apps/perun/utils';
 import { loginAsyncValidator } from '@perun-web-apps/perun/namespace-password-form';
+import { MatStepper } from '@angular/material/stepper';
 
 export interface CreateSponsoredMemberDialogData {
   entityId?: number;
@@ -62,6 +63,8 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
 
   expiration = 'never';
 
+  @ViewChild('stepper') stepper: MatStepper;
+
   constructor(private dialogRef: MatDialogRef<CreateSponsoredMemberDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private data: CreateSponsoredMemberDialogData,
               private membersService: MembersManagerService,
@@ -71,7 +74,8 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
               private translator: TranslateService,
               private authzService: AuthzResolverService,
               private guiAuthResolver: GuiAuthResolver,
-              private formBuilder: FormBuilder)  {  }
+              private formBuilder: FormBuilder,
+              private cd: ChangeDetectorRef)  {  }
 
   ngOnInit(): void {
     this.loading = true;
@@ -113,6 +117,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
         this.functionalityNotSupported = true;
       }
       this.loading = false;
+      this.cd.detectChanges();
     });
   }
 
@@ -259,4 +264,23 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     }
   }
 
+
+  getStepperNextConditions(){
+    switch (this.stepper.selectedIndex) {
+      case 0:
+        return this.userControl.invalid;
+      case 1:
+        return this.namespaceControl.invalid || this.namespaceControl.get('passwordCtrl').pending;
+      default:
+        return false;
+    }
+  }
+
+  stepperPrevious() {
+    this.stepper.previous();
+  }
+
+  stepperNext() {
+    this.stepper.next();
+  }
 }

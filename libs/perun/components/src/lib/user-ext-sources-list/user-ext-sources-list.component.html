@@ -13,8 +13,8 @@
            matSortDirection="desc"
            matSortDisableClear>
       <ng-container matColumnDef="select">
-        <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let row" class="static-column-size" mat-cell>
+        <th *matHeaderCellDef mat-header-cell class="align-checkbox"></th>
+        <td *matCellDef="let row" class="static-column-size align-checkbox" mat-cell>
           <span matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.CANNOT_BE_DELETED_TOOLTIP' | customTranslate | translate}}"
                 [matTooltipPosition]="'above'"
                 [matTooltipDisabled]="!row.userExtSource.persistent">
@@ -62,6 +62,10 @@
     </table>
   </perun-web-apps-table-wrapper>
 </div>
+
+<app-alert *ngIf="dataSource.filteredData.length === 0 && userExtSources.length !== 0" alert_type="warn">
+  {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
+</app-alert>
 
 <app-alert *ngIf="userExtSources.length === 0" alert_type="warn">
   {{'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.NO_IDENTITIES' | customTranslate | translate}}

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuItem} from '@perun-web-apps/perun/models';
 import {SideMenuService} from '../../../../core/services/common/side-menu.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {GuiAuthResolver} from '@perun-web-apps/perun/services';
+import { Router } from '@angular/router';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
@@ -17,9 +17,9 @@ export class VoOverviewComponent implements OnInit {
   constructor(
     private sideMenuService: SideMenuService,
     private voService: VosManagerService,
-    protected route: ActivatedRoute,
     protected router: Router,
-    protected authResolver: GuiAuthResolver
+    protected authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
   ) {
   }
 
@@ -31,15 +31,9 @@ export class VoOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.route.parent.params.subscribe(parentParams => {
-      const voId = parentParams['voId'];
-
-      this.voService.getVoById(voId).subscribe(vo => {
-        this.vo = vo;
-        this.initNavItems();
-        this.loading = false;
-      }, () => this.loading = false);
-    });
+    this.vo = this.entityStorageService.getEntity();
+    this.initNavItems();
+    this.loading = false;
   }
 
   private initNavItems() {

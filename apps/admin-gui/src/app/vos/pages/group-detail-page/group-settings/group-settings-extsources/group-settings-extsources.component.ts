@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TABLE_GROUP_EXTSOURCES_SETTINGS } from '@perun-web-apps/config/table-config';
-import { ExtSource, ExtSourcesManagerService, Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
+import { ExtSource, ExtSourcesManagerService, Group } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AddExtSourceDialogComponent } from '../../../../../shared/components/dialogs/add-ext-source-dialog/add-ext-source-dialog.component';
@@ -18,17 +17,14 @@ import { RemoveExtSourceDialogComponent } from '../../../../../shared/components
 export class GroupSettingsExtsourcesComponent implements OnInit {
 
   constructor(private extSourceService: ExtSourcesManagerService,
-              private route: ActivatedRoute,
               private dialog: MatDialog,
               private notificator: NotificatorService,
               private translate: TranslateService,
               private authResolver: GuiAuthResolver,
-              private groupService: GroupsManagerService) {
+              private entityStorageService: EntityStorageService) {
     this.translate.get('GROUP_DETAIL.SETTINGS.EXT_SOURCES.SUCCESS_REMOVED').subscribe(result => this.successMessage = result);
   }
 
-  voId: number;
-  groupId: number;
   group: Group;
   extSources: ExtSource[] = [];
   selection = new SelectionModel<ExtSource>(true, []);
@@ -42,15 +38,9 @@ export class GroupSettingsExtsourcesComponent implements OnInit {
   removeAuth: boolean;
 
   ngOnInit(): void {
-    this.route.parent.parent.params.subscribe(parentParams => {
-      this.voId = parentParams['voId'];
-      this.groupId = parentParams['groupId'];
-
-      this.groupService.getGroupById(this.groupId).subscribe( group => {
-        this.group = group;
-        this.refreshTable();
-      });
-    });
+    this.group = this.entityStorageService.getEntity();
+    this.setAuthRights();
+    this.refreshTable();
   }
 
   setAuthRights(){
@@ -61,10 +51,9 @@ export class GroupSettingsExtsourcesComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.extSourceService.getGroupExtSources(this.groupId).subscribe(sources => {
+    this.extSourceService.getGroupExtSources(this.group.id).subscribe(sources => {
       this.extSources = sources;
       this.selection.clear();
-      this.setAuthRights();
       this.loading = false;
     });
   }
@@ -77,8 +66,8 @@ export class GroupSettingsExtsourcesComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '1000px';
     config.data= {
-      voId: this.voId,
-      groupId: this.groupId,
+      voId: this.group.voId,
+      groupId: this.group.id,
       extSources: this.extSources,
       theme: 'group-theme'
     };
@@ -95,8 +84,8 @@ export class GroupSettingsExtsourcesComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data= {
-      voId: this.voId,
-      groupId: this.groupId,
+      voId: this.group.voId,
+      groupId: this.group.id,
       extSources: this.selection.selected,
       theme: 'group-theme'
     };

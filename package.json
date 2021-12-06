@@ -70,6 +70,7 @@
     "ng2-charts": "^2.4.2",
     "ngx-mat-select-search": "^3.3.0",
     "ngx-perfect-scrollbar": "^9.0.0",
+    "pdfmake": "^0.2.4",
     "rxjs": "~6.5.5",
     "save": "^2.4.0",
     "tinycolor2": "^1.4.2",

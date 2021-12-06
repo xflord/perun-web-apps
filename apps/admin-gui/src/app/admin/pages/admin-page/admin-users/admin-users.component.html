@@ -4,7 +4,7 @@
   [placeholder]="'ADMIN.USERS.SEARCH_PLACEHOLDER'"
   (filter)="onSearchByString($event)">
 </perun-web-apps-debounce-filter>
-<mat-checkbox color="primary" class="ml-2" [checked]="usersWithoutVo" (change)="findUsersWithoutVO()">
+<mat-checkbox (change)="findUsersWithoutVO()" [checked]="usersWithoutVo" color="primary">
   {{'ADMIN.USERS.USERS_WITHOUT_VO' | translate}}
 </mat-checkbox>
 <perun-web-apps-users-dynamic-list [disableRouting]="false"

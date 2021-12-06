@@ -14,9 +14,9 @@
            matSortDisableClear>
 
       <ng-container matColumnDef="select">
-        <th *matHeaderCellDef mat-header-cell>
+        <th *matHeaderCellDef mat-header-cell class="align-checkbox">
         </th>
-        <td *matCellDef="let resource" class="static-column-size" mat-cell>
+        <td *matCellDef="let resource" class="static-column-size align-checkbox" mat-cell>
           <mat-checkbox (change)="$event ? itemSelectionToggle(resource) : null"
                         (click)="$event.stopPropagation()"
                         [aria-label]="checkboxLabel(resource)"

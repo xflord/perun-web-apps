@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   Attribute,
@@ -15,6 +15,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { TABLE_VO_GROUPS } from '@perun-web-apps/config/table-config';
 import { downloadData, emailRegexString } from '@perun-web-apps/perun/utils';
+import { SponsoredMembersPdfService } from '@perun-web-apps/perun/services';
+import { MatStepper } from '@angular/material/stepper';
 
 export interface GenerateSponsoredMembersDialogData {
   voId: number;
@@ -35,6 +37,8 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   namespaceOptions: string[] = [];
   namespaceRules: NamespaceRules[] = [];
   usersInfoFormGroup: FormGroup;
+
+  state: 'user-input' | 'results' = 'user-input';
 
   passwordReset = 'generate';
   groupAssignment = null;
@@ -57,10 +61,16 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   filterValue = '';
   tableId = TABLE_VO_GROUPS;
 
+  finishedWithErrors = false;
+
+  private resultData;
+
   private groupAttrNames = [
     Urns.GROUP_SYNC_ENABLED,
     Urns.GROUP_BLOCK_MANUAL_MEMBER_ADDING
   ];
+
+  @ViewChild('stepper') stepper: MatStepper;
 
   constructor(private dialogRef: MatDialogRef<GenerateSponsoredMembersDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private data: GenerateSponsoredMembersDialogData,
@@ -71,7 +81,18 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
               private guiAuthResolver: GuiAuthResolver,
               private groupsService: GroupsManagerService,
               private attributesService: AttributesManagerService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private sponsoredMembersPDFService: SponsoredMembersPdfService,
+              private cd: ChangeDetectorRef) { }
+
+  private static didSomeGenerationFailed(resultData: {[p: string]: string}[]) {
+    resultData.forEach((entry: {[p: string]: string}) => {
+      if (entry['status'] !== "OK") {
+        return true;
+      }
+    });
+    return false;
+  }
 
   ngOnInit(): void {
     this.loading = true;
@@ -111,10 +132,12 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
               this.usersInfoFormGroup.setValue({namespace: this.namespaceOptions[0], sponsoredMembers: ''})
             }
             this.loading = false;
+            this.cd.detectChanges();
           });
         }, () => this.loading = false);
       } else {
         this.loading = false;
+        this.cd.detectChanges();
       }
     }, () => this.loading = false);
   }
@@ -136,40 +159,26 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
       att.friendlyName === attName && att.value !== null && att.value.toString() === "true");
   }
 
-  createOutputObjects(data: {[p: string]: {[p: string]: string}}) {
+  createOutputObjects(data: {[p: string]: string}[]) {
     let name = '';
     let status = '';
     let login = '';
     let password = '';
     const output = [];
 
-    for (const memberName of Object.keys(data)) {
-      name = memberName.replace(';', ' ').split(';')[0];
-      for (const memberData of Object.keys(data[memberName])) {
-        switch (memberData) {
-          case 'status': {
-            status = data[memberName][memberData];
-            break;
-          }
-          case 'login': {
-            login = data[memberName][memberData];
-            break;
-          }
-          case 'password': {
-            password = data[memberName][memberData];
-            break;
-          }
-          default:
-            break;
-        }
-      }
+    data.forEach((memberData: {[p: string]: string}) => {
+      name = memberData['name'].replace(';', ' ').split(';')[0];
+      status = memberData['status'];
+      login = memberData['login'] ? memberData['login'] : login;
+      password = memberData['password'] ? memberData['password'] : password;
+
       output.push({
         name: name,
         status: status,
         login: login,
         password: password
       });
-    }
+  });
 
     return output;
   }
@@ -212,15 +221,20 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
       inputSponsoredMembersFromCSV.namespace = this.usersInfoFormGroup.get('namespace').value;
     }
 
-    this.membersService.createSponsoredMembersFromCSV(inputSponsoredMembersFromCSV).subscribe(logins => {
-      downloadData(this.createOutputObjects(logins), 'csv', 'member-logins')
-      this.notificator.showSuccess(this.translate.instant('DIALOGS.GENERATE_SPONSORED_MEMBERS.SUCCESS'));
-      this.dialogRef.close(true);
+    this.membersService.createSponsoredMembersFromCSV(inputSponsoredMembersFromCSV).subscribe(resultData => {
+      this.state = 'results';
+      this.finishedWithErrors = GenerateSponsoredMembersDialogComponent.didSomeGenerationFailed(resultData);
+      this.loading = false;
+      this.resultData = resultData;
     }, () => this.loading = false);
   }
 
   onCancel() {
     this.dialogRef.close(false);
+  }
+
+  onClose() {
+    this.dialogRef.close(true);
   }
 
   parseMemberLine(line: string): string{
@@ -317,5 +331,43 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
 
   getSelectedNamespaceRules(): NamespaceRules {
     return this.namespaceRules.find(item => item.namespaceName === this.usersInfoFormGroup.get('namespace').value);
+  }
+
+  generatePdf() {
+    if (!this.resultData) {
+      throw new Error("Cannot generate pdf because there is no result");
+    }
+
+    this.loading = true;
+    this.sponsoredMembersPDFService.generate(this.resultData)
+      .then(() => this.loading = false);
+  }
+
+  downloadCsv() {
+    if (!this.resultData) {
+      throw new Error("Cannot generate pdf because there is no result");
+    }
+    downloadData(this.createOutputObjects(this.resultData), 'csv', 'member-logins')
+  }
+
+  getStepperNextConditions(){
+    switch (this.stepper.selectedIndex) {
+      case 0:
+        return this.usersInfoFormGroup.invalid;
+      case 1:
+        return this.passwordReset === null;
+      case 2:
+        return this.expiration === null;
+      default:
+        return false;
+    }
+  }
+
+  stepperPrevious() {
+    this.stepper.previous();
+  }
+
+  stepperNext() {
+    this.stepper.next();
   }
 }

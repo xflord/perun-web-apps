@@ -1,10 +1,9 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { FacilitiesManagerService, Facility, Group, Vo } from '@perun-web-apps/perun/openapi';
 import {
   TABLE_FACILITY_ALLOWED_GROUPS,
 } from '@perun-web-apps/config/table-config';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-facility-allowed-groups',
@@ -19,15 +18,13 @@ export class FacilityAllowedGroupsComponent implements OnInit {
 
   constructor(
     private facilityManager: FacilitiesManagerService,
-    private route: ActivatedRoute,
-    private authResolver: GuiAuthResolver
+    private authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
   ) { }
 
   facility: Facility;
 
   vos: Vo[];
-
-  facilityId: number;
 
   loading: boolean;
 
@@ -43,13 +40,11 @@ export class FacilityAllowedGroupsComponent implements OnInit {
   groupsWithoutRouteAuth: Set<number> = new Set<number>();
 
   ngOnInit() {
-    this.route.parent.params.subscribe(parentParams => {
-      this.facilityId = parentParams['facilityId'];
-
-      this.facilityManager.getAllowedVos(this.facilityId).subscribe(vos => {
-          this.vos = vos;
-          this.refreshTable();
-        });
+    this.loading = true;
+    this.facility = this.entityStorageService.getEntity();
+    this.facilityManager.getAllowedVos(this.facility.id).subscribe(vos => {
+      this.vos = vos;
+      this.refreshTable();
     });
   }
 
@@ -67,7 +62,7 @@ export class FacilityAllowedGroupsComponent implements OnInit {
     this.groups = [];
     this.filterValue = "";
     this.vos.forEach(vo => {
-      this.facilityManager.getAllowedGroups(this.facilityId, vo.id).subscribe(group => {
+      this.facilityManager.getAllowedGroups(this.facility.id, vo.id).subscribe(group => {
         this.groups = this.groups.concat(group);
         this.groupsToShow = this.groups;
         this.setAuthRights(vo, group);

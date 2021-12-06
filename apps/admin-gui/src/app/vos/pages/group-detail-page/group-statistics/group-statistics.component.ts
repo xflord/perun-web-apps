@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {  GroupsManagerService } from '@perun-web-apps/perun/openapi';
-import { ActivatedRoute } from '@angular/router';
+import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
+import { EntityStorageService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-group-statistics',
@@ -9,12 +9,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class GroupStatisticsComponent implements OnInit {
 
-  constructor( private route: ActivatedRoute,
-               private groupService: GroupsManagerService) { }
+  constructor( private groupService: GroupsManagerService,
+               private entityStorageService: EntityStorageService) { }
 
   loading = false;
 
-  groupId: number;
+  group: Group;
 
   voStatusCountsRowNames: string[] = ['Members', 'Valid', 'Invalid', 'Expired', 'Disabled'];
   membersCountsByVoStatus: Map<string, number> = new Map<string, number>();
@@ -24,25 +24,22 @@ export class GroupStatisticsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.route.parent.params.subscribe(params => {
-      this.groupId = params['groupId'];
+    this.group = this.entityStorageService.getEntity();
+    this.groupService.getGroupMembersCount(this.group.id).subscribe(count => {
+      this.membersCountsByVoStatus.set('members', count);
+      this.membersCountsByGroupStatus.set('members', count);
 
-        this.groupService.getGroupMembersCount(this.groupId).subscribe(count => {
-          this.membersCountsByVoStatus.set('members', count);
-          this.membersCountsByGroupStatus.set('members', count);
-
-          this.groupService.getGroupMembersCountsByVoStatus(this.groupId).subscribe(statsVo => {
-            Object.entries(statsVo).forEach(([status, countVo]) =>
-              this.membersCountsByVoStatus.set(status.toLowerCase(), countVo)
-            );
-            this.groupService.getGroupMembersCountsByGroupStatus(this.groupId).subscribe(statsGroup => {
-              Object.entries(statsGroup).forEach(([status, countGroup]) =>
-                this.membersCountsByGroupStatus.set(status.toLowerCase(), countGroup)
-              );
-              this.loading = false;
-            }, () => this.loading = false);
-          }, () => this.loading = false);
-          }, () => this.loading = false);
+      this.groupService.getGroupMembersCountsByVoStatus(this.group.id).subscribe(statsVo => {
+        Object.entries(statsVo).forEach(([status, countVo]) =>
+          this.membersCountsByVoStatus.set(status.toLowerCase(), countVo)
+        );
+        this.groupService.getGroupMembersCountsByGroupStatus(this.group.id).subscribe(statsGroup => {
+          Object.entries(statsGroup).forEach(([status, countGroup]) =>
+            this.membersCountsByGroupStatus.set(status.toLowerCase(), countGroup)
+          );
+          this.loading = false;
         }, () => this.loading = false);
+      }, () => this.loading = false);
+    }, () => this.loading = false);
   }
 }

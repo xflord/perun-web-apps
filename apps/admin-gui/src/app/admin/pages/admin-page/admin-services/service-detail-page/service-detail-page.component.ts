@@ -7,7 +7,7 @@ import { SideMenuItemService } from '../../../../../shared/side-menu/side-menu-i
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateEditServiceDialogComponent } from '../../../../../shared/components/dialogs/create-edit-service-dialog/create-edit-service-dialog.component';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { DeleteServiceDialogComponent } from '../../../../../shared/components/dialogs/delete-service-dialog/delete-service-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -30,7 +30,8 @@ export class ServiceDetailPageComponent implements OnInit {
     private dialog: MatDialog,
     public authResolver: GuiAuthResolver,
     private translate: TranslateService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
+    private entityStorageService: EntityStorageService
     ) {
   }
 
@@ -49,6 +50,7 @@ export class ServiceDetailPageComponent implements OnInit {
   refresh() {
     this.serviceManager.getServiceById(this.serviceId).subscribe(service => {
       this.service = service;
+      this.entityStorageService.setEntity({id: service.id, beanName: service.beanName})
 
       const serviceItems = this.sideMenuItemService.parseService(this.service);
       this.sideMenuService.setAdminItems([serviceItems]);

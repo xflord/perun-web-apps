@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 // eslint-disable-next-line
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { StoreService } from '@perun-web-apps/perun/services';
+import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
+import { Title } from '@angular/platform-browser';
+import { UtilsService } from '@perun-web-apps/perun/openapi';
 
 declare const tinycolor: any;
 
@@ -29,7 +32,11 @@ export interface ColorConfig {
   providedIn: 'root',
 })
 export class AppConfigService {
-  constructor(private http: HttpClient, private storeService: StoreService) {}
+  constructor(private http: HttpClient,
+              private storeService: StoreService,
+              private authzSevice: AuthzResolverService,
+              private titleService: Title,
+              private utilsService: UtilsService) {}
 
   initializeColors(
     entityColorConfigs: EntityColorConfig[],
@@ -138,6 +145,31 @@ export class AppConfigService {
       }
       document.getElementsByTagName('head')[ 0 ].appendChild(link);
       resolve();
+    });
+  }
+
+
+  /**
+   *  We need to set basePath for authzService before loading principal, otherwise authzService uses its default basePath
+   */
+  setApiUrl(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      let apiUrl = this.storeService.get('api_url');
+      if (location.pathname === '/service-access' || sessionStorage.getItem("baPrincipal")) {
+        apiUrl = apiUrl.replace("oauth", "ba");
+      }
+      this.authzSevice.configuration.basePath = apiUrl;
+      this.titleService.setTitle(this.storeService.get('document_title'));
+      resolve();
+    });
+  }
+
+  loadAppsConfig(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.utilsService.getAppsConfig().subscribe(appsConfig => {
+        this.storeService.setAppsConfig(appsConfig);
+        resolve();
+      }, error => reject(error));
     });
   }
 }

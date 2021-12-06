@@ -19,6 +19,7 @@ export class AppComponent implements OnInit{
   public static minWidth = 992;
   sidebarMode: 'over' | 'push' | 'side' = 'side';
   isLoginScreenShow: boolean;
+  isServiceAccess: boolean;
 
   sideMenuBgColor = this.store.get('theme', 'sidemenu_bg_color');
   contentBackgroundColor = this.store.get('theme', 'content_bg_color');
@@ -26,6 +27,8 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     this.isLoginScreenShow = this.initAuth.isLoginScreenShown();
+    this.isServiceAccess = this.initAuth.isServiceAccessLoginScreenShown();
+    sessionStorage.removeItem("baLogout");
     const url = location.pathname;
     if(!this.authResolver.isCabinetAdmin() && (url === '/' || url.includes('/all-publications'))){
       this.router.navigate(['my-publications']);
@@ -44,5 +47,9 @@ export class AppComponent implements OnInit{
   setContentHeight(height: number) {
     this.contentHeight =  'calc(100vh - 84px - '+height+'px)';
     this.changeDetector.detectChanges();
+  }
+
+  isServiceLogin(): boolean {
+    return !!sessionStorage.getItem("baLogout");
   }
 }

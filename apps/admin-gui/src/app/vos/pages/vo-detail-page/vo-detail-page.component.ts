@@ -6,7 +6,7 @@ import { fadeIn } from '@perun-web-apps/perun/animations';
 import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { addRecentlyVisited, addRecentlyVisitedObject, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import {
   EditFacilityResourceGroupVoDialogComponent,
   EditFacilityResourceGroupVoDialogOptions
@@ -30,8 +30,8 @@ export class VoDetailPageComponent implements OnInit {
     private router: Router,
     private sideMenuItemService: SideMenuItemService,
     private dialog: MatDialog,
-    private authResolver: GuiAuthResolver
-  ) {
+    private authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService) {
   }
 
   vo: Vo;
@@ -46,6 +46,7 @@ export class VoDetailPageComponent implements OnInit {
 
       this.voService.getVoById(voId).subscribe(vo => {
         this.vo = vo;
+        this.entityStorageService.setEntity({id: voId, beanName: vo.beanName});
         this.editAuth = this.authResolver.isAuthorized('updateVo_Vo_policy', [this.vo]);
         this.removeAuth = this.authResolver.isAuthorized('deleteVo_Vo_policy', [this.vo]);
 

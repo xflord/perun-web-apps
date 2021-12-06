@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {
   BanOnFacility,
-  FacilitiesManagerService,
+  FacilitiesManagerService, Facility,
   User,
   UsersManagerService
 } from '@perun-web-apps/perun/openapi';
 import { TABLE_FACILITY_BLACKLIST_LIST } from '@perun-web-apps/config/table-config';
-import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
+import { EntityStorageService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-perun-web-apps-facility-settings-blacklist',
@@ -18,7 +18,7 @@ export class FacilitySettingsBlacklistComponent implements OnInit {
 
   constructor(private facilitiesManager: FacilitiesManagerService,
               private usersManager: UsersManagerService,
-              private route: ActivatedRoute) {
+              private entityStorageService: EntityStorageService) {
   }
 
   bansOnFacilitiesWithUsers: [BanOnFacility, User][] = [];
@@ -26,29 +26,28 @@ export class FacilitySettingsBlacklistComponent implements OnInit {
   filterValue = '';
   loading: boolean;
   tableId = TABLE_FACILITY_BLACKLIST_LIST;
+  facility: Facility;
 
 
   ngOnInit(): void {
+    this.loading = true;
+    this.facility = this.entityStorageService.getEntity();
     this.refreshTable();
   }
 
   refreshTable() {
     this.loading = true;
-    this.route.parent.parent.params.subscribe(parentParentParams => {
-      const facilityId = parentParentParams['facilityId'];
-
-      this.facilitiesManager.getBansForFacility(facilityId).subscribe(bansOnFacility => {
-        const listOfBans: BanOnFacility[] = bansOnFacility;
-        for (const ban of listOfBans) {
-          let user: User;
-          this.usersManager.getUserById(ban.userId).subscribe(subscriptionUser => {
-            user = subscriptionUser;
-          });
-          this.bansOnFacilitiesWithUsers.push([ban, user]);
-        }
-        this.selected.clear();
-        this.loading = false;
-      });
+    this.facilitiesManager.getBansForFacility(this.facility.id).subscribe(bansOnFacility => {
+      const listOfBans: BanOnFacility[] = bansOnFacility;
+      for (const ban of listOfBans) {
+        let user: User;
+        this.usersManager.getUserById(ban.userId).subscribe(subscriptionUser => {
+          user = subscriptionUser;
+        });
+        this.bansOnFacilitiesWithUsers.push([ban, user]);
+      }
+      this.selected.clear();
+      this.loading = false;
     });
   }
 

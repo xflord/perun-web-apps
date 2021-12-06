@@ -1,10 +1,9 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {NotificatorService} from '@perun-web-apps/perun/services';
+import { EntityStorageService, NotificatorService } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { ApiRequestConfigurationService } from '@perun-web-apps/perun/services';
-import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import { Attribute, AttributesManagerService, Group } from '@perun-web-apps/perun/openapi';
 
 
 @Component({
@@ -18,10 +17,10 @@ export class GroupSettingsExpirationComponent implements OnInit {
 
   constructor(
     private attributesManager: AttributesManagerService,
-    private route: ActivatedRoute,
     private translate: TranslateService,
     private notificator: NotificatorService,
-    private apiRequest: ApiRequestConfigurationService
+    private apiRequest: ApiRequestConfigurationService,
+    private entityStorageService: EntityStorageService
   ) {
     this.translate.get('GROUP_DETAIL.SETTINGS.EXPIRATION.SUCCESS_MESSAGE').subscribe(value => this.successMessage = value);
     this.translate.get('GROUP_DETAIL.SETTINGS.EXPIRATION.ERROR_MESSAGE').subscribe(value => this.errorMessage = value);
@@ -32,18 +31,15 @@ export class GroupSettingsExpirationComponent implements OnInit {
   successMessage: string;
   errorMessage: string;
 
-  groupId: number;
+  group: Group;
 
   ngOnInit() {
-    this.route.parent.parent.params.subscribe(params => {
-      this.groupId = params['groupId'];
-
-      this.loadSettings();
-    });
+    this.group = this.entityStorageService.getEntity();
+    this.loadSettings();
   }
 
   private loadSettings(): void {
-    this.attributesManager.getGroupAttributeByName(this.groupId, Urns.GROUP_DEF_EXPIRATION_RULES).subscribe(attr => {
+    this.attributesManager.getGroupAttributeByName(this.group.id, Urns.GROUP_DEF_EXPIRATION_RULES).subscribe(attr => {
       this.expirationAttribute = attr;
     });
   }
@@ -52,7 +48,7 @@ export class GroupSettingsExpirationComponent implements OnInit {
     // FIXME this might not work in case of some race condition (other request finishes sooner)
     this.apiRequest.dontHandleErrorForNext();
 
-    this.attributesManager.setGroupAttribute({group: this.groupId, attribute: attribute}).subscribe( () => {
+    this.attributesManager.setGroupAttribute({group: this.group.id, attribute: attribute}).subscribe( () => {
         this.loadSettings();
         this.notificator.showSuccess(this.successMessage);
       },

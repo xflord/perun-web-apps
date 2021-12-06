@@ -12,7 +12,7 @@ import {
   TABLE_RESOURCE_ALLOWED_GROUPS,
 } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { GroupWithStatus } from '@perun-web-apps/perun/models';
 
@@ -23,7 +23,6 @@ import { GroupWithStatus } from '@perun-web-apps/perun/models';
 })
 export class ResourceGroupsComponent implements OnInit {
 
-  resourceId: number;
   assignedGroups: GroupWithStatus[] = [];
   selected = new SelectionModel<GroupWithStatus>(true, []);
   loading: boolean;
@@ -32,26 +31,23 @@ export class ResourceGroupsComponent implements OnInit {
 
   tableId = TABLE_RESOURCE_ALLOWED_GROUPS;
   resource: Resource;
-  loadingResource: boolean;
 
   constructor(private route: ActivatedRoute,
               private resourcesManager: ResourcesManagerService,
               private dialog: MatDialog,
-              public guiAuthResolver: GuiAuthResolver) {
+              public guiAuthResolver: GuiAuthResolver,
+              private entityStorageService: EntityStorageService) {
   }
 
   ngOnInit() {
     this.loading = true;
-    this.route.parent.params.subscribe(parentParams => {
-      this.resourceId = parentParams['resourceId'];
-      this.getDataForAuthorization();
-      this.loadAllGroups();
-    });
+    this.resource = this.entityStorageService.getEntity();
+    this.loadAllGroups();
   }
 
   loadAllGroups() {
     this.loading = true;
-    this.resourcesManager.getGroupAssignments(this.resourceId, [Urns.GROUP_SYNC_ENABLED]).subscribe(assignedGroups => {
+    this.resourcesManager.getGroupAssignments(this.resource.id, [Urns.GROUP_SYNC_ENABLED]).subscribe(assignedGroups => {
       this.assignedGroups = <GroupWithStatus[]>assignedGroups.map(g => {
         const gws: GroupWithStatus = g.enrichedGroup.group;
         gws.status = g.status;
@@ -81,7 +77,7 @@ export class ResourceGroupsComponent implements OnInit {
   removeGroups() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {resourceId: this.resourceId, groups: this.selected.selected, theme: 'resource-theme'};
+    config.data = {resourceId: this.resource.id, groups: this.selected.selected, theme: 'resource-theme'};
 
     const dialogRef = this.dialog.open(RemoveGroupFromResourceDialogComponent, config);
     dialogRef.afterClosed().subscribe((success) => {
@@ -105,11 +101,4 @@ export class ResourceGroupsComponent implements OnInit {
     this.filteredValue = filterValue;
   }
 
-  private getDataForAuthorization() {
-    this.loadingResource = true;
-    this.resourcesManager.getResourceById(this.resourceId).subscribe(resource => {
-      this.resource = resource;
-      this.loadingResource = false;
-    });
-  }
 }

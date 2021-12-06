@@ -4,9 +4,8 @@ import { FacilitiesManagerService, Facility, SecurityTeam } from '@perun-web-app
 import {
   TABLE_FACILITY_SECURITY_TEAMS_LIST,
 } from '@perun-web-apps/config/table-config';
-import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-facility-security-teams',
@@ -17,8 +16,8 @@ export class FacilitySecurityTeamsComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
               private facilitiesManager: FacilitiesManagerService,
-              private route: ActivatedRoute,
-              private authResolver: GuiAuthResolver) { }
+              private authResolver: GuiAuthResolver,
+              private entityStorageService: EntityStorageService) { }
 
   facility: Facility;
   securityTeams: SecurityTeam[]= [];
@@ -35,15 +34,8 @@ export class FacilitySecurityTeamsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.route.parent.params.subscribe(parentParams => {
-      const facilityId = parentParams['facilityId'];
-
-      this.facilitiesManager.getFacilityById(facilityId).subscribe(facility => {
-        this.facility = facility;
-
-        this.refreshTable();
-      });
-    });
+    this.facility = this.entityStorageService.getEntity();
+    this.refreshTable();
   }
 
   refreshTable(){

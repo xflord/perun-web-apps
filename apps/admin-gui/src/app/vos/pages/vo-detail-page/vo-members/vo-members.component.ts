@@ -1,8 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
-  ApiRequestConfigurationService,
+  ApiRequestConfigurationService, EntityStorageService,
   GuiAuthResolver,
   NotificatorService,
   StoreService
@@ -13,8 +12,7 @@ import { AddMemberDialogComponent } from '../../../../shared/components/dialogs/
 import {
   AttributesManagerService,
   RichMember,
-  Vo,
-  VosManagerService
+  Vo
 } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { FormControl } from '@angular/forms';
@@ -34,14 +32,13 @@ export class VoMembersComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
   constructor(
-    private voService: VosManagerService,
-    private route: ActivatedRoute,
     private notificator: NotificatorService,
     private dialog: MatDialog,
     private authzService: GuiAuthResolver,
     private storeService: StoreService,
     private attributesManager: AttributesManagerService,
     private apiRequest: ApiRequestConfigurationService,
+    private entityStorageService: EntityStorageService
   ) { }
 
   vo: Vo;
@@ -77,17 +74,11 @@ export class VoMembersComponent implements OnInit {
     this.loading = true;
     this.statuses.setValue(this.selectedStatuses);
     this.attrNames = this.attrNames.concat(this.storeService.getLoginAttributeNames());
-    this.route.parent.params.subscribe(parentParams => {
-      const voId = parentParams['voId'];
 
-      this.isManualAddingBlocked(voId).then(() => {
-        this.voService.getVoById(voId).subscribe(vo => {
-          this.vo = vo;
-          this.setAuthRights();
-          this.loading = false;
-        });
-      });
-    });
+    this.vo = this.entityStorageService.getEntity();
+    this.setAuthRights();
+
+    this.isManualAddingBlocked(this.vo.id).then(() => this.loading = false);
   }
 
   setAuthRights(){
@@ -166,8 +157,8 @@ export class VoMembersComponent implements OnInit {
     return '';
   }
 
-  isManualAddingBlocked(voId: number): Promise<void> {
-    return new Promise((resolve) => {
+  isManualAddingBlocked(voId: number) {
+    return new Promise<void>((resolve) => {
       this.apiRequest.dontHandleErrorForNext();
       this.attributesManager.getVoAttributeByName(voId, "urn:perun:vo:attribute-def:def:blockManualMemberAdding").subscribe(attrValue => {
         this.blockManualMemberAdding = attrValue.value !== null;

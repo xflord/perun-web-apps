@@ -1,9 +1,9 @@
  import {Component, HostBinding, OnInit} from '@angular/core';
 import {SideMenuService} from '../../../../../core/services/common/side-menu.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Router } from '@angular/router';
 import {MenuItem} from '@perun-web-apps/perun/models';
 import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-vo-settings-overview',
@@ -18,8 +18,8 @@ export class VoSettingsOverviewComponent implements OnInit {
     private sideMenuService: SideMenuService,
     private voService: VosManagerService,
     private authResolver: GuiAuthResolver,
-    protected route: ActivatedRoute,
-    protected router: Router
+    protected router: Router,
+    private entityStorageService: EntityStorageService
   ) { }
 
   items: MenuItem[] = [];
@@ -28,16 +28,9 @@ export class VoSettingsOverviewComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.route.parent.parent.params.subscribe(parentParams => {
-      const voId = parentParams['voId'];
-
-      this.voService.getVoById(voId).subscribe(vo => {
-        this.vo = vo;
-
-        this.initItems();
-        this.loading = false;
-      }, () => this.loading = false);
-    });
+    this.vo = this.entityStorageService.getEntity();
+    this.initItems();
+    this.loading = false;
   }
 
   private initItems() {

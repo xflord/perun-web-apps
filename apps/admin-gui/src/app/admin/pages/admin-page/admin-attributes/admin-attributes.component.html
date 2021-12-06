@@ -1,10 +1,10 @@
 <div>
   <h1 class="page-subtitle">{{'ADMIN.ATTRIBUTES.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button *ngIf="authResolver.isPerunAdmin()" mat-flat-button (click)="onCreate()" color="accent" class="mr-2">
+  <button *ngIf="authResolver.isPerunAdmin()" mat-flat-button (click)="onCreate()" color="accent" class="mr-2 action-button">
     {{'ADMIN.ATTRIBUTES.CREATE' | translate}}
   </button>
-  <button *ngIf="authResolver.isPerunAdmin()" mat-flat-button (click)="onImport()" color="accent" class="mr-2">
+  <button *ngIf="authResolver.isPerunAdmin()" mat-flat-button (click)="onImport()" color="accent" class="mr-2 action-button">
     {{'ADMIN.ATTRIBUTES.IMPORT' | translate}}
   </button>
   <button *ngIf="authResolver.isPerunAdmin()" mat-flat-button color="warn" (click)="onDelete()" class="mr-2" [disabled]="selected.selected.length === 0">

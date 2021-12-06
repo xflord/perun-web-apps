@@ -1,12 +1,11 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
-import { ResourcesManagerService, RichResource, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { ResourcesManagerService, RichResource, Vo } from '@perun-web-apps/perun/openapi';
 import { RemoveResourceDialogComponent } from '../../../../../shared/components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TABLE_VO_RESOURCES_LIST } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-vo-resources-preview',
@@ -20,10 +19,9 @@ export class VoResourcesPreviewComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
   constructor(private resourcesManager: ResourcesManagerService,
-              private voService: VosManagerService,
-              private route: ActivatedRoute,
               private dialog: MatDialog,
-              private authResolver: GuiAuthResolver) {
+              private authResolver: GuiAuthResolver,
+              private entityStorageService: EntityStorageService) {
   }
 
   vo: Vo;
@@ -40,15 +38,10 @@ export class VoResourcesPreviewComponent implements OnInit {
   routeAuth = false;
 
   ngOnInit() {
-    this.route.parent.parent.params.subscribe(parentParams => {
-      const voId = parentParams['voId'];
-
-      this.voService.getVoById(voId).subscribe(vo => {
-        this.vo = vo;
-
-        this.refreshTable();
-      });
-    });
+    this.loading = true;
+    this.vo = this.entityStorageService.getEntity();
+    this.setAuthRights();
+    this.refreshTable();
   }
 
   setAuthRights() {

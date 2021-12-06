@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/perun/openapi';
-import { ActivatedRoute } from '@angular/router';
+import { AttributeDefinition, AttributesManagerService, Service } from '@perun-web-apps/perun/openapi';
 import {
   TABLE_REQUIRED_ATTRIBUTES,
 } from '@perun-web-apps/config/table-config';
@@ -9,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AddRequiredAttributesDialogComponent } from '../../../../../../shared/components/dialogs/add-required-attributes-dialog/add-required-attributes-dialog.component';
 import { RemoveRequiredAttributesDialogComponent } from '../../../../../../shared/components/dialogs/remove-required-attributes-dialog/remove-required-attributes-dialog.component';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-service-required-attributes',
@@ -18,31 +17,29 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 })
 export class ServiceRequiredAttributesComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute,
-              private attributeManager: AttributesManagerService,
+  constructor(private attributeManager: AttributesManagerService,
               private dialog: MatDialog,
-              public authResolver: GuiAuthResolver
+              public authResolver: GuiAuthResolver,
+              private entityStorageService: EntityStorageService
               ) { }
 
   loading = false;
   filterValue = '';
 
-  serviceId: number;
+  service: Service;
   selection = new SelectionModel<AttributeDefinition>(true, []);
   attrDefinitions: AttributeDefinition[] = [];
   tableId = TABLE_REQUIRED_ATTRIBUTES;
 
   ngOnInit(): void {
     this.loading = true;
-    this.route.parent.params.subscribe(params => {
-      this.serviceId = params['serviceId'];
-      this.refreshTable();
-    });
+    this.service = this.entityStorageService.getEntity();
+    this.refreshTable();
   }
 
   refreshTable() {
     this.loading = true;
-    this.attributeManager.getRequiredAttributesDefinition(this.serviceId).subscribe( attrDef => {
+    this.attributeManager.getRequiredAttributesDefinition(this.service.id).subscribe( attrDef => {
       this.selection.clear();
       this.attrDefinitions = attrDef;
       this.loading = false;
@@ -53,7 +50,7 @@ export class ServiceRequiredAttributesComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '950px';
     config.data = {
-      serviceId: this.serviceId,
+      serviceId: this.service.id,
       theme: 'service-theme'
     };
 
@@ -70,7 +67,7 @@ export class ServiceRequiredAttributesComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '650px';
     config.data = {
-      serviceId: this.serviceId,
+      serviceId: this.service.id,
       attrDefinitions: this.selection.selected,
       theme: 'service-theme'
     };
