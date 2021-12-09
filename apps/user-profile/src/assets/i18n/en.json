@@ -164,7 +164,8 @@
     },
     "ADD_SSH": {
       "TITLE": "Add new ssh key",
-      "INPUT_PLACEHOLDER": "Begins with 'ssh-rsa', 'ssh-ed25519', 'ecdsa-sha2-nistp256', 'ecdsa-sha2-nistp384' or 'ecdsa-sha2-nistp521'.",
+      "INPUT_PLACEHOLDER": "Begins with 'ssh-rsa', 'ssh-dss', 'sk-ssh-ed25519', 'sk-ecdsa', 'ssh-ed25519', 'ecdsa-sha2-nistp256', 'ecdsa-sha2-nistp384' or 'ecdsa-sha2-nistp521'.",
+      "INVALID_TYPE": "Invalid value given. Your key should have one of the following types: \n\tssh-ed25519\n\tssh-ed25519-cert-v01@openssh.com\n\tsk-ssh-ed25519@openssh.com\n\tsk-ssh-ed25519-cert-v01@openssh.com\n\tssh-rsa\n\tssh-dss\n\tecdsa-sha2-nistp256\n\tecdsa-sha2-nistp384\n\tecdsa-sha2-nistp521\n\tsk-ecdsa-sha2-nistp256@openssh.com\n\tssh-rsa-cert-v01@openssh.com\n\tssh-dss-cert-v01@openssh.com\n\tecdsa-sha2-nistp256-cert-v01@openssh.com\n\tecdsa-sha2-nistp384-cert-v01@openssh.com\n\tecdsa-sha2-nistp521-cert-v01@openssh.com\n\tsk-ecdsa-sha2-nistp256-cert-v01@openssh.com",
       "CANCEL": "Cancel",
       "ADD": "Add"
     },

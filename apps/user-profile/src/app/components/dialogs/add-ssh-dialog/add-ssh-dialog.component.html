@@ -11,6 +11,7 @@
         [formControl]="sshControl"
       ></textarea>
     </label>
+    <mat-error *ngIf="sshControl.invalid && sshControl.dirty" class="white-space-pre">{{'DIALOGS.ADD_SSH.INVALID_TYPE'|customTranslate | translate}}</mat-error>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
@@ -24,7 +25,7 @@
     mat-flat-button
     class="ml-2"
     color="accent"
-    [disabled]="!sshControl.valid"
+    [disabled]="sshControl.invalid"
     (click)="onSubmit()">
     {{'DIALOGS.ADD_SSH.ADD'|customTranslate | translate}}
   </button>

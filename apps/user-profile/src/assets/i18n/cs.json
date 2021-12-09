@@ -164,7 +164,8 @@
     },
     "ADD_SSH": {
       "TITLE": "Přidat nový SSH klíč",
-      "INPUT_PLACEHOLDER": "Začíná 'ssh-rsa', 'ssh-ed25519', 'ecdsa-sha2-nistp256', 'ecdsa-sha2-nistp384' nebo 'ecdsa-sha2-nistp521'.",
+      "INPUT_PLACEHOLDER": "Klíč začíná 'ssh-rsa', 'ssh-dss'  'sk-ssh-ed25519', 'sk-ecdsa', 'ssh-ed25519', 'ecdsa-sha2-nistp256', 'ecdsa-sha2-nistp384' nebo 'ecdsa-sha2-nistp521'.",
+      "INVALID_TYPE": "Zadána neplatná hodnota. Váš klíč musí mít jeden z následujících typů: \n\tssh-ed25519\n\tssh-ed25519-cert-v01@openssh.com\n\tsk-ssh-ed25519@openssh.com\n\tsk-ssh-ed25519-cert-v01@openssh.com\n\tssh-rsa\n\tssh-dss\n\tecdsa-sha2-nistp256\n\tecdsa-sha2-nistp384\n\tecdsa-sha2-nistp521\n\tsk-ecdsa-sha2-nistp256@openssh.com\n\tssh-rsa-cert-v01@openssh.com\n\tssh-dss-cert-v01@openssh.com\n\tecdsa-sha2-nistp256-cert-v01@openssh.com\n\tecdsa-sha2-nistp384-cert-v01@openssh.com\n\tecdsa-sha2-nistp521-cert-v01@openssh.com\n\tsk-ecdsa-sha2-nistp256-cert-v01@openssh.com",
       "CANCEL": "Zrušit",
       "ADD": "Přidat"
     },

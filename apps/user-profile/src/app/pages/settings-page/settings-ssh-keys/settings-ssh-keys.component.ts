@@ -64,7 +64,7 @@ export class SettingsSSHKeysComponent implements OnInit {
 
   addKey(admin: boolean) {
     const config = getDefaultDialogConfig();
-    config.width = '800px';
+    config.width = '850px';
     config.data = { attribute: admin ? this.adminKeyAttribute : this.userKeyAttribute,
       userId: this.userId };
 
