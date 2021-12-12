@@ -1435,7 +1435,7 @@
       "ASYNC_OPT_DESCRIPTION": "If selected, group(s) assignment is executed asynchronously (switched to PROCESSING state and waiting for assignment to run in the background). Otherwise, a synchronous assignment is executed.",
       "AS_ACTIVE": "Assign with active status",
       "ACTIVE_ON_HINT": "Groups will be assigned to the resource with ACTIVE status",
-      "ACTIVE_OFF_HINT": "Groups will be assigned to the resource with INACTIVE status, members will not be able to access services until activation",
+      "ACTIVE_OFF_HINT": "Group(s) will be assigned to the resource with INACTIVE status (if assigning with subgroups, subgroups will be assigned with ACTIVE status), members of INACTIVE group(s) will not be able to access services until activation.",
       "AUTO_SUBGROUPS": "Assign with subgroups",
       "AUTO_SUBGROUPS_OFF_HINT": "The resource will be assigned only to selected groups and will not propagate to their subgroups",
       "AUTO_SUBGROUPS_ON_HINT": "All current and future <b>subgroups</b> will be assigned to this resource<br> In the case of 'members' groups this extends to <b>all groups of its organization</b>",
