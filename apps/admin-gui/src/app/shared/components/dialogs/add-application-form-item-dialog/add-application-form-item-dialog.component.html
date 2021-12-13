@@ -5,6 +5,7 @@
     <input
       matInput
       required
+      data-cy="item-short-name"
       [formControl]="nameCtrl">
     <mat-error>
       {{'DIALOGS.APPLICATION_FORM_ADD_ITEM.FILL_NAME' | translate}}
@@ -43,6 +44,7 @@
     mat-flat-button
     class="ml-2"
     color="accent"
+    data-cy="add-form-item-button-dialog"
     (click)="submit()">
     {{'DIALOGS.APPLICATION_FORM_ADD_ITEM.CREATE' | translate}}
   </button>

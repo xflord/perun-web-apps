@@ -43,6 +43,7 @@
       mat-flat-button
       color="accent"
       class="mr-2 action-button"
+      data-cy="add-form-item"
       (click)="add()">
       {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.ADD_BUTTON' | translate}}
     </button>
@@ -52,6 +53,7 @@
       mat-flat-button
       color="accent"
       class="mr-2"
+      data-cy="save-application-form"
       [disabled]="!itemsChanged"
       (click)="save()">
       <i class="material-icons">save</i>

@@ -29,6 +29,7 @@
                         (click)="$event.stopPropagation()"
                         [aria-label]="checkboxLabel(member)"
                         [checked]="selection.isSelected(member)"
+                        attr.data-cy="{{member.user.firstName | lowercase}}-checkbox"
                         color="primary">
           </mat-checkbox>
         </td>

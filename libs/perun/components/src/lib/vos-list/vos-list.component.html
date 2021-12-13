@@ -41,7 +41,7 @@
       <ng-container matColumnDef="shortName">
         <th *matHeaderCellDef mat-header-cell
             mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.VOS_LIST.SHORTNAME' | translate}}</th>
-        <td *matCellDef="let vo" mat-cell>{{vo.shortName}}</td>
+        <td *matCellDef="let vo" mat-cell attr.data-cy="{{vo.shortName}}">{{vo.shortName}}</td>
       </ng-container>
       <ng-container matColumnDef="name">
         <th *matHeaderCellDef mat-header-cell
@@ -61,7 +61,7 @@
   </perun-web-apps-table-wrapper>
 </div>
 
-<app-alert *ngIf="dataSource.filteredData.length === 0 && vos.length !== 0" alert_type="warn">
+<app-alert *ngIf="dataSource.filteredData.length === 0 && vos.length !== 0" alert_type="warn" data-cy="no-filter-result">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
 </app-alert>
 

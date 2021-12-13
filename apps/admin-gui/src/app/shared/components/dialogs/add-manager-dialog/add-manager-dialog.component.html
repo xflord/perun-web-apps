@@ -13,6 +13,7 @@
       <mat-form-field class="mr-2 w-100">
         <label>
           <input matInput autocomplete="false" placeholder="{{'DIALOGS.ADD_MANAGERS.DESCRIPTION' | translate}}"
+                 data-cy="search-manager-input"
                  (keyup.enter)="onSearchByString()"
                  [formControl]="searchCtrl">
         </label>
@@ -25,6 +26,7 @@
       mat-flat-button
       class="ml-auto"
       color="accent"
+      data-cy="search-manager-button"
       [disabled]="loading"
       (click)="onSearchByString()">
       {{'DIALOGS.ADD_MANAGERS.SEARCH' | translate}}
@@ -61,6 +63,7 @@
       mat-flat-button
       class="ml-2"
       color="accent"
+      data-cy="add-manager-button-dialog"
       (click)="onSubmit()"
       [disabled]="selection.selected.length === 0 || selectedRole === undefined || loading">
       {{'DIALOGS.ADD_MANAGERS.CREATE' | translate}}

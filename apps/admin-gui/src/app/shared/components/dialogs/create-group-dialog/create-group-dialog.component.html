@@ -9,6 +9,7 @@
             [formControl]="nameControl"
             matInput
             placeholder="{{'DIALOGS.CREATE_GROUP.NAME' | translate}}"
+            data-cy="group-name"
             required>
         </label>
         <mat-error>
@@ -21,6 +22,7 @@
             [formControl]="descriptionControl"
             mat-autosize
             matInput
+            data-cy="group-description"
             placeholder="{{'DIALOGS.CREATE_GROUP.DESCRIPTION' | translate}}">
           </textarea>
         </label>
@@ -53,6 +55,7 @@
         [disabled]="nameControl.invalid || descriptionControl.invalid || (asSubgroup && selectedParent === null) || loading"
         class="ml-2"
         color="accent"
+        data-cy="create-group-button-dialog"
         mat-flat-button>
         {{'DIALOGS.CREATE_GROUP.CREATE' | translate}}
       </button>

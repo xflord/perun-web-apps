@@ -14,6 +14,7 @@
         mat-flat-button
         color="accent"
         class="mr-2 mt-2 action-button"
+        data-cy="add-manager-button"
         (click)="addManager()">
         {{'SHARED.COMPONENTS.MANAGERS_PAGE.ADD' | translate}}
       </button>
@@ -23,6 +24,7 @@
         mat-flat-button
         color="warn"
         class="mr-2 mt-2"
+        data-cy="remove-manager-button"
         (click)="removeManager()"
         [disabled]="selectionUsers.selected.length === 0">
         {{'SHARED.COMPONENTS.MANAGERS_PAGE.REMOVE' | translate}}

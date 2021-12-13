@@ -29,6 +29,7 @@ import { UserVoPipe } from './vo-or-ext-source.pipe';
 import { MemberStatusPipe } from './member-status.pipe';
 import { SanitizeHtmlPipe } from './sanitize-html.pipe';
 import { StyleInnerHtmlPipe } from './style-inner-html.pipe';
+import { MultiWordDataCyPipe } from './multi-word-data-cy.pipe';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { StyleInnerHtmlPipe } from './style-inner-html.pipe';
     UserVoPipe,
     MemberStatusPipe,
     SanitizeHtmlPipe,
-    StyleInnerHtmlPipe
+    StyleInnerHtmlPipe,
+    MultiWordDataCyPipe
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -93,7 +95,8 @@ import { StyleInnerHtmlPipe } from './style-inner-html.pipe';
     UserVoPipe,
     MemberStatusPipe,
     SanitizeHtmlPipe,
-    StyleInnerHtmlPipe
+    StyleInnerHtmlPipe,
+    MultiWordDataCyPipe
   ],
   imports: [CommonModule],
 })

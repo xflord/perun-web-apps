@@ -29,6 +29,7 @@
                         [aria-label]="checkboxLabel(row)"
                         [checked]="selection.isSelected(row)"
                         [disabled]="disableSelf && row.id === principalId && !authResolver.isPerunAdmin()"
+                        attr.data-cy="{{row.firstName | lowercase}}-checkbox"
                         color="primary">
           </mat-checkbox>
         </td>

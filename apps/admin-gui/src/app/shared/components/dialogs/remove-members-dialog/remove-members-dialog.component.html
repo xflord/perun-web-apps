@@ -36,6 +36,7 @@
       mat-flat-button
       class="ml-2"
       color="warn"
+      data-cy="remove-members-dialog"
       (click)="onSubmit()">
       {{(!!data.groupId ? 'DIALOGS.REMOVE_MEMBERS.REMOVE_GROUP' : 'DIALOGS.REMOVE_MEMBERS.REMOVE') | translate}}
     </button>

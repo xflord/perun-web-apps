@@ -11,6 +11,8 @@
   "baseUrl": "http://localhost:4200",
   "env": {
     "BA_USERNAME": "perun",
-    "BA_PASSWORD": "test"
+    "BA_PASSWORD": "test",
+    "BA_USERNAME_VO_MANAGER": "voManager",
+    "BA_PASSWORD_VO_MANAGER": "test"
   }
 }
