@@ -139,17 +139,9 @@
     "NEW_IMG": "Nový obrázek",
     "DELETE_IMG": "Vymazat obrázek",
     "ANTI_PHISHING_INFO": "Tento bezpečnostní obrázek se vám ukáže před tím, než zadáte heslo, ujistíte se tak, že se nepřihlašujete na podvrženou stránku",
-    "MFA_TOGGLE": "Zapnout multi-factor authentication pro všechny služby",
     "DELETE_IMG_DIALOG_TITLE": "Vymazat proti-phishingový obrázek",
     "DELETE_IMG_DIALOG_DESC": "Váš bezpečnostní obrázek bude odstraněn a nebude použit během autentizace.",
-    "TYPE": "Typ",
-    "NAME": "Jméno",
-    "REVOKE": "Zrušit",
-    "ADDED": "Přidáno",
-    "USED": "Naposledy použito",
-    "NO_TOKENS": "Nemáte žádné tokeny pro multi-factor authentication.",
-    "ADD_WEBAUTHN": "Přidat Webauthn autentikátor",
-    "ADD_TOTP": "Přidat zařízení TOTP"
+    "MFA_INFO": "Pro správu prostředků vícefázového ověření (MFA) navštivte "
   },
   "DIALOGS": {
     "CHANGE_EMAIL": {
@@ -214,11 +206,6 @@
       "ADD": "Uložit obrázek",
       "IMG_TOO_LONG": "Velikost obrázku je větší než 5kB",
       "DELAY_INFO": "Změna bezpečnostního obrázku se projeví většinou do 5 minut, v ojedinělých případech může propagace změny trvat několik hodin."
-    },
-    "ADD_TOKEN_INFO": {
-      "INFO": "Mějte připravenou aplikaci pro TOTP (např. FreeOTP nebo Google Authenticator), po potvrzení dojde ihned k vytvoření TOTP klíče a QR kódu, který je potřeba naskenovat aplikací. Pokud nenaskenujete QR kód do TOTP aplikace, klíč bude ztracen a není možné ho obnovit.",
-      "CANCEL": "Zrušit",
-      "ADD": "Pokračovat"
     }
   },
   "ALERTS": {

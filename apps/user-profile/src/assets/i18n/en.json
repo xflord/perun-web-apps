@@ -139,17 +139,9 @@
     "NEW_IMG": "New image",
     "DELETE_IMG": "Delete image",
     "ANTI_PHISHING_INFO": "You will be shown this security image before you enter your password so you will know that you are visiting the right site",
-    "MFA_TOGGLE": "Enforce multi-factor authentication for all services",
     "DELETE_IMG_DIALOG_TITLE": "Delete anti-phishing image",
     "DELETE_IMG_DIALOG_DESC": "Your security image will be deleted and will not be used during authentication process.",
-    "TYPE": "Type",
-    "NAME": "Name",
-    "REVOKE": "Revoke",
-    "ADDED": "Added",
-    "USED": "Used",
-    "NO_TOKENS": "You don't have any tokens for multi-factor authentication",
-    "ADD_WEBAUTHN": "Add Webauthn authenticator",
-    "ADD_TOTP": "Add TOTP device"
+    "MFA_INFO": "To manage MFA tokens go to "
   },
   "DIALOGS": {
     "CHANGE_EMAIL": {
@@ -214,11 +206,6 @@
       "ADD": "Save image",
       "IMG_TOO_LONG": "The image size is more than 5kB.",
       "DELAY_INFO": "New security image usually becomes effective in 5 minutes, in rare cases it might take a couple of hours."
-    },
-    "ADD_TOKEN_INFO": {
-      "INFO": "Get ready with your TOTP application (such as FreeOTP or Google Authenticator). Upon confirmation, a TOTP key and a QR code will be generated, which you have to immediately scan with your application. If you do not scan the QR code with your TOTP app, the key will be lost and cannot be recovered.",
-      "CANCEL": "Cancel",
-      "ADD": "Continue"
     }
   },
   "ALERTS": {
