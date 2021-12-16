@@ -14,7 +14,10 @@
           <router-outlet></router-outlet>
         </div>
 
-        <perun-web-apps-footer (footerHeight)="setContentHeight($event)"></perun-web-apps-footer>
+        <div #footer>
+          <perun-web-apps-footer></perun-web-apps-footer>
+        </div>
+
       </mat-sidenav-content>
     </mat-sidenav-container>
   </div>

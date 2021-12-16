@@ -6,9 +6,7 @@ export class CustomValidators {
     const password: string = control.get('passwordCtrl').value;
     const confirmPassword: string = control.get('passwordAgainCtrl').value;
 
-    if (password !== confirmPassword) {
-      control.get('passwordAgainCtrl').setErrors({ noPasswordMatch: true });
-    }
+    control.get('passwordAgainCtrl').setErrors(password !== confirmPassword ? { noPasswordMatch: true } : null);
   }
 
   static patternValidator(regexes: RegExp[]): ValidatorFn {

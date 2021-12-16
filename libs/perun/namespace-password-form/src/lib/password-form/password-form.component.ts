@@ -27,9 +27,13 @@ export class PasswordFormComponent implements OnInit, OnChanges {
   @Input()
   multiLanguage = false;
 
+  @Input()
+  language = 'en';
+
   allPasswordRequirements = this.store.get('password_requirements_help');
   passwordRequirement: string = null;
-  language: string;
+  showNewPassword = false;
+  showPasswordConfirm = false;
 
   passwordStateMatcher = new ImmediateStateMatcher();
 
@@ -55,6 +59,12 @@ export class PasswordFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    if (this.language !== 'en') {
+      this.allPasswordRequirements = this.store.get(`password_requirements_help_${this.language}`);
+    } else {
+      this.allPasswordRequirements = this.store.get('password_requirements_help');
+    }
+
     this.changeHelp();
   }
 

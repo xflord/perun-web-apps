@@ -21,6 +21,7 @@ export class ChangePasswordDialogComponent implements OnInit {
 
   formGroup: FormGroup;
   oldPwd: AbstractControl;
+  showOldPassword = false;
   newPwd: AbstractControl;
   newPwdAgain: AbstractControl;
   successMessage: string;

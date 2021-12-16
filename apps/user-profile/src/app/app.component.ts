@@ -1,4 +1,12 @@
-import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { InitAuthService, StoreService, PreferredLanguageService } from '@perun-web-apps/perun/services';
 import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { TranslateService } from '@ngx-translate/core';
@@ -8,7 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
 
   public static minWidth = 992;
   sidebarMode: 'over' | 'push' | 'side' = 'side';
@@ -28,6 +36,7 @@ export class AppComponent implements OnInit {
   isServiceAccess: boolean;
   contentHeight =  'calc(100vh - 84px)';
   headerLabel = this.store.get('header_label_en');
+  @ViewChild('footer') footer: ElementRef;
 
   ngOnInit(): void {
     this.isLoginScreenShown = this.initAuth.isLoginScreenShown();
@@ -58,12 +67,12 @@ export class AppComponent implements OnInit {
     return window.innerWidth <= AppComponent.minWidth;
   }
 
-  setContentHeight(height: number) {
-    this.contentHeight =  'calc(100vh - 84px - '+height+'px)';
-    this.changeDetector.detectChanges();
-  }
-
   isServiceLogin(): boolean {
     return !!sessionStorage.getItem("baLogout");
+  }
+
+  ngAfterViewInit(): void {
+    this.contentHeight =  'calc(100vh - 84px - '+this.footer.nativeElement.offsetHeight+'px)';
+    this.changeDetector.detectChanges();
   }
 }

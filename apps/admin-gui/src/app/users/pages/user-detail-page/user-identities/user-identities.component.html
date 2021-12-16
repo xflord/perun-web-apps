@@ -12,6 +12,7 @@
   *ngIf="authResolver.isPerunAdmin()"
   (click)="removeIdentity()"
   [disabled]="selection.selected.length === 0"
+  class="mr-2"
   color="warn"
   mat-flat-button>
   {{'USER_DETAIL.IDENTITIES.REMOVE'|translate}}

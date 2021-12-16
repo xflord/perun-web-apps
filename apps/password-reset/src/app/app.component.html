@@ -1,2 +1,16 @@
-
-<router-outlet></router-outlet>
+<div>
+  <perun-web-apps-header id="nav-menu"></perun-web-apps-header>
+  <div [ngStyle]="{'background': contentBackgroundColor}" id="content-inner">
+    <div [ngStyle]="{'min-height': contentHeight}" id="content-wrap">
+      <perun-web-apps-password-reset-page
+      [mode]="mode"
+      [token]="token"
+      [namespace]="namespace"
+      [login]="login"
+      [validToken]="validToken"
+      [authWithoutToken]="authWithoutToken">
+      </perun-web-apps-password-reset-page>
+    </div>
+    <perun-web-apps-footer (footerHeight)="setContentHeight($event)"></perun-web-apps-footer>
+  </div>
+</div>

@@ -71,7 +71,6 @@ import { SettingsAuthenticationComponent } from './pages/settings-page/settings-
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AddAuthImgDialogComponent } from './components/dialogs/add-auth-img-dialog/add-auth-img-dialog.component';
 import { MatRadioModule } from '@angular/material/radio';
-import { AddTokenInfoDialogComponent } from './components/add-token-info-dialog/add-token-info-dialog.component';
 import { PerunLoginModule } from '@perun-web-apps/perun/login';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
 import { MatMenuModule } from '@angular/material/menu';
@@ -129,8 +128,7 @@ const loadConfigs = (appConfig: UserProfileConfigService) => () => appConfig.ini
     ShowSshDialogComponent,
     BreadcrumbsComponent,
     SettingsAuthenticationComponent,
-    AddAuthImgDialogComponent,
-    AddTokenInfoDialogComponent
+    AddAuthImgDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { FormControl, Validators } from '@angular/forms';
@@ -11,9 +11,30 @@ export interface AddSshDialogData {
 @Component({
   selector: 'perun-web-apps-add-ssh-dialog',
   templateUrl: './add-ssh-dialog.component.html',
-  styleUrls: ['./add-ssh-dialog.component.scss']
+  styleUrls: ['./add-ssh-dialog.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AddSshDialogComponent implements OnInit {
+
+  static readonly allowedSshKeys = [
+    'ssh-ed25519',
+    'ssh-ed25519-cert-v01@openssh.com',
+    'sk-ssh-ed25519@openssh.com',
+    'sk-ssh-ed25519-cert-v01@openssh.com',
+    'ssh-rsa',
+    'ssh-dss',
+    'ecdsa-sha2-nistp256',
+    'ecdsa-sha2-nistp384',
+    'ecdsa-sha2-nistp521',
+    'sk-ecdsa-sha2-nistp256@openssh.com',
+    'ssh-rsa-cert-v01@openssh.com',
+    'ssh-dss-cert-v01@openssh.com',
+    'ecdsa-sha2-nistp256-cert-v01@openssh.com',
+    'ecdsa-sha2-nistp384-cert-v01@openssh.com',
+    'ecdsa-sha2-nistp521-cert-v01@openssh.com',
+    'sk-ecdsa-sha2-nistp256-cert-v01@openssh.com'
+  ]
+  static readonly sshKeyPattern = '^(' + AddSshDialogComponent.allowedSshKeys.join('|') + ').+$';
 
   constructor(private dialogRef: MatDialogRef<AddSshDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private data: AddSshDialogData,
@@ -23,7 +44,7 @@ export class AddSshDialogComponent implements OnInit {
   sshControl: FormControl;
 
   ngOnInit() {
-    this.sshControl = new FormControl(null, [Validators.required, Validators.pattern('^(ssh-rsa|ssh-ed25519|ecdsa-sha2-nistp256|ecdsa-sha2-nistp384|ecdsa-sha2-nistp521).+$')]);
+    this.sshControl = new FormControl(null, [Validators.required, Validators.pattern(AddSshDialogComponent.sshKeyPattern)]);
   }
 
   onCancel() {
@@ -40,6 +61,8 @@ export class AddSshDialogComponent implements OnInit {
 
     this.attributesManagerService.setUserAttribute({ user: this.data.userId, attribute: this.data.attribute }).subscribe(() => {
       this.dialogRef.close(true);
+    }, () => {
+      keys.pop();
     });
   }
 }

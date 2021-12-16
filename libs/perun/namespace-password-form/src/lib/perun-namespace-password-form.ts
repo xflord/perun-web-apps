@@ -19,7 +19,7 @@ export const loginAsyncValidator =
   (namespace: string, usersManager: UsersManagerService, apiRequestConfiguration: ApiRequestConfigurationService, time: number = 500) => (input: FormControl) => timer(time).pipe(
     switchMap(() => {
       apiRequestConfiguration.dontHandleErrorForNext();
-      if (namespace === null || namespace === 'No namespace') {
+      if (!namespace || namespace === 'No namespace') {
         return of(null);
       }
       return usersManager.checkPasswordStrength(input.value, namespace)

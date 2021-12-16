@@ -2,7 +2,7 @@
   <h1 class="page-subtitle">{{'AUTHENTICATION.TITLE' | customTranslate | translate}}</h1>
   <p>{{'AUTHENTICATION.ANTI_PHISHING_INFO' | customTranslate | translate}}</p>
   <div *ngIf="imageSrc && imageSrc.length">
-    <img [src]="imageSrc" alt="" class="img-size"/>
+    <img [src]="imageSrc" alt="" class="img-size">
   </div>
   <button (click)="onAddImg()" class="m-1 action-button" color="accent"
           mat-flat-button>{{'AUTHENTICATION.NEW_IMG' | customTranslate | translate}}</button>
@@ -11,54 +11,4 @@
 </div>
 
 <h1 class="page-subtitle">{{'AUTHENTICATION.MFA' | customTranslate | translate}}</h1>
-<button (click)="addTOTP()" class="mr-2 action-button" color="accent" mat-flat-button>{{'AUTHENTICATION.ADD_TOTP' | customTranslate | translate}}</button>
-<button (click)="addWebAuthn()" class="mb-3 action-button" color="accent" mat-flat-button>{{'AUTHENTICATION.ADD_WEBAUTHN' | customTranslate | translate}}</button>
-
-<!--  <mat-slide-toggle #toggle color="primary">{{'AUTHENTICATION.MFA_TOGGLE' | customTranslate | translate}}</mat-slide-toggle>-->
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-<app-alert *ngIf="!tokens.length && !loading" alert_type="warn">{{'AUTHENTICATION.NO_TOKENS' | customTranslate | translate}}</app-alert>
-<div [hidden]="!tokens.length" class="card mt-2">
-  <perun-web-apps-table-wrapper
-    [dataLength]="dataSource.filteredData.length"
-    [hideExport]="true">
-    <table [dataSource]="dataSource" class="w-100" mat-table>
-      <ng-container matColumnDef="type">
-        <th *matHeaderCellDef class="pl-3"
-            mat-header-cell>{{'AUTHENTICATION.TYPE' | customTranslate | translate}}</th>
-        <td *matCellDef="let token" class="truncate pl-3" mat-cell>
-          <img *ngIf="token.type === 'WEBAUTHN'" alt="" src="assets/img/webauthn-logo-black.svg" style="width: 2rem; height: 2rem">
-          <img *ngIf="token.type === 'TOTP'" alt="" src="assets/img/totp.svg" style="width: 2rem; height: 2rem">
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="nickname">
-        <th *matHeaderCellDef class="pl-3"
-            mat-header-cell>{{'AUTHENTICATION.NAME' | customTranslate | translate}}</th>
-        <td *matCellDef="let token" class="truncate pl-3" mat-cell>{{token.nickname}}</td>
-      </ng-container>
-      <ng-container matColumnDef="added">
-        <th *matHeaderCellDef class="pl-3"
-            mat-header-cell>{{'AUTHENTICATION.ADDED' | customTranslate | translate}}</th>
-        <td *matCellDef="let token" class="truncate pl-3" mat-cell>{{token.added | parseDate: true}}</td>
-      </ng-container>
-      <ng-container matColumnDef="used">
-        <th *matHeaderCellDef class="pl-3"
-            mat-header-cell>{{'AUTHENTICATION.USED' | customTranslate | translate}}</th>
-        <td *matCellDef="let token" class="truncate pl-3" mat-cell>{{token.used}}</td>
-      </ng-container>
-      <ng-container matColumnDef="revoke">
-        <th *matHeaderCellDef class="pl-3"
-            mat-header-cell></th>
-        <td *matCellDef="let token" class="truncate pl-3" mat-cell>
-          <button color="accent" mat-flat-button>{{'AUTHENTICATION.REVOKE' | customTranslate | translate}}</button>
-        </td>
-      </ng-container>
-
-      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-      <tr
-        *matRowDef="let key; columns: displayedColumns;"
-        class="dark-hover-list-item"
-        mat-row>
-      </tr>
-    </table>
-  </perun-web-apps-table-wrapper>
-</div>
+<span>{{'AUTHENTICATION.MFA_INFO'|translate}}<a [href]="mfaUrl">{{mfaUrl}}</a></span>

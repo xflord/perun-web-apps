@@ -27,6 +27,8 @@ import { UserEmailPipe } from './user-email.pipe'
 import { UserLoginsPipe } from './user-logins.pipe';
 import { UserVoPipe } from './vo-or-ext-source.pipe';
 import { MemberStatusPipe } from './member-status.pipe';
+import { SanitizeHtmlPipe } from './sanitize-html.pipe';
+import { StyleInnerHtmlPipe } from './style-inner-html.pipe';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { MemberStatusPipe } from './member-status.pipe';
     UserEmailPipe,
     UserLoginsPipe,
     UserVoPipe,
-    MemberStatusPipe
+    MemberStatusPipe,
+    SanitizeHtmlPipe,
+    StyleInnerHtmlPipe
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -87,7 +91,9 @@ import { MemberStatusPipe } from './member-status.pipe';
     UserEmailPipe,
     UserLoginsPipe,
     UserVoPipe,
-    MemberStatusPipe
+    MemberStatusPipe,
+    SanitizeHtmlPipe,
+    StyleInnerHtmlPipe
   ],
   imports: [CommonModule],
 })

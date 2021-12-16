@@ -26,7 +26,7 @@ export class FacilityTaskResultsComponent implements OnInit {
 
   selection: SelectionModel<TaskResult> = new SelectionModel<TaskResult>(true, []);
   taskId: number;
-  task: Task;
+  task: Task = { id: 0 };
   facility: Facility;
   taskResults: TaskResult[];
 
