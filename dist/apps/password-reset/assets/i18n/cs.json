@@ -1,0 +1,33 @@
+{
+  "HEADER": {
+    "LANGUAGE": "Anglicky"
+  },
+  "PAGES": {
+    "PWD_RESET_PAGE": {
+      "TITLE_RESET": "Reset hesla",
+      "TITLE_ACTIVATION": "Aktivace účtu",
+      "NAMESPACE": "Namespace",
+      "LOGIN": "Login",
+      "RESET_BUTTON": "Resetovat heslo",
+      "ACTIVATION_BUTTON": "Aktivovat účet",
+      "INVALID_REQUEST": "<b>Chybný odkaz</b>\nOdkaz buďto vyexpiroval, byl již použit nebo je špatný",
+      "RESET_SUCCESS": "Heslo bylo úspěšně resetováno",
+      "ACTIVATION_SUCCESS": "Účet byl úspěšně aktivován"
+    }
+  },
+  "SHARED_LIB": {
+    "PERUN": {
+      "COMPONENTS": {
+        "USER_DONT_EXIST": {
+          "TITLE": "Požadovaný uživatel (dle ID nebo externí identity) neexistuje."
+        },
+        "PASSWORD_FORM_FIELD": {
+          "PASSWORD": "Nové heslo",
+          "PASSWORD_AGAIN": "Znovu zadejte nové heslo",
+          "FIELD_EMPTY": "Tohle políčko musí být vyplněné",
+          "PWD_DONT_MATCH": "Hesla se neshodují"
+        }
+      }
+    }
+  }
+}

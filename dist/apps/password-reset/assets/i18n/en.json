@@ -1,26 +1,33 @@
 {
-  "DIALOGS": {
-    "PASSWORD_CHANGE": {
-      "TITLE_CHANGE": "Password change",
+  "HEADER": {
+    "LANGUAGE": "Czech"
+  },
+  "PAGES": {
+    "PWD_RESET_PAGE": {
       "TITLE_RESET": "Password reset",
       "TITLE_ACTIVATION": "Account activation",
-      "OLD_PASSWORD": "Old password",
-      "NEW_PASSWORD": "New password",
-      "NEW_PASSWORD_CONFIRM": "Confirm new password",
-      "SHOW_PASSWORD": "Show password",
-      "ERROR_EMPTY": "This field cannot be empty",
-      "ERROR_MATCH": "Passwords must match",
-      "BACKEND_ERROR": "Entered password doesn't meet the selected namespace's criteria",
-      "BACKEND_ERROR_LONG": "Entered password doesn't match criteria for strong password and it can't be accepted. Please, make sure that the entered password is at least 8 characters long, contains at least one of: A-z, 0-9, and special characters.",
-      "SUBMIT": "Submit",
-      "RESET_SUCCESS": "Your password has been successfully changed."
-    },
-    "TOKEN_EXPIRED": {
-      "TITLE": "Invalid password reset request",
-      "BODY": "Your password reset request is invalid. Possible reasons are:",
-      "EXPIRED": "request is expired",
-      "USED": "request was already used",
-      "INCORRECT": "request not existing"
+      "NAMESPACE": "Namespace",
+      "LOGIN": "Login",
+      "RESET_BUTTON": "Reset password",
+      "ACTIVATION_BUTTON": "Activate account",
+      "INVALID_REQUEST": "<b>Request is invalid</b>\nIt may be expired, already used or incorrect",
+      "RESET_SUCCESS": "Password was successfully reset",
+      "ACTIVATION_SUCCESS": "Account was successfully activated"
+    }
+  },
+  "SHARED_LIB": {
+    "PERUN": {
+      "COMPONENTS": {
+        "USER_DONT_EXIST": {
+          "TITLE": "Requested user (by ID or external identity) doesn't exist."
+        },
+        "PASSWORD_FORM_FIELD": {
+          "PASSWORD": "New password",
+          "PASSWORD_AGAIN": "New password again",
+          "FIELD_EMPTY": "Empty value is not allowed",
+          "PWD_DONT_MATCH": "Passwords do not match"
+        }
+      }
     }
   }
 }
