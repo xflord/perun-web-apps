@@ -35,9 +35,10 @@ export class VoSettingsOverviewComponent implements OnInit {
 
   private initItems() {
     this.items = [];
+    const adminOrObserver = this.authResolver.isThisVoAdminOrObserver(this.vo.id);
 
     // Membership
-    if (this.authResolver.isThisVoAdminOrObserver(this.vo.id)) {
+    if (adminOrObserver) {
       this.items.push({
         cssIcon: 'perun-group',
         url: `/organizations/${this.vo.id}/settings/expiration`,
@@ -55,7 +56,7 @@ export class VoSettingsOverviewComponent implements OnInit {
       });
     }
     // Application forms
-    if (this.authResolver.isThisVoAdminOrObserver(this.vo.id)) {
+    if (adminOrObserver) {
       this.items.push({
         cssIcon: 'perun-application-form',
         url: `/organizations/${this.vo.id}/settings/applicationForm`,
@@ -64,7 +65,7 @@ export class VoSettingsOverviewComponent implements OnInit {
       });
     }
     // Notifications
-    if (this.authResolver.isThisVoAdminOrObserver(this.vo.id)) {
+    if (adminOrObserver) {
       this.items.push({
         cssIcon: 'perun-notification',
         url: `/organizations/${this.vo.id}/settings/notifications`,

@@ -220,7 +220,9 @@ export class GuiAuthResolver {
   }
 
   public isThisVoAdminOrObserver(id: number): boolean {
-    return (this.editableVos.includes(id) || this.observableVos.includes(id) || this.hasAtLeastOne(Role.PERUNADMIN, Role.PERUNOBSERVER));
+    return (this.editableVos.includes(Number(id.toString())) ||
+      this.observableVos.includes(Number(id.toString())) ||
+      this.hasAtLeastOne(Role.PERUNADMIN, Role.PERUNOBSERVER));
   }
 
   public isThisVoAdmin(id: number): boolean {
@@ -370,6 +372,7 @@ export class GuiAuthResolver {
    */
   private initData(principal: PerunPrincipal) {
     this.user = principal.user.id;
+    this.initializeVariables();
     for (const [key, value] of Object.entries(this.principal.roles)) {
       if (Object.prototype.hasOwnProperty.call(principal.roles, key)) {
         this.principalRoles.add(<Role>key);
@@ -406,6 +409,16 @@ export class GuiAuthResolver {
         }
       }
     }
+  }
+
+  initializeVariables() {
+    this.principalRoles.clear();
+    this.editableFacilities = [];
+    this.editableVos = [];
+    this.members = [];
+    this.editableGroups = [];
+    this.observableVos = [];
+    this.hasGroupInTheseVos = [];
   }
 
   /**

@@ -12,6 +12,7 @@ import {
   EditFacilityResourceGroupVoDialogOptions
 } from '@perun-web-apps/perun/dialogs';
 import { RemoveVoDialogComponent } from '../../../shared/components/dialogs/remove-vo-dialog/remove-vo-dialog.component';
+import { ReloadEntityDetailService } from '../../../core/services/common/reload-entity-detail.service';
 
 @Component({
   selector: 'app-vo-detail-page',
@@ -31,7 +32,8 @@ export class VoDetailPageComponent implements OnInit {
     private sideMenuItemService: SideMenuItemService,
     private dialog: MatDialog,
     private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService) {
+    private entityStorageService: EntityStorageService,
+    private reloadEntityDetail: ReloadEntityDetailService) {
   }
 
   vo: Vo;
@@ -40,6 +42,13 @@ export class VoDetailPageComponent implements OnInit {
   removeAuth: boolean;
 
   ngOnInit() {
+    this.reloadData();
+    this.reloadEntityDetail.voDetailChange.subscribe(() => {
+      this.reloadData();
+    });
+  }
+
+  reloadData() {
     this.loading = true;
     this.route.params.subscribe(params => {
       const voId = params['voId'];
@@ -50,9 +59,7 @@ export class VoDetailPageComponent implements OnInit {
         this.editAuth = this.authResolver.isAuthorized('updateVo_Vo_policy', [this.vo]);
         this.removeAuth = this.authResolver.isAuthorized('deleteVo_Vo_policy', [this.vo]);
 
-        const sideMenuItem = this.sideMenuItemService.parseVo(vo);
-
-        this.sideMenuService.setAccessMenuItems([sideMenuItem]);
+        this.setMenuItems();
 
         addRecentlyVisited('vos', this.vo);
         addRecentlyVisitedObject(this.vo);
@@ -72,9 +79,16 @@ export class VoDetailPageComponent implements OnInit {
       if (result) {
         this.voService.getVoById(this.vo.id).subscribe(vo => {
           this.vo = vo;
+          this.setMenuItems();
         });
       }
     });
+  }
+
+  setMenuItems() {
+    const sideMenuItem = this.sideMenuItemService.parseVo(this.vo);
+
+    this.sideMenuService.setAccessMenuItems([sideMenuItem]);
   }
 
   removeVo() {

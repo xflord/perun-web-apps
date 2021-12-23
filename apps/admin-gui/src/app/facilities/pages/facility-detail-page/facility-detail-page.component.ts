@@ -12,6 +12,7 @@ import {
   EditFacilityResourceGroupVoDialogOptions
 } from '@perun-web-apps/perun/dialogs';
 import { DeleteFacilityDialogComponent } from '../../../shared/components/dialogs/delete-facility-dialog/delete-facility-dialog.component';
+import { ReloadEntityDetailService } from '../../../core/services/common/reload-entity-detail.service';
 
 @Component({
   selector: 'app-facility-detail-page',
@@ -31,7 +32,8 @@ export class FacilityDetailPageComponent implements OnInit {
     private sideMenuItemService: SideMenuItemService,
     public guiAuthResolver:GuiAuthResolver,
     private router: Router,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private reloadEntityDetail: ReloadEntityDetailService
   ) {
   }
 
@@ -41,6 +43,13 @@ export class FacilityDetailPageComponent implements OnInit {
   loading = false;
 
   ngOnInit() {
+    this.reloadData();
+    this.reloadEntityDetail.facilityDetailChange.subscribe(() => {
+      this.reloadData();
+    });
+  }
+
+  reloadData() {
     this.loading = true;
     this.route.params.subscribe(params => {
       const facilityId = params['facilityId'];
@@ -48,9 +57,7 @@ export class FacilityDetailPageComponent implements OnInit {
       this.facilityManager.getFacilityById(facilityId).subscribe(facility => {
         this.facility = facility;
         this.entityStorageService.setEntity({id: facility.id, beanName: facility.beanName})
-        const facilityItem = this.sideMenuItemService.parseFacility(facility);
-
-        this.sideMenuService.setFacilityMenuItems([facilityItem]);
+        this.setMenuItems();
 
         this.editFacilityAuth = this.guiAuthResolver.isAuthorized('updateFacility_Facility_policy',[this.facility]);
         this.deleteAuth = this.guiAuthResolver.isAuthorized('deleteFacility_Facility_Boolean_policy',[this.facility]);
@@ -60,6 +67,11 @@ export class FacilityDetailPageComponent implements OnInit {
         this.loading = false;
       }, () => this.loading = false);
     });
+  }
+
+  setMenuItems() {
+    const facilityItem = this.sideMenuItemService.parseFacility(this.facility);
+    this.sideMenuService.setFacilityMenuItems([facilityItem]);
   }
 
   editFacility() {
@@ -76,6 +88,7 @@ export class FacilityDetailPageComponent implements OnInit {
       if (result) {
         this.facilityManager.getFacilityById(this.facility.id).subscribe(facility => {
           this.facility = facility;
+          this.setMenuItems();
         });
       }
     });

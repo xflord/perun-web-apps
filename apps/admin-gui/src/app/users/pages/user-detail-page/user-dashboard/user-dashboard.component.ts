@@ -54,6 +54,7 @@ export class UserDashboardComponent implements OnInit {
   userProfileName: string;
 
   ngOnInit() {
+    this.sideMenuService.setHomeItems([]);
     this.validatePreferredMailChange();
 
     this.user = this.storeService.getPerunPrincipal().user;
@@ -63,7 +64,6 @@ export class UserDashboardComponent implements OnInit {
     this.isOnlySelfRole = allUserRoles.toString() === ['SELF'].toString();
     this.roleNames = this.allowedRoles.filter(value => allUserRoles.includes(value));
     this.getDashboardSettings();
-    this.sideMenuService.setHomeItems([]);
   }
 
   private validatePreferredMailChange() {

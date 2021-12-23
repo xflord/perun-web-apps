@@ -14,6 +14,7 @@
         <label>
           <input matInput autocomplete="false" placeholder="{{'DIALOGS.ADD_MANAGERS.DESCRIPTION' | translate}}"
                  data-cy="search-manager-input"
+                 perunWebAppsAutoFocus
                  (keyup.enter)="onSearchByString()"
                  [formControl]="searchCtrl">
         </label>

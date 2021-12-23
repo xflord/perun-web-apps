@@ -14,6 +14,7 @@ import {
   GroupSyncDetailDialogComponent
 } from '@perun-web-apps/perun/dialogs';
 import { DeleteGroupDialogComponent } from '../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
+import { ReloadEntityDetailService } from '../../../core/services/common/reload-entity-detail.service';
 
 @Component({
   selector: 'app-group-detail-page',
@@ -34,7 +35,8 @@ export class GroupDetailPageComponent implements OnInit {
     private dialog: MatDialog,
     private guiAuthResolver: GuiAuthResolver,
     private router: Router,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private reloadEntityDetail: ReloadEntityDetailService
   ) {
   }
 
@@ -55,40 +57,10 @@ export class GroupDetailPageComponent implements OnInit {
   ];
 
   ngOnInit() {
-    this.loading = true;
-    this.route.params.subscribe(params => {
-      const voId = params['voId'];
-      const groupId = params['groupId'];
-
-      this.voService.getVoById(voId).subscribe(vo => {
-        this.vo = vo;
-        this.groupService.getGroupById(groupId).subscribe( group => {
-          this.group = group;
-          this.entityStorageService.setEntity({id: group.id, voId: vo.id, parentGroupId: group.parentGroupId, beanName: group.beanName});
-          addRecentlyVisited('groups', this.group);
-          addRecentlyVisitedObject(this.group, vo.name);
-          if (this.guiAuthResolver.isAuthorized('getRichGroupByIdWithAttributesByNames_int_List<String>_policy', [this.group])) {
-            this.groupService.getRichGroupByIdWithAttributesByNames(groupId, this.attrNames).subscribe(richGroup => {
-              this.group = richGroup;
-              this.syncEnabled = this.isSynchronized();
-
-              this.syncAuth = this.guiAuthResolver.isAuthorized('forceGroupSynchronization_Group_policy', [this.group]);
-            }, () => this.loading = false);
-          } else {
-            this.syncEnabled = false;
-          }
-
-          this.editAuth = this.guiAuthResolver.isAuthorized('updateGroup_Group_policy', [this.group]);
-          this.deleteAuth = this.guiAuthResolver.isAuthorized('deleteGroup_Group_boolean_policy', [this.group])
-
-          const voSideMenuItem = this.sideMenuItemService.parseVo(vo);
-          const groupSideMenuItem = this.sideMenuItemService.parseGroup(group);
-
-          this.sideMenuService.setAccessMenuItems([voSideMenuItem, groupSideMenuItem]);
-          this.loading = false;
-        }, () => this.loading = false);
-      }, () => this.loading = false);
+    this.reloadEntityDetail.groupDetailChange.subscribe(() => {
+      this.reloadData();
     });
+    this.reloadData();
   }
 
   isSynchronized() {
@@ -119,9 +91,56 @@ export class GroupDetailPageComponent implements OnInit {
       if (result) {
         this.groupService.getGroupById(this.group.id).subscribe(group => {
           this.group = group;
+          this.setMenuItems();
         });
       }
     });
+  }
+
+  reloadData() {
+    this.loading = true;
+    this.route.params.subscribe(params => {
+      const voId = params['voId'];
+      const groupId = params['groupId'];
+
+      this.voService.getVoById(voId).subscribe(vo => {
+        this.vo = vo;
+        this.groupService.getGroupById(groupId).subscribe(group => {
+          this.group = group;
+          this.entityStorageService.setEntity({
+            id: group.id,
+            voId: vo.id,
+            parentGroupId: group.parentGroupId,
+            beanName: group.beanName
+          });
+          addRecentlyVisited('groups', this.group);
+          addRecentlyVisitedObject(this.group, vo.name);
+          if (this.guiAuthResolver.isAuthorized('getRichGroupByIdWithAttributesByNames_int_List<String>_policy', [this.group])) {
+            this.groupService.getRichGroupByIdWithAttributesByNames(groupId, this.attrNames).subscribe(richGroup => {
+              this.group = richGroup;
+              this.syncEnabled = this.isSynchronized();
+
+              this.syncAuth = this.guiAuthResolver.isAuthorized('forceGroupSynchronization_Group_policy', [this.group]);
+            }, () => this.loading = false);
+          } else {
+            this.syncEnabled = false;
+          }
+
+          this.editAuth = this.guiAuthResolver.isAuthorized('updateGroup_Group_policy', [this.group]);
+          this.deleteAuth = this.guiAuthResolver.isAuthorized('deleteGroup_Group_boolean_policy', [this.group])
+
+          this.setMenuItems();
+          this.loading = false;
+        }, () => this.loading = false);
+      }, () => this.loading = false);
+    });
+  }
+
+  setMenuItems() {
+    const voSideMenuItem = this.sideMenuItemService.parseVo(this.vo);
+    const groupSideMenuItem = this.sideMenuItemService.parseGroup(this.group);
+
+    this.sideMenuService.setAccessMenuItems([voSideMenuItem, groupSideMenuItem]);
   }
 
   deleteGroup() {

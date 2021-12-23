@@ -4,9 +4,9 @@ import { fadeIn } from '@perun-web-apps/perun/animations';
 import { SideMenuService } from '../../../core/services/common/side-menu.service';
 import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.service';
 import {
-  FacilitiesManagerService,
+  FacilitiesManagerService, Facility,
   ResourcesManagerService,
-  RichResource,
+  RichResource, Vo,
   VosManagerService
 } from '@perun-web-apps/perun/openapi';
 import { addRecentlyVisited, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -19,6 +19,7 @@ import {
   EditFacilityResourceGroupVoDialogOptions
 } from '@perun-web-apps/perun/dialogs';
 import { RemoveResourceDialogComponent } from '../../../shared/components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
+import { ReloadEntityDetailService } from '../../../core/services/common/reload-entity-detail.service';
 
 @Component({
   selector: 'app-resource-detail-page',
@@ -40,11 +41,15 @@ export class ResourceDetailPageComponent implements OnInit {
     private dialog: MatDialog,
     public guiAuthResolver:GuiAuthResolver,
     private router: Router,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private reloadEntityDetail: ReloadEntityDetailService
   ) {
   }
 
   resource: RichResource;
+  vo: Vo;
+  facility: Facility;
+  underVoUrl = false;
   facilityLinkAuth: boolean;
   editResourceAuth: boolean;
   voLinkAuth: boolean;
@@ -53,6 +58,13 @@ export class ResourceDetailPageComponent implements OnInit {
   loading = false;
 
   ngOnInit() {
+    this.reloadData();
+    this.reloadEntityDetail.resourceDetailChange.subscribe(() => {
+      this.reloadData();
+    });
+  }
+
+  reloadData() {
     this.loading = true;
     this.route.params.subscribe(params => {
       const resourceId = params['resourceId'];
@@ -63,29 +75,38 @@ export class ResourceDetailPageComponent implements OnInit {
           id: resource.id,
           voId: resource.voId,
           facilityId: resource.facilityId,
-          beanName: resource.beanName});
+          beanName: 'Resource'});
         this.setAuth();
         if (this.route.parent.snapshot.url[0].path === 'facilities') {
           this.baseUrl = new GetResourceRoutePipe().transform(resource, false);
           this.facilityManager.getFacilityById(resource.facilityId).subscribe(facility => {
-            const facilityItem = this.sideMenuItemService.parseFacility(facility);
-            const resourceItem = this.sideMenuItemService.parseResource(resource, false);
-            this.sideMenuService.setFacilityMenuItems([facilityItem, resourceItem]);
+            this.facility = facility;
+            this.setMenuItems();
             this.loading = false;
           }, () => this.loading = false);
         } else {
           this.baseUrl = new GetResourceRoutePipe().transform(resource, true);
           this.vosManagerService.getVoById(resource.voId).subscribe(vo => {
-            const voItem = this.sideMenuItemService.parseVo(vo);
-            const resourceItem = this.sideMenuItemService.parseResource(resource, true);
-
-            this.sideMenuService.setAccessMenuItems([voItem, resourceItem]);
+            this.vo = vo;
+            this.underVoUrl = true;
+            this.setMenuItems();
             this.loading = false;
           }, () => this.loading = false);
         }
         addRecentlyVisited('resources', this.resource);
       });
     });
+  }
+
+  setMenuItems() {
+    let parentItem;
+    const resourceItem = this.sideMenuItemService.parseResource(this.resource, this.underVoUrl)
+    if (this.underVoUrl) {
+      parentItem = this.sideMenuItemService.parseVo(this.vo);
+    } else {
+      parentItem = this.sideMenuItemService.parseFacility(this.facility);
+    }
+    this.sideMenuService.setAccessMenuItems([parentItem, resourceItem]);
   }
 
   private setAuth() {
@@ -112,6 +133,7 @@ export class ResourceDetailPageComponent implements OnInit {
         if (result) {
           this.resourcesManager.getRichResourceById(this.resource.id).subscribe(newResource => {
             this.resource = newResource;
+            this.setMenuItems();
           });
         }
       });

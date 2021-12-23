@@ -1,11 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {MatSidenav} from '@angular/material/sidenav';
 import {SideMenuService} from '../../core/services/common/side-menu.service';
 import {AppComponent} from '../../app.component';
 import {SideMenuItemService} from './side-menu-item.service';
 import {GuiAuthResolver} from '@perun-web-apps/perun/services';
 import {rollInOut} from '@perun-web-apps/perun/animations';
-import { StoreService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-side-menu',
@@ -20,8 +19,7 @@ export class SideMenuComponent implements OnInit {
   constructor(
     private sideMenuService: SideMenuService,
     private sideMenuItemService: SideMenuItemService,
-    public authResolver: GuiAuthResolver,
-    private store: StoreService
+    public authResolver: GuiAuthResolver
   ) { }
 
   accessItems: SideMenuItem[] = [];
@@ -177,13 +175,28 @@ export class SideMenuComponent implements OnInit {
         break;
       } else if (!this.areSameItems(originItems[i], newItems[i])) {
         originItems[i] = newItems[i];
+      } else if (!this.areSameLinks(originItems[i], newItems[i])) {
+        originItems[i].links = newItems[i].links;
       }
+
       // items are same, dont switch
     }
   }
 
   private areSameItems(item1: SideMenuItem, item2: SideMenuItem) {
     return item1.label === item2.label && item1.labelClass === item2.labelClass;
+  }
+
+  private areSameLinks(sideMenuItem: SideMenuItem, sideMenuItem2: SideMenuItem) {
+    if(sideMenuItem.links.length !== sideMenuItem2.links.length) {
+      return false;
+    }
+    for(let i = 0; i < sideMenuItem.links.length; i++) {
+      if(sideMenuItem.links[i].label !== sideMenuItem2.links[i].label) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 
