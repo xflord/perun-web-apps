@@ -34,7 +34,7 @@ export class ServiceIdentityDetailPageComponent implements OnInit {
     this.loading = true;
     this.route.params.subscribe(params => {
       const userId = params['userId'];
-      this.entityStorageService.setEntity({id: userId, beanName: 'User'});
+      this.entityStorageService.setEntity({id: Number(userId), beanName: 'User'});
 
       this.usersService.getUserById(userId).subscribe(user => {
         this.user = user;

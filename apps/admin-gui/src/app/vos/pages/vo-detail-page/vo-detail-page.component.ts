@@ -46,7 +46,7 @@ export class VoDetailPageComponent implements OnInit {
 
       this.voService.getVoById(voId).subscribe(vo => {
         this.vo = vo;
-        this.entityStorageService.setEntity({id: voId, beanName: vo.beanName});
+        this.entityStorageService.setEntity({id: vo.id, beanName: vo.beanName});
         this.editAuth = this.authResolver.isAuthorized('updateVo_Vo_policy', [this.vo]);
         this.removeAuth = this.authResolver.isAuthorized('deleteVo_Vo_policy', [this.vo]);
 

@@ -35,7 +35,7 @@ export class AdminUserDetailPageComponent implements OnInit {
     this.loading = true;
     this.route.params.subscribe(params => {
       const userId = params['userId'];
-      this.entityStorageService.setEntity({id: userId, beanName: 'User'});
+      this.entityStorageService.setEntity({id: Number(userId), beanName: 'User'});
 
       this.path = `/admin/users/${userId}`;
       this.regex = `/admin/users/\\d+`;
