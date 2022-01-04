@@ -1607,7 +1607,7 @@
       "TITLE": "Add hosts",
       "ADD": "Add",
       "CANCEL": "Cancel",
-      "SUBTITLE": "Hostnames",
+      "SUBTITLE": "Hostnames:",
       "HINT": "Enter one host per line. You can use \"[x-y]\" in hostname to generate hosts with numbers from x to y. This replacer can be specified multiple times in one hostname to generate MxN combinations.",
       "WARNING": "Please enter at least one hostname to add it to facility.",
       "SUCCESS": "Added hosts.",
