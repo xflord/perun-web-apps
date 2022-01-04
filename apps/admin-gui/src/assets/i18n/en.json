@@ -2770,6 +2770,10 @@
           "ASYNC_HINT": "Attributes will be validated asynchronously. Validation will be processed independently.",
           "ACTIVE_HINT": "After validation of group members attributes, members can access the given resource.",
           "INACTIVE_HINT": "With 'Inactive' status, group members can no longer access the given resource."
+        },
+        "ADVANCED_FILTER": {
+          "FILTERS": "Filters",
+          "CLEAR_FILTERS": "Clear filters"
         }
       },
       "ORGANIZATIONS": {
