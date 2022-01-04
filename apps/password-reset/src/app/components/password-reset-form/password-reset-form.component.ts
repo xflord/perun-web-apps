@@ -49,7 +49,7 @@ export class PasswordResetFormComponent implements OnInit {
         [loginAsyncValidator(this.namespace, this.usersService, this.apiRequestConfiguration)]),
       passwordAgainCtrl: new FormControl('', Validators.required)
     }, {
-      validator: CustomValidators.passwordMatchValidator
+      validators: CustomValidators.passwordMatchValidator
     });
 
     this.loading = false;
