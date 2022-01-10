@@ -44,7 +44,7 @@ export class FacilityDetailPageComponent implements OnInit {
 
   ngOnInit() {
     this.reloadData();
-    this.reloadEntityDetail.facilityDetailChange.subscribe(() => {
+    this.reloadEntityDetail.entityDetailChange.subscribe(() => {
       this.reloadData();
     });
   }

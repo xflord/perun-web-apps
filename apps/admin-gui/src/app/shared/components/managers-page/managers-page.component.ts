@@ -83,16 +83,19 @@ export class ManagersPageComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.routeAuth = this.guiAuthResolver.isPerunAdminOrObserver();
-    this.refreshUsers();
-  }
 
-  changeRolePrivileges() {
     this.guiAuthResolver.getRolesAuthorization(this.availableRoles, this.complementaryObject, this.availableRolesPrivileges);
     this.availableRoles = this.availableRoles.filter(role => this.availableRolesPrivileges.get(role).readAuth);
 
     if (this.availableRoles.length !== 0){
       this.selectedRole = this.availableRoles[0];
     }
+    this.refreshUsers();
+  }
+
+  changeRolePrivileges() {
+    this.guiAuthResolver.getRolesAuthorization(this.availableRoles, this.complementaryObject, this.availableRolesPrivileges);
+    this.availableRoles = this.availableRoles.filter(role => this.availableRolesPrivileges.get(role).readAuth);
 
     this.manageAuth = this.availableRolesPrivileges.get(this.selectedRole).manageAuth;
     this.displayedUserColumns = this.manageAuth ? this.displayedUserColumns : this.displayedUserColumns.filter(col => col !== 'select');
@@ -239,45 +242,30 @@ export class ManagersPageComponent implements OnInit {
   }
 
   redirectToAuthRoute() {
-    switch (this.complementaryObjectType) {
-      case 'Group':
-        if(this.guiAuthResolver.isAuthorized('getGroupById_int_policy', [this.complementaryObject])) {
-          this.reloadEntityDetail.reloadGroupDetail();
-          this.router.navigate(['../../'], { relativeTo: this.route, queryParamsHandling: 'merge'});
-        } else if(this.guiAuthResolver.isAuthorized('getVoById_int_policy', [this.complementaryObject])) {
-          this.reloadEntityDetail.reloadVoDetail();
-          this.router.navigate(['../../../../'], { relativeTo: this.route, queryParamsHandling: 'merge'});
-        } else {
-          this.router.navigate(['/home'], {queryParamsHandling: 'merge'});
-        }
-        break;
-      case 'Facility':
-        if(this.guiAuthResolver.isAuthorized('getFacilityById_int_policy', [this.complementaryObject])) {
-          this.reloadEntityDetail.reloadFacilityDetail();
-          this.router.navigate(['../../'], { relativeTo: this.route, queryParamsHandling: 'merge'});
-        } else {
-          this.router.navigate(['/home'], {queryParamsHandling: 'merge'});
-        }
-        break;
-      case 'Vo':
-        if(this.guiAuthResolver.isAuthorized('getVoById_int_policy', [this.complementaryObject])) {
-          this.reloadEntityDetail.reloadVoDetail();
-          this.router.navigate(['../../'], { relativeTo: this.route, queryParamsHandling: 'merge'});
-        } else {
-          this.router.navigate(['/home'], {queryParamsHandling: 'merge'});
-        }
-        break;
-      case 'Resource':
-        if(this.guiAuthResolver.isAuthorized('getRichResourceById_int_policy', [this.complementaryObject])) {
-          this.reloadEntityDetail.reloadResourceDetail();
-          this.router.navigate(['../../'], { relativeTo: this.route, queryParamsHandling: 'merge'});
-        } else {
-          this.router.navigate(['/home'], {queryParamsHandling: 'merge'});
-        }
-        break;
-      default:
-        this.router.navigate(['/home'], {queryParamsHandling: 'merge'});
+    if(this.complementaryObjectType === 'Group' &&
+      (this.guiAuthResolver.isAuthorized('getGroupById_int_policy', [this.complementaryObject]) ||
+        this.guiAuthResolver.isAuthorized('getVoById_int_policy', [this.complementaryObject]))) {
+      if(this.guiAuthResolver.isAuthorized('getGroupById_int_policy', [this.complementaryObject])) {
+        // @ts-ignore
+        this.router.navigate(['/organizations', this.complementaryObject.voId, 'groups', this.complementaryObject.id], { relativeTo: this.route, queryParamsHandling: 'merge'});
+      } else if(this.guiAuthResolver.isAuthorized('getVoById_int_policy', [this.complementaryObject])) {
+        // @ts-ignore
+        this.router.navigate(['/organizations', this.complementaryObject.voId], {queryParamsHandling: 'merge'});
+      }
+    } else if (this.complementaryObjectType === 'Facility' &&
+      this.guiAuthResolver.isAuthorized('getFacilityById_int_policy', [this.complementaryObject])) {
+      this.router.navigate(['/facilities', this.complementaryObject.id], { relativeTo: this.route, queryParamsHandling: 'merge'});
+    } else if (this.complementaryObjectType === 'Vo' &&
+              this.guiAuthResolver.isAuthorized('getVoById_int_policy', [this.complementaryObject])) {
+      this.router.navigate(['/organizations', this.complementaryObject.id], { relativeTo: this.route, queryParamsHandling: 'merge'});
+    } else if (this.complementaryObjectType === 'Resource' &&
+               this.guiAuthResolver.isAuthorized('getRichResourceById_int_policy', [this.complementaryObject])) {
+      this.router.navigate(['../../'], { relativeTo: this.route, queryParamsHandling: 'merge'});
+    } else {
+      this.router.navigate(['/home'], {queryParamsHandling: 'merge'});
+      return;
     }
+    this.reloadEntityDetail.reloadEntityDetail();
   }
 
 }

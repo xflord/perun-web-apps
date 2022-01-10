@@ -43,7 +43,7 @@ export class VoDetailPageComponent implements OnInit {
 
   ngOnInit() {
     this.reloadData();
-    this.reloadEntityDetail.voDetailChange.subscribe(() => {
+    this.reloadEntityDetail.entityDetailChange.subscribe(() => {
       this.reloadData();
     });
   }

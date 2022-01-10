@@ -57,7 +57,7 @@ export class GroupDetailPageComponent implements OnInit {
   ];
 
   ngOnInit() {
-    this.reloadEntityDetail.groupDetailChange.subscribe(() => {
+    this.reloadEntityDetail.entityDetailChange.subscribe(() => {
       this.reloadData();
     });
     this.reloadData();

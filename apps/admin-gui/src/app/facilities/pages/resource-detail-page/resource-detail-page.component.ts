@@ -59,7 +59,7 @@ export class ResourceDetailPageComponent implements OnInit {
 
   ngOnInit() {
     this.reloadData();
-    this.reloadEntityDetail.resourceDetailChange.subscribe(() => {
+    this.reloadEntityDetail.entityDetailChange.subscribe(() => {
       this.reloadData();
     });
   }
