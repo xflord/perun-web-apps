@@ -19,3 +19,4 @@ export * from './lib/user-logins.pipe';
 export * from './lib/vo-or-ext-source.pipe';
 export * from './lib/sanitize-html.pipe';
 export * from './lib/style-inner-html.pipe';
+export * from './lib/footer-logo-path.pipe';

@@ -7,10 +7,10 @@
       <div *ngIf="item.logos" [ngStyle]="{'min-height': columnContentHeight+'px'}">
         <div *ngFor="let elem of item.elements">
           <a *ngIf="elem | localisedLink:language" [href]="elem | localisedLink:language">
-            <img alt="image" src="/assets/config/{{elem.logo}}">
+            <img alt="image" src="{{elem.logo | footerLogoPath}}">
           </a>
           <span *ngIf="!(elem | localisedLink:language)">
-             <img alt="image" src="/assets/config/{{elem.logo}}">
+             <img alt="image" src="{{elem.logo | footerLogoPath}}">
           </span>
         </div>
       </div>
