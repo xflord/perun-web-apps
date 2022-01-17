@@ -7,5 +7,6 @@
     class="overflow-ellipsis"
     [(ngModel)]="attribute.value"
     type="text"
-    (keydown)="_sendEventToParent()"/>
+    attr.data-cy="{{attribute.displayName | multiWordDataCy}}-value"
+    (keydown)="_sendEventToParent()">
 </mat-form-field>

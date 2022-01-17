@@ -1,0 +1,14 @@
+<div class="{{theme}}">
+  <h1 mat-dialog-title>{{'DIALOGS.NO_SERVICE.TITLE' | translate}}</h1>
+  <div mat-dialog-content>
+    {{'DIALOGS.NO_SERVICE.INFO' | translate}}
+  </div>
+  <div matDialogActions>
+    <button (click)="onCancel()" class="ml-auto mr-2" mat-flat-button>
+      {{'DIALOGS.NO_SERVICE.CANCEL' | translate}}
+    </button>
+    <button (click)="onSkip()" color="accent" mat-flat-button>
+      {{'DIALOGS.NO_SERVICE.SKIP' | translate}}
+    </button>
+  </div>
+</div>

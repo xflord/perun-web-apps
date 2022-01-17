@@ -26,6 +26,7 @@
               (click)="$event.stopPropagation()"
               [checked]="selection.isSelected(memberCandidate)"
               [disabled]="isCheckboxDisabled(memberCandidate)"
+              attr.data-cy="{{memberCandidate.richUser.firstName | translate | lowercase}}-checkbox"
               color="primary">
             </mat-checkbox>
           </div>

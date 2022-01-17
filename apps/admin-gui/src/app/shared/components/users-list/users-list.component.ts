@@ -10,7 +10,7 @@ import {
   parseVo,
   TABLE_ITEMS_COUNT_OPTIONS, TableWrapperComponent
 } from '@perun-web-apps/perun/utils';
-import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, StoreService, TableCheckbox } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-users-list',
@@ -19,8 +19,9 @@ import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
 })
 export class UsersListComponent implements OnChanges{
 
-  constructor(private authResolver: GuiAuthResolver,
-              private tableCheckbox: TableCheckbox) { }
+  constructor(public authResolver: GuiAuthResolver,
+              private tableCheckbox: TableCheckbox,
+              private storeService: StoreService) { }
 
   svgIcon = 'perun-service-identity-black';
 
@@ -57,8 +58,11 @@ export class UsersListComponent implements OnChanges{
   @Input()
   noUsersFoundLabel: string;
 
-  dataSource: MatTableDataSource<RichUser>;
+  @Input()
+  disableSelf = false;
 
+  dataSource: MatTableDataSource<RichUser>;
+  principalId: number;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   getDataForColumn(data: RichUser, column: string): string{
@@ -124,6 +128,7 @@ export class UsersListComponent implements OnChanges{
   }
 
   ngOnChanges() {
+    this.principalId = this.storeService.getPerunPrincipal().userId;
     if (!this.authResolver.isPerunAdminOrObserver()){
       this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
     }

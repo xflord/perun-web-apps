@@ -18,7 +18,7 @@
     <div class="container-fluid pl-xl-5 pr-xl-5 user-theme" *ngIf="user !== undefined">
       <h1 class="page-title d-flex">
         <mat-icon svgIcon='perun-home-white' class="home-image perun-icon"></mat-icon>
-        <span class="pt-1">{{'USER_DETAIL.DASHBOARD.TITLE' | translate}} {{this.user | userFullName}}</span>
+        <span class="pt-1" data-cy="dashboard-welcome">{{'USER_DETAIL.DASHBOARD.TITLE' | translate}} {{this.user | userFullName}}</span>
         <button mat-stroked-button *ngIf="!isOnlySelfRole" (click)="this.rightSettingOpened = true" class="ml-auto text-bigger">
           <mat-icon>settings</mat-icon>
         </button>

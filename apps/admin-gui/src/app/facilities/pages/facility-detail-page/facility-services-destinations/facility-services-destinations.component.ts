@@ -1,8 +1,8 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {
   FacilitiesManagerService,
-  Facility, RichDestination,
+  Facility, RichDestination, Service,
   ServicesManagerService
 } from '@perun-web-apps/perun/openapi';
 import {
@@ -39,10 +39,20 @@ export class FacilityServicesDestinationsComponent implements OnInit {
   facility: Facility;
   destinations: RichDestination[];
   selected = new SelectionModel<RichDestination>(true, []);
+  @Input()
   displayedColumns: string[] = ['select', 'destinationId', 'service', 'destination', 'type', 'propagationType'];
+  @Input()
+  configServices: Service[] = [];
+  @Input()
+  configServicesIds: Set<number> = new Set<number>();
+  @Input()
+  title = 'FACILITY_DETAIL.SERVICES_DESTINATIONS.TITLE';
+  @Output()
+  destinationEmitter: EventEmitter<RichDestination[]> = new EventEmitter<RichDestination[]>();
 
   filterValue = '';
 
+  @Input()
   loading: boolean;
   tableId = TABLE_FACILITY_SERVICES_DESTINATION_LIST;
 
@@ -62,6 +72,7 @@ export class FacilityServicesDestinationsComponent implements OnInit {
     this.loading = true;
     this.servicesManager.getAllRichDestinationsForFacility(this.facility.id).subscribe( destinations => {
       this.destinations = destinations;
+      this.destinationEmitter.emit(this.destinations);
       this.selected.clear();
       this.setAuthRights();
       this.loading = false;
@@ -74,14 +85,13 @@ export class FacilityServicesDestinationsComponent implements OnInit {
     this.allowAuth = this.authResolver.isAuthorized('unblockServiceOnDestination_Service_int_policy', [this.facility]);
     this.blockAuth = this.authResolver.isAuthorized('blockServiceOnDestination_Service_int_policy', [this.facility]);
 
-    this.displayedColumns = this.removeAuth ? ['select', 'destinationId', 'service', 'destination', 'type', 'status', 'propagationType'] :
-      ['destinationId', 'service', 'destination', 'type', 'status', 'propagationType'];
+    this.displayedColumns = this.removeAuth ? this.displayedColumns : this.displayedColumns.filter(col => col !== 'select');
   }
 
   addDestination() {
     const config = getDefaultDialogConfig();
     config.width = '600px';
-    config.data = {facility: this.facility, theme: 'facility-theme'};
+    config.data = {facility: this.facility, theme: 'facility-theme', configServices: this.configServices};
 
     const dialogRef = this.dialog.open(AddServicesDestinationDialogComponent, config);
 

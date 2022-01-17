@@ -99,7 +99,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
       passwordReset: [false, []],
       email: ['', [Validators.required, Validators.pattern(emailRegexString)]]
     }, {
-      validator: CustomValidators.passwordMatchValidator
+      validators: CustomValidators.passwordMatchValidator
     });
 
     this.membersService.getAllNamespacesRules().subscribe(rules => {

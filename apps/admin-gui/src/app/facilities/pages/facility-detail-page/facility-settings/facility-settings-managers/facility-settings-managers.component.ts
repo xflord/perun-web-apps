@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FacilitiesManagerService, Facility } from '@perun-web-apps/perun/openapi';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
@@ -26,6 +26,11 @@ export class FacilitySettingsManagersComponent implements OnInit {
   type = 'Facility';
 
   theme = 'facility-theme';
+
+  @Input()
+  disableRouting = false;
+  @Input()
+  disableSelf = false;
 
   ngOnInit() {
     this.facility = this.entityStorageService.getEntity();

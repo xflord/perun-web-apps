@@ -69,6 +69,31 @@
     "CREATE": "Create",
     "DELETE": "Delete"
   },
+  "FACILITY_CONFIGURATION": {
+    "TITLE": "Configure facility",
+    "OWNERS": "Owners",
+    "HOSTS": "Hosts",
+    "SERVICES": "Services",
+    "SERVICE_CONFIG": "Configure services",
+    "DESTINATION_CONFIG": "Configure destinations",
+    "DESTINATION": "Destinations",
+    "ATTS":  "Attributes",
+    "MANAGERS": "Managers",
+    "SUMMARY": "Summary",
+    "CANCEL": "Cancel",
+    "NEXT": "Next",
+    "BACK": "Back",
+    "FINISH": "Finish",
+    "SERVICES_FILTER": "Filter",
+    "SAVE": "Save selected",
+    "REMOVE": "Remove selected",
+    "ATT_SAVED": "Attributes successfully saved",
+    "ATT_REMOVED": "Attributes successfully removed",
+    "SERVICES_INFO": "Facility can be preconfigured for selected services, but these services must be assigned to the particular resources. All saved configurations will remain unchanged even after service selection is changed.",
+    "ATT_INFO": "If facility will not have required attributes for some services, these services will be unable to assign to resource.",
+    "EMPTY_REQ_ATT": "Selected services have no required attributes.",
+    "SUMMARY_INFO": "Your facility was created and configured. Please <b>check</b> your configurations <b>and finish</b> this configuration guide. To access the services by the users you need to create resources and then configure the services on resource."
+  },
   "USER_MANAGEMENT": {
     "TITLE": "Users",
     "INPUT_PLACEHOLDER": "Enter user's name, login or email...",
@@ -118,7 +143,8 @@
       "ALLOW": "Allow",
       "BLOCK": "Block",
       "ALLOW_SUCCESS": "Service was successfully allowed on destination",
-      "BLOCK_SUCCESS": "Service was successfully blocked on destination"
+      "BLOCK_SUCCESS": "Service was successfully blocked on destination",
+      "DESTINATIONS_INFO": "If facility has no destinations data will not be propagated."
     },
     "SETTINGS": {
       "ATTRIBUTES": {
@@ -1581,7 +1607,7 @@
       "TITLE": "Add hosts",
       "ADD": "Add",
       "CANCEL": "Cancel",
-      "SUBTITLE": "Hostnames",
+      "SUBTITLE": "Hostnames:",
       "HINT": "Enter one host per line. You can use \"[x-y]\" in hostname to generate hosts with numbers from x to y. This replacer can be specified multiple times in one hostname to generate MxN combinations.",
       "WARNING": "Please enter at least one hostname to add it to facility.",
       "SUCCESS": "Added hosts.",
@@ -1658,10 +1684,12 @@
       "DESCRIPTION": "Description",
       "AS_COPY": "As copy of",
       "CREATE": "Create",
+      "CREATE_AND_CONFIGURE": "Create & configure",
       "CANCEL": "Cancel",
       "SUCCESS": "Created facility.",
       "REQUIRE_NAME": "Facility name can't be empty.",
-      "NO_COPY": "--- No copy ---"
+      "NO_COPY": "--- No copy ---",
+      "HINT": "You can <b>Create & Configure</b> facility (configuration guide allows you to add owners, hosts, services, configure services or change managers. Changes are immediately saved) or just <b>Create</b> empty facility."
     },
     "DELETE_FACILITY": {
       "SUCCESS": "Facility deleted.",
@@ -2034,6 +2062,28 @@
       "OBJECTS": "Objects",
       "MESSAGE": "Message",
       "COPY": "Copy"
+    },
+    "NO_SERVICE": {
+      "TITLE": "No service selected",
+      "INFO": "You didn't select any service. Do you wish to skip service configuration?",
+      "SKIP": "Skip",
+      "CANCEL": "Cancel"
+    },
+    "CONFIG_UNSAVED": {
+      "TITLE": "The configuration is not saved",
+      "INFO": "You didn't save the configuration. Do you want to save the configuration?",
+      "SKIP": "Save & Continue",
+      "CANCEL": "Cancel"
+    },
+    "CANCEL_CONFIG": {
+      "TITLE_INCOMPLETE": "Cancel incomplete facility configuration",
+      "TITLE_COMPLETE": "Cancel complete facility configuration",
+      "INFO_INCOMPLETE": "You want to close unfinished configuration guide. New <b>facility was already created</b> and all previously changed <b>configurations were saved</b>. Do you want to <b>keep facility</b> with incomplete configuration <b>or delete</b> it and start again?",
+      "INFO_COMPLETE": "You want to close unfinished configuration guide. New <b>facility was already created</b> and all previously changed <b>configurations were saved</b>. Do you want to <b>delete facility</b> anyway?",
+      "CANCEL": "Cancel",
+      "DELETE": "Delete with all relations",
+      "KEEP": "Keep facility",
+      "SUCCESS": "Facility was successfully deleted"
     }
   },
   "MEMBERS_LIST": {
@@ -2350,7 +2400,8 @@
         "ALLOWED": "Allowed",
         "BLOCKED": "Blocked",
         "PROPAGATION_TYPE": "Propagation type",
-        "NO_DESTINATIONS": "No destinations found"
+        "NO_DESTINATIONS": "No destinations found",
+        "WARN": "Destination is not properly configured. The service, to which it is connected is not in your service selection"
       },
       "FACILITIES_LIST": {
         "ID": "Id",
@@ -2719,6 +2770,10 @@
           "ASYNC_HINT": "Attributes will be validated asynchronously. Validation will be processed independently.",
           "ACTIVE_HINT": "After validation of group members attributes, members can access the given resource.",
           "INACTIVE_HINT": "With 'Inactive' status, group members can no longer access the given resource."
+        },
+        "ADVANCED_FILTER": {
+          "FILTERS": "Filters",
+          "CLEAR_FILTERS": "Clear filters"
         }
       },
       "ORGANIZATIONS": {

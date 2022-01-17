@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FacilitiesManagerService, Facility, Host } from '@perun-web-apps/perun/openapi';
 import {
@@ -25,6 +25,8 @@ export class FacilityHostsComponent implements OnInit {
 
   }
 
+  @Input()
+  disableRouting = false;
   facility: Facility;
   hosts: Host[] = [];
   selected = new SelectionModel<Host>(true, []);
@@ -32,6 +34,8 @@ export class FacilityHostsComponent implements OnInit {
   filterValue = '';
   tableId = TABLE_FACILITY_HOSTS_LIST;
   displayedColumns: string[] = ['id', 'name'];
+  @Output()
+  hostEmitter: EventEmitter<Host[]> = new EventEmitter<Host[]>();
 
   addAuth: boolean;
   removeAuth: boolean;
@@ -51,6 +55,7 @@ export class FacilityHostsComponent implements OnInit {
     this.loading = true;
     this.facilitiesManager.getHosts(this.facility.id).subscribe(hosts => {
       this.hosts = hosts;
+      this.hostEmitter.emit(this.hosts);
       this.selected.clear();
       this.setAuthRights();
       this.loading = false;

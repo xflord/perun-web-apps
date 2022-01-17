@@ -206,6 +206,7 @@
               *ngIf="!applicationFormItem.forDelete"
               color="warn"
               mat-icon-button
+              attr.data-cy="{{applicationFormItem.shortname | multiWordDataCy}}-delete"
               matTooltip="{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.DELETE' | translate}}">
               <mat-icon>delete</mat-icon>
             </button>

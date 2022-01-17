@@ -1,6 +1,5 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{this.facilityName}}: {{'DIALOGS.ADD_HOST.TITLE' | translate}}</h1>
-  <h1 class="page-subtitle">{{'DIALOGS.ADD_HOST.SUBTITLE' | translate}}:</h1>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content class="dialog-container">
     <mat-form-field>
@@ -12,6 +11,8 @@
         cols="50"
         matInput
         required
+        [placeholder]="'DIALOGS.ADD_HOST.SUBTITLE' | translate"
+        perunWebAppsAutoFocus
         [formControl]="hostsCtrl">
       </textarea>
       <mat-error *ngIf="this.hostsCtrl.hasError('required')">
@@ -21,7 +22,7 @@
         {{'DIALOGS.ADD_HOST.INVALID_HOST' | translate}}{{this.hostsCtrl.getError('invalidHost').value}}
       </mat-error>
     </mat-form-field>
-    <div class="text-muted">{{'DIALOGS.ADD_HOST.HINT'| translate}}</div>
+    <app-alert alert_type="info">{{'DIALOGS.ADD_HOST.HINT'| translate}}</app-alert>
   </div>
   <div mat-dialog-actions>
     <button

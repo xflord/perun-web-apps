@@ -6,6 +6,7 @@
     <mat-form-field class="mr-2 search-field adjust-width">
       <label>
         <input matInput autocomplete="false" placeholder="{{'DIALOGS.ADD_MEMBERS.DESCRIPTION' | translate}}"
+               data-cy="search-members"
                (keyup.enter)="onSearchByString()"
                [formControl]="searchCtrl">
       </label>
@@ -18,6 +19,7 @@
       mat-flat-button
       class="ml-auto"
       color="accent"
+      data-cy="search-button"
       [disabled]="loading"
       (click)="onSearchByString()">
       {{'DIALOGS.ADD_MEMBERS.SEARCH' | translate}}
@@ -71,6 +73,7 @@
       mat-flat-button
       class="ml-2"
       color="accent"
+      data-cy="add-button"
       (click)="onAdd()"
       [disabled]="selection.selected.length === 0 || loading || (this.data.type === 'group' && list !== undefined && !list.addAuth)">
       {{'DIALOGS.ADD_MEMBERS.CREATE' | translate}}

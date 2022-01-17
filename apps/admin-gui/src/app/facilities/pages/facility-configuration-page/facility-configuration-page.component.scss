@@ -1,0 +1,35 @@
+.icon-scale {
+  transform: scale(1.7);
+  margin-left: 0.5rem;
+  margin-top: -0.6rem;
+  margin-right: 0.9rem;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.package-search-select {
+  width: 650px;
+}
+
+.service-search-select {
+  width: 400px;
+}
+
+.filter {
+  width: 350px;
+  margin-right: 20px;
+}
+
+.actions {
+  background-color: #FFFFFF;
+  display: flex;
+  padding: 20px;
+}
+
+.cursor-default {
+  cursor: default;
+}

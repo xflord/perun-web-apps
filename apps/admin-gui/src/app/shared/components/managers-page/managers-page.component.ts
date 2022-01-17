@@ -45,6 +45,20 @@ export class ManagersPageComponent implements OnInit {
   @Input()
   theme: string;
 
+  @Input()
+  configMode = false;
+
+  @Input()
+  disableRouting = false;
+
+  @Input()
+  disableSelf = false;
+
+  @Input()
+  displayedUserColumns = ['select', 'id', 'name', 'email', 'logins', 'organization'];
+  @Input()
+  displayedGroupColumns = ['select', 'id', 'vo', 'name', 'description'];
+
   selectionUsers = new SelectionModel<RichUser>(true, []);
   selectionGroups = new SelectionModel<Group>(true, []);
 
@@ -77,6 +91,8 @@ export class ManagersPageComponent implements OnInit {
 
   changeRolePrivileges() {
     this.manageAuth = this.availableRolesPrivileges.get(this.selectedRole).manageAuth;
+    this.displayedUserColumns = this.manageAuth ? this.displayedUserColumns : this.displayedUserColumns.filter(col => col === 'select');
+    this.displayedGroupColumns = this.manageAuth ? this.displayedGroupColumns : this.displayedGroupColumns.filter(col => col === 'select');
     this.roleModes = this.availableRolesPrivileges.get(this.selectedRole).modes;
     let roleHasThisMode = false;
     for (const mode of this.roleModes){

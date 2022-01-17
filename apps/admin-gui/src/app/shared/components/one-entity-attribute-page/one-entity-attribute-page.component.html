@@ -1,5 +1,5 @@
 <perun-web-apps-refresh-button class="mt-2" (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-<button mat-flat-button class="mr-2 mt-2 action-button" color="accent" (click)="onCreate()">
+<button mat-flat-button class="mr-2 mt-2 action-button" color="accent" data-cy="add-attributes" (click)="onCreate()">
   {{'USER_DETAIL.SETTINGS.ATTRIBUTES.CREATE' | translate}}
 </button>
 
@@ -7,7 +7,7 @@
   {{'USER_DETAIL.SETTINGS.ATTRIBUTES.SAVE' | translate}}
 </button>
 
-<button (click)="onDelete()" [disabled]="selection.selected.length === 0" class="mt-2 mr-2" color="warn" mat-flat-button>
+<button (click)="onDelete()" [disabled]="selection.selected.length === 0" class="mt-2 mr-2" color="warn" mat-flat-button data-cy="remove-attributes">
   {{'USER_DETAIL.SETTINGS.ATTRIBUTES.DELETE' | translate}}
 </button>
 <perun-web-apps-immediate-filter (filter)="applyFilter($event)"

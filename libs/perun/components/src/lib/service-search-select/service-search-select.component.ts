@@ -16,10 +16,19 @@ export class ServiceSearchSelectComponent {
   @Input()
   services: Service[];
 
+  @Input()
+  multiple = false;
+
+  @Input()
+  disableAutoSelect = false;
+
+  @Input()
+  theme = '';
+
   @Output()
   serviceSelected = new EventEmitter<Service>();
 
   nameFunction = (service: Service) => service.name;
-  secondaryFunction = () => null;
+  secondaryFunction = () => '';
   searchFunction = (service: Service) => service.name;
 }

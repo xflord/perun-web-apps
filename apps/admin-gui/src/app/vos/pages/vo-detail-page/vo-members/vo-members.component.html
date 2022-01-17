@@ -9,6 +9,7 @@
         mat-flat-button
         color="accent"
         class="mr-2 action-button"
+        data-cy="add-members"
         (click)="onAddMember()">
         {{'VO_DETAIL.MEMBERS.ADD_MEMBER' | translate}}
       </button>
@@ -26,6 +27,7 @@
       mat-flat-button
       color="warn"
       class="mr-2"
+      data-cy="remove-members"
       [disabled]="selection.isEmpty()"
       (click)="onRemoveMembers()">
       {{'VO_DETAIL.MEMBERS.REMOVE_MEMBERS' | translate}}

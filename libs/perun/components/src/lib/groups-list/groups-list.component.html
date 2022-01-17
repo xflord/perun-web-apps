@@ -30,6 +30,7 @@
                             [aria-label]="checkboxLabel(row)"
                             [checked]="selection.isSelected(row)"
                             [disabled]="(row.name === 'members' && disableMembers) || disableSelect(row)"
+                            attr.data-cy="{{row.name}}-checkbox"
                             color="primary">
               </mat-checkbox>
             </span>

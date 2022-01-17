@@ -57,6 +57,9 @@ export class FacilityAllowedUsersComponent implements OnInit {
   toggle_messages: string[] = ['FACILITY_DETAIL.ALLOWED_USERS.FILTER_ASSIGNED_MSG',
     'FACILITY_DETAIL.ALLOWED_USERS.FILTER_ALLOWED_MSG'];
 
+  advancedFilter = false;
+  filtersCount: number;
+
   ngOnInit(): void {
     this.loading = true;
     this.attributes = [
@@ -66,7 +69,29 @@ export class FacilityAllowedUsersComponent implements OnInit {
     this.attributes = this.attributes.concat(this.storeService.getLoginAttributeNames());
     this.facility = this.entityStorageService.getEntity();
     this.routeAuth = this.authResolver.isPerunAdminOrObserver();
+    this.changeFilter();
     this.refreshPage();
+  }
+
+  changeFilter() {
+    this.filtersCount = this.allowed ? 1 : 0;
+    if (this.selectedVo.id !== -1) {
+      this.filtersCount += 1;
+    }
+    if (this.selectedResource.id !== -1) {
+      this.filtersCount += 1;
+    }
+    if (this.selectedService.id !== -1) {
+      this.filtersCount += 1;
+    }
+  }
+
+  clearFilters() {
+    this.allowed = false;
+    this.selectedVo = this.emptyVo;
+    this.selectedResource = this.emptyResource;
+    this.selectedService = this.emptyService;
+    this.filtersCount = 0;
   }
 
   refreshPage() {
@@ -95,6 +120,7 @@ export class FacilityAllowedUsersComponent implements OnInit {
       this.services = [this.emptyService].concat(this.services);
       this.filteredServices = this.services;
       this.selectedService = this.emptyService;
+      this.changeFilter();
       this.loading = false;
       return;
     }
@@ -139,6 +165,7 @@ export class FacilityAllowedUsersComponent implements OnInit {
       this.filteredServices = this.getFilteredServices(this.filteredResources);
       this.filteredResources = [this.emptyResource].concat(this.filteredResources);
     }
+    this.changeFilter();
   }
 
   resourceSelected(resource: Resource) {
@@ -155,9 +182,11 @@ export class FacilityAllowedUsersComponent implements OnInit {
     } else {
       this.filteredServices = this.getFilteredServices([resource]);
     }
+    this.changeFilter();
   }
 
   serviceSelected(service: Service) {
     this.selectedService = service;
+    this.changeFilter();
   }
 }

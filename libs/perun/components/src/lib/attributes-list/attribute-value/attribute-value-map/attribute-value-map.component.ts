@@ -29,7 +29,7 @@ export class AttributeValueMapComponent implements OnInit {
   showMore = false;
 
   ngOnInit() {
-    if (this.attribute.value !== undefined) {
+    if (this.attribute.value) {
       const map = this.attribute.value as Map<string, string>;
       for (const [key, value] of Object.entries(map)) {
         this.keys.push(key);

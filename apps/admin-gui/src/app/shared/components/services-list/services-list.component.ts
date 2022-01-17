@@ -1,8 +1,8 @@
 import {
   AfterViewInit,
-  Component,
+  Component, EventEmitter,
   Input,
-  OnChanges,
+  OnChanges, Output,
   ViewChild
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
@@ -49,6 +49,9 @@ export class ServicesListComponent implements AfterViewInit, OnChanges {
   @Input()
   disableRouting = false;
 
+  @Output()
+  selectionChanged: EventEmitter<void> = new EventEmitter<void>();
+
   private sort: MatSort;
 
   dataSource: MatTableDataSource<Service>;
@@ -63,6 +66,9 @@ export class ServicesListComponent implements AfterViewInit, OnChanges {
     }
     this.dataSource = new MatTableDataSource<Service>(this.services);
     this.setDataSource();
+    this.selection.changed.subscribe(() => {
+      this.selectionChanged.emit();
+    })
   }
 
   getDataForColumn(data: Service, column: string): string{

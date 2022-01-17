@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FacilitiesManagerService, Facility, Owner } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
@@ -24,6 +24,8 @@ export class FacilitySettingsOwnersComponent implements OnInit {
   filterValue: string;
   displayedColumns: string[] = ['id', 'name', 'contact', 'type'];
   tableId = TABLE_FACILITY_OWNERS;
+  @Output()
+  ownerEmitter: EventEmitter<Owner[]> = new EventEmitter<Owner[]>();
 
   addAuth: boolean;
   removeAuth: boolean;
@@ -46,6 +48,7 @@ export class FacilitySettingsOwnersComponent implements OnInit {
     this.selection.clear();
     this.facilitiesManagerService.getFacilityOwners(this.facility.id).subscribe(owners => {
       this.owners = owners;
+      this.ownerEmitter.emit(this.owners);
       this.loading = false;
     });
   }

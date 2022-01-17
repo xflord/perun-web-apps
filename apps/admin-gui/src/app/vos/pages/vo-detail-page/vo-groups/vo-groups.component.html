@@ -6,6 +6,7 @@
     mat-flat-button
     color="accent"
     class="mr-2 action-button"
+    data-cy="create-group-button"
     (click)="onCreateGroup()">
     {{'VO_DETAIL.GROUPS.CREATE_GROUP' | translate}}
   </button>
@@ -16,6 +17,7 @@
       mat-flat-button
       color="warn"
       class="mr-2"
+      data-cy="delete-group-button"
       [disabled]="selected.selected.length === 0 || disableRemove()"
       (click)="deleteGroup()">
       {{'VO_DETAIL.GROUPS.DELETE_GROUP' | translate}}

@@ -49,6 +49,13 @@ export class EntitySearchSelectComponent<T extends PerunBean> implements OnInit,
   @Input()
   displayStatus = false;
 
+  @Input()
+  multiple = false;
+
+  @Input()
+  theme = '';
+
+
   @Output()
   entitySelected = new EventEmitter<T>();
 
@@ -165,5 +172,19 @@ export class EntitySearchSelectComponent<T extends PerunBean> implements OnInit,
       this.scrollViewport.checkViewportSize();
     }
     return height;
+  }
+
+  multipleSelectedText() {
+    if(!this.entitiesCtrl.value || this.entitiesCtrl.value.length === 0){
+      return;
+    }
+
+    if(this.entitiesCtrl.value.length === this.entities.length){
+      return 'ALL';
+    } else if(this.entitiesCtrl.value.length > 1){
+      return this.mainTextFunction(this.entitiesCtrl.value[0]) + ` + ${this.entitiesCtrl.value.length - 1} other(s)`;
+    } else {
+      return this.mainTextFunction(this.entitiesCtrl.value[0]) + ' ' + this.secondaryTextFunction(this.entitiesCtrl.value[0]);
+    }
   }
 }

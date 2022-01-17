@@ -1,0 +1,256 @@
+<div class="facility-theme">
+  <div class="page-title">
+    {{'FACILITY_CONFIGURATION.TITLE' | translate}}
+  </div>
+  <mat-stepper #stepper [linear]="true" (selectionChange)="navigationStep($event)">
+    <mat-step>
+      <ng-template matStepLabel>{{'FACILITY_CONFIGURATION.OWNERS' | translate}}</ng-template>
+      <ng-template matStepContent>
+        <app-facility-settings-owners (ownerEmitter)="owners = $event">
+        </app-facility-settings-owners>
+      </ng-template>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>{{'FACILITY_CONFIGURATION.HOSTS' | translate}}</ng-template>
+      <ng-template matStepContent>
+        <app-facility-hosts
+          (hostEmitter)="hosts = $event"
+          [disableRouting]="true">
+        </app-facility-hosts>
+      </ng-template>
+    </mat-step>
+    <mat-step [stepControl]="serviceControl">
+      <ng-template matStepLabel>{{'FACILITY_CONFIGURATION.SERVICES' | translate}}</ng-template>
+      <ng-template matStepContent>
+        <h1 class="page-subtitle">{{'FACILITY_CONFIGURATION.SERVICES' | translate}}</h1>
+        <app-alert alert_type="info">
+          {{'FACILITY_CONFIGURATION.SERVICES_INFO' | translate}}
+        </app-alert>
+        <div class="filters">
+          <perun-web-apps-immediate-filter
+            class="filter"
+            (filter)="applyFilter($event)"
+            [placeholder]="'FACILITY_CONFIGURATION.SERVICES_FILTER'">
+          </perun-web-apps-immediate-filter>
+          <perun-web-apps-service-package-search-select
+            class="package-search-select"
+            [servicePackages]="servicePackages"
+            [selectedPackage]="selectedPackages"
+            [multiple]="true"
+            [disableAutoSelect]="true"
+            [theme]="'facility-theme'"
+            (packageSelected)="packagesSelected($event)">
+          </perun-web-apps-service-package-search-select>
+        </div>
+        <app-services-list
+          (selectionChanged)="singleServiceSelected()"
+          [disableRouting]="true"
+          [selection]="selection"
+          [services]="services"
+          [filterValue]="filterValue"
+          [displayedColumns]="['select', 'id', 'name', 'enabled', 'description']">
+        </app-services-list>
+      </ng-template>
+    </mat-step>
+    <mat-step optional="true" [stepControl]="attributesControl" [editable]="selection.selected.length !== 0">
+      <ng-template matStepLabel>{{'FACILITY_CONFIGURATION.SERVICE_CONFIG' | translate}}</ng-template>
+      <ng-template matStepContent>
+        <h1 class="page-subtitle">{{'FACILITY_CONFIGURATION.SERVICE_CONFIG' | translate}}</h1>
+        <app-alert alert_type="info">
+          {{'FACILITY_CONFIGURATION.ATT_INFO' | translate}}
+        </app-alert>
+        <div class="filters">
+          <button
+            mat-flat-button
+            class="mr-2"
+            color="warn"
+            (click)="onRemoveAttributes()"
+            [disabled]="attSelection.selected.length === 0">
+            {{'FACILITY_CONFIGURATION.REMOVE' | translate}}
+          </button>
+          <button
+            mat-flat-button
+            class="mr-2"
+            color="accent"
+            (click)="onSaveAttributes()"
+            [disabled]="attSelection.selected.length === 0">
+            {{'FACILITY_CONFIGURATION.SAVE' | translate}}
+          </button>
+          <perun-web-apps-service-search-select
+            *ngIf="stepper.selectedIndex === ATTRIBUTES_IDX"
+            class="service-search-select"
+            [disableAutoSelect]="true"
+            [services]="selection.selected"
+            [multiple]="true"
+            [theme]="'facility-theme'"
+            (serviceSelected)="filterAttributes($event)">
+          </perun-web-apps-service-search-select>
+        </div>
+        <mat-spinner *ngIf="processing" class="ml-auto mr-auto"></mat-spinner>
+        <perun-web-apps-attributes-list
+          *ngIf="!processing"
+          [emptyListText]="'FACILITY_CONFIGURATION.EMPTY_REQ_ATT'"
+          [selection]="attSelection"
+          [attributes]="filteredAttributes">
+        </perun-web-apps-attributes-list>
+      </ng-template>
+    </mat-step>
+    <mat-step [optional]="this.destinations.length === 0" [editable]="selection.selected.length !== 0 || this.destinations.length !== 0">
+      <ng-template matStepLabel>{{'FACILITY_CONFIGURATION.DESTINATION_CONFIG' | translate}}</ng-template>
+      <ng-template matStepContent>
+        <app-perun-web-apps-facility-services-destinations
+          [title]="'FACILITY_CONFIGURATION.DESTINATION_CONFIG'"
+          [loading]="processing"
+          [displayedColumns]="['select', 'destinationId', 'service', 'warn', 'destination', 'type', 'propagationType']"
+          [configServices]="selection.selected"
+          [configServicesIds]="serviceIds"
+          (destinationEmitter)="this.destinations = $event">
+        </app-perun-web-apps-facility-services-destinations>
+      </ng-template>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>{{'FACILITY_CONFIGURATION.MANAGERS' | translate}}</ng-template>
+      <ng-template matStepContent>
+        <app-perun-web-apps-facility-settings-managers
+          [disableRouting]="true"
+          [disableSelf]="true">
+        </app-perun-web-apps-facility-settings-managers>
+      </ng-template>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>{{'FACILITY_CONFIGURATION.SUMMARY' | translate}}</ng-template>
+      <ng-template matStepContent>
+        <app-alert alert_type="info">
+          <i [innerHTML]="'FACILITY_CONFIGURATION.SUMMARY_INFO' | translate"></i>
+        </app-alert>
+        <mat-accordion *ngIf="stepper.selectedIndex === stepper.steps.length - 1" [@.disabled]="true">
+          <mat-expansion-panel [disabled]="owners.length === 0">
+            <mat-expansion-panel-header [class.cursor-default]="owners.length === 0">
+              <mat-panel-title>
+                <mat-icon class="mr-2" svgIcon="perun-owner-grey"></mat-icon>
+                {{'FACILITY_CONFIGURATION.OWNERS' | translate}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <h1 class="page-subtitle">{{'FACILITY_CONFIGURATION.OWNERS' | translate}}</h1>
+            <mat-spinner *ngIf="processing" class="ml-auto mr-auto"></mat-spinner>
+            <perun-web-apps-owners-list
+              *ngIf="!processing"
+              [owners]="owners"
+              [displayedColumns]="['id', 'name', 'contact', 'type']">
+            </perun-web-apps-owners-list>
+          </mat-expansion-panel>
+          <mat-expansion-panel [disabled]="hosts.length === 0">
+            <mat-expansion-panel-header [class.cursor-default]="hosts.length === 0">
+              <mat-panel-title>
+                <mat-icon class="mr-2" svgIcon="perun-hosts"></mat-icon>
+                {{'FACILITY_CONFIGURATION.HOSTS' | translate}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <h1 class="page-subtitle">{{'FACILITY_CONFIGURATION.HOSTS' | translate}}</h1>
+            <mat-spinner *ngIf="processing" class="ml-auto mr-auto"></mat-spinner>
+            <app-hosts-list
+              *ngIf="!processing"
+              [disableRouting]="true"
+              [hosts]="hosts"
+              [displayedColumns]="['id', 'name']">
+            </app-hosts-list>
+          </mat-expansion-panel>
+          <mat-expansion-panel [disabled]="selection.selected.length === 0">
+            <mat-expansion-panel-header [class.cursor-default]="selection.selected.length === 0">
+              <mat-panel-title>
+                <mat-icon class="mr-2" svgIcon="perun-service"></mat-icon>
+                {{'FACILITY_CONFIGURATION.SERVICES' | translate}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <h1 class="page-subtitle">{{'FACILITY_CONFIGURATION.SERVICES' | translate}}</h1>
+            <app-services-list
+              [disableRouting]="true"
+              [services]="selection.selected"
+              [displayedColumns]="['id', 'name', 'enabled', 'script', 'description']">
+            </app-services-list>
+          </mat-expansion-panel>
+          <mat-expansion-panel [disabled]="selection.selected.length === 0" (opened)="getNonEmptyAttributes()">
+            <mat-expansion-panel-header [class.cursor-default]="selection.selected.length === 0">
+              <mat-panel-title>
+                <mat-icon class="mr-2" svgIcon="perun-hosts"></mat-icon>
+                {{'FACILITY_CONFIGURATION.SERVICE_CONFIG' | translate}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <h1 class="page-subtitle">{{'FACILITY_CONFIGURATION.ATTS' | translate}}</h1>
+            <perun-web-apps-attributes-list
+              [displayedColumns]="['id', 'displayName', 'value', 'description']"
+              [emptyListText]="'FACILITY_CONFIGURATION.EMPTY_REQ_ATT'"
+              [attributes]="filteredAttributes">
+            </perun-web-apps-attributes-list>
+          </mat-expansion-panel>
+          <mat-expansion-panel
+            [(expanded)]="destinationServiceMissing"
+            [disabled]="selection.selected.length === 0 && destinations.length === 0">
+            <mat-expansion-panel-header
+              [class.cursor-default]="selection.selected.length === 0 && destinations.length === 0">
+              <mat-panel-title>
+                <mat-icon class="mr-2" svgIcon="perun-service_destination"></mat-icon>
+                {{'FACILITY_CONFIGURATION.DESTINATION_CONFIG' | translate}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <h1 class="page-subtitle">{{'FACILITY_CONFIGURATION.DESTINATION' | translate}}</h1>
+            <mat-spinner *ngIf="processing" class="ml-auto mr-auto"></mat-spinner>
+            <app-perun-web-apps-destination-list
+              [destinations]="destinations"
+              [services]="serviceIds"
+              [displayedColumns]="['destinationId', 'service', 'warn', 'destination', 'type', 'propagationType']">
+            </app-perun-web-apps-destination-list>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon class="mr-2" svgIcon="perun-manager"></mat-icon>
+                {{'FACILITY_CONFIGURATION.MANAGERS' | translate}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-managers-page
+              [complementaryObject]="facility"
+              [configMode]="true"
+              [disableRouting]="true"
+              [complementaryObjectType]="'Facility'"
+              [availableRoles]="availableRoles"
+              [displayedUserColumns]="['id', 'name', 'email', 'logins', 'organization']"
+              [displayedGroupColumns]="['id', 'vo', 'name', 'description']">
+            </app-managers-page>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </ng-template>
+    </mat-step>
+  </mat-stepper>
+  <div class="actions">
+    <button
+      mat-flat-button
+      (click)="onCancel()">
+      {{'FACILITY_CONFIGURATION.CANCEL' | translate}}
+    </button>
+    <button
+      *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
+      (click)="back()"
+      class="ml-auto mr-2"
+      mat-flat-button>
+      {{'FACILITY_CONFIGURATION.BACK' | translate}}
+    </button>
+    <button
+      *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper.steps.length - 1"
+      (click)="next()"
+      [class.mr-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+      [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+      mat-flat-button
+      color="accent">
+      {{'FACILITY_CONFIGURATION.NEXT' | translate}}
+    </button>
+    <button
+      *ngIf="stepper !== undefined && stepper.selectedIndex === stepper.steps.length -1"
+      (click)="onFinish()"
+      class="mr-2"
+      mat-flat-button
+      color="accent">
+      {{'FACILITY_CONFIGURATION.FINISH' | translate}}
+    </button>
+  </div>
+</div>

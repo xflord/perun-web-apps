@@ -2,6 +2,7 @@
   <input matInput [formControl]="formControl"
          *ngIf="autoFocus"
          perunWebAppsAutoFocus
+         data-cy="auto-focused-filter"
          placeholder="{{placeholder | translate}}">
   <input matInput [formControl]="formControl"
          *ngIf="!autoFocus"

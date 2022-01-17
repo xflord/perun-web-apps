@@ -2,7 +2,11 @@
   <mat-select
     (openedChange)="openChange()"
     placeholder="{{selectPlaceholder}}"
-    [formControl]="entitiesCtrl">
+    [formControl]="entitiesCtrl"
+    [multiple]="multiple">
+    <mat-select-trigger *ngIf="multiple">
+      {{multipleSelectedText()}}
+    </mat-select-trigger>
     <mat-option>
       <ngx-mat-select-search
         placeholderLabel="{{findPlaceholder}}"
@@ -23,7 +27,7 @@
       #scrollViewport
       [minBufferPx]="5 * 48"
       [maxBufferPx]="10 * 48">
-      <mat-option *cdkVirtualFor="let entity of filteredEntities | async" [value]="entity">
+      <mat-option class="{{theme}}" *cdkVirtualFor="let entity of filteredEntities | async" [value]="entity">
         {{mainTextFunction(entity)}} <span class="text-muted">{{secondaryTextFunction(entity)}}</span>
         <span *ngIf="displayStatus" class="{{colorByStatus(entity)}}">
           {{statusTextFunction(entity) ? '('+statusTextFunction(entity)+')' : ''}}

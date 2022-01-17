@@ -1,5 +1,8 @@
 <div>
-  <h1 class="page-subtitle">{{'FACILITY_DETAIL.SERVICES_DESTINATIONS.TITLE' | translate}}</h1>
+  <h1 class="page-subtitle">{{title | translate}}</h1>
+  <app-alert *ngIf="title.includes('CONFIG')" alert_type="info">
+    {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.DESTINATIONS_INFO' | translate}}
+  </app-alert>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
     *ngIf="addAuth"
@@ -47,6 +50,7 @@
     [filterValue]="filterValue"
     [destinations]="destinations"
     [selection]="selected"
-    [displayedColumns]="displayedColumns">
+    [displayedColumns]="displayedColumns"
+    [services]="configServicesIds">
   </app-perun-web-apps-destination-list>
 </div>

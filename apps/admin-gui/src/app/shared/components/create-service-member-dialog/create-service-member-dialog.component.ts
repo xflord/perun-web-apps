@@ -90,7 +90,7 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
       passwordAgainCtrl: [''],
       generatePasswordCtrl: [true]
     }, {
-      validator: CustomValidators.passwordMatchValidator
+      validators: CustomValidators.passwordMatchValidator
     });
 
     this.namespaceOptions = ['Not selected'];

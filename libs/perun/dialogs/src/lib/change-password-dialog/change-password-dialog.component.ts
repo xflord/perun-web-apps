@@ -43,7 +43,7 @@ export class ChangePasswordDialogComponent implements OnInit {
       passwordCtrl: ['', Validators.required, [loginAsyncValidator(this.data.namespace, this.usersManagerService, this.apiRequestConfiguration)]],
       passwordAgainCtrl: ['']
     }, {
-      validator: CustomValidators.passwordMatchValidator
+      validators: CustomValidators.passwordMatchValidator,
     });
     this.oldPwd = this.formGroup.get('oldPasswordCtrl');
     this.newPwd = this.formGroup.get('passwordCtrl');

@@ -13,6 +13,7 @@
         <mat-checkbox color="primary"
                       *ngIf="!hideCheckbox"
                       class="no-label-margin-bottom ml-4"
+                      attr.data-cy="{{group.name}}-checkbox"
                       [disabled]="group.fullName === 'members'"
                       [checked]="selection.isSelected(group)"
                       [indeterminate]="descendantsPartiallySelected(group)"

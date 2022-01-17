@@ -2,10 +2,13 @@
   [entities]="servicePackages"
   (entitySelected)="this.packageSelected.emit($event)"
   [entity]='selectedPackage'
+  [multiple]="multiple"
+  [disableAutoSelect]="disableAutoSelect"
   [searchFunction]="searchFunction"
   [mainTextFunction]="nameFunction"
   [secondaryTextFunction]="shortNameFunction"
   [selectPlaceholder]="'SHARED_LIB.PERUN.COMPONENTS.SERVICE_PACKAGE_SEARCH_SELECT.SELECT_PACKAGE' | translate"
   [findPlaceholder]="'SHARED_LIB.PERUN.COMPONENTS.SERVICE_PACKAGE_SEARCH_SELECT.FIND_PACKAGE' | translate"
-  [noEntriesText]="'SHARED_LIB.PERUN.COMPONENTS.SERVICE_PACKAGE_SEARCH_SELECT.NO_PACKAGE_FOUND' | translate">
+  [noEntriesText]="'SHARED_LIB.PERUN.COMPONENTS.SERVICE_PACKAGE_SEARCH_SELECT.NO_PACKAGE_FOUND' | translate"
+  [theme]="theme">
 </perun-web-apps-entity-search-select>

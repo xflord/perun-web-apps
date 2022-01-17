@@ -36,6 +36,8 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
   tableId: string;
   @Input()
   displayedColumns: string[];
+  @Input()
+  services: Set<number>;
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
