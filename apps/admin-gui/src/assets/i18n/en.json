@@ -1045,7 +1045,9 @@
       "ASK": "Do you want to proceed?",
       "CANCEL": "Cancel",
       "DELETE": "Remove",
-      "SUCCESS": "Selected managers were removed"
+      "SUCCESS": "Selected managers were removed",
+      "WARNING_REMOVE_YOURSELF1": "You are removing yourself as manager - you will immediately lose the rights of the",
+      "WARNING_REMOVE_YOURSELF2": "role to this entity."
     },
     "ADD_MANAGERS": {
       "TITLE": "Add manager",
