@@ -86,7 +86,7 @@ export class SideMenuItemService {
       colorClass: 'base-item-color-activated',
       icon: 'perun-home-white',
       baseColorClass: 'base-item-color',
-      baseColorClassRegex: '^dont-use$',
+      baseColorClassRegex: '^/home$',
       activatedClass: 'dark-item-activated',
       linksClass: 'dark-item-links',
       backgroundColorCss: this.baseItemColor,
