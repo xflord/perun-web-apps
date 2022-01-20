@@ -78,7 +78,6 @@ export class FacilityHostsComponent implements OnInit {
     config.width = '600px';
     config.data = {
       facilityId: this.facility.id,
-      facilityName: this.facility.name,
       theme: 'facility-theme'
     };
 
