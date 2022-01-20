@@ -72,7 +72,6 @@ export class MemberGroupsComponent implements OnInit {
     this.loading = true;
     this.groupsService.getMemberRichGroupsWithAttributesByNames(this.memberId, ['urn:perun:member_group:attribute-def:def:groupMembershipExpiration']).subscribe(groups => {
       this.selection.clear();
-      this.filterValue = '';
       this.groups = groups;
       this.setAuthRights();
       this.loading = false;

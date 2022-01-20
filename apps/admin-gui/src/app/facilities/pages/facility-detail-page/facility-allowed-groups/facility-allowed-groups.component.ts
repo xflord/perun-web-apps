@@ -60,7 +60,6 @@ export class FacilityAllowedGroupsComponent implements OnInit {
   refreshTable() {
     this.loading = true;
     this.groups = [];
-    this.filterValue = "";
     this.vos.forEach(vo => {
       this.facilityManager.getAllowedGroups(this.facility.id, vo.id).subscribe(group => {
         this.groups = this.groups.concat(group);
