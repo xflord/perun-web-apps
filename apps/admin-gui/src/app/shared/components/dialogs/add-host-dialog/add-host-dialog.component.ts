@@ -8,7 +8,6 @@ import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/
 export interface AddHostDialogData {
   theme: string;
   facilityId: number;
-  facilityName: string;
 }
 
 @Component({
@@ -27,7 +26,6 @@ export class AddHostDialogComponent implements OnInit {
     private translate: TranslateService) { }
 
   theme: string;
-  facilityName: string;
   loading = false;
   hostsCtrl: FormControl;
 
@@ -35,7 +33,6 @@ export class AddHostDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.theme = this.data.theme;
-    this.facilityName= this.data.facilityName;
     this.hostsCtrl = new FormControl('', [Validators.required, this.hostsNameValidator()]);
     this.hostsCtrl.markAllAsTouched();
   }
