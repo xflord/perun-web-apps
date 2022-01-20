@@ -26,6 +26,14 @@ export class MyPublicationsPageComponent implements OnInit {
   selected = new SelectionModel<PublicationForGUI>(true, []);
   tableId = TABLE_PUBLICATION_AUTHOR_DETAIL_PUBLICATIONS;
   authorId: number;
+  filter =  {
+    title: null,
+    isbnissn: null,
+    doi: null,
+    category: null,
+    startYear: null,
+    endYear: null,
+  };
 
   ngOnInit(): void {
     this.initLoading = true;
@@ -54,21 +62,16 @@ export class MyPublicationsPageComponent implements OnInit {
   refreshTable() {
     this.loading = true;
     this.selected.clear();
-    this.cabinetService.findPublicationsByGUIFilter(null, null, null,
-      null, null, null, null, null, this.authorId). subscribe(publications => {
+    this.cabinetService.findPublicationsByGUIFilter(this.filter.title, null, null,
+      null, null, this.filter.category, +this.filter.startYear, +this.filter.endYear, this.authorId). subscribe(publications => {
       this.publications = publications;
       this.loading = false;
     });
   }
 
   filterPublication(event: FilterPublication) {
-    this.loading = true;
-    this.selected.clear();
-    this.cabinetService.findPublicationsByGUIFilter(event.title, null, null,
-      null, null, event.category, +event.startYear, +event.endYear, this.authorId). subscribe(publications => {
-      this.publications = publications;
-      this.loading = false;
-    });
+    this.filter = event;
+    this.refreshTable();
   }
 
 }

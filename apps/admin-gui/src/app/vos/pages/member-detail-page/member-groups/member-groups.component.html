@@ -1,7 +1,7 @@
 <h1 class="page-subtitle">{{'MEMBER_DETAIL.GROUPS.TITLE' | translate}}</h1>
-<perun-web-apps-refresh-button (refresh)="refreshTable()" *ngIf="!loading"></perun-web-apps-refresh-button>
+<perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
 <button
-  *ngIf="!loading && addAuth"
+  *ngIf="addAuth"
   mat-flat-button
   color="accent"
   (click)="addGroup()"
@@ -9,11 +9,9 @@
   {{'MEMBER_DETAIL.GROUPS.ADD' | translate}}
 </button>
 <span
-  *ngIf="!loading"
   [matTooltipDisabled]="list === undefined || (list !== undefined && list.removeAuth)"
   matTooltip="{{'MEMBER_DETAIL.GROUPS.REMOVE_PERMISSION_HINT' | translate}}">
   <button
-    *ngIf="!loading"
     mat-flat-button
     color="warn"
     (click)="removeGroup()"
@@ -24,7 +22,6 @@
 </span>
 <perun-web-apps-immediate-filter
   (filter)="applyFilter($event)"
-  *ngIf="!loading"
   [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'">
 </perun-web-apps-immediate-filter>
 <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
