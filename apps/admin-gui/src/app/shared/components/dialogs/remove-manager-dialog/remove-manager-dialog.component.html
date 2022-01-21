@@ -20,9 +20,7 @@
       <tr mat-row *matRowDef="let manager; columns: displayedColumns;"></tr>
     </table>
     <app-alert *ngIf="removeSelf" alert_type="warn">
-      {{'DIALOGS.REMOVE_MANAGERS.WARNING_REMOVE_YOURSELF1' | translate}}
-      {{this.data.role | displayedRole}}
-      {{'DIALOGS.REMOVE_MANAGERS.WARNING_REMOVE_YOURSELF2' | translate}}
+      {{'DIALOGS.REMOVE_MANAGERS.WARNING_REMOVE_YOURSELF' | translate: {role: this.data.role | displayedRole} }}
     </app-alert>
 
   </div>
