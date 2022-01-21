@@ -12,6 +12,7 @@ import { MatStepper } from '@angular/material/stepper';
 export interface AssignGroupToResourceDialogData {
   theme: string;
   resource: Resource;
+  onlyAutoAssignedGroups: Group[];
 }
 
 @Component({
@@ -37,7 +38,7 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
   theme: string;
 
   resource: Resource;
-  unAssignedGroups: Group[] = [];
+  unAssignedGroups: Group[] = this.data.onlyAutoAssignedGroups;
   async = true;
   autoAssignSubgroups = false;
   asActive = true;

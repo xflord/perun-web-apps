@@ -5,4 +5,5 @@ export interface GroupWithStatus extends RichGroup {
   status?: GroupResourceStatus;
   failureCause?: string;
   sourceGroupId?: number;
+  moreTypesOfAssignment?: boolean;
 }

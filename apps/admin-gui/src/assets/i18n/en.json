@@ -2492,7 +2492,8 @@
           "ALREADY_MEMBER_TOOLTIP": "User is already member of group",
           "CREATE_RELATION_AUTH_TOOLTIP": "You don't have permission to create relation with this group.",
           "SYNCHRONIZED_GROUP": "Group is filled with members from an external source",
-          "INDIRECT_GROUP": "This group is assigned as a part of a groups tree."
+          "INDIRECT_GROUP": "This group is assigned as a part of a groups tree.",
+          "MULTIPLE_ASSIGNMENTS": "This group is assigned manually and also as a part of a groups tree. You can remove only manual assignment."
         },
         "GROUP_MENU": {
           "MOVE": "Move group",

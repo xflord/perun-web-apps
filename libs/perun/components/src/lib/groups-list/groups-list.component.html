@@ -59,9 +59,12 @@
         <ng-container matColumnDef="indirectGroupAssigment">
           <th *matHeaderCellDef mat-header-cell></th>
           <td *matCellDef="let group" mat-cell>
-            <mat-icon *ngIf="group.sourceGroupId"
+            <mat-icon *ngIf="group.sourceGroupId && !group.moreTypesOfAssignment"
                       matTooltipPosition="above"
                       [matTooltip]="'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.INDIRECT_GROUP' | translate">account_tree</mat-icon>
+            <mat-icon *ngIf="group.moreTypesOfAssignment"
+                      matTooltipPosition="above"
+                      [matTooltip]="'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.MULTIPLE_ASSIGNMENTS' | translate">alt_route</mat-icon>
           </td>
         </ng-container>
         <ng-container matColumnDef="name">

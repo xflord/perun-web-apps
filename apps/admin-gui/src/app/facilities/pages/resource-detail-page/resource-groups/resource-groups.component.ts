@@ -55,7 +55,24 @@ export class ResourceGroupsComponent implements OnInit {
         gws.sourceGroupId = g.sourceGroupId;
         return gws;
       });
-      this.groupsToDisable = new Set(this.assignedGroups.filter(group => !!group.sourceGroupId).map(group => group.id));
+
+      // identify groups with multiple assignments
+      const groupsIds = this.assignedGroups.map(group => group.id);
+      const uniqueGroups = this.assignedGroups.filter((group, i) => groupsIds.indexOf(group.id) === i);
+      const groupsWithMultiAssignments = this.assignedGroups.filter((group, i) => {
+        const groupId = groupsIds.indexOf(group.id);
+        return groupId !== i && (group.sourceGroupId === null || this.assignedGroups[groupId].sourceGroupId === null);
+      }).map(group => group.id);
+
+      uniqueGroups.forEach(group => {
+        if (groupsWithMultiAssignments.includes(group.id)) {
+          group.moreTypesOfAssignment = true;
+        }
+      });
+
+      this.assignedGroups = uniqueGroups;
+
+      this.groupsToDisable = new Set(this.assignedGroups.filter(group => !!group.sourceGroupId && !group.moreTypesOfAssignment).map(group => group.id));
       this.selected.clear();
       this.loading = false;
     });
@@ -64,7 +81,11 @@ export class ResourceGroupsComponent implements OnInit {
   addGroup() {
     const config = getDefaultDialogConfig();
     config.width = '1000px';
-    config.data = { theme: 'resource-theme', resource: this.resource };
+    config.data = {
+      theme: 'resource-theme',
+      resource: this.resource,
+      onlyAutoAssignedGroups: this.assignedGroups.filter(group => this.groupsToDisable.has(group.id))
+    };
 
     const dialogRef = this.dialog.open(AssignGroupToResourceDialogComponent, config);
     dialogRef.afterClosed().subscribe((success) => {
