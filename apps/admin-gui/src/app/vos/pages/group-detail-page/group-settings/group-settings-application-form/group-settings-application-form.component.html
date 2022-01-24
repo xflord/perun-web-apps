@@ -60,6 +60,7 @@
       mat-flat-button
       color="accent"
       class="mr-2 action-button"
+      data-cy=add-form-item
       (click)="add()">
       {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.ADD_BUTTON' | translate}}
     </button>
@@ -70,6 +71,7 @@
       color="accent"
       class="mr-2"
       [disabled]="!itemsChanged"
+      data-cy="save-application-form"
       (click)="save()">
       <i class="material-icons">save</i>
       {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.SAVE_BUTTON' | translate}}
@@ -121,6 +123,7 @@
   <button
     *ngIf="createEmptyForm"
     mat-stroked-button
+    data-cy="create-empty-form"
     (click)="createEmptyApplicationForm()">
     {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.CREATE_APPLICATION_FORM' | translate}}
   </button>

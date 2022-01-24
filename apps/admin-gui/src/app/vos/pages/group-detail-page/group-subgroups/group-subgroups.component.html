@@ -6,6 +6,7 @@
     (click)="onCreateGroup()"
     class="mr-2 action-button"
     color="accent"
+    data-cy="new-subgroup-button"
     mat-flat-button>
     {{'GROUP_DETAIL.SUBGROUPS.CREATE_GROUP' | translate}}
   </button>
@@ -20,6 +21,7 @@
             mat-flat-button
             color="warn"
             class="mr-2"
+            data-cy=delete-group-button
             [disabled]="selected.selected.length === 0 ||
               (tree !== undefined && !tree.removeAuth) ||
               (list !== undefined && !list.removeAuth)">

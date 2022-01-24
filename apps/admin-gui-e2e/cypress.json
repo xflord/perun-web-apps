@@ -13,6 +13,8 @@
     "BA_USERNAME": "perun",
     "BA_PASSWORD": "test",
     "BA_USERNAME_VO_MANAGER": "voManager",
-    "BA_PASSWORD_VO_MANAGER": "test"
+    "BA_PASSWORD_VO_MANAGER": "test",
+    "BA_USERNAME_GROUP_MANAGER": "groupManager",
+    "BA_PASSWORD_GROUP_MANAGER": "test"
   }
 }

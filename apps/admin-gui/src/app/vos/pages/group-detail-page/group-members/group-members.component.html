@@ -16,6 +16,7 @@
         [disabled]="synchEnabled || blockGroupManualMemberAdding"
         class="mr-2 action-button"
         color="accent"
+        data-cy="add-members"
         mat-flat-button>
         {{'GROUP_DETAIL.MEMBERS.ADD_MEMBER' | translate}}
       </button>
@@ -45,6 +46,7 @@
        [disabled]="selection.isEmpty() || synchEnabled"
        class="mr-2"
        color="warn"
+       data-cy="remove-members"
        mat-flat-button>
        {{'GROUP_DETAIL.MEMBERS.REMOVE_MEMBERS' | translate}}
      </button>
