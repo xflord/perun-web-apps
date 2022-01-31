@@ -5,7 +5,6 @@ import { StoreService } from './store.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -124,7 +123,9 @@ export class AuthService {
       .then(isLoggedIn => {
         if (isLoggedIn) {
           this.oauthService.events.pipe(filter(e => e.type === 'token_expires')).subscribe(() => {
-            this.oauthService.refreshToken();
+            this.oauthService.refreshToken().then(response => {
+              localStorage.setItem('refresh_token', response['refresh_token']);
+            });
           });
           return true;
         }
@@ -141,12 +142,13 @@ export class AuthService {
       sessionStorage.setItem("baLogout", "true");
       this.router.navigate(['/service-access']);
     } else {
+      localStorage.removeItem('refresh_token');
       this.oauthService.logOut();
     }
   }
 
   isLoggedInPromise(): Promise<boolean> {
-    return this.isLoggedIn() ? Promise.resolve(true) : Promise.resolve(false);
+    return Promise.resolve(this.isLoggedIn());
   }
 
   isLoggedIn(): boolean {
@@ -185,6 +187,22 @@ export class AuthService {
   }
 
   /**
+   * Tries to refresh access token if refresh token is present,
+   * if successful, sign-in is not required
+   */
+  private tryRefreshToken(): Promise<void> {
+    if (localStorage.getItem('refresh_token')) {
+      sessionStorage.setItem('refresh_token', localStorage.getItem('refresh_token'));
+      return this.oauthService.loadDiscoveryDocument()
+        .then(() => this.oauthService.refreshToken())
+        .then(() => Promise.resolve())
+        .catch(err => err);
+    } else {
+      return Promise.resolve();
+    }
+  }
+
+  /**
    * Check if the user is logged in and if not,
    * prevent proxy overload by checking path validity and only then
    * save current path and start authentication;
@@ -197,7 +215,8 @@ export class AuthService {
    *         if given path is invalid
    */
   private verifyAuthentication(path: string, queryParams: string): Promise<any> {
-    return this.isLoggedInPromise()
+    return this.tryRefreshToken()
+      .then(() => this.isLoggedInPromise())
       .then(isLoggedIn => {
         if (!isLoggedIn) {
           if (!this.isPotentiallyValidPath(path)) {
@@ -209,7 +228,8 @@ export class AuthService {
 
           return false;
         }
-        this.oauthService.loadDiscoveryDocument();
+        this.oauthService.loadDiscoveryDocument()
+          .then(() => localStorage.setItem('refresh_token', this.oauthService.getRefreshToken()));
         return true;
       });
   }
