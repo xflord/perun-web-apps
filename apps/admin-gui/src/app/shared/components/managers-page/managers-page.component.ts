@@ -288,9 +288,9 @@ export class ManagersPageComponent implements OnInit {
       if (
         this.guiAuthResolver.isAuthorized('getGroupById_int_policy', [this.complementaryObject])
       ) {
-        // @ts-ignore
+        const grp = this.complementaryObject as Group;
         this.router.navigate(
-          ['/organizations', this.complementaryObject.voId, 'groups', this.complementaryObject.id],
+          ['/organizations', grp.voId, 'groups', this.complementaryObject.id],
           { relativeTo: this.route, queryParamsHandling: 'merge' }
         );
       } else if (

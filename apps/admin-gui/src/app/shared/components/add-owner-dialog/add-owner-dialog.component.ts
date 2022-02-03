@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
-import { OwnersManagerService } from '@perun-web-apps/perun/openapi';
+import { InputCreateOwner, OwnersManagerService } from '@perun-web-apps/perun/openapi';
 import { TranslateService } from '@ngx-translate/core';
 import { FormControl, Validators } from '@angular/forms';
 import { emailRegexString } from '@perun-web-apps/perun/utils';
+import OwnerTypeEnum = InputCreateOwner.OwnerTypeEnum;
 
 @Component({
   selector: 'app-add-owner-dialog',
@@ -45,12 +46,11 @@ export class AddOwnerDialogComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
-    // @ts-ignore
     this.ownersManagerService
       .createOwner({
         name: this.nameCtrl.value,
         contact: this.contactCtrl.value,
-        ownerType: Number.parseInt(this.type, 10),
+        ownerType: Number(this.type) as OwnerTypeEnum,
       })
       .subscribe(
         () => {

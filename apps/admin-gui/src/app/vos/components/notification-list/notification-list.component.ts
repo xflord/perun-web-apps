@@ -158,11 +158,10 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
 
   getMailType(applicationMail: ApplicationMail): string {
     let value = '';
-    // @ts-ignore
     if (
       applicationMail.mailType === undefined ||
       applicationMail.mailType === null ||
-      applicationMail.mailType === ''
+      applicationMail.mailType.length === 0
     ) {
       value = '';
     } else {
