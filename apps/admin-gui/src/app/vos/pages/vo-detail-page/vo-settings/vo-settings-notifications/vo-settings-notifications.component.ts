@@ -1,45 +1,34 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import {SelectionModel} from '@angular/cdk/collections';
-import {TranslateService} from '@ngx-translate/core';
-import {
-  DeleteNotificationDialogComponent
-} from '../../../../../shared/components/dialogs/delete-notification-dialog/delete-notification-dialog.component';
+import { SelectionModel } from '@angular/cdk/collections';
+import { TranslateService } from '@ngx-translate/core';
+import { DeleteNotificationDialogComponent } from '../../../../../shared/components/dialogs/delete-notification-dialog/delete-notification-dialog.component';
 import {
   EntityStorageService,
   GuiAuthResolver,
   NotificatorService,
-  StoreService
+  StoreService,
 } from '@perun-web-apps/perun/services';
-import {
-  EditEmailFooterDialogComponent
-} from '../../../../../shared/components/dialogs/edit-email-footer-dialog/edit-email-footer-dialog.component';
-import {
-  AddEditNotificationDialogComponent
-} from '../../../../../shared/components/dialogs/add-edit-notification-dialog/add-edit-notification-dialog.component';
-import {
-  NotificationsCopyMailsDialogComponent
-} from '../../../../../shared/components/dialogs/notifications-copy-mails-dialog/notifications-copy-mails-dialog.component';
+import { EditEmailFooterDialogComponent } from '../../../../../shared/components/dialogs/edit-email-footer-dialog/edit-email-footer-dialog.component';
+import { AddEditNotificationDialogComponent } from '../../../../../shared/components/dialogs/add-edit-notification-dialog/add-edit-notification-dialog.component';
+import { NotificationsCopyMailsDialogComponent } from '../../../../../shared/components/dialogs/notifications-copy-mails-dialog/notifications-copy-mails-dialog.component';
 import {
   ApplicationForm,
   ApplicationMail,
   RegistrarManagerService,
   VosManagerService,
-  Vo
+  Vo,
 } from '@perun-web-apps/perun/openapi';
 import { createNewApplicationMail, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import {
-  TABLE_VO_SETTINGS_NOTIFICATIONS,
-} from '@perun-web-apps/config/table-config';
+import { TABLE_VO_SETTINGS_NOTIFICATIONS } from '@perun-web-apps/config/table-config';
 
 @Component({
   selector: 'app-vo-settings-notifications',
   templateUrl: './vo-settings-notifications.component.html',
-  styleUrls: ['./vo-settings-notifications.component.scss']
+  styleUrls: ['./vo-settings-notifications.component.scss'],
 })
 export class VoSettingsNotificationsComponent implements OnInit {
-
   @HostBinding('class.router-component') true;
 
   constructor(
@@ -51,8 +40,8 @@ export class VoSettingsNotificationsComponent implements OnInit {
     private authResolver: GuiAuthResolver,
     private voService: VosManagerService,
     private store: StoreService,
-    private entityStorageService: EntityStorageService) {
-  }
+    private entityStorageService: EntityStorageService
+  ) {}
 
   loading = false;
   vo: Vo;
@@ -66,14 +55,13 @@ export class VoSettingsNotificationsComponent implements OnInit {
   removeAuth: boolean;
   copyAuth: boolean;
 
-
   ngOnInit() {
     this.loading = true;
     this.vo = this.entityStorageService.getEntity();
     this.setAuthRights();
-    this.registrarService.getVoApplicationForm(this.vo.id).subscribe( form => {
+    this.registrarService.getVoApplicationForm(this.vo.id).subscribe((form) => {
       this.applicationForm = form;
-      this.registrarService.getApplicationMailsForVo(this.vo.id).subscribe( mails => {
+      this.registrarService.getApplicationMailsForVo(this.vo.id).subscribe((mails) => {
         this.applicationMails = mails;
         this.loading = false;
       });
@@ -81,11 +69,19 @@ export class VoSettingsNotificationsComponent implements OnInit {
   }
 
   setAuthRights() {
-    this.addAuth = this.authResolver.isAuthorized('vo-addMail_ApplicationForm_ApplicationMail_policy', [this.vo]);
-    this.removeAuth = this.authResolver.isAuthorized('vo-deleteMailById_ApplicationForm_Integer_policy', [this.vo]);
+    this.addAuth = this.authResolver.isAuthorized(
+      'vo-addMail_ApplicationForm_ApplicationMail_policy',
+      [this.vo]
+    );
+    this.removeAuth = this.authResolver.isAuthorized(
+      'vo-deleteMailById_ApplicationForm_Integer_policy',
+      [this.vo]
+    );
     this.copyAuth = this.authResolver.isAuthorized('copyMailsFromVoToVo_Vo_Vo_policy', [this.vo]);
 
-    this.displayedColumns = this.removeAuth ? ['select', 'id', 'mailType', 'appType', 'send'] : [ 'id', 'mailType', 'appType', 'send'];
+    this.displayedColumns = this.removeAuth
+      ? ['select', 'id', 'mailType', 'appType', 'send']
+      : ['id', 'mailType', 'appType', 'send'];
   }
 
   add() {
@@ -96,12 +92,18 @@ export class VoSettingsNotificationsComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '1400px';
     config.height = '700px';
-    config.data = { theme: 'vo-theme', voId: this.vo.id, createMailNotification: true, applicationMail: applicationMail, applicationMails: this.applicationMails};
+    config.data = {
+      theme: 'vo-theme',
+      voId: this.vo.id,
+      createMailNotification: true,
+      applicationMail: applicationMail,
+      applicationMails: this.applicationMails,
+    };
 
     const dialog = this.dialog.open(AddEditNotificationDialogComponent, config);
-    dialog.afterClosed().subscribe( success => {
+    dialog.afterClosed().subscribe((success) => {
       if (success) {
-        this.translate.get('VO_DETAIL.SETTINGS.NOTIFICATIONS.ADD_SUCCESS').subscribe( text => {
+        this.translate.get('VO_DETAIL.SETTINGS.NOTIFICATIONS.ADD_SUCCESS').subscribe((text) => {
           this.notificator.showSuccess(text);
         });
         this.selection.clear();
@@ -113,12 +115,12 @@ export class VoSettingsNotificationsComponent implements OnInit {
   remove() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {voId: this.vo.id, mails: this.selection.selected, theme: 'vo-theme'};
+    config.data = { voId: this.vo.id, mails: this.selection.selected, theme: 'vo-theme' };
 
     const dialog = this.dialog.open(DeleteNotificationDialogComponent, config);
-    dialog.afterClosed().subscribe( success => {
+    dialog.afterClosed().subscribe((success) => {
       if (success) {
-        this.translate.get('VO_DETAIL.SETTINGS.NOTIFICATIONS.DELETE_SUCCESS').subscribe( text => {
+        this.translate.get('VO_DETAIL.SETTINGS.NOTIFICATIONS.DELETE_SUCCESS').subscribe((text) => {
           this.notificator.showSuccess(text);
         });
         this.selection.clear();
@@ -130,10 +132,10 @@ export class VoSettingsNotificationsComponent implements OnInit {
   copy() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {voId: this.vo.id, theme: 'vo-theme'};
+    config.data = { voId: this.vo.id, theme: 'vo-theme' };
 
     const dialog = this.dialog.open(NotificationsCopyMailsDialogComponent, config);
-    dialog.afterClosed().subscribe( copyFrom => {
+    dialog.afterClosed().subscribe((copyFrom) => {
       if (copyFrom) {
         this.selection.clear();
         this.updateTable();
@@ -143,7 +145,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
 
   updateTable() {
     this.loading = true;
-    this.registrarService.getApplicationMailsForVo(this.vo.id).subscribe( mails => {
+    this.registrarService.getApplicationMailsForVo(this.vo.id).subscribe((mails) => {
       this.applicationMails = mails;
       this.loading = false;
     });
@@ -152,7 +154,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
   changeEmailFooter() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {voId: this.vo.id, theme: 'vo-theme'};
+    config.data = { voId: this.vo.id, theme: 'vo-theme' };
 
     this.dialog.open(EditEmailFooterDialogComponent, config);
   }

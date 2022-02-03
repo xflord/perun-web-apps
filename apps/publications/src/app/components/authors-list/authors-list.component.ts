@@ -1,9 +1,23 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Author } from '@perun-web-apps/perun/openapi';
 import {
   customDataSourceFilterPredicate,
-  customDataSourceSort, downloadData, getDataForExport, parseAttribute, parseFullName, parseName,
-  TABLE_ITEMS_COUNT_OPTIONS, TableWrapperComponent
+  customDataSourceSort,
+  downloadData,
+  getDataForExport,
+  parseAttribute,
+  parseFullName,
+  parseName,
+  TABLE_ITEMS_COUNT_OPTIONS,
+  TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,11 +26,10 @@ import { SelectionModel } from '@angular/cdk/collections';
 @Component({
   selector: 'perun-web-apps-authors-list',
   templateUrl: './authors-list.component.html',
-  styleUrls: ['./authors-list.component.scss']
+  styleUrls: ['./authors-list.component.scss'],
 })
 export class AuthorsListComponent implements AfterViewInit, OnChanges {
-
-  constructor() { }
+  constructor() {}
 
   @Input()
   authors: Author[] = [];
@@ -25,7 +38,16 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
   @Input()
   tableId: string;
   @Input()
-  displayedColumns: string[] = ['select', 'id', 'name', 'organization', 'email', 'numberOfPublications', 'add', 'remove'];
+  displayedColumns: string[] = [
+    'select',
+    'id',
+    'name',
+    'organization',
+    'email',
+    'numberOfPublications',
+    'add',
+    'remove',
+  ];
   @Input()
   disableRouting = false;
   @Input()
@@ -47,7 +69,7 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
 
   dataSource: MatTableDataSource<Author>;
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   ngOnChanges(): void {
     this.dataSource = new MatTableDataSource<Author>(this.authors);
@@ -59,7 +81,7 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
     this.dataSource.paginator = this.child.paginator;
   }
 
-  getSortDataForColumn(data: Author, column: string):string {
+  getSortDataForColumn(data: Author, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -76,7 +98,7 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  getFilterDataForColumn(data: Author, column: string):string {
+  getFilterDataForColumn(data: Author, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -93,7 +115,7 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  getExportDataForColumn(data: Author, column: string):string {
+  getExportDataForColumn(data: Author, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -110,16 +132,24 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getExportDataForColumn, this), format);
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getExportDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
   parseAttribute(data: Author, nameOfAttribute: string) {
     let attribute = '';
     if (data.attributes) {
-      data.attributes.forEach(attr => {
+      data.attributes.forEach((attr) => {
         if (attr.friendlyName === nameOfAttribute) {
-          attribute = <string><unknown>attr.value;
+          attribute = <string>(<unknown>attr.value);
         }
       });
     }
@@ -141,8 +171,16 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
 
   private setDataSource() {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: Author, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getFilterDataForColumn, this);
-      this.dataSource.sortData = (data: Author[], sort: MatSort) => customDataSourceSort(data, sort, this.getSortDataForColumn, this);
+      this.dataSource.filterPredicate = (data: Author, filter: string) =>
+        customDataSourceFilterPredicate(
+          data,
+          filter,
+          this.displayedColumns,
+          this.getFilterDataForColumn,
+          this
+        );
+      this.dataSource.sortData = (data: Author[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getSortDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }

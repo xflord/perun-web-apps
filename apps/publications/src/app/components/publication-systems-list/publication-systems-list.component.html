@@ -1,41 +1,49 @@
-<div [hidden]="dataSource.filteredData.length === 0 || publicationSystems.length === 0" class="card mt-3">
-
+<div
+  [hidden]="dataSource.filteredData.length === 0 || publicationSystems.length === 0"
+  class="card mt-3">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [tableId]="tableId"
     [dataLength]="dataSource.filteredData.length"
     [pageSizeOptions]="pageSizeOptions">
-    <table [dataSource]="dataSource"
-           class="w-100"
-           mat-table
-           matSort
-           matSortActive="recent"
-           matSortDirection="asc"
-           matSortDisableClear>
-
+    <table
+      [dataSource]="dataSource"
+      class="w-100"
+      mat-table
+      matSort
+      matSortActive="recent"
+      matSortDirection="asc"
+      matSortDisableClear>
       <ng-container matColumnDef="id">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'PUBLICATION_SYSTEMS_LIST.ID' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'PUBLICATION_SYSTEMS_LIST.ID' | translate}}
+        </th>
         <td *matCellDef="let pubSys" class="static-column-size" mat-cell>{{pubSys.id}}</td>
       </ng-container>
       <ng-container matColumnDef="friendlyName">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'PUBLICATION_SYSTEMS_LIST.FRIENDLY_NAME' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'PUBLICATION_SYSTEMS_LIST.FRIENDLY_NAME' | translate}}
+        </th>
         <td *matCellDef="let pubSys" mat-cell>{{pubSys.friendlyName}}</td>
       </ng-container>
       <ng-container matColumnDef="loginNamespace">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'PUBLICATION_SYSTEMS_LIST.LOGIN_NAMESPACE' | translate}}</th>
-        <td *matCellDef="let pubSys" mat-cell>{{pubSys.loginNamespace === 'empty' ? '' : pubSys.loginNamespace}}</td>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'PUBLICATION_SYSTEMS_LIST.LOGIN_NAMESPACE' | translate}}
+        </th>
+        <td *matCellDef="let pubSys" mat-cell>
+          {{pubSys.loginNamespace === 'empty' ? '' : pubSys.loginNamespace}}
+        </td>
       </ng-container>
       <ng-container matColumnDef="url">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'PUBLICATION_SYSTEMS_LIST.URL' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'PUBLICATION_SYSTEMS_LIST.URL' | translate}}
+        </th>
         <td *matCellDef="let pubSys" mat-cell>{{pubSys.url === 'empty' ? '' : pubSys.url}}</td>
       </ng-container>
       <ng-container matColumnDef="type">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'PUBLICATION_SYSTEMS_LIST.TYPE' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'PUBLICATION_SYSTEMS_LIST.TYPE' | translate}}
+        </th>
         <td *matCellDef="let pubSys" mat-cell>{{pubSys.type === 'empty' ? '' : pubSys.type}}</td>
       </ng-container>
 
@@ -43,12 +51,13 @@
       <tr
         *matRowDef="let resource; columns: displayedColumns;"
         class="dark-hover-list-item"
-        mat-row>
-      </tr>
+        mat-row></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
 
-<app-alert *ngIf="dataSource.filteredData.length === 0 && publicationSystems.length !== 0" alert_type="warn">
+<app-alert
+  *ngIf="dataSource.filteredData.length === 0 && publicationSystems.length !== 0"
+  alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
 </app-alert>

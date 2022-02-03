@@ -14,16 +14,16 @@ export interface RemoveHostDialogData {
 @Component({
   selector: 'app-remove-host-dialog',
   templateUrl: './remove-host-dialog.component.html',
-  styleUrls: ['./remove-host-dialog.component.scss']
+  styleUrls: ['./remove-host-dialog.component.scss'],
 })
-
 export class RemoveHostDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<RemoveHostDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: RemoveHostDialogData,
-              public facilitiesManager: FacilitiesManagerService,
-              private notificator: NotificatorService,
-              private translate: TranslateService) { }
+  constructor(
+    private dialogRef: MatDialogRef<RemoveHostDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: RemoveHostDialogData,
+    public facilitiesManager: FacilitiesManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService
+  ) {}
 
   theme: string;
   hosts: Host[];
@@ -37,16 +37,23 @@ export class RemoveHostDialogComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Host>(this.data.hosts);
   }
 
-  onConfirm(){
+  onConfirm() {
     this.loading = true;
-    this.facilitiesManager.removeHosts(this.data.facilityId, this.hosts.map(m => m.id)).subscribe(() => {
-      this.notificator.showSuccess(this.translate.instant('DIALOGS.REMOVE_HOST.SUCCESS'));
-      this.dialogRef.close(true);
-    }, () => this.loading = false);
+    this.facilitiesManager
+      .removeHosts(
+        this.data.facilityId,
+        this.hosts.map((m) => m.id)
+      )
+      .subscribe(
+        () => {
+          this.notificator.showSuccess(this.translate.instant('DIALOGS.REMOVE_HOST.SUCCESS'));
+          this.dialogRef.close(true);
+        },
+        () => (this.loading = false)
+      );
   }
 
-  onCancel(){
+  onCancel() {
     this.dialogRef.close(false);
   }
-
 }

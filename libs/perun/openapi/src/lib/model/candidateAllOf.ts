@@ -11,10 +11,8 @@
  */
 import { UserExtSource } from './userExtSource';
 
-
-export interface CandidateAllOf { 
-    userExtSource?: UserExtSource;
-    additionalUserExtSources?: Array<UserExtSource>;
-    attributes?: { [key: string]: string; };
+export interface CandidateAllOf {
+  userExtSource?: UserExtSource;
+  additionalUserExtSources?: Array<UserExtSource>;
+  attributes?: { [key: string]: string };
 }
-

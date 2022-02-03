@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface ServiceForGUIAllOf { 
-    allowedOnFacility?: boolean;
+export interface ServiceForGUIAllOf {
+  allowedOnFacility?: boolean;
 }
-

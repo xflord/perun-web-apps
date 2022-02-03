@@ -11,11 +11,9 @@
  */
 import { ApplicationMail } from './applicationMail';
 
-
 /**
  * input to updateApplicationMail
  */
-export interface InputUpdateApplicationMail { 
-    mail: ApplicationMail;
+export interface InputUpdateApplicationMail {
+  mail: ApplicationMail;
 }
-

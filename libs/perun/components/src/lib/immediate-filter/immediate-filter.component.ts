@@ -1,14 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'perun-web-apps-immediate-filter',
   templateUrl: './immediate-filter.component.html',
-  styleUrls: ['./immediate-filter.component.scss']
+  styleUrls: ['./immediate-filter.component.scss'],
 })
 export class ImmediateFilterComponent implements OnInit {
-
-  constructor() { }
+  constructor() {}
 
   @Input()
   placeholder: string;
@@ -22,7 +21,7 @@ export class ImmediateFilterComponent implements OnInit {
   formControl = new FormControl();
 
   ngOnInit(): void {
-    this.formControl.valueChanges.subscribe(value => {
+    this.formControl.valueChanges.subscribe((value) => {
       let returnValue = value.trim();
       returnValue = returnValue.toLowerCase();
       this.filter.emit(returnValue);

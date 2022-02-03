@@ -19,7 +19,11 @@ $password-reset-accent: mat.define-palette(mat.$green-palette, 600);
 $password-reset-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$password-reset-theme: mat.define-light-theme($password-reset-primary, $password-reset-accent, $password-reset-warn);
+$password-reset-theme: mat.define-light-theme(
+  $password-reset-primary,
+  $password-reset-accent,
+  $password-reset-warn
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -29,21 +33,21 @@ $password-reset-theme: mat.define-light-theme($password-reset-primary, $password
 /* You can add global styles to this file, and also import other style files */
 
 .user-theme {
-  $user-dynamic-colors:(
-    50 : rgba(var(--user-theme-primary-50), 1),
-    100 : rgba(var(--user-theme-primary-100), 1),
-    200 : rgba(var(--user-theme-primary-200), 1),
-    300 : rgba(var(--user-theme-primary-300), 1),
-    400 : rgba(var(--user-theme-primary-400), 1),
-    500 : rgba(var(--user-theme-primary-500), 1),
-    600 : rgba(var(--user-theme-primary-600), 1),
-    700 : rgba(var(--user-theme-primary-700), 1),
-    800 : rgba(var(--user-theme-primary-800), 1),
-    900 : rgba(var(--user-theme-primary-900), 1),
-    A100 : rgba(var(--user-theme-primary-A100), 1),
-    A200 : rgba(var(--user-theme-primary-A200), 1),
-    A400 : rgba(var(--user-theme-primary-A400), 1),
-    A700 : rgba(var(--user-theme-primary-A700), 1),
+  $user-dynamic-colors: (
+    50: rgba(var(--user-theme-primary-50), 1),
+    100: rgba(var(--user-theme-primary-100), 1),
+    200: rgba(var(--user-theme-primary-200), 1),
+    300: rgba(var(--user-theme-primary-300), 1),
+    400: rgba(var(--user-theme-primary-400), 1),
+    500: rgba(var(--user-theme-primary-500), 1),
+    600: rgba(var(--user-theme-primary-600), 1),
+    700: rgba(var(--user-theme-primary-700), 1),
+    800: rgba(var(--user-theme-primary-800), 1),
+    900: rgba(var(--user-theme-primary-900), 1),
+    A100: rgba(var(--user-theme-primary-A100), 1),
+    A200: rgba(var(--user-theme-primary-A200), 1),
+    A400: rgba(var(--user-theme-primary-A400), 1),
+    A700: rgba(var(--user-theme-primary-A700), 1),
     contrast: (
       50: rgba(var(--user-theme-primary-contrast-50), 1),
       100: rgba(var(--user-theme-primary-contrast-100), 1),
@@ -59,7 +63,7 @@ $password-reset-theme: mat.define-light-theme($password-reset-primary, $password
       A200: rgba(var(--user-theme-primary-contrast-A200), 1),
       A400: rgba(var(--user-theme-primary-contrast-A400), 1),
       A700: rgba(var(--user-theme-primary-contrast-A700), 1),
-    )
+    ),
   );
 
   $user-primary: mat.define-palette($user-dynamic-colors, 500);

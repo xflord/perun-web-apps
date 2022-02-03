@@ -3,13 +3,16 @@
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
     *ngIf="removeAuth"
-    class="mr-2" color="warn" mat-flat-button
+    class="mr-2"
+    color="warn"
+    mat-flat-button
     [disabled]="selected.selected.length === 0"
     (click)="deleteSelectedResources()">
     {{'VO_DETAIL.RESOURCES.LIST.DELETE' | translate}}
   </button>
-  <perun-web-apps-immediate-filter (filter)="applyFilter($event)"
-                                   [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'"></perun-web-apps-immediate-filter>
+  <perun-web-apps-immediate-filter
+    (filter)="applyFilter($event)"
+    [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'"></perun-web-apps-immediate-filter>
 
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <perun-web-apps-resources-list
@@ -23,4 +26,3 @@
     [displayedColumns]="displayedColumns">
   </perun-web-apps-resources-list>
 </div>
-

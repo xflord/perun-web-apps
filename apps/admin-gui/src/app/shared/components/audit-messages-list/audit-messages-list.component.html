@@ -1,4 +1,6 @@
-<div [hidden]="this.dataSource.allObjectCount === 0 && (dataSource.loading$ | async) === false" class="card mt-2">
+<div
+  [hidden]="this.dataSource.allObjectCount === 0 && (dataSource.loading$ | async) === false"
+  class="card mt-2">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [dataLength]="dataSource.allObjectCount"
@@ -15,36 +17,51 @@
       matSortActive="id"
       matSortDirection="desc"
       matSortDisableClear>
-
       <ng-container matColumnDef="id">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'AUDIT_MESSAGES_LIST.ID' | translate}}</th>
-        <td *matCellDef="let auditMessage" class="static-column-size" mat-cell>{{auditMessage.id}}</td>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'AUDIT_MESSAGES_LIST.ID' | translate}}
+        </th>
+        <td *matCellDef="let auditMessage" class="static-column-size" mat-cell>
+          {{auditMessage.id}}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="timestamp">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'AUDIT_MESSAGES_LIST.TIMESTAMP' | translate}}</th>
-        <td *matCellDef="let auditMessage" class="static-column-size" mat-cell>{{auditMessage.createdAt | parseDate:true}}</td>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'AUDIT_MESSAGES_LIST.TIMESTAMP' | translate}}
+        </th>
+        <td *matCellDef="let auditMessage" class="static-column-size" mat-cell>
+          {{auditMessage.createdAt | parseDate:true}}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="name">
         <th *matHeaderCellDef mat-header-cell>{{'AUDIT_MESSAGES_LIST.EVENT_NAME' | translate}}</th>
-        <td *matCellDef="let auditMessage" class="static-column-size" mat-cell>{{auditMessage.event.name | parseEventName}}</td>
+        <td *matCellDef="let auditMessage" class="static-column-size" mat-cell>
+          {{auditMessage.event.name | parseEventName}}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="actor">
         <th *matHeaderCellDef mat-header-cell>{{'AUDIT_MESSAGES_LIST.ACTOR' | translate}}</th>
-        <td *matCellDef="let auditMessage" class="static-column-size" mat-cell>{{auditMessage.actor}}</td>
+        <td *matCellDef="let auditMessage" class="static-column-size" mat-cell>
+          {{auditMessage.actor}}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="event.message">
         <th *matHeaderCellDef mat-header-cell>{{'AUDIT_MESSAGES_LIST.MESSAGE' | translate}}</th>
-        <td *matCellDef="let auditMessage" class="static-column-size" mat-cell>{{auditMessage.event.message}}</td>
+        <td *matCellDef="let auditMessage" class="static-column-size" mat-cell>
+          {{auditMessage.event.message}}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="detail">
         <th *matHeaderCellDef mat-header-cell></th>
         <td *matCellDef="let auditMessage" class="static-column-size" mat-cell>
-          <button (click)="viewDetails(auditMessage)" color="accent" mat-flat-button>{{'AUDIT_MESSAGES_LIST.VIEW_DETAIL' | translate}}</button>
+          <button (click)="viewDetails(auditMessage)" color="accent" mat-flat-button>
+            {{'AUDIT_MESSAGES_LIST.VIEW_DETAIL' | translate}}
+          </button>
         </td>
       </ng-container>
 
@@ -52,8 +69,7 @@
       <tr
         *matRowDef="let auditMessage; columns: displayedColumns;"
         class="dark-hover-list-item"
-        mat-row>
-      </tr>
+        mat-row></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>

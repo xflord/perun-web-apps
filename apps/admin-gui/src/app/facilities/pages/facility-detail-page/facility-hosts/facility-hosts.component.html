@@ -14,7 +14,8 @@
     mat-flat-button
     color="warn"
     class="mr-2"
-    [disabled]="selected.selected.length === 0" (click)="removeHost()">
+    [disabled]="selected.selected.length === 0"
+    (click)="removeHost()">
     {{'FACILITY_DETAIL.HOSTS.REMOVE' | translate}}
   </button>
   <perun-web-apps-immediate-filter

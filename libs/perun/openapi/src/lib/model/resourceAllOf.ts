@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
-export interface ResourceAllOf { 
-    name?: string;
-    description?: string;
-    voId?: number;
-    facilityId?: number;
+export interface ResourceAllOf {
+  name?: string;
+  description?: string;
+  voId?: number;
+  facilityId?: number;
 }
-

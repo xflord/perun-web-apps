@@ -1,23 +1,28 @@
-<div [hidden]="groups.length === 0 || !dataSource || dataSource.filteredData.length === 0" class="card mt-2">
+<div
+  [hidden]="groups.length === 0 || !dataSource || dataSource.filteredData.length === 0"
+  class="card mt-2">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [dataLength]="dataSource.filteredData.length"
     [pageSizeOptions]="pageSizeOptions"
     [tableId]="tableId">
-    <table [dataSource]="dataSource"
-           class="w-100"
-           mat-table matSort
-           matSortActive="recent"
-           matSortDirection="asc"
-           matSortDisableClear>
+    <table
+      [dataSource]="dataSource"
+      class="w-100"
+      mat-table
+      matSort
+      matSortActive="recent"
+      matSortDirection="asc"
+      matSortDisableClear>
       <ng-container matColumnDef="select">
         <th *matHeaderCellDef mat-header-cell class="align-checkbox">
-          <mat-checkbox (change)="$event ? masterToggle() : null"
-                        *ngIf="!disableHeadCheckbox"
-                        [aria-label]="checkboxLabel()"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()"
-                        color="primary">
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            *ngIf="!disableHeadCheckbox"
+            [aria-label]="checkboxLabel()"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            color="primary">
           </mat-checkbox>
         </th>
         <td *matCellDef="let row" class="static-column-size align-checkbox" mat-cell>
@@ -91,26 +96,31 @@
           </td>
         </ng-container>
       <ng-container matColumnDef="groupStatus">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.TABLE_GROUP_STATUS' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.TABLE_GROUP_STATUS' | translate}}
+        </th>
         <td *matCellDef="let group" mat-cell>
-          <i class="material-icons {{getStatusAttribute(group) | memberStatusIconColor}}"
-             matTooltip="{{getStatusAttribute(group)}}"
-             matTooltipClass="status-tooltip"
-             matTooltipPosition="left">
-              <span>
-                {{getStatusAttribute(group) | memberStatusIcon}}
-              </span>
+          <i
+            class="material-icons {{getStatusAttribute(group) | memberStatusIconColor}}"
+            matTooltip="{{getStatusAttribute(group)}}"
+            matTooltipClass="status-tooltip"
+            matTooltipPosition="left">
+            <span>
+              {{getStatusAttribute(group) | memberStatusIcon}}
+            </span>
           </i>
         </td>
       </ng-container>
       <ng-container matColumnDef="description">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.TABLE_GROUP_DESCRIPTION' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.TABLE_GROUP_DESCRIPTION' | translate}}
+        </th>
         <td *matCellDef="let group" class="wrap-content" mat-cell>{{group.description}}</td>
       </ng-container>
       <ng-container matColumnDef="expiration">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.TABLE_GROUP_EXPIRATION' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.TABLE_GROUP_EXPIRATION' | translate}}
+        </th>
         <td *matCellDef="let group" class="wrap-content" mat-cell>
           {{group | groupExpiration | parseDate}}
           <button
@@ -147,8 +157,7 @@
         [perunWebAppsMiddleClickRouterLink]="(disabledRouting || groupsToDisableRouting.has(group.id)) ? null : ['/organizations', group.voId, 'groups', group.id]"
         [routerLink]="(disabledRouting || groupsToDisableRouting.has(group.id)) ? null : ['/organizations', group.voId, 'groups', group.id]"
         class="dark-hover-list-item"
-        mat-row>
-      </tr>
+        mat-row></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
@@ -160,5 +169,3 @@
 <app-alert *ngIf="dataSource.filteredData.length === 0 && groups.length !== 0" alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
 </app-alert>
-
-

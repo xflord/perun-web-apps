@@ -14,11 +14,11 @@
     <table [dataSource]="extSources" class="w-100" mat-table>
       <ng-container matColumnDef="id">
         <th *matHeaderCellDef mat-header-cell>id</th>
-        <td *matCellDef="let extSource" mat-cell> {{extSource.id}} </td>
+        <td *matCellDef="let extSource" mat-cell>{{extSource.id}}</td>
       </ng-container>
       <ng-container matColumnDef="name">
         <th *matHeaderCellDef mat-header-cell>name</th>
-        <td *matCellDef="let extSource" mat-cell> {{extSource.name}} </td>
+        <td *matCellDef="let extSource" mat-cell>{{extSource.name}}</td>
       </ng-container>
       <tr *matHeaderRowDef="displayedColumns" class="font-weight-bolder" mat-header-row></tr>
       <tr *matRowDef="let extSource; columns: displayedColumns;" mat-row></tr>
@@ -26,18 +26,11 @@
   </div>
 
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
       {{'DIALOGS.REMOVE_EXT_SOURCES.CANCEL' | translate}}
     </button>
 
-    <button
-      mat-flat-button
-      class="ml-2"
-      color="warn"
-      (click)="onRemove()">
+    <button mat-flat-button class="ml-2" color="warn" (click)="onRemove()">
       {{'DIALOGS.REMOVE_EXT_SOURCES.REMOVE' | translate}}
     </button>
   </div>

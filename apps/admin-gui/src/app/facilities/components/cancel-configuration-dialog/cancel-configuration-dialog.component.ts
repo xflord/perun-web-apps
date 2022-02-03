@@ -13,17 +13,16 @@ export interface CancelConfigurationDialogData {
 @Component({
   selector: 'app-cancel-configuration-dialog',
   templateUrl: './cancel-configuration-dialog.component.html',
-  styleUrls: ['./cancel-configuration-dialog.component.scss']
+  styleUrls: ['./cancel-configuration-dialog.component.scss'],
 })
 export class CancelConfigurationDialogComponent implements OnInit {
-
   constructor(
     public dialogRef: MatDialogRef<CancelConfigurationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: CancelConfigurationDialogData,
     private facilityService: FacilitiesManagerService,
     private notificator: NotificatorService,
     private translate: TranslateService
-    ) { }
+  ) {}
 
   theme = '';
   lastStep: boolean;
@@ -33,7 +32,7 @@ export class CancelConfigurationDialogComponent implements OnInit {
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.lastStep = this.data.lastStep;
-    if(this.lastStep){
+    if (this.lastStep) {
       this.title = 'DIALOGS.CANCEL_CONFIG.TITLE_COMPLETE';
       this.info = 'DIALOGS.CANCEL_CONFIG.INFO_COMPLETE';
     } else {
@@ -48,15 +47,17 @@ export class CancelConfigurationDialogComponent implements OnInit {
 
   onDelete() {
     this.loading = true;
-    this.facilityService.deleteFacility(this.data.facilityId, true).subscribe(() => {
-      this.notificator.showSuccess(this.translate.instant('DIALOGS.CANCEL_CONFIG.SUCCESS'));
-      this.dialogRef.close(true);
-      this.loading = false;
-    }, () => this.loading = false)
+    this.facilityService.deleteFacility(this.data.facilityId, true).subscribe(
+      () => {
+        this.notificator.showSuccess(this.translate.instant('DIALOGS.CANCEL_CONFIG.SUCCESS'));
+        this.dialogRef.close(true);
+        this.loading = false;
+      },
+      () => (this.loading = false)
+    );
   }
 
   onKeep() {
     this.dialogRef.close(true);
   }
-
 }

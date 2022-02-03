@@ -1,5 +1,9 @@
 <mat-list>
-  <mat-list-item *ngFor="let item of items" matRipple [routerLink]="item.url" queryParamsHandling="merge">
+  <mat-list-item
+    *ngFor="let item of items"
+    matRipple
+    [routerLink]="item.url"
+    queryParamsHandling="merge">
     <mat-icon>{{item.icon}}</mat-icon>
     <p class="ml-2 mt-auto mb-auto">{{item.label | customTranslate | translate}}</p>
   </mat-list-item>

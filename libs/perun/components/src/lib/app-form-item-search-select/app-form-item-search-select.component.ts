@@ -7,11 +7,10 @@ export const NO_FORM_ITEM: ApplicationFormItem = {};
 @Component({
   selector: 'perun-web-apps-app-form-item-search-select',
   templateUrl: './app-form-item-search-select.component.html',
-  styleUrls: ['./app-form-item-search-select.component.css']
+  styleUrls: ['./app-form-item-search-select.component.css'],
 })
 export class AppFormItemSearchSelectComponent {
-
-  constructor(private translate: TranslateService) { }
+  constructor(private translate: TranslateService) {}
 
   @Input()
   items: ApplicationFormItem[];
@@ -23,23 +22,27 @@ export class AppFormItemSearchSelectComponent {
 
   nameFunction = (item: ApplicationFormItem) => {
     if (item === NO_FORM_ITEM) {
-      return this.translate.instant("SHARED_LIB.PERUN.COMPONENTS.APP_FORM_ITEM_SEARCH_SELECT.NO_ITEM");
+      return this.translate.instant(
+        'SHARED_LIB.PERUN.COMPONENTS.APP_FORM_ITEM_SEARCH_SELECT.NO_ITEM'
+      );
     }
     return item.shortname;
-  }
+  };
   secondaryFunction = (item: ApplicationFormItem) => {
     if (item === NO_FORM_ITEM) {
-      return "";
+      return '';
     }
     if (item.id < 0) {
-      return this.translate.instant("SHARED_LIB.PERUN.COMPONENTS.APP_FORM_ITEM_SEARCH_SELECT.NEW_ITEM")
+      return this.translate.instant(
+        'SHARED_LIB.PERUN.COMPONENTS.APP_FORM_ITEM_SEARCH_SELECT.NEW_ITEM'
+      );
     }
-    return "#" + item.id;
-  }
+    return '#' + item.id;
+  };
   searchFunction = (item: ApplicationFormItem) => {
     if (item === NO_FORM_ITEM) {
-      return "";
+      return '';
     }
     return item.shortname + item.id;
-  }
+  };
 }

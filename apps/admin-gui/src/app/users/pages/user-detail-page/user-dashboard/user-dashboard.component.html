@@ -3,13 +3,19 @@
     <div class="m-4 user-theme">
       <div class="page-subtitle">{{'USER_DETAIL.DASHBOARD.DASHBOARD_SETTINGS' | translate}}</div>
       <div>
-        <mat-checkbox  [(ngModel)]="recentlyViewedShow"
-                       (change)="$event ? recentlyViewedChanged() : null">{{'USER_DETAIL.DASHBOARD.SHOW_RECENTLY_VIEWED' | translate}}</mat-checkbox>
+        <mat-checkbox
+          [(ngModel)]="recentlyViewedShow"
+          (change)="$event ? recentlyViewedChanged() : null"
+          >{{'USER_DETAIL.DASHBOARD.SHOW_RECENTLY_VIEWED' | translate}}</mat-checkbox
+        >
       </div>
       <div class="text-bigger mt-1 mb-1">{{'USER_DETAIL.DASHBOARD.SHOW_ROLES' | translate}}</div>
       <div *ngFor="let roleName of this.roleNames">
-        <mat-checkbox  [checked]="this.isRoleShowed(roleName)"
-                       (change)="$event ? changeRoleView(roleName) : null">{{'USER_DETAIL.DASHBOARD.CARD_TITLE_' + this.roleName | translate}}</mat-checkbox>
+        <mat-checkbox
+          [checked]="this.isRoleShowed(roleName)"
+          (change)="$event ? changeRoleView(roleName) : null"
+          >{{'USER_DETAIL.DASHBOARD.CARD_TITLE_' + this.roleName | translate}}</mat-checkbox
+        >
       </div>
     </div>
   </mat-sidenav>
@@ -17,9 +23,15 @@
   <mat-sidenav-content>
     <div class="container-fluid pl-xl-5 pr-xl-5 user-theme" *ngIf="user !== undefined">
       <h1 class="page-title d-flex">
-        <mat-icon svgIcon='perun-home-white' class="home-image perun-icon"></mat-icon>
-        <span class="pt-1" data-cy="dashboard-welcome">{{'USER_DETAIL.DASHBOARD.TITLE' | translate}} {{this.user | userFullName}}</span>
-        <button mat-stroked-button *ngIf="!isOnlySelfRole" (click)="this.rightSettingOpened = true" class="ml-auto text-bigger">
+        <mat-icon svgIcon="perun-home-white" class="home-image perun-icon"></mat-icon>
+        <span class="pt-1" data-cy="dashboard-welcome"
+          >{{'USER_DETAIL.DASHBOARD.TITLE' | translate}} {{this.user | userFullName}}</span
+        >
+        <button
+          mat-stroked-button
+          *ngIf="!isOnlySelfRole"
+          (click)="this.rightSettingOpened = true"
+          class="ml-auto text-bigger">
           <mat-icon>settings</mat-icon>
         </button>
       </h1>
@@ -30,24 +42,30 @@
             {{'USER_DETAIL.DASHBOARD.NOT_MANAGER' | translate}}
           </div>
           <div class="text-align pt-3">
-            <span *ngIf="!userProfileUrl">{{'USER_DETAIL.DASHBOARD.NOT_MANAGER_INFO_NO_USER_PROFILE' | translate}}</span>
-            <span *ngIf="userProfileUrl">{{'USER_DETAIL.DASHBOARD.NOT_MANAGER_INFO' | translate}}</span>
+            <span
+              *ngIf="!userProfileUrl"
+              >{{'USER_DETAIL.DASHBOARD.NOT_MANAGER_INFO_NO_USER_PROFILE' | translate}}</span
+            >
+            <span
+              *ngIf="userProfileUrl"
+              >{{'USER_DETAIL.DASHBOARD.NOT_MANAGER_INFO' | translate}}</span
+            >
           </div>
           <div class="mx-auto pt-3">
             <button mat-stroked-button class="text-bigger" [routerLink]="['/myProfile']">
-              <mat-icon svgIcon='perun-user-dark' class="mr-1 user-icon perun-icon"></mat-icon>
+              <mat-icon svgIcon="perun-user-dark" class="mr-1 user-icon perun-icon"></mat-icon>
               {{'USER_DETAIL.DASHBOARD.GO_TO_MY_PROFILE' | translate}}
             </button>
 
-            <button mat-stroked-button
-                    class="text-bigger ml-2 mt-2"
-                    *ngIf="userProfileUrl"
-                    (click)="goToUserProfile()">
-              <mat-icon class="mr-1">exit_to_app</mat-icon>{{'USER_DETAIL.DASHBOARD.GO_TO_USER_PROFILE' | translate}} {{this.userProfileName}}
+            <button
+              mat-stroked-button
+              class="text-bigger ml-2 mt-2"
+              *ngIf="userProfileUrl"
+              (click)="goToUserProfile()">
+              <mat-icon class="mr-1">exit_to_app</mat-icon
+              >{{'USER_DETAIL.DASHBOARD.GO_TO_USER_PROFILE' | translate}} {{this.userProfileName}}
             </button>
           </div>
-
-
         </div>
       </div>
       <div *ngIf="!isOnlySelfRole">
@@ -71,8 +89,5 @@
         </div>
       </div>
     </div>
-
   </mat-sidenav-content>
 </mat-sidenav-container>
-
-

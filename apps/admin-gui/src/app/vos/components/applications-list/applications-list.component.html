@@ -1,27 +1,37 @@
-<div [hidden]="this.applications.length === 0 || !dataSource || dataSource.filteredData.length === 0" class="card mt-2">
-
+<div
+  [hidden]="this.applications.length === 0 || !dataSource || dataSource.filteredData.length === 0"
+  class="card mt-2">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [dataLength]="dataSource.filteredData.length"
     [pageSizeOptions]="pageSizeOptions"
     [tableId]="tableId">
-    <table [dataSource]="dataSource"
-           class="w-100"
-           mat-table
-           matSort
-           matSortActive="createdAt"
-           matSortDirection="desc"
-           matSortDisableClear>
+    <table
+      [dataSource]="dataSource"
+      class="w-100"
+      mat-table
+      matSort
+      matSortActive="createdAt"
+      matSortDirection="desc"
+      matSortDisableClear>
       <ng-container matColumnDef="id">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'VO_DETAIL.APPLICATION.TABLE_ID' | translate}}</th>
-        <td *matCellDef="let application" class="static-column-size" mat-cell>{{application.id}}</td>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'VO_DETAIL.APPLICATION.TABLE_ID' | translate}}
+        </th>
+        <td *matCellDef="let application" class="static-column-size" mat-cell>
+          {{application.id}}
+        </td>
       </ng-container>
       <ng-container matColumnDef="createdAt">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'VO_DETAIL.APPLICATION.TABLE_CREATED_DATE' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'VO_DETAIL.APPLICATION.TABLE_CREATED_DATE' | translate}}
+        </th>
         <td *matCellDef="let application" mat-cell>{{application.createdAt | date: 'd.M.y'}}</td>
       </ng-container>
       <ng-container matColumnDef="type">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'VO_DETAIL.APPLICATION.TABLE_TYPE' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'VO_DETAIL.APPLICATION.TABLE_TYPE' | translate}}
+        </th>
         <td *matCellDef="let application" mat-cell>
           <div *ngIf="application.type === 'INITIAL'">
             <mat-icon matTooltip="Initial" matTooltipPosition="above">arrow_right_alt</mat-icon>
@@ -35,13 +45,17 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="state">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'VO_DETAIL.APPLICATION.TABLE_STATE' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'VO_DETAIL.APPLICATION.TABLE_STATE' | translate}}
+        </th>
         <td *matCellDef="let application" mat-cell>
           <span [outerHTML]="application.state | applicationState"></span>
         </td>
       </ng-container>
       <ng-container matColumnDef="user">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'VO_DETAIL.APPLICATION.TABLE_SUBMITTED_BY' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'VO_DETAIL.APPLICATION.TABLE_SUBMITTED_BY' | translate}}
+        </th>
         <td *matCellDef="let application" mat-cell>
           <div *ngIf="application.user === null; else name">
             {{application.createdBy.slice(application.createdBy.lastIndexOf('=')+1, application.createdBy.length)}}
@@ -52,7 +66,9 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="group">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'VO_DETAIL.APPLICATION.TABLE_GROUP_NAME' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'VO_DETAIL.APPLICATION.TABLE_GROUP_NAME' | translate}}
+        </th>
         <td *matCellDef="let application" mat-cell>
           <div *ngIf="application.group === null; else groupName" class="font-italic text-muted">
             -
@@ -63,7 +79,9 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="modifiedBy">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'VO_DETAIL.APPLICATION.TABLE_MODIFIED_BY' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'VO_DETAIL.APPLICATION.TABLE_MODIFIED_BY' | translate}}
+        </th>
         <td *matCellDef="let application" mat-cell>{{getFriendlyName(application.modifiedBy)}}</td>
       </ng-container>
 
@@ -74,8 +92,7 @@
         [perunWebAppsMiddleClickRouterLink]="selectApplication(application)"
         [routerLink]="selectApplication(application)"
         class="dark-hover-list-item"
-        mat-row>
-      </tr>
+        mat-row></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
@@ -84,8 +101,8 @@
   {{'VO_DETAIL.APPLICATION.NO_APPLICATION_FOUND' | translate}}
 </app-alert>
 
-<app-alert *ngIf="!!dataSource && dataSource.filteredData.length === 0 && applications.length !== 0" alert_type="warn">
+<app-alert
+  *ngIf="!!dataSource && dataSource.filteredData.length === 0 && applications.length !== 0"
+  alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
 </app-alert>
-
-

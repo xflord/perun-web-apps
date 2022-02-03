@@ -2,13 +2,10 @@ import { Injectable } from '@angular/core';
 import { GUIConfigService, LS_TABLE_PREFIX, PREF_PAGE_SIZE } from './guiconfig.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TableConfigService {
-
-  constructor(
-    private guiConfigService: GUIConfigService
-  ) { }
+  constructor(private guiConfigService: GUIConfigService) {}
 
   getTablePageSize(tableId: string): number {
     const tablePref = this.guiConfigService.getNumber(LS_TABLE_PREFIX + tableId);

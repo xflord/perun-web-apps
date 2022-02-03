@@ -10,16 +10,14 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * statuses of a member in a Vo
  */
 export type VoMemberStatuses = 'VALID' | 'INVALID' | 'EXPIRED' | 'DISABLED';
 
 export const VoMemberStatuses = {
-    VALID: 'VALID' as VoMemberStatuses,
-    INVALID: 'INVALID' as VoMemberStatuses,
-    EXPIRED: 'EXPIRED' as VoMemberStatuses,
-    DISABLED: 'DISABLED' as VoMemberStatuses
+  VALID: 'VALID' as VoMemberStatuses,
+  INVALID: 'INVALID' as VoMemberStatuses,
+  EXPIRED: 'EXPIRED' as VoMemberStatuses,
+  DISABLED: 'DISABLED' as VoMemberStatuses,
 };
-

@@ -10,14 +10,13 @@ export interface ServerDownDialogData {
 @Component({
   selector: 'perun-web-apps-server-down-dialog',
   templateUrl: './server-down-dialog.component.html',
-  styleUrls: ['./server-down-dialog.component.scss']
+  styleUrls: ['./server-down-dialog.component.scss'],
 })
 export class ServerDownDialogComponent {
-
   constructor(
     private dialogRef: MatDialogRef<ServerDownDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ServerDownDialogData,
-  ) { }
+    @Inject(MAT_DIALOG_DATA) public data: ServerDownDialogData
+  ) {}
 
   refresh() {
     location.reload();

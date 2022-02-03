@@ -1,17 +1,13 @@
 <h1 class="page-subtitle">
-  {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.TITLE' | translate}} - {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.TITLE' | translate}}
+  {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.TITLE' | translate}} -
+  {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.TITLE' | translate}}
 </h1>
 <app-alert alert_type="info">
   {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.HELP' | translate}}
 </app-alert>
 
 <perun-web-apps-refresh-button (refresh)="loadGroups()"></perun-web-apps-refresh-button>
-<button
-  *ngIf="addAuth"
-  mat-flat-button
-  color="accent"
-  class="mr-2"
-  (click)="onAddGroup()">
+<button *ngIf="addAuth" mat-flat-button color="accent" class="mr-2" (click)="onAddGroup()">
   {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.ADD' | translate}}
 </button>
 <span
@@ -30,8 +26,7 @@
   [placeholder]="'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.FILTER'"
   (filter)="this.filterValue = $event">
 </perun-web-apps-immediate-filter>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto">
-</mat-spinner>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
 <perun-web-apps-groups-list
   #list
   [tableId]="tableId"

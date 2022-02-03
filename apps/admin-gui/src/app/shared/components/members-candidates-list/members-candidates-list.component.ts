@@ -1,14 +1,14 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnChanges,
-  ViewChild
-} from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { RichUser, Candidate, MemberCandidate, Attribute, Group } from '@perun-web-apps/perun/openapi';
+import {
+  RichUser,
+  Candidate,
+  MemberCandidate,
+  Attribute,
+  Group,
+} from '@perun-web-apps/perun/openapi';
 import {
   getCandidateEmail,
   getExtSourceNameOrOrganizationColumn,
@@ -18,19 +18,19 @@ import {
   customDataSourceFilterPredicate,
   customDataSourceSort,
   downloadData,
-  getDataForExport, parseFullName, TableWrapperComponent
+  getDataForExport,
+  parseFullName,
+  TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-members-candidates-list',
   templateUrl: './members-candidates-list.component.html',
-  styleUrls: ['./members-candidates-list.component.scss']
+  styleUrls: ['./members-candidates-list.component.scss'],
 })
 export class MembersCandidatesListComponent implements OnChanges, AfterViewInit {
-
-  constructor(private guiAuthResolver: GuiAuthResolver) {
-  }
+  constructor(private guiAuthResolver: GuiAuthResolver) {}
 
   private sort: MatSort;
 
@@ -39,7 +39,7 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
     this.setDataSource();
   }
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   @Input()
   members: MemberCandidate[];
@@ -59,14 +59,27 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   @Input()
   blockManualAdding = false;
 
-  displayedColumns: string[] = ['checkbox', 'status', 'fullName', 'voExtSource', 'email', 'logins', 'alreadyMember', 'local'];
+  displayedColumns: string[] = [
+    'checkbox',
+    'status',
+    'fullName',
+    'voExtSource',
+    'email',
+    'logins',
+    'alreadyMember',
+    'local',
+  ];
   dataSource: MatTableDataSource<MemberCandidate>;
 
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   addAuth = false;
 
-  getDataForColumn(data: MemberCandidate, column: string, outerThis: MembersCandidatesListComponent): string{
+  getDataForColumn(
+    data: MemberCandidate,
+    column: string,
+    outerThis: MembersCandidatesListComponent
+  ): string {
     switch (column) {
       case 'status':
         return data.member ? data.member.status ?? '' : '';
@@ -75,7 +88,9 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
         return user.lastName ? user.lastName : user.firstName ?? '';
       }
       case 'voExtSource':
-        return data.richUser ? parseVo(data.richUser) : getExtSourceNameOrOrganizationColumn(data.candidate);
+        return data.richUser
+          ? parseVo(data.richUser)
+          : getExtSourceNameOrOrganizationColumn(data.candidate);
       case 'email':
         if (data.richUser || data.member) {
           return parseUserEmail(data.richUser);
@@ -86,13 +101,17 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
       case 'alreadyMember':
         return outerThis.getAlreadyMember(data);
       case 'local':
-        return data.richUser ? "Local" : "External identity"
+        return data.richUser ? 'Local' : 'External identity';
       default:
         return data[column];
     }
   }
 
-  getExportDataForColumn(data: MemberCandidate, column: string, outerThis: MembersCandidatesListComponent): string{
+  getExportDataForColumn(
+    data: MemberCandidate,
+    column: string,
+    outerThis: MembersCandidatesListComponent
+  ): string {
     switch (column) {
       case 'status':
         return data.member ? data.member.status ?? '' : '';
@@ -101,7 +120,9 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
         return parseFullName(user);
       }
       case 'voExtSource':
-        return data.richUser ? parseVo(data.richUser) : getExtSourceNameOrOrganizationColumn(data.candidate);
+        return data.richUser
+          ? parseVo(data.richUser)
+          : getExtSourceNameOrOrganizationColumn(data.candidate);
       case 'email':
         if (data.richUser || data.member) {
           return parseUserEmail(data.richUser);
@@ -112,14 +133,22 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
       case 'alreadyMember':
         return outerThis.getAlreadyMember(data);
       case 'local':
-        return data.richUser ? "Local" : "External identity"
+        return data.richUser ? 'Local' : 'External identity';
       default:
         return data[column];
     }
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getExportDataForColumn, this), format);
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getExportDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
   setDataSource() {
@@ -129,8 +158,16 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
     if (this.dataSource) {
       this.dataSource.sort = this.sort;
 
-      this.dataSource.filterPredicate = (data: MemberCandidate, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
-      this.dataSource.sortData = (data: MemberCandidate[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.filterPredicate = (data: MemberCandidate, filter: string) =>
+        customDataSourceFilterPredicate(
+          data,
+          filter,
+          this.displayedColumns,
+          this.getDataForColumn,
+          this
+        );
+      this.dataSource.sortData = (data: MemberCandidate[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.paginator = this.child.paginator;
     }
   }
@@ -152,10 +189,10 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   }
 
   masterToggle() {
-    if(this.isAllSelected()) {
+    if (this.isAllSelected()) {
       this.selection.clear();
     } else {
-      this.dataSource.data.forEach(row => this.selection.select(row));
+      this.dataSource.data.forEach((row) => this.selection.select(row));
     }
     this.setAddAuth();
   }
@@ -164,19 +201,25 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
     let email: Attribute;
     if (memberCandidate.richUser) {
       for (const attribute of memberCandidate.richUser.userAttributes) {
-        if (attribute.namespace + ':' + attribute.friendlyName === 'urn:perun:user:attribute-def:def:preferredMail') {
+        if (
+          attribute.namespace + ':' + attribute.friendlyName ===
+          'urn:perun:user:attribute-def:def:preferredMail'
+        ) {
           email = attribute;
           break;
         }
       }
-      if (email != null && email.value != null && !('null' === email.value.toString().toLowerCase())) {
+      if (
+        email != null &&
+        email.value != null &&
+        !('null' === email.value.toString().toLowerCase())
+      ) {
         return email.value.toString().replace(',', ' ');
       }
       return '';
     } else {
       return getCandidateEmail(memberCandidate.candidate);
     }
-
   }
 
   getOrganization(candidate: Candidate): string {
@@ -243,12 +286,18 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
     if (this.type === 'vo') {
       if (memberCandidate.member != null) return 'Member of VO';
     } else {
-      if (memberCandidate.member != null &&
+      if (
+        memberCandidate.member != null &&
         memberCandidate.member.sourceGroupId !== 0 &&
-        memberCandidate.member.membershipType === 'DIRECT') return 'Member of Group';
-      if (memberCandidate.member != null &&
+        memberCandidate.member.membershipType === 'DIRECT'
+      )
+        return 'Member of Group';
+      if (
+        memberCandidate.member != null &&
         memberCandidate.member.sourceGroupId !== 0 &&
-        memberCandidate.member.membershipType === 'INDIRECT') return 'Indirect member of Group';
+        memberCandidate.member.membershipType === 'INDIRECT'
+      )
+        return 'Indirect member of Group';
       if (memberCandidate.member != null) return 'Member of VO';
     }
     return '';
@@ -259,8 +308,10 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
       return memberCandidate.member != null;
     } else {
       if (memberCandidate.member) {
-        return memberCandidate.member.sourceGroupId !== 0 &&
-          memberCandidate.member.membershipType === 'DIRECT';
+        return (
+          memberCandidate.member.sourceGroupId !== 0 &&
+          memberCandidate.member.membershipType === 'DIRECT'
+        );
       }
     }
     return this.blockManualAdding;
@@ -271,8 +322,13 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
       if (this.selection.selected[0].member) {
         this.addAuth = true;
       } else {
-        this.addAuth = this.guiAuthResolver.isAuthorized('createMember_Vo_User_List<Group>_policy', [this.group]) &&
-          this.guiAuthResolver.isAuthorized('createMember_Vo_Candidate_List<Group>_policy', [this.group]);
+        this.addAuth =
+          this.guiAuthResolver.isAuthorized('createMember_Vo_User_List<Group>_policy', [
+            this.group,
+          ]) &&
+          this.guiAuthResolver.isAuthorized('createMember_Vo_Candidate_List<Group>_policy', [
+            this.group,
+          ]);
       }
     }
   }
@@ -283,6 +339,8 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   }
 
   getTooltip(memberCandidate: MemberCandidate) {
-    return memberCandidate.member ? 'MEMBERS_CANDIDATES_LIST.ALREADY_MEMBER' : 'MEMBERS_CANDIDATES_LIST.ADDING_BLOCKED';
+    return memberCandidate.member
+      ? 'MEMBERS_CANDIDATES_LIST.ALREADY_MEMBER'
+      : 'MEMBERS_CANDIDATES_LIST.ADDING_BLOCKED';
   }
 }

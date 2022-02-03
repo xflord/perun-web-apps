@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { StoreService } from '@perun-web-apps/perun/services';
@@ -11,21 +11,21 @@ export interface AddAuthImgDialogData {
 @Component({
   selector: 'perun-web-apps-add-auth-img-dialog',
   templateUrl: './add-auth-img-dialog.component.html',
-  styleUrls: ['./add-auth-img-dialog.component.scss']
+  styleUrls: ['./add-auth-img-dialog.component.scss'],
 })
 export class AddAuthImgDialogComponent implements OnInit {
-
   theme: string;
   newImage = '';
   attribute: Attribute;
   radioBtn: string;
   imgTooLong: boolean;
 
-  constructor(private dialogRef: MatDialogRef<AddAuthImgDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: AddAuthImgDialogData,
-              private attributesManagerService: AttributesManagerService,
-              private store: StoreService) {
-  }
+  constructor(
+    private dialogRef: MatDialogRef<AddAuthImgDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: AddAuthImgDialogData,
+    private attributesManagerService: AttributesManagerService,
+    private store: StoreService
+  ) {}
 
   ngOnInit(): void {
     this.theme = this.data.theme;
@@ -55,12 +55,14 @@ export class AddAuthImgDialogComponent implements OnInit {
   onAdd() {
     // @ts-ignore
     this.attribute.value = this.newImage;
-    this.attributesManagerService.setUserAttribute({
-      attribute: this.attribute,
-      user: this.store.getPerunPrincipal().userId
-    }).subscribe(() => {
-      this.dialogRef.close(true);
-    });
+    this.attributesManagerService
+      .setUserAttribute({
+        attribute: this.attribute,
+        user: this.store.getPerunPrincipal().userId,
+      })
+      .subscribe(() => {
+        this.dialogRef.close(true);
+      });
   }
 
   onCancel() {
@@ -68,13 +70,13 @@ export class AddAuthImgDialogComponent implements OnInit {
   }
 
   generateImg() {
-    const MAX_COLOR 		= 200;				// Max value for a color component
-    const MIN_COLOR 		= 120; 				// Min value for a color component
-    const FILL_CHANCE 	= 0.5; 				// Chance of a square being filled [0, 1]
-    const SQUARE 		    = 20; 				// Size of a grid square in pixels
-    const GRID 		      = 5; 				// Number of squares width and height
-    const SIZE 		      = SQUARE * GRID; 	// Size of the canvas
-    const FILL_COLOR 		= '#FFFFFF';			// canvas background color
+    const MAX_COLOR = 200; // Max value for a color component
+    const MIN_COLOR = 120; // Min value for a color component
+    const FILL_CHANCE = 0.5; // Chance of a square being filled [0, 1]
+    const SQUARE = 20; // Size of a grid square in pixels
+    const GRID = 5; // Number of squares width and height
+    const SIZE = SQUARE * GRID; // Size of the canvas
+    const FILL_COLOR = '#FFFFFF'; // canvas background color
 
     /* Create a temporary canvas */
     function setupCanvas() {
@@ -122,7 +124,7 @@ export class AddAuthImgDialogComponent implements OnInit {
           }
         }
       }
-      return canvas.toDataURL("image/png");
+      return canvas.toDataURL('image/png');
     }
 
     this.newImage = generateImage();

@@ -9,18 +9,10 @@
   </div>
 
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
       {{'DIALOGS.REJECT_APPLICATION.CANCEL' | translate}}
     </button>
-    <button
-      mat-flat-button
-      class="ml-2"
-      color="warn"
-      [disabled]="loading"
-      (click)="onSubmit()">
+    <button mat-flat-button class="ml-2" color="warn" [disabled]="loading" (click)="onSubmit()">
       {{'DIALOGS.REJECT_APPLICATION.SUBMIT' | translate}}
     </button>
   </div>

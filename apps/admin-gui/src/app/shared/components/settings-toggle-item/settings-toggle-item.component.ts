@@ -1,18 +1,15 @@
-import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {openClose} from '@perun-web-apps/perun/animations';
+import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { openClose } from '@perun-web-apps/perun/animations';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-settings-toggle-item',
   templateUrl: './settings-toggle-item.component.html',
   styleUrls: ['./settings-toggle-item.component.scss'],
-  animations: [
-    openClose
-  ]
+  animations: [openClose],
 })
 export class SettingsToggleItemComponent implements AfterViewInit {
-
-  constructor() { }
+  constructor() {}
 
   @ViewChild(MatSlideToggle, { static: true })
   toggle: MatSlideToggle;

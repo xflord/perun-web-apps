@@ -3,16 +3,21 @@
   <div class="dialog-container" mat-dialog-content>
     <mat-stepper [linear]="true">
       <mat-step completed="false">
-        <ng-template matStepLabel>{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.SELECT_RESOURCE' | translate}}</ng-template>
+        <ng-template
+          matStepLabel
+          >{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.SELECT_RESOURCE' | translate}}</ng-template
+        >
         <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
         <div *ngIf="!loading">
           <div>
             <mat-form-field class="input-style">
-              <input [formControl]="facilityCtrl" [matAutocomplete]="autoFacility"
-                     aria-label="Number"
-                     matInput
-                     placeholder="{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.FILTER' | translate}}"
-                     type="text">
+              <input
+                [formControl]="facilityCtrl"
+                [matAutocomplete]="autoFacility"
+                aria-label="Number"
+                matInput
+                placeholder="{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.FILTER' | translate}}"
+                type="text" />
               <mat-autocomplete #autoFacility="matAutocomplete" autoActiveFirstOption>
                 <mat-option *ngFor="let facility of filteredFacilities | async" [value]="facility">
                   {{facility}}
@@ -26,27 +31,37 @@
                 disableOptionCentering="true"
                 required
                 placeholder="{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.SELECTED' | translate}}">
-                <mat-option (click)="setResource(resource);
+                <mat-option
+                  (click)="setResource(resource);
                            stepper.selected.completed = true"
-                            *ngFor="let resource of filteredResources | async"
-                            [value]="resource">
+                  *ngFor="let resource of filteredResources | async"
+                  [value]="resource">
                   {{resource.name}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div>
-            <span class="font-weight-bold">{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.DESCRIPTION' | translate}}</span>
-            <div class="ml-5"> {{description}} </div>
+            <span
+              class="font-weight-bold"
+              >{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.DESCRIPTION' | translate}}</span
+            >
+            <div class="ml-5">{{description}}</div>
           </div>
           <div>
-            <span class="font-weight-bold">{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.SERVICES' | translate}}</span>
+            <span
+              class="font-weight-bold"
+              >{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.SERVICES' | translate}}</span
+            >
             <div *ngFor="let service of services" class="ml-5">{{service.name}}</div>
           </div>
         </div>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.ADD_GROUP' | translate}}</ng-template>
+        <ng-template
+          matStepLabel
+          >{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.ADD_GROUP' | translate}}</ng-template
+        >
         <mat-spinner *ngIf="processing" class="mr-auto ml-auto"></mat-spinner>
         <div *ngIf="groups.length !== 0 && !processing">
           <perun-web-apps-groups-list
@@ -66,15 +81,16 @@
     </mat-stepper>
   </div>
   <div mat-dialog-actions>
-    <button
-      (click)="onCancel()"
-      mat-flat-button>{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CANCEL' | translate}}</button>
+    <button (click)="onCancel()" mat-flat-button>
+      {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CANCEL' | translate}}
+    </button>
     <button
       (click)="stepperPrevious()"
       *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
       class="ml-auto"
       mat-flat-button>
-      {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.BACK' | translate}}</button>
+      {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.BACK' | translate}}
+    </button>
     <button
       (click)="stepperNext(); loadGroups()"
       *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
@@ -82,8 +98,9 @@
       [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
       [disabled]="selectedResource === null || processing || loading"
       color="accent"
-      mat-flat-button
-    >{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CONTINUE' | translate}}</button>
+      mat-flat-button>
+      {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CONTINUE' | translate}}
+    </button>
     <button
       (click)="onFinish()"
       *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
@@ -91,7 +108,7 @@
       class="ml-2"
       color="accent"
       mat-flat-button>
-      {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.SUBMIT' | translate}}</button>
+      {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.SUBMIT' | translate}}
+    </button>
   </div>
 </div>
-

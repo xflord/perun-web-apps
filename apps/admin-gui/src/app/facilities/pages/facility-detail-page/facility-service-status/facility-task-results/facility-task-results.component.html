@@ -1,7 +1,6 @@
-<h1 class="page-subtitle">{{'FACILITY_DETAIL.TASK_RESULTS.TITLE' | translate}} - {{task.service? task.service.name : ''}}
-  <span class="text-muted">
-      &nbsp;#{{task.id}}
-    </span>
+<h1 class="page-subtitle">
+  {{'FACILITY_DETAIL.TASK_RESULTS.TITLE' | translate}} - {{task.service? task.service.name : ''}}
+  <span class="text-muted"> &nbsp;#{{task.id}} </span>
 </h1>
 <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
 <button

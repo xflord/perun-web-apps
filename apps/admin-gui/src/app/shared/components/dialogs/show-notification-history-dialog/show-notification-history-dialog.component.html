@@ -2,26 +2,21 @@
 <div *ngIf="notifications.length !== 0" class="hide-horizontal-scrollbar">
   <cdk-virtual-scroll-viewport itemSize="50" class="viewport">
     <div *cdkVirtualFor="let data of notifications" class="mb-1">
-      <perun-web-apps-notification [data]="data" [inDialog]="true">
-      </perun-web-apps-notification>
+      <perun-web-apps-notification [data]="data" [inDialog]="true"> </perun-web-apps-notification>
     </div>
   </cdk-virtual-scroll-viewport>
 </div>
-<app-alert alert_type="warn"
-           *ngIf="notifications.length === 0">{{'DIALOGS.NOTIFICATION_LIST.NO_NOTIFICATIONS_ALERT'|translate}}</app-alert>
+<app-alert
+  alert_type="warn"
+  *ngIf="notifications.length === 0"
+  >{{'DIALOGS.NOTIFICATION_LIST.NO_NOTIFICATIONS_ALERT'|translate}}</app-alert
+>
 
 <div mat-dialog-actions>
-  <button
-    mat-flat-button
-    class="ml-auto"
-    (click)="onClear()">
+  <button mat-flat-button class="ml-auto" (click)="onClear()">
     {{'DIALOGS.NOTIFICATION_LIST.CLEAR' | translate}}
   </button>
-  <button
-    mat-flat-button
-    class="ml-2"
-    (click)="onCancel()">
+  <button mat-flat-button class="ml-2" (click)="onCancel()">
     {{'DIALOGS.NOTIFICATION_LIST.CANCEL' | translate}}
   </button>
 </div>
-

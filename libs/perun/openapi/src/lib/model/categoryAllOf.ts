@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface CategoryAllOf { 
-    name?: string;
-    rank?: number;
+export interface CategoryAllOf {
+  name?: string;
+  rank?: number;
 }
-

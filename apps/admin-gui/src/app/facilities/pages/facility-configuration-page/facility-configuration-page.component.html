@@ -13,9 +13,7 @@
     <mat-step>
       <ng-template matStepLabel>{{'FACILITY_CONFIGURATION.HOSTS' | translate}}</ng-template>
       <ng-template matStepContent>
-        <app-facility-hosts
-          (hostEmitter)="hosts = $event"
-          [disableRouting]="true">
+        <app-facility-hosts (hostEmitter)="hosts = $event" [disableRouting]="true">
         </app-facility-hosts>
       </ng-template>
     </mat-step>
@@ -52,8 +50,14 @@
         </app-services-list>
       </ng-template>
     </mat-step>
-    <mat-step optional="true" [stepControl]="attributesControl" [editable]="selection.selected.length !== 0">
-      <ng-template matStepLabel>{{'FACILITY_CONFIGURATION.SERVICE_CONFIG' | translate}}</ng-template>
+    <mat-step
+      optional="true"
+      [stepControl]="attributesControl"
+      [editable]="selection.selected.length !== 0">
+      <ng-template
+        matStepLabel
+        >{{'FACILITY_CONFIGURATION.SERVICE_CONFIG' | translate}}</ng-template
+      >
       <ng-template matStepContent>
         <h1 class="page-subtitle">{{'FACILITY_CONFIGURATION.SERVICE_CONFIG' | translate}}</h1>
         <app-alert alert_type="info">
@@ -95,8 +99,13 @@
         </perun-web-apps-attributes-list>
       </ng-template>
     </mat-step>
-    <mat-step [optional]="this.destinations.length === 0" [editable]="selection.selected.length !== 0 || this.destinations.length !== 0">
-      <ng-template matStepLabel>{{'FACILITY_CONFIGURATION.DESTINATION_CONFIG' | translate}}</ng-template>
+    <mat-step
+      [optional]="this.destinations.length === 0"
+      [editable]="selection.selected.length !== 0 || this.destinations.length !== 0">
+      <ng-template
+        matStepLabel
+        >{{'FACILITY_CONFIGURATION.DESTINATION_CONFIG' | translate}}</ng-template
+      >
       <ng-template matStepContent>
         <app-perun-web-apps-facility-services-destinations
           [title]="'FACILITY_CONFIGURATION.DESTINATION_CONFIG'"
@@ -111,9 +120,7 @@
     <mat-step>
       <ng-template matStepLabel>{{'FACILITY_CONFIGURATION.MANAGERS' | translate}}</ng-template>
       <ng-template matStepContent>
-        <app-perun-web-apps-facility-settings-managers
-          [disableRouting]="true"
-          [disableSelf]="true">
+        <app-perun-web-apps-facility-settings-managers [disableRouting]="true" [disableSelf]="true">
         </app-perun-web-apps-facility-settings-managers>
       </ng-template>
     </mat-step>
@@ -123,7 +130,9 @@
         <app-alert alert_type="info">
           <i [innerHTML]="'FACILITY_CONFIGURATION.SUMMARY_INFO' | translate"></i>
         </app-alert>
-        <mat-accordion *ngIf="stepper.selectedIndex === stepper.steps.length - 1" [@.disabled]="true">
+        <mat-accordion
+          *ngIf="stepper.selectedIndex === stepper.steps.length - 1"
+          [@.disabled]="true">
           <mat-expansion-panel [disabled]="owners.length === 0">
             <mat-expansion-panel-header [class.cursor-default]="owners.length === 0">
               <mat-panel-title>
@@ -169,7 +178,9 @@
               [displayedColumns]="['id', 'name', 'enabled', 'script', 'description']">
             </app-services-list>
           </mat-expansion-panel>
-          <mat-expansion-panel [disabled]="selection.selected.length === 0" (opened)="getNonEmptyAttributes()">
+          <mat-expansion-panel
+            [disabled]="selection.selected.length === 0"
+            (opened)="getNonEmptyAttributes()">
             <mat-expansion-panel-header [class.cursor-default]="selection.selected.length === 0">
               <mat-panel-title>
                 <mat-icon class="mr-2" svgIcon="perun-hosts"></mat-icon>
@@ -223,9 +234,7 @@
     </mat-step>
   </mat-stepper>
   <div class="actions">
-    <button
-      mat-flat-button
-      (click)="onCancel()">
+    <button mat-flat-button (click)="onCancel()">
       {{'FACILITY_CONFIGURATION.CANCEL' | translate}}
     </button>
     <button

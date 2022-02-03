@@ -5,11 +5,10 @@ import { compareFnName } from '@perun-web-apps/perun/utils';
 @Component({
   selector: 'perun-web-apps-facility-search-select',
   templateUrl: './facility-search-select.component.html',
-  styleUrls: ['./facility-search-select.component.css']
+  styleUrls: ['./facility-search-select.component.css'],
 })
-export class FacilitySearchSelectComponent implements OnInit{
-
-  constructor() { }
+export class FacilitySearchSelectComponent implements OnInit {
+  constructor() {}
 
   @Input()
   facilities: Facility[];

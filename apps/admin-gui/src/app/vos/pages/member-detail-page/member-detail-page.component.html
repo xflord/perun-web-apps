@@ -1,28 +1,31 @@
 <div class="container-fluid pl-xl-5 pr-xl-5 member-theme">
-  <perun-web-apps-back-button>
-  </perun-web-apps-back-button>
+  <perun-web-apps-back-button> </perun-web-apps-back-button>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div *ngIf="!loading && vo !== undefined && member !== undefined">
     <div class="d-flex page-title-headtitle">
       <mat-icon
         matTooltip="{{'MEMBER_DETAIL.ENTITY' | translate}}"
         [ngStyle]="{'color':'black'}"
-        svgIcon='perun-user-dark'
+        svgIcon="perun-user-dark"
         class="perun-icon perun-icon-detail">
       </mat-icon>
       <div class="page-title-block">
         <div class="page-title-headline d-flex align-items-center">
-          <a class="member-link" [routerLink]="['/organizations', vo.id, 'members', member.id]" queryParamsHandling="merge">
+          <a
+            class="member-link"
+            [routerLink]="['/organizations', vo.id, 'members', member.id]"
+            queryParamsHandling="merge">
             {{fullName}}
           </a>
-          <span class="text-muted">
-            &nbsp;#{{member.id}}
-          </span>
+          <span class="text-muted"> &nbsp;#{{member.id}} </span>
         </div>
         <span class="mt-1 entity-info">
-          {{'MEMBER_DETAIL.ENTITY' | translate}},
-          {{'MEMBER_DETAIL.USER_ID' | translate}}:
-          <a class="member-link" *ngIf="isAuthorized" [routerLink]="['/admin', 'users', member.userId]" queryParamsHandling="merge">
+          {{'MEMBER_DETAIL.ENTITY' | translate}}, {{'MEMBER_DETAIL.USER_ID' | translate}}:
+          <a
+            class="member-link"
+            *ngIf="isAuthorized"
+            [routerLink]="['/admin', 'users', member.userId]"
+            queryParamsHandling="merge">
             {{member.userId}}
           </a>
           <span *ngIf="!isAuthorized">{{member.userId}}</span>

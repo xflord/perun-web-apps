@@ -5,7 +5,7 @@ import {
   Input,
   OnChanges,
   Output,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { ServiceState } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -13,8 +13,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {
   customDataSourceFilterPredicate,
-  customDataSourceSort, downloadData, getDataForExport,
-  TABLE_ITEMS_COUNT_OPTIONS
+  customDataSourceSort,
+  downloadData,
+  getDataForExport,
+  TABLE_ITEMS_COUNT_OPTIONS,
 } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
 import { formatDate } from '@angular/common';
@@ -23,13 +25,10 @@ import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
 @Component({
   selector: 'perun-web-apps-services-status-list',
   templateUrl: './services-status-list.component.html',
-  styleUrls: ['./services-status-list.component.css']
+  styleUrls: ['./services-status-list.component.css'],
 })
 export class ServicesStatusListComponent implements OnChanges, AfterViewInit {
-
-  constructor(private authResolver: GuiAuthResolver,
-              private tableCheckbox: TableCheckbox) {
-  }
+  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -39,7 +38,15 @@ export class ServicesStatusListComponent implements OnChanges, AfterViewInit {
   @Input()
   servicesStatus: ServiceState[] = [];
   @Input()
-  displayedColumns: string[] = ['select', 'task.id', 'service.name', 'status', 'blocked', 'task.startTime', 'task.endTime'];
+  displayedColumns: string[] = [
+    'select',
+    'task.id',
+    'service.name',
+    'status',
+    'blocked',
+    'task.startTime',
+    'task.endTime',
+  ];
   @Input()
   selection = new SelectionModel<ServiceState>(true, []);
   @Input()
@@ -56,13 +63,13 @@ export class ServicesStatusListComponent implements OnChanges, AfterViewInit {
 
   dataSource: MatTableDataSource<ServiceState>;
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngOnChanges() {
-    if (!this.authResolver.isPerunAdminOrObserver()){
-      this.displayedColumns = this.displayedColumns.filter(column => column !== 'task.id');
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'task.id');
     }
     this.dataSource = new MatTableDataSource<ServiceState>(this.servicesStatus);
     this.setDataSource();
@@ -88,28 +95,7 @@ export class ServicesStatusListComponent implements OnChanges, AfterViewInit {
     this.dataSource.filter = this.filterValue;
   }
 
-  getDataForColumn(data: ServiceState, column: string): string{
-    switch (column) {
-      case 'task.id':
-        return data.task ? data.task.id.toString() : data[column];
-      case 'service.name':
-        return data.service.name;
-      case 'status':
-         return data.status;
-      case 'blocked':
-        if (data.blockedOnFacility) { return 'BLOCKED' }
-        if (data.blockedGlobally) {return 'BLOCKED GLOBALLY'}
-        return 'ALLOWED';
-      case 'task.startTime':
-        return data.task && data.task.startTime ? formatDate(data.task.startTime,'d.M.y H:mm:ss', 'en') : data[column];
-      case 'task.endTime':
-        return data.task && data.task.endTime ? formatDate(data.task.endTime,'d.M.y H:mm:ss', 'en') : data[column];
-      default:
-        return data[column];
-    }
-  }
-
-  getSortDataForColumn(data: ServiceState, column: string): string{
+  getDataForColumn(data: ServiceState, column: string): string {
     switch (column) {
       case 'task.id':
         return data.task ? data.task.id.toString() : data[column];
@@ -118,26 +104,79 @@ export class ServicesStatusListComponent implements OnChanges, AfterViewInit {
       case 'status':
         return data.status;
       case 'blocked':
-        if (data.blockedOnFacility) { return 'BLOCKED' }
-        if (data.blockedGlobally) {return 'BLOCKED GLOBALLY'}
+        if (data.blockedOnFacility) {
+          return 'BLOCKED';
+        }
+        if (data.blockedGlobally) {
+          return 'BLOCKED GLOBALLY';
+        }
         return 'ALLOWED';
       case 'task.startTime':
-        return data.task && data.task.startTime ? formatDate(data.task.startTime,'yyyy.MM.dd HH:mm:ss', 'en') : data[column];
+        return data.task && data.task.startTime
+          ? formatDate(data.task.startTime, 'd.M.y H:mm:ss', 'en')
+          : data[column];
       case 'task.endTime':
-        return data.task && data.task.endTime ? formatDate(data.task.endTime,'yyyy.MM.dd HH:mm:ss', 'en') : data[column];
+        return data.task && data.task.endTime
+          ? formatDate(data.task.endTime, 'd.M.y H:mm:ss', 'en')
+          : data[column];
       default:
         return data[column];
     }
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getDataForColumn, this), format);
+  getSortDataForColumn(data: ServiceState, column: string): string {
+    switch (column) {
+      case 'task.id':
+        return data.task ? data.task.id.toString() : data[column];
+      case 'service.name':
+        return data.service.name;
+      case 'status':
+        return data.status;
+      case 'blocked':
+        if (data.blockedOnFacility) {
+          return 'BLOCKED';
+        }
+        if (data.blockedGlobally) {
+          return 'BLOCKED GLOBALLY';
+        }
+        return 'ALLOWED';
+      case 'task.startTime':
+        return data.task && data.task.startTime
+          ? formatDate(data.task.startTime, 'yyyy.MM.dd HH:mm:ss', 'en')
+          : data[column];
+      case 'task.endTime':
+        return data.task && data.task.endTime
+          ? formatDate(data.task.endTime, 'yyyy.MM.dd HH:mm:ss', 'en')
+          : data[column];
+      default:
+        return data[column];
+    }
+  }
+
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
   setDataSource() {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: ServiceState, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
-      this.dataSource.sortData = (data: ServiceState[], sort: MatSort) => customDataSourceSort(data, sort, this.getSortDataForColumn, this);
+      this.dataSource.filterPredicate = (data: ServiceState, filter: string) =>
+        customDataSourceFilterPredicate(
+          data,
+          filter,
+          this.displayedColumns,
+          this.getDataForColumn,
+          this
+        );
+      this.dataSource.sortData = (data: ServiceState[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getSortDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }
@@ -145,12 +184,27 @@ export class ServicesStatusListComponent implements OnChanges, AfterViewInit {
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(
+      this.selection.selected.length,
+      this.filterValue,
+      this.child.paginator.pageSize,
+      this.child.paginator.hasNextPage(),
+      this.dataSource
+    );
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex,false);
+    this.tableCheckbox.masterToggle(
+      this.isAllSelected(),
+      this.selection,
+      this.filterValue,
+      this.dataSource,
+      this.sort,
+      this.child.paginator.pageSize,
+      this.child.paginator.pageIndex,
+      false
+    );
   }
 
   /** The label for the checkbox on the passed row */

@@ -1,7 +1,9 @@
 <div>
   <h1 class="page-subtitle">{{'FACILITY_DETAIL.SETTINGS.BLACKLIST.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <perun-web-apps-immediate-filter (filter)="applyFilter($event)" [placeholder]="'FACILITY_DETAIL.SETTINGS.BLACKLIST.FILTER' | translate"></perun-web-apps-immediate-filter>
+  <perun-web-apps-immediate-filter
+    (filter)="applyFilter($event)"
+    [placeholder]="'FACILITY_DETAIL.SETTINGS.BLACKLIST.FILTER' | translate"></perun-web-apps-immediate-filter>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <app-perun-web-apps-blacklist-list
     [tableId]="tableId"
@@ -11,4 +13,3 @@
     [selection]="selected">
   </app-perun-web-apps-blacklist-list>
 </div>
-

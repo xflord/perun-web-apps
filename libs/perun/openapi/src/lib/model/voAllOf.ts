@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface VoAllOf { 
-    name?: string;
-    shortName?: string;
+export interface VoAllOf {
+  name?: string;
+  shortName?: string;
 }
-

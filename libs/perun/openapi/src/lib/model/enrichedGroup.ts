@@ -12,9 +12,7 @@
 import { Group } from './group';
 import { Attribute } from './attribute';
 
-
-export interface EnrichedGroup { 
-    group?: Group;
-    attributes?: Array<Attribute>;
+export interface EnrichedGroup {
+  group?: Group;
+  attributes?: Array<Attribute>;
 }
-

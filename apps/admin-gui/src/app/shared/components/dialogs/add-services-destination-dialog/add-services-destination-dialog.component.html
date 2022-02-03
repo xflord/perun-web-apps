@@ -8,10 +8,16 @@
         [formControl]="serviceControl"
         placeholder="{{'DIALOGS.ADD_SERVICE_DESTINATION.SERVICE' | translate}}"
         required>
-        <mat-option *ngIf="services.length !== 0"
-                    value="all">{{'DIALOGS.ADD_SERVICE_DESTINATION.SELECTION_ALL' | translate}}</mat-option>
-        <mat-option *ngIf="services.length === 0"
-                    value="noService">{{'DIALOGS.ADD_SERVICE_DESTINATION.NO_SERVICE' | translate}}</mat-option>
+        <mat-option
+          *ngIf="services.length !== 0"
+          value="all"
+          >{{'DIALOGS.ADD_SERVICE_DESTINATION.SELECTION_ALL' | translate}}</mat-option
+        >
+        <mat-option
+          *ngIf="services.length === 0"
+          value="noService"
+          >{{'DIALOGS.ADD_SERVICE_DESTINATION.NO_SERVICE' | translate}}</mat-option
+        >
         <mat-option *ngFor="let service of services" [value]="service">
           {{service.name}}
         </mat-option>
@@ -20,12 +26,16 @@
         {{'DIALOGS.ADD_SERVICE_DESTINATION.CHOOSE_SERVICE' | translate}}
       </mat-error>
     </mat-form-field>
-    <mat-checkbox (change)="getServices()"
-                  [(ngModel)]="servicesOnFacility">{{'DIALOGS.ADD_SERVICE_DESTINATION.IS_SERVICES_ONLY_ON_FACILITY' | translate}}</mat-checkbox>
+    <mat-checkbox
+      (change)="getServices()"
+      [(ngModel)]="servicesOnFacility"
+      >{{'DIALOGS.ADD_SERVICE_DESTINATION.IS_SERVICES_ONLY_ON_FACILITY' | translate}}</mat-checkbox
+    >
     <mat-form-field>
-      <mat-select [(ngModel)]="selectedType"
-                  placeholder="{{'DIALOGS.ADD_SERVICE_DESTINATION.TYPE' | translate}}"
-                  (selectionChange)="this.destinationControl.updateValueAndValidity()">
+      <mat-select
+        [(ngModel)]="selectedType"
+        placeholder="{{'DIALOGS.ADD_SERVICE_DESTINATION.TYPE' | translate}}"
+        (selectionChange)="this.destinationControl.updateValueAndValidity()">
         <mat-option *ngFor="let type of types" [value]="type">
           {{getTypeForView(type)}}
         </mat-option>
@@ -37,8 +47,9 @@
         [formControl]="destinationControl"
         matInput
         placeholder="{{getTypeForView(selectedType)}}"
-        required>
-      <mat-error *ngIf="selectedType === 'host' && !useFacilityHost && destinationControl.hasError('required')">
+        required />
+      <mat-error
+        *ngIf="selectedType === 'host' && !useFacilityHost && destinationControl.hasError('required')">
         {{'DIALOGS.ADD_SERVICE_DESTINATION.REQUIRED_FIELD' | translate}}
       </mat-error>
       <mat-error *ngIf="destinationControl.hasError('invalidDestination')">
@@ -51,8 +62,9 @@
     </mat-checkbox>
 
     <mat-form-field>
-      <mat-select [(ngModel)]="selectedPropagation"
-                  placeholder="{{'DIALOGS.ADD_SERVICE_DESTINATION.PROPAGATION' | translate}}">
+      <mat-select
+        [(ngModel)]="selectedPropagation"
+        placeholder="{{'DIALOGS.ADD_SERVICE_DESTINATION.PROPAGATION' | translate}}">
         <mat-option *ngFor="let propagation of propagations" [value]="propagation">
           {{propagation}}
         </mat-option>
@@ -63,10 +75,7 @@
     </div>
   </div>
   <div mat-dialog-actions>
-    <button
-      (click)="onCancel()"
-      class="ml-auto"
-      mat-flat-button>
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.ADD_SERVICE_DESTINATION.CANCEL' | translate}}
     </button>
     <button
@@ -79,4 +88,3 @@
     </button>
   </div>
 </div>
-

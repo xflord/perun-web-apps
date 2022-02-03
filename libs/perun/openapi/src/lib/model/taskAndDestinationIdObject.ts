@@ -10,18 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * input to deleteTaskResultsIds
  */
-export interface TaskAndDestinationIdObject { 
-    /**
-     * task id
-     */
-    taskId: number;
-    /**
-     * destination id
-     */
-    destinationId: number;
+export interface TaskAndDestinationIdObject {
+  /**
+   * task id
+   */
+  taskId: number;
+  /**
+   * destination id
+   */
+  destinationId: number;
 }
-

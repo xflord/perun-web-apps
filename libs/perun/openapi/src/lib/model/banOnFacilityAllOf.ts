@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface BanOnFacilityAllOf { 
-    userId?: number;
-    facilityId?: number;
+export interface BanOnFacilityAllOf {
+  userId?: number;
+  facilityId?: number;
 }
-

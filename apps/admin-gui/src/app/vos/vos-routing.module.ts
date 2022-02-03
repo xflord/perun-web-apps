@@ -133,7 +133,7 @@ const routes: Routes = [
       {
         path: 'serviceAccounts',
         component: VoSettingsServiceMembersComponent,
-        data: {animation: 'VoSettingsServiceMembersPage'}
+        data: { animation: 'VoSettingsServiceMembersPage' },
       },
       {
         path: 'statistics',

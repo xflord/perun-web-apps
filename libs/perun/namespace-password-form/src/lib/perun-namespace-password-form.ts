@@ -16,15 +16,24 @@ export class ImmediateStateMatcher implements ErrorStateMatcher {
 }
 
 export const loginAsyncValidator =
-  (namespace: string, usersManager: UsersManagerService, apiRequestConfiguration: ApiRequestConfigurationService, time: number = 500) => (input: FormControl) => timer(time).pipe(
-    switchMap(() => {
-      apiRequestConfiguration.dontHandleErrorForNext();
-      if (!namespace || namespace === 'No namespace') {
-        return of(null);
-      }
-      return usersManager.checkPasswordStrength(input.value, namespace)
-    }),
-    map(() => null),
-    // catch error and send it as a valid value
-    catchError(err => of({backendError: err.error.message.substr(err.error.message.indexOf(":")+1)})),
-  );
+  (
+    namespace: string,
+    usersManager: UsersManagerService,
+    apiRequestConfiguration: ApiRequestConfigurationService,
+    time: number = 500
+  ) =>
+  (input: FormControl) =>
+    timer(time).pipe(
+      switchMap(() => {
+        apiRequestConfiguration.dontHandleErrorForNext();
+        if (!namespace || namespace === 'No namespace') {
+          return of(null);
+        }
+        return usersManager.checkPasswordStrength(input.value, namespace);
+      }),
+      map(() => null),
+      // catch error and send it as a valid value
+      catchError((err) =>
+        of({ backendError: err.error.message.substr(err.error.message.indexOf(':') + 1) })
+      )
+    );

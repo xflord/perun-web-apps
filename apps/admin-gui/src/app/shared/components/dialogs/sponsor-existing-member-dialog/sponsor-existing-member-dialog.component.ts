@@ -10,24 +10,24 @@ import { Urns } from '@perun-web-apps/perun/urns';
 import { TABLE_ADD_SPONSORED_MEMBERS } from '@perun-web-apps/config/table-config';
 
 export interface SponsorExistingMemberDialogData {
-  voId: number
+  voId: number;
   theme: string;
 }
 
 @Component({
   selector: 'app-sponsor-existing-member-dialog',
   templateUrl: './sponsor-existing-member-dialog.component.html',
-  styleUrls: ['./sponsor-existing-member-dialog.component.scss']
+  styleUrls: ['./sponsor-existing-member-dialog.component.scss'],
 })
 export class SponsorExistingMemberDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<SponsorExistingMemberDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: SponsorExistingMemberDialogData,
-              private store: StoreService,
-              private membersService: MembersManagerService,
-              private notificator: NotificatorService,
-              private translate: TranslateService) {
-  }
+  constructor(
+    private dialogRef: MatDialogRef<SponsorExistingMemberDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: SponsorExistingMemberDialogData,
+    private store: StoreService,
+    private membersService: MembersManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService
+  ) {}
 
   loading = false;
   theme: string;
@@ -51,29 +51,35 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
 
   sponsor(members: RichMember[]) {
     this.loading = true;
-    if (members.length === 0){
-      this.notificator.showSuccess(this.translate.instant('DIALOGS.SPONSOR_EXISTING_MEMBER.SUCCESS'));
+    if (members.length === 0) {
+      this.notificator.showSuccess(
+        this.translate.instant('DIALOGS.SPONSOR_EXISTING_MEMBER.SUCCESS')
+      );
       this.loading = false;
       this.dialogRef.close(true);
-      return
+      return;
     }
 
     const member = members.pop();
 
     if (member.sponsored) {
-      this.membersService.sponsorMember(
-        member.id,
-        this.store.getPerunPrincipal().user.id,
-        this.expiration).subscribe( () => {
-        this.sponsor(members);
-      }, () => this.loading = false);
+      this.membersService
+        .sponsorMember(member.id, this.store.getPerunPrincipal().user.id, this.expiration)
+        .subscribe(
+          () => {
+            this.sponsor(members);
+          },
+          () => (this.loading = false)
+        );
     } else {
-      this.membersService.setSponsorshipForMember(
-        member.id,
-        this.store.getPerunPrincipal().user.id,
-        this.expiration).subscribe( () => {
-        this.sponsor(members);
-      }, () => this.loading = false);
+      this.membersService
+        .setSponsorshipForMember(member.id, this.store.getPerunPrincipal().user.id, this.expiration)
+        .subscribe(
+          () => {
+            this.sponsor(members);
+          },
+          () => (this.loading = false)
+        );
     }
   }
 
@@ -86,28 +92,32 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
   }
 
   setExpiration(newExpiration) {
-    if(newExpiration === 'never'){
+    if (newExpiration === 'never') {
       this.expiration = 'never';
     } else {
-      this.expiration = formatDate(newExpiration,'yyyy-MM-dd','en-GB');
+      this.expiration = formatDate(newExpiration, 'yyyy-MM-dd', 'en-GB');
     }
   }
 
   onSearchByString() {
     if (this.searchCtrl.invalid) {
       this.searchCtrl.markAllAsTouched();
-      return
+      return;
     }
     this.firstSearchDone = true;
     this.loading = true;
 
     this.selection.clear();
 
-    const attrNames  = [Urns.MEMBER_DEF_EXPIRATION, Urns.USER_DEF_PREFERRED_MAIL]
-    this.membersService.findCompleteRichMembersForVo(
-      this.data.voId, attrNames, this.searchCtrl.value).subscribe(members => {
-      this.members = members;
-      this.loading = false;
-    }, () => this.loading = false);
+    const attrNames = [Urns.MEMBER_DEF_EXPIRATION, Urns.USER_DEF_PREFERRED_MAIL];
+    this.membersService
+      .findCompleteRichMembersForVo(this.data.voId, attrNames, this.searchCtrl.value)
+      .subscribe(
+        (members) => {
+          this.members = members;
+          this.loading = false;
+        },
+        () => (this.loading = false)
+      );
   }
 }

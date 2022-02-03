@@ -7,36 +7,63 @@
       <div *ngIf="item.logos" [ngStyle]="{'min-height': columnContentHeight+'px'}">
         <div *ngFor="let elem of item.elements">
           <a *ngIf="elem | localisedLink:language" [href]="elem | localisedLink:language">
-            <img alt="image" src="{{elem.logo | footerLogoPath}}">
+            <img alt="image" src="{{elem.logo | footerLogoPath}}" />
           </a>
           <span *ngIf="!(elem | localisedLink:language)">
-             <img alt="image" src="{{elem.logo | footerLogoPath}}">
+            <img alt="image" src="{{elem.logo | footerLogoPath}}" />
           </span>
         </div>
       </div>
       <div *ngIf="item.elements && !item.logos" [ngStyle]="{'height': columnContentHeight+'px'}">
         <div *ngFor="let elem of item.elements" class="row-height">
-            <i *ngIf="elem.icon"  [ngStyle]="{'color': linksTextColor}" class="material-icons align-bottom mr-1">
-              {{elem.icon}}
-            </i>
-            <span (click)="openDialog(elem.dialog)" *ngIf="elem.dialog"
-                  [ngStyle]="{'color': linksTextColor}"
-                  id="clickable">{{elem | localisedText: language:'label'}}
+          <i
+            *ngIf="elem.icon"
+            [ngStyle]="{'color': linksTextColor}"
+            class="material-icons align-bottom mr-1">
+            {{elem.icon}}
+          </i>
+          <span
+            (click)="openDialog(elem.dialog)"
+            *ngIf="elem.dialog"
+            [ngStyle]="{'color': linksTextColor}"
+            id="clickable"
+            >{{elem | localisedText: language:'label'}}
           </span>
-            <a *ngIf="(elem | localisedLink:language) && !elem.dialog" [href]="elem | localisedLink:language" [ngStyle]="{'color': linksTextColor}"
-               target="_blank">{{elem | localisedText: language:'label'}}</a>
-            <span *ngIf="!(elem | localisedLink:language) && !elem.dialog"
-                  [ngStyle]="{'color': linksTextColor}">{{elem | localisedText: language:'label'}}</span>
+          <a
+            *ngIf="(elem | localisedLink:language) && !elem.dialog"
+            [href]="elem | localisedLink:language"
+            [ngStyle]="{'color': linksTextColor}"
+            target="_blank"
+            >{{elem | localisedText: language:'label'}}</a
+          >
+          <span
+            *ngIf="!(elem | localisedLink:language) && !elem.dialog"
+            [ngStyle]="{'color': linksTextColor}"
+            >{{elem | localisedText: language:'label'}}</span
+          >
         </div>
       </div>
     </div>
   </div>
-  <hr class="my-0 mt-3">
+  <hr class="my-0 mt-3" />
   <div [ngStyle]="{'color': copyrightTextColor}" class="font-fix text-center">
     © {{currentYear}} Copyright:
     <span *ngFor="let item of copyrightItems; let index = index">
-     <a [href]="item.url" [ngStyle]="{'color': copyrightTextColor}"  class="text-decoration-none" target="_blank">{{index ? ', ' + item.name : item.name}}</a>
+      <a
+        [href]="item.url"
+        [ngStyle]="{'color': copyrightTextColor}"
+        class="text-decoration-none"
+        target="_blank"
+        >{{index ? ', ' + item.name : item.name}}</a
+      >
     </span>
-    Version <a [href]="githubRepository" [ngStyle]="{'color': copyrightTextColor}" class="text-decoration-none" target="_blank">{{version}}</a>
+    Version
+    <a
+      [href]="githubRepository"
+      [ngStyle]="{'color': copyrightTextColor}"
+      class="text-decoration-none"
+      target="_blank"
+      >{{version}}</a
+    >
   </div>
 </footer>

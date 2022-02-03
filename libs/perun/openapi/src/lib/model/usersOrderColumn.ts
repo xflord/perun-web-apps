@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
 export type UsersOrderColumn = 'ID' | 'NAME';
 
 export const UsersOrderColumn = {
-    ID: 'ID' as UsersOrderColumn,
-    NAME: 'NAME' as UsersOrderColumn
+  ID: 'ID' as UsersOrderColumn,
+  NAME: 'NAME' as UsersOrderColumn,
 };
-

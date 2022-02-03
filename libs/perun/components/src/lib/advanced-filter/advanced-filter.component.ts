@@ -3,11 +3,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 @Component({
   selector: 'perun-web-apps-advanced-filter',
   templateUrl: './advanced-filter.component.html',
-  styleUrls: ['./advanced-filter.component.scss']
+  styleUrls: ['./advanced-filter.component.scss'],
 })
 export class AdvancedFilterComponent implements OnInit {
-
-  constructor() { }
+  constructor() {}
 
   @Input()
   filtersCount;

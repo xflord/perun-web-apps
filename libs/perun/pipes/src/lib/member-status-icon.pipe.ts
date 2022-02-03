@@ -1,10 +1,9 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'memberStatusIcon'
+  name: 'memberStatusIcon',
 })
 export class MemberStatusIconPipe implements PipeTransform {
-
   /**
    * Return string representing Material icon for status of given member.
    *

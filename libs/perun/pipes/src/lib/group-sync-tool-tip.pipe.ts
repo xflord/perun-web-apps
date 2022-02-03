@@ -4,28 +4,34 @@ import { Urns } from '@perun-web-apps/perun/urns';
 import { RichGroup } from '@perun-web-apps/perun/openapi';
 
 @Pipe({
-  name: 'groupSyncToolTip'
+  name: 'groupSyncToolTip',
 })
 export class GroupSyncToolTipPipe implements PipeTransform {
-
   transform(richGroup: RichGroup): unknown {
-    if (richGroup === undefined || richGroup === null || richGroup.attributes === undefined ||
-      richGroup.attributes === null) {
+    if (
+      richGroup === undefined ||
+      richGroup === null ||
+      richGroup.attributes === undefined ||
+      richGroup.attributes === null
+    ) {
       return 'VO_DETAIL.GROUPS.GROUP_NOT_SYNCED';
     }
     const normalSyncEnabled = getAttribute(richGroup.attributes, Urns.GROUP_SYNC_ENABLED);
-    const structureSyncEnabled = getAttribute(richGroup.attributes, Urns.GROUP_STRUCTURE_SYNC_ENABLED);
+    const structureSyncEnabled = getAttribute(
+      richGroup.attributes,
+      Urns.GROUP_STRUCTURE_SYNC_ENABLED
+    );
     if (normalSyncEnabled === null && structureSyncEnabled === null) {
       return 'VO_DETAIL.GROUPS.GROUP_NOT_SYNCED';
     }
-    const structureSyncEnabledValue = <boolean><unknown>structureSyncEnabled.value;
-    const normalSyncEnabledValue = <string><unknown>normalSyncEnabled.value;
+    const structureSyncEnabledValue = <boolean>(<unknown>structureSyncEnabled.value);
+    const normalSyncEnabledValue = <string>(<unknown>normalSyncEnabled.value);
 
     if (normalSyncEnabledValue === 'true') {
       const syncLastStatus = getAttribute(richGroup.attributes, Urns.GROUP_LAST_SYNC_STATE);
       const syncLastTime = getAttribute(richGroup.attributes, Urns.GROUP_LAST_SYNC_TIMESTAMP);
-      const lastStatusValue = <string><unknown>syncLastStatus.value;
-      const lastTimeValue = <string><unknown>syncLastTime.value;
+      const lastStatusValue = <string>(<unknown>syncLastStatus.value);
+      const lastTimeValue = <string>(<unknown>syncLastTime.value);
       if (lastStatusValue != null && lastStatusValue.trim().length > 0) {
         return 'VO_DETAIL.GROUPS.GROUP_SYNC_FAILED';
       } else {
@@ -37,10 +43,16 @@ export class GroupSyncToolTipPipe implements PipeTransform {
     }
 
     if (structureSyncEnabledValue) {
-      const syncLastStatus = getAttribute(richGroup.attributes, Urns.GROUP_LAST_STRUCTURE_SYNC_STATE);
-      const syncLastTime = getAttribute(richGroup.attributes, Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP);
-      const lastStatusValue = <string><unknown>syncLastStatus.value;
-      const lastTimeValue = <string><unknown>syncLastTime.value;
+      const syncLastStatus = getAttribute(
+        richGroup.attributes,
+        Urns.GROUP_LAST_STRUCTURE_SYNC_STATE
+      );
+      const syncLastTime = getAttribute(
+        richGroup.attributes,
+        Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
+      );
+      const lastStatusValue = <string>(<unknown>syncLastStatus.value);
+      const lastTimeValue = <string>(<unknown>syncLastTime.value);
       if (lastStatusValue != null && lastStatusValue.trim().length > 0) {
         return 'VO_DETAIL.GROUPS.GROUP_SYNC_FAILED';
       } else {

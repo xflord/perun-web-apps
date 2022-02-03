@@ -9,16 +9,16 @@ export interface ShowValueDialogData {
 @Component({
   selector: 'perun-web-apps-show-value-dialog',
   templateUrl: './show-value-dialog.component.html',
-  styleUrls: ['./show-value-dialog.component.scss']
+  styleUrls: ['./show-value-dialog.component.scss'],
 })
 export class ShowValueDialogComponent implements OnInit {
-
   value: string;
   title: string;
 
-  constructor(private dialogRef: MatDialogRef<ShowValueDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: ShowValueDialogData
-  ) { }
+  constructor(
+    private dialogRef: MatDialogRef<ShowValueDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: ShowValueDialogData
+  ) {}
 
   ngOnInit(): void {
     this.value = this.data.value;

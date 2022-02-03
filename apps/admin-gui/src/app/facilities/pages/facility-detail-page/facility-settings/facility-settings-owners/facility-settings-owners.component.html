@@ -17,9 +17,11 @@
   mat-flat-button>
   {{'FACILITY_DETAIL.SETTINGS.OWNERS.DELETE' | translate}}
 </button>
-<perun-web-apps-immediate-filter (filter)="applyFilter($event)" [placeholder]="'VO_MANAGEMENT.FILTER_PLACEHOLDER'"></perun-web-apps-immediate-filter>
+<perun-web-apps-immediate-filter
+  (filter)="applyFilter($event)"
+  [placeholder]="'VO_MANAGEMENT.FILTER_PLACEHOLDER'"></perun-web-apps-immediate-filter>
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <perun-web-apps-owners-list
+<perun-web-apps-owners-list
   [tableId]="tableId"
   *ngIf="!loading"
   [filterValue]="filterValue"
@@ -27,5 +29,3 @@
   [displayedColumns]="displayedColumns"
   [selection]="selection">
 </perun-web-apps-owners-list>
-
-

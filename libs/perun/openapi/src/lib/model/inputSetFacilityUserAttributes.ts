@@ -11,19 +11,17 @@
  */
 import { Attribute } from './attribute';
 
-
 /**
  * input to setFacilityUserAttributes
  */
-export interface InputSetFacilityUserAttributes { 
-    /**
-     * facility id
-     */
-    facility?: number;
-    /**
-     * user id
-     */
-    user?: number;
-    attributes?: Array<Attribute>;
+export interface InputSetFacilityUserAttributes {
+  /**
+   * facility id
+   */
+  facility?: number;
+  /**
+   * user id
+   */
+  user?: number;
+  attributes?: Array<Attribute>;
 }
-

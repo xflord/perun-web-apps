@@ -1,7 +1,6 @@
 <div class="{{theme}}">
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content class="dialog-container">
-
     <perun-web-apps-vo-search-select
       class="long-input"
       [vos]="vos"
@@ -9,26 +8,37 @@
     </perun-web-apps-vo-search-select>
 
     <mat-form-field>
-      <input matInput required placeholder="{{'DIALOGS.CREATE_RESOURCE.NAME' | translate}}" [formControl]="nameCtrl">
+      <input
+        matInput
+        required
+        placeholder="{{'DIALOGS.CREATE_RESOURCE.NAME' | translate}}"
+        [formControl]="nameCtrl" />
       <mat-error>
         {{'DIALOGS.CREATE_RESOURCE.INCORRECT_NAME' | translate}}
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="{{'DIALOGS.CREATE_RESOURCE.DESCRIPTION' | translate}}"
-             [formControl]="descriptionCtrl">
+      <input
+        matInput
+        placeholder="{{'DIALOGS.CREATE_RESOURCE.DESCRIPTION' | translate}}"
+        [formControl]="descriptionCtrl" />
       <mat-error>
         {{'DIALOGS.CREATE_RESOURCE.FILL_DESCRIPTION' | translate}}
       </mat-error>
     </mat-form-field>
   </div>
 
-
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto"
-            (click)="onCancel()">{{'DIALOGS.CREATE_RESOURCE.CANCEL' | translate}}</button>
-    <button mat-flat-button class="ml-2"
-            [disabled]="nameCtrl.invalid || descriptionCtrl.invalid || selectedVo === null || loading"
-            color="accent" (click)="onSubmit()">{{'DIALOGS.CREATE_RESOURCE.CREATE' | translate}}</button>
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+      {{'DIALOGS.CREATE_RESOURCE.CANCEL' | translate}}
+    </button>
+    <button
+      mat-flat-button
+      class="ml-2"
+      [disabled]="nameCtrl.invalid || descriptionCtrl.invalid || selectedVo === null || loading"
+      color="accent"
+      (click)="onSubmit()">
+      {{'DIALOGS.CREATE_RESOURCE.CREATE' | translate}}
+    </button>
   </div>
 </div>

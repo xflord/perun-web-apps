@@ -1,20 +1,24 @@
 <h1 class="page-subtitle">
   {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.TITLE' | translate}}
 </h1>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto">
-</mat-spinner>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
 <div>
   <div *ngIf="!loading" class="d-flex w-50">
     <div class="w-50">
-      <div class="font-weight-bold">{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MODULE_NAME' | translate}}:
+      <div class="font-weight-bold">
+        {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MODULE_NAME' | translate}}:
         {{applicationForm.moduleClassName}}
       </div>
       <div>
-        <span class="font-weight-bold">{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.APPLICATION_TYPE' | translate}}</span>:
+        <span
+          class="font-weight-bold"
+          >{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.APPLICATION_TYPE' | translate}}</span
+        >:
 
         <mat-icon class="align-text-bottom" matTooltip="Initial">arrow_right_alt</mat-icon>
         {{applicationForm.automaticApproval ?
-        ('VO_DETAIL.SETTINGS.APPLICATION_FORM.AUTOMATIC'| translate) : ('VO_DETAIL.SETTINGS.APPLICATION_FORM.MANUAL'| translate)}},
+        ('VO_DETAIL.SETTINGS.APPLICATION_FORM.AUTOMATIC'| translate) : ('VO_DETAIL.SETTINGS.APPLICATION_FORM.MANUAL'| translate)
+        }},
 
         <mat-icon class="align-text-bottom" matTooltip="Extension">restore</mat-icon>
         {{applicationForm.automaticApprovalExtension ?
@@ -36,7 +40,8 @@
   <mat-divider class="mb-2 mt-2"></mat-divider>
 
   <div class="w-100 d-flex">
-    <perun-web-apps-refresh-button (refresh)="this.updateFormItems()"></perun-web-apps-refresh-button>
+    <perun-web-apps-refresh-button
+      (refresh)="this.updateFormItems()"></perun-web-apps-refresh-button>
 
     <button
       *ngIf="editAuth"
@@ -60,36 +65,28 @@
       {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.SAVE_BUTTON' | translate}}
     </button>
 
-    <button
-      *ngIf="editAuth"
-      mat-stroked-button
-      class="mr-2 action-button"
-      (click)="copy()">
+    <button *ngIf="editAuth" mat-stroked-button class="mr-2 action-button" (click)="copy()">
       <i class="material-icons">file_copy</i>
       {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.COPY_VO_BUTTON' | translate}}
     </button>
 
-    <button
-      mat-stroked-button
-      (click)="preview()">
+    <button mat-stroked-button (click)="preview()">
       <i class="material-icons">search</i>
       {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_BUTTON' | translate}}
     </button>
 
-<!--    <button-->
-<!--      *ngIf="editAuth"-->
-<!--      (click)="clear()"-->
-<!--      class="ml-2"-->
-<!--      mat-stroked-button-->
-<!--      matTooltip="{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.CLEAR_TOOLTIP' | translate}}"-->
-<!--      matTooltipPosition="above">-->
-<!--      {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.CLEAR' | translate}}-->
-<!--    </button>-->
+    <!--    <button-->
+    <!--      *ngIf="editAuth"-->
+    <!--      (click)="clear()"-->
+    <!--      class="ml-2"-->
+    <!--      mat-stroked-button-->
+    <!--      matTooltip="{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.CLEAR_TOOLTIP' | translate}}"-->
+    <!--      matTooltipPosition="above">-->
+    <!--      {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.CLEAR' | translate}}-->
+    <!--    </button>-->
   </div>
 
-  <app-alert
-    *ngIf="editAuth"
-    alert_type="info">
+  <app-alert *ngIf="editAuth" alert_type="info">
     {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.DRAG_AND_DROP_INFO' | translate}}
   </app-alert>
 

@@ -1,11 +1,11 @@
 .items-container {
   display: grid;
   grid-gap: 0;
-  grid-template-columns: repeat(auto-fill,minmax(208px,1fr));
+  grid-template-columns: repeat(auto-fill, minmax(208px, 1fr));
   margin: 0 -8px;
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fill,minmax(148px,1fr));
+    grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
   }
 }
 
@@ -48,14 +48,13 @@
     overflow-wrap: break-word;
     word-break: break-word;
     & img {
-        height: 80px;
-        margin-bottom: 10px;
-      }
+      height: 80px;
+      margin-bottom: 10px;
+    }
   }
 }
 
 @media (max-width: 768px) {
-
 }
 
 .item-type {

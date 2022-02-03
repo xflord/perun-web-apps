@@ -1,4 +1,4 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Attribute } from '@perun-web-apps/perun/openapi';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowValueDialogComponent } from '@perun-web-apps/perun/dialogs';
@@ -7,12 +7,10 @@ import { getDefaultDialogConfig, isVirtualAttribute } from '@perun-web-apps/peru
 @Component({
   selector: 'perun-web-apps-attribute-value-map',
   templateUrl: './attribute-value-map.component.html',
-  styleUrls: ['./attribute-value-map.component.scss']
+  styleUrls: ['./attribute-value-map.component.scss'],
 })
 export class AttributeValueMapComponent implements OnInit {
-
-  constructor(private dialog: MatDialog) {
-  }
+  constructor(private dialog: MatDialog) {}
 
   @Input()
   attribute: Attribute;
@@ -38,7 +36,7 @@ export class AttributeValueMapComponent implements OnInit {
     }
     this.itemsShown = this.readonly ? this.values.length : this.defaultItemsShown;
     this.showMore = this.readonly;
-    if(!this.readonly){
+    if (!this.readonly) {
       this.readonly = isVirtualAttribute(this.attribute);
     }
   }
@@ -48,12 +46,12 @@ export class AttributeValueMapComponent implements OnInit {
   }
 
   addValue() {
-    this.keys.push('')
+    this.keys.push('');
     this.values.push('');
 
-    if(this.values.length > this.defaultItemsShown){
+    if (this.values.length > this.defaultItemsShown) {
       this.showMore = true;
-      this.setItemsShown()
+      this.setItemsShown();
     }
   }
 
@@ -79,13 +77,13 @@ export class AttributeValueMapComponent implements OnInit {
     config.width = '350px';
     config.data = {
       value: value,
-      title: title
+      title: title,
     };
     this.dialog.open(ShowValueDialogComponent, config);
   }
 
   setItemsShown() {
-    if(this.showMore){
+    if (this.showMore) {
       this.itemsShown = this.values.length;
     } else {
       this.itemsShown = this.defaultItemsShown;
@@ -97,6 +95,4 @@ export class AttributeValueMapComponent implements OnInit {
 
     this.setItemsShown();
   }
-
 }
-

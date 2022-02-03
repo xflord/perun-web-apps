@@ -4,12 +4,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.service';
 import { fadeIn } from '@perun-web-apps/perun/animations';
 import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
-import { addRecentlyVisited, addRecentlyVisitedObject, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import {
+  addRecentlyVisited,
+  addRecentlyVisitedObject,
+  getDefaultDialogConfig,
+} from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import {
   EditFacilityResourceGroupVoDialogComponent,
-  EditFacilityResourceGroupVoDialogOptions
+  EditFacilityResourceGroupVoDialogOptions,
 } from '@perun-web-apps/perun/dialogs';
 import { RemoveVoDialogComponent } from '../../../shared/components/dialogs/remove-vo-dialog/remove-vo-dialog.component';
 import { ReloadEntityDetailService } from '../../../core/services/common/reload-entity-detail.service';
@@ -18,12 +22,9 @@ import { ReloadEntityDetailService } from '../../../core/services/common/reload-
   selector: 'app-vo-detail-page',
   templateUrl: './vo-detail-page.component.html',
   styleUrls: ['./vo-detail-page.component.scss'],
-  animations: [
-    fadeIn
-  ]
+  animations: [fadeIn],
 })
 export class VoDetailPageComponent implements OnInit {
-
   constructor(
     private sideMenuService: SideMenuService,
     private voService: VosManagerService,
@@ -33,8 +34,8 @@ export class VoDetailPageComponent implements OnInit {
     private dialog: MatDialog,
     private authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService,
-    private reloadEntityDetail: ReloadEntityDetailService) {
-  }
+    private reloadEntityDetail: ReloadEntityDetailService
+  ) {}
 
   vo: Vo;
   editAuth: boolean;
@@ -50,34 +51,41 @@ export class VoDetailPageComponent implements OnInit {
 
   reloadData() {
     this.loading = true;
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       const voId = params['voId'];
 
-      this.voService.getVoById(voId).subscribe(vo => {
-        this.vo = vo;
-        this.entityStorageService.setEntity({id: vo.id, beanName: vo.beanName});
-        this.editAuth = this.authResolver.isAuthorized('updateVo_Vo_policy', [this.vo]);
-        this.removeAuth = this.authResolver.isAuthorized('deleteVo_Vo_policy', [this.vo]);
+      this.voService.getVoById(voId).subscribe(
+        (vo) => {
+          this.vo = vo;
+          this.entityStorageService.setEntity({ id: vo.id, beanName: vo.beanName });
+          this.editAuth = this.authResolver.isAuthorized('updateVo_Vo_policy', [this.vo]);
+          this.removeAuth = this.authResolver.isAuthorized('deleteVo_Vo_policy', [this.vo]);
 
-        this.setMenuItems();
+          this.setMenuItems();
 
-        addRecentlyVisited('vos', this.vo);
-        addRecentlyVisitedObject(this.vo);
+          addRecentlyVisited('vos', this.vo);
+          addRecentlyVisitedObject(this.vo);
 
-        this.loading = false;
-      }, () => this.loading = false);
+          this.loading = false;
+        },
+        () => (this.loading = false)
+      );
     });
   }
 
   editVo() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = { theme: 'vo-theme', vo: this.vo, dialogType: EditFacilityResourceGroupVoDialogOptions.VO };
+    config.data = {
+      theme: 'vo-theme',
+      vo: this.vo,
+      dialogType: EditFacilityResourceGroupVoDialogOptions.VO,
+    };
     const dialogRef = this.dialog.open(EditFacilityResourceGroupVoDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.voService.getVoById(this.vo.id).subscribe(vo => {
+        this.voService.getVoById(this.vo.id).subscribe((vo) => {
           this.vo = vo;
           this.setMenuItems();
         });
@@ -96,11 +104,11 @@ export class VoDetailPageComponent implements OnInit {
     config.width = '500px';
     config.data = {
       theme: 'vo-theme',
-      vos: [this.vo]
+      vos: [this.vo],
     };
     const dialogRef = this.dialog.open(RemoveVoDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.router.navigate(['']);
       }

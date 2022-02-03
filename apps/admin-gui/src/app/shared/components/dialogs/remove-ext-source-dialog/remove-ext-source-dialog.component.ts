@@ -15,16 +15,17 @@ export interface RemoveExtSourceDialogData {
 @Component({
   selector: 'app-remove-ext-source-dialog',
   templateUrl: './remove-ext-source-dialog.component.html',
-  styleUrls: ['./remove-ext-source-dialog.component.scss']
+  styleUrls: ['./remove-ext-source-dialog.component.scss'],
 })
 export class RemoveExtSourceDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<RemoveExtSourceDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: RemoveExtSourceDialogData,
-              private extSourceService: ExtSourcesManagerService,
-              private notificator: NotificatorService,
-              private tableConfigService: TableConfigService,
-              private translate: TranslateService) { }
+  constructor(
+    private dialogRef: MatDialogRef<RemoveExtSourceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: RemoveExtSourceDialogData,
+    private extSourceService: ExtSourcesManagerService,
+    private notificator: NotificatorService,
+    private tableConfigService: TableConfigService,
+    private translate: TranslateService
+  ) {}
 
   theme: string;
   extSources: ExtSource[] = [];
@@ -37,33 +38,43 @@ export class RemoveExtSourceDialogComponent implements OnInit {
   }
 
   removeVoExtSource() {
-    if (this.extSources.length === 0){
-      this.translate.get('DIALOGS.REMOVE_EXT_SOURCES.SUCCESS_REMOVED').subscribe(successMessage => {
-        this.notificator.showSuccess(successMessage);
-        this.dialogRef.close(true);
-      });
+    if (this.extSources.length === 0) {
+      this.translate
+        .get('DIALOGS.REMOVE_EXT_SOURCES.SUCCESS_REMOVED')
+        .subscribe((successMessage) => {
+          this.notificator.showSuccess(successMessage);
+          this.dialogRef.close(true);
+        });
       return;
     }
 
     const extSource = this.extSources.pop();
-    this.extSourceService.removeExtSourceWithVoSource(this.data.voId, extSource.id).subscribe(() => {
-      this.onRemove();
-    }, () => this.loading = false);
+    this.extSourceService.removeExtSourceWithVoSource(this.data.voId, extSource.id).subscribe(
+      () => {
+        this.onRemove();
+      },
+      () => (this.loading = false)
+    );
   }
 
   removeGroupExtSource() {
-    if (this.extSources.length === 0){
-      this.translate.get('DIALOGS.REMOVE_EXT_SOURCES.SUCCESS_REMOVED').subscribe(successMessage => {
-        this.notificator.showSuccess(successMessage);
-        this.dialogRef.close(true);
-      });
+    if (this.extSources.length === 0) {
+      this.translate
+        .get('DIALOGS.REMOVE_EXT_SOURCES.SUCCESS_REMOVED')
+        .subscribe((successMessage) => {
+          this.notificator.showSuccess(successMessage);
+          this.dialogRef.close(true);
+        });
       return;
     }
 
     const extSource = this.extSources.pop();
-    this.extSourceService.removeExtSourceWithGroupSource(this.data.groupId, extSource.id).subscribe(() => {
-      this.onRemove();
-    }, () => this.loading = false);
+    this.extSourceService.removeExtSourceWithGroupSource(this.data.groupId, extSource.id).subscribe(
+      () => {
+        this.onRemove();
+      },
+      () => (this.loading = false)
+    );
   }
 
   onRemove() {

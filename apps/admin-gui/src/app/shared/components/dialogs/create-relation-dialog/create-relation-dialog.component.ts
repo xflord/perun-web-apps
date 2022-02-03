@@ -4,33 +4,33 @@ import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  TABLE_CREATE_RELATION_GROUP_DIALOG
-} from '@perun-web-apps/config/table-config';
+import { TABLE_CREATE_RELATION_GROUP_DIALOG } from '@perun-web-apps/config/table-config';
 
 export interface CreateRelationDialogData {
-  theme: string,
-  groups: Group[],
-  group: Group,
-  voId: number,
-  reverse: boolean
+  theme: string;
+  groups: Group[];
+  group: Group;
+  voId: number;
+  reverse: boolean;
 }
 
 @Component({
   selector: 'app-create-relation-dialog',
   templateUrl: './create-relation-dialog.component.html',
-  styleUrls: ['./create-relation-dialog.component.scss']
+  styleUrls: ['./create-relation-dialog.component.scss'],
 })
 export class CreateRelationDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<CreateRelationDialogComponent>,
-              private groupService: GroupsManagerService,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private guiAuthResolver: GuiAuthResolver,
-              @Inject(MAT_DIALOG_DATA) public data: CreateRelationDialogData
+  constructor(
+    private dialogRef: MatDialogRef<CreateRelationDialogComponent>,
+    private groupService: GroupsManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private guiAuthResolver: GuiAuthResolver,
+    @Inject(MAT_DIALOG_DATA) public data: CreateRelationDialogData
   ) {
-    translate.get('DIALOGS.CREATE_RELATION.SUCCESS').subscribe(value => this.successMessage = value);
+    translate
+      .get('DIALOGS.CREATE_RELATION.SUCCESS')
+      .subscribe((value) => (this.successMessage = value));
   }
 
   successMessage: string;
@@ -38,7 +38,7 @@ export class CreateRelationDialogComponent implements OnInit {
   groups: Group[];
   theme: string;
   filterValue = '';
-  loading:boolean;
+  loading: boolean;
 
   tableId = TABLE_CREATE_RELATION_GROUP_DIALOG;
 
@@ -46,15 +46,23 @@ export class CreateRelationDialogComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.groupService.getGroupUnions(this.data.group.id, !this.data.reverse).subscribe( unionGroups => {
-      unionGroups = unionGroups.concat(this.data.groups);
-      this.groupService.getAllGroups(this.data.voId).subscribe(allGroups => {
-        const groupIds = unionGroups.map(elem => elem.id);
-        this.groups = allGroups.filter(group => !groupIds.includes(group.id) && group.id !== this.data.group.id);
-        this.setGroupsToDisable();
-        this.loading = false;
-      }, () => this.loading = false);
-    }, () => this.loading = false);
+    this.groupService.getGroupUnions(this.data.group.id, !this.data.reverse).subscribe(
+      (unionGroups) => {
+        unionGroups = unionGroups.concat(this.data.groups);
+        this.groupService.getAllGroups(this.data.voId).subscribe(
+          (allGroups) => {
+            const groupIds = unionGroups.map((elem) => elem.id);
+            this.groups = allGroups.filter(
+              (group) => !groupIds.includes(group.id) && group.id !== this.data.group.id
+            );
+            this.setGroupsToDisable();
+            this.loading = false;
+          },
+          () => (this.loading = false)
+        );
+      },
+      () => (this.loading = false)
+    );
     this.theme = this.data.theme;
   }
 
@@ -64,11 +72,14 @@ export class CreateRelationDialogComponent implements OnInit {
 
   onSubmit(): void {
     this.loading = true;
-    this.groupService.createGroupUnion(this.data.group.id, this.selection.selected[0].id).subscribe(() =>{
-      this.notificator.showSuccess(this.successMessage);
-      this.loading = false;
-      this.dialogRef.close(true);
-    }, () => this.loading = false);
+    this.groupService.createGroupUnion(this.data.group.id, this.selection.selected[0].id).subscribe(
+      () => {
+        this.notificator.showSuccess(this.successMessage);
+        this.loading = false;
+        this.dialogRef.close(true);
+      },
+      () => (this.loading = false)
+    );
   }
 
   applyFilter(filterValue: string) {
@@ -77,7 +88,12 @@ export class CreateRelationDialogComponent implements OnInit {
 
   private setGroupsToDisable() {
     for (const group of this.groups) {
-      if (!this.guiAuthResolver.isAuthorized('createGroupUnion_Group_Group_policy', [this.data.group, group])) {
+      if (
+        !this.guiAuthResolver.isAuthorized('createGroupUnion_Group_Group_policy', [
+          this.data.group,
+          group,
+        ])
+      ) {
         this.groupsToDisable.add(group.id);
       }
     }

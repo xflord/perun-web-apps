@@ -1,26 +1,22 @@
 import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { EntityStorageService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import {
+  EntityStorageService,
+  GuiAuthResolver,
+  NotificatorService,
+} from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  AddApplicationFormItemDialogComponent
-} from '../../../../../shared/components/dialogs/add-application-form-item-dialog/add-application-form-item-dialog.component';
-import {
-  EditApplicationFormItemDialogComponent
-} from '../../../../../shared/components/dialogs/edit-application-form-item-dialog/edit-application-form-item-dialog.component';
-import {
-  ApplicationFormCopyItemsDialogComponent
-} from '../../../../../shared/components/dialogs/application-form-copy-items-dialog/application-form-copy-items-dialog.component';
-import {
-  UpdateApplicationFormDialogComponent
-} from '../../../../../shared/components/dialogs/update-application-form-dialog/update-application-form-dialog.component';
+import { AddApplicationFormItemDialogComponent } from '../../../../../shared/components/dialogs/add-application-form-item-dialog/add-application-form-item-dialog.component';
+import { EditApplicationFormItemDialogComponent } from '../../../../../shared/components/dialogs/edit-application-form-item-dialog/edit-application-form-item-dialog.component';
+import { ApplicationFormCopyItemsDialogComponent } from '../../../../../shared/components/dialogs/application-form-copy-items-dialog/application-form-copy-items-dialog.component';
+import { UpdateApplicationFormDialogComponent } from '../../../../../shared/components/dialogs/update-application-form-dialog/update-application-form-dialog.component';
 import {
   ApplicationForm,
   ApplicationFormItem,
   AttributesManagerService,
   Group,
-  RegistrarManagerService
+  RegistrarManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -29,10 +25,9 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
 @Component({
   selector: 'app-group-settings-application-form',
   templateUrl: './group-settings-application-form.component.html',
-  styleUrls: ['./group-settings-application-form.component.scss']
+  styleUrls: ['./group-settings-application-form.component.scss'],
 })
 export class GroupSettingsApplicationFormComponent implements OnInit {
-
   static id = 'GroupSettingsApplicationFormComponent';
 
   @HostBinding('class.router-component') true;
@@ -46,8 +41,8 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     private router: Router,
     private guiAuthResolver: GuiAuthResolver,
     private attributesManager: AttributesManagerService,
-    private entityStorageService: EntityStorageService) {
-  }
+    private entityStorageService: EntityStorageService
+  ) {}
 
   @ViewChild('autoRegToggle')
   autoRegToggle: MatSlideToggle;
@@ -75,30 +70,50 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     this.setAuth();
     // FIXME this might not work in case of some race condition (other request finishes sooner)
     this.apiRequest.dontHandleErrorForNext();
-    this.registrarManager.getGroupApplicationForm(this.group.id).subscribe(form => {
-      this.applicationForm = form;
-      this.registrarManager.getFormItemsForGroup(this.group.id).subscribe(formItems => {
-        this.applicationFormItems = formItems;
-        this.attributesManager.getGroupAttributeByName(this.group.id, 'urn:perun:group:attribute-def:virt:autoRegistrationEnabled').subscribe(attr => {
-          this.voHasEmbeddedGroupApplication = attr.value !== null;
-          this.autoRegistrationEnabled = !!attr.value;
+    this.registrarManager.getGroupApplicationForm(this.group.id).subscribe(
+      (form) => {
+        this.applicationForm = form;
+        this.registrarManager.getFormItemsForGroup(this.group.id).subscribe(
+          (formItems) => {
+            this.applicationFormItems = formItems;
+            this.attributesManager
+              .getGroupAttributeByName(
+                this.group.id,
+                'urn:perun:group:attribute-def:virt:autoRegistrationEnabled'
+              )
+              .subscribe((attr) => {
+                this.voHasEmbeddedGroupApplication = attr.value !== null;
+                this.autoRegistrationEnabled = !!attr.value;
+                this.loading = false;
+              });
+          },
+          () => (this.loading = false)
+        );
+      },
+      (error) => {
+        if (error.error.name === 'FormNotExistsException') {
+          this.noApplicationForm = true;
           this.loading = false;
-        });
-      }, () => this.loading = false);
-    }, error => {
-      if (error.error.name === 'FormNotExistsException') {
-        this.noApplicationForm = true;
-        this.loading = false;
-      } else {
-        this.notificator.showRPCError(error.error);
+        } else {
+          this.notificator.showRPCError(error.error);
+        }
       }
-    });
+    );
   }
 
   setAuth() {
-    this.editAuth = this.guiAuthResolver.isAuthorized('group-updateFormItems_ApplicationForm_List<ApplicationFormItem>_policy', [this.group]);
-    this.createEmptyForm = this.guiAuthResolver.isAuthorized('createApplicationFormInGroup_Group_policy', [this.group]);
-    this.changeAutoRegistration = this.guiAuthResolver.isAuthorized('addGroupsToAutoRegistration_List<Group>_policy', [this.group]);
+    this.editAuth = this.guiAuthResolver.isAuthorized(
+      'group-updateFormItems_ApplicationForm_List<ApplicationFormItem>_policy',
+      [this.group]
+    );
+    this.createEmptyForm = this.guiAuthResolver.isAuthorized(
+      'createApplicationFormInGroup_Group_policy',
+      [this.group]
+    );
+    this.changeAutoRegistration = this.guiAuthResolver.isAuthorized(
+      'addGroupsToAutoRegistration_List<Group>_policy',
+      [this.group]
+    );
   }
 
   add() {
@@ -110,7 +125,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     };
 
     const dialog = this.dialog.open(AddApplicationFormItemDialogComponent, config);
-    dialog.afterClosed().subscribe(success => {
+    dialog.afterClosed().subscribe((success) => {
       // success is field contains of two items: first is applicationFormItems with new item in it,
       // second item is new Application Form Item
       if (success) {
@@ -124,7 +139,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
           groupId: this.group.id,
           applicationFormItem: success[1],
           theme: 'group-theme',
-          allItems: this.applicationFormItems
+          allItems: this.applicationFormItems,
         };
 
         this.dialog.open(EditApplicationFormItemDialogComponent, config);
@@ -139,7 +154,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     config.data = { voId: this.group.voId, groupId: this.group.id, theme: 'group-theme' };
 
     const dialog = this.dialog.open(ApplicationFormCopyItemsDialogComponent, config);
-    dialog.afterClosed().subscribe(copyFrom => {
+    dialog.afterClosed().subscribe((copyFrom) => {
       if (copyFrom) {
         this.updateFormItems();
       }
@@ -150,26 +165,38 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '400px';
     config.data = {
-      entity: "group",
+      entity: 'group',
       applicationForm: this.applicationForm,
       theme: 'group-theme',
-      autoRegistrationEnabled: this.autoRegistrationEnabled
+      autoRegistrationEnabled: this.autoRegistrationEnabled,
     };
 
     const dialog = this.dialog.open(UpdateApplicationFormDialogComponent, config);
-    dialog.afterClosed().subscribe(newForm => {
+    dialog.afterClosed().subscribe((newForm) => {
       if (newForm) {
-        this.translate.get('GROUP_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_SETTINGS_SUCCESS').subscribe(successMessage => {
-          this.notificator.showSuccess(successMessage);
-        });
+        this.translate
+          .get('GROUP_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_SETTINGS_SUCCESS')
+          .subscribe((successMessage) => {
+            this.notificator.showSuccess(successMessage);
+          });
         this.applicationForm = newForm;
       }
     });
   }
 
   preview() {
-    this.router.navigate(['/organizations', this.group.voId, 'groups', this.group.id, 'settings', 'applicationForm', 'preview'],
-      { queryParams: { applicationFormItems: JSON.stringify(this.applicationFormItems) } });
+    this.router.navigate(
+      [
+        '/organizations',
+        this.group.voId,
+        'groups',
+        this.group.id,
+        'settings',
+        'applicationForm',
+        'preview',
+      ],
+      { queryParams: { applicationFormItems: JSON.stringify(this.applicationFormItems) } }
+    );
   }
 
   updateFormItems() {
@@ -204,16 +231,19 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     }
     // @ts-ignore
     // TODO reimplement this
-    this.registrarManager.updateFormItemsForGroup({
-      group: this.group.id,
-      items: this.applicationFormItems
-    }).subscribe(() => {
-      this.translate.get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_APPLICATION_FORM_ITEMS_SUCCESS')
-        .subscribe(successMessage => {
-          this.notificator.showSuccess(successMessage);
-        });
-      this.updateFormItems();
-    });
+    this.registrarManager
+      .updateFormItemsForGroup({
+        group: this.group.id,
+        items: this.applicationFormItems,
+      })
+      .subscribe(() => {
+        this.translate
+          .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_APPLICATION_FORM_ITEMS_SUCCESS')
+          .subscribe((successMessage) => {
+            this.notificator.showSuccess(successMessage);
+          });
+        this.updateFormItems();
+      });
   }
 
   clear() {
@@ -224,23 +254,31 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   updateAutoRegistration() {
     this.autoRegToggle.setDisabledState(true);
     if (this.autoRegistrationEnabled) {
-      this.registrarManager.deleteGroupsFromAutoRegistration([this.group.id]).subscribe(() => {
-        this.autoRegistrationEnabled = !this.autoRegistrationEnabled;
-        this.translate.get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_SETTINGS_SUCCESS')
-          .subscribe(successMessage => {
-            this.notificator.showSuccess(successMessage);
-          });
-        this.autoRegToggle.setDisabledState(false)
-      }, () => this.autoRegToggle.setDisabledState(false));
+      this.registrarManager.deleteGroupsFromAutoRegistration([this.group.id]).subscribe(
+        () => {
+          this.autoRegistrationEnabled = !this.autoRegistrationEnabled;
+          this.translate
+            .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_SETTINGS_SUCCESS')
+            .subscribe((successMessage) => {
+              this.notificator.showSuccess(successMessage);
+            });
+          this.autoRegToggle.setDisabledState(false);
+        },
+        () => this.autoRegToggle.setDisabledState(false)
+      );
     } else {
-      this.registrarManager.addGroupsToAutoRegistration([this.group.id]).subscribe(() => {
-        this.autoRegistrationEnabled = !this.autoRegistrationEnabled;
-        this.translate.get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_SETTINGS_SUCCESS')
-          .subscribe(successMessage => {
-            this.notificator.showSuccess(successMessage);
-          });
-        this.autoRegToggle.setDisabledState(false)
-      }, () => this.autoRegToggle.setDisabledState(false));
+      this.registrarManager.addGroupsToAutoRegistration([this.group.id]).subscribe(
+        () => {
+          this.autoRegistrationEnabled = !this.autoRegistrationEnabled;
+          this.translate
+            .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_SETTINGS_SUCCESS')
+            .subscribe((successMessage) => {
+              this.notificator.showSuccess(successMessage);
+            });
+          this.autoRegToggle.setDisabledState(false);
+        },
+        () => this.autoRegToggle.setDisabledState(false)
+      );
     }
   }
 }

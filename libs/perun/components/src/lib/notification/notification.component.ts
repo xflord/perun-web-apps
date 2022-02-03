@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {NotificationData} from '@perun-web-apps/perun/models';
+import { NotificationData } from '@perun-web-apps/perun/models';
 import { MatDialog } from '@angular/material/dialog';
 
 import { NotificationStorageService } from '@perun-web-apps/perun/services';
@@ -9,14 +9,13 @@ import { NotificationDialogComponent } from '@perun-web-apps/perun/dialogs';
 @Component({
   selector: 'perun-web-apps-notification',
   templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.scss']
+  styleUrls: ['./notification.component.scss'],
 })
-export class NotificationComponent implements OnInit{
-
+export class NotificationComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private notificationStorageService: NotificationStorageService
-  ) { }
+  ) {}
 
   @Input()
   data: NotificationData;
@@ -35,10 +34,10 @@ export class NotificationComponent implements OnInit{
   waiting = false;
 
   doAction(): void {
-    if(this.newNotification){
+    if (this.newNotification) {
       this.alreadyPressed = true;
     }
-    if(this.notificationStorageService.newNotificationsCount){
+    if (this.notificationStorageService.newNotificationsCount) {
       this.notificationStorageService.newNotificationsCount--;
     }
     if (this.data.action !== undefined) {
@@ -51,18 +50,18 @@ export class NotificationComponent implements OnInit{
 
       const dialogRef = this.dialog.open(NotificationDialogComponent, config);
 
-      dialogRef.afterClosed().subscribe(() =>{
+      dialogRef.afterClosed().subscribe(() => {
         this.closeSelf();
       });
     }
   }
 
-  closeSelf(){
-    if(!this.inDialog){
-      if(this.newNotification){
+  closeSelf() {
+    if (!this.inDialog) {
+      if (this.newNotification) {
         this.alreadyClosed = true;
       }
-      if(this.notificationStorageService.newNotificationsCount){
+      if (this.notificationStorageService.newNotificationsCount) {
         this.notificationStorageService.newNotificationsCount--;
       }
       this.closeNotification.emit();
@@ -71,16 +70,16 @@ export class NotificationComponent implements OnInit{
 
   ngOnInit(): void {
     doAfterDelay(this.data.delay, () => {
-      if(!this.alreadyClosed && !this.waiting){
+      if (!this.alreadyClosed && !this.waiting) {
         this.closeSelf();
       }
     });
   }
 
-  showTimestamp(){
-    const [hours, minutes] = this.data.timeStamp.split(":");
+  showTimestamp() {
+    const [hours, minutes] = this.data.timeStamp.split(':');
 
-    if(minutes.length < 2){
+    if (minutes.length < 2) {
       return hours + ':0' + minutes;
     }
 

@@ -8,9 +8,7 @@
     <table class="w-100" mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="name">
         <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let name" class="font-weight-bold" mat-cell>
-          {{name}}:
-        </td>
+        <td *matCellDef="let name" class="font-weight-bold" mat-cell>{{name}}:</td>
       </ng-container>
       <ng-container matColumnDef="value">
         <th *matHeaderCellDef mat-header-cell></th>
@@ -18,10 +16,7 @@
           {{statistics.get(value.toLowerCase())}}
         </td>
       </ng-container>
-      <tr
-        *matRowDef="let stat; columns: displayedColumns;"
-        mat-row>
-      </tr>
+      <tr *matRowDef="let stat; columns: displayedColumns;" mat-row></tr>
     </table>
   </mat-card-content>
 </mat-card>

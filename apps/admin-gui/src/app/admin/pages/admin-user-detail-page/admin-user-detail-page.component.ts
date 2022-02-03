@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {SideMenuService} from '../../../core/services/common/side-menu.service';
-import {SideMenuItemService} from '../../../shared/side-menu/side-menu-item.service';
+import { ActivatedRoute } from '@angular/router';
+import { SideMenuService } from '../../../core/services/common/side-menu.service';
+import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.service';
 import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,10 +11,9 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 @Component({
   selector: 'app-admin-user-detail-page',
   templateUrl: './admin-user-detail-page.component.html',
-  styleUrls: ['./admin-user-detail-page.component.scss']
+  styleUrls: ['./admin-user-detail-page.component.scss'],
 })
 export class AdminUserDetailPageComponent implements OnInit {
-
   constructor(
     private route: ActivatedRoute,
     private usersService: UsersManagerService,
@@ -23,7 +22,7 @@ export class AdminUserDetailPageComponent implements OnInit {
     private dialog: MatDialog,
     public authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService
-  ) { }
+  ) {}
 
   user: User;
   path: string;
@@ -33,23 +32,26 @@ export class AdminUserDetailPageComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       const userId = params['userId'];
-      this.entityStorageService.setEntity({id: Number(userId), beanName: 'User'});
+      this.entityStorageService.setEntity({ id: Number(userId), beanName: 'User' });
 
       this.path = `/admin/users/${userId}`;
       this.regex = `/admin/users/\\d+`;
 
-      this.usersService.getUserById(userId).subscribe(user => {
-        this.user = user;
-        if(this.user.serviceUser) {
-          this.svgIcon = 'perun-service-identity';
-        }
+      this.usersService.getUserById(userId).subscribe(
+        (user) => {
+          this.user = user;
+          if (this.user.serviceUser) {
+            this.svgIcon = 'perun-service-identity';
+          }
 
-        const userItem = this.sideMenuItemService.parseUser(user, this.path, this.regex);
-        this.sideMenuService.setAdminItems([userItem]);
-        this.loading = false;
-      }, () => this.loading = false);
+          const userItem = this.sideMenuItemService.parseUser(user, this.path, this.regex);
+          this.sideMenuService.setAdminItems([userItem]);
+          this.loading = false;
+        },
+        () => (this.loading = false)
+      );
     });
   }
 
@@ -58,25 +60,24 @@ export class AdminUserDetailPageComponent implements OnInit {
     config.width = '450px';
     config.data = {
       theme: 'admin-theme',
-      user: this.user
+      user: this.user,
     };
 
     const dialogRef = this.dialog.open(EditUserDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.usersService.getUserById(this.user.id).subscribe(user => {
+        this.usersService.getUserById(this.user.id).subscribe((user) => {
           this.user = user;
         });
       }
     });
-
   }
 
-  getUserType(){
-    if (this.user.serviceUser){
-      return "Service";
+  getUserType() {
+    if (this.user.serviceUser) {
+      return 'Service';
     }
-    return "Person";
+    return 'Person';
   }
 }

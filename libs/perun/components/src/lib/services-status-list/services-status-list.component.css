@@ -1,5 +1,5 @@
-.disable-outline{
-    outline: none !important;
+.disable-outline {
+  outline: none !important;
 }
 
 .make-green {
@@ -17,4 +17,3 @@
 .cursor-pointer {
   cursor: pointer;
 }
-

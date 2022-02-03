@@ -5,11 +5,10 @@ import { compareFnName } from '@perun-web-apps/perun/utils';
 @Component({
   selector: 'perun-web-apps-resource-search-select',
   templateUrl: './resource-search-select.component.html',
-  styleUrls: ['./resource-search-select.component.css']
+  styleUrls: ['./resource-search-select.component.css'],
 })
-export class ResourceSearchSelectComponent implements OnInit{
-
-  constructor() { }
+export class ResourceSearchSelectComponent implements OnInit {
+  constructor() {}
 
   @Input()
   resource: Resource = null;

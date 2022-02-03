@@ -1,38 +1,28 @@
 <div id="nav-menu-icons" [ngStyle]="{'color': navTextColor}">
-  <button mat-icon-button
-          class="mr-2 mt-auto mb-auto"
-          (click)="sideNav.toggle()">
-    <mat-icon [ngStyle]="{'color': iconColor}">
-      menu
-    </mat-icon>
+  <button mat-icon-button class="mr-2 mt-auto mb-auto" (click)="sideNav.toggle()">
+    <mat-icon [ngStyle]="{'color': iconColor}"> menu </mat-icon>
   </button>
-  <a [routerLink]="['/home']"
-     queryParamsHandling="merge"
-     class="mt-auto mb-auto">
-    <div [innerHTML]="logo"
-         class="logo-container">
-    </div>
+  <a [routerLink]="['/home']" queryParamsHandling="merge" class="mt-auto mb-auto">
+    <div [innerHTML]="logo" class="logo-container"></div>
   </a>
 </div>
 
 <div id="nav-devel-info" *ngIf="isDevel">
-  <span class="text-warning">
-    ~ 🗲&nbsp;
-  </span>
-  <span class="text-danger">
-    DEVEL
-  </span>
-  <span class="text-warning">
-    &nbsp;🗲 ~
-  </span>
+  <span class="text-warning"> ~ 🗲&nbsp; </span>
+  <span class="text-danger"> DEVEL </span>
+  <span class="text-warning"> &nbsp;🗲 ~ </span>
 </div>
 
 <div id="nav-menu-user-info" [ngStyle]="{'color': navTextColor}">
-  <button mat-icon-button (click)="showNotificationHistory()" [matTooltip]="'NAV.NOTIFICATIONS_TOOLTIP'|translate">
-    <mat-icon [ngStyle]="{'color': iconColor}"
-              matBadge="{{getNewNotificationsCount() > 5 ? '5+' : getNewNotificationsCount()}}"
-              matBadgeColor="warn"
-              [matBadgeHidden]="getNewNotificationsCount() === 0">
+  <button
+    mat-icon-button
+    (click)="showNotificationHistory()"
+    [matTooltip]="'NAV.NOTIFICATIONS_TOOLTIP'|translate">
+    <mat-icon
+      [ngStyle]="{'color': iconColor}"
+      matBadge="{{getNewNotificationsCount() > 5 ? '5+' : getNewNotificationsCount()}}"
+      matBadgeColor="warn"
+      [matBadgeHidden]="getNewNotificationsCount() === 0">
       {{getNewNotificationsCount() ? 'notifications_active' : 'notifications'}}
     </mat-icon>
   </button>

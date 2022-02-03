@@ -1,27 +1,20 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
-import {SideMenuItem} from '../side-menu.component';
+import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { SideMenuItem } from '../side-menu.component';
 import { openClose, rollInOut } from '@perun-web-apps/perun/animations';
-import {MatSidenav} from '@angular/material/sidenav';
+import { MatSidenav } from '@angular/material/sidenav';
 import { StoreService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-side-menu-root-item',
   templateUrl: './side-menu-root-item.component.html',
   styleUrls: ['./side-menu-root-item.component.scss'],
-  animations: [
-    openClose,
-    rollInOut
-  ]
+  animations: [openClose, rollInOut],
 })
 export class SideMenuRootItemComponent implements OnInit, OnChanges {
-
   currentUrl: string;
 
-  constructor(
-    private router: Router,
-    private store: StoreService,
-  ) {
+  constructor(private router: Router, private store: StoreService) {
     this.currentUrl = router.url;
 
     router.events.subscribe((_: NavigationEnd) => {
@@ -41,7 +34,7 @@ export class SideMenuRootItemComponent implements OnInit, OnChanges {
   showOpen: boolean;
 
   @Input()
-  id = "";
+  id = '';
 
   @ViewChild('collapse') collapseDiv: ElementRef;
 
@@ -76,7 +69,9 @@ export class SideMenuRootItemComponent implements OnInit, OnChanges {
 
   getBgClass() {
     if (this.item.baseColorClass) {
-      return this.isActive(this.currentUrl, this.item.baseColorClassRegex) ? this.item.colorClass : this.item.baseColorClass;
+      return this.isActive(this.currentUrl, this.item.baseColorClassRegex)
+        ? this.item.colorClass
+        : this.item.baseColorClass;
     } else {
       return this.item.colorClass;
     }

@@ -13,15 +13,13 @@ import { User } from './user';
 import { Attribute } from './attribute';
 import { UserExtSource } from './userExtSource';
 
-
-export interface Sponsor { 
-    user: User;
-    userExtSources: Array<UserExtSource>;
-    userAttributes: Array<Attribute>;
-    /**
-     * Date in format yyyy-MM-dd}
-     */
-    validityTo: string;
-    active: boolean;
+export interface Sponsor {
+  user: User;
+  userExtSources: Array<UserExtSource>;
+  userAttributes: Array<Attribute>;
+  /**
+   * Date in format yyyy-MM-dd}
+   */
+  validityTo: string;
+  active: boolean;
 }
-

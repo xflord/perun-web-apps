@@ -11,11 +11,9 @@
  */
 import { ContactGroup } from './contactGroup';
 
-
 /**
  * input to removeFacilityContacts
  */
-export interface InputRemoveFacilityContacts { 
-    contactGroupsToRemove: Array<ContactGroup>;
+export interface InputRemoveFacilityContacts {
+  contactGroupsToRemove: Array<ContactGroup>;
 }
-

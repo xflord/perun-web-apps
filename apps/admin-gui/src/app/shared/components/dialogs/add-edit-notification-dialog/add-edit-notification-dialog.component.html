@@ -10,14 +10,17 @@
     <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
     <div *ngIf="!loading" mat-dialog-content class="dialog-container">
       <div [@openClose]="invalidNotification ? 'open' : 'closed'">
-        <app-alert alert_type="error">{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.INVALID_NOTIFICATION' | translate}}</app-alert>
+        <app-alert
+          alert_type="error"
+          >{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.INVALID_NOTIFICATION' | translate}}</app-alert
+        >
       </div>
-      <mat-tab-group color=primary>
+      <mat-tab-group color="primary">
         <mat-tab label="{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.BASIC_SETTINGS' | translate}}">
-
           <div class="d-flex">
-            <span class="w-25 m-auto font-weight-bold">{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.EMAIL_TYPE' | translate}}
-              :</span>
+            <span class="w-25 m-auto font-weight-bold"
+              >{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.EMAIL_TYPE' | translate}} :</span
+            >
             <div class="w-75">
               <mat-form-field class="w-100">
                 <mat-select
@@ -63,8 +66,9 @@
             </div>
           </div>
           <div class="d-flex">
-            <span class="w-25 font-weight-bold">{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.APPLICATION_TYPE' | translate}}
-              :</span>
+            <span class="w-25 font-weight-bold"
+              >{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.APPLICATION_TYPE' | translate}} :</span
+            >
             <div class="w-75">
               <mat-form-field class="w-100">
                 <mat-select
@@ -92,8 +96,9 @@
             </div>
           </div>
           <div class="d-flex">
-            <span class="w-25 font-weight-bold">{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SENDING_ENABLED' | translate}}
-              :</span>
+            <span class="w-25 font-weight-bold"
+              >{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SENDING_ENABLED' | translate}} :</span
+            >
             <div class="w-75">
               <mat-checkbox [(ngModel)]="applicationMail.send"></mat-checkbox>
             </div>
@@ -105,12 +110,17 @@
             </div>
           </div>
         </mat-tab>
-        <mat-tab  *ngFor="let lang of languages" label="{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.LANG_' + lang | uppercase | translate}}">
+        <mat-tab
+          *ngFor="let lang of languages"
+          label="{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.LANG_' + lang | uppercase | translate}}">
           <ng-template matTabContent>
             <div class="d-flex w-100">
               <div class="pr-2 w-100">
                 <div class="pt-2">
-                  <button class="right-button" mat-stroked-button (click)="this.showTags = !this.showTags;">
+                  <button
+                    class="right-button"
+                    mat-stroked-button
+                    (click)="this.showTags = !this.showTags;">
                     {{showTags ? ('DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.HIDE_TAGS' | translate) :
                     ('DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SHOW_TAGS' | translate)}}
                   </button>
@@ -122,7 +132,7 @@
                       matInput
                       #Input
                       (focus)="isTextFocused = false"
-                      [(ngModel)]="this.applicationMail.message[lang].subject">
+                      [(ngModel)]="this.applicationMail.message[lang].subject" />
                   </mat-form-field>
                 </div>
                 <div class="font-weight-bold">
@@ -130,21 +140,20 @@
                 </div>
 
                 <mat-form-field class="w-100">
-                <textarea matInput
-                          #Textarea
-                          rows="17"
-                          (focus)="isTextFocused = true"
-                          [(ngModel)]="this.applicationMail.message[lang].text">
-                </textarea>
+                  <textarea
+                    matInput
+                    #Textarea
+                    rows="17"
+                    (focus)="isTextFocused = true"
+                    [(ngModel)]="this.applicationMail.message[lang].text">
+                  </textarea>
                 </mat-form-field>
               </div>
 
               <mat-divider *ngIf="showTags" class="ml-3 mr-3" vertical="true"></mat-divider>
 
               <div [@tagsOpenClose]="showTags ? 'open' : 'closed'">
-                <app-tag-bar
-                  (addedTag)="addTag(Input, Textarea, lang, $event)">
-                </app-tag-bar>
+                <app-tag-bar (addedTag)="addTag(Input, Textarea, lang, $event)"> </app-tag-bar>
               </div>
             </div>
           </ng-template>
@@ -153,10 +162,7 @@
     </div>
 
     <div mat-dialog-actions class="d-flex mt-auto">
-      <button
-        mat-flat-button
-        class="ml-auto"
-        (click)="cancel()">
+      <button mat-flat-button class="ml-auto" (click)="cancel()">
         {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.CANCEL_BUTTON' | translate}}
       </button>
       <button

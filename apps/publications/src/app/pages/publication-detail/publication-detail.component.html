@@ -3,8 +3,8 @@
   <div *ngIf="!initLoading">
     <h1 *ngIf="mode === 'authors'" class="page-subtitle d-flex">
       <span>
-      <mat-icon class="title-icon align-icon mr-3">assignment_ind</mat-icon>
-      {{'AUTHORS_PAGE.TITLE' | translate}}
+        <mat-icon class="title-icon align-icon mr-3">assignment_ind</mat-icon>
+        {{'AUTHORS_PAGE.TITLE' | translate}}
       </span>
     </h1>
     <h1 *ngIf="mode === 'all'" class="page-subtitle d-flex">
@@ -13,13 +13,14 @@
     </h1>
     <h1 *ngIf="mode === 'my'" class="page-subtitle d-flex">
       <span>
-      <mat-icon class="title-icon align-icon mr-3">local_library</mat-icon>
-      {{'MY_PUBLICATIONS.TITLE' | translate}}
+        <mat-icon class="title-icon align-icon mr-3">local_library</mat-icon>
+        {{'MY_PUBLICATIONS.TITLE' | translate}}
       </span>
     </h1>
 
-
-    <h5 *ngIf="mainAuthor !== undefined" class="mb-2">{{ mainAuthor | userFullName }}{{'AUTHOR_DETAIL.TITLE' | translate}}</h5>
+    <h5 *ngIf="mainAuthor !== undefined" class="mb-2">
+      {{ mainAuthor | userFullName }}{{'AUTHOR_DETAIL.TITLE' | translate}}
+    </h5>
     <h5>{{'PUBLICATION_DETAIL.TITLE' | translate}}</h5>
     <h6>
       {{'PUBLICATION_DETAIL.LOCK_INFO' | translate}}
@@ -27,15 +28,11 @@
         <span *ngIf="publication.locked" class="font-weight-bold">
           {{'PUBLICATION_DETAIL.LOCKED' | translate}}
         </span>
-        <mat-icon *ngIf="publication.locked">
-          lock
-        </mat-icon>
+        <mat-icon *ngIf="publication.locked"> lock </mat-icon>
         <span *ngIf="!publication.locked" class="font-weight-bold">
           {{'PUBLICATION_DETAIL.UNLOCKED' | translate}}
         </span>
-        <mat-icon *ngIf="!publication.locked">
-          lock_open
-        </mat-icon>
+        <mat-icon *ngIf="!publication.locked"> lock_open </mat-icon>
       </button>
     </h6>
     <mat-card>
@@ -55,9 +52,7 @@
         {{'PUBLICATION_DETAIL.AUTHORS' | translate}}
       </mat-card-title>
       <mat-card-content>
-        <perun-web-apps-add-authors
-          [publication]="publication"
-          [selection]="selectionAuthors">
+        <perun-web-apps-add-authors [publication]="publication" [selection]="selectionAuthors">
         </perun-web-apps-add-authors>
       </mat-card-content>
     </mat-card>
@@ -66,12 +61,9 @@
         {{'PUBLICATION_DETAIL.ACKNOWLEDGEMENT' | translate}}
       </mat-card-title>
       <mat-card-content>
-        <perun-web-apps-add-thanks
-          [publication]="publication"
-          [selection]="selectionThanks">
+        <perun-web-apps-add-thanks [publication]="publication" [selection]="selectionThanks">
         </perun-web-apps-add-thanks>
       </mat-card-content>
     </mat-card>
   </div>
 </div>
-

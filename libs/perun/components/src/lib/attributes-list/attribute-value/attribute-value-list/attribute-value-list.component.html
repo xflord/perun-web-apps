@@ -1,47 +1,49 @@
 <div>
-  <mat-chip-list #chipList
-                 class="mat-chip-list-stacked"
-                 cdkDropList
-                 cdkDropListOrientation="vertical"
-                 [cdkDropListDisabled]="dragDisabled"
-                 (cdkDropListDropped)="drop($event); _sendEventToParent()">
-    <mat-chip class="chip-word-break"
-              *ngFor="let chip of values.slice(0, itemsShown)"
-              [selectable]="selectable"
-              cdkDrag
-              [cdkDragData]="chip"
-              [removable]="removable" (removed)="remove(chip); _sendEventToParent()">
-      <mat-icon *ngIf="removable" class="handle-icon" (mousedown)="dragDisabled = false;">drag_indicator</mat-icon>
-      <div (click)="readonly && attribute.displayName !== undefined  && showValue(chip, attribute.displayName)"
-           [class.cursor-pointer]="readonly && attribute.displayName !== undefined"
-           class="chip-text overflow-ellipsis">{{chip}}</div>
+  <mat-chip-list
+    #chipList
+    class="mat-chip-list-stacked"
+    cdkDropList
+    cdkDropListOrientation="vertical"
+    [cdkDropListDisabled]="dragDisabled"
+    (cdkDropListDropped)="drop($event); _sendEventToParent()">
+    <mat-chip
+      class="chip-word-break"
+      *ngFor="let chip of values.slice(0, itemsShown)"
+      [selectable]="selectable"
+      cdkDrag
+      [cdkDragData]="chip"
+      [removable]="removable"
+      (removed)="remove(chip); _sendEventToParent()">
+      <mat-icon *ngIf="removable" class="handle-icon" (mousedown)="dragDisabled = false;"
+        >drag_indicator</mat-icon
+      >
+      <div
+        (click)="readonly && attribute.displayName !== undefined  && showValue(chip, attribute.displayName)"
+        [class.cursor-pointer]="readonly && attribute.displayName !== undefined"
+        class="chip-text overflow-ellipsis">
+        {{chip}}
+      </div>
       <mat-icon *ngIf="removable" (click)="edit(chip)" class="edit-delete-icon ml-2">edit</mat-icon>
       <mat-icon *ngIf="removable" (click)="remove(chip)" class="edit-delete-icon">cancel</mat-icon>
     </mat-chip>
-    <div
-      class="w-100"
-      *ngIf="values.length > defaultItemsShown">
-    <span
-      [matTooltip]="showMore ? 'Show less' : 'Show more'"
-      [matTooltipPosition]="'above'">
-      <button
-        class="ml-auto"
-        mat-icon-button
-        (click)="onShowChange()">
-        <mat-icon *ngIf="!showMore">more_horiz</mat-icon>
-        <mat-icon *ngIf="showMore">keyboard_arrow_up</mat-icon>
-      </button>
-    </span>
+    <div class="w-100" *ngIf="values.length > defaultItemsShown">
+      <span [matTooltip]="showMore ? 'Show less' : 'Show more'" [matTooltipPosition]="'above'">
+        <button class="ml-auto" mat-icon-button (click)="onShowChange()">
+          <mat-icon *ngIf="!showMore">more_horiz</mat-icon>
+          <mat-icon *ngIf="showMore">keyboard_arrow_up</mat-icon>
+        </button>
+      </span>
     </div>
     <mat-form-field *ngIf="!readonly" class="w-100">
-      <input matInput
-             class="w-100 m-0"
-             placeholder="New value"
-             [matChipInputFor]="chipList"
-             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-             [matChipInputAddOnBlur]="addOnBlur"
-             (matChipInputTokenEnd)="add($event)"
-             (change)="_sendEventToParent()">
+      <input
+        matInput
+        class="w-100 m-0"
+        placeholder="New value"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="add($event)"
+        (change)="_sendEventToParent()" />
     </mat-form-field>
   </mat-chip-list>
 </div>

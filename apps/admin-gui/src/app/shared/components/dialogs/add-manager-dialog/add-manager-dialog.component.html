@@ -6,17 +6,24 @@
       <mat-form-field class="mr-2">
         <mat-label>{{'SHARED.COMPONENTS.MANAGERS_PAGE.SELECT_ROLE' | translate}}</mat-label>
         <mat-select [(value)]="selectedRole">
-          <mat-option *ngFor="let role of availableRoles" [value]="role">{{role | displayedRole}}</mat-option>
+          <mat-option
+            *ngFor="let role of availableRoles"
+            [value]="role"
+            >{{role | displayedRole}}</mat-option
+          >
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="mr-2 w-100">
         <label>
-          <input matInput autocomplete="false" placeholder="{{'DIALOGS.ADD_MANAGERS.DESCRIPTION' | translate}}"
-                 data-cy="search-manager-input"
-                 perunWebAppsAutoFocus
-                 (keyup.enter)="onSearchByString()"
-                 [formControl]="searchCtrl">
+          <input
+            matInput
+            autocomplete="false"
+            placeholder="{{'DIALOGS.ADD_MANAGERS.DESCRIPTION' | translate}}"
+            data-cy="search-manager-input"
+            perunWebAppsAutoFocus
+            (keyup.enter)="onSearchByString()"
+            [formControl]="searchCtrl" />
         </label>
         <mat-error>
           {{'DIALOGS.ADD_MANAGERS.EMPTY_SEARCH_MESSAGE' | translate}}
@@ -32,7 +39,6 @@
       (click)="onSearchByString()">
       {{'DIALOGS.ADD_MANAGERS.SEARCH' | translate}}
     </button>
-
 
     <div class="overflow-hidden">
       <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
@@ -50,14 +56,10 @@
         *ngIf="users.length !== 0">
       </app-users-list>
     </div>
-
   </div>
 
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
       {{'DIALOGS.ADD_MANAGERS.CANCEL' | translate}}
     </button>
     <button

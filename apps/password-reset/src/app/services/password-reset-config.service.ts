@@ -4,40 +4,40 @@ import { AppConfigService } from '@perun-web-apps/config';
 import { Location } from '@angular/common';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PasswordResetConfigService {
-
   constructor(
     private initAuthService: InitAuthService,
     private appConfigService: AppConfigService,
-    private location: Location,
-  ) { }
+    private location: Location
+  ) {}
 
   loadConfigs(): Promise<void> {
-    return this.appConfigService.loadAppDefaultConfig()
+    return this.appConfigService
+      .loadAppDefaultConfig()
       .then(() => this.appConfigService.loadAppInstanceConfig())
       .then(() => this.appConfigService.setApiUrl())
       .then(() => this.appConfigService.setInstanceFavicon())
       .then(() => {
         const queryParams = location.search.substr(1);
-        if(!queryParams.includes('token')) {
+        if (!queryParams.includes('token')) {
           return this.initAuthService.verifyAuth();
         } else {
           return Promise.resolve(true);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
-        this.location.go("/");
+        this.location.go('/');
         location.reload();
         throw err;
       })
-      .then(isAuthenticated => {
+      .then((isAuthenticated) => {
         // if the authentication is successful, continue
         if (isAuthenticated) {
           const queryParams = location.search.substr(1);
-          if(!queryParams.includes('token')) {
+          if (!queryParams.includes('token')) {
             return this.initAuthService.loadPrincipal();
           }
           return;

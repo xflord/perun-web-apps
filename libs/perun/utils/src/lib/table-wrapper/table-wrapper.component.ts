@@ -6,10 +6,9 @@ import { TableConfigService } from '@perun-web-apps/config/table-config';
 @Component({
   selector: 'perun-web-apps-table-wrapper',
   templateUrl: './table-wrapper.component.html',
-  styleUrls: ['./table-wrapper.component.css']
+  styleUrls: ['./table-wrapper.component.css'],
 })
-export class TableWrapperComponent implements OnInit{
-
+export class TableWrapperComponent implements OnInit {
   public paginator: MatPaginator;
   @Input()
   hideExport = false;
@@ -24,7 +23,7 @@ export class TableWrapperComponent implements OnInit{
 
   pageSize = 5;
 
-  constructor(private tableConfigService: TableConfigService) { }
+  constructor(private tableConfigService: TableConfigService) {}
 
   ngOnInit() {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
@@ -35,7 +34,7 @@ export class TableWrapperComponent implements OnInit{
 
   @ViewChild(MatPaginator, { static: true }) set matPaginator(pg: MatPaginator) {
     this.paginator = pg;
-  };
+  }
 
   pageChangedTop(event: PageEvent) {
     this.pageSize = event.pageSize;

@@ -9,12 +9,13 @@ export interface ConfirmationDialogData {
 @Component({
   selector: 'perun-web-apps-universal-confirmation-dialog',
   templateUrl: './universal-confirmation-dialog.component.html',
-  styleUrls: ['./universal-confirmation-dialog.component.scss']
+  styleUrls: ['./universal-confirmation-dialog.component.scss'],
 })
 export class UniversalConfirmationDialogComponent implements OnInit {
-
-  constructor(public dialogRef: MatDialogRef<UniversalConfirmationDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: ConfirmationDialogData) { }
+  constructor(
+    public dialogRef: MatDialogRef<UniversalConfirmationDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: ConfirmationDialogData
+  ) {}
 
   theme: string;
   message: string;
@@ -31,5 +32,4 @@ export class UniversalConfirmationDialogComponent implements OnInit {
   onSubmit() {
     this.dialogRef.close(true);
   }
-
 }

@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 export type TaskResultStatus = 'DONE' | 'ERROR' | 'DENIED' | 'WARNING';
 
 export const TaskResultStatus = {
-    DONE: 'DONE' as TaskResultStatus,
-    ERROR: 'ERROR' as TaskResultStatus,
-    DENIED: 'DENIED' as TaskResultStatus,
-    WARNING: 'WARNING' as TaskResultStatus
+  DONE: 'DONE' as TaskResultStatus,
+  ERROR: 'ERROR' as TaskResultStatus,
+  DENIED: 'DENIED' as TaskResultStatus,
+  WARNING: 'WARNING' as TaskResultStatus,
 };
-

@@ -7,16 +7,14 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss']
+  styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit {
-
   constructor(
     private sideMenuService: SideMenuService,
     private store: StoreService,
     private router: Router
-  ) {
-  }
+  ) {}
 
   principal: PerunPrincipal;
   user: User;
@@ -32,10 +30,10 @@ export class UserProfileComponent implements OnInit {
     this.sideMenuService.setUserItems([]);
   }
 
-  getUserType(){
-    if (this.user.serviceUser){
-      return "Service";
+  getUserType() {
+    if (this.user.serviceUser) {
+      return 'Service';
     }
-    return "Person";
+    return 'Person';
   }
 }

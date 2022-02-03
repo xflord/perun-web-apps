@@ -1,24 +1,27 @@
 import { Component, Input, OnChanges, ViewChild } from '@angular/core';
-import { Application, Group, Member, RegistrarManagerService} from '@perun-web-apps/perun/openapi';
+import { Application, Group, Member, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import {
-  downloadData, getDataForExport,
+  downloadData,
+  getDataForExport,
   parseFullName,
-  TABLE_ITEMS_COUNT_OPTIONS, TableWrapperComponent
+  TABLE_ITEMS_COUNT_OPTIONS,
+  TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-perun-web-apps-application-list-details',
   templateUrl: './application-list-details.component.html',
-  styleUrls: ['./application-list-details.component.scss']
+  styleUrls: ['./application-list-details.component.scss'],
 })
 export class ApplicationListDetailsComponent implements OnChanges {
-
-  constructor(private router: Router,
-              private authResolver: GuiAuthResolver,
-              private registrarManager: RegistrarManagerService) { }
+  constructor(
+    private router: Router,
+    private authResolver: GuiAuthResolver,
+    private registrarManager: RegistrarManagerService
+  ) {}
 
   @Input()
   applications: Application[] = [];
@@ -38,9 +41,23 @@ export class ApplicationListDetailsComponent implements OnChanges {
   @Input()
   disableRouting = false;
 
-  displayedColumns: string[] = ['id', 'voId', 'voName', 'groupId', 'groupName', 'type',
-    'state', 'extSourceName', 'extSourceType', 'user', 'createdBy', 'createdAt',
-    'modifiedBy', 'modifiedAt', 'fedInfo'];
+  displayedColumns: string[] = [
+    'id',
+    'voId',
+    'voName',
+    'groupId',
+    'groupName',
+    'type',
+    'state',
+    'extSourceName',
+    'extSourceType',
+    'user',
+    'createdBy',
+    'createdAt',
+    'modifiedBy',
+    'modifiedAt',
+    'fedInfo',
+  ];
 
   dataSource: MatTableDataSource<any>;
 
@@ -50,13 +67,13 @@ export class ApplicationListDetailsComponent implements OnChanges {
 
   addedColumns = new Set<string>();
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngOnChanges() {
-    if (!this.authResolver.isPerunAdminOrObserver()){
-      this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
     this.loading = true;
     this.table = [];
@@ -64,7 +81,7 @@ export class ApplicationListDetailsComponent implements OnChanges {
     this.getApplicationsData(0);
   }
 
-  getExportDataForColumn(data: Application, column: string): string{
+  getExportDataForColumn(data: Application, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -73,9 +90,9 @@ export class ApplicationListDetailsComponent implements OnChanges {
       case 'voName':
         return data.vo.name;
       case 'groupId':
-        return  data.group?.id.toString() ?? ''
+        return data.group?.id.toString() ?? '';
       case 'groupName':
-        return  data.group?.name ?? ''
+        return data.group?.name ?? '';
       case 'type':
         return data.type;
       case 'fedInfo':
@@ -101,8 +118,16 @@ export class ApplicationListDetailsComponent implements OnChanges {
     }
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getExportDataForColumn, this), format);
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getExportDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
   getApplicationsData(index: number) {
@@ -126,9 +151,12 @@ export class ApplicationListDetailsComponent implements OnChanges {
     obj['createdAt'] = application.createdAt;
     obj['modifiedBy'] = application.modifiedBy;
     obj['modifiedAt'] = application.modifiedAt;
-    this.registrarManager.getApplicationDataById(application.id).subscribe( data => {
+    this.registrarManager.getApplicationDataById(application.id).subscribe((data) => {
       for (const item of data) {
-        if (item.formItem.i18n['en'].label !== null && item.formItem.i18n['en'].label.length !== 0) {
+        if (
+          item.formItem.i18n['en'].label !== null &&
+          item.formItem.i18n['en'].label.length !== 0
+        ) {
           obj[item.formItem.i18n['en'].label] = item.value;
           this.addedColumns.add(item.formItem.i18n['en'].label);
         } else {
@@ -158,7 +186,8 @@ export class ApplicationListDetailsComponent implements OnChanges {
   getFriendlyName(modifiedBy: string) {
     const index = modifiedBy.lastIndexOf('/CN=');
     if (index !== -1) {
-      const string =  modifiedBy.slice(index + 4, modifiedBy.length)
+      const string = modifiedBy
+        .slice(index + 4, modifiedBy.length)
         .replace('/unstructuredName=', ' ');
       if (string.lastIndexOf('\\') !== -1) {
         return modifiedBy.slice(modifiedBy.lastIndexOf('=') + 1, modifiedBy.length);
@@ -171,9 +200,23 @@ export class ApplicationListDetailsComponent implements OnChanges {
   selectApplication(application: Application) {
     if (!this.disableRouting) {
       if (this.group) {
-        return['/organizations', application.vo.id, 'groups', this.group.id, 'applications', application.id];
+        return [
+          '/organizations',
+          application.vo.id,
+          'groups',
+          this.group.id,
+          'applications',
+          application.id,
+        ];
       } else if (this.member) {
-        return ['/organizations', application.vo.id, 'members', this.member.id, 'applications', application.id];
+        return [
+          '/organizations',
+          application.vo.id,
+          'members',
+          this.member.id,
+          'applications',
+          application.id,
+        ];
       } else {
         return ['/organizations', application.vo.id, 'applications', application.id];
       }

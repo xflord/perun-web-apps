@@ -1,52 +1,76 @@
-<div [hidden]="userExtSources.length === 0 || dataSource.filteredData.length === 0" class="card mt-3">
-
+<div
+  [hidden]="userExtSources.length === 0 || dataSource.filteredData.length === 0"
+  class="card mt-3">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [tableId]="tableId"
     [dataLength]="dataSource.filteredData.length"
     [pageSizeOptions]="pageSizeOptions">
-    <table [dataSource]="dataSource"
-           class="w-100"
-           mat-table
-           matSort
-           matSortActive="lastAccess"
-           matSortDirection="desc"
-           matSortDisableClear>
+    <table
+      [dataSource]="dataSource"
+      class="w-100"
+      mat-table
+      matSort
+      matSortActive="lastAccess"
+      matSortDirection="desc"
+      matSortDisableClear>
       <ng-container matColumnDef="select">
         <th *matHeaderCellDef mat-header-cell class="align-checkbox"></th>
         <td *matCellDef="let row" class="static-column-size align-checkbox" mat-cell>
-          <span matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.CANNOT_BE_DELETED_TOOLTIP' | customTranslate | translate}}"
-                [matTooltipPosition]="'above'"
-                [matTooltipDisabled]="!row.userExtSource.persistent">
-            <mat-checkbox (change)="$event ? selection.toggle(row) : null"
-                          (click)="$event.stopPropagation()"
-                          [aria-label]="checkboxLabel(row)"
-                          [checked]="selection.isSelected(row)"
-                          [disabled]="row.userExtSource.persistent"
-                          color="primary">
+          <span
+            matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.CANNOT_BE_DELETED_TOOLTIP' | customTranslate | translate}}"
+            [matTooltipPosition]="'above'"
+            [matTooltipDisabled]="!row.userExtSource.persistent">
+            <mat-checkbox
+              (change)="$event ? selection.toggle(row) : null"
+              (click)="$event.stopPropagation()"
+              [aria-label]="checkboxLabel(row)"
+              [checked]="selection.isSelected(row)"
+              [disabled]="row.userExtSource.persistent"
+              color="primary">
             </mat-checkbox>
           </span>
         </td>
       </ng-container>
       <ng-container matColumnDef="id">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.ID' | customTranslate | translate}}</th>
-        <td *matCellDef="let richUserExtSource" class="truncate" mat-cell>{{richUserExtSource.userExtSource.id}}</td>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.ID' | customTranslate | translate}}
+        </th>
+        <td *matCellDef="let richUserExtSource" class="truncate" mat-cell>
+          {{richUserExtSource.userExtSource.id}}
+        </td>
       </ng-container>
-      <ng-container matColumnDef="mail" >
-        <th *matHeaderCellDef mat-header-cell>{{'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.MAIL' | customTranslate | translate}}</th>
-        <td *matCellDef="let richUserExtSource" class="truncate" mat-cell>{{richUserExtSource.attributes | getMailFromAttributes}}</td>
+      <ng-container matColumnDef="mail">
+        <th *matHeaderCellDef mat-header-cell>
+          {{'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.MAIL' | customTranslate | translate}}
+        </th>
+        <td *matCellDef="let richUserExtSource" class="truncate" mat-cell>
+          {{richUserExtSource.attributes | getMailFromAttributes}}
+        </td>
       </ng-container>
       <ng-container matColumnDef="extSourceName">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{(extSourceNameHeader ? extSourceNameHeader : 'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.EXT_SOURCE_NAME') | customTranslate | translate}}</th>
-        <td *matCellDef="let richUserExtSource" class="truncate" mat-cell>{{richUserExtSource.userExtSource.extSource.name}}</td>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{(extSourceNameHeader ? extSourceNameHeader : 'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.EXT_SOURCE_NAME') | customTranslate | translate}}
+        </th>
+        <td *matCellDef="let richUserExtSource" class="truncate" mat-cell>
+          {{richUserExtSource.userExtSource.extSource.name}}
+        </td>
       </ng-container>
       <ng-container matColumnDef="login">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{(loginHeader ? loginHeader : 'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.LOGIN') | customTranslate | translate}}</th>
-        <td *matCellDef="let richUserExtSource" class="truncate" mat-cell>{{richUserExtSource.userExtSource.login}}</td>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{(loginHeader ? loginHeader : 'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.LOGIN') | customTranslate | translate}}
+        </th>
+        <td *matCellDef="let richUserExtSource" class="truncate" mat-cell>
+          {{richUserExtSource.userExtSource.login}}
+        </td>
       </ng-container>
       <ng-container class="pl-3" matColumnDef="lastAccess">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.LAST_ACCESS' | customTranslate | translate}}</th>
-        <td *matCellDef="let richUserExtSource" mat-cell>{{richUserExtSource.userExtSource.lastAccess | date: 'd.M.y H:mm:ss'}}</td>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.USER_EXT_SOURCES_LIST.LAST_ACCESS' | customTranslate | translate}}
+        </th>
+        <td *matCellDef="let richUserExtSource" mat-cell>
+          {{richUserExtSource.userExtSource.lastAccess | date: 'd.M.y H:mm:ss'}}
+        </td>
       </ng-container>
 
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
@@ -57,13 +81,14 @@
         [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/admin', 'users', userId, 'identities', richUserExtSource.userExtSource.id]"
         [routerLink]="disableRouting ? null : ['/admin', 'users', userId, 'identities', richUserExtSource.userExtSource.id]"
         class="dark-hover-list-item"
-        mat-row>
-      </tr>
+        mat-row></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
 
-<app-alert *ngIf="dataSource.filteredData.length === 0 && userExtSources.length !== 0" alert_type="warn">
+<app-alert
+  *ngIf="dataSource.filteredData.length === 0 && userExtSources.length !== 0"
+  alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
 </app-alert>
 

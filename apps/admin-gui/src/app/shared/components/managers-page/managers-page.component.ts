@@ -5,7 +5,14 @@ import { AddManagerDialogComponent } from '../dialogs/add-manager-dialog/add-man
 import { RemoveManagerDialogComponent } from '../dialogs/remove-manager-dialog/remove-manager-dialog.component';
 import { RemoveGroupManagerDialogComponent } from '../dialogs/remove-group-manager-dialog/remove-group-manager-dialog.component';
 import { AddGroupManagerDialogComponent } from '../dialogs/add-group-manager-dialog/add-group-manager-dialog.component';
-import { AuthzResolverService, Facility, Group, Resource, RichUser, Vo } from '@perun-web-apps/perun/openapi';
+import {
+  AuthzResolverService,
+  Facility,
+  Group,
+  Resource,
+  RichUser,
+  Vo,
+} from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { TABLE_GROUP_MANAGERS_PAGE } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -17,10 +24,9 @@ import { ReloadEntityDetailService } from '../../../core/services/common/reload-
 @Component({
   selector: 'app-managers-page',
   templateUrl: './managers-page.component.html',
-  styleUrls: ['./managers-page.component.scss']
+  styleUrls: ['./managers-page.component.scss'],
 })
 export class ManagersPageComponent implements OnInit {
-
   @HostBinding('class.router-component') true;
 
   constructor(
@@ -30,10 +36,8 @@ export class ManagersPageComponent implements OnInit {
     public guiAuthResolver: GuiAuthResolver,
     private router: Router,
     private reloadEntityDetail: ReloadEntityDetailService,
-    private route: ActivatedRoute,
-  ) {
-  }
-
+    private route: ActivatedRoute
+  ) {}
 
   groups: Group[] = null;
   managers: RichUser[] = null;
@@ -84,31 +88,47 @@ export class ManagersPageComponent implements OnInit {
     this.loading = true;
     this.routeAuth = this.guiAuthResolver.isPerunAdminOrObserver();
 
-    this.guiAuthResolver.getRolesAuthorization(this.availableRoles, this.complementaryObject, this.availableRolesPrivileges);
-    this.availableRoles = this.availableRoles.filter(role => this.availableRolesPrivileges.get(role).readAuth);
+    this.guiAuthResolver.getRolesAuthorization(
+      this.availableRoles,
+      this.complementaryObject,
+      this.availableRolesPrivileges
+    );
+    this.availableRoles = this.availableRoles.filter(
+      (role) => this.availableRolesPrivileges.get(role).readAuth
+    );
 
-    if (this.availableRoles.length !== 0){
+    if (this.availableRoles.length !== 0) {
       this.selectedRole = this.availableRoles[0];
     }
     this.refreshUsers();
   }
 
   changeRolePrivileges() {
-    this.guiAuthResolver.getRolesAuthorization(this.availableRoles, this.complementaryObject, this.availableRolesPrivileges);
-    this.availableRoles = this.availableRoles.filter(role => this.availableRolesPrivileges.get(role).readAuth);
+    this.guiAuthResolver.getRolesAuthorization(
+      this.availableRoles,
+      this.complementaryObject,
+      this.availableRolesPrivileges
+    );
+    this.availableRoles = this.availableRoles.filter(
+      (role) => this.availableRolesPrivileges.get(role).readAuth
+    );
 
     this.manageAuth = this.availableRolesPrivileges.get(this.selectedRole).manageAuth;
-    this.displayedUserColumns = this.manageAuth ? this.displayedUserColumns : this.displayedUserColumns.filter(col => col !== 'select');
-    this.displayedGroupColumns = this.manageAuth ? this.displayedGroupColumns : this.displayedGroupColumns.filter(col => col !== 'select');
+    this.displayedUserColumns = this.manageAuth
+      ? this.displayedUserColumns
+      : this.displayedUserColumns.filter((col) => col !== 'select');
+    this.displayedGroupColumns = this.manageAuth
+      ? this.displayedGroupColumns
+      : this.displayedGroupColumns.filter((col) => col !== 'select');
     this.roleModes = this.availableRolesPrivileges.get(this.selectedRole).modes;
     let roleHasThisMode = false;
-    for (const mode of this.roleModes){
-      if (this.selectedMode === mode.toLowerCase()){
+    for (const mode of this.roleModes) {
+      if (this.selectedMode === mode.toLowerCase()) {
         roleHasThisMode = true;
         break;
       }
     }
-    if (!roleHasThisMode){
+    if (!roleHasThisMode) {
       this.selectedMode = this.roleModes[0].toLowerCase();
     }
   }
@@ -116,7 +136,7 @@ export class ManagersPageComponent implements OnInit {
   tabChanged(event: MatTabChangeEvent) {
     this.loading = true;
 
-    if(event.index === 0) {
+    if (event.index === 0) {
       this.selectedMode = 'user';
       this.refreshUsers();
     } else {
@@ -129,31 +149,49 @@ export class ManagersPageComponent implements OnInit {
     this.loading = true;
     this.changeRolePrivileges();
 
-    let attributes = [
-      Urns.USER_DEF_ORGANIZATION,
-      Urns.USER_DEF_PREFERRED_MAIL];
+    let attributes = [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL];
     attributes = attributes.concat(this.storeService.getLoginAttributeNames());
-    this.authzService.getAuthzRichAdmins(this.selectedRole, this.complementaryObject.id, this.complementaryObjectType,
-      attributes,false, true).subscribe(managers => {
-      this.managers = managers;
-      this.selectionUsers.clear();
-      this.loading = false;
-    }, () => {
-      this.loading = false;
-    });
+    this.authzService
+      .getAuthzRichAdmins(
+        this.selectedRole,
+        this.complementaryObject.id,
+        this.complementaryObjectType,
+        attributes,
+        false,
+        true
+      )
+      .subscribe(
+        (managers) => {
+          this.managers = managers;
+          this.selectionUsers.clear();
+          this.loading = false;
+        },
+        () => {
+          this.loading = false;
+        }
+      );
   }
 
   refreshGroups() {
     this.loading = true;
     this.changeRolePrivileges();
 
-    this.authzService.getAuthzAdminGroups(this.selectedRole, this.complementaryObject.id, this.complementaryObjectType).subscribe(groups => {
-      this.groups = groups;
-      this.selectionGroups.clear();
-      this.loading = false;
-    }, () => {
-      this.loading = false;
-    });
+    this.authzService
+      .getAuthzAdminGroups(
+        this.selectedRole,
+        this.complementaryObject.id,
+        this.complementaryObjectType
+      )
+      .subscribe(
+        (groups) => {
+          this.groups = groups;
+          this.selectionGroups.clear();
+          this.loading = false;
+        },
+        () => {
+          this.loading = false;
+        }
+      );
   }
 
   addManager() {
@@ -163,13 +201,13 @@ export class ManagersPageComponent implements OnInit {
       complementaryObject: this.complementaryObject,
       theme: this.theme,
       availableRoles: this.availableRoles,
-      selectedRole: this.selectedRole
+      selectedRole: this.selectedRole,
     };
 
     const dialogRef = this.dialog.open(AddManagerDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
         this.refreshUsers();
       }
     });
@@ -182,14 +220,14 @@ export class ManagersPageComponent implements OnInit {
       managers: this.selectionUsers.selected,
       complementaryObject: this.complementaryObject,
       role: this.selectedRole,
-      theme: this.theme
+      theme: this.theme,
     };
 
     const dialogRef = this.dialog.open(RemoveManagerDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        if(this.guiAuthResolver.isManagerPagePrivileged(this.complementaryObject)) {
+        if (this.guiAuthResolver.isManagerPagePrivileged(this.complementaryObject)) {
           this.reloadEntityDetail.reloadEntityDetail();
           this.refreshUsers();
         } else {
@@ -206,14 +244,14 @@ export class ManagersPageComponent implements OnInit {
       groups: this.selectionGroups.selected,
       complementaryObject: this.complementaryObject,
       role: this.selectedRole,
-      theme: this.theme
+      theme: this.theme,
     };
 
     const dialogRef = this.dialog.open(RemoveGroupManagerDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        if(this.guiAuthResolver.isManagerPagePrivileged(this.complementaryObject)) {
+        if (this.guiAuthResolver.isManagerPagePrivileged(this.complementaryObject)) {
           this.reloadEntityDetail.reloadEntityDetail();
           this.refreshGroups();
         } else {
@@ -230,42 +268,66 @@ export class ManagersPageComponent implements OnInit {
       complementaryObject: this.complementaryObject,
       availableRoles: this.availableRoles,
       theme: this.theme,
-      selectedRole: this.selectedRole
+      selectedRole: this.selectedRole,
     };
 
     const dialogRef = this.dialog.open(AddGroupManagerDialogComponent, config);
-    dialogRef.afterClosed().subscribe(result => {
-      if (result){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
         this.refreshGroups();
       }
     });
   }
 
   redirectToAuthRoute() {
-    if(this.complementaryObjectType === 'Group' &&
+    if (
+      this.complementaryObjectType === 'Group' &&
       (this.guiAuthResolver.isAuthorized('getGroupById_int_policy', [this.complementaryObject]) ||
-        this.guiAuthResolver.isAuthorized('getVoById_int_policy', [this.complementaryObject]))) {
-      if(this.guiAuthResolver.isAuthorized('getGroupById_int_policy', [this.complementaryObject])) {
+        this.guiAuthResolver.isAuthorized('getVoById_int_policy', [this.complementaryObject]))
+    ) {
+      if (
+        this.guiAuthResolver.isAuthorized('getGroupById_int_policy', [this.complementaryObject])
+      ) {
         // @ts-ignore
-        this.router.navigate(['/organizations', this.complementaryObject.voId, 'groups', this.complementaryObject.id], { relativeTo: this.route, queryParamsHandling: 'merge'});
-      } else if(this.guiAuthResolver.isAuthorized('getVoById_int_policy', [this.complementaryObject])) {
+        this.router.navigate(
+          ['/organizations', this.complementaryObject.voId, 'groups', this.complementaryObject.id],
+          { relativeTo: this.route, queryParamsHandling: 'merge' }
+        );
+      } else if (
+        this.guiAuthResolver.isAuthorized('getVoById_int_policy', [this.complementaryObject])
+      ) {
         // @ts-ignore
-        this.router.navigate(['/organizations', this.complementaryObject.voId], {queryParamsHandling: 'merge'});
+        this.router.navigate(['/organizations', this.complementaryObject.voId], {
+          queryParamsHandling: 'merge',
+        });
       }
-    } else if (this.complementaryObjectType === 'Facility' &&
-      this.guiAuthResolver.isAuthorized('getFacilityById_int_policy', [this.complementaryObject])) {
-      this.router.navigate(['/facilities', this.complementaryObject.id], { relativeTo: this.route, queryParamsHandling: 'merge'});
-    } else if (this.complementaryObjectType === 'Vo' &&
-              this.guiAuthResolver.isAuthorized('getVoById_int_policy', [this.complementaryObject])) {
-      this.router.navigate(['/organizations', this.complementaryObject.id], { relativeTo: this.route, queryParamsHandling: 'merge'});
-    } else if (this.complementaryObjectType === 'Resource' &&
-               this.guiAuthResolver.isAuthorized('getRichResourceById_int_policy', [this.complementaryObject])) {
-      this.router.navigate(['../../'], { relativeTo: this.route, queryParamsHandling: 'merge'});
+    } else if (
+      this.complementaryObjectType === 'Facility' &&
+      this.guiAuthResolver.isAuthorized('getFacilityById_int_policy', [this.complementaryObject])
+    ) {
+      this.router.navigate(['/facilities', this.complementaryObject.id], {
+        relativeTo: this.route,
+        queryParamsHandling: 'merge',
+      });
+    } else if (
+      this.complementaryObjectType === 'Vo' &&
+      this.guiAuthResolver.isAuthorized('getVoById_int_policy', [this.complementaryObject])
+    ) {
+      this.router.navigate(['/organizations', this.complementaryObject.id], {
+        relativeTo: this.route,
+        queryParamsHandling: 'merge',
+      });
+    } else if (
+      this.complementaryObjectType === 'Resource' &&
+      this.guiAuthResolver.isAuthorized('getRichResourceById_int_policy', [
+        this.complementaryObject,
+      ])
+    ) {
+      this.router.navigate(['../../'], { relativeTo: this.route, queryParamsHandling: 'merge' });
     } else {
-      this.router.navigate(['/home'], {queryParamsHandling: 'merge'});
+      this.router.navigate(['/home'], { queryParamsHandling: 'merge' });
       return;
     }
     this.reloadEntityDetail.reloadEntityDetail();
   }
-
 }

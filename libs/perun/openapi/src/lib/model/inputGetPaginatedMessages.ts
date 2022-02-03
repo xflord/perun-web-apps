@@ -11,11 +11,9 @@
  */
 import { AuditMessagesPageQuery } from './auditMessagesPageQuery';
 
-
 /**
  * input to get paginated messages
  */
-export interface InputGetPaginatedMessages { 
-    query: AuditMessagesPageQuery;
+export interface InputGetPaginatedMessages {
+  query: AuditMessagesPageQuery;
 }
-

@@ -20,15 +20,10 @@ import { PasswordFormComponent } from './password-form/password-form.component';
     TranslateModule,
     MatProgressSpinnerModule,
     MatIconModule,
-    UiAlertsModule
+    UiAlertsModule,
   ],
-  declarations: [
-    PasswordFormComponent
-  ],
-  exports: [
-    PasswordFormComponent
-  ],
-  providers: [
-  ]
+  declarations: [PasswordFormComponent],
+  exports: [PasswordFormComponent],
+  providers: [],
 })
 export class PerunNamespacePasswordFormModule {}

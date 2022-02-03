@@ -25,15 +25,22 @@
             [disabled]="selected.selected.length === 0 ||
               (tree !== undefined && !tree.removeAuth) ||
               (list !== undefined && !list.removeAuth)">
-            {{'GROUP_DETAIL.SUBGROUPS.DELETE_GROUP' | translate}}
+      {{'GROUP_DETAIL.SUBGROUPS.DELETE_GROUP' | translate}}
     </button>
   </span>
   <perun-web-apps-debounce-filter
     [placeholder]="'GROUP_DETAIL.SUBGROUPS.FILTER'"
     (filter)="applyFilter($event)">
   </perun-web-apps-debounce-filter>
-  <mat-slide-toggle #toggle (change)="selected.clear()" [(ngModel)]="showGroupList" class="mr-1" color="primary"
-                    labelPosition="before">{{'GROUP_DETAIL.SUBGROUPS.TREE_VIEW' | translate}}</mat-slide-toggle>
+  <mat-slide-toggle
+    #toggle
+    (change)="selected.clear()"
+    [(ngModel)]="showGroupList"
+    class="mr-1"
+    color="primary"
+    labelPosition="before"
+    >{{'GROUP_DETAIL.SUBGROUPS.TREE_VIEW' | translate}}</mat-slide-toggle
+  >
   <label [attr.for]="toggle.inputId">{{'GROUP_DETAIL.SUBGROUPS.LIST_VIEW' | translate}}</label>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <div class="mt-3" *ngIf="!loading">

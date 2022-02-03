@@ -10,8 +10,7 @@
         required
         (change)="makePath()"
         [formControl]="nameControl"
-        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.NAME' | translate}}"
-      >
+        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.NAME' | translate}}" />
       <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.RESTRICTION_NAME' | translate}}</mat-error>
     </mat-form-field>
 
@@ -19,8 +18,7 @@
       <input
         [(ngModel)]="description"
         matInput
-        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.DESCRIPTION' | translate}}"
-      >
+        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.DESCRIPTION' | translate}}" />
     </mat-form-field>
 
     <mat-form-field>
@@ -28,8 +26,7 @@
         matInput
         required
         [formControl]="delayControl"
-        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.DELAY' | translate}}"
-      >
+        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.DELAY' | translate}}" />
       <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.INVALID_DELAY' | translate}}</mat-error>
     </mat-form-field>
 
@@ -38,8 +35,7 @@
         matInput
         required
         [formControl]="recurrenceControl"
-        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.RECURRENCE' | translate}}"
-      >
+        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.RECURRENCE' | translate}}" />
       <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.INVALID_RECURRENCE' | translate}}</mat-error>
     </mat-form-field>
 
@@ -48,22 +44,21 @@
         matInput
         required
         [formControl]="pathControl"
-        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.PATH' | translate}}"
-      >
+        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.PATH' | translate}}" />
       <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.REQUIRE_PATH' | translate}}</mat-error>
     </mat-form-field>
 
-    <span class="d-flex">{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS' | translate}}
+    <span class="d-flex"
+      >{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS' | translate}}
       <mat-checkbox
         class="ml-3"
-        [(ngModel)]="status">{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS_HINT' | translate}}</mat-checkbox>
+        [(ngModel)]="status"
+        >{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS_HINT' | translate}}</mat-checkbox
+      >
     </span>
   </div>
   <div *ngIf="!loading" mat-dialog-actions>
-    <button
-      class="ml-auto"
-      (click)="onCancel()"
-      mat-flat-button>
+    <button class="ml-auto" (click)="onCancel()" mat-flat-button>
       {{'DIALOGS.CREATE_EDIT_SERVICE.CANCEL' | translate}}
     </button>
     <button

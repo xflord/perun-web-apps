@@ -11,11 +11,9 @@
  */
 import { Authorship } from './authorship';
 
-
 /**
  * input to createAuthorship
  */
-export interface InputCreateAuthorship { 
-    authorship: Authorship;
+export interface InputCreateAuthorship {
+  authorship: Authorship;
 }
-

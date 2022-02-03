@@ -11,17 +11,15 @@
  */
 import { Auditable } from './auditable';
 
-
-export interface AttributeDefinition extends Auditable { 
-    friendlyName?: string;
-    namespace?: string;
-    description?: string;
-    type?: string;
-    displayName?: string;
-    writable?: boolean;
-    unique?: boolean;
-    readonly friendlyNameParameter?: string;
-    readonly baseFriendlyName?: string;
-    readonly entity?: string;
+export interface AttributeDefinition extends Auditable {
+  friendlyName?: string;
+  namespace?: string;
+  description?: string;
+  type?: string;
+  displayName?: string;
+  writable?: boolean;
+  unique?: boolean;
+  readonly friendlyNameParameter?: string;
+  readonly baseFriendlyName?: string;
+  readonly entity?: string;
 }
-

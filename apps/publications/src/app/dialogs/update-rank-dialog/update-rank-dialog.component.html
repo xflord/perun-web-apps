@@ -8,7 +8,7 @@
           matInput
           required
           placeholder="{{'DIALOGS.UPDATE_RANK.RANK' | translate}}"
-          [formControl]="rankCtrl">
+          [formControl]="rankCtrl" />
         <mat-error>
           {{'DIALOGS.UPDATE_RANK.FILL_RANK' | translate}}
         </mat-error>
@@ -16,14 +16,13 @@
       <p class="mt-2">{{'DIALOGS.UPDATE_RANK.RANK_HINT' | translate}}</p>
     </div>
     <div mat-dialog-actions>
-      <button
-        mat-flat-button
-        class="ml-auto"
-        (click)="onCancel()">
+      <button mat-flat-button class="ml-auto" (click)="onCancel()">
         {{'DIALOGS.UPDATE_RANK.CANCEL' | translate}}
       </button>
-      <div matTooltip="{{'DIALOGS.UPDATE_RANK.TOOLTIP' | translate}}" matTooltipPosition="above"
-           [matTooltipDisabled]="rankCtrl.valid">
+      <div
+        matTooltip="{{'DIALOGS.UPDATE_RANK.TOOLTIP' | translate}}"
+        matTooltipPosition="above"
+        [matTooltipDisabled]="rankCtrl.valid">
         <button
           mat-flat-button
           class="ml-2"

@@ -1,5 +1,6 @@
-<div [hidden]="this.services === undefined || this.services.length === 0 || this.dataSource.filteredData.length === 0" class="card mt-3">
-
+<div
+  [hidden]="this.services === undefined || this.services.length === 0 || this.dataSource.filteredData.length === 0"
+  class="card mt-3">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [tableId]="tableId"
@@ -15,31 +16,35 @@
       matSortDisableClear>
       <ng-container matColumnDef="select">
         <th *matHeaderCellDef mat-header-cell class="align-checkbox">
-          <mat-checkbox (change)="$event ? masterToggle() : null"
-                        [aria-label]="checkboxLabel()"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()"
-                        color="primary">
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            [aria-label]="checkboxLabel()"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            color="primary">
           </mat-checkbox>
         </th>
         <td *matCellDef="let service" class="static-column-size align-checkbox" mat-cell>
-          <mat-checkbox (change)="$event ? selection.toggle(service) : null"
-                        (click)="$event.stopPropagation()"
-                        [aria-label]="checkboxLabel(service)"
-                        [checked]="selection.isSelected(service)"
-                        color="primary">
+          <mat-checkbox
+            (change)="$event ? selection.toggle(service) : null"
+            (click)="$event.stopPropagation()"
+            [aria-label]="checkboxLabel(service)"
+            [checked]="selection.isSelected(service)"
+            color="primary">
           </mat-checkbox>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="id">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'SHARED.COMPONENTS.SERVICES_LIST.ID' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED.COMPONENTS.SERVICES_LIST.ID' | translate}}
+        </th>
         <td *matCellDef="let service" class="static-column-size" mat-cell>{{service.id}}</td>
       </ng-container>
       <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'SHARED.COMPONENTS.SERVICES_LIST.NAME' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED.COMPONENTS.SERVICES_LIST.NAME' | translate}}
+        </th>
         <td *matCellDef="let service" mat-cell>{{service.name}}</td>
       </ng-container>
       <ng-container matColumnDef="enabled">
@@ -60,12 +65,15 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="script">
-        <th *matHeaderCellDef mat-header-cell>{{'SHARED.COMPONENTS.SERVICES_LIST.SCRIPT' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell>
+          {{'SHARED.COMPONENTS.SERVICES_LIST.SCRIPT' | translate}}
+        </th>
         <td *matCellDef="let service" mat-cell>{{service.script}}</td>
       </ng-container>
       <ng-container matColumnDef="description">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'SHARED.COMPONENTS.SERVICES_LIST.DESCRIPTION' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED.COMPONENTS.SERVICES_LIST.DESCRIPTION' | translate}}
+        </th>
         <td *matCellDef="let service" mat-cell>{{service.description}}</td>
       </ng-container>
 
@@ -77,16 +85,16 @@
         [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/admin/services', service.id]"
         [routerLink]="disableRouting ? null : ['/admin/services', service.id]"
         class="dark-hover-list-item"
-        mat-row>
-      </tr>
+        mat-row></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
 
-<app-alert *ngIf="dataSource.filteredData.length === 0 && (this.services !== undefined && this.services.length !== 0)"
-           alert_type="warn">
+<app-alert
+  *ngIf="dataSource.filteredData.length === 0 && (this.services !== undefined && this.services.length !== 0)"
+  alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
 </app-alert>
-<app-alert *ngIf="this.services === undefined || this.services.length === 0"
-           alert_type="warn"> {{'SHARED.COMPONENTS.SERVICES_LIST.NO_SERVICES_WARNING' | translate}}
+<app-alert *ngIf="this.services === undefined || this.services.length === 0" alert_type="warn">
+  {{'SHARED.COMPONENTS.SERVICES_LIST.NO_SERVICES_WARNING' | translate}}
 </app-alert>

@@ -20,8 +20,9 @@
     {{'ADMIN.OWNERS.DELETE' | translate}}
   </button>
 
-  <perun-web-apps-immediate-filter (filter)="applyFilter($event)"
-                                   [placeholder]="'ADMIN.OWNERS.FILTER'"></perun-web-apps-immediate-filter>
+  <perun-web-apps-immediate-filter
+    (filter)="applyFilter($event)"
+    [placeholder]="'ADMIN.OWNERS.FILTER'"></perun-web-apps-immediate-filter>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <perun-web-apps-owners-list
     [tableId]="tableId"

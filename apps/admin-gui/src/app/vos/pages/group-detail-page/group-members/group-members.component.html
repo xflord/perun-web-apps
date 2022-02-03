@@ -3,13 +3,15 @@
   {{'GROUP_DETAIL.MEMBERS.ACTIONS_DISABLED' | translate}}
 </app-alert>
 <div class="align-elements">
-  <perun-web-apps-refresh-button (click)="updateTable = !updateTable"></perun-web-apps-refresh-button>
+  <perun-web-apps-refresh-button
+    (click)="updateTable = !updateTable"></perun-web-apps-refresh-button>
   <span
     [matTooltipDisabled]="!synchEnabled"
     [matTooltipPosition]="'above'"
     matTooltip="{{'GROUP_DETAIL.MEMBERS.SYNCHRONIZED' | translate}}">
-    <div matTooltip="{{'GROUP_DETAIL.MEMBERS.ADD_MEMBER_DISABLED' | translate}}"
-         [matTooltipDisabled]="!blockGroupManualMemberAdding">
+    <div
+      matTooltip="{{'GROUP_DETAIL.MEMBERS.ADD_MEMBER_DISABLED' | translate}}"
+      [matTooltipDisabled]="!blockGroupManualMemberAdding">
       <button
         (click)="onAddMember()"
         *ngIf="addAuth"
@@ -33,7 +35,7 @@
       class="mr-2 action-button"
       color="accent"
       mat-flat-button>
-    {{'GROUP_DETAIL.MEMBERS.INVITE_MEMBER' | translate}}
+      {{'GROUP_DETAIL.MEMBERS.INVITE_MEMBER' | translate}}
     </button>
   </span>
   <span
@@ -57,7 +59,12 @@
       <mat-select-trigger>
         {{displaySelectedStatuses() | memberStatus}}
       </mat-select-trigger>
-      <mat-option class="group-theme" *ngFor="let status of statusList" [value]="status">{{status | memberStatus}}</mat-option>
+      <mat-option
+        class="group-theme"
+        *ngFor="let status of statusList"
+        [value]="status"
+        >{{status | memberStatus}}</mat-option
+      >
     </mat-select>
   </mat-form-field>
   <mat-form-field class="mr-2 fix-select">
@@ -66,7 +73,12 @@
       <mat-select-trigger>
         {{displaySelectedGroupStatuses() | memberStatus}}
       </mat-select-trigger>
-      <mat-option class="group-theme" *ngFor="let status of groupStatusList" [value]="status">{{status | memberStatus}}</mat-option>
+      <mat-option
+        class="group-theme"
+        *ngFor="let status of groupStatusList"
+        [value]="status"
+        >{{status | memberStatus}}</mat-option
+      >
     </mat-select>
   </mat-form-field>
 
@@ -76,8 +88,7 @@
     (filter)="onSearchByString($event)">
   </perun-web-apps-debounce-filter>
 </div>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto">
-</mat-spinner>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
 <perun-web-apps-members-dynamic-list
   *ngIf="!loading"
   [voId]="group.voId"

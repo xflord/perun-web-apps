@@ -1,11 +1,10 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 import { parseTechnicalOwnersNames } from '@perun-web-apps/perun/utils';
 
 @Pipe({
-  name: 'technicalOwners'
+  name: 'technicalOwners',
 })
 export class TechnicalOwnersPipe implements PipeTransform {
-
   transform(value: any): any {
     return parseTechnicalOwnersNames(value);
   }

@@ -24,7 +24,7 @@
         <div class="mt-3">
           <perun-web-apps-service-package-search-select
             (packageSelected)="servicePackageSelected($event)"
-            [selectedPackage]='selectedPackage'
+            [selectedPackage]="selectedPackage"
             [servicePackages]="servicePackages">
           </perun-web-apps-service-package-search-select>
         </div>
@@ -32,20 +32,16 @@
         <app-services-list
           [tableId]="tableId"
           [disableRouting]="true"
-          *ngIf='selectedPackage.id !== -1'
+          *ngIf="selectedPackage.id !== -1"
           [displayedColumns]="['id', 'name', 'enabled', 'description']"
           [selection]="selection"
           [services]="filteredServices">
         </app-services-list>
       </mat-tab>
     </mat-tab-group>
-
   </div>
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
       {{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.CANCEL_BUTTON' | translate}}
     </button>
     <button

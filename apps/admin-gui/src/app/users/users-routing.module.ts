@@ -15,7 +15,6 @@ import { ServiceIdentityDetailPageComponent } from './pages/user-detail-page/use
 import { ServiceIdentityOverviewComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-detail-page/service-identity-overview/service-identity-overview.component';
 import { UserSettingsAssociatedUsersComponent } from './pages/user-detail-page/user-settings/user-settings-associated-users/user-settings-associated-users.component';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -24,32 +23,32 @@ const routes: Routes = [
       {
         path: '',
         component: UserOverviewComponent,
-        data: { animation: 'UserOverviewPage' }
+        data: { animation: 'UserOverviewPage' },
       },
       {
         path: 'attributes',
         component: UserAttributesComponent,
-        data: { animation: 'UserAttributesPage' }
+        data: { animation: 'UserAttributesPage' },
       },
       {
         path: 'organizations',
         component: UserOrganizationsComponent,
-        data: { animation: 'UserOrganizationsPage', showPrincipal: true }
+        data: { animation: 'UserOrganizationsPage', showPrincipal: true },
       },
       {
         path: 'groups',
         component: UserGroupsComponent,
-        data: { animation: 'UserGroupsPage', showPrincipal: true }
+        data: { animation: 'UserGroupsPage', showPrincipal: true },
       },
       {
         path: 'roles',
         component: UserRolesComponent,
-        data: {animation: 'UserRolesPage'}
+        data: { animation: 'UserRolesPage' },
       },
       {
         path: 'service-identities',
         component: UserSettingsServiceIdentitiesComponent,
-        data: {animation: 'UserServiceIdentities'}
+        data: { animation: 'UserServiceIdentities' },
       },
       {
         path: 'settings',
@@ -58,21 +57,21 @@ const routes: Routes = [
           {
             path: '',
             component: UserSettingsOverviewComponent,
-            data: { animation: 'UserSettingsOverviewPage' }
+            data: { animation: 'UserSettingsOverviewPage' },
           },
           {
             path: 'passwordReset',
             component: PasswordResetComponent,
-            data: { animation: 'PasswordResetPage' }
+            data: { animation: 'PasswordResetPage' },
           },
           {
             path: 'guiConfig',
             component: UserSettingsAppConfigurationComponent,
-            data: { animation: 'UserAppConfigurationPage' }
-          }
-        ]
-      }
-    ]
+            data: { animation: 'UserAppConfigurationPage' },
+          },
+        ],
+      },
+    ],
   },
   {
     path: 'service-identities/:userId',
@@ -84,15 +83,14 @@ const routes: Routes = [
       },
       {
         path: 'associated-users',
-        component: UserSettingsAssociatedUsersComponent
-      }
-    ]
-  }
+        component: UserSettingsAssociatedUsersComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class UsersRoutingModule {
-}
+export class UsersRoutingModule {}

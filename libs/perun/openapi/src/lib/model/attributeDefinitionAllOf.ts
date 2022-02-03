@@ -10,17 +10,15 @@
  * Do not edit the class manually.
  */
 
-
-export interface AttributeDefinitionAllOf { 
-    friendlyName?: string;
-    namespace?: string;
-    description?: string;
-    type?: string;
-    displayName?: string;
-    writable?: boolean;
-    unique?: boolean;
-    readonly friendlyNameParameter?: string;
-    readonly baseFriendlyName?: string;
-    readonly entity?: string;
+export interface AttributeDefinitionAllOf {
+  friendlyName?: string;
+  namespace?: string;
+  description?: string;
+  type?: string;
+  displayName?: string;
+  writable?: boolean;
+  unique?: boolean;
+  readonly friendlyNameParameter?: string;
+  readonly baseFriendlyName?: string;
+  readonly entity?: string;
 }
-

@@ -13,10 +13,8 @@ import { ResourceTag } from './resourceTag';
 import { Vo } from './vo';
 import { Facility } from './facility';
 
-
-export interface RichResourceAllOf { 
-    vo?: Vo;
-    facility?: Facility;
-    resourceTags?: Array<ResourceTag>;
+export interface RichResourceAllOf {
+  vo?: Vo;
+  facility?: Facility;
+  resourceTags?: Array<ResourceTag>;
 }
-

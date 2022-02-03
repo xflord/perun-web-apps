@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface AuditEvent { 
-    name?: string;
-    message?: string;
+export interface AuditEvent {
+  name?: string;
+  message?: string;
 }
-

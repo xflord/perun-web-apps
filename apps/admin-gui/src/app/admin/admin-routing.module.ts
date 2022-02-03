@@ -1,25 +1,19 @@
-import {RouterModule, Routes} from '@angular/router';
-import {NgModule} from '@angular/core';
-import {AdminPageComponent} from './pages/admin-page/admin-page.component';
-import {AdminOverviewComponent} from './pages/admin-page/admin-overview/admin-overview.component';
-import {AdminAttributesComponent} from './pages/admin-page/admin-attributes/admin-attributes.component';
-import {AdminVisualizerComponent} from './pages/admin-page/admin-visualizer/admin-visualizer.component';
-import {
-  VisualizerAttrModulesComponent
-} from './pages/admin-page/admin-visualizer/visualizer-attr-modules/visualizer-attr-modules.component';
-import {VisualizerOverviewComponent} from './pages/admin-page/admin-visualizer/visualizer-overview/visualizer-overview.component';
-import {
-  UserDestinationRelationshipComponent
-} from './pages/admin-page/admin-visualizer/user-destination-relationship/user-destination-relationship.component';
-import {
-  UserDestinationGraphComponent
-} from './pages/admin-page/admin-visualizer/user-destination-relationship/user-destination-graph/user-destination-graph.component';
-import {AdminUsersComponent} from './pages/admin-page/admin-users/admin-users.component';
-import {AdminUserDetailPageComponent} from './pages/admin-user-detail-page/admin-user-detail-page.component';
-import {UserOverviewComponent} from '../users/pages/user-detail-page/user-overview/user-overview.component';
-import {UserOrganizationsComponent} from '../users/pages/user-detail-page/user-organizations/user-organizations.component';
-import {UserGroupsComponent} from '../users/pages/user-detail-page/user-groups/user-groups.component';
-import {UserAttributesComponent} from '../users/pages/user-detail-page/user-attributes/user-attributes.component';
+import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { AdminOverviewComponent } from './pages/admin-page/admin-overview/admin-overview.component';
+import { AdminAttributesComponent } from './pages/admin-page/admin-attributes/admin-attributes.component';
+import { AdminVisualizerComponent } from './pages/admin-page/admin-visualizer/admin-visualizer.component';
+import { VisualizerAttrModulesComponent } from './pages/admin-page/admin-visualizer/visualizer-attr-modules/visualizer-attr-modules.component';
+import { VisualizerOverviewComponent } from './pages/admin-page/admin-visualizer/visualizer-overview/visualizer-overview.component';
+import { UserDestinationRelationshipComponent } from './pages/admin-page/admin-visualizer/user-destination-relationship/user-destination-relationship.component';
+import { UserDestinationGraphComponent } from './pages/admin-page/admin-visualizer/user-destination-relationship/user-destination-graph/user-destination-graph.component';
+import { AdminUsersComponent } from './pages/admin-page/admin-users/admin-users.component';
+import { AdminUserDetailPageComponent } from './pages/admin-user-detail-page/admin-user-detail-page.component';
+import { UserOverviewComponent } from '../users/pages/user-detail-page/user-overview/user-overview.component';
+import { UserOrganizationsComponent } from '../users/pages/user-detail-page/user-organizations/user-organizations.component';
+import { UserGroupsComponent } from '../users/pages/user-detail-page/user-groups/user-groups.component';
+import { UserAttributesComponent } from '../users/pages/user-detail-page/user-attributes/user-attributes.component';
 import { AdminExtSourcesComponent } from './pages/admin-page/admin-ext-sources/admin-ext-sources.component';
 import { UserRolesComponent } from '../users/pages/user-detail-page/user-settings/user-roles/user-roles.component';
 import { UserSettingsServiceIdentitiesComponent } from '../users/pages/user-detail-page/user-settings/user-settings-service-identities/user-settings-service-identities.component';
@@ -45,32 +39,32 @@ const routes: Routes = [
       {
         path: '',
         component: AdminOverviewComponent,
-        data: {animation: 'AdminOverviewPage'}
+        data: { animation: 'AdminOverviewPage' },
       },
       {
         path: 'attributes',
         component: AdminAttributesComponent,
-        data: {animation: 'AdminAttributesPage'}
+        data: { animation: 'AdminAttributesPage' },
       },
       {
         path: 'users',
         component: AdminUsersComponent,
-        data: {animation: 'AdminUsersPage'}
+        data: { animation: 'AdminUsersPage' },
       },
       {
         path: 'owners',
         component: AdminOwnersComponent,
-        data: {animation: 'AdminOwnersPage'}
+        data: { animation: 'AdminOwnersPage' },
       },
       {
         path: 'services',
         component: AdminServicesComponent,
-        data: {animation: 'AdminServicesPage'}
+        data: { animation: 'AdminServicesPage' },
       },
       {
         path: 'audit_log',
         component: AdminAuditLogComponent,
-        data: {animation: 'AdminAuditLogPage'}
+        data: { animation: 'AdminAuditLogPage' },
       },
       {
         path: 'visualizer',
@@ -79,31 +73,31 @@ const routes: Routes = [
           {
             path: '',
             component: VisualizerOverviewComponent,
-            data: {animation: 'VisualizerOverviewPage'}
+            data: { animation: 'VisualizerOverviewPage' },
           },
           {
             path: 'attrDependencies',
             component: VisualizerAttrModulesComponent,
-            data: {animation: 'VisualizerAttrModulesPage'}
+            data: { animation: 'VisualizerAttrModulesPage' },
           },
           {
             path: 'userDestinationRelationship',
             component: UserDestinationRelationshipComponent,
-            data: {animation: 'UserDestinationRelationshipPage'}
+            data: { animation: 'UserDestinationRelationshipPage' },
           },
           {
             path: 'userDestinationRelationship/graph',
             component: UserDestinationGraphComponent,
-            data: {animation: 'UserDestinationGraphPage'}
-          }
-        ]
+            data: { animation: 'UserDestinationGraphPage' },
+          },
+        ],
       },
       {
         path: 'ext_sources',
         component: AdminExtSourcesComponent,
-        data: {animation: 'AdminExtSourcesPage'}
-      }
-    ]
+        data: { animation: 'AdminExtSourcesPage' },
+      },
+    ],
   },
   {
     path: 'users/:userId',
@@ -112,63 +106,63 @@ const routes: Routes = [
       {
         path: '',
         component: UserOverviewComponent,
-        data: {animation: 'UserOverviewPage'}
+        data: { animation: 'UserOverviewPage' },
       },
       {
         path: 'accounts',
         component: UserAccountsComponent,
-        data: {animation: 'UserAccountsPage'}
+        data: { animation: 'UserAccountsPage' },
       },
       {
         path: 'attributes',
         component: UserAttributesComponent,
-        data: {animation: 'UserAttributesPage'}
+        data: { animation: 'UserAttributesPage' },
       },
       {
         path: 'organizations',
         component: UserOrganizationsComponent,
-        data: {animation: 'UserOrganizationsPage', showPrincipal: false}
+        data: { animation: 'UserOrganizationsPage', showPrincipal: false },
       },
       {
         path: 'groups',
         component: UserGroupsComponent,
-        data: {animation: 'UserGroupsPage', showPrincipal: false}
+        data: { animation: 'UserGroupsPage', showPrincipal: false },
       },
       {
         path: 'identities',
         component: UserIdentitiesComponent,
-        data: {animation: 'UserIdentitiesPage'}
+        data: { animation: 'UserIdentitiesPage' },
       },
       {
         path: 'facilities',
         component: UserFacilitiesComponent,
-        data: {animation: 'UserFacilitiesPage'}
+        data: { animation: 'UserFacilitiesPage' },
       },
       {
         path: 'resources',
         component: UserResourcesComponent,
-        data: {animation: 'UserRoles'}
+        data: { animation: 'UserRoles' },
       },
       {
         path: 'identities/:identityId',
         component: IdentityDetailComponent,
-        data: {animation: 'UserIdentityDetailPage'}
+        data: { animation: 'UserIdentityDetailPage' },
       },
       {
         path: 'roles',
         component: UserRolesComponent,
-        data: {animation: 'UserRolesPage'}
+        data: { animation: 'UserRolesPage' },
       },
       {
         path: 'service-identities',
         component: UserSettingsServiceIdentitiesComponent,
-        data: {animation: 'UserServiceIdentities'}
+        data: { animation: 'UserServiceIdentities' },
       },
       {
         path: 'associated-users',
         component: UserSettingsAssociatedUsersComponent,
-        data: {animation: 'AssociatedUsersPage'}
-      }
+        data: { animation: 'AssociatedUsersPage' },
+      },
       // {
       //   path: 'settings',
       //   component: UserSettingsComponent,
@@ -180,7 +174,7 @@ const routes: Routes = [
       //     }
       //   ]
       // }
-    ]
+    ],
   },
   {
     path: 'services/:serviceId',
@@ -189,29 +183,24 @@ const routes: Routes = [
       {
         path: '',
         component: ServiceOverviewComponent,
-        data: {animation: 'ServiceOverviewPage'}
+        data: { animation: 'ServiceOverviewPage' },
       },
       {
         path: 'required-attributes',
         component: ServiceRequiredAttributesComponent,
-        data: {animation: 'ServiceRequiredAttributesPage'}
+        data: { animation: 'ServiceRequiredAttributesPage' },
       },
       {
         path: 'destinations',
         component: ServiceDestinationsComponent,
-        data: {animation: 'ServiceDestinationsPage'}
-      }
-    ]
+        data: { animation: 'ServiceDestinationsPage' },
+      },
+    ],
   },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-
-export class AdminRoutingModule { }
+export class AdminRoutingModule {}

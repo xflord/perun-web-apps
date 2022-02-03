@@ -3,7 +3,7 @@ import {
   CabinetManagerService,
   Publication,
   PublicationForGUI,
-  PublicationSystem
+  PublicationSystem,
 } from '@perun-web-apps/perun/openapi';
 import { FormControl } from '@angular/forms';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -11,16 +11,14 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import * as _moment from 'moment';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-  TABLE_IMPORT_PUBLICATIONS
-} from '@perun-web-apps/config/table-config';
+import { TABLE_IMPORT_PUBLICATIONS } from '@perun-web-apps/config/table-config';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { UniversalConfirmationDialogComponent } from '@perun-web-apps/perun/dialogs';
 
-const moment =  _moment;
+const moment = _moment;
 
 export const YEAR_MODE_FORMATS = {
   parse: {
@@ -44,18 +42,18 @@ export const YEAR_MODE_FORMATS = {
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE],
     },
-    {provide: MAT_DATE_FORMATS, useValue: YEAR_MODE_FORMATS}
-  ]
+    { provide: MAT_DATE_FORMATS, useValue: YEAR_MODE_FORMATS },
+  ],
 })
 export class ImportPublicationsPageComponent implements OnInit {
-
-  constructor(private cabinetService: CabinetManagerService,
-              private storeService: StoreService,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private router: Router,
-              private dialog: MatDialog,
-              ) { }
+  constructor(
+    private cabinetService: CabinetManagerService,
+    private storeService: StoreService,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
 
   loading = false;
   publicationSystems: PublicationSystem[] = [];
@@ -87,8 +85,8 @@ export class ImportPublicationsPageComponent implements OnInit {
     this.startYear = new FormControl(moment().subtract(1, 'year'));
     this.endYear = new FormControl(moment());
 
-    this.cabinetService.getPublicationSystems().subscribe(publicationSystems => {
-      this.publicationSystems = publicationSystems.filter(ps => ps.friendlyName !== "INTERNAL");
+    this.cabinetService.getPublicationSystems().subscribe((publicationSystems) => {
+      this.publicationSystems = publicationSystems.filter((ps) => ps.friendlyName !== 'INTERNAL');
       this.pubSystem.setValue(this.publicationSystems[0]);
       this.pubSystemNamespace = this.pubSystem.value.loginNamespace;
       this.loading = false;
@@ -103,15 +101,20 @@ export class ImportPublicationsPageComponent implements OnInit {
     this.loading = true;
     this.firstSearchDone = true;
 
-    this.cabinetService.findExternalPublications(
-      this.storeService.getPerunPrincipal().user.id,
-      this.startYear.value.year(),
-      this.endYear.value.year(),
-      this.pubSystemNamespace
-    ).subscribe(publications => {
-      this.publications = publications;
-      this.loading = false;
-    }, () => this.loading = false);
+    this.cabinetService
+      .findExternalPublications(
+        this.storeService.getPerunPrincipal().user.id,
+        this.startYear.value.year(),
+        this.endYear.value.year(),
+        this.pubSystemNamespace
+      )
+      .subscribe(
+        (publications) => {
+          this.publications = publications;
+          this.loading = false;
+        },
+        () => (this.loading = false)
+      );
   }
 
   importPublications(publications: PublicationForGUI[]) {
@@ -131,22 +134,36 @@ export class ImportPublicationsPageComponent implements OnInit {
         year: publication.year,
         isbn: publication.isbn,
         doi: publication.doi,
-        main: publication.main
-      }
+        main: publication.main,
+      },
     };
 
-    this.cabinetService.createPublication(publicationInput).subscribe(pub => {
-      if(this.userAsAuthor){
-        this.cabinetService.createAutorship({authorship:
-            {id: 0, beanName: 'Authorship', publicationId: pub.id, userId: this.userId}}).subscribe(() => {
+    this.cabinetService.createPublication(publicationInput).subscribe(
+      (pub) => {
+        if (this.userAsAuthor) {
+          this.cabinetService
+            .createAutorship({
+              authorship: {
+                id: 0,
+                beanName: 'Authorship',
+                publicationId: pub.id,
+                userId: this.userId,
+              },
+            })
+            .subscribe(
+              () => {
+                this.importedPublications.push(pub);
+                this.importPublications(publications);
+              },
+              () => (this.loading = false)
+            );
+        } else {
           this.importedPublications.push(pub);
           this.importPublications(publications);
-        }, ()=> this.loading = false);
-      } else {
-        this.importedPublications.push(pub);
-        this.importPublications(publications);
-      }
-    }, () => this.loading = false);
+        }
+      },
+      () => (this.loading = false)
+    );
   }
 
   editPublication(index: number) {
@@ -166,7 +183,9 @@ export class ImportPublicationsPageComponent implements OnInit {
 
   incompletePublication(publicationId: number) {
     if (this.completePublications.includes(publicationId)) {
-      this.completePublications = this.completePublications.filter(pubId => pubId !== publicationId);
+      this.completePublications = this.completePublications.filter(
+        (pubId) => pubId !== publicationId
+      );
     }
     this.indexExpanded = -1;
   }
@@ -176,12 +195,12 @@ export class ImportPublicationsPageComponent implements OnInit {
     config.width = '500px';
     config.data = {
       theme: 'user-theme',
-      message: this.translate.instant('IMPORT_PUBLICATIONS.CHECK_ALL_MESSAGE')
+      message: this.translate.instant('IMPORT_PUBLICATIONS.CHECK_ALL_MESSAGE'),
     };
 
     const dialogRef = this.dialog.open(UniversalConfirmationDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.onSubmit();
       }
@@ -190,7 +209,6 @@ export class ImportPublicationsPageComponent implements OnInit {
 
   onSubmit() {
     this.notificator.showSuccess(this.translate.instant('IMPORT_PUBLICATIONS.SHOW_FINISH'));
-    this.router.navigate(['/my-publications'])
+    this.router.navigate(['/my-publications']);
   }
-
 }

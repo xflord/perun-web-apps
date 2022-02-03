@@ -1,5 +1,4 @@
 <div [hidden]="dataSource.filteredData.length === 0 || hosts.length === 0" class="card mt-3">
-
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [tableId]="tableId"
@@ -9,36 +8,41 @@
       [dataSource]="dataSource"
       class="w-100"
       mat-table
-      matSort matSortActive="id"
-      matSortDirection="asc" matSortDisableClear>
-
+      matSort
+      matSortActive="id"
+      matSortDirection="asc"
+      matSortDisableClear>
       <ng-container matColumnDef="select">
         <th *matHeaderCellDef mat-header-cell class="align-checkbox">
-          <mat-checkbox (change)="$event ? masterToggle() : null"
-                        [aria-label]="checkboxLabel()"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()"
-                        color="primary">
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            [aria-label]="checkboxLabel()"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            color="primary">
           </mat-checkbox>
         </th>
         <td *matCellDef="let host" class="static-column-size align-checkbox" mat-cell>
-          <mat-checkbox (change)="$event ? selection.toggle(host) : null"
-                        (click)="$event.stopPropagation()"
-                        [aria-label]="checkboxLabel(host)"
-                        [checked]="selection.isSelected(host)"
-                        color="primary">
+          <mat-checkbox
+            (change)="$event ? selection.toggle(host) : null"
+            (click)="$event.stopPropagation()"
+            [aria-label]="checkboxLabel(host)"
+            [checked]="selection.isSelected(host)"
+            color="primary">
           </mat-checkbox>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="id">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'SHARED.COMPONENTS.HOSTS_LIST.TABLE_HOST_ID' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED.COMPONENTS.HOSTS_LIST.TABLE_HOST_ID' | translate}}
+        </th>
         <td *matCellDef="let host" class="static-column-size" mat-cell>{{host.id}}</td>
       </ng-container>
       <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'SHARED.COMPONENTS.HOSTS_LIST.TABLE_HOST_NAME' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED.COMPONENTS.HOSTS_LIST.TABLE_HOST_NAME' | translate}}
+        </th>
         <td *matCellDef="let host" mat-cell>{{host.hostname}}</td>
       </ng-container>
 
@@ -48,8 +52,7 @@
         [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/facilities', this.facilityId, 'hosts', host.id]"
         [routerLink]="disableRouting ? null : ['/facilities', this.facilityId, 'hosts', host.id]"
         class="dark-hover-list-item"
-        mat-row>
-      </tr>
+        mat-row></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>

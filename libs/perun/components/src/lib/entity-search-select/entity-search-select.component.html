@@ -15,8 +15,12 @@
         [formControl]="entityFilterCtrl">
       </ngx-mat-select-search>
     </mat-option>
-    <mat-option class="selected-options-bottom" *ngIf="entitiesCtrl?.value" [value]="entitiesCtrl?.value">
-      {{mainTextFunction(entitiesCtrl?.value)}} <span class="text-muted">{{secondaryTextFunction(entitiesCtrl?.value)}}</span>
+    <mat-option
+      class="selected-options-bottom"
+      *ngIf="entitiesCtrl?.value"
+      [value]="entitiesCtrl?.value">
+      {{mainTextFunction(entitiesCtrl?.value)}}
+      <span class="text-muted">{{secondaryTextFunction(entitiesCtrl?.value)}}</span>
       <span *ngIf="displayStatus" class="{{colorByStatus(entitiesCtrl?.value)}}">
         {{statusTextFunction(entitiesCtrl?.value) ? '('+statusTextFunction(entitiesCtrl?.value)+')' : ''}}
       </span>
@@ -27,8 +31,12 @@
       #scrollViewport
       [minBufferPx]="5 * 48"
       [maxBufferPx]="10 * 48">
-      <mat-option class="{{theme}}" *cdkVirtualFor="let entity of filteredEntities | async" [value]="entity">
-        {{mainTextFunction(entity)}} <span class="text-muted">{{secondaryTextFunction(entity)}}</span>
+      <mat-option
+        class="{{theme}}"
+        *cdkVirtualFor="let entity of filteredEntities | async"
+        [value]="entity">
+        {{mainTextFunction(entity)}}
+        <span class="text-muted">{{secondaryTextFunction(entity)}}</span>
         <span *ngIf="displayStatus" class="{{colorByStatus(entity)}}">
           {{statusTextFunction(entity) ? '('+statusTextFunction(entity)+')' : ''}}
         </span>
@@ -36,4 +44,3 @@
     </cdk-virtual-scroll-viewport>
   </mat-select>
 </mat-form-field>
-

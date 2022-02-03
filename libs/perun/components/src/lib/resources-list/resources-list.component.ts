@@ -2,9 +2,10 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnChanges, OnInit,
+  OnChanges,
+  OnInit,
   Output,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,8 +13,10 @@ import { Group, ResourceTag, RichResource } from '@perun-web-apps/perun/openapi'
 import { SelectionModel } from '@angular/cdk/collections';
 import {
   customDataSourceFilterPredicate,
-  customDataSourceSort, downloadData, getDataForExport,
-  TABLE_ITEMS_COUNT_OPTIONS
+  customDataSourceSort,
+  downloadData,
+  getDataForExport,
+  TABLE_ITEMS_COUNT_OPTIONS,
 } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
 import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
@@ -22,12 +25,10 @@ import { ResourceWithStatus } from '@perun-web-apps/perun/models';
 @Component({
   selector: 'perun-web-apps-resources-list',
   templateUrl: './resources-list.component.html',
-  styleUrls: ['./resources-list.component.scss']
+  styleUrls: ['./resources-list.component.scss'],
 })
 export class ResourcesListComponent implements OnInit, OnChanges {
-
-  constructor(private guiAuthResolver: GuiAuthResolver,
-              private tableCheckbox: TableCheckbox) { }
+  constructor(private guiAuthResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -44,7 +45,18 @@ export class ResourcesListComponent implements OnInit, OnChanges {
   @Input()
   routingVo = false;
   @Input()
-  displayedColumns: string[] = ['select', 'id', 'recent', 'indirectResourceAssigment', 'name', 'vo', 'status', 'facility', 'tags', 'description'];
+  displayedColumns: string[] = [
+    'select',
+    'id',
+    'recent',
+    'indirectResourceAssigment',
+    'name',
+    'vo',
+    'status',
+    'facility',
+    'tags',
+    'description',
+  ];
   @Input()
   groupToResource: Group;
   @Input()
@@ -72,32 +84,36 @@ export class ResourcesListComponent implements OnInit, OnChanges {
   addAuth = false;
   disabledRouting: boolean;
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   ngOnInit() {
     this.disabledRouting = this.disableRouting;
   }
 
   ngOnChanges() {
-    if (!this.guiAuthResolver.isPerunAdminOrObserver()){
-      this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
+    if (!this.guiAuthResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
     this.setDataSource();
     this.setAuth();
   }
 
-  getDataForColumn(data: ResourceWithStatus, column: string, otherThis: ResourcesListComponent): string{
+  getDataForColumn(
+    data: ResourceWithStatus,
+    column: string,
+    otherThis: ResourcesListComponent
+  ): string {
     switch (column) {
       case 'id':
         return data.id.toString();
       case 'vo':
         return data.vo.name;
       case 'name':
-        return  data.name;
+        return data.name;
       case 'facility':
         return data.facility.name;
       case 'description':
-        return  data.description;
+        return data.description;
       case 'recent':
         if (otherThis.recentIds) {
           if (otherThis.recentIds.indexOf(data.id) > -1) {
@@ -125,8 +141,16 @@ export class ResourcesListComponent implements OnInit, OnChanges {
     }
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getDataForColumn, this), format);
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
   setDataSource() {
@@ -135,7 +159,14 @@ export class ResourcesListComponent implements OnInit, OnChanges {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filterPredicate = (data: RichResource, filter: string) =>
-        customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this, true);
+        customDataSourceFilterPredicate(
+          data,
+          filter,
+          this.displayedColumns,
+          this.getDataForColumn,
+          this,
+          true
+        );
       this.dataSource.sortData = (data: RichResource[], sort: MatSort) =>
         customDataSourceSort(data, sort, this.getDataForColumn, this);
     }
@@ -143,18 +174,37 @@ export class ResourcesListComponent implements OnInit, OnChanges {
     this.dataSource.data = this.resources;
   }
 
-  canBeSelected = (group: ResourceWithStatus): boolean => !this.disableSelect(group)
+  canBeSelected = (group: ResourceWithStatus): boolean => !this.disableSelect(group);
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-    const isAllSelected = this.tableCheckbox.isAllSelectedWithDisabledCheckbox(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.child.paginator.pageIndex, this.dataSource, this.sort, this.canBeSelected);
-    this.allSelected.emit(isAllSelected)
+    const isAllSelected = this.tableCheckbox.isAllSelectedWithDisabledCheckbox(
+      this.selection.selected.length,
+      this.filterValue,
+      this.child.paginator.pageSize,
+      this.child.paginator.hasNextPage(),
+      this.child.paginator.pageIndex,
+      this.dataSource,
+      this.sort,
+      this.canBeSelected
+    );
+    this.allSelected.emit(isAllSelected);
     return isAllSelected;
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex, true, this.canBeSelected);
+    this.tableCheckbox.masterToggle(
+      this.isAllSelected(),
+      this.selection,
+      this.filterValue,
+      this.dataSource,
+      this.sort,
+      this.child.paginator.pageSize,
+      this.child.paginator.pageIndex,
+      true,
+      this.canBeSelected
+    );
     this.setAuth();
   }
 
@@ -168,10 +218,24 @@ export class ResourcesListComponent implements OnInit, OnChanges {
 
   setAuth() {
     const objects = this.groupToResource ? [this.groupToResource] : [];
-    this.removeAuth = this.selection.selected.reduce((acc, res) => acc &&
-      this.guiAuthResolver.isAuthorized('removeGroupFromResources_Group_List<Resource>_policy', objects.concat([res])), true);
-    this.addAuth = this.selection.selected.reduce((acc, res) => acc &&
-      this.guiAuthResolver.isAuthorized('assignGroupToResources_Group_List<Resource>_policy', objects.concat([res])), true);
+    this.removeAuth = this.selection.selected.reduce(
+      (acc, res) =>
+        acc &&
+        this.guiAuthResolver.isAuthorized(
+          'removeGroupFromResources_Group_List<Resource>_policy',
+          objects.concat([res])
+        ),
+      true
+    );
+    this.addAuth = this.selection.selected.reduce(
+      (acc, res) =>
+        acc &&
+        this.guiAuthResolver.isAuthorized(
+          'assignGroupToResources_Group_List<Resource>_policy',
+          objects.concat([res])
+        ),
+      true
+    );
   }
 
   itemSelectionToggle(item: ResourceWithStatus) {

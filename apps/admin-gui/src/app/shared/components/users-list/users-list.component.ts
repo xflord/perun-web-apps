@@ -1,27 +1,33 @@
 import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {SelectionModel} from '@angular/cdk/collections';
+import { SelectionModel } from '@angular/cdk/collections';
 import { RichUser } from '@perun-web-apps/perun/openapi';
 import {
-  customDataSourceFilterPredicate, customDataSourceSort, downloadData, getDataForExport, parseFullName,
+  customDataSourceFilterPredicate,
+  customDataSourceSort,
+  downloadData,
+  getDataForExport,
+  parseFullName,
   parseLogins,
   parseUserEmail,
   parseVo,
-  TABLE_ITEMS_COUNT_OPTIONS, TableWrapperComponent
+  TABLE_ITEMS_COUNT_OPTIONS,
+  TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver, StoreService, TableCheckbox } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.scss']
+  styleUrls: ['./users-list.component.scss'],
 })
-export class UsersListComponent implements OnChanges{
-
-  constructor(public authResolver: GuiAuthResolver,
-              private tableCheckbox: TableCheckbox,
-              private storeService: StoreService) { }
+export class UsersListComponent implements OnChanges {
+  constructor(
+    public authResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox,
+    private storeService: StoreService
+  ) {}
 
   svgIcon = 'perun-service-identity-black';
 
@@ -29,7 +35,7 @@ export class UsersListComponent implements OnChanges{
     this.sort = ms;
   }
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   @Input()
   users: RichUser[];
@@ -41,7 +47,6 @@ export class UsersListComponent implements OnChanges{
 
   @Input()
   displayedColumns: string[] = ['select', 'user', 'id', 'name', 'email', 'logins', 'organization'];
-
 
   @Input()
   routeToAdmin = true;
@@ -65,17 +70,17 @@ export class UsersListComponent implements OnChanges{
   principalId: number;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
-  getDataForColumn(data: RichUser, column: string): string{
+  getDataForColumn(data: RichUser, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
       case 'user':
         return data.serviceUser ? 'true' : 'false';
       case 'name':
-        if(data){
-          return data.lastName ? data.lastName : data.firstName ?? ''
+        if (data) {
+          return data.lastName ? data.lastName : data.firstName ?? '';
         }
-        return ''
+        return '';
       case 'organization':
         return parseVo(data);
       case 'email':
@@ -87,17 +92,17 @@ export class UsersListComponent implements OnChanges{
     }
   }
 
-  getExportDataForColumn(data: RichUser, column: string): string{
+  getExportDataForColumn(data: RichUser, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
       case 'user':
         return data.serviceUser ? 'service-user' : 'user';
       case 'name':
-        if(data){
-          return parseFullName(data)
+        if (data) {
+          return parseFullName(data);
         }
-        return ''
+        return '';
       case 'organization':
         return parseVo(data);
       case 'email':
@@ -109,8 +114,16 @@ export class UsersListComponent implements OnChanges{
     }
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getExportDataForColumn, this), format);
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getExportDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
   setDataSource() {
@@ -119,9 +132,15 @@ export class UsersListComponent implements OnChanges{
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filterPredicate = (data: RichUser, filter: string) =>
-        customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
-     this.dataSource.sortData = (data: RichUser[], sort: MatSort) =>
-       customDataSourceSort(data, sort, this.getDataForColumn, this);
+        customDataSourceFilterPredicate(
+          data,
+          filter,
+          this.displayedColumns,
+          this.getDataForColumn,
+          this
+        );
+      this.dataSource.sortData = (data: RichUser[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getDataForColumn, this);
     }
     this.dataSource.filter = this.filter;
     this.dataSource.data = this.users;
@@ -129,19 +148,33 @@ export class UsersListComponent implements OnChanges{
 
   ngOnChanges() {
     this.principalId = this.storeService.getPerunPrincipal().userId;
-    if (!this.authResolver.isPerunAdminOrObserver()){
-      this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
     this.setDataSource();
   }
 
-
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filter, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(
+      this.selection.selected.length,
+      this.filter,
+      this.child.paginator.pageSize,
+      this.child.paginator.hasNextPage(),
+      this.dataSource
+    );
   }
 
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filter, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex,false);
+    this.tableCheckbox.masterToggle(
+      this.isAllSelected(),
+      this.selection,
+      this.filter,
+      this.dataSource,
+      this.sort,
+      this.child.paginator.pageSize,
+      this.child.paginator.pageIndex,
+      false
+    );
   }
 
   checkboxLabel(row?: RichUser): string {

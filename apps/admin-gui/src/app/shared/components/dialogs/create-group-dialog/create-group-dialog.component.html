@@ -10,7 +10,7 @@
             matInput
             placeholder="{{'DIALOGS.CREATE_GROUP.NAME' | translate}}"
             data-cy="group-name"
-            required>
+            required />
         </label>
         <mat-error>
           {{invalidNameMessage.length ? invalidNameMessage : ('DIALOGS.CREATE_GROUP.FILL_VALUE' | translate)}}
@@ -31,7 +31,7 @@
         *ngIf="isNotSubGroup"
         [labelPosition]="'before'"
         (click)="loadVoGroups()"
-        [(ngModel)]="asSubgroup" >
+        [(ngModel)]="asSubgroup">
         {{'DIALOGS.CREATE_GROUP.AS_SUBGROUP' | translate}}
       </mat-checkbox>
       <perun-web-apps-group-search-select
@@ -41,13 +41,9 @@
         [groups]="voGroups"
         (groupSelected)="selectedParent = $event">
       </perun-web-apps-group-search-select>
-
     </div>
     <div mat-dialog-actions>
-      <button
-        (click)="onCancel()"
-        class="ml-auto"
-        mat-flat-button>
+      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
         {{'DIALOGS.CREATE_GROUP.CANCEL' | translate}}
       </button>
       <button

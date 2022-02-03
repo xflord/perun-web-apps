@@ -12,14 +12,12 @@
 import { Authorship } from './authorship';
 import { Attribute } from './attribute';
 
-
-export interface AuthorAllOf { 
-    firstName?: string;
-    lastName?: string;
-    middleName?: string;
-    titleBefore?: string;
-    titleAfter?: string;
-    attributes?: Array<Attribute>;
-    authorships?: Array<Authorship>;
+export interface AuthorAllOf {
+  firstName?: string;
+  lastName?: string;
+  middleName?: string;
+  titleBefore?: string;
+  titleAfter?: string;
+  attributes?: Array<Attribute>;
+  authorships?: Array<Authorship>;
 }
-

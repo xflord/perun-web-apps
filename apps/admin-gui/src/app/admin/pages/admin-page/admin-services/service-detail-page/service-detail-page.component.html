@@ -1,22 +1,22 @@
 <div class="container-fluid pl-xl-5 pr-xl-5 service-theme">
-  <perun-web-apps-back-button>
-  </perun-web-apps-back-button>
+  <perun-web-apps-back-button> </perun-web-apps-back-button>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <div class="d-flex page-title-headtitle" *ngIf="!loading && service !== undefined">
     <mat-icon
       matTooltip="{{'SERVICE_DETAIL.ENTITY' | translate}}"
       [ngStyle]="{'color':'black'}"
-      svgIcon='perun-service'
+      svgIcon="perun-service"
       class="perun-icon perun-icon-detail">
     </mat-icon>
     <div class="page-title-block">
       <div class="page-title-headline d-flex align-items-center">
-        <a [routerLink]="['/admin/services', service.id]" class="service-link" queryParamsHandling="merge">
+        <a
+          [routerLink]="['/admin/services', service.id]"
+          class="service-link"
+          queryParamsHandling="merge">
           {{service.name}}
         </a>
-        <span class="text-muted">
-        &nbsp;  #{{service.id}}
-        </span>
+        <span class="text-muted"> &nbsp; #{{service.id}} </span>
         <button
           *ngIf="authResolver.isPerunAdmin()"
           (click)="editService()"

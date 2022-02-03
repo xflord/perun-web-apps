@@ -14,10 +14,8 @@ import { Resource } from './resource';
 import { Vo } from './vo';
 import { Facility } from './facility';
 
-
-export interface RichResource extends Resource { 
-    vo?: Vo;
-    facility?: Facility;
-    resourceTags?: Array<ResourceTag>;
+export interface RichResource extends Resource {
+  vo?: Vo;
+  facility?: Facility;
+  resourceTags?: Array<ResourceTag>;
 }
-

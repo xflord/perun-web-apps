@@ -1,36 +1,31 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { UpdateApplicationFormDialogComponent } from '../../../../../shared/components/dialogs/update-application-form-dialog/update-application-form-dialog.component';
 import {
-  UpdateApplicationFormDialogComponent
-} from '../../../../../shared/components/dialogs/update-application-form-dialog/update-application-form-dialog.component';
-import { EntityStorageService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
-import {TranslateService} from '@ngx-translate/core';
-import {
-  ApplicationFormCopyItemsDialogComponent
-} from '../../../../../shared/components/dialogs/application-form-copy-items-dialog/application-form-copy-items-dialog.component';
-import {
-  AddApplicationFormItemDialogComponent
-} from '../../../../../shared/components/dialogs/add-application-form-item-dialog/add-application-form-item-dialog.component';
-import {
-  EditApplicationFormItemDialogComponent
-} from '../../../../../shared/components/dialogs/edit-application-form-item-dialog/edit-application-form-item-dialog.component';
+  EntityStorageService,
+  GuiAuthResolver,
+  NotificatorService,
+} from '@perun-web-apps/perun/services';
+import { TranslateService } from '@ngx-translate/core';
+import { ApplicationFormCopyItemsDialogComponent } from '../../../../../shared/components/dialogs/application-form-copy-items-dialog/application-form-copy-items-dialog.component';
+import { AddApplicationFormItemDialogComponent } from '../../../../../shared/components/dialogs/add-application-form-item-dialog/add-application-form-item-dialog.component';
+import { EditApplicationFormItemDialogComponent } from '../../../../../shared/components/dialogs/edit-application-form-item-dialog/edit-application-form-item-dialog.component';
 import {
   ApplicationForm,
   ApplicationFormItem,
   RegistrarManagerService,
   Vo,
-  VosManagerService
+  VosManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-vo-settings-application-form',
   templateUrl: './vo-settings-application-form.component.html',
-  styleUrls: ['./vo-settings-application-form.component.scss']
+  styleUrls: ['./vo-settings-application-form.component.scss'],
 })
 export class VoSettingsApplicationFormComponent implements OnInit {
-
   static id = 'VoSettingsApplicationFormComponent';
 
   @HostBinding('class.router-component') true;
@@ -43,8 +38,8 @@ export class VoSettingsApplicationFormComponent implements OnInit {
     private router: Router,
     private authResolver: GuiAuthResolver,
     private voService: VosManagerService,
-    private entityStorageService: EntityStorageService) {
-  }
+    private entityStorageService: EntityStorageService
+  ) {}
 
   loading = false;
   applicationForm: ApplicationForm;
@@ -64,19 +59,33 @@ export class VoSettingsApplicationFormComponent implements OnInit {
     this.loading = true;
     this.vo = this.entityStorageService.getEntity();
     this.setAuthRights();
-    this.registrarManager.getVoApplicationForm(this.vo.id).subscribe(form => {
+    this.registrarManager.getVoApplicationForm(this.vo.id).subscribe((form) => {
       this.applicationForm = form;
-      this.registrarManager.getFormItemsForVo(this.vo.id).subscribe(formItems => {
+      this.registrarManager.getFormItemsForVo(this.vo.id).subscribe((formItems) => {
         this.applicationFormItems = formItems;
         this.loading = false;
       });
     });
   }
 
-  setAuthRights(){
-    this.editAuth = this.authResolver.isAuthorized('vo-updateFormItems_ApplicationForm_List<ApplicationFormItem>_policy', [this.vo]);
-    this.displayedColumns = this.editAuth ? ['drag', 'shortname', 'type', 'disabled', 'hidden', 'preview', 'managegroups', 'edit', 'delete']
-                                          : ['shortname', 'type', 'disabled', 'hidden', 'preview', 'managegroups'];
+  setAuthRights() {
+    this.editAuth = this.authResolver.isAuthorized(
+      'vo-updateFormItems_ApplicationForm_List<ApplicationFormItem>_policy',
+      [this.vo]
+    );
+    this.displayedColumns = this.editAuth
+      ? [
+          'drag',
+          'shortname',
+          'type',
+          'disabled',
+          'hidden',
+          'preview',
+          'managegroups',
+          'edit',
+          'delete',
+        ]
+      : ['shortname', 'type', 'disabled', 'hidden', 'preview', 'managegroups'];
   }
 
   add() {
@@ -88,7 +97,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
     };
 
     const dialog = this.dialog.open(AddApplicationFormItemDialogComponent, config);
-    dialog.afterClosed().subscribe( success => {
+    dialog.afterClosed().subscribe((success) => {
       // success is field contains of two items: first is applicationFormItems with new item in it,
       // second item is new Application Form Item
       if (success) {
@@ -101,7 +110,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
           voId: this.vo.id,
           applicationFormItem: success[1],
           theme: 'vo-theme',
-          allItems: this.applicationFormItems
+          allItems: this.applicationFormItems,
         };
 
         this.dialog.open(EditApplicationFormItemDialogComponent, config);
@@ -113,10 +122,10 @@ export class VoSettingsApplicationFormComponent implements OnInit {
   copy() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = {voId: this.vo.id, theme: 'vo-theme'};
+    config.data = { voId: this.vo.id, theme: 'vo-theme' };
 
     const dialog = this.dialog.open(ApplicationFormCopyItemsDialogComponent, config);
-    dialog.afterClosed().subscribe( copyFrom => {
+    dialog.afterClosed().subscribe((copyFrom) => {
       if (copyFrom) {
         this.updateFormItems();
       }
@@ -127,25 +136,28 @@ export class VoSettingsApplicationFormComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '400px';
     config.data = {
-      entity: "vo",
+      entity: 'vo',
       applicationForm: this.applicationForm,
-      theme: 'vo-theme'
+      theme: 'vo-theme',
     };
 
     const dialog = this.dialog.open(UpdateApplicationFormDialogComponent, config);
-    dialog.afterClosed().subscribe( newForm => {
+    dialog.afterClosed().subscribe((newForm) => {
       if (newForm) {
-        this.translate.get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_SETTINGS_SUCCESS').subscribe( successMessage => {
-          this.notificator.showSuccess(successMessage);
-        });
+        this.translate
+          .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_SETTINGS_SUCCESS')
+          .subscribe((successMessage) => {
+            this.notificator.showSuccess(successMessage);
+          });
         this.applicationForm = newForm;
       }
     });
   }
 
   preview() {
-    this.router.navigate(['/organizations', this.vo.id, 'settings', 'applicationForm', 'preview'],
-      {queryParams: {applicationFormItems: JSON.stringify(this.applicationFormItems)}});
+    this.router.navigate(['/organizations', this.vo.id, 'settings', 'applicationForm', 'preview'], {
+      queryParams: { applicationFormItems: JSON.stringify(this.applicationFormItems) },
+    });
   }
 
   updateFormItems() {
@@ -173,17 +185,20 @@ export class VoSettingsApplicationFormComponent implements OnInit {
       }
     }
     // @ts-ignore
-    this.registrarManager.updateFormItemsForVo({vo: this.vo.id, items: this.applicationFormItems}).subscribe( () => {
-      this.translate.get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_APPLICATION_FORM_ITEMS_SUCCESS')
-        .subscribe( successMessage => {
-        this.notificator.showSuccess(successMessage);
+    this.registrarManager
+      .updateFormItemsForVo({ vo: this.vo.id, items: this.applicationFormItems })
+      .subscribe(() => {
+        this.translate
+          .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_APPLICATION_FORM_ITEMS_SUCCESS')
+          .subscribe((successMessage) => {
+            this.notificator.showSuccess(successMessage);
+          });
+        this.updateFormItems();
       });
-      this.updateFormItems();
-    });
   }
 
   clear() {
-    this.applicationFormItems.forEach(appFormItem => appFormItem.forDelete = true);
+    this.applicationFormItems.forEach((appFormItem) => (appFormItem.forDelete = true));
     this.itemsChanged = true;
   }
 }

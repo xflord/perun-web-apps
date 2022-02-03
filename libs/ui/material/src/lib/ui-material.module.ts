@@ -57,7 +57,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatPaginatorModule,
     MatTooltipModule,
     MatSelectModule,
-    MatRippleModule
+    MatRippleModule,
   ],
   exports: [
     MatCardModule,
@@ -87,7 +87,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatPaginatorModule,
     MatTooltipModule,
     MatSelectModule,
-    MatRippleModule
-  ]
+    MatRippleModule,
+  ],
 })
 export class UiMaterialModule {}

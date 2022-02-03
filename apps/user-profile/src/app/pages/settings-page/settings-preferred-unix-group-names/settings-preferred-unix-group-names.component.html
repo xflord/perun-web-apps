@@ -1,8 +1,17 @@
 <h1 class="page-title">{{'PREFERRED_UNIX_GROUP_NAMES.TITLE' | customTranslate | translate}}</h1>
 <div *ngFor="let namespace of namespaces; let i = index" class="mt-4">
   <h4>{{namespace}}</h4>
-  <button mat-flat-button class="action-button" color="accent" (click)="addGroupName(namespace)">{{'PREFERRED_UNIX_GROUP_NAMES.NEW_BUTTON' | customTranslate | translate}}</button>
-  <button mat-flat-button color="warn" class="ml-2" (click)="removeGroupName(namespace, i)" [disabled]="selectionList[i].selected.length === 0">{{'PREFERRED_UNIX_GROUP_NAMES.REMOVE_BUTTON' | translate}}</button>
+  <button mat-flat-button class="action-button" color="accent" (click)="addGroupName(namespace)">
+    {{'PREFERRED_UNIX_GROUP_NAMES.NEW_BUTTON' | customTranslate | translate}}
+  </button>
+  <button
+    mat-flat-button
+    color="warn"
+    class="ml-2"
+    (click)="removeGroupName(namespace, i)"
+    [disabled]="selectionList[i].selected.length === 0">
+    {{'PREFERRED_UNIX_GROUP_NAMES.REMOVE_BUTTON' | translate}}
+  </button>
 
   <perun-web-apps-string-list
     [values]="groupNames.get(namespace)"

@@ -1,46 +1,58 @@
-<div [hidden]="resourceTags.length === 0 || dataSource.filteredData.length === 0" class="card mt-2 ">
-
+<div
+  [hidden]="resourceTags.length === 0 || dataSource.filteredData.length === 0"
+  class="card mt-2 ">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [tableId]="tableId"
     [dataLength]="dataSource.filteredData.length"
     [pageSizeOptions]="pageSizeOptions">
-    <table [dataSource]="dataSource" class="w-100" mat-table matSort matSortActive="id" matSortDirection="asc" matSortDisableClear>
+    <table
+      [dataSource]="dataSource"
+      class="w-100"
+      mat-table
+      matSort
+      matSortActive="id"
+      matSortDirection="asc"
+      matSortDisableClear>
       <ng-container matColumnDef="select">
         <th *matHeaderCellDef mat-header-cell class="align-checkbox">
-          <mat-checkbox (change)="$event ? masterToggle() : null"
-                        [aria-label]="checkboxLabel()"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()"
-                        color="primary">
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            [aria-label]="checkboxLabel()"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            color="primary">
           </mat-checkbox>
         </th>
         <td *matCellDef="let row" class="static-column-size align-checkbox" mat-cell>
-          <mat-checkbox (change)="$event ? selection.toggle(row) : null"
-                        (click)="$event.stopPropagation()"
-                        [aria-label]="checkboxLabel(row)"
-                        [checked]="selection.isSelected(row)"
-                        color="primary">
+          <mat-checkbox
+            (change)="$event ? selection.toggle(row) : null"
+            (click)="$event.stopPropagation()"
+            [aria-label]="checkboxLabel(row)"
+            [checked]="selection.isSelected(row)"
+            color="primary">
           </mat-checkbox>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="id">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'VO_DETAIL.RESOURCES.TAGS.TAG_ID' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'VO_DETAIL.RESOURCES.TAGS.TAG_ID' | translate}}
+        </th>
         <td *matCellDef="let tag" class="static-column-size" mat-cell>{{tag.id}}</td>
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell>{{'VO_DETAIL.RESOURCES.TAGS.TAG_NAME' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell>
+          {{'VO_DETAIL.RESOURCES.TAGS.TAG_NAME' | translate}}
+        </th>
         <td *matCellDef="let tag" mat-cell>
           <div *ngIf="!isChanging.isSelected(tag)">
             {{tag.tagName}}
           </div>
           <div *ngIf="isChanging.isSelected(tag)">
             <mat-form-field>
-              <input
-                [(ngModel)]="tag.tagName"
-                matInput>
+              <input [(ngModel)]="tag.tagName" matInput />
             </mat-form-field>
           </div>
         </td>
@@ -69,10 +81,10 @@
       </ng-container>
 
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-      <tr *matRowDef="let group; columns: displayedColumns;"
-          class="dark-hover-list-item"
-          mat-row>
-      </tr>
+      <tr
+        *matRowDef="let group; columns: displayedColumns;"
+        class="dark-hover-list-item"
+        mat-row></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
@@ -81,6 +93,8 @@
   {{entity === 'vo' ? ('VO_DETAIL.RESOURCES.TAGS.NO_TAGS' | translate) : ('RESOURCE_DETAIL.TAGS.NO_TAGS' | translate)}}
 </app-alert>
 
-<app-alert *ngIf="dataSource.filteredData.length === 0 && resourceTags.length !== 0" alert_type="warn">
+<app-alert
+  *ngIf="dataSource.filteredData.length === 0 && resourceTags.length !== 0"
+  alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
 </app-alert>

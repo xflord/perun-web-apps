@@ -13,15 +13,16 @@ export interface RemoveDestinationDialogData {
 @Component({
   selector: 'app-perun-web-apps-remove-destination-dialog',
   templateUrl: './remove-destination-dialog.component.html',
-  styleUrls: ['./remove-destination-dialog.component.scss']
+  styleUrls: ['./remove-destination-dialog.component.scss'],
 })
 export class RemoveDestinationDialogComponent implements OnInit {
-
-  constructor(public dialogRef: MatDialogRef<RemoveDestinationDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: RemoveDestinationDialogData,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private serviceManager: ServicesManagerService) { }
+  constructor(
+    public dialogRef: MatDialogRef<RemoveDestinationDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: RemoveDestinationDialogData,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private serviceManager: ServicesManagerService
+  ) {}
 
   displayedColumns: string[] = [];
 
@@ -34,9 +35,10 @@ export class RemoveDestinationDialogComponent implements OnInit {
   ngOnInit() {
     this.theme = this.data.theme;
     this.destinations = this.data.destinations;
-    this.displayedColumns = this.theme === 'admin-theme' ?
-      ['destinationId', 'facility', 'destination', 'type', 'propagationType'] :
-      ['destinationId', 'service', 'destination', 'type', 'propagationType'];
+    this.displayedColumns =
+      this.theme === 'admin-theme'
+        ? ['destinationId', 'facility', 'destination', 'type', 'propagationType']
+        : ['destinationId', 'service', 'destination', 'type', 'propagationType'];
     this.dataSource = new MatTableDataSource<RichDestination>(this.data.destinations);
   }
 
@@ -45,19 +47,25 @@ export class RemoveDestinationDialogComponent implements OnInit {
   }
 
   deleteDestinations() {
-    if (this.destinations.length === 0){
+    if (this.destinations.length === 0) {
       this.notificator.showSuccess(this.translate.instant('DIALOGS.REMOVE_DESTINATIONS.SUCCESS'));
       this.dialogRef.close(true);
       return;
     }
     const destination = this.destinations.pop();
-    this.serviceManager.removeDestination(
-      destination.service.id,
-      destination.facility.id,
-      destination.destination,
-      destination.type).subscribe(() => {
-      this.deleteDestinations();
-    }, () => this.loading = false);
+    this.serviceManager
+      .removeDestination(
+        destination.service.id,
+        destination.facility.id,
+        destination.destination,
+        destination.type
+      )
+      .subscribe(
+        () => {
+          this.deleteDestinations();
+        },
+        () => (this.loading = false)
+      );
   }
 
   onConfirm() {

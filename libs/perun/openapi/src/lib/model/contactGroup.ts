@@ -14,12 +14,10 @@ import { Owner } from './owner';
 import { RichUser } from './richUser';
 import { Facility } from './facility';
 
-
-export interface ContactGroup { 
-    name?: string;
-    facility?: Facility;
-    groups?: Array<Group>;
-    owners?: Array<Owner>;
-    users?: Array<RichUser>;
+export interface ContactGroup {
+  name?: string;
+  facility?: Facility;
+  groups?: Array<Group>;
+  owners?: Array<Owner>;
+  users?: Array<RichUser>;
 }
-

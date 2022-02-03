@@ -11,13 +11,11 @@
  */
 import { PerunBean } from './perunBean';
 
-
-export interface Auditable extends PerunBean { 
-    createdAt?: string;
-    createdBy?: string;
-    modifiedAt?: string;
-    modifiedBy?: string;
-    createdByUid?: number;
-    modifiedByUid?: number;
+export interface Auditable extends PerunBean {
+  createdAt?: string;
+  createdBy?: string;
+  modifiedAt?: string;
+  modifiedBy?: string;
+  createdByUid?: number;
+  modifiedByUid?: number;
 }
-

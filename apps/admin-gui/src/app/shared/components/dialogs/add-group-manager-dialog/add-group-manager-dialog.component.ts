@@ -13,12 +13,10 @@ import {
   Group,
   GroupsManagerService,
   Vo,
-  VosManagerService
+  VosManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { Role } from '@perun-web-apps/perun/models';
-import {
-  TABLE_SELECT_GROUP_MANAGER_DIALOG,
-} from '@perun-web-apps/config/table-config';
+import { TABLE_SELECT_GROUP_MANAGER_DIALOG } from '@perun-web-apps/config/table-config';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 export interface AddGroupManagerDialogData {
@@ -31,10 +29,9 @@ export interface AddGroupManagerDialogData {
 @Component({
   selector: 'app-add-group-manager-dialog',
   templateUrl: './add-group-manager-dialog.component.html',
-  styleUrls: ['./add-group-manager-dialog.component.scss']
+  styleUrls: ['./add-group-manager-dialog.component.scss'],
 })
 export class AddGroupManagerDialogComponent implements OnInit {
-
   constructor(
     private dialogRef: MatDialogRef<AddGroupManagerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: AddGroupManagerDialogData,
@@ -46,8 +43,8 @@ export class AddGroupManagerDialogComponent implements OnInit {
     protected route: ActivatedRoute,
     protected router: Router
   ) {
-    translate.get('DIALOGS.ADD_GROUPS.TITLE').subscribe(value => this.title = value);
-    translate.get('DIALOGS.ADD_GROUPS.SUCCESS').subscribe(value => this.successMessage = value);
+    translate.get('DIALOGS.ADD_GROUPS.TITLE').subscribe((value) => (this.title = value));
+    translate.get('DIALOGS.ADD_GROUPS.SUCCESS').subscribe((value) => (this.successMessage = value));
   }
 
   title: string;
@@ -81,12 +78,20 @@ export class AddGroupManagerDialogComponent implements OnInit {
 
   onSubmit(): void {
     this.loading = true;
-    this.authzService.setRoleWithGroupComplementaryObject({ role: this.selectedRole, authorizedGroups: this.selection.selected.map(group => group.id), complementaryObject: this.data.complementaryObject})
-      .subscribe(() => {
-        this.notificator.showSuccess(this.successMessage);
-        this.loading = false;
-        this.dialogRef.close(true);
-    }, () => this.loading = false);
+    this.authzService
+      .setRoleWithGroupComplementaryObject({
+        role: this.selectedRole,
+        authorizedGroups: this.selection.selected.map((group) => group.id),
+        complementaryObject: this.data.complementaryObject,
+      })
+      .subscribe(
+        () => {
+          this.notificator.showSuccess(this.successMessage);
+          this.loading = false;
+          this.dialogRef.close(true);
+        },
+        () => (this.loading = false)
+      );
   }
 
   ngOnInit() {
@@ -94,30 +99,35 @@ export class AddGroupManagerDialogComponent implements OnInit {
     this.availableRoles = this.data.availableRoles;
     this.selectedRole = this.data.selectedRole;
     this.theme = this.data.theme;
-    this.voService.getMyVos().subscribe(vos => {
-      this.filteredOptions = this.myControl.valueChanges
-        .pipe(
+    this.voService.getMyVos().subscribe(
+      (vos) => {
+        this.filteredOptions = this.myControl.valueChanges.pipe(
           startWith(''),
-          map(value => this._filter(value))
+          map((value) => this._filter(value))
         );
 
-      this.vos = vos;
-      this.loading = false;
-    }, () => this.loading = false);
+        this.vos = vos;
+        this.loading = false;
+      },
+      () => (this.loading = false)
+    );
   }
 
   private _filter(value: string | Vo): Vo[] {
-    const filterValue = typeof (value) === 'string' ? value.toLowerCase() : value.name.toLowerCase;
-    return this.vos.filter(option => option.name.toLowerCase().includes(<string>filterValue));
+    const filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLowerCase;
+    return this.vos.filter((option) => option.name.toLowerCase().includes(<string>filterValue));
   }
 
   showVoGroups(event: MatAutocompleteSelectedEvent) {
     this.loading = true;
-    this.groupService.getAllGroups(event.option.value.id).subscribe(groups => {
-      this.groups = groups;
-      this.loading = false;
-      this.firstSearchDone = true;
-    }, () => this.loading = false);
+    this.groupService.getAllGroups(event.option.value.id).subscribe(
+      (groups) => {
+        this.groups = groups;
+        this.loading = false;
+        this.firstSearchDone = true;
+      },
+      () => (this.loading = false)
+    );
   }
 
   applyFilter(filterValue: string) {

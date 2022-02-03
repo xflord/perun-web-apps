@@ -11,14 +11,14 @@ import { AddOwnerDialogComponent } from '../../../../shared/components/add-owner
 @Component({
   selector: 'app-admin-owners',
   templateUrl: './admin-owners.component.html',
-  styleUrls: ['./admin-owners.component.scss']
+  styleUrls: ['./admin-owners.component.scss'],
 })
 export class AdminOwnersComponent implements OnInit {
-
-  constructor(private ownersManagerService:OwnersManagerService,
-              private dialog: MatDialog,
-              private guiAuthResolver: GuiAuthResolver) {
-  }
+  constructor(
+    private ownersManagerService: OwnersManagerService,
+    private dialog: MatDialog,
+    private guiAuthResolver: GuiAuthResolver
+  ) {}
 
   owners: Owner[] = [];
   selected = new SelectionModel<Owner>(true, []);
@@ -41,7 +41,7 @@ export class AdminOwnersComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.ownersManagerService.getAllOwners().subscribe(owners => {
+    this.ownersManagerService.getAllOwners().subscribe((owners) => {
       this.owners = owners;
       this.selected.clear();
       this.loading = false;
@@ -59,7 +59,7 @@ export class AdminOwnersComponent implements OnInit {
 
     const dialogRef = this.dialog.open(AddOwnerDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.refreshTable();
       }
@@ -73,13 +73,11 @@ export class AdminOwnersComponent implements OnInit {
 
     const dialogRef = this.dialog.open(DeleteOwnerDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.selected.clear();
         this.refreshTable();
       }
     });
   }
-
-
 }

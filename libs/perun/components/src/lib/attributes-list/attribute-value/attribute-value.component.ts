@@ -1,16 +1,14 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {AttributeValueMapComponent} from './attribute-value-map/attribute-value-map.component';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { AttributeValueMapComponent } from './attribute-value-map/attribute-value-map.component';
 import { Attribute } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'perun-web-apps-attribute-value',
   templateUrl: './attribute-value.component.html',
-  styleUrls: ['./attribute-value.component.scss']
+  styleUrls: ['./attribute-value.component.scss'],
 })
 export class AttributeValueComponent {
-
-  constructor() {
-  }
+  constructor() {}
 
   @ViewChild('map')
   mapComponent: AttributeValueMapComponent;

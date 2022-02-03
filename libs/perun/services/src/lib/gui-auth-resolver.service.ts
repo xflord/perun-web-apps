@@ -4,17 +4,15 @@ import {
   PerunBean,
   PerunPolicy,
   PerunPrincipal,
-  RoleManagementRules
+  RoleManagementRules,
 } from '@perun-web-apps/perun/openapi';
 import { Role } from '@perun-web-apps/perun/models';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GuiAuthResolver {
-
-  constructor(private authzSevice: AuthzResolverService) {
-  }
+  constructor(private authzSevice: AuthzResolverService) {}
 
   private principal: PerunPrincipal;
   private perunPolicies: PerunPolicy[];
@@ -36,7 +34,7 @@ export class GuiAuthResolver {
   }
 
   setPerunPolicies(policies: PerunPolicy[]): void {
-    this.perunPolicies =  policies;
+    this.perunPolicies = policies;
   }
 
   getPerunPolicies(): PerunPolicy[] {
@@ -51,22 +49,25 @@ export class GuiAuthResolver {
     const allPolicies: PerunPolicy[] = this.fetchPolicyWithAllIncludedPolicies(policy);
     // console.log('all policies');
     // console.log(allPolicies);
-    let policyRoles: Array<{ [key: string]: string; }> = [];
-    for (const policyItem of allPolicies){
+    let policyRoles: Array<{ [key: string]: string }> = [];
+    for (const policyItem of allPolicies) {
       policyRoles = policyRoles.concat(policyItem.perunRoles);
     }
     // console.log('pollicy roles');
     // console.log(policyRoles);
 
     //Fetch super objects like Vo for group etc.
-    const mapOfBeans: { [key: string]: number[]; } = this.fetchAllRelatedObjects(objects);
+    const mapOfBeans: { [key: string]: number[] } = this.fetchAllRelatedObjects(objects);
     // console.log('this is map of beans');
     // console.log(mapOfBeans);
 
     return this.resolveAuthorization(policyRoles, mapOfBeans);
   }
 
-  private resolveAuthorization(policyRoles:Array<{ [key: string]: string; }>, mapOfBeans: { [key: string]: number[]; }) : boolean {
+  private resolveAuthorization(
+    policyRoles: Array<{ [key: string]: string }>,
+    mapOfBeans: { [key: string]: number[] }
+  ): boolean {
     //Traverse through outer role list which works like logical OR
     for (const roleArray of policyRoles) {
       let authorized = true;
@@ -91,8 +92,8 @@ export class GuiAuthResolver {
     return false;
   }
 
-  private fetchAllRelatedObjects(objects: any[]): {[key: string]: number[];} {
-    const mapOfBeans: { [key: string]: number[]; } = {};
+  private fetchAllRelatedObjects(objects: any[]): { [key: string]: number[] } {
+    const mapOfBeans: { [key: string]: number[] } = {};
 
     for (const object of objects) {
       let convertedBeanName = object.beanName;
@@ -176,7 +177,11 @@ export class GuiAuthResolver {
     while (policiesToCheck.length !== 0) {
       const policy = policiesToCheck.shift();
       if (allIncludedPolicies.has(policy)) {
-        console.log("Policy {} creates a cycle in the included policies of the policy {}", policy, policyName);
+        console.log(
+          'Policy {} creates a cycle in the included policies of the policy {}',
+          policy,
+          policyName
+        );
         continue;
       }
       const policyToCheck = this.getPerunPolicy(policy);
@@ -204,7 +209,12 @@ export class GuiAuthResolver {
   }
 
   public canManageFacilities(): boolean {
-    return this.hasAtLeastOne(Role.PERUNADMIN, Role.PERUNOBSERVER, Role.FACILITYADMIN, Role.FACILITIYOBSERVER);
+    return this.hasAtLeastOne(
+      Role.PERUNADMIN,
+      Role.PERUNOBSERVER,
+      Role.FACILITYADMIN,
+      Role.FACILITIYOBSERVER
+    );
   }
 
   public isPerunAdmin(): boolean {
@@ -220,13 +230,15 @@ export class GuiAuthResolver {
   }
 
   public isThisVoAdminOrObserver(id: number): boolean {
-    return (this.editableVos.includes(Number(id.toString())) ||
+    return (
+      this.editableVos.includes(Number(id.toString())) ||
       this.observableVos.includes(Number(id.toString())) ||
-      this.hasAtLeastOne(Role.PERUNADMIN, Role.PERUNOBSERVER));
+      this.hasAtLeastOne(Role.PERUNADMIN, Role.PERUNOBSERVER)
+    );
   }
 
   public isThisVoAdmin(id: number): boolean {
-    return (this.editableVos.includes(id) || this.principalRoles.has(Role.PERUNADMIN));
+    return this.editableVos.includes(id) || this.principalRoles.has(Role.PERUNADMIN);
   }
 
   public isGroupAdmin(): boolean {
@@ -238,11 +250,11 @@ export class GuiAuthResolver {
   }
 
   public isThisGroupAdmin(id: number): boolean {
-    return (this.editableGroups.includes(id) || this.principalRoles.has(Role.PERUNADMIN));
+    return this.editableGroups.includes(id) || this.principalRoles.has(Role.PERUNADMIN);
   }
 
   public isGroupAdminInThisVo(id: number): boolean {
-    return (this.hasGroupInTheseVos.includes(id));
+    return this.hasGroupInTheseVos.includes(id);
   }
 
   public isFacilityAdmin(): boolean {
@@ -250,7 +262,7 @@ export class GuiAuthResolver {
   }
 
   public isThisFacilityAdmin(id: number): boolean {
-    return (this.editableFacilities.includes(id) || this.principalRoles.has(Role.PERUNADMIN));
+    return this.editableFacilities.includes(id) || this.principalRoles.has(Role.PERUNADMIN);
   }
 
   public isResourceAdmin(): boolean {
@@ -269,35 +281,39 @@ export class GuiAuthResolver {
   }
 
   isVoObserver(): boolean {
-    return (this.hasAtLeastOne(Role.PERUNADMIN, Role.VOOBSERVER, Role.PERUNOBSERVER));
+    return this.hasAtLeastOne(Role.PERUNADMIN, Role.VOOBSERVER, Role.PERUNOBSERVER);
   }
 
   isThisVoObserver(id: number): boolean {
-    return (this.hasAtLeastOne(Role.PERUNADMIN, Role.PERUNOBSERVER) || this.observableVos.includes(id));
+    return (
+      this.hasAtLeastOne(Role.PERUNADMIN, Role.PERUNOBSERVER) || this.observableVos.includes(id)
+    );
   }
 
   public getMemberIds(): number[] {
     return this.members;
   }
 
-  public loadRolesManagementRules(): Promise<void>  {
+  public loadRolesManagementRules(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.authzSevice.getAllRolesManagementRules().subscribe( allRules => {
-        this.allRolesManagementRules = allRules;
-        resolve();
-      }, error => reject(error));
+      this.authzSevice.getAllRolesManagementRules().subscribe(
+        (allRules) => {
+          this.allRolesManagementRules = allRules;
+          resolve();
+        },
+        (error) => reject(error)
+      );
     });
   }
 
   public assignAvailableRoles(availableRoles: string[], primaryObject: string) {
-    this.allRolesManagementRules.forEach(rule => {
-      if(rule.primaryObject === primaryObject) {
+    this.allRolesManagementRules.forEach((rule) => {
+      if (rule.primaryObject === primaryObject) {
         availableRoles.push(rule.roleName);
       }
     });
     availableRoles.sort();
-    if(primaryObject === "Vo")
-      this.voCustomSort(availableRoles);
+    if (primaryObject === 'Vo') this.voCustomSort(availableRoles);
   }
 
   public isManagerPagePrivileged(primaryObject: PerunBean): boolean {
@@ -311,26 +327,30 @@ export class GuiAuthResolver {
     const rolesPrivileges = new Map<string, any>();
     this.getRolesAuthorization(availableRoles, primaryObject, rolesPrivileges);
     for (const privilege of rolesPrivileges.values()) {
-     if (privilege.readAuth || privilege.manageAuth) {
-       return true;
-     }
+      if (privilege.readAuth || privilege.manageAuth) {
+        return true;
+      }
     }
 
     return false;
   }
 
-  public getRolesAuthorization(availableRoles: string[], primaryObject: PerunBean, availableRolesPrivileges){
+  public getRolesAuthorization(
+    availableRoles: string[],
+    primaryObject: PerunBean,
+    availableRolesPrivileges
+  ) {
     for (const role of availableRoles) {
-      let privilegedReadRoles: Array<{ [key: string]: string; }> = [];
-      let privilegedManageRoles: Array<{ [key: string]: string; }> = [];
+      let privilegedReadRoles: Array<{ [key: string]: string }> = [];
+      let privilegedManageRoles: Array<{ [key: string]: string }> = [];
       let modes = [];
-      for (const rule of this.allRolesManagementRules){
-        if (rule.roleName === role){
+      for (const rule of this.allRolesManagementRules) {
+        if (rule.roleName === role) {
           privilegedReadRoles = privilegedReadRoles.concat(rule.privilegedRolesToRead);
           privilegedManageRoles = privilegedManageRoles.concat(rule.privilegedRolesToManage);
 
-          for (const entity of Object.keys(rule.entitiesToManage)){
-            if (entity === "User"){
+          for (const entity of Object.keys(rule.entitiesToManage)) {
+            if (entity === 'User') {
               modes = [entity].concat(modes);
             } else {
               modes = modes.concat(entity);
@@ -341,10 +361,14 @@ export class GuiAuthResolver {
         }
       }
 
-      const mapOfBeans: { [key: string]: number[]; } = this.fetchAllRelatedObjects([primaryObject]);
+      const mapOfBeans: { [key: string]: number[] } = this.fetchAllRelatedObjects([primaryObject]);
       const readAuth = this.resolveAuthorization(privilegedReadRoles, mapOfBeans);
       const manageAuth = this.resolveAuthorization(privilegedManageRoles, mapOfBeans);
-      availableRolesPrivileges.set(role, {readAuth: readAuth, manageAuth: manageAuth, modes: modes});
+      availableRolesPrivileges.set(role, {
+        readAuth: readAuth,
+        manageAuth: manageAuth,
+        modes: modes,
+      });
     }
   }
 
@@ -354,13 +378,13 @@ export class GuiAuthResolver {
    * @param availableRoles is array of available roles for VO
    */
   private voCustomSort(availableRoles: string[]) {
-    for(let i = 0; i < availableRoles.length; i++){
+    for (let i = 0; i < availableRoles.length; i++) {
       if (availableRoles[i] === 'VOADMIN') {
         availableRoles.unshift(availableRoles[i]);
-        availableRoles.splice(i+1, 1);
+        availableRoles.splice(i + 1, 1);
       } else if (availableRoles[i] === 'VOOBSERVER') {
         availableRoles.splice(1, 0, availableRoles[i]);
-        availableRoles.splice(i+1, 1);
+        availableRoles.splice(i + 1, 1);
       }
     }
   }

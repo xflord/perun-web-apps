@@ -1,7 +1,7 @@
 <div class="user-theme">
   <h1 class="page-subtitle d-flex">
     <span>
-    <mat-icon class="add-icon mr-1">add_box</mat-icon>
+      <mat-icon class="add-icon mr-1">add_box</mat-icon>
       {{'IMPORT_PUBLICATIONS.TITLE' | translate}}
     </span>
   </h1>
@@ -10,19 +10,19 @@
       <mat-form-field class="input-width-300 mr-2">
         <mat-label>{{'IMPORT_PUBLICATIONS.EXT_PUB_SYSTEM' | translate}}</mat-label>
         <mat-select [formControl]="pubSystem" (closed)="selectPubSystem()">
-          <mat-option class="group-theme" *ngFor="let publicationSystem of publicationSystems" [value]="publicationSystem">{{publicationSystem.friendlyName}}</mat-option>
+          <mat-option
+            class="group-theme"
+            *ngFor="let publicationSystem of publicationSystems"
+            [value]="publicationSystem"
+            >{{publicationSystem.friendlyName}}</mat-option
+          >
         </mat-select>
       </mat-form-field>
 
-      <perun-web-apps-year-range
-        [startYear]="startYear"
-        [endYear]="endYear">
+      <perun-web-apps-year-range [startYear]="startYear" [endYear]="endYear">
       </perun-web-apps-year-range>
 
-      <button
-        mat-stroked-button
-        class="left-space"
-        (click)="searchPublications()">
+      <button mat-stroked-button class="left-space" (click)="searchPublications()">
         <mat-icon>search</mat-icon>
         {{'IMPORT_PUBLICATIONS.SEARCH' | translate}}
       </button>
@@ -34,15 +34,11 @@
         (click)="importPublications(selected.selected)">
         {{'IMPORT_PUBLICATIONS.IMPORT' | translate}}
       </button>
-      <mat-checkbox
-        class="mt-3 left-space"
-        [(ngModel)]="userAsAuthor">
+      <mat-checkbox class="mt-3 left-space" [(ngModel)]="userAsAuthor">
         {{'IMPORT_PUBLICATIONS.ADD_MYSELF' | translate}}
       </mat-checkbox>
     </div>
-    <app-alert
-      *ngIf="!firstSearchDone"
-      alert_type="info">
+    <app-alert *ngIf="!firstSearchDone" alert_type="info">
       {{'IMPORT_PUBLICATIONS.INFO' | translate}}
     </app-alert>
     <perun-web-apps-publications-list
@@ -58,8 +54,7 @@
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 
   <div *ngIf="importDone">
-    <app-alert
-      alert_type="info">
+    <app-alert alert_type="info">
       {{'IMPORT_PUBLICATIONS.IMPORTED_INFO' | translate}}
     </app-alert>
     <mat-accordion>
@@ -72,11 +67,15 @@
             <i *ngIf="!this.completePublications.includes(publication.id)">
               {{'IMPORT_PUBLICATIONS.NOT_CHECKED' | translate}}
             </i>
-            <mat-icon *ngIf="this.completePublications.includes(publication.id)" color="accent" class="checked-icon">check_circle</mat-icon>
+            <mat-icon
+              *ngIf="this.completePublications.includes(publication.id)"
+              color="accent"
+              class="checked-icon"
+              >check_circle</mat-icon
+            >
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <perun-web-apps-publication-detail
-          [publicationId]="publication.id">
+        <perun-web-apps-publication-detail [publicationId]="publication.id">
         </perun-web-apps-publication-detail>
         <div class="fit-content">
           <button
@@ -113,11 +112,7 @@
       matTooltip="{{'IMPORT_PUBLICATIONS.SUBMIT_TOOLTIP' | translate}}"
       [matTooltipPosition]="'above'"
       [matTooltipDisabled]="this.completePublications.length === this.importedPublications.length">
-      <button
-        mat-flat-button
-        class="ml-2"
-        color="accent"
-        (click)="onSubmit()">
+      <button mat-flat-button class="ml-2" color="accent" (click)="onSubmit()">
         {{'IMPORT_PUBLICATIONS.FINISH' | translate}}
       </button>
     </div>

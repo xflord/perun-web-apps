@@ -1,21 +1,29 @@
 <div class="container-fluid pl-xl-5 pr-xl-5 vo-theme">
-  <perun-web-apps-back-button>
-  </perun-web-apps-back-button>
+  <perun-web-apps-back-button> </perun-web-apps-back-button>
 
   <h1 class="page-title d-flex">
-    <mat-icon
-      [ngStyle]="{'color':'black'}"
-      svgIcon='perun-vo-black'
-      class="perun-icon icon-scale">
+    <mat-icon [ngStyle]="{'color':'black'}" svgIcon="perun-vo-black" class="perun-icon icon-scale">
     </mat-icon>
     {{'VO_MANAGEMENT.TITLE' | translate}}
   </h1>
 
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button mat-flat-button color="accent" class="mr-2 action-button" data-cy="new-vo-button" (click)="onCreateVo()" *ngIf="createAuth">
+  <button
+    mat-flat-button
+    color="accent"
+    class="mr-2 action-button"
+    data-cy="new-vo-button"
+    (click)="onCreateVo()"
+    *ngIf="createAuth">
     {{'VO_MANAGEMENT.CREATE_VO' | translate}}
   </button>
-  <button (click)="onRemoveVo()" *ngIf="deleteAuth" [disabled]="selection.selected.length === 0" class="mr-2" color="warn" mat-flat-button>
+  <button
+    (click)="onRemoveVo()"
+    *ngIf="deleteAuth"
+    [disabled]="selection.selected.length === 0"
+    class="mr-2"
+    color="warn"
+    mat-flat-button>
     {{'VO_MANAGEMENT.REMOVE_VO' | translate}}
   </button>
   <perun-web-apps-immediate-filter
@@ -24,12 +32,13 @@
     [placeholder]="'VO_MANAGEMENT.FILTER_PLACEHOLDER'">
   </perun-web-apps-immediate-filter>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <perun-web-apps-vos-list *ngIf="!loading"
-                            [tableId]="tableId"
-                            [displayedColumns]="displayedColumns"
-                            [filterValue]="filterValue"
-                            [recentIds]="recentIds"
-                            [selection]="selection"
-                            [vos]="vos">
+  <perun-web-apps-vos-list
+    *ngIf="!loading"
+    [tableId]="tableId"
+    [displayedColumns]="displayedColumns"
+    [filterValue]="filterValue"
+    [recentIds]="recentIds"
+    [selection]="selection"
+    [vos]="vos">
   </perun-web-apps-vos-list>
 </div>

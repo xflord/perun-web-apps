@@ -12,10 +12,8 @@
 import { Facility } from './facility';
 import { FacilityPropagationState } from './facilityPropagationState';
 
-
-export interface FacilityState { 
-    facility?: Facility;
-    state?: FacilityPropagationState;
-    results?: { [key: string]: FacilityPropagationState; };
+export interface FacilityState {
+  facility?: Facility;
+  state?: FacilityPropagationState;
+  results?: { [key: string]: FacilityPropagationState };
 }
-

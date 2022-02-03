@@ -8,12 +8,13 @@ export interface AttributeValueListDeleteDialogData {
 @Component({
   selector: 'perun-web-apps-attribute-value-list-delete-dialog',
   templateUrl: './attribute-value-list-delete-dialog.component.html',
-  styleUrls: ['./attribute-value-list-delete-dialog.component.scss']
+  styleUrls: ['./attribute-value-list-delete-dialog.component.scss'],
 })
 export class AttributeValueListDeleteDialogComponent {
-
-  constructor(public dialogRef: MatDialogRef<AttributeValueListDeleteDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: AttributeValueListDeleteDialogData) { }
+  constructor(
+    public dialogRef: MatDialogRef<AttributeValueListDeleteDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: AttributeValueListDeleteDialogData
+  ) {}
 
   cancel() {
     this.dialogRef.close();

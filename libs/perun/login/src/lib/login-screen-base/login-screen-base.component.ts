@@ -6,16 +6,15 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'perun-web-apps-login-screen-base',
   templateUrl: './login-screen-base.component.html',
-  styleUrls: ['./login-screen-base.component.scss']
+  styleUrls: ['./login-screen-base.component.scss'],
 })
 export class LoginScreenBaseComponent implements OnInit {
-
   constructor(
     private storeService: StoreService,
     private sanitizer: DomSanitizer,
     private preferredLangService: PreferredLanguageService,
-    private translateService: TranslateService,
-  ) { }
+    private translateService: TranslateService
+  ) {}
 
   @Input()
   application: string;
@@ -36,7 +35,7 @@ export class LoginScreenBaseComponent implements OnInit {
     this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.get('logo'));
     this.textColor = this.headerTitle ? this.storeService.get('theme', 'header_text_color') : '';
 
-    if(this.application === 'user-profile') {
+    if (this.application === 'user-profile') {
       const prefLang = this.preferredLangService.getPreferredLanguage(null);
       this.translateService.use(prefLang);
     }

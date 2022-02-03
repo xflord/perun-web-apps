@@ -14,7 +14,7 @@ import { MemberStatusIconColorPipe } from './member-status-icon-color.pipe';
 import { MemberStatusIconPipe } from './member-status-icon.pipe';
 import { MemberStatusTooltipPipe } from './member-status-tooltip.pipe';
 import { MemberEmailPipe } from './member-email.pipe';
-import { MemberLoginsPipe} from './member-logins.pipe';
+import { MemberLoginsPipe } from './member-logins.pipe';
 import { GroupExpirationPipe } from './group-expiration.pipe';
 import { MemberOrganizationPipe } from './member-organization.pipe';
 import { ParseDatePipe } from './parse-date.pipe';
@@ -23,7 +23,7 @@ import { FilterUniqueObjectsPipe } from './filter-unique-objects.pipe';
 import { ParseGroupNamePipe } from './parse-group-name.pipe';
 import { LocalisedTextPipe } from './localised-text.pipe';
 import { LocalisedLinkPipe } from './localised-link.pipe';
-import { UserEmailPipe } from './user-email.pipe'
+import { UserEmailPipe } from './user-email.pipe';
 import { UserLoginsPipe } from './user-logins.pipe';
 import { UserVoPipe } from './vo-or-ext-source.pipe';
 import { MemberStatusPipe } from './member-status.pipe';
@@ -65,7 +65,7 @@ import { FooterLogoPathPipe } from './footer-logo-path.pipe';
     SanitizeHtmlPipe,
     StyleInnerHtmlPipe,
     MultiWordDataCyPipe,
-    FooterLogoPathPipe
+    FooterLogoPathPipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -99,7 +99,7 @@ import { FooterLogoPathPipe } from './footer-logo-path.pipe';
     SanitizeHtmlPipe,
     StyleInnerHtmlPipe,
     MultiWordDataCyPipe,
-    FooterLogoPathPipe
+    FooterLogoPathPipe,
   ],
   imports: [CommonModule],
 })

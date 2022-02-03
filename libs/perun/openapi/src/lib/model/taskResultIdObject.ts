@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * input to deleteTaskResultObject
  */
-export interface TaskResultIdObject { 
-    /**
-     * task result id
-     */
-    taskResultId: number;
+export interface TaskResultIdObject {
+  /**
+   * task result id
+   */
+  taskResultId: number;
 }
-

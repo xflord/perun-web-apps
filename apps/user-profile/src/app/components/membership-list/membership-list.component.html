@@ -1,5 +1,4 @@
 <div [hidden]="!dataSource.filteredData.length" class="card mt-2">
-
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [dataLength]="dataSource.filteredData.length"
@@ -8,33 +7,40 @@
     <table
       [dataSource]="dataSource"
       class="w-100"
-      mat-table matSort
+      mat-table
+      matSort
       matSortActive="expirationAttribute"
       matSortDirection="desc"
       matSortDisableClear>
       <ng-container matColumnDef="checkbox">
-        <th *matHeaderCellDef mat-header-cell class="align-checkbox">
-        </th>
+        <th *matHeaderCellDef mat-header-cell class="align-checkbox"></th>
         <td *matCellDef="let membership" class="static-column-size align-checkbox" mat-cell>
-          <mat-checkbox (change)="$event ? selection.toggle(membership) : null"
-                        (click)="$event.stopPropagation()"
-                        [aria-label]="checkboxLabel(membership)"
-                        [checked]="selection.isSelected(membership)"
-                        [disabled]="(membership.expirationAttribute | validateExpiration) === 'never'"
-                        color="primary">
+          <mat-checkbox
+            (change)="$event ? selection.toggle(membership) : null"
+            (click)="$event.stopPropagation()"
+            [aria-label]="checkboxLabel(membership)"
+            [checked]="selection.isSelected(membership)"
+            [disabled]="(membership.expirationAttribute | validateExpiration) === 'never'"
+            color="primary">
           </mat-checkbox>
         </td>
       </ng-container>
       <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell>{{'MEMBERSHIP_LIST.NAME' | customTranslate | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell>
+          {{'MEMBERSHIP_LIST.NAME' | customTranslate | translate}}
+        </th>
         <td *matCellDef="let member" class="static-column-size" mat-cell>{{member.entity.name}}</td>
       </ng-container>
       <ng-container matColumnDef="description">
-        <th *matHeaderCellDef mat-header-cell>{{'MEMBERSHIP_LIST.DESCRIPTION' | customTranslate | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell>
+          {{'MEMBERSHIP_LIST.DESCRIPTION' | customTranslate | translate}}
+        </th>
         <td *matCellDef="let membership" mat-cell>{{membership.entity.description}}</td>
       </ng-container>
       <ng-container matColumnDef="expirationAttribute">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'MEMBERSHIP_LIST.EXPIRATION' | customTranslate | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MEMBERSHIP_LIST.EXPIRATION' | customTranslate | translate}}
+        </th>
         <td *matCellDef="let membership" mat-cell>
           {{membership.expirationAttribute | validateExpiration}}
         </td>
@@ -42,8 +48,13 @@
       <ng-container matColumnDef="extend">
         <th *matHeaderCellDef mat-header-cell></th>
         <td *matCellDef="let membership" mat-cell>
-          <button (click)="extend(membership)" [disabled]="(membership.expirationAttribute | validateExpiration) === 'never'" color="accent"
-                  mat-flat-button>{{'MEMBERSHIP_LIST.EXTEND' | customTranslate | translate}}</button>
+          <button
+            (click)="extend(membership)"
+            [disabled]="(membership.expirationAttribute | validateExpiration) === 'never'"
+            color="accent"
+            mat-flat-button>
+            {{'MEMBERSHIP_LIST.EXTEND' | customTranslate | translate}}
+          </button>
         </td>
       </ng-container>
 
@@ -51,10 +62,13 @@
       <tr
         *matRowDef="let member; columns: displayedColumns;"
         class="dark-hover-list-item"
-        mat-row>
-      </tr>
+        mat-row></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
 
-<app-alert *ngIf="!dataSource.filteredData.length" alert_type="warn">{{'MEMBERSHIP_LIST.NO_MEMBERSHIPS' | customTranslate | translate}}</app-alert>
+<app-alert
+  *ngIf="!dataSource.filteredData.length"
+  alert_type="warn"
+  >{{'MEMBERSHIP_LIST.NO_MEMBERSHIPS' | customTranslate | translate}}</app-alert
+>

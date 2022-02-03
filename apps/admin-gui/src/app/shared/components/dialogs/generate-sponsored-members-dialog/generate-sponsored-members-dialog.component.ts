@@ -3,9 +3,12 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   Attribute,
   AttributesManagerService,
-  Group, GroupsManagerService,
+  Group,
+  GroupsManagerService,
   InputCreateSponsoredMemberFromCSV,
-  MembersManagerService, NamespaceRules, RichGroup
+  MembersManagerService,
+  NamespaceRules,
+  RichGroup,
 } from '@perun-web-apps/perun/openapi';
 import { GuiAuthResolver, NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,16 +23,15 @@ import { MatStepper } from '@angular/material/stepper';
 
 export interface GenerateSponsoredMembersDialogData {
   voId: number;
-  theme: string,
+  theme: string;
 }
 
 @Component({
   selector: 'app-generate-sponsored-members-dialog',
   templateUrl: './generate-sponsored-members-dialog.component.html',
-  styleUrls: ['./generate-sponsored-members-dialog.component.scss']
+  styleUrls: ['./generate-sponsored-members-dialog.component.scss'],
 })
 export class GenerateSponsoredMembersDialogComponent implements OnInit {
-
   theme: string;
   loading = false;
   functionalityNotSupported = false;
@@ -65,29 +67,28 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
 
   private resultData;
 
-  private groupAttrNames = [
-    Urns.GROUP_SYNC_ENABLED,
-    Urns.GROUP_BLOCK_MANUAL_MEMBER_ADDING
-  ];
+  private groupAttrNames = [Urns.GROUP_SYNC_ENABLED, Urns.GROUP_BLOCK_MANUAL_MEMBER_ADDING];
 
   @ViewChild('stepper') stepper: MatStepper;
 
-  constructor(private dialogRef: MatDialogRef<GenerateSponsoredMembersDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: GenerateSponsoredMembersDialogData,
-              private store: StoreService,
-              private membersService: MembersManagerService,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private guiAuthResolver: GuiAuthResolver,
-              private groupsService: GroupsManagerService,
-              private attributesService: AttributesManagerService,
-              private formBuilder: FormBuilder,
-              private sponsoredMembersPDFService: SponsoredMembersPdfService,
-              private cd: ChangeDetectorRef) { }
+  constructor(
+    private dialogRef: MatDialogRef<GenerateSponsoredMembersDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: GenerateSponsoredMembersDialogData,
+    private store: StoreService,
+    private membersService: MembersManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private guiAuthResolver: GuiAuthResolver,
+    private groupsService: GroupsManagerService,
+    private attributesService: AttributesManagerService,
+    private formBuilder: FormBuilder,
+    private sponsoredMembersPDFService: SponsoredMembersPdfService,
+    private cd: ChangeDetectorRef
+  ) {}
 
-  private static didSomeGenerationFailed(resultData: {[p: string]: string}[]) {
-    resultData.forEach((entry: {[p: string]: string}) => {
-      if (entry['status'] !== "OK") {
+  private static didSomeGenerationFailed(resultData: { [p: string]: string }[]) {
+    resultData.forEach((entry: { [p: string]: string }) => {
+      if (entry['status'] !== 'OK') {
         return true;
       }
     });
@@ -97,57 +98,80 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.theme = this.data.theme;
-    this.createGroupAuth = this.guiAuthResolver.isAuthorized('createGroup_Vo_Group_policy', [{id: this.data.voId , beanName: 'Vo'}]);
+    this.createGroupAuth = this.guiAuthResolver.isAuthorized('createGroup_Vo_Group_policy', [
+      { id: this.data.voId, beanName: 'Vo' },
+    ]);
     this.usersInfoFormGroup = this.formBuilder.group({
       namespace: ['', Validators.required],
-      sponsoredMembers: ['', [Validators.required, this.userInputValidator()]]
+      sponsoredMembers: ['', [Validators.required, this.userInputValidator()]],
     });
     this.usersInfoFormGroup.controls['namespace'].valueChanges.subscribe({
       next: () => {
         this.usersInfoFormGroup.controls['sponsoredMembers'].updateValueAndValidity();
-      }
+      },
     });
 
-    this.attributesService.getVoAttributes(this.data.voId).subscribe(attributes => {
-      this.manualMemberAddingBlocked = this.hasAttributeEnabled(attributes, 'blockManualMemberAdding')
-      if(this.manualMemberAddingBlocked !== true){
-        this.groupsService.getAllRichGroupsWithAttributesByNames(this.data.voId, this.groupAttrNames).subscribe(grps => {
-          this.allVoGroups = grps.filter(grp => grp.name !== 'members');
-          this.assignableGroups = this.filterAssignableGroups(grps);
-          this.membersService.getAllNamespacesRules().subscribe(rules => {
-            if (this.store.get('allow_empty_sponsor_namespace')) {
-              this.namespaceRules.push({
-                namespaceName: 'No namespace',
-                csvGenHeader: 'firstname;lastname;urn:perun:user:attribute-def:def:preferredMail',
-                csvGenPlaceholder: 'John;Doe;john@mail.cz',
-                csvGenHeaderDescription: 'First name;Last name;Email'
-              });
-            }
+    this.attributesService.getVoAttributes(this.data.voId).subscribe(
+      (attributes) => {
+        this.manualMemberAddingBlocked = this.hasAttributeEnabled(
+          attributes,
+          'blockManualMemberAdding'
+        );
+        if (this.manualMemberAddingBlocked !== true) {
+          this.groupsService
+            .getAllRichGroupsWithAttributesByNames(this.data.voId, this.groupAttrNames)
+            .subscribe(
+              (grps) => {
+                this.allVoGroups = grps.filter((grp) => grp.name !== 'members');
+                this.assignableGroups = this.filterAssignableGroups(grps);
+                this.membersService.getAllNamespacesRules().subscribe((rules) => {
+                  if (this.store.get('allow_empty_sponsor_namespace')) {
+                    this.namespaceRules.push({
+                      namespaceName: 'No namespace',
+                      csvGenHeader:
+                        'firstname;lastname;urn:perun:user:attribute-def:def:preferredMail',
+                      csvGenPlaceholder: 'John;Doe;john@mail.cz',
+                      csvGenHeaderDescription: 'First name;Last name;Email',
+                    });
+                  }
 
-            this.namespaceRules = this.namespaceRules.concat(rules);
-            this.namespaceRules.forEach(item => this.namespaceOptions.push(item.namespaceName));
-            if (this.namespaceOptions.length === 0) {
-              this.functionalityNotSupported = true;
-            } else {
-              this.usersInfoFormGroup.setValue({namespace: this.namespaceOptions[0], sponsoredMembers: ''})
-            }
-            this.loading = false;
-            this.cd.detectChanges();
-          });
-        }, () => this.loading = false);
-      } else {
-        this.loading = false;
-        this.cd.detectChanges();
-      }
-    }, () => this.loading = false);
+                  this.namespaceRules = this.namespaceRules.concat(rules);
+                  this.namespaceRules.forEach((item) =>
+                    this.namespaceOptions.push(item.namespaceName)
+                  );
+                  if (this.namespaceOptions.length === 0) {
+                    this.functionalityNotSupported = true;
+                  } else {
+                    this.usersInfoFormGroup.setValue({
+                      namespace: this.namespaceOptions[0],
+                      sponsoredMembers: '',
+                    });
+                  }
+                  this.loading = false;
+                  this.cd.detectChanges();
+                });
+              },
+              () => (this.loading = false)
+            );
+        } else {
+          this.loading = false;
+          this.cd.detectChanges();
+        }
+      },
+      () => (this.loading = false)
+    );
   }
 
   private filterAssignableGroups(groups: RichGroup[]) {
     const assignableGroups = [];
     for (const grp of groups) {
-      if (!(this.hasAttributeEnabled(grp.attributes, 'synchronizationEnabled') ||
-        this.hasAttributeEnabled(grp.attributes, 'blockManualMemberAdding')) &&
-        this.guiAuthResolver.isAuthorized('addMembers_Group_List<Member>_policy', [grp])) {
+      if (
+        !(
+          this.hasAttributeEnabled(grp.attributes, 'synchronizationEnabled') ||
+          this.hasAttributeEnabled(grp.attributes, 'blockManualMemberAdding')
+        ) &&
+        this.guiAuthResolver.isAuthorized('addMembers_Group_List<Member>_policy', [grp])
+      ) {
         assignableGroups.push(grp);
       }
     }
@@ -155,18 +179,19 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   }
 
   hasAttributeEnabled(attr: Attribute[], attName: string) {
-    return attr.some( att =>
-      att.friendlyName === attName && att.value !== null && att.value.toString() === "true");
+    return attr.some(
+      (att) => att.friendlyName === attName && att.value !== null && att.value.toString() === 'true'
+    );
   }
 
-  createOutputObjects(data: {[p: string]: string}[]) {
+  createOutputObjects(data: { [p: string]: string }[]) {
     let name = '';
     let status = '';
     let login = '';
     let password = '';
     const output = [];
 
-    data.forEach((memberData: {[p: string]: string}) => {
+    data.forEach((memberData: { [p: string]: string }) => {
       name = memberData['name'].replace(';', ' ').split(';')[0];
       status = memberData['status'];
       login = memberData['login'] ? memberData['login'] : login;
@@ -176,19 +201,19 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
         name: name,
         status: status,
         login: login,
-        password: password
+        password: password,
       });
-  });
+    });
 
     return output;
   }
 
-  onGenerate(){
+  onGenerate() {
     this.loading = true;
-    const listOfMembers = this.usersInfoFormGroup.get('sponsoredMembers').value.split("\n");
+    const listOfMembers = this.usersInfoFormGroup.get('sponsoredMembers').value.split('\n');
     const header = this.getSelectedNamespaceRules().csvGenHeader;
     const generatedMemberNames: string[] = [];
-    for (const line of listOfMembers){
+    for (const line of listOfMembers) {
       const parsedLine = this.parseMemberLine(line);
       if (parsedLine !== 'format' && parsedLine !== 'email') {
         if (parsedLine !== '') {
@@ -206,27 +231,31 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
       namespace: '',
       sponsor: this.store.getPerunPrincipal().userId,
       vo: this.data.voId,
-      sendActivationLinks: this.passwordReset === "reset"
-    }
+      sendActivationLinks: this.passwordReset === 'reset',
+    };
 
     if (this.groupAssignment !== 'none') {
       inputSponsoredMembersFromCSV.groups = this.groupIds;
     }
 
-    if(this.expiration !== 'never'){
-      inputSponsoredMembersFromCSV.validityTo = formatDate(this.expiration,'yyyy-MM-dd','en-GB');
+    if (this.expiration !== 'never') {
+      inputSponsoredMembersFromCSV.validityTo = formatDate(this.expiration, 'yyyy-MM-dd', 'en-GB');
     }
 
     if (this.usersInfoFormGroup.get('namespace').value !== 'No namespace') {
       inputSponsoredMembersFromCSV.namespace = this.usersInfoFormGroup.get('namespace').value;
     }
 
-    this.membersService.createSponsoredMembersFromCSV(inputSponsoredMembersFromCSV).subscribe(resultData => {
-      this.state = 'results';
-      this.finishedWithErrors = GenerateSponsoredMembersDialogComponent.didSomeGenerationFailed(resultData);
-      this.loading = false;
-      this.resultData = resultData;
-    }, () => this.loading = false);
+    this.membersService.createSponsoredMembersFromCSV(inputSponsoredMembersFromCSV).subscribe(
+      (resultData) => {
+        this.state = 'results';
+        this.finishedWithErrors =
+          GenerateSponsoredMembersDialogComponent.didSomeGenerationFailed(resultData);
+        this.loading = false;
+        this.resultData = resultData;
+      },
+      () => (this.loading = false)
+    );
   }
 
   onCancel() {
@@ -237,25 +266,30 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
     this.dialogRef.close(true);
   }
 
-  parseMemberLine(line: string): string{
+  parseMemberLine(line: string): string {
     const trimLine = line.trim();
     if (trimLine === '') {
       return '';
     }
     const memberAttributes = trimLine.split(';');
     const arrayOfAttributes = this.getSelectedNamespaceRules().csvGenHeader.split(';');
-    if (memberAttributes.length !== arrayOfAttributes.length) {      //check if all attributes are filled
+    if (memberAttributes.length !== arrayOfAttributes.length) {
+      //check if all attributes are filled
       return 'format';
     }
     //now we expect that mail is always on the same index - third position
-    if (arrayOfAttributes[2].slice(arrayOfAttributes[2].length - 4).toLowerCase() === 'mail') { //check if the third attribute is mail
-      if (!memberAttributes[2].trim().match(emailRegexString)) {      //check if the email is valid email
+    if (arrayOfAttributes[2].slice(arrayOfAttributes[2].length - 4).toLowerCase() === 'mail') {
+      //check if the third attribute is mail
+      if (!memberAttributes[2].trim().match(emailRegexString)) {
+        //check if the email is valid email
         return 'email';
       }
     }
     //login must be non empty and we are expecting him in forth position
-    if (arrayOfAttributes[3] === 'login') {  //check if the forth attribute is login
-      if (memberAttributes[3].trim() === '') {      //check if login is nonempty
+    if (arrayOfAttributes[3] === 'login') {
+      //check if the forth attribute is login
+      if (memberAttributes[3].trim() === '') {
+        //check if login is nonempty
         return 'login';
       }
     }
@@ -267,18 +301,18 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   }
 
   userInputValidator(): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} | null => {
-      const listOfMembers = control.value.split("\n");
-      for (const line of listOfMembers){
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const listOfMembers = control.value.split('\n');
+      for (const line of listOfMembers) {
         const parsedLine = this.parseMemberLine(line);
         if (parsedLine === 'format') {
-          return {invalidFormat: {value: line}};
+          return { invalidFormat: { value: line } };
         }
         if (parsedLine === 'email') {
-          return {invalidEmail: {value: line}};
+          return { invalidEmail: { value: line } };
         }
         if (parsedLine === 'login') {
-          return {invalidLogin: {value: line}};
+          return { invalidLogin: { value: line } };
         }
       }
 
@@ -287,10 +321,10 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   }
 
   setExpiration(newExpiration) {
-    if(newExpiration === 'never'){
+    if (newExpiration === 'never') {
       this.expiration = 'never';
     } else {
-      this.expiration = formatDate(newExpiration,'yyyy-MM-dd','en-GB');
+      this.expiration = formatDate(newExpiration, 'yyyy-MM-dd', 'en-GB');
     }
   }
 
@@ -309,48 +343,63 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
-    if (this.groupAssignment === "new") {
+    if (this.groupAssignment === 'new') {
       if (this.asSubGroup) {
-        this.groupsService.createGroupWithParentGroupNameDescription(this.parentGroup.id, this.name, this.description).subscribe(group => {
-          this.groupIds.push(group.id);
-          this.onGenerate();
-        }, () => this.loading = false);
+        this.groupsService
+          .createGroupWithParentGroupNameDescription(
+            this.parentGroup.id,
+            this.name,
+            this.description
+          )
+          .subscribe(
+            (group) => {
+              this.groupIds.push(group.id);
+              this.onGenerate();
+            },
+            () => (this.loading = false)
+          );
       } else {
-        this.groupsService.createGroupWithVoNameDescription(this.data.voId, this.name, this.description).subscribe(group => {
-          this.groupIds.push(group.id);
-          this.onGenerate();
-        }, () => this.loading = false);
+        this.groupsService
+          .createGroupWithVoNameDescription(this.data.voId, this.name, this.description)
+          .subscribe(
+            (group) => {
+              this.groupIds.push(group.id);
+              this.onGenerate();
+            },
+            () => (this.loading = false)
+          );
       }
     } else {
       if (this.groupAssignment === 'existing') {
-        this.groupIds = this.selection.selected.map(grp => grp.id);
+        this.groupIds = this.selection.selected.map((grp) => grp.id);
       }
       this.onGenerate();
     }
   }
 
   getSelectedNamespaceRules(): NamespaceRules {
-    return this.namespaceRules.find(item => item.namespaceName === this.usersInfoFormGroup.get('namespace').value);
+    return this.namespaceRules.find(
+      (item) => item.namespaceName === this.usersInfoFormGroup.get('namespace').value
+    );
   }
 
   generatePdf() {
     if (!this.resultData) {
-      throw new Error("Cannot generate pdf because there is no result");
+      throw new Error('Cannot generate pdf because there is no result');
     }
 
     this.loading = true;
-    this.sponsoredMembersPDFService.generate(this.resultData)
-      .then(() => this.loading = false);
+    this.sponsoredMembersPDFService.generate(this.resultData).then(() => (this.loading = false));
   }
 
   downloadCsv() {
     if (!this.resultData) {
-      throw new Error("Cannot generate pdf because there is no result");
+      throw new Error('Cannot generate pdf because there is no result');
     }
-    downloadData(this.createOutputObjects(this.resultData), 'csv', 'member-logins')
+    downloadData(this.createOutputObjects(this.resultData), 'csv', 'member-logins');
   }
 
-  getStepperNextConditions(){
+  getStepperNextConditions() {
     switch (this.stepper.selectedIndex) {
       case 0:
         return this.usersInfoFormGroup.invalid;

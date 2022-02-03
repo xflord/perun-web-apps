@@ -1,26 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FacilitiesManagerService, Facility, SecurityTeam } from '@perun-web-apps/perun/openapi';
-import {
-  TABLE_FACILITY_SECURITY_TEAMS_LIST,
-} from '@perun-web-apps/config/table-config';
+import { TABLE_FACILITY_SECURITY_TEAMS_LIST } from '@perun-web-apps/config/table-config';
 import { SelectionModel } from '@angular/cdk/collections';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-facility-security-teams',
   templateUrl: './facility-security-teams.component.html',
-  styleUrls: ['./facility-security-teams.component.scss']
+  styleUrls: ['./facility-security-teams.component.scss'],
 })
 export class FacilitySecurityTeamsComponent implements OnInit {
-
-  constructor(private dialog: MatDialog,
-              private facilitiesManager: FacilitiesManagerService,
-              private authResolver: GuiAuthResolver,
-              private entityStorageService: EntityStorageService) { }
+  constructor(
+    private dialog: MatDialog,
+    private facilitiesManager: FacilitiesManagerService,
+    private authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
 
   facility: Facility;
-  securityTeams: SecurityTeam[]= [];
+  securityTeams: SecurityTeam[] = [];
   selected = new SelectionModel<SecurityTeam>(true, []);
 
   filterValue = '';
@@ -32,15 +31,14 @@ export class FacilitySecurityTeamsComponent implements OnInit {
   addAuth: boolean;
   removeAuth: boolean;
 
-
   ngOnInit() {
     this.facility = this.entityStorageService.getEntity();
     this.refreshTable();
   }
 
-  refreshTable(){
+  refreshTable() {
     this.loading = true;
-    this.facilitiesManager.getAssignedSecurityTeams(this.facility.id).subscribe(securityTeams => {
+    this.facilitiesManager.getAssignedSecurityTeams(this.facility.id).subscribe((securityTeams) => {
       this.securityTeams = securityTeams;
       this.selected.clear();
       this.setAuthRights();
@@ -48,25 +46,30 @@ export class FacilitySecurityTeamsComponent implements OnInit {
     });
   }
 
-  setAuthRights(){
-    this.addAuth = this.authResolver.isAuthorized('assignSecurityTeam_Facility_SecurityTeam_policy', [this.facility]);
-    this.removeAuth = this.authResolver.isAuthorized('removeSecurityTeam_Facility_SecurityTeam_policy', [this.facility]);
+  setAuthRights() {
+    this.addAuth = this.authResolver.isAuthorized(
+      'assignSecurityTeam_Facility_SecurityTeam_policy',
+      [this.facility]
+    );
+    this.removeAuth = this.authResolver.isAuthorized(
+      'removeSecurityTeam_Facility_SecurityTeam_policy',
+      [this.facility]
+    );
 
-    this.displayedColumns = this.removeAuth ? ['select', 'id', "name", "description"] : ['id', "name", "description"];
+    this.displayedColumns = this.removeAuth
+      ? ['select', 'id', 'name', 'description']
+      : ['id', 'name', 'description'];
   }
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
   }
 
-  addSecurityTeam(){
+  addSecurityTeam() {
     //TODO
   }
 
-  removeSecurityTeam(){
+  removeSecurityTeam() {
     //TODO
   }
 }
-
-
-

@@ -1,10 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'nameSpaceToDef'
+  name: 'nameSpaceToDef',
 })
 export class NameSpaceToDefPipe implements PipeTransform {
-
   transform(value: any): any {
     if (value === null) {
       return null;

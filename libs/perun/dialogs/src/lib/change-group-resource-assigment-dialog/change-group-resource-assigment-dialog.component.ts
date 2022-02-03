@@ -1,7 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Group, GroupsManagerService, Resource, ResourcesManagerService } from '@perun-web-apps/perun/openapi';
-
+import {
+  Group,
+  GroupsManagerService,
+  Resource,
+  ResourcesManagerService,
+} from '@perun-web-apps/perun/openapi';
 
 export interface ChangeGroupResourceAssigmentDialogComponentData {
   theme: string;
@@ -13,14 +17,15 @@ export interface ChangeGroupResourceAssigmentDialogComponentData {
 @Component({
   selector: 'perun-web-apps-change-group-resource-assigment-dialog',
   templateUrl: './change-group-resource-assigment-dialog.component.html',
-  styleUrls: ['./change-group-resource-assigment-dialog.component.scss']
+  styleUrls: ['./change-group-resource-assigment-dialog.component.scss'],
 })
 export class ChangeGroupResourceAssigmentDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<ChangeGroupResourceAssigmentDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: ChangeGroupResourceAssigmentDialogComponentData,
-              private resourceService: ResourcesManagerService,
-              private groupService: GroupsManagerService) { }
+  constructor(
+    private dialogRef: MatDialogRef<ChangeGroupResourceAssigmentDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: ChangeGroupResourceAssigmentDialogComponentData,
+    private resourceService: ResourcesManagerService,
+    private groupService: GroupsManagerService
+  ) {}
 
   loading = false;
   status: string;
@@ -33,16 +38,20 @@ export class ChangeGroupResourceAssigmentDialogComponent implements OnInit {
     this.loading = true;
     this.status = this.data.status;
     this.theme = this.data.theme;
-    this.resourceService.getResourceById(this.data.resourceId).
-      subscribe(res => {
+    this.resourceService.getResourceById(this.data.resourceId).subscribe(
+      (res) => {
         this.resource = res;
 
-        this.groupService.getGroupById(this.data.groupId).
-        subscribe(grp => {
-          this.group = grp;
-          this.loading = false;
-        }, () => this.loading = false);
-    }, () => this.loading = false);
+        this.groupService.getGroupById(this.data.groupId).subscribe(
+          (grp) => {
+            this.group = grp;
+            this.loading = false;
+          },
+          () => (this.loading = false)
+        );
+      },
+      () => (this.loading = false)
+    );
   }
 
   onCancel() {
@@ -51,20 +60,34 @@ export class ChangeGroupResourceAssigmentDialogComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
-    if(this.status === "ACTIVE"){
-      this.resourceService.deactivateGroupResourceAssignment(this.data.groupId, this.data.resourceId).subscribe(() => {
-        this.dialogRef.close(true);
-        this.loading = false;
-      }, () => this.loading = false);
+    if (this.status === 'ACTIVE') {
+      this.resourceService
+        .deactivateGroupResourceAssignment(this.data.groupId, this.data.resourceId)
+        .subscribe(
+          () => {
+            this.dialogRef.close(true);
+            this.loading = false;
+          },
+          () => (this.loading = false)
+        );
     } else {
-      this.resourceService.activateGroupResourceAssignment(this.data.groupId, this.data.resourceId, this.asyncValidation).subscribe(() => {
-        this.dialogRef.close(true);
-        this.loading = false;
-      }, () => this.loading = false);
+      this.resourceService
+        .activateGroupResourceAssignment(
+          this.data.groupId,
+          this.data.resourceId,
+          this.asyncValidation
+        )
+        .subscribe(
+          () => {
+            this.dialogRef.close(true);
+            this.loading = false;
+          },
+          () => (this.loading = false)
+        );
     }
   }
 
   getReversedStatus() {
-    return this.status === "ACTIVE" ? "INACTIVE" : "ACTIVE";
+    return this.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
   }
 }

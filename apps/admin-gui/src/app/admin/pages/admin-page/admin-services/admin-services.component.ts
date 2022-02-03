@@ -8,71 +8,68 @@ import { CreateEditServiceDialogComponent } from '../../../../shared/components/
 import { DeleteServiceDialogComponent } from '../../../../shared/components/dialogs/delete-service-dialog/delete-service-dialog.component';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
-
 @Component({
   selector: 'app-admin-services',
   templateUrl: './admin-services.component.html',
-  styleUrls: ['./admin-services.component.scss']
+  styleUrls: ['./admin-services.component.scss'],
 })
 export class AdminServicesComponent implements OnInit {
-
-  constructor(private serviceManager: ServicesManagerService,
-              private dialog: MatDialog,
-              public authResolver: GuiAuthResolver
-              ) { }
-
+  constructor(
+    private serviceManager: ServicesManagerService,
+    private dialog: MatDialog,
+    public authResolver: GuiAuthResolver
+  ) {}
 
   services: Service[];
   selection = new SelectionModel<Service>(true, []);
   loading = false;
-  filterValue = "";
+  filterValue = '';
   tableId = TABLE_ADMIN_SERVICES;
 
   ngOnInit(): void {
-    this.serviceManager.getServices().subscribe(services => {
-      this.services= services;
+    this.serviceManager.getServices().subscribe((services) => {
+      this.services = services;
       this.refreshTable();
     });
   }
 
-
-  createService(){
-    const config = getDefaultDialogConfig();
-    config.width = '600px';
-    config.data = {
-      theme: 'admin-theme'
-    };
-
-    const dialogRef = this.dialog.open(CreateEditServiceDialogComponent, config);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.refreshTable();
-      }
-    });
-  }
-
-  deleteService(){
+  createService() {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {
       theme: 'admin-theme',
-      services: this.selection.selected
     };
 
-    const dialogRef = this.dialog.open(DeleteServiceDialogComponent, config);
+    const dialogRef = this.dialog.open(CreateEditServiceDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.refreshTable();
       }
     });
   }
 
-  refreshTable(){
+  deleteService() {
+    const config = getDefaultDialogConfig();
+    config.width = '600px';
+    config.data = {
+      theme: 'admin-theme',
+      services: this.selection.selected,
+    };
+
+    const dialogRef = this.dialog.open(DeleteServiceDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.refreshTable();
+      }
+    });
+  }
+
+  refreshTable() {
     this.loading = true;
-    this.serviceManager.getServices().subscribe(services => {
-      this.services= services;
+    this.serviceManager.getServices().subscribe((services) => {
+      this.services = services;
       this.selection.clear();
       this.loading = false;
     });

@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
-export interface ServiceAllOf { 
-    name?: string;
-    description?: string;
-    delay?: number;
-    recurrence?: number;
-    enabled?: boolean;
-    script?: string;
+export interface ServiceAllOf {
+  name?: string;
+  description?: string;
+  delay?: number;
+  recurrence?: number;
+  enabled?: boolean;
+  script?: string;
 }
-

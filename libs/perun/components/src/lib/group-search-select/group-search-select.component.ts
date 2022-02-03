@@ -5,10 +5,9 @@ import { compareFnName } from '@perun-web-apps/perun/utils';
 @Component({
   selector: 'perun-web-apps-group-search-select',
   templateUrl: './group-search-select.component.html',
-  styleUrls: ['./group-search-select.component.css']
+  styleUrls: ['./group-search-select.component.css'],
 })
-export class GroupSearchSelectComponent implements OnInit{
-
+export class GroupSearchSelectComponent implements OnInit {
   @Input()
   groups: Group[];
 
@@ -27,6 +26,6 @@ export class GroupSearchSelectComponent implements OnInit{
   nameFunction = (group: Group) => group.name;
 
   ngOnInit(): void {
-   this.groups = this.groups.sort(compareFnName);
+    this.groups = this.groups.sort(compareFnName);
   }
 }

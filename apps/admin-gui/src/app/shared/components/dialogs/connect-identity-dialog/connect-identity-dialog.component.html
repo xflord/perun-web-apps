@@ -3,10 +3,11 @@
   <div mat-dialog-content class="dialog-container">
     <mat-form-field class="mr-2 search-field no-border-mat-input">
       <label>
-        <input matInput
-               autocomplete="false"
-               placeholder="{{'DIALOGS.CONNECT_IDENTITY.SEARCH' | translate}}"
-               [formControl]="searchCtrl">
+        <input
+          matInput
+          autocomplete="false"
+          placeholder="{{'DIALOGS.CONNECT_IDENTITY.SEARCH' | translate}}"
+          [formControl]="searchCtrl" />
       </label>
       <mat-error>
         {{'DIALOGS.CONNECT_IDENTITY.EMPTY_SEARCH_MESSAGE' | translate}}
@@ -37,13 +38,9 @@
       {{'DIALOGS.CONNECT_IDENTITY.NO_IDENTITIES' | translate}}
     </app-alert>
   </div>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto">
-  </mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      (click)="onCancel()"
-      class="ml-auto">
+    <button mat-flat-button (click)="onCancel()" class="ml-auto">
       {{'DIALOGS.CONNECT_IDENTITY.CANCEL' | translate}}
     </button>
     <button

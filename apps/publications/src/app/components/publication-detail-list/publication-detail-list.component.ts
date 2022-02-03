@@ -10,7 +10,7 @@ import * as _moment from 'moment';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 
-const moment =  _moment;
+const moment = _moment;
 
 export const YEAR_MODE_FORMATS = {
   parse: {
@@ -34,17 +34,18 @@ export const YEAR_MODE_FORMATS = {
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE],
     },
-    {provide: MAT_DATE_FORMATS, useValue: YEAR_MODE_FORMATS},
+    { provide: MAT_DATE_FORMATS, useValue: YEAR_MODE_FORMATS },
   ],
 })
 export class PublicationDetailListComponent implements OnInit {
-
-  constructor(private cabinetService: CabinetManagerService,
-              private notificator: NotificatorService,
-              private translate: TranslateService) { }
+  constructor(
+    private cabinetService: CabinetManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService
+  ) {}
 
   @Input()
-  publication: PublicationForGUI
+  publication: PublicationForGUI;
   @Input()
   categories: Category[] = [];
 
@@ -53,13 +54,13 @@ export class PublicationDetailListComponent implements OnInit {
 
   loading = false;
 
-  dataSource: MatTableDataSource<{key, value}> = null;
+  dataSource: MatTableDataSource<{ key; value }> = null;
   displayedColumns = ['key', 'value'];
-  isChanging = new SelectionModel<{key: string, value: string}>(true, []);
+  isChanging = new SelectionModel<{ key: string; value: string }>(true, []);
 
   keys: string[];
   values: string[];
-  map: { key: string, value: string}[] = [];
+  map: { key: string; value: string }[] = [];
 
   yearControl: FormControl;
   categoryControl: FormControl;
@@ -69,24 +70,43 @@ export class PublicationDetailListComponent implements OnInit {
 
   maxYear: Moment;
 
-
   ngOnInit(): void {
     this.loading = true;
-    this.keys = ['Id / Origin', 'Year', 'Category', 'Rank', 'ISBN / ISSN', "DOI", 'Full cite', 'Created by', 'Create date'];
-    this.values = [this.publication.id.toString(), this.publication.year.toString(), this.publication.categoryName,
-      this.publication.rank.toString(), this.publication.isbn, this.publication.doi, this.publication.main,
-      this.publication.createdBy, this.publication.createdDate]
+    this.keys = [
+      'Id / Origin',
+      'Year',
+      'Category',
+      'Rank',
+      'ISBN / ISSN',
+      'DOI',
+      'Full cite',
+      'Created by',
+      'Create date',
+    ];
+    this.values = [
+      this.publication.id.toString(),
+      this.publication.year.toString(),
+      this.publication.categoryName,
+      this.publication.rank.toString(),
+      this.publication.isbn,
+      this.publication.doi,
+      this.publication.main,
+      this.publication.createdBy,
+      this.publication.createdDate,
+    ];
 
-    for(let i = 0; i < this.keys.length; ++i) {
-      this.map.push({key: this.keys[i], value: this.values[i]});
+    for (let i = 0; i < this.keys.length; ++i) {
+      this.map.push({ key: this.keys[i], value: this.values[i] });
     }
-    this.dataSource = new MatTableDataSource<{key, value}>(this.map);
+    this.dataSource = new MatTableDataSource<{ key; value }>(this.map);
 
     this.titleControl = new FormControl(this.publication.title, Validators.required);
     this.yearControl = new FormControl(moment().year(this.publication.year));
     this.categoryControl = new FormControl(this.publication.categoryName);
-    this.rankControl = new FormControl(this.publication.rank,
-      [Validators.pattern(/^[0-9]+(\.[0-9])?$/), Validators.required]);
+    this.rankControl = new FormControl(this.publication.rank, [
+      Validators.pattern(/^[0-9]+(\.[0-9])?$/),
+      Validators.required,
+    ]);
 
     this.maxYear = moment();
 
@@ -101,7 +121,7 @@ export class PublicationDetailListComponent implements OnInit {
     this.loading = true;
     this.editing = false;
 
-    const categoryId = this.categories.find(cat => cat.name === this.categoryControl.value).id;
+    const categoryId = this.categories.find((cat) => cat.name === this.categoryControl.value).id;
 
     const updatedPublication: any = {
       id: this.publication.id,
@@ -119,13 +139,16 @@ export class PublicationDetailListComponent implements OnInit {
       createdDate: this.publication.createdDate,
     };
 
-    this.cabinetService.updatePublication({publication: updatedPublication}).subscribe(() => {
-      this.translate.get('PUBLICATION_DETAIL.CHANGE_PUBLICATION_SUCCESS').subscribe(success => {
-        this.notificator.showSuccess(success);
-        this.edited.emit(true);
-        this.loading = false;
-      });
-    }, () => this.loading = false);
+    this.cabinetService.updatePublication({ publication: updatedPublication }).subscribe(
+      () => {
+        this.translate.get('PUBLICATION_DETAIL.CHANGE_PUBLICATION_SUCCESS').subscribe((success) => {
+          this.notificator.showSuccess(success);
+          this.edited.emit(true);
+          this.loading = false;
+        });
+      },
+      () => (this.loading = false)
+    );
   }
 
   chosenYearHandler(normalizedYear: Moment, datepicker: any) {

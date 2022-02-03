@@ -7,16 +7,18 @@ import { TABLE_ADMIN_EXTSOURCES } from '@perun-web-apps/config/table-config';
 @Component({
   selector: 'app-admin-ext-sources',
   templateUrl: './admin-ext-sources.component.html',
-  styleUrls: ['./admin-ext-sources.component.scss']
+  styleUrls: ['./admin-ext-sources.component.scss'],
 })
 export class AdminExtSourcesComponent implements OnInit {
-
-  constructor(private extSourceService: ExtSourcesManagerService,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              public authResolver: GuiAuthResolver
+  constructor(
+    private extSourceService: ExtSourcesManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    public authResolver: GuiAuthResolver
   ) {
-    this.translate.get('ADMIN.EXT_SOURCES.LOAD_SUCCESS').subscribe(result => this.loadSuccess = result);
+    this.translate
+      .get('ADMIN.EXT_SOURCES.LOAD_SUCCESS')
+      .subscribe((result) => (this.loadSuccess = result));
   }
 
   extSources: ExtSource[] = [];
@@ -45,7 +47,7 @@ export class AdminExtSourcesComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.extSourceService.getExtSources().subscribe(result => {
+    this.extSourceService.getExtSources().subscribe((result) => {
       this.extSources = result;
       this.loading = false;
     });

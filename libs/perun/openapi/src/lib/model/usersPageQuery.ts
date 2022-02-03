@@ -12,18 +12,16 @@
 import { UsersOrderColumn } from './usersOrderColumn';
 import { SortingOrder } from './sortingOrder';
 
-
-export interface UsersPageQuery { 
-    pageSize: number;
-    offset: number;
-    order: SortingOrder;
-    sortColumn: UsersOrderColumn;
-    searchString?: string;
-    withoutVo?: boolean;
-    facilityId?: number;
-    voId?: number;
-    serviceId?: number;
-    resourceId?: number;
-    onlyAllowed?: boolean;
+export interface UsersPageQuery {
+  pageSize: number;
+  offset: number;
+  order: SortingOrder;
+  sortColumn: UsersOrderColumn;
+  searchString?: string;
+  withoutVo?: boolean;
+  facilityId?: number;
+  voId?: number;
+  serviceId?: number;
+  resourceId?: number;
+  onlyAllowed?: boolean;
 }
-

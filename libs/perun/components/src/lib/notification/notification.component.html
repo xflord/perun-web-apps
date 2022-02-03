@@ -1,6 +1,7 @@
-<div class="notification {{inDialog ? '' : 'mat-elevation-z7'}}"
-     [class.error]="data.type === 'error'"
-     [class.success]="data.type === 'success'">
+<div
+  class="notification {{inDialog ? '' : 'mat-elevation-z7'}}"
+  [class.error]="data.type === 'error'"
+  [class.success]="data.type === 'success'">
   <div class="notification-container" (click)="!alreadyClosed && !waiting ? closeSelf(): ''">
     <div *ngIf="data.icon !== null" class="notification-icon">
       <mat-icon>{{data.icon}}</mat-icon>
@@ -11,7 +12,10 @@
     <div class="ml-auto mr-5 mt-auto mb-auto" *ngIf="inDialog">
       {{showTimestamp()}}
     </div>
-    <div class="notification-action mt-auto mb-auto" (click)="waiting = true; doAction()" [hidden]="alreadyPressed">
+    <div
+      class="notification-action mt-auto mb-auto"
+      (click)="waiting = true; doAction()"
+      [hidden]="alreadyPressed">
       {{data.actionText}}
     </div>
   </div>

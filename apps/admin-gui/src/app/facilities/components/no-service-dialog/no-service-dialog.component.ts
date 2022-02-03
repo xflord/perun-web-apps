@@ -8,13 +8,13 @@ export interface NoServiceDialogData {
 @Component({
   selector: 'app-no-service-dialog',
   templateUrl: './no-service-dialog.component.html',
-  styleUrls: ['./no-service-dialog.component.scss']
+  styleUrls: ['./no-service-dialog.component.scss'],
 })
 export class NoServiceDialogComponent implements OnInit {
-
   constructor(
     public dialogRef: MatDialogRef<NoServiceDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: NoServiceDialogData) { }
+    @Inject(MAT_DIALOG_DATA) public data: NoServiceDialogData
+  ) {}
 
   theme = '';
   ngOnInit(): void {

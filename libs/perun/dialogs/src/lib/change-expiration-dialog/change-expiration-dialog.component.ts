@@ -6,10 +6,9 @@ import { formatDate } from '@angular/common';
 @Component({
   selector: 'perun-web-apps-change-expiration-dialog',
   templateUrl: './change-expiration-dialog.component.html',
-  styleUrls: ['./change-expiration-dialog.component.scss']
+  styleUrls: ['./change-expiration-dialog.component.scss'],
 })
 export class ChangeExpirationDialogComponent implements OnInit {
-
   @Input()
   currentExpiration: string;
   @Input()
@@ -33,29 +32,37 @@ export class ChangeExpirationDialogComponent implements OnInit {
   expirationControl: FormControl = new FormControl(null);
   currentDate: string;
 
-  constructor(private dialogRef: MatDialogRef<ChangeExpirationDialogComponent>) { }
+  constructor(private dialogRef: MatDialogRef<ChangeExpirationDialogComponent>) {}
 
   ngOnInit(): void {
     const today = new Date();
-    this.currentDate = formatDate(new Date(today.getFullYear(), today.getMonth(), today.getDate()),'yyyy-MM-dd','en_US');
-    if(this.newExpiration !== 'never'){
+    this.currentDate = formatDate(
+      new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+      'yyyy-MM-dd',
+      'en_US'
+    );
+    if (this.newExpiration !== 'never') {
       this.expirationControl.setValue(this.newExpiration);
     }
   }
 
-  parseDate(value: string){
-    return formatDate(value, 'yyyy-MM-dd', 'en_US')
+  parseDate(value: string) {
+    return formatDate(value, 'yyyy-MM-dd', 'en_US');
   }
 
   onChange() {
-    if(this.status === 'EXPIRED' && (this.newExpiration === 'never' || (this.parseDate(this.expirationControl.value) > this.currentDate))){
+    if (
+      this.status === 'EXPIRED' &&
+      (this.newExpiration === 'never' ||
+        this.parseDate(this.expirationControl.value) > this.currentDate)
+    ) {
       this.statusChange.emit(true);
     }
     this.expirationChanged.emit(this.newExpiration);
   }
 
   onCancel() {
-    this.dialogRef.close({ success:false });
+    this.dialogRef.close({ success: false });
   }
 
   setExpiration() {

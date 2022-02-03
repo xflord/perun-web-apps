@@ -2,17 +2,21 @@ import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@
 import { RichUser } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
-  downloadData, getDataForExport,
-   parseFullName, parseLogins,  parseUserEmail, parseVo,
+  downloadData,
+  getDataForExport,
+  parseFullName,
+  parseLogins,
+  parseUserEmail,
+  parseVo,
   TABLE_ITEMS_COUNT_OPTIONS,
-  TableWrapperComponent
+  TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
 import { MatSort } from '@angular/material/sort';
 import {
   DynamicDataSource,
   DynamicPaginatingService,
   GuiAuthResolver,
-  TableCheckbox
+  TableCheckbox,
 } from '@perun-web-apps/perun/services';
 import { merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -21,18 +25,19 @@ import { TableConfigService } from '@perun-web-apps/config/table-config';
 @Component({
   selector: 'perun-web-apps-users-dynamic-list',
   templateUrl: './users-dynamic-list.component.html',
-  styleUrls: ['./users-dynamic-list.component.css']
+  styleUrls: ['./users-dynamic-list.component.css'],
 })
 export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewInit {
-
-  constructor(private authResolver: GuiAuthResolver,
-              private tableCheckbox: TableCheckbox,
-              private tableConfigService: TableConfigService,
-              private dynamicPaginatingService: DynamicPaginatingService) { }
+  constructor(
+    private authResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox,
+    private tableConfigService: TableConfigService,
+    private dynamicPaginatingService: DynamicPaginatingService
+  ) {}
 
   svgIcon = 'perun-service-identity-black';
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -80,24 +85,36 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngAfterViewInit(): void {
-    this.sort.sortChange.subscribe(() => this.child.paginator.pageIndex = 0);
+    this.sort.sortChange.subscribe(() => (this.child.paginator.pageIndex = 0));
 
     merge(this.sort.sortChange, this.child.paginator.page)
-      .pipe(
-        tap(() => this.loadUsersPage())
-      )
+      .pipe(tap(() => this.loadUsersPage()))
       .subscribe();
   }
 
   ngOnInit() {
-    if (!this.authResolver.isPerunAdminOrObserver()){
-      this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
 
-    this.dataSource = new DynamicDataSource<RichUser>(this.dynamicPaginatingService, this.authResolver);
-    this.dataSource.loadUsers(this.attrNames, this.tableConfigService.getTablePageSize(this.tableId), 0, 'ASCENDING',
-      'NAME', this.searchString, this.withoutVo, this.facilityId, this.voId, this.resourceId,
-      this.serviceId, this.onlyAllowed);
+    this.dataSource = new DynamicDataSource<RichUser>(
+      this.dynamicPaginatingService,
+      this.authResolver
+    );
+    this.dataSource.loadUsers(
+      this.attrNames,
+      this.tableConfigService.getTablePageSize(this.tableId),
+      0,
+      'ASCENDING',
+      'NAME',
+      this.searchString,
+      this.withoutVo,
+      this.facilityId,
+      this.voId,
+      this.resourceId,
+      this.serviceId,
+      this.onlyAllowed
+    );
   }
 
   ngOnChanges() {
@@ -111,7 +128,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
     if (this.isAllSelected()) {
       this.selection.clear();
     } else {
-      this.dataSource.getData().forEach(row => this.selection.select(row));
+      this.dataSource.getData().forEach((row) => this.selection.select(row));
     }
   }
 
@@ -131,26 +148,45 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
   loadUsersPage() {
     const sortDirection = this.sort.direction === 'asc' ? 'ASCENDING' : 'DESCENDING';
     const sortColumn = this.sort.active === 'name' ? 'NAME' : 'ID';
-    this.dataSource.loadUsers(this.attrNames, this.child.paginator.pageSize, this.child.paginator.pageIndex, sortDirection,
-      sortColumn, this.searchString, this.withoutVo, this.facilityId, this.voId, this.resourceId,
-      this.serviceId, this.onlyAllowed);
+    this.dataSource.loadUsers(
+      this.attrNames,
+      this.child.paginator.pageSize,
+      this.child.paginator.pageIndex,
+      sortDirection,
+      sortColumn,
+      this.searchString,
+      this.withoutVo,
+      this.facilityId,
+      this.voId,
+      this.resourceId,
+      this.serviceId,
+      this.onlyAllowed
+    );
   }
 
   exportData(format: string) {
-    downloadData(getDataForExport(this.dataSource.getData(), this.displayedColumns, this.getExportDataForColumn, this), format);
+    downloadData(
+      getDataForExport(
+        this.dataSource.getData(),
+        this.displayedColumns,
+        this.getExportDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
-  getExportDataForColumn(data: RichUser, column: string): string{
+  getExportDataForColumn(data: RichUser, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
       case 'user':
         return data.serviceUser ? 'service-user' : 'user';
       case 'name':
-        if(data){
-          return parseFullName(data)
+        if (data) {
+          return parseFullName(data);
         }
-        return ''
+        return '';
       case 'organization':
         return parseVo(data);
       case 'email':

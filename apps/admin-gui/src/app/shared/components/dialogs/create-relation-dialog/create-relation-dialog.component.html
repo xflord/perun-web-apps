@@ -3,27 +3,24 @@
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
 </div>
 <div class="{{theme}}" *ngIf="!loading">
-  <perun-web-apps-immediate-filter (filter)="applyFilter($event)" [placeholder]="'GROUP_DETAIL.SETTINGS.RELATIONS.FILTER'"></perun-web-apps-immediate-filter>
+  <perun-web-apps-immediate-filter
+    (filter)="applyFilter($event)"
+    [placeholder]="'GROUP_DETAIL.SETTINGS.RELATIONS.FILTER'"></perun-web-apps-immediate-filter>
   <div mat-dialog-content class="dialog-container">
     <perun-web-apps-groups-list
-        [tableId]="tableId"
-        [groupsToDisableCheckbox]="groupsToDisable"
-        [disableGroups]="true"
-        [groups]="groups"
-        [selection]="selection"
-        [displayedColumns]="['select', 'id', 'name', 'description']"
-        [filter]="filterValue"
-        [disableHeadCheckbox]="true"
-        [disableRouting]="true"
-        [authType]="'create-relation-dialog'"
-    ></perun-web-apps-groups-list>
-
+      [tableId]="tableId"
+      [groupsToDisableCheckbox]="groupsToDisable"
+      [disableGroups]="true"
+      [groups]="groups"
+      [selection]="selection"
+      [displayedColumns]="['select', 'id', 'name', 'description']"
+      [filter]="filterValue"
+      [disableHeadCheckbox]="true"
+      [disableRouting]="true"
+      [authType]="'create-relation-dialog'"></perun-web-apps-groups-list>
   </div>
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
       {{'DIALOGS.CREATE_RELATION.CANCEL' | translate}}
     </button>
     <button
@@ -36,4 +33,3 @@
     </button>
   </div>
 </div>
-

@@ -1,13 +1,10 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import {
-  User,
-  UsersManagerService
-} from '@perun-web-apps/perun/openapi';
+import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import {
   ApiRequestConfigurationService,
   OtherApplicationsService,
   NotificatorService,
-  StoreService
+  StoreService,
 } from '@perun-web-apps/perun/services';
 import { SideMenuService } from '../../../../core/services/common/side-menu.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,37 +16,48 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-perun-web-apps-user-dashboard',
   templateUrl: './user-dashboard.component.html',
-  styleUrls: ['./user-dashboard.component.scss']
+  styleUrls: ['./user-dashboard.component.scss'],
 })
 export class UserDashboardComponent implements OnInit {
-
   @HostBinding('class.router-component') true;
 
-  constructor(private userManager: UsersManagerService,
-              private storeService: StoreService,
-              private sideMenuService: SideMenuService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private notificator: NotificatorService,
-              public translateService: TranslateService,
-              private dialog: MatDialog,
-              private apiRequestConfiguration: ApiRequestConfigurationService,
-              private otherApplicationService: OtherApplicationsService
+  constructor(
+    private userManager: UsersManagerService,
+    private storeService: StoreService,
+    private sideMenuService: SideMenuService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private notificator: NotificatorService,
+    public translateService: TranslateService,
+    private dialog: MatDialog,
+    private apiRequestConfiguration: ApiRequestConfigurationService,
+    private otherApplicationService: OtherApplicationsService
   ) {
-    translateService.get('USER_DETAIL.DASHBOARD.MAIL_CHANGE_SUCCESS').subscribe(res => this.mailSuccessMessage = res);
+    translateService
+      .get('USER_DETAIL.DASHBOARD.MAIL_CHANGE_SUCCESS')
+      .subscribe((res) => (this.mailSuccessMessage = res));
   }
 
-
   user: User;
-  roles: { [key: string]: { [key: string]: Array<number>; }; } = {};
+  roles: { [key: string]: { [key: string]: Array<number> } } = {};
   userProfileUrl = '';
   roleNames: string[];
   isOnlySelfRole = false;
   rightSettingOpened = false;
   recentlyViewedShow = true;
   rolesToHide: string[] = [];
-  allowedRoles = ['VOADMIN', 'GROUPADMIN', 'FACILITYADMIN', 'SPONSOR', 'RESOURCEADMIN', 'TOPGROUPCREATOR',
-    'VOOBSERVER', 'GROUPOBSERVER', 'FACILITYOBSERVER', 'RESOURCEOBSERVER'];
+  allowedRoles = [
+    'VOADMIN',
+    'GROUPADMIN',
+    'FACILITYADMIN',
+    'SPONSOR',
+    'RESOURCEADMIN',
+    'TOPGROUPCREATOR',
+    'VOOBSERVER',
+    'GROUPOBSERVER',
+    'FACILITYOBSERVER',
+    'RESOURCEOBSERVER',
+  ];
   mailSuccessMessage: string;
   userProfileName: string;
 
@@ -62,7 +70,7 @@ export class UserDashboardComponent implements OnInit {
     this.getUserProfile();
     const allUserRoles = Object.keys(this.roles);
     this.isOnlySelfRole = allUserRoles.toString() === ['SELF'].toString();
-    this.roleNames = this.allowedRoles.filter(value => allUserRoles.includes(value));
+    this.roleNames = this.allowedRoles.filter((value) => allUserRoles.includes(value));
     this.getDashboardSettings();
   }
 
@@ -72,18 +80,23 @@ export class UserDashboardComponent implements OnInit {
     const u = params.get('u');
     if (token && u) {
       this.apiRequestConfiguration.dontHandleErrorForNext();
-      this.userManager.validatePreferredEmailChangeWithToken(token, Number.parseInt(u, 10)).subscribe(() => {
-        this.notificator.showSuccess(this.mailSuccessMessage);
-        this.router.navigate([], { replaceUrl: true });
-      }, () => {
-        const config = getDefaultDialogConfig();
-        config.width = '600px';
+      this.userManager
+        .validatePreferredEmailChangeWithToken(token, Number.parseInt(u, 10))
+        .subscribe(
+          () => {
+            this.notificator.showSuccess(this.mailSuccessMessage);
+            this.router.navigate([], { replaceUrl: true });
+          },
+          () => {
+            const config = getDefaultDialogConfig();
+            config.width = '600px';
 
-        const dialogRef = this.dialog.open(MailChangeFailedDialogComponent, config);
-        dialogRef.afterClosed().subscribe(() => {
-          this.getDashboardSettings();
-        });
-      });
+            const dialogRef = this.dialog.open(MailChangeFailedDialogComponent, config);
+            dialogRef.afterClosed().subscribe(() => {
+              this.getDashboardSettings();
+            });
+          }
+        );
     }
   }
 
@@ -105,7 +118,7 @@ export class UserDashboardComponent implements OnInit {
 
   changeRoleView(roleName: string) {
     if (!this.isRoleShowed(roleName)) {
-      this.rolesToHide = this.rolesToHide.filter(obj => obj !== roleName);
+      this.rolesToHide = this.rolesToHide.filter((obj) => obj !== roleName);
     } else {
       const newRolesTohide = [];
       for (const role of this.roleNames) {
@@ -131,7 +144,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   private getUserProfile() {
-    this.userProfileUrl = this.otherApplicationService.getUrlForOtherApplication("profile");
+    this.userProfileUrl = this.otherApplicationService.getUrlForOtherApplication('profile');
     this.userProfileName = this.storeService.get('profile_label_en');
   }
 }

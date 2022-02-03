@@ -3,11 +3,10 @@ import { StoreService } from './store.service';
 import { Brand } from '@perun-web-apps/perun/openapi';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OtherApplicationsService {
-
-  constructor(private storeService: StoreService) { }
+  constructor(private storeService: StoreService) {}
 
   /**
    * Returns brand according to base domain or default brand
@@ -17,7 +16,11 @@ export class OtherApplicationsService {
    */
   private static getBrandContainingDomain(brands: Brand[], domain: string): Brand {
     for (const brand of brands) {
-      if (brand.newApps.admin === domain || brand.newApps.profile === domain || brand.newApps.pwdReset === domain) {
+      if (
+        brand.newApps.admin === domain ||
+        brand.newApps.profile === domain ||
+        brand.newApps.pwdReset === domain
+      ) {
         return brand;
       }
     }
@@ -37,31 +40,34 @@ export class OtherApplicationsService {
    */
   getUrlForOtherApplication(appType: string, login?: string): string {
     const currentUrl = window.location.href;
-    const splittedUrl = currentUrl.split("/");
-    const domain = splittedUrl[0] + "//" + splittedUrl[2]; // protocol with domain
+    const splittedUrl = currentUrl.split('/');
+    const domain = splittedUrl[0] + '//' + splittedUrl[2]; // protocol with domain
 
-    const brand = OtherApplicationsService.getBrandContainingDomain(this.storeService.getAppsConfig().brands, domain);
+    const brand = OtherApplicationsService.getBrandContainingDomain(
+      this.storeService.getAppsConfig().brands,
+      domain
+    );
     let url: string;
 
     if (!brand.newApps[appType]) {
       // url for new app of appType doesn't exist - set url to old gui
-      url = brand.oldGuiDomain + "/fed";
+      url = brand.oldGuiDomain + '/fed';
 
       switch (appType) {
-        case "admin":
-          url += "/gui/"
+        case 'admin':
+          url += '/gui/';
           break;
-        case "profile":
-          url += "/profile/"
+        case 'profile':
+          url += '/profile/';
           break;
-        case "pwdReset":
-          url += "/pwd-reset/"
+        case 'pwdReset':
+          url += '/pwd-reset/';
           break;
       }
     } else {
       url = brand.newApps[appType];
-      if (appType === "pwdReset") {
-        url += `?login-namespace=${login}`
+      if (appType === 'pwdReset') {
+        url += `?login-namespace=${login}`;
       }
     }
 

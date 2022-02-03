@@ -1,1 +1,9 @@
-export type AttrEntity = 'vo' | 'group' | 'user' | 'member' | 'facility' | 'resource' | 'host' | 'ues';
+export type AttrEntity =
+  | 'vo'
+  | 'group'
+  | 'user'
+  | 'member'
+  | 'facility'
+  | 'resource'
+  | 'host'
+  | 'ues';

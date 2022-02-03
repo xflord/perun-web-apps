@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { RPCError } from '@perun-web-apps/perun/models';
 import { PerunApiService } from './perun-api-service';
 import { NotificatorService } from './notificator.service';
@@ -9,17 +9,15 @@ import { AuthService } from './auth.service';
 import { StoreService } from './store.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService implements PerunApiService {
-
   constructor(
     private http: HttpClient,
     private notificator: NotificatorService,
     private authService: AuthService,
     private storeService: StoreService
-  ) {
-  }
+  ) {}
 
   api_url: string;
 
@@ -27,7 +25,7 @@ export class ApiService implements PerunApiService {
     if (this.api_url === undefined) {
       this.api_url = this.storeService.get('api_url');
     }
-    return this.api_url + "/";
+    return this.api_url + '/';
   }
 
   private formatErrors(error: any, url: string, payload: any, showError) {
@@ -48,17 +46,17 @@ export class ApiService implements PerunApiService {
 
   get(path: string, showError = true): Observable<any> {
     const url = `${this.getApiUrl()}${path}`;
-    return this.http.get(url, { headers: this.getHeaders() })
-      .pipe(catchError(err => this.formatErrors(err, url, null, showError)));
+    return this.http
+      .get(url, { headers: this.getHeaders() })
+      .pipe(catchError((err) => this.formatErrors(err, url, null, showError)));
   }
 
   put(path: string, body = {}, showError = true): Observable<any> {
     const url = `${this.getApiUrl()}${path}`;
     const payload = JSON.stringify(body);
-    return this.http.put(
-      url,
-      payload, { headers: this.getHeaders() }
-    ).pipe(catchError(err => this.formatErrors(err, url, payload, showError)));
+    return this.http
+      .put(url, payload, { headers: this.getHeaders() })
+      .pipe(catchError((err) => this.formatErrors(err, url, payload, showError)));
   }
 
   post(path: string, body = {}, showError = true): Observable<any> {
@@ -66,18 +64,15 @@ export class ApiService implements PerunApiService {
     const payload = JSON.stringify(body);
     let headers = this.getHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
-    return this.http.post(
-      url,
-      payload,
-      {headers: headers}
-    ).pipe(catchError(err => this.formatErrors(err, url, payload, showError)));
+    return this.http
+      .post(url, payload, { headers: headers })
+      .pipe(catchError((err) => this.formatErrors(err, url, payload, showError)));
   }
 
   delete(path, showError = true): Observable<any> {
     const url = `${this.getApiUrl()}${path}`;
-    return this.http.delete(
-      url,
-      { headers: this.getHeaders() }
-    ).pipe(catchError(err => this.formatErrors(err, url, null, showError)));
+    return this.http
+      .delete(url, { headers: this.getHeaders() })
+      .pipe(catchError((err) => this.formatErrors(err, url, null, showError)));
   }
 }

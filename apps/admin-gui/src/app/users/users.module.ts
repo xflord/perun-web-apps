@@ -62,7 +62,6 @@ import { UserAccountsComponent } from './pages/user-detail-page/user-accounts/us
 import { ServiceIdentityDetailPageComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-detail-page/service-identity-detail-page.component';
 import { ServiceIdentityOverviewComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-detail-page/service-identity-overview/service-identity-overview.component';
 
-
 @NgModule({
   declarations: [
     UserDetailPageComponent,
@@ -85,11 +84,9 @@ import { ServiceIdentityOverviewComponent } from './pages/user-detail-page/user-
     UserFacilitiesComponent,
     UserAccountsComponent,
     ServiceIdentityDetailPageComponent,
-    ServiceIdentityOverviewComponent
+    ServiceIdentityOverviewComponent,
   ],
-  exports: [
-    UserDetailPageComponent,
-  ],
+  exports: [UserDetailPageComponent],
   imports: [
     CommonModule,
     UsersRoutingModule,
@@ -134,8 +131,8 @@ import { ServiceIdentityOverviewComponent } from './pages/user-detail-page/user-
     PerunSharedComponentsModule,
     ConfigTableConfigModule,
     PerunPipesModule,
-    SharedModule
-  ]
+    SharedModule,
+  ],
 })
 export class UsersModule {
   constructor(private translate: TranslateService) {

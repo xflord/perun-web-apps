@@ -8,14 +8,13 @@ export interface ConfigUnsavedDialogData {
 @Component({
   selector: 'app-config-unsaved-dialog',
   templateUrl: './config-unsaved-dialog.component.html',
-  styleUrls: ['./config-unsaved-dialog.component.scss']
+  styleUrls: ['./config-unsaved-dialog.component.scss'],
 })
 export class ConfigUnsavedDialogComponent implements OnInit {
-
   constructor(
     public dialogRef: MatDialogRef<ConfigUnsavedDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfigUnsavedDialogData
-  ) { }
+  ) {}
 
   theme = '';
   ngOnInit(): void {
@@ -29,5 +28,4 @@ export class ConfigUnsavedDialogComponent implements OnInit {
   onSkip() {
     this.dialogRef.close(true);
   }
-
 }

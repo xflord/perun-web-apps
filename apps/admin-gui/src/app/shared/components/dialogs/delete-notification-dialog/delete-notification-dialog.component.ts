@@ -1,8 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import {NotificatorService} from '@perun-web-apps/perun/services';
-import {TranslateService} from '@ngx-translate/core';
+import { NotificatorService } from '@perun-web-apps/perun/services';
+import { TranslateService } from '@ngx-translate/core';
 import { ApplicationMail, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface DeleteApplicationFormMailDialogData {
@@ -15,15 +15,16 @@ export interface DeleteApplicationFormMailDialogData {
 @Component({
   selector: 'app-delete-notification-dialog',
   templateUrl: './delete-notification-dialog.component.html',
-  styleUrls: ['./delete-notification-dialog.component.scss']
+  styleUrls: ['./delete-notification-dialog.component.scss'],
 })
 export class DeleteNotificationDialogComponent implements OnInit {
-
-  constructor(public dialogRef: MatDialogRef<DeleteNotificationDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: DeleteApplicationFormMailDialogData,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private registrarService: RegistrarManagerService) { }
+  constructor(
+    public dialogRef: MatDialogRef<DeleteNotificationDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DeleteApplicationFormMailDialogData,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private registrarService: RegistrarManagerService
+  ) {}
 
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<ApplicationMail>;
@@ -43,15 +44,21 @@ export class DeleteNotificationDialogComponent implements OnInit {
     this.loading = true;
     if (this.data.groupId) {
       for (const mail of this.data.mails) {
-        this.registrarService.deleteApplicationMailForGroup(this.data.groupId, mail.id).subscribe(() => {
-          this.dialogRef.close(true);
-        }, () => this.loading = false);
+        this.registrarService.deleteApplicationMailForGroup(this.data.groupId, mail.id).subscribe(
+          () => {
+            this.dialogRef.close(true);
+          },
+          () => (this.loading = false)
+        );
       }
     } else {
       for (const mail of this.data.mails) {
-        this.registrarService.deleteApplicationMailForVo(this.data.voId, mail.id).subscribe( () => {
-          this.dialogRef.close(true);
-        }, () => this.loading = false);
+        this.registrarService.deleteApplicationMailForVo(this.data.voId, mail.id).subscribe(
+          () => {
+            this.dialogRef.close(true);
+          },
+          () => (this.loading = false)
+        );
       }
     }
   }
@@ -59,12 +66,18 @@ export class DeleteNotificationDialogComponent implements OnInit {
   getMailType(applicationMail: ApplicationMail): string {
     let value = '';
     // @ts-ignore
-    if (applicationMail.mailType === undefined || applicationMail.mailType === null || applicationMail.mailType === '') {
+    if (
+      applicationMail.mailType === undefined ||
+      applicationMail.mailType === null ||
+      applicationMail.mailType === ''
+    ) {
       value = '';
     } else {
-      this.translate.get('VO_DETAIL.SETTINGS.NOTIFICATIONS.MAIL_TYPE_' + applicationMail.mailType).subscribe( text => {
-        value = text;
-      });
+      this.translate
+        .get('VO_DETAIL.SETTINGS.NOTIFICATIONS.MAIL_TYPE_' + applicationMail.mailType)
+        .subscribe((text) => {
+          value = text;
+        });
     }
     return value;
   }

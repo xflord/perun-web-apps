@@ -14,29 +14,33 @@
         matInput
         placeholder="{{'DIALOGS.INVITE_MEMBER.NAME' | translate}}"
         [formControl]="name"
-        required>
+        required />
       <mat-error *ngIf="name.invalid">{{'DIALOGS.INVITE_MEMBER.NAME_ERROR' | translate}}</mat-error>
     </mat-form-field>
     <mat-form-field class="w-100">
-    <textarea
-      matInput
-      placeholder="{{'DIALOGS.INVITE_MEMBER.EMAIL' | translate}}"
-      [formControl]="emailForm" required></textarea>
-      <mat-error *ngIf="emailForm.invalid">{{'DIALOGS.INVITE_MEMBER.EMAIL_ERROR' | translate}}</mat-error>
+      <textarea
+        matInput
+        placeholder="{{'DIALOGS.INVITE_MEMBER.EMAIL' | translate}}"
+        [formControl]="emailForm"
+        required></textarea>
+      <mat-error
+        *ngIf="emailForm.invalid"
+        >{{'DIALOGS.INVITE_MEMBER.EMAIL_ERROR' | translate}}</mat-error
+      >
     </mat-form-field>
     <mat-form-field class="w-100">
       <mat-label>{{'DIALOGS.INVITE_MEMBER.LANGUAGE' | translate}}</mat-label>
       <mat-select [(value)]="currentLanguage">
-        <mat-option *ngFor="let lang of languages" value="{{lang}}">{{'SHARED_LIB.LANGUAGES.'+lang | uppercase | translate}}</mat-option>
+        <mat-option
+          *ngFor="let lang of languages"
+          value="{{lang}}"
+          >{{'SHARED_LIB.LANGUAGES.'+lang | uppercase | translate}}</mat-option
+        >
       </mat-select>
     </mat-form-field>
-
   </div>
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
       {{'DIALOGS.INVITE_MEMBER.CANCEL' | translate}}
     </button>
     <button

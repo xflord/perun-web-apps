@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Attribute } from '@perun-web-apps/perun/openapi';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,12 +12,10 @@ import { ShowValueDialogComponent } from '@perun-web-apps/perun/dialogs';
 @Component({
   selector: 'perun-web-apps-attribute-value-list',
   templateUrl: './attribute-value-list.component.html',
-  styleUrls: ['./attribute-value-list.component.scss']
+  styleUrls: ['./attribute-value-list.component.scss'],
 })
 export class AttributeValueListComponent implements OnInit {
-
-  constructor(private dialog: MatDialog) {
-  }
+  constructor(private dialog: MatDialog) {}
 
   @Input()
   attribute: Attribute;
@@ -46,7 +44,7 @@ export class AttributeValueListComponent implements OnInit {
     this.values = Object.values(this.attribute.value);
     this.itemsShown = this.readonly ? this.values.length : this.defaultItemsShown;
     this.showMore = this.readonly;
-    if(!this.readonly){
+    if (!this.readonly) {
       this.readonly = isVirtualAttribute(this.attribute);
     }
   }
@@ -63,7 +61,7 @@ export class AttributeValueListComponent implements OnInit {
       // @ts-ignore
       this.attribute.value.push(valueL.trim());
       this.values = Object.values(this.attribute.value);
-      if(this.values.length > this.defaultItemsShown){
+      if (this.values.length > this.defaultItemsShown) {
         this.showMore = true;
         this.setItemsShown();
       }
@@ -81,7 +79,7 @@ export class AttributeValueListComponent implements OnInit {
     config.data = { name: chip };
 
     const dialogRef = this.dialog.open(AttributeValueListDeleteDialogComponent, config);
-    dialogRef.afterClosed().subscribe( (success) => {
+    dialogRef.afterClosed().subscribe((success) => {
       if (success) {
         //@ts-ignore
         const index = this.attribute.value.indexOf(chip);
@@ -109,7 +107,7 @@ export class AttributeValueListComponent implements OnInit {
     config.data = { attribute: this.attribute, index: index };
 
     const dialogRef = this.dialog.open(AttributeValueListEditDialogComponent, config);
-    dialogRef.afterClosed().subscribe( (success) => {
+    dialogRef.afterClosed().subscribe((success) => {
       if (success) {
         this.values = Object.values(this.attribute.value);
         this.sendEventToParent.emit();
@@ -122,13 +120,13 @@ export class AttributeValueListComponent implements OnInit {
     config.width = '350px';
     config.data = {
       value: value,
-      title: title
+      title: title,
     };
     this.dialog.open(ShowValueDialogComponent, config);
   }
 
   setItemsShown() {
-    if(this.showMore){
+    if (this.showMore) {
       this.itemsShown = this.values.length;
     } else {
       this.itemsShown = this.defaultItemsShown;

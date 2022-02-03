@@ -12,21 +12,13 @@
       [destinations]="destinations"
       [displayedColumns]="displayedColumns">
     </app-perun-web-apps-destination-list>
-
   </div>
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
-      {{'DIALOGS.REMOVE_DESTINATIONS.CANCEL' | translate}}</button>
-    <button
-      mat-flat-button
-      class="ml-2"
-      color="warn"
-      [disabled]="loading"
-      (click)="onConfirm()">
-      {{'DIALOGS.REMOVE_DESTINATIONS.CONFIRM' | translate}}</button>
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+      {{'DIALOGS.REMOVE_DESTINATIONS.CANCEL' | translate}}
+    </button>
+    <button mat-flat-button class="ml-2" color="warn" [disabled]="loading" (click)="onConfirm()">
+      {{'DIALOGS.REMOVE_DESTINATIONS.CONFIRM' | translate}}
+    </button>
   </div>
 </div>
-

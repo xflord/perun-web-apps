@@ -95,22 +95,15 @@ export class UserManagerService {
     let headers = this.defaultHeaders;
 
     // authentication (ApiKeyAuth) required
-    if (
-      this.configuration.apiKeys &&
-      this.configuration.apiKeys['Authorization']
-    ) {
-      headers = headers.set(
-        'Authorization',
-        this.configuration.apiKeys['Authorization']
-      );
+    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
+      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
     }
 
     // authentication (BasicAuth) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
-        'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
     // authentication (BearerAuth) required
@@ -123,9 +116,8 @@ export class UserManagerService {
     }
     // to determine the Accept header
     const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }

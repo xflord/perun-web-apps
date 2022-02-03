@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
-export interface AuthorshipAllOf { 
-    publicationId?: number;
-    userId?: number;
-    createdBy?: string;
-    createdDate?: string;
-    createdByUid?: number;
+export interface AuthorshipAllOf {
+  publicationId?: number;
+  userId?: number;
+  createdBy?: string;
+  createdDate?: string;
+  createdByUid?: number;
 }
-

@@ -1,37 +1,32 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnChanges,
-  ViewChild
-} from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { RichDestination, Vo } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import {
   customDataSourceFilterPredicate,
-  customDataSourceSort, downloadData, getDataForExport,
-  TABLE_ITEMS_COUNT_OPTIONS, TableWrapperComponent
+  customDataSourceSort,
+  downloadData,
+  getDataForExport,
+  TABLE_ITEMS_COUNT_OPTIONS,
+  TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-perun-web-apps-destination-list',
   templateUrl: './destination-list.component.html',
-  styleUrls: ['./destination-list.component.scss']
+  styleUrls: ['./destination-list.component.scss'],
 })
 export class DestinationListComponent implements AfterViewInit, OnChanges {
-
-  constructor(private authResolver: GuiAuthResolver,
-              private tableCheckbox: TableCheckbox) { }
+  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
 
   @Input()
   destinations: RichDestination[] = [];
   @Input()
   selection = new SelectionModel<RichDestination>(true, []);
   @Input()
-  filterValue = "";
+  filterValue = '';
   @Input()
   tableId: string;
   @Input()
@@ -48,27 +43,27 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
 
   dataSource: MatTableDataSource<RichDestination>;
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngOnChanges() {
-    if (!this.authResolver.isPerunAdminOrObserver()){
-      this.displayedColumns = this.displayedColumns.filter(column => column !== 'destinationId');
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'destinationId');
     }
     this.dataSource = new MatTableDataSource<RichDestination>(this.destinations);
     this.setDataSource();
     this.dataSource.filter = this.filterValue.toLowerCase();
   }
 
-  getDataForColumn(data: RichDestination, column: string): string{
+  getDataForColumn(data: RichDestination, column: string): string {
     switch (column) {
       case 'destinationId':
         return data.id.toString();
       case 'service':
         return data.service.name;
       case 'facility':
-        return  data.facility.name;
+        return data.facility.name;
       case 'destination':
         return data.destination;
       case 'type':
@@ -76,33 +71,64 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
       case 'status':
         return data.blocked ? 'blocked' : 'allowed';
       case 'propagationType':
-        return  data.propagationType;
+        return data.propagationType;
       default:
         return '';
     }
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getDataForColumn, this), format);
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
   setDataSource() {
     if (this.dataSource) {
       this.dataSource.sort = this.sort;
-      this.dataSource.filterPredicate = (data: RichDestination, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
-      this.dataSource.sortData = (data: Vo[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.filterPredicate = (data: RichDestination, filter: string) =>
+        customDataSourceFilterPredicate(
+          data,
+          filter,
+          this.displayedColumns,
+          this.getDataForColumn,
+          this
+        );
+      this.dataSource.sortData = (data: Vo[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.paginator = this.child.paginator;
     }
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(
+      this.selection.selected.length,
+      this.filterValue,
+      this.child.paginator.pageSize,
+      this.child.paginator.hasNextPage(),
+      this.dataSource
+    );
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex, false);
+    this.tableCheckbox.masterToggle(
+      this.isAllSelected(),
+      this.selection,
+      this.filterValue,
+      this.dataSource,
+      this.sort,
+      this.child.paginator.pageSize,
+      this.child.paginator.pageIndex,
+      false
+    );
   }
 
   /** The label for the checkbox on the passed row */
@@ -116,5 +142,4 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.child.paginator;
   }
-
 }

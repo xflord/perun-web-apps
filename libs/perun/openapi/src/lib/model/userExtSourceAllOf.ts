@@ -11,16 +11,14 @@
  */
 import { ExtSource } from './extSource';
 
-
-export interface UserExtSourceAllOf { 
-    login: string;
-    userId?: number;
-    loa?: number;
-    persistent?: boolean;
-    /**
-     * SQL timestamp
-     */
-    lastAccess?: string;
-    extSource: ExtSource;
+export interface UserExtSourceAllOf {
+  login: string;
+  userId?: number;
+  loa?: number;
+  persistent?: boolean;
+  /**
+   * SQL timestamp
+   */
+  lastAccess?: string;
+  extSource: ExtSource;
 }
-

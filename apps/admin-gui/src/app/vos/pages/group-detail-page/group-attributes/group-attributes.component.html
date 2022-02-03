@@ -6,7 +6,9 @@
         {{'GROUP_DETAIL.ENTITY' | translate}}
       </ng-template>
       <ng-template matTabContent>
-        <app-one-entity-attribute-page [entity]="'group'" [entityId]="group.id"></app-one-entity-attribute-page>
+        <app-one-entity-attribute-page
+          [entity]="'group'"
+          [entityId]="group.id"></app-one-entity-attribute-page>
       </ng-template>
     </mat-tab>
     <mat-tab *ngIf="groupMemberAttAuth">
@@ -16,8 +18,10 @@
         {{'MEMBER_DETAIL.ENTITY' | translate}}
       </ng-template>
       <ng-template matTabContent>
-        <app-two-entity-attribute-page [firstEntity]="'group'" [firstEntityId]="group.id"
-                                       [secondEntity]="'member'"></app-two-entity-attribute-page>
+        <app-two-entity-attribute-page
+          [firstEntity]="'group'"
+          [firstEntityId]="group.id"
+          [secondEntity]="'member'"></app-two-entity-attribute-page>
       </ng-template>
     </mat-tab>
     <mat-tab *ngIf="groupResourceAttAuth">
@@ -27,8 +31,10 @@
         {{'RESOURCE_DETAIL.ENTITY' | translate}}
       </ng-template>
       <ng-template matTabContent>
-        <app-two-entity-attribute-page [firstEntity]="'group'" [firstEntityId]="group.id"
-                                       [secondEntity]="'resource'"></app-two-entity-attribute-page>
+        <app-two-entity-attribute-page
+          [firstEntity]="'group'"
+          [firstEntityId]="group.id"
+          [secondEntity]="'resource'"></app-two-entity-attribute-page>
       </ng-template>
     </mat-tab>
   </mat-tab-group>

@@ -11,234 +11,285 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent, HttpParameterCodec }       from '@angular/common/http';
-import { CustomHttpParameterCodec }                          from '../encoder';
-import { Observable }                                        from 'rxjs';
+import { Inject, Injectable, Optional } from '@angular/core';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+  HttpEvent,
+  HttpParameterCodec,
+} from '@angular/common/http';
+import { CustomHttpParameterCodec } from '../encoder';
+import { Observable } from 'rxjs';
 
 import { PerunException } from '../model/perunException';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
-
-
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DatabaseManagerService {
+  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  public defaultHeaders = new HttpHeaders();
+  public configuration = new Configuration();
+  public encoder: HttpParameterCodec;
 
-    protected basePath = 'https://perun.cesnet.cz/krb/rpc';
-    public defaultHeaders = new HttpHeaders();
-    public configuration = new Configuration();
-    public encoder: HttpParameterCodec;
+  constructor(
+    protected httpClient: HttpClient,
+    @Optional() @Inject(BASE_PATH) basePath: string,
+    @Optional() configuration: Configuration
+  ) {
+    if (configuration) {
+      this.configuration = configuration;
+    }
+    if (typeof this.configuration.basePath !== 'string') {
+      if (typeof basePath !== 'string') {
+        basePath = this.basePath;
+      }
+      this.configuration.basePath = basePath;
+    }
+    this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
+  }
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-        if (configuration) {
-            this.configuration = configuration;
-        }
-        if (typeof this.configuration.basePath !== 'string') {
-            if (typeof basePath !== 'string') {
-                basePath = this.basePath;
-            }
-            this.configuration.basePath = basePath;
-        }
-        this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
+  /**
+   * Returns current database version, e.g. \&quot;3.1.55\&quot;
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getCurrentDatabaseVersion(observe?: 'body', reportProgress?: boolean): Observable<string>;
+  public getCurrentDatabaseVersion(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<string>>;
+  public getCurrentDatabaseVersion(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<string>>;
+  public getCurrentDatabaseVersion(
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
+      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
     }
 
-
-
-    /**
-     * Returns current database version, e.g. \&quot;3.1.55\&quot;
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getCurrentDatabaseVersion(observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public getCurrentDatabaseVersion(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public getCurrentDatabaseVersion(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
-    public getCurrentDatabaseVersion(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<string>(`${this.configuration.basePath}/json/databaseManager/getCurrentDatabaseVersion`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Returns current database driver info, e.g. \&quot;PostgreSQL JDBC Driver-42.2.8\&quot;
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getDatabaseDriverInformation(observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public getDatabaseDriverInformation(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public getDatabaseDriverInformation(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
-    public getDatabaseDriverInformation(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    return this.httpClient.get<string>(
+      `${this.configuration.basePath}/json/databaseManager/getCurrentDatabaseVersion`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let headers = this.defaultHeaders;
+  /**
+   * Returns current database driver info, e.g. \&quot;PostgreSQL JDBC Driver-42.2.8\&quot;
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getDatabaseDriverInformation(
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<string>;
+  public getDatabaseDriverInformation(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<string>>;
+  public getDatabaseDriverInformation(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<string>>;
+  public getDatabaseDriverInformation(
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
 
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<string>(`${this.configuration.basePath}/json/databaseManager/getDatabaseDriverInformation`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
+      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
     }
 
-    /**
-     * Returns current database info, e.g. \&quot;PostgreSQL-12.0 (Debian 12.0-2.pgdg100+1)\&quot;
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getDatabaseInformation(observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public getDatabaseInformation(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public getDatabaseInformation(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
-    public getDatabaseInformation(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<string>(`${this.configuration.basePath}/json/databaseManager/getDatabaseInformation`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Get time in ns \&quot;nanoseconds\&quot; of calling 1 simple update query to DB
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getTimeOfQueryPerformance(observe?: 'body', reportProgress?: boolean): Observable<number>;
-    public getTimeOfQueryPerformance(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
-    public getTimeOfQueryPerformance(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
-    public getTimeOfQueryPerformance(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    return this.httpClient.get<string>(
+      `${this.configuration.basePath}/json/databaseManager/getDatabaseDriverInformation`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-        let headers = this.defaultHeaders;
+  /**
+   * Returns current database info, e.g. \&quot;PostgreSQL-12.0 (Debian 12.0-2.pgdg100+1)\&quot;
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getDatabaseInformation(observe?: 'body', reportProgress?: boolean): Observable<string>;
+  public getDatabaseInformation(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<string>>;
+  public getDatabaseInformation(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<string>>;
+  public getDatabaseInformation(
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
 
-        // authentication (ApiKeyAuth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // authentication (BasicAuth) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-        // authentication (BearerAuth) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<number>(`${this.configuration.basePath}/json/databaseManager/getTimeOfQueryPerformance`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (ApiKeyAuth) required
+    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
+      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
     }
 
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<string>(
+      `${this.configuration.basePath}/json/databaseManager/getDatabaseInformation`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Get time in ns \&quot;nanoseconds\&quot; of calling 1 simple update query to DB
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getTimeOfQueryPerformance(observe?: 'body', reportProgress?: boolean): Observable<number>;
+  public getTimeOfQueryPerformance(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<number>>;
+  public getTimeOfQueryPerformance(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<number>>;
+  public getTimeOfQueryPerformance(
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
+      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<number>(
+      `${this.configuration.basePath}/json/databaseManager/getTimeOfQueryPerformance`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 }

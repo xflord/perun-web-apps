@@ -3,27 +3,19 @@ import { CommonModule } from '@angular/common';
 
 import { FacilitiesRoutingModule } from './facilities-routing.module';
 import { FacilitySelectPageComponent } from './pages/facility-select-page/facility-select-page.component';
-import {SharedModule} from '../shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { FacilityDetailPageComponent } from './pages/facility-detail-page/facility-detail-page.component';
 import { FacilityOverviewComponent } from './pages/facility-detail-page/facility-overview/facility-overview.component';
 import { FacilityResourcesComponent } from './pages/facility-detail-page/facility-resources/facility-resources.component';
-import {FacilityAllowedGroupsComponent} from './pages/facility-detail-page/facility-allowed-groups/facility-allowed-groups.component';
+import { FacilityAllowedGroupsComponent } from './pages/facility-detail-page/facility-allowed-groups/facility-allowed-groups.component';
 import { ResourceDetailPageComponent } from './pages/resource-detail-page/resource-detail-page.component';
 import { ResourceOverviewComponent } from './pages/resource-detail-page/resource-overview/resource-overview.component';
 import { FacilitySettingsComponent } from './pages/facility-detail-page/facility-settings/facility-settings.component';
-import {
-  FacilitySettingsOverviewComponent
-} from './pages/facility-detail-page/facility-settings/facility-settings-overview/facility-settings-overview.component';
-import {
-  FacilityAttributesComponent
-} from './pages/facility-detail-page/facility-attributes/facility-attributes.component';
+import { FacilitySettingsOverviewComponent } from './pages/facility-detail-page/facility-settings/facility-settings-overview/facility-settings-overview.component';
+import { FacilityAttributesComponent } from './pages/facility-detail-page/facility-attributes/facility-attributes.component';
 import { ResourceSettingsComponent } from './pages/resource-detail-page/resource-settings/resource-settings.component';
-import {
-  ResourceSettingsOverviewComponent
-} from './pages/resource-detail-page/resource-settings/resource-settings-overview/resource-settings-overview.component';
-import {
-  ResourceAttributesComponent
-} from './pages/resource-detail-page/resource-attributes/resource-attributes.component';
+import { ResourceSettingsOverviewComponent } from './pages/resource-detail-page/resource-settings/resource-settings-overview/resource-settings-overview.component';
+import { ResourceAttributesComponent } from './pages/resource-detail-page/resource-attributes/resource-attributes.component';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 import { ResourceGroupsComponent } from './pages/resource-detail-page/resource-groups/resource-groups.component';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
@@ -84,7 +76,7 @@ import { CancelConfigurationDialogComponent } from './components/cancel-configur
     FacilityConfigurationPageComponent,
     NoServiceDialogComponent,
     ConfigUnsavedDialogComponent,
-    CancelConfigurationDialogComponent
+    CancelConfigurationDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -94,10 +86,8 @@ import { CancelConfigurationDialogComponent } from './components/cancel-configur
     PerunSharedComponentsModule,
     PerunPipesModule,
     UsersModule,
-    AdminModule
+    AdminModule,
   ],
-  providers: [
-    UserFullNamePipe
-  ]
+  providers: [UserFullNamePipe],
 })
-export class FacilitiesModule { }
+export class FacilitiesModule {}

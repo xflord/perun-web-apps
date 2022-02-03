@@ -12,12 +12,13 @@ export interface DeleteItemsDialogData {
 @Component({
   selector: 'perun-web-apps-universal-remove-items-dialog',
   templateUrl: './universal-remove-items-dialog.component.html',
-  styleUrls: ['./universal-remove-items-dialog.component.scss']
+  styleUrls: ['./universal-remove-items-dialog.component.scss'],
 })
 export class UniversalRemoveItemsDialogComponent implements OnInit {
-
-  constructor(public dialogRef: MatDialogRef<UniversalRemoveItemsDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: DeleteItemsDialogData) { }
+  constructor(
+    public dialogRef: MatDialogRef<UniversalRemoveItemsDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DeleteItemsDialogData
+  ) {}
 
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<string>;
@@ -36,5 +37,4 @@ export class UniversalRemoveItemsDialogComponent implements OnInit {
   onSubmit() {
     this.dialogRef.close(true);
   }
-
 }

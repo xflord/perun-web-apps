@@ -2,13 +2,11 @@
 <div mat-dialog-content class="dialog-container">
   <mat-form-field>
     <mat-label>{{'SHARED_LIB.PERUN.COMPONENTS.REPORT_ISSUE.SUBJECT' | translate}}</mat-label>
-    <input
-      matInput
-      required
-      type="text"
-      [(ngModel)]="subject"
-      #subjectModel=ngModel>
-    <mat-error *ngIf="subjectModel.invalid">{{'SHARED_LIB.PERUN.COMPONENTS.REPORT_ISSUE.SUBJECT_ERROR' | translate}}</mat-error>
+    <input matInput required type="text" [(ngModel)]="subject" #subjectModel="ngModel" />
+    <mat-error
+      *ngIf="subjectModel.invalid"
+      >{{'SHARED_LIB.PERUN.COMPONENTS.REPORT_ISSUE.SUBJECT_ERROR' | translate}}</mat-error
+    >
   </mat-form-field>
   <mat-form-field>
     <mat-label>{{'SHARED_LIB.PERUN.COMPONENTS.REPORT_ISSUE.MESSAGE' | translate}}</mat-label>

@@ -11,7 +11,7 @@
     <table mat-table [dataSource]="dataSource" class="w-100">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let service"> {{service.name}} </td>
+        <td mat-cell *matCellDef="let service">{{service.name}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns" class="font-weight-bolder"></tr>
@@ -19,18 +19,10 @@
     </table>
   </div>
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
       {{'DIALOGS.REMOVE_SERVICE_FROM_RESOURCE.CANCEL' | translate}}
     </button>
-    <button
-      mat-flat-button
-      class="ml-2"
-      color="warn"
-      (click)="onSubmit()"
-      [disabled]="loading">
+    <button mat-flat-button class="ml-2" color="warn" (click)="onSubmit()" [disabled]="loading">
       {{'DIALOGS.REMOVE_SERVICE_FROM_RESOURCE.DELETE' | translate}}
     </button>
   </div>

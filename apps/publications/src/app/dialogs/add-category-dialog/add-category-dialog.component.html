@@ -8,7 +8,7 @@
           matInput
           required
           placeholder="{{'DIALOGS.ADD_CATEGORY.NAME' | translate}}"
-          [formControl]="nameCtrl">
+          [formControl]="nameCtrl" />
         <mat-error>
           {{'DIALOGS.ADD_CATEGORY.FILL_NAME' | translate}}
         </mat-error>
@@ -18,7 +18,7 @@
           matInput
           required
           placeholder="{{'DIALOGS.ADD_CATEGORY.RANK' | translate}}"
-          [formControl]="rankCtrl">
+          [formControl]="rankCtrl" />
         <mat-error>
           {{'DIALOGS.ADD_CATEGORY.FILL_RANK' | translate}}
         </mat-error>
@@ -26,14 +26,13 @@
       <p class="mt-2">{{'DIALOGS.ADD_CATEGORY.RANK_HINT' | translate}}</p>
     </div>
     <div mat-dialog-actions>
-      <button
-        mat-flat-button
-        class="ml-auto"
-        (click)="onCancel()">
+      <button mat-flat-button class="ml-auto" (click)="onCancel()">
         {{'DIALOGS.ADD_CATEGORY.CANCEL' | translate}}
       </button>
-      <div matTooltip="{{'DIALOGS.ADD_CATEGORY.TOOLTIP' | translate}}" matTooltipPosition="above"
-           [matTooltipDisabled]="nameCtrl.valid && rankCtrl.valid">
+      <div
+        matTooltip="{{'DIALOGS.ADD_CATEGORY.TOOLTIP' | translate}}"
+        matTooltipPosition="above"
+        [matTooltipDisabled]="nameCtrl.valid && rankCtrl.valid">
         <button
           mat-flat-button
           class="ml-2"

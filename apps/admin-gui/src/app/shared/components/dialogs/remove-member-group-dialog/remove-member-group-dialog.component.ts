@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatTableDataSource } from '@angular/material/table';
 
 export interface RemoveMemberGroupDialogData {
-  theme: string,
+  theme: string;
   memberId: number;
   groups: Group[];
 }
@@ -14,17 +14,16 @@ export interface RemoveMemberGroupDialogData {
 @Component({
   selector: 'app-remove-member-group-dialog',
   templateUrl: './remove-member-group-dialog.component.html',
-  styleUrls: ['./remove-member-group-dialog.component.scss']
+  styleUrls: ['./remove-member-group-dialog.component.scss'],
 })
 export class RemoveMemberGroupDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<RemoveMemberGroupDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: RemoveMemberGroupDialogData,
-              private groupManager: GroupsManagerService,
-              private notificator: NotificatorService,
-              private translate: TranslateService) {
-
-  }
+  constructor(
+    private dialogRef: MatDialogRef<RemoveMemberGroupDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: RemoveMemberGroupDialogData,
+    private groupManager: GroupsManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService
+  ) {}
 
   theme: string;
   displayedColumns: string[] = ['name'];
@@ -38,12 +37,15 @@ export class RemoveMemberGroupDialogComponent implements OnInit {
 
   onRemove() {
     this.loading = true;
-    const groupIds = this.dataSource.data.map(group => group.id);
+    const groupIds = this.dataSource.data.map((group) => group.id);
 
-    this.groupManager.removeMember(groupIds, this.data.memberId).subscribe(() => {
-      this.notificator.showSuccess(this.translate.instant('DIALOGS.REMOVE_MEMBER_GROUP.SUCCESS'));
-      this.dialogRef.close(true);
-    }, () => this.loading = false);
+    this.groupManager.removeMember(groupIds, this.data.memberId).subscribe(
+      () => {
+        this.notificator.showSuccess(this.translate.instant('DIALOGS.REMOVE_MEMBER_GROUP.SUCCESS'));
+        this.dialogRef.close(true);
+      },
+      () => (this.loading = false)
+    );
   }
 
   onCancel() {

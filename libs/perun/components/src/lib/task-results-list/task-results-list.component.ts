@@ -1,18 +1,14 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnChanges,
-  ViewChild
-} from '@angular/core';
-import { TaskResult} from '@perun-web-apps/perun/openapi';
+import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
+import { TaskResult } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {
   customDataSourceFilterPredicate,
-  customDataSourceSort, downloadData, getDataForExport,
-  TABLE_ITEMS_COUNT_OPTIONS
+  customDataSourceSort,
+  downloadData,
+  getDataForExport,
+  TABLE_ITEMS_COUNT_OPTIONS,
 } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
 import { formatDate } from '@angular/common';
@@ -21,21 +17,19 @@ import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
 @Component({
   selector: 'perun-web-apps-task-results-list',
   templateUrl: './task-results-list.component.html',
-  styleUrls: ['./task-results-list.component.css']
+  styleUrls: ['./task-results-list.component.css'],
 })
 export class TaskResultsListComponent implements AfterViewInit, OnChanges {
-
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSource();
   }
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
-  constructor(private authResolver: GuiAuthResolver,
-              private tableCheckbox: TableCheckbox) { }
+  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
 
   @Input()
   taskResults: TaskResult[] = [];
@@ -46,28 +40,39 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
   @Input()
   tableId: string;
   @Input()
-  displayedColumns: string[] = ['select', 'id', 'destination', 'type', 'service', 'status', 'time', 'returnCode', 'standardMessage', 'errorMessage'];
+  displayedColumns: string[] = [
+    'select',
+    'id',
+    'destination',
+    'type',
+    'service',
+    'status',
+    'time',
+    'returnCode',
+    'standardMessage',
+    'errorMessage',
+  ];
 
   private sort: MatSort;
   dataSource: MatTableDataSource<TaskResult>;
 
   ngOnChanges() {
-    if (!this.authResolver.isPerunAdminOrObserver()){
-      this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
     this.dataSource = new MatTableDataSource<TaskResult>(this.taskResults);
     this.setDataSource();
     this.dataSource.filter = this.filterValue;
   }
 
-  getDataForColumn(data: TaskResult, column: string): string{
+  getDataForColumn(data: TaskResult, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
       case 'destination':
         return data.destination.destination;
       case 'type':
-        return  data.destination.type;
+        return data.destination.type;
       case 'service':
         return data.service.name;
       case 'status':
@@ -79,20 +84,20 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
       case 'standardMessage':
         return data.standardMessage;
       case 'errorMessage':
-        return  data.errorMessage;
+        return data.errorMessage;
       default:
         return '';
     }
   }
 
-  getSortDataForColumn(data: TaskResult, column: string): string{
+  getSortDataForColumn(data: TaskResult, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
       case 'destination':
         return data.destination.destination;
       case 'type':
-        return  data.destination.type;
+        return data.destination.type;
       case 'service':
         return data.service.name;
       case 'status':
@@ -104,14 +109,22 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
       case 'standardMessage':
         return data.standardMessage;
       case 'errorMessage':
-        return  data.errorMessage;
+        return data.errorMessage;
       default:
         return '';
     }
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getDataForColumn, this), format);
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
   setDataSource() {
@@ -119,17 +132,40 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;
-      this.dataSource.filterPredicate = (data: TaskResult, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
-      this.dataSource.sortData = (data: TaskResult[], sort: MatSort) => customDataSourceSort(data, sort, this.getSortDataForColumn, this);
+      this.dataSource.filterPredicate = (data: TaskResult, filter: string) =>
+        customDataSourceFilterPredicate(
+          data,
+          filter,
+          this.displayedColumns,
+          this.getDataForColumn,
+          this
+        );
+      this.dataSource.sortData = (data: TaskResult[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getSortDataForColumn, this);
     }
   }
 
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(
+      this.selection.selected.length,
+      this.filterValue,
+      this.child.paginator.pageSize,
+      this.child.paginator.hasNextPage(),
+      this.dataSource
+    );
   }
 
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex,false);
+    this.tableCheckbox.masterToggle(
+      this.isAllSelected(),
+      this.selection,
+      this.filterValue,
+      this.dataSource,
+      this.sort,
+      this.child.paginator.pageSize,
+      this.child.paginator.pageIndex,
+      false
+    );
   }
 
   checkboxLabel(row?: TaskResult): string {

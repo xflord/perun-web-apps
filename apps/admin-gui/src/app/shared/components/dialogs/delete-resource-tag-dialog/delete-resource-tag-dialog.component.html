@@ -13,27 +13,18 @@
     <table mat-table [dataSource]="dataSource" class="w-100">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let tag"> {{tag.tagName}} </td>
+        <td mat-cell *matCellDef="let tag">{{tag.tagName}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns" class="font-weight-bolder"></tr>
       <tr mat-row *matRowDef="let tag; columns: displayedColumns;"></tr>
     </table>
-
   </div>
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
       {{'DIALOGS.DELETE_RESOURCE_TAG.CANCEL' | translate}}
     </button>
-    <button
-      mat-flat-button
-      class="ml-2"
-      color="warn"
-      [disabled]="loading"
-      (click)="onSubmit()">
+    <button mat-flat-button class="ml-2" color="warn" [disabled]="loading" (click)="onSubmit()">
       {{'DIALOGS.DELETE_RESOURCE_TAG.SUBMIT' | translate}}
     </button>
   </div>

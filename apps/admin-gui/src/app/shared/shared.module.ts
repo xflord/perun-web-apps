@@ -100,10 +100,7 @@ import { ExtSourceTypePipe } from './pipes/ext-source-type.pipe';
 // @ts-ignore
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { ConfigTableConfigModule } from '@perun-web-apps/config/table-config';
-import {
-  MemberStatusTooltipPipe,
-  PerunPipesModule,
-} from '@perun-web-apps/perun/pipes';
+import { MemberStatusTooltipPipe, PerunPipesModule } from '@perun-web-apps/perun/pipes';
 import { RemoveDestinationDialogComponent } from './components/dialogs/remove-destination-dialog/remove-destination-dialog.component';
 import { DestinationListComponent } from './components/destination-list/destination-list.component';
 import { AddServicesDestinationDialogComponent } from './components/dialogs/add-services-destination-dialog/add-services-destination-dialog.component';
@@ -304,7 +301,7 @@ import { ParseEventNamePipe } from './pipes/parse-event-name.pipe';
     OneEntityAttributePageComponent,
     MemberOverviewMembershipComponent,
     MemberOverviewGroupsComponent,
-    AuditMessagesListComponent
+    AuditMessagesListComponent,
   ],
   declarations: [
     PerunNavComponent,

@@ -4,7 +4,7 @@ import {
   Attribute,
   AttributesManagerService,
   UserExtSource,
-  UsersManagerService
+  UsersManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { TABLE_ATTRIBUTES_SETTINGS } from '@perun-web-apps/config/table-config';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,30 +18,29 @@ import { CreateAttributeDialogComponent } from '../dialogs/create-attribute-dial
 @Component({
   selector: 'app-identity-detail',
   templateUrl: './identity-detail.component.html',
-  styleUrls: ['./identity-detail.component.scss']
+  styleUrls: ['./identity-detail.component.scss'],
 })
 export class IdentityDetailComponent implements OnInit {
-
-  constructor(private dialog: MatDialog,
-              private attributesManager: AttributesManagerService,
-              private userService: UsersManagerService,
-              private route: ActivatedRoute) {
-
-  }
+  constructor(
+    private dialog: MatDialog,
+    private attributesManager: AttributesManagerService,
+    private userService: UsersManagerService,
+    private route: ActivatedRoute
+  ) {}
 
   @ViewChild('list')
   list: AttributesListComponent;
 
   loading = false;
-  selection = new SelectionModel<Attribute>(true , []);
+  selection = new SelectionModel<Attribute>(true, []);
   tableId = TABLE_ATTRIBUTES_SETTINGS;
   attributes: Attribute[] = [];
   userExtSource: UserExtSource;
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const identityId = params["identityId"];
-      this.userService.getUserExtSourceById(identityId).subscribe(extSource => {
+    this.route.params.subscribe((params) => {
+      const identityId = params['identityId'];
+      this.userService.getUserExtSourceById(identityId).subscribe((extSource) => {
         this.userExtSource = extSource;
         this.refreshTable();
       });
@@ -50,26 +49,28 @@ export class IdentityDetailComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.attributesManager.getUserExtSourceAttributes(this.userExtSource.id).subscribe(attributes => {
-      this.attributes = filterCoreAttributes(attributes);
-      this.selection.clear();
-      this.loading = false;
-    });
+    this.attributesManager
+      .getUserExtSourceAttributes(this.userExtSource.id)
+      .subscribe((attributes) => {
+        this.attributes = filterCoreAttributes(attributes);
+        this.selection.clear();
+        this.loading = false;
+      });
   }
 
   onAdd() {
     const config = getDefaultDialogConfig();
-    config.width = "1050px";
+    config.width = '1050px';
     config.data = {
       entityId: this.userExtSource.id,
-      entity: "ues",
+      entity: 'ues',
       notEmptyAttributes: this.attributes,
-      style: 'user-theme'
+      style: 'user-theme',
     };
 
     const dialogRef = this.dialog.open(CreateAttributeDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === 'saved') {
         this.refreshTable();
       }
@@ -84,12 +85,12 @@ export class IdentityDetailComponent implements OnInit {
     config.data = {
       entityId: this.userExtSource.id,
       entity: 'ues',
-      attributes: this.selection.selected
+      attributes: this.selection.selected,
     };
 
     const dialogRef = this.dialog.open(EditAttributeDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.refreshTable();
       }
@@ -102,12 +103,12 @@ export class IdentityDetailComponent implements OnInit {
     config.data = {
       entityId: this.userExtSource.id,
       entity: 'ues',
-      attributes: this.selection.selected
+      attributes: this.selection.selected,
     };
 
     const dialogRef = this.dialog.open(DeleteAttributeDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.refreshTable();
       }

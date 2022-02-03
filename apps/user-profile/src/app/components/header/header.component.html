@@ -1,24 +1,26 @@
 <mat-toolbar [ngStyle]="{'background': bgColor}" class="sticky-top header-container">
   <div id="nav-menu-icons">
-    <button (click)="onToggleSidenav()" *ngIf="!hideToggle" [ngStyle]="{'color': iconColor}" mat-icon-button>
+    <button
+      (click)="onToggleSidenav()"
+      *ngIf="!hideToggle"
+      [ngStyle]="{'color': iconColor}"
+      mat-icon-button>
       <mat-icon>menu</mat-icon>
     </button>
 
-    <a [innerHTML]="logo" [routerLink]="disableLogo ? [] : ['/']" class="logo-container mt-auto mb-auto" queryParamsHandling="merge"></a>
+    <a
+      [innerHTML]="logo"
+      [routerLink]="disableLogo ? [] : ['/']"
+      class="logo-container mt-auto mb-auto"
+      queryParamsHandling="merge"></a>
 
     <p [ngStyle]="{'color': textColor}" class="ml-3 mt-auto mb-auto hide-label">{{label}}</p>
   </div>
 
   <div *ngIf="isDevel" id="nav-devel-info">
-    <span class="text-warning">
-      ~ 🗲&nbsp;
-    </span>
-    <span class="text-danger">
-      DEVEL
-    </span>
-    <span class="text-warning">
-      🗲 ~
-    </span>
+    <span class="text-warning"> ~ 🗲&nbsp; </span>
+    <span class="text-danger"> DEVEL </span>
+    <span class="text-warning"> 🗲 ~ </span>
   </div>
 
   <perun-web-apps-header-menu

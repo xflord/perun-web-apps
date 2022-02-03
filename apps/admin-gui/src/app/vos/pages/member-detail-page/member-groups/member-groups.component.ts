@@ -5,7 +5,7 @@ import {
   GroupsManagerService,
   Member,
   MembersManagerService,
-  Vo
+  Vo,
 } from '@perun-web-apps/perun/openapi';
 import { TABLE_MEMBER_DETAIL_GROUPS } from '@perun-web-apps/config/table-config';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -19,10 +19,9 @@ import { GroupsListComponent } from '@perun-web-apps/perun/components';
 @Component({
   selector: 'app-member-groups',
   templateUrl: './member-groups.component.html',
-  styleUrls: ['./member-groups.component.scss']
+  styleUrls: ['./member-groups.component.scss'],
 })
 export class MemberGroupsComponent implements OnInit {
-
   static id = 'MemberGroupsComponent';
 
   // used for router animation
@@ -36,8 +35,8 @@ export class MemberGroupsComponent implements OnInit {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private authResolver: GuiAuthResolver,
-    private memberService: MembersManagerService,
-  ) { }
+    private memberService: MembersManagerService
+  ) {}
 
   groups: Group[];
   memberId: number;
@@ -56,11 +55,11 @@ export class MemberGroupsComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.route.parent.params.subscribe(parentParams => {
+    this.route.parent.params.subscribe((parentParams) => {
       this.memberId = parentParams['memberId'];
-      this.memberService.getMemberById(this.memberId).subscribe(member => {
+      this.memberService.getMemberById(this.memberId).subscribe((member) => {
         this.member = member;
-        this.groupsService.getAllGroups(this.member.voId).subscribe(allGroups => {
+        this.groupsService.getAllGroups(this.member.voId).subscribe((allGroups) => {
           this.allGroups = allGroups;
           this.refreshTable();
         });
@@ -70,58 +69,70 @@ export class MemberGroupsComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.groupsService.getMemberRichGroupsWithAttributesByNames(this.memberId, ['urn:perun:member_group:attribute-def:def:groupMembershipExpiration']).subscribe(groups => {
-      this.selection.clear();
-      this.groups = groups;
-      this.setAuthRights();
-      this.loading = false;
-    }, () => this.loading = false);
+    this.groupsService
+      .getMemberRichGroupsWithAttributesByNames(this.memberId, [
+        'urn:perun:member_group:attribute-def:def:groupMembershipExpiration',
+      ])
+      .subscribe(
+        (groups) => {
+          this.selection.clear();
+          this.groups = groups;
+          this.setAuthRights();
+          this.loading = false;
+        },
+        () => (this.loading = false)
+      );
   }
 
-  setAuthRights(){
+  setAuthRights() {
     const vo: Vo = {
-      id:  this.member.voId,
-      beanName: 'Vo'
+      id: this.member.voId,
+      beanName: 'Vo',
     };
 
-    this.addAuth = this.allGroups.reduce((acc, grp) =>
-      acc || this.authResolver.isAuthorized('addMember_Group_Member_policy', [grp]), false);
+    this.addAuth = this.allGroups.reduce(
+      (acc, grp) => acc || this.authResolver.isAuthorized('addMember_Group_Member_policy', [grp]),
+      false
+    );
 
-    if(this.groups.length !== 0){
-      this.routeAuth = this.authResolver.isAuthorized('getGroupById_int_policy', [vo, this.groups[0]]);
+    if (this.groups.length !== 0) {
+      this.routeAuth = this.authResolver.isAuthorized('getGroupById_int_policy', [
+        vo,
+        this.groups[0],
+      ]);
     }
   }
 
-  addGroup(){
+  addGroup() {
     const config = getDefaultDialogConfig();
-    config.width = "850px";
+    config.width = '850px';
     config.data = {
       memberId: this.memberId,
-      membersGroups: new Set<number>(this.groups.map(grp => grp.id)),
-      theme: "member-theme"
+      membersGroups: new Set<number>(this.groups.map((grp) => grp.id)),
+      theme: 'member-theme',
     };
 
     const dialogRef = this.dialog.open(AddMemberGroupDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.refreshTable();
       }
     });
   }
 
-  removeGroup(){
+  removeGroup() {
     const config = getDefaultDialogConfig();
-    config.width = "650px";
+    config.width = '650px';
     config.data = {
       memberId: this.memberId,
       groups: this.selection.selected,
-      theme: "member-theme"
+      theme: 'member-theme',
     };
 
     const dialogRef = this.dialog.open(RemoveMemberGroupDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.refreshTable();
       }

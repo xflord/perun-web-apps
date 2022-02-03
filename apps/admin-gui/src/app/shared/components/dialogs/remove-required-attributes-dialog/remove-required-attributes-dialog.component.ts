@@ -14,16 +14,16 @@ export interface RemoveRequiredAttributesDialogData {
 @Component({
   selector: 'app-remove-required-attributes',
   templateUrl: './remove-required-attributes-dialog.component.html',
-  styleUrls: ['./remove-required-attributes-dialog.component.scss']
+  styleUrls: ['./remove-required-attributes-dialog.component.scss'],
 })
 export class RemoveRequiredAttributesDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<RemoveRequiredAttributesDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: RemoveRequiredAttributesDialogData,
-              public serviceManager: ServicesManagerService,
-              private notificator: NotificatorService,
-              private translate: TranslateService) {
-  }
+  constructor(
+    private dialogRef: MatDialogRef<RemoveRequiredAttributesDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: RemoveRequiredAttributesDialogData,
+    public serviceManager: ServicesManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService
+  ) {}
 
   theme: string;
   serviceId: number;
@@ -31,26 +31,29 @@ export class RemoveRequiredAttributesDialogComponent implements OnInit {
   dataSource: MatTableDataSource<AttributeDefinition>;
   loading = false;
 
-
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.serviceId = this.data.serviceId;
     this.dataSource = new MatTableDataSource<AttributeDefinition>(this.data.attrDefinitions);
   }
 
-  onConfirm(){
+  onConfirm() {
     this.loading = true;
-    const attrDefinitionsIds = this.dataSource.data.map(attrDef => attrDef.id);
+    const attrDefinitionsIds = this.dataSource.data.map((attrDef) => attrDef.id);
 
-    this.serviceManager.removeRequiredAttributes(this.serviceId, attrDefinitionsIds).subscribe(() => {
-      this.notificator.showSuccess(this.translate.instant('DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.SUCCESS'));
-      this.dialogRef.close(true);
-      this.loading = false;
-    }, () => this.loading = false);
+    this.serviceManager.removeRequiredAttributes(this.serviceId, attrDefinitionsIds).subscribe(
+      () => {
+        this.notificator.showSuccess(
+          this.translate.instant('DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.SUCCESS')
+        );
+        this.dialogRef.close(true);
+        this.loading = false;
+      },
+      () => (this.loading = false)
+    );
   }
 
-  onCancel(){
+  onCancel() {
     this.dialogRef.close(false);
   }
-
 }

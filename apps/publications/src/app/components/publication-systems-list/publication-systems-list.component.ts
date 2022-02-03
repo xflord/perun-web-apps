@@ -3,19 +3,21 @@ import { MatSort } from '@angular/material/sort';
 import { PublicationSystem } from '@perun-web-apps/perun/openapi';
 import {
   customDataSourceFilterPredicate,
-  customDataSourceSort, downloadData, getDataForExport,
-  TABLE_ITEMS_COUNT_OPTIONS, TableWrapperComponent
+  customDataSourceSort,
+  downloadData,
+  getDataForExport,
+  TABLE_ITEMS_COUNT_OPTIONS,
+  TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'perun-web-apps-publication-systems-list',
   templateUrl: './publication-systems-list.component.html',
-  styleUrls: ['./publication-systems-list.component.scss']
+  styleUrls: ['./publication-systems-list.component.scss'],
 })
 export class PublicationSystemsListComponent implements AfterViewInit, OnChanges {
-
-  constructor() { }
+  constructor() {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -37,7 +39,7 @@ export class PublicationSystemsListComponent implements AfterViewInit, OnChanges
 
   dataSource: MatTableDataSource<PublicationSystem>;
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   ngOnChanges() {
     this.dataSource = new MatTableDataSource<PublicationSystem>(this.publicationSystems);
@@ -45,12 +47,12 @@ export class PublicationSystemsListComponent implements AfterViewInit, OnChanges
     this.dataSource.filter = this.filterValue;
   }
 
-  getDataForColumn(data: PublicationSystem, column: string): string{
+  getDataForColumn(data: PublicationSystem, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
       case 'friendlyName':
-        return  data.friendlyName;
+        return data.friendlyName;
       case 'url':
         return data.url;
       case 'loginNamespace':
@@ -62,14 +64,30 @@ export class PublicationSystemsListComponent implements AfterViewInit, OnChanges
     }
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getDataForColumn, this), format);
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
   setDataSource() {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: PublicationSystem, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
-      this.dataSource.sortData = (data: PublicationSystem[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.filterPredicate = (data: PublicationSystem, filter: string) =>
+        customDataSourceFilterPredicate(
+          data,
+          filter,
+          this.displayedColumns,
+          this.getDataForColumn,
+          this
+        );
+      this.dataSource.sortData = (data: PublicationSystem[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }

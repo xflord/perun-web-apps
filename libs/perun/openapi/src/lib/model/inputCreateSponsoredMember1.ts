@@ -10,20 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * input for createSponsoredMember
  */
-export interface InputCreateSponsoredMember1 { 
-    /**
-     * names of members to create, single name should have the format {firstName};{lastName} to be parsed well
-     */
-    guestNames: Array<string>;
-    vo: number;
-    sponsor: number;
-    namespace: string;
-    validityTo?: string;
-    email?: string;
-    sendActivationLink?: boolean;
+export interface InputCreateSponsoredMember1 {
+  /**
+   * names of members to create, single name should have the format {firstName};{lastName} to be parsed well
+   */
+  guestNames: Array<string>;
+  vo: number;
+  sponsor: number;
+  namespace: string;
+  validityTo?: string;
+  email?: string;
+  sendActivationLink?: boolean;
 }
-

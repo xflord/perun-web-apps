@@ -13,15 +13,16 @@ export interface DeleteServiceDialogData {
 @Component({
   selector: 'app-delete-service-dialog',
   templateUrl: './delete-service-dialog.component.html',
-  styleUrls: ['./delete-service-dialog.component.scss']
+  styleUrls: ['./delete-service-dialog.component.scss'],
 })
 export class DeleteServiceDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<DeleteServiceDialogData>,
-              @Inject(MAT_DIALOG_DATA) private data: DeleteServiceDialogData,
-              private serviceManager: ServicesManagerService,
-              private notificator: NotificatorService,
-              private translate: TranslateService) {  }
+  constructor(
+    private dialogRef: MatDialogRef<DeleteServiceDialogData>,
+    @Inject(MAT_DIALOG_DATA) private data: DeleteServiceDialogData,
+    private serviceManager: ServicesManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService
+  ) {}
 
   theme: string;
   services: Service[];
@@ -32,7 +33,6 @@ export class DeleteServiceDialogComponent implements OnInit {
   relations: string[] = [];
   anotherMessage: string;
 
-
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.services = this.data.services;
@@ -41,29 +41,31 @@ export class DeleteServiceDialogComponent implements OnInit {
   }
 
   onConfirm() {
-    if(this.services.length === 0){
+    if (this.services.length === 0) {
       this.dialogRef.close(true);
       this.notificator.showSuccess(this.translate.instant('DIALOGS.DELETE_SERVICE.SUCCESS'));
       return;
     }
-    this.loading = true
-    this.serviceManager.deleteService(this.services.pop().id, this.force).subscribe(() =>{
-      this.onConfirm();
-      this.loading = false;
-    }, () => this.loading = false);
+    this.loading = true;
+    this.serviceManager.deleteService(this.services.pop().id, this.force).subscribe(
+      () => {
+        this.onConfirm();
+        this.loading = false;
+      },
+      () => (this.loading = false)
+    );
   }
 
   onCancel() {
     this.dialogRef.close(false);
   }
 
-  onSubmit(result: {deleted: boolean, force: boolean}) {
+  onSubmit(result: { deleted: boolean; force: boolean }) {
     this.force = result.force;
-    if(result.deleted){
+    if (result.deleted) {
       this.onConfirm();
     } else {
       this.onCancel();
     }
   }
-
 }

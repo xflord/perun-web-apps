@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface ResourceTagAllOf { 
-    tagName?: string;
-    voId?: number;
+export interface ResourceTagAllOf {
+  tagName?: string;
+  voId?: number;
 }
-

@@ -6,13 +6,12 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-show-notification-history-dialog',
   templateUrl: './show-notification-history-dialog.component.html',
-  styleUrls: ['./show-notification-history-dialog.component.scss']
+  styleUrls: ['./show-notification-history-dialog.component.scss'],
 })
 export class ShowNotificationHistoryDialogComponent implements OnInit {
-
   constructor(
     private dialogRef: MatDialogRef<ShowNotificationHistoryDialogComponent>,
-    notificationStorageService: NotificationStorageService,
+    notificationStorageService: NotificationStorageService
   ) {
     this.notificationStorageService = notificationStorageService;
   }

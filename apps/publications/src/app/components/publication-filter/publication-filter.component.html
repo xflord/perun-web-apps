@@ -1,7 +1,9 @@
 <div class="mt-2">
   <mat-form-field class="filter-field mr-2">
-    <input matInput [formControl]="title"
-           placeholder="{{'PUBLICATION_FILTER.TITLE_PLACEHOLDER' | translate}}">
+    <input
+      matInput
+      [formControl]="title"
+      placeholder="{{'PUBLICATION_FILTER.TITLE_PLACEHOLDER' | translate}}" />
   </mat-form-field>
   <mat-form-field class="filter-field mr-2">
     <mat-label>{{'PUBLICATION_FILTER.SELECT_MODE' | translate}}</mat-label>
@@ -11,36 +13,33 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field class="year-field mr-2">
-    <input matInput [formControl]="code"
-           placeholder="{{'PUBLICATION_FILTER.CODE_PLACEHOLDER' | translate}}">
+    <input
+      matInput
+      [formControl]="code"
+      placeholder="{{'PUBLICATION_FILTER.CODE_PLACEHOLDER' | translate}}" />
   </mat-form-field>
   <mat-form-field class="filter-field mr-2">
     <mat-label>{{'PUBLICATION_FILTER.SELECT_CATEGORY' | translate}}</mat-label>
-    <mat-select  [(value)]="selectedCategory">
-      <mat-option value="no_value">{{'PUBLICATION_FILTER.NO_CATEGORY_SELECTED' | translate}}</mat-option>
+    <mat-select [(value)]="selectedCategory">
+      <mat-option
+        value="no_value"
+        >{{'PUBLICATION_FILTER.NO_CATEGORY_SELECTED' | translate}}</mat-option
+      >
       <mat-option *ngFor="let category of categories" [value]="category">
         {{category.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>
 
-  <perun-web-apps-year-range
-    [startYear]="startYear"
-    [endYear]="endYear">
+  <perun-web-apps-year-range [startYear]="startYear" [endYear]="endYear">
   </perun-web-apps-year-range>
 
-  <button
-    mat-stroked-button
-    class="mr-2"
-    (click)="filter()">
+  <button mat-stroked-button class="mr-2" (click)="filter()">
     <mat-icon>search</mat-icon>
     {{'PUBLICATION_FILTER.FILTER' | translate}}
   </button>
-  <button
-    mat-stroked-button
-    (click)="clearFilter()">
+  <button mat-stroked-button (click)="clearFilter()">
     <mat-icon>search_off</mat-icon>
     {{'PUBLICATION_FILTER.CLEAR_FILTER' | translate}}
   </button>
 </div>
-

@@ -18,7 +18,7 @@
     <table mat-table [dataSource]="entityNames" class="w-100 table-margin">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let entity"> {{entity.name}} </td>
+        <td mat-cell *matCellDef="let entity">{{entity.name}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="['name']" class="font-weight-bolder"></tr>
@@ -29,10 +29,21 @@
     <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.DELETE_ENTITY.CANCEL' | translate}}
     </button>
-    <button (click)="onDelete()" class="ml-2" mat-flat-button color="warn" data-cy="delete-button-dialog">
+    <button
+      (click)="onDelete()"
+      class="ml-2"
+      mat-flat-button
+      color="warn"
+      data-cy="delete-button-dialog">
       {{'DIALOGS.DELETE_ENTITY.DELETE' | translate}}
     </button>
-    <button *ngIf="!disableForce" (click)="force = true" class="ml-2" mat-flat-button color="warn" data-cy="force-delete">
+    <button
+      *ngIf="!disableForce"
+      (click)="force = true"
+      class="ml-2"
+      mat-flat-button
+      color="warn"
+      data-cy="force-delete">
       <mat-icon>warning</mat-icon>
       {{'DIALOGS.DELETE_ENTITY.DELETE' | translate}}
       {{'DIALOGS.DELETE_ENTITY.RELATIONS' | translate}}
@@ -40,9 +51,11 @@
   </div>
 </div>
 <div *ngIf="force && !loading">
-  <h1 mat-dialog-title>{{'DIALOGS.DELETE_ENTITY.DELETE' | translate}}
+  <h1 mat-dialog-title>
+    {{'DIALOGS.DELETE_ENTITY.DELETE' | translate}}
     {{entityType}}
-    {{'DIALOGS.DELETE_ENTITY.RELATIONS' | translate}}</h1>
+    {{'DIALOGS.DELETE_ENTITY.RELATIONS' | translate}}
+  </h1>
   <div mat-dialog-content class="dialog-container">
     <div class="mb-4">
       {{'DIALOGS.DELETE_ENTITY.WARN' | translate}}:
@@ -63,7 +76,7 @@
       <table mat-table [dataSource]="entityNames" class="w-100 table-margin">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let entity"> {{entity.name}} </td>
+          <td mat-cell *matCellDef="let entity">{{entity.name}}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="['name']" class="font-weight-bolder"></tr>
@@ -71,18 +84,27 @@
       </table>
     </div>
     <mat-form-field>
-      <input [formControl]="deleteControl" data-cy="force-delete-control" matInput placeholder="{{'DIALOGS.DELETE_ENTITY.CONTROL' | translate}}">
+      <input
+        [formControl]="deleteControl"
+        data-cy="force-delete-control"
+        matInput
+        placeholder="{{'DIALOGS.DELETE_ENTITY.CONTROL' | translate}}" />
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
     <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.DELETE_ENTITY.CANCEL' | translate}}
     </button>
-    <button (click)="onDelete()" [disabled]="deleteControl.invalid" class="ml-2" mat-flat-button color="warn" data-cy="force-delete-button">
+    <button
+      (click)="onDelete()"
+      [disabled]="deleteControl.invalid"
+      class="ml-2"
+      mat-flat-button
+      color="warn"
+      data-cy="force-delete-button">
       <mat-icon>warning</mat-icon>
       {{'DIALOGS.DELETE_ENTITY.DELETE' | translate}}
       {{'DIALOGS.DELETE_ENTITY.RELATIONS' | translate}}
     </button>
   </div>
 </div>
-

@@ -1,32 +1,30 @@
 <div *ngIf="user !== undefined" class="container-fluid pl-xl-5 pr-xl-5 user-theme">
-  <perun-web-apps-back-button>
-  </perun-web-apps-back-button>
+  <perun-web-apps-back-button> </perun-web-apps-back-button>
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
   <div class="d-flex page-title-headtitle">
     <mat-icon
       matTooltip="{{'MENU_ITEMS.USER.ENTITY' | translate}}"
       [ngStyle]="{'color':'black'}"
-      svgIcon='perun-service-identity'
+      svgIcon="perun-service-identity"
       class="perun-icon perun-icon-detail">
     </mat-icon>
     <div class="page-title-block">
       <div class="page-title-headline d-flex align-items-center">
-        <a [routerLink]="['/myProfile/service-identities', user.id]" class="user-link" queryParamsHandling="merge">
+        <a
+          [routerLink]="['/myProfile/service-identities', user.id]"
+          class="user-link"
+          queryParamsHandling="merge">
           {{user | userFullName}}
         </a>
-        <span class="text-muted">
-          &nbsp;#{{user.id}}
-        </span>
+        <span class="text-muted"> &nbsp;#{{user.id}} </span>
         <button *ngIf="authResolver.isPerunAdmin()" (click)="editUser()" mat-icon-button>
           <mat-icon>edit</mat-icon>
         </button>
       </div>
-      <div>
-        {{'ADMIN_USER.UUID' | translate}}: {{user.uuid}}
-      </div>
+      <div>{{'ADMIN_USER.UUID' | translate}}: {{user.uuid}}</div>
       <span class="mt-1 entity-info">
-        {{'MENU_ITEMS.USER.ENTITY' | translate}},
-        {{'MENU_ITEMS.USER.USER_TYPE' | translate}}: {{getUserType()}}
+        {{'MENU_ITEMS.USER.ENTITY' | translate}}, {{'MENU_ITEMS.USER.USER_TYPE' | translate}}:
+        {{getUserType()}}
       </span>
     </div>
   </div>

@@ -11,8 +11,6 @@
  */
 import { Owner } from './owner';
 
-
-export interface RichFacilityAllOf { 
-    facilityOwners: Array<Owner>;
+export interface RichFacilityAllOf {
+  facilityOwners: Array<Owner>;
 }
-

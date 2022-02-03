@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface FacilityAllOf { 
-    name?: string;
-    description?: string;
+export interface FacilityAllOf {
+  name?: string;
+  description?: string;
 }
-

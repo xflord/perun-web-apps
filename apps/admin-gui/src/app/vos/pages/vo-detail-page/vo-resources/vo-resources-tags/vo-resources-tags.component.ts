@@ -4,7 +4,11 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { CreateResourceTagDialogComponent } from '../../../../../shared/components/dialogs/create-resource-tag-dialog/create-resource-tag-dialog.component';
 import { DeleteResourceTagDialogComponent } from '../../../../../shared/components/dialogs/delete-resource-tag-dialog/delete-resource-tag-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
-import { EntityStorageService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import {
+  EntityStorageService,
+  GuiAuthResolver,
+  NotificatorService,
+} from '@perun-web-apps/perun/services';
 import { ResourcesManagerService, ResourceTag, Vo } from '@perun-web-apps/perun/openapi';
 import { TABLE_VO_RESOURCES_TAGS } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -12,17 +16,19 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 @Component({
   selector: 'app-vo-resources-tags',
   templateUrl: './vo-resources-tags.component.html',
-  styleUrls: ['./vo-resources-tags.component.scss']
+  styleUrls: ['./vo-resources-tags.component.scss'],
 })
 export class VoResourcesTagsComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
-  constructor(private resourceManager: ResourcesManagerService,
-              private dialog: MatDialog,
-              private notificator: NotificatorService,
-              private translator: TranslateService,
-              private authResolver: GuiAuthResolver,
-              private entityStorageService: EntityStorageService) { }
+  constructor(
+    private resourceManager: ResourcesManagerService,
+    private dialog: MatDialog,
+    private notificator: NotificatorService,
+    private translator: TranslateService,
+    private authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
 
   loading = false;
   resourceTag: ResourceTag[] = [];
@@ -48,13 +54,13 @@ export class VoResourcesTagsComponent implements OnInit {
   deleteTag() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {tagsForDelete: this.selection.selected, theme: 'vo-theme'};
+    config.data = { tagsForDelete: this.selection.selected, theme: 'vo-theme' };
 
     const dialogRef = this.dialog.open(DeleteResourceTagDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe( success => {
+    dialogRef.afterClosed().subscribe((success) => {
       if (success) {
-        this.translator.get('VO_DETAIL.RESOURCES.TAGS.DELETE_SUCCESS').subscribe( text => {
+        this.translator.get('VO_DETAIL.RESOURCES.TAGS.DELETE_SUCCESS').subscribe((text) => {
           this.notificator.showSuccess(text);
         });
         this.updateData();
@@ -65,13 +71,13 @@ export class VoResourcesTagsComponent implements OnInit {
   create() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {voId: this.vo.id, theme: 'vo-theme'};
+    config.data = { voId: this.vo.id, theme: 'vo-theme' };
 
     const dialogRef = this.dialog.open(CreateResourceTagDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe( success => {
+    dialogRef.afterClosed().subscribe((success) => {
       if (success) {
-        this.translator.get('VO_DETAIL.RESOURCES.TAGS.CREATE_SUCCESS').subscribe( text => {
+        this.translator.get('VO_DETAIL.RESOURCES.TAGS.CREATE_SUCCESS').subscribe((text) => {
           this.notificator.showSuccess(text);
         });
         this.updateData();
@@ -82,7 +88,7 @@ export class VoResourcesTagsComponent implements OnInit {
   updateData() {
     this.loading = true;
     this.selection.clear();
-    this.resourceManager.getAllResourcesTagsForVo(this.vo.id).subscribe(tags => {
+    this.resourceManager.getAllResourcesTagsForVo(this.vo.id).subscribe((tags) => {
       this.resourceTag = tags;
       this.selection.clear();
       this.setAuthRights();
@@ -93,13 +99,19 @@ export class VoResourcesTagsComponent implements OnInit {
   setAuthRights() {
     this.displayedColumns = [];
 
-    this.createAuth = this.authResolver.isAuthorized('createResourceTag_ResourceTag_Vo_policy', [this.vo]);
-    this.deleteAuth = this.authResolver.isAuthorized('deleteResourceTag_ResourceTag_policy', [this.vo]);
-    this.editAuth = this.authResolver.isAuthorized('updateResourceTag_ResourceTag_policy', [this.vo]);
+    this.createAuth = this.authResolver.isAuthorized('createResourceTag_ResourceTag_Vo_policy', [
+      this.vo,
+    ]);
+    this.deleteAuth = this.authResolver.isAuthorized('deleteResourceTag_ResourceTag_policy', [
+      this.vo,
+    ]);
+    this.editAuth = this.authResolver.isAuthorized('updateResourceTag_ResourceTag_policy', [
+      this.vo,
+    ]);
 
     this.displayedColumns = this.deleteAuth ? ['select', 'id', 'name'] : ['id', 'name'];
 
-    if(this.editAuth){
+    if (this.editAuth) {
       this.displayedColumns.push('edit');
     }
   }

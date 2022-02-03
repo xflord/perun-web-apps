@@ -1,76 +1,90 @@
-<div [hidden]="dataSource.filteredData.length === 0 || servicesStatus.length === 0" class="card mt-3">
-
+<div
+  [hidden]="dataSource.filteredData.length === 0 || servicesStatus.length === 0"
+  class="card mt-3">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [tableId]="tableId"
     [dataLength]="dataSource.filteredData.length"
     [pageSizeOptions]="pageSizeOptions">
-    <table mat-table
-           [dataSource]="dataSource"
-           matSort
-           matSortActive="service.name"
-           matSortDirection="asc"
-           matSortDisableClear
-           class="w-100">
-
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      matSortActive="service.name"
+      matSortDirection="asc"
+      matSortDisableClear
+      class="w-100">
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef class="align-checkbox">
-          <mat-checkbox color="primary"
-                        (change)="$event ? masterToggle() : null; this.selectionChange.emit()"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()"
-                        [aria-label]="checkboxLabel()">
+          <mat-checkbox
+            color="primary"
+            (change)="$event ? masterToggle() : null; this.selectionChange.emit()"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            [aria-label]="checkboxLabel()">
           </mat-checkbox>
         </th>
         <td mat-cell *matCellDef="let serviceState" class="static-column-size align-checkbox">
-          <mat-checkbox color="primary"
-                        (click)="$event.stopPropagation()"
-                        (change)="$event ? selection.toggle(serviceState) : null; this.selectionChange.emit()"
-                        [checked]="selection.isSelected(serviceState)"
-                        [aria-label]="checkboxLabel(serviceState)">
+          <mat-checkbox
+            color="primary"
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(serviceState) : null; this.selectionChange.emit()"
+            [checked]="selection.isSelected(serviceState)"
+            [aria-label]="checkboxLabel(serviceState)">
           </mat-checkbox>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="task.id">
-        <th mat-header-cell *matHeaderCellDef
-            mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.TASK_ID' | translate}}</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.TASK_ID' | translate}}
+        </th>
         <td mat-cell class="static-column-size" *matCellDef="let serviceState">
           <div *ngIf="serviceState.task">{{serviceState.task.id}}</div>
           <div *ngIf="!serviceState.task">0</div>
         </td>
       </ng-container>
       <ng-container matColumnDef="service.name">
-        <th mat-header-cell *matHeaderCellDef
-            mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.SERVICE_NAME' | translate}}</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.SERVICE_NAME' | translate}}
+        </th>
         <td mat-cell *matCellDef="let serviceState">{{serviceState.service.name}}</td>
       </ng-container>
       <ng-container matColumnDef="status">
-        <th mat-header-cell
-            mat-sort-header
-            *matHeaderCellDef>{{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.STATUS' | translate}}</th>
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>
+          {{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.STATUS' | translate}}
+        </th>
         <td mat-cell *matCellDef="let serviceState">{{serviceState.status}}</td>
       </ng-container>
       <ng-container matColumnDef="blocked">
-        <th mat-header-cell
-            mat-sort-header
-            *matHeaderCellDef>{{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.BLOCKED' | translate}}</th>
-        <td mat-cell *matCellDef="let serviceState">{{serviceState | serviceStateBlockedToString}}</td>
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>
+          {{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.BLOCKED' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let serviceState">
+          {{serviceState | serviceStateBlockedToString}}
+        </td>
       </ng-container>
       <ng-container matColumnDef="task.startTime">
-        <th mat-header-cell *matHeaderCellDef
-            mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.STARTED' | translate}}</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.STARTED' | translate}}
+        </th>
         <td mat-cell *matCellDef="let serviceState">
-          <div *ngIf="serviceState.task && serviceState.task.startTime">{{serviceState.task.startTime | date:'d.M.y H:mm:ss'}}</div>
+          <div *ngIf="serviceState.task && serviceState.task.startTime">
+            {{serviceState.task.startTime | date:'d.M.y H:mm:ss'}}
+          </div>
           <div *ngIf="!serviceState.task || !serviceState.task.startTime">
-            {{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.NOT_YET' | translate}}</div>
+            {{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.NOT_YET' | translate}}
+          </div>
         </td>
       </ng-container>
       <ng-container matColumnDef="task.endTime">
-        <th mat-header-cell *matHeaderCellDef
-            mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.ENDED' | translate}}</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.ENDED' | translate}}
+        </th>
         <td mat-cell *matCellDef="let serviceState">
-          <div *ngIf="serviceState.task && serviceState.task.endTime">{{serviceState.task.endTime | date:'d.M.y H:mm:ss'}}</div>
+          <div *ngIf="serviceState.task && serviceState.task.endTime">
+            {{serviceState.task.endTime | date:'d.M.y H:mm:ss'}}
+          </div>
           <div *ngIf="!serviceState.task || !serviceState.task.endTime">
             {{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.NOT_YET' | translate}}
           </div>
@@ -88,13 +102,14 @@
         [class.make-red]="serviceState.status === 'GENERROR' || serviceState.status === 'SENDERROR' || serviceState.status === 'ERROR'"
         [class.cursor-pointer]="!disableRouting && serviceState.task !== null"
         [routerLink]="disableRouting || serviceState.task === null ? null : ['/facilities', serviceState.facility.id, 'services-status', serviceState.taskId]"
-        [perunWebAppsMiddleClickRouterLink]="disableRouting || serviceState.task === null ? null : ['/facilities', serviceState.facility.id, 'services-status', serviceState.taskId]">
-      </tr>
+        [perunWebAppsMiddleClickRouterLink]="disableRouting || serviceState.task === null ? null : ['/facilities', serviceState.facility.id, 'services-status', serviceState.taskId]"></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
 
-<app-alert *ngIf="dataSource.filteredData.length === 0 && servicesStatus.length !== 0" alert_type="warn">
+<app-alert
+  *ngIf="dataSource.filteredData.length === 0 && servicesStatus.length !== 0"
+  alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
 </app-alert>
 

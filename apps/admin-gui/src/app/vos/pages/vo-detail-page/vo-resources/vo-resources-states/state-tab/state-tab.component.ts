@@ -5,11 +5,10 @@ import { ResourceState, Task } from '@perun-web-apps/perun/openapi';
 @Component({
   selector: 'app-state-tab',
   templateUrl: './state-tab.component.html',
-  styleUrls: ['./state-tab.component.scss']
+  styleUrls: ['./state-tab.component.scss'],
 })
 export class StateTabComponent implements OnChanges {
-
-  constructor() { }
+  constructor() {}
 
   @Input()
   propagation: ResourceState[] = [];

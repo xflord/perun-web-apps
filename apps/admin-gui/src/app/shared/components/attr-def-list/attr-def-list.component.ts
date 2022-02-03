@@ -5,37 +5,51 @@ import {
   Input,
   OnChanges,
   Output,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AttributeDefinition} from '@perun-web-apps/perun/openapi';
+import { AttributeDefinition } from '@perun-web-apps/perun/openapi';
 import { EditAttributeDefinitionDialogComponent } from '../dialogs/edit-attribute-definition-dialog/edit-attribute-definition-dialog.component';
 import {
-  customDataSourceFilterPredicate, customDataSourceSort, downloadData, getDataForExport,
-  getDefaultDialogConfig, TABLE_ITEMS_COUNT_OPTIONS, TableWrapperComponent
+  customDataSourceFilterPredicate,
+  customDataSourceSort,
+  downloadData,
+  getDataForExport,
+  getDefaultDialogConfig,
+  TABLE_ITEMS_COUNT_OPTIONS,
+  TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-attr-def-list',
   templateUrl: './attr-def-list.component.html',
-  styleUrls: ['./attr-def-list.component.scss']
+  styleUrls: ['./attr-def-list.component.scss'],
 })
 export class AttrDefListComponent implements OnChanges, AfterViewInit {
-
-  constructor(private dialog: MatDialog,
-              private authResolver: GuiAuthResolver,
-              private tableCheckbox: TableCheckbox) { }
+  constructor(
+    private dialog: MatDialog,
+    private authResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox
+  ) {}
 
   @Input()
   definitions: AttributeDefinition[];
   @Input()
   selection = new SelectionModel<AttributeDefinition>(true, []);
   @Input()
-  displayedColumns: string[] = ['select', 'id', 'friendlyName', 'entity', 'namespace', 'type', 'unique'];
+  displayedColumns: string[] = [
+    'select',
+    'id',
+    'friendlyName',
+    'entity',
+    'namespace',
+    'type',
+    'unique',
+  ];
   @Input()
   filterValue: string;
   @Input()
@@ -51,7 +65,7 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
     this.setDataSource();
   }
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   dataSource: MatTableDataSource<AttributeDefinition>;
 
@@ -59,8 +73,8 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngOnChanges() {
-    if (!this.authResolver.isPerunAdminOrObserver()){
-      this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
     this.dataSource = new MatTableDataSource<AttributeDefinition>(this.definitions);
     this.setDataSource();
@@ -70,14 +84,14 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
     this.dataSource.paginator = this.child.paginator;
   }
 
-  getDataForColumn(data: AttributeDefinition, column: string): string{
+  getDataForColumn(data: AttributeDefinition, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
       case 'friendlyName':
         return data.friendlyName;
       case 'entity':
-        return  data.entity;
+        return data.entity;
       case 'namespace':
         if (data.namespace) {
           const stringValue = <string>data.namespace;
@@ -97,8 +111,16 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getDataForColumn, this), format);
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
   setDataSource() {
@@ -106,18 +128,41 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
       this.dataSource.filter = this.filterValue;
 
       this.dataSource.sort = this.sort;
-      this.dataSource.filterPredicate = (data: AttributeDefinition, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
-      this.dataSource.sortData = (data: AttributeDefinition[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.filterPredicate = (data: AttributeDefinition, filter: string) =>
+        customDataSourceFilterPredicate(
+          data,
+          filter,
+          this.displayedColumns,
+          this.getDataForColumn,
+          this
+        );
+      this.dataSource.sortData = (data: AttributeDefinition[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.paginator = this.child.paginator;
     }
   }
 
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(
+      this.selection.selected.length,
+      this.filterValue,
+      this.child.paginator.pageSize,
+      this.child.paginator.hasNextPage(),
+      this.dataSource
+    );
   }
 
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex, false);
+    this.tableCheckbox.masterToggle(
+      this.isAllSelected(),
+      this.selection,
+      this.filterValue,
+      this.dataSource,
+      this.sort,
+      this.child.paginator.pageSize,
+      this.child.paginator.pageIndex,
+      false
+    );
   }
 
   checkboxLabel(row?: AttributeDefinition): string {
@@ -128,16 +173,16 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
   }
 
   onRowClick(attDef: AttributeDefinition) {
-    if(!this.disableRouting){
+    if (!this.disableRouting) {
       const config = getDefaultDialogConfig();
       config.width = '700px';
       config.data = {
-        attDef: attDef
+        attDef: attDef,
       };
 
       const dialogRef = this.dialog.open(EditAttributeDefinitionDialogComponent, config);
 
-      dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe((result) => {
         if (result) {
           this.selection.clear();
           this.refreshEvent.emit();

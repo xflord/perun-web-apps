@@ -12,9 +12,7 @@
 import { Service } from './service';
 import { Facility } from './facility';
 
-
-export interface RichDestinationAllOf { 
-    service?: Service;
-    facility?: Facility;
+export interface RichDestinationAllOf {
+  service?: Service;
+  facility?: Facility;
 }
-

@@ -34,11 +34,12 @@
 
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 
-<app-resources-tags-list *ngIf="!loading"
-                         [selection]="selection"
-                         [tableId]="tableId"
-                         [resourceTags]="resourceTags"
-                         [filterValue]="filterValue"
-                         [displayedColumns]="displayedColumns"
-                         [entity]="'resource'">
+<app-resources-tags-list
+  *ngIf="!loading"
+  [selection]="selection"
+  [tableId]="tableId"
+  [resourceTags]="resourceTags"
+  [filterValue]="filterValue"
+  [displayedColumns]="displayedColumns"
+  [entity]="'resource'">
 </app-resources-tags-list>

@@ -3,23 +3,20 @@ import { ActivatedRoute } from '@angular/router';
 import { StoreService } from './store.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PreferredLanguageService {
-
-  constructor(private route: ActivatedRoute,
-              private store: StoreService) { }
-
+  constructor(private route: ActivatedRoute, private store: StoreService) {}
 
   getPreferredLanguage(userLang: string): string {
     const supportedLang = this.store.get('supported_languages');
-    const browserLang = navigator.languages.map(lang => lang.split('-')[0]);
+    const browserLang = navigator.languages.map((lang) => lang.split('-')[0]);
 
     const query = location.search.substr(1).split('&');
     let urlLang = null;
-    for(const param of query) {
+    for (const param of query) {
       const p = param.split('=');
-      if(p[0] === 'lang') {
+      if (p[0] === 'lang') {
         urlLang = p[1];
       }
     }

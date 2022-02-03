@@ -13,14 +13,12 @@ import { Task } from './task';
 import { Service } from './service';
 import { Facility } from './facility';
 
-
-export interface ServiceState { 
-    service?: Service;
-    facility?: Facility;
-    task?: Task;
-    status?: string;
-    blockedOnFacility?: boolean;
-    readonly blockedGlobally?: boolean;
-    hasDestinations?: boolean;
+export interface ServiceState {
+  service?: Service;
+  facility?: Facility;
+  task?: Task;
+  status?: string;
+  blockedOnFacility?: boolean;
+  readonly blockedGlobally?: boolean;
+  hasDestinations?: boolean;
 }
-

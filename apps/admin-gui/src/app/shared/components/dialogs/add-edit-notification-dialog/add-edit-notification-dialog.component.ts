@@ -4,7 +4,7 @@ import { openClose, tagsOpenClose } from '@perun-web-apps/perun/animations';
 import {
   ApplicationMail,
   GroupsManagerService,
-  RegistrarManagerService
+  RegistrarManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 
@@ -21,13 +21,9 @@ export interface ApplicationFormAddEditMailDialogData {
   selector: 'app-add-edit-notification-dialog',
   templateUrl: './add-edit-notification-dialog.component.html',
   styleUrls: ['./add-edit-notification-dialog.component.scss'],
-  animations: [
-    tagsOpenClose,
-    openClose
-  ]
+  animations: [tagsOpenClose, openClose],
 })
 export class AddEditNotificationDialogComponent implements OnInit {
-
   applicationMail: ApplicationMail;
   showTags = false;
   isTextFocused = true;
@@ -37,13 +33,14 @@ export class AddEditNotificationDialogComponent implements OnInit {
   editAuth: boolean;
   languages = ['en'];
 
-  constructor(private dialogRef: MatDialogRef<AddEditNotificationDialogComponent>,
-              private registrarService: RegistrarManagerService,
-              @Inject(MAT_DIALOG_DATA) public data: ApplicationFormAddEditMailDialogData,
-              private authResolver: GuiAuthResolver,
-              private groupsService: GroupsManagerService,
-              private store: StoreService) {
-  }
+  constructor(
+    private dialogRef: MatDialogRef<AddEditNotificationDialogComponent>,
+    private registrarService: RegistrarManagerService,
+    @Inject(MAT_DIALOG_DATA) public data: ApplicationFormAddEditMailDialogData,
+    private authResolver: GuiAuthResolver,
+    private groupsService: GroupsManagerService,
+    private store: StoreService
+  ) {}
 
   ngOnInit() {
     this.languages = this.store.get('supported_languages');
@@ -51,16 +48,22 @@ export class AddEditNotificationDialogComponent implements OnInit {
     this.theme = this.data.theme;
 
     if (this.data.groupId) {
-      this.groupsService.getGroupById(this.data.groupId).subscribe(group => {
-        this.editAuth = this.authResolver.isAuthorized('group-addMail_ApplicationForm_ApplicationMail_policy', [group]);
+      this.groupsService.getGroupById(this.data.groupId).subscribe((group) => {
+        this.editAuth = this.authResolver.isAuthorized(
+          'group-addMail_ApplicationForm_ApplicationMail_policy',
+          [group]
+        );
       });
     } else if (this.data.voId) {
       const vo = {
         id: this.data.voId,
-        beanName: 'Vo'
+        beanName: 'Vo',
       };
 
-      this.editAuth = this.authResolver.isAuthorized('vo-addMail_ApplicationForm_ApplicationMail_policy', [vo]);
+      this.editAuth = this.authResolver.isAuthorized(
+        'vo-addMail_ApplicationForm_ApplicationMail_policy',
+        [vo]
+      );
     }
   }
 
@@ -75,27 +78,40 @@ export class AddEditNotificationDialogComponent implements OnInit {
     }
     this.loading = true;
     if (this.data.groupId) {
-      this.registrarService.addApplicationMailForGroup({
-        group: this.data.groupId,
-        mail: this.applicationMail
-      }).subscribe(() => {
-        this.dialogRef.close(true);
-      }, () => this.loading = false);
+      this.registrarService
+        .addApplicationMailForGroup({
+          group: this.data.groupId,
+          mail: this.applicationMail,
+        })
+        .subscribe(
+          () => {
+            this.dialogRef.close(true);
+          },
+          () => (this.loading = false)
+        );
     } else {
-      this.registrarService.addApplicationMailForVo({
-        vo: this.data.voId,
-        mail: this.applicationMail
-      }).subscribe(() => {
-        this.dialogRef.close(true);
-      }, () => this.loading = false);
+      this.registrarService
+        .addApplicationMailForVo({
+          vo: this.data.voId,
+          mail: this.applicationMail,
+        })
+        .subscribe(
+          () => {
+            this.dialogRef.close(true);
+          },
+          () => (this.loading = false)
+        );
     }
   }
 
   save() {
     this.loading = true;
-    this.registrarService.updateApplicationMail({ mail: this.applicationMail }).subscribe(() => {
-      this.dialogRef.close(true);
-    }, () => this.loading = false);
+    this.registrarService.updateApplicationMail({ mail: this.applicationMail }).subscribe(
+      () => {
+        this.dialogRef.close(true);
+      },
+      () => (this.loading = false)
+    );
   }
 
   addTag(input: HTMLInputElement, textarea: HTMLTextAreaElement, language: string, tag: string) {
@@ -113,8 +129,8 @@ export class AddEditNotificationDialogComponent implements OnInit {
         this.applicationMail.message[language].text.substring(position);
     } else {
       this.applicationMail.message[language].subject =
-        this.applicationMail.message[language].subject.substring(0, position)
-        + tag +
+        this.applicationMail.message[language].subject.substring(0, position) +
+        tag +
         this.applicationMail.message[language].subject.substring(position);
     }
     place.focus();
@@ -122,7 +138,10 @@ export class AddEditNotificationDialogComponent implements OnInit {
 
   notificationExist() {
     for (const mail of this.data.applicationMails) {
-      if (mail.mailType === this.applicationMail.mailType && mail.appType === this.applicationMail.appType) {
+      if (
+        mail.mailType === this.applicationMail.mailType &&
+        mail.appType === this.applicationMail.appType
+      ) {
         this.invalidNotification = true;
         return;
       }

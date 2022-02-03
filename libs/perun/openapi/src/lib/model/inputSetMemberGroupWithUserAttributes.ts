@@ -11,20 +11,18 @@
  */
 import { Attribute } from './attribute';
 
-
 /**
  * input to setMemberGroupWithUserAttributes
  */
-export interface InputSetMemberGroupWithUserAttributes { 
-    /**
-     * member id
-     */
-    member: number;
-    /**
-     * group id
-     */
-    group: number;
-    attributes: Array<Attribute>;
-    workWithUserAttributes: boolean;
+export interface InputSetMemberGroupWithUserAttributes {
+  /**
+   * member id
+   */
+  member: number;
+  /**
+   * group id
+   */
+  group: number;
+  attributes: Array<Attribute>;
+  workWithUserAttributes: boolean;
 }
-

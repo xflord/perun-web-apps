@@ -2,71 +2,67 @@
   {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.TAGS_DESCRIPTION' | translate}}
 </app-alert>
 <div cdkScrollable class="scrollable">
-  <div class="font-weight-bold">{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.APPLICATION_RELATED_SECTION' | translate}}:</div>
-  <app-tag-section
-    [tags]="applicationRelatedTags"
-    (addedTag)="addTag($event)">
-  </app-tag-section>
+  <div class="font-weight-bold">
+    {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.APPLICATION_RELATED_SECTION' | translate}}:
+  </div>
+  <app-tag-section [tags]="applicationRelatedTags" (addedTag)="addTag($event)"> </app-tag-section>
 
-  <div class="font-weight-bold pt-2">{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.USER_RELATED_SECTION' | translate}}:</div>
+  <div class="font-weight-bold pt-2">
+    {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.USER_RELATED_SECTION' | translate}}:
+  </div>
 
-  <app-tag-section
-    [tags]="userRelatedTags"
-    (addedTag)="addTag($event)">
-  </app-tag-section>
+  <app-tag-section [tags]="userRelatedTags" (addedTag)="addTag($event)"> </app-tag-section>
 
-  <div class="font-weight-bold pt-2">{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.VALIDATION_LINKS_USERS_SECTION' | translate}}:</div>
+  <div class="font-weight-bold pt-2">
+    {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.VALIDATION_LINKS_USERS_SECTION' | translate}}:
+  </div>
 
   <div class="font-italic text-muted">
     {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.VALIDATION_LINKS_DESCRIPTION' | translate}}
   </div>
 
-  <app-tag-section
-    [tags]="validationLinksUsersTags"
-    (addedTag)="addTag($event)">
-  </app-tag-section>
+  <app-tag-section [tags]="validationLinksUsersTags" (addedTag)="addTag($event)"> </app-tag-section>
 
-  <div class="font-weight-bold pt-2">{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.APPLICATION_LINKS_USERS_SECTION' | translate}}:</div>
+  <div class="font-weight-bold pt-2">
+    {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.APPLICATION_LINKS_USERS_SECTION' | translate}}:
+  </div>
 
   <div class="font-italic text-muted">
     {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.APPLICATION_LINKS_DESCRIPTION' | translate}}
   </div>
 
-  <app-tag-section
-    [tags]="applicationLinksUsersTags"
-    (addedTag)="addTag($event)">
+  <app-tag-section [tags]="applicationLinksUsersTags" (addedTag)="addTag($event)">
   </app-tag-section>
 
-  <div class="font-weight-bold pt-2">{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.APPLICATION_LINKS_ADMINISTRATOR_SECTION' | translate}}:</div>
+  <div class="font-weight-bold pt-2">
+    {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.APPLICATION_LINKS_ADMINISTRATOR_SECTION' | translate}}:
+  </div>
 
   <div class="font-italic text-muted">
     {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.APPLICATION_LINKS_ADMINISTRATOR_DESCRIPTION' | translate}}
   </div>
 
-  <app-tag-section
-    [tags]="applicationLinksAdministratorsTags"
-    (addedTag)="addTag($event)">
+  <app-tag-section [tags]="applicationLinksAdministratorsTags" (addedTag)="addTag($event)">
   </app-tag-section>
 
-  <div class="font-weight-bold pt-2">{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.PERUN_LINKS_ADMINISTRATOR_SECTION' | translate}}:</div>
+  <div class="font-weight-bold pt-2">
+    {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.PERUN_LINKS_ADMINISTRATOR_SECTION' | translate}}:
+  </div>
 
   <div class="font-italic text-muted">
     {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.PERUN_LINKS_ADMINISTRATOR_DESCRIPTION' | translate}}
   </div>
 
-  <app-tag-section
-    [tags]="perunLinksAdministratorsTags"
-    (addedTag)="addTag($event)">
+  <app-tag-section [tags]="perunLinksAdministratorsTags" (addedTag)="addTag($event)">
   </app-tag-section>
 
-  <div class="font-weight-bold pt-2">{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.USER_INVITATIONS_SECTION' | translate}}:</div>
+  <div class="font-weight-bold pt-2">
+    {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.USER_INVITATIONS_SECTION' | translate}}:
+  </div>
 
   <div class="font-italic text-muted">
     {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.USER_INVITATIONS_DESCRIPTION' | translate}}
   </div>
 
-  <app-tag-section
-    [tags]="userInvitationsTags"
-    (addedTag)="addTag($event)">
-  </app-tag-section>
+  <app-tag-section [tags]="userInvitationsTags" (addedTag)="addTag($event)"> </app-tag-section>
 </div>

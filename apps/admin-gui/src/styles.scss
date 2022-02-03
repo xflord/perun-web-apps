@@ -11,7 +11,7 @@
   $color: map-get($palette, $hue);
 
   @if (type-of($color) != color) {
-    @if ($opacity == null){
+    @if ($opacity == null) {
       @return $color;
     }
 
@@ -23,7 +23,6 @@
 
   @return rgba($color, if($opacity == null, opacity($color), $opacity));
 }
-
 
 // Plus imports for other components in your app.
 
@@ -82,11 +81,17 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
 }
 
 @function mixw($variable, $opacity) {
-  @return unquote('linear-gradient(to top, rgba(255, 255, 255,'+ $opacity +'),rgba(255, 255, 255,' + $opacity + ')) ' + $variable);
+  @return unquote(
+    'linear-gradient(to top, rgba(255, 255, 255,' + $opacity + '),rgba(255, 255, 255,' + $opacity +
+      ')) ' + $variable
+  );
 }
 
 @function mixb($variable, $opacity) {
-  @return unquote('linear-gradient(to top, rgba(0, 0, 0,'+ $opacity +'),rgba(0, 0, 0,' + $opacity + '))' + $variable);
+  @return unquote(
+    'linear-gradient(to top, rgba(0, 0, 0,' + $opacity + '),rgba(0, 0, 0,' + $opacity + '))' +
+      $variable
+  );
 }
 // Perun entities colors
 //$vo-color: #283593;
@@ -98,21 +103,21 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
 //var(--user-color): #00796b;
 
 .vo-theme {
-  $vo-dynamic-colors:(
-    50 : rgba(var(--vo-theme-primary-50), 1),
-    100 : rgba(var(--vo-theme-primary-100), 1),
-    200 : rgba(var(--vo-theme-primary-200), 1),
-    300 : rgba(var(--vo-theme-primary-300), 1),
-    400 : rgba(var(--vo-theme-primary-400), 1),
-    500 : rgba(var(--vo-theme-primary-500), 1),
-    600 : rgba(var(--vo-theme-primary-600), 1),
-    700 : rgba(var(--vo-theme-primary-700), 1),
-    800 : rgba(var(--vo-theme-primary-800), 1),
-    900 : rgba(var(--vo-theme-primary-900), 1),
-    A100 : rgba(var(--vo-theme-primary-A100), 1),
-    A200 : rgba(var(--vo-theme-primary-A200), 1),
-    A400 : rgba(var(--vo-theme-primary-A400), 1),
-    A700 : rgba(var(--vo-theme-primary-A700), 1),
+  $vo-dynamic-colors: (
+    50: rgba(var(--vo-theme-primary-50), 1),
+    100: rgba(var(--vo-theme-primary-100), 1),
+    200: rgba(var(--vo-theme-primary-200), 1),
+    300: rgba(var(--vo-theme-primary-300), 1),
+    400: rgba(var(--vo-theme-primary-400), 1),
+    500: rgba(var(--vo-theme-primary-500), 1),
+    600: rgba(var(--vo-theme-primary-600), 1),
+    700: rgba(var(--vo-theme-primary-700), 1),
+    800: rgba(var(--vo-theme-primary-800), 1),
+    900: rgba(var(--vo-theme-primary-900), 1),
+    A100: rgba(var(--vo-theme-primary-A100), 1),
+    A200: rgba(var(--vo-theme-primary-A200), 1),
+    A400: rgba(var(--vo-theme-primary-A400), 1),
+    A700: rgba(var(--vo-theme-primary-A700), 1),
     contrast: (
       50: rgba(var(--vo-theme-primary-contrast-50), 1),
       100: rgba(var(--vo-theme-primary-contrast-100), 1),
@@ -128,7 +133,7 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
       A200: rgba(var(--vo-theme-primary-contrast-A200), 1),
       A400: rgba(var(--vo-theme-primary-contrast-A400), 1),
       A700: rgba(var(--vo-theme-primary-contrast-A700), 1),
-    )
+    ),
   );
 
   $vo-primary: mat.define-palette($vo-dynamic-colors, 500);
@@ -148,21 +153,21 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
 //}
 
 .facility-theme {
-  $facility-dynamic-colors:(
-    50 : rgba(var(--facility-theme-primary-50), 1),
-    100 : rgba(var(--facility-theme-primary-100), 1),
-    200 : rgba(var(--facility-theme-primary-200), 1),
-    300 : rgba(var(--facility-theme-primary-300), 1),
-    400 : rgba(var(--facility-theme-primary-400), 1),
-    500 : rgba(var(--facility-theme-primary-500), 1),
-    600 : rgba(var(--facility-theme-primary-600), 1),
-    700 : rgba(var(--facility-theme-primary-700), 1),
-    800 : rgba(var(--facility-theme-primary-800), 1),
-    900 : rgba(var(--facility-theme-primary-900), 1),
-    A100 : rgba(var(--facility-theme-primary-A100), 1),
-    A200 : rgba(var(--facility-theme-primary-A200), 1),
-    A400 : rgba(var(--facility-theme-primary-A400), 1),
-    A700 : rgba(var(--facility-theme-primary-A700), 1),
+  $facility-dynamic-colors: (
+    50: rgba(var(--facility-theme-primary-50), 1),
+    100: rgba(var(--facility-theme-primary-100), 1),
+    200: rgba(var(--facility-theme-primary-200), 1),
+    300: rgba(var(--facility-theme-primary-300), 1),
+    400: rgba(var(--facility-theme-primary-400), 1),
+    500: rgba(var(--facility-theme-primary-500), 1),
+    600: rgba(var(--facility-theme-primary-600), 1),
+    700: rgba(var(--facility-theme-primary-700), 1),
+    800: rgba(var(--facility-theme-primary-800), 1),
+    900: rgba(var(--facility-theme-primary-900), 1),
+    A100: rgba(var(--facility-theme-primary-A100), 1),
+    A200: rgba(var(--facility-theme-primary-A200), 1),
+    A400: rgba(var(--facility-theme-primary-A400), 1),
+    A700: rgba(var(--facility-theme-primary-A700), 1),
     contrast: (
       50: rgba(var(--facility-theme-primary-contrast-50), 1),
       100: rgba(var(--facility-theme-primary-contrast-100), 1),
@@ -178,7 +183,7 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
       A200: rgba(var(--facility-theme-primary-contrast-A200), 1),
       A400: rgba(var(--facility-theme-primary-contrast-A400), 1),
       A700: rgba(var(--facility-theme-primary-contrast-A700), 1),
-    )
+    ),
   );
 
   $facility-primary: mat.define-palette($facility-dynamic-colors, 500);
@@ -198,21 +203,21 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
 //}
 
 .resource-theme {
-  $resource-dynamic-colors:(
-    50 : rgba(var(--resource-theme-primary-50), 1),
-    100 : rgba(var(--resource-theme-primary-100), 1),
-    200 : rgba(var(--resource-theme-primary-200), 1),
-    300 : rgba(var(--resource-theme-primary-300), 1),
-    400 : rgba(var(--resource-theme-primary-400), 1),
-    500 : rgba(var(--resource-theme-primary-500), 1),
-    600 : rgba(var(--resource-theme-primary-600), 1),
-    700 : rgba(var(--resource-theme-primary-700), 1),
-    800 : rgba(var(--resource-theme-primary-800), 1),
-    900 : rgba(var(--resource-theme-primary-900), 1),
-    A100 : rgba(var(--resource-theme-primary-A100), 1),
-    A200 : rgba(var(--resource-theme-primary-A200), 1),
-    A400 : rgba(var(--resource-theme-primary-A400), 1),
-    A700 : rgba(var(--resource-theme-primary-A700), 1),
+  $resource-dynamic-colors: (
+    50: rgba(var(--resource-theme-primary-50), 1),
+    100: rgba(var(--resource-theme-primary-100), 1),
+    200: rgba(var(--resource-theme-primary-200), 1),
+    300: rgba(var(--resource-theme-primary-300), 1),
+    400: rgba(var(--resource-theme-primary-400), 1),
+    500: rgba(var(--resource-theme-primary-500), 1),
+    600: rgba(var(--resource-theme-primary-600), 1),
+    700: rgba(var(--resource-theme-primary-700), 1),
+    800: rgba(var(--resource-theme-primary-800), 1),
+    900: rgba(var(--resource-theme-primary-900), 1),
+    A100: rgba(var(--resource-theme-primary-A100), 1),
+    A200: rgba(var(--resource-theme-primary-A200), 1),
+    A400: rgba(var(--resource-theme-primary-A400), 1),
+    A700: rgba(var(--resource-theme-primary-A700), 1),
     contrast: (
       50: rgba(var(--resource-theme-primary-contrast-50), 1),
       100: rgba(var(--resource-theme-primary-contrast-100), 1),
@@ -228,7 +233,7 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
       A200: rgba(var(--resource-theme-primary-contrast-A200), 1),
       A400: rgba(var(--resource-theme-primary-contrast-A400), 1),
       A700: rgba(var(--resource-theme-primary-contrast-A700), 1),
-    )
+    ),
   );
 
   $resource-primary: mat.define-palette($resource-dynamic-colors, 500);
@@ -248,21 +253,21 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
 //}
 
 .group-theme {
-  $group-dynamic-colors:(
-    50 : rgba(var(--group-theme-primary-50), 1),
-    100 : rgba(var(--group-theme-primary-100), 1),
-    200 : rgba(var(--group-theme-primary-200), 1),
-    300 : rgba(var(--group-theme-primary-300), 1),
-    400 : rgba(var(--group-theme-primary-400), 1),
-    500 : rgba(var(--group-theme-primary-500), 1),
-    600 : rgba(var(--group-theme-primary-600), 1),
-    700 : rgba(var(--group-theme-primary-700), 1),
-    800 : rgba(var(--group-theme-primary-800), 1),
-    900 : rgba(var(--group-theme-primary-900), 1),
-    A100 : rgba(var(--group-theme-primary-A100), 1),
-    A200 : rgba(var(--group-theme-primary-A200), 1),
-    A400 : rgba(var(--group-theme-primary-A400), 1),
-    A700 : rgba(var(--group-theme-primary-A700), 1),
+  $group-dynamic-colors: (
+    50: rgba(var(--group-theme-primary-50), 1),
+    100: rgba(var(--group-theme-primary-100), 1),
+    200: rgba(var(--group-theme-primary-200), 1),
+    300: rgba(var(--group-theme-primary-300), 1),
+    400: rgba(var(--group-theme-primary-400), 1),
+    500: rgba(var(--group-theme-primary-500), 1),
+    600: rgba(var(--group-theme-primary-600), 1),
+    700: rgba(var(--group-theme-primary-700), 1),
+    800: rgba(var(--group-theme-primary-800), 1),
+    900: rgba(var(--group-theme-primary-900), 1),
+    A100: rgba(var(--group-theme-primary-A100), 1),
+    A200: rgba(var(--group-theme-primary-A200), 1),
+    A400: rgba(var(--group-theme-primary-A400), 1),
+    A700: rgba(var(--group-theme-primary-A700), 1),
     contrast: (
       50: rgba(var(--group-theme-primary-contrast-50), 1),
       100: rgba(var(--group-theme-primary-contrast-100), 1),
@@ -278,7 +283,7 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
       A200: rgba(var(--group-theme-primary-contrast-A200), 1),
       A400: rgba(var(--group-theme-primary-contrast-A400), 1),
       A700: rgba(var(--group-theme-primary-contrast-A700), 1),
-    )
+    ),
   );
 
   $group-primary: mat.define-palette($group-dynamic-colors, 500);
@@ -298,21 +303,21 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
 //}
 
 .member-theme {
-  $member-dynamic-colors:(
-    50 : rgba(var(--member-theme-primary-50), 1),
-    100 : rgba(var(--member-theme-primary-100), 1),
-    200 : rgba(var(--member-theme-primary-200), 1),
-    300 : rgba(var(--member-theme-primary-300), 1),
-    400 : rgba(var(--member-theme-primary-400), 1),
-    500 : rgba(var(--member-theme-primary-500), 1),
-    600 : rgba(var(--member-theme-primary-600), 1),
-    700 : rgba(var(--member-theme-primary-700), 1),
-    800 : rgba(var(--member-theme-primary-800), 1),
-    900 : rgba(var(--member-theme-primary-900), 1),
-    A100 : rgba(var(--member-theme-primary-A100), 1),
-    A200 : rgba(var(--member-theme-primary-A200), 1),
-    A400 : rgba(var(--member-theme-primary-A400), 1),
-    A700 : rgba(var(--member-theme-primary-A700), 1),
+  $member-dynamic-colors: (
+    50: rgba(var(--member-theme-primary-50), 1),
+    100: rgba(var(--member-theme-primary-100), 1),
+    200: rgba(var(--member-theme-primary-200), 1),
+    300: rgba(var(--member-theme-primary-300), 1),
+    400: rgba(var(--member-theme-primary-400), 1),
+    500: rgba(var(--member-theme-primary-500), 1),
+    600: rgba(var(--member-theme-primary-600), 1),
+    700: rgba(var(--member-theme-primary-700), 1),
+    800: rgba(var(--member-theme-primary-800), 1),
+    900: rgba(var(--member-theme-primary-900), 1),
+    A100: rgba(var(--member-theme-primary-A100), 1),
+    A200: rgba(var(--member-theme-primary-A200), 1),
+    A400: rgba(var(--member-theme-primary-A400), 1),
+    A700: rgba(var(--member-theme-primary-A700), 1),
     contrast: (
       50: rgba(var(--member-theme-primary-contrast-50), 1),
       100: rgba(var(--member-theme-primary-contrast-100), 1),
@@ -328,7 +333,7 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
       A200: rgba(var(--member-theme-primary-contrast-A200), 1),
       A400: rgba(var(--member-theme-primary-contrast-A400), 1),
       A700: rgba(var(--member-theme-primary-contrast-A700), 1),
-    )
+    ),
   );
 
   $member-primary: mat.define-palette($member-dynamic-colors, 500);
@@ -348,21 +353,21 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
 //}
 
 .admin-theme {
-  $admin-dynamic-colors:(
-    50 : rgba(var(--admin-theme-primary-50), 1),
-    100 : rgba(var(--admin-theme-primary-100), 1),
-    200 : rgba(var(--admin-theme-primary-200), 1),
-    300 : rgba(var(--admin-theme-primary-300), 1),
-    400 : rgba(var(--admin-theme-primary-400), 1),
-    500 : rgba(var(--admin-theme-primary-500), 1),
-    600 : rgba(var(--admin-theme-primary-600), 1),
-    700 : rgba(var(--admin-theme-primary-700), 1),
-    800 : rgba(var(--admin-theme-primary-800), 1),
-    900 : rgba(var(--admin-theme-primary-900), 1),
-    A100 : rgba(var(--admin-theme-primary-A100), 1),
-    A200 : rgba(var(--admin-theme-primary-A200), 1),
-    A400 : rgba(var(--admin-theme-primary-A400), 1),
-    A700 : rgba(var(--admin-theme-primary-A700), 1),
+  $admin-dynamic-colors: (
+    50: rgba(var(--admin-theme-primary-50), 1),
+    100: rgba(var(--admin-theme-primary-100), 1),
+    200: rgba(var(--admin-theme-primary-200), 1),
+    300: rgba(var(--admin-theme-primary-300), 1),
+    400: rgba(var(--admin-theme-primary-400), 1),
+    500: rgba(var(--admin-theme-primary-500), 1),
+    600: rgba(var(--admin-theme-primary-600), 1),
+    700: rgba(var(--admin-theme-primary-700), 1),
+    800: rgba(var(--admin-theme-primary-800), 1),
+    900: rgba(var(--admin-theme-primary-900), 1),
+    A100: rgba(var(--admin-theme-primary-A100), 1),
+    A200: rgba(var(--admin-theme-primary-A200), 1),
+    A400: rgba(var(--admin-theme-primary-A400), 1),
+    A700: rgba(var(--admin-theme-primary-A700), 1),
     contrast: (
       50: rgba(var(--admin-theme-primary-contrast-50), 1),
       100: rgba(var(--admin-theme-primary-contrast-100), 1),
@@ -378,7 +383,7 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
       A200: rgba(var(--admin-theme-primary-contrast-A200), 1),
       A400: rgba(var(--admin-theme-primary-contrast-A400), 1),
       A700: rgba(var(--admin-theme-primary-contrast-A700), 1),
-    )
+    ),
   );
 
   $admin-primary: mat.define-palette($admin-dynamic-colors, 500);
@@ -398,21 +403,21 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
 //}
 
 .user-theme {
-  $user-dynamic-colors:(
-    50 : rgba(var(--user-theme-primary-50), 1),
-    100 : rgba(var(--user-theme-primary-100), 1),
-    200 : rgba(var(--user-theme-primary-200), 1),
-    300 : rgba(var(--user-theme-primary-300), 1),
-    400 : rgba(var(--user-theme-primary-400), 1),
-    500 : rgba(var(--user-theme-primary-500), 1),
-    600 : rgba(var(--user-theme-primary-600), 1),
-    700 : rgba(var(--user-theme-primary-700), 1),
-    800 : rgba(var(--user-theme-primary-800), 1),
-    900 : rgba(var(--user-theme-primary-900), 1),
-    A100 : rgba(var(--user-theme-primary-A100), 1),
-    A200 : rgba(var(--user-theme-primary-A200), 1),
-    A400 : rgba(var(--user-theme-primary-A400), 1),
-    A700 : rgba(var(--user-theme-primary-A700), 1),
+  $user-dynamic-colors: (
+    50: rgba(var(--user-theme-primary-50), 1),
+    100: rgba(var(--user-theme-primary-100), 1),
+    200: rgba(var(--user-theme-primary-200), 1),
+    300: rgba(var(--user-theme-primary-300), 1),
+    400: rgba(var(--user-theme-primary-400), 1),
+    500: rgba(var(--user-theme-primary-500), 1),
+    600: rgba(var(--user-theme-primary-600), 1),
+    700: rgba(var(--user-theme-primary-700), 1),
+    800: rgba(var(--user-theme-primary-800), 1),
+    900: rgba(var(--user-theme-primary-900), 1),
+    A100: rgba(var(--user-theme-primary-A100), 1),
+    A200: rgba(var(--user-theme-primary-A200), 1),
+    A400: rgba(var(--user-theme-primary-A400), 1),
+    A700: rgba(var(--user-theme-primary-A700), 1),
     contrast: (
       50: rgba(var(--user-theme-primary-contrast-50), 1),
       100: rgba(var(--user-theme-primary-contrast-100), 1),
@@ -428,7 +433,7 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
       A200: rgba(var(--user-theme-primary-contrast-A200), 1),
       A400: rgba(var(--user-theme-primary-contrast-A400), 1),
       A700: rgba(var(--user-theme-primary-contrast-A700), 1),
-    )
+    ),
   );
 
   $user-primary: mat.define-palette($user-dynamic-colors, 500);
@@ -440,21 +445,21 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
 }
 
 .service-theme {
-  $service-dynamic-colors:(
-    50 : rgba(var(--service-theme-primary-50), 1),
-    100 : rgba(var(--service-theme-primary-100), 1),
-    200 : rgba(var(--service-theme-primary-200), 1),
-    300 : rgba(var(--service-theme-primary-300), 1),
-    400 : rgba(var(--service-theme-primary-400), 1),
-    500 : rgba(var(--service-theme-primary-500), 1),
-    600 : rgba(var(--service-theme-primary-600), 1),
-    700 : rgba(var(--service-theme-primary-700), 1),
-    800 : rgba(var(--service-theme-primary-800), 1),
-    900 : rgba(var(--service-theme-primary-900), 1),
-    A100 : rgba(var(--service-theme-primary-A100), 1),
-    A200 : rgba(var(--service-theme-primary-A200), 1),
-    A400 : rgba(var(--service-theme-primary-A400), 1),
-    A700 : rgba(var(--service-theme-primary-A700), 1),
+  $service-dynamic-colors: (
+    50: rgba(var(--service-theme-primary-50), 1),
+    100: rgba(var(--service-theme-primary-100), 1),
+    200: rgba(var(--service-theme-primary-200), 1),
+    300: rgba(var(--service-theme-primary-300), 1),
+    400: rgba(var(--service-theme-primary-400), 1),
+    500: rgba(var(--service-theme-primary-500), 1),
+    600: rgba(var(--service-theme-primary-600), 1),
+    700: rgba(var(--service-theme-primary-700), 1),
+    800: rgba(var(--service-theme-primary-800), 1),
+    900: rgba(var(--service-theme-primary-900), 1),
+    A100: rgba(var(--service-theme-primary-A100), 1),
+    A200: rgba(var(--service-theme-primary-A200), 1),
+    A400: rgba(var(--service-theme-primary-A400), 1),
+    A700: rgba(var(--service-theme-primary-A700), 1),
     contrast: (
       50: rgba(var(--service-theme-primary-contrast-50), 1),
       100: rgba(var(--service-theme-primary-contrast-100), 1),
@@ -470,7 +475,7 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
       A200: rgba(var(--service-theme-primary-contrast-A200), 1),
       A400: rgba(var(--service-theme-primary-contrast-A400), 1),
       A700: rgba(var(--service-theme-primary-contrast-A700), 1),
-    )
+    ),
   );
 
   $service-primary: mat.define-palette($service-dynamic-colors, 500);
@@ -529,7 +534,7 @@ button:focus {
   border-right: 5px solid var(--vo-color);
   color: var(--vo-color) !important;
   font-weight: 500;
-  background-color: rgba(63, 76, 255, 0.10) !important;
+  background-color: rgba(63, 76, 255, 0.1) !important;
 
   &:hover {
     background-color: rgba(63, 76, 255, 0.15) !important;
@@ -540,7 +545,7 @@ button:focus {
   border-right: 5px solid var(--admin-color);
   color: var(--admin-color) !important;
   font-weight: 500;
-  background-color: rgba(255, 50, 50, 0.10);
+  background-color: rgba(255, 50, 50, 0.1);
 
   &:hover {
     background-color: rgba(255, 50, 50, 0.15) !important;
@@ -561,7 +566,7 @@ button:focus {
   border-right: 5px solid var(--resource-color);
   color: var(--resource-color) !important;
   font-weight: 500;
-  background-color: rgba(176, 44, 255, 0.10);
+  background-color: rgba(176, 44, 255, 0.1);
 
   &:hover {
     background-color: rgba(176, 44, 255, 0.15) !important;
@@ -572,7 +577,7 @@ button:focus {
   border-right: 5px solid var(--group-color);
   color: var(--group-color) !important;
   font-weight: 500;
-  background-color: rgba(123, 255, 71, 0.10);
+  background-color: rgba(123, 255, 71, 0.1);
 
   &:hover {
     background-color: rgba(123, 255, 71, 0.15) !important;
@@ -582,7 +587,7 @@ button:focus {
   border-right: 5px solid var(--member-color);
   color: var(--member-color) !important;
   font-weight: 500;
-  background-color: rgba(255, 28, 133, 0.10);
+  background-color: rgba(255, 28, 133, 0.1);
 
   &:hover {
     background-color: rgba(255, 28, 133, 0.15) !important;
@@ -594,7 +599,7 @@ button:focus {
   border-right: 5px solid var(--member-color);
   color: var(--member-color) !important;
   font-weight: 500;
-  background-color: rgba(0, 121, 107, 0.10);
+  background-color: rgba(0, 121, 107, 0.1);
 
   &:hover {
     background-color: rgba(0, 121, 107, 0.15) !important;
@@ -605,7 +610,7 @@ button:focus {
   border-right: 5px solid var(--service-color);
   color: var(--service-color) !important;
   font-weight: 500;
-  background-color: rgba(86, 19, 53, 0.10);
+  background-color: rgba(86, 19, 53, 0.1);
 
   &:hover {
     background-color: rgba(86, 19, 53, 0.15) !important;
@@ -681,10 +686,10 @@ button:focus {
 .router-component {
   padding-bottom: 5rem;
   min-height: calc(100vh - 314px);
-  @media(min-width: 769px) and (max-width: 1199px) {
+  @media (min-width: 769px) and (max-width: 1199px) {
     width: calc(100vw - 330px);
   }
-  @media(max-width: 768px) {
+  @media (max-width: 768px) {
     width: calc(100vw - 30px);
   }
 }
@@ -793,7 +798,7 @@ textarea.cdk-textarea-autosize-measuring {
 }
 
 .page-subtitle {
-  margin-bottom: 1.0rem;
+  margin-bottom: 1rem;
   font-size: 1.5rem;
 }
 
@@ -813,29 +818,29 @@ textarea.cdk-textarea-autosize-measuring {
   text-align: center;
   font-size: 1.25em;
   color: #ffffff;
-  -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
-  -moz-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
+  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
 }
 
 .box-button-small {
   color: #ffffff;
-  -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
-  -moz-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
+  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
 }
 
 .box-button-medium {
   color: #ffffff;
-  -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
-  -moz-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35);
+  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
 }
 
 .button-shadow {
-  -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35) !important;
-  -moz-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35) !important;
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.35) !important;
+  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35) !important;
+  -moz-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35) !important;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35) !important;
 }
 
 .menu-items {
@@ -848,20 +853,20 @@ textarea.cdk-textarea-autosize-measuring {
   img {
     width: 100%;
     flex-grow: 1;
-    padding-left: .5rem;
-    padding-right: .5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
   @media (min-width: 768px) and (max-width: 991px) {
     img {
-      padding-left: .75rem;
-      padding-right: .75rem;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
     }
   }
 
   @media (min-width: 992px) and (max-width: 1199px) {
     img {
-      padding-left: .75rem;
-      padding-right: .75rem;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
     }
   }
 
@@ -875,7 +880,7 @@ textarea.cdk-textarea-autosize-measuring {
   flex-direction: column;
   text-align: center;
   font-size: 1.25em;
-  padding: .5rem .5rem 1.5rem .5rem;
+  padding: 0.5rem 0.5rem 1.5rem 0.5rem;
   width: 100%;
   margin: 1rem;
 
@@ -897,13 +902,13 @@ textarea.cdk-textarea-autosize-measuring {
   img {
     width: 100%;
     flex-grow: 1;
-    padding-left: .5rem;
-    padding-right: .5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
   @media (min-width: 768px) and (max-width: 991px) {
     img {
-      padding-left: .75rem;
-      padding-right: .75rem;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
     }
   }
 
@@ -951,7 +956,7 @@ textarea.cdk-textarea-autosize-measuring {
 
 .dark-hover-list-item {
   &:hover {
-    background-color: rgba(0, 0, 0, .05);
+    background-color: rgba(0, 0, 0, 0.05);
   }
 }
 
@@ -968,7 +973,6 @@ textarea.cdk-textarea-autosize-measuring {
 }
 
 .menu-item-medium {
-
   align-items: center;
   display: flex;
   flex-direction: row;
@@ -995,8 +999,8 @@ textarea.cdk-textarea-autosize-measuring {
     width: 4rem;
     height: 4rem;
     flex-grow: 1;
-    padding-left: .5rem;
-    padding-right: .5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 
   div {
@@ -1023,7 +1027,6 @@ textarea.cdk-textarea-autosize-measuring {
     }
   }*/
 }
-
 
 // Color styles for entities
 .vo-bg-color {
@@ -1091,7 +1094,8 @@ textarea.cdk-textarea-autosize-measuring {
   line-height: 1.5;
 }
 
-.app-btn.disabled, .app-btn:disabled {
+.app-btn.disabled,
+.app-btn:disabled {
   opacity: 0.65;
 }
 
@@ -1194,7 +1198,7 @@ textarea.cdk-textarea-autosize-measuring {
 
   &:hover {
     //color: lighten(var(--vo-color), 10%);
-    color: mixw(var(--vo-color), .1);
+    color: mixw(var(--vo-color), 0.1);
   }
 }
 
@@ -1203,7 +1207,7 @@ textarea.cdk-textarea-autosize-measuring {
   text-decoration: underline;
 
   &:hover {
-    color: mixw(var(--facility-color), .1);
+    color: mixw(var(--facility-color), 0.1);
   }
 }
 
@@ -1212,7 +1216,7 @@ textarea.cdk-textarea-autosize-measuring {
   text-decoration: underline;
 
   &:hover {
-    color: mixw(var(--resource-color), .1);
+    color: mixw(var(--resource-color), 0.1);
   }
 }
 
@@ -1221,7 +1225,7 @@ textarea.cdk-textarea-autosize-measuring {
   text-decoration: underline;
 
   &:hover {
-    color: mixw(var(--member-color), .1);
+    color: mixw(var(--member-color), 0.1);
   }
 }
 
@@ -1230,7 +1234,7 @@ textarea.cdk-textarea-autosize-measuring {
   text-decoration: underline;
 
   &:hover {
-    color: mixw(var(--group-color), .1);
+    color: mixw(var(--group-color), 0.1);
   }
 }
 
@@ -1239,7 +1243,7 @@ textarea.cdk-textarea-autosize-measuring {
   text-decoration: underline;
 
   &:hover {
-    color: mixw(var(--user-color), .1);
+    color: mixw(var(--user-color), 0.1);
   }
 }
 
@@ -1248,7 +1252,7 @@ textarea.cdk-textarea-autosize-measuring {
   text-decoration: underline;
 
   &:hover {
-    color: mixw(var(--service-color), .1);
+    color: mixw(var(--service-color), 0.1);
   }
 }
 // HACKS
@@ -1280,7 +1284,7 @@ textarea.cdk-textarea-autosize-measuring {
 
 //colors for material icons
 .material-icons.orange {
-  color: #FB8C00;
+  color: #fb8c00;
   vertical-align: bottom;
 }
 .material-icons.red {
@@ -1346,7 +1350,8 @@ textarea.cdk-textarea-autosize-measuring {
   word-break: break-all;
 }
 
-th, td.mat-cell {
+th,
+td.mat-cell {
   padding: 0.25rem !important;
 }
 
@@ -1355,7 +1360,7 @@ th, td.mat-cell {
 }
 
 .entity-info {
-  font-size: 1.0rem;
+  font-size: 1rem;
 }
 
 #preloader {
@@ -1380,7 +1385,7 @@ th, td.mat-cell {
   animation: spin 2s linear infinite;
 }
 #loader:before {
-  content: "";
+  content: '';
   position: absolute;
   top: 5px;
   left: 5px;
@@ -1393,7 +1398,7 @@ th, td.mat-cell {
   animation: spin 3s linear infinite;
 }
 #loader:after {
-  content: "";
+  content: '';
   position: absolute;
   top: 15px;
   left: 15px;
@@ -1406,7 +1411,7 @@ th, td.mat-cell {
   animation: spin 1.5s linear infinite;
 }
 @-webkit-keyframes spin {
-  0%   {
+  0% {
     -webkit-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
     transform: rotate(0deg);
@@ -1418,7 +1423,7 @@ th, td.mat-cell {
   }
 }
 @keyframes spin {
-  0%   {
+  0% {
     -webkit-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
     transform: rotate(0deg);

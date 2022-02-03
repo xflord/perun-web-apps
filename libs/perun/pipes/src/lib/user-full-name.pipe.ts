@@ -2,12 +2,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { User } from '@perun-web-apps/perun/openapi';
 
 @Pipe({
-  name: 'userFullName'
+  name: 'userFullName',
 })
 export class UserFullNamePipe implements PipeTransform {
-
   transform(value: any): any {
-    const user = <User> value;
+    const user = <User>value;
 
     let fullName = '';
 
@@ -32,5 +31,4 @@ export class UserFullNamePipe implements PipeTransform {
 
     return fullName;
   }
-
 }

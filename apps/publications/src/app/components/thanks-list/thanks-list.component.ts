@@ -3,8 +3,11 @@ import { Owner, ThanksForGUI } from '@perun-web-apps/perun/openapi';
 import { MatSort } from '@angular/material/sort';
 import {
   customDataSourceFilterPredicate,
-  customDataSourceSort, downloadData, getDataForExport,
-  TABLE_ITEMS_COUNT_OPTIONS, TableWrapperComponent
+  customDataSourceSort,
+  downloadData,
+  getDataForExport,
+  TABLE_ITEMS_COUNT_OPTIONS,
+  TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -13,11 +16,10 @@ import { TableCheckbox } from '@perun-web-apps/perun/services';
 @Component({
   selector: 'perun-web-apps-thanks-list',
   templateUrl: './thanks-list.component.html',
-  styleUrls: ['./thanks-list.component.scss']
+  styleUrls: ['./thanks-list.component.scss'],
 })
 export class ThanksListComponent implements AfterViewInit, OnChanges {
-
-  constructor(private tableCheckbox: TableCheckbox) { }
+  constructor(private tableCheckbox: TableCheckbox) {}
 
   @Input()
   thanks: ThanksForGUI[] = [];
@@ -40,7 +42,7 @@ export class ThanksListComponent implements AfterViewInit, OnChanges {
 
   dataSource: MatTableDataSource<ThanksForGUI>;
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   ngOnChanges(): void {
     this.dataSource = new MatTableDataSource<ThanksForGUI>(this.thanks);
@@ -53,10 +55,16 @@ export class ThanksListComponent implements AfterViewInit, OnChanges {
   }
 
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(
+      this.selection.selected.length,
+      this.filterValue,
+      this.child.paginator.pageSize,
+      this.child.paginator.hasNextPage(),
+      this.dataSource
+    );
   }
 
-  getDataForColumn(data: ThanksForGUI, column: string):string {
+  getDataForColumn(data: ThanksForGUI, column: string): string {
     switch (column) {
       case 'id':
         return data.ownerId.toString();
@@ -67,18 +75,43 @@ export class ThanksListComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getDataForColumn, this), format);
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex,false);
+    this.tableCheckbox.masterToggle(
+      this.isAllSelected(),
+      this.selection,
+      this.filterValue,
+      this.dataSource,
+      this.sort,
+      this.child.paginator.pageSize,
+      this.child.paginator.pageIndex,
+      false
+    );
   }
 
   private setDataSource() {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: ThanksForGUI, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
-      this.dataSource.sortData = (data: ThanksForGUI[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.filterPredicate = (data: ThanksForGUI, filter: string) =>
+        customDataSourceFilterPredicate(
+          data,
+          filter,
+          this.displayedColumns,
+          this.getDataForColumn,
+          this
+        );
+      this.dataSource.sortData = (data: ThanksForGUI[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }

@@ -1,5 +1,4 @@
 <div [hidden]="dataSource.filteredData.length === 0" class="card mt-3">
-
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [tableId]="tableId"
@@ -13,59 +12,61 @@
       matSortDirection="asc"
       matSortDisableClear
       class="w-100">
-
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef class="align-checkbox">
-          <mat-checkbox color="primary"
-                        (change)="$event ? masterToggle() : null"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()"
-                        [aria-label]="checkboxLabel()">
+          <mat-checkbox
+            color="primary"
+            (change)="$event ? masterToggle() : null"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            [aria-label]="checkboxLabel()">
           </mat-checkbox>
         </th>
         <td mat-cell *matCellDef="let attribute" class="static-column-size align-checkbox">
-          <mat-checkbox color="primary"
-                        attr.data-cy="{{attribute.displayName | multiWordDataCy}}-checkbox"
-                        (click)="$event.stopPropagation()"
-                        (change)="$event ? selection.toggle(attribute) : null"
-                        [checked]="selection.isSelected(attribute)"
-                        [disabled]="(attribute | isVirtualAttribute) || !attribute.writable"
-                        [aria-label]="checkboxLabel(attribute)">
+          <mat-checkbox
+            color="primary"
+            attr.data-cy="{{attribute.displayName | multiWordDataCy}}-checkbox"
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(attribute) : null"
+            [checked]="selection.isSelected(attribute)"
+            [disabled]="(attribute | isVirtualAttribute) || !attribute.writable"
+            [aria-label]="checkboxLabel(attribute)">
           </mat-checkbox>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef
-            mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.ID' | translate}}</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.ID' | translate}}
+        </th>
         <td mat-cell class="static-column-size" *matCellDef="let attribute">{{attribute.id}}</td>
       </ng-container>
       <ng-container matColumnDef="displayName">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.NAME' | translate}}</th>
-        <td mat-cell
-            *matCellDef="let attribute">
-          <div
-            matTooltipClass='urn-tooltip'
-            matTooltip='{{getAttributeFullName(attribute)}}'>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.NAME' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let attribute">
+          <div matTooltipClass="urn-tooltip" matTooltip="{{getAttributeFullName(attribute)}}">
             {{attribute.displayName}}
           </div>
         </td>
       </ng-container>
       <ng-container matColumnDef="value">
-        <th *matHeaderCellDef mat-header-cell>{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.VALUE' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell>
+          {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.VALUE' | translate}}
+        </th>
         <td mat-cell *matCellDef="let attribute">
           <perun-web-apps-attribute-value
             [attribute]="attribute"
             [readonly]="readonly || !attribute.writable"
-            (sendEventToParent2)="onValueChange(attribute)"
-          >
+            (sendEventToParent2)="onValueChange(attribute)">
           </perun-web-apps-attribute-value>
         </td>
       </ng-container>
       <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef
-            mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.DESCRIPTION' | translate}}</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.DESCRIPTION' | translate}}
+        </th>
         <td mat-cell *matCellDef="let attribute">{{attribute.description}}</td>
       </ng-container>
 
@@ -76,13 +77,14 @@
         [matTooltipPosition]="'before'"
         [matTooltipDisabled]="attribute.writable || readonly"
         *matRowDef="let attribute; columns: displayedColumns;"
-        class="dark-hover-list-item">
-      </tr>
+        class="dark-hover-list-item"></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
 
-<app-alert *ngIf="dataSource.filteredData.length === 0 && dataSource.data.length !== 0" alert_type="warn">
+<app-alert
+  *ngIf="dataSource.filteredData.length === 0 && dataSource.data.length !== 0"
+  alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
 </app-alert>
 

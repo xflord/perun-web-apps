@@ -6,11 +6,10 @@ import { Facility, Group, Resource, Vo } from '@perun-web-apps/perun/openapi';
 @Component({
   selector: 'app-delete-entity-dialog',
   templateUrl: './delete-entity-dialog.component.html',
-  styleUrls: ['./delete-entity-dialog.component.scss']
+  styleUrls: ['./delete-entity-dialog.component.scss'],
 })
 export class DeleteEntityDialogComponent {
-
-  constructor() { }
+  constructor() {}
 
   @Input()
   title: string;
@@ -27,9 +26,11 @@ export class DeleteEntityDialogComponent {
   @Input()
   loading = false;
 
-
   @Output()
-  deleted: EventEmitter<{deleted:boolean, force: boolean}> = new EventEmitter<{deleted:boolean, force: boolean}>()
+  deleted: EventEmitter<{ deleted: boolean; force: boolean }> = new EventEmitter<{
+    deleted: boolean;
+    force: boolean;
+  }>();
 
   force = false;
 
@@ -37,13 +38,12 @@ export class DeleteEntityDialogComponent {
   deleteControl = new FormControl('', [Validators.required, Validators.pattern(this.deleteReg)]);
 
   onCancel() {
-    const result = {deleted: false, force: false}
+    const result = { deleted: false, force: false };
     this.deleted.emit(result);
   }
 
   onDelete() {
-    const result = {deleted: true, force: this.force}
+    const result = { deleted: true, force: this.force };
     this.deleted.emit(result);
   }
-
 }

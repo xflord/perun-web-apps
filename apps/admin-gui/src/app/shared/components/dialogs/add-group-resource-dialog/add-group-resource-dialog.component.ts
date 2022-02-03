@@ -16,18 +16,18 @@ export interface AddGroupResourceDialogData {
 @Component({
   selector: 'app-add-group-resource-dialog',
   templateUrl: './add-group-resource-dialog.component.html',
-  styleUrls: ['./add-group-resource-dialog.component.scss']
+  styleUrls: ['./add-group-resource-dialog.component.scss'],
 })
 export class AddGroupResourceDialogComponent implements OnInit {
-
-  constructor(public dialogRef: MatDialogRef<AddGroupResourceDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: AddGroupResourceDialogData,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private resourcesManager: ResourcesManagerService,
-              public guiAuthResolver: GuiAuthResolver,
-              private cd: ChangeDetectorRef) {
-  }
+  constructor(
+    public dialogRef: MatDialogRef<AddGroupResourceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: AddGroupResourceDialogData,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private resourcesManager: ResourcesManagerService,
+    public guiAuthResolver: GuiAuthResolver,
+    private cd: ChangeDetectorRef
+  ) {}
 
   @ViewChild('list', {})
   list: ResourcesListComponent;
@@ -52,21 +52,34 @@ export class AddGroupResourceDialogComponent implements OnInit {
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.loading = true;
-    this.autoAssignHint = this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.AUTO_SUBGROUPS_OFF_HINT');
+    this.autoAssignHint = this.translate.instant(
+      'DIALOGS.ADD_GROUP_RESOURCES.AUTO_SUBGROUPS_OFF_HINT'
+    );
     this.asActiveHint = this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ACTIVE_ON_HINT');
     this.asyncHint = this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ASYNC_ON_HINT');
-    this.resourcesManager.getRichResources(this.data.group.voId).subscribe(allResources => {
-      this.resourcesManager.getAssignedResourcesWithGroup(this.data.group.id).subscribe(assignedResources => {
-        for (const allResource of allResources) {
-          if (assignedResources.findIndex(item => item.id === allResource.id) === -1
-            && this.guiAuthResolver.isAuthorized('assignGroupToResources_Group_List<Resource>_policy',[this.data.group, allResource])) {
-            this.resources.push(allResource);
-          }
-        }
-        this.loading = false;
-        this.cd.detectChanges();
-      }, () => this.loading = false);
-    }, () => this.loading = false );
+    this.resourcesManager.getRichResources(this.data.group.voId).subscribe(
+      (allResources) => {
+        this.resourcesManager.getAssignedResourcesWithGroup(this.data.group.id).subscribe(
+          (assignedResources) => {
+            for (const allResource of allResources) {
+              if (
+                assignedResources.findIndex((item) => item.id === allResource.id) === -1 &&
+                this.guiAuthResolver.isAuthorized(
+                  'assignGroupToResources_Group_List<Resource>_policy',
+                  [this.data.group, allResource]
+                )
+              ) {
+                this.resources.push(allResource);
+              }
+            }
+            this.loading = false;
+            this.cd.detectChanges();
+          },
+          () => (this.loading = false)
+        );
+      },
+      () => (this.loading = false)
+    );
   }
 
   applyFilter(filterValue: string) {
@@ -79,32 +92,42 @@ export class AddGroupResourceDialogComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
-    const resourceIds = this.selection.selected.map(res => res.id);
-    this.resourcesManager.assignGroupToResources(this.data.group.id, resourceIds, this.async, !this.asActive, this.autoAssignSubgroups)
-      .subscribe(() => {
-        this.translate.get('DIALOGS.ADD_GROUP_RESOURCES.SUCCESS').subscribe(successMessage => {
-          this.notificator.showSuccess(successMessage);
-          this.dialogRef.close(true);
-        });
-    }, () => this.loading = false);
+    const resourceIds = this.selection.selected.map((res) => res.id);
+    this.resourcesManager
+      .assignGroupToResources(
+        this.data.group.id,
+        resourceIds,
+        this.async,
+        !this.asActive,
+        this.autoAssignSubgroups
+      )
+      .subscribe(
+        () => {
+          this.translate.get('DIALOGS.ADD_GROUP_RESOURCES.SUCCESS').subscribe((successMessage) => {
+            this.notificator.showSuccess(successMessage);
+            this.dialogRef.close(true);
+          });
+        },
+        () => (this.loading = false)
+      );
   }
 
   changeSubgroupsMessage() {
-    this.autoAssignHint = this.autoAssignSubgroups ?
-      this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.AUTO_SUBGROUPS_OFF_HINT') :
-      this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.AUTO_SUBGROUPS_ON_HINT');
+    this.autoAssignHint = this.autoAssignSubgroups
+      ? this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.AUTO_SUBGROUPS_OFF_HINT')
+      : this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.AUTO_SUBGROUPS_ON_HINT');
   }
 
   changeInactiveMessage() {
-    this.asActiveHint = this.asActive ?
-      this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ACTIVE_OFF_HINT') :
-      this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ACTIVE_ON_HINT');
+    this.asActiveHint = this.asActive
+      ? this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ACTIVE_OFF_HINT')
+      : this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ACTIVE_ON_HINT');
   }
 
   changeAsyncMessage() {
-    this.asyncHint = this.async ?
-      this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ASYNC_OFF_HINT') :
-      this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ASYNC_ON_HINT');
+    this.asyncHint = this.async
+      ? this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ASYNC_OFF_HINT')
+      : this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ASYNC_ON_HINT');
   }
 
   stepperPrevious() {

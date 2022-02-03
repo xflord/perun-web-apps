@@ -1,10 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'attributeTypeClean'
+  name: 'attributeTypeClean',
 })
 export class AttributeTypeCleanPipe implements PipeTransform {
-
   transform(value: any): any {
     if (value === null) {
       return null;
@@ -13,5 +12,4 @@ export class AttributeTypeCleanPipe implements PipeTransform {
     const stringValue = <string>value;
     return stringValue.substring(stringValue.lastIndexOf('.') + 1, stringValue.length);
   }
-
 }

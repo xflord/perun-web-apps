@@ -11,11 +11,9 @@
  */
 import { ApplicationForm } from './applicationForm';
 
-
 /**
  * input to updateForm
  */
-export interface InputUpdateForm { 
-    form?: ApplicationForm;
+export interface InputUpdateForm {
+  form?: ApplicationForm;
 }
-

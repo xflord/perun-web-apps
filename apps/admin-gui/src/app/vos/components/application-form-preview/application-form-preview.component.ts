@@ -1,5 +1,5 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ApplicationFormItem } from '@perun-web-apps/perun/openapi';
 import { TranslateService } from '@ngx-translate/core';
 import { StoreService } from '@perun-web-apps/perun/services';
@@ -7,26 +7,27 @@ import { StoreService } from '@perun-web-apps/perun/services';
 @Component({
   selector: 'app-application-form-preview',
   templateUrl: './application-form-preview.component.html',
-  styleUrls: ['./application-form-preview.component.scss']
+  styleUrls: ['./application-form-preview.component.scss'],
 })
 export class ApplicationFormPreviewComponent implements OnInit {
-
   @HostBinding('class.router-component') true;
 
   loading = true;
   applicationFormItems: ApplicationFormItem[] = [];
   currentLanguage = 'en';
-  languages = ['en']
+  languages = ['en'];
   initialPage = true;
   mapForCombobox: Map<number, string> = new Map();
 
-  constructor(protected route: ActivatedRoute,
-              private translate: TranslateService,
-              private store: StoreService) { }
+  constructor(
+    protected route: ActivatedRoute,
+    private translate: TranslateService,
+    private store: StoreService
+  ) {}
 
   ngOnInit() {
-    this.languages = this.store.get('supported_languages')
-    this.route.queryParamMap.subscribe( params => {
+    this.languages = this.store.get('supported_languages');
+    this.route.queryParamMap.subscribe((params) => {
       this.applicationFormItems = JSON.parse(params.get('applicationFormItems'));
       this.loading = false;
     });
@@ -75,19 +76,37 @@ export class ApplicationFormPreviewComponent implements OnInit {
     let messEnd: string;
     switch (item.disabled) {
       case 'ALWAYS':
-        return this.translate.instant('VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.ALWAYS_DISABLED');
+        return this.translate.instant(
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.ALWAYS_DISABLED'
+        );
       case 'IF_PREFILLED':
-        messStart = this.translate.instant('VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.DISABLED_WHEN');
-        dep =  item.hiddenDependencyItemId === null ? "" : this.applicationFormItems.find(i => i.id === item.disabledDependencyItemId).shortname;
-        messEnd = this.translate.instant('VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_PREFILLED');
+        messStart = this.translate.instant(
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.DISABLED_WHEN'
+        );
+        dep =
+          item.hiddenDependencyItemId === null
+            ? ''
+            : this.applicationFormItems.find((i) => i.id === item.disabledDependencyItemId)
+                .shortname;
+        messEnd = this.translate.instant(
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_PREFILLED'
+        );
         return `${messStart} ${dep} ${messEnd}`;
       case 'IF_EMPTY':
-        messStart = this.translate.instant('VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.DISABLED_WHEN');
-        dep =  item.hiddenDependencyItemId === null ? "" : this.applicationFormItems.find(i => i.id === item.disabledDependencyItemId).shortname;
-        messEnd = this.translate.instant('VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_EMPTY');
+        messStart = this.translate.instant(
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.DISABLED_WHEN'
+        );
+        dep =
+          item.hiddenDependencyItemId === null
+            ? ''
+            : this.applicationFormItems.find((i) => i.id === item.disabledDependencyItemId)
+                .shortname;
+        messEnd = this.translate.instant(
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_EMPTY'
+        );
         return `${messStart} ${dep} ${messEnd}`;
       default:
-        return "";
+        return '';
     }
   }
 
@@ -97,24 +116,43 @@ export class ApplicationFormPreviewComponent implements OnInit {
     let messEnd: string;
     switch (item.hidden) {
       case 'ALWAYS':
-        return this.translate.instant('VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.ALWAYS_HIDDEN');
+        return this.translate.instant(
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.ALWAYS_HIDDEN'
+        );
       case 'IF_PREFILLED':
-        messStart = this.translate.instant('VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.HIDDEN_WHEN');
-        dep = item.hiddenDependencyItemId === null ? "" : this.applicationFormItems.find(i => i.id === item.hiddenDependencyItemId).shortname;
-        messEnd = this.translate.instant('VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_PREFILLED');
+        messStart = this.translate.instant(
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.HIDDEN_WHEN'
+        );
+        dep =
+          item.hiddenDependencyItemId === null
+            ? ''
+            : this.applicationFormItems.find((i) => i.id === item.hiddenDependencyItemId).shortname;
+        messEnd = this.translate.instant(
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_PREFILLED'
+        );
         return `${messStart} ${dep} ${messEnd}`;
       case 'IF_EMPTY':
-        messStart = this.translate.instant('VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.HIDDEN_WHEN');
-        dep = item.hiddenDependencyItemId === null ? "" : this.applicationFormItems.find(i => i.id === item.hiddenDependencyItemId).shortname;
-        messEnd = this.translate.instant('VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_EMPTY');
+        messStart = this.translate.instant(
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.HIDDEN_WHEN'
+        );
+        dep =
+          item.hiddenDependencyItemId === null
+            ? ''
+            : this.applicationFormItems.find((i) => i.id === item.hiddenDependencyItemId).shortname;
+        messEnd = this.translate.instant(
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_EMPTY'
+        );
         return `${messStart} ${dep} ${messEnd}`;
       default:
-        return "";
+        return '';
     }
   }
 
   getLocalizedLabel(applicationFormItem: ApplicationFormItem): string {
-    if (applicationFormItem.i18n[this.currentLanguage] && applicationFormItem.i18n[this.currentLanguage].label) {
+    if (
+      applicationFormItem.i18n[this.currentLanguage] &&
+      applicationFormItem.i18n[this.currentLanguage].label
+    ) {
       return applicationFormItem.i18n[this.currentLanguage].label;
     }
     return applicationFormItem.shortname;

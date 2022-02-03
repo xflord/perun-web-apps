@@ -6,14 +6,10 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-user-facilities',
   templateUrl: './user-facilities.component.html',
-  styleUrls: ['./user-facilities.component.scss']
+  styleUrls: ['./user-facilities.component.scss'],
 })
 export class UserFacilitiesComponent implements OnInit {
-
-  constructor(
-    private facilityManager: FacilitiesManagerService,
-    private route: ActivatedRoute,
-  ) { }
+  constructor(private facilityManager: FacilitiesManagerService, private route: ActivatedRoute) {}
 
   facilities: EnrichedFacility[] = [];
 
@@ -24,10 +20,9 @@ export class UserFacilitiesComponent implements OnInit {
   tableId = TABLE_ADMIN_FACILITIES;
   displayedColumns = ['id', 'name', 'description'];
 
-
   ngOnInit(): void {
     this.loading = true;
-    this.route.parent.params.subscribe(params => {
+    this.route.parent.params.subscribe((params) => {
       this.userId = params['userId'];
       this.refreshTable();
     });
@@ -35,8 +30,8 @@ export class UserFacilitiesComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.facilityManager.getAssignedFacilitiesByUser(this.userId).subscribe(facilities => {
-      this.facilities = facilities.map(f => ({ facility: f }));
+    this.facilityManager.getAssignedFacilitiesByUser(this.userId).subscribe((facilities) => {
+      this.facilities = facilities.map((f) => ({ facility: f }));
       this.loading = false;
     });
   }

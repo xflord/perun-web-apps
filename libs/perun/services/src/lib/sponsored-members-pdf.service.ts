@@ -2,17 +2,14 @@ import { Injectable } from '@angular/core';
 import { PDFService } from './pdf.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SponsoredMembersPdfService {
-
-  constructor(
-    private pdfService: PDFService
-  ) { }
+  constructor(private pdfService: PDFService) {}
 
   private static generateTableForUser(memberData): any {
     const name = memberData['name'].replace(';', ' ').split(';')[0];
-    if (memberData['status'] !== "OK") {
+    if (memberData['status'] !== 'OK') {
       const error = memberData['status'];
       return this.generateErrorRowForUser(name, error);
     }
@@ -35,22 +32,22 @@ export class SponsoredMembersPdfService {
               alignment: 'center',
               bold: true,
               fontSize: 12,
-              margin:[20, 25],
-              color: 'red'
+              margin: [20, 25],
+              color: 'red',
             },
             {
               text: error,
               alignment: 'center',
               bold: true,
-              color: 'red'
-            }
-          ]
-        ]
-      }
+              color: 'red',
+            },
+          ],
+        ],
+      },
     };
   }
 
-  private static generateRowForUser(name: string, login:string, password: string): any {
+  private static generateRowForUser(name: string, login: string, password: string): any {
     return {
       table: {
         heights: [30, 0],
@@ -60,16 +57,16 @@ export class SponsoredMembersPdfService {
             SponsoredMembersPdfService.generateNameCell(name),
             {},
             SponsoredMembersPdfService.getPasswordLabelCell(),
-            SponsoredMembersPdfService.generatePasswordCell(password)
+            SponsoredMembersPdfService.generatePasswordCell(password),
           ],
           [
             SponsoredMembersPdfService.getLoginLabelCell(),
             SponsoredMembersPdfService.generateLoginCell(login),
             {},
-            {}
-          ]
-        ]
-      }
+            {},
+          ],
+        ],
+      },
     };
   }
 
@@ -81,7 +78,7 @@ export class SponsoredMembersPdfService {
       border: [true, true, true, false],
       bold: true,
       fontSize: 12,
-      margin:[10, 10]
+      margin: [10, 10],
     };
   }
 
@@ -92,7 +89,7 @@ export class SponsoredMembersPdfService {
       bold: true,
       margin: [0, 25],
       rowSpan: 2,
-      alignment: 'left'
+      alignment: 'left',
     };
   }
 
@@ -100,7 +97,7 @@ export class SponsoredMembersPdfService {
     return {
       text: login === undefined || login === null ? 'N/A' : login,
       border: [false, false, true, true],
-      bold: true
+      bold: true,
     };
   }
 
@@ -109,7 +106,7 @@ export class SponsoredMembersPdfService {
       text: 'Login:',
       border: [true, false, false, true],
       alignment: 'right',
-      margin: [0, 0, 0, 10]
+      margin: [0, 0, 0, 10],
     };
   }
 
@@ -119,7 +116,7 @@ export class SponsoredMembersPdfService {
       border: [true, true, false, true],
       alignment: 'right',
       margin: [0, 25],
-      rowSpan: 2
+      rowSpan: 2,
     };
   }
 
@@ -146,9 +143,9 @@ export class SponsoredMembersPdfService {
     }
 
     const data = {
-      content: userData
+      content: userData,
     };
 
-    return this.pdfService.generatePdf(data)
+    return this.pdfService.generatePdf(data);
   }
 }

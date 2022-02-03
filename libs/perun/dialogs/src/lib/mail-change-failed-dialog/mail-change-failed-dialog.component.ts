@@ -5,15 +5,16 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'perun-web-apps-mail-change-failed-dialog',
   templateUrl: './mail-change-failed-dialog.component.html',
-  styleUrls: ['./mail-change-failed-dialog.component.scss']
+  styleUrls: ['./mail-change-failed-dialog.component.scss'],
 })
 export class MailChangeFailedDialogComponent {
-
-  constructor(private dialogRef: MatDialogRef<MailChangeFailedDialogComponent>,
-              private router: Router) { }
+  constructor(
+    private dialogRef: MatDialogRef<MailChangeFailedDialogComponent>,
+    private router: Router
+  ) {}
 
   onClose() {
-    this.router.navigate([])
-    this.dialogRef.close()
+    this.router.navigate([]);
+    this.dialogRef.close();
   }
 }

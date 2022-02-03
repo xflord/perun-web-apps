@@ -1,24 +1,20 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
-import {
-  Resource,
-  ResourcesManagerService
-} from '@perun-web-apps/perun/openapi';
+import { Resource, ResourcesManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-resource-attributes',
   templateUrl: './resource-attributes.component.html',
-  styleUrls: ['./resource-attributes.component.scss']
+  styleUrls: ['./resource-attributes.component.scss'],
 })
 export class ResourceAttributesComponent implements OnInit {
-
   @HostBinding('class.router-component') true;
 
   constructor(
     private authResolver: GuiAuthResolver,
     private resourceManager: ResourcesManagerService,
     private entityStorageService: EntityStorageService
-  ) { }
+  ) {}
 
   resource: Resource;
 
@@ -27,7 +23,13 @@ export class ResourceAttributesComponent implements OnInit {
 
   ngOnInit() {
     this.resource = this.entityStorageService.getEntity();
-    this.resourceGroupAttAuth = this.authResolver.isAuthorized('getGroupAssignments_Resource_policy', [this.resource]);
-    this.resourceMemberAttAuth = this.authResolver.isAuthorized('getAssignedMembersWithStatus_Resource_policy', [this.resource]);
+    this.resourceGroupAttAuth = this.authResolver.isAuthorized(
+      'getGroupAssignments_Resource_policy',
+      [this.resource]
+    );
+    this.resourceMemberAttAuth = this.authResolver.isAuthorized(
+      'getAssignedMembersWithStatus_Resource_policy',
+      [this.resource]
+    );
   }
 }

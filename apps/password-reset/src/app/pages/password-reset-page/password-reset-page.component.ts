@@ -5,13 +5,10 @@ import { StoreService } from '@perun-web-apps/perun/services';
 @Component({
   selector: 'perun-web-apps-password-reset-page',
   templateUrl: './password-reset-page.component.html',
-  styleUrls: ['./password-reset-page.component.scss']
+  styleUrls: ['./password-reset-page.component.scss'],
 })
-
 export class PasswordResetPageComponent implements OnInit {
-
-  constructor(private storeService: StoreService,
-              private sanitizer: DomSanitizer) { }
+  constructor(private storeService: StoreService, private sanitizer: DomSanitizer) {}
 
   @Input()
   mode: string;
@@ -34,7 +31,8 @@ export class PasswordResetPageComponent implements OnInit {
   passwordResetLogo: any;
 
   ngOnInit(): void {
-    this.passwordResetLogo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.get('password_reset_logo'));
+    this.passwordResetLogo = this.sanitizer.bypassSecurityTrustHtml(
+      this.storeService.get('password_reset_logo')
+    );
   }
-
 }

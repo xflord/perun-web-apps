@@ -2,26 +2,25 @@ import { Injectable } from '@angular/core';
 import { NotificationData } from '@perun-web-apps/perun/models';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotificationStorageService {
+  constructor() {}
 
-  constructor() { }
-
-  private notificationData : NotificationData[] = [];
+  private notificationData: NotificationData[] = [];
 
   newNotificationsCount = 0;
 
-  storeNotification(notification: NotificationData){
+  storeNotification(notification: NotificationData) {
     this.newNotificationsCount++;
     this.notificationData.push(notification);
   }
 
-  getNotifications(){
+  getNotifications() {
     return this.notificationData.reverse();
   }
 
-  clearNotifications(){
+  clearNotifications() {
     this.notificationData = [];
   }
 }

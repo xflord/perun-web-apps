@@ -1,46 +1,51 @@
 <div [hidden]="dataSource.filteredData.length === 0 || categories.length === 0" class="card mt-3">
-
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [tableId]="tableId"
     [dataLength]="dataSource.filteredData.length"
     [pageSizeOptions]="pageSizeOptions">
-    <table [dataSource]="dataSource"
-           class="w-100"
-           mat-table
-           matSort
-           matSortActive="name"
-           matSortDirection="asc"
-           matSortDisableClear>
-
+    <table
+      [dataSource]="dataSource"
+      class="w-100"
+      mat-table
+      matSort
+      matSortActive="name"
+      matSortDirection="asc"
+      matSortDisableClear>
       <ng-container matColumnDef="select">
-        <th *matHeaderCellDef mat-header-cell class="align-checkbox">
-        </th>
+        <th *matHeaderCellDef mat-header-cell class="align-checkbox"></th>
         <td *matCellDef="let resource" class="static-column-size align-checkbox" mat-cell>
-          <mat-checkbox (change)="$event ? itemSelectionToggle(resource) : null"
-                        (click)="$event.stopPropagation()"
-                        [aria-label]="checkboxLabel(resource)"
-                        [checked]="selection.isSelected(resource)"
-                        color="primary">
+          <mat-checkbox
+            (change)="$event ? itemSelectionToggle(resource) : null"
+            (click)="$event.stopPropagation()"
+            [aria-label]="checkboxLabel(resource)"
+            [checked]="selection.isSelected(resource)"
+            color="primary">
           </mat-checkbox>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="id">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'CATEGORIES_LIST.ID' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'CATEGORIES_LIST.ID' | translate}}
+        </th>
         <td *matCellDef="let category" class="static-column-size" mat-cell>{{category.id}}</td>
       </ng-container>
       <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'CATEGORIES_LIST.NAME' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'CATEGORIES_LIST.NAME' | translate}}
+        </th>
         <td *matCellDef="let category" mat-cell>{{category.name}}</td>
       </ng-container>
       <ng-container matColumnDef="rank">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'CATEGORIES_LIST.RANK' | translate}}</th>
-        <td *matCellDef="let category" mat-cell>{{category.rank}}
-          <button *ngIf="editAuth" (click)="updateCategory(category)" mat-icon-button><mat-icon>edit</mat-icon></button>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'CATEGORIES_LIST.RANK' | translate}}
+        </th>
+        <td *matCellDef="let category" mat-cell>
+          {{category.rank}}
+          <button *ngIf="editAuth" (click)="updateCategory(category)" mat-icon-button>
+            <mat-icon>edit</mat-icon>
+          </button>
         </td>
       </ng-container>
 
@@ -48,12 +53,13 @@
       <tr
         *matRowDef="let resource; columns: displayedColumns;"
         class="dark-hover-list-item"
-        mat-row>
-      </tr>
+        mat-row></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
 
-<app-alert *ngIf="dataSource.filteredData.length === 0 && categories.length !== 0" alert_type="warn">
+<app-alert
+  *ngIf="dataSource.filteredData.length === 0 && categories.length !== 0"
+  alert_type="warn">
   {{'CATEGORIES_PAGE.NO_FILTER_RESULTS' | translate}}
 </app-alert>

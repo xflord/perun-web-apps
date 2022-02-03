@@ -5,11 +5,10 @@ import { compareFnUser, parseFullName } from '@perun-web-apps/perun/utils';
 @Component({
   selector: 'perun-web-apps-member-search-select',
   templateUrl: './member-search-select.component.html',
-  styleUrls: ['./member-search-select.component.css']
+  styleUrls: ['./member-search-select.component.css'],
 })
-export class MemberSearchSelectComponent implements OnInit{
-
-  constructor() { }
+export class MemberSearchSelectComponent implements OnInit {
+  constructor() {}
 
   @Input()
   members: RichMember[];

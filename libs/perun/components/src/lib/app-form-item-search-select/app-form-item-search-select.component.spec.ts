@@ -8,9 +8,8 @@ describe('AppFormItemSearchSelectComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AppFormItemSearchSelectComponent ]
-    })
-    .compileComponents();
+      declarations: [AppFormItemSearchSelectComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

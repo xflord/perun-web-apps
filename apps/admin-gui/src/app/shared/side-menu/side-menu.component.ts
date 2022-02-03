@@ -1,26 +1,23 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {MatSidenav} from '@angular/material/sidenav';
-import {SideMenuService} from '../../core/services/common/side-menu.service';
-import {AppComponent} from '../../app.component';
-import {SideMenuItemService} from './side-menu-item.service';
-import {GuiAuthResolver} from '@perun-web-apps/perun/services';
-import {rollInOut} from '@perun-web-apps/perun/animations';
+import { MatSidenav } from '@angular/material/sidenav';
+import { SideMenuService } from '../../core/services/common/side-menu.service';
+import { AppComponent } from '../../app.component';
+import { SideMenuItemService } from './side-menu-item.service';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { rollInOut } from '@perun-web-apps/perun/animations';
 
 @Component({
   selector: 'app-side-menu',
   templateUrl: './side-menu.component.html',
   styleUrls: ['./side-menu.component.scss'],
-  animations: [
-    rollInOut
-  ]
+  animations: [rollInOut],
 })
 export class SideMenuComponent implements OnInit {
-
   constructor(
     private sideMenuService: SideMenuService,
     private sideMenuItemService: SideMenuItemService,
     public authResolver: GuiAuthResolver
-  ) { }
+  ) {}
 
   accessItems: SideMenuItem[] = [];
   facilityItems: SideMenuItem[] = [];
@@ -34,7 +31,6 @@ export class SideMenuComponent implements OnInit {
   homeItem = this.sideMenuItemService.getHomeItem();
   userItem = this.sideMenuItemService.getUserItem();
 
-
   @Input()
   sideNav: MatSidenav;
 
@@ -43,7 +39,6 @@ export class SideMenuComponent implements OnInit {
   userItemOpened = false;
 
   ngOnInit(): void {
-
     this.mobileView = window.innerWidth <= AppComponent.minWidth;
     if (this.mobileView) {
       this.sideNav.close();
@@ -51,19 +46,19 @@ export class SideMenuComponent implements OnInit {
       this.sideNav.open();
     }
 
-    this.sideMenuService.facilityItemsChange.subscribe(items => {
+    this.sideMenuService.facilityItemsChange.subscribe((items) => {
       this.setFacilityItems(items);
     });
-    this.sideMenuService.accessItemsChange.subscribe(items => {
+    this.sideMenuService.accessItemsChange.subscribe((items) => {
       this.setAccessItems(items);
     });
-    this.sideMenuService.adminItemsChange.subscribe(items => {
+    this.sideMenuService.adminItemsChange.subscribe((items) => {
       this.setAdminItems(items);
     });
-    this.sideMenuService.userItemsChange.subscribe(items => {
+    this.sideMenuService.userItemsChange.subscribe((items) => {
       this.setUserItems(items);
     });
-    this.sideMenuService.homeItemsChange.subscribe(items => {
+    this.sideMenuService.homeItemsChange.subscribe((items) => {
       this.setHomeItems(items);
     });
     this.sideMenuService.resetChange.subscribe(() => {
@@ -72,13 +67,13 @@ export class SideMenuComponent implements OnInit {
   }
 
   private reset(): void {
-      this.adminItemOpened = false;
-      this.userItemOpened = false;
-      this.setNewItems(this.homeItems, []);
-      this.setNewItems(this.adminItems, []);
-      this.setNewItems(this.accessItems, []);
-      this.setNewItems(this.facilityItems, []);
-      this.setNewItems(this.userItems, []);
+    this.adminItemOpened = false;
+    this.userItemOpened = false;
+    this.setNewItems(this.homeItems, []);
+    this.setNewItems(this.adminItems, []);
+    this.setNewItems(this.accessItems, []);
+    this.setNewItems(this.facilityItems, []);
+    this.setNewItems(this.userItems, []);
   }
 
   private resetExceptHome(): void {
@@ -91,29 +86,29 @@ export class SideMenuComponent implements OnInit {
   }
 
   private resetExceptFacility(): void {
-      this.adminItemOpened = false;
-      this.userItemOpened = false;
-      this.setNewItems(this.homeItems, []);
-      this.setNewItems(this.adminItems, []);
-      this.setNewItems(this.accessItems, []);
-      this.setNewItems(this.userItems, []);
+    this.adminItemOpened = false;
+    this.userItemOpened = false;
+    this.setNewItems(this.homeItems, []);
+    this.setNewItems(this.adminItems, []);
+    this.setNewItems(this.accessItems, []);
+    this.setNewItems(this.userItems, []);
   }
 
   private resetExceptAccess(): void {
-      this.adminItemOpened = false;
-      this.userItemOpened = false;
-      this.setNewItems(this.homeItems, []);
-      this.setNewItems(this.adminItems, []);
-      this.setNewItems(this.facilityItems, []);
-      this.setNewItems(this.userItems, []);
+    this.adminItemOpened = false;
+    this.userItemOpened = false;
+    this.setNewItems(this.homeItems, []);
+    this.setNewItems(this.adminItems, []);
+    this.setNewItems(this.facilityItems, []);
+    this.setNewItems(this.userItems, []);
   }
 
   private resetExceptAdmin(): void {
-      this.userItemOpened = false;
-      this.setNewItems(this.homeItems, []);
-      this.setNewItems(this.accessItems, []);
-      this.setNewItems(this.facilityItems, []);
-      this.setNewItems(this.userItems, []);
+    this.userItemOpened = false;
+    this.setNewItems(this.homeItems, []);
+    this.setNewItems(this.accessItems, []);
+    this.setNewItems(this.facilityItems, []);
+    this.setNewItems(this.userItems, []);
   }
 
   private resetExceptUser(): void {
@@ -129,8 +124,8 @@ export class SideMenuComponent implements OnInit {
   }
 
   private setFacilityItems(items: SideMenuItem[]) {
-      this.resetExceptFacility();
-      this.setNewItems(this.facilityItems, items);
+    this.resetExceptFacility();
+    this.setNewItems(this.facilityItems, items);
   }
 
   private setAccessItems(items: SideMenuItem[]) {
@@ -164,7 +159,7 @@ export class SideMenuComponent implements OnInit {
   private setNewItems(originItems: SideMenuItem[], newItems: SideMenuItem[]) {
     const maxLength = originItems.length > newItems.length ? originItems.length : newItems.length;
 
-    for (let i = 0; i < maxLength; i ++) {
+    for (let i = 0; i < maxLength; i++) {
       if (i > originItems.length - 1) {
         originItems.push(newItems[i]);
       } else if (i > newItems.length - 1) {
@@ -188,11 +183,11 @@ export class SideMenuComponent implements OnInit {
   }
 
   private areSameLinks(sideMenuItem: SideMenuItem, sideMenuItem2: SideMenuItem) {
-    if(sideMenuItem.links.length !== sideMenuItem2.links.length) {
+    if (sideMenuItem.links.length !== sideMenuItem2.links.length) {
       return false;
     }
-    for(let i = 0; i < sideMenuItem.links.length; i++) {
-      if(sideMenuItem.links[i].label !== sideMenuItem2.links[i].label) {
+    for (let i = 0; i < sideMenuItem.links.length; i++) {
+      if (sideMenuItem.links[i].label !== sideMenuItem2.links[i].label) {
         return false;
       }
     }
@@ -218,7 +213,7 @@ export interface SideMenuItem {
 
 export interface EntityMenuLink {
   label: string;
-  url:  any[] | string;
+  url: any[] | string;
   activatedRegex: string;
   children?: EntityMenuLink[];
   showChildrenRegex?: string;

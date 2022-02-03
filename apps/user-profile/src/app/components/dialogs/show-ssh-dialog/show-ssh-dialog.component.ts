@@ -8,12 +8,13 @@ export interface ShowSshDialogData {
 @Component({
   selector: 'perun-web-apps-show-ssh-dialog',
   templateUrl: './show-ssh-dialog.component.html',
-  styleUrls: ['./show-ssh-dialog.component.scss']
+  styleUrls: ['./show-ssh-dialog.component.scss'],
 })
 export class ShowSshDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<ShowSshDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: ShowSshDialogData) { }
+  constructor(
+    private dialogRef: MatDialogRef<ShowSshDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: ShowSshDialogData
+  ) {}
 
   sshKey: string;
 
@@ -21,8 +22,7 @@ export class ShowSshDialogComponent implements OnInit {
     this.sshKey = this.data.value;
   }
 
-  onClose(){
+  onClose() {
     this.dialogRef.close();
   }
-
 }

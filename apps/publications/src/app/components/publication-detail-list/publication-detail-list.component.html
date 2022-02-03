@@ -32,9 +32,7 @@
     <table class="w-100 layout" mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="key">
         <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let item" class="font-weight-bold" mat-cell>
-          {{item.key}}:
-        </td>
+        <td *matCellDef="let item" class="font-weight-bold" mat-cell>{{item.key}}:</td>
       </ng-container>
       <ng-container matColumnDef="value">
         <th *matHeaderCellDef mat-header-cell></th>
@@ -54,23 +52,28 @@
           </span>
           <div *ngIf="!editing">
             <span *ngIf="item.value !== null && item.value !== ''">
-              <span *ngIf="item.key !== 'Id / Origin' && item.key !== 'Create date' && item.key !== 'Created by'">
+              <span
+                *ngIf="item.key !== 'Id / Origin' && item.key !== 'Create date' && item.key !== 'Created by'">
                 {{item.value}}
               </span>
             </span>
-            <span *ngIf="item.value === null || item.value === ''">
-              -
-            </span>
+            <span *ngIf="item.value === null || item.value === ''"> - </span>
           </div>
           <div *ngIf="editing">
             <mat-form-field *ngIf="item.key === 'Year'" class="mr-2" (click)="sdp.open()">
               <mat-label>{{'PUBLICATION_DETAIL.LIST.YEAR' | translate}}</mat-label>
-              <input matInput [max]="maxYear" [matDatepicker]="sdp" [formControl]="yearControl" class="disable"
-                     readonly>
+              <input
+                matInput
+                [max]="maxYear"
+                [matDatepicker]="sdp"
+                [formControl]="yearControl"
+                class="disable"
+                readonly />
               <mat-datepicker-toggle matSuffix [for]="sdp"></mat-datepicker-toggle>
-              <mat-datepicker #sdp
-                              startView="multi-year"
-                              (yearSelected)="chosenYearHandler($event, sdp)">
+              <mat-datepicker
+                #sdp
+                startView="multi-year"
+                (yearSelected)="chosenYearHandler($event, sdp)">
               </mat-datepicker>
             </mat-form-field>
             <mat-form-field *ngIf="item.key === 'Category'">
@@ -81,22 +84,16 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field *ngIf="item.key === 'Rank'">
-              <input
-                [formControl]="rankControl"
-                matInput>
+              <input [formControl]="rankControl" matInput />
               <mat-error *ngIf="rankControl.invalid">
                 {{'PUBLICATION_DETAIL.LIST.RANK_ERROR' | translate}}
               </mat-error>
             </mat-form-field>
             <mat-form-field *ngIf="item.key === 'ISBN / ISSN'" class="w-75">
-              <input
-                [(ngModel)]="publication.isbn"
-                matInput>
+              <input [(ngModel)]="publication.isbn" matInput />
             </mat-form-field>
             <mat-form-field *ngIf="item.key === 'DOI'" class="w-75">
-              <input
-                [(ngModel)]="publication.doi"
-                matInput>
+              <input [(ngModel)]="publication.doi" matInput />
             </mat-form-field>
             <mat-form-field *ngIf="item.key === 'Full cite'" class="w-75">
               <textarea class="fix-height" matInput [(ngModel)]="publication.main"></textarea>
@@ -104,10 +101,7 @@
           </div>
         </td>
       </ng-container>
-      <tr
-        *matRowDef="let col; columns: displayedColumns;"
-        mat-row>
-      </tr>
+      <tr *matRowDef="let col; columns: displayedColumns;" mat-row></tr>
     </table>
   </div>
 </div>

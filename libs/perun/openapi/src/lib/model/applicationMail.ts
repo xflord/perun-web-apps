@@ -13,13 +13,11 @@ import { MailText } from './mailText';
 import { MailType } from './mailType';
 import { AppType } from './appType';
 
-
-export interface ApplicationMail { 
-    id?: number;
-    appType?: AppType;
-    formId?: number;
-    mailType?: MailType;
-    send?: boolean;
-    message?: { [key: string]: MailText; };
+export interface ApplicationMail {
+  id?: number;
+  appType?: AppType;
+  formId?: number;
+  mailType?: MailType;
+  send?: boolean;
+  message?: { [key: string]: MailText };
 }
-

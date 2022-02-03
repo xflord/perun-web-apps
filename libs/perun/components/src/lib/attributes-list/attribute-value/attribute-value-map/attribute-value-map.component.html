@@ -3,8 +3,12 @@
     <form class="d-flex w-100">
       <div class="w-100">
         <div class="mr-5">
-          <div *ngFor="let value of values.slice(0, itemsShown); let i = index; trackBy: customTrackBy" class="d-flex mb-1">
-            <mat-form-field appearance="{{readonly ? 'none' : 'standard'}}" class="w-100 mr-2 input-margin">
+          <div
+            *ngFor="let value of values.slice(0, itemsShown); let i = index; trackBy: customTrackBy"
+            class="d-flex mb-1">
+            <mat-form-field
+              appearance="{{readonly ? 'none' : 'standard'}}"
+              class="w-100 mr-2 input-margin">
               <label for="{{attribute.id}}-key-{{i}}"></label>
               <input
                 matInput
@@ -16,9 +20,11 @@
                 id="{{attribute.id}}-key-{{i}}"
                 [(ngModel)]="keys[i]"
                 [readonly]="readonly"
-                name="key-{{i}}">
+                name="key-{{i}}" />
             </mat-form-field>
-            <mat-form-field appearance="{{readonly ? 'none' : 'standard'}}" class="w-100 mr-2 input-margin">
+            <mat-form-field
+              appearance="{{readonly ? 'none' : 'standard'}}"
+              class="w-100 mr-2 input-margin">
               <label for="{{attribute.id}}-value-{{i}}"></label>
               <input
                 (click)="readonly && attribute.displayName !== undefined && showValue(value,attribute.displayName)"
@@ -29,7 +35,7 @@
                 type="text"
                 name="value-{{i}}"
                 id="{{attribute.id}}-value-{{i}}"
-                [(ngModel)]="values[i]">
+                [(ngModel)]="values[i]" />
             </mat-form-field>
             <button
               *ngIf="!readonly"
@@ -37,35 +43,25 @@
               color="warn"
               class="btn-margin"
               (click)="removeValue(i)">
-              <mat-icon>
-                indeterminate_check_box
-              </mat-icon>
+              <mat-icon> indeterminate_check_box </mat-icon>
             </button>
           </div>
         </div>
         <div>
-          <span
-            [matTooltip]="showMore ? 'Show less' : 'Show more'"
-            [matTooltipPosition]="'above'">
-          <button
-            *ngIf="values.length > defaultItemsShown"
-            mat-icon-button
-            (click)="onShowChange()">
-            <mat-icon *ngIf="!showMore">more_horiz</mat-icon>
-            <mat-icon *ngIf="showMore">keyboard_arrow_up</mat-icon>
-          </button>
+          <span [matTooltip]="showMore ? 'Show less' : 'Show more'" [matTooltipPosition]="'above'">
+            <button
+              *ngIf="values.length > defaultItemsShown"
+              mat-icon-button
+              (click)="onShowChange()">
+              <mat-icon *ngIf="!showMore">more_horiz</mat-icon>
+              <mat-icon *ngIf="showMore">keyboard_arrow_up</mat-icon>
+            </button>
           </span>
         </div>
       </div>
     </form>
   </div>
-  <button
-    *ngIf="!readonly"
-    mat-icon-button
-    color="accent"
-    (click)="addValue()">
-    <mat-icon>
-      add_box
-    </mat-icon>
+  <button *ngIf="!readonly" mat-icon-button color="accent" (click)="addValue()">
+    <mat-icon> add_box </mat-icon>
   </button>
 </div>

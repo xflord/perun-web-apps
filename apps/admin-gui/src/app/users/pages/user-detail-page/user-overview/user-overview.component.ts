@@ -1,8 +1,10 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import {MenuItem} from '@perun-web-apps/perun/models';
+import { MenuItem } from '@perun-web-apps/perun/models';
 import {
-  Attribute, AttributesManagerService,
-  User, UsersManagerService
+  Attribute,
+  AttributesManagerService,
+  User,
+  UsersManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
@@ -15,17 +17,18 @@ import { ChangeEmailDialogComponent } from '@perun-web-apps/perun/dialogs';
 @Component({
   selector: 'app-user-overview',
   templateUrl: './user-overview.component.html',
-  styleUrls: ['./user-overview.component.scss']
+  styleUrls: ['./user-overview.component.scss'],
 })
 export class UserOverviewComponent implements OnInit {
-
   @HostBinding('class.router-component') true;
 
-  constructor(private userService: UsersManagerService,
-              private attributeService: AttributesManagerService,
-              private storeService: StoreService,
-              private route: ActivatedRoute,
-              private dialog: MatDialog) { }
+  constructor(
+    private userService: UsersManagerService,
+    private attributeService: AttributesManagerService,
+    private storeService: StoreService,
+    private route: ActivatedRoute,
+    private dialog: MatDialog
+  ) {}
 
   navItems: MenuItem[] = [];
   user: User;
@@ -38,9 +41,9 @@ export class UserOverviewComponent implements OnInit {
   preferredMail: Attribute;
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      if(params['userId'] !== undefined) {
-        this.userService.getUserById(params['userId']).subscribe(user => {
+    this.route.params.subscribe((params) => {
+      if (params['userId'] !== undefined) {
+        this.userService.getUserById(params['userId']).subscribe((user) => {
           this.user = user;
           this.isServiceUser = user.serviceUser;
           this.initNavItems();
@@ -49,14 +52,15 @@ export class UserOverviewComponent implements OnInit {
         this.inMyProfile = true;
         this.userID = this.storeService.getPerunPrincipal().user.id;
 
-        this.attributeService.getUserAttributeByName(this.userID, Urns.USER_DEF_PREFERRED_MAIL).subscribe(mail => {
-          this.preferredMail = mail;
-          this.handleMailNotDefined();
+        this.attributeService
+          .getUserAttributeByName(this.userID, Urns.USER_DEF_PREFERRED_MAIL)
+          .subscribe((mail) => {
+            this.preferredMail = mail;
+            this.handleMailNotDefined();
 
-
-          this.mailDataSource = new MatTableDataSource<Attribute>([this.preferredMail]);
-          this.initNavItems();
-        });
+            this.mailDataSource = new MatTableDataSource<Attribute>([this.preferredMail]);
+            this.initNavItems();
+          });
       }
     });
   }
@@ -67,76 +71,77 @@ export class UserOverviewComponent implements OnInit {
         cssIcon: 'perun-vo',
         url: `organizations`,
         label: 'MENU_ITEMS.ADMIN.ORGANIZATIONS',
-        style: 'user-btn'
+        style: 'user-btn',
       },
       {
         cssIcon: 'perun-group',
         url: `groups`,
         label: 'MENU_ITEMS.ADMIN.GROUPS',
-        style: 'user-btn'
+        style: 'user-btn',
       },
-      ];
+    ];
     if (window.location.pathname.startsWith('/admin')) {
-      this.navItems.push({
+      this.navItems.push(
+        {
           cssIcon: 'perun-user',
           url: `accounts`,
           label: 'MENU_ITEMS.USER.ACCOUNTS',
-          style: 'user-btn'
+          style: 'user-btn',
         },
         {
           cssIcon: 'perun-group',
           url: `identities`,
           label: 'MENU_ITEMS.USER.IDENTITIES',
-          style: 'user-btn'
+          style: 'user-btn',
         },
         {
           cssIcon: 'perun-facility-white',
           url: `facilities`,
-          label: "MENU_ITEMS.USER.FACILITIES",
-          style: 'user-btn'
+          label: 'MENU_ITEMS.USER.FACILITIES',
+          style: 'user-btn',
         },
         {
           cssIcon: 'perun-resource',
           url: `resources`,
-          label: "MENU_ITEMS.USER.RESOURCES",
-          style: 'user-btn'
-        });
+          label: 'MENU_ITEMS.USER.RESOURCES',
+          style: 'user-btn',
+        }
+      );
     }
     this.navItems.push({
       cssIcon: 'perun-attributes',
       url: `attributes`,
       label: 'MENU_ITEMS.USER.ATTRIBUTES',
-      style: 'user-btn'
+      style: 'user-btn',
     });
-    this.navItems.push(
-      {
-        cssIcon: 'perun-group',
-        url: `roles`,
-        label: 'MENU_ITEMS.USER.ROLES',
-        style: 'user-btn'
-      });
-    if(this.isServiceUser){
+    this.navItems.push({
+      cssIcon: 'perun-group',
+      url: `roles`,
+      label: 'MENU_ITEMS.USER.ROLES',
+      style: 'user-btn',
+    });
+    if (this.isServiceUser) {
       this.navItems.push({
         cssIcon: 'perun-user-dark',
-        url:`associated-users`,
+        url: `associated-users`,
         label: 'MENU_ITEMS.USER.ASSOCIATED_USERS',
-        style: 'user-btn'
+        style: 'user-btn',
       });
     } else {
       this.navItems.push({
         cssIcon: 'perun-service-identity',
-        url:`service-identities`,
+        url: `service-identities`,
         label: 'MENU_ITEMS.USER.SERVICE_IDENTITIES',
-        style: 'user-btn'
+        style: 'user-btn',
       });
     }
     if (!window.location.pathname.startsWith('/admin')) {
       this.navItems.push({
-          cssIcon: 'perun-settings2',
-          url: `settings`,
-          label: 'MENU_ITEMS.ADMIN.SETTINGS',
-          style: 'user-btn'
-        });
+        cssIcon: 'perun-settings2',
+        url: `settings`,
+        label: 'MENU_ITEMS.ADMIN.SETTINGS',
+        style: 'user-btn',
+      });
     }
   }
 
@@ -149,23 +154,25 @@ export class UserOverviewComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((success) => {
       if (success) {
-        this.attributeService.getUserAttributeByName(this.userID, Urns.USER_DEF_PREFERRED_MAIL).subscribe(email => {
-          this.preferredMail = email
-          this.handleMailNotDefined()
+        this.attributeService
+          .getUserAttributeByName(this.userID, Urns.USER_DEF_PREFERRED_MAIL)
+          .subscribe((email) => {
+            this.preferredMail = email;
+            this.handleMailNotDefined();
 
-          this.mailDataSource = new MatTableDataSource<Attribute>([this.preferredMail]);
-        });
+            this.mailDataSource = new MatTableDataSource<Attribute>([this.preferredMail]);
+          });
       }
     });
   }
 
   handleMailNotDefined() {
-    if (this.preferredMail === null || this.preferredMail === undefined){
+    if (this.preferredMail === null || this.preferredMail === undefined) {
       this.preferredMail = {
         id: -1,
         beanName: 'Attribute',
         displayName: parseAttributeFriendlyName(Urns.USER_DEF_PREFERRED_MAIL.split(':').pop()),
-        value: Object('-')
+        value: Object('-'),
       };
     }
   }

@@ -1,8 +1,11 @@
 <div class="vo-theme">
   <h1 class="page-subtitle">{{'VO_DETAIL.MEMBERS.TITLE' | translate}}</h1>
   <div class="align-elements">
-    <perun-web-apps-refresh-button (click)="updateTable = !updateTable"></perun-web-apps-refresh-button>
-    <div matTooltip="{{'VO_DETAIL.MEMBERS.ADD_MEMBER_DISABLED' | translate}}" [matTooltipDisabled]="!blockManualMemberAdding">
+    <perun-web-apps-refresh-button
+      (click)="updateTable = !updateTable"></perun-web-apps-refresh-button>
+    <div
+      matTooltip="{{'VO_DETAIL.MEMBERS.ADD_MEMBER_DISABLED' | translate}}"
+      [matTooltipDisabled]="!blockManualMemberAdding">
       <button
         *ngIf="addAuth"
         [disabled]="blockManualMemberAdding"
@@ -39,7 +42,12 @@
         <mat-select-trigger>
           {{displaySelectedStatuses() | memberStatus}}
         </mat-select-trigger>
-        <mat-option class="vo-theme" *ngFor="let status of statusList" [value]="status">{{status | memberStatus}}</mat-option>
+        <mat-option
+          class="vo-theme"
+          *ngFor="let status of statusList"
+          [value]="status"
+          >{{status | memberStatus}}</mat-option
+        >
       </mat-select>
     </mat-form-field>
 
@@ -49,8 +57,7 @@
       (filter)="onSearchByString($event)">
     </perun-web-apps-debounce-filter>
   </div>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto">
-  </mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
   <perun-web-apps-members-dynamic-list
     *ngIf="!loading"
     [voId]="vo.id"
@@ -60,6 +67,5 @@
     [attrNames]="attrNames"
     [searchString]="searchString"
     [selectedStatuses]="selectedStatuses"
-    [updateTable]="updateTable"
-  ></perun-web-apps-members-dynamic-list>
+    [updateTable]="updateTable"></perun-web-apps-members-dynamic-list>
 </div>

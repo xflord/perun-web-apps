@@ -10,25 +10,26 @@
       <!-- Note that the [style.padding-left] is essentially what cdkTreeNodePadding is doing under the hood -->
       <div class="node" [style.padding-left]="group.level * 24 + 'px'">
         <!-- Note that treeControl.toggle(node) is essentially what cdkTreeNodeToggle is doing under the hood -->
-        <mat-checkbox color="primary"
-                      *ngIf="!hideCheckbox"
-                      class="no-label-margin-bottom ml-4"
-                      attr.data-cy="{{group.name}}-checkbox"
-                      [disabled]="group.fullName === 'members'"
-                      [checked]="selection.isSelected(group)"
-                      [indeterminate]="descendantsPartiallySelected(group)"
-                      (change)="itemSelectionToggle(group)"
-                      ></mat-checkbox>
+        <mat-checkbox
+          color="primary"
+          *ngIf="!hideCheckbox"
+          class="no-label-margin-bottom ml-4"
+          attr.data-cy="{{group.name}}-checkbox"
+          [disabled]="group.fullName === 'members'"
+          [checked]="selection.isSelected(group)"
+          [indeterminate]="descendantsPartiallySelected(group)"
+          (change)="itemSelectionToggle(group)"></mat-checkbox>
         <a
           class="group-item-content text-format"
           [routerLink]="disableRouting ? null :['/organizations', group.voId, 'groups', group.id]"
           queryParamsHandling="merge">
-          <button mat-icon-button
-                  (mouseenter)="disableRouting = true"
-                  (mouseleave)="disableRouting = false"
-                  [disabled]="!group.expandable"
-                  (click)="treeControl.toggle(group)"
-                  [attr.aria-label]="'toggle ' + group.name">
+          <button
+            mat-icon-button
+            (mouseenter)="disableRouting = true"
+            (mouseleave)="disableRouting = false"
+            [disabled]="!group.expandable"
+            (click)="treeControl.toggle(group)"
+            [attr.aria-label]="'toggle ' + group.name">
             <mat-icon class="mat-icon-rtl-mirror" *ngIf="group.expandable">
               {{treeControl.isExpanded(group) ? 'expand_more' : 'chevron_right'}}
             </mat-icon>
@@ -42,9 +43,7 @@
             </span>
           </div>
           <div class="w-50 text-muted description-text" #rootDescription>
-            <span
-              matTooltip="{{group.description}}"
-              matTooltipPosition="before">
+            <span matTooltip="{{group.description}}" matTooltipPosition="before">
               {{group.description}}
             </span>
           </div>

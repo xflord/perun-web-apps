@@ -13,19 +13,23 @@
   </app-perun-nav-menu>
   <mat-sidenav-container
     [ngStyle]="{'margin-top': getSideNavMarginTop(),'min-height': getSideNavMinHeight()}">
-    <mat-sidenav #sidenav
-                 [ngStyle]="{'border-color': sideBarBorderColor}"
-                 [mode]="sidebarMode"
-                 [opened]="!isMobile()"
-                 [fixedInViewport]="true"
-                 [fixedTopGap]="getTopGap()">
-      <perfect-scrollbar [ngStyle]="{'background': sideMenubackgroundColor}" [scrollIndicators]="true">
+    <mat-sidenav
+      #sidenav
+      [ngStyle]="{'border-color': sideBarBorderColor}"
+      [mode]="sidebarMode"
+      [opened]="!isMobile()"
+      [fixedInViewport]="true"
+      [fixedTopGap]="getTopGap()">
+      <perfect-scrollbar
+        [ngStyle]="{'background': sideMenubackgroundColor}"
+        [scrollIndicators]="true">
         <app-side-menu [sideNav]="sidenav"></app-side-menu>
       </perfect-scrollbar>
     </mat-sidenav>
 
-    <mat-sidenav-content [ngStyle]="{'background-color': contentBackgroundColor}"
-                         id="content-inner">
+    <mat-sidenav-content
+      [ngStyle]="{'background-color': contentBackgroundColor}"
+      id="content-inner">
       <div [ngStyle]="{'min-height' : contentInnerMinHeight}" id="content-wrap">
         <router-outlet></router-outlet>
       </div>

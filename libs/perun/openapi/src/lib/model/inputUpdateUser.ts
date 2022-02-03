@@ -11,11 +11,9 @@
  */
 import { User } from './user';
 
-
 /**
  * input to updateUser
  */
-export interface InputUpdateUser { 
-    user: User;
+export interface InputUpdateUser {
+  user: User;
 }
-

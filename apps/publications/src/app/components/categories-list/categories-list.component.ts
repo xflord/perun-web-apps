@@ -5,14 +5,18 @@ import {
   Input,
   OnChanges,
   Output,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Category} from '@perun-web-apps/perun/openapi';
+import { Category } from '@perun-web-apps/perun/openapi';
 import {
   customDataSourceFilterPredicate,
-  customDataSourceSort, downloadData, getDataForExport, getDefaultDialogConfig,
-  TABLE_ITEMS_COUNT_OPTIONS, TableWrapperComponent
+  customDataSourceSort,
+  downloadData,
+  getDataForExport,
+  getDefaultDialogConfig,
+  TABLE_ITEMS_COUNT_OPTIONS,
+  TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
 import { MatSort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -23,14 +27,15 @@ import { UpdateRankDialogComponent } from '../../dialogs/update-rank-dialog/upda
 @Component({
   selector: 'perun-web-apps-categories-list',
   templateUrl: './categories-list.component.html',
-  styleUrls: ['./categories-list.component.scss']
+  styleUrls: ['./categories-list.component.scss'],
 })
 export class CategoriesListComponent implements AfterViewInit, OnChanges {
-
-  constructor(private guiAuthResolver: GuiAuthResolver,
-              private tableCheckbox: TableCheckbox,
-              private dialog: MatDialog,
-              private authResolver: GuiAuthResolver) { }
+  constructor(
+    private guiAuthResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox,
+    private dialog: MatDialog,
+    private authResolver: GuiAuthResolver
+  ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -59,7 +64,7 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
 
   editAuth = false;
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   ngOnChanges() {
     this.dataSource = new MatTableDataSource<Category>(this.categories);
@@ -67,12 +72,12 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
     this.dataSource.filter = this.filterValue;
   }
 
-  getDataForColumn(data: Category, column: string): string{
+  getDataForColumn(data: Category, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
       case 'name':
-        return  data.name;
+        return data.name;
       case 'rank':
         return data.rank.toString();
       default:
@@ -80,14 +85,30 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getDataForColumn, this), format);
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
   setDataSource() {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: Category, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
-      this.dataSource.sortData = (data: Category[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.filterPredicate = (data: Category, filter: string) =>
+        customDataSourceFilterPredicate(
+          data,
+          filter,
+          this.displayedColumns,
+          this.getDataForColumn,
+          this
+        );
+      this.dataSource.sortData = (data: Category[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }
@@ -95,12 +116,27 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(
+      this.selection.selected.length,
+      this.filterValue,
+      this.child.paginator.pageSize,
+      this.child.paginator.hasNextPage(),
+      this.dataSource
+    );
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex, false);
+    this.tableCheckbox.masterToggle(
+      this.isAllSelected(),
+      this.selection,
+      this.filterValue,
+      this.dataSource,
+      this.sort,
+      this.child.paginator.pageSize,
+      this.child.paginator.pageIndex,
+      false
+    );
   }
 
   /** The label for the checkbox on the passed row */
@@ -127,7 +163,7 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
 
     const dialogRef = this.dialog.open(UpdateRankDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.refreshTable.emit();
       }

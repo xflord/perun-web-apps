@@ -10,18 +10,15 @@
  * Do not edit the class manually.
  */
 
-
-export interface OwnerAllOf { 
-    name?: string;
-    contact?: string;
-    type?: OwnerAllOf.TypeEnum;
+export interface OwnerAllOf {
+  name?: string;
+  contact?: string;
+  type?: OwnerAllOf.TypeEnum;
 }
 export namespace OwnerAllOf {
-    export type TypeEnum = 'technical' | 'administrative';
-    export const TypeEnum = {
-        Technical: 'technical' as TypeEnum,
-        Administrative: 'administrative' as TypeEnum
-    };
+  export type TypeEnum = 'technical' | 'administrative';
+  export const TypeEnum = {
+    Technical: 'technical' as TypeEnum,
+    Administrative: 'administrative' as TypeEnum,
+  };
 }
-
-

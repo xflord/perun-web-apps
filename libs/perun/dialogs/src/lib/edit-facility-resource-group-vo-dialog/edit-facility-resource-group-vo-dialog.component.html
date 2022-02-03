@@ -1,45 +1,50 @@
 <div class="{{theme}}">
-  <h1 *ngIf="dialogType === 0"
-      mat-dialog-title>{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_FACILITY' | translate}}</h1>
-  <h1 *ngIf="dialogType === 1"
-      mat-dialog-title>{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_RESOURCE' | translate}}</h1>
-  <h1 *ngIf="dialogType === 2" mat-dialog-title>{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_VO' | translate}}</h1>
-  <h1 *ngIf="dialogType === 3"
-      mat-dialog-title>{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_GROUP' | translate}}</h1>
+  <h1 *ngIf="dialogType === 0" mat-dialog-title>
+    {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_FACILITY' | translate}}
+  </h1>
+  <h1 *ngIf="dialogType === 1" mat-dialog-title>
+    {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_RESOURCE' | translate}}
+  </h1>
+  <h1 *ngIf="dialogType === 2" mat-dialog-title>
+    {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_VO' | translate}}
+  </h1>
+  <h1 *ngIf="dialogType === 3" mat-dialog-title>
+    {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_GROUP' | translate}}
+  </h1>
   <div mat-dialog-content>
     <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
     <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
       <mat-form-field *ngIf="dialogType === 2">
-        <input [value]="shortName"
-               disabled
-               matInput
-               placeholder="{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.SHORT_NAME' | translate}}:"
-               required>
+        <input
+          [value]="shortName"
+          disabled
+          matInput
+          placeholder="{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.SHORT_NAME' | translate}}:"
+          required />
       </mat-form-field>
       <mat-form-field>
-        <input [formControl]="nameCtrl"
-               matInput
-               placeholder="{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.NAME' | translate}}:"
-               required>
+        <input
+          [formControl]="nameCtrl"
+          matInput
+          placeholder="{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.NAME' | translate}}:"
+          required />
         <mat-error>
           {{invalidNameMessage.length ? invalidNameMessage : ('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.FILL_NAME' | translate)}}
         </mat-error>
       </mat-form-field>
       <mat-form-field *ngIf="dialogType !== 2" class="mt-3">
-        <textarea [formControl]="descriptionCtrl"
-               class="overflow-hidden"
-               mat-autosize
-               matInput
-               placeholder="{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.DESCRIPTION' | translate}}:"></textarea>
+        <textarea
+          [formControl]="descriptionCtrl"
+          class="overflow-hidden"
+          mat-autosize
+          matInput
+          placeholder="{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.DESCRIPTION' | translate}}:"></textarea>
       </mat-form-field>
     </div>
   </div>
 
   <div mat-dialog-actions>
-    <button
-      (click)="cancel()"
-      class="ml-auto"
-      mat-flat-button>
+    <button (click)="cancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.CANCEL_BUTTON' | translate}}
     </button>
     <button

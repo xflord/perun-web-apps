@@ -5,7 +5,7 @@ import {
   CabinetManagerService,
   Owner,
   OwnersManagerService,
-  PublicationForGUI
+  PublicationForGUI,
 } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TABLE_ADD_THANKS_DIALOG } from '@perun-web-apps/config/table-config';
@@ -14,17 +14,18 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'perun-web-apps-add-thanks-dialog',
   templateUrl: './add-thanks-dialog.component.html',
-  styleUrls: ['./add-thanks-dialog.component.scss']
+  styleUrls: ['./add-thanks-dialog.component.scss'],
 })
 export class AddThanksDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<AddThanksDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: PublicationForGUI,
-              private ownersManagerService: OwnersManagerService,
-              private storeService: StoreService,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private cabinetManagerService: CabinetManagerService) { }
+  constructor(
+    private dialogRef: MatDialogRef<AddThanksDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: PublicationForGUI,
+    private ownersManagerService: OwnersManagerService,
+    private storeService: StoreService,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private cabinetManagerService: CabinetManagerService
+  ) {}
 
   loading: boolean;
   owners: Owner[];
@@ -32,16 +33,18 @@ export class AddThanksDialogComponent implements OnInit {
   filterValue: string;
   tableId = TABLE_ADD_THANKS_DIALOG;
 
-    ngOnInit(): void {
+  ngOnInit(): void {
     this.loading = true;
     const allowedOwners = this.storeService.get('allowed_owners_for_thanks');
-    this.ownersManagerService.getAllOwners().subscribe(owners => {
+    this.ownersManagerService.getAllOwners().subscribe((owners) => {
       if (allowedOwners.length !== 0) {
-        this.owners = owners.filter(item => allowedOwners.indexOf(item.id) > -1);
+        this.owners = owners.filter((item) => allowedOwners.indexOf(item.id) > -1);
       } else {
         this.owners = owners;
       }
-      this.owners = this.owners.filter(item => this.data.thanks.map(thanks => thanks.ownerId).indexOf(item.id) <= -1);
+      this.owners = this.owners.filter(
+        (item) => this.data.thanks.map((thanks) => thanks.ownerId).indexOf(item.id) <= -1
+      );
 
       this.loading = false;
     });
@@ -54,17 +57,29 @@ export class AddThanksDialogComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     if (this.selected.selected.length === 0) {
-      this.translate.get('DIALOGS.ADD_THANKS.SUCCESS').subscribe(success => {
+      this.translate.get('DIALOGS.ADD_THANKS.SUCCESS').subscribe((success) => {
         this.notificator.showSuccess(success);
         this.dialogRef.close(true);
       });
     } else {
-      this.cabinetManagerService.createThanks({thanks: {publicationId: this.data.id, ownerId: this.selected.selected.pop().id,
-          createdBy: this.storeService.getPerunPrincipal().actor, createdByUid: this.storeService.getPerunPrincipal().userId,
-          createdDate: Date.now().toString(), id: 0, beanName: 'Thanks'}}).subscribe(() => {
-        this.onSubmit();
-      }, () => this.loading = false);
+      this.cabinetManagerService
+        .createThanks({
+          thanks: {
+            publicationId: this.data.id,
+            ownerId: this.selected.selected.pop().id,
+            createdBy: this.storeService.getPerunPrincipal().actor,
+            createdByUid: this.storeService.getPerunPrincipal().userId,
+            createdDate: Date.now().toString(),
+            id: 0,
+            beanName: 'Thanks',
+          },
+        })
+        .subscribe(
+          () => {
+            this.onSubmit();
+          },
+          () => (this.loading = false)
+        );
     }
-
   }
 }

@@ -1,11 +1,11 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, Validators } from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {openClose} from '@perun-web-apps/perun/animations';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { openClose } from '@perun-web-apps/perun/animations';
 import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '@perun-web-apps/perun/services';
 import { GroupFlatNode } from '@perun-web-apps/perun/models';
@@ -19,12 +19,9 @@ export interface MoveGroupDialogData {
   selector: 'app-move-group-dialog',
   templateUrl: './move-group-dialog.component.html',
   styleUrls: ['./move-group-dialog.component.scss'],
-  animations: [
-    openClose
-  ]
+  animations: [openClose],
 })
 export class MoveGroupDialogComponent implements OnInit {
-
   constructor(
     public dialogRef: MatDialogRef<MoveGroupDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: MoveGroupDialogData,
@@ -34,8 +31,12 @@ export class MoveGroupDialogComponent implements OnInit {
     private apiRequest: ApiRequestConfigurationService,
     private authResolver: GuiAuthResolver
   ) {
-    this.translate.get('DIALOGS.MOVE_GROUP.SUCCESS').subscribe(value => this.successMessage = value);
-    this.translate.get('DIALOGS.MOVE_GROUP.ERROR').subscribe(value => this.errorMessage = value);
+    this.translate
+      .get('DIALOGS.MOVE_GROUP.SUCCESS')
+      .subscribe((value) => (this.successMessage = value));
+    this.translate
+      .get('DIALOGS.MOVE_GROUP.ERROR')
+      .subscribe((value) => (this.errorMessage = value));
   }
 
   successMessage: string;
@@ -54,25 +55,32 @@ export class MoveGroupDialogComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.groupService.getAllGroups(this.data.group.voId).subscribe(allGroups => {
-      this.otherGroups = allGroups.filter(group => group.id !== this.data.group.id &&
-          group.name !== 'members' &&
-          this.canMove(group));
-      if(this.otherGroups.length === 0){
-        this.toGroupOptionDisabled = true;
-      }
-      if (this.data.group.parentGroupId === null ||
-        !this.authResolver.isAuthorized('destination_null-moveGroup_Group_Group_policy', [this.data.group])) {
-        this.toRootOptionDisabled = true;
-        this.moveOption = 'toGroup';
-      }
-      this.filteredGroups = this.otherGroupsCtrl.valueChanges
-        .pipe(
-          startWith(''),
-          map(group => group ? this._filterGroups(group) : this.otherGroups.slice())
+    this.groupService.getAllGroups(this.data.group.voId).subscribe(
+      (allGroups) => {
+        this.otherGroups = allGroups.filter(
+          (group) =>
+            group.id !== this.data.group.id && group.name !== 'members' && this.canMove(group)
         );
-      this.loading = false;
-    }, () => this.loading = false);
+        if (this.otherGroups.length === 0) {
+          this.toGroupOptionDisabled = true;
+        }
+        if (
+          this.data.group.parentGroupId === null ||
+          !this.authResolver.isAuthorized('destination_null-moveGroup_Group_Group_policy', [
+            this.data.group,
+          ])
+        ) {
+          this.toRootOptionDisabled = true;
+          this.moveOption = 'toGroup';
+        }
+        this.filteredGroups = this.otherGroupsCtrl.valueChanges.pipe(
+          startWith(''),
+          map((group) => (group ? this._filterGroups(group) : this.otherGroups.slice()))
+        );
+        this.loading = false;
+      },
+      () => (this.loading = false)
+    );
   }
 
   // Hack that ensures proper autocomplete value displaying
@@ -88,12 +96,16 @@ export class MoveGroupDialogComponent implements OnInit {
 
     const filterValue = value.toLowerCase();
 
-    return value ? this.otherGroups.filter(group => group.name.toLowerCase().indexOf(filterValue) > -1) : this.otherGroups;
+    return value
+      ? this.otherGroups.filter((group) => group.name.toLowerCase().indexOf(filterValue) > -1)
+      : this.otherGroups;
   }
 
   canMove(group: Group): boolean {
-    return this.authResolver.isAuthorized('moveGroup_Group_Group_policy', [group, this.data.group]) &&
-      this.authResolver.isAuthorized('moveGroup_Group_Group_policy', [this.data.group, group]);
+    return (
+      this.authResolver.isAuthorized('moveGroup_Group_Group_policy', [group, this.data.group]) &&
+      this.authResolver.isAuthorized('moveGroup_Group_Group_policy', [this.data.group, group])
+    );
   }
 
   close() {
@@ -104,15 +116,20 @@ export class MoveGroupDialogComponent implements OnInit {
     this.loading = true;
     // FIXME this might not work in case of some race condition (other request finishes sooner)
     this.apiRequest.dontHandleErrorForNext();
-    this.groupService.moveGroupWithDestinationGroupMovingGroup(
-      this.data.group.id,
-      this.otherGroupsCtrl.value ? this.otherGroupsCtrl.value.id : undefined
-      ).subscribe(() => {
-      this.notificator.showSuccess(this.successMessage);
-      this.dialogRef.close(true);
-    }, (error => {
-      this.notificator.showRPCError(error, this.errorMessage);
-      this.dialogRef.close(false);
-    }));
+    this.groupService
+      .moveGroupWithDestinationGroupMovingGroup(
+        this.data.group.id,
+        this.otherGroupsCtrl.value ? this.otherGroupsCtrl.value.id : undefined
+      )
+      .subscribe(
+        () => {
+          this.notificator.showSuccess(this.successMessage);
+          this.dialogRef.close(true);
+        },
+        (error) => {
+          this.notificator.showRPCError(error, this.errorMessage);
+          this.dialogRef.close(false);
+        }
+      );
   }
 }

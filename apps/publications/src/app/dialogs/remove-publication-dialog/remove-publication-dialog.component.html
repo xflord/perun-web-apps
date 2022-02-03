@@ -10,21 +10,11 @@
     </perun-web-apps-publications-list>
   </div>
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="cancel()">
+    <button mat-flat-button class="ml-auto" (click)="cancel()">
       {{'DIALOGS.REMOVE_PUBLICATION.CANCEL' | translate}}
     </button>
-    <button
-      mat-flat-button
-      color="warn"
-      class="ml-2"
-      [disabled]="loading"
-      (click)="remove()">
+    <button mat-flat-button color="warn" class="ml-2" [disabled]="loading" (click)="remove()">
       {{'DIALOGS.REMOVE_PUBLICATION.REMOVE' | translate}}
     </button>
   </div>
-
 </div>
-

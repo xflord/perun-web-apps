@@ -4,21 +4,29 @@
   </h1>
 
   <mat-vertical-stepper linear #stepper>
-
     <mat-step completed="false">
-      <ng-template matStepLabel>{{'ADMIN.VISUALIZER.USER_DESTINATION.SELECT_USER' | translate}}</ng-template>
+      <ng-template
+        matStepLabel
+        >{{'ADMIN.VISUALIZER.USER_DESTINATION.SELECT_USER' | translate}}</ng-template
+      >
       <mat-form-field class="w-100">
-        <input matInput
-               type="text"
-               placeholder="{{'ADMIN.VISUALIZER.USER_DESTINATION.USER_EXAMPLE' | translate}}"
-               [formControl]="searchField"
-               [matAutocomplete]="auto"
-               (ngModelChange)="notCompleted(stepper)"
-               (keydown.enter)="validateName(stepper)">
+        <input
+          matInput
+          type="text"
+          placeholder="{{'ADMIN.VISUALIZER.USER_DESTINATION.USER_EXAMPLE' | translate}}"
+          [formControl]="searchField"
+          [matAutocomplete]="auto"
+          (ngModelChange)="notCompleted(stepper)"
+          (keydown.enter)="validateName(stepper)" />
         <mat-spinner *ngIf="loading" matSuffix [diameter]="20" [strokeWidth]="2"></mat-spinner>
-        <mat-hint align="start">{{'ADMIN.VISUALIZER.USER_DESTINATION.USER_HINT' | translate}}</mat-hint>
+        <mat-hint
+          align="start"
+          >{{'ADMIN.VISUALIZER.USER_DESTINATION.USER_HINT' | translate}}</mat-hint
+        >
         <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let user of users | async" [value]="user.firstName + ' ' + user.lastName">
+          <mat-option
+            *ngFor="let user of users | async"
+            [value]="user.firstName + ' ' + user.lastName">
             <span class="text-muted">#{{user.id}}</span> {{ user.firstName }} {{ user.lastName }}
           </mat-option>
         </mat-autocomplete>
@@ -31,14 +39,18 @@
     </mat-step>
 
     <mat-step completed="false">
-      <ng-template matStepLabel>{{'ADMIN.VISUALIZER.USER_DESTINATION.SELECT_DESTINATION' | translate}}</ng-template>
+      <ng-template
+        matStepLabel
+        >{{'ADMIN.VISUALIZER.USER_DESTINATION.SELECT_DESTINATION' | translate}}</ng-template
+      >
       <mat-form-field class="w-100">
-        <input matInput
-               type="text"
-               placeholder="{{'ADMIN.VISUALIZER.USER_DESTINATION.DESTINATION_EXAMPLE' | translate}}"
-               [(ngModel)]="destination"
-               (ngModelChange)="notCompleted(stepper)"
-               (keydown.enter)="validateDestination(stepper)">
+        <input
+          matInput
+          type="text"
+          placeholder="{{'ADMIN.VISUALIZER.USER_DESTINATION.DESTINATION_EXAMPLE' | translate}}"
+          [(ngModel)]="destination"
+          (ngModelChange)="notCompleted(stepper)"
+          (keydown.enter)="validateDestination(stepper)" />
       </mat-form-field>
       <div>
         <button mat-stroked-button class="mt-2" matStepperPrevious>
@@ -51,12 +63,16 @@
     </mat-step>
 
     <mat-step>
-      <ng-template matStepLabel>{{'ADMIN.VISUALIZER.USER_DESTINATION.SELECT_SERVICE' | translate}}</ng-template>
+      <ng-template
+        matStepLabel
+        >{{'ADMIN.VISUALIZER.USER_DESTINATION.SELECT_SERVICE' | translate}}</ng-template
+      >
       <mat-radio-group [(ngModel)]="chosenService" class="mb-2">
-        <mat-radio-button class="flex-column d-flex"
-                          color="primary"
-                          *ngFor="let service of availableServices"
-                          [value]="service">
+        <mat-radio-button
+          class="flex-column d-flex"
+          color="primary"
+          *ngFor="let service of availableServices"
+          [value]="service">
           {{service}}
         </mat-radio-button>
       </mat-radio-group>
@@ -69,8 +85,5 @@
         </button>
       </div>
     </mat-step>
-
   </mat-vertical-stepper>
-
 </div>
-

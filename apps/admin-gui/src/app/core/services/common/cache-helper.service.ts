@@ -1,19 +1,15 @@
 import { Injectable } from '@angular/core';
-import {NavigationStart, Router, RouteReuseStrategy} from '@angular/router';
-import {CacheRouteReuseStrategy} from './cache-route-reuse-strategy';
+import { NavigationStart, Router, RouteReuseStrategy } from '@angular/router';
+import { CacheRouteReuseStrategy } from './cache-route-reuse-strategy';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CacheHelperService {
-
-  constructor(
-    private router: Router,
-    private routeReuseStrategy: RouteReuseStrategy
-  ) {
+  constructor(private router: Router, private routeReuseStrategy: RouteReuseStrategy) {
     const cache = routeReuseStrategy as CacheRouteReuseStrategy;
 
-    router.events.subscribe(event => {
+    router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         if (event.navigationTrigger === 'popstate') {
           cache.setLastNavigationType('back');
@@ -25,6 +21,5 @@ export class CacheHelperService {
   }
 
   // Do not remove. This method is used to instantiate this service.
-  public init(): void {
-  }
+  public init(): void {}
 }

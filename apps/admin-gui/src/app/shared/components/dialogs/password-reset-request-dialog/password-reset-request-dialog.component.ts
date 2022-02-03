@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   Attribute,
   AttributesManagerService,
-  MembersManagerService
+  MembersManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
@@ -17,18 +17,21 @@ export interface PasswordResetRequestDialogData {
 @Component({
   selector: 'app-password-reset-request-dialog',
   templateUrl: './password-reset-request-dialog.component.html',
-  styleUrls: ['./password-reset-request-dialog.component.scss']
+  styleUrls: ['./password-reset-request-dialog.component.scss'],
 })
 export class PasswordResetRequestDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<PasswordResetRequestDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: PasswordResetRequestDialogData,
-              private membersManagerService: MembersManagerService,
-              private attributesManagerService: AttributesManagerService,
-              private store: StoreService,
-              private translate: TranslateService,
-              private notificator: NotificatorService) {
-    translate.get('DIALOGS.PASSWORD_RESET_REQUEST.SUCCESS').subscribe(res => this.successMessage = res);
+  constructor(
+    private dialogRef: MatDialogRef<PasswordResetRequestDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: PasswordResetRequestDialogData,
+    private membersManagerService: MembersManagerService,
+    private attributesManagerService: AttributesManagerService,
+    private store: StoreService,
+    private translate: TranslateService,
+    private notificator: NotificatorService
+  ) {
+    translate
+      .get('DIALOGS.PASSWORD_RESET_REQUEST.SUCCESS')
+      .subscribe((res) => (this.successMessage = res));
   }
   languages = this.store.get('supported_languages');
   selectedLang = 'en';
@@ -61,13 +64,24 @@ export class PasswordResetRequestDialogComponent implements OnInit {
     this.loading = true;
     const namespace: string = this.selectedLogin.friendlyNameParameter as unknown as string;
     const currentUrl = window.location.href;
-    const splittedUrl = currentUrl.split("/");
-    const domain = splittedUrl[0] + "//" + splittedUrl[2]; // protocol with domain
+    const splittedUrl = currentUrl.split('/');
+    const domain = splittedUrl[0] + '//' + splittedUrl[2]; // protocol with domain
 
-    this.membersManagerService.sendPasswordResetLinkEmail(this.data.memberId, namespace, this.pwdMails.get(this.selectedMail), this.selectedLang, domain).subscribe(() => {
-      this.notificator.showSuccess(this.successMessage);
-      this.loading = false;
-      this.dialogRef.close();
-    }, () => this.loading = false);
+    this.membersManagerService
+      .sendPasswordResetLinkEmail(
+        this.data.memberId,
+        namespace,
+        this.pwdMails.get(this.selectedMail),
+        this.selectedLang,
+        domain
+      )
+      .subscribe(
+        () => {
+          this.notificator.showSuccess(this.successMessage);
+          this.loading = false;
+          this.dialogRef.close();
+        },
+        () => (this.loading = false)
+      );
   }
 }

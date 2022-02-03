@@ -47,17 +47,14 @@
       (allSelected)="disableCheckboxes($event)"
       [tableId]="tableId"
       *ngIf="!loading"
-      [disableRouting]=true
+      [disableRouting]="true"
       [resources]="resources"
       [selection]="selected"
       [displayedColumns]="displayedColumns">
     </perun-web-apps-resources-list>
   </div>
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="cancel()">
+    <button mat-flat-button class="ml-auto" (click)="cancel()">
       {{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CANCEL' | translate}}
     </button>
     <button

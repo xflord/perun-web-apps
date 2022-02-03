@@ -3,7 +3,7 @@ import {
   RegistrarManagerService,
   RichUserExtSource,
   UserExtSource,
-  UsersManagerService
+  UsersManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -17,10 +17,9 @@ import { TABLE_USER_IDENTITIES } from '@perun-web-apps/config/table-config';
 @Component({
   selector: 'app-user-identities',
   templateUrl: './user-identities.component.html',
-  styleUrls: ['./user-identities.component.scss']
+  styleUrls: ['./user-identities.component.scss'],
 })
 export class UserIdentitiesComponent implements OnInit {
-
   userExtSources: RichUserExtSource[] = [];
   selection: SelectionModel<UserExtSource> = new SelectionModel<UserExtSource>(false, []);
   userId: number;
@@ -29,16 +28,17 @@ export class UserIdentitiesComponent implements OnInit {
   tableId = TABLE_USER_IDENTITIES;
   filterValue = '';
 
-  constructor(private usersManagerService: UsersManagerService,
-              private storage: StoreService,
-              private registrarManagerService: RegistrarManagerService,
-              private dialog:MatDialog,
-              protected route: ActivatedRoute,
-              public authResolver: GuiAuthResolver
-              ) { }
+  constructor(
+    private usersManagerService: UsersManagerService,
+    private storage: StoreService,
+    private registrarManagerService: RegistrarManagerService,
+    private dialog: MatDialog,
+    protected route: ActivatedRoute,
+    public authResolver: GuiAuthResolver
+  ) {}
 
   ngOnInit() {
-    this.route.parent.params.subscribe(params => {
+    this.route.parent.params.subscribe((params) => {
       this.userId = params['userId'];
     });
     this.refreshTable();
@@ -47,10 +47,13 @@ export class UserIdentitiesComponent implements OnInit {
   refreshTable() {
     this.loading = true;
     this.selection.clear();
-    this.usersManagerService.getRichUserExtSources(this.userId).subscribe(userExtSources => {
-      this.userExtSources = userExtSources;
-      this.loading = false;
-    }, () => this.loading = false);
+    this.usersManagerService.getRichUserExtSources(this.userId).subscribe(
+      (userExtSources) => {
+        this.userExtSources = userExtSources;
+        this.loading = false;
+      },
+      () => (this.loading = false)
+    );
   }
 
   addIdentity() {
@@ -58,7 +61,7 @@ export class UserIdentitiesComponent implements OnInit {
     config.width = '1000px';
     config.data = { userId: this.userId };
     const dialogRef = this.dialog.open(AddUserExtSourceDialogComponent, config);
-    dialogRef.afterClosed().subscribe(success => {
+    dialogRef.afterClosed().subscribe((success) => {
       if (success) {
         this.refreshTable();
       }
@@ -72,10 +75,10 @@ export class UserIdentitiesComponent implements OnInit {
       showSuccess: true,
       theme: 'user-theme',
       userId: this.userId,
-      extSources: this.selection.selected
+      extSources: this.selection.selected,
     };
     const dialogRef = this.dialog.open(RemoveUserExtSourceDialogComponent, config);
-    dialogRef.afterClosed().subscribe(success => {
+    dialogRef.afterClosed().subscribe((success) => {
       if (success) {
         this.refreshTable();
       }

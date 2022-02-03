@@ -14,10 +14,7 @@
     </app-attr-def-list>
   </div>
   <div mat-dialog-actions *ngIf="!loading">
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
       {{'DIALOGS.ADD_REQUIRED_ATTRIBUTES.CANCEL' | translate}}
     </button>
     <button

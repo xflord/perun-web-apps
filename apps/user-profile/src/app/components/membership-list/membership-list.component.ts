@@ -5,7 +5,7 @@ import {
   Input,
   OnChanges,
   Output,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { Attribute, Group, Vo } from '@perun-web-apps/perun/openapi';
@@ -13,8 +13,11 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import {
   customDataSourceFilterPredicate,
-  customDataSourceSort, downloadData, getDataForExport,
-  TABLE_ITEMS_COUNT_OPTIONS, TableWrapperComponent
+  customDataSourceSort,
+  downloadData,
+  getDataForExport,
+  TABLE_ITEMS_COUNT_OPTIONS,
+  TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
 
 export interface Membership {
@@ -25,12 +28,10 @@ export interface Membership {
 @Component({
   selector: 'perun-web-apps-membership-list',
   templateUrl: './membership-list.component.html',
-  styleUrls: ['./membership-list.component.scss']
+  styleUrls: ['./membership-list.component.scss'],
 })
 export class MembershipListComponent implements OnChanges, AfterViewInit {
-
-  constructor() {
-  }
+  constructor() {}
 
   private sort: MatSort;
 
@@ -39,7 +40,7 @@ export class MembershipListComponent implements OnChanges, AfterViewInit {
     this.setDataSource();
   }
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   @Input()
   members: Membership[] = [];
@@ -74,33 +75,50 @@ export class MembershipListComponent implements OnChanges, AfterViewInit {
     this.setDataSource();
   }
 
-  getDataForColumn(data: Membership, column: string): string{
+  getDataForColumn(data: Membership, column: string): string {
     switch (column) {
       case 'name':
         return data.entity.name;
       case 'description':
         return 'description' in data.entity ? data.entity.description : '';
       case 'expirationAttribute':
-        return data.expirationAttribute && data.expirationAttribute.value ? <string><unknown>data.expirationAttribute.value : 'never';
+        return data.expirationAttribute && data.expirationAttribute.value
+          ? <string>(<unknown>data.expirationAttribute.value)
+          : 'never';
       default:
         return '';
     }
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getDataForColumn, this), format);
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
   setDataSource() {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: Membership, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
-      this.dataSource.sortData = (data: Membership[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.filterPredicate = (data: Membership, filter: string) =>
+        customDataSourceFilterPredicate(
+          data,
+          filter,
+          this.displayedColumns,
+          this.getDataForColumn,
+          this
+        );
+      this.dataSource.sortData = (data: Membership[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;
     }
   }
-
 
   checkboxLabel(row?: Membership): string {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.entity.id + 1}`;

@@ -1,19 +1,16 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
-  ApiRequestConfigurationService, EntityStorageService,
+  ApiRequestConfigurationService,
+  EntityStorageService,
   GuiAuthResolver,
   NotificatorService,
-  StoreService
+  StoreService,
 } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveMembersDialogComponent } from '../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
 import { AddMemberDialogComponent } from '../../../../shared/components/dialogs/add-member-dialog/add-member-dialog.component';
-import {
-  AttributesManagerService,
-  RichMember,
-  Vo
-} from '@perun-web-apps/perun/openapi';
+import { AttributesManagerService, RichMember, Vo } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { FormControl } from '@angular/forms';
 import { TABLE_VO_MEMBERS } from '@perun-web-apps/config/table-config';
@@ -23,10 +20,9 @@ import { InviteMemberDialogComponent } from '../../../../shared/components/dialo
 @Component({
   selector: 'app-vo-members',
   templateUrl: './vo-members.component.html',
-  styleUrls: ['./vo-members.component.scss']
+  styleUrls: ['./vo-members.component.scss'],
 })
 export class VoMembersComponent implements OnInit {
-
   static id = 'VoMembersComponent';
 
   @HostBinding('class.router-component') true;
@@ -39,7 +35,7 @@ export class VoMembersComponent implements OnInit {
     private attributesManager: AttributesManagerService,
     private apiRequest: ApiRequestConfigurationService,
     private entityStorageService: EntityStorageService
-  ) { }
+  ) {}
 
   vo: Vo;
 
@@ -53,7 +49,7 @@ export class VoMembersComponent implements OnInit {
     Urns.MEMBER_DEF_MAIL,
     Urns.USER_DEF_ORGANIZATION,
     Urns.USER_DEF_PREFERRED_MAIL,
-    Urns.MEMBER_DEF_EXPIRATION
+    Urns.MEMBER_DEF_EXPIRATION,
   ];
 
   statuses = new FormControl();
@@ -78,22 +74,33 @@ export class VoMembersComponent implements OnInit {
     this.vo = this.entityStorageService.getEntity();
     this.setAuthRights();
 
-    this.isManualAddingBlocked(this.vo.id).then(() => this.loading = false);
+    this.isManualAddingBlocked(this.vo.id).then(() => (this.loading = false));
   }
 
-  setAuthRights(){
-    this.addAuth = this.authzService.isAuthorized('createMember_Vo_User_List<Group>_policy', [this.vo]) &&
+  setAuthRights() {
+    this.addAuth =
+      this.authzService.isAuthorized('createMember_Vo_User_List<Group>_policy', [this.vo]) &&
       this.authzService.isAuthorized('createMember_Vo_Candidate_List<Group>_policy', [this.vo]);
 
-    this.removeAuth = this.authzService.isAuthorized('deleteMembers_List<Member>_policy', [this.vo]);
+    this.removeAuth = this.authzService.isAuthorized('deleteMembers_List<Member>_policy', [
+      this.vo,
+    ]);
 
-    this.displayedColumns = this.removeAuth ? this.displayedColumns : ['id', 'fullName', 'status', 'organization', 'email', 'logins'];
+    this.displayedColumns = this.removeAuth
+      ? this.displayedColumns
+      : ['id', 'fullName', 'status', 'organization', 'email', 'logins'];
 
-    if(this.members !== null && this.members.length !== 0){
-      this.routeAuth = this.authzService.isAuthorized('getMemberById_int_policy', [this.vo, this.members[0]]);
+    if (this.members !== null && this.members.length !== 0) {
+      this.routeAuth = this.authzService.isAuthorized('getMemberById_int_policy', [
+        this.vo,
+        this.members[0],
+      ]);
     }
 
-    this.inviteAuth = this.authzService.isAuthorized('vo-sendInvitation_Vo_Group_String_String_String_policy', [this.vo]);
+    this.inviteAuth = this.authzService.isAuthorized(
+      'vo-sendInvitation_Vo_Group_String_String_String_policy',
+      [this.vo]
+    );
   }
 
   onSearchByString(filter: string) {
@@ -108,7 +115,7 @@ export class VoMembersComponent implements OnInit {
       entityId: this.vo.id,
       voId: this.vo.id,
       theme: 'vo-theme',
-      type: 'vo'
+      type: 'vo',
     };
 
     const dialogRef = this.dialog.open(AddMemberDialogComponent, config);
@@ -126,12 +133,12 @@ export class VoMembersComponent implements OnInit {
     config.width = '450px';
     config.data = {
       members: this.selection.selected,
-      theme: 'vo-theme'
+      theme: 'vo-theme',
     };
 
     const dialogRef = this.dialog.open(RemoveMembersDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(wereMembersDeleted => {
+    dialogRef.afterClosed().subscribe((wereMembersDeleted) => {
       if (wereMembersDeleted) {
         this.updateTable = !this.updateTable;
         this.selection.clear();
@@ -139,7 +146,7 @@ export class VoMembersComponent implements OnInit {
     });
   }
 
-  onInviteMember(){
+  onInviteMember() {
     const config = getDefaultDialogConfig();
     config.width = '650px';
     config.data = { voId: this.vo.id, theme: 'vo-theme' };
@@ -148,11 +155,18 @@ export class VoMembersComponent implements OnInit {
   }
 
   displaySelectedStatuses(): string {
-    if(this.selectedStatuses.length === this.statusList.length){
+    if (this.selectedStatuses.length === this.statusList.length) {
       return 'ALL';
     }
-    if(this.statuses.value){
-      return `${this.statuses.value[0]}  ${this.statuses.value.length > 1 ? ('(+' + (this.statuses.value.length - 1) +' '+ (this.statuses.value.length === 2 ? 'other)' : 'others)')) : ''}`;
+    if (this.statuses.value) {
+      return `${this.statuses.value[0]}  ${
+        this.statuses.value.length > 1
+          ? '(+' +
+            (this.statuses.value.length - 1) +
+            ' ' +
+            (this.statuses.value.length === 2 ? 'other)' : 'others)')
+          : ''
+      }`;
     }
     return '';
   }
@@ -160,15 +174,20 @@ export class VoMembersComponent implements OnInit {
   isManualAddingBlocked(voId: number) {
     return new Promise<void>((resolve) => {
       this.apiRequest.dontHandleErrorForNext();
-      this.attributesManager.getVoAttributeByName(voId, "urn:perun:vo:attribute-def:def:blockManualMemberAdding").subscribe(attrValue => {
-        this.blockManualMemberAdding = attrValue.value !== null;
-        resolve();
-      }, error => {
-        if (error.error.name !== 'PrivilegeException') {
-          this.notificator.showError(error);
-        }
-        resolve();
-      });
+      this.attributesManager
+        .getVoAttributeByName(voId, 'urn:perun:vo:attribute-def:def:blockManualMemberAdding')
+        .subscribe(
+          (attrValue) => {
+            this.blockManualMemberAdding = attrValue.value !== null;
+            resolve();
+          },
+          (error) => {
+            if (error.error.name !== 'PrivilegeException') {
+              this.notificator.showError(error);
+            }
+            resolve();
+          }
+        );
     });
   }
 

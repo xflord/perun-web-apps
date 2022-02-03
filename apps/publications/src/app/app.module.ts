@@ -2,7 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER, forwardRef, NgModule, Provider } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { ApiInterceptor, ApiService, CustomIconService, StoreService } from '@perun-web-apps/perun/services';
+import {
+  ApiInterceptor,
+  ApiService,
+  CustomIconService,
+  StoreService,
+} from '@perun-web-apps/perun/services';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ApiModule, Configuration, ConfigurationParameters } from '@perun-web-apps/perun/openapi';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -52,7 +57,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
   useExisting: forwardRef(() => ApiInterceptor),
-  multi: true
+  multi: true,
 };
 
 export function createTranslateLoader(http: HttpClient) {
@@ -61,7 +66,7 @@ export function createTranslateLoader(http: HttpClient) {
 
 export function apiConfigFactory(store: StoreService): Configuration {
   const params: ConfigurationParameters = {
-    basePath: store.get('api_url')
+    basePath: store.get('api_url'),
   };
   return new Configuration(params);
 }
@@ -99,7 +104,7 @@ const loadConfigs = (appConfig: PublicationsConfigService) => () => appConfig.lo
     AddAuthorsComponent,
     AddThanksComponent,
     ImportPublicationsPageComponent,
-    YearRangeComponent
+    YearRangeComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,8 +112,8 @@ const loadConfigs = (appConfig: PublicationsConfigService) => () => appConfig.lo
       loader: {
         provide: TranslateLoader,
         useFactory: createTranslateLoader,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
     BrowserAnimationsModule,
     UiMaterialModule,
@@ -121,7 +126,7 @@ const loadConfigs = (appConfig: PublicationsConfigService) => () => appConfig.lo
     PerunLoginModule,
     MatTabsModule,
     PerunUtilsModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
   ],
   providers: [
     CustomIconService,
@@ -129,28 +134,25 @@ const loadConfigs = (appConfig: PublicationsConfigService) => () => appConfig.lo
       provide: APP_INITIALIZER,
       useFactory: loadConfigs,
       multi: true,
-      deps: [PublicationsConfigService]
+      deps: [PublicationsConfigService],
     },
     {
       provide: Configuration,
       useFactory: apiConfigFactory,
-      deps:[StoreService]
+      deps: [StoreService],
     },
     ApiInterceptor,
     API_INTERCEPTOR_PROVIDER,
     {
       provide: PERUN_API_SERVICE,
-      useClass: ApiService
+      useClass: ApiService,
     },
-    MomentDateModule
+    MomentDateModule,
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(
-    private customIconService: CustomIconService,
-    private translate: TranslateService
-  ) {
+  constructor(private customIconService: CustomIconService, private translate: TranslateService) {
     this.translate.setDefaultLang('en');
     this.translate.use('en');
     this.customIconService.registerPerunRefreshIcon();

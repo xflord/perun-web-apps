@@ -1,6 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { StoreService } from '@perun-web-apps/perun/services';
 import { ApplicationFormItem, Type } from '@perun-web-apps/perun/openapi';
 import { createNewApplicationFormItem } from '@perun-web-apps/perun/utils';
@@ -14,37 +14,61 @@ export interface AddApplicationFormItemDialogComponentData {
 @Component({
   selector: 'app-add-application-form-item-dialog',
   templateUrl: './add-application-form-item-dialog.component.html',
-  styleUrls: ['./add-application-form-item-dialog.component.scss']
+  styleUrls: ['./add-application-form-item-dialog.component.scss'],
 })
 export class AddApplicationFormItemDialogComponent implements OnInit {
-
   languages = this.store.get('supported_languages');
 
   items: string[] = [];
   selectedItem: string;
   selectedWidget = 'HEADING';
-  widgets = ['HEADING', 'FROM_FEDERATION_HIDDEN', 'HTML_COMMENT', 'TEXTFIELD', 'FROM_FEDERATION_SHOW', 'VALIDATED_EMAIL', 'USERNAME',
-            'PASSWORD', 'SELECTIONBOX', 'TEXTAREA', 'COMBOBOX', 'CHECKBOX', 'SUBMIT_BUTTON', 'RADIO', 'TIMEZONE', 'AUTO_SUBMIT_BUTTON', 'EMBEDDED_GROUP_APPLICATION'];
+  widgets = [
+    'HEADING',
+    'FROM_FEDERATION_HIDDEN',
+    'HTML_COMMENT',
+    'TEXTFIELD',
+    'FROM_FEDERATION_SHOW',
+    'VALIDATED_EMAIL',
+    'USERNAME',
+    'PASSWORD',
+    'SELECTIONBOX',
+    'TEXTAREA',
+    'COMBOBOX',
+    'CHECKBOX',
+    'SUBMIT_BUTTON',
+    'RADIO',
+    'TIMEZONE',
+    'AUTO_SUBMIT_BUTTON',
+    'EMBEDDED_GROUP_APPLICATION',
+  ];
   nameCtrl: FormControl;
 
-  constructor(private dialogRef: MatDialogRef<AddApplicationFormItemDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: AddApplicationFormItemDialogComponentData,
-              private translateService: TranslateService,
-              private store: StoreService) { }
+  constructor(
+    private dialogRef: MatDialogRef<AddApplicationFormItemDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: AddApplicationFormItemDialogComponentData,
+    private translateService: TranslateService,
+    private store: StoreService
+  ) {}
 
   ngOnInit() {
-    this.translateService.get('DIALOGS.APPLICATION_FORM_ADD_ITEM.INSERT_TO_BEGINNING').subscribe( text => {
-      this.nameCtrl = new FormControl('', [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.maxLength(129)]);
-      this.nameCtrl.markAllAsTouched();
-      this.items.push(text);
-      for (const item of this.data.applicationFormItems) {
-        this.items.push(item.shortname);
-        if (item.type === Type.EMBEDDEDGROUPAPPLICATION) {
-          this.widgets = this.widgets.filter(type => type !== Type.EMBEDDEDGROUPAPPLICATION);
+    this.translateService
+      .get('DIALOGS.APPLICATION_FORM_ADD_ITEM.INSERT_TO_BEGINNING')
+      .subscribe((text) => {
+        this.nameCtrl = new FormControl('', [
+          Validators.required,
+          Validators.pattern('.*[\\S]+.*'),
+          Validators.maxLength(129),
+        ]);
+        this.nameCtrl.markAllAsTouched();
+        this.items.push(text);
+        for (const item of this.data.applicationFormItems) {
+          this.items.push(item.shortname);
+          if (item.type === Type.EMBEDDEDGROUPAPPLICATION) {
+            this.widgets = this.widgets.filter((type) => type !== Type.EMBEDDEDGROUPAPPLICATION);
+          }
         }
-      }
-      this.selectedItem = text;
-    });
+        this.selectedItem = text;
+      });
   }
 
   cancel() {
@@ -52,8 +76,8 @@ export class AddApplicationFormItemDialogComponent implements OnInit {
   }
 
   submit() {
-      const item = this.createApplicationItem();
-      this.dialogRef.close([this.data.applicationFormItems, item]);
+    const item = this.createApplicationItem();
+    this.dialogRef.close([this.data.applicationFormItems, item]);
   }
 
   createApplicationItem(): ApplicationFormItem {
@@ -69,5 +93,3 @@ export class AddApplicationFormItemDialogComponent implements OnInit {
     }
   }
 }
-
-

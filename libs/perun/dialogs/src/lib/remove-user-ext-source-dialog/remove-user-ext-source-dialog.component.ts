@@ -15,10 +15,9 @@ export interface RemoveUserExtSourceDialogData {
 @Component({
   selector: 'perun-web-apps-remove-user-ext-source-dialog',
   templateUrl: './remove-user-ext-source-dialog.component.html',
-  styleUrls: ['./remove-user-ext-source-dialog.component.scss']
+  styleUrls: ['./remove-user-ext-source-dialog.component.scss'],
 })
 export class RemoveUserExtSourceDialogComponent implements OnInit {
-
   successMessage: string;
   theme: string;
   force = false;
@@ -33,7 +32,9 @@ export class RemoveUserExtSourceDialogComponent implements OnInit {
     private translate: TranslateService,
     private notificator: NotificatorService
   ) {
-    translate.get('SHARED_LIB.PERUN.COMPONENTS.REMOVE_USER_EXT_SOURCE.SUCCESS').subscribe(res => this.successMessage = res);
+    translate
+      .get('SHARED_LIB.PERUN.COMPONENTS.REMOVE_USER_EXT_SOURCE.SUCCESS')
+      .subscribe((res) => (this.successMessage = res));
   }
 
   ngOnInit() {
@@ -47,17 +48,25 @@ export class RemoveUserExtSourceDialogComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
-    if(this.data.extSources.length){
-      this.usersManagerService.removeUserExtSource(this.data.userId, this.data.extSources.pop().userExtSource.id,this.force).subscribe(() =>{
-      this.onSubmit();
-      }, () => this.loading = false);
+    if (this.data.extSources.length) {
+      this.usersManagerService
+        .removeUserExtSource(
+          this.data.userId,
+          this.data.extSources.pop().userExtSource.id,
+          this.force
+        )
+        .subscribe(
+          () => {
+            this.onSubmit();
+          },
+          () => (this.loading = false)
+        );
     } else {
       this.loading = false;
-      if(this.data.showSuccess){
+      if (this.data.showSuccess) {
         this.notificator.showSuccess(this.successMessage);
       }
       this.dialogRef.close(true);
     }
   }
-
 }

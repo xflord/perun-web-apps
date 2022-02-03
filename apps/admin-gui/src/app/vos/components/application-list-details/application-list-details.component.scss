@@ -2,10 +2,13 @@
   height: auto;
 }
 
-mat-cell, .mat-cell, mat-header-cell, .mat-header-cell {
+mat-cell,
+.mat-cell,
+mat-header-cell,
+.mat-header-cell {
   padding: 8px !important;
 }
 
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
 }

@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApplicationForm, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 
@@ -12,13 +12,14 @@ export interface UpdateApplicationFormDialogData {
 @Component({
   selector: 'app-update-application-form-dialog',
   templateUrl: './update-application-form-dialog.component.html',
-  styleUrls: ['./update-application-form-dialog.component.scss']
+  styleUrls: ['./update-application-form-dialog.component.scss'],
 })
 export class UpdateApplicationFormDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<UpdateApplicationFormDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: UpdateApplicationFormDialogData,
-              private registrarManager: RegistrarManagerService) { }
+  constructor(
+    private dialogRef: MatDialogRef<UpdateApplicationFormDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: UpdateApplicationFormDialogData,
+    private registrarManager: RegistrarManagerService
+  ) {}
 
   entity: string;
   applicationForm: ApplicationForm;
@@ -51,8 +52,11 @@ export class UpdateApplicationFormDialogComponent implements OnInit {
     this.applicationForm.automaticApproval = this.initialState === 'auto';
     this.applicationForm.automaticApprovalExtension = this.extensionState === 'auto';
     this.applicationForm.automaticApprovalEmbedded = this.embeddedState === 'auto';
-    this.registrarManager.updateForm({form: this.applicationForm}).subscribe( updatedForm => {
-      this.dialogRef.close(updatedForm);
-    }, () => this.loading = false);
+    this.registrarManager.updateForm({ form: this.applicationForm }).subscribe(
+      (updatedForm) => {
+        this.dialogRef.close(updatedForm);
+      },
+      () => (this.loading = false)
+    );
   }
 }

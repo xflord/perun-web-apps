@@ -11,9 +11,7 @@
  */
 import { MemberWithAttributes } from './memberWithAttributes';
 
-
-export interface GroupMemberRelations { 
-    groupId?: number;
-    memberWithAttributes?: Array<MemberWithAttributes>;
+export interface GroupMemberRelations {
+  groupId?: number;
+  memberWithAttributes?: Array<MemberWithAttributes>;
 }
-

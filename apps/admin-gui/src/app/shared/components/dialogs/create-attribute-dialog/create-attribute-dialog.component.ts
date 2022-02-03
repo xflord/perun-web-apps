@@ -20,11 +20,9 @@ export interface CreateAttributeDialogData {
 @Component({
   selector: 'app-create-attribute-dialog',
   templateUrl: './create-attribute-dialog.component.html',
-  styleUrls: ['./create-attribute-dialog.component.scss']
+  styleUrls: ['./create-attribute-dialog.component.scss'],
 })
-
 export class CreateAttributeDialogComponent implements OnInit {
-
   @ViewChild('list')
   list: AttributesListComponent;
   attributes: Attribute[] = [];
@@ -35,17 +33,21 @@ export class CreateAttributeDialogComponent implements OnInit {
   tableId = TABLE_ATTRIBUTES_SETTINGS;
   loading: boolean;
 
-  constructor(private dialogRef: MatDialogRef<CreateAttributeDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: CreateAttributeDialogData,
-              private attributesManager: AttributesManagerService,
-              private notificator: NotificatorService,
-              private translate: TranslateService) {
-    this.translate.get('DIALOGS.CREATE_ATTRIBUTE.SUCCESS_SAVE').subscribe(value => this.saveSuccessMessage = value);
+  constructor(
+    private dialogRef: MatDialogRef<CreateAttributeDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: CreateAttributeDialogData,
+    private attributesManager: AttributesManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService
+  ) {
+    this.translate
+      .get('DIALOGS.CREATE_ATTRIBUTE.SUCCESS_SAVE')
+      .subscribe((value) => (this.saveSuccessMessage = value));
   }
 
   ngOnInit() {
     const unWanted = new Array<number>();
-    this.data.notEmptyAttributes.forEach(attribute => {
+    this.data.notEmptyAttributes.forEach((attribute) => {
       unWanted.push(attribute.id);
     });
 
@@ -111,12 +113,24 @@ export class CreateAttributeDialogComponent implements OnInit {
         break;
     }
     this.loading = true;
-    this.attributesManager.getAttributesDefinitionWithRights(memberId, userId, voId, groupId, resourceId, facilityId,
-      hostId, uesId).subscribe(attributes => {
-      this.attributes = attributes as Attribute[];
-      this.attributes = this.attributes.filter(attribute => !unWanted.includes(attribute.id) && this.twoEntityValid(attribute));
-      this.loading = false;
-    });
+    this.attributesManager
+      .getAttributesDefinitionWithRights(
+        memberId,
+        userId,
+        voId,
+        groupId,
+        resourceId,
+        facilityId,
+        hostId,
+        uesId
+      )
+      .subscribe((attributes) => {
+        this.attributes = attributes as Attribute[];
+        this.attributes = this.attributes.filter(
+          (attribute) => !unWanted.includes(attribute.id) && this.twoEntityValid(attribute)
+        );
+        this.loading = false;
+      });
   }
 
   onCancel(): void {
@@ -144,113 +158,137 @@ export class CreateAttributeDialogComponent implements OnInit {
 
     switch (this.data.entity) {
       case 'facility':
-        this.attributesManager.setFacilityAttributes({
-          facility: this.data.entityId,
-          attributes: this.selected.selected
-        }).subscribe(() => {
-          this.handleSuccess();
-        });
+        this.attributesManager
+          .setFacilityAttributes({
+            facility: this.data.entityId,
+            attributes: this.selected.selected,
+          })
+          .subscribe(() => {
+            this.handleSuccess();
+          });
         break;
       case 'group':
         switch (this.data.secondEntity) {
           case 'resource':
-            this.attributesManager.setGroupResourceAttributes({
-              group: this.data.entityId,
-              resource: this.data.secondEntityId,
-              attributes: this.selected.selected
-            }).subscribe(() => {
-              this.handleSuccess();
-            });
+            this.attributesManager
+              .setGroupResourceAttributes({
+                group: this.data.entityId,
+                resource: this.data.secondEntityId,
+                attributes: this.selected.selected,
+              })
+              .subscribe(() => {
+                this.handleSuccess();
+              });
             break;
           default:
-            this.attributesManager.setGroupAttributes({
-              group: this.data.entityId,
-              attributes: this.selected.selected
-            }).subscribe(() => {
-              this.handleSuccess();
-            });
+            this.attributesManager
+              .setGroupAttributes({
+                group: this.data.entityId,
+                attributes: this.selected.selected,
+              })
+              .subscribe(() => {
+                this.handleSuccess();
+              });
         }
         break;
       case 'member':
         switch (this.data.secondEntity) {
           case 'resource':
-            this.attributesManager.setMemberResourceAttributes({
-              member: this.data.entityId,
-              resource: this.data.secondEntityId,
-              attributes: this.selected.selected
-            }).subscribe(() => {
-              this.handleSuccess();
-            });
+            this.attributesManager
+              .setMemberResourceAttributes({
+                member: this.data.entityId,
+                resource: this.data.secondEntityId,
+                attributes: this.selected.selected,
+              })
+              .subscribe(() => {
+                this.handleSuccess();
+              });
             break;
           case 'group':
-            this.attributesManager.setMemberGroupAttributes({
-              member: this.data.entityId,
-              group: this.data.secondEntityId,
-              attributes: this.selected.selected
-            }).subscribe(() => {
-              this.handleSuccess();
-            });
+            this.attributesManager
+              .setMemberGroupAttributes({
+                member: this.data.entityId,
+                group: this.data.secondEntityId,
+                attributes: this.selected.selected,
+              })
+              .subscribe(() => {
+                this.handleSuccess();
+              });
             break;
           default:
-            this.attributesManager.setMemberAttributes({
-              member: this.data.entityId,
-              attributes: this.selected.selected
-            }).subscribe(() => {
-              this.handleSuccess();
-            });
+            this.attributesManager
+              .setMemberAttributes({
+                member: this.data.entityId,
+                attributes: this.selected.selected,
+              })
+              .subscribe(() => {
+                this.handleSuccess();
+              });
         }
         break;
       case 'resource':
-        this.attributesManager.setResourceAttributes({
-          resource: this.data.entityId,
-          attributes: this.selected.selected
-        }).subscribe(() => {
-          this.handleSuccess();
-        });
+        this.attributesManager
+          .setResourceAttributes({
+            resource: this.data.entityId,
+            attributes: this.selected.selected,
+          })
+          .subscribe(() => {
+            this.handleSuccess();
+          });
         break;
       case 'user':
         switch (this.data.secondEntity) {
           case 'facility':
-            this.attributesManager.setUserFacilityAttributes({
-              user: this.data.entityId,
-              facility: this.data.secondEntityId,
-              attributes: this.selected.selected
-            }).subscribe(() => {
-              this.handleSuccess();
-            });
+            this.attributesManager
+              .setUserFacilityAttributes({
+                user: this.data.entityId,
+                facility: this.data.secondEntityId,
+                attributes: this.selected.selected,
+              })
+              .subscribe(() => {
+                this.handleSuccess();
+              });
             break;
           default:
-            this.attributesManager.setUserAttributes({
-              user: this.data.entityId,
-              attributes: this.selected.selected
-            }).subscribe(() => {
-              this.handleSuccess();
-            });
+            this.attributesManager
+              .setUserAttributes({
+                user: this.data.entityId,
+                attributes: this.selected.selected,
+              })
+              .subscribe(() => {
+                this.handleSuccess();
+              });
         }
         break;
       case 'vo':
-        this.attributesManager.setVoAttributes({
-          vo: this.data.entityId,
-          attributes: this.selected.selected
-        }).subscribe(() => {
-          this.handleSuccess();
-        });
+        this.attributesManager
+          .setVoAttributes({
+            vo: this.data.entityId,
+            attributes: this.selected.selected,
+          })
+          .subscribe(() => {
+            this.handleSuccess();
+          });
         break;
       case 'host':
-        this.attributesManager.setHostAttributes({
-          host: this.data.entityId,
-          attributes: this.selected.selected
-        }).subscribe(() => {
-          this.handleSuccess();
-        });
+        this.attributesManager
+          .setHostAttributes({
+            host: this.data.entityId,
+            attributes: this.selected.selected,
+          })
+          .subscribe(() => {
+            this.handleSuccess();
+          });
         break;
       case 'ues':
-        this.attributesManager.setUserExtSourceAttributes({
-          userExtSource: this.data.entityId,
-          attributes: this.selected.selected
-        }).subscribe(() => {
-          this.handleSuccess();
-        })
+        this.attributesManager
+          .setUserExtSourceAttributes({
+            userExtSource: this.data.entityId,
+            attributes: this.selected.selected,
+          })
+          .subscribe(() => {
+            this.handleSuccess();
+          });
         break;
     }
   }
@@ -272,4 +310,3 @@ export class CreateAttributeDialogComponent implements OnInit {
     return attribute.entity === `${this.data.entity}_${this.data.secondEntity}`;
   }
 }
-

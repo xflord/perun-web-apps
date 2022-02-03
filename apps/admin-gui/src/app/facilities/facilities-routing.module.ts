@@ -1,26 +1,18 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {FacilitySelectPageComponent} from './pages/facility-select-page/facility-select-page.component';
-import {FacilityDetailPageComponent} from './pages/facility-detail-page/facility-detail-page.component';
-import {FacilityOverviewComponent} from './pages/facility-detail-page/facility-overview/facility-overview.component';
-import {FacilityResourcesComponent} from './pages/facility-detail-page/facility-resources/facility-resources.component';
-import {FacilityAllowedGroupsComponent} from './pages/facility-detail-page/facility-allowed-groups/facility-allowed-groups.component';
-import {ResourceDetailPageComponent} from './pages/resource-detail-page/resource-detail-page.component';
-import {ResourceOverviewComponent} from './pages/resource-detail-page/resource-overview/resource-overview.component';
-import {FacilitySettingsComponent} from './pages/facility-detail-page/facility-settings/facility-settings.component';
-import {
-  FacilitySettingsOverviewComponent
-} from './pages/facility-detail-page/facility-settings/facility-settings-overview/facility-settings-overview.component';
-import {
-  FacilityAttributesComponent
-} from './pages/facility-detail-page/facility-attributes/facility-attributes.component';
-import {ResourceSettingsComponent} from './pages/resource-detail-page/resource-settings/resource-settings.component';
-import {
-  ResourceSettingsOverviewComponent
-} from './pages/resource-detail-page/resource-settings/resource-settings-overview/resource-settings-overview.component';
-import {
-  ResourceAttributesComponent
-} from './pages/resource-detail-page/resource-attributes/resource-attributes.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { FacilitySelectPageComponent } from './pages/facility-select-page/facility-select-page.component';
+import { FacilityDetailPageComponent } from './pages/facility-detail-page/facility-detail-page.component';
+import { FacilityOverviewComponent } from './pages/facility-detail-page/facility-overview/facility-overview.component';
+import { FacilityResourcesComponent } from './pages/facility-detail-page/facility-resources/facility-resources.component';
+import { FacilityAllowedGroupsComponent } from './pages/facility-detail-page/facility-allowed-groups/facility-allowed-groups.component';
+import { ResourceDetailPageComponent } from './pages/resource-detail-page/resource-detail-page.component';
+import { ResourceOverviewComponent } from './pages/resource-detail-page/resource-overview/resource-overview.component';
+import { FacilitySettingsComponent } from './pages/facility-detail-page/facility-settings/facility-settings.component';
+import { FacilitySettingsOverviewComponent } from './pages/facility-detail-page/facility-settings/facility-settings-overview/facility-settings-overview.component';
+import { FacilityAttributesComponent } from './pages/facility-detail-page/facility-attributes/facility-attributes.component';
+import { ResourceSettingsComponent } from './pages/resource-detail-page/resource-settings/resource-settings.component';
+import { ResourceSettingsOverviewComponent } from './pages/resource-detail-page/resource-settings/resource-settings-overview/resource-settings-overview.component';
+import { ResourceAttributesComponent } from './pages/resource-detail-page/resource-attributes/resource-attributes.component';
 import { ResourceGroupsComponent } from './pages/resource-detail-page/resource-groups/resource-groups.component';
 import { FacilityServiceConfigComponent } from './pages/facility-detail-page/facility-service-config/facility-service-config.component';
 import { FacilitySettingsManagersComponent } from './pages/facility-detail-page/facility-settings/facility-settings-managers/facility-settings-managers.component';
@@ -43,7 +35,7 @@ import { ConfigureFacilityGuardService } from './services/configure-facility-gua
 const routes: Routes = [
   {
     path: '',
-    component: FacilitySelectPageComponent
+    component: FacilitySelectPageComponent,
   },
   {
     path: ':facilityId',
@@ -52,56 +44,57 @@ const routes: Routes = [
       {
         path: '',
         component: FacilityOverviewComponent,
-        data: {animation: 'FacilityOverviewPage'}
+        data: { animation: 'FacilityOverviewPage' },
       },
       {
         path: 'attributes',
         component: FacilityAttributesComponent,
-        data: {animation: 'FacilityAttributesPage'}
+        data: { animation: 'FacilityAttributesPage' },
       },
       {
         path: 'resources',
         component: FacilityResourcesComponent,
-        data: {animation: 'FacilityResourcesPage'}
+        data: { animation: 'FacilityResourcesPage' },
       },
       {
         path: 'allowed-users',
         component: FacilityAllowedUsersComponent,
-        data: {animation: 'FacilityAllowedUsersPage'}
+        data: { animation: 'FacilityAllowedUsersPage' },
       },
       {
         path: 'allowed-groups',
         component: FacilityAllowedGroupsComponent,
-        data: {animation: 'FacilityAllowedGroupsPage'}
+        data: { animation: 'FacilityAllowedGroupsPage' },
       },
       {
         path: 'services-status',
         component: FacilityServiceStatusComponent,
-        data: {animation: 'FacilityServiceStatusPage'}
+        data: { animation: 'FacilityServiceStatusPage' },
       },
       {
         path: 'services-status/:taskId',
         component: FacilityTaskResultsComponent,
-        data: {animation: 'FacilityTaskResultsPage'}
+        data: { animation: 'FacilityTaskResultsPage' },
       },
       {
         path: 'service-config',
         component: FacilityServiceConfigComponent,
-        data: {animation: 'FacilityServiceConfigPage'}
-      },{
+        data: { animation: 'FacilityServiceConfigPage' },
+      },
+      {
         path: 'services-destinations',
         component: FacilityServicesDestinationsComponent,
-        data: {animation: 'FacilityServicesDestinationsPage'}
+        data: { animation: 'FacilityServicesDestinationsPage' },
       },
       {
         path: 'hosts',
         component: FacilityHostsComponent,
-        data: {animation: 'FacilityHostsPage'}
+        data: { animation: 'FacilityHostsPage' },
       },
       {
         path: 'hosts/:hostId',
         component: FacilityHostsDetailComponent,
-        data: {animation: 'FacilityHostsDetailPage'}
+        data: { animation: 'FacilityHostsDetailPage' },
       },
       {
         path: 'settings',
@@ -110,37 +103,37 @@ const routes: Routes = [
           {
             path: '',
             component: FacilitySettingsOverviewComponent,
-            data: {animation: 'FacilitySettingsOverviewPage'}
+            data: { animation: 'FacilitySettingsOverviewPage' },
           },
           {
             path: 'owners',
             component: FacilitySettingsOwnersComponent,
-            data: {animation: 'FacilitySettingOwnersPage'}
+            data: { animation: 'FacilitySettingOwnersPage' },
           },
           {
             path: 'managers',
             component: FacilitySettingsManagersComponent,
-            data: {animation: 'FacilitySettingsManagersPage'}
+            data: { animation: 'FacilitySettingsManagersPage' },
           },
           {
             path: 'security-teams',
             component: FacilitySecurityTeamsComponent,
-            data: {animation: 'FacilitySecurityTeamsPage'}
+            data: { animation: 'FacilitySecurityTeamsPage' },
           },
           {
             path: 'blacklist',
             component: FacilitySettingsBlacklistComponent,
-            data: {animation: 'FacilitySettingsBlackListPage'}
-          }
-        ]
+            data: { animation: 'FacilitySettingsBlackListPage' },
+          },
+        ],
       },
       {
         path: 'configuration',
         component: FacilityConfigurationPageComponent,
         canActivate: [ConfigureFacilityGuardService],
-        canDeactivate: [ConfigureFacilityGuardService]
+        canDeactivate: [ConfigureFacilityGuardService],
       },
-    ]
+    ],
   },
   {
     path: ':facilityId/resources/:resourceId',
@@ -149,32 +142,32 @@ const routes: Routes = [
       {
         path: '',
         component: ResourceOverviewComponent,
-        data: {animation: 'ResourceOverviewPage'}
+        data: { animation: 'ResourceOverviewPage' },
       },
       {
         path: 'attributes',
         component: ResourceAttributesComponent,
-        data: {animation: 'ResourceAttributesPage'}
+        data: { animation: 'ResourceAttributesPage' },
       },
       {
         path: 'groups',
         component: ResourceGroupsComponent,
-        data: {animation: 'ResourceGroupsComponent'}
+        data: { animation: 'ResourceGroupsComponent' },
       },
       {
         path: 'services',
         component: ResourceAssignedServicesComponent,
-        data: {animation: 'ResourceAssignedServicesComponent'}
+        data: { animation: 'ResourceAssignedServicesComponent' },
       },
       {
         path: 'members',
         component: ResourceAssignedMembersComponent,
-        data: {animation: 'ResourceAssignedMembersComponent'}
+        data: { animation: 'ResourceAssignedMembersComponent' },
       },
       {
         path: 'tags',
         component: ResourceTagsComponent,
-        data: {animation: 'ResourceTagsComponent'}
+        data: { animation: 'ResourceTagsComponent' },
       },
       {
         path: 'settings',
@@ -183,22 +176,21 @@ const routes: Routes = [
           {
             path: '',
             component: ResourceSettingsOverviewComponent,
-            data: {animation: 'ResourceSettingsOverviewPage'}
+            data: { animation: 'ResourceSettingsOverviewPage' },
           },
           {
             path: 'managers',
             component: ResourceSettingsManagersComponent,
-            data: {animation: 'ResourceSettingsManagersPage'}
-          }
-        ]
+            data: { animation: 'ResourceSettingsManagersPage' },
+          },
+        ],
       },
-    ]
-  }
-
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class FacilitiesRoutingModule { }
+export class FacilitiesRoutingModule {}

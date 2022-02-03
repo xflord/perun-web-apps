@@ -10,16 +10,14 @@
  * Do not edit the class manually.
  */
 
-
-export interface UserAllOf { 
-    firstName?: string;
-    lastName?: string;
-    middleName?: string;
-    titleBefore?: string;
-    titleAfter?: string;
-    serviceUser?: boolean;
-    sponsoredUser?: boolean;
-    specificUser?: boolean;
-    majorSpecificType?: string;
+export interface UserAllOf {
+  firstName?: string;
+  lastName?: string;
+  middleName?: string;
+  titleBefore?: string;
+  titleAfter?: string;
+  serviceUser?: boolean;
+  sponsoredUser?: boolean;
+  specificUser?: boolean;
+  majorSpecificType?: string;
 }
-

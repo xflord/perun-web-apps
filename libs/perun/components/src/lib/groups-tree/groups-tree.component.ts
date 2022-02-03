@@ -9,19 +9,13 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import {
-  MatTreeFlatDataSource,
-  MatTreeFlattener,
-} from '@angular/material/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { SelectionModel } from '@angular/cdk/collections';
 import { RichGroup, Vo } from '@perun-web-apps/perun/openapi';
 import { GroupFlatNode, TreeGroup } from '@perun-web-apps/perun/models';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  findParent,
-  getDefaultDialogConfig,
-} from '@perun-web-apps/perun/utils';
+import { findParent, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { GroupSyncDetailDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import {
@@ -43,17 +37,17 @@ export class GroupsTreeComponent implements OnChanges {
   ) {}
 
   private transformer = (node: TreeGroup, level: number) => ({
-      expandable: !!node.children && node.children.length > 0,
-      name: node.shortName,
-      fullName: node.name,
-      parentGroupId: node.parentGroupId,
-      level: level,
-      id: node.id,
-      voId: node.voId,
-      attributes: node.attributes,
-      beanName: node.beanName,
-      description: node.description,
-    });
+    expandable: !!node.children && node.children.length > 0,
+    name: node.shortName,
+    fullName: node.name,
+    parentGroupId: node.parentGroupId,
+    level: level,
+    id: node.id,
+    voId: node.voId,
+    attributes: node.attributes,
+    beanName: node.beanName,
+    description: node.description,
+  });
 
   displayButtons = window.innerWidth > 600;
   @Input()
@@ -116,9 +110,7 @@ export class GroupsTreeComponent implements OnChanges {
       this.filteredGroups = this.groups.filter(
         (option) =>
           option.name?.toLowerCase().includes(this.filterValue.toLowerCase()) ||
-          option.description
-            ?.toLowerCase()
-            .includes(this.filterValue.toLowerCase()) ||
+          option.description?.toLowerCase().includes(this.filterValue.toLowerCase()) ||
           option.id.toString().includes(this.filterValue.toLowerCase()) ||
           option.uuid.toLowerCase().includes(this.filterValue.toLowerCase())
       );
@@ -155,10 +147,7 @@ export class GroupsTreeComponent implements OnChanges {
       group: rg,
       dialogType: EditFacilityResourceGroupVoDialogOptions.GROUP,
     };
-    const dialogRef = this.dialog.open(
-      EditFacilityResourceGroupVoDialogComponent,
-      config
-    );
+    const dialogRef = this.dialog.open(EditFacilityResourceGroupVoDialogComponent, config);
 
     dialogRef.afterClosed().subscribe((res) => {
       if (res) {
@@ -177,19 +166,17 @@ export class GroupsTreeComponent implements OnChanges {
     // groups which have parentGroupId but the parent cannot be view in subgroups view
     const pseudoRooGroups: Set<number> = new Set<number>();
 
-    idGroupMap.forEach(
-      (group: TreeGroup, id: number, map: Map<number, TreeGroup>) => {
-        // FIXME
-        const updatedParentGroup: TreeGroup = map.get(group.parentGroupId);
-        if (updatedParentGroup !== undefined) {
-          updatedParentGroup.addChild(group);
-          map.set(group.parentGroupId, updatedParentGroup);
-        }
-        if (group.parentGroupId !== null && updatedParentGroup === undefined) {
-          pseudoRooGroups.add(group.id);
-        }
+    idGroupMap.forEach((group: TreeGroup, id: number, map: Map<number, TreeGroup>) => {
+      // FIXME
+      const updatedParentGroup: TreeGroup = map.get(group.parentGroupId);
+      if (updatedParentGroup !== undefined) {
+        updatedParentGroup.addChild(group);
+        map.set(group.parentGroupId, updatedParentGroup);
       }
-    );
+      if (group.parentGroupId !== null && updatedParentGroup === undefined) {
+        pseudoRooGroups.add(group.id);
+      }
+    });
 
     const groupTree = [];
 
@@ -229,9 +216,7 @@ export class GroupsTreeComponent implements OnChanges {
   checkRootNodeSelection(node: GroupFlatNode): void {
     const nodeSelected = this.selection.isSelected(node);
     const descendants = this.treeControl.getDescendants(node);
-    const descAllSelected = descendants.every((child) =>
-      this.selection.isSelected(child)
-    );
+    const descAllSelected = descendants.every((child) => this.selection.isSelected(child));
     if (nodeSelected && !descAllSelected) {
       this.selection.deselect(node);
     }
@@ -248,16 +233,14 @@ export class GroupsTreeComponent implements OnChanges {
 
   descendantsPartiallySelected(node: GroupFlatNode): boolean {
     const descendants = this.treeControl.getDescendants(node);
-    const result = descendants.some((child) =>
-      this.selection.isSelected(child)
-    );
+    const result = descendants.some((child) => this.selection.isSelected(child));
     return result && !this.selection.isSelected(node);
   }
 
   itemSelectionToggle(node: GroupFlatNode): void {
     this.selection.toggle(node);
     const descendants = this.treeControl.getDescendants(node);
-    if(this.selection.isSelected(node)) {
+    if (this.selection.isSelected(node)) {
       this.selection.select(...descendants);
     } else {
       this.selection.deselect(...descendants);
@@ -273,20 +256,13 @@ export class GroupsTreeComponent implements OnChanges {
       return this.selection.selected.reduce(
         (acc, grp) =>
           acc &&
-          this.authResolver.isAuthorized(
-            'deleteGroups_List<Group>_boolean_policy',
-            [this.vo, grp]
-          ),
+          this.authResolver.isAuthorized('deleteGroups_List<Group>_boolean_policy', [this.vo, grp]),
         true
       );
     }
     return this.selection.selected.reduce(
       (acc, grp) =>
-        acc &&
-        this.authResolver.isAuthorized(
-          'deleteGroups_List<Group>_boolean_policy',
-          [grp]
-        ),
+        acc && this.authResolver.isAuthorized('deleteGroups_List<Group>_boolean_policy', [grp]),
       true
     );
   }

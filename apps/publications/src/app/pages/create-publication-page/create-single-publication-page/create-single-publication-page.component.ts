@@ -3,8 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   Author,
   CabinetManagerService,
-  Category, PublicationForGUI,
-  ThanksForGUI, UsersManagerService
+  Category,
+  PublicationForGUI,
+  ThanksForGUI,
+  UsersManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import * as _moment from 'moment';
@@ -18,7 +20,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { MatTabGroup } from '@angular/material/tabs';
 
-const moment =  _moment;
+const moment = _moment;
 
 export const YEAR_MODE_FORMATS = {
   parse: {
@@ -42,23 +44,24 @@ export const YEAR_MODE_FORMATS = {
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE],
     },
-    {provide: MAT_DATE_FORMATS, useValue: YEAR_MODE_FORMATS}
-  ]
+    { provide: MAT_DATE_FORMATS, useValue: YEAR_MODE_FORMATS },
+  ],
 })
 export class CreateSinglePublicationPageComponent implements OnInit {
-
-  constructor(private formBuilder: FormBuilder,
-              private cabinetService: CabinetManagerService,
-              private dialog: MatDialog,
-              private router: Router,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private storeService: StoreService,
-              private userService: UsersManagerService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private cabinetService: CabinetManagerService,
+    private dialog: MatDialog,
+    private router: Router,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private storeService: StoreService,
+    private userService: UsersManagerService
+  ) {}
 
   publicationControl: FormGroup;
   similarPublications: PublicationForGUI[] = [];
-  filteredPublications: PublicationForGUI[] =[];
+  filteredPublications: PublicationForGUI[] = [];
   categories: Category[] = [];
 
   publication: PublicationForGUI = null;
@@ -86,14 +89,13 @@ export class CreateSinglePublicationPageComponent implements OnInit {
       isbn: [''],
       doi: [''],
       cite: ['', Validators.required],
-      }
-    );
+    });
 
     this.maxYear = moment();
 
-    this.cabinetService.getCategories().subscribe(categories => {
+    this.cabinetService.getCategories().subscribe((categories) => {
       this.categories = categories;
-        this.loading = false;
+      this.loading = false;
     });
   }
 
@@ -101,7 +103,6 @@ export class CreateSinglePublicationPageComponent implements OnInit {
     this.publicationControl.get('year').setValue(normalizedYear);
     datepicker.close();
   }
-
 
   createTimeout() {
     setTimeout(() => {
@@ -111,66 +112,90 @@ export class CreateSinglePublicationPageComponent implements OnInit {
     }, 1000);
   }
 
-  createPublication(){
+  createPublication() {
     this.innerLoading = true;
     this.duplicateCheck = true;
     const publicationInput: any = {
       publication: {
-        title: this.publicationControl.get("title").value,
-        categoryId: this.publicationControl.get("category").value.id,
-        year: this.publicationControl.get("year").value.year(),
-        isbn: this.publicationControl.get("isbn").value,
-        doi: this.publicationControl.get("doi").value,
-        main: this.publicationControl.get("cite").value
-      }
+        title: this.publicationControl.get('title').value,
+        categoryId: this.publicationControl.get('category').value.id,
+        year: this.publicationControl.get('year').value.year(),
+        isbn: this.publicationControl.get('isbn').value,
+        doi: this.publicationControl.get('doi').value,
+        main: this.publicationControl.get('cite').value,
+      },
     };
-    this.userService.getRichUserWithAttributes(this.storeService.getPerunPrincipal().userId).subscribe(user => {
-      const mailAtt = user.userAttributes.filter(att => att.friendlyName === "preferredMail")
-      if (mailAtt.length !== 0){
-        publicationInput.publication.createdBy = mailAtt[0].value
-      }
+    this.userService
+      .getRichUserWithAttributes(this.storeService.getPerunPrincipal().userId)
+      .subscribe(
+        (user) => {
+          const mailAtt = user.userAttributes.filter((att) => att.friendlyName === 'preferredMail');
+          if (mailAtt.length !== 0) {
+            publicationInput.publication.createdBy = mailAtt[0].value;
+          }
 
-      this.cabinetService.createPublication(publicationInput).subscribe(publication => {
-        this.publication = publication;
-        if(this.publicationControl.get("addAuthor").value){
-          this.cabinetService.createAutorship({authorship:
-              {id: 0, beanName: 'Authorship', publicationId: this.publication.id, userId: user.id}}).subscribe(() => {
+          this.cabinetService.createPublication(publicationInput).subscribe(
+            (publication) => {
+              this.publication = publication;
+              if (this.publicationControl.get('addAuthor').value) {
+                this.cabinetService
+                  .createAutorship({
+                    authorship: {
+                      id: 0,
+                      beanName: 'Authorship',
+                      publicationId: this.publication.id,
+                      userId: user.id,
+                    },
+                  })
+                  .subscribe(
+                    () => {
+                      this.createTimeout();
+                    },
+                    () => (this.innerLoading = false)
+                  );
+              } else {
                 this.createTimeout();
-            }
-          , ()=> this.innerLoading = false);
-        } else {
-          this.createTimeout();
-        }
-
-      }, () => this.innerLoading = false);
-    }, () => this.innerLoading = false);
+              }
+            },
+            () => (this.innerLoading = false)
+          );
+        },
+        () => (this.innerLoading = false)
+      );
   }
 
-  similarCheck(){
+  similarCheck() {
     this.innerLoading = true;
-    const title: string = this.publicationControl.get('title').value ? this.publicationControl.get('title').value : null;
-    const doi: string = this.publicationControl.get('doi').value ? this.publicationControl.get('doi').value : null;
-    const isbn: string = this.publicationControl.get('isbn').value ? this.publicationControl.get('isbn').value : null;
-    this.cabinetService.findSimilarPublications(title, doi, isbn).subscribe(similarPubs => {
+    const title: string = this.publicationControl.get('title').value
+      ? this.publicationControl.get('title').value
+      : null;
+    const doi: string = this.publicationControl.get('doi').value
+      ? this.publicationControl.get('doi').value
+      : null;
+    const isbn: string = this.publicationControl.get('isbn').value
+      ? this.publicationControl.get('isbn').value
+      : null;
+    this.cabinetService.findSimilarPublications(title, doi, isbn).subscribe((similarPubs) => {
       this.similarPublications = similarPubs;
       this.filteredPublications = similarPubs;
       setTimeout(() => {
         this.duplicateCheck = similarPubs.length === 0;
-        this.innerLoading = false;}, 2000);
+        this.innerLoading = false;
+      }, 2000);
     });
   }
 
   stepChanged(event: StepperSelectionEvent) {
-    if(event.selectedIndex === 1){
+    if (event.selectedIndex === 1) {
       this.similarCheck();
     }
-    if(event.selectedIndex === 2 && this.publication === null){
+    if (event.selectedIndex === 2 && this.publication === null) {
       this.createPublication();
     }
   }
 
   redirect(commands) {
-    this.router.navigate(commands)
+    this.router.navigate(commands);
   }
 
   loadPublicationDetail(publication: PublicationForGUI, tabGroup: MatTabGroup) {

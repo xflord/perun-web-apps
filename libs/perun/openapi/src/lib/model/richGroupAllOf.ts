@@ -11,8 +11,6 @@
  */
 import { Attribute } from './attribute';
 
-
-export interface RichGroupAllOf { 
-    attributes?: Array<Attribute>;
+export interface RichGroupAllOf {
+  attributes?: Array<Attribute>;
 }
-

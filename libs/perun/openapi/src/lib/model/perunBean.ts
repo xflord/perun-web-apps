@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface PerunBean { 
-    id: number;
-    beanName: string;
+export interface PerunBean {
+  id: number;
+  beanName: string;
 }
-

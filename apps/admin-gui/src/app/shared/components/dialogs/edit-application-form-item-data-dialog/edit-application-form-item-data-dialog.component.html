@@ -1,25 +1,30 @@
 <div class="{{theme}}">
-  <h1 mat-dialog-title>{{'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.TITLE' | translate}} {{itemName}}</h1>
+  <h1 mat-dialog-title>
+    {{'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.TITLE' | translate}} {{itemName}}
+  </h1>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
     <mat-form-field *ngIf="emailControl !== null">
       <label>
-        <input matInput required [formControl]="emailControl">
+        <input matInput required [formControl]="emailControl" />
       </label>
-      <mat-error *ngIf="emailControl.invalid">{{'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.INVALID_EMAIL' | translate}}</mat-error>
+      <mat-error
+        *ngIf="emailControl.invalid"
+        >{{'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.INVALID_EMAIL' | translate}}</mat-error
+      >
     </mat-form-field>
 
     <mat-form-field *ngIf="inputControl !== null">
-      <input type="text" matInput required [formControl]="inputControl">
-      <mat-error *ngIf="inputControl.invalid">{{'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.EMPTY_INPUT' | translate}}</mat-error>
+      <input type="text" matInput required [formControl]="inputControl" />
+      <mat-error
+        *ngIf="inputControl.invalid"
+        >{{'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.EMPTY_INPUT' | translate}}</mat-error
+      >
     </mat-form-field>
   </div>
 
   <div mat-dialog-actions>
-    <button
-      (click)="onCancel()"
-      class="ml-auto"
-      mat-flat-button>
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.CANCEL' | translate}}
     </button>
     <button

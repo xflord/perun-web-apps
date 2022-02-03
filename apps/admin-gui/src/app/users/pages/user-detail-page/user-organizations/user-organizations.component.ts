@@ -2,17 +2,17 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { UsersManagerService, Vo } from '@perun-web-apps/perun/openapi';
 import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 import {
-  TABLE_USER_PROFILE_ADMIN_SELECT, TABLE_USER_PROFILE_MEMBER_SELECT,
+  TABLE_USER_PROFILE_ADMIN_SELECT,
+  TABLE_USER_PROFILE_MEMBER_SELECT,
 } from '@perun-web-apps/config/table-config';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-organizations',
   templateUrl: './user-organizations.component.html',
-  styleUrls: ['./user-organizations.component.scss']
+  styleUrls: ['./user-organizations.component.scss'],
 })
 export class UserOrganizationsComponent implements OnInit {
-
   @HostBinding('class.router-component') true;
 
   constructor(
@@ -20,8 +20,7 @@ export class UserOrganizationsComponent implements OnInit {
     private authResolver: GuiAuthResolver,
     private store: StoreService,
     private route: ActivatedRoute
-  ) {
-  }
+  ) {}
 
   vosWhereIsAdmin: Vo[];
   vosWhereIsMember: Vo[];
@@ -40,7 +39,7 @@ export class UserOrganizationsComponent implements OnInit {
     if ((this.isMyProfile = this.route.snapshot.data.showPrincipal) === true) {
       this.userId = this.store.getPerunPrincipal().user.id;
     } else {
-      this.route.parent.params.subscribe(params => this.userId = params['userId']);
+      this.route.parent.params.subscribe((params) => (this.userId = params['userId']));
     }
     this.refreshAdminTable();
     this.refreshMemberTable();
@@ -48,18 +47,24 @@ export class UserOrganizationsComponent implements OnInit {
 
   refreshMemberTable() {
     this.memberRefresh = true;
-    this.usersService.getVosWhereUserIsMember(this.userId).subscribe(vosMember => {
-      this.vosWhereIsMember = vosMember;
-      this.memberRefresh = false;
-    }, () => this.memberRefresh = false);
+    this.usersService.getVosWhereUserIsMember(this.userId).subscribe(
+      (vosMember) => {
+        this.vosWhereIsMember = vosMember;
+        this.memberRefresh = false;
+      },
+      () => (this.memberRefresh = false)
+    );
   }
 
   refreshAdminTable() {
     this.adminRefresh = true;
-    this.usersService.getVosWhereUserIsAdmin(this.userId).subscribe(vosAdmin => {
-      this.vosWhereIsAdmin = vosAdmin;
-      this.adminRefresh = false;
-    }, () => this.adminRefresh = false);
+    this.usersService.getVosWhereUserIsAdmin(this.userId).subscribe(
+      (vosAdmin) => {
+        this.vosWhereIsAdmin = vosAdmin;
+        this.adminRefresh = false;
+      },
+      () => (this.adminRefresh = false)
+    );
   }
 
   applyMemberFilter(filterValue: string) {

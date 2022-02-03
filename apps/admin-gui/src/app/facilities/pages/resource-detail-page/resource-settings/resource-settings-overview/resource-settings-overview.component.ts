@@ -7,10 +7,9 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 @Component({
   selector: 'app-resource-settings-overview',
   templateUrl: './resource-settings-overview.component.html',
-  styleUrls: ['./resource-settings-overview.component.scss']
+  styleUrls: ['./resource-settings-overview.component.scss'],
 })
 export class ResourceSettingsOverviewComponent implements OnInit {
-
   @HostBinding('class.router-component') true;
 
   constructor(
@@ -18,7 +17,7 @@ export class ResourceSettingsOverviewComponent implements OnInit {
     private resourceManager: ResourcesManagerService,
     private authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService
-  ) { }
+  ) {}
 
   items: MenuItem[] = [];
   resource: Resource;
@@ -26,7 +25,7 @@ export class ResourceSettingsOverviewComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.resource  = this.entityStorageService.getEntity();
+    this.resource = this.entityStorageService.getEntity();
     if (this.route.parent.parent.parent.snapshot.url[0].path === 'facilities') {
       this.initItems(false);
     } else {
@@ -40,14 +39,14 @@ export class ResourceSettingsOverviewComponent implements OnInit {
 
     const managersAuth = this.authResolver.isManagerPagePrivileged(this.resource);
     if (managersAuth) {
-      this.items.push(
-        {
-          cssIcon: 'perun-manager',
-          url: `${inVo ? `/organizations/${this.resource.voId}` : `/facilities/${this.resource.facilityId}`}/resources/${this.resource.id}/settings/managers`,
-          label: 'MENU_ITEMS.RESOURCE.MANAGERS',
-          style: 'resource-btn'
-        }
-      );
+      this.items.push({
+        cssIcon: 'perun-manager',
+        url: `${
+          inVo ? `/organizations/${this.resource.voId}` : `/facilities/${this.resource.facilityId}`
+        }/resources/${this.resource.id}/settings/managers`,
+        label: 'MENU_ITEMS.RESOURCE.MANAGERS',
+        style: 'resource-btn',
+      });
     }
   }
 }

@@ -2,16 +2,11 @@
   <h1 mat-dialog-title>{{"DIALOGS.SHOW_CITE.TITLE" | translate}}</h1>
 
   <div mat-dialog-content class="dialog-container">
-   {{publication.main}}
+    {{publication.main}}
   </div>
   <div mat-dialog-actions>
-    <button
-      mat-stroked-button
-      class="ml-auto"
-      (click)="ok()">
+    <button mat-stroked-button class="ml-auto" (click)="ok()">
       {{'DIALOGS.SHOW_CITE.OK' | translate}}
     </button>
   </div>
-
 </div>
-

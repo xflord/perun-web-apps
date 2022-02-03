@@ -16,8 +16,9 @@
     (click)="onRemoveAuthors()">
     {{'PUBLICATION_DETAIL.REMOVE' | translate}}
   </button>
-  <perun-web-apps-immediate-filter (filter)="applyFilter($event)"
-                                   [placeholder]="'PUBLICATION_DETAIL.FILTER'"></perun-web-apps-immediate-filter>
+  <perun-web-apps-immediate-filter
+    (filter)="applyFilter($event)"
+    [placeholder]="'PUBLICATION_DETAIL.FILTER'"></perun-web-apps-immediate-filter>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <perun-web-apps-authors-list
     *ngIf="!loading"

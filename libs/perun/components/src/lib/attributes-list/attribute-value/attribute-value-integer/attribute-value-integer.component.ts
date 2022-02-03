@@ -7,12 +7,10 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'perun-web-apps-attribute-value-integer',
   templateUrl: './attribute-value-integer.component.html',
-  styleUrls: ['./attribute-value-integer.component.css']
+  styleUrls: ['./attribute-value-integer.component.css'],
 })
-export class AttributeValueIntegerComponent implements OnInit{
-
-  constructor(private dialog:MatDialog) {
-  }
+export class AttributeValueIntegerComponent implements OnInit {
+  constructor(private dialog: MatDialog) {}
 
   @Input()
   attribute: Attribute;
@@ -23,7 +21,7 @@ export class AttributeValueIntegerComponent implements OnInit{
   @Output() sendEventToParent = new EventEmitter();
 
   ngOnInit() {
-    if(!this.readonly){
+    if (!this.readonly) {
       this.readonly = isVirtualAttribute(this.attribute);
     }
   }
@@ -37,7 +35,7 @@ export class AttributeValueIntegerComponent implements OnInit{
     config.width = '350px';
     config.data = {
       value: attribute.value as unknown as string,
-      title: attribute.displayName
+      title: attribute.displayName,
     };
     this.dialog.open(ShowValueDialogComponent, config);
   }

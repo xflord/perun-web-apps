@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface ExtSourceAllOf { 
-    name?: string;
-    type?: string;
+export interface ExtSourceAllOf {
+  name?: string;
+  type?: string;
 }
-

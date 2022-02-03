@@ -11,17 +11,15 @@
  */
 import { Auditable } from './auditable';
 
-
-export interface User extends Auditable { 
-    firstName?: string;
-    lastName?: string;
-    middleName?: string;
-    titleBefore?: string;
-    titleAfter?: string;
-    serviceUser?: boolean;
-    sponsoredUser?: boolean;
-    uuid?: string;
-    specificUser?: boolean;
-    majorSpecificType?: string;
+export interface User extends Auditable {
+  firstName?: string;
+  lastName?: string;
+  middleName?: string;
+  titleBefore?: string;
+  titleAfter?: string;
+  serviceUser?: boolean;
+  sponsoredUser?: boolean;
+  uuid?: string;
+  specificUser?: boolean;
+  majorSpecificType?: string;
 }
-

@@ -1,17 +1,16 @@
- import {Component, HostBinding, OnInit} from '@angular/core';
-import {SideMenuService} from '../../../../../core/services/common/side-menu.service';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { SideMenuService } from '../../../../../core/services/common/side-menu.service';
 import { Router } from '@angular/router';
-import {MenuItem} from '@perun-web-apps/perun/models';
+import { MenuItem } from '@perun-web-apps/perun/models';
 import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-vo-settings-overview',
   templateUrl: './vo-settings-overview.component.html',
-  styleUrls: ['./vo-settings-overview.component.scss']
+  styleUrls: ['./vo-settings-overview.component.scss'],
 })
 export class VoSettingsOverviewComponent implements OnInit {
-
   @HostBinding('class.router-component') true;
 
   constructor(
@@ -20,7 +19,7 @@ export class VoSettingsOverviewComponent implements OnInit {
     private authResolver: GuiAuthResolver,
     protected router: Router,
     private entityStorageService: EntityStorageService
-  ) { }
+  ) {}
 
   items: MenuItem[] = [];
   vo: Vo;
@@ -43,7 +42,7 @@ export class VoSettingsOverviewComponent implements OnInit {
         cssIcon: 'perun-group',
         url: `/organizations/${this.vo.id}/settings/expiration`,
         label: 'MENU_ITEMS.VO.EXPIRATION',
-        style: 'vo-btn'
+        style: 'vo-btn',
       });
     }
     // Managers
@@ -52,7 +51,7 @@ export class VoSettingsOverviewComponent implements OnInit {
         cssIcon: 'perun-manager',
         url: `/organizations/${this.vo.id}/settings/managers`,
         label: 'MENU_ITEMS.VO.MANAGERS',
-        style: 'vo-btn'
+        style: 'vo-btn',
       });
     }
     // Application forms
@@ -61,7 +60,7 @@ export class VoSettingsOverviewComponent implements OnInit {
         cssIcon: 'perun-application-form',
         url: `/organizations/${this.vo.id}/settings/applicationForm`,
         label: 'MENU_ITEMS.VO.APPLICATION_FORM',
-        style: 'vo-btn'
+        style: 'vo-btn',
       });
     }
     // Notifications
@@ -70,7 +69,7 @@ export class VoSettingsOverviewComponent implements OnInit {
         cssIcon: 'perun-notification',
         url: `/organizations/${this.vo.id}/settings/notifications`,
         label: 'MENU_ITEMS.VO.NOTIFICATIONS',
-        style: 'vo-btn'
+        style: 'vo-btn',
       });
     }
     // Ext sources
@@ -79,7 +78,7 @@ export class VoSettingsOverviewComponent implements OnInit {
         cssIcon: 'perun-external-sources',
         url: `/organizations/${this.vo.id}/settings/extsources`,
         label: 'MENU_ITEMS.VO.EXTSOURCES',
-        style: 'vo-btn'
+        style: 'vo-btn',
       });
     }
   }

@@ -2,30 +2,20 @@
   <h1 mat-dialog-title>{{'DIALOGS.CREATE_RESOURCE_TAG.TITLE' | translate}}</h1>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content class="dialog-container">
-
     <mat-form-field>
       <input
         matInput
         placeholder="{{'DIALOGS.CREATE_RESOURCE_TAG.NAME' | translate}}"
         [(ngModel)]="name"
-        required>
+        required />
       <mat-error>{{'DIALOGS.CREATE_RESOURCE_TAG.EMPTY_NAME' | translate}}</mat-error>
     </mat-form-field>
-
   </div>
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
       {{'DIALOGS.CREATE_RESOURCE_TAG.CANCEL' | translate}}
     </button>
-    <button
-      mat-flat-button
-      class="ml-2"
-      color="accent"
-      [disabled]="loading"
-      (click)="onSubmit()">
+    <button mat-flat-button class="ml-2" color="accent" [disabled]="loading" (click)="onSubmit()">
       {{'DIALOGS.CREATE_RESOURCE_TAG.CREATE' | translate}}
     </button>
   </div>

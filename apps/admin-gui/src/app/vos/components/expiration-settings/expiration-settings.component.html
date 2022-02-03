@@ -1,7 +1,9 @@
 <div class="card settings-card col-12 col-md-12 col-xl-6" *ngIf="currentConfiguration">
   <div class="d-flex flex-row align-items-baseline justify-content-between">
-    <h1 class="settings-header" (click)="mainToggle.toggle()"
-        [class.unselected-setting]="!mainToggle.checked">
+    <h1
+      class="settings-header"
+      (click)="mainToggle.toggle()"
+      [class.unselected-setting]="!mainToggle.checked">
       {{'VO_MANAGEMENT.SETTINGS.EXPIRATION.TITLE' | translate}}
     </h1>
     <mat-slide-toggle
@@ -13,7 +15,10 @@
   </div>
 
   <div [@openClose]="mainToggle.checked ? 'open' : 'closed'">
-    <label class="setting-item pt-2">{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.PERIOD_LABEL' | translate}}</label>
+    <label
+      class="setting-item pt-2"
+      >{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.PERIOD_LABEL' | translate}}</label
+    >
     <div class="ml-1">
       <mat-radio-group [(ngModel)]="currentConfiguration.periodType">
         <mat-radio-button #staticPeriod class="mr-3" color="primary" value="static">
@@ -29,7 +34,7 @@
             pattern="{{datePattern}}"
             matInput
             [(ngModel)]="currentConfiguration.periodStatic"
-            placeholder="{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.PERIOD_INPUT_STATIC' | translate}}">
+            placeholder="{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.PERIOD_INPUT_STATIC' | translate}}" />
           <mat-hint>{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.DP_HINT' | translate}}</mat-hint>
         </mat-form-field>
       </div>
@@ -39,12 +44,16 @@
             pattern="{{dynamicAmountPattern}}"
             matInput
             [(ngModel)]="currentConfiguration.periodDynamic"
-            placeholder="{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.AMOUNT_VALUE' | translate}}">
+            placeholder="{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.AMOUNT_VALUE' | translate}}" />
         </mat-form-field>
         <mat-form-field>
           <mat-label>{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.AMOUNT_TYPE' | translate}}</mat-label>
           <mat-select [(ngModel)]="currentConfiguration.periodDynamicUnit">
-            <mat-option *ngFor="let option of amountOptions" [value]="option.value">{{option.text}}</mat-option>
+            <mat-option
+              *ngFor="let option of amountOptions"
+              [value]="option.value"
+              >{{option.text}}</mat-option
+            >
           </mat-select>
         </mat-form-field>
       </div>
@@ -56,7 +65,9 @@
       [(model)]="currentConfiguration.doNotAllowLoasEnabled"
       [title]="'VO_MANAGEMENT.SETTINGS.EXPIRATION.DONT_ALLOW_LOA_LABEL' | translate">
       <mat-form-field>
-        <mat-placeholder>{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.DONT_ALLOW_LOA_SELECT' | translate}}</mat-placeholder>
+        <mat-placeholder
+          >{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.DONT_ALLOW_LOA_SELECT' | translate}}</mat-placeholder
+        >
         <mat-select multiple [(ngModel)]="currentConfiguration.doNotAllowLoas">
           <mat-option *ngFor="let loa of loas" [value]="loa">{{loa}}</mat-option>
         </mat-select>
@@ -69,7 +80,9 @@
       [(model)]="currentConfiguration.doNotExtendLoasEnabled"
       [title]="'VO_MANAGEMENT.SETTINGS.EXPIRATION.DONT_EXTEND_LOA_LABEL' | translate">
       <mat-form-field>
-        <mat-placeholder>{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.DONT_EXTEND_LOA_SELECT' | translate}}</mat-placeholder>
+        <mat-placeholder
+          >{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.DONT_EXTEND_LOA_SELECT' | translate}}</mat-placeholder
+        >
         <mat-select multiple [(ngModel)]="currentConfiguration.doNotExtendLoas">
           <mat-option *ngFor="let loa of loas" [value]="loa">{{loa}}</mat-option>
         </mat-select>
@@ -87,12 +100,18 @@
             pattern="{{dynamicAmountPattern}}"
             matInput
             [(ngModel)]="currentConfiguration.gracePeriod"
-            placeholder="{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.GRACE_AMOUNT_VALUE' | translate}}">
+            placeholder="{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.GRACE_AMOUNT_VALUE' | translate}}" />
         </mat-form-field>
         <mat-form-field>
-          <mat-label>{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.GRACE_AMOUNT_TYPE' | translate}}</mat-label>
+          <mat-label
+            >{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.GRACE_AMOUNT_TYPE' | translate}}</mat-label
+          >
           <mat-select [(ngModel)]="currentConfiguration.gracePeriodUnit">
-            <mat-option *ngFor="let option of amountOptions" [value]="option.value">{{option.text}}</mat-option>
+            <mat-option
+              *ngFor="let option of amountOptions"
+              [value]="option.value"
+              >{{option.text}}</mat-option
+            >
           </mat-select>
         </mat-form-field>
       </div>
@@ -106,7 +125,9 @@
       <div class="ml-1">
         <div>
           <mat-form-field>
-            <mat-label>{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.SPECIAL_LOA_SELECT' | translate}}</mat-label>
+            <mat-label
+              >{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.SPECIAL_LOA_SELECT' | translate}}</mat-label
+            >
             <mat-select #specialLoaSelect [(ngModel)]="currentConfiguration.specialLoa">
               <mat-option *ngFor="let loa of loas" [value]="loa">
                 {{loa}}
@@ -129,7 +150,7 @@
                   pattern="{{datePattern}}"
                   [(ngModel)]="currentConfiguration.specialLoaPeriodStatic"
                   matInput
-                  placeholder="{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.PERIOD_INPUT_STATIC' | translate}}">
+                  placeholder="{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.PERIOD_INPUT_STATIC' | translate}}" />
                 <mat-hint>{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.DP_HINT' | translate}}</mat-hint>
               </mat-form-field>
             </div>
@@ -139,12 +160,18 @@
                   pattern="{{dynamicAmountPattern}}"
                   [(ngModel)]="currentConfiguration.specialLoaPeriodDynamic"
                   matInput
-                  placeholder="{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.AMOUNT_VALUE' | translate}}">
+                  placeholder="{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.AMOUNT_VALUE' | translate}}" />
               </mat-form-field>
               <mat-form-field>
-                <mat-label>{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.AMOUNT_TYPE' | translate}}</mat-label>
+                <mat-label
+                  >{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.AMOUNT_TYPE' | translate}}</mat-label
+                >
                 <mat-select [(ngModel)]="currentConfiguration.specialLoaPeriodDynamicUnit">
-                  <mat-option *ngFor="let option of amountOptions" [value]="option.value">{{option.text}}</mat-option>
+                  <mat-option
+                    *ngFor="let option of amountOptions"
+                    [value]="option.value"
+                    >{{option.text}}</mat-option
+                  >
                 </mat-select>
               </mat-form-field>
             </div>

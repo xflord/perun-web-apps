@@ -9,24 +9,18 @@
     <table mat-table [dataSource]="dataSource" class="w-100">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let group"> {{group.name}} </td>
+        <td mat-cell *matCellDef="let group">{{group.name}}</td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns" class="font-weight-bolder"></tr>
       <tr mat-row *matRowDef="let group; columns: displayedColumns;"></tr>
     </table>
   </div>
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">{{'DIALOGS.REMOVE_MEMBER_GROUP.CANCEL' | translate}}
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+      {{'DIALOGS.REMOVE_MEMBER_GROUP.CANCEL' | translate}}
     </button>
-    <button
-      mat-flat-button
-      class="ml-2"
-      color="warn"
-      [disabled]="loading"
-      (click)="onRemove()">{{'DIALOGS.REMOVE_MEMBER_GROUP.REMOVE' | translate}}
+    <button mat-flat-button class="ml-2" color="warn" [disabled]="loading" (click)="onRemove()">
+      {{'DIALOGS.REMOVE_MEMBER_GROUP.REMOVE' | translate}}
     </button>
   </div>
 </div>

@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PDFService {
-
   pdfMake: any;
 
-  constructor() { }
+  constructor() {}
 
   private async loadPdfMake() {
     // we use lazy-loading to download the library only when it is needed
@@ -22,8 +21,6 @@ export class PDFService {
   public async generatePdf(data) {
     await this.loadPdfMake();
 
-    this.pdfMake
-      .createPdf(data)
-      .open();
+    this.pdfMake.createPdf(data).open();
   }
 }

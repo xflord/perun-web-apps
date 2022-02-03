@@ -5,14 +5,15 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 @Component({
   selector: 'app-group-settings-managers',
   templateUrl: './group-settings-managers.component.html',
-  styleUrls: ['./group-settings-managers.component.scss']
+  styleUrls: ['./group-settings-managers.component.scss'],
 })
 export class GroupSettingsManagersComponent implements OnInit {
-
   @HostBinding('class.router-component') true;
 
-  constructor(private guiAuthResolver: GuiAuthResolver,
-              private entityStorageService: EntityStorageService) { }
+  constructor(
+    private guiAuthResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
 
   group: Group;
 

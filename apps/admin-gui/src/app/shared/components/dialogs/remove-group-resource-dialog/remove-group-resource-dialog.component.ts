@@ -6,28 +6,28 @@ import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 
 export interface RemoveGroupResourceDialogData {
-    theme: string;
-    groupId: number;
-    resources: RichResource[];
+  theme: string;
+  groupId: number;
+  resources: RichResource[];
 }
 
 @Component({
   selector: 'app-remove-group-resource-dialog',
   templateUrl: './remove-group-resource-dialog.component.html',
-  styleUrls: ['./remove-group-resource-dialog.component.scss']
+  styleUrls: ['./remove-group-resource-dialog.component.scss'],
 })
 export class RemoveGroupResourceDialogComponent implements OnInit {
-
-  constructor(public dialogRef: MatDialogRef<RemoveGroupResourceDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: RemoveGroupResourceDialogData,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private resourcesManager: ResourcesManagerService) { }
+  constructor(
+    public dialogRef: MatDialogRef<RemoveGroupResourceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: RemoveGroupResourceDialogData,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private resourcesManager: ResourcesManagerService
+  ) {}
 
   loading: boolean;
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<RichResource>;
-
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<RichResource>(this.data.resources);
@@ -39,13 +39,16 @@ export class RemoveGroupResourceDialogComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
-    const resourceIds = this.data.resources.map(res => res.id);
-    this.resourcesManager.removeGroupFromResources(this.data.groupId, resourceIds).subscribe(()=>{
-      this.translate.get('DIALOGS.REMOVE_RESOURCES.SUCCESS').subscribe(successMessage => {
-        this.loading = false;
-        this.notificator.showSuccess(successMessage);
-        this.dialogRef.close(true);
-      });
-    }, ()=> this.loading = false);
+    const resourceIds = this.data.resources.map((res) => res.id);
+    this.resourcesManager.removeGroupFromResources(this.data.groupId, resourceIds).subscribe(
+      () => {
+        this.translate.get('DIALOGS.REMOVE_RESOURCES.SUCCESS').subscribe((successMessage) => {
+          this.loading = false;
+          this.notificator.showSuccess(successMessage);
+          this.dialogRef.close(true);
+        });
+      },
+      () => (this.loading = false)
+    );
   }
 }

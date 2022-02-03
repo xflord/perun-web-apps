@@ -12,16 +12,16 @@ export interface DeleteTaskDialogCData {
 @Component({
   selector: 'app-delete-task-dialog',
   templateUrl: './delete-task-dialog.component.html',
-  styleUrls: ['./delete-task-dialog.component.scss']
+  styleUrls: ['./delete-task-dialog.component.scss'],
 })
 export class DeleteTaskDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<DeleteTaskDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: DeleteTaskDialogCData,
-              private tasksManager: TasksManagerService,
-              private translate: TranslateService,
-              private notificator: NotificatorService,
-              ) { }
+  constructor(
+    private dialogRef: MatDialogRef<DeleteTaskDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DeleteTaskDialogCData,
+    private tasksManager: TasksManagerService,
+    private translate: TranslateService,
+    private notificator: NotificatorService
+  ) {}
 
   loading = false;
   theme: string;
@@ -34,16 +34,18 @@ export class DeleteTaskDialogComponent implements OnInit {
 
   remove() {
     this.loading = true;
-    this.tasksManager.deleteTask({ task: this.taskId }).subscribe(() => {
-      this.translate.get('DIALOGS.DELETE_TASK.SUCCESS').subscribe(successMessage => {
-        this.notificator.showSuccess(successMessage);
-        this.dialogRef.close(true);
-      });
-    }, () => this.loading = false);
+    this.tasksManager.deleteTask({ task: this.taskId }).subscribe(
+      () => {
+        this.translate.get('DIALOGS.DELETE_TASK.SUCCESS').subscribe((successMessage) => {
+          this.notificator.showSuccess(successMessage);
+          this.dialogRef.close(true);
+        });
+      },
+      () => (this.loading = false)
+    );
   }
 
   cancel() {
     this.dialogRef.close(false);
   }
-
 }

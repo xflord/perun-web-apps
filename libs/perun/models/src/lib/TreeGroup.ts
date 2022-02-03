@@ -29,5 +29,4 @@ export class TreeGroup implements Group {
       this.children.push(group);
     }
   }
-
 }

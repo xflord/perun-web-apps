@@ -3,21 +3,23 @@
   <div mat-dialog-content>
     <mat-form-field class="mr-2 adjust-width">
       <label>
-        <input matInput
-               autocomplete="false"
-               placeholder="{{'DIALOGS.ADD_AUTHORS.SEARCH_PLACEHOLDER' | translate}}"
-               (keyup.enter)="onSearchByString()"
-               [formControl]="searchControl">
+        <input
+          matInput
+          autocomplete="false"
+          placeholder="{{'DIALOGS.ADD_AUTHORS.SEARCH_PLACEHOLDER' | translate}}"
+          (keyup.enter)="onSearchByString()"
+          [formControl]="searchControl" />
       </label>
       <mat-error>
         {{'DIALOGS.ADD_AUTHORS.EMPTY_SEARCH_MESSAGE' | translate }}
       </mat-error>
     </mat-form-field>
-    <button mat-flat-button
-            color="accent"
-            class="mr-2"
-            [disabled]="searchLoading || searchControl.value.trim() === ''"
-            (click)="onSearchByString()">
+    <button
+      mat-flat-button
+      color="accent"
+      class="mr-2"
+      [disabled]="searchLoading || searchControl.value.trim() === ''"
+      (click)="onSearchByString()">
       <mat-icon>search</mat-icon>
     </button>
     <div *ngIf="!loading">
@@ -35,7 +37,9 @@
         </app-alert>
       </div>
       <mat-spinner *ngIf="searchLoading" class="ml-auto mr-auto"></mat-spinner>
-      <h2 mat-dialog-title class="top-margin">{{'DIALOGS.ADD_AUTHORS.AUTHORS_TO_ADD' | translate}}</h2>
+      <h2 mat-dialog-title class="top-margin">
+        {{'DIALOGS.ADD_AUTHORS.AUTHORS_TO_ADD' | translate}}
+      </h2>
       <div *ngIf="firstSearchDone && authorsToAdd.length !== 0">
         <perun-web-apps-authors-list
           *ngIf="firstSearchDone"
@@ -55,10 +59,7 @@
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 
   <div mat-dialog-actions>
-    <button
-      (click)="onCancel()"
-      class="ml-auto"
-      mat-flat-button>
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.ADD_AUTHORS.CANCEL' | translate}}
     </button>
     <button
@@ -70,5 +71,4 @@
       {{'DIALOGS.ADD_AUTHORS.ADD' | translate}}
     </button>
   </div>
-
 </div>

@@ -11,15 +11,13 @@
  */
 import { ApplicationFormItem } from './applicationFormItem';
 
-
 /**
  * input to updateFormItemsForGroup
  */
-export interface InputUpdateFormItemsForGroup { 
-    /**
-     * group id
-     */
-    group?: number;
-    items?: Array<ApplicationFormItem>;
+export interface InputUpdateFormItemsForGroup {
+  /**
+   * group id
+   */
+  group?: number;
+  items?: Array<ApplicationFormItem>;
 }
-

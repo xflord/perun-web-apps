@@ -7,21 +7,14 @@
       </app-alert>
       <mat-form-field appearance="outline">
         <mat-label>{{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.USERNAME' | translate}}</mat-label>
-        <input
-          matInput
-          required
-          [formControl]="usernameCtrl">
+        <input matInput required [formControl]="usernameCtrl" />
         <mat-error>
           {{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.USERNAME_ERROR' | translate}}
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>{{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.PASSWORD' | translate}}</mat-label>
-        <input
-          matInput
-          required
-          [formControl]="passwordCtrl"
-          [type]="'password'">
+        <input matInput required [formControl]="passwordCtrl" [type]="'password'" />
         <mat-error>
           {{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.PASSWORD_ERROR' | translate}}
         </mat-error>
@@ -32,9 +25,7 @@
         [disabled]="usernameCtrl.invalid || passwordCtrl.invalid"
         (click)="startAuth()">
         {{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.SIGN_IN' | translate}}
-        <mat-icon>
-          login
-        </mat-icon>
+        <mat-icon> login </mat-icon>
       </button>
     </div>
   </div>

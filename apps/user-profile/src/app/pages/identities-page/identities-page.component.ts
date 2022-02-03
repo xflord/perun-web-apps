@@ -4,7 +4,7 @@ import {
   RegistrarManagerService,
   RichUserExtSource,
   UserExtSource,
-  UsersManagerService
+  UsersManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { StoreService } from '@perun-web-apps/perun/services';
@@ -15,15 +15,16 @@ import { RemoveUserExtSourceDialogComponent } from '@perun-web-apps/perun/dialog
 @Component({
   selector: 'perun-web-apps-identities-page',
   templateUrl: './identities-page.component.html',
-  styleUrls: ['./identities-page.component.scss']
+  styleUrls: ['./identities-page.component.scss'],
 })
 export class IdentitiesPageComponent implements OnInit {
-
-  constructor(private usersManagerService: UsersManagerService,
-              private storage: StoreService,
-              private registrarManagerService: RegistrarManagerService,
-              private dialog:MatDialog,
-              private attributesManagerService: AttributesManagerService) { }
+  constructor(
+    private usersManagerService: UsersManagerService,
+    private storage: StoreService,
+    private registrarManagerService: RegistrarManagerService,
+    private dialog: MatDialog,
+    private attributesManagerService: AttributesManagerService
+  ) {}
 
   idpExtSources: RichUserExtSource[] = [];
   certExtSources: RichUserExtSource[] = [];
@@ -41,9 +42,9 @@ export class IdentitiesPageComponent implements OnInit {
   loading: boolean;
   displayCertificates: boolean;
 
-  displayedColumnsIdp = ['select', 'extSourceName', 'login', 'lastAccess']
-  displayedColumnsCert= ['select', 'extSourceName', 'login', 'lastAccess']
-  displayedColumnsOther = ['extSourceName', 'login', 'lastAccess']
+  displayedColumnsIdp = ['select', 'extSourceName', 'login', 'lastAccess'];
+  displayedColumnsCert = ['select', 'extSourceName', 'login', 'lastAccess'];
+  displayedColumnsOther = ['extSourceName', 'login', 'lastAccess'];
 
   ngOnInit() {
     this.userId = this.storage.getPerunPrincipal().userId;
@@ -51,45 +52,55 @@ export class IdentitiesPageComponent implements OnInit {
     this.refreshTables();
   }
 
-  refreshTables(){
+  refreshTables() {
     this.loading = true;
     this.idpExtSources = [];
     this.certExtSources = [];
     this.otherExtSources = [];
-    this.usersManagerService.getRichUserExtSources(this.userId).subscribe(userExtSources =>{
+    this.usersManagerService.getRichUserExtSources(this.userId).subscribe((userExtSources) => {
       let count = userExtSources.length;
-      userExtSources.forEach(ues =>{
-        this.attributesManagerService.getUserExtSourceAttributeByName(ues.userExtSource.id, 'urn:perun:ues:attribute-def:def:sourceIdPName').subscribe(att =>{
-
-          if(att && att.value){
-            // @ts-ignore
-            ues.userExtSource.extSource.name = att.value;
-            count--;
-            this.loading = count !== 0;
-            this.addToList(ues);
-          }else {
-            this.attributesManagerService.getUserExtSourceAttributeByName(ues.userExtSource.id, 'urn:perun:ues:attribute-def:def:IdPOrganizationName').subscribe(att2 =>{
+      userExtSources.forEach((ues) => {
+        this.attributesManagerService
+          .getUserExtSourceAttributeByName(
+            ues.userExtSource.id,
+            'urn:perun:ues:attribute-def:def:sourceIdPName'
+          )
+          .subscribe((att) => {
+            if (att && att.value) {
+              // @ts-ignore
+              ues.userExtSource.extSource.name = att.value;
               count--;
-              if(att2 && att2.value){
-                // @ts-ignore
-                ues.userExtSource.extSource.name = att2.value;
-              }
               this.loading = count !== 0;
               this.addToList(ues);
-            });
-          }
-        });
+            } else {
+              this.attributesManagerService
+                .getUserExtSourceAttributeByName(
+                  ues.userExtSource.id,
+                  'urn:perun:ues:attribute-def:def:IdPOrganizationName'
+                )
+                .subscribe((att2) => {
+                  count--;
+                  if (att2 && att2.value) {
+                    // @ts-ignore
+                    ues.userExtSource.extSource.name = att2.value;
+                  }
+                  this.loading = count !== 0;
+                  this.addToList(ues);
+                });
+            }
+          });
       });
-    })
+    });
   }
 
   addIdentity() {
-    this.registrarManagerService.getConsolidatorToken().subscribe(token =>{
+    this.registrarManagerService.getConsolidatorToken().subscribe((token) => {
       const type = this.storage.getPerunPrincipal().extSourceType;
       const consolidatorBaseUrl = this.storage.get('consolidator_base_url');
-      window.location.href = `${consolidatorBaseUrl}${type && type.endsWith('X509') ? 'cert' : 'fed'}-ic/ic/?target_url=${window.location.href}&token=${token}`;
+      window.location.href = `${consolidatorBaseUrl}${
+        type && type.endsWith('X509') ? 'cert' : 'fed'
+      }-ic/ic/?target_url=${window.location.href}&token=${token}`;
     });
-
   }
 
   removeIdentity(selection: SelectionModel<UserExtSource>) {
@@ -98,26 +109,25 @@ export class IdentitiesPageComponent implements OnInit {
     config.data = {
       theme: 'user-theme',
       userId: this.userId,
-      extSources: selection.selected
+      extSources: selection.selected,
     };
 
-    const dialogRef = this.dialog.open(RemoveUserExtSourceDialogComponent,config);
+    const dialogRef = this.dialog.open(RemoveUserExtSourceDialogComponent, config);
     dialogRef.afterClosed().subscribe((success) => {
-      if (success){
+      if (success) {
         selection.clear();
         this.refreshTables();
       }
-    })
+    });
   }
 
   private addToList(ues: RichUserExtSource) {
-    if(ues.userExtSource.extSource.type.endsWith('Idp')){
-      this.idpExtSources.push(ues)
-    }
-    else if(ues.userExtSource.extSource.type.endsWith('X509')){
-      this.certExtSources.push(ues)
-      } else {
-      this.otherExtSources.push(ues)
+    if (ues.userExtSource.extSource.type.endsWith('Idp')) {
+      this.idpExtSources.push(ues);
+    } else if (ues.userExtSource.extSource.type.endsWith('X509')) {
+      this.certExtSources.push(ues);
+    } else {
+      this.otherExtSources.push(ues);
     }
   }
 }

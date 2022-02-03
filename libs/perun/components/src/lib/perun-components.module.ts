@@ -34,9 +34,10 @@ import { MenuButtonsFieldComponent } from './menu-buttons-field/menu-buttons-fie
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
-  MatDateFormats, MatOptionModule,
+  MatDateFormats,
+  MatOptionModule,
   MatRippleModule,
-  NativeDateAdapter
+  NativeDateAdapter,
 } from '@angular/material/core';
 import { PerunPipesModule } from '@perun-web-apps/perun/pipes';
 import { AttributeValueIntegerComponent } from './attributes-list/attribute-value/attribute-value-integer/attribute-value-integer.component';
@@ -105,16 +106,18 @@ export class AppDateAdapter extends NativeDateAdapter {
 
 export const APP_DATE_FORMATS: MatDateFormats = {
   parse: {
-    dateInput: { month: 'short', year: 'numeric', day: 'numeric' }
+    dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
   },
   display: {
     dateInput: 'input',
     monthYearLabel: { year: 'numeric', month: 'numeric' },
     dateA11yLabel: {
-      year: 'numeric', month: 'long', day: 'numeric'
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
     },
-    monthYearA11yLabel: { year: 'numeric', month: 'long' }
-  }
+    monthYearA11yLabel: { year: 'numeric', month: 'long' },
+  },
 };
 
 @NgModule({
@@ -149,7 +152,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     NgxMatSelectSearchModule,
     ScrollingModule,
     MatDialogModule,
-    PerunUtilsModule
+    PerunUtilsModule,
   ],
   declarations: [
     VosListComponent,
@@ -204,7 +207,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     UsersDynamicListComponent,
     SelectionItemSearchSelectComponent,
     ServiceSearchSelectComponent,
-    AdvancedFilterComponent
+    AdvancedFilterComponent,
   ],
   exports: [
     VosListComponent,
@@ -256,12 +259,11 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     UsersDynamicListComponent,
     SelectionItemSearchSelectComponent,
     ServiceSearchSelectComponent,
-    AdvancedFilterComponent
+    AdvancedFilterComponent,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }
-  ]
+    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
+  ],
 })
-export class PerunSharedComponentsModule {
-}
+export class PerunSharedComponentsModule {}

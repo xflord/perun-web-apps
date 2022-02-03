@@ -3,7 +3,12 @@ import { APP_INITIALIZER, forwardRef, NgModule, Provider } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { ApiInterceptor, ApiService, CustomIconService, StoreService } from '@perun-web-apps/perun/services';
+import {
+  ApiInterceptor,
+  ApiService,
+  CustomIconService,
+  StoreService,
+} from '@perun-web-apps/perun/services';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ApiModule, Configuration, ConfigurationParameters } from '@perun-web-apps/perun/openapi';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -25,9 +30,8 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
   useExisting: forwardRef(() => ApiInterceptor),
-  multi: true
+  multi: true,
 };
-
 
 export function httpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -35,7 +39,7 @@ export function httpLoaderFactory(http: HttpClient) {
 
 export function apiConfigFactory(store: StoreService): Configuration {
   const params: ConfigurationParameters = {
-    basePath: store.get('api_url')
+    basePath: store.get('api_url'),
   };
   return new Configuration(params);
 }
@@ -48,7 +52,7 @@ const loadConfigs = (appConfig: PasswordResetConfigService) => () => appConfig.l
     HeaderComponent,
     PasswordResetPageComponent,
     PasswordResetFormComponent,
-    InvalidRequestAlertComponent
+    InvalidRequestAlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,8 +60,8 @@ const loadConfigs = (appConfig: PasswordResetConfigService) => () => appConfig.l
       loader: {
         provide: TranslateLoader,
         useFactory: httpLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
     BrowserAnimationsModule,
     MatIconModule,
@@ -68,7 +72,7 @@ const loadConfigs = (appConfig: PasswordResetConfigService) => () => appConfig.l
     UiMaterialModule,
     UiAlertsModule,
     PerunNamespacePasswordFormModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
   ],
   providers: [
     CustomIconService,
@@ -76,26 +80,24 @@ const loadConfigs = (appConfig: PasswordResetConfigService) => () => appConfig.l
       provide: APP_INITIALIZER,
       useFactory: loadConfigs,
       multi: true,
-      deps: [PasswordResetConfigService]
+      deps: [PasswordResetConfigService],
     },
     {
       provide: Configuration,
       useFactory: apiConfigFactory,
-      deps:[StoreService]
+      deps: [StoreService],
     },
     ApiInterceptor,
     API_INTERCEPTOR_PROVIDER,
     {
       provide: PERUN_API_SERVICE,
-      useClass: ApiService
-    },],
+      useClass: ApiService,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(
-    private customIconService: CustomIconService,
-    private translate: TranslateService
-  ) {
+  constructor(private customIconService: CustomIconService, private translate: TranslateService) {
     this.translate.setDefaultLang('en');
     this.translate.use('en');
     this.customIconService.registerPerunRefreshIcon();

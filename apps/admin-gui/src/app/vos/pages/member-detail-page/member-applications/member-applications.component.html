@@ -1,13 +1,23 @@
 <h1 class="page-subtitle">{{'MEMBER_DETAIL.APPLICATIONS.TITLE' | translate}}</h1>
 <div>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button (click)="this.showAllDetails = true" *ngIf="!showAllDetails" class="mr-2" mat-stroked-button>
+  <button
+    (click)="this.showAllDetails = true"
+    *ngIf="!showAllDetails"
+    class="mr-2"
+    mat-stroked-button>
     {{'MEMBER_DETAIL.APPLICATIONS.SHOW_ALL_DETAILS' | translate}}
   </button>
-  <button (click)="this.showAllDetails = false" *ngIf="showAllDetails" class="mr-2" mat-stroked-button>
+  <button
+    (click)="this.showAllDetails = false"
+    *ngIf="showAllDetails"
+    class="mr-2"
+    mat-stroked-button>
     {{'MEMBER_DETAIL.APPLICATIONS.SHOW_LESS_DETAILS' | translate}}
   </button>
-  <perun-web-apps-immediate-filter (filter)="applyFilter($event)" [placeholder]="'MEMBER_DETAIL.APPLICATIONS.FILTER'"></perun-web-apps-immediate-filter>
+  <perun-web-apps-immediate-filter
+    (filter)="applyFilter($event)"
+    [placeholder]="'MEMBER_DETAIL.APPLICATIONS.FILTER'"></perun-web-apps-immediate-filter>
 </div>
 <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
 <div *ngIf="!loading">

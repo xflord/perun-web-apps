@@ -4,15 +4,21 @@ import * as moment from 'moment-timezone';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeEmailDialogComponent } from '@perun-web-apps/perun/dialogs';
 import {
-  Attribute, AttributeDefinition,
+  Attribute,
+  AttributeDefinition,
   AttributesManagerService,
   AuthzResolverService,
-  UsersManagerService
+  UsersManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { UserFullNamePipe } from '@perun-web-apps/perun/pipes';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiRequestConfigurationService, NotificatorService, StoreService, PreferredLanguageService } from '@perun-web-apps/perun/services';
+import {
+  ApiRequestConfigurationService,
+  NotificatorService,
+  StoreService,
+  PreferredLanguageService,
+} from '@perun-web-apps/perun/services';
 import { MailChangeFailedDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 interface DisplayedAttribute {
@@ -26,13 +32,12 @@ interface DisplayedAttribute {
 @Component({
   selector: 'perun-web-apps-profile-page',
   templateUrl: './profile-page.component.html',
-  styleUrls: ['./profile-page.component.scss']
+  styleUrls: ['./profile-page.component.scss'],
 })
 export class ProfilePageComponent implements OnInit {
-
   currentLang = 'en';
   languages = this.storeService.get('supported_languages');
-  timeZones = moment.tz.names().filter(name => !name.startsWith('Etc/'));
+  timeZones = moment.tz.names().filter((name) => !name.startsWith('Etc/'));
 
   successMessage: string;
 
@@ -61,7 +66,9 @@ export class ProfilePageComponent implements OnInit {
     private apiRequestConfiguration: ApiRequestConfigurationService,
     private preferredLangService: PreferredLanguageService
   ) {
-    translateService.get('PROFILE_PAGE.MAIL_CHANGE_SUCCESS').subscribe(res => this.successMessage = res);
+    translateService
+      .get('PROFILE_PAGE.MAIL_CHANGE_SUCCESS')
+      .subscribe((res) => (this.successMessage = res));
   }
 
   ngOnInit() {
@@ -71,56 +78,81 @@ export class ProfilePageComponent implements OnInit {
     this.loading = true;
     if (token && u) {
       this.apiRequestConfiguration.dontHandleErrorForNext();
-      this.usersManagerService.validatePreferredEmailChangeWithToken(token, Number.parseInt(u, 10)).subscribe(() => {
-        this.notificator.showSuccess(this.successMessage);
-        this.router.navigate([], { replaceUrl: true });
-        this.getData();
-      }, () => {
-        const config = getDefaultDialogConfig();
-        config.width = '600px';
+      this.usersManagerService
+        .validatePreferredEmailChangeWithToken(token, Number.parseInt(u, 10))
+        .subscribe(
+          () => {
+            this.notificator.showSuccess(this.successMessage);
+            this.router.navigate([], { replaceUrl: true });
+            this.getData();
+          },
+          () => {
+            const config = getDefaultDialogConfig();
+            config.width = '600px';
 
-        const dialogRef = this.dialog.open(MailChangeFailedDialogComponent, config);
-        dialogRef.afterClosed().subscribe(() => {
-          this.getData();
-        });
-      });
+            const dialogRef = this.dialog.open(MailChangeFailedDialogComponent, config);
+            dialogRef.afterClosed().subscribe(() => {
+              this.getData();
+            });
+          }
+        );
     } else {
       this.getData();
     }
   }
 
   getData() {
-    this.authzResolverService.getPerunPrincipal().subscribe(principal => {
+    this.authzResolverService.getPerunPrincipal().subscribe((principal) => {
       this.userId = principal.userId;
 
-      this.usersManagerService.getRichUserWithAttributes(this.userId).subscribe(richUser => {
+      this.usersManagerService.getRichUserWithAttributes(this.userId).subscribe((richUser) => {
         this.fullName = new UserFullNamePipe().transform(richUser);
 
-        const emailAttribute = richUser.userAttributes.find(att => att.friendlyName === 'preferredMail');
+        const emailAttribute = richUser.userAttributes.find(
+          (att) => att.friendlyName === 'preferredMail'
+        );
         // @ts-ignore
         this.email = emailAttribute.value;
 
-        this.languageAttribute = richUser.userAttributes.find(att => att.friendlyName === 'preferredLanguage');
-        const userLang = this.languageAttribute && this.languageAttribute.value ? this.languageAttribute.value.toString() : null;
+        this.languageAttribute = richUser.userAttributes.find(
+          (att) => att.friendlyName === 'preferredLanguage'
+        );
+        const userLang =
+          this.languageAttribute && this.languageAttribute.value
+            ? this.languageAttribute.value.toString()
+            : null;
         const prefLang = this.preferredLangService.getPreferredLanguage(userLang);
         this.translateService.use(prefLang);
         this.currentLang = prefLang;
 
-        this.timezoneAttribute = richUser.userAttributes.find(att => att.friendlyName === 'timezone');
+        this.timezoneAttribute = richUser.userAttributes.find(
+          (att) => att.friendlyName === 'timezone'
+        );
         // @ts-ignore
-        this.currentTimezone = this.timezoneAttribute && this.timezoneAttribute.value ? this.timezoneAttribute.value : '-';
+        this.currentTimezone =
+          this.timezoneAttribute && this.timezoneAttribute.value
+            ? this.timezoneAttribute.value
+            : '-';
 
         const additionalAttributesSpecs = this.storeService.get('profile_page_attributes');
         let count = 0;
         const langs = this.storeService.get('supported_languages');
-        additionalAttributesSpecs.forEach(spec => {
-          const attribute = richUser.userAttributes.find(att => att.friendlyName === spec.friendly_name);
+        additionalAttributesSpecs.forEach((spec) => {
+          const attribute = richUser.userAttributes.find(
+            (att) => att.friendlyName === spec.friendly_name
+          );
           if (!attribute) {
-            this.attributesManagerService.getAttributeDefinitionByName(`urn:perun:user:attribute-def:${spec.is_virtual ? 'virt' : 'def'}:${spec.friendly_name}`).subscribe(att => {
-              this.addAttribute(att, spec, langs);
-              count++;
-              this.loading = count !== additionalAttributesSpecs.length;
-            });
+            this.attributesManagerService
+              .getAttributeDefinitionByName(
+                `urn:perun:user:attribute-def:${spec.is_virtual ? 'virt' : 'def'}:${
+                  spec.friendly_name
+                }`
+              )
+              .subscribe((att) => {
+                this.addAttribute(att, spec, langs);
+                count++;
+                this.loading = count !== additionalAttributesSpecs.length;
+              });
           } else {
             count++;
             this.addAttribute(attribute, spec, langs);
@@ -133,10 +165,13 @@ export class ProfilePageComponent implements OnInit {
 
   private addAttribute(att: AttributeDefinition, spec: any, langs: string[]) {
     const displayedAttribute = {
-      attribute: att
-    }
+      attribute: att,
+    };
     for (const lang of langs) {
-      displayedAttribute[`displayName_${lang}`] = spec[`display_name_${lang}`] && spec[`display_name_${lang}`].length ? spec[`display_name_${lang}`] : att.displayName;
+      displayedAttribute[`displayName_${lang}`] =
+        spec[`display_name_${lang}`] && spec[`display_name_${lang}`].length
+          ? spec[`display_name_${lang}`]
+          : att.displayName;
       displayedAttribute[`tooltip_${lang}`] = spec[`tooltip_${lang}`] ?? '';
     }
     this.additionalAttributes.push(<DisplayedAttribute>displayedAttribute);
@@ -147,10 +182,12 @@ export class ProfilePageComponent implements OnInit {
     this.translateService.use(this.currentLang);
 
     if (!this.languageAttribute) {
-      this.attributesManagerService.getAttributeDefinitionByName('urn:perun:user:attribute-def:def:preferredLanguage').subscribe(att => {
-        this.languageAttribute = att as Attribute;
-        this.setLanguage();
-      });
+      this.attributesManagerService
+        .getAttributeDefinitionByName('urn:perun:user:attribute-def:def:preferredLanguage')
+        .subscribe((att) => {
+          this.languageAttribute = att as Attribute;
+          this.setLanguage();
+        });
     } else {
       this.setLanguage();
     }
@@ -159,26 +196,30 @@ export class ProfilePageComponent implements OnInit {
   setLanguage() {
     // @ts-ignore
     this.languageAttribute.value = this.currentLang;
-    this.attributesManagerService.setUserAttribute({
-      user: this.userId,
-      attribute: this.languageAttribute
-    }).subscribe(() => {
-      // this.notificator.showSuccess("done");
-      this.router.navigate([], {
-        queryParams: {lang: null},
-        queryParamsHandling: 'merge'
+    this.attributesManagerService
+      .setUserAttribute({
+        user: this.userId,
+        attribute: this.languageAttribute,
+      })
+      .subscribe(() => {
+        // this.notificator.showSuccess("done");
+        this.router.navigate([], {
+          queryParams: { lang: null },
+          queryParamsHandling: 'merge',
+        });
       });
-    });
   }
 
   changeTimeZone(tz: string) {
     this.currentTimezone = tz;
 
     if (!this.timezoneAttribute) {
-      this.attributesManagerService.getAttributeDefinitionByName('urn:perun:user:attribute-def:def:timezone').subscribe(att => {
-        this.timezoneAttribute = att as Attribute;
-        this.setTimeZone();
-      });
+      this.attributesManagerService
+        .getAttributeDefinitionByName('urn:perun:user:attribute-def:def:timezone')
+        .subscribe((att) => {
+          this.timezoneAttribute = att as Attribute;
+          this.setTimeZone();
+        });
     } else {
       this.setTimeZone();
     }
@@ -187,12 +228,14 @@ export class ProfilePageComponent implements OnInit {
   setTimeZone() {
     // @ts-ignore
     this.timezoneAttribute.value = this.currentTimezone;
-    this.attributesManagerService.setUserAttribute({
-      user: this.userId,
-      attribute: this.timezoneAttribute
-    }).subscribe(() => {
-      // this.notificator.showSuccess("done");
-    });
+    this.attributesManagerService
+      .setUserAttribute({
+        user: this.userId,
+        attribute: this.timezoneAttribute,
+      })
+      .subscribe(() => {
+        // this.notificator.showSuccess("done");
+      });
   }
 
   changeEmail() {
@@ -210,9 +253,11 @@ export class ProfilePageComponent implements OnInit {
   }
 
   getEmail() {
-    this.attributesManagerService.getUserAttributeByName(this.userId, 'urn:perun:user:attribute-def:def:preferredMail').subscribe(attribute => {
-      // @ts-ignore
-      this.email = attribute.value;
-    });
+    this.attributesManagerService
+      .getUserAttributeByName(this.userId, 'urn:perun:user:attribute-def:def:preferredMail')
+      .subscribe((attribute) => {
+        // @ts-ignore
+        this.email = attribute.value;
+      });
   }
 }

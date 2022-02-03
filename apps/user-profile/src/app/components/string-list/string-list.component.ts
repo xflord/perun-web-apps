@@ -7,12 +7,10 @@ import { downloadData, getDataForExport, TableWrapperComponent } from '@perun-we
 @Component({
   selector: 'perun-web-apps-string-list',
   templateUrl: './string-list.component.html',
-  styleUrls: ['./string-list.component.scss']
+  styleUrls: ['./string-list.component.scss'],
 })
 export class StringListComponent implements OnChanges, AfterViewInit {
-
-  constructor() {
-  }
+  constructor() {}
 
   @Input()
   values: string[] = [];
@@ -31,21 +29,28 @@ export class StringListComponent implements OnChanges, AfterViewInit {
   displayedColumns: string[] = ['select', 'value'];
   dataSource: MatTableDataSource<string>;
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   ngOnChanges() {
     this.values = this.values ? this.values : [];
     this.dataSource = new MatTableDataSource<string>(this.values);
     this.setDataSource();
   }
-  getExportDataForColumn(data: string){
+  getExportDataForColumn(data: string) {
     return data;
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getExportDataForColumn, this), format);
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getExportDataForColumn,
+        this
+      ),
+      format
+    );
   }
-
 
   setDataSource() {
     if (this.dataSource) {

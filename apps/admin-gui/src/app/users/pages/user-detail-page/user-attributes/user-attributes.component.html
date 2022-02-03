@@ -5,7 +5,9 @@
       {{'ADMIN_USER.ENTITY' | translate}}
     </ng-template>
     <ng-template matTabContent>
-      <app-one-entity-attribute-page [entityId]="userId" [entity]="'user'"></app-one-entity-attribute-page>
+      <app-one-entity-attribute-page
+        [entityId]="userId"
+        [entity]="'user'"></app-one-entity-attribute-page>
     </ng-template>
   </mat-tab>
   <mat-tab *ngIf="userFacilityAttAuth">
@@ -15,9 +17,10 @@
       {{'FACILITY_DETAIL.ENTITY' | translate}}
     </ng-template>
     <ng-template matTabContent>
-      <app-two-entity-attribute-page [firstEntity]="'user'" [firstEntityId]="userId"
-                                     [secondEntity]="'facility'"></app-two-entity-attribute-page>
+      <app-two-entity-attribute-page
+        [firstEntity]="'user'"
+        [firstEntityId]="userId"
+        [secondEntity]="'facility'"></app-two-entity-attribute-page>
     </ng-template>
   </mat-tab>
 </mat-tab-group>
-

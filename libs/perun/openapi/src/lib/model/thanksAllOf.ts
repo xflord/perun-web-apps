@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
-export interface ThanksAllOf { 
-    publicationId?: number;
-    ownerId?: number;
-    createdBy?: string;
-    createdByUid?: number;
-    createdDate?: string;
+export interface ThanksAllOf {
+  publicationId?: number;
+  ownerId?: number;
+  createdBy?: string;
+  createdByUid?: number;
+  createdDate?: string;
 }
-

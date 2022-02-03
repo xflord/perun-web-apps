@@ -17,21 +17,21 @@ import { ResourceWithStatus } from '@perun-web-apps/perun/models';
 @Component({
   selector: 'app-group-resources',
   templateUrl: './group-resources.component.html',
-  styleUrls: ['./group-resources.component.scss']
+  styleUrls: ['./group-resources.component.scss'],
 })
 export class GroupResourcesComponent implements OnInit {
-
   static id = 'GroupResourcesComponent';
 
   // used for router animation
   @HostBinding('class.router-component') true;
 
-  constructor(private resourcesManager: ResourcesManagerService,
-              private groupService: GroupsManagerService,
-              private dialog: MatDialog,
-              private guiAuthResolver: GuiAuthResolver,
-              private entityStorageService: EntityStorageService) {
-  }
+  constructor(
+    private resourcesManager: ResourcesManagerService,
+    private groupService: GroupsManagerService,
+    private dialog: MatDialog,
+    private guiAuthResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
 
   group: Group;
   resources: ResourceWithStatus[] = null;
@@ -48,8 +48,6 @@ export class GroupResourcesComponent implements OnInit {
   @ViewChild('list', {})
   list: ResourcesListComponent;
 
-
-
   ngOnInit() {
     this.group = this.entityStorageService.getEntity();
     this.setAuthorization();
@@ -58,15 +56,17 @@ export class GroupResourcesComponent implements OnInit {
 
   setAuthorization() {
     if (this.resources !== null && this.resources.length !== 0) {
-      this.routingAuth = this.guiAuthResolver.isAuthorized('getResourceById_int_policy', [this.resources[0]]);
+      this.routingAuth = this.guiAuthResolver.isAuthorized('getResourceById_int_policy', [
+        this.resources[0],
+      ]);
     }
     this.addAuth = this.guiAuthResolver.isAuthorized('getResources_Vo_policy', [this.group]);
   }
 
   refreshTable() {
     this.loading = true;
-    this.resourcesManager.getResourceAssignments(this.group.id).subscribe(resources => {
-      this.resources = <ResourceWithStatus[]>resources.map(r =>{
+    this.resourcesManager.getResourceAssignments(this.group.id).subscribe((resources) => {
+      this.resources = <ResourceWithStatus[]>resources.map((r) => {
         const resWithStatus: ResourceWithStatus = r.enrichedResource.resource;
         resWithStatus.facility = r.facility;
         resWithStatus.status = r.status;
@@ -76,12 +76,15 @@ export class GroupResourcesComponent implements OnInit {
         return resWithStatus;
       });
       this.selected.clear();
-      this.resourcesToDisable = new Set(this.resources.filter(resource => resource.sourceGroupId !== null).map(resource => resource.id));
+      this.resourcesToDisable = new Set(
+        this.resources
+          .filter((resource) => resource.sourceGroupId !== null)
+          .map((resource) => resource.id)
+      );
       this.setAuthorization();
       this.loading = false;
     });
   }
-
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
@@ -90,11 +93,11 @@ export class GroupResourcesComponent implements OnInit {
   addResource() {
     const config = getDefaultDialogConfig();
     config.width = '1000px';
-    config.data = {theme: 'group-theme', group: this.group};
+    config.data = { theme: 'group-theme', group: this.group };
 
     const dialogRef = this.dialog.open(AddGroupResourceDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.refreshTable();
       }
@@ -104,11 +107,15 @@ export class GroupResourcesComponent implements OnInit {
   removeResource() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {theme: 'group-theme', resources: this.selected.selected, groupId: this.group.id};
+    config.data = {
+      theme: 'group-theme',
+      resources: this.selected.selected,
+      groupId: this.group.id,
+    };
 
     const dialogRef = this.dialog.open(RemoveGroupResourceDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.selected.clear();
         this.refreshTable();

@@ -8,7 +8,7 @@ import {
   OnInit,
   Output,
   SimpleChanges,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { FormControl } from '@angular/forms';
@@ -20,13 +20,12 @@ import { stringify } from 'querystring';
 @Component({
   selector: 'perun-web-apps-entity-search-select',
   templateUrl: './entity-search-select.component.html',
-  styleUrls: ['./entity-search-select.component.css']
+  styleUrls: ['./entity-search-select.component.css'],
 })
-export class EntitySearchSelectComponent<T extends PerunBean> implements OnInit, OnChanges, OnDestroy {
-
-  constructor(
-    public cd: ChangeDetectorRef,
-  ) { }
+export class EntitySearchSelectComponent<T extends PerunBean>
+  implements OnInit, OnChanges, OnDestroy
+{
+  constructor(public cd: ChangeDetectorRef) {}
 
   @Input()
   entities: T[];
@@ -55,11 +54,10 @@ export class EntitySearchSelectComponent<T extends PerunBean> implements OnInit,
   @Input()
   theme = '';
 
-
   @Output()
   entitySelected = new EventEmitter<T>();
 
-  @ViewChild('scrollViewport', {static: false})
+  @ViewChild('scrollViewport', { static: false })
   scrollViewport: CdkVirtualScrollViewport;
 
   entitiesCtrl: FormControl = new FormControl();
@@ -74,27 +72,26 @@ export class EntitySearchSelectComponent<T extends PerunBean> implements OnInit,
   searchFunction: (entity: T) => string;
 
   @Input()
-  mainTextFunction: (entity: T) => string = entity => stringify(entity);
+  mainTextFunction: (entity: T) => string = (entity) => stringify(entity);
 
   @Input()
-  secondaryTextFunction: (entity: T) => string = entity => '#' + entity.id + (entity['description'] ? '  ' + entity['description'] : '');
+  secondaryTextFunction: (entity: T) => string = (entity) =>
+    '#' + entity.id + (entity['description'] ? '  ' + entity['description'] : '');
 
-  statusTextFunction: (entity) => string = entity => entity.status;
+  statusTextFunction: (entity) => string = (entity) => entity.status;
 
   ngOnInit(): void {
-    this.entitiesCtrl.valueChanges.subscribe(entity => this.entitySelected.emit(entity));
+    this.entitiesCtrl.valueChanges.subscribe((entity) => this.entitySelected.emit(entity));
 
     if (!this.disableAutoSelect && this.entity === null) {
       this.entitiesCtrl.setValue(this.entities[0]);
     }
 
-    this.filteredEntities.subscribe((entities) => this.entitiesLen = entities.length);
+    this.filteredEntities.subscribe((entities) => (this.entitiesLen = entities.length));
 
-    this.entityFilterCtrl.valueChanges
-      .pipe(takeUntil(this._onDestroy))
-      .subscribe(() => {
-        this.filterEntites();
-      });
+    this.entityFilterCtrl.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+      this.filterEntites();
+    });
 
     if (this.entity !== null) {
       this.entitiesCtrl.setValue(this.entity);
@@ -103,14 +100,14 @@ export class EntitySearchSelectComponent<T extends PerunBean> implements OnInit,
 
   colorByStatus(entity): string {
     switch (entity.status) {
-      case "ACTIVE":
-        return "green";
-      case "INACTIVE":
-        return "grey";
-      case "FAILED":
-        return "red";
-      case "PROCESSING":
-        return "black";
+      case 'ACTIVE':
+        return 'green';
+      case 'INACTIVE':
+        return 'grey';
+      case 'FAILED':
+        return 'red';
+      case 'PROCESSING':
+        return 'black';
       default:
         break;
     }
@@ -145,7 +142,9 @@ export class EntitySearchSelectComponent<T extends PerunBean> implements OnInit,
     }
     // filter the banks
     this.filteredEntities.next(
-      this.entities.filter(entity => this.normalize(this.searchFunction(entity)).indexOf(search) >=0)
+      this.entities.filter(
+        (entity) => this.normalize(this.searchFunction(entity)).indexOf(search) >= 0
+      )
     );
     this.cd.detectChanges();
   }
@@ -155,7 +154,10 @@ export class EntitySearchSelectComponent<T extends PerunBean> implements OnInit,
    * @param data
    */
   normalize(data: string): string {
-    return data.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    return data
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
   }
 
   openChange() {
@@ -175,16 +177,23 @@ export class EntitySearchSelectComponent<T extends PerunBean> implements OnInit,
   }
 
   multipleSelectedText() {
-    if(!this.entitiesCtrl.value || this.entitiesCtrl.value.length === 0){
+    if (!this.entitiesCtrl.value || this.entitiesCtrl.value.length === 0) {
       return;
     }
 
-    if(this.entitiesCtrl.value.length === this.entities.length){
+    if (this.entitiesCtrl.value.length === this.entities.length) {
       return 'ALL';
-    } else if(this.entitiesCtrl.value.length > 1){
-      return this.mainTextFunction(this.entitiesCtrl.value[0]) + ` + ${this.entitiesCtrl.value.length - 1} other(s)`;
+    } else if (this.entitiesCtrl.value.length > 1) {
+      return (
+        this.mainTextFunction(this.entitiesCtrl.value[0]) +
+        ` + ${this.entitiesCtrl.value.length - 1} other(s)`
+      );
     } else {
-      return this.mainTextFunction(this.entitiesCtrl.value[0]) + ' ' + this.secondaryTextFunction(this.entitiesCtrl.value[0]);
+      return (
+        this.mainTextFunction(this.entitiesCtrl.value[0]) +
+        ' ' +
+        this.secondaryTextFunction(this.entitiesCtrl.value[0])
+      );
     }
   }
 }

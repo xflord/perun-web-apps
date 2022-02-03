@@ -5,27 +5,21 @@ import { DeleteGroupDialogComponent } from '../../../../shared/components/dialog
 import { SelectionModel } from '@angular/cdk/collections';
 import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import {
-  Group,
-  GroupsManagerService,
-  RichGroup,
-  Vo
-} from '@perun-web-apps/perun/openapi';
+import { Group, GroupsManagerService, RichGroup, Vo } from '@perun-web-apps/perun/openapi';
 import { GroupFlatNode } from '@perun-web-apps/perun/models';
 import { TABLE_VO_GROUPS } from '@perun-web-apps/config/table-config';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
-import { GroupsTreeComponent} from '@perun-web-apps/perun/components';
+import { GroupsTreeComponent } from '@perun-web-apps/perun/components';
 import { GroupsListComponent } from '@perun-web-apps/perun/components';
 
 @Component({
   selector: 'app-vo-groups',
   templateUrl: './vo-groups.component.html',
-  styleUrls: ['./vo-groups.component.scss']
+  styleUrls: ['./vo-groups.component.scss'],
 })
 export class VoGroupsComponent implements OnInit {
-
   static id = 'VoGroupsComponent';
 
   @HostBinding('class.router-component') true;
@@ -35,7 +29,7 @@ export class VoGroupsComponent implements OnInit {
     private groupService: GroupsManagerService,
     public authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService
-  ) { }
+  ) {}
 
   vo: Vo;
 
@@ -47,7 +41,7 @@ export class VoGroupsComponent implements OnInit {
   filterValue = '';
   tableId = TABLE_VO_GROUPS;
 
-  @ViewChild('toggle', {static: true})
+  @ViewChild('toggle', { static: true })
   toggle: MatSlideToggle;
 
   createAuth: boolean;
@@ -62,11 +56,11 @@ export class VoGroupsComponent implements OnInit {
   onCreateGroup() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {voId: this.vo.id, parentGroup: null, theme: 'vo-theme'};
+    config.data = { voId: this.vo.id, parentGroup: null, theme: 'vo-theme' };
 
     const dialogRef = this.dialog.open(CreateGroupDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(groupCreated => {
+    dialogRef.afterClosed().subscribe((groupCreated) => {
       if (groupCreated) {
         this.loading = true;
         this.loadAllGroups();
@@ -87,7 +81,6 @@ export class VoGroupsComponent implements OnInit {
       this.loadAllGroups();
     });
 
-
     this.vo = this.entityStorageService.getEntity();
     this.setAuthRights();
     this.loadAllGroups();
@@ -96,29 +89,36 @@ export class VoGroupsComponent implements OnInit {
   setAuthRights() {
     this.createAuth = this.authResolver.isAuthorized('createGroup_Vo_Group_policy', [this.vo]);
 
-    if(this.groups.length !== 0){
-      this.routeAuth = this.authResolver.isAuthorized('getGroupById_int_policy', [this.vo, this.groups[0]]);
+    if (this.groups.length !== 0) {
+      this.routeAuth = this.authResolver.isAuthorized('getGroupById_int_policy', [
+        this.vo,
+        this.groups[0],
+      ]);
     }
   }
 
   disableRemove() {
-    return (this.tree !== undefined && !this.tree.removeAuth) ||
-      (this.list !== undefined && !this.list.removeAuth);
+    return (
+      (this.tree !== undefined && !this.tree.removeAuth) ||
+      (this.list !== undefined && !this.list.removeAuth)
+    );
   }
 
-  disableTooltip(){
-    return (this.tree !== undefined && this.tree.removeAuth) ||
-      (this.list !== undefined && this.list.removeAuth);
+  disableTooltip() {
+    return (
+      (this.tree !== undefined && this.tree.removeAuth) ||
+      (this.list !== undefined && this.list.removeAuth)
+    );
   }
 
   deleteGroup() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {voId: this.vo.id, groups: this.selected.selected, theme: 'vo-theme'};
+    config.data = { voId: this.vo.id, groups: this.selected.selected, theme: 'vo-theme' };
 
     const dialogRef = this.dialog.open(DeleteGroupDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.loadAllGroups();
       }
@@ -134,11 +134,11 @@ export class VoGroupsComponent implements OnInit {
     config.width = '550px';
     config.data = {
       group: group,
-      theme: 'vo-theme'
+      theme: 'vo-theme',
     };
 
     const dialogRef = this.dialog.open(MoveGroupDialogComponent, config);
-    dialogRef.afterClosed().subscribe(groupMoved => {
+    dialogRef.afterClosed().subscribe((groupMoved) => {
       if (groupMoved) {
         this.loadAllGroups();
       }
@@ -147,19 +147,21 @@ export class VoGroupsComponent implements OnInit {
 
   loadAllGroups() {
     this.loading = true;
-    this.groupService.getAllRichGroupsWithAttributesByNames(this.vo.id, [
-      Urns.GROUP_SYNC_ENABLED,
-      Urns.GROUP_LAST_SYNC_STATE,
-      Urns.GROUP_LAST_SYNC_TIMESTAMP,
-      Urns.GROUP_STRUCTURE_SYNC_ENABLED,
-      Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
-      Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
-    ]).subscribe(groups => {
-      this.groups = groups;
-      this.selected.clear();
-      this.setAuthRights();
-      this.loading = false;
-    });
+    this.groupService
+      .getAllRichGroupsWithAttributesByNames(this.vo.id, [
+        Urns.GROUP_SYNC_ENABLED,
+        Urns.GROUP_LAST_SYNC_STATE,
+        Urns.GROUP_LAST_SYNC_TIMESTAMP,
+        Urns.GROUP_STRUCTURE_SYNC_ENABLED,
+        Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
+        Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP,
+      ])
+      .subscribe((groups) => {
+        this.groups = groups;
+        this.selected.clear();
+        this.setAuthRights();
+        this.loading = false;
+      });
   }
 
   applyFilter(filterValue: string) {

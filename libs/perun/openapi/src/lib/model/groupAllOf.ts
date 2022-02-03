@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
-export interface GroupAllOf { 
-    name?: string;
-    shortName?: string;
-    description?: string;
-    voId?: number;
-    parentGroupId?: number;
+export interface GroupAllOf {
+  name?: string;
+  shortName?: string;
+  description?: string;
+  voId?: number;
+  parentGroupId?: number;
 }
-

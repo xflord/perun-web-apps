@@ -1,7 +1,8 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { Application, RegistrarManagerService, Vo } from '@perun-web-apps/perun/openapi';
 import {
-  TABLE_VO_APPLICATIONS_DETAILED, TABLE_VO_APPLICATIONS_NORMAL,
+  TABLE_VO_APPLICATIONS_DETAILED,
+  TABLE_VO_APPLICATIONS_NORMAL,
 } from '@perun-web-apps/config/table-config';
 import { FormControl } from '@angular/forms';
 import { formatDate } from '@angular/common';
@@ -10,16 +11,17 @@ import { EntityStorageService } from '@perun-web-apps/perun/services';
 @Component({
   selector: 'app-vo-applications',
   templateUrl: './vo-applications.component.html',
-  styleUrls: ['./vo-applications.component.scss']
+  styleUrls: ['./vo-applications.component.scss'],
 })
 export class VoApplicationsComponent implements OnInit {
-
   static id = 'VoApplicationsComponent';
 
   @HostBinding('class.router-component') true;
 
-  constructor(private registrarManager: RegistrarManagerService,
-              private entityStorageService: EntityStorageService) { }
+  constructor(
+    private registrarManager: RegistrarManagerService,
+    private entityStorageService: EntityStorageService
+  ) {}
 
   state = 'pending';
   loading = false;
@@ -39,21 +41,27 @@ export class VoApplicationsComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.vo = this.entityStorageService.getEntity();
-    this.startDate = new FormControl(formatDate(this.yearAgo(),'yyyy-MM-dd','en-GB'));
-    this.endDate = new FormControl(formatDate(new Date(),'yyyy-MM-dd','en-GB'));
+    this.startDate = new FormControl(formatDate(this.yearAgo(), 'yyyy-MM-dd', 'en-GB'));
+    this.endDate = new FormControl(formatDate(new Date(), 'yyyy-MM-dd', 'en-GB'));
     this.setData(['NEW', 'VERIFIED']);
   }
 
-
   setData(state: string[]) {
-    this.registrarManager.getApplicationsForVo(this.vo.id, state, formatDate(this.startDate.value, 'yyyy-MM-dd','en-GB'), formatDate(this.endDate.value, 'yyyy-MM-dd','en-GB')).subscribe(applications => {
-      if(this.checked === false) {
-        this.applications = applications.filter(application => application.group === null);
-      } else {
-        this.applications = applications;
-      }
-      this.loading = false;
-    });
+    this.registrarManager
+      .getApplicationsForVo(
+        this.vo.id,
+        state,
+        formatDate(this.startDate.value, 'yyyy-MM-dd', 'en-GB'),
+        formatDate(this.endDate.value, 'yyyy-MM-dd', 'en-GB')
+      )
+      .subscribe((applications) => {
+        if (this.checked === false) {
+          this.applications = applications.filter((application) => application.group === null);
+        } else {
+          this.applications = applications;
+        }
+        this.loading = false;
+      });
   }
 
   select() {

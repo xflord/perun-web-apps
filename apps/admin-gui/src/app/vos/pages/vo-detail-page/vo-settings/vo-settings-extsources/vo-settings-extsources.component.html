@@ -18,8 +18,9 @@
     [disabled]="selection.selected.length === 0">
     {{'VO_DETAIL.SETTINGS.EXT_SOURCES.REMOVE' | translate}}
   </button>
-  <perun-web-apps-immediate-filter (filter)="applyFilter($event)"
-                                   [placeholder]="'VO_DETAIL.SETTINGS.EXT_SOURCES.FILTER'"></perun-web-apps-immediate-filter>
+  <perun-web-apps-immediate-filter
+    (filter)="applyFilter($event)"
+    [placeholder]="'VO_DETAIL.SETTINGS.EXT_SOURCES.FILTER'"></perun-web-apps-immediate-filter>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <app-ext-sources-list
     [tableId]="tableId"

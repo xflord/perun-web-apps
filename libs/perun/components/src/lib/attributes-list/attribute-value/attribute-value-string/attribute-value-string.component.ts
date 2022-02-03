@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Attribute } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, isVirtualAttribute } from '@perun-web-apps/perun/utils';
 import { ShowValueDialogComponent } from '@perun-web-apps/perun/dialogs';
@@ -7,12 +7,10 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'perun-web-apps-attribute-value-string',
   templateUrl: './attribute-value-string.component.html',
-  styleUrls: ['./attribute-value-string.component.scss']
+  styleUrls: ['./attribute-value-string.component.scss'],
 })
 export class AttributeValueStringComponent implements OnInit {
-
-  constructor(private dialog: MatDialog) {
-  }
+  constructor(private dialog: MatDialog) {}
 
   @Input()
   attribute: Attribute;
@@ -25,8 +23,8 @@ export class AttributeValueStringComponent implements OnInit {
   value: string;
 
   ngOnInit() {
-    this.value = <string><unknown>this.attribute.value;
-    if(!this.readonly){
+    this.value = <string>(<unknown>this.attribute.value);
+    if (!this.readonly) {
       this.readonly = isVirtualAttribute(this.attribute);
     }
   }
@@ -40,7 +38,7 @@ export class AttributeValueStringComponent implements OnInit {
     config.width = '350px';
     config.data = {
       value: value,
-      title: title
+      title: title,
     };
     this.dialog.open(ShowValueDialogComponent, config);
   }

@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
-export interface MemberAllOf { 
-    userId?: number;
-    voId?: number;
-    status?: string;
-    membershipType?: string;
-    sourceGroupId?: number;
-    sponsored?: boolean;
-    groupStatus?: string;
-    groupStatuses?: { [key: string]: string; };
+export interface MemberAllOf {
+  userId?: number;
+  voId?: number;
+  status?: string;
+  membershipType?: string;
+  sourceGroupId?: number;
+  sponsored?: boolean;
+  groupStatus?: string;
+  groupStatuses?: { [key: string]: string };
 }
-

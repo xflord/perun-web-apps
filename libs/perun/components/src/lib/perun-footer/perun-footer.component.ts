@@ -9,15 +9,14 @@ declare let require: any;
 @Component({
   selector: 'perun-web-apps-footer',
   templateUrl: './perun-footer.component.html',
-  styleUrls: ['./perun-footer.component.scss']
+  styleUrls: ['./perun-footer.component.scss'],
 })
 export class PerunFooterComponent implements OnInit {
-
   copyrightTextColor = this.storeService.get('theme', 'footer_copyright_text_color');
 
   items = [];
   copyrightItems = [];
-  currentYear = (new Date()).getFullYear();
+  currentYear = new Date().getFullYear();
   containsLogos = false;
   headersTextColor = this.storeService.get('theme', 'footer_headers_text_color');
   linksTextColor = this.storeService.get('theme', 'footer_links_text_color');
@@ -28,13 +27,14 @@ export class PerunFooterComponent implements OnInit {
   language = 'en';
   columnContentHeight = 0;
 
-  constructor(private storeService: StoreService,
-              private translateService: TranslateService,
-              private dialog: MatDialog) {
-  }
+  constructor(
+    private storeService: StoreService,
+    private translateService: TranslateService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit() {
-    this.translateService.onLangChange.subscribe(lang => {
+    this.translateService.onLangChange.subscribe((lang) => {
       this.language = lang.lang;
     });
     this.version = require('../../../../../../package.json').version;

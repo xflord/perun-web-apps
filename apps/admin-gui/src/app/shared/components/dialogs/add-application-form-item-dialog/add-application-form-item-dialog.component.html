@@ -2,11 +2,7 @@
 <div mat-dialog-content class="dialog-container">
   {{'DIALOGS.APPLICATION_FORM_ADD_ITEM.SHORT_NAME' | translate}}:
   <mat-form-field>
-    <input
-      matInput
-      required
-      data-cy="item-short-name"
-      [formControl]="nameCtrl">
+    <input matInput required data-cy="item-short-name" [formControl]="nameCtrl" />
     <mat-error>
       {{'DIALOGS.APPLICATION_FORM_ADD_ITEM.FILL_NAME' | translate}}
     </mat-error>
@@ -18,8 +14,7 @@
         {{widget | applicationFormItemType}}
       </mat-option>
     </mat-select>
-    <mat-hint>{{selectedWidget | applicationFormWidgetDescription}}
-    </mat-hint>
+    <mat-hint>{{selectedWidget | applicationFormWidgetDescription}} </mat-hint>
   </mat-form-field>
   {{'DIALOGS.APPLICATION_FORM_ADD_ITEM.INSERT_AFTER' | translate}}:
   <mat-form-field>
@@ -29,14 +24,10 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-
 </div>
 
 <div mat-dialog-actions>
-  <button
-    mat-flat-button
-    class="ml-auto"
-    (click)="cancel()">
+  <button mat-flat-button class="ml-auto" (click)="cancel()">
     {{'DIALOGS.APPLICATION_FORM_ADD_ITEM.CANCEL' | translate}}
   </button>
   <button

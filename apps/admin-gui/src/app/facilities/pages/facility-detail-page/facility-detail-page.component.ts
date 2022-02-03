@@ -4,12 +4,16 @@ import { fadeIn } from '@perun-web-apps/perun/animations';
 import { SideMenuService } from '../../../core/services/common/side-menu.service';
 import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.service';
 import { FacilitiesManagerService, Facility } from '@perun-web-apps/perun/openapi';
-import { addRecentlyVisited, addRecentlyVisitedObject, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import {
+  addRecentlyVisited,
+  addRecentlyVisitedObject,
+  getDefaultDialogConfig,
+} from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import {
   EditFacilityResourceGroupVoDialogComponent,
-  EditFacilityResourceGroupVoDialogOptions
+  EditFacilityResourceGroupVoDialogOptions,
 } from '@perun-web-apps/perun/dialogs';
 import { DeleteFacilityDialogComponent } from '../../../shared/components/dialogs/delete-facility-dialog/delete-facility-dialog.component';
 import { ReloadEntityDetailService } from '../../../core/services/common/reload-entity-detail.service';
@@ -18,24 +22,20 @@ import { ReloadEntityDetailService } from '../../../core/services/common/reload-
   selector: 'app-facility-detail-page',
   templateUrl: './facility-detail-page.component.html',
   styleUrls: ['./facility-detail-page.component.scss'],
-  animations: [
-    fadeIn
-  ]
+  animations: [fadeIn],
 })
 export class FacilityDetailPageComponent implements OnInit {
-
   constructor(
     private dialog: MatDialog,
     private facilityManager: FacilitiesManagerService,
     private route: ActivatedRoute,
     private sideMenuService: SideMenuService,
     private sideMenuItemService: SideMenuItemService,
-    public guiAuthResolver:GuiAuthResolver,
+    public guiAuthResolver: GuiAuthResolver,
     private router: Router,
     private entityStorageService: EntityStorageService,
     private reloadEntityDetail: ReloadEntityDetailService
-  ) {
-  }
+  ) {}
 
   facility: Facility;
   editFacilityAuth = false;
@@ -51,21 +51,30 @@ export class FacilityDetailPageComponent implements OnInit {
 
   reloadData() {
     this.loading = true;
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       const facilityId = params['facilityId'];
 
-      this.facilityManager.getFacilityById(facilityId).subscribe(facility => {
-        this.facility = facility;
-        this.entityStorageService.setEntity({id: facility.id, beanName: facility.beanName})
-        this.setMenuItems();
+      this.facilityManager.getFacilityById(facilityId).subscribe(
+        (facility) => {
+          this.facility = facility;
+          this.entityStorageService.setEntity({ id: facility.id, beanName: facility.beanName });
+          this.setMenuItems();
 
-        this.editFacilityAuth = this.guiAuthResolver.isAuthorized('updateFacility_Facility_policy',[this.facility]);
-        this.deleteAuth = this.guiAuthResolver.isAuthorized('deleteFacility_Facility_Boolean_policy',[this.facility]);
+          this.editFacilityAuth = this.guiAuthResolver.isAuthorized(
+            'updateFacility_Facility_policy',
+            [this.facility]
+          );
+          this.deleteAuth = this.guiAuthResolver.isAuthorized(
+            'deleteFacility_Facility_Boolean_policy',
+            [this.facility]
+          );
 
-        addRecentlyVisited('facilities', this.facility);
-        addRecentlyVisitedObject(this.facility);
-        this.loading = false;
-      }, () => this.loading = false);
+          addRecentlyVisited('facilities', this.facility);
+          addRecentlyVisitedObject(this.facility);
+          this.loading = false;
+        },
+        () => (this.loading = false)
+      );
     });
   }
 
@@ -80,13 +89,13 @@ export class FacilityDetailPageComponent implements OnInit {
     config.data = {
       theme: 'facility-theme',
       facility: this.facility,
-      dialogType: EditFacilityResourceGroupVoDialogOptions.FACILITY
+      dialogType: EditFacilityResourceGroupVoDialogOptions.FACILITY,
     };
     const dialogRef = this.dialog.open(EditFacilityResourceGroupVoDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.facilityManager.getFacilityById(this.facility.id).subscribe(facility => {
+        this.facilityManager.getFacilityById(this.facility.id).subscribe((facility) => {
           this.facility = facility;
           this.setMenuItems();
         });
@@ -103,7 +112,7 @@ export class FacilityDetailPageComponent implements OnInit {
     };
     const dialogRef = this.dialog.open(DeleteFacilityDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.router.navigate(['']);
       }

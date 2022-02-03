@@ -6,19 +6,18 @@ import { TranslateService } from '@ngx-translate/core';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface RemoveRelationDialogData {
-  groups: Group[],
+  groups: Group[];
   theme: string;
   groupId: number;
-  reverse: boolean
+  reverse: boolean;
 }
 
 @Component({
   selector: 'app-remove-relation-dialog',
   templateUrl: './remove-relation-dialog.component.html',
-  styleUrls: ['./remove-relation-dialog.component.scss']
+  styleUrls: ['./remove-relation-dialog.component.scss'],
 })
 export class RemoveRelationDialogComponent implements OnInit {
-
   constructor(
     private dialogRef: MatDialogRef<RemoveRelationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: RemoveRelationDialogData,
@@ -26,7 +25,9 @@ export class RemoveRelationDialogComponent implements OnInit {
     private groupService: GroupsManagerService,
     private translate: TranslateService
   ) {
-    translate.get('DIALOGS.REMOVE_RELATION.SUCCESS').subscribe(value => this.successMessage = value);
+    translate
+      .get('DIALOGS.REMOVE_RELATION.SUCCESS')
+      .subscribe((value) => (this.successMessage = value));
   }
 
   successMessage: string;
@@ -47,24 +48,27 @@ export class RemoveRelationDialogComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
-    if(this.data.groups.length === 1){
+    if (this.data.groups.length === 1) {
       const thisGroup = this.data.reverse ? this.data.groups[0].id : this.data.groupId;
       const otherGroup = this.data.reverse ? this.data.groupId : this.data.groups[0].id;
-      this.groupService.removeGroupUnion(thisGroup, otherGroup).subscribe(() => {
-        this.notificator.showSuccess(this.successMessage);
-        this.loading = false;
-        this.dialogRef.close(true);
-      }, () => this.loading = false);
-    }else {
+      this.groupService.removeGroupUnion(thisGroup, otherGroup).subscribe(
+        () => {
+          this.notificator.showSuccess(this.successMessage);
+          this.loading = false;
+          this.dialogRef.close(true);
+        },
+        () => (this.loading = false)
+      );
+    } else {
       const thisGroup = this.data.reverse ? this.data.groups.shift().id : this.data.groupId;
       const otherGroup = this.data.reverse ? this.data.groupId : this.data.groups.shift().id;
-      this.groupService.removeGroupUnion(thisGroup, otherGroup).subscribe(() => {
-        this.onSubmit();
-        this.dialogRef.close(true);
-      }, () => this.loading = false);
+      this.groupService.removeGroupUnion(thisGroup, otherGroup).subscribe(
+        () => {
+          this.onSubmit();
+          this.dialogRef.close(true);
+        },
+        () => (this.loading = false)
+      );
     }
-
-
   }
-
 }

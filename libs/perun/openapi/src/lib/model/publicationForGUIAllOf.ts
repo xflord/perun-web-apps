@@ -11,10 +11,8 @@
  */
 import { ThanksForGUI } from './thanksForGUI';
 
-
-export interface PublicationForGUIAllOf { 
-    pubSystemName?: string;
-    categoryName?: string;
-    thanks?: Array<ThanksForGUI>;
+export interface PublicationForGUIAllOf {
+  pubSystemName?: string;
+  categoryName?: string;
+  thanks?: Array<ThanksForGUI>;
 }
-

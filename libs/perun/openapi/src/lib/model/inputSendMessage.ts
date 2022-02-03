@@ -11,19 +11,17 @@
  */
 import { MailType } from './mailType';
 
-
 /**
  * input to sendMessage
  */
-export interface InputSendMessage { 
-    mailType: MailType;
-    /**
-     * application id
-     */
-    appId: number;
-    /**
-     * you can specify reason for case: mailType == APP_REJECTED_USER
-     */
-    reason?: string;
+export interface InputSendMessage {
+  mailType: MailType;
+  /**
+   * application id
+   */
+  appId: number;
+  /**
+   * you can specify reason for case: mailType == APP_REJECTED_USER
+   */
+  reason?: string;
 }
-

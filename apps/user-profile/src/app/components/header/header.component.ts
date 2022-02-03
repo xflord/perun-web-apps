@@ -6,10 +6,9 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'perun-web-apps-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-
   label = this.storeService.get('header_label_en');
   logoutEnabled = this.storeService.get('log_out_enabled');
   adminLabel = this.storeService.get('admin_gui_label_en');
@@ -34,17 +33,19 @@ export class HeaderComponent implements OnInit {
   linkRoles: string[];
   activeLink = false;
 
-  constructor( private storeService: StoreService,
-               private sanitizer: DomSanitizer,
-               private translate: TranslateService,
-               private otherApplicationService: OtherApplicationsService) { }
+  constructor(
+    private storeService: StoreService,
+    private sanitizer: DomSanitizer,
+    private translate: TranslateService,
+    private otherApplicationService: OtherApplicationsService
+  ) {}
 
   ngOnInit() {
     this.isDevel = this.storeService.get('is_devel');
-    this.translate.onLangChange.subscribe(lang => {
-      this.label = this.storeService.get(`header_label_${lang.lang}`)
+    this.translate.onLangChange.subscribe((lang) => {
+      this.label = this.storeService.get(`header_label_${lang.lang}`);
       this.adminLabel = this.storeService.get(`admin_gui_label_${lang.lang}`);
-    })
+    });
     this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.get('logo'));
 
     this.isLinkToGuiActive();
@@ -59,11 +60,11 @@ export class HeaderComponent implements OnInit {
     }
 
     if (this.activeLink) {
-      this.adminGuiUrl = this.otherApplicationService.getUrlForOtherApplication("admin");
+      this.adminGuiUrl = this.otherApplicationService.getUrlForOtherApplication('admin');
     }
   }
 
   onToggleSidenav = () => {
     this.sidenavToggle.emit();
-  }
+  };
 }

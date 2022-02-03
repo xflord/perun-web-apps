@@ -4,11 +4,10 @@ import { Destination, Host } from '@perun-web-apps/perun/openapi';
 @Component({
   selector: 'perun-web-apps-object-list-values',
   templateUrl: './object-list-values.component.html',
-  styleUrls: ['./object-list-values.component.css']
+  styleUrls: ['./object-list-values.component.css'],
 })
 export class ObjectListValuesComponent implements OnInit, OnChanges {
-
-  constructor() { }
+  constructor() {}
 
   @Input()
   objects: Destination[] | Host[] = [];
@@ -17,12 +16,11 @@ export class ObjectListValuesComponent implements OnInit, OnChanges {
   filterValue = '';
 
   @Input()
-  paramName = ''
+  paramName = '';
 
   showMore = false;
   defaultItemsShown = 3;
   itemsShown: number;
-
 
   ngOnInit(): void {
     this.itemsShown = this.defaultItemsShown;
@@ -35,7 +33,7 @@ export class ObjectListValuesComponent implements OnInit, OnChanges {
 
   onShowChange() {
     this.showMore = !this.showMore;
-    if(this.showMore){
+    if (this.showMore) {
       this.itemsShown = this.objects.length;
     } else {
       this.itemsShown = this.defaultItemsShown;

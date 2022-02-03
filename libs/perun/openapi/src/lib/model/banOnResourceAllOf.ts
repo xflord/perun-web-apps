@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface BanOnResourceAllOf { 
-    memberId?: number;
-    resourceId?: number;
+export interface BanOnResourceAllOf {
+  memberId?: number;
+  resourceId?: number;
 }
-

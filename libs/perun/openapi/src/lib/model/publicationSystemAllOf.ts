@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
-export interface PublicationSystemAllOf { 
-    friendlyName?: string;
-    url?: string;
-    username?: string;
-    password?: string;
-    loginNamespace?: string;
-    type?: string;
+export interface PublicationSystemAllOf {
+  friendlyName?: string;
+  url?: string;
+  username?: string;
+  password?: string;
+  loginNamespace?: string;
+  type?: string;
 }
-

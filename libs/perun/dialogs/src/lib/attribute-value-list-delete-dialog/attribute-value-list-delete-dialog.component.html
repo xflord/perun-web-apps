@@ -1,27 +1,20 @@
-<h5 mat-dialog-title>{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_VALUE_LIST.DELETE_DIALOG.TITLE' | translate}}</h5>
+<h5 mat-dialog-title>
+  {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_VALUE_LIST.DELETE_DIALOG.TITLE' | translate}}
+</h5>
 <div mat-dialog-content class="dialog-container">
-
   <div>
     {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_VALUE_LIST.DELETE_DIALOG.DESCRIPTION' | translate}}
   </div>
   <div class="mt-2 font-weight-bold">
     {{this.data.name}}
   </div>
-
 </div>
 
 <div mat-dialog-actions class="d-flex">
-  <button
-    mat-flat-button
-    class="ml-auto"
-    (click)="cancel()">
+  <button mat-flat-button class="ml-auto" (click)="cancel()">
     {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_VALUE_LIST.DELETE_DIALOG.CANCEL_BUTTON' | translate}}
   </button>
-  <button
-    mat-flat-button
-    class="ml-2"
-    color="warn"
-    (click)="submit()">
+  <button mat-flat-button class="ml-2" color="warn" (click)="submit()">
     {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_VALUE_LIST.DELETE_DIALOG.SUBMIT_BUTTON' | translate}}
   </button>
 </div>

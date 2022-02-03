@@ -11,11 +11,9 @@
  */
 import { Vo } from './vo';
 
-
 /**
  * input to createVoWithVo
  */
-export interface InputCreateVoWithVo { 
-    vo: Vo;
+export interface InputCreateVoWithVo {
+  vo: Vo;
 }
-

@@ -1,5 +1,6 @@
-<div [hidden]="dataSource.filteredData.length === 0 || securityTeams.length === 0" class="card mt-3">
-
+<div
+  [hidden]="dataSource.filteredData.length === 0 || securityTeams.length === 0"
+  class="card mt-3">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [tableId]="tableId"
@@ -9,41 +10,49 @@
       [dataSource]="dataSource"
       class="w-100"
       mat-table
-      matSort matSortActive="id"
-      matSortDirection="asc" matSortDisableClear>
-
+      matSort
+      matSortActive="id"
+      matSortDirection="asc"
+      matSortDisableClear>
       <ng-container matColumnDef="select">
         <th *matHeaderCellDef mat-header-cell class="align-checkbox">
-          <mat-checkbox (change)="$event ? masterToggle() : null"
-                        [aria-label]="checkboxLabel()"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()"
-                        color="primary">
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            [aria-label]="checkboxLabel()"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            color="primary">
           </mat-checkbox>
         </th>
         <td *matCellDef="let securityTeam" class="static-column-size align-checkbox" mat-cell>
-          <mat-checkbox (change)="$event ? selection.toggle(securityTeam) : null"
-                        (click)="$event.stopPropagation()"
-                        [aria-label]="checkboxLabel(securityTeam)"
-                        [checked]="selection.isSelected(securityTeam)"
-                        color="primary">
+          <mat-checkbox
+            (change)="$event ? selection.toggle(securityTeam) : null"
+            (click)="$event.stopPropagation()"
+            [aria-label]="checkboxLabel(securityTeam)"
+            [checked]="selection.isSelected(securityTeam)"
+            color="primary">
           </mat-checkbox>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="id">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'SHARED.COMPONENTS.SECURITY_TEAMS_LIST.ID' | translate}}</th>
-        <td *matCellDef="let securityTeam" class="static-column-size" mat-cell>{{securityTeam.id}}</td>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED.COMPONENTS.SECURITY_TEAMS_LIST.ID' | translate}}
+        </th>
+        <td *matCellDef="let securityTeam" class="static-column-size" mat-cell>
+          {{securityTeam.id}}
+        </td>
       </ng-container>
       <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'SHARED.COMPONENTS.SECURITY_TEAMS_LIST.NAME' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED.COMPONENTS.SECURITY_TEAMS_LIST.NAME' | translate}}
+        </th>
         <td *matCellDef="let securityTeam" mat-cell>{{securityTeam.name}}</td>
       </ng-container>
       <ng-container matColumnDef="description">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'SHARED.COMPONENTS.SECURITY_TEAMS_LIST.DESCRIPTION' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED.COMPONENTS.SECURITY_TEAMS_LIST.DESCRIPTION' | translate}}
+        </th>
         <td *matCellDef="let securityTeam" mat-cell>{{securityTeam.description}}</td>
       </ng-container>
 
@@ -51,13 +60,14 @@
       <tr
         *matRowDef="let securityTeam; columns: displayedColumns;"
         class="dark-hover-list-item"
-        mat-row>
-      </tr>
+        mat-row></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
 
-<app-alert *ngIf="dataSource.filteredData.length === 0 && securityTeams.length !== 0" alert_type="warn">
+<app-alert
+  *ngIf="dataSource.filteredData.length === 0 && securityTeams.length !== 0"
+  alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
 </app-alert>
 

@@ -1,29 +1,46 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import {NotificatorService} from '@perun-web-apps/perun/services';
-import {TranslateService} from '@ngx-translate/core';
+import { NotificatorService } from '@perun-web-apps/perun/services';
+import { TranslateService } from '@ngx-translate/core';
 import { ActionType } from '@perun-web-apps/perun/openapi';
-import { AttributeDefinition, AttributeRights, AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  AttributeDefinition,
+  AttributeRights,
+  AttributesManagerService,
+} from '@perun-web-apps/perun/openapi';
 import { Role } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-create-attribute-definition-dialog',
   templateUrl: './create-attribute-definition-dialog.component.html',
-  styleUrls: ['./create-attribute-definition-dialog.component.scss']
+  styleUrls: ['./create-attribute-definition-dialog.component.scss'],
 })
 export class CreateAttributeDefinitionDialogComponent implements OnInit {
-
-  constructor(public dialogRef: MatDialogRef<CreateAttributeDefinitionDialogComponent>,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private attributesManager: AttributesManagerService) {
-  }
+  constructor(
+    public dialogRef: MatDialogRef<CreateAttributeDefinitionDialogComponent>,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private attributesManager: AttributesManagerService
+  ) {}
 
   loading = false;
 
   attDef: AttributeDefinition;
-  entities: string[] = ['facility', 'resource', 'group', 'group_resource', 'host', 'member', 'member_group',
-    'member_resource', 'user', 'user_ext_source', 'user_facility', 'vo', 'entityless'];
+  entities: string[] = [
+    'facility',
+    'resource',
+    'group',
+    'group_resource',
+    'host',
+    'member',
+    'member_group',
+    'member_resource',
+    'user',
+    'user_ext_source',
+    'user_facility',
+    'vo',
+    'entityless',
+  ];
 
   definitionTypes: string[] = ['def', 'opt', 'virt', 'core'];
   definitionType = '';
@@ -66,15 +83,23 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
     this.loading = true;
     this.attDef.namespace = 'urn:perun:' + this.entity + ':attribute-def:' + this.definitionType;
     this.readValueType();
-    this.attributesManager.createAttributeDefinition({attribute: this.attDef}).subscribe(attDef => {
-      this.attDef = attDef;
-      this.attributesManager.setAttributeRights({rights: this.readRights()}).subscribe(() => {
-        this.translate.get('DIALOGS.CREATE_ATTRIBUTE_DEFINITION.SUCCESS').subscribe(successMessage => {
-          this.notificator.showSuccess(successMessage);
-          this.dialogRef.close(true);
-        });
-      }, () => this.loading = false);
-    }, () => this.loading = false);
+    this.attributesManager.createAttributeDefinition({ attribute: this.attDef }).subscribe(
+      (attDef) => {
+        this.attDef = attDef;
+        this.attributesManager.setAttributeRights({ rights: this.readRights() }).subscribe(
+          () => {
+            this.translate
+              .get('DIALOGS.CREATE_ATTRIBUTE_DEFINITION.SUCCESS')
+              .subscribe((successMessage) => {
+                this.notificator.showSuccess(successMessage);
+                this.dialogRef.close(true);
+              });
+          },
+          () => (this.loading = false)
+        );
+      },
+      () => (this.loading = false)
+    );
   }
 
   onCancel() {
@@ -185,8 +210,15 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
   }
 
   disableConfirmButton(): boolean {
-    return (this.attDef.friendlyName === '' || this.attDef.displayName === '' || this.attDef.description === '' ||
-      this.entity === '' || this.definitionType === '' || this.valueType === '' || this.loading);
+    return (
+      this.attDef.friendlyName === '' ||
+      this.attDef.displayName === '' ||
+      this.attDef.description === '' ||
+      this.entity === '' ||
+      this.definitionType === '' ||
+      this.valueType === '' ||
+      this.loading
+    );
   }
 
   disableUniqueToggle(): boolean {

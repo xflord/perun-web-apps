@@ -24,7 +24,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatIconModule } from '@angular/material/icon';
 import { PerunPipesModule } from '@perun-web-apps/perun/pipes';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
-import { AttributeValueListDeleteDialogComponent} from './attribute-value-list-delete-dialog/attribute-value-list-delete-dialog.component';
+import { AttributeValueListDeleteDialogComponent } from './attribute-value-list-delete-dialog/attribute-value-list-delete-dialog.component';
 import { ChangeEmailDialogComponent } from './change-email-dialog/change-email-dialog.component';
 import { UniversalRemoveItemsDialogComponent } from './universal-remove-items-dialog/universal-remove-items-dialog.component';
 import { MemberTreeViewDialogComponent } from './member-tree-view-dialog/member-tree-view-dialog.component';
@@ -61,7 +61,7 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
     RouterModule,
     MatTreeModule,
     MatSelectModule,
-    PerunNamespacePasswordFormModule
+    PerunNamespacePasswordFormModule,
   ],
   declarations: [
     BugReportDialogComponent,
@@ -84,7 +84,7 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
     ChangeVoExpirationDialogComponent,
     ChangeSponsorshipExpirationDialogComponent,
     ChangeGroupResourceAssigmentDialogComponent,
-    ChangePasswordDialogComponent
+    ChangePasswordDialogComponent,
   ],
   exports: [
     ChangeExpirationDialogComponent,
@@ -103,8 +103,7 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
     MailChangeFailedDialogComponent,
     ChangeGroupExpirationDialogComponent,
     ChangeVoExpirationDialogComponent,
-    ChangePasswordDialogComponent
-  ]
+    ChangePasswordDialogComponent,
+  ],
 })
-export class PerunDialogsModule {
-}
+export class PerunDialogsModule {}

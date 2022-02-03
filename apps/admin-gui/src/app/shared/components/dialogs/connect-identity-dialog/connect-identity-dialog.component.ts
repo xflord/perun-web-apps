@@ -18,17 +18,17 @@ export interface AddUserServiceIdentityData {
 @Component({
   selector: 'app-connect-identity-dialog',
   templateUrl: './connect-identity-dialog.component.html',
-  styleUrls: ['./connect-identity-dialog.component.scss']
+  styleUrls: ['./connect-identity-dialog.component.scss'],
 })
 export class ConnectIdentityDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<ConnectIdentityDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: AddUserServiceIdentityData,
-              public userManager: UsersManagerService,
-              private storeService: StoreService,
-              private notificator: NotificatorService,
-              private translate: TranslateService) {
-  }
+  constructor(
+    private dialogRef: MatDialogRef<ConnectIdentityDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: AddUserServiceIdentityData,
+    public userManager: UsersManagerService,
+    private storeService: StoreService,
+    private notificator: NotificatorService,
+    private translate: TranslateService
+  ) {}
 
   theme: string;
   userId: number;
@@ -58,7 +58,7 @@ export class ConnectIdentityDialogComponent implements OnInit {
     let owner: number;
     let specificUser: number;
 
-    if (this.isService){
+    if (this.isService) {
       owner = this.selection.selected[0].id;
       specificUser = this.userId;
     } else {
@@ -78,21 +78,22 @@ export class ConnectIdentityDialogComponent implements OnInit {
 
   onSearchByString() {
     if (this.searchCtrl.invalid) {
-      this.searchCtrl.markAllAsTouched()
+      this.searchCtrl.markAllAsTouched();
       return;
     }
     this.loading = true;
     this.firstSearchDone = true;
-    let attributes = [
-      Urns.USER_DEF_ORGANIZATION,
-      Urns.USER_DEF_PREFERRED_MAIL];
+    let attributes = [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL];
     attributes = attributes.concat(this.storeService.getLoginAttributeNames());
-    this.userManager.findRichUsersWithAttributes(this.searchCtrl.value, attributes).subscribe(identities => {
-      this.identities = this.filterIdentities(identities);
-      this.loading = false;
-    }, () => {
-      this.loading = false;
-    });
+    this.userManager.findRichUsersWithAttributes(this.searchCtrl.value, attributes).subscribe(
+      (identities) => {
+        this.identities = this.filterIdentities(identities);
+        this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      }
+    );
   }
 
   onKeyInput(event: KeyboardEvent) {
@@ -102,10 +103,10 @@ export class ConnectIdentityDialogComponent implements OnInit {
   }
 
   filterIdentities(identities: RichUser[]): RichUser[] {
-    if (this.isService){
-      return identities.filter(identity => !identity.serviceUser);
+    if (this.isService) {
+      return identities.filter((identity) => !identity.serviceUser);
     }
 
-    return identities.filter(identity => identity.serviceUser);
+    return identities.filter((identity) => identity.serviceUser);
   }
 }

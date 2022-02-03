@@ -1,10 +1,18 @@
 <h1 class="page-subtitle">{{'VO_DETAIL.APPLICATION.TITLE' | translate}}</h1>
 <div>
   <perun-web-apps-refresh-button (refresh)="select()"></perun-web-apps-refresh-button>
-  <button mat-stroked-button *ngIf="!showAllDetails" class="mr-2" (click)="this.showAllDetails = true">
+  <button
+    mat-stroked-button
+    *ngIf="!showAllDetails"
+    class="mr-2"
+    (click)="this.showAllDetails = true">
     {{'VO_DETAIL.APPLICATION.SHOW_ALL_DETAILS' | translate}}
   </button>
-  <button mat-stroked-button *ngIf="showAllDetails" class="mr-2" (click)="this.showAllDetails = false">
+  <button
+    mat-stroked-button
+    *ngIf="showAllDetails"
+    class="mr-2"
+    (click)="this.showAllDetails = false">
     {{'VO_DETAIL.APPLICATION.SHOW_LESS_DETAILS' | translate}}
   </button>
   <mat-form-field class="input-width-250 mr-2">
@@ -12,20 +20,29 @@
     <mat-select (selectionChange)="select()" [(value)]="state" disableOptionCentering>
       <mat-option value="all">{{'VO_DETAIL.APPLICATION.SELECTION_ALL' | translate}}</mat-option>
       <mat-option value="wfmv">{{'VO_DETAIL.APPLICATION.SELECTION_WFMV' | translate}}</mat-option>
-      <mat-option value="submited">{{'VO_DETAIL.APPLICATION.SELECTION_SUBMITTED' | translate}}</mat-option>
-      <mat-option value="pending">{{'VO_DETAIL.APPLICATION.SELECTION_PENDING' | translate}}</mat-option>
-      <mat-option value="approved">{{'VO_DETAIL.APPLICATION.SELECTION_APPROVED' | translate}}</mat-option>
-      <mat-option value="rejected">{{'VO_DETAIL.APPLICATION.SELECTION_REJECTED' | translate}}</mat-option>
+      <mat-option
+        value="submited"
+        >{{'VO_DETAIL.APPLICATION.SELECTION_SUBMITTED' | translate}}</mat-option
+      >
+      <mat-option
+        value="pending"
+        >{{'VO_DETAIL.APPLICATION.SELECTION_PENDING' | translate}}</mat-option
+      >
+      <mat-option
+        value="approved"
+        >{{'VO_DETAIL.APPLICATION.SELECTION_APPROVED' | translate}}</mat-option
+      >
+      <mat-option
+        value="rejected"
+        >{{'VO_DETAIL.APPLICATION.SELECTION_REJECTED' | translate}}</mat-option
+      >
     </mat-select>
   </mat-form-field>
   <perun-web-apps-debounce-filter
     [placeholder]="'VO_DETAIL.APPLICATION.FILTER'"
     (filter)="applyFilter($event)">
   </perun-web-apps-debounce-filter>
-  <perun-web-apps-date-range
-    [startDate]="startDate"
-    [endDate]="endDate"
-    (datePicker)="select()">
+  <perun-web-apps-date-range [startDate]="startDate" [endDate]="endDate" (datePicker)="select()">
   </perun-web-apps-date-range>
   <div>
     <mat-checkbox color="primary" [checked]="checked" (change)="showGroupApplications($event)">

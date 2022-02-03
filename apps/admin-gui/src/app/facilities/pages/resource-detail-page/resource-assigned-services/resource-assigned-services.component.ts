@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  Resource,
-  ResourcesManagerService, Service
-} from '@perun-web-apps/perun/openapi';
+import { Resource, ResourcesManagerService, Service } from '@perun-web-apps/perun/openapi';
 import { TABLE_RESOURCE_ASSIGNED_SERVICES } from '@perun-web-apps/config/table-config';
 import { MatDialog } from '@angular/material/dialog';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -15,10 +12,9 @@ import { GuiAuthResolver, EntityStorageService } from '@perun-web-apps/perun/ser
 @Component({
   selector: 'app-perun-web-apps-resource-assigned-services',
   templateUrl: './resource-assigned-services.component.html',
-  styleUrls: ['./resource-assigned-services.component.scss']
+  styleUrls: ['./resource-assigned-services.component.scss'],
 })
 export class ResourceAssignedServicesComponent implements OnInit {
-
   resource: Resource;
   assignedServices: Service[] = [];
   selected = new SelectionModel<Service>(true, []);
@@ -30,12 +26,13 @@ export class ResourceAssignedServicesComponent implements OnInit {
   serviceRoutingAuth: boolean;
   displayedColumns = ['select', 'id', 'name', 'enabled', 'script', 'description'];
 
-  constructor(private route: ActivatedRoute,
-              private resourcesManager: ResourcesManagerService,
-              private dialog: MatDialog,
-              public guiAuthResolver: GuiAuthResolver,
-              private entityStorageService: EntityStorageService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private resourcesManager: ResourcesManagerService,
+    private dialog: MatDialog,
+    public guiAuthResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -44,14 +41,15 @@ export class ResourceAssignedServicesComponent implements OnInit {
     this.loadAllServices();
   }
 
-
   loadAllServices() {
     this.loading = true;
-    this.resourcesManager.getAssignedServicesToResource(this.resource.id).subscribe(assignedServices => {
-      this.assignedServices = assignedServices;
-      this.selected.clear();
-      this.loading = false;
-    });
+    this.resourcesManager
+      .getAssignedServicesToResource(this.resource.id)
+      .subscribe((assignedServices) => {
+        this.assignedServices = assignedServices;
+        this.selected.clear();
+        this.loading = false;
+      });
   }
 
   addService() {
@@ -70,7 +68,11 @@ export class ResourceAssignedServicesComponent implements OnInit {
   removeServices() {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = { theme: 'resource-theme', resourceId: this.resource.id, services: this.selected.selected };
+    config.data = {
+      theme: 'resource-theme',
+      resourceId: this.resource.id,
+      services: this.selected.selected,
+    };
 
     const dialogRef = this.dialog.open(RemoveServiceFromResourceDialogComponent, config);
     dialogRef.afterClosed().subscribe((success) => {
@@ -85,9 +87,17 @@ export class ResourceAssignedServicesComponent implements OnInit {
   }
 
   getDataForAuthorization() {
-    this.assignServiceAuth = this.guiAuthResolver.isAuthorized('assignServices_Resource_List<Service>_policy', [this.resource]);
-    this.removeServiceAuth = this.guiAuthResolver.isAuthorized('removeServices_Resource_List<Service>_policy', [this.resource]);
-    this.displayedColumns = this.removeServiceAuth ? ['select', 'id', 'name', 'enabled', 'script', 'description'] : ['id', 'name', 'enabled', 'script', 'description'];
+    this.assignServiceAuth = this.guiAuthResolver.isAuthorized(
+      'assignServices_Resource_List<Service>_policy',
+      [this.resource]
+    );
+    this.removeServiceAuth = this.guiAuthResolver.isAuthorized(
+      'removeServices_Resource_List<Service>_policy',
+      [this.resource]
+    );
+    this.displayedColumns = this.removeServiceAuth
+      ? ['select', 'id', 'name', 'enabled', 'script', 'description']
+      : ['id', 'name', 'enabled', 'script', 'description'];
     this.serviceRoutingAuth = this.guiAuthResolver.isPerunAdminOrObserver();
   }
 }

@@ -1,18 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { StoreService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'perun-web-apps-back-button',
   templateUrl: './back-button.component.html',
-  styleUrls: ['./back-button.component.scss']
+  styleUrls: ['./back-button.component.scss'],
 })
 export class BackButtonComponent implements OnInit {
-
-  constructor(
-    private location: Location,
-    private storeService: StoreService
-  ) { }
+  constructor(private location: Location, private storeService: StoreService) {}
 
   backButtonColor: string;
 
@@ -21,7 +17,7 @@ export class BackButtonComponent implements OnInit {
   }
 
   goBack() {
-    if (sessionStorage.getItem("onInitPage") === 'false'){
+    if (sessionStorage.getItem('onInitPage') === 'false') {
       this.location.back();
     }
   }

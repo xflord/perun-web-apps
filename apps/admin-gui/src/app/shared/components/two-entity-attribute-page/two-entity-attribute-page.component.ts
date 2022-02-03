@@ -1,10 +1,16 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {
   Attribute,
-  AttributesManagerService, FacilitiesManagerService,
-  Facility, Group, GroupsManagerService, MembersManagerService,
+  AttributesManagerService,
+  FacilitiesManagerService,
+  Facility,
+  Group,
+  GroupsManagerService,
+  MembersManagerService,
   Resource,
-  ResourcesManagerService, RichMember, User
+  ResourcesManagerService,
+  RichMember,
+  User,
 } from '@perun-web-apps/perun/openapi';
 import { MatDialog } from '@angular/material/dialog';
 import { AttributesListComponent } from '@perun-web-apps/perun/components';
@@ -20,17 +26,17 @@ import { GroupWithStatus } from '@perun-web-apps/perun/models';
 @Component({
   selector: 'app-two-entity-attribute-page',
   templateUrl: './two-entity-attribute-page.component.html',
-  styleUrls: ['./two-entity-attribute-page.component.scss']
+  styleUrls: ['./two-entity-attribute-page.component.scss'],
 })
 export class TwoEntityAttributePageComponent implements OnInit {
-
-  constructor(private attributesManagerService: AttributesManagerService,
-              private resourcesManagerService: ResourcesManagerService,
-              private facilitiesManagerService: FacilitiesManagerService,
-              private groupsManagerService: GroupsManagerService,
-              private membersManager: MembersManagerService,
-              private dialog: MatDialog) {
-  }
+  constructor(
+    private attributesManagerService: AttributesManagerService,
+    private resourcesManagerService: ResourcesManagerService,
+    private facilitiesManagerService: FacilitiesManagerService,
+    private groupsManagerService: GroupsManagerService,
+    private membersManager: MembersManagerService,
+    private dialog: MatDialog
+  ) {}
 
   @ViewChild('list')
   list: AttributesListComponent;
@@ -48,7 +54,7 @@ export class TwoEntityAttributePageComponent implements OnInit {
   attributes: Attribute[] = [];
   selection = new SelectionModel<Attribute>(true, []);
   specificSecondEntity: Resource | Facility | Group | RichMember | User;
-  allowedStatuses: string[] =  ['INVALID', 'VALID'];
+  allowedStatuses: string[] = ['INVALID', 'VALID'];
 
   loading = false;
   innerLoading = false;
@@ -66,84 +72,102 @@ export class TwoEntityAttributePageComponent implements OnInit {
       case 'member':
         switch (this.secondEntity) {
           case 'resource':
-            this.resourcesManagerService.getAssignedResourcesWithStatus(this.firstEntityId).subscribe(resources => {
-              this.entityValues = resources.map(resource => resource.enrichedResource.resource);
-              this.preselectEntity();
-              this.loading = false;
-            })
+            this.resourcesManagerService
+              .getAssignedResourcesWithStatus(this.firstEntityId)
+              .subscribe((resources) => {
+                this.entityValues = resources.map((resource) => resource.enrichedResource.resource);
+                this.preselectEntity();
+                this.loading = false;
+              });
             break;
           case 'group':
-            this.groupsManagerService.getMemberGroups(this.firstEntityId).subscribe(groups => {
+            this.groupsManagerService.getMemberGroups(this.firstEntityId).subscribe((groups) => {
               this.entityValues = groups;
               this.preselectEntity();
               this.loading = false;
-            })
+            });
         }
         break;
       case 'group':
-        switch (this.secondEntity){
+        switch (this.secondEntity) {
           case 'resource':
-            this.resourcesManagerService.getResourceAssignments(this.firstEntityId).subscribe(resources => {
-              this.entityValues = <ResourceWithStatus[]>resources.map(r =>{
-                const resWithStatus: ResourceWithStatus = r.enrichedResource.resource;
-                resWithStatus.status = r.status;
-                return resWithStatus;
+            this.resourcesManagerService
+              .getResourceAssignments(this.firstEntityId)
+              .subscribe((resources) => {
+                this.entityValues = <ResourceWithStatus[]>resources.map((r) => {
+                  const resWithStatus: ResourceWithStatus = r.enrichedResource.resource;
+                  resWithStatus.status = r.status;
+                  return resWithStatus;
+                });
+                this.preselectEntity();
+                this.loading = false;
               });
-              this.preselectEntity();
-              this.loading = false;
-            });
             break;
           case 'member':
             // return one attribute because if an empty list is passed, all attributes are returned
-            this.membersManager.getCompleteRichMembersForGroup(this.firstEntityId, false, this.allowedStatuses, null, [Urns.MEMBER_CORE_ID]).subscribe(members => {
-              this.entityValues = members;
-              this.preselectEntity();
-              this.loading = false;
-            });
+            this.membersManager
+              .getCompleteRichMembersForGroup(
+                this.firstEntityId,
+                false,
+                this.allowedStatuses,
+                null,
+                [Urns.MEMBER_CORE_ID]
+              )
+              .subscribe((members) => {
+                this.entityValues = members;
+                this.preselectEntity();
+                this.loading = false;
+              });
             break;
         }
         break;
       case 'user':
-        this.facilitiesManagerService.getAssignedFacilitiesByUser(this.firstEntityId).subscribe(facilities => {
-          this.entityValues = facilities;
-          this.preselectEntity();
-          this.loading = false;
-        });
+        this.facilitiesManagerService
+          .getAssignedFacilitiesByUser(this.firstEntityId)
+          .subscribe((facilities) => {
+            this.entityValues = facilities;
+            this.preselectEntity();
+            this.loading = false;
+          });
         break;
       case 'resource':
-        switch (this.secondEntity){
+        switch (this.secondEntity) {
           case 'member':
-            this.resourcesManagerService.getAssignedMembersWithStatus(this.firstEntityId).subscribe(members => {
-              this.entityValues = members.map(member => member.richMember);
-              this.preselectEntity();
-              this.loading = false;
-            })
+            this.resourcesManagerService
+              .getAssignedMembersWithStatus(this.firstEntityId)
+              .subscribe((members) => {
+                this.entityValues = members.map((member) => member.richMember);
+                this.preselectEntity();
+                this.loading = false;
+              });
             break;
           case 'group':
-            this.resourcesManagerService.getGroupAssignments(this.firstEntityId).subscribe(groups => {
-              this.entityValues = <GroupWithStatus[]>groups.map(g =>{
-                const resWithStatus: GroupWithStatus = g.enrichedGroup.group;
-                resWithStatus.status = g.status;
-                return resWithStatus;
+            this.resourcesManagerService
+              .getGroupAssignments(this.firstEntityId)
+              .subscribe((groups) => {
+                this.entityValues = <GroupWithStatus[]>groups.map((g) => {
+                  const resWithStatus: GroupWithStatus = g.enrichedGroup.group;
+                  resWithStatus.status = g.status;
+                  return resWithStatus;
+                });
+                this.preselectEntity();
+                this.loading = false;
               });
-              this.preselectEntity();
-              this.loading = false;
-            });
             break;
         }
         break;
       case 'facility':
-        this.facilitiesManagerService.getAssignedUsers(this.firstEntityId).subscribe(users => {
+        this.facilitiesManagerService.getAssignedUsers(this.firstEntityId).subscribe((users) => {
           this.entityValues = users;
           this.preselectEntity();
           this.loading = false;
-        })
+        });
         break;
     }
   }
 
   preselectEntity() {
-    if(this.entityValues.length !== 0){
+    if (this.entityValues.length !== 0) {
       this.findInitiallySelectedEntity();
     }
   }
@@ -151,7 +175,7 @@ export class TwoEntityAttributePageComponent implements OnInit {
   findInitiallySelectedEntity() {
     let initialEntity = this.entityValues[0];
     const recentIds = getRecentlyVisitedIds(this.entityKey());
-    if(recentIds) {
+    if (recentIds) {
       for (const entity of this.entityValues) {
         if (entity.id === recentIds[0]) {
           initialEntity = entity;
@@ -164,9 +188,11 @@ export class TwoEntityAttributePageComponent implements OnInit {
 
   entityKey() {
     // Can be extended to support different entities in the future
-    switch (this.secondEntity){
-      case 'group': return 'groups';
-      default: return '';
+    switch (this.secondEntity) {
+      case 'group':
+        return 'groups';
+      default:
+        return '';
     }
   }
 
@@ -176,67 +202,83 @@ export class TwoEntityAttributePageComponent implements OnInit {
       case 'member':
         switch (this.secondEntity) {
           case 'resource':
-            this.attributesManagerService.getMemberResourceAttributes(this.firstEntityId, entityId).subscribe(attributes => {
-              this.attributes = attributes;
-              this.innerLoading = false;
-            });
+            this.attributesManagerService
+              .getMemberResourceAttributes(this.firstEntityId, entityId)
+              .subscribe((attributes) => {
+                this.attributes = attributes;
+                this.innerLoading = false;
+              });
             break;
           case 'group':
-            this.attributesManagerService.getMemberGroupAttributes(this.firstEntityId, entityId).subscribe(attributes => {
-              this.attributes = attributes;
-              this.innerLoading = false;
-            });
+            this.attributesManagerService
+              .getMemberGroupAttributes(this.firstEntityId, entityId)
+              .subscribe((attributes) => {
+                this.attributes = attributes;
+                this.innerLoading = false;
+              });
         }
         break;
       case 'group':
-        switch (this.secondEntity){
+        switch (this.secondEntity) {
           case 'resource':
-            this.attributesManagerService.getGroupResourceAttributes(this.firstEntityId, entityId).subscribe(attributes => {
-              this.attributes = attributes;
-              this.innerLoading = false;
-            });
+            this.attributesManagerService
+              .getGroupResourceAttributes(this.firstEntityId, entityId)
+              .subscribe((attributes) => {
+                this.attributes = attributes;
+                this.innerLoading = false;
+              });
             break;
           case 'member':
-            this.attributesManagerService.getMemberGroupAttributes(entityId, this.firstEntityId).subscribe(attributes => {
-              this.attributes = attributes;
-              this.innerLoading = false
-            });
+            this.attributesManagerService
+              .getMemberGroupAttributes(entityId, this.firstEntityId)
+              .subscribe((attributes) => {
+                this.attributes = attributes;
+                this.innerLoading = false;
+              });
             break;
         }
         break;
       case 'user':
-        this.attributesManagerService.getUserFacilityAttributes(this.firstEntityId, entityId).subscribe(attributes => {
-          this.attributes = attributes;
-          this.innerLoading = false;
-        });
+        this.attributesManagerService
+          .getUserFacilityAttributes(this.firstEntityId, entityId)
+          .subscribe((attributes) => {
+            this.attributes = attributes;
+            this.innerLoading = false;
+          });
         break;
       case 'resource':
-        switch (this.secondEntity){
+        switch (this.secondEntity) {
           case 'member':
-            this.attributesManagerService.getMemberResourceAttributes(entityId, this.firstEntityId).subscribe(attributes => {
-              this.attributes = attributes;
-              this.innerLoading = false;
-            });
+            this.attributesManagerService
+              .getMemberResourceAttributes(entityId, this.firstEntityId)
+              .subscribe((attributes) => {
+                this.attributes = attributes;
+                this.innerLoading = false;
+              });
             break;
           case 'group':
-            this.attributesManagerService.getGroupResourceAttributes(entityId, this.firstEntityId).subscribe(attributes => {
-              this.attributes = attributes;
-              this.innerLoading = false;
-            });
+            this.attributesManagerService
+              .getGroupResourceAttributes(entityId, this.firstEntityId)
+              .subscribe((attributes) => {
+                this.attributes = attributes;
+                this.innerLoading = false;
+              });
             break;
         }
         break;
       case 'facility':
-        this.attributesManagerService.getUserFacilityAttributes(entityId, this.firstEntityId).subscribe(attributes => {
-          this.attributes = attributes;
-          this.innerLoading = false;
-        });
+        this.attributesManagerService
+          .getUserFacilityAttributes(entityId, this.firstEntityId)
+          .subscribe((attributes) => {
+            this.attributes = attributes;
+            this.innerLoading = false;
+          });
         break;
     }
   }
 
   setMessages(entity: string) {
-    this.noEntityMessage = `No ${entity} assigned`
+    this.noEntityMessage = `No ${entity} assigned`;
   }
 
   onSave(entityId: number) {
@@ -255,7 +297,7 @@ export class TwoEntityAttributePageComponent implements OnInit {
 
     const dialogRef = this.dialog.open(EditAttributeDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.selection.clear();
         this.getAttributes(entityId);
@@ -272,12 +314,12 @@ export class TwoEntityAttributePageComponent implements OnInit {
       secondEntity: this.secondEntity,
       secondEntityId: entityId,
       attributes: this.selection.selected,
-      theme: `${this.firstEntity}-theme`
+      theme: `${this.firstEntity}-theme`,
     };
 
     const dialogRef = this.dialog.open(DeleteAttributeDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(didConfirm => {
+    dialogRef.afterClosed().subscribe((didConfirm) => {
       if (didConfirm) {
         this.selection.clear();
         this.getAttributes(entityId);
@@ -285,7 +327,7 @@ export class TwoEntityAttributePageComponent implements OnInit {
     });
   }
 
-  onAdd(entityId: number){
+  onAdd(entityId: number) {
     const config = getDefaultDialogConfig();
     config.width = '1050px';
     config.data = {
@@ -294,12 +336,12 @@ export class TwoEntityAttributePageComponent implements OnInit {
       secondEntity: this.secondEntity,
       secondEntityId: entityId,
       notEmptyAttributes: this.attributes,
-      style: `${this.firstEntity}-theme`
+      style: `${this.firstEntity}-theme`,
     };
 
     const dialogRef = this.dialog.open(CreateAttributeDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.selection.clear();
         this.getAttributes(entityId);
@@ -307,8 +349,8 @@ export class TwoEntityAttributePageComponent implements OnInit {
     });
   }
 
-  specifySecondEntity (entity: Group | Facility | Resource | RichMember | User){
-    if(entity){
+  specifySecondEntity(entity: Group | Facility | Resource | RichMember | User) {
+    if (entity) {
       this.specificSecondEntity = entity;
       this.getAttributes(this.specificSecondEntity.id);
     }

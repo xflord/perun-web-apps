@@ -24,17 +24,16 @@ import { GeneralModule } from '@perun-web-apps/general';
 import {
   PERFECT_SCROLLBAR_CONFIG,
   PerfectScrollbarConfigInterface,
-  PerfectScrollbarModule
+  PerfectScrollbarModule,
 } from 'ngx-perfect-scrollbar';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { PerunLoginModule } from '@perun-web-apps/perun/login';
 import { OAuthModule } from 'angular-oauth2-oidc';
 
-
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
   useExisting: forwardRef(() => ApiInterceptor),
-  multi: true
+  multi: true,
 };
 
 export function httpLoaderFactory(http: HttpClient) {
@@ -43,7 +42,7 @@ export function httpLoaderFactory(http: HttpClient) {
 
 export function apiConfigFactory(store: StoreService): Configuration {
   const params: ConfigurationParameters = {
-    basePath: store.get('api_url')
+    basePath: store.get('api_url'),
     // set configuration parameters here.
   };
   return new Configuration(params);
@@ -52,14 +51,11 @@ export function apiConfigFactory(store: StoreService): Configuration {
 const loadConfigs = (appConfig: AdminGuiConfigService) => () => appConfig.initialize();
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true
+  suppressScrollX: true,
 };
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MainMenuPageComponent
-  ],
+  declarations: [AppComponent, MainMenuPageComponent],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
@@ -73,14 +69,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       loader: {
         provide: TranslateLoader,
         useFactory: httpLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
     ApiModule,
     PerfectScrollbarModule,
     PerunSharedComponentsModule,
     PerunLoginModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
   ],
   providers: [
     AdminGuiConfigService,
@@ -88,37 +84,33 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       provide: APP_INITIALIZER,
       useFactory: loadConfigs,
       multi: true,
-      deps: [AdminGuiConfigService]
+      deps: [AdminGuiConfigService],
     },
     {
       provide: Configuration,
       useFactory: apiConfigFactory,
-      deps: [StoreService]
+      deps: [StoreService],
     },
     {
       provide: RouteReuseStrategy,
-      useClass: CacheRouteReuseStrategy
+      useClass: CacheRouteReuseStrategy,
     },
     CustomIconService,
     {
       provide: PERUN_API_SERVICE,
-      useClass: ApiService
+      useClass: ApiService,
     },
     ApiInterceptor,
     API_INTERCEPTOR_PROVIDER,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
-
-  constructor(
-    private customIconService: CustomIconService,
-    private translate: TranslateService
-  ) {
+  constructor(private customIconService: CustomIconService, private translate: TranslateService) {
     this.translate.setDefaultLang('en');
     this.translate.use('en');
     this.customIconService.registerPerunRefreshIcon();

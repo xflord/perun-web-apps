@@ -20,10 +20,7 @@
     </perun-web-apps-groups-list>
   </div>
   <div mat-dialog-actions *ngIf="!loading">
-    <button
-      mat-flat-button
-      (click)="onCancel()"
-      class="ml-auto">
+    <button mat-flat-button (click)="onCancel()" class="ml-auto">
       {{'DIALOGS.ADD_MEMBER_GROUP.CANCEL' | translate}}
     </button>
     <button
@@ -35,6 +32,4 @@
       {{'DIALOGS.ADD_MEMBER_GROUP.ADD' | translate}}
     </button>
   </div>
-
 </div>
-

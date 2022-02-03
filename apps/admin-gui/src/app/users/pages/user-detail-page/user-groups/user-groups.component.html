@@ -1,9 +1,7 @@
-<h1 *ngIf="this.showPrincipal"
-    class="page-subtitle">
+<h1 *ngIf="this.showPrincipal" class="page-subtitle">
   {{'SHARED.COMPONENTS.USER_DETAIL.GROUPS.YOU_ARE_MEMBER' | translate}}
 </h1>
-<h1 *ngIf="!this.showPrincipal"
-    class="page-subtitle">
+<h1 *ngIf="!this.showPrincipal" class="page-subtitle">
   {{'SHARED.COMPONENTS.USER_DETAIL.GROUPS.USER_IS_MEMBER' | translate}}
 </h1>
 <perun-web-apps-refresh-button (refresh)="refreshMemberTable()"></perun-web-apps-refresh-button>

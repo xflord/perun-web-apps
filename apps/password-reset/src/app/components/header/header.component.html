@@ -5,22 +5,14 @@
   </div>
 
   <div *ngIf="isDevel" id="nav-devel-info">
-    <span class="text-warning">
-      ~ 🗲&nbsp;
-    </span>
-    <span class="text-danger">
-      DEVEL
-    </span>
-    <span class="text-warning">
-      &nbsp;🗲 ~
-    </span>
+    <span class="text-warning"> ~ 🗲&nbsp; </span>
+    <span class="text-danger"> DEVEL </span>
+    <span class="text-warning"> &nbsp;🗲 ~ </span>
   </div>
 
   <div id="nav-menu-language" [ngStyle]="{'color': textColor}">
     <button mat-button [matMenuTriggerFor]="menu">
-      <mat-icon [ngStyle]="{'color': iconColor}">
-        language
-      </mat-icon>
+      <mat-icon [ngStyle]="{'color': iconColor}"> language </mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="changeLanguage()">

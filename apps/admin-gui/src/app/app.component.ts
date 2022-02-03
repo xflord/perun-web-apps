@@ -5,7 +5,7 @@ import {
   ElementRef,
   HostListener,
   OnInit,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { CacheHelperService } from './core/services/common/cache-helper.service';
 import { InitAuthService, StoreService } from '@perun-web-apps/perun/services';
@@ -22,10 +22,9 @@ declare let require;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
-
   public static minWidth = 992;
 
   @ViewChild('footer') footer: ElementRef;
@@ -45,8 +44,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   displayWarning: boolean = this.store.get('display_warning');
   warningMessage: string = this.store.get('warning_message');
 
-  version: string = require( '../../../../package.json').version;
-  contentInnerMinHeight =  this.displayWarning ? 'calc(100vh - 112px)' : 'calc(100vh - 64px)';
+  version: string = require('../../../../package.json').version;
+  contentInnerMinHeight = this.displayWarning ? 'calc(100vh - 112px)' : 'calc(100vh - 64px)';
 
   constructor(
     private cache: CacheHelperService,
@@ -55,7 +54,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private dialog: MatDialog,
     private router: Router,
     private initAuth: InitAuthService,
-    private cd:ChangeDetectorRef
+    private cd: ChangeDetectorRef
   ) {
     this.cache.init();
     this.getScreenSize();
@@ -69,7 +68,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   isServiceLogin(): boolean {
-    return !!sessionStorage.getItem("baLogout");
+    return !!sessionStorage.getItem('baLogout');
   }
 
   isMobile(): boolean {
@@ -79,11 +78,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.isLoginScreenShow = this.initAuth.isLoginScreenShown();
     this.isServiceAccess = this.initAuth.isServiceAccessLoginScreenShown();
-    sessionStorage.removeItem("baLogout");
+    sessionStorage.removeItem('baLogout');
 
-    if (sessionStorage.getItem("initPage") === null) {
-      sessionStorage.setItem("initPage", location.pathname);
-      sessionStorage.setItem("onInitPage", 'true');
+    if (sessionStorage.getItem('initPage') === null) {
+      sessionStorage.setItem('initPage', location.pathname);
+      sessionStorage.setItem('onInitPage', 'true');
     }
     this.store.setInitialPageId(1);
     this.principal = this.store.getPerunPrincipal();
@@ -92,16 +91,11 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.loadAppVersion();
     });
     this.router.events
-      .pipe(
-        filter(
-          ( event ) => ( event instanceof NavigationStart )
-        )
-      )
-      .subscribe(
-        ( event: NavigationStart ) => {
-          //TODO FIX this method
-          this.updateInitAccessedPage(event);
-        });
+      .pipe(filter((event) => event instanceof NavigationStart))
+      .subscribe((event: NavigationStart) => {
+        //TODO FIX this method
+        this.updateInitAccessedPage(event);
+      });
   }
 
   //TODO fix this method
@@ -114,42 +108,43 @@ export class AppComponent implements OnInit, AfterViewInit {
   // if he accesses page B before page A (using forward/back buttons)
   // page B will be falsely evaluated as initial
   updateInitAccessedPage(event) {
-    if (event.url === sessionStorage.getItem("initPage")) {
-      if (event.navigationTrigger === "imperative" && event.id !== this.store.getInitialPageId()) {
-        sessionStorage.setItem("onInitPage", 'false');
+    if (event.url === sessionStorage.getItem('initPage')) {
+      if (event.navigationTrigger === 'imperative' && event.id !== this.store.getInitialPageId()) {
+        sessionStorage.setItem('onInitPage', 'false');
       }
-      if(event.navigationTrigger === 'popstate'){
-        if(event.restoredState.navigationId === this.store.getInitialPageId()) {
-          sessionStorage.setItem("onInitPage", 'true');
+      if (event.navigationTrigger === 'popstate') {
+        if (event.restoredState.navigationId === this.store.getInitialPageId()) {
+          sessionStorage.setItem('onInitPage', 'true');
           this.store.setInitialPageId(event.id);
         } else {
-          sessionStorage.setItem("onInitPage", 'false');
+          sessionStorage.setItem('onInitPage', 'false');
         }
       }
     } else {
-      sessionStorage.setItem("onInitPage", 'false');
+      sessionStorage.setItem('onInitPage', 'false');
     }
   }
 
   loadAppVersion() {
     const httpHeaders = new HttpHeaders({
       'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
-      'Pragma': 'no-cache',
-      'Expires': '0'
+      Pragma: 'no-cache',
+      Expires: '0',
     });
-    this.http.get('/assets/config/version.json', { headers: httpHeaders })
-      .subscribe(result => {
+    this.http.get('/assets/config/version.json', { headers: httpHeaders }).subscribe(
+      (result) => {
         const recentVersion = result['version'];
         if (recentVersion) {
           if (this.version && recentVersion !== 'SNAPSHOT' && this.version !== recentVersion) {
             const config = getDefaultDialogConfig();
-            this.dialog.open(NewVersionDialogComponent,config);
+            this.dialog.open(NewVersionDialogComponent, config);
           } else {
             this.version = recentVersion;
           }
         }
-      }, () => {
-      });
+      },
+      () => {}
+    );
   }
 
   getTopGap() {
@@ -169,7 +164,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-   this.contentInnerMinHeight = this.displayWarning ? 'calc(100vh - '+this.footer.nativeElement.offsetHeight+'px - 112px)' : 'calc(100vh - '+this.footer.nativeElement.offsetHeight+'px - 64px)';
-   this.cd.detectChanges();
+    this.contentInnerMinHeight = this.displayWarning
+      ? 'calc(100vh - ' + this.footer.nativeElement.offsetHeight + 'px - 112px)'
+      : 'calc(100vh - ' + this.footer.nativeElement.offsetHeight + 'px - 64px)';
+    this.cd.detectChanges();
   }
 }

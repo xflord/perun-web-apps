@@ -8,9 +8,8 @@ describe('EntitySearchSelectComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EntitySearchSelectComponent ]
-    })
-    .compileComponents();
+      declarations: [EntitySearchSelectComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

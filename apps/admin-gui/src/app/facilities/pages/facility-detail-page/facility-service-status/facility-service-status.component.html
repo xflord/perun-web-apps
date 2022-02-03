@@ -15,7 +15,8 @@
     mat-flat-button
     color="accent"
     class="mr-2"
-    [disabled]="selected.selected.length === 0 || this.disableAllowButton" (click)="allow()">
+    [disabled]="selected.selected.length === 0 || this.disableAllowButton"
+    (click)="allow()">
     {{'FACILITY_DETAIL.SERVICES_STATUS.ALLOW' | translate}}
   </button>
   <button
@@ -23,7 +24,8 @@
     mat-flat-button
     color="warn"
     class="mr-2"
-    [disabled]="selected.selected.length === 0 || this.disableBlockButton" (click)="block()">
+    [disabled]="selected.selected.length === 0 || this.disableBlockButton"
+    (click)="block()">
     {{'FACILITY_DETAIL.SERVICES_STATUS.BLOCK' | translate}}
   </button>
   <button
@@ -41,19 +43,21 @@
     <button mat-menu-item *ngIf="!taskIsNull" (click)="removeTaskResults()">
       {{'FACILITY_DETAIL.SERVICES_STATUS.REMOVE_TASK_RESULTS' | translate}}
     </button>
-    <button mat-menu-item (click)="removeServiceFromFacility()">{{'FACILITY_DETAIL.SERVICES_STATUS.REMOVE_SERVICE_FROM_FACILITY' | translate}}</button>
+    <button mat-menu-item (click)="removeServiceFromFacility()">
+      {{'FACILITY_DETAIL.SERVICES_STATUS.REMOVE_SERVICE_FROM_FACILITY' | translate}}
+    </button>
   </mat-menu>
   <perun-web-apps-immediate-filter
-      [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.TABLE_SEARCH'"
-      (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
+    [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.TABLE_SEARCH'"
+    (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <perun-web-apps-services-status-list
-      [tableId]="tableId"
-      (selectionChange)="selectionChanged()"
-      *ngIf="!loading"
-      [filterValue]="filterValue"
-      [servicesStatus]="servicesStates"
-      [selection]="selected"
-      [disableRouting]="!routeAuth">
+    [tableId]="tableId"
+    (selectionChange)="selectionChanged()"
+    *ngIf="!loading"
+    [filterValue]="filterValue"
+    [servicesStatus]="servicesStates"
+    [selection]="selected"
+    [disableRouting]="!routeAuth">
   </perun-web-apps-services-status-list>
 </div>

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  TABLE_USER_ASSOCIATED_USERS
-} from '@perun-web-apps/config/table-config';
+import { TABLE_USER_ASSOCIATED_USERS } from '@perun-web-apps/config/table-config';
 import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -14,23 +12,23 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 @Component({
   selector: 'app-user-settings-associated-users',
   templateUrl: './user-settings-associated-users.component.html',
-  styleUrls: ['./user-settings-associated-users.component.scss']
+  styleUrls: ['./user-settings-associated-users.component.scss'],
 })
 export class UserSettingsAssociatedUsersComponent implements OnInit {
-
-  constructor(private dialog: MatDialog,
-              private router: Router,
-              public authResolver: GuiAuthResolver,
-              private userManager: UsersManagerService,
-              private entityStorageService: EntityStorageService) {
-  }
+  constructor(
+    private dialog: MatDialog,
+    private router: Router,
+    public authResolver: GuiAuthResolver,
+    private userManager: UsersManagerService,
+    private entityStorageService: EntityStorageService
+  ) {}
 
   loading = false;
   selection = new SelectionModel<User>(false, []);
   associatedUsers: User[] = [];
   user: User;
   tableId = TABLE_USER_ASSOCIATED_USERS;
-  displayedColumns = [ 'select', 'id', 'user', 'name' ];
+  displayedColumns = ['select', 'id', 'user', 'name'];
   addAuth: boolean;
   removeAuth: boolean;
   disableRouting: boolean;
@@ -38,16 +36,16 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.user = this.entityStorageService.getEntity();
-    this.userManager.getUsersBySpecificUser(this.user.id).subscribe(associatedUsers => {
+    this.userManager.getUsersBySpecificUser(this.user.id).subscribe((associatedUsers) => {
       this.associatedUsers = associatedUsers;
       this.setAuth();
       this.loading = false;
     });
   }
 
-  refreshTable(){
+  refreshTable() {
     this.loading = true;
-    this.userManager.getUsersBySpecificUser(this.user.id).subscribe(associatedUsers => {
+    this.userManager.getUsersBySpecificUser(this.user.id).subscribe((associatedUsers) => {
       this.associatedUsers = associatedUsers;
       this.selection.clear();
       this.loading = false;
@@ -55,48 +53,52 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
   }
 
   setAuth() {
-    this.addAuth = this.authResolver.isAuthorized('addSpecificUserOwner_User_User_policy', [this.user]);
-    this.removeAuth = this.authResolver.isAuthorized('removeSpecificUserOwner_User_User_policy', [this.user]);
+    this.addAuth = this.authResolver.isAuthorized('addSpecificUserOwner_User_User_policy', [
+      this.user,
+    ]);
+    this.removeAuth = this.authResolver.isAuthorized('removeSpecificUserOwner_User_User_policy', [
+      this.user,
+    ]);
     this.disableRouting = !this.authResolver.isPerunAdminOrObserver();
   }
 
-  onAdd(){
+  onAdd() {
     const config = getDefaultDialogConfig();
-    config.width = "1250px";
+    config.width = '1250px';
     config.data = {
-      userId : this.user.id,
-      theme: "user-theme",
+      userId: this.user.id,
+      theme: 'user-theme',
       isService: true,
-      target: 'USER'
+      target: 'USER',
     };
 
     const dialogRef = this.dialog.open(ConnectIdentityDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.refreshTable();
       }
     });
   }
 
-  onRemove(){
+  onRemove() {
     const config = getDefaultDialogConfig();
-    config.width = "650px";
+    config.width = '650px';
     config.data = {
       identities: this.selection.selected,
       userId: this.user.id,
       specificUser: this.selection.selected[0],
       isService: true,
-      theme: "user-theme",
+      theme: 'user-theme',
       targetTitle: 'USER',
-      targetDescription: 'SERVICE'
+      targetDescription: 'SERVICE',
     };
 
     const dialogRef = this.dialog.open(DisconnectIdentityDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        if(!this.authResolver.isAuthorized('getUsersBySpecificUser_User_policy', [this.user])) {
+        if (!this.authResolver.isAuthorized('getUsersBySpecificUser_User_policy', [this.user])) {
           this.router.navigate(['/myProfile']);
         } else {
           this.refreshTable();

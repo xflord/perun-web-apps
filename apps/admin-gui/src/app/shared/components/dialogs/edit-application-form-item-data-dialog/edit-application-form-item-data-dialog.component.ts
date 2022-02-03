@@ -1,15 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   ApplicationFormItem,
-  ApplicationFormItemData, RegistrarManagerService
+  ApplicationFormItemData,
+  RegistrarManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { FormControl, Validators } from '@angular/forms';
 
-
-export interface EditApplicationFormItemDataDialogData{
+export interface EditApplicationFormItemDataDialogData {
   theme: string;
   applicationId: number;
   formItemData: ApplicationFormItemData;
@@ -18,16 +18,16 @@ export interface EditApplicationFormItemDataDialogData{
 @Component({
   selector: 'app-edit-application-form-item-data-dialog',
   templateUrl: './edit-application-form-item-data-dialog.component.html',
-  styleUrls: ['./edit-application-form-item-data-dialog.component.scss']
+  styleUrls: ['./edit-application-form-item-data-dialog.component.scss'],
 })
 export class EditApplicationFormItemDataDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<EditApplicationFormItemDataDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: EditApplicationFormItemDataDialogData,
-              private notificator: NotificatorService,
-              private translateService: TranslateService,
-              private registrarService: RegistrarManagerService) {
-  }
+  constructor(
+    private dialogRef: MatDialogRef<EditApplicationFormItemDataDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: EditApplicationFormItemDataDialogData,
+    private notificator: NotificatorService,
+    private translateService: TranslateService,
+    private registrarService: RegistrarManagerService
+  ) {}
 
   loading = false;
   theme: string;
@@ -42,8 +42,11 @@ export class EditApplicationFormItemDataDialogComponent implements OnInit {
     this.formItemData = this.data.formItemData;
     this.itemName = this.getLabel(this.formItemData.formItem);
 
-    if(this.itemName.toLowerCase().includes("mail")){
-      this.emailControl = new FormControl(this.formItemData.value, [Validators.required, Validators.email]);
+    if (this.itemName.toLowerCase().includes('mail')) {
+      this.emailControl = new FormControl(this.formItemData.value, [
+        Validators.required,
+        Validators.email,
+      ]);
     } else {
       this.inputControl = new FormControl(this.formItemData.value, [Validators.required]);
     }
@@ -55,7 +58,8 @@ export class EditApplicationFormItemDataDialogComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
-    this.formItemData.value = this.inputControl !== null ? this.inputControl.value : this.emailControl.value;
+    this.formItemData.value =
+      this.inputControl !== null ? this.inputControl.value : this.emailControl.value;
 
     const newFormItemData: ApplicationFormItemData = {
       id: this.formItemData.id,
@@ -63,16 +67,23 @@ export class EditApplicationFormItemDataDialogComponent implements OnInit {
       shortname: this.formItemData.shortname,
       value: this.formItemData.value,
       assuranceLevel: this.formItemData.assuranceLevel,
-      prefilledValue: this.formItemData.prefilledValue
+      prefilledValue: this.formItemData.prefilledValue,
     };
 
-    this.registrarService.updateFormItemData({
-      appId: this.data.applicationId,
-      data: newFormItemData
-    }).subscribe(() => {
-      this.notificator.showSuccess(this.translateService.instant('DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.SUCCESS'));
-      this.dialogRef.close(true);
-    }, () => this.loading = false);
+    this.registrarService
+      .updateFormItemData({
+        appId: this.data.applicationId,
+        data: newFormItemData,
+      })
+      .subscribe(
+        () => {
+          this.notificator.showSuccess(
+            this.translateService.instant('DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.SUCCESS')
+          );
+          this.dialogRef.close(true);
+        },
+        () => (this.loading = false)
+      );
   }
 
   getLabel(formItem: ApplicationFormItem) {
@@ -83,5 +94,4 @@ export class EditApplicationFormItemDataDialogComponent implements OnInit {
     }
     return formItem.shortname;
   }
-
 }

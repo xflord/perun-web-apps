@@ -1,5 +1,5 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {SelectionModel} from '@angular/cdk/collections';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
 import { ResourcesManagerService, RichResource, Vo } from '@perun-web-apps/perun/openapi';
 import { RemoveResourceDialogComponent } from '../../../../../shared/components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,19 +10,19 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 @Component({
   selector: 'app-vo-resources-preview',
   templateUrl: './vo-resources-preview.component.html',
-  styleUrls: ['./vo-resources-preview.component.scss']
+  styleUrls: ['./vo-resources-preview.component.scss'],
 })
 export class VoResourcesPreviewComponent implements OnInit {
-
   static id = 'VoResourcesPreviewComponent';
 
   @HostBinding('class.router-component') true;
 
-  constructor(private resourcesManager: ResourcesManagerService,
-              private dialog: MatDialog,
-              private authResolver: GuiAuthResolver,
-              private entityStorageService: EntityStorageService) {
-  }
+  constructor(
+    private resourcesManager: ResourcesManagerService,
+    private dialog: MatDialog,
+    private authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
 
   vo: Vo;
   resources: RichResource[] = [];
@@ -45,18 +45,23 @@ export class VoResourcesPreviewComponent implements OnInit {
   }
 
   setAuthRights() {
-    this.removeAuth = this.authResolver.isAuthorized('deleteResource_Resource_policy',[this.vo]);
+    this.removeAuth = this.authResolver.isAuthorized('deleteResource_Resource_policy', [this.vo]);
 
-    if(this.resources.length !== 0){
-      this.routeAuth = this.authResolver.isAuthorized('getResourceById_int_policy', [this.vo, this.resources[0]]);
+    if (this.resources.length !== 0) {
+      this.routeAuth = this.authResolver.isAuthorized('getResourceById_int_policy', [
+        this.vo,
+        this.resources[0],
+      ]);
     }
 
-    this.displayedColumns = this.removeAuth ? ['select', 'id', 'name', 'facility', 'tags', 'description'] : ['id', 'name', 'facility', 'tags', 'description'];
+    this.displayedColumns = this.removeAuth
+      ? ['select', 'id', 'name', 'facility', 'tags', 'description']
+      : ['id', 'name', 'facility', 'tags', 'description'];
   }
 
   refreshTable() {
     this.loading = true;
-    this.resourcesManager.getRichResources(this.vo.id).subscribe(resources => {
+    this.resourcesManager.getRichResources(this.vo.id).subscribe((resources) => {
       this.resources = resources;
       this.selected.clear();
       this.setAuthRights();
@@ -71,11 +76,11 @@ export class VoResourcesPreviewComponent implements OnInit {
   deleteSelectedResources() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {theme: 'vo-theme', resources: this.selected.selected};
+    config.data = { theme: 'vo-theme', resources: this.selected.selected };
 
     const dialogRef = this.dialog.open(RemoveResourceDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.refreshTable();
       }

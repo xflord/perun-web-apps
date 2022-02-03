@@ -17,18 +17,17 @@ export interface RemoveUserServiceIdentityDialogData {
 @Component({
   selector: 'app-disconnect-identity-dialog',
   templateUrl: './disconnect-identity-dialog.component.html',
-  styleUrls: ['./disconnect-identity-dialog.component.scss']
+  styleUrls: ['./disconnect-identity-dialog.component.scss'],
 })
 export class DisconnectIdentityDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<DisconnectIdentityDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: RemoveUserServiceIdentityDialogData,
-              public userManager: UsersManagerService,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private store: StoreService) {
-
-  }
+  constructor(
+    private dialogRef: MatDialogRef<DisconnectIdentityDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: RemoveUserServiceIdentityDialogData,
+    public userManager: UsersManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private store: StoreService
+  ) {}
 
   theme: string;
   userId: number;
@@ -49,23 +48,23 @@ export class DisconnectIdentityDialogComponent implements OnInit {
     this.isService = this.data.isService;
 
     let specificUser: number;
-    if(this.isService) {
+    if (this.isService) {
       specificUser = this.userId;
       this.disconnectingSelf = this.dataSource.data[0].id === this.store.getPerunPrincipal().userId;
     } else {
       specificUser = this.dataSource.data[0].id;
       this.disconnectingSelf = this.userId === this.store.getPerunPrincipal().userId;
     }
-    this.userManager.getUsersBySpecificUser(specificUser).subscribe(associatedUsers => {
+    this.userManager.getUsersBySpecificUser(specificUser).subscribe((associatedUsers) => {
       this.disconnectingLastOwner = associatedUsers.length === 1;
     });
   }
 
-  onConfirm(){
+  onConfirm() {
     let owner: number;
     let specificUser: number;
 
-    if(this.isService) {
+    if (this.isService) {
       owner = this.dataSource.data[0].id;
       specificUser = this.userId;
     } else {
@@ -77,11 +76,9 @@ export class DisconnectIdentityDialogComponent implements OnInit {
       this.notificator.showSuccess(this.translate.instant('DIALOGS.DISCONNECT_IDENTITY.SUCCESS'));
       this.dialogRef.close(true);
     });
-
   }
 
-  onCancel(){
+  onCancel() {
     this.dialogRef.close(false);
   }
-
 }

@@ -12,10 +12,8 @@
 import { DestinationPropagationType } from './destinationPropagationType';
 import { DestinationType } from './destinationType';
 
-
-export interface DestinationAllOf { 
-    destination?: string;
-    type?: DestinationType;
-    propagationType?: DestinationPropagationType;
+export interface DestinationAllOf {
+  destination?: string;
+  type?: DestinationType;
+  propagationType?: DestinationPropagationType;
 }
-

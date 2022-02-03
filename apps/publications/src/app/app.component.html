@@ -2,9 +2,17 @@
 <div *ngIf="!isLoginScreenShow && !isServiceAccess && !isServiceLogin()">
   <perun-web-apps-header [sideNav]="sidenav" id="nav-menu"></perun-web-apps-header>
   <mat-sidenav-container>
-    <mat-sidenav #sidenav [mode]="sidebarMode" [ngStyle]="{'background': sideMenuBgColor}"
-                 [opened]="!isMobile()" class="side-menu-size" fixedInViewport fixedTopGap="64">
-      <perun-web-apps-side-menu [sideNav]="sidenav" class="overflow-hidden"></perun-web-apps-side-menu>
+    <mat-sidenav
+      #sidenav
+      [mode]="sidebarMode"
+      [ngStyle]="{'background': sideMenuBgColor}"
+      [opened]="!isMobile()"
+      class="side-menu-size"
+      fixedInViewport
+      fixedTopGap="64">
+      <perun-web-apps-side-menu
+        [sideNav]="sidenav"
+        class="overflow-hidden"></perun-web-apps-side-menu>
     </mat-sidenav>
     <mat-sidenav-content [ngStyle]="{'background': contentBackgroundColor}" id="content-inner">
       <div [ngStyle]="{'min-height': contentHeight}" id="content-wrap">
@@ -15,13 +23,12 @@
       <div #footer>
         <perun-web-apps-footer></perun-web-apps-footer>
       </div>
-
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
 <div *ngIf="isLoginScreenShow || isServiceAccess || isServiceLogin()">
-  <perun-web-apps-login-screen-base [application]="'publications'"
-                                    [headerTitle]="'HEADER.TITLE' | translate">
+  <perun-web-apps-login-screen-base
+    [application]="'publications'"
+    [headerTitle]="'HEADER.TITLE' | translate">
   </perun-web-apps-login-screen-base>
 </div>
-

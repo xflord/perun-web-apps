@@ -5,7 +5,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Service, ServicesManagerService } from '@perun-web-apps/perun/openapi';
 
-
 export interface CreateServiceDialogData {
   theme: string;
   service: Service;
@@ -13,15 +12,16 @@ export interface CreateServiceDialogData {
 @Component({
   selector: 'app-create-service-dialog',
   templateUrl: './create-edit-service-dialog.component.html',
-  styleUrls: ['./create-edit-service-dialog.component.scss']
+  styleUrls: ['./create-edit-service-dialog.component.scss'],
 })
 export class CreateEditServiceDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<CreateEditServiceDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: CreateServiceDialogData,
-              private serviceManager: ServicesManagerService,
-              private notificator: NotificatorService,
-              private translate: TranslateService) { }
+  constructor(
+    private dialogRef: MatDialogRef<CreateEditServiceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: CreateServiceDialogData,
+    private serviceManager: ServicesManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService
+  ) {}
 
   theme: string;
   loading = false;
@@ -42,7 +42,7 @@ export class CreateEditServiceDialogComponent implements OnInit {
     this.theme = this.data.theme;
     this.asEdit = this.data.service !== undefined;
 
-    if(this.asEdit){
+    if (this.asEdit) {
       this.nameControl.setValue(this.data.service.name);
       this.description = this.data.service.description;
       this.delayControl.setValue(this.data.service.delay);
@@ -58,52 +58,60 @@ export class CreateEditServiceDialogComponent implements OnInit {
     }
   }
 
-  onCreate(){
+  onCreate() {
     this.loading = true;
-    this.serviceManager.createServiceWithService({
-      service: {
-        name: this.nameControl.value,
-        description: this.description,
-        delay: this.delayControl.value,
-        recurrence: this.recurrenceControl.value,
-        enabled: this.status,
-        script: this.pathControl.value,
-        id: 0,
-        beanName: ''
-      }
-    }).subscribe(() => {
-      this.notificator.showSuccess(this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.CREATE_SUCCESS'));
-      this.dialogRef.close(true);
-      this.loading = false;
-    });
+    this.serviceManager
+      .createServiceWithService({
+        service: {
+          name: this.nameControl.value,
+          description: this.description,
+          delay: this.delayControl.value,
+          recurrence: this.recurrenceControl.value,
+          enabled: this.status,
+          script: this.pathControl.value,
+          id: 0,
+          beanName: '',
+        },
+      })
+      .subscribe(() => {
+        this.notificator.showSuccess(
+          this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.CREATE_SUCCESS')
+        );
+        this.dialogRef.close(true);
+        this.loading = false;
+      });
   }
 
-  onEdit(){
+  onEdit() {
     this.loading = true;
-    this.serviceManager.updateService({
-      service: {
-        name: this.nameControl.value,
-        description: this.description,
-        delay: this.delayControl.value,
-        recurrence: this.recurrenceControl.value,
-        enabled: this.status,
-        script: this.pathControl.value,
-        id: this.data.service.id,
-        beanName: this.data.service.beanName
-      }
-    }).subscribe(() => {
-      this.notificator.showSuccess(this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.EDIT_SUCCESS'));
-      this.dialogRef.close(true);
-      this.loading = false;
-    });
+    this.serviceManager
+      .updateService({
+        service: {
+          name: this.nameControl.value,
+          description: this.description,
+          delay: this.delayControl.value,
+          recurrence: this.recurrenceControl.value,
+          enabled: this.status,
+          script: this.pathControl.value,
+          id: this.data.service.id,
+          beanName: this.data.service.beanName,
+        },
+      })
+      .subscribe(() => {
+        this.notificator.showSuccess(
+          this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.EDIT_SUCCESS')
+        );
+        this.dialogRef.close(true);
+        this.loading = false;
+      });
   }
 
-  onCancel(){
+  onCancel() {
     this.dialogRef.close(false);
   }
 
-  makePath(){
-    const path = "./".concat(this.nameControl.value);
+  makePath() {
+    const path = './'.concat(this.nameControl.value);
     this.pathControl.setValue(path);
   }
 }

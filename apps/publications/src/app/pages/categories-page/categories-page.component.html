@@ -20,8 +20,9 @@
     {{'CATEGORIES_PAGE.REMOVE' | translate}}
   </button>
 
-  <perun-web-apps-immediate-filter (filter)="applyFilter($event)"
-                                   [placeholder]="'CATEGORIES_PAGE.FILTER'"></perun-web-apps-immediate-filter>
+  <perun-web-apps-immediate-filter
+    (filter)="applyFilter($event)"
+    [placeholder]="'CATEGORIES_PAGE.FILTER'"></perun-web-apps-immediate-filter>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <perun-web-apps-categories-list
     *ngIf="categories && !loading"

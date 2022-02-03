@@ -2,13 +2,15 @@
   <h1 mat-dialog-title>{{'DIALOGS.ADD_MEMBERS.TITLE' | translate}}</h1>
 
   <div mat-dialog-content *ngIf="!processing">
-
     <mat-form-field class="mr-2 search-field adjust-width">
       <label>
-        <input matInput autocomplete="false" placeholder="{{'DIALOGS.ADD_MEMBERS.DESCRIPTION' | translate}}"
-               data-cy="search-members"
-               (keyup.enter)="onSearchByString()"
-               [formControl]="searchCtrl">
+        <input
+          matInput
+          autocomplete="false"
+          placeholder="{{'DIALOGS.ADD_MEMBERS.DESCRIPTION' | translate}}"
+          data-cy="search-members"
+          (keyup.enter)="onSearchByString()"
+          [formControl]="searchCtrl" />
       </label>
       <mat-error>
         {{'DIALOGS.ADD_MEMBERS.EMPTY_SEARCH_MESSAGE' | translate}}
@@ -40,32 +42,30 @@
         *ngIf="firstSearchDone">
       </app-members-candidates-list>
     </div>
-
   </div>
   <mat-spinner class="mr-auto ml-auto" *ngIf="processing"></mat-spinner>
   <div mat-dialog-actions *ngIf="!processing">
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
       {{'DIALOGS.ADD_MEMBERS.CANCEL' | translate}}
     </button>
     <span
-    matTooltip="{{'DIALOGS.ADD_MEMBERS.ADD_MEMBER_PERMISSION_TOOLTIP' | translate}}"
-    matTooltipPosition="above"
-    [matTooltipDisabled]="selection.selected.length === 0 || this.data.type !== 'group' || (list !== undefined && list.addAuth)">
-       <button
-         *ngIf="this.data.type !== 'group' || (this.data.type === 'group' && inviteAuth)"
-         [disabled]="selection.selected.length === 0 || loading"
-         [matMenuTriggerFor]="menu"
-         class="ml-2 dropdown-toggle"
-         color="accent"
-         mat-flat-button>
-          {{'DIALOGS.ADD_MEMBERS.INVITE' | translate}}
+      matTooltip="{{'DIALOGS.ADD_MEMBERS.ADD_MEMBER_PERMISSION_TOOLTIP' | translate}}"
+      matTooltipPosition="above"
+      [matTooltipDisabled]="selection.selected.length === 0 || this.data.type !== 'group' || (list !== undefined && list.addAuth)">
+      <button
+        *ngIf="this.data.type !== 'group' || (this.data.type === 'group' && inviteAuth)"
+        [disabled]="selection.selected.length === 0 || loading"
+        [matMenuTriggerFor]="menu"
+        class="ml-2 dropdown-toggle"
+        color="accent"
+        mat-flat-button>
+        {{'DIALOGS.ADD_MEMBERS.INVITE' | translate}}
       </button>
       <mat-menu #menu="matMenu">
         <button (click)="onInvite(lang)" *ngFor="let lang of languages" mat-menu-item>
-          {{'DIALOGS.ADD_MEMBERS.INVITE_IN_LANGUAGE' | translate}} {{'SHARED_LIB.LANGUAGES.'+lang | uppercase | translate}} {{'DIALOGS.ADD_MEMBERS.LANGUAGE' | translate}}
+          {{'DIALOGS.ADD_MEMBERS.INVITE_IN_LANGUAGE' | translate}}
+          {{'SHARED_LIB.LANGUAGES.'+lang | uppercase | translate}}
+          {{'DIALOGS.ADD_MEMBERS.LANGUAGE' | translate}}
         </button>
       </mat-menu>
     </span>

@@ -2,11 +2,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Pipe({
-  name: 'applicationFormItemHidden'
+  name: 'applicationFormItemHidden',
 })
 export class ApplicationFormItemHiddenPipe implements PipeTransform {
-
-  constructor(private translateService: TranslateService) { }
+  constructor(private translateService: TranslateService) {}
 
   transform(value: unknown): unknown {
     switch (value) {
@@ -14,9 +13,9 @@ export class ApplicationFormItemHiddenPipe implements PipeTransform {
       case 'NEVER':
       case 'IF_PREFILLED':
       case 'IF_EMPTY':
-        return this.translateService.instant('VO_DETAIL.SETTINGS.APPLICATION_FORM.HIDDEN.' + value)
+        return this.translateService.instant('VO_DETAIL.SETTINGS.APPLICATION_FORM.HIDDEN.' + value);
       default:
-        return value
+        return value;
     }
   }
 }

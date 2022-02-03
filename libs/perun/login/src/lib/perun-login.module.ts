@@ -24,17 +24,9 @@ import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
-    UiAlertsModule
+    UiAlertsModule,
   ],
-  declarations: [
-    LoginScreenComponent,
-    LoginScreenBaseComponent,
-    LoginScreenServiceAccessComponent
-  ],
-  exports: [
-    LoginScreenBaseComponent,
-    LoginScreenComponent,
-    LoginScreenServiceAccessComponent
-  ],
+  declarations: [LoginScreenComponent, LoginScreenBaseComponent, LoginScreenServiceAccessComponent],
+  exports: [LoginScreenBaseComponent, LoginScreenComponent, LoginScreenServiceAccessComponent],
 })
 export class PerunLoginModule {}

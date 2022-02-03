@@ -2,11 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CabinetManagerService, Category } from '@perun-web-apps/perun/openapi';
 import { FormControl } from '@angular/forms';
 import * as _moment from 'moment';
-import {
-  DateAdapter,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-} from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { formatDate } from '@angular/common';
 
@@ -75,8 +71,7 @@ export class PublicationFilterComponent implements OnInit {
       title: this.title.value,
       isbnissn: this.selectedMode === 'isbn/issn' ? this.code.value : null,
       doi: this.selectedMode === 'doi' ? this.code.value : null,
-      category:
-        this.selectedCategory !== 'no_value' ? this.selectedCategory.id : null,
+      category: this.selectedCategory !== 'no_value' ? this.selectedCategory.id : null,
       startYear: formatDate(this.startYear.value, 'yyyy', 'en-GB'),
       endYear: formatDate(this.endYear.value, 'yyyy', 'en-GB'),
     };

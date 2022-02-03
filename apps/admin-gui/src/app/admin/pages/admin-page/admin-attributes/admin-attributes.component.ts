@@ -6,13 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 // eslint-disable-next-line max-len
 import { CreateAttributeDefinitionDialogComponent } from '../../../../shared/components/dialogs/create-attribute-definition-dialog/create-attribute-definition-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import {
-  AttributeDefinition,
-  AttributesManagerService,
-} from '@perun-web-apps/perun/openapi';
-import {
-  TABLE_ADMIN_ATTRIBUTES,
-} from '@perun-web-apps/config/table-config';
+import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import { TABLE_ADMIN_ATTRIBUTES } from '@perun-web-apps/config/table-config';
 import { AttributeImportDialogComponent } from '../../../../shared/components/dialogs/attribute-import-dialog/attribute-import-dialog.component';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
@@ -46,10 +41,7 @@ export class AdminAttributesComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '500px';
 
-    const dialogRef = this.dialog.open(
-      CreateAttributeDefinitionDialogComponent,
-      config
-    );
+    const dialogRef = this.dialog.open(CreateAttributeDefinitionDialogComponent, config);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -66,10 +58,7 @@ export class AdminAttributesComponent implements OnInit {
       theme: 'admin-theme',
     };
 
-    const dialogRef = this.dialog.open(
-      DeleteAttributeDefinitionDialogComponent,
-      config
-    );
+    const dialogRef = this.dialog.open(DeleteAttributeDefinitionDialogComponent, config);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -81,12 +70,10 @@ export class AdminAttributesComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.attributesManager
-      .getAllAttributeDefinitions()
-      .subscribe((attrDefs) => {
-        this.attrDefinitions = attrDefs;
-        this.loading = false;
-      });
+    this.attributesManager.getAllAttributeDefinitions().subscribe((attrDefs) => {
+      this.attrDefinitions = attrDefs;
+      this.loading = false;
+    });
   }
 
   applyFilter(filterValue: string) {

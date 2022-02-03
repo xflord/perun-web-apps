@@ -3,7 +3,11 @@ import { Resource, ResourcesManagerService, ResourceTag } from '@perun-web-apps/
 import { SelectionModel } from '@angular/cdk/collections';
 import { TABLE_RESOURCES_TAGS } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { EntityStorageService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import {
+  EntityStorageService,
+  GuiAuthResolver,
+  NotificatorService,
+} from '@perun-web-apps/perun/services';
 import { UniversalRemoveItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,16 +17,17 @@ import { CreateResourceTagDialogComponent } from '../../../../shared/components/
 @Component({
   selector: 'app-perun-web-apps-resource-tags',
   templateUrl: './resource-tags.component.html',
-  styleUrls: ['./resource-tags.component.scss']
+  styleUrls: ['./resource-tags.component.scss'],
 })
 export class ResourceTagsComponent implements OnInit {
-
-  constructor(private authResolver: GuiAuthResolver,
-              private resourcesManager: ResourcesManagerService,
-              private dialog: MatDialog,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private entityStorageService: EntityStorageService) { }
+  constructor(
+    private authResolver: GuiAuthResolver,
+    private resourcesManager: ResourcesManagerService,
+    private dialog: MatDialog,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private entityStorageService: EntityStorageService
+  ) {}
 
   loading = false;
   resourceTags: ResourceTag[] = [];
@@ -48,14 +53,16 @@ export class ResourceTagsComponent implements OnInit {
   removeTags() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {items: this.selection.selected.map(tag => tag.tagName),
+    config.data = {
+      items: this.selection.selected.map((tag) => tag.tagName),
       title: 'RESOURCE_DETAIL.TAGS.REMOVE_TAGS_DIALOG_TITLE',
       description: 'RESOURCE_DETAIL.TAGS.REMOVE_TAGS_DIALOG_DESCRIPTION',
-      theme: 'resource-theme'};
+      theme: 'resource-theme',
+    };
 
     const dialogRef = this.dialog.open(UniversalRemoveItemsDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.removeTag(this.selection.selected);
       }
@@ -63,29 +70,40 @@ export class ResourceTagsComponent implements OnInit {
   }
 
   removeTag(tags: ResourceTag[]) {
-    if(tags.length === 0) {
-      this.notificator.showSuccess(this.translate.instant('RESOURCE_DETAIL.TAGS.REMOVED_SUCCESSFULLY'));
+    if (tags.length === 0) {
+      this.notificator.showSuccess(
+        this.translate.instant('RESOURCE_DETAIL.TAGS.REMOVED_SUCCESSFULLY')
+      );
       return this.updateData();
     }
     const tag = tags.pop();
-    this.resourcesManager.removeResourceTagFromResource({
-      resource: this.resource.id,
-      resourceTag: tag
-    }).subscribe(() => {
-      this.removeTag(tags);
-    });
+    this.resourcesManager
+      .removeResourceTagFromResource({
+        resource: this.resource.id,
+        resourceTag: tag,
+      })
+      .subscribe(() => {
+        this.removeTag(tags);
+      });
   }
 
   addTag() {
     const config = getDefaultDialogConfig();
     config.width = '600px';
-    config.data = {voId: this.resource.voId, resourceId: this.resource.id, assignedTags: this.resourceTags, theme: 'resource-theme'};
+    config.data = {
+      voId: this.resource.voId,
+      resourceId: this.resource.id,
+      assignedTags: this.resourceTags,
+      theme: 'resource-theme',
+    };
 
     const dialogRef = this.dialog.open(AddResourceTagToResourceDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe( success => {
+    dialogRef.afterClosed().subscribe((success) => {
       if (success) {
-        this.notificator.showSuccess(this.translate.instant('RESOURCE_DETAIL.TAGS.ADDED_SUCCESSFULLY'));
+        this.notificator.showSuccess(
+          this.translate.instant('RESOURCE_DETAIL.TAGS.ADDED_SUCCESSFULLY')
+        );
         this.updateData();
       }
     });
@@ -94,13 +112,13 @@ export class ResourceTagsComponent implements OnInit {
   create() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {voId: this.resource.voId, theme: 'resource-theme'};
+    config.data = { voId: this.resource.voId, theme: 'resource-theme' };
 
     const dialogRef = this.dialog.open(CreateResourceTagDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe( success => {
+    dialogRef.afterClosed().subscribe((success) => {
       if (success) {
-        this.translate.get('VO_DETAIL.RESOURCES.TAGS.CREATE_SUCCESS').subscribe( text => {
+        this.translate.get('VO_DETAIL.RESOURCES.TAGS.CREATE_SUCCESS').subscribe((text) => {
           this.notificator.showSuccess(text);
         });
         this.updateData();
@@ -111,7 +129,7 @@ export class ResourceTagsComponent implements OnInit {
   updateData() {
     this.loading = true;
     this.selection.clear();
-    this.resourcesManager.getAllResourcesTagsForResource(this.resource.id).subscribe(tags => {
+    this.resourcesManager.getAllResourcesTagsForResource(this.resource.id).subscribe((tags) => {
       this.resourceTags = tags;
       this.selection.clear();
       this.loading = false;
@@ -121,13 +139,21 @@ export class ResourceTagsComponent implements OnInit {
   setAuthRights() {
     const vo = {
       id: this.resource.voId,
-      beanName: 'Vo'
+      beanName: 'Vo',
     };
 
     this.displayedColumns = [];
-    this.createAuth = this.authResolver.isAuthorized('createResourceTag_ResourceTag_Vo_policy', [vo]);
-    this.addAuth = this.authResolver.isAuthorized('assignResourceTagToResource_ResourceTag_Resource_policy', [this.resource]);
-    this.removeAuth = this.authResolver.isAuthorized('removeResourceTagFromResource_ResourceTag_Resource_policy', [this.resource]);
+    this.createAuth = this.authResolver.isAuthorized('createResourceTag_ResourceTag_Vo_policy', [
+      vo,
+    ]);
+    this.addAuth = this.authResolver.isAuthorized(
+      'assignResourceTagToResource_ResourceTag_Resource_policy',
+      [this.resource]
+    );
+    this.removeAuth = this.authResolver.isAuthorized(
+      'removeResourceTagFromResource_ResourceTag_Resource_policy',
+      [this.resource]
+    );
     this.displayedColumns = this.removeAuth ? ['select', 'id', 'name'] : ['id', 'name'];
   }
 

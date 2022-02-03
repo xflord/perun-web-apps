@@ -8,17 +8,17 @@
         cdkTextareaAutosize
         cdkAutosizeMinRows="4"
         placeholder="{{'DIALOGS.ADD_SSH.INPUT_PLACEHOLDER'|customTranslate | translate}}"
-        [formControl]="sshControl"
-      ></textarea>
+        [formControl]="sshControl"></textarea>
     </label>
-    <mat-error *ngIf="sshControl.invalid && sshControl.dirty" class="white-space-pre">{{'DIALOGS.ADD_SSH.INVALID_TYPE'|customTranslate | translate}}</mat-error>
+    <mat-error
+      *ngIf="sshControl.invalid && sshControl.dirty"
+      class="white-space-pre"
+      >{{'DIALOGS.ADD_SSH.INVALID_TYPE'|customTranslate | translate}}</mat-error
+    >
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button
-    mat-flat-button
-    class="ml-auto"
-    (click)="onCancel()">
+  <button mat-flat-button class="ml-auto" (click)="onCancel()">
     {{'DIALOGS.ADD_SSH.CANCEL'|customTranslate | translate}}
   </button>
   <button

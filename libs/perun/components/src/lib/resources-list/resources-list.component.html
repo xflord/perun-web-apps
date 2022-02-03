@@ -4,21 +4,22 @@
     [dataLength]="dataSource.filteredData.length"
     [tableId]="tableId"
     [pageSizeOptions]="pageSizeOptions">
-    <table [dataSource]="dataSource"
-           class="w-100"
-           mat-table
-           matSort
-           matSortActive="recent"
-           matSortDirection="asc"
-           matSortDisableClear>
-
+    <table
+      [dataSource]="dataSource"
+      class="w-100"
+      mat-table
+      matSort
+      matSortActive="recent"
+      matSortDirection="asc"
+      matSortDisableClear>
       <ng-container matColumnDef="select">
         <th *matHeaderCellDef mat-header-cell class="align-checkbox">
-          <mat-checkbox (change)="$event ? masterToggle() : null"
-                        [aria-label]="checkboxLabel()"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()"
-                        color="primary">
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            [aria-label]="checkboxLabel()"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            color="primary">
           </mat-checkbox>
         </th>
         <td *matCellDef="let resource" class="static-column-size align-checkbox" mat-cell>
@@ -26,85 +27,91 @@
             matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.INDIRECT_RESOURCE' | translate}}"
             [matTooltipPosition]="'above'"
             [matTooltipDisabled]="!disableSelect(resource)">
-              <mat-checkbox (change)="$event ? itemSelectionToggle(resource) : null"
-                            (click)="$event.stopPropagation()"
-                            [aria-label]="checkboxLabel(resource)"
-                            [checked]="selection.isSelected(resource)"
-                            [disabled]="disableSelect(resource)"
-                            color="primary">
-              </mat-checkbox>
-            </span>
+            <mat-checkbox
+              (change)="$event ? itemSelectionToggle(resource) : null"
+              (click)="$event.stopPropagation()"
+              [aria-label]="checkboxLabel(resource)"
+              [checked]="selection.isSelected(resource)"
+              [disabled]="disableSelect(resource)"
+              color="primary">
+            </mat-checkbox>
+          </span>
         </td>
       </ng-container>
 
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef
-              mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_RESOURCE_ID' | translate}}</th>
-          <td mat-cell class="static-column-size" *matCellDef="let resource">{{resource.id}}</td>
-        </ng-container>
-        <ng-container matColumnDef="recent">
-          <th *matHeaderCellDef mat-header-cell>
-          </th>
-          <td *matCellDef="let resource" mat-cell>
-            <perun-web-apps-recently-viewed-icon
-              [recentIds]="recentIds"
-              [id]="resource.id">
-            </perun-web-apps-recently-viewed-icon>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="indirectResourceAssigment">
-          <th *matHeaderCellDef mat-header-cell></th>
-          <td *matCellDef="let resource" mat-cell>
-            <mat-icon *ngIf="resource.sourceGroupId"
-                      matTooltipPosition="above"
-                      [matTooltip]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.INDIRECT_RESOURCE' | translate">account_tree</mat-icon>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef
-              mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_RESOURCE_NAME' | translate}}</th>
-          <td mat-cell *matCellDef="let resource">{{resource.name}}</td>
-        </ng-container>
-        <ng-container matColumnDef="vo">
-          <th mat-header-cell
-              *matHeaderCellDef
-              mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_VO_NAME' | translate}}</th>
-          <td mat-cell *matCellDef="let resource">{{resource.vo.name}}</td>
-        </ng-container>
-        <ng-container matColumnDef="status">
-          <th mat-header-cell
-              *matHeaderCellDef
-              mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_GROUP_RESOURCE_STATUS' | translate}}</th>
-          <td mat-cell *matCellDef="let resource">
-            <perun-web-apps-group-resource-status
-              (mouseenter)="disabledRouting = true"
-              (mouseleave)="disabledRouting = disableRouting"
-              (statusChange)="refreshTable.emit()"
-              [theme]="'group-theme'"
-              [resourceId]="resource.id"
-              [groupId]="groupId"
-              [failureCause]="resource.failureCause"
-              [status]="resource.status">
-            </perun-web-apps-group-resource-status>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="facility">
-          <th mat-header-cell
-              *matHeaderCellDef
-              mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_FACILITY_NAME' | translate}}</th>
-          <td mat-cell *matCellDef="let resource">{{resource.facility.name}}</td>
-        </ng-container>
-        <ng-container matColumnDef="tags">
-          <th mat-header-cell
-              *matHeaderCellDef
-              mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_RESOURCE_TAGS' | translate}}</th>
-          <td mat-cell *matCellDef="let resource">{{resource.resourceTags | resourceTagsToString}}</td>
-        </ng-container>
-        <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef
-              mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_RESOURCE_DESCRIPTION' | translate}}</th>
-          <td mat-cell *matCellDef="let resource">{{resource.description}}</td>
-        </ng-container>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_RESOURCE_ID' | translate}}
+        </th>
+        <td mat-cell class="static-column-size" *matCellDef="let resource">{{resource.id}}</td>
+      </ng-container>
+      <ng-container matColumnDef="recent">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let resource" mat-cell>
+          <perun-web-apps-recently-viewed-icon [recentIds]="recentIds" [id]="resource.id">
+          </perun-web-apps-recently-viewed-icon>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="indirectResourceAssigment">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let resource" mat-cell>
+          <mat-icon
+            *ngIf="resource.sourceGroupId"
+            matTooltipPosition="above"
+            [matTooltip]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.INDIRECT_RESOURCE' | translate"
+            >account_tree</mat-icon
+          >
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_RESOURCE_NAME' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let resource">{{resource.name}}</td>
+      </ng-container>
+      <ng-container matColumnDef="vo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_VO_NAME' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let resource">{{resource.vo.name}}</td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_GROUP_RESOURCE_STATUS' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let resource">
+          <perun-web-apps-group-resource-status
+            (mouseenter)="disabledRouting = true"
+            (mouseleave)="disabledRouting = disableRouting"
+            (statusChange)="refreshTable.emit()"
+            [theme]="'group-theme'"
+            [resourceId]="resource.id"
+            [groupId]="groupId"
+            [failureCause]="resource.failureCause"
+            [status]="resource.status">
+          </perun-web-apps-group-resource-status>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="facility">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_FACILITY_NAME' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let resource">{{resource.facility.name}}</td>
+      </ng-container>
+      <ng-container matColumnDef="tags">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_RESOURCE_TAGS' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let resource">
+          {{resource.resourceTags | resourceTagsToString}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_RESOURCE_DESCRIPTION' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let resource">{{resource.description}}</td>
+      </ng-container>
 
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
       <tr
@@ -114,8 +121,7 @@
         [perunWebAppsMiddleClickRouterLink]="[disabledRouting ? null : (resource | getResourceRoute: routingVo)]"
         [routerLink]="disabledRouting ? null : (resource | getResourceRoute: routingVo)"
         class="dark-hover-list-item"
-        mat-row>
-      </tr>
+        mat-row></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>

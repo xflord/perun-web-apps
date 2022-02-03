@@ -1,5 +1,6 @@
-<div class="card mt-2" [hidden]="this.users.length === 0 || !dataSource || dataSource.filteredData.length === 0">
-
+<div
+  class="card mt-2"
+  [hidden]="this.users.length === 0 || !dataSource || dataSource.filteredData.length === 0">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [dataLength]="dataSource.filteredData.length"
@@ -15,22 +16,24 @@
       matSortDisableClear>
       <ng-container matColumnDef="select">
         <th *matHeaderCellDef mat-header-cell class="align-checkbox">
-          <mat-checkbox (change)="$event ? masterToggle() : null"
-                        *ngIf="selection.isMultipleSelection()"
-                        [aria-label]="checkboxLabel()"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()"
-                        color="primary">
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            *ngIf="selection.isMultipleSelection()"
+            [aria-label]="checkboxLabel()"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            color="primary">
           </mat-checkbox>
         </th>
         <td *matCellDef="let row" class="static-column-size align-checkbox" mat-cell>
-          <mat-checkbox (change)="$event ? selection.toggle(row) : null"
-                        (click)="$event.stopPropagation()"
-                        [aria-label]="checkboxLabel(row)"
-                        [checked]="selection.isSelected(row)"
-                        [disabled]="disableSelf && row.id === principalId && !authResolver.isPerunAdmin()"
-                        attr.data-cy="{{row.firstName | lowercase}}-checkbox"
-                        color="primary">
+          <mat-checkbox
+            (change)="$event ? selection.toggle(row) : null"
+            (click)="$event.stopPropagation()"
+            [aria-label]="checkboxLabel(row)"
+            [checked]="selection.isSelected(row)"
+            [disabled]="disableSelf && row.id === principalId && !authResolver.isPerunAdmin()"
+            attr.data-cy="{{row.firstName | lowercase}}-checkbox"
+            color="primary">
           </mat-checkbox>
         </td>
       </ng-container>
@@ -52,25 +55,35 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="id">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'MANAGERS_LIST.ID' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MANAGERS_LIST.ID' | translate}}
+        </th>
         <td *matCellDef="let user" class="static-column-size" mat-cell>
           {{user.id}}
         </td>
       </ng-container>
       <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'MANAGERS_LIST.NAME' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MANAGERS_LIST.NAME' | translate}}
+        </th>
         <td *matCellDef="let manager" mat-cell>{{manager | userFullName}}</td>
       </ng-container>
       <ng-container matColumnDef="organization">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'MANAGERS_LIST.ORGANIZATION' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MANAGERS_LIST.ORGANIZATION' | translate}}
+        </th>
         <td *matCellDef="let manager" mat-cell>{{manager | userVo}}</td>
       </ng-container>
       <ng-container matColumnDef="email">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'MANAGERS_LIST.EMAIL' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MANAGERS_LIST.EMAIL' | translate}}
+        </th>
         <td *matCellDef="let manager" mat-cell>{{manager | userEmail}}</td>
       </ng-container>
       <ng-container matColumnDef="logins">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'MANAGERS_LIST.LOGINS' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MANAGERS_LIST.LOGINS' | translate}}
+        </th>
         <td *matCellDef="let manager" mat-cell>{{manager | userLogins}}</td>
       </ng-container>
 
@@ -81,8 +94,7 @@
         [perunWebAppsForceRouterLink]="disableRouting ? null : (routeToAdmin ? ['/admin/users', user.id] : ['/myProfile/service-identities', user.id])"
         [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : (routeToAdmin ? ['/admin/users', user.id] : ['/myProfile/service-identities', user.id])"
         class="dark-hover-list-item"
-        mat-row>
-      </tr>
+        mat-row></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>

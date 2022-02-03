@@ -17,10 +17,9 @@ import { GroupsListComponent } from '@perun-web-apps/perun/components';
 @Component({
   selector: 'app-group-subgroups',
   templateUrl: './group-subgroups.component.html',
-  styleUrls: ['./group-subgroups.component.scss']
+  styleUrls: ['./group-subgroups.component.scss'],
 })
 export class GroupSubgroupsComponent implements OnInit {
-
   static id = 'GroupSubgroupsComponent';
 
   // used for router animation
@@ -31,8 +30,7 @@ export class GroupSubgroupsComponent implements OnInit {
     private groupService: GroupsManagerService,
     private guiAuthResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService
-  ) {
-  }
+  ) {}
   group: Group;
   groups: Group[] = [];
   selected = new SelectionModel<Group>(true, []);
@@ -52,19 +50,18 @@ export class GroupSubgroupsComponent implements OnInit {
   @ViewChild('list', {})
   list: GroupsListComponent;
 
-  @ViewChild('toggle', {static: true})
+  @ViewChild('toggle', { static: true })
   toggle: MatSlideToggle;
-
 
   onCreateGroup() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {parentGroup: this.group, theme: 'group-theme'};
+    config.data = { parentGroup: this.group, theme: 'group-theme' };
 
     const dialogRef = this.dialog.open(CreateGroupDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(groupCreated => {
-      if(groupCreated) {
+    dialogRef.afterClosed().subscribe((groupCreated) => {
+      if (groupCreated) {
         this.loading = true;
         this.refreshTable();
       }
@@ -82,28 +79,33 @@ export class GroupSubgroupsComponent implements OnInit {
       localStorage.setItem('preferedValue', value);
     });
 
-
     this.group = this.entityStorageService.getEntity();
     this.setAuthRights();
     this.refreshTable();
   }
 
   setAuthRights() {
-    this.createAuth = this.guiAuthResolver.isAuthorized('createGroup_Group_Group_policy', [this.group]);
-    this.deleteAuth = this.guiAuthResolver.isAuthorized('deleteGroups_List<Group>_boolean_policy', [this.group]);
+    this.createAuth = this.guiAuthResolver.isAuthorized('createGroup_Group_Group_policy', [
+      this.group,
+    ]);
+    this.deleteAuth = this.guiAuthResolver.isAuthorized('deleteGroups_List<Group>_boolean_policy', [
+      this.group,
+    ]);
     if (this.groups.length !== 0) {
-      this.routeAuth = this.guiAuthResolver.isAuthorized('getGroupById_int_policy', [this.groups[0]]);
+      this.routeAuth = this.guiAuthResolver.isAuthorized('getGroupById_int_policy', [
+        this.groups[0],
+      ]);
     }
   }
 
   deleteGroup() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {voId: this.group.id, groups: this.selected.selected, theme: 'group-theme'};
+    config.data = { voId: this.group.id, groups: this.selected.selected, theme: 'group-theme' };
 
     const dialogRef = this.dialog.open(DeleteGroupDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.refreshTable();
       }
@@ -112,21 +114,22 @@ export class GroupSubgroupsComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.groupService.getAllRichSubGroupsWithGroupAttributesByNames(this.group.id,
-      [
+    this.groupService
+      .getAllRichSubGroupsWithGroupAttributesByNames(this.group.id, [
         Urns.GROUP_DEF_MAIL_FOOTER,
         Urns.GROUP_SYNC_ENABLED,
         Urns.GROUP_LAST_SYNC_STATE,
         Urns.GROUP_LAST_SYNC_TIMESTAMP,
         Urns.GROUP_STRUCTURE_SYNC_ENABLED,
         Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
-        Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
-      ]).subscribe(groups => {
-      this.groups = groups;
-      this.selected.clear();
-      this.setAuthRights();
-      this.loading = false;
-    });
+        Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP,
+      ])
+      .subscribe((groups) => {
+        this.groups = groups;
+        this.selected.clear();
+        this.setAuthRights();
+        this.loading = false;
+      });
   }
 
   applyFilter(filterValue: string) {
@@ -139,11 +142,11 @@ export class GroupSubgroupsComponent implements OnInit {
     config.width = '550px';
     config.data = {
       group: group,
-      theme: 'group-theme'
+      theme: 'group-theme',
     };
 
     const dialogRef = this.dialog.open(MoveGroupDialogComponent, config);
-    dialogRef.afterClosed().subscribe(groupMoved => {
+    dialogRef.afterClosed().subscribe((groupMoved) => {
       if (groupMoved) {
         this.refreshTable();
       }

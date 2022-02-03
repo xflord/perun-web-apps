@@ -5,45 +5,57 @@
       <input
         matInput
         [formControl]="titleBefore"
-        placeholder="{{'DIALOGS.EDIT_USER.TITLE_BEFORE' | translate}}">
-      <mat-error *ngIf="titleBefore.invalid">{{'DIALOGS.EDIT_USER.ERROR_LENGTH'  | translate}}</mat-error>
+        placeholder="{{'DIALOGS.EDIT_USER.TITLE_BEFORE' | translate}}" />
+      <mat-error
+        *ngIf="titleBefore.invalid"
+        >{{'DIALOGS.EDIT_USER.ERROR_LENGTH'  | translate}}</mat-error
+      >
     </mat-form-field>
     <mat-form-field>
       <input
         matInput
         [formControl]="titleAfter"
-        placeholder="{{'DIALOGS.EDIT_USER.TITLE_AFTER' | translate}}">
-      <mat-error *ngIf="titleAfter.invalid">{{'DIALOGS.EDIT_USER.ERROR_LENGTH'  | translate}}</mat-error>
+        placeholder="{{'DIALOGS.EDIT_USER.TITLE_AFTER' | translate}}" />
+      <mat-error
+        *ngIf="titleAfter.invalid"
+        >{{'DIALOGS.EDIT_USER.ERROR_LENGTH'  | translate}}</mat-error
+      >
     </mat-form-field>
     <mat-form-field>
       <input
         matInput
         required
         [formControl]="firstName"
-        placeholder="{{'DIALOGS.EDIT_USER.FIRST_NAME' | translate}}">
-      <mat-error *ngIf="firstName.invalid">{{'DIALOGS.EDIT_USER.ERROR_FIRST_NAME' | translate}}</mat-error>
+        placeholder="{{'DIALOGS.EDIT_USER.FIRST_NAME' | translate}}" />
+      <mat-error
+        *ngIf="firstName.invalid"
+        >{{'DIALOGS.EDIT_USER.ERROR_FIRST_NAME' | translate}}</mat-error
+      >
     </mat-form-field>
     <mat-form-field>
       <input
         matInput
         [formControl]="middleName"
-        placeholder="{{'DIALOGS.EDIT_USER.MIDDLE_NAME' | translate}}">
-      <mat-error *ngIf="middleName.invalid">{{'DIALOGS.EDIT_USER.ERROR_LENGTH'  | translate}}</mat-error>
+        placeholder="{{'DIALOGS.EDIT_USER.MIDDLE_NAME' | translate}}" />
+      <mat-error
+        *ngIf="middleName.invalid"
+        >{{'DIALOGS.EDIT_USER.ERROR_LENGTH'  | translate}}</mat-error
+      >
     </mat-form-field>
     <mat-form-field>
       <input
         matInput
         required
         [formControl]="lastName"
-        placeholder="{{'DIALOGS.EDIT_USER.LAST_NAME' | translate}}">
-      <mat-error *ngIf="lastName.invalid">{{'DIALOGS.EDIT_USER.ERROR_LAST_NAME'  | translate}}</mat-error>
+        placeholder="{{'DIALOGS.EDIT_USER.LAST_NAME' | translate}}" />
+      <mat-error
+        *ngIf="lastName.invalid"
+        >{{'DIALOGS.EDIT_USER.ERROR_LAST_NAME'  | translate}}</mat-error
+      >
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
       {{'DIALOGS.EDIT_USER.CANCEL' | translate}}
     </button>
     <button

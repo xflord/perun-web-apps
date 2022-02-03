@@ -1,28 +1,26 @@
 <div class="container-fluid pl-xl-5 pr-xl-5 facility-theme">
-  <perun-web-apps-back-button>
-  </perun-web-apps-back-button>
+  <perun-web-apps-back-button> </perun-web-apps-back-button>
 
   <h1 class="page-title d-flex">
     <mat-icon
       [ngStyle]="{'color':'black'}"
-      svgIcon='perun-facility-black'
+      svgIcon="perun-facility-black"
       class="perun-icon icon-scale">
     </mat-icon>
     {{'FACILITY_MANAGEMENT.TITLE' | translate}}
   </h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button
-    mat-flat-button
-    class="action-button"
-    (click)="onCreate()"
-    class="mr-2"
-    color="accent">{{'FACILITY_MANAGEMENT.CREATE' | translate}}</button>
+  <button mat-flat-button class="action-button" (click)="onCreate()" class="mr-2" color="accent">
+    {{'FACILITY_MANAGEMENT.CREATE' | translate}}
+  </button>
   <button
     mat-flat-button
     class="mr-2"
     [disabled]="selection.selected.length === 0"
     (click)="onDelete()"
-    color="warn">{{'FACILITY_MANAGEMENT.DELETE' | translate}}</button>
+    color="warn">
+    {{'FACILITY_MANAGEMENT.DELETE' | translate}}
+  </button>
   <perun-web-apps-immediate-filter
     [autoFocus]="true"
     (filter)="applyFilter($event)"

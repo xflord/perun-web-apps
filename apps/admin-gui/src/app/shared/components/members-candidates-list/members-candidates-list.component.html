@@ -1,5 +1,4 @@
 <div [hidden]="members.length === 0" class="card mt-2">
-
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [tableId]="tableId"
@@ -14,8 +13,7 @@
       matSortDirection="asc"
       matSortDisableClear>
       <ng-container matColumnDef="checkbox">
-        <th *matHeaderCellDef mat-header-cell class="align-checkbox">
-        </th>
+        <th *matHeaderCellDef mat-header-cell class="align-checkbox"></th>
         <td *matCellDef="let memberCandidate" class="static-column-size align-checkbox" mat-cell>
           <div
             [matTooltip]="getTooltip(memberCandidate) | translate"
@@ -33,42 +31,55 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="status">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'MEMBERS_CANDIDATES_LIST.STATUS' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MEMBERS_CANDIDATES_LIST.STATUS' | translate}}
+        </th>
         <td *matCellDef="let memberCandidate" mat-cell>
-          <i *ngIf="memberCandidate.member"
-             class="material-icons {{memberCandidate.member.status | memberStatusIconColor}}"
-             matTooltip="{{memberCandidate.member.status}}"
-             matTooltipPosition="left">
+          <i
+            *ngIf="memberCandidate.member"
+            class="material-icons {{memberCandidate.member.status | memberStatusIconColor}}"
+            matTooltip="{{memberCandidate.member.status}}"
+            matTooltipPosition="left">
             {{memberCandidate.member.status | memberStatusIcon}}
           </i>
         </td>
       </ng-container>
       <ng-container matColumnDef="fullName">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'MEMBERS_CANDIDATES_LIST.NAME' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MEMBERS_CANDIDATES_LIST.NAME' | translate}}
+        </th>
         <td *matCellDef="let memberCandidate" mat-cell>
           {{memberCandidate.richUser ? (memberCandidate.richUser | userFullName) : (memberCandidate.candidate | userFullName)}}
         </td>
       </ng-container>
       <ng-container matColumnDef="voExtSource">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'MEMBERS_CANDIDATES_LIST.ORGANIZATION' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MEMBERS_CANDIDATES_LIST.ORGANIZATION' | translate}}
+        </th>
         <td *matCellDef="let memberCandidate" mat-cell>
           {{memberCandidate.richUser ? (memberCandidate.richUser | userVo) : getOrganization(memberCandidate.candidate)}}
         </td>
       </ng-container>
       <ng-container matColumnDef="email">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'MEMBERS_CANDIDATES_LIST.EMAIL' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MEMBERS_CANDIDATES_LIST.EMAIL' | translate}}
+        </th>
         <td *matCellDef="let memberCandidate" mat-cell>
           {{getEmail(memberCandidate)}}
         </td>
       </ng-container>
       <ng-container matColumnDef="logins">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'MEMBERS_CANDIDATES_LIST.LOGINS' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MEMBERS_CANDIDATES_LIST.LOGINS' | translate}}
+        </th>
         <td *matCellDef="let memberCandidate" mat-cell>
           {{getLogins(memberCandidate)}}
         </td>
       </ng-container>
       <ng-container matColumnDef="alreadyMember">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'MEMBERS_CANDIDATES_LIST.ALREADY_MEMBER' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MEMBERS_CANDIDATES_LIST.ALREADY_MEMBER' | translate}}
+        </th>
         <td *matCellDef="let memberCandidate" mat-cell>
           {{getAlreadyMember(memberCandidate)}}
         </td>
@@ -83,8 +94,7 @@
       <tr
         *matRowDef="let memberCandidate; columns: displayedColumns;"
         class="dark-hover-list-item"
-        mat-row>
-      </tr>
+        mat-row></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>

@@ -1,7 +1,12 @@
 <div class="admin-theme">
-  <h1 mat-dialog-title>{{(title | parseEventName) ?? 'DIALOGS.AUDIT_MESSAGE_DETAIL.TITLE' | translate}}</h1>
+  <h1 mat-dialog-title>
+    {{(title | parseEventName) ?? 'DIALOGS.AUDIT_MESSAGE_DETAIL.TITLE' | translate}}
+  </h1>
   <div mat-dialog-content>
-    <div>{{'DIALOGS.AUDIT_MESSAGE_DETAIL.ACTOR' | translate}}: {{actor}}, {{'DIALOGS.AUDIT_MESSAGE_DETAIL.CREATED_AT' | translate}}: {{createdAt}}</div>
+    <div>
+      {{'DIALOGS.AUDIT_MESSAGE_DETAIL.ACTOR' | translate}}: {{actor}},
+      {{'DIALOGS.AUDIT_MESSAGE_DETAIL.CREATED_AT' | translate}}: {{createdAt}}
+    </div>
     <mat-tab-group (selectedTabChange)="tabChanged($event)">
       <mat-tab>
         <ng-template matTabLabel>
@@ -23,15 +28,10 @@
     </mat-tab-group>
   </div>
   <div mat-dialog-actions>
-    <button
-      (click)="onClose()"
-      class="ml-auto"
-      mat-flat-button>
+    <button (click)="onClose()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.AUDIT_MESSAGE_DETAIL.CLOSE' | translate}}
     </button>
-    <button
-      mat-button
-      (click)="tabIndex === 0 ? copyObjects() : copyMessage()">
+    <button mat-button (click)="tabIndex === 0 ? copyObjects() : copyMessage()">
       {{'DIALOGS.AUDIT_MESSAGE_DETAIL.COPY' | translate}}
       <mat-icon>content_copy</mat-icon>
     </button>

@@ -6,17 +6,17 @@
       {{'DIALOGS.GROUP_SYNC_DETAIL.GROUP_NAME' | translate}}
       <b>{{group.name}}</b>
     </span>
-    <br>
+    <br />
     <span>
       {{'DIALOGS.GROUP_SYNC_DETAIL.SYNCHRONIZATION' | translate}}
       <b>{{getSynchronizationType() | translate}}</b>
     </span>
-    <br>
+    <br />
     <span>
       {{'DIALOGS.GROUP_SYNC_DETAIL.LAST_SYNC_STATE' | translate}}
       <b>{{getLastSyncState() | translate}}</b>
     </span>
-    <br>
+    <br />
     <span>
       {{'DIALOGS.GROUP_SYNC_DETAIL.LAST_SYNC_TIME' | translate}}
       <b>{{getLastSyncTime() | translate}}</b>
@@ -32,8 +32,7 @@
         *ngIf="this.isStructured()"
         [disabled]="this.loading"
         class="ml-2"
-        mat-flat-button
-      >
+        mat-flat-button>
         {{'DIALOGS.GROUP_SYNC_DETAIL.FORCE_STRUCTURE' | translate}}
       </button>
       <button
@@ -44,10 +43,7 @@
         mat-flat-button>
         {{'DIALOGS.GROUP_SYNC_DETAIL.FORCE' | translate}}
       </button>
-      <button
-        (click)="onCancel()"
-        class="ml-2"
-        mat-flat-button>
+      <button (click)="onCancel()" class="ml-2" mat-flat-button>
         {{'DIALOGS.GROUP_SYNC_DETAIL.CANCEL' | translate}}
       </button>
     </div>

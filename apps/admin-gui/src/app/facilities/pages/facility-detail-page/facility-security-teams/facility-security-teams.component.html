@@ -1,22 +1,22 @@
 <div>
   <h1 class="page-subtitle">{{'FACILITY_DETAIL.SECURITY_TEAMS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-<!--  <button-->
-<!--    *ngIf="!loading && addAuth"-->
-<!--    mat-flat-button -->
-<!--    color="accent" -->
-<!--    class="mr-2"-->
-<!--    (click)="addSecurityTeam()">-->
-<!--    {{'FACILITY_DETAIL.SECURITY_TEAMS.ADD'| translate}}-->
-<!--  </button>-->
-<!--  <button -->
-<!--    *ngIf="!loading && removeAuth"-->
-<!--    mat-flat-button -->
-<!--    color="warn" -->
-<!--    class="mr-2"  -->
-<!--    [disabled]="selected.selected.length === 0" (click)="removeSecurityTeam()">-->
-<!--    {{'FACILITY_DETAIL.SECURITY_TEAMS.REMOVE'| translate}}-->
-<!--  </button>-->
+  <!--  <button-->
+  <!--    *ngIf="!loading && addAuth"-->
+  <!--    mat-flat-button -->
+  <!--    color="accent" -->
+  <!--    class="mr-2"-->
+  <!--    (click)="addSecurityTeam()">-->
+  <!--    {{'FACILITY_DETAIL.SECURITY_TEAMS.ADD'| translate}}-->
+  <!--  </button>-->
+  <!--  <button -->
+  <!--    *ngIf="!loading && removeAuth"-->
+  <!--    mat-flat-button -->
+  <!--    color="warn" -->
+  <!--    class="mr-2"  -->
+  <!--    [disabled]="selected.selected.length === 0" (click)="removeSecurityTeam()">-->
+  <!--    {{'FACILITY_DETAIL.SECURITY_TEAMS.REMOVE'| translate}}-->
+  <!--  </button>-->
   <perun-web-apps-immediate-filter
     [placeholder]="'FACILITY_DETAIL.SECURITY_TEAMS.FILTER'"
     (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>

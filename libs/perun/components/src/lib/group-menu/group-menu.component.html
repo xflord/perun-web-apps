@@ -1,42 +1,40 @@
 <div *ngIf="displayButtons" class="buttons-container">
-  <button [cdkCopyToClipboard]="group.name" [matTooltipPosition]="'above'" class="ml-auto horiz_right"
-          mat-icon-button matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.COPY' | translate}}">
-    <mat-icon>
-      file_copy
-    </mat-icon>
+  <button
+    [cdkCopyToClipboard]="group.name"
+    [matTooltipPosition]="'above'"
+    class="ml-auto horiz_right"
+    mat-icon-button
+    matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.COPY' | translate}}">
+    <mat-icon> file_copy </mat-icon>
   </button>
 
-  <span [matTooltipPosition]="'above'"
-        [matTooltip]="group | groupSyncToolTip | translate"
-        *ngIf="syncAuth"
-        >
-    <button (click)="onSyncDetail()"
-            [disabled]="(group | groupSyncIcon) === 'sync_disabled'"
-            mat-icon-button>
-    <mat-icon class="{{group | groupSyncIconColor}}">
-      {{group | groupSyncIcon}}
-    </mat-icon>
-  </button>
+  <span
+    [matTooltipPosition]="'above'"
+    [matTooltip]="group | groupSyncToolTip | translate"
+    *ngIf="syncAuth">
+    <button
+      (click)="onSyncDetail()"
+      [disabled]="(group | groupSyncIcon) === 'sync_disabled'"
+      mat-icon-button>
+      <mat-icon class="{{group | groupSyncIconColor}}">
+        {{group | groupSyncIcon}}
+      </mat-icon>
+    </button>
   </span>
 
-
-  <span [matTooltipPosition]="'above'"
-        matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.MOVE' | translate}}"
-        *ngIf="moveAuth">
-    <button
-      (click)="onMoveGroup()"
-      [disabled]="disabled"
-      mat-icon-button>
+  <span
+    [matTooltipPosition]="'above'"
+    matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.MOVE' | translate}}"
+    *ngIf="moveAuth">
+    <button (click)="onMoveGroup()" [disabled]="disabled" mat-icon-button>
       <mat-icon>arrow_right_alt</mat-icon>
     </button>
   </span>
-  <span [matTooltipPosition]="'above'"
-        matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.RENAME' | translate}}"
-        *ngIf="editAuth">
-    <button
-      [disabled]="disabled"
-      (click)="onChangeNameDescription()"
-      mat-icon-button>
+  <span
+    [matTooltipPosition]="'above'"
+    matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.RENAME' | translate}}"
+    *ngIf="editAuth">
+    <button [disabled]="disabled" (click)="onChangeNameDescription()" mat-icon-button>
       <mat-icon>text_format</mat-icon>
     </button>
   </span>
@@ -47,9 +45,7 @@
   </button>
   <mat-menu #groupMenu="matMenu">
     <button [cdkCopyToClipboard]="group.name" mat-menu-item>
-      <mat-icon>
-        file_copy
-      </mat-icon>
+      <mat-icon> file_copy </mat-icon>
       <span>{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.COPY' | translate}}</span>
     </button>
 
@@ -63,11 +59,7 @@
       </mat-icon>
       <span>{{group | groupSyncToolTip | translate}}</span>
     </button>
-    <button
-      *ngIf="moveAuth"
-      [disabled]="disabled"
-      (click)="onMoveGroup()"
-      mat-menu-item>
+    <button *ngIf="moveAuth" [disabled]="disabled" (click)="onMoveGroup()" mat-menu-item>
       <mat-icon>arrow_right_alt</mat-icon>
       <span>{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.MOVE' | translate}}</span>
     </button>

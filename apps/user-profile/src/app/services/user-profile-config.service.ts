@@ -4,10 +4,9 @@ import { AppConfigService, ColorConfig, EntityColorConfig } from '@perun-web-app
 import { Location } from '@angular/common';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserProfileConfigService {
-
   constructor(
     private initAuthService: InitAuthService,
     private appConfigService: AppConfigService,
@@ -18,47 +17,51 @@ export class UserProfileConfigService {
     {
       entity: 'user',
       configValue: 'user_color',
-      cssVariable: '--user-color'
-    }
+      cssVariable: '--user-color',
+    },
   ];
 
   colorConfigs: ColorConfig[] = [
     {
       configValue: 'sidemenu_bg_color',
-      cssVariable: '--side-bg'
+      cssVariable: '--side-bg',
     },
     {
       configValue: 'sidemenu_hover_color',
-      cssVariable: '--side-hover'
+      cssVariable: '--side-hover',
     },
     {
       configValue: 'sidemenu-link-active',
-      cssVariable: '--side-active'
+      cssVariable: '--side-active',
     },
     {
       configValue: 'sidemenu_active_text_color',
-      cssVariable: '--side-text-active'
-    }
+      cssVariable: '--side-text-active',
+    },
   ];
 
   initialize(): Promise<void> {
-    return this.appConfigService.loadAppDefaultConfig()
+    return this.appConfigService
+      .loadAppDefaultConfig()
       .then(() => this.appConfigService.loadAppInstanceConfig())
       .then(() => this.appConfigService.setApiUrl())
-      .then(() => this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs))
+      .then(() =>
+        this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs)
+      )
       .then(() => this.appConfigService.setInstanceFavicon())
       .then(() => this.initAuthService.verifyAuth())
-      .catch(err => {
+      .catch((err) => {
         // if there is an error, it means user probably navigated to /api-callback without logging in
         console.error(err);
-        this.location.go("/");
+        this.location.go('/');
         location.reload();
         throw err;
       })
-      .then(isAuthenticated => {
+      .then((isAuthenticated) => {
         // if the authentication is successful, continue
         if (isAuthenticated) {
-          return this.initAuthService.loadPrincipal()
+          return this.initAuthService
+            .loadPrincipal()
             .then(() => this.appConfigService.loadAppsConfig());
         } else {
           return this.initAuthService.handleAuthStart();

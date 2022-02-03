@@ -9,8 +9,8 @@
     [newExpiration]="newExpiration"
     [canExtendMembership]="canExtendMembership"
     [mode]="'vo'"
-    [status]='status'
-    (statusChange)='changeStatus = true'
+    [status]="status"
+    (statusChange)="changeStatus = true"
     (expirationChanged)="onExpirationChanged($event)">
   </perun-web-apps-change-expiration-dialog>
 </div>

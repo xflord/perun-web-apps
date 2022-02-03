@@ -1,12 +1,13 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export class CustomValidators {
-
   static passwordMatchValidator(control: AbstractControl) {
     const password: string = control.get('passwordCtrl').value;
     const confirmPassword: string = control.get('passwordAgainCtrl').value;
 
-    control.get('passwordAgainCtrl').setErrors(password !== confirmPassword ? { noPasswordMatch: true } : null);
+    control
+      .get('passwordAgainCtrl')
+      .setErrors(password !== confirmPassword ? { noPasswordMatch: true } : null);
     return null;
   }
 
@@ -17,7 +18,7 @@ export class CustomValidators {
       }
       let counter = 0;
       for (const regex of regexes) {
-       counter+= regex.test(control.value) ? 1 : 0;
+        counter += regex.test(control.value) ? 1 : 0;
       }
 
       return counter >= 3 ? null : <ValidationErrors>{ isWeak: true };

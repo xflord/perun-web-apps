@@ -8,9 +8,7 @@
       {{'DIALOGS.CANCEL_CONFIG.CANCEL' | translate}}
     </button>
     <button (click)="onDelete()" class="ml-auto mr-2" color="warn" mat-flat-button>
-      <mat-icon>
-        warning
-      </mat-icon>
+      <mat-icon> warning </mat-icon>
       {{'DIALOGS.CANCEL_CONFIG.DELETE' | translate}}
     </button>
     <button *ngIf="!lastStep" (click)="onKeep()" color="accent" mat-flat-button>

@@ -10,10 +10,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'perun-web-apps-password-reset',
   templateUrl: './password-reset.component.html',
-  styleUrls: ['./password-reset.component.scss']
+  styleUrls: ['./password-reset.component.scss'],
 })
 export class PasswordResetComponent implements OnInit {
-
   userId: number;
 
   nameSpaces: string[] = [];
@@ -22,30 +21,33 @@ export class PasswordResetComponent implements OnInit {
   displayedColumns: string[] = ['namespace', 'value', 'reset', 'change'];
   dataSource: MatTableDataSource<Attribute>;
 
-  constructor(private attributesManagerService: AttributesManagerService,
-              private store: StoreService,
-              private dialog: MatDialog,
-              private route: ActivatedRoute,
-              private router: Router,
-              private otherApplicationService: OtherApplicationsService) {
-  }
+  constructor(
+    private attributesManagerService: AttributesManagerService,
+    private store: StoreService,
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router,
+    private otherApplicationService: OtherApplicationsService
+  ) {}
 
   ngOnInit(): void {
     this.userId = this.store.getPerunPrincipal().userId;
     this.nameSpaces = this.store.get('password_namespace_attributes');
-    this.attributesManagerService.getLogins(this.userId).subscribe(logins => {
-      const parsedNamespaces = this.nameSpaces.map(nameSpace => {
+    this.attributesManagerService.getLogins(this.userId).subscribe((logins) => {
+      const parsedNamespaces = this.nameSpaces.map((nameSpace) => {
         const elems = nameSpace.split(':');
         return elems[elems.length - 1];
       });
 
-      this.logins = logins.filter(login => parsedNamespaces.includes(login.friendlyNameParameter));
+      this.logins = logins.filter((login) =>
+        parsedNamespaces.includes(login.friendlyNameParameter)
+      );
       this.dataSource = new MatTableDataSource<Attribute>(logins);
 
       const params = this.route.snapshot.queryParamMap;
       const namespace = params.get('namespace');
       if (namespace) {
-        const login = this.logins.find(a => a.friendlyNameParameter === namespace);
+        const login = this.logins.find((a) => a.friendlyNameParameter === namespace);
         if (login) {
           this.changePassword(login);
         }
@@ -54,13 +56,16 @@ export class PasswordResetComponent implements OnInit {
   }
 
   resetPassword(login: string) {
-    window.open(this.otherApplicationService.getUrlForOtherApplication("pwdReset", login), '_blank');
+    window.open(
+      this.otherApplicationService.getUrlForOtherApplication('pwdReset', login),
+      '_blank'
+    );
   }
 
-  changePassword(login){
+  changePassword(login) {
     this.router.navigate([], {
       queryParams: {
-        namespace: login.friendlyNameParameter
+        namespace: login.friendlyNameParameter,
       },
       queryParamsHandling: 'merge',
     });
@@ -69,7 +74,7 @@ export class PasswordResetComponent implements OnInit {
     config.width = '600px';
     config.data = {
       login: login.value,
-      namespace: login.friendlyName.split(':')[1]
+      namespace: login.friendlyName.split(':')[1],
     };
 
     const dialogRef = this.dialog.open(ChangePasswordDialogComponent, config);
@@ -77,7 +82,7 @@ export class PasswordResetComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.router.navigate([], {
         queryParams: {
-          namespace: null
+          namespace: null,
         },
         queryParamsHandling: 'merge',
       });

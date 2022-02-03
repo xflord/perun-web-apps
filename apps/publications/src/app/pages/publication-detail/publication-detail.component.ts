@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   Author,
-  CabinetManagerService, Category,
+  CabinetManagerService,
+  Category,
   PublicationForGUI,
-  ThanksForGUI
+  ThanksForGUI,
 } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -16,22 +17,22 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'perun-web-apps-publication-detail',
   templateUrl: './publication-detail.component.html',
-  styleUrls: ['./publication-detail.component.scss']
+  styleUrls: ['./publication-detail.component.scss'],
 })
 export class PublicationDetailComponent implements OnInit {
-
-
-  constructor(private route: ActivatedRoute,
-              private cabinetService: CabinetManagerService,
-              private matIconRegistry: MatIconRegistry,
-              private domSanitizer: DomSanitizer,
-              private dialog: MatDialog,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              ) {
+  constructor(
+    private route: ActivatedRoute,
+    private cabinetService: CabinetManagerService,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer,
+    private dialog: MatDialog,
+    private notificator: NotificatorService,
+    private translate: TranslateService
+  ) {
     this.matIconRegistry.addSvgIcon(
-    "publications",
-    this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/img/publications-dark.svg"));
+      'publications',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../assets/img/publications-dark.svg')
+    );
   }
 
   loading = false;
@@ -54,11 +55,11 @@ export class PublicationDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.initLoading = true;
-    if (this.publicationId){
+    if (this.publicationId) {
       this.setMode();
       this.loadAllData();
-    } else{
-      this.route.params.subscribe(params => {
+    } else {
+      this.route.params.subscribe((params) => {
         this.publicationId = params['publicationId'];
         this.mainAuthorId = parseInt(params['authorId'], 10);
         this.setMode();
@@ -67,15 +68,15 @@ export class PublicationDetailComponent implements OnInit {
     }
   }
 
-  setMode(){
+  setMode() {
     const url = location.pathname;
-    if(url.includes('my')){
+    if (url.includes('my')) {
       this.mode = 'my';
-    } else if(url.includes('all')){
+    } else if (url.includes('all')) {
       this.mode = 'all';
-    } else if(url.includes('import')){
+    } else if (url.includes('import')) {
       this.mode = 'import';
-    } else if(url.includes('create')){
+    } else if (url.includes('create')) {
       this.mode = 'create';
     } else {
       this.mode = 'authors';
@@ -84,10 +85,10 @@ export class PublicationDetailComponent implements OnInit {
 
   loadAllData() {
     this.loading = true;
-    this.cabinetService.findPublicationById(this.publicationId).subscribe(publication => {
+    this.cabinetService.findPublicationById(this.publicationId).subscribe((publication) => {
       this.publication = publication;
 
-      this.cabinetService.getCategories().subscribe(categories => {
+      this.cabinetService.getCategories().subscribe((categories) => {
         this.categories = categories;
         this.loading = false;
         this.initLoading = false;
@@ -97,7 +98,7 @@ export class PublicationDetailComponent implements OnInit {
 
   refreshPublication() {
     this.pubLoading = true;
-    this.cabinetService.findPublicationById(this.publicationId).subscribe(publication => {
+    this.cabinetService.findPublicationById(this.publicationId).subscribe((publication) => {
       this.publication = publication;
       this.pubLoading = false;
     });
@@ -121,12 +122,13 @@ export class PublicationDetailComponent implements OnInit {
       createdDate: this.publication.createdDate,
     };
 
-    this.cabinetService.lockPublications(
-      {publications: [updatedPublication], lock: !this.publication.locked}).subscribe(() => {
-        this.translate.get('PUBLICATION_DETAIL.CHANGE_PUBLICATION_SUCCESS').subscribe(success => {
+    this.cabinetService
+      .lockPublications({ publications: [updatedPublication], lock: !this.publication.locked })
+      .subscribe(() => {
+        this.translate.get('PUBLICATION_DETAIL.CHANGE_PUBLICATION_SUCCESS').subscribe((success) => {
           this.notificator.showSuccess(success);
           this.refreshPublication();
         });
-    });
+      });
   }
 }

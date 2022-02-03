@@ -1,12 +1,14 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.SPONSOR_EXISTING_MEMBER.TITLE' | translate}}</h1>
   <div mat-dialog-content>
-
     <mat-form-field class="mr-2 search-field adjust-width">
       <label>
-        <input matInput autocomplete="false" placeholder="{{'DIALOGS.SPONSOR_EXISTING_MEMBER.DESCRIPTION' | translate}}"
-               (keyup.enter)="onSearchByString()"
-               [formControl]="searchCtrl">
+        <input
+          matInput
+          autocomplete="false"
+          placeholder="{{'DIALOGS.SPONSOR_EXISTING_MEMBER.DESCRIPTION' | translate}}"
+          (keyup.enter)="onSearchByString()"
+          [formControl]="searchCtrl" />
       </label>
       <mat-error>
         {{'DIALOGS.SPONSOR_EXISTING_MEMBER.EMPTY_SEARCH_MESSAGE' | translate}}
@@ -39,19 +41,15 @@
     </app-alert>
 
     <div>
-      <br>
+      <br />
       <h6>{{'DIALOGS.SPONSOR_EXISTING_MEMBER.EXPIRATION' | translate}}</h6>
-      <perun-web-apps-expiration-select
-        (datePicker)="setExpiration($event)">
+      <perun-web-apps-expiration-select (datePicker)="setExpiration($event)">
       </perun-web-apps-expiration-select>
     </div>
   </div>
 
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
       {{'DIALOGS.SPONSOR_EXISTING_MEMBER.CANCEL' | translate}}
     </button>
     <button

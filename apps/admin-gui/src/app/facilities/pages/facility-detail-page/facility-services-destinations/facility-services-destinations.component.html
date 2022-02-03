@@ -6,16 +6,19 @@
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
     *ngIf="addAuth"
-    mat-flat-button color="accent"
+    mat-flat-button
+    color="accent"
     class="mr-2 action-button"
     (click)="addDestination()">
     {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.ADD' | translate}}
   </button>
   <button
     *ngIf="removeAuth"
-    mat-flat-button color="warn"
+    mat-flat-button
+    color="warn"
     class="mr-2"
-    [disabled]="selected.selected.length === 0"  (click)="removeDestination()">
+    [disabled]="selected.selected.length === 0"
+    (click)="removeDestination()">
     {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.REMOVE' | translate}}
   </button>
   <button
@@ -24,9 +27,7 @@
     class="mr-2"
     [disabled]="selected.selected.length === 0 || allSelectedAllowed()"
     (click)="onAllow()">
-    <mat-icon>
-      check_circle_outline
-    </mat-icon>
+    <mat-icon> check_circle_outline </mat-icon>
     {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.ALLOW' | translate}}
   </button>
   <button
@@ -35,9 +36,7 @@
     class="mr-2"
     [disabled]="selected.selected.length === 0 || allSelectedBlocked()"
     (click)="onBlock()">
-    <mat-icon>
-      block
-    </mat-icon>
+    <mat-icon> block </mat-icon>
     {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.BLOCK' | translate}}
   </button>
   <perun-web-apps-immediate-filter

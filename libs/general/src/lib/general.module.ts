@@ -9,7 +9,15 @@ import { PreventProxyOverloadDialogComponent } from './prevent-proxy-overload-di
 
 @NgModule({
   imports: [CommonModule, MatDialogModule, MatButtonModule, TranslateModule],
-  exports: [ServerDownDialogComponent, UserDontExistDialogComponent, PreventProxyOverloadDialogComponent],
-  declarations: [ServerDownDialogComponent, UserDontExistDialogComponent, PreventProxyOverloadDialogComponent]
+  exports: [
+    ServerDownDialogComponent,
+    UserDontExistDialogComponent,
+    PreventProxyOverloadDialogComponent,
+  ],
+  declarations: [
+    ServerDownDialogComponent,
+    UserDontExistDialogComponent,
+    PreventProxyOverloadDialogComponent,
+  ],
 })
 export class GeneralModule {}

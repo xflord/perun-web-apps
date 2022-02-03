@@ -14,15 +14,16 @@ export interface RemoveGroupFromResourceDialogData {
 @Component({
   selector: 'app-perun-web-apps-remove-group-from-resource-dialog',
   templateUrl: './remove-group-from-resource-dialog.component.html',
-  styleUrls: ['./remove-group-from-resource-dialog.component.scss']
+  styleUrls: ['./remove-group-from-resource-dialog.component.scss'],
 })
 export class RemoveGroupFromResourceDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<RemoveGroupFromResourceDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: RemoveGroupFromResourceDialogData,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private resourceManager: ResourcesManagerService) { }
+  constructor(
+    private dialogRef: MatDialogRef<RemoveGroupFromResourceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: RemoveGroupFromResourceDialogData,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private resourceManager: ResourcesManagerService
+  ) {}
 
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<Group>;
@@ -44,11 +45,16 @@ export class RemoveGroupFromResourceDialogComponent implements OnInit {
       groupsId.push(group.id);
     }
     this.loading = true;
-    this.resourceManager.removeGroupsFromResource(groupsId, this.data.resourceId).subscribe( () => {
-      this.translate.get('DIALOGS.REMOVE_GROUP_FROM_RESOURCE.SUCCESS').subscribe(successMessage => {
-        this.notificator.showSuccess(successMessage);
-        this.dialogRef.close(true);
-      });
-    }, () => this.loading = false);
+    this.resourceManager.removeGroupsFromResource(groupsId, this.data.resourceId).subscribe(
+      () => {
+        this.translate
+          .get('DIALOGS.REMOVE_GROUP_FROM_RESOURCE.SUCCESS')
+          .subscribe((successMessage) => {
+            this.notificator.showSuccess(successMessage);
+            this.dialogRef.close(true);
+          });
+      },
+      () => (this.loading = false)
+    );
   }
 }

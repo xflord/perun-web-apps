@@ -1,8 +1,6 @@
 <div>
   <h1 class="page-subtitle">{{ 'SERVICE_DETAIL.DESTINATIONS.TITLE' | translate}}</h1>
-  <perun-web-apps-refresh-button
-    (refresh)="refreshTable()">
-  </perun-web-apps-refresh-button>
+  <perun-web-apps-refresh-button (refresh)="refreshTable()"> </perun-web-apps-refresh-button>
   <button
     *ngIf="authResolver.isPerunAdmin()"
     mat-flat-button
@@ -44,4 +42,3 @@
     [filterValue]="filterValue">
   </app-perun-web-apps-destination-list>
 </div>
-

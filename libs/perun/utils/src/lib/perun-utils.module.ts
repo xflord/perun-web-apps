@@ -8,7 +8,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 
-
 @NgModule({
   imports: [
     MatPaginatorModule,
@@ -16,19 +15,10 @@ import { CommonModule } from '@angular/common';
     MatIconModule,
     MatButtonModule,
     TranslateModule,
-    CommonModule
-
+    CommonModule,
   ],
-  declarations: [
-    TableWrapperComponent,
-    TableOptionsComponent
-  ],
-  exports: [
-    TableWrapperComponent,
-    TableOptionsComponent
-  ],
-  providers: [
-  ]
+  declarations: [TableWrapperComponent, TableOptionsComponent],
+  exports: [TableWrapperComponent, TableOptionsComponent],
+  providers: [],
 })
-export class PerunUtilsModule {
-}
+export class PerunUtilsModule {}

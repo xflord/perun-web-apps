@@ -13,19 +13,18 @@ export interface CreateVoDialogData {
 @Component({
   selector: 'app-create-vo-dialog',
   templateUrl: './create-vo-dialog.component.html',
-  styleUrls: ['./create-vo-dialog.component.scss']
+  styleUrls: ['./create-vo-dialog.component.scss'],
 })
 export class CreateVoDialogComponent implements OnInit {
-
   constructor(
     private dialogRef: MatDialogRef<CreateVoDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: CreateVoDialogData,
     private notificator: NotificatorService,
     private voService: VosManagerService,
     private translate: TranslateService,
-    private router: Router,
+    private router: Router
   ) {
-    translate.get('DIALOGS.CREATE_VO.SUCCESS').subscribe(value => this.successMessage = value);
+    translate.get('DIALOGS.CREATE_VO.SUCCESS').subscribe((value) => (this.successMessage = value));
   }
 
   successMessage: string;
@@ -37,8 +36,16 @@ export class CreateVoDialogComponent implements OnInit {
 
   ngOnInit() {
     this.theme = this.data.theme;
-    this.shortNameCtrl = new FormControl(null, [Validators.required, Validators.pattern('^[\\w.-]+$'), Validators.maxLength(33)]);
-    this.fullNameCtrl = new FormControl(null, [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.maxLength(129)]);
+    this.shortNameCtrl = new FormControl(null, [
+      Validators.required,
+      Validators.pattern('^[\\w.-]+$'),
+      Validators.maxLength(33),
+    ]);
+    this.fullNameCtrl = new FormControl(null, [
+      Validators.required,
+      Validators.pattern('.*[\\S]+.*'),
+      Validators.maxLength(129),
+    ]);
   }
 
   onCancel() {
@@ -47,11 +54,14 @@ export class CreateVoDialogComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
-    this.voService.createVoWithName(this.fullNameCtrl.value, this.shortNameCtrl.value).subscribe(vo => {
-      this.notificator.showSuccess(this.successMessage);
-      this.loading = false;
-      this.dialogRef.close(true);
-      this.router.navigate(['/organizations', vo.id]);
-    }, () => this.loading = false);
+    this.voService.createVoWithName(this.fullNameCtrl.value, this.shortNameCtrl.value).subscribe(
+      (vo) => {
+        this.notificator.showSuccess(this.successMessage);
+        this.loading = false;
+        this.dialogRef.close(true);
+        this.router.navigate(['/organizations', vo.id]);
+      },
+      () => (this.loading = false)
+    );
   }
 }

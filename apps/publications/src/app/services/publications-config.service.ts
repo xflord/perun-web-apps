@@ -5,62 +5,63 @@ import { Location } from '@angular/common';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PublicationsConfigService {
-
   constructor(
     private initAuthService: InitAuthService,
     private appConfigService: AppConfigService,
     private location: Location,
     private authzSevice: AuthzResolverService,
     private guiAuthResolver: GuiAuthResolver
-  ) { }
+  ) {}
 
   entityColorConfigs: EntityColorConfig[] = [
     {
       entity: 'user',
       configValue: 'user_color',
-      cssVariable: '--user-color'
-    }
+      cssVariable: '--user-color',
+    },
   ];
 
   colorConfigs: ColorConfig[] = [
     {
       configValue: 'sidemenu_bg_color',
-      cssVariable: '--side-bg'
+      cssVariable: '--side-bg',
     },
     {
       configValue: 'sidemenu_hover_color',
-      cssVariable: '--side-hover'
+      cssVariable: '--side-hover',
     },
     {
       configValue: 'sidemenu-link-active',
-      cssVariable: '--side-active'
+      cssVariable: '--side-active',
     },
     {
       configValue: 'sidemenu_active_text_color',
-      cssVariable: '--side-text-active'
-    }
+      cssVariable: '--side-text-active',
+    },
   ];
 
   loadConfigs(): Promise<void> {
-    return this.appConfigService.loadAppDefaultConfig()
+    return this.appConfigService
+      .loadAppDefaultConfig()
       .then(() => this.appConfigService.loadAppInstanceConfig())
       .then(() => this.appConfigService.setApiUrl())
-      .then(() => this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs))
+      .then(() =>
+        this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs)
+      )
       .then(() => this.initAuthService.verifyAuth())
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
-        this.location.go("/");
+        this.location.go('/');
         location.reload();
         throw err;
       })
-      .then(isAuthenticated => {
+      .then((isAuthenticated) => {
         // if the authentication is successful, continue
         if (isAuthenticated) {
-          return this.initAuthService.loadPrincipal()
-            .then(() => this.loadPolicies());
+          return this.initAuthService.loadPrincipal().then(() => this.loadPolicies());
         } else {
           return this.initAuthService.handleAuthStart();
         }
@@ -69,11 +70,13 @@ export class PublicationsConfigService {
 
   private loadPolicies(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.authzSevice.getAllPolicies().subscribe( policies => {
-        this.guiAuthResolver.setPerunPolicies(policies);
-        resolve();
-      }, error => reject(error));
+      this.authzSevice.getAllPolicies().subscribe(
+        (policies) => {
+          this.guiAuthResolver.setPerunPolicies(policies);
+          resolve();
+        },
+        (error) => reject(error)
+      );
     });
   }
-
 }

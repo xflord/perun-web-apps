@@ -10,30 +10,27 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * input to createOwner, no id, numeric ownerType instead of string type
  */
-export interface InputCreateOwner { 
-    /**
-     * name of contact, e.g. John Doe or NSA
-     */
-    name: string;
-    /**
-     * email address
-     */
-    contact: string;
-    /**
-     * 0 - technical, 1 - administrative
-     */
-    ownerType: InputCreateOwner.OwnerTypeEnum;
+export interface InputCreateOwner {
+  /**
+   * name of contact, e.g. John Doe or NSA
+   */
+  name: string;
+  /**
+   * email address
+   */
+  contact: string;
+  /**
+   * 0 - technical, 1 - administrative
+   */
+  ownerType: InputCreateOwner.OwnerTypeEnum;
 }
 export namespace InputCreateOwner {
-    export type OwnerTypeEnum = 0 | 1;
-    export const OwnerTypeEnum = {
-        NUMBER_0: 0 as OwnerTypeEnum,
-        NUMBER_1: 1 as OwnerTypeEnum
-    };
+  export type OwnerTypeEnum = 0 | 1;
+  export const OwnerTypeEnum = {
+    NUMBER_0: 0 as OwnerTypeEnum,
+    NUMBER_1: 1 as OwnerTypeEnum,
+  };
 }
-
-

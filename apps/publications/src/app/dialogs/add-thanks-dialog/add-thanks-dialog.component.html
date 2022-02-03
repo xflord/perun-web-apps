@@ -3,21 +3,20 @@
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <div *ngIf="!loading">
     <div mat-dialog-content class="dialog-container">
-      <perun-web-apps-immediate-filter (filter)="filterValue = $event"
-                                        [placeholder]="'DIALOGS.ADD_THANKS.FILTER'">
+      <perun-web-apps-immediate-filter
+        (filter)="filterValue = $event"
+        [placeholder]="'DIALOGS.ADD_THANKS.FILTER'">
       </perun-web-apps-immediate-filter>
-      <perun-web-apps-owners-list [owners]="owners"
-                                  [filterValue]="filterValue"
-                                  [tableId]="tableId"
-                                  [displayedColumns]="['select', 'id', 'name', 'contact']"
-                                  [selection]="selected">
+      <perun-web-apps-owners-list
+        [owners]="owners"
+        [filterValue]="filterValue"
+        [tableId]="tableId"
+        [displayedColumns]="['select', 'id', 'name', 'contact']"
+        [selection]="selected">
       </perun-web-apps-owners-list>
     </div>
     <div mat-dialog-actions>
-      <button
-        mat-flat-button
-        class="ml-auto"
-        (click)="onCancel()">
+      <button mat-flat-button class="ml-auto" (click)="onCancel()">
         {{'DIALOGS.ADD_THANKS.CANCEL' | translate}}
       </button>
       <button

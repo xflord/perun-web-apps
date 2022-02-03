@@ -7,10 +7,11 @@
 <mat-checkbox (change)="findUsersWithoutVO()" [checked]="usersWithoutVo" color="primary">
   {{'ADMIN.USERS.USERS_WITHOUT_VO' | translate}}
 </mat-checkbox>
-<perun-web-apps-users-dynamic-list [disableRouting]="false"
-                                   [searchString]="searchString"
-                                   [withoutVo]="usersWithoutVo"
-                                   [displayedColumns]="['user', 'id', 'name', 'email', 'logins', 'organization']"
-                                   [tableId]="tableId"
-                                   [attrNames]="attributes">
+<perun-web-apps-users-dynamic-list
+  [disableRouting]="false"
+  [searchString]="searchString"
+  [withoutVo]="usersWithoutVo"
+  [displayedColumns]="['user', 'id', 'name', 'email', 'logins', 'organization']"
+  [tableId]="tableId"
+  [attrNames]="attributes">
 </perun-web-apps-users-dynamic-list>

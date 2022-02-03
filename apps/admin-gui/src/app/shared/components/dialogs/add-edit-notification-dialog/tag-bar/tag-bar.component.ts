@@ -1,13 +1,12 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-tag-bar',
   templateUrl: './tag-bar.component.html',
-  styleUrls: ['./tag-bar.component.scss']
+  styleUrls: ['./tag-bar.component.scss'],
 })
 export class TagBarComponent implements OnInit {
-
-  constructor() { }
+  constructor() {}
 
   @Output()
   addedTag = new EventEmitter<string>();

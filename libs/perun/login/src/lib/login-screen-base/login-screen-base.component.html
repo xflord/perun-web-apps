@@ -4,23 +4,28 @@
   </div>
   <div *ngIf="application === 'publications'" style=" display: flex; flex-direction: row;">
     <div [innerHTML]="logo" class="logo-container mt-auto mb-auto"></div>
-    <mat-icon svgIcon="perun-publications-white" class="mt-auto mb-auto router-icon ml-2 mr-2"></mat-icon>
+    <mat-icon
+      svgIcon="perun-publications-white"
+      class="mt-auto mb-auto router-icon ml-2 mr-2"></mat-icon>
   </div>
   <div *ngIf="application === 'user-profile'" class="mt-auto mb-auto">
     <a class="logo-container" [innerHTML]="logo"></a>
   </div>
-  <p *ngIf="!!headerTitle" [ngStyle]="{'color': textColor}" class="ml-3 mt-auto mb-auto page-subtitle">
+  <p
+    *ngIf="!!headerTitle"
+    [ngStyle]="{'color': textColor}"
+    class="ml-3 mt-auto mb-auto page-subtitle">
     {{headerTitle}}
   </p>
 </div>
 
 <div id="content">
-  <div id="content-inner"
+  <div
+    id="content-inner"
     [ngStyle]="{
            'min-height' : getContentInnerMinHeight(),
            'background-color': contentBackgroundColor
-        }"
-    >
+        }">
     <div id="content-wrap">
       <router-outlet></router-outlet>
     </div>

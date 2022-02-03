@@ -13,14 +13,15 @@ import { GroupsListComponent } from '@perun-web-apps/perun/components';
 @Component({
   selector: 'app-application-form-manage-groups',
   templateUrl: './application-form-manage-groups.component.html',
-  styleUrls: ['./application-form-manage-groups.component.css']
+  styleUrls: ['./application-form-manage-groups.component.css'],
 })
 export class ApplicationFormManageGroupsComponent implements OnInit {
-
-  constructor(private registrarService: RegistrarManagerService,
-              public authResolver: GuiAuthResolver,
-              private dialog: MatDialog,
-              protected route: ActivatedRoute) { }
+  constructor(
+    private registrarService: RegistrarManagerService,
+    public authResolver: GuiAuthResolver,
+    private dialog: MatDialog,
+    protected route: ActivatedRoute
+  ) {}
 
   loading: boolean;
   voId: number;
@@ -35,7 +36,7 @@ export class ApplicationFormManageGroupsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.route.parent.parent.params.subscribe(params => {
+    this.route.parent.parent.params.subscribe((params) => {
       this.voId = params['voId'];
       this.loadGroups();
     });
@@ -43,24 +44,29 @@ export class ApplicationFormManageGroupsComponent implements OnInit {
 
   loadGroups() {
     this.loading = true;
-    this.registrarService.getGroupsToAutoRegistration(this.voId).subscribe(groups => {
-      this.groups = groups;
-      this.selected.clear();
-      this.setAuthRights();
-      this.loading = false;
-    }, () => this.loading = false);
+    this.registrarService.getGroupsToAutoRegistration(this.voId).subscribe(
+      (groups) => {
+        this.groups = groups;
+        this.selected.clear();
+        this.setAuthRights();
+        this.loading = false;
+      },
+      () => (this.loading = false)
+    );
   }
 
   onAddGroup() {
     const config = getDefaultDialogConfig();
     config.width = '900px';
-    config.data = {voId: this.voId,
-      assignedGroups: this.groups.map(group => group.id),
-      theme: 'vo-theme'};
+    config.data = {
+      voId: this.voId,
+      assignedGroups: this.groups.map((group) => group.id),
+      theme: 'vo-theme',
+    };
 
     const dialogRef = this.dialog.open(AddGroupToRegistrationComponent, config);
 
-    dialogRef.afterClosed().subscribe(groupAssigned => {
+    dialogRef.afterClosed().subscribe((groupAssigned) => {
       if (groupAssigned) {
         this.loadGroups();
       }
@@ -70,24 +76,32 @@ export class ApplicationFormManageGroupsComponent implements OnInit {
   removeGroup() {
     const config = getDefaultDialogConfig();
     config.width = '450px';
-    config.data = {items: this.selected.selected.map(group => group.name),
+    config.data = {
+      items: this.selected.selected.map((group) => group.name),
       title: 'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.REMOVE_GROUP_DIALOG_TITLE',
-      description: 'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.REMOVE_GROUP_DIALOG_DESCRIPTION',
-      theme: 'vo-theme'};
+      description:
+        'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.REMOVE_GROUP_DIALOG_DESCRIPTION',
+      theme: 'vo-theme',
+    };
 
     const dialogRef = this.dialog.open(UniversalRemoveItemsDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.registrarService.deleteGroupsFromAutoRegistration(this.selected.selected.map(group => group.id)).subscribe(() => {
-          this.loadGroups();
-        });
+        this.registrarService
+          .deleteGroupsFromAutoRegistration(this.selected.selected.map((group) => group.id))
+          .subscribe(() => {
+            this.loadGroups();
+          });
       }
     });
   }
 
   private setAuthRights() {
-    const vo = {id: this.voId, beanName: 'Vo'};
-    this.addAuth = this.authResolver.isAuthorized('addGroupsToAutoRegistration_List<Group>_policy', [vo]);
+    const vo = { id: this.voId, beanName: 'Vo' };
+    this.addAuth = this.authResolver.isAuthorized(
+      'addGroupsToAutoRegistration_List<Group>_policy',
+      [vo]
+    );
   }
 }

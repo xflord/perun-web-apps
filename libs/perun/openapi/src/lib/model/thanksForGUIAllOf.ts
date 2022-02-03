@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface ThanksForGUIAllOf { 
-    ownerName?: string;
+export interface ThanksForGUIAllOf {
+  ownerName?: string;
 }
-

@@ -1,8 +1,10 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
-  ResourcesManagerService, RichResource, ServicesManagerService,
-  TasksManagerService
+  ResourcesManagerService,
+  RichResource,
+  ServicesManagerService,
+  TasksManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -21,19 +23,19 @@ export interface DeleteServiceFromFacilityData {
 @Component({
   selector: 'app-delete-service-from-facility',
   templateUrl: './delete-service-from-facility.component.html',
-  styleUrls: ['./delete-service-from-facility.component.scss']
+  styleUrls: ['./delete-service-from-facility.component.scss'],
 })
 export class DeleteServiceFromFacilityComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<DeleteServiceFromFacilityComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: DeleteServiceFromFacilityData,
-              private resourcesManager: ResourcesManagerService,
-              private tasksManager: TasksManagerService,
-              private serviceManager: ServicesManagerService,
-              private translate: TranslateService,
-              private notificator: NotificatorService,
-              private cd: ChangeDetectorRef) {
-  }
+  constructor(
+    private dialogRef: MatDialogRef<DeleteServiceFromFacilityComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DeleteServiceFromFacilityData,
+    private resourcesManager: ResourcesManagerService,
+    private tasksManager: TasksManagerService,
+    private serviceManager: ServicesManagerService,
+    private translate: TranslateService,
+    private notificator: NotificatorService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   loading = false;
   theme: string;
@@ -43,7 +45,7 @@ export class DeleteServiceFromFacilityComponent implements OnInit {
   dataSource = new MatTableDataSource<RichResource>(this.data.resource);
   selected = new SelectionModel<RichResource>(true, [...this.dataSource.data]);
   resources: RichResource[] = [];
-  displayedColumns = ["select", "id", "vo", "name"];
+  displayedColumns = ['select', 'id', 'vo', 'name'];
 
   checkboxesDisabled = false;
   taskChecked = true;
@@ -65,9 +67,9 @@ export class DeleteServiceFromFacilityComponent implements OnInit {
 
     // delete task results
     if (this.taskResultsChecked && !this.taskChecked && this.taskId !== null) {
-      this.tasksManager.getTaskResultsForGUIByTask(this.taskId).subscribe(taskResults => {
-        taskResults.forEach(result => {
-          this.tasksManager.deleteTaskResultById({taskResultId: result.id}).subscribe();
+      this.tasksManager.getTaskResultsForGUIByTask(this.taskId).subscribe((taskResults) => {
+        taskResults.forEach((result) => {
+          this.tasksManager.deleteTaskResultById({ taskResultId: result.id }).subscribe();
         });
       });
     }
@@ -79,25 +81,35 @@ export class DeleteServiceFromFacilityComponent implements OnInit {
 
     // delete destination
     if (this.destinationChecked) {
-      this.serviceManager.getDestinations(this.serviceId, this.facilityId).subscribe(destinations => {
-        destinations.forEach(destination => {
-          this.serviceManager.removeDestination(
-            this.serviceId,
-            this.facilityId,
-            destination.destination,
-            destination.type).subscribe();
+      this.serviceManager
+        .getDestinations(this.serviceId, this.facilityId)
+        .subscribe((destinations) => {
+          destinations.forEach((destination) => {
+            this.serviceManager
+              .removeDestination(
+                this.serviceId,
+                this.facilityId,
+                destination.destination,
+                destination.type
+              )
+              .subscribe();
+          });
         });
-      });
     }
 
     // delete service from resources/facility
-    this.selected.selected.forEach(resource => {
-      this.resourcesManager.removeService(resource.id, this.serviceId).subscribe(() => {
-        this.translate.get('DIALOGS.REMOVE_SERVICE_FROM_FACILITY.SUCCESS').subscribe(successMessage => {
-          this.notificator.showSuccess(successMessage);
-          this.dialogRef.close(true);
-        });
-      }, () => this.loading = false);
+    this.selected.selected.forEach((resource) => {
+      this.resourcesManager.removeService(resource.id, this.serviceId).subscribe(
+        () => {
+          this.translate
+            .get('DIALOGS.REMOVE_SERVICE_FROM_FACILITY.SUCCESS')
+            .subscribe((successMessage) => {
+              this.notificator.showSuccess(successMessage);
+              this.dialogRef.close(true);
+            });
+        },
+        () => (this.loading = false)
+      );
     });
   }
 

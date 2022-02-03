@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AttributeDefinition, AttributesManagerService, Service } from '@perun-web-apps/perun/openapi';
 import {
-  TABLE_REQUIRED_ATTRIBUTES,
-} from '@perun-web-apps/config/table-config';
+  AttributeDefinition,
+  AttributesManagerService,
+  Service,
+} from '@perun-web-apps/perun/openapi';
+import { TABLE_REQUIRED_ATTRIBUTES } from '@perun-web-apps/config/table-config';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AddRequiredAttributesDialogComponent } from '../../../../../../shared/components/dialogs/add-required-attributes-dialog/add-required-attributes-dialog.component';
@@ -13,15 +15,15 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 @Component({
   selector: 'app-service-required-attributes',
   templateUrl: './service-required-attributes.component.html',
-  styleUrls: ['./service-required-attributes.component.scss']
+  styleUrls: ['./service-required-attributes.component.scss'],
 })
 export class ServiceRequiredAttributesComponent implements OnInit {
-
-  constructor(private attributeManager: AttributesManagerService,
-              private dialog: MatDialog,
-              public authResolver: GuiAuthResolver,
-              private entityStorageService: EntityStorageService
-              ) { }
+  constructor(
+    private attributeManager: AttributesManagerService,
+    private dialog: MatDialog,
+    public authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
 
   loading = false;
   filterValue = '';
@@ -39,7 +41,7 @@ export class ServiceRequiredAttributesComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.attributeManager.getRequiredAttributesDefinition(this.service.id).subscribe( attrDef => {
+    this.attributeManager.getRequiredAttributesDefinition(this.service.id).subscribe((attrDef) => {
       this.selection.clear();
       this.attrDefinitions = attrDef;
       this.loading = false;
@@ -51,12 +53,12 @@ export class ServiceRequiredAttributesComponent implements OnInit {
     config.width = '950px';
     config.data = {
       serviceId: this.service.id,
-      theme: 'service-theme'
+      theme: 'service-theme',
     };
 
     const dialogRef = this.dialog.open(AddRequiredAttributesDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.refreshTable();
       }
@@ -69,12 +71,12 @@ export class ServiceRequiredAttributesComponent implements OnInit {
     config.data = {
       serviceId: this.service.id,
       attrDefinitions: this.selection.selected,
-      theme: 'service-theme'
+      theme: 'service-theme',
     };
 
     const dialogRef = this.dialog.open(RemoveRequiredAttributesDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.refreshTable();
       }
@@ -84,5 +86,4 @@ export class ServiceRequiredAttributesComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
   }
-
 }

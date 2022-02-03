@@ -1,11 +1,7 @@
 <div>
   <h1 class="page-subtitle">{{'USER_DETAIL.SETTINGS.ASSOCIATED_USERS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button
-    (click)="onAdd()"
-    mat-flat-button
-    class="mr-2 action-button"
-    color="accent">
+  <button (click)="onAdd()" mat-flat-button class="mr-2 action-button" color="accent">
     {{'USER_DETAIL.SETTINGS.ASSOCIATED_USERS.ADD' | translate}}
   </button>
   <button
@@ -23,8 +19,7 @@
     [users]="associatedUsers"
     [selection]="selection"
     [disableRouting]="disableRouting"
-    [displayedColumns]="displayedColumns"
-  >
+    [displayedColumns]="displayedColumns">
   </app-users-list>
 </div>
 

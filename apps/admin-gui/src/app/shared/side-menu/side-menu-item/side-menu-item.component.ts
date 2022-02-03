@@ -1,27 +1,20 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {SideMenuItem} from '../side-menu.component';
-import {NavigationEnd, Router} from '@angular/router';
-import {openClose, rollInOut} from '@perun-web-apps/perun/animations';
-import {MatSidenav} from '@angular/material/sidenav';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { SideMenuItem } from '../side-menu.component';
+import { NavigationEnd, Router } from '@angular/router';
+import { openClose, rollInOut } from '@perun-web-apps/perun/animations';
+import { MatSidenav } from '@angular/material/sidenav';
 import { StoreService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-side-menu-item',
   templateUrl: './side-menu-item.component.html',
   styleUrls: ['./side-menu-item.component.scss'],
-  animations: [
-    openClose,
-    rollInOut
-  ]
+  animations: [openClose, rollInOut],
 })
 export class SideMenuItemComponent {
-
   currentUrl: string;
 
-  constructor(
-    private router: Router,
-    private store: StoreService
-  ) {
+  constructor(private router: Router, private store: StoreService) {
     this.currentUrl = router.url;
 
     router.events.subscribe((_: NavigationEnd) => {

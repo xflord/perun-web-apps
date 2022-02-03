@@ -8,10 +8,9 @@ import { UsersManagerService } from '@perun-web-apps/perun/openapi';
 @Component({
   selector: 'perun-web-apps-password-form',
   templateUrl: './password-form.component.html',
-  styleUrls: ['./password-form.component.scss']
+  styleUrls: ['./password-form.component.scss'],
 })
 export class PasswordFormComponent implements OnInit, OnChanges {
-
   @Input()
   formGroup: FormGroup;
 
@@ -37,22 +36,33 @@ export class PasswordFormComponent implements OnInit, OnChanges {
 
   passwordStateMatcher = new ImmediateStateMatcher();
 
-  constructor(private translator: TranslateService,
-              private usersManagerService: UsersManagerService,
-              private store: StoreService) { }
+  constructor(
+    private translator: TranslateService,
+    private usersManagerService: UsersManagerService,
+    private store: StoreService
+  ) {}
 
   ngOnInit(): void {
-    if (window.location.href.includes("/profile")) {
-      this.usersManagerService.getRichUserWithAttributes(this.store.getPerunPrincipal().userId).subscribe(richUser => {
-        const languageAttribute = richUser.userAttributes.find(att => att.friendlyName === 'preferredLanguage');
-        this.language = languageAttribute && languageAttribute.value ? languageAttribute.value.toString() : 'en';
+    if (window.location.href.includes('/profile')) {
+      this.usersManagerService
+        .getRichUserWithAttributes(this.store.getPerunPrincipal().userId)
+        .subscribe((richUser) => {
+          const languageAttribute = richUser.userAttributes.find(
+            (att) => att.friendlyName === 'preferredLanguage'
+          );
+          this.language =
+            languageAttribute && languageAttribute.value
+              ? languageAttribute.value.toString()
+              : 'en';
 
-        if (this.language !== 'en') {
-          this.allPasswordRequirements = this.store.get(`password_requirements_help_${this.language}`);
-        }
+          if (this.language !== 'en') {
+            this.allPasswordRequirements = this.store.get(
+              `password_requirements_help_${this.language}`
+            );
+          }
 
-        this.changeHelp();
-      });
+          this.changeHelp();
+        });
     } else {
       this.changeHelp();
     }
@@ -70,9 +80,13 @@ export class PasswordFormComponent implements OnInit, OnChanges {
 
   getPasswordDisabledTooltip(): string {
     if (this.tooltipPwdViaEmail) {
-      return this.translator.instant('SHARED_LIB.PERUN.COMPONENTS.PASSWORD_FORM_FIELD.TOOLTIP_PASSWORD_VIA_EMAIL');
+      return this.translator.instant(
+        'SHARED_LIB.PERUN.COMPONENTS.PASSWORD_FORM_FIELD.TOOLTIP_PASSWORD_VIA_EMAIL'
+      );
     } else {
-      return this.translator.instant('SHARED_LIB.PERUN.COMPONENTS.PASSWORD_FORM_FIELD.TOOLTIP_PASSWORD_DISABLED');
+      return this.translator.instant(
+        'SHARED_LIB.PERUN.COMPONENTS.PASSWORD_FORM_FIELD.TOOLTIP_PASSWORD_DISABLED'
+      );
     }
   }
 
@@ -85,12 +99,15 @@ export class PasswordFormComponent implements OnInit, OnChanges {
   }
 
   changeHelp() {
-    this.passwordRequirement = this.allPasswordRequirements.find(passReq => passReq.split(":")[0] === this.namespace);
+    this.passwordRequirement = this.allPasswordRequirements.find(
+      (passReq) => passReq.split(':')[0] === this.namespace
+    );
     if (this.passwordRequirement === undefined) {
-      this.passwordRequirement = this.allPasswordRequirements.find(passReq => passReq.split(":")[0] === "default").split(/:(.+)/)[1];
+      this.passwordRequirement = this.allPasswordRequirements
+        .find((passReq) => passReq.split(':')[0] === 'default')
+        .split(/:(.+)/)[1];
     } else {
       this.passwordRequirement = this.passwordRequirement.split(/:(.+)/)[1];
     }
   }
-
 }

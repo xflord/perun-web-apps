@@ -8,12 +8,13 @@ export interface ShowGeneratedPasswordDialogData {
 @Component({
   selector: 'perun-web-apps-show-generated-password-dialog',
   templateUrl: './show-generated-password-dialog.component.html',
-  styleUrls: ['./show-generated-password-dialog.component.scss']
+  styleUrls: ['./show-generated-password-dialog.component.scss'],
 })
 export class ShowGeneratedPasswordDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<ShowGeneratedPasswordDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: ShowGeneratedPasswordDialogData,) { }
+  constructor(
+    private dialogRef: MatDialogRef<ShowGeneratedPasswordDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: ShowGeneratedPasswordDialogData
+  ) {}
 
   password = '';
 
@@ -22,6 +23,6 @@ export class ShowGeneratedPasswordDialogComponent implements OnInit {
   }
 
   onClose() {
-    this.dialogRef.close()
+    this.dialogRef.close();
   }
 }

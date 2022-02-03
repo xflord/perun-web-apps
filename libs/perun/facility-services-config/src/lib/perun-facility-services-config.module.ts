@@ -8,8 +8,15 @@ import { UiMaterialModule } from '@perun-web-apps/ui/material';
 import { PerunDialogsModule } from '@perun-web-apps/perun/dialogs';
 
 @NgModule({
-  imports: [CommonModule, MatTabsModule, PerunSharedComponentsModule, TranslateModule, UiMaterialModule, PerunDialogsModule],
+  imports: [
+    CommonModule,
+    MatTabsModule,
+    PerunSharedComponentsModule,
+    TranslateModule,
+    UiMaterialModule,
+    PerunDialogsModule,
+  ],
   declarations: [ServiceConfiguratorComponent],
-  exports: [ServiceConfiguratorComponent]
+  exports: [ServiceConfiguratorComponent],
 })
 export class PerunFacilityServicesConfigModule {}

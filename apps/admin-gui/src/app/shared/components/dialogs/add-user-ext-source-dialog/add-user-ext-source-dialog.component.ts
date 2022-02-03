@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   ExtSource,
-  ExtSourcesManagerService, UserExtSource,
-  UsersManagerService
+  ExtSourcesManagerService,
+  UserExtSource,
+  UsersManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -18,10 +19,9 @@ interface AddUserExtSourceDialogData {
 @Component({
   selector: 'app-add-user-ext-source-dialog',
   templateUrl: './add-user-ext-source-dialog.component.html',
-  styleUrls: ['./add-user-ext-source-dialog.component.scss']
+  styleUrls: ['./add-user-ext-source-dialog.component.scss'],
 })
 export class AddUserExtSourceDialogComponent implements OnInit {
-
   extSources: ExtSource[] = [];
   filteredExtSources: Observable<ExtSource[]>;
   loginControl: FormControl;
@@ -29,36 +29,44 @@ export class AddUserExtSourceDialogComponent implements OnInit {
   loading: boolean;
   successMessage: string;
 
-  constructor(private dialogRef: MatDialogRef<AddUserExtSourceDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: AddUserExtSourceDialogData,
-              private extSourcesManagerService: ExtSourcesManagerService,
-              private usersManagerService: UsersManagerService,
-              private translate: TranslateService,
-              private notificator: NotificatorService) {
-    translate.get('DIALOGS.ADD_USER_EXT_SOURCE.SUCCESS').subscribe(res => this.successMessage = res);
+  constructor(
+    private dialogRef: MatDialogRef<AddUserExtSourceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: AddUserExtSourceDialogData,
+    private extSourcesManagerService: ExtSourcesManagerService,
+    private usersManagerService: UsersManagerService,
+    private translate: TranslateService,
+    private notificator: NotificatorService
+  ) {
+    translate
+      .get('DIALOGS.ADD_USER_EXT_SOURCE.SUCCESS')
+      .subscribe((res) => (this.successMessage = res));
   }
 
   ngOnInit(): void {
     this.loading = true;
-    this.loginControl = new FormControl('', [Validators.required, Validators.pattern('.*[\\S]+.*')]);
+    this.loginControl = new FormControl('', [
+      Validators.required,
+      Validators.pattern('.*[\\S]+.*'),
+    ]);
     this.extSourcesControl = new FormControl('', [Validators.required]);
     this.loginControl.markAllAsTouched();
     this.extSourcesControl.markAllAsTouched();
-    this.filteredExtSources = this.extSourcesControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-    this.extSourcesManagerService.getExtSources().subscribe(extSources => {
-      this.extSources = extSources;
+    this.filteredExtSources = this.extSourcesControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value))
+    );
+    this.extSourcesManagerService.getExtSources().subscribe(
+      (extSources) => {
+        this.extSources = extSources;
 
-      this.filteredExtSources = this.extSourcesControl.valueChanges
-        .pipe(
+        this.filteredExtSources = this.extSourcesControl.valueChanges.pipe(
           startWith(''),
-          map(value => this._filter(value))
+          map((value) => this._filter(value))
         );
-      this.loading = false;
-    }, () => this.loading = false);
+        this.loading = false;
+      },
+      () => (this.loading = false)
+    );
   }
 
   displayFn(extSource?: ExtSource): string | undefined {
@@ -76,17 +84,24 @@ export class AddUserExtSourceDialogComponent implements OnInit {
       extSource: this.extSourcesControl.value,
       id: 0,
       login: this.loginControl.value,
-      userId: this.data.userId
+      userId: this.data.userId,
     };
-    this.usersManagerService.addUserExtSource({ user: this.data.userId, userExtSource: ues }).subscribe(() => {
-      this.loading = false;
-      this.notificator.showSuccess(this.successMessage);
-      this.dialogRef.close(true);
-    }, () => this.loading = false);
+    this.usersManagerService
+      .addUserExtSource({ user: this.data.userId, userExtSource: ues })
+      .subscribe(
+        () => {
+          this.loading = false;
+          this.notificator.showSuccess(this.successMessage);
+          this.dialogRef.close(true);
+        },
+        () => (this.loading = false)
+      );
   }
 
   private _filter(value: string | ExtSource): ExtSource[] {
-    const filterValue = typeof (value) === 'string' ? value.toLowerCase() : value.name.toLowerCase;
-    return this.extSources.filter(option => option.name.toLowerCase().includes(<string>filterValue));
+    const filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLowerCase;
+    return this.extSources.filter((option) =>
+      option.name.toLowerCase().includes(<string>filterValue)
+    );
   }
 }

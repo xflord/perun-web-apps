@@ -1,3 +1,8 @@
 <span *ngFor="let item of menuItems" class="custom-breadcrumb">
-  <a [routerLink]="item.routerLink" class="breadcrumb-text" queryParamsHandling="merge">{{item.label}}</a>
+  <a
+    [routerLink]="item.routerLink"
+    class="breadcrumb-text"
+    queryParamsHandling="merge"
+    >{{item.label}}</a
+  >
 </span>

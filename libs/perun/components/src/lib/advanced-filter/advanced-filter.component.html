@@ -3,12 +3,11 @@
   class="mr-2 {{filtersCount ? 'grey' : 'no-color'}}"
   (click)="toggleAdvancedFilter()">
   <mat-icon>filter_list</mat-icon>
-  {{'SHARED_LIB.PERUN.COMPONENTS.ADVANCED_FILTER.FILTERS' | translate}} {{filtersCount ? "(" + filtersCount + ")" : null}}
+  {{'SHARED_LIB.PERUN.COMPONENTS.ADVANCED_FILTER.FILTERS' | translate}}
+  {{filtersCount ? "(" + filtersCount + ")" : null}}
   <mat-icon>{{advancedFilter ? "arrow_drop_up" : "arrow_drop_down"}}</mat-icon>
 </button>
-<button
-  mat-stroked-button
-  (click)="clearFilters.emit()">
+<button mat-stroked-button (click)="clearFilters.emit()">
   <mat-icon>filter_list_off</mat-icon>
   {{'SHARED_LIB.PERUN.COMPONENTS.ADVANCED_FILTER.CLEAR_FILTERS' | translate}}
 </button>

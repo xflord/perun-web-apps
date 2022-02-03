@@ -1,17 +1,17 @@
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto">
-</mat-spinner>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
 
 <div *ngIf="this.applicationFormItems.length !== 0 && !loading" class="card mt-2">
   <div class="card-body table-theme">
     <div class="overflow-auto">
-      <table #table
-             (cdkDropListDropped)="drop($event)"
-             [cdkDropListDisabled]="dragDisabled"
-             [dataSource]="dataSource"
-             cdkDropList
-             cdkDropListData="dataSource"
-             class="w-100"
-             mat-table>
+      <table
+        #table
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListDisabled]="dragDisabled"
+        [dataSource]="dataSource"
+        cdkDropList
+        cdkDropListData="dataSource"
+        class="w-100"
+        mat-table>
         <ng-container matColumnDef="drag">
           <th *matHeaderCellDef mat-header-cell></th>
           <td *matCellDef="let applicationFormItem" mat-cell>
@@ -21,72 +21,96 @@
           </td>
         </ng-container>
         <ng-container matColumnDef="shortname">
-          <th *matHeaderCellDef mat-header-cell>{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.SHORTNAME' | translate}}</th>
+          <th *matHeaderCellDef mat-header-cell>
+            {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.SHORTNAME' | translate}}
+          </th>
           <td *matCellDef="let applicationFormItem" mat-cell>{{applicationFormItem.shortname}}</td>
         </ng-container>
         <ng-container matColumnDef="type">
-          <th *matHeaderCellDef mat-header-cell>{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.TYPE' | translate}}</th>
-          <td *matCellDef="let applicationFormItem" mat-cell>{{applicationFormItem.type | applicationFormItemType}}</td>
+          <th *matHeaderCellDef mat-header-cell>
+            {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.TYPE' | translate}}
+          </th>
+          <td *matCellDef="let applicationFormItem" mat-cell>
+            {{applicationFormItem.type | applicationFormItemType}}
+          </td>
         </ng-container>
         <ng-container matColumnDef="disabled">
-          <th class="center" *matHeaderCellDef mat-header-cell>{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HEADER' | translate}}</th>
+          <th class="center" *matHeaderCellDef mat-header-cell>
+            {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HEADER' | translate}}
+          </th>
           <td class="center" *matCellDef="let applicationFormItem" mat-cell>
             <div *ngIf="applicationFormItem.disabled !== 'NEVER'">
-              <mat-icon class="pointer" [matTooltip]="disabledTooltip(applicationFormItem)">lock</mat-icon>
-              <br>
+              <mat-icon class="pointer" [matTooltip]="disabledTooltip(applicationFormItem)"
+                >lock</mat-icon
+              >
+              <br />
               {{disabledHiddenDependency(applicationFormItem, applicationFormItem.disabled, applicationFormItem.disabledDependencyItemId)}}
             </div>
           </td>
         </ng-container>
         <ng-container matColumnDef="hidden">
-          <th class="center" *matHeaderCellDef mat-header-cell>{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.HIDDEN_HEADER' | translate}}</th>
+          <th class="center" *matHeaderCellDef mat-header-cell>
+            {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.HIDDEN_HEADER' | translate}}
+          </th>
           <td class="center" *matCellDef="let applicationFormItem" mat-cell>
             <div *ngIf="applicationFormItem.hidden !== 'NEVER'">
-              <mat-icon class="pointer" [matTooltip]="hiddenTooltip(applicationFormItem)">visibility_off</mat-icon>
-              <br>
+              <mat-icon class="pointer" [matTooltip]="hiddenTooltip(applicationFormItem)"
+                >visibility_off</mat-icon
+              >
+              <br />
               {{disabledHiddenDependency(applicationFormItem, applicationFormItem.hidden, applicationFormItem.hiddenDependencyItemId)}}
             </div>
           </td>
         </ng-container>
         <ng-container matColumnDef="preview">
-          <th *matHeaderCellDef mat-header-cell>{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW' | translate}}</th>
+          <th *matHeaderCellDef mat-header-cell>
+            {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW' | translate}}
+          </th>
           <td *matCellDef="let applicationFormItem" mat-cell>
-            <div *ngIf="applicationFormItem.type === 'TEXTFIELD' ||
+            <div
+              *ngIf="applicationFormItem.type === 'TEXTFIELD' ||
                       applicationFormItem.type === 'VALIDATED_EMAIL' ||
                       applicationFormItem.type === 'USERNAME'">
               <form>
-                <input type="text">
+                <input type="text" />
               </form>
             </div>
-            <div *ngIf="applicationFormItem.type === 'FROM_FEDERATION_HIDDEN'" class="font-italic disabled">
+            <div
+              *ngIf="applicationFormItem.type === 'FROM_FEDERATION_HIDDEN'"
+              class="font-italic disabled">
               {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.HIDDEN_VALUE' | translate}}
             </div>
             <div *ngIf="applicationFormItem.type === 'FROM_FEDERATION_SHOW'">
               <form>
-                <input disabled>
+                <input disabled />
               </form>
             </div>
             <div *ngIf="applicationFormItem.type === 'PASSWORD'">
               <form>
-                <input class="mb-1" type="text"><br/>
-                <input type="text">
+                <input class="mb-1" type="text" /><br />
+                <input type="text" />
               </form>
             </div>
             <div *ngIf="applicationFormItem.type === 'RADIO'">
               <form>
                 <div *ngFor="let item of getLocalizedOptions(applicationFormItem)">
-                  <input name="temp" type="radio"> {{item}}<br>
+                  <input name="temp" type="radio" /> {{item}}<br />
                 </div>
-                <input type="reset" value="{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.CLEAR_SELECTION' | translate}}">
+                <input
+                  type="reset"
+                  value="{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.CLEAR_SELECTION' | translate}}" />
               </form>
             </div>
-            <div *ngIf="applicationFormItem.type ==='HEADING' ||
+            <div
+              *ngIf="applicationFormItem.type ==='HEADING' ||
                       applicationFormItem.type === 'HTML_COMMENT'">
               <span [innerHTML]="getLocalizedLabel(applicationFormItem)"></span>
             </div>
             <div *ngIf="applicationFormItem.type === 'SELECTIONBOX'">
               <select>
-                <option *ngFor="let item of getLocalizedOptions(applicationFormItem)">{{item}}</option>
+                <option *ngFor="let item of getLocalizedOptions(applicationFormItem)">
+                  {{item}}
+                </option>
               </select>
             </div>
             <div *ngIf="applicationFormItem.type === 'TEXTAREA'">
@@ -94,28 +118,39 @@
             </div>
             <div *ngIf="applicationFormItem.type === 'COMBOBOX'">
               <select [(ngModel)]="mapForCombobox[applicationFormItem.id]">
-                <option *ngFor="let item of getLocalizedOptions(applicationFormItem)" selected value="false">{{item}}</option>
-                <option value="true">{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.OTHER_VALUE' | translate}}</option>
+                <option
+                  *ngFor="let item of getLocalizedOptions(applicationFormItem)"
+                  selected
+                  value="false">
+                  {{item}}
+                </option>
+                <option value="true">
+                  {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.OTHER_VALUE' | translate}}
+                </option>
               </select>
               <div *ngIf="mapForCombobox[applicationFormItem.id] === 'true'">
                 <form>
-                  <input type="text">
+                  <input type="text" />
                 </form>
               </div>
             </div>
             <div *ngIf="applicationFormItem.type === 'CHECKBOX'">
               <form>
                 <div *ngFor="let item of getLocalizedOptions(applicationFormItem)">
-                  <input type="checkbox"> {{item}}
+                  <input type="checkbox" /> {{item}}
                 </div>
               </form>
             </div>
             <div *ngIf="applicationFormItem.type === 'SUBMIT_BUTTON'">
-              <button color="accent" mat-flat-button>{{getLocalizedLabel(applicationFormItem)}}</button>
+              <button color="accent" mat-flat-button>
+                {{getLocalizedLabel(applicationFormItem)}}
+              </button>
             </div>
             <div *ngIf="applicationFormItem.type === 'TIMEZONE'">
               <select class="span5" id="timezone-offset" name="timezone_offset">
-                <option selected="selected" value="-12:00">{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.NOT_SELECTED' | translate}}</option>
+                <option selected="selected" value="-12:00">
+                  {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.NOT_SELECTED' | translate}}
+                </option>
                 <option value="-12:00">(GMT -12:00) Eniwetok, Kwajalein</option>
                 <option value="-11:00">(GMT -11:00) Midway Island, Samoa</option>
                 <option value="-10:00">(GMT -10:00) Hawaii</option>
@@ -123,22 +158,30 @@
                 <option value="-09:00">(GMT -9:00) Alaska</option>
                 <option value="-08:00">(GMT -8:00) Pacific Time (US &amp; Canada)</option>
                 <option value="-07:00">(GMT -7:00) Mountain Time (US &amp; Canada)</option>
-                <option value="-06:00">(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
-                <option value="-05:00">(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
+                <option value="-06:00">
+                  (GMT -6:00) Central Time (US &amp; Canada), Mexico City
+                </option>
+                <option value="-05:00">
+                  (GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima
+                </option>
                 <option value="-04:50">(GMT -4:30) Caracas</option>
                 <option value="-04:00">(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
                 <option value="-03:50">(GMT -3:30) Newfoundland</option>
                 <option value="-03:00">(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
                 <option value="-02:00">(GMT -2:00) Mid-Atlantic</option>
                 <option value="-01:00">(GMT -1:00) Azores, Cape Verde Islands</option>
-                <option value="+00:00">(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
+                <option value="+00:00">
+                  (GMT) Western Europe Time, London, Lisbon, Casablanca
+                </option>
                 <option value="+01:00">(GMT +1:00) Brussels, Copenhagen, Madrid, Paris</option>
                 <option value="+02:00">(GMT +2:00) Kaliningrad, South Africa</option>
                 <option value="+03:00">(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
                 <option value="+03:50">(GMT +3:30) Tehran</option>
                 <option value="+04:00">(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
                 <option value="+04:50">(GMT +4:30) Kabul</option>
-                <option value="+05:00">(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+                <option value="+05:00">
+                  (GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent
+                </option>
                 <option value="+05:50">(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
                 <option value="+05:75">(GMT +5:45) Kathmandu, Pokhara</option>
                 <option value="+06:00">(GMT +6:00) Almaty, Dhaka, Colombo</option>
@@ -159,13 +202,15 @@
               </select>
             </div>
             <div *ngIf="applicationFormItem.type === 'AUTO_SUBMIT_BUTTON'">
-              <button color="accent" mat-flat-button>{{getLocalizedLabel(applicationFormItem)}}</button>
+              <button color="accent" mat-flat-button>
+                {{getLocalizedLabel(applicationFormItem)}}
+              </button>
             </div>
             <div *ngIf="applicationFormItem.type === 'EMBEDDED_GROUP_APPLICATION'">
               <form>
-                <input type="checkbox"> example group1 <br/>
-                <input type="checkbox"> example group2 <br/>
-                <input type="checkbox"> example group3
+                <input type="checkbox" /> example group1 <br />
+                <input type="checkbox" /> example group2 <br />
+                <input type="checkbox" /> example group3
               </form>
             </div>
           </td>
@@ -230,8 +275,7 @@
                           && !applicationFormItem.forDelete
                           && applicationFormItem.id > 0"
           cdkDrag
-          mat-row>
-        </tr>
+          mat-row></tr>
       </table>
     </div>
   </div>
@@ -240,4 +284,3 @@
 <app-alert *ngIf="this.applicationFormItems.length === 0 && !loading" alert_type="warn">
   {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.NO_APPLICATION_FORM' | translate}}
 </app-alert>
-

@@ -11,13 +11,11 @@
  */
 import { Auditable } from './auditable';
 
-
-export interface Group extends Auditable { 
-    name?: string;
-    shortName?: string;
-    description?: string;
-    voId?: number;
-    parentGroupId?: number;
-    uuid?: string;
+export interface Group extends Auditable {
+  name?: string;
+  shortName?: string;
+  description?: string;
+  voId?: number;
+  parentGroupId?: number;
+  uuid?: string;
 }
-

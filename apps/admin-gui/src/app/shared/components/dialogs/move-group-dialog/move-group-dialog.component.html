@@ -12,16 +12,11 @@
         class="move-options">
         {{'DIALOGS.MOVE_GROUP.NO_GROUP' | translate}}
       </mat-radio-button>
-      <mat-radio-button
-        *ngIf="!toGroupOptionDisabled"
-        value="toGroup"
-        color="primary">
+      <mat-radio-button *ngIf="!toGroupOptionDisabled" value="toGroup" color="primary">
         {{'DIALOGS.MOVE_GROUP.TO_GROUP' | translate}}
       </mat-radio-button>
     </mat-radio-group>
-    <app-alert
-      *ngIf="toRootOptionDisabled && toGroupOptionDisabled"
-      alert_type="warn">
+    <app-alert *ngIf="toRootOptionDisabled && toGroupOptionDisabled" alert_type="warn">
       {{'DIALOGS.MOVE_GROUP.CANNOT_MOVE' | translate}}
     </app-alert>
     <mat-form-field
@@ -34,37 +29,34 @@
         required
         (change)="selectedGroup = null"
         [matAutocomplete]="groupSelectAutocomplete"
-        [formControl]="otherGroupsCtrl">
+        [formControl]="otherGroupsCtrl" />
       <!--suppress AngularInvalidExpressionResultType -->
-      <mat-autocomplete
-        #groupSelectAutocomplete="matAutocomplete"
-        [displayWith]="displayFn">
-        <mat-option *ngFor="let group of filteredGroups | async" [value]="group"
-                    (click)="selectedGroup = group">
+      <mat-autocomplete #groupSelectAutocomplete="matAutocomplete" [displayWith]="displayFn">
+        <mat-option
+          *ngFor="let group of filteredGroups | async"
+          [value]="group"
+          (click)="selectedGroup = group">
           <span>{{group.name}}</span>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
   </div>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto">
-  </mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
   <div mat-dialog-actions>
-    <button
-      (click)="close()"
-      class="ml-auto"
-      mat-flat-button>
+    <button (click)="close()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.MOVE_GROUP.CANCEL' | translate}}
     </button>
-    <span matTooltip="{{'DIALOGS.MOVE_GROUP.DISABLED_HINT' | translate}}"
-          [matTooltipPosition]="'above'"
-          [matTooltipDisabled]="selectedGroup !== null || moveOption === 'toRoot'">
+    <span
+      matTooltip="{{'DIALOGS.MOVE_GROUP.DISABLED_HINT' | translate}}"
+      [matTooltipPosition]="'above'"
+      [matTooltipDisabled]="selectedGroup !== null || moveOption === 'toRoot'">
       <button
         (click)="confirm()"
         [disabled]="((otherGroupsCtrl.invalid || selectedGroup === null) && moveOption !== 'toRoot') || loading"
         class="ml-2"
         color="accent"
         mat-flat-button>
-      {{'DIALOGS.MOVE_GROUP.CONFIRM' | translate}}
+        {{'DIALOGS.MOVE_GROUP.CONFIRM' | translate}}
       </button>
     </span>
   </div>

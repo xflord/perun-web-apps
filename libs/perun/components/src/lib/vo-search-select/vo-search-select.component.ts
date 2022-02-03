@@ -4,11 +4,10 @@ import { Vo } from '@perun-web-apps/perun/openapi';
 @Component({
   selector: 'perun-web-apps-vo-search-select',
   templateUrl: './vo-search-select.component.html',
-  styleUrls: ['./vo-search-select.component.css']
+  styleUrls: ['./vo-search-select.component.css'],
 })
 export class VoSearchSelectComponent {
-
-  constructor() { }
+  constructor() {}
 
   @Input()
   vo: Vo;

@@ -2,8 +2,9 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import {
   AuthzResolverService,
   MembersManagerService,
-  MemberWithSponsors, RichUser,
-  Vo
+  MemberWithSponsors,
+  RichUser,
+  Vo,
 } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TABLE_SPONSORED_MEMBERS } from '@perun-web-apps/config/table-config';
@@ -11,7 +12,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { CreateSponsoredMemberDialogComponent } from '../../../../../shared/components/dialogs/create-sponsored-member-dialog/create-sponsored-member-dialog.component';
 import { GenerateSponsoredMembersDialogComponent } from '../../../../../shared/components/dialogs/generate-sponsored-members-dialog/generate-sponsored-members-dialog.component';
-import { EntityStorageService, GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
+import {
+  EntityStorageService,
+  GuiAuthResolver,
+  StoreService,
+} from '@perun-web-apps/perun/services';
 import { SponsorExistingMemberDialogComponent } from '../../../../../shared/components/dialogs/sponsor-existing-member-dialog/sponsor-existing-member-dialog.component';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { Role } from '@perun-web-apps/perun/models';
@@ -19,21 +24,21 @@ import { Role } from '@perun-web-apps/perun/models';
 @Component({
   selector: 'app-vo-settings-sponsored-members',
   templateUrl: './vo-settings-sponsored-members.component.html',
-  styleUrls: ['./vo-settings-sponsored-members.component.scss']
+  styleUrls: ['./vo-settings-sponsored-members.component.scss'],
 })
 export class VoSettingsSponsoredMembersComponent implements OnInit {
-
   static id = 'VoSponsoredMembersComponent';
 
   @HostBinding('class.router-component') true;
 
-  constructor(private membersManager: MembersManagerService,
-              private dialog: MatDialog,
-              private authResolver: GuiAuthResolver,
-              private storeService: StoreService,
-              private authzResolver: AuthzResolverService,
-              private entityStorageService: EntityStorageService) {
-  }
+  constructor(
+    private membersManager: MembersManagerService,
+    private dialog: MatDialog,
+    private authResolver: GuiAuthResolver,
+    private storeService: StoreService,
+    private authzResolver: AuthzResolverService,
+    private entityStorageService: EntityStorageService
+  ) {}
 
   vo: Vo;
   members: MemberWithSponsors[] = [];
@@ -74,25 +79,35 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
     if (this.findSponsorsAuth) {
       const attributes = [Urns.USER_DEF_PREFERRED_MAIL];
 
-      this.authzResolver.getAuthzRichAdmins(Role.SPONSOR, this.vo.id, 'Vo',
-        attributes, false, false).subscribe(sponsors => {
-        this.voSponsors = sponsors;
-        this.refresh();
-      });
+      this.authzResolver
+        .getAuthzRichAdmins(Role.SPONSOR, this.vo.id, 'Vo', attributes, false, false)
+        .subscribe((sponsors) => {
+          this.voSponsors = sponsors;
+          this.refresh();
+        });
     } else {
       this.refresh();
     }
   }
 
   setAuthRights() {
-    this.createAuth = this.authResolver.isAuthorized('createSponsoredMember_Vo_String_Map<String_String>_String_User_LocalDate_policy',
-      [this.vo, this.storeService.getPerunPrincipal().user]);
-    this.generateAuth = this.authResolver.isAuthorized('createSponsoredMembers_Vo_String_List<String>_User_policy',
-      [this.vo, this.storeService.getPerunPrincipal().user]);
-    this.setSponsorshipAuth = this.authResolver.isAuthorized('setSponsorshipForMember_Member_User_LocalDate_policy',
-      [this.vo, this.storeService.getPerunPrincipal().user]);
-    if (this.members!== null && this.members.length !== 0){
-      this.routeAuth = this.authResolver.isAuthorized('getMemberById_int_policy', [this.vo, this.members[0].member]);
+    this.createAuth = this.authResolver.isAuthorized(
+      'createSponsoredMember_Vo_String_Map<String_String>_String_User_LocalDate_policy',
+      [this.vo, this.storeService.getPerunPrincipal().user]
+    );
+    this.generateAuth = this.authResolver.isAuthorized(
+      'createSponsoredMembers_Vo_String_List<String>_User_policy',
+      [this.vo, this.storeService.getPerunPrincipal().user]
+    );
+    this.setSponsorshipAuth = this.authResolver.isAuthorized(
+      'setSponsorshipForMember_Member_User_LocalDate_policy',
+      [this.vo, this.storeService.getPerunPrincipal().user]
+    );
+    if (this.members !== null && this.members.length !== 0) {
+      this.routeAuth = this.authResolver.isAuthorized('getMemberById_int_policy', [
+        this.vo,
+        this.members[0].member,
+      ]);
     }
   }
 
@@ -103,15 +118,15 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
       entityId: this.vo.id,
       voId: this.vo.id,
       sponsors: this.voSponsors,
-      theme: 'vo-theme'
+      theme: 'vo-theme',
     };
 
     const dialogRef = this.dialog.open(CreateSponsoredMemberDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
         this.loading = true;
-        this.authzResolver.getPerunPrincipal().subscribe(principal => {
+        this.authzResolver.getPerunPrincipal().subscribe((principal) => {
           this.storeService.setPerunPrincipal(principal);
           this.refresh();
         });
@@ -129,11 +144,10 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
 
     const dialogRef = this.dialog.open(GenerateSponsoredMembersDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
-
-      if(result){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
         this.loading = true;
-        this.authzResolver.getPerunPrincipal().subscribe(principal => {
+        this.authzResolver.getPerunPrincipal().subscribe((principal) => {
           this.storeService.setPerunPrincipal(principal);
           this.refresh();
         });
@@ -151,11 +165,10 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
 
     const dialogRef = this.dialog.open(SponsorExistingMemberDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
-
-      if(result){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
         this.loading = true;
-        this.authzResolver.getPerunPrincipal().subscribe(principal => {
+        this.authzResolver.getPerunPrincipal().subscribe((principal) => {
           this.storeService.setPerunPrincipal(principal);
           this.refresh();
         });
@@ -165,12 +178,14 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
 
   refresh() {
     this.loading = true;
-    this.membersManager.getSponsoredMembersAndTheirSponsors(this.vo.id, this.attrNames).subscribe(members => {
-      this.selection.clear();
-      this.members = members;
-      this.setAuthRights();
-      this.loading = false;
-    });
+    this.membersManager
+      .getSponsoredMembersAndTheirSponsors(this.vo.id, this.attrNames)
+      .subscribe((members) => {
+        this.selection.clear();
+        this.members = members;
+        this.setAuthRights();
+        this.loading = false;
+      });
   }
 
   applyFilter(filterValue: string) {

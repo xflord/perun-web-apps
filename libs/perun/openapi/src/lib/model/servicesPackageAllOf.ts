@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface ServicesPackageAllOf { 
-    description?: string;
-    name?: string;
+export interface ServicesPackageAllOf {
+  description?: string;
+  name?: string;
 }
-

@@ -37,12 +37,11 @@
   </perun-web-apps-immediate-filter>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <app-sponsored-members-list
-      *ngIf="!loading"
-      [sponsoredMembers]="members"
-      [disableRouting]="!routeAuth"
-      [selection]="selection"
-      [filterValue]="searchString"
-      [tableId]="tableId"
-      (refreshTable)="refresh()"
-  ></app-sponsored-members-list>
+    *ngIf="!loading"
+    [sponsoredMembers]="members"
+    [disableRouting]="!routeAuth"
+    [selection]="selection"
+    [filterValue]="searchString"
+    [tableId]="tableId"
+    (refreshTable)="refresh()"></app-sponsored-members-list>
 </div>

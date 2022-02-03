@@ -25,7 +25,7 @@ export class AppComponent implements OnInit, AfterViewInit{
   login: string;
   validToken: boolean;
   authWithoutToken = false;
-  contentHeight =  'calc(100vh - 84px)';
+  contentHeight = 'calc(100vh - 84px)';
   contentBackgroundColor = this.store.get('theme', 'content_bg_color');
   @ViewChild('footer') footer: ElementRef;
 
@@ -40,11 +40,14 @@ export class AppComponent implements OnInit, AfterViewInit{
     if (queryParams.includes('token')) {
       this.token = this.parseQueryParams('token', queryParams);
 
-      this.usersService.checkPasswordResetRequestByTokenIsValid(this.token).subscribe(() => {
-        this.validToken = true;
-      }, () => {
-        this.validToken = false;
-      });
+      this.usersService.checkPasswordResetRequestByTokenIsValid(this.token).subscribe(
+        () => {
+          this.validToken = true;
+        },
+        () => {
+          this.validToken = false;
+        }
+      );
     } else {
       this.authWithoutToken = true;
       this.attributesManagerService.getLogins(this.store.getPerunPrincipal().userId).subscribe(logins => {
@@ -58,7 +61,7 @@ export class AppComponent implements OnInit, AfterViewInit{
     const parameters = queryParams.split('&');
     for (const param of parameters) {
       const [name, value] = param.split('=');
-      if (name.includes(paramName)){
+      if (name.includes(paramName)) {
         return value;
       }
     }
@@ -68,4 +71,5 @@ export class AppComponent implements OnInit, AfterViewInit{
     this.contentHeight =  'calc(100vh - 84px - '+this.footer.nativeElement.offsetHeight+'px)';
     this.changeDetector.detectChanges();
   }
+
 }

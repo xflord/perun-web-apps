@@ -25,7 +25,6 @@ export class InitAuthService {
   private serviceAccess = false;
   private serviceAccessLoginScreen = false;
 
-
   setLoginScreen(shown): void {
     this.loginScreenShown = shown;
   }
@@ -38,17 +37,16 @@ export class InitAuthService {
     return this.serviceAccess;
   }
 
-  isServiceAccessLoginScreenShown(){
+  isServiceAccessLoginScreenShown() {
     return this.serviceAccessLoginScreen;
   }
-
 
   /**
    * Load additional data. First it init authService with necessarily data, then
    * start authentication.
    */
   verifyAuth(): Promise<boolean> {
-    if (sessionStorage.getItem("baPrincipal")) {
+    if (sessionStorage.getItem('baPrincipal')) {
       this.serviceAccess = true;
       if (location.pathname === '/service-access') {
         return this.router.navigate([]).then(() => true);
@@ -68,7 +66,7 @@ export class InitAuthService {
 
   startAuth(): Promise<void> {
     this.authService.startAuthentication();
-    return new Promise<void>(() =>{});
+    return new Promise<void>(() => {});
   }
 
   /**
@@ -96,30 +94,30 @@ export class InitAuthService {
    * made.
    */
   handleAuthStart(): Promise<void> {
-    if (location.pathname === '/service-access' || sessionStorage.getItem("baPrincipal")) {
+    if (location.pathname === '/service-access' || sessionStorage.getItem('baPrincipal')) {
       this.serviceAccess = true;
       this.serviceAccessLoginScreen = true;
-      return new Promise<void>((resolve) => {resolve()});
+      return new Promise<void>((resolve) => {
+        resolve();
+      });
     } else if (this.storeService.get('auto_auth_redirect')) {
       return (
         this.startAuth()
           // start a promise that will never resolve, so the app loading won't finish in case
           // of the auth redirect
-          .then(
-            () => new Promise<void>(() => {})
-          )
+          .then(() => new Promise<void>(() => {}))
       );
     } else {
       this.setLoginScreen(true);
       const query = location.search.substr(1).split('&');
       const queryParams = {};
-      for(const param of query) {
+      for (const param of query) {
         const p = param.split('=');
         queryParams[p[0]] = p[1];
       }
       return (
         this.router
-          .navigate(['login'], {queryParams: queryParams, queryParamsHandling: 'merge'})
+          .navigate(['login'], { queryParams: queryParams, queryParamsHandling: 'merge' })
           // forget the navigate result
           .then(() => null)
       );

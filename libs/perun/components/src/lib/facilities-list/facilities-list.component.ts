@@ -1,16 +1,14 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  ViewChild
-} from '@angular/core';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { EnrichedFacility} from '@perun-web-apps/perun/openapi';
+import { EnrichedFacility } from '@perun-web-apps/perun/openapi';
 import {
-  customDataSourceFilterPredicate, customDataSourceSort, downloadData, getDataForExport,
+  customDataSourceFilterPredicate,
+  customDataSourceSort,
+  downloadData,
+  getDataForExport,
   parseTechnicalOwnersNames,
-  TABLE_ITEMS_COUNT_OPTIONS
+  TABLE_ITEMS_COUNT_OPTIONS,
 } from '@perun-web-apps/perun/utils';
 import { SelectionModel } from '@angular/cdk/collections';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
@@ -19,13 +17,10 @@ import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
 @Component({
   selector: 'perun-web-apps-facilities-list',
   templateUrl: './facilities-list.component.html',
-  styleUrls: ['./facilities-list.component.scss']
+  styleUrls: ['./facilities-list.component.scss'],
 })
 export class FacilitiesListComponent implements OnChanges {
-
-  constructor(
-    private authResolver: GuiAuthResolver
-  ) { }
+  constructor(private authResolver: GuiAuthResolver) {}
 
   @Input()
   facilities: EnrichedFacility[];
@@ -40,7 +35,16 @@ export class FacilitiesListComponent implements OnChanges {
   tableId: string;
 
   @Input()
-  displayedColumns: string[] = ['select', 'id', 'recent', 'name', 'description', 'technicalOwners', 'destinations', 'hosts'];
+  displayedColumns: string[] = [
+    'select',
+    'id',
+    'recent',
+    'name',
+    'description',
+    'technicalOwners',
+    'destinations',
+    'hosts',
+  ];
 
   @Input()
   selection: SelectionModel<EnrichedFacility>;
@@ -52,7 +56,7 @@ export class FacilitiesListComponent implements OnChanges {
     this.sort = ms;
   }
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   private sort: MatSort;
 
@@ -60,18 +64,22 @@ export class FacilitiesListComponent implements OnChanges {
   disableRouting: boolean;
 
   ngOnChanges() {
-    if (!this.authResolver.isPerunAdminOrObserver()){
-      this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
     this.setDataSource();
   }
 
-  getDataForColumn(data: EnrichedFacility, column: string, otherThis: FacilitiesListComponent): string{
+  getDataForColumn(
+    data: EnrichedFacility,
+    column: string,
+    otherThis: FacilitiesListComponent
+  ): string {
     switch (column) {
       case 'id':
         return data.facility.id.toString();
       case 'name':
-        return  data.facility.name;
+        return data.facility.name;
       case 'description':
         return data.facility.description;
       case 'technicalOwners':
@@ -84,16 +92,24 @@ export class FacilitiesListComponent implements OnChanges {
         }
         return data['name'];
       case 'destinations':
-        return data.destinations.map(d => d.destination).join(' ; ')
+        return data.destinations.map((d) => d.destination).join(' ; ');
       case 'hosts':
-        return data.hosts.map(d => d.hostname).join(' ; ')
+        return data.hosts.map((d) => d.hostname).join(' ; ');
       default:
         return data[column];
     }
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getDataForColumn, this), format);
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
   setDataSource() {
@@ -101,8 +117,16 @@ export class FacilitiesListComponent implements OnChanges {
       this.dataSource = new MatTableDataSource<EnrichedFacility>();
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
-      this.dataSource.filterPredicate = (data: EnrichedFacility, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
-      this.dataSource.sortData = (data: EnrichedFacility[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.filterPredicate = (data: EnrichedFacility, filter: string) =>
+        customDataSourceFilterPredicate(
+          data,
+          filter,
+          this.displayedColumns,
+          this.getDataForColumn,
+          this
+        );
+      this.dataSource.sortData = (data: EnrichedFacility[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getDataForColumn, this);
     }
     this.dataSource.filter = this.filterValue;
     this.dataSource.data = this.facilities;
@@ -120,7 +144,7 @@ export class FacilitiesListComponent implements OnChanges {
     if (this.isAllSelected()) {
       this.selection.clear();
     } else {
-      this.dataSource.data.forEach(row => this.selection.select(row));
+      this.dataSource.data.forEach((row) => this.selection.select(row));
     }
   }
 

@@ -12,20 +12,20 @@ import { TABLE_PUBLICATION_AUTHORS } from '@perun-web-apps/config/table-config';
 @Component({
   selector: 'perun-web-apps-add-authors',
   templateUrl: './add-authors.component.html',
-  styleUrls: ['./add-authors.component.scss']
+  styleUrls: ['./add-authors.component.scss'],
 })
 export class AddAuthorsComponent implements OnInit {
-
-  constructor(private dialog: MatDialog,
-              private cabinetService: CabinetManagerService,
-              private notificator: NotificatorService,
-              private translate: TranslateService) { }
-
+  constructor(
+    private dialog: MatDialog,
+    private cabinetService: CabinetManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService
+  ) {}
 
   @Input()
   publication: PublicationForGUI;
   @Input()
-  selection: SelectionModel<Author> = new SelectionModel<Author>(true, [])
+  selection: SelectionModel<Author> = new SelectionModel<Author>(true, []);
 
   filterValue = '';
   loading = false;
@@ -38,7 +38,7 @@ export class AddAuthorsComponent implements OnInit {
 
   refresh() {
     this.loading = true;
-    this.cabinetService.findAuthorsByPublicationId(this.publication.id).subscribe(authors => {
+    this.cabinetService.findAuthorsByPublicationId(this.publication.id).subscribe((authors) => {
       this.publication.authors = authors;
       this.selection.clear();
       this.loading = false;
@@ -50,12 +50,12 @@ export class AddAuthorsComponent implements OnInit {
     config.width = '800px';
     config.data = {
       publicationId: this.publication.id,
-      alreadyAddedAuthors: this.publication.authors
+      alreadyAddedAuthors: this.publication.authors,
     };
 
     const dialogRef = this.dialog.open(AddAuthorsDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(authorshipCreated => {
+    dialogRef.afterClosed().subscribe((authorshipCreated) => {
       if (authorshipCreated) {
         this.selection.clear();
         this.refresh();
@@ -67,15 +67,22 @@ export class AddAuthorsComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '800px';
     config.data = {
-      items: this.selection.selected.map(author => `${author.titleBefore ? author.titleBefore: ""} ${author.firstName ? author.firstName : ""}  ${author.lastName ? author.lastName : ""} ${author.titleAfter ? author.titleAfter : ""}`),
+      items: this.selection.selected.map(
+        (author) =>
+          `${author.titleBefore ? author.titleBefore : ''} ${
+            author.firstName ? author.firstName : ''
+          }  ${author.lastName ? author.lastName : ''} ${
+            author.titleAfter ? author.titleAfter : ''
+          }`
+      ),
       title: 'DIALOGS.REMOVE_AUTHORS.TITLE',
       description: 'DIALOGS.REMOVE_AUTHORS.DESCRIPTION',
-      theme: 'user-theme'
+      theme: 'user-theme',
     };
 
     const dialogRef = this.dialog.open(UniversalRemoveItemsDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(authorshipRemoved => {
+    dialogRef.afterClosed().subscribe((authorshipRemoved) => {
       if (authorshipRemoved) {
         this.removeAuthors(this.selection.selected);
       }
@@ -84,13 +91,18 @@ export class AddAuthorsComponent implements OnInit {
 
   removeAuthors(authorsToRemove: Author[]) {
     this.loading = true;
-    if(authorsToRemove.length) {
+    if (authorsToRemove.length) {
       const author = authorsToRemove.pop();
-      this.cabinetService.deleteAuthorship(this.publication.id, author.id).subscribe(() => {
-        this.removeAuthors(authorsToRemove);
-      }, ()=> this.loading = false);
+      this.cabinetService.deleteAuthorship(this.publication.id, author.id).subscribe(
+        () => {
+          this.removeAuthors(authorsToRemove);
+        },
+        () => (this.loading = false)
+      );
     } else {
-      this.notificator.showSuccess(this.translate.instant('DIALOGS.REMOVE_AUTHORS.SUCCESS_MESSAGE'));
+      this.notificator.showSuccess(
+        this.translate.instant('DIALOGS.REMOVE_AUTHORS.SUCCESS_MESSAGE')
+      );
       this.selection.clear();
       this.refresh();
     }

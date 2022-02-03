@@ -8,10 +8,9 @@ import { FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'perun-web-apps-update-rank-dialog',
   templateUrl: './update-rank-dialog.component.html',
-  styleUrls: ['./update-rank-dialog.component.scss']
+  styleUrls: ['./update-rank-dialog.component.scss'],
 })
 export class UpdateRankDialogComponent implements OnInit {
-
   constructor(
     private dialogRef: MatDialogRef<UpdateRankDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Category,
@@ -19,7 +18,9 @@ export class UpdateRankDialogComponent implements OnInit {
     private cabinetManagerService: CabinetManagerService,
     private translate: TranslateService
   ) {
-    translate.get('DIALOGS.UPDATE_RANK.SUCCESS').subscribe(value => this.successMessage = value);
+    translate
+      .get('DIALOGS.UPDATE_RANK.SUCCESS')
+      .subscribe((value) => (this.successMessage = value));
   }
 
   successMessage: string;
@@ -29,7 +30,10 @@ export class UpdateRankDialogComponent implements OnInit {
 
   ngOnInit() {
     this.categoryName = this.data.name;
-    this.rankCtrl = new FormControl(this.data.rank, [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9])?$')]);
+    this.rankCtrl = new FormControl(this.data.rank, [
+      Validators.required,
+      Validators.pattern('^[0-9]+(\\.[0-9])?$'),
+    ]);
   }
 
   onCancel() {
@@ -39,10 +43,13 @@ export class UpdateRankDialogComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     this.data.rank = this.rankCtrl.value;
-    this.cabinetManagerService.updateCategory({category: this.data}).subscribe(() => {
-      this.notificator.showSuccess(this.successMessage);
-      this.loading = false;
-      this.dialogRef.close(true);
-    }, () => this.loading = false);
+    this.cabinetManagerService.updateCategory({ category: this.data }).subscribe(
+      () => {
+        this.notificator.showSuccess(this.successMessage);
+        this.loading = false;
+        this.dialogRef.close(true);
+      },
+      () => (this.loading = false)
+    );
   }
 }

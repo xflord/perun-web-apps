@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CabinetManagerService, Category} from '@perun-web-apps/perun/openapi';
+import { CabinetManagerService, Category } from '@perun-web-apps/perun/openapi';
 import { TABLE_GROUP_RESOURCES_LIST } from '@perun-web-apps/config/table-config';
 import { SelectionModel } from '@angular/cdk/collections';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
@@ -11,14 +11,14 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'perun-web-apps-categories-page',
   templateUrl: './categories-page.component.html',
-  styleUrls: ['./categories-page.component.scss']
+  styleUrls: ['./categories-page.component.scss'],
 })
 export class CategoriesPageComponent implements OnInit {
-
-  constructor(private cabinetManagerService: CabinetManagerService,
-              private dialog: MatDialog,
-              private guiAuthResolver: GuiAuthResolver) {
-  }
+  constructor(
+    private cabinetManagerService: CabinetManagerService,
+    private dialog: MatDialog,
+    private guiAuthResolver: GuiAuthResolver
+  ) {}
 
   categories: Category[] = [];
   selected = new SelectionModel<Category>(true, []);
@@ -41,7 +41,7 @@ export class CategoriesPageComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.cabinetManagerService.getCategories().subscribe(categories => {
+    this.cabinetManagerService.getCategories().subscribe((categories) => {
       this.categories = categories;
       this.loading = false;
     });
@@ -58,7 +58,7 @@ export class CategoriesPageComponent implements OnInit {
 
     const dialogRef = this.dialog.open(AddCategoryDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.refreshTable();
       }
@@ -72,12 +72,11 @@ export class CategoriesPageComponent implements OnInit {
 
     const dialogRef = this.dialog.open(RemoveCategoryDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.selected.clear();
         this.refreshTable();
       }
     });
   }
-
 }

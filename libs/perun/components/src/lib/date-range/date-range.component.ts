@@ -4,11 +4,10 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'perun-web-apps-date-range',
   templateUrl: './date-range.component.html',
-  styleUrls: ['./date-range.component.scss']
+  styleUrls: ['./date-range.component.scss'],
 })
 export class DateRangeComponent implements OnInit {
-
-  constructor() { }
+  constructor() {}
 
   startMinDate: Date;
   startMaxDate: Date;
@@ -31,11 +30,9 @@ export class DateRangeComponent implements OnInit {
     this.endMinDate = this.startDate.value;
   }
 
-
   dateChange() {
     this.datePicker.emit();
     this.startMaxDate = this.endDate.value;
     this.endMinDate = this.startDate.value;
   }
-
 }

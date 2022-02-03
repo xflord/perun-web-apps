@@ -1,16 +1,10 @@
 <h1 class="page-subtitle">{{'RESOURCE_DETAIL.ASSIGNED_MEMBERS.TITLE' | translate}}</h1>
-<perun-web-apps-refresh-button
-  (refresh)="refreshTable()"
->
-</perun-web-apps-refresh-button>
+<perun-web-apps-refresh-button (refresh)="refreshTable()"> </perun-web-apps-refresh-button>
 <perun-web-apps-debounce-filter
   (filter)="applyFilter($event)"
   [placeholder]="'RESOURCE_DETAIL.ASSIGNED_MEMBERS.FILTER'">
 </perun-web-apps-debounce-filter>
-<mat-spinner
-  *ngIf="loading"
-  class="ml-auto mr-auto">
-</mat-spinner>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
 <perun-web-apps-members-list
   [tableId]="tableId"
   (updateTable)="refreshTable()"

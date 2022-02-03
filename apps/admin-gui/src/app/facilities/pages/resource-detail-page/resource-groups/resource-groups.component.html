@@ -1,21 +1,24 @@
 <h1 class="page-subtitle">{{'RESOURCE_DETAIL.ASSIGNED_GROUPS.TITLE' | translate}}</h1>
 <perun-web-apps-refresh-button (refresh)="loadAllGroups()"></perun-web-apps-refresh-button>
-<button (click)="addGroup()"
-        *ngIf="guiAuthResolver.isAuthorized('getAllGroups_Vo_policy',[resource])"
-        class="action-button"
-        color="accent"
-        mat-flat-button>
+<button
+  (click)="addGroup()"
+  *ngIf="guiAuthResolver.isAuthorized('getAllGroups_Vo_policy',[resource])"
+  class="action-button"
+  color="accent"
+  mat-flat-button>
   {{'RESOURCE_DETAIL.ASSIGNED_GROUPS.ADD_GROUP' | translate}}
 </button>
-<button (click)="removeGroups()"
-        [disabled]="selected.selected.length === 0 || !canRemoveGroups()"
-        class="ml-2 mr-2"
-        color="warn"
-        mat-flat-button>
-          <span [matTooltipDisabled]="canRemoveGroups()"
-                matTooltip="{{'RESOURCE_DETAIL.ASSIGNED_GROUPS.REMOVE_TOOLTIP' | translate}}">
-            {{'RESOURCE_DETAIL.ASSIGNED_GROUPS.REMOVE_GROUP' | translate}}
-          </span>
+<button
+  (click)="removeGroups()"
+  [disabled]="selected.selected.length === 0 || !canRemoveGroups()"
+  class="ml-2 mr-2"
+  color="warn"
+  mat-flat-button>
+  <span
+    [matTooltipDisabled]="canRemoveGroups()"
+    matTooltip="{{'RESOURCE_DETAIL.ASSIGNED_GROUPS.REMOVE_TOOLTIP' | translate}}">
+    {{'RESOURCE_DETAIL.ASSIGNED_GROUPS.REMOVE_GROUP' | translate}}
+  </span>
 </button>
 <perun-web-apps-debounce-filter
   [placeholder]="'RESOURCE_DETAIL.ASSIGNED_GROUPS.FILTER_GROUPS'"

@@ -1,11 +1,20 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import {
-  Group, GroupsManagerService,
+  Group,
+  GroupsManagerService,
   ResourcesManagerService,
-  RichResource, Service
+  RichResource,
+  Service,
 } from '@perun-web-apps/perun/openapi';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
@@ -22,21 +31,21 @@ export interface AddMemberToResourceDialogData {
 @Component({
   selector: 'app-add-member-to-resource-dialog',
   templateUrl: './add-member-to-resource-dialog.component.html',
-  styleUrls: ['./add-member-to-resource-dialog.component.scss']
+  styleUrls: ['./add-member-to-resource-dialog.component.scss'],
 })
 export class AddMemberToResourceDialogComponent implements OnInit, AfterViewInit {
-
   @ViewChild(MatStepper) stepper: MatStepper;
 
-  constructor(private dialogRef: MatDialogRef<AddMemberToResourceDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: AddMemberToResourceDialogData,
-              private resourceManager: ResourcesManagerService,
-              private groupManager: GroupsManagerService,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private authResolver: GuiAuthResolver,
-              private cd: ChangeDetectorRef) {
-  }
+  constructor(
+    private dialogRef: MatDialogRef<AddMemberToResourceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: AddMemberToResourceDialogData,
+    private resourceManager: ResourcesManagerService,
+    private groupManager: GroupsManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private authResolver: GuiAuthResolver,
+    private cd: ChangeDetectorRef
+  ) {}
 
   theme: string;
   loading = false;
@@ -48,20 +57,20 @@ export class AddMemberToResourceDialogComponent implements OnInit, AfterViewInit
   filteredFacilities: Observable<string[]>;
   facilitiesNames: string[] = [];
 
-  filteredResources:  Observable<RichResource[]>;
+  filteredResources: Observable<RichResource[]>;
   resources: RichResource[] = [];
   selectedResource: RichResource = null;
 
   services: Service[] = [];
-  description = "";
+  description = '';
 
   groups: Group[] = [];
-  selectedGroups =  new SelectionModel<Group>(false, []);
+  selectedGroups = new SelectionModel<Group>(false, []);
 
   ngAfterViewInit(): void {
     this.stepper.selectionChange.subscribe(() => {
-      this.selectedGroups.clear()
-    })
+      this.selectedGroups.clear();
+    });
     this.cd.detectChanges();
   }
 
@@ -69,16 +78,19 @@ export class AddMemberToResourceDialogComponent implements OnInit, AfterViewInit
     this.loading = true;
     this.theme = this.data.theme;
 
-    this.resourceManager.getRichResources(this.data.voId).subscribe(resources => {
-      this.resources = resources;
-      this.getResourceFacilities();
-      this.loading = false;
-    }, () => this.loading = false);
+    this.resourceManager.getRichResources(this.data.voId).subscribe(
+      (resources) => {
+        this.resources = resources;
+        this.getResourceFacilities();
+        this.loading = false;
+      },
+      () => (this.loading = false)
+    );
   }
 
-  getResourceFacilities(){
+  getResourceFacilities() {
     const distinctFacilities = new Set<string>();
-    for(const resource of this.resources){
+    for (const resource of this.resources) {
       distinctFacilities.add(resource.facility.name);
     }
 
@@ -86,71 +98,86 @@ export class AddMemberToResourceDialogComponent implements OnInit, AfterViewInit
 
     this.filteredFacilities = this.facilityCtrl.valueChanges.pipe(
       startWith(''),
-      map(value => this.filterFacilities(value))
+      map((value) => this.filterFacilities(value))
     );
 
     this.filteredResources = this.facilityCtrl.valueChanges.pipe(
       startWith(''),
-      map(value => this.filterResources(value))
+      map((value) => this.filterResources(value))
     );
   }
 
   filterFacilities(value: string): string[] {
     const filterValue = value.toLowerCase();
-    const filtered = this.facilitiesNames.filter(option => option.toLowerCase().indexOf(filterValue) >=0);
+    const filtered = this.facilitiesNames.filter(
+      (option) => option.toLowerCase().indexOf(filterValue) >= 0
+    );
     return filtered.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
   }
 
-  filterResources(value: string): RichResource[]{
-    if(value == null){
+  filterResources(value: string): RichResource[] {
+    if (value == null) {
       return this.resources;
     }
 
     const filterValue = value.toLowerCase();
-    const filtered = this.resources.filter(option => option.facility.name.toLowerCase().indexOf(filterValue) === 0);
+    const filtered = this.resources.filter(
+      (option) => option.facility.name.toLowerCase().indexOf(filterValue) === 0
+    );
     return filtered.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
   }
 
-  setResource(resource: RichResource){
+  setResource(resource: RichResource) {
     this.processing = true;
     this.selectedResource = resource;
 
-    this.resourceManager.getAssignedServicesToResource(this.selectedResource.id).subscribe(services => {
-      this.services = services;
-      this.processing = false;
-    }, () => this.processing = false);
+    this.resourceManager.getAssignedServicesToResource(this.selectedResource.id).subscribe(
+      (services) => {
+        this.services = services;
+        this.processing = false;
+      },
+      () => (this.processing = false)
+    );
     this.description = this.selectedResource.description;
   }
 
-  loadGroups(){
+  loadGroups() {
     this.processing = true;
-    this.resourceManager.getAssignedGroups(this.selectedResource.id).subscribe(assignedGroups =>{
+    this.resourceManager.getAssignedGroups(this.selectedResource.id).subscribe((assignedGroups) => {
       this.groups = assignedGroups;
 
-      this.groupManager.getAllMemberGroups(this.data.memberId).subscribe( memberGroups => {
-        this.membersGroupsId = new Set<number>(memberGroups.map(group => group.id));
+      this.groupManager.getAllMemberGroups(this.data.memberId).subscribe(
+        (memberGroups) => {
+          this.membersGroupsId = new Set<number>(memberGroups.map((group) => group.id));
 
-        this.groups.forEach(grp => {
-          if (!this.authResolver.isAuthorized('addMember_Group_Member_policy', [grp])) {
-            this.membersGroupsId.add(grp.id);
-          }
-        });
-        this.processing = false;
-      }, () => this.processing = false);
+          this.groups.forEach((grp) => {
+            if (!this.authResolver.isAuthorized('addMember_Group_Member_policy', [grp])) {
+              this.membersGroupsId.add(grp.id);
+            }
+          });
+          this.processing = false;
+        },
+        () => (this.processing = false)
+      );
     });
   }
 
-  onFinish(){
+  onFinish() {
     this.processing = true;
     const groupId = this.selectedGroups.selected[0].id;
 
-    this.groupManager.addMembers(groupId, [this.data.memberId]).subscribe(() => {
-      this.notificator.showSuccess(this.translate.instant('DIALOGS.ADD_MEMBER_TO_RESOURCE.SUCCESS'));
-      this.dialogRef.close(true);
-    }, () => this.processing = false);
+    this.groupManager.addMembers(groupId, [this.data.memberId]).subscribe(
+      () => {
+        this.notificator.showSuccess(
+          this.translate.instant('DIALOGS.ADD_MEMBER_TO_RESOURCE.SUCCESS')
+        );
+        this.dialogRef.close(true);
+      },
+      () => (this.processing = false)
+    );
   }
 
-  onCancel(){
+  onCancel() {
     this.dialogRef.close(false);
   }
 

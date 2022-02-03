@@ -19,7 +19,9 @@
   //height: 100%;
   //width: 200%;
   display: flex;
-  div { flex: 1; }
+  div {
+    flex: 1;
+  }
 }
 
 //.mat-dialog-height-transition {

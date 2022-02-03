@@ -11,17 +11,14 @@ export type NavigateType = 'back' | 'forward';
  * Example: Perun admin -> Users -> Select user -> Service Accounts -> Select service account
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ForceRouterService {
-
   private lastState: NavigateType = 'forward';
   private history: Set<number> = new Set<number>();
 
-  constructor(
-    private router: Router
-  ) {
-    router.events.subscribe(event => {
+  constructor(private router: Router) {
+    router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         if (event.navigationTrigger === 'popstate') {
           if (this.history.has(event.restoredState.navigationId)) {
@@ -40,20 +37,20 @@ export class ForceRouterService {
   }
 
   forceNavigate(commands: any[], extras?: NavigationExtras) {
-    if(commands === null) {
+    if (commands === null) {
       return;
     }
 
     let fullUrl = '';
-    commands.forEach(c => fullUrl += '/' + c);
+    commands.forEach((c) => (fullUrl += '/' + c));
     if (fullUrl.length > 0) {
       fullUrl = fullUrl.substring(1);
     }
 
-    if(extras === undefined){
+    if (extras === undefined) {
       extras = {};
     }
-    extras.queryParams = {redirectTo: fullUrl};
+    extras.queryParams = { redirectTo: fullUrl };
 
     this.router.navigate(['redirect'], extras);
   }

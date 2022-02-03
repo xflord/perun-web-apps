@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface BanOnVoAllOf { 
-    memberId?: number;
-    voId?: number;
+export interface BanOnVoAllOf {
+  memberId?: number;
+  voId?: number;
 }
-

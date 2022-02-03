@@ -1,5 +1,13 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import {openClose} from '@perun-web-apps/perun/animations';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { openClose } from '@perun-web-apps/perun/animations';
 import { Attribute } from '@perun-web-apps/perun/openapi';
 
 export class ExpirationAttrValue {
@@ -37,13 +45,10 @@ export interface ExpirationConfiguration {
   selector: 'app-expiration-settings',
   templateUrl: './expiration-settings.component.html',
   styleUrls: ['./expiration-settings.component.scss'],
-  animations: [
-    openClose
-  ]
+  animations: [openClose],
 })
 export class ExpirationSettingsComponent implements OnInit, OnChanges {
-
-  constructor() { }
+  constructor() {}
 
   @Input()
   expirationAttribute: Attribute;
@@ -59,30 +64,40 @@ export class ExpirationSettingsComponent implements OnInit, OnChanges {
   dynamicAmountPattern = '^[1-9]+$';
 
   // TODO translation
-  amountOptions = [{
-    value: 'd',
-    text: 'Days'
-  }, {
-    value: 'm',
-    text: 'Months'
-  }, {
-    value: 'y',
-    text: 'Years'
-  }];
+  amountOptions = [
+    {
+      value: 'd',
+      text: 'Days',
+    },
+    {
+      value: 'm',
+      text: 'Months',
+    },
+    {
+      value: 'y',
+      text: 'Years',
+    },
+  ];
 
   voId: number;
 
   ngOnInit() {
     const loaPeriods = new Map();
-    this.loas.forEach(loa => loaPeriods.set(loa, ''));
+    this.loas.forEach((loa) => loaPeriods.set(loa, ''));
 
-    this.initialConfiguration = this.unParseAttrValue(<ExpirationAttrValue>this.expirationAttribute.value);
-    this.currentConfiguration = this.unParseAttrValue(<ExpirationAttrValue>this.expirationAttribute.value);
+    this.initialConfiguration = this.unParseAttrValue(
+      <ExpirationAttrValue>this.expirationAttribute.value
+    );
+    this.currentConfiguration = this.unParseAttrValue(
+      <ExpirationAttrValue>this.expirationAttribute.value
+    );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.expirationAttribute) {
-      this.initialConfiguration = this.unParseAttrValue(<ExpirationAttrValue>this.expirationAttribute.value);
+      this.initialConfiguration = this.unParseAttrValue(
+        <ExpirationAttrValue>this.expirationAttribute.value
+      );
     }
   }
 
@@ -102,11 +117,13 @@ export class ExpirationSettingsComponent implements OnInit, OnChanges {
       return true;
     }
 
-    return currentValue.period !== initValue.period ||
+    return (
+      currentValue.period !== initValue.period ||
       currentValue.gracePeriod !== initValue.gracePeriod ||
       currentValue.doNotExtendLoa !== initValue.doNotExtendLoa ||
       currentValue.doNotAllowLoa !== initValue.doNotAllowLoa ||
-      currentValue.periodLoa !== initValue.periodLoa;
+      currentValue.periodLoa !== initValue.periodLoa
+    );
   }
 
   parseExpirationRulesAttribute(): Attribute {
@@ -128,7 +145,7 @@ export class ExpirationSettingsComponent implements OnInit, OnChanges {
 
   createInitConfiguration(): ExpirationConfiguration {
     const loaPeriods = new Map();
-    this.loas.forEach(loa => loaPeriods.set(loa, ''));
+    this.loas.forEach((loa) => loaPeriods.set(loa, ''));
 
     return {
       enabled: false,
@@ -150,7 +167,7 @@ export class ExpirationSettingsComponent implements OnInit, OnChanges {
       specialLoaPeriodDynamic: '',
       specialLoaPeriodDynamicUnit: 'm',
       specialLoaPeriodStatic: '',
-      specialLoaPeriodExtendExpiredMembers: false
+      specialLoaPeriodExtendExpiredMembers: false,
     };
   }
 
@@ -184,14 +201,17 @@ export class ExpirationSettingsComponent implements OnInit, OnChanges {
     return config;
   }
 
-  private setPeriodValues(value: ExpirationAttrValue, config: ExpirationConfiguration): ExpirationConfiguration {
+  private setPeriodValues(
+    value: ExpirationAttrValue,
+    config: ExpirationConfiguration
+  ): ExpirationConfiguration {
     config.enabled = true;
     if (value.period.startsWith('+')) {
       config.periodType = 'dynamic';
 
       const unit = value.period.charAt(value.period.length - 1);
       config.periodDynamic = value.period.substring(1, value.period.length - 1);
-      config.periodDynamicUnit = <'m'|'d'|'y'>unit;
+      config.periodDynamicUnit = <'m' | 'd' | 'y'>unit;
     } else {
       config.periodType = 'static';
 
@@ -200,9 +220,12 @@ export class ExpirationSettingsComponent implements OnInit, OnChanges {
     return config;
   }
 
-  private setDoNotAllowLoasValues(value: ExpirationAttrValue, config: ExpirationConfiguration): ExpirationConfiguration {
+  private setDoNotAllowLoasValues(
+    value: ExpirationAttrValue,
+    config: ExpirationConfiguration
+  ): ExpirationConfiguration {
     const loas = [];
-    value.doNotAllowLoa.split(',').forEach(l => loas.push(parseInt(l.trim(), 10)));
+    value.doNotAllowLoa.split(',').forEach((l) => loas.push(parseInt(l.trim(), 10)));
     config.doNotAllowLoas = loas;
     if (loas.length > 0) {
       config.doNotAllowLoasEnabled = true;
@@ -210,9 +233,12 @@ export class ExpirationSettingsComponent implements OnInit, OnChanges {
     return config;
   }
 
-  private setDoNotExtendLoasValues(value: ExpirationAttrValue, config: ExpirationConfiguration): ExpirationConfiguration {
+  private setDoNotExtendLoasValues(
+    value: ExpirationAttrValue,
+    config: ExpirationConfiguration
+  ): ExpirationConfiguration {
     const loas = [];
-    value.doNotExtendLoa.split(',').forEach(l => loas.push(parseInt(l.trim(), 10)));
+    value.doNotExtendLoa.split(',').forEach((l) => loas.push(parseInt(l.trim(), 10)));
     config.doNotExtendLoas = loas;
     if (loas.length > 0) {
       config.doNotExtendLoasEnabled = true;
@@ -220,22 +246,30 @@ export class ExpirationSettingsComponent implements OnInit, OnChanges {
     return config;
   }
 
-  private setGracePeriodValues(value: ExpirationAttrValue, config: ExpirationConfiguration): ExpirationConfiguration {
+  private setGracePeriodValues(
+    value: ExpirationAttrValue,
+    config: ExpirationConfiguration
+  ): ExpirationConfiguration {
     config.gracePeriodEnabled = true;
     const unit = value.gracePeriod.charAt(value.gracePeriod.length - 1);
     config.gracePeriod = value.gracePeriod.substring(0, value.gracePeriod.length - 1);
-    config.gracePeriodUnit = <'m'|'d'|'y'>unit;
+    config.gracePeriodUnit = <'m' | 'd' | 'y'>unit;
     return config;
   }
 
-  private setSpecialLoaPeriodValues(value: ExpirationAttrValue, config: ExpirationConfiguration): ExpirationConfiguration {
+  private setSpecialLoaPeriodValues(
+    value: ExpirationAttrValue,
+    config: ExpirationConfiguration
+  ): ExpirationConfiguration {
     config.specialLoa = parseInt(value.periodLoa.substring(0, value.periodLoa.indexOf('|')), 10);
     config.specialLoaPeriodEnabled = true;
 
-    let specialPeriodValue = value.periodLoa.substring(value.periodLoa.indexOf('|') + 1, value.periodLoa.length);
+    let specialPeriodValue = value.periodLoa.substring(
+      value.periodLoa.indexOf('|') + 1,
+      value.periodLoa.length
+    );
 
     if (specialPeriodValue.startsWith('+')) {
-
       if (specialPeriodValue.endsWith('.')) {
         config.specialLoaPeriodExtendExpiredMembers = true;
         specialPeriodValue = specialPeriodValue.substring(0, specialPeriodValue.length - 1);
@@ -244,10 +278,12 @@ export class ExpirationSettingsComponent implements OnInit, OnChanges {
       config.specialLoaPeriodType = 'dynamic';
 
       const unit = specialPeriodValue.charAt(specialPeriodValue.length - 1);
-      config.specialLoaPeriodDynamic = specialPeriodValue.substring(1, specialPeriodValue.length - 1);
-      config.specialLoaPeriodDynamicUnit = <'m'|'d'|'y'>unit;
+      config.specialLoaPeriodDynamic = specialPeriodValue.substring(
+        1,
+        specialPeriodValue.length - 1
+      );
+      config.specialLoaPeriodDynamicUnit = <'m' | 'd' | 'y'>unit;
     } else {
-
       if (specialPeriodValue.endsWith('..')) {
         config.specialLoaPeriodExtendExpiredMembers = true;
         specialPeriodValue = specialPeriodValue.substring(0, specialPeriodValue.length - 1);
@@ -275,7 +311,7 @@ export class ExpirationSettingsComponent implements OnInit, OnChanges {
     }
 
     let dontAllowLoas = '';
-    config.doNotAllowLoas.forEach(loa => dontAllowLoas += loa + ',');
+    config.doNotAllowLoas.forEach((loa) => (dontAllowLoas += loa + ','));
 
     if (dontAllowLoas.length > 0) {
       dontAllowLoas = dontAllowLoas.substring(0, dontAllowLoas.length - 1);
@@ -290,7 +326,7 @@ export class ExpirationSettingsComponent implements OnInit, OnChanges {
     }
 
     let dontExtendLoas = '';
-    config.doNotExtendLoas.forEach(loa => dontExtendLoas += loa + ',');
+    config.doNotExtendLoas.forEach((loa) => (dontExtendLoas += loa + ','));
 
     if (dontExtendLoas.length > 0) {
       dontExtendLoas = dontExtendLoas.substring(0, dontExtendLoas.length - 1);

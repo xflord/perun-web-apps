@@ -24,16 +24,16 @@ interface GroupNode {
 @Component({
   selector: 'perun-web-apps-member-tree-view-dialog',
   templateUrl: './member-tree-view-dialog.component.html',
-  styleUrls: ['./member-tree-view-dialog.component.scss']
+  styleUrls: ['./member-tree-view-dialog.component.scss'],
 })
 export class MemberTreeViewDialogComponent implements OnInit {
+  constructor(
+    public dialogRef: MatDialogRef<MemberTreeViewDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: MemberTreeViewDialogData,
+    private groupsManagerService: GroupsManagerService
+  ) {}
 
-  constructor(public dialogRef: MatDialogRef<MemberTreeViewDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: MemberTreeViewDialogData,
-              private groupsManagerService: GroupsManagerService) {
-  }
-
-  treeControl = new NestedTreeControl<GroupNode>(node => node.children);
+  treeControl = new NestedTreeControl<GroupNode>((node) => node.children);
   loading: boolean;
   dataSource = new MatTreeNestedDataSource<GroupNode>();
   groupTree: GroupNode[] = [];
@@ -57,7 +57,7 @@ export class MemberTreeViewDialogComponent implements OnInit {
             direct: false,
             include: true,
             level: index,
-            children: []
+            children: [],
           };
           currentTree[i].children = [childrenNode].concat(currentTree[i].children);
         } else {
@@ -74,7 +74,7 @@ export class MemberTreeViewDialogComponent implements OnInit {
       direct: false,
       include: false,
       level: index,
-      children: []
+      children: [],
     };
     currentTree.push(newNode);
     return this.recursiveSearch(currentTree, path, index);
@@ -82,25 +82,29 @@ export class MemberTreeViewDialogComponent implements OnInit {
 
   createGroupTree(paths: Group[][]) {
     this.groupTree = [];
-    paths.forEach(path => {
+    paths.forEach((path) => {
       this.groupTree = this.recursiveSearch(this.groupTree, path, 0);
     });
-    if (this.groupTree.length){
+    if (this.groupTree.length) {
       this.groupTree = this.groupTree[0].children;
     }
   }
 
   ngOnInit(): void {
     this.loading = true;
-    this.groupsManagerService.getIndirectMembershipPaths(this.data.member.id, this.data.groupId).subscribe(paths => {
-      this.paths = paths;
-      this.createGroupTree(this.paths);
-      this.dataSource.data = this.groupTree;
-      this.loading = false;
-    });
-    this.formControl.valueChanges.subscribe(value => {
+    this.groupsManagerService
+      .getIndirectMembershipPaths(this.data.member.id, this.data.groupId)
+      .subscribe((paths) => {
+        this.paths = paths;
+        this.createGroupTree(this.paths);
+        this.dataSource.data = this.groupTree;
+        this.loading = false;
+      });
+    this.formControl.valueChanges.subscribe((value) => {
       const filterValue = value.trim().toLowerCase();
-      const filteredPaths = this.paths.filter(p => p.filter(g => g.name.includes(filterValue)).length);
+      const filteredPaths = this.paths.filter(
+        (p) => p.filter((g) => g.name.includes(filterValue)).length
+      );
       this.createGroupTree(filteredPaths);
       this.dataSource.data = this.groupTree;
     });
@@ -114,7 +118,12 @@ export class MemberTreeViewDialogComponent implements OnInit {
   }
 
   navigate(groupId: number, isInclude = false) {
-    window.open(`/organizations/${this.data.member.voId}/groups/${groupId}${isInclude ? '/settings/relations' : ''}`, '_blank');
+    window.open(
+      `/organizations/${this.data.member.voId}/groups/${groupId}${
+        isInclude ? '/settings/relations' : ''
+      }`,
+      '_blank'
+    );
   }
 
   getMinWidth(level: number): string {

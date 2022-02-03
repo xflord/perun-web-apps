@@ -1,6 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ApplicationFormItem, AppType, Group, Type } from '@perun-web-apps/perun/openapi';
 import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { createNewApplicationFormItem } from '@perun-web-apps/perun/utils';
@@ -20,43 +20,77 @@ export interface EditApplicationFormItemDialogComponentData {
 @Component({
   selector: 'app-edit-application-form-item-dialog',
   templateUrl: './edit-application-form-item-dialog.component.html',
-  styleUrls: ['./edit-application-form-item-dialog.component.scss']
+  styleUrls: ['./edit-application-form-item-dialog.component.scss'],
 })
 export class EditApplicationFormItemDialogComponent implements OnInit {
-
   applicationFormItem: ApplicationFormItem;
   attributeDefinitions: AttributeDefinition[];
   federationAttribute = '';
   itemType = ItemType;
-  options: {[key:string]:[string, string][]};
+  options: { [key: string]: [string, string][] };
   theme: string;
   loading = false;
   hiddenValues: HiddenEnum[] = ['NEVER', 'ALWAYS', 'IF_EMPTY', 'IF_PREFILLED'];
   disabledValues: DisabledEnum[] = ['NEVER', 'ALWAYS', 'IF_EMPTY', 'IF_PREFILLED'];
   possibleDependencyItems: ApplicationFormItem[] = [];
 
-  typesWithUpdatable: Type[] = ['VALIDATED_EMAIL', 'TEXTFIELD', 'TEXTAREA', 'CHECKBOX', 'RADIO', 'SELECTIONBOX', 'COMBOBOX', 'TIMEZONE'];
-  typesWithDisabled: Type[] = ['USERNAME', 'PASSWORD', 'VALIDATED_EMAIL', 'TEXTFIELD', 'TEXTAREA', 'CHECKBOX', 'RADIO', 'SELECTIONBOX', 'COMBOBOX'];
+  typesWithUpdatable: Type[] = [
+    'VALIDATED_EMAIL',
+    'TEXTFIELD',
+    'TEXTAREA',
+    'CHECKBOX',
+    'RADIO',
+    'SELECTIONBOX',
+    'COMBOBOX',
+    'TIMEZONE',
+  ];
+  typesWithDisabled: Type[] = [
+    'USERNAME',
+    'PASSWORD',
+    'VALIDATED_EMAIL',
+    'TEXTFIELD',
+    'TEXTAREA',
+    'CHECKBOX',
+    'RADIO',
+    'SELECTIONBOX',
+    'COMBOBOX',
+  ];
 
   hiddenDependencyItem: ApplicationFormItem = null;
   disabledDependencyItem: ApplicationFormItem = null;
-  private dependencyTypes: Type[] = ['PASSWORD', 'VALIDATED_EMAIL', 'TEXTFIELD', 'TEXTAREA', 'CHECKBOX', 'RADIO', 'SELECTIONBOX', 'COMBOBOX', 'USERNAME'];
+  private dependencyTypes: Type[] = [
+    'PASSWORD',
+    'VALIDATED_EMAIL',
+    'TEXTFIELD',
+    'TEXTAREA',
+    'CHECKBOX',
+    'RADIO',
+    'SELECTIONBOX',
+    'COMBOBOX',
+    'USERNAME',
+  ];
 
   languages = ['en'];
 
-  constructor(private dialogRef: MatDialogRef<EditApplicationFormItemDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: EditApplicationFormItemDialogComponentData,
-              private attributesManager: AttributesManagerService,
-              private translateService: TranslateService,
-              private store: StoreService) { }
+  constructor(
+    private dialogRef: MatDialogRef<EditApplicationFormItemDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: EditApplicationFormItemDialogComponentData,
+    private attributesManager: AttributesManagerService,
+    private translateService: TranslateService,
+    private store: StoreService
+  ) {}
 
   ngOnInit() {
     this.languages = this.store.get('supported_languages');
-    this.hiddenDependencyItem = this.data.allItems.find(item => item.id === this.data.applicationFormItem.hiddenDependencyItemId);
+    this.hiddenDependencyItem = this.data.allItems.find(
+      (item) => item.id === this.data.applicationFormItem.hiddenDependencyItemId
+    );
     if (!this.hiddenDependencyItem) {
       this.hiddenDependencyItem = NO_FORM_ITEM;
     }
-    this.disabledDependencyItem = this.data.allItems.find(item => item.id === this.data.applicationFormItem.disabledDependencyItemId);
+    this.disabledDependencyItem = this.data.allItems.find(
+      (item) => item.id === this.data.applicationFormItem.disabledDependencyItemId
+    );
     if (!this.disabledDependencyItem) {
       this.disabledDependencyItem = NO_FORM_ITEM;
     }
@@ -65,10 +99,13 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     this.applicationFormItem = createNewApplicationFormItem(this.languages);
     this.copy(this.data.applicationFormItem, this.applicationFormItem);
     this.loading = true;
-    this.attributesManager.getAllAttributeDefinitions().subscribe( attributeDefinitions => {
-      this.attributeDefinitions = attributeDefinitions;
-      this.loading = false;
-    }, () => this.loading = false);
+    this.attributesManager.getAllAttributeDefinitions().subscribe(
+      (attributeDefinitions) => {
+        this.attributeDefinitions = attributeDefinitions;
+        this.loading = false;
+      },
+      () => (this.loading = false)
+    );
     if (this.applicationFormItem.perunDestinationAttribute === null) {
       this.applicationFormItem.perunDestinationAttribute = '';
     }
@@ -79,10 +116,11 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
   }
 
   private getPossibleDepItems() {
-    return [NO_FORM_ITEM].concat(this.data.allItems
-        .filter(item => this.dependencyTypes.indexOf(item.type) > -1)
-        .filter(item => item.id !== this.data.applicationFormItem.id)
-        );
+    return [NO_FORM_ITEM].concat(
+      this.data.allItems
+        .filter((item) => this.dependencyTypes.indexOf(item.type) > -1)
+        .filter((item) => item.id !== this.data.applicationFormItem.id)
+    );
   }
 
   cancel() {
@@ -90,8 +128,10 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
   }
 
   submit() {
-    this.applicationFormItem.hiddenDependencyItemId = this.hiddenDependencyItem === NO_FORM_ITEM ? null : this.hiddenDependencyItem.id;
-    this.applicationFormItem.disabledDependencyItemId = this.disabledDependencyItem === NO_FORM_ITEM ? null : this.disabledDependencyItem.id;
+    this.applicationFormItem.hiddenDependencyItemId =
+      this.hiddenDependencyItem === NO_FORM_ITEM ? null : this.hiddenDependencyItem.id;
+    this.applicationFormItem.disabledDependencyItemId =
+      this.disabledDependencyItem === NO_FORM_ITEM ? null : this.disabledDependencyItem.id;
     this.updateOptions();
     this.copy(this.applicationFormItem, this.data.applicationFormItem);
     this.dialogRef.close(true);
@@ -111,12 +151,14 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
   }
 
   removeOption(option: [string, string], lang: string) {
-    this.options[lang] = this.options[lang].filter(opt => !(opt[0] === option[0] && opt[1] === option[1]));
+    this.options[lang] = this.options[lang].filter(
+      (opt) => !(opt[0] === option[0] && opt[1] === option[1])
+    );
   }
 
-  updateOption(lang: string){
+  updateOption(lang: string) {
     let options = '';
-    if (this.options && this.options[lang]){
+    if (this.options && this.options[lang]) {
       for (const item of this.options[lang]) {
         if (item[0] !== '' && item[1] !== '') {
           if (options === '') {
@@ -203,7 +245,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     }
   }
 
-  isApplicationFormItemOfType(types: string[]):boolean {
+  isApplicationFormItemOfType(types: string[]): boolean {
     return types.indexOf(this.applicationFormItem.type) > -1;
   }
 }

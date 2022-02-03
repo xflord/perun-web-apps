@@ -1,11 +1,10 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 import { ResourceTag } from '@perun-web-apps/perun/openapi';
 
 @Pipe({
-  name: 'resourceTagsToString'
+  name: 'resourceTagsToString',
 })
 export class ResourceTagsToStringPipe implements PipeTransform {
-
   transform(value: any): any {
     if (value == null) {
       return null;
@@ -20,5 +19,4 @@ export class ResourceTagsToStringPipe implements PipeTransform {
 
     return result;
   }
-
 }

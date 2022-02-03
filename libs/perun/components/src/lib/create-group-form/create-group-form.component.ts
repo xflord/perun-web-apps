@@ -6,11 +6,10 @@ import { Group } from '@perun-web-apps/perun/openapi';
 @Component({
   selector: 'perun-web-apps-create-group-form',
   templateUrl: './create-group-form.component.html',
-  styleUrls: ['./create-group-form.component.css']
+  styleUrls: ['./create-group-form.component.css'],
 })
 export class CreateGroupFormComponent implements OnInit {
-
-  constructor(private store: StoreService) { }
+  constructor(private store: StoreService) {}
 
   @Input()
   parentGroup: Group = null;
@@ -36,11 +35,15 @@ export class CreateGroupFormComponent implements OnInit {
   asSubgroupChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   ngOnInit(): void {
-    this.isNotSubGroup = (this.parentGroup === null);
-    this.nameControl = new FormControl('', [Validators.required, Validators.pattern(this.secondaryRegex ? this.secondaryRegex : ''), Validators.pattern('.*[\\S]+.*')]);
+    this.isNotSubGroup = this.parentGroup === null;
+    this.nameControl = new FormControl('', [
+      Validators.required,
+      Validators.pattern(this.secondaryRegex ? this.secondaryRegex : ''),
+      Validators.pattern('.*[\\S]+.*'),
+    ]);
     this.descriptionControl = new FormControl('', [Validators.required, Validators.maxLength(129)]);
     this.selectedParent = null;
-    this.voGroups = this.voGroups.filter(grp => grp.name !== 'members');
+    this.voGroups = this.voGroups.filter((grp) => grp.name !== 'members');
   }
 
   emitName() {

@@ -12,9 +12,7 @@
 import { Attribute } from './attribute';
 import { UserExtSource } from './userExtSource';
 
-
-export interface RichUserAllOf { 
-    userExtSources: Array<UserExtSource>;
-    userAttributes: Array<Attribute>;
+export interface RichUserAllOf {
+  userExtSources: Array<UserExtSource>;
+  userAttributes: Array<Attribute>;
 }
-

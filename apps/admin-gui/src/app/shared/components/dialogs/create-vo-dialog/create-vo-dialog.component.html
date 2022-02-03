@@ -9,7 +9,7 @@
           required
           placeholder="{{'DIALOGS.CREATE_VO.FULL_NAME' | translate}}"
           data-cy="vo-name-input"
-          [formControl]="fullNameCtrl">
+          [formControl]="fullNameCtrl" />
         <mat-error>
           {{'DIALOGS.CREATE_VO.FILL_FULL_NAME' | translate}}
         </mat-error>
@@ -20,21 +20,20 @@
           required
           placeholder="{{'DIALOGS.CREATE_VO.SHORT_NAME' | translate}}"
           data-cy="vo-shortname-input"
-          [formControl]="shortNameCtrl">
+          [formControl]="shortNameCtrl" />
         <mat-error>
           {{'DIALOGS.CREATE_VO.FILL_SHORT_NAME' | translate}}
         </mat-error>
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button
-        mat-flat-button
-        class="ml-auto"
-        (click)="onCancel()">
+      <button mat-flat-button class="ml-auto" (click)="onCancel()">
         {{'DIALOGS.CREATE_VO.CANCEL' | translate}}
       </button>
-      <div matTooltip="{{'DIALOGS.CREATE_VO.TOOLTIP' | translate}}" matTooltipPosition="above"
-           [matTooltipDisabled]="shortNameCtrl.valid && fullNameCtrl.valid">
+      <div
+        matTooltip="{{'DIALOGS.CREATE_VO.TOOLTIP' | translate}}"
+        matTooltipPosition="above"
+        [matTooltipDisabled]="shortNameCtrl.valid && fullNameCtrl.valid">
         <button
           mat-flat-button
           class="ml-2"

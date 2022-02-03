@@ -6,12 +6,13 @@ import { EntityStorageService } from '@perun-web-apps/perun/services';
 @Component({
   selector: 'app-vo-statistics',
   templateUrl: './vo-statistics.component.html',
-  styleUrls: ['./vo-statistics.component.scss']
+  styleUrls: ['./vo-statistics.component.scss'],
 })
 export class VoStatisticsComponent implements OnInit {
-
-  constructor(private voService: VosManagerService,
-              private entityStorageService: EntityStorageService) { }
+  constructor(
+    private voService: VosManagerService,
+    private entityStorageService: EntityStorageService
+  ) {}
 
   loading = false;
 
@@ -27,7 +28,7 @@ export class VoStatisticsComponent implements OnInit {
     ['valid', 0],
     ['invalid', 0],
     ['expired', 0],
-    ['disabled', 0]
+    ['disabled', 0],
   ]);
 
   ngOnInit(): void {
@@ -36,17 +37,19 @@ export class VoStatisticsComponent implements OnInit {
 
     this.dataSource = new MatTableDataSource<string>(this.rowNames);
 
-    this.voService.getVoMembersCountsByStatus(this.vo.id).subscribe(numOfMembersByStatus => {
-      this.allMembersCount = 0;
+    this.voService.getVoMembersCountsByStatus(this.vo.id).subscribe(
+      (numOfMembersByStatus) => {
+        this.allMembersCount = 0;
 
-      for (const status of Object.keys(numOfMembersByStatus)) {
-        this.membersCount.set(status.toLowerCase(), numOfMembersByStatus[status]);
-        this.allMembersCount += numOfMembersByStatus[status];
-      }
+        for (const status of Object.keys(numOfMembersByStatus)) {
+          this.membersCount.set(status.toLowerCase(), numOfMembersByStatus[status]);
+          this.allMembersCount += numOfMembersByStatus[status];
+        }
 
-      this.membersCount.set('members', this.allMembersCount);
-      this.loading = false;
-    }, () => this.loading = false);
+        this.membersCount.set('members', this.allMembersCount);
+        this.loading = false;
+      },
+      () => (this.loading = false)
+    );
   }
-
 }

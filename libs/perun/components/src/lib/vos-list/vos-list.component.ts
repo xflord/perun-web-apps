@@ -1,17 +1,14 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  ViewChild
-} from '@angular/core';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Vo } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
   customDataSourceFilterPredicate,
-  customDataSourceSort, downloadData, getDataForExport,
-  TABLE_ITEMS_COUNT_OPTIONS
+  customDataSourceSort,
+  downloadData,
+  getDataForExport,
+  TABLE_ITEMS_COUNT_OPTIONS,
 } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
@@ -19,11 +16,10 @@ import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
 @Component({
   selector: 'perun-web-apps-vos-list',
   templateUrl: './vos-list.component.html',
-  styleUrls: ['./vos-list.component.scss']
+  styleUrls: ['./vos-list.component.scss'],
 })
 export class VosListComponent implements OnChanges {
-
-  constructor(private authResolver: GuiAuthResolver) { }
+  constructor(private authResolver: GuiAuthResolver) {}
 
   @Input()
   vos: Vo[] = [];
@@ -53,27 +49,27 @@ export class VosListComponent implements OnChanges {
     this.sort = ms;
   }
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   private sort: MatSort;
 
   dataSource: MatTableDataSource<Vo>;
 
   ngOnChanges() {
-    if (!this.authResolver.isPerunAdminOrObserver()){
-      this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
     this.setDataSource();
   }
 
-  getDataForColumn(data: Vo, column: string, otherThis: VosListComponent): string{
+  getDataForColumn(data: Vo, column: string, otherThis: VosListComponent): string {
     switch (column) {
       case 'id':
         return data.id.toString();
       case 'shortName':
         return data.shortName;
       case 'name':
-       return data.name;
+        return data.name;
       case 'recent':
         if (otherThis.recentIds) {
           if (otherThis.recentIds.indexOf(data.id) > -1) {
@@ -86,8 +82,16 @@ export class VosListComponent implements OnChanges {
     }
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getDataForColumn, this), format);
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
   setDataSource() {
@@ -96,7 +100,13 @@ export class VosListComponent implements OnChanges {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filterPredicate = (data: Vo, filter: string) =>
-        customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+        customDataSourceFilterPredicate(
+          data,
+          filter,
+          this.displayedColumns,
+          this.getDataForColumn,
+          this
+        );
       this.dataSource.sortData = (data: Vo[], sort: MatSort) =>
         customDataSourceSort(data, sort, this.getDataForColumn, this);
     }

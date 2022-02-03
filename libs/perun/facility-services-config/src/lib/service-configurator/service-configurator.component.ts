@@ -1,11 +1,4 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import {
   Attribute,
   AttributesManagerService,
@@ -15,9 +8,7 @@ import {
   RichMember,
   Service,
 } from '@perun-web-apps/perun/openapi';
-import {
-  TABLE_ATTRIBUTES_SETTINGS,
-} from '@perun-web-apps/config/table-config';
+import { TABLE_ATTRIBUTES_SETTINGS } from '@perun-web-apps/config/table-config';
 import { AttributesListComponent } from '@perun-web-apps/perun/components';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
@@ -34,10 +25,7 @@ export type ServiceSelectValue = 'ALL' | 'NOT_SELECTED';
   styleUrls: ['./service-configurator.component.scss'],
 })
 export class ServiceConfiguratorComponent implements OnInit, OnChanges {
-  constructor(
-    private attributesManager: AttributesManagerService,
-    private dialog: MatDialog
-  ) {}
+  constructor(private attributesManager: AttributesManagerService, private dialog: MatDialog) {}
 
   @Input()
   facility: Facility;

@@ -22,25 +22,17 @@
       {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.REMOVE' | translate}}
     </button>
 
-    <button
-      mat-stroked-button
-      class="mr-2 action-button"
-      (click)="changeEmailFooter()">
+    <button mat-stroked-button class="mr-2 action-button" (click)="changeEmailFooter()">
       <i class="material-icons">email</i>
       {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.EMAIL_FOOTER' | translate}}
     </button>
 
-    <button
-      *ngIf="copyAuth"
-      mat-stroked-button
-      class="action-button"
-      (click)="copy()">
+    <button *ngIf="copyAuth" mat-stroked-button class="action-button" (click)="copy()">
       <i class="material-icons">file_copy</i>
       {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.COPY_FROM_VO' | translate}}
     </button>
   </div>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto">
-  </mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
 
   <app-notification-list
     *ngIf="!loading"
@@ -55,10 +47,11 @@
   </app-notification-list>
 </div>
 <div *ngIf="noApplicationForm && !loading">
-  <app-alert alert_type="warn">{{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.NO_APPLICATION_FORM' | translate}}</app-alert>
-  <button *ngIf="createFormAuth" mat-stroked-button
-          (click)="createEmptyApplicationForm()">
+  <app-alert
+    alert_type="warn"
+    >{{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.NO_APPLICATION_FORM' | translate}}</app-alert
+  >
+  <button *ngIf="createFormAuth" mat-stroked-button (click)="createEmptyApplicationForm()">
     {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.CREATE_APPLICATION_FORM' | translate}}
   </button>
 </div>
-

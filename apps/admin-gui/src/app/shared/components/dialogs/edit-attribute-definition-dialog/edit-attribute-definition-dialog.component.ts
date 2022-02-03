@@ -8,13 +8,11 @@ import {
   AttributeRights,
   AttributesManagerService,
   Service,
-  ServicesManagerService
+  ServicesManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { slideInOutLeft, slideInOutRight, switchAnimation } from '@perun-web-apps/perun/animations';
 import { Role } from '@perun-web-apps/perun/models';
-import {
-  TABLE_ENTITYLESS_ATTRIBUTE_KEYS,
-} from '@perun-web-apps/config/table-config';
+import { TABLE_ENTITYLESS_ATTRIBUTE_KEYS } from '@perun-web-apps/config/table-config';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { AttributeForExportData } from '@perun-web-apps/perun/models';
@@ -27,21 +25,21 @@ export interface EditAttributeDefinitionDialogData {
   selector: 'app-edit-attribute-definition-dialog',
   templateUrl: './edit-attribute-definition-dialog.component.html',
   styleUrls: ['./edit-attribute-definition-dialog.component.scss'],
-  animations: [switchAnimation, slideInOutLeft, slideInOutRight]
+  animations: [switchAnimation, slideInOutLeft, slideInOutRight],
 })
 export class EditAttributeDefinitionDialogComponent implements OnInit {
+  constructor(
+    private dialog: MatDialog,
+    public dialogRef: MatDialogRef<EditAttributeDefinitionDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: EditAttributeDefinitionDialogData,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private clipboard: Clipboard,
+    private attributesManager: AttributesManagerService,
+    private serviceService: ServicesManagerService
+  ) {}
 
-  constructor(private dialog: MatDialog,
-              public dialogRef: MatDialogRef<EditAttributeDefinitionDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: EditAttributeDefinitionDialogData,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private clipboard: Clipboard,
-              private attributesManager: AttributesManagerService,
-              private serviceService: ServicesManagerService) {
-  }
-
-  @ViewChild("copiedTooltip")
+  @ViewChild('copiedTooltip')
   copiedToolTip: MatTooltip;
 
   showKeys = false;
@@ -71,34 +69,56 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     this.loading = true;
     this.dialogRef.addPanelClass('mat-dialog-height-transition');
     this.attDef = this.data.attDef;
-    this.serviceService.getServicesByAttributeDefinition(this.attDef.id).subscribe(response => {
-      this.services = response;
-      this.attributesManager.getAttributeRights(this.attDef.id).subscribe(attributeRightsResponse => {
-        this.fromRightsToCheckboxes(attributeRightsResponse);
-        this.loading = false;
-      }, () => this.loading = false);
-    }, () => this.loading = false);
+    this.serviceService.getServicesByAttributeDefinition(this.attDef.id).subscribe(
+      (response) => {
+        this.services = response;
+        this.attributesManager.getAttributeRights(this.attDef.id).subscribe(
+          (attributeRightsResponse) => {
+            this.fromRightsToCheckboxes(attributeRightsResponse);
+            this.loading = false;
+          },
+          () => (this.loading = false)
+        );
+      },
+      () => (this.loading = false)
+    );
   }
 
   disableConfirmButton(): boolean {
-    return (this.attDef.displayName === '' || this.attDef.description === '');
+    return this.attDef.displayName === '' || this.attDef.description === '';
   }
 
   disableUniqueToggle(): boolean {
-    return (this.attDef.namespace.includes('virt') || this.attDef.namespace.includes('core') || this.attDef.entity === 'entityless');
+    return (
+      this.attDef.namespace.includes('virt') ||
+      this.attDef.namespace.includes('core') ||
+      this.attDef.entity === 'entityless'
+    );
   }
 
   onSubmit() {
     this.loading = true;
-    this.attributesManager.updateAttributeDefinition({attributeDefinition: this.attDef}).subscribe(attDef => {
-      this.attDef = attDef;
-      this.attributesManager.setAttributeRights({rights: this.fromCheckboxesToRights()}).subscribe(() => {
-        this.translate.get('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.SUCCESS').subscribe(successMessage => {
-          this.notificator.showSuccess(successMessage);
-          this.dialogRef.close(true);
-        });
-      }, () => this.loading = false);
-    }, () => this.loading = false);
+    this.attributesManager
+      .updateAttributeDefinition({ attributeDefinition: this.attDef })
+      .subscribe(
+        (attDef) => {
+          this.attDef = attDef;
+          this.attributesManager
+            .setAttributeRights({ rights: this.fromCheckboxesToRights() })
+            .subscribe(
+              () => {
+                this.translate
+                  .get('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.SUCCESS')
+                  .subscribe((successMessage) => {
+                    this.notificator.showSuccess(successMessage);
+                    this.dialogRef.close(true);
+                  });
+              },
+              () => (this.loading = false)
+            );
+        },
+        () => (this.loading = false)
+      );
   }
 
   onCancel() {
@@ -252,13 +272,17 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
   onCopy() {
     const data: AttributeForExportData = {
       attributeDefinition: this.attDef,
-      attributeRights: this.fromCheckboxesToRights()
-    }
+      attributeRights: this.fromCheckboxesToRights(),
+    };
     const success = this.clipboard.copy(JSON.stringify(data));
     if (success) {
-      this.notificator.showSuccess(this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPIED'));
+      this.notificator.showSuccess(
+        this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPIED')
+      );
     } else {
-      this.notificator.showError(this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPY_FAILED'));
+      this.notificator.showError(
+        this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPY_FAILED')
+      );
     }
   }
 }

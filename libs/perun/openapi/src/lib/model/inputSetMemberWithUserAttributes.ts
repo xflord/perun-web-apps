@@ -11,16 +11,14 @@
  */
 import { Attribute } from './attribute';
 
-
 /**
  * input to setMemberWithUserAttributes
  */
-export interface InputSetMemberWithUserAttributes { 
-    /**
-     * member id
-     */
-    member: number;
-    attributes: Array<Attribute>;
-    workWithUserAttributes: boolean;
+export interface InputSetMemberWithUserAttributes {
+  /**
+   * member id
+   */
+  member: number;
+  attributes: Array<Attribute>;
+  workWithUserAttributes: boolean;
 }
-

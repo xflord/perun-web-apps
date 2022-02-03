@@ -7,7 +7,11 @@ import { SideMenuItemService } from '../../../../../shared/side-menu/side-menu-i
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateEditServiceDialogComponent } from '../../../../../shared/components/dialogs/create-edit-service-dialog/create-edit-service-dialog.component';
-import { EntityStorageService, GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import {
+  EntityStorageService,
+  GuiAuthResolver,
+  NotificatorService,
+} from '@perun-web-apps/perun/services';
 import { DeleteServiceDialogComponent } from '../../../../../shared/components/dialogs/delete-service-dialog/delete-service-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -15,12 +19,9 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'app-service-detail-page',
   templateUrl: './service-detail-page.component.html',
   styleUrls: ['./service-detail-page.component.scss'],
-  animations: [
-    fadeIn
-  ]
+  animations: [fadeIn],
 })
 export class ServiceDetailPageComponent implements OnInit {
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -32,8 +33,7 @@ export class ServiceDetailPageComponent implements OnInit {
     private translate: TranslateService,
     private notificator: NotificatorService,
     private entityStorageService: EntityStorageService
-    ) {
-  }
+  ) {}
 
   service: Service;
   serviceId: number;
@@ -41,21 +41,24 @@ export class ServiceDetailPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.route.params.subscribe(params => {
-      this.serviceId = params["serviceId"];
+    this.route.params.subscribe((params) => {
+      this.serviceId = params['serviceId'];
       this.refresh();
     });
   }
 
   refresh() {
-    this.serviceManager.getServiceById(this.serviceId).subscribe(service => {
-      this.service = service;
-      this.entityStorageService.setEntity({id: service.id, beanName: service.beanName})
+    this.serviceManager.getServiceById(this.serviceId).subscribe(
+      (service) => {
+        this.service = service;
+        this.entityStorageService.setEntity({ id: service.id, beanName: service.beanName });
 
-      const serviceItems = this.sideMenuItemService.parseService(this.service);
-      this.sideMenuService.setAdminItems([serviceItems]);
-      this.loading = false;
-    }, () => this.loading = false);
+        const serviceItems = this.sideMenuItemService.parseService(this.service);
+        this.sideMenuService.setAdminItems([serviceItems]);
+        this.loading = false;
+      },
+      () => (this.loading = false)
+    );
   }
 
   editService() {
@@ -63,13 +66,13 @@ export class ServiceDetailPageComponent implements OnInit {
     config.width = '600px';
     config.data = {
       theme: 'service-theme',
-      service: this.service
+      service: this.service,
     };
 
     const dialogRef = this.dialog.open(CreateEditServiceDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe( result => {
-      if (result){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
         this.ngOnInit();
       }
     });
@@ -80,11 +83,11 @@ export class ServiceDetailPageComponent implements OnInit {
     config.width = '600px';
     config.data = {
       theme: 'service-theme',
-      services: [this.service]
+      services: [this.service],
     };
     const dialogRef = this.dialog.open(DeleteServiceDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.router.navigate(['/admin/services']);
       }
@@ -102,12 +105,17 @@ export class ServiceDetailPageComponent implements OnInit {
         enabled: !this.service.enabled,
         script: this.service.script,
         id: this.service.id,
-        beanName: this.service.beanName
-      }
+        beanName: this.service.beanName,
+      },
     };
-    this.serviceManager.updateService(inputService).subscribe(() => {
-      this.notificator.showSuccess(this.translate.instant('SERVICE_DETAIL.STATUS_CHANGE_SUCCESS'));
-      this.refresh();
-    }, () => this.loading = false);
+    this.serviceManager.updateService(inputService).subscribe(
+      () => {
+        this.notificator.showSuccess(
+          this.translate.instant('SERVICE_DETAIL.STATUS_CHANGE_SUCCESS')
+        );
+        this.refresh();
+      },
+      () => (this.loading = false)
+    );
   }
 }

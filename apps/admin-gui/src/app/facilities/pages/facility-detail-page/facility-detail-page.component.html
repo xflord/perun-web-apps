@@ -1,34 +1,33 @@
 <div class="container-fluid pl-xl-5 pr-xl-5 facility-theme">
-  <perun-web-apps-back-button>
-  </perun-web-apps-back-button>
+  <perun-web-apps-back-button> </perun-web-apps-back-button>
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
   <div *ngIf="!loading && facility !== undefined">
     <div class="d-flex page-title-headtitle">
       <mat-icon
         matTooltip="{{'FACILITY_DETAIL.ENTITY' | translate}}"
         [ngStyle]="{'color':'black'}"
-        svgIcon='perun-facility-black'
+        svgIcon="perun-facility-black"
         class="perun-icon perun-icon-detail">
       </mat-icon>
       <div class="page-title-block">
         <div class="page-title-headline d-flex align-items-center">
-          <a class="facility-link" [routerLink]="['/facilities', facility.id]" queryParamsHandling="merge">{{facility.name}}</a>
-          <span class="text-muted">
-            &nbsp;#{{facility.id}}
-          </span>
+          <a
+            class="facility-link"
+            [routerLink]="['/facilities', facility.id]"
+            queryParamsHandling="merge"
+            >{{facility.name}}</a
+          >
+          <span class="text-muted"> &nbsp;#{{facility.id}} </span>
           <button mat-icon-button *ngIf="editFacilityAuth" (click)="editFacility()">
             <mat-icon>edit</mat-icon>
           </button>
-          <button
-            *ngIf="deleteAuth"
-            mat-icon-button
-            (click)="deleteFacility()">
+          <button *ngIf="deleteAuth" mat-icon-button (click)="deleteFacility()">
             <mat-icon>delete_forever</mat-icon>
           </button>
         </div>
         <span class="mt-1 entity-info">
-          {{'FACILITY_DETAIL.ENTITY' | translate}},
-          {{'FACILITY_DETAIL.DESCRIPTION' | translate}}: {{facility.description}}
+          {{'FACILITY_DETAIL.ENTITY' | translate}}, {{'FACILITY_DETAIL.DESCRIPTION' | translate}}:
+          {{facility.description}}
         </span>
       </div>
     </div>

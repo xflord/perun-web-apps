@@ -1,18 +1,17 @@
 <div class="card mt-2" [hidden]="!values.length">
-
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [dataLength]="dataSource.filteredData.length">
     <table [dataSource]="dataSource" class="w-100" mat-table>
       <ng-container matColumnDef="select">
-        <th *matHeaderCellDef mat-header-cell class="align-checkbox">
-        </th>
+        <th *matHeaderCellDef mat-header-cell class="align-checkbox"></th>
         <td *matCellDef="let row" class="static-column-size align-checkbox" mat-cell>
-          <mat-checkbox (change)="$event ? selection.toggle(row) : null"
-                        (click)="$event.stopPropagation()"
-                        [aria-label]="checkboxLabel(row)"
-                        [checked]="selection.isSelected(row)"
-                        color="primary">
+          <mat-checkbox
+            (change)="$event ? selection.toggle(row) : null"
+            (click)="$event.stopPropagation()"
+            [aria-label]="checkboxLabel(row)"
+            [checked]="selection.isSelected(row)"
+            color="primary">
           </mat-checkbox>
         </td>
       </ng-container>
@@ -25,8 +24,7 @@
       <tr
         *matRowDef="let key; columns: displayedColumns;"
         class="dark-hover-list-item"
-        mat-row>
-      </tr>
+        mat-row></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>

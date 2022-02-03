@@ -8,7 +8,7 @@
           matInput
           required
           placeholder="{{'DIALOGS.ADD_OWNER.NAME' | translate}}"
-          [formControl]="nameCtrl">
+          [formControl]="nameCtrl" />
         <mat-error>
           {{'DIALOGS.ADD_OWNER.FILL_NAME' | translate}}
         </mat-error>
@@ -18,7 +18,7 @@
           matInput
           required
           placeholder="{{'DIALOGS.ADD_OWNER.CONTACT' | translate}}"
-          [formControl]="contactCtrl">
+          [formControl]="contactCtrl" />
         <mat-error *ngIf="contactCtrl.hasError('required')">
           {{'DIALOGS.ADD_OWNER.FILL_CONTACT' | translate}}
         </mat-error>
@@ -34,14 +34,13 @@
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button
-        mat-flat-button
-        class="ml-auto"
-        (click)="onCancel()">
+      <button mat-flat-button class="ml-auto" (click)="onCancel()">
         {{'DIALOGS.ADD_OWNER.CANCEL' | translate}}
       </button>
-      <div matTooltip="{{'DIALOGS.ADD_OWNER.TOOLTIP' | translate}}" matTooltipPosition="above"
-           [matTooltipDisabled]="nameCtrl.valid && contactCtrl.valid">
+      <div
+        matTooltip="{{'DIALOGS.ADD_OWNER.TOOLTIP' | translate}}"
+        matTooltipPosition="above"
+        [matTooltipDisabled]="nameCtrl.valid && contactCtrl.valid">
         <button
           mat-flat-button
           class="ml-2"

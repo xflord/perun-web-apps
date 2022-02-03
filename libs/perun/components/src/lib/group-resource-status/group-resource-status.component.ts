@@ -6,14 +6,13 @@ import { ChangeGroupResourceAssigmentDialogComponent } from '@perun-web-apps/per
 @Component({
   selector: 'perun-web-apps-group-resource-status',
   templateUrl: './group-resource-status.component.html',
-  styleUrls: ['./group-resource-status.component.css']
+  styleUrls: ['./group-resource-status.component.css'],
 })
 export class GroupResourceStatusComponent {
-
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {}
 
   @Input()
-  status = "";
+  status = '';
   @Input()
   groupId: number;
   @Input()
@@ -32,13 +31,13 @@ export class GroupResourceStatusComponent {
       theme: this.theme,
       status: this.status,
       groupId: this.groupId,
-      resourceId: this.resourceId
+      resourceId: this.resourceId,
     };
 
     const dialogRef = this.dialog.open(ChangeGroupResourceAssigmentDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
         this.statusChange.emit();
       }
     });

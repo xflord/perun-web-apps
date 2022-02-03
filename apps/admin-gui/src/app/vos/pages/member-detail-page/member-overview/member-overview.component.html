@@ -1,6 +1,5 @@
 <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
 <div *ngIf="!loading">
-
   <div class="member-cards">
     <div class="align-cards">
       <mat-card class="mat-elevation-z3">
@@ -28,15 +27,13 @@
                 {{attributes.get(attribute)[1]}}
               </td>
             </ng-container>
-            <tr *matRowDef="let attribute; columns: displayedColumns;" mat-row>
-            </tr>
+            <tr *matRowDef="let attribute; columns: displayedColumns;" mat-row></tr>
           </table>
         </mat-card-content>
       </mat-card>
     </div>
     <div class="align-cards">
-      <app-member-overview-membership [member]="member" [vo]="vo">
-      </app-member-overview-membership>
+      <app-member-overview-membership [member]="member" [vo]="vo"> </app-member-overview-membership>
       <app-member-overview-groups [member]="member" [vo]="vo"></app-member-overview-groups>
     </div>
     <div class="align-cards">
@@ -47,9 +44,15 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="column-center">
-          <div  [matTooltip]="'MEMBER_DETAIL.OVERVIEW.RESET_DISABLED' | translate"
-                [matTooltipDisabled]="logins.length>0">
-            <button mat-flat-button class="action-button" color="accent" (click)="requestPwdReset()"  [disabled]="!logins.length">
+          <div
+            [matTooltip]="'MEMBER_DETAIL.OVERVIEW.RESET_DISABLED' | translate"
+            [matTooltipDisabled]="logins.length>0">
+            <button
+              mat-flat-button
+              class="action-button"
+              color="accent"
+              (click)="requestPwdReset()"
+              [disabled]="!logins.length">
               {{'MEMBER_DETAIL.OVERVIEW.SEND_REQUEST'|translate}}
             </button>
           </div>
@@ -68,38 +71,39 @@
           <mat-card-content *ngIf="sponsors.length !== 0">
             <h6 class="d-flex">
               {{'MEMBER_DETAIL.OVERVIEW.SPONSORS' | translate}}:
-              <button
-                class="ml-auto mt-n2"
-                (click)="changeSponsors()"
-                mat-icon-button>
+              <button class="ml-auto mt-n2" (click)="changeSponsors()" mat-icon-button>
                 <mat-icon>edit</mat-icon>
               </button>
             </h6>
             <table class="w-100" mat-table [dataSource]="sponsorsDataSource">
               <ng-container matColumnDef="sponsors">
-                <th *matHeaderCellDef mat-header-cell>{{'MEMBER_DETAIL.OVERVIEW.SPONSOR_NAME' | translate}}</th>
+                <th *matHeaderCellDef mat-header-cell>
+                  {{'MEMBER_DETAIL.OVERVIEW.SPONSOR_NAME' | translate}}
+                </th>
                 <td *matCellDef="let sponsor" mat-cell>
                   {{sponsor.user | userFullName}}
                 </td>
               </ng-container>
               <ng-container matColumnDef="expiration">
-                <th *matHeaderCellDef mat-header-cell>{{'MEMBER_DETAIL.OVERVIEW.EXPIRATION_TABLE' | translate}}</th>
+                <th *matHeaderCellDef mat-header-cell>
+                  {{'MEMBER_DETAIL.OVERVIEW.EXPIRATION_TABLE' | translate}}
+                </th>
                 <td *matCellDef="let sponsor" mat-cell>
                   <span class="font-italic">{{sponsor.validityTo | parseDate}}</span>
                 </td>
               </ng-container>
               <tr *matHeaderRowDef="['sponsors', 'expiration']" mat-header-row></tr>
-              <tr *matRowDef="let sponsor; columns: ['sponsors', 'expiration'];" mat-row>
-              </tr>
+              <tr *matRowDef="let sponsor; columns: ['sponsors', 'expiration'];" mat-row></tr>
             </table>
           </mat-card-content>
         </mat-card>
       </div>
     </div>
-
   </div>
 
   <div>
-    <perun-web-apps-menu-buttons-field [items]="navItems" [size]="'small'"></perun-web-apps-menu-buttons-field>
+    <perun-web-apps-menu-buttons-field
+      [items]="navItems"
+      [size]="'small'"></perun-web-apps-menu-buttons-field>
   </div>
 </div>

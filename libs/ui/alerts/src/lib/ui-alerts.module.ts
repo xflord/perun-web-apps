@@ -4,16 +4,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-  exports: [
-    AlertComponent
-  ],
-  imports: [
-    MatIconModule,
-    CommonModule
-  ],
-  declarations: [
-    AlertComponent
-  ]
+  exports: [AlertComponent],
+  imports: [MatIconModule, CommonModule],
+  declarations: [AlertComponent],
 })
-export class UiAlertsModule {
-}
+export class UiAlertsModule {}

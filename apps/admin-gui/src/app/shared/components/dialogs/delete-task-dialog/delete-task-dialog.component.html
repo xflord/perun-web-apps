@@ -7,18 +7,10 @@
     </div>
   </div>
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="cancel()">
+    <button mat-flat-button class="ml-auto" (click)="cancel()">
       {{'DIALOGS.DELETE_TASK.CANCEL' | translate}}
     </button>
-    <button
-      mat-flat-button
-      class="ml-2"
-      color="warn"
-      [disabled]="loading"
-      (click)="remove()">
+    <button mat-flat-button class="ml-2" color="warn" [disabled]="loading" (click)="remove()">
       {{'DIALOGS.DELETE_TASK.DELETE' | translate}}
     </button>
   </div>

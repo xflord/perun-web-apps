@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {NoPreloading, RouterModule, Routes} from '@angular/router';
-import {AuthCallbackComponent} from './core/components/auth-callback/auth-callback.component';
+import { NgModule } from '@angular/core';
+import { NoPreloading, RouterModule, Routes } from '@angular/router';
+import { AuthCallbackComponent } from './core/components/auth-callback/auth-callback.component';
 import { UserDashboardComponent } from './users/pages/user-detail-page/user-dashboard/user-dashboard.component';
 import { NotFoundPageComponent } from './shared/components/not-found-page/not-found-page.component';
 import { RedirectPageComponent } from '@perun-web-apps/perun/components';
@@ -9,11 +9,13 @@ import { LoginScreenServiceAccessComponent } from '@perun-web-apps/perun/login';
 
 const routes: Routes = [
   {
-    path: '', redirectTo: 'home', pathMatch: 'full'
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
   },
   {
     path: 'redirect',
-    component: RedirectPageComponent
+    component: RedirectPageComponent,
   },
   {
     path: 'api-callback',
@@ -21,44 +23,43 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginScreenComponent
+    component: LoginScreenComponent,
   },
   {
     path: 'service-access',
-    component: LoginScreenServiceAccessComponent
+    component: LoginScreenServiceAccessComponent,
   },
   {
     path: 'organizations',
-    loadChildren: () => import('./vos/vos.module').then(m => m.VosModule),
+    loadChildren: () => import('./vos/vos.module').then((m) => m.VosModule),
   },
   {
     path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule),
   },
   {
     path: 'facilities',
-    loadChildren: () => import('./facilities/facilities.module').then(m => m.FacilitiesModule),
+    loadChildren: () => import('./facilities/facilities.module').then((m) => m.FacilitiesModule),
   },
   {
     path: 'myProfile',
-    loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
+    loadChildren: () => import('./users/users.module').then((m) => m.UsersModule),
   },
   {
     path: 'home',
-    component: UserDashboardComponent
+    component: UserDashboardComponent,
   },
-  { path: '**',
-    component: NotFoundPageComponent
-  }
+  { path: '**', component: NotFoundPageComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    preloadingStrategy: NoPreloading,
-    scrollPositionRestoration: 'enabled',
-    relativeLinkResolution: 'legacy'
-})],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(routes, {
+      preloadingStrategy: NoPreloading,
+      scrollPositionRestoration: 'enabled',
+      relativeLinkResolution: 'legacy',
+    }),
+  ],
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

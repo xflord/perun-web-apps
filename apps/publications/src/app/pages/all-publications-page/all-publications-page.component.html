@@ -13,7 +13,8 @@
       (click)="removePublication()">
       {{'ALL_PUBLICATIONS.REMOVE' | translate}}
     </button>
-    <perun-web-apps-publication-filter (filteredPublication)="filterPublication($event)"></perun-web-apps-publication-filter>
+    <perun-web-apps-publication-filter
+      (filteredPublication)="filterPublication($event)"></perun-web-apps-publication-filter>
   </div>
 
   <perun-web-apps-publications-list

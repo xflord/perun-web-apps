@@ -11,11 +11,9 @@
  */
 import { ContactGroup } from './contactGroup';
 
-
 /**
  * input to removeFacilityContact
  */
-export interface InputRemoveFacilityContact { 
-    contactGroupToRemove: ContactGroup;
+export interface InputRemoveFacilityContact {
+  contactGroupToRemove: ContactGroup;
 }
-

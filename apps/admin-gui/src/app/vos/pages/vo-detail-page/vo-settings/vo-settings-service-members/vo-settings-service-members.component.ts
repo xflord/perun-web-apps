@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MembersManagerService, RichMember, Vo } from '@perun-web-apps/perun/openapi';
-import {
-  TABLE_SERVICE_MEMBERS
-} from '@perun-web-apps/config/table-config';
+import { TABLE_SERVICE_MEMBERS } from '@perun-web-apps/config/table-config';
 import { MatDialog } from '@angular/material/dialog';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -13,10 +11,9 @@ import { RemoveMembersDialogComponent } from '../../../../../shared/components/d
 @Component({
   selector: 'app-vo-settings-service-members',
   templateUrl: './vo-settings-service-members.component.html',
-  styleUrls: ['./vo-settings-service-members.component.scss']
+  styleUrls: ['./vo-settings-service-members.component.scss'],
 })
 export class VoSettingsServiceMembersComponent implements OnInit {
-
   vo: Vo;
   members: RichMember[] = [];
   selection = new SelectionModel<RichMember>(true, []);
@@ -25,17 +22,20 @@ export class VoSettingsServiceMembersComponent implements OnInit {
   tableId = TABLE_SERVICE_MEMBERS;
   removeAuth: boolean;
 
-  constructor(private membersManager: MembersManagerService,
-              private dialog: MatDialog,
-              private authResolver: GuiAuthResolver,
-              private authzService: GuiAuthResolver,
-              private entityStorageService: EntityStorageService) {
-  }
+  constructor(
+    private membersManager: MembersManagerService,
+    private dialog: MatDialog,
+    private authResolver: GuiAuthResolver,
+    private authzService: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
     this.vo = this.entityStorageService.getEntity();
-    this.removeAuth = this.authzService.isAuthorized('deleteMembers_List<Member>_policy', [this.vo]);
+    this.removeAuth = this.authzService.isAuthorized('deleteMembers_List<Member>_policy', [
+      this.vo,
+    ]);
     this.refresh();
   }
 
@@ -43,14 +43,14 @@ export class VoSettingsServiceMembersComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '750px';
     config.data = {
-      voId: this.vo.id
+      voId: this.vo.id,
     };
 
     const dialogRef = this.dialog.open(CreateServiceMemberDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-       this.refresh();
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.refresh();
       }
     });
   }
@@ -60,14 +60,14 @@ export class VoSettingsServiceMembersComponent implements OnInit {
     config.width = '450px';
     config.data = {
       members: this.selection.selected,
-      theme: 'vo-theme'
+      theme: 'vo-theme',
     };
 
     const dialogRef = this.dialog.open(RemoveMembersDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(wereMembersDeleted => {
+    dialogRef.afterClosed().subscribe((wereMembersDeleted) => {
       if (wereMembersDeleted) {
-        this.refresh()
+        this.refresh();
         this.selection.clear();
       }
     });
@@ -77,12 +77,13 @@ export class VoSettingsServiceMembersComponent implements OnInit {
     this.searchString = filterValue;
   }
 
-
   refresh() {
     this.loading = true;
-    this.membersManager.findCompleteRichMembersForVo(this.vo.id, [null], '(Service)').subscribe(members => {
-      this.members = members;
-      this.loading = false;
-    });
+    this.membersManager
+      .findCompleteRichMembersForVo(this.vo.id, [null], '(Service)')
+      .subscribe((members) => {
+        this.members = members;
+        this.loading = false;
+      });
   }
 }

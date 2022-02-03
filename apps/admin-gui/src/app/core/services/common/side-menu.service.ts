@@ -1,12 +1,11 @@
-import {EventEmitter, Injectable, Output} from '@angular/core';
-import {SideMenuItem} from '../../../shared/side-menu/side-menu.component';
+import { EventEmitter, Injectable, Output } from '@angular/core';
+import { SideMenuItem } from '../../../shared/side-menu/side-menu.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SideMenuService {
-
-  constructor() { }
+  constructor() {}
 
   @Output() accessItemsChange: EventEmitter<SideMenuItem[]> = new EventEmitter();
   @Output() facilityItemsChange: EventEmitter<SideMenuItem[]> = new EventEmitter();

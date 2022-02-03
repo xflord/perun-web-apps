@@ -14,15 +14,13 @@ import { VoMemberStatuses } from './voMemberStatuses';
 import { SortingOrder } from './sortingOrder';
 import { MemberGroupStatus } from './memberGroupStatus';
 
-
-export interface MembersPageQuery { 
-    pageSize: number;
-    offset: number;
-    order: SortingOrder;
-    sortColumn: MembersOrderColumn;
-    searchString?: string;
-    statuses?: Array<VoMemberStatuses>;
-    groupId?: number;
-    groupStatuses?: Array<MemberGroupStatus>;
+export interface MembersPageQuery {
+  pageSize: number;
+  offset: number;
+  order: SortingOrder;
+  sortColumn: MembersOrderColumn;
+  searchString?: string;
+  statuses?: Array<VoMemberStatuses>;
+  groupId?: number;
+  groupStatuses?: Array<MemberGroupStatus>;
 }
-

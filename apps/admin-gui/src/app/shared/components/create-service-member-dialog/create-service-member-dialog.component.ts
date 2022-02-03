@@ -1,25 +1,39 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
-  Candidate, Member,
-  MembersManagerService, NamespaceRules,
+  Candidate,
+  Member,
+  MembersManagerService,
+  NamespaceRules,
   RichMember,
-  UsersManagerService
+  UsersManagerService,
 } from '@perun-web-apps/perun/openapi';
-import { ApiRequestConfigurationService, NotificatorService, StoreService } from '@perun-web-apps/perun/services';
+import {
+  ApiRequestConfigurationService,
+  NotificatorService,
+  StoreService,
+} from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import {
   AbstractControl,
   AsyncValidatorFn,
   FormBuilder,
   FormControl,
-  FormGroup, ValidationErrors,
-  Validators
+  FormGroup,
+  ValidationErrors,
+  Validators,
 } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TABLE_VO_MEMBERS } from '@perun-web-apps/config/table-config';
 import { Observable } from 'rxjs';
-import { debounceTime, map, switchMap, take} from 'rxjs/operators';
+import { debounceTime, map, switchMap, take } from 'rxjs/operators';
 import { CustomValidators, enableFormControl } from '@perun-web-apps/perun/utils';
 import { loginAsyncValidator } from '@perun-web-apps/perun/namespace-password-form';
 import { MatStepper } from '@angular/material/stepper';
@@ -31,17 +45,16 @@ export interface CreateServiceMemberDialogData {
 @Component({
   selector: 'app-create-service-member-dialog',
   templateUrl: './create-service-member-dialog.component.html',
-  styleUrls: ['./create-service-member-dialog.component.scss']
+  styleUrls: ['./create-service-member-dialog.component.scss'],
 })
 export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit {
-
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
   namespaceOptions: string[] = [];
   selectedNamespace = null;
   namespaceRules: NamespaceRules[] = [];
-  parsedRules: Map<string, {login: string}> = new Map<string, {login: string}>();
+  parsedRules: Map<string, { login: string }> = new Map<string, { login: string }>();
 
   loading: boolean;
   firstSearchDone = false;
@@ -58,54 +71,77 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
 
   @ViewChild('stepper') stepper: MatStepper;
 
-  constructor(private dialogRef: MatDialogRef<CreateServiceMemberDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: CreateServiceMemberDialogData,
-              private membersManagerService: MembersManagerService,
-              private usersManagerService: UsersManagerService,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private store: StoreService,
-              private apiRequestConfiguration: ApiRequestConfigurationService,
-              private _formBuilder: FormBuilder,
-              private cd: ChangeDetectorRef) {
-    translate.get('DIALOGS.CREATE_SERVICE_MEMBER.SUCCESS_MEMBER').subscribe(m => this.successMessageMember = m);
-    translate.get('DIALOGS.CREATE_SERVICE_MEMBER.SUCCESS_PWD').subscribe(m => this.successMessagePwd = m);
+  constructor(
+    private dialogRef: MatDialogRef<CreateServiceMemberDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: CreateServiceMemberDialogData,
+    private membersManagerService: MembersManagerService,
+    private usersManagerService: UsersManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private store: StoreService,
+    private apiRequestConfiguration: ApiRequestConfigurationService,
+    private _formBuilder: FormBuilder,
+    private cd: ChangeDetectorRef
+  ) {
+    translate
+      .get('DIALOGS.CREATE_SERVICE_MEMBER.SUCCESS_MEMBER')
+      .subscribe((m) => (this.successMessageMember = m));
+    translate
+      .get('DIALOGS.CREATE_SERVICE_MEMBER.SUCCESS_PWD')
+      .subscribe((m) => (this.successMessagePwd = m));
   }
 
   ngAfterViewInit(): void {
-        this.cd.detectChanges();
-    }
+    this.cd.detectChanges();
+  }
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
       nameCtrl: ['', Validators.required],
-      emailCtrl: ['', [Validators.required, Validators.pattern('\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(.\\w{2,3})+')]],
+      emailCtrl: [
+        '',
+        [Validators.required, Validators.pattern('\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(.\\w{2,3})+')],
+      ],
       subjectCtrl: [null],
-      issuerCtrl: [null]
+      issuerCtrl: [null],
     });
-    this.secondFormGroup = this._formBuilder.group({
-      namespaceCtrl: ['Not selected'],
-      loginCtrl: ['', [Validators.pattern('^[a-z][a-z0-9_-]+$'), Validators.maxLength(15), Validators.minLength(2)]],
-      passwordCtrl: ['', Validators.required, [loginAsyncValidator(null, this.usersManagerService, this.apiRequestConfiguration)]],
-      passwordAgainCtrl: [''],
-      generatePasswordCtrl: [true]
-    }, {
-      validators: CustomValidators.passwordMatchValidator
-    });
+    this.secondFormGroup = this._formBuilder.group(
+      {
+        namespaceCtrl: ['Not selected'],
+        loginCtrl: [
+          '',
+          [
+            Validators.pattern('^[a-z][a-z0-9_-]+$'),
+            Validators.maxLength(15),
+            Validators.minLength(2),
+          ],
+        ],
+        passwordCtrl: [
+          '',
+          Validators.required,
+          [loginAsyncValidator(null, this.usersManagerService, this.apiRequestConfiguration)],
+        ],
+        passwordAgainCtrl: [''],
+        generatePasswordCtrl: [true],
+      },
+      {
+        validators: CustomValidators.passwordMatchValidator,
+      }
+    );
 
     this.namespaceOptions = ['Not selected'];
-    this.membersManagerService.getAllNamespacesRules().subscribe(rules => {
+    this.membersManagerService.getAllNamespacesRules().subscribe((rules) => {
       this.namespaceRules = rules;
       this.parseNamespaceRules();
       this.loading = false;
-    })
+    });
 
     this.onNamespaceChanged('Not selected');
     const user = this.store.getPerunPrincipal().user;
-    this.membersManagerService.getMembersByUser(user.id).subscribe(members => {
+    this.membersManagerService.getMembersByUser(user.id).subscribe((members) => {
       let tempMember: RichMember = <RichMember>{};
       for (const member of members) {
-        if(member.voId === this.data.voId){
+        if (member.voId === this.data.voId) {
           tempMember = <RichMember>member;
         }
       }
@@ -122,10 +158,9 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
         debounceTime(500),
         take(1),
         switchMap(() =>
-          this.usersManagerService.isLoginAvailable(namespace, control.value)
-            .pipe(
-              map(res => res ? null : { 'loginExists': true })
-            )
+          this.usersManagerService
+            .isLoginAvailable(namespace, control.value)
+            .pipe(map((res) => (res ? null : { loginExists: true })))
         )
       );
     };
@@ -136,7 +171,8 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
     this.candidate['firstName'] = '';
     this.candidate['lastName'] = this.firstFormGroup.get('nameCtrl').value;
     this.candidate['attributes'] = {};
-    this.candidate['attributes']['urn:perun:member:attribute-def:def:mail'] = this.firstFormGroup.get('emailCtrl').value;
+    this.candidate['attributes']['urn:perun:member:attribute-def:def:mail'] =
+      this.firstFormGroup.get('emailCtrl').value;
     const subject = this.firstFormGroup.get('subjectCtrl');
     if (subject && subject.value) {
       // @ts-ignore
@@ -145,50 +181,68 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
       this.candidate['userExtSource']['loa'] = 0;
       // @ts-ignore
       this.candidate['userExtSource']['extSource'] = {};
-      this.candidate['userExtSource']['extSource']['name'] = this.firstFormGroup.get('issuerCtrl').value;
-      this.candidate['userExtSource']['extSource']['type'] = 'cz.metacentrum.perun.core.impl.ExtSourceX509';
+      this.candidate['userExtSource']['extSource']['name'] =
+        this.firstFormGroup.get('issuerCtrl').value;
+      this.candidate['userExtSource']['extSource']['type'] =
+        'cz.metacentrum.perun.core.impl.ExtSourceX509';
     }
 
     const namespace = this.secondFormGroup.get('namespaceCtrl').value.toLowerCase();
     const rules = this.parsedRules.get(namespace);
     const namespaceUrn = `urn:perun:user:attribute-def:def:login-namespace:${namespace}`;
-    if (this.secondFormGroup.get('namespaceCtrl').value !== 'Not selected' && rules.login === 'disabled') {
-      this.usersManagerService.generateAccountForName(namespace, this.firstFormGroup.get('nameCtrl').value).subscribe(params => {
-        this.candidate['attributes'][namespaceUrn] = params[namespaceUrn];
-        this.createSpecificMember();
-      }, () => this.processing = false);
+    if (
+      this.secondFormGroup.get('namespaceCtrl').value !== 'Not selected' &&
+      rules.login === 'disabled'
+    ) {
+      this.usersManagerService
+        .generateAccountForName(namespace, this.firstFormGroup.get('nameCtrl').value)
+        .subscribe(
+          (params) => {
+            this.candidate['attributes'][namespaceUrn] = params[namespaceUrn];
+            this.createSpecificMember();
+          },
+          () => (this.processing = false)
+        );
     } else {
-        if (this.secondFormGroup.get('namespaceCtrl').value !== 'Not selected') {
-          this.candidate['attributes'][namespaceUrn] = this.secondFormGroup.get('loginCtrl').value;
-        }
-        this.createSpecificMember();
+      if (this.secondFormGroup.get('namespaceCtrl').value !== 'Not selected') {
+        this.candidate['attributes'][namespaceUrn] = this.secondFormGroup.get('loginCtrl').value;
+      }
+      this.createSpecificMember();
     }
   }
 
   createSpecificMember() {
-    this.membersManagerService.createSpecificMember({
-      vo: this.data.voId,
-      specificUserType: 'SERVICE',
-      specificUserOwners: this.assignedMembers.map(m => m.user),
-      candidate: this.candidate
-    }).subscribe(member => {
-      this.membersManagerService.validateMemberAsync(member.id).subscribe(mem => {
-        this.notificator.showSuccess(this.successMessageMember);
-        if (this.secondFormGroup.get('namespaceCtrl').value !== 'Not selected') {
-          this.setPassword(mem, this.secondFormGroup.get('generatePasswordCtrl').value);
-        } else {
-          this.dialogRef.close(true);
-          this.processing = false;
-        }
-      }, () => this.processing = false);
-    }, () => this.processing = false);
+    this.membersManagerService
+      .createSpecificMember({
+        vo: this.data.voId,
+        specificUserType: 'SERVICE',
+        specificUserOwners: this.assignedMembers.map((m) => m.user),
+        candidate: this.candidate,
+      })
+      .subscribe(
+        (member) => {
+          this.membersManagerService.validateMemberAsync(member.id).subscribe(
+            (mem) => {
+              this.notificator.showSuccess(this.successMessageMember);
+              if (this.secondFormGroup.get('namespaceCtrl').value !== 'Not selected') {
+                this.setPassword(mem, this.secondFormGroup.get('generatePasswordCtrl').value);
+              } else {
+                this.dialogRef.close(true);
+                this.processing = false;
+              }
+            },
+            () => (this.processing = false)
+          );
+        },
+        () => (this.processing = false)
+      );
   }
 
-  parseNamespaceRules(){
+  parseNamespaceRules() {
     for (const rule of this.namespaceRules) {
       this.namespaceOptions.push(rule.namespaceName);
 
-      const fieldTypes =  {login: 'disabled'};
+      const fieldTypes = { login: 'disabled' };
       this.parseAttributes(fieldTypes, rule.requiredAttributes, 'required');
       this.parseAttributes(fieldTypes, rule.optionalAttributes, 'optional');
 
@@ -203,7 +257,8 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
           field.login = type;
           break;
         }
-        default: break;
+        default:
+          break;
       }
     }
   }
@@ -216,43 +271,58 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
         this.validateMember(member.id);
         return; // password already set when account was generated
       }
-      this.usersManagerService.reserveRandomPassword(member.userId, namespace).subscribe(() => {
-        this.usersManagerService.validatePasswordForUser(member.userId, namespace).subscribe(() => {
-          this.validateMember(member.id, false);
-        }, () => {
+      this.usersManagerService.reserveRandomPassword(member.userId, namespace).subscribe(
+        () => {
+          this.usersManagerService.validatePasswordForUser(member.userId, namespace).subscribe(
+            () => {
+              this.validateMember(member.id, false);
+            },
+            () => {
+              this.processing = false;
+              this.dialogRef.close(true);
+            }
+          );
+        },
+        () => {
           this.processing = false;
           this.dialogRef.close(true);
-        });
-      }, () => {
-        this.processing = false;
-        this.dialogRef.close(true);
-      });
+        }
+      );
     } else {
-      this.usersManagerService.reservePasswordForUser(member.userId, namespace, password).subscribe(() => {
-        this.usersManagerService.validatePasswordForUser(member.userId, namespace).subscribe(() => {
-         this.validateMember(member.id);
-        }, () => {
+      this.usersManagerService.reservePasswordForUser(member.userId, namespace, password).subscribe(
+        () => {
+          this.usersManagerService.validatePasswordForUser(member.userId, namespace).subscribe(
+            () => {
+              this.validateMember(member.id);
+            },
+            () => {
+              this.processing = false;
+              this.dialogRef.close(true);
+            }
+          );
+        },
+        () => {
           this.processing = false;
           this.dialogRef.close(true);
-        });
-      }, () => {
-        this.processing = false;
-        this.dialogRef.close(true);
-      });
+        }
+      );
     }
   }
 
-  validateMember(memberId: number, showNotification=true){
-    this.membersManagerService.validateMemberAsync(memberId).subscribe(() => {
-      if(showNotification){
-        this.notificator.showSuccess(this.successMessagePwd);
+  validateMember(memberId: number, showNotification = true) {
+    this.membersManagerService.validateMemberAsync(memberId).subscribe(
+      () => {
+        if (showNotification) {
+          this.notificator.showSuccess(this.successMessagePwd);
+        }
+        this.dialogRef.close(true);
+        this.processing = false;
+      },
+      () => {
+        this.processing = false;
+        this.dialogRef.close(true);
       }
-      this.dialogRef.close(true);
-      this.processing = false;
-    }, () => {
-      this.processing = false;
-      this.dialogRef.close(true);
-    });
+    );
   }
 
   onCancel() {
@@ -261,16 +331,18 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
 
   onSearchByString() {
     this.loading = true;
-    this.membersManagerService.findCompleteRichMembersForVo(this.data.voId, [null], this.searchCtrl.value).subscribe(members => {
-      this.members = members.filter(m => !m.user.specificUser);
-      this.firstSearchDone = true;
-      this.loading = false;
-    });
+    this.membersManagerService
+      .findCompleteRichMembersForVo(this.data.voId, [null], this.searchCtrl.value)
+      .subscribe((members) => {
+        this.members = members.filter((m) => !m.user.specificUser);
+        this.firstSearchDone = true;
+        this.loading = false;
+      });
   }
 
   addUsers() {
-    const temp = this.assignedMembers.map(m => m.id);
-    this.selection.selected.forEach(member => {
+    const temp = this.assignedMembers.map((m) => m.id);
+    this.selection.selected.forEach((member) => {
       if (!temp.includes(member.id)) {
         this.assignedMembers.push(member);
       }
@@ -279,7 +351,7 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
   }
 
   removeUser(member: RichMember) {
-    this.assignedMembers = this.assignedMembers.filter(m => m.id !== member.id);
+    this.assignedMembers = this.assignedMembers.filter((m) => m.id !== member.id);
   }
 
   onNamespaceChanged(namespace: string) {
@@ -293,10 +365,15 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
         login.disable();
         login.setValue('');
       } else {
-        const loginValidators = [Validators.required, Validators.pattern('^[a-z][a-z0-9_-]+$'), Validators.maxLength(15), Validators.minLength(2)];
+        const loginValidators = [
+          Validators.required,
+          Validators.pattern('^[a-z][a-z0-9_-]+$'),
+          Validators.maxLength(15),
+          Validators.minLength(2),
+        ];
         enableFormControl(login, loginValidators, [this.existingLoginValidator()]);
       }
-      enableFormControl(generatePassword,[]);
+      enableFormControl(generatePassword, []);
       this.passwordOptionChanged();
     } else {
       login.disable();
@@ -306,7 +383,7 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
       passwordAgain.disable();
       passwordAgain.setValue('');
       generatePassword.disable();
-      if (!generatePassword.dirty){
+      if (!generatePassword.dirty) {
         generatePassword.setValue(true);
       }
     }
@@ -315,23 +392,37 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
   passwordOptionChanged() {
     const password = this.secondFormGroup.get('passwordCtrl');
     const passwordAgain = this.secondFormGroup.get('passwordAgainCtrl');
-    if (this.secondFormGroup.get('generatePasswordCtrl').value){
+    if (this.secondFormGroup.get('generatePasswordCtrl').value) {
       password.disable();
       password.setValue('');
       passwordAgain.disable();
       passwordAgain.setValue('');
     } else {
-      enableFormControl(password, [Validators.required], [loginAsyncValidator(this.selectedNamespace, this.usersManagerService, this.apiRequestConfiguration)]);
+      enableFormControl(
+        password,
+        [Validators.required],
+        [
+          loginAsyncValidator(
+            this.selectedNamespace,
+            this.usersManagerService,
+            this.apiRequestConfiguration
+          ),
+        ]
+      );
       enableFormControl(passwordAgain, []);
     }
   }
 
-  getStepperNextConditions(){
+  getStepperNextConditions() {
     switch (this.stepper.selectedIndex) {
       case 0:
         return this.firstFormGroup.invalid || this.firstFormGroup.pending;
       case 1:
-        return this.secondFormGroup.invalid || this.secondFormGroup.pending || this.secondFormGroup.get('namespaceCtrl').value === 'Not selected';
+        return (
+          this.secondFormGroup.invalid ||
+          this.secondFormGroup.pending ||
+          this.secondFormGroup.get('namespaceCtrl').value === 'Not selected'
+        );
       default:
         return false;
     }

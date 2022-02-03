@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse,
+} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { RPCError } from '@perun-web-apps/perun/models';
@@ -12,10 +18,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { SessionExpirationDialogComponent } from '@perun-web-apps/perun/session-expiration';
 import { InitAuthService } from './init-auth.service';
 
-
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
-
   constructor(
     private authService: AuthService,
     private apiRequestConfiguration: ApiRequestConfigurationService,
@@ -23,20 +27,26 @@ export class ApiInterceptor implements HttpInterceptor {
     private store: StoreService,
     private dialog: MatDialog,
     private initAuthService: InitAuthService
-  ) { }
+  ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const apiUrl = this.store.get('api_url');
     // check if the request is trying to access localization file, if so
     // disable cache
-    if (req.url.indexOf("i18n") !== -1) {
+    if (req.url.indexOf('i18n') !== -1) {
       req = req.clone({
         setHeaders: {
-          'Cache-control': 'no-cache, must-revalidate'
-        }
+          'Cache-control': 'no-cache, must-revalidate',
+        },
       });
     }
-    if (apiUrl !== undefined && req.url.toString().indexOf(apiUrl) !== -1 && !this.store.skipOidc() && !this.authService.isLoggedIn() && !this.initAuthService.isServiceAccess()) {
+    if (
+      apiUrl !== undefined &&
+      req.url.toString().indexOf(apiUrl) !== -1 &&
+      !this.store.skipOidc() &&
+      !this.authService.isLoggedIn() &&
+      !this.initAuthService.isServiceAccess()
+    ) {
       const config = getDefaultDialogConfig();
       config.width = '450px';
 
@@ -52,45 +62,53 @@ export class ApiInterceptor implements HttpInterceptor {
     if (this.initAuthService.isServiceAccess()) {
       req = req.clone({
         setHeaders: {
-          'Authorization': 'Basic ' + btoa(sessionStorage.getItem('basicUsername') + ':' + sessionStorage.getItem('basicPassword'))
-        }
+          Authorization:
+            'Basic ' +
+            btoa(
+              sessionStorage.getItem('basicUsername') +
+                ':' +
+                sessionStorage.getItem('basicPassword')
+            ),
+        },
       });
     } else {
       req = req.clone({
         setHeaders: {
-          'Authorization': this.authService.getAuthorizationHeaderValue()
-        }
+          Authorization: this.authService.getAuthorizationHeaderValue(),
+        },
       });
     }
     // Also handle errors globally, if not disabled
     const shouldHandleError = this.apiRequestConfiguration.shouldHandleError();
 
-    const shouldReloadPrincipal = req.method === "POST" &&
-                                  !this.store.skipOidc() &&
-                                  this.isCallToPerunApi(req.url);
+    const shouldReloadPrincipal =
+      req.method === 'POST' && !this.store.skipOidc() && this.isCallToPerunApi(req.url);
 
     return next.handle(req).pipe(
-      tap(x => {
-      if (x instanceof HttpResponse && shouldReloadPrincipal) {
-        this.initAuthService.loadPrincipal();
-      }
-      }, err => {
-        // Handle this err
-        const errRpc = this.formatErrors(err, req);
-        if (errRpc === undefined) {
-          return throwError(err);
+      tap(
+        (x) => {
+          if (x instanceof HttpResponse && shouldReloadPrincipal) {
+            this.initAuthService.loadPrincipal();
+          }
+        },
+        (err) => {
+          // Handle this err
+          const errRpc = this.formatErrors(err, req);
+          if (errRpc === undefined) {
+            return throwError(err);
+          }
+          if (shouldHandleError) {
+            this.notificator.showRPCError(errRpc);
+          } else {
+            return throwError(errRpc);
+          }
         }
-        if (shouldHandleError) {
-          this.notificator.showRPCError(errRpc);
-        } else {
-          return throwError(errRpc);
-        }
-      })
+      )
     );
   }
 
   private isCallToPerunApi(url: string): boolean {
-    return url.startsWith(this.store.get("api_url"));
+    return url.startsWith(this.store.get('api_url'));
   }
 
   private formatErrors(error: any, req: HttpRequest<any>) {

@@ -1,38 +1,36 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  ViewChild
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import { AttributesManagerService, MemberWithSponsors, Vo } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {
-  customDataSourceFilterPredicate, customDataSourceSort, downloadData, getDataForExport,
+  customDataSourceFilterPredicate,
+  customDataSourceSort,
+  downloadData,
+  getDataForExport,
   getDefaultDialogConfig,
   parseFullName,
-  TABLE_ITEMS_COUNT_OPTIONS, TableWrapperComponent
+  TABLE_ITEMS_COUNT_OPTIONS,
+  TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
-import {  EditMemberSponsorsDialogComponent } from '../dialogs/edit-member-sponsors-dialog/edit-member-sponsors-dialog.component';
+import { EditMemberSponsorsDialogComponent } from '../dialogs/edit-member-sponsors-dialog/edit-member-sponsors-dialog.component';
 import { GuiAuthResolver, StoreService, TableCheckbox } from '@perun-web-apps/perun/services';
 import { PasswordResetRequestDialogComponent } from '../dialogs/password-reset-request-dialog/password-reset-request-dialog.component';
 
 @Component({
   selector: 'app-sponsored-members-list',
   templateUrl: './sponsored-members-list.component.html',
-  styleUrls: ['./sponsored-members-list.component.scss']
+  styleUrls: ['./sponsored-members-list.component.scss'],
 })
 export class SponsoredMembersListComponent implements OnChanges {
-
-  constructor(private dialog: MatDialog,
-              private authResolver: GuiAuthResolver,
-              private storeService: StoreService,
-              private attributesManager: AttributesManagerService,
-              private tableCheckbox: TableCheckbox) { }
+  constructor(
+    private dialog: MatDialog,
+    private authResolver: GuiAuthResolver,
+    private storeService: StoreService,
+    private attributesManager: AttributesManagerService,
+    private tableCheckbox: TableCheckbox
+  ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -45,7 +43,7 @@ export class SponsoredMembersListComponent implements OnChanges {
   selection: SelectionModel<MemberWithSponsors>;
 
   @Input()
-  filterValue = "";
+  filterValue = '';
 
   @Input()
   displayedColumns: string[] = ['id', 'name', 'sponsors', 'menu'];
@@ -65,27 +63,29 @@ export class SponsoredMembersListComponent implements OnChanges {
 
   routingStrategy = false;
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngOnChanges() {
-    if (!this.authResolver.isPerunAdminOrObserver()){
-      this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
     this.setDataSource();
     this.routingStrategy = this.disableRouting;
   }
 
-  getSortDataForColumn(data: MemberWithSponsors, column: string): string{
+  getSortDataForColumn(data: MemberWithSponsors, column: string): string {
     switch (column) {
       case 'id':
         return data.member.id.toString();
       case 'name':
-        if(data.member.user){
-          return data.member.user.lastName ? data.member.user.lastName : data.member.user.firstName ?? ''
+        if (data.member.user) {
+          return data.member.user.lastName
+            ? data.member.user.lastName
+            : data.member.user.firstName ?? '';
         }
-        return ''
+        return '';
       case 'sponsors':
         return data.sponsors.length.toString();
       default:
@@ -93,24 +93,32 @@ export class SponsoredMembersListComponent implements OnChanges {
     }
   }
 
-  getDataForColumn(data: MemberWithSponsors, column: string): string{
+  getDataForColumn(data: MemberWithSponsors, column: string): string {
     switch (column) {
       case 'id':
         return data.member.id.toString();
       case 'name':
-        if(data.member.user){
+        if (data.member.user) {
           return parseFullName(data.member.user);
         }
-        return ''
+        return '';
       case 'sponsors':
-        return data.sponsors.map(s => parseFullName(s.user)).join();
+        return data.sponsors.map((s) => parseFullName(s.user)).join();
       default:
         return '';
     }
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getDataForColumn, this), format);
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
   setDataSource() {
@@ -119,7 +127,13 @@ export class SponsoredMembersListComponent implements OnChanges {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filterPredicate = (data: MemberWithSponsors, filter: string) =>
-        customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
+        customDataSourceFilterPredicate(
+          data,
+          filter,
+          this.displayedColumns,
+          this.getDataForColumn,
+          this
+        );
       this.dataSource.sortData = (data: MemberWithSponsors[], sort: MatSort) =>
         customDataSourceSort(data, sort, this.getSortDataForColumn, this);
     }
@@ -127,28 +141,43 @@ export class SponsoredMembersListComponent implements OnChanges {
     this.dataSource.data = this.sponsoredMembers;
   }
 
-  showSponsors(member: MemberWithSponsors){
+  showSponsors(member: MemberWithSponsors) {
     const config = getDefaultDialogConfig();
-    config.width = "650px";
+    config.width = '650px';
     config.data = {
       sponsors: member.sponsors,
       member: member.member,
-      theme: "vo-theme"
+      theme: 'vo-theme',
     };
     const dialogRef = this.dialog.open(EditMemberSponsorsDialogComponent, config);
     dialogRef.afterClosed().subscribe((edited) => {
-      if(edited) {
+      if (edited) {
         this.refreshTable.emit();
       }
     });
   }
 
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(
+      this.selection.selected.length,
+      this.filterValue,
+      this.child.paginator.pageSize,
+      this.child.paginator.hasNextPage(),
+      this.dataSource
+    );
   }
 
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex,false);
+    this.tableCheckbox.masterToggle(
+      this.isAllSelected(),
+      this.selection,
+      this.filterValue,
+      this.dataSource,
+      this.sort,
+      this.child.paginator.pageSize,
+      this.child.paginator.pageIndex,
+      false
+    );
   }
 
   checkboxLabel(row?: MemberWithSponsors): string {
@@ -160,35 +189,43 @@ export class SponsoredMembersListComponent implements OnChanges {
 
   resetPassword(sponsoredMember: MemberWithSponsors) {
     this.loading = true;
-    const attUrns = this.storeService.get('password_namespace_attributes').map(urn => {
+    const attUrns = this.storeService.get('password_namespace_attributes').map((urn) => {
       urn = urn.split(':');
       return urn[urn.length - 1];
     });
-    this.attributesManager.getLogins(sponsoredMember.member.userId).subscribe(logins => {
-      const filteredLogins = logins.filter(login => attUrns.includes(login.friendlyNameParameter));
+    this.attributesManager.getLogins(sponsoredMember.member.userId).subscribe(
+      (logins) => {
+        const filteredLogins = logins.filter((login) =>
+          attUrns.includes(login.friendlyNameParameter)
+        );
 
-      const config = getDefaultDialogConfig();
-      config.width = '400px';
-      config.data = {
-        userId: sponsoredMember.member.userId,
-        memberId: sponsoredMember.member.id,
-        logins: filteredLogins
-      };
+        const config = getDefaultDialogConfig();
+        config.width = '400px';
+        config.data = {
+          userId: sponsoredMember.member.userId,
+          memberId: sponsoredMember.member.id,
+          logins: filteredLogins,
+        };
 
-      const dialogRef = this.dialog.open(PasswordResetRequestDialogComponent, config);
+        const dialogRef = this.dialog.open(PasswordResetRequestDialogComponent, config);
 
-      dialogRef.afterClosed().subscribe(() => {
-        this.loading = false;
-      });
-    }, () => this.loading = false);
+        dialogRef.afterClosed().subscribe(() => {
+          this.loading = false;
+        });
+      },
+      () => (this.loading = false)
+    );
   }
 
   passwdResetAuth(sponsoredMember: MemberWithSponsors) {
     const vo: Vo = {
       id: sponsoredMember.member.voId,
-      beanName: "Vo"
+      beanName: 'Vo',
     };
 
-    return this.authResolver.isAuthorized('sendPasswordResetLinkEmail_Member_String_String_String_String_policy', [vo, sponsoredMember.member]);
+    return this.authResolver.isAuthorized(
+      'sendPasswordResetLinkEmail_Member_String_String_String_String_policy',
+      [vo, sponsoredMember.member]
+    );
   }
 }

@@ -7,7 +7,6 @@
     [vos]="vos"
     [vo]="vos[0]"
     (voSelected)="loadMember($event)">
-
   </perun-web-apps-vo-search-select>
 </div>
 <mat-tab-group *ngIf="!(initLoading || vos.length === 0)">
@@ -20,13 +19,14 @@
       <div *ngIf="!loading">
         <div class="mt-4 mb-4">
           <span class="subtitle mr-2">{{'USER_DETAIL.ACCOUNTS.MEMBER' | translate}}:</span>
-          <a class="member-link" [routerLink]="['/organizations', selectedVo.id, 'members', member.id]"
-             queryParamsHandling="merge">{{member.id}}
+          <a
+            class="member-link"
+            [routerLink]="['/organizations', selectedVo.id, 'members', member.id]"
+            queryParamsHandling="merge"
+            >{{member.id}}
           </a>
         </div>
-        <app-member-overview-membership
-          [member]="member"
-          [vo]="selectedVo">
+        <app-member-overview-membership [member]="member" [vo]="selectedVo">
         </app-member-overview-membership>
         <p class="mt-4 subtitle">{{'USER_DETAIL.ACCOUNTS.GROUPS' | translate}}</p>
         <perun-web-apps-groups-list
@@ -55,8 +55,11 @@
     </ng-template>
     <ng-template matTabContent>
       <mat-spinner *ngIf="loading"></mat-spinner>
-      <app-two-entity-attribute-page *ngIf="!loading" [firstEntity]="'member'" [firstEntityId]="member.id"
-                                     [secondEntity]="'group'"></app-two-entity-attribute-page>
+      <app-two-entity-attribute-page
+        *ngIf="!loading"
+        [firstEntity]="'member'"
+        [firstEntityId]="member.id"
+        [secondEntity]="'group'"></app-two-entity-attribute-page>
     </ng-template>
   </mat-tab>
 
@@ -66,11 +69,17 @@
     </ng-template>
     <ng-template matTabContent>
       <mat-spinner *ngIf="loading"></mat-spinner>
-      <app-two-entity-attribute-page *ngIf="!loading" [firstEntity]="'member'" [firstEntityId]="member.id"
-                                     [secondEntity]="'resource'"></app-two-entity-attribute-page>
+      <app-two-entity-attribute-page
+        *ngIf="!loading"
+        [firstEntity]="'member'"
+        [firstEntityId]="member.id"
+        [secondEntity]="'resource'"></app-two-entity-attribute-page>
     </ng-template>
   </mat-tab>
 </mat-tab-group>
 
-<app-alert alert_type="warn" *ngIf="!initLoading && vos.length === 0">{{'USER_DETAIL.ACCOUNTS.NO_VOS' | translate}}</app-alert>
-
+<app-alert
+  alert_type="warn"
+  *ngIf="!initLoading && vos.length === 0"
+  >{{'USER_DETAIL.ACCOUNTS.NO_VOS' | translate}}</app-alert
+>

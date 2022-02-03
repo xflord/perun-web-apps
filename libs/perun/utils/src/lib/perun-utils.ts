@@ -9,19 +9,23 @@ import {
   RichMember,
   RichUser,
   User,
-  Candidate, ApplicationMail, ApplicationFormItem, RichGroup, Author
+  Candidate,
+  ApplicationMail,
+  ApplicationFormItem,
+  RichGroup,
+  Author,
 } from '@perun-web-apps/perun/openapi';
-import { Attribute} from '@perun-web-apps/perun/openapi';
+import { Attribute } from '@perun-web-apps/perun/openapi';
 import { MatDialogConfig } from '@angular/material/dialog';
 import { formatDate } from '@angular/common';
 import { MatSort } from '@angular/material/sort';
 import { saveAs } from 'file-saver';
 import { AbstractControl, AsyncValidatorFn, ValidatorFn } from '@angular/forms';
 
-
 export const TABLE_ITEMS_COUNT_OPTIONS = [5, 10, 25, 100];
 
-export const emailRegexString = /^(([^<>+()[\]\\.,;:\s@"-#$%&=]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]+))$/;
+export const emailRegexString =
+  /^(([^<>+()[\]\\.,;:\s@"-#$%&=]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]+))$/;
 
 /**
  * Gets email of given member. The preferred email has top priority, the vo-email
@@ -32,23 +36,19 @@ export const emailRegexString = /^(([^<>+()[\]\\.,;:\s@"-#$%&=]+(\.[^<>()[\]\\.,
 export function parseEmail(richMember: RichMember): string {
   let email = '';
   if (richMember && richMember.userAttributes !== null) {
-
-    richMember.userAttributes.forEach(attr => {
+    richMember.userAttributes.forEach((attr) => {
       if (attr.friendlyName === 'preferredMail') {
-        email = <string><unknown>attr.value;
+        email = <string>(<unknown>attr.value);
       }
     });
 
-    if ( email && email.length === 0 && richMember.memberAttributes !== null) {
-      richMember.memberAttributes.forEach(attr => {
+    if (email && email.length === 0 && richMember.memberAttributes !== null) {
+      richMember.memberAttributes.forEach((attr) => {
         if (attr.friendlyName === 'mail' && attr.value !== null) {
-          email = <string><unknown>attr.value;
+          email = <string>(<unknown>attr.value);
         }
       });
     }
-
-
-
   }
   return email;
 }
@@ -61,9 +61,9 @@ export function parseEmail(richMember: RichMember): string {
 export function parseUserEmail(richUser: RichUser): string {
   let email = '';
   if (richUser) {
-    richUser.userAttributes.forEach(attr => {
+    richUser.userAttributes.forEach((attr) => {
       if (attr.friendlyName === 'preferredMail') {
-        email = <string><unknown>attr.value;
+        email = <string>(<unknown>attr.value);
       }
     });
   }
@@ -74,15 +74,15 @@ export function parseUserLogins(richUser: RichUser): string {
   let logins = '';
   if (!!richUser && !!richUser.userAttributes) {
     richUser.userAttributes
-      .filter(attr => attr.baseFriendlyName === 'login-namespace')
-      .filter(attr => attr.value !== null)
-      .forEach(attr => {
-        logins += attr.friendlyNameParameter + ": " + attr.value + ", ";
-    })
+      .filter((attr) => attr.baseFriendlyName === 'login-namespace')
+      .filter((attr) => attr.value !== null)
+      .forEach((attr) => {
+        logins += attr.friendlyNameParameter + ': ' + attr.value + ', ';
+      });
   }
 
   if (logins.endsWith(', ')) {
-    logins = logins.substring(0, logins.length-2);
+    logins = logins.substring(0, logins.length - 2);
   }
   return logins;
 }
@@ -92,15 +92,15 @@ export function parseUserLogins(richUser: RichUser): string {
  *
  * @param richMember member
  */
-export function parseLogins(richMember: RichMember|RichUser): string {
+export function parseLogins(richMember: RichMember | RichUser): string {
   let logins = '';
 
-  if(!!richMember && !!richMember.userAttributes){
+  if (!!richMember && !!richMember.userAttributes) {
     richMember.userAttributes
-      .filter(attr => attr.baseFriendlyName === 'login-namespace')
-      .filter(attr => attr.value !== null)
-      .forEach(attr => {
-        logins += attr.friendlyNameParameter + ": " + attr.value + ", ";
+      .filter((attr) => attr.baseFriendlyName === 'login-namespace')
+      .filter((attr) => attr.value !== null)
+      .forEach((attr) => {
+        logins += attr.friendlyNameParameter + ': ' + attr.value + ', ';
       });
   }
 
@@ -112,7 +112,7 @@ export function parseLogins(richMember: RichMember|RichUser): string {
 
 export function parseUrnsToUrlParam(paramName: string, urns: string[]): string {
   let attributesParam = '';
-  urns.forEach(a => attributesParam = attributesParam.concat(`&${paramName}%5B%5D=`).concat(a));
+  urns.forEach((a) => (attributesParam = attributesParam.concat(`&${paramName}%5B%5D=`).concat(a)));
   return attributesParam;
 }
 
@@ -175,13 +175,13 @@ export function parseName(user: User | Candidate): string {
  *
  * @param friendlyName friendly name of the attribute
  */
-export function parseAttributeFriendlyName(friendlyName: string): string{
-  let name = "";
+export function parseAttributeFriendlyName(friendlyName: string): string {
+  let name = '';
   const words = friendlyName.split(/(?=[A-Z])/g);
-  words.forEach(word => {
+  words.forEach((word) => {
     name = name.concat(word.toLowerCase());
     name = name.concat(' ');
-  })
+  });
   name = name.charAt(0).toUpperCase() + name.slice(1, name.length - 1);
 
   return name;
@@ -224,7 +224,7 @@ export async function doAfterDelay(delayMs: number, callback: () => void) {
 }
 
 export function delay(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /**
@@ -282,18 +282,34 @@ export function addRecentlyVisitedObject(item: any, voName?: string) {
     // if user not have any in local storage
     let recent;
     if (item.beanName === 'Group') {
-      recent = [{id: item.id, name: item.shortName, fullName: item.name, type: item.beanName, voId: item.voId, voName: voName}];
+      recent = [
+        {
+          id: item.id,
+          name: item.shortName,
+          fullName: item.name,
+          type: item.beanName,
+          voId: item.voId,
+          voName: voName,
+        },
+      ];
     } else {
-      recent = [{id: item.id, name: item.name, type: item.beanName, voId: item.voId}];
+      recent = [{ id: item.id, name: item.name, type: item.beanName, voId: item.voId }];
     }
     localStorage.setItem('recent', JSON.stringify(recent));
   } else {
     const recent: any[] = JSON.parse(localStorage.getItem('recent'));
     let object;
     if (item.beanName === 'Group') {
-      object = {id: item.id, name: item.shortName, fullName: item.name, type: item.beanName, voId: item.voId, voName: voName};
+      object = {
+        id: item.id,
+        name: item.shortName,
+        fullName: item.name,
+        type: item.beanName,
+        voId: item.voId,
+        voName: voName,
+      };
     } else {
-      object = {id: item.id, name: item.name, type: item.beanName, voId: item.voId};
+      object = { id: item.id, name: item.name, type: item.beanName, voId: item.voId };
     }
     const index = indexOfObject(recent, object);
     if (index > 0) {
@@ -340,9 +356,9 @@ export function indexOfEntity(recent: number[], id: number) {
 export function parseVo(richUser: RichUser): string {
   let result = '';
   if (richUser) {
-    richUser.userAttributes.forEach(attr => {
+    richUser.userAttributes.forEach((attr) => {
       if (attr.friendlyName === 'organization') {
-        result = <string><unknown>attr.value;
+        result = <string>(<unknown>attr.value);
       }
     });
   }
@@ -354,7 +370,7 @@ export function parseVo(richUser: RichUser): string {
  * @param attributes non core attributes
  */
 export function filterCoreAttributes(attributes: Attribute[]): Attribute[] {
-  return attributes.filter(attribute => !attribute.namespace.includes('def:core'));
+  return attributes.filter((attribute) => !attribute.namespace.includes('def:core'));
 }
 
 /**
@@ -364,7 +380,7 @@ export function filterCoreAttributes(attributes: Attribute[]): Attribute[] {
  * return field of parents
  */
 export function findParent(group: number, groups: Group[]): Group[] {
-  const parent = groups.find( x => x.id === group);
+  const parent = groups.find((x) => x.id === group);
   if (parent) {
     if (parent.parentGroupId) {
       return findParent(parent.parentGroupId, groups).concat(parent);
@@ -383,9 +399,9 @@ export function findParent(group: number, groups: Group[]): Group[] {
  * @param attrName attr name
  * @return attribute with given name or null if not found
  */
-export function getAttribute(attributes: Attribute[], attrName: string) : Attribute {
+export function getAttribute(attributes: Attribute[], attrName: string): Attribute {
   for (const attribute of attributes) {
-    if ((attribute.namespace + ":" + attribute.friendlyName) === attrName) {
+    if (attribute.namespace + ':' + attribute.friendlyName === attrName) {
       return attribute;
     }
   }
@@ -403,13 +419,19 @@ export function getCandidateEmail(candidate: Candidate): string {
   } else if (candidate.attributes['urn:perun:user:attribute-def:def:preferredMail'] != null) {
     return candidate.attributes['urn:perun:user:attribute-def:def:preferredMail'];
   }
-  return "";
+  return '';
 }
 
 export function getExtSourceNameOrOrganizationColumn(candidate: Candidate): string {
-  if (candidate.userExtSource.extSource.type.toLowerCase() === "cz.metacentrum.perun.core.impl.ExtSourceX509".toLowerCase()) {
+  if (
+    candidate.userExtSource.extSource.type.toLowerCase() ===
+    'cz.metacentrum.perun.core.impl.ExtSourceX509'.toLowerCase()
+  ) {
     return convertCertCN(candidate.userExtSource.extSource.name);
-  } else if (candidate.userExtSource.extSource.type.toLowerCase() === "cz.metacentrum.perun.core.impl.ExtSourceIdp".toLowerCase()) {
+  } else if (
+    candidate.userExtSource.extSource.type.toLowerCase() ===
+    'cz.metacentrum.perun.core.impl.ExtSourceIdp'.toLowerCase()
+  ) {
     return translateIdp(candidate.userExtSource.extSource.name);
   } else {
     return candidate.userExtSource.extSource.name;
@@ -424,11 +446,10 @@ export function getExtSourceNameOrOrganizationColumn(candidate: Candidate): stri
  * @return
  */
 export function convertCertCN(toConvert: string): string {
-
-  if (toConvert.includes("/CN=")) {
-    const splitted = toConvert.split("/");
+  if (toConvert.includes('/CN=')) {
+    const splitted = toConvert.split('/');
     for (const s in splitted) {
-      if (s.startsWith("CN=")) {
+      if (s.startsWith('CN=')) {
         return unescapeDN(s.substring(3));
       }
     }
@@ -437,13 +458,10 @@ export function convertCertCN(toConvert: string): string {
 }
 
 export function unescapeDN(string: string): string {
-
   return decodeURIComponent(string.replace(/\\x/g, '%'));
-
 }
 
 export function translateIdp(name: string): string {
-
   switch (name) {
     case 'https://idp.upce.cz/idp/shibboleth':
       return 'University in Pardubice';
@@ -531,7 +549,8 @@ export function translateIdp(name: string): string {
     case '@orcid.extidp.cesnet.cz':
       return 'OrcID';
 
-    default: return name;
+    default:
+      return name;
   }
 }
 
@@ -541,25 +560,24 @@ export function createNewApplicationMail(langs = ['en', 'cs']): ApplicationMail 
     formId: 0,
     mailType: 'APP_CREATED_USER',
     send: true,
-    message: {}
+    message: {},
   };
-  langs.forEach(lang => {
+  langs.forEach((lang) => {
     mail.message[lang] = { locale: lang, subject: '', text: '' };
   });
   return mail;
 }
 
-
 export function getDefaultDialogConfig(): MatDialogConfig {
   const config = new MatDialogConfig();
   config.disableClose = true;
   config.autoFocus = false;
-  return config
+  return config;
 }
 
 export function createNewApplicationFormItem(languages: string[]): ApplicationFormItem {
   const newItem: ApplicationFormItem = {
-    applicationTypes:['INITIAL', 'EXTENSION'],
+    applicationTypes: ['INITIAL', 'EXTENSION'],
     federationAttribute: '',
     i18n: {},
     id: 0,
@@ -574,21 +592,24 @@ export function createNewApplicationFormItem(languages: string[]): ApplicationFo
     disabledDependencyItemId: null,
     hiddenDependencyItemId: null,
     shortname: '',
-    type: null
+    type: null,
   };
   for (const lang of languages) {
-    newItem.i18n[lang] = {locale: lang, errorMessage: '', help: '', label: '', options: ''}
+    newItem.i18n[lang] = { locale: lang, errorMessage: '', help: '', label: '', options: '' };
   }
   return newItem;
 }
 
 export function isVirtualAttribute(attribute: Attribute): boolean {
-  return  attribute.namespace.split(':')[4] === 'virt';
+  return attribute.namespace.split(':')[4] === 'virt';
 }
 
-export function parseMemberStatus(memberStatus: string, memberGroupStatus?:string): string {
-  if(memberStatus.toLowerCase() === 'valid' && (!memberGroupStatus || memberStatus.toLowerCase() === 'valid')){
-    return 'ACTIVE'
+export function parseMemberStatus(memberStatus: string, memberGroupStatus?: string): string {
+  if (
+    memberStatus.toLowerCase() === 'valid' &&
+    (!memberGroupStatus || memberStatus.toLowerCase() === 'valid')
+  ) {
+    return 'ACTIVE';
   }
   return memberStatus;
 }
@@ -600,20 +621,19 @@ export function parseMemberStatus(memberStatus: string, memberGroupStatus?:strin
  * @param richMember RichMember
  */
 export function parseOrganization(richMember: RichMember): string {
-
   let organization = '';
 
   if (richMember && richMember.memberAttributes !== null) {
-    richMember.memberAttributes.forEach(attr => {
+    richMember.memberAttributes.forEach((attr) => {
       if (attr.friendlyName === 'organization' && attr.value !== null) {
-        organization = <string><unknown>attr.value;
+        organization = <string>(<unknown>attr.value);
       }
     });
 
     if (organization.length === 0 && richMember.userAttributes !== null) {
-      richMember.userAttributes.forEach(attr => {
+      richMember.userAttributes.forEach((attr) => {
         if (attr.friendlyName === 'organization') {
-          organization = <string><unknown>attr.value;
+          organization = <string>(<unknown>attr.value);
         }
       });
     }
@@ -621,23 +641,30 @@ export function parseOrganization(richMember: RichMember): string {
   return organization;
 }
 
-export function getGroupExpiration(group: RichGroup): string{
-  const attribute = group.attributes.find(att => att.baseFriendlyName === 'groupMembershipExpiration');
-  if(attribute && attribute.value){
+export function getGroupExpiration(group: RichGroup): string {
+  const attribute = group.attributes.find(
+    (att) => att.baseFriendlyName === 'groupMembershipExpiration'
+  );
+  if (attribute && attribute.value) {
     return attribute.value as unknown as string;
   }
   return 'Never';
 }
 
-export function parseDate(value: string): string{
-  if(!value || value.toLowerCase() === 'never'){
+export function parseDate(value: string): string {
+  if (!value || value.toLowerCase() === 'never') {
     return value;
   }
   return formatDate(value, 'd.M.yyyy', 'en');
 }
 
-const collator = new Intl.Collator('cs',{numeric: true});
-export function customDataSourceSort(data: any[], sort: MatSort, getDataForColumn: (data: any, column: string, outerThis: any) => string, outerThis:any){
+const collator = new Intl.Collator('cs', { numeric: true });
+export function customDataSourceSort(
+  data: any[],
+  sort: MatSort,
+  getDataForColumn: (data: any, column: string, outerThis: any) => string,
+  outerThis: any
+) {
   const active = sort.active;
   const direction = sort.direction;
   if (!active || direction === '') {
@@ -650,14 +677,21 @@ export function customDataSourceSort(data: any[], sort: MatSort, getDataForColum
   });
 }
 
-export function customDataSourceFilterPredicate(data: any, filter: string, columns: string[], getDataForColumn: (data: any, column: string, outerThis: any) => string, outerThis: any, filterByUUID?: boolean){
+export function customDataSourceFilterPredicate(
+  data: any,
+  filter: string,
+  columns: string[],
+  getDataForColumn: (data: any, column: string, outerThis: any) => string,
+  outerThis: any,
+  filterByUUID?: boolean
+) {
   filter = filter.toLowerCase();
   let dataStr = '';
-  columns.forEach(col => {
-    dataStr+= ';' + getDataForColumn(data, col, outerThis);
+  columns.forEach((col) => {
+    dataStr += ';' + getDataForColumn(data, col, outerThis);
   });
   if (filterByUUID) {
-    dataStr+= ';' + getDataForColumn(data, 'uuid', outerThis);
+    dataStr += ';' + getDataForColumn(data, 'uuid', outerThis);
   }
   return dataStr.toLowerCase().indexOf(filter) !== -1;
 }
@@ -665,61 +699,76 @@ export function customDataSourceFilterPredicate(data: any, filter: string, colum
 export function parseAttribute(data: Author, nameOfAttribute: string) {
   let attribute = '';
   if (data.attributes) {
-    data.attributes.forEach(attr => {
+    data.attributes.forEach((attr) => {
       if (attr.friendlyName === nameOfAttribute) {
-        attribute = <string><unknown>attr.value;
+        attribute = <string>(<unknown>attr.value);
       }
     });
   }
   return attribute;
 }
 
-export function getDataForExport(data: any, columns: string[], getDataForColumn: (data: any, column: string, outerThis: any) => string, outerThis: any) {
+export function getDataForExport(
+  data: any,
+  columns: string[],
+  getDataForColumn: (data: any, column: string, outerThis: any) => string,
+  outerThis: any
+) {
   const result = [];
-  const skippedColumns = ['checkbox', 'select', 'edit', 'menu', 'cite', 'extend', 'recent']
-  columns = columns.filter(c => !skippedColumns.includes(c));
-  data.forEach(row => {
-    const resultRow = {}
-    columns.forEach(col => {
-      resultRow[col] = (getDataForColumn(row, col, outerThis) ?? '').split("\"").join('\'\'').trim();
+  const skippedColumns = ['checkbox', 'select', 'edit', 'menu', 'cite', 'extend', 'recent'];
+  columns = columns.filter((c) => !skippedColumns.includes(c));
+  data.forEach((row) => {
+    const resultRow = {};
+    columns.forEach((col) => {
+      resultRow[col] = (getDataForColumn(row, col, outerThis) ?? '').split('"').join("''").trim();
     });
-    result.push(resultRow)
+    result.push(resultRow);
   });
   return result;
 }
 
 export function downloadData(data: any, format = 'csv', filename = 'export') {
-  switch (format){
+  switch (format) {
     case 'csv': {
-      const replacer = (key, value) => value === null ? '' : value;
+      const replacer = (key, value) => (value === null ? '' : value);
       const header = Object.keys(data[0]);
-      const csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
-      csv.unshift(header.join(',').split(' ').join('_').split("\"").join('\'\''));
+      const csv = data.map((row) =>
+        header.map((fieldName) => JSON.stringify(row[fieldName], replacer)).join(',')
+      );
+      csv.unshift(header.join(',').split(' ').join('_').split('"').join("''"));
       const csvArray = csv.join('\r\n');
 
-      const blob = new Blob([csvArray], { type: 'text/csv' })
+      const blob = new Blob([csvArray], { type: 'text/csv' });
       saveAs(blob, `${filename}.${format}`);
     }
   }
 }
 
-export function compareFnName(a,b) {
-  return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : (a.name.toLowerCase() === b.name.toLowerCase() ? 0 : -1)
+export function compareFnName(a, b) {
+  return a.name.toLowerCase() > b.name.toLowerCase()
+    ? 1
+    : a.name.toLowerCase() === b.name.toLowerCase()
+    ? 0
+    : -1;
 }
 
-export function compareFnUser(a,b) {
+export function compareFnUser(a, b) {
   let first, second;
-  if(a.user){
-    first =  a.user.lastName ? a.user.lastName : a.user.firstName ?? '';
-    second =  b.user.lastName ? b.user.lastName : b.user.firstName ?? '';
+  if (a.user) {
+    first = a.user.lastName ? a.user.lastName : a.user.firstName ?? '';
+    second = b.user.lastName ? b.user.lastName : b.user.firstName ?? '';
   } else {
-    first =  a.lastName ? a.lastName : a.firstName ?? '';
-    second =  b.lastName ? b.lastName : b.firstName ?? '';
+    first = a.lastName ? a.lastName : a.firstName ?? '';
+    second = b.lastName ? b.lastName : b.firstName ?? '';
   }
-  return first >second ? 1 : (first === second ? 0 : -1);
+  return first > second ? 1 : first === second ? 0 : -1;
 }
 
-export function enableFormControl(control: AbstractControl, validators: ValidatorFn[], asyncValidators: AsyncValidatorFn[] = []) {
+export function enableFormControl(
+  control: AbstractControl,
+  validators: ValidatorFn[],
+  asyncValidators: AsyncValidatorFn[] = []
+) {
   control.enable();
   control.clearValidators();
   control.clearAsyncValidators();

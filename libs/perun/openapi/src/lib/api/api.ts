@@ -38,4 +38,25 @@ export * from './utils.service';
 import { UtilsService } from './utils.service';
 export * from './vosManager.service';
 import { VosManagerService } from './vosManager.service';
-export const APIS = [AttributesManagerService, AuditMessagesManagerService, AuthzResolverService, CabinetManagerService, DatabaseManagerService, ExtSourcesManagerService, FacilitiesManagerService, FacilitiesManagerByFacilityNameService, GroupsManagerService, IntegrationManagerService, MembersManagerService, OwnersManagerService, RTMessagesManagerService, RegistrarManagerService, ResourcesManagerService, ServicesManagerService, TasksManagerService, UsersManagerService, UtilsService, VosManagerService];
+export const APIS = [
+  AttributesManagerService,
+  AuditMessagesManagerService,
+  AuthzResolverService,
+  CabinetManagerService,
+  DatabaseManagerService,
+  ExtSourcesManagerService,
+  FacilitiesManagerService,
+  FacilitiesManagerByFacilityNameService,
+  GroupsManagerService,
+  IntegrationManagerService,
+  MembersManagerService,
+  OwnersManagerService,
+  RTMessagesManagerService,
+  RegistrarManagerService,
+  ResourcesManagerService,
+  ServicesManagerService,
+  TasksManagerService,
+  UsersManagerService,
+  UtilsService,
+  VosManagerService,
+];

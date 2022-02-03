@@ -3,12 +3,7 @@
 </h1>
 
 <div class="w-100 d-flex">
-  <button
-    *ngIf="addAuth"
-    mat-flat-button
-    color="accent"
-    class="mr-2 action-button"
-    (click)="add()">
+  <button *ngIf="addAuth" mat-flat-button color="accent" class="mr-2 action-button" (click)="add()">
     {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.ADD' | translate}}
   </button>
 
@@ -22,26 +17,18 @@
     {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.REMOVE' | translate}}
   </button>
 
-  <button
-    mat-stroked-button
-    class="mr-2 action-button"
-    (click)="changeEmailFooter()">
+  <button mat-stroked-button class="mr-2 action-button" (click)="changeEmailFooter()">
     <i class="material-icons">email</i>
     {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.EMAIL_FOOTER' | translate}}
   </button>
 
-  <button
-    *ngIf="copyAuth"
-    mat-stroked-button
-    class="action-button"
-    (click)="copy()">
+  <button *ngIf="copyAuth" mat-stroked-button class="action-button" (click)="copy()">
     <i class="material-icons">file_copy</i>
     {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.COPY_FROM_VO' | translate}}
   </button>
 </div>
 
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto">
-</mat-spinner>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
 
 <app-notification-list
   *ngIf="!loading"

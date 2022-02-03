@@ -2,8 +2,9 @@
   <h1 mat-dialog-title>{{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.TITLE' | translate}}</h1>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div [hidden]="loading" mat-dialog-content class="dialog-container">
-
-    <div class="mb-2 font-italic">{{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.DESCRIPTION' | translate}}</div>
+    <div class="mb-2 font-italic">
+      {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.DESCRIPTION' | translate}}
+    </div>
     {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.SOURCE_VO' | translate}}:
 
     <perun-web-apps-vo-search-select
@@ -23,10 +24,7 @@
   </div>
 
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="cancel()">
+    <button mat-flat-button class="ml-auto" (click)="cancel()">
       {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.CANCEL_BUTTON' | translate}}
     </button>
     <button

@@ -11,12 +11,10 @@
  */
 import { PerunBean } from './perunBean';
 
-
-export interface Authorship extends PerunBean { 
-    publicationId?: number;
-    userId?: number;
-    createdBy?: string;
-    createdDate?: string;
-    createdByUid?: number;
+export interface Authorship extends PerunBean {
+  publicationId?: number;
+  userId?: number;
+  createdBy?: string;
+  createdDate?: string;
+  createdByUid?: number;
 }
-

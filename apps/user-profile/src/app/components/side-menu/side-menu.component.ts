@@ -8,10 +8,9 @@ import { MatSidenav } from '@angular/material/sidenav';
 @Component({
   selector: 'perun-web-apps-side-menu',
   templateUrl: './side-menu.component.html',
-  styleUrls: ['./side-menu.component.scss']
+  styleUrls: ['./side-menu.component.scss'],
 })
 export class SideMenuComponent implements OnInit {
-
   private currentUrl: string;
 
   constructor(
@@ -38,14 +37,14 @@ export class SideMenuComponent implements OnInit {
   iconColor = this.storeService.get('theme', 'sidemenu_item_icon_color');
 
   ngOnInit() {
-    this.translateService.onLangChange.subscribe(lang => {
-      const {lang: lan} = lang;
+    this.translateService.onLangChange.subscribe((lang) => {
+      const { lang: lan } = lang;
       this.lang = lan;
     });
     const displayedTabs: string[] = this.storeService.get('displayed_tabs');
     this.items = this.sideMenuItemService.getSideMenuItems();
 
-    this.items = this.items.filter(item => displayedTabs.includes(item.tabName));
+    this.items = this.items.filter((item) => displayedTabs.includes(item.tabName));
   }
 
   isActive(regexValue: string) {

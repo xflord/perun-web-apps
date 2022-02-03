@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface BanAllOf { 
-    validityTo?: string;
-    description?: string;
+export interface BanAllOf {
+  validityTo?: string;
+  description?: string;
 }
-

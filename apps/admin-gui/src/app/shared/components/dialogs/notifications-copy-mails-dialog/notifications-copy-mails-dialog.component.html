@@ -2,8 +2,9 @@
   <h1 mat-dialog-title>{{'DIALOGS.NOTIFICATIONS_COPY_MAILS.TITLE' | translate}}</h1>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <div [hidden]="loading" mat-dialog-content class="dialog-container">
-
-    <div class="mb-2 font-italic">{{'DIALOGS.NOTIFICATIONS_COPY_MAILS.DESCRIPTION' | translate}}</div>
+    <div class="mb-2 font-italic">
+      {{'DIALOGS.NOTIFICATIONS_COPY_MAILS.DESCRIPTION' | translate}}
+    </div>
     {{'DIALOGS.NOTIFICATIONS_COPY_MAILS.SOURCE_VO' | translate}}:
 
     <perun-web-apps-vo-search-select
@@ -20,14 +21,10 @@
       [disableAutoSelect]="true"
       (groupSelected)="selectedGroup = ($event)">
     </perun-web-apps-group-search-select>
-
   </div>
 
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="cancel()">
+    <button mat-flat-button class="ml-auto" (click)="cancel()">
       {{'DIALOGS.NOTIFICATIONS_COPY_MAILS.CANCEL_BUTTON' | translate}}
     </button>
     <button

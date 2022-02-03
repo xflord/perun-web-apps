@@ -14,10 +14,13 @@
     [disabled]="selection.selected.length === 0 || (this.list !== undefined && !this.list.removeAuth)">
     {{'GROUP_DETAIL.SETTINGS.RELATIONS.DELETE' | translate}}
   </button>
-  <perun-web-apps-immediate-filter (filter)="applyFilter($event)"
-                                   [placeholder]="'GROUP_DETAIL.SETTINGS.RELATIONS.FILTER'"></perun-web-apps-immediate-filter>
+  <perun-web-apps-immediate-filter
+    (filter)="applyFilter($event)"
+    [placeholder]="'GROUP_DETAIL.SETTINGS.RELATIONS.FILTER'"></perun-web-apps-immediate-filter>
   <mat-checkbox
-    (change)="showReverseUnions()">{{'GROUP_DETAIL.SETTINGS.RELATIONS.REVERSE_UNIONS' | translate}}</mat-checkbox>
+    (change)="showReverseUnions()"
+    >{{'GROUP_DETAIL.SETTINGS.RELATIONS.REVERSE_UNIONS' | translate}}</mat-checkbox
+  >
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
 
   <perun-web-apps-groups-list
@@ -30,6 +33,5 @@
     [selection]="selection"
     [filter]="filterValue"
     [displayedColumns]="['select', 'id', 'vo', 'name', 'description']"
-    [disableHeadCheckbox]="true"
-  ></perun-web-apps-groups-list>
+    [disableHeadCheckbox]="true"></perun-web-apps-groups-list>
 </div>

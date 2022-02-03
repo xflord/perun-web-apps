@@ -12,12 +12,10 @@
 import { EnrichedGroup } from './enrichedGroup';
 import { GroupResourceStatus } from './groupResourceStatus';
 
-
-export interface AssignedGroup { 
-    enrichedGroup?: EnrichedGroup;
-    status?: GroupResourceStatus;
-    sourceGroupId?: number;
-    failureCause?: string;
-    autoAssignSubgroups?: boolean;
+export interface AssignedGroup {
+  enrichedGroup?: EnrichedGroup;
+  status?: GroupResourceStatus;
+  sourceGroupId?: number;
+  failureCause?: string;
+  autoAssignSubgroups?: boolean;
 }
-

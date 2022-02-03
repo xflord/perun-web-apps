@@ -14,7 +14,7 @@
     <table *ngIf="dataSource.data.length" [dataSource]="dataSource" class="w-100" mat-table>
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let value"> {{value}} </td>
+        <td mat-cell *matCellDef="let value">{{value}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns" class="font-weight-bolder"></tr>
@@ -23,18 +23,10 @@
   </div>
 
   <div mat-dialog-actions>
-
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
       {{'DIALOGS.REMOVE_STRING_VALUE.CANCEL' | customTranslate | translate}}
     </button>
-    <button
-      mat-flat-button
-      class="ml-2"
-      color="warn"
-      (click)="onSubmit()">
+    <button mat-flat-button class="ml-2" color="warn" (click)="onSubmit()">
       {{'DIALOGS.REMOVE_STRING_VALUE.REMOVE' | customTranslate | translate}}
     </button>
   </div>

@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface HostAllOf { 
-    hostname?: string;
+export interface HostAllOf {
+  hostname?: string;
 }
-

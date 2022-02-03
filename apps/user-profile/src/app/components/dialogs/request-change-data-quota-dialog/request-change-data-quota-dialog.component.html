@@ -1,11 +1,17 @@
-<h1 class="mb-3" mat-dialog-title>{{'DIALOGS.REQUEST_DATA_QUOTA_CHANGE.TITLE'|customTranslate | translate}}</h1>
+<h1 class="mb-3" mat-dialog-title>
+  {{'DIALOGS.REQUEST_DATA_QUOTA_CHANGE.TITLE'|customTranslate | translate}}
+</h1>
 <div class="user-theme">
   <div>
-    <p class="column-size">{{'DIALOGS.REQUEST_DATA_QUOTA_CHANGE.RESOURCE'|customTranslate | translate}}</p>
+    <p class="column-size">
+      {{'DIALOGS.REQUEST_DATA_QUOTA_CHANGE.RESOURCE'|customTranslate | translate}}
+    </p>
     <p>{{resource}}</p>
   </div>
   <div>
-    <p class="column-size">{{'DIALOGS.REQUEST_DATA_QUOTA_CHANGE.CURRENT_QUOTA'|customTranslate | translate}}</p>
+    <p class="column-size">
+      {{'DIALOGS.REQUEST_DATA_QUOTA_CHANGE.CURRENT_QUOTA'|customTranslate | translate}}
+    </p>
     <p>{{currentQuota}}</p>
   </div>
   <div fxLayout="row" fxFlexAlign="center center">
@@ -16,7 +22,7 @@
           required
           type="number"
           placeholder="{{'DIALOGS.REQUEST_DATA_QUOTA_CHANGE.REQUESTED_QUOTA'|customTranslate | translate}}"
-          [formControl]="newValueControl">
+          [formControl]="newValueControl" />
       </label>
     </mat-form-field>
     <mat-select [(value)]="selectedUnit" class="select-width mt-auto mb-auto ml-2">
@@ -28,22 +34,18 @@
   <div>
     <mat-form-field class="form-width">
       <label class="label-width">
-      <textarea
-        matInput
-        required
-        placeholder="{{'DIALOGS.REQUEST_DATA_QUOTA_CHANGE.REASON'| customTranslate | translate}}"
-        rows="4"
-        [formControl]="reasonControl"
-      ></textarea>
+        <textarea
+          matInput
+          required
+          placeholder="{{'DIALOGS.REQUEST_DATA_QUOTA_CHANGE.REASON'| customTranslate | translate}}"
+          rows="4"
+          [formControl]="reasonControl"></textarea>
       </label>
     </mat-form-field>
   </div>
 
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
       {{'DIALOGS.REQUEST_DATA_QUOTA_CHANGE.CANCEL'|customTranslate | translate}}
     </button>
     <button

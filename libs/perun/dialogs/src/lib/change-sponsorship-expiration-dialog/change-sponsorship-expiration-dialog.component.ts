@@ -2,7 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import {
   AttributesManagerService,
   GroupsManagerService,
-  MembersManagerService, Sponsor
+  MembersManagerService,
+  Sponsor,
 } from '@perun-web-apps/perun/openapi';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,22 +14,24 @@ export interface ChangeSponsorshipExpirationDialogData {
   sponsor: Sponsor;
 }
 
-
 @Component({
   selector: 'perun-web-apps-change-sponsorship-expiration-dialog',
   templateUrl: './change-sponsorship-expiration-dialog.component.html',
-  styleUrls: ['./change-sponsorship-expiration-dialog.component.scss']
+  styleUrls: ['./change-sponsorship-expiration-dialog.component.scss'],
 })
 export class ChangeSponsorshipExpirationDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<ChangeSponsorshipExpirationDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: ChangeSponsorshipExpirationDialogData,
-              private attributesManagerService: AttributesManagerService,
-              private memberManager: MembersManagerService,
-              private groupManager: GroupsManagerService,
-              private translate: TranslateService,
-              private notificator: NotificatorService) {
-    translate.get('DIALOGS.CHANGE_EXPIRATION.SUCCESS').subscribe(res => this.successMessage = res);
+  constructor(
+    private dialogRef: MatDialogRef<ChangeSponsorshipExpirationDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: ChangeSponsorshipExpirationDialogData,
+    private attributesManagerService: AttributesManagerService,
+    private memberManager: MembersManagerService,
+    private groupManager: GroupsManagerService,
+    private translate: TranslateService,
+    private notificator: NotificatorService
+  ) {
+    translate
+      .get('DIALOGS.CHANGE_EXPIRATION.SUCCESS')
+      .subscribe((res) => (this.successMessage = res));
   }
 
   loading = false;
@@ -44,7 +47,11 @@ export class ChangeSponsorshipExpirationDialogComponent implements OnInit {
     this.currentExpiration = this.data.sponsor.validityTo ? this.data.sponsor.validityTo : 'never';
     this.newExpiration = this.currentExpiration;
     const currentDate = new Date();
-    this.minDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+    this.minDate = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      currentDate.getDate()
+    );
     this.loading = false;
   }
 
@@ -52,10 +59,15 @@ export class ChangeSponsorshipExpirationDialogComponent implements OnInit {
     this.loading = true;
     const expiration = newExp === 'never' ? null : newExp;
 
-    this.memberManager.updateSponsorshipValidity(this.data.memberId, this.data.sponsor.user.id, expiration).subscribe(() => {
-      this.loading = false;
-      this.notificator.showSuccess(this.successMessage);
-      this.dialogRef.close(true);
-    }, () => this.loading = false);
+    this.memberManager
+      .updateSponsorshipValidity(this.data.memberId, this.data.sponsor.user.id, expiration)
+      .subscribe(
+        () => {
+          this.loading = false;
+          this.notificator.showSuccess(this.successMessage);
+          this.dialogRef.close(true);
+        },
+        () => (this.loading = false)
+      );
   }
 }

@@ -1,7 +1,9 @@
 <mat-card class="mat-elevation-z3 membership-card">
   <mat-card-header>
     <mat-card-title>
-      <h1 class="page-subtitle">{{'MEMBER_DETAIL.OVERVIEW.ORGANIZATION_MEMBERSHIP' | translate}}</h1>
+      <h1 class="page-subtitle">
+        {{'MEMBER_DETAIL.OVERVIEW.ORGANIZATION_MEMBERSHIP' | translate}}
+      </h1>
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
@@ -10,15 +12,14 @@
       <table mat-table [dataSource]="voMembershipDataSource" class="ml-auto mr-auto">
         <ng-container matColumnDef="attName">
           <th *matHeaderCellDef mat-header-cell></th>
-          <td *matCellDef="let attribute" class="font-weight-bold" mat-cell>
-            {{attribute}}:
-          </td>
+          <td *matCellDef="let attribute" class="font-weight-bold" mat-cell>{{attribute}}:</td>
         </ng-container>
         <ng-container matColumnDef="attValue">
           <th *matHeaderCellDef mat-header-cell></th>
           <td *matCellDef="let attribute" class="column-center" mat-cell>
             <div *ngIf="attribute === 'Status'">
-              <i class="material-icons vert-center mr-1 {{(member.status | memberStatusIconColor)}}">
+              <i
+                class="material-icons vert-center mr-1 {{(member.status | memberStatusIconColor)}}">
                 {{member.status | memberStatusIcon}}
               </i>
               <b class="vert-top">
@@ -35,9 +36,10 @@
               <i class="column-center">
                 {{voExpiration | parseDate}}
               </i>
-              <button *ngIf="authResolver.isThisVoAdmin(vo.id)"
-                      (click)="changeVoExpiration(false)"
-                      mat-icon-button>
+              <button
+                *ngIf="authResolver.isThisVoAdmin(vo.id)"
+                (click)="changeVoExpiration(false)"
+                mat-icon-button>
                 <mat-icon>edit</mat-icon>
               </button>
             </div>

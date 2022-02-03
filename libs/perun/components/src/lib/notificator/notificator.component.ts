@@ -1,24 +1,21 @@
 import { Component, HostListener, Input } from '@angular/core';
-import {NotificationData} from '@perun-web-apps/perun/models';
-import {NotificatorService} from '@perun-web-apps/perun/services';
-import {flyInOut} from '@perun-web-apps/perun/animations';
+import { NotificationData } from '@perun-web-apps/perun/models';
+import { NotificatorService } from '@perun-web-apps/perun/services';
+import { flyInOut } from '@perun-web-apps/perun/animations';
 import { NotificationStorageService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'perun-web-apps-notificator',
   templateUrl: './notificator.component.html',
   styleUrls: ['./notificator.component.scss'],
-  animations: [
-    flyInOut
-  ]
+  animations: [flyInOut],
 })
 export class NotificatorComponent {
-
   constructor(
     private notificator: NotificatorService,
     private notificationStorageService: NotificationStorageService
   ) {
-    this.notificator.addNotification.subscribe(notificationData => {
+    this.notificator.addNotification.subscribe((notificationData) => {
       this.processNotification(notificationData);
     });
     this.getScreenSize();
@@ -49,7 +46,7 @@ export class NotificatorComponent {
     return this.displayWarning ? '112px' : '64px';
   }
 
-  removeNotification(index: number){
+  removeNotification(index: number) {
     this.notifications.splice(index, 1);
   }
 }

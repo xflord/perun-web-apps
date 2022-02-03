@@ -9,17 +9,16 @@ import { emailRegexString } from '@perun-web-apps/perun/utils';
 @Component({
   selector: 'app-add-owner-dialog',
   templateUrl: './add-owner-dialog.component.html',
-  styleUrls: ['./add-owner-dialog.component.scss']
+  styleUrls: ['./add-owner-dialog.component.scss'],
 })
 export class AddOwnerDialogComponent implements OnInit {
-
   constructor(
     private dialogRef: MatDialogRef<AddOwnerDialogComponent>,
     private notificator: NotificatorService,
-    private ownersManagerService:OwnersManagerService,
+    private ownersManagerService: OwnersManagerService,
     private translate: TranslateService
   ) {
-    translate.get('DIALOGS.ADD_OWNER.SUCCESS').subscribe(value => this.successMessage = value);
+    translate.get('DIALOGS.ADD_OWNER.SUCCESS').subscribe((value) => (this.successMessage = value));
   }
 
   successMessage: string;
@@ -30,8 +29,14 @@ export class AddOwnerDialogComponent implements OnInit {
   type = '1';
 
   ngOnInit() {
-    this.nameCtrl = new FormControl(null, [Validators.required, Validators.pattern('^[\\w.-]+( [\\w.-]+)*$')]);
-    this.contactCtrl = new FormControl(null, [Validators.required, Validators.pattern(emailRegexString)]);
+    this.nameCtrl = new FormControl(null, [
+      Validators.required,
+      Validators.pattern('^[\\w.-]+( [\\w.-]+)*$'),
+    ]);
+    this.contactCtrl = new FormControl(null, [
+      Validators.required,
+      Validators.pattern(emailRegexString),
+    ]);
   }
 
   onCancel() {
@@ -41,13 +46,19 @@ export class AddOwnerDialogComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     // @ts-ignore
-    this.ownersManagerService.createOwner({name: this.nameCtrl.value, contact: this.contactCtrl.value, ownerType: Number.parseInt(this.type,10)}).subscribe(() => {
-      this.notificator.showSuccess(this.successMessage);
-      this.loading = false;
-      this.dialogRef.close(true);
-    }, () => this.loading = false);
+    this.ownersManagerService
+      .createOwner({
+        name: this.nameCtrl.value,
+        contact: this.contactCtrl.value,
+        ownerType: Number.parseInt(this.type, 10),
+      })
+      .subscribe(
+        () => {
+          this.notificator.showSuccess(this.successMessage);
+          this.loading = false;
+          this.dialogRef.close(true);
+        },
+        () => (this.loading = false)
+      );
   }
-
 }
-
-

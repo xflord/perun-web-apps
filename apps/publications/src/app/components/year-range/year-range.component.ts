@@ -4,11 +4,10 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'perun-web-apps-year-range',
   templateUrl: './year-range.component.html',
-  styleUrls: ['./year-range.component.scss']
+  styleUrls: ['./year-range.component.scss'],
 })
 export class YearRangeComponent implements OnInit {
-
-  constructor() { }
+  constructor() {}
 
   startMaxYear: Date;
   endMinYear: Date;
@@ -32,5 +31,4 @@ export class YearRangeComponent implements OnInit {
     this.endMinYear = this.startYear.value;
     datepicker.close();
   }
-
 }

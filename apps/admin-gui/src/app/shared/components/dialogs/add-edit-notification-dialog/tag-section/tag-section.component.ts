@@ -1,13 +1,12 @@
-import {Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-tag-section',
   templateUrl: './tag-section.component.html',
-  styleUrls: ['./tag-section.component.scss']
+  styleUrls: ['./tag-section.component.scss'],
 })
 export class TagSectionComponent {
-
-  constructor() { }
+  constructor() {}
 
   @Input()
   tags: [][] = [];

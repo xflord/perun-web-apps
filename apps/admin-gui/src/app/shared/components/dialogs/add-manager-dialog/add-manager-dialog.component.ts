@@ -10,7 +10,7 @@ import {
   Group,
   RichUser,
   UsersManagerService,
-  Vo
+  Vo,
 } from '@perun-web-apps/perun/openapi';
 import { Role } from '@perun-web-apps/perun/models';
 import { TABLE_ADD_MANAGER } from '@perun-web-apps/config/table-config';
@@ -27,10 +27,9 @@ export interface AddManagerDialogData {
 @Component({
   selector: 'app-add-manager-dialog',
   templateUrl: './add-manager-dialog.component.html',
-  styleUrls: ['./add-manager-dialog.component.scss']
+  styleUrls: ['./add-manager-dialog.component.scss'],
 })
 export class AddManagerDialogComponent implements OnInit {
-
   constructor(
     private dialogRef: MatDialogRef<AddManagerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: AddManagerDialogData,
@@ -42,8 +41,10 @@ export class AddManagerDialogComponent implements OnInit {
     protected route: ActivatedRoute,
     protected router: Router
   ) {
-    translate.get('DIALOGS.ADD_MANAGERS.TITLE').subscribe(value => this.title = value);
-    translate.get('DIALOGS.ADD_MANAGERS.SUCCESS').subscribe(value => this.successMessage = value);
+    translate.get('DIALOGS.ADD_MANAGERS.TITLE').subscribe((value) => (this.title = value));
+    translate
+      .get('DIALOGS.ADD_MANAGERS.SUCCESS')
+      .subscribe((value) => (this.successMessage = value));
   }
 
   title: string;
@@ -73,11 +74,20 @@ export class AddManagerDialogComponent implements OnInit {
 
   onSubmit(): void {
     this.loading = true;
-    this.authzService.setRoleWithUserComplementaryObject({role: this.selectedRole, users: this.selection.selected.map(u => u.id), complementaryObject: this.data.complementaryObject}).subscribe(() => {
-      this.notificator.showSuccess(this.successMessage);
-      this.loading = false;
-      this.dialogRef.close(true);
-    }, () => this.loading = false);
+    this.authzService
+      .setRoleWithUserComplementaryObject({
+        role: this.selectedRole,
+        users: this.selection.selected.map((u) => u.id),
+        complementaryObject: this.data.complementaryObject,
+      })
+      .subscribe(
+        () => {
+          this.notificator.showSuccess(this.successMessage);
+          this.loading = false;
+          this.dialogRef.close(true);
+        },
+        () => (this.loading = false)
+      );
   }
 
   onSearchByString() {
@@ -89,18 +99,16 @@ export class AddManagerDialogComponent implements OnInit {
 
     this.selection.clear();
 
-    let attributes = [
-      Urns.USER_DEF_ORGANIZATION,
-      Urns.USER_DEF_PREFERRED_MAIL];
+    let attributes = [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL];
     attributes = attributes.concat(this.storeService.getLoginAttributeNames());
 
     this.usersService.findRichUsersWithAttributes(this.searchCtrl.value, attributes).subscribe(
-      users => {
+      (users) => {
         this.users = users;
         this.loading = false;
         this.firstSearchDone = true;
       },
-      () => this.loading = false
+      () => (this.loading = false)
     );
   }
 }

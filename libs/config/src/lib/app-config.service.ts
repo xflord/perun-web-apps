@@ -32,11 +32,13 @@ export interface ColorConfig {
   providedIn: 'root',
 })
 export class AppConfigService {
-  constructor(private http: HttpClient,
-              private storeService: StoreService,
-              private authzSevice: AuthzResolverService,
-              private titleService: Title,
-              private utilsService: UtilsService) {}
+  constructor(
+    private http: HttpClient,
+    private storeService: StoreService,
+    private authzSevice: AuthzResolverService,
+    private titleService: Title,
+    private utilsService: UtilsService
+  ) {}
 
   initializeColors(
     entityColorConfigs: EntityColorConfig[],
@@ -107,10 +109,7 @@ export class AppConfigService {
           (config) => {
             this.storeService.setInstanceConfig(config);
             const branding = document.location.hostname;
-            if (
-              config['brandings'] !== undefined &&
-              config['brandings'][branding] !== undefined
-            ) {
+            if (config['brandings'] !== undefined && config['brandings'][branding] !== undefined) {
               this.storeService.setBanding(branding);
             }
             resolve();
@@ -125,16 +124,16 @@ export class AppConfigService {
 
   getNoCacheHeaders(): HttpHeaders {
     return new HttpHeaders({
-      'CacheControl':
-        'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
-      'Pragma': 'no-cache',
-      'Expires': '0',
+      CacheControl: 'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+      Pragma: 'no-cache',
+      Expires: '0',
     });
   }
 
   setInstanceFavicon(): Promise<void> {
     return new Promise((resolve) => {
-      const link: any = document.querySelector(`link[rel*='icon']`) || document.createElement('link');
+      const link: any =
+        document.querySelector(`link[rel*='icon']`) || document.createElement('link');
       link.type = 'image/x-icon';
       link.rel = 'shortcut icon';
 
@@ -143,11 +142,10 @@ export class AppConfigService {
       } else {
         link.href = './assets/img/perun.ico';
       }
-      document.getElementsByTagName('head')[ 0 ].appendChild(link);
+      document.getElementsByTagName('head')[0].appendChild(link);
       resolve();
     });
   }
-
 
   /**
    *  We need to set basePath for authzService before loading principal, otherwise authzService uses its default basePath
@@ -155,8 +153,8 @@ export class AppConfigService {
   setApiUrl(): Promise<void> {
     return new Promise<void>((resolve) => {
       let apiUrl = this.storeService.get('api_url');
-      if (location.pathname === '/service-access' || sessionStorage.getItem("baPrincipal")) {
-        apiUrl = apiUrl.replace("oauth", "ba");
+      if (location.pathname === '/service-access' || sessionStorage.getItem('baPrincipal')) {
+        apiUrl = apiUrl.replace('oauth', 'ba');
       }
       this.authzSevice.configuration.basePath = apiUrl;
       this.titleService.setTitle(this.storeService.get('document_title'));
@@ -166,15 +164,16 @@ export class AppConfigService {
 
   loadAppsConfig(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.utilsService.getAppsConfig().subscribe(appsConfig => {
-        this.storeService.setAppsConfig(appsConfig);
-        resolve();
-      }, error => reject(error));
+      this.utilsService.getAppsConfig().subscribe(
+        (appsConfig) => {
+          this.storeService.setAppsConfig(appsConfig);
+          resolve();
+        },
+        (error) => reject(error)
+      );
     });
   }
 }
-
-
 
 function computeColors(hex: string): Color[] {
   return [

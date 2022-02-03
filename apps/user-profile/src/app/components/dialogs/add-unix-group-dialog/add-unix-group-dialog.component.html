@@ -5,20 +5,12 @@
     <div mat-dialog-content class="dialog-container">
       <mat-form-field class="w-100">
         <label class="w-100">
-          <input
-            matInput
-            required
-            class="w-100"
-            [formControl]="inputControl"
-          >
+          <input matInput required class="w-100" [formControl]="inputControl" />
         </label>
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button
-        mat-flat-button
-        class="ml-auto"
-        (click)="onCancel()">
+      <button mat-flat-button class="ml-auto" (click)="onCancel()">
         {{'DIALOGS.ADD_UNIX_GROUP.CANCEL'|customTranslate | translate}}
       </button>
       <button

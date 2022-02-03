@@ -11,7 +11,7 @@
     <table mat-table [dataSource]="dataSource" class="w-100">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let relation"> {{relation.name}} </td>
+        <td mat-cell *matCellDef="let relation">{{relation.name}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns" class="font-weight-bolder"></tr>
@@ -19,19 +19,10 @@
     </table>
   </div>
   <div mat-dialog-actions>
-
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
       {{'DIALOGS.REMOVE_RELATION.CANCEL' | translate}}
     </button>
-    <button
-      mat-flat-button
-      class="ml-2"
-      color="warn"
-      [disabled]="loading"
-      (click)="onSubmit()">
+    <button mat-flat-button class="ml-2" color="warn" [disabled]="loading" (click)="onSubmit()">
       {{'DIALOGS.REMOVE_RELATION.DELETE' | translate}}
     </button>
   </div>

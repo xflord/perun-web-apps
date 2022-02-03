@@ -12,12 +12,10 @@
 import { GroupsOrderColumn } from './groupsOrderColumn';
 import { SortingOrder } from './sortingOrder';
 
-
-export interface GroupsPageQuery { 
-    pageSize: number;
-    offset: number;
-    order: SortingOrder;
-    sortColumn: GroupsOrderColumn;
-    searchString?: string;
+export interface GroupsPageQuery {
+  pageSize: number;
+  offset: number;
+  order: SortingOrder;
+  sortColumn: GroupsOrderColumn;
+  searchString?: string;
 }
-

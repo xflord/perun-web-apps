@@ -1,16 +1,10 @@
 <h1 mat-dialog-title>{{this.attDef.namespace + ':' + this.attDef.friendlyName}}</h1>
 
 <div mat-dialog-actions class="mt-3">
-  <button
-    mat-stroked-button
-    (click)="this.switchView.emit()">
+  <button mat-stroked-button (click)="this.switchView.emit()">
     {{'SHARED.COMPONENTS.ENTITYLESS_ATTRIBUTES_LIST.CANCEL' | translate}}
   </button>
-  <button
-    mat-flat-button
-    class="ml-2"
-    color="accent"
-    (click)="onSave()">
+  <button mat-flat-button class="ml-2" color="accent" (click)="onSave()">
     {{'SHARED.COMPONENTS.ENTITYLESS_ATTRIBUTES_LIST.SAVE' | translate}}
   </button>
   <button
@@ -24,61 +18,64 @@
     (click)="onAdd()">
     {{'SHARED.COMPONENTS.ENTITYLESS_ATTRIBUTES_LIST.ADD' | translate}}
   </button>
-  <button
-    mat-flat-button
-    class="ml-2"
-    color="warn"
-    (click)="onRemove()">
+  <button mat-flat-button class="ml-2" color="warn" (click)="onRemove()">
     {{'SHARED.COMPONENTS.ENTITYLESS_ATTRIBUTES_LIST.REMOVE' | translate}}
   </button>
 </div>
 
 <div [hidden]="loading" class="mt-3" mat-dialog-content>
   <div *ngIf="records && records.length" class="card mt-3">
-
     <perun-web-apps-table-wrapper
       [tableId]="tableId"
       [dataLength]="dataSource.filteredData.length"
       [hideExport]="true"
       [pageSizeOptions]="pageSizeOptions">
-      <table [dataSource]="dataSource" class="w-100" mat-table matSort matSortActive="key"
-             matSortDirection="asc"
-             matSortDisableClear>
-
+      <table
+        [dataSource]="dataSource"
+        class="w-100"
+        mat-table
+        matSort
+        matSortActive="key"
+        matSortDirection="asc"
+        matSortDisableClear>
         <ng-container matColumnDef="select">
           <th *matHeaderCellDef mat-header-cell class="align-checkbox">
-            <mat-checkbox (change)="$event ? masterToggle() : null"
-                          [aria-label]="checkboxLabel()"
-                          [checked]="selection.hasValue() && isAllSelected()"
-                          [indeterminate]="selection.hasValue() && !isAllSelected()"
-                          color="primary">
+            <mat-checkbox
+              (change)="$event ? masterToggle() : null"
+              [aria-label]="checkboxLabel()"
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()"
+              color="primary">
             </mat-checkbox>
           </th>
           <td *matCellDef="let record" class="static-column-size align-checkbox" mat-cell>
-            <mat-checkbox (change)="$event ? selection.toggle(record) : null"
-                          (click)="$event.stopPropagation()"
-                          [aria-label]="checkboxLabel(record)"
-                          [checked]="selection.isSelected(record)"
-                          color="primary">
+            <mat-checkbox
+              (change)="$event ? selection.toggle(record) : null"
+              (click)="$event.stopPropagation()"
+              [aria-label]="checkboxLabel(record)"
+              [checked]="selection.isSelected(record)"
+              color="primary">
             </mat-checkbox>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="key">
-          <th *matHeaderCellDef mat-header-cell
-              mat-sort-header>
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
             {{'SHARED.COMPONENTS.ENTITYLESS_ATTRIBUTES_LIST.KEY' | translate}}
           </th>
           <td *matCellDef="let record" mat-cell>
             <label>
-              <input (ngModelChange)="this.onValueChange(record)" [(ngModel)]="record[0]" class="mt-2" matInput
-                     placeholder="New key">
+              <input
+                (ngModelChange)="this.onValueChange(record)"
+                [(ngModel)]="record[0]"
+                class="mt-2"
+                matInput
+                placeholder="New key" />
             </label>
           </td>
         </ng-container>
         <ng-container matColumnDef="value">
-          <th *matHeaderCellDef mat-header-cell
-              mat-sort-header>
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
             {{'SHARED.COMPONENTS.ENTITYLESS_ATTRIBUTES_LIST.VALUE' | translate}}
           </th>
           <td *matCellDef="let record" mat-cell>
@@ -93,8 +90,7 @@
         <tr
           *matRowDef="let record; columns: displayedColumns;"
           class="dark-hover-list-item"
-          mat-row>
-        </tr>
+          mat-row></tr>
       </table>
     </perun-web-apps-table-wrapper>
   </div>

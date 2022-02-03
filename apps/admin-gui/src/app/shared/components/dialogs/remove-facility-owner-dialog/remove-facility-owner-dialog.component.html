@@ -13,7 +13,7 @@
     <table [dataSource]="dataSource" class="w-100" mat-table>
       <ng-container matColumnDef="name">
         <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let owner" mat-cell> {{owner.name}} </td>
+        <td *matCellDef="let owner" mat-cell>{{owner.name}}</td>
       </ng-container>
 
       <tr *matHeaderRowDef="displayedColumns" class="font-weight-bolder" mat-header-row></tr>
@@ -22,20 +22,11 @@
   </div>
 
   <div mat-dialog-actions>
-    <button
-      (click)="onCancel()"
-      class="ml-auto"
-      mat-flat-button>
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.REMOVE_OWNERS.CANCEL' | translate}}
     </button>
-    <button
-      [disabled]="loading"
-      (click)="onSubmit()"
-      class="ml-2"
-      color="warn"
-      mat-flat-button>
+    <button [disabled]="loading" (click)="onSubmit()" class="ml-2" color="warn" mat-flat-button>
       {{'DIALOGS.REMOVE_OWNERS.DELETE' | translate}}
     </button>
   </div>
 </div>
-

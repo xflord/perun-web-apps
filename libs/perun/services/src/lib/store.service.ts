@@ -6,10 +6,9 @@ import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
  * No logic involved.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StoreService {
-
   private instanceConfig;
   private defaultConfig;
   private appsConfig;
@@ -17,7 +16,7 @@ export class StoreService {
   private initialPageId: number;
   private branding = '';
 
-  constructor() { }
+  constructor() {}
 
   setInstanceConfig(instanceConfig: any) {
     this.instanceConfig = instanceConfig;
@@ -52,11 +51,11 @@ export class StoreService {
   }
 
   getLoginAttributeNames(): Array<string> {
-    return this.get("login_namespace_attributes");
+    return this.get('login_namespace_attributes');
   }
 
   getMemberProfileAttributeNames(): Array<string> {
-    return this.get("member_profile_attributes_friendly_names");
+    return this.get('member_profile_attributes_friendly_names');
   }
 
   setBanding(branding: string) {
@@ -72,7 +71,7 @@ export class StoreService {
    * configuration method returns value from default configuration.
    * @param keys
    */
-  get(...keys: string[]) : any {
+  get(...keys: string[]): any {
     let currentValue: string;
 
     if (this.branding !== '') {

@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 export type AppState = 'NEW' | 'VERIFIED' | 'APPROVED' | 'REJECTED';
 
 export const AppState = {
-    NEW: 'NEW' as AppState,
-    VERIFIED: 'VERIFIED' as AppState,
-    APPROVED: 'APPROVED' as AppState,
-    REJECTED: 'REJECTED' as AppState
+  NEW: 'NEW' as AppState,
+  VERIFIED: 'VERIFIED' as AppState,
+  APPROVED: 'APPROVED' as AppState,
+  REJECTED: 'REJECTED' as AppState,
 };
-

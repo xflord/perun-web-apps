@@ -4,11 +4,10 @@ import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-statistics-card',
   templateUrl: './statistics-card.component.html',
-  styleUrls: ['./statistics-card.component.scss']
+  styleUrls: ['./statistics-card.component.scss'],
 })
 export class StatisticsCardComponent implements OnInit {
-
-  constructor() { }
+  constructor() {}
 
   @Input()
   rowNames: string[] = [];
@@ -22,10 +21,7 @@ export class StatisticsCardComponent implements OnInit {
   dataSource: MatTableDataSource<string> = null;
   displayedColumns = ['name', 'value'];
 
-
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<string>(this.rowNames);
-
   }
-
 }

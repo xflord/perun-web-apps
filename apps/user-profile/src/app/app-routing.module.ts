@@ -18,125 +18,128 @@ import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.componen
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { PasswordResetComponent } from '@perun-web-apps/perun/components';
 import { SettingsAuthenticationComponent } from './pages/settings-page/settings-authorization/settings-authentication.component';
-import { LoginScreenComponent, LoginScreenServiceAccessComponent } from '@perun-web-apps/perun/login';
+import {
+  LoginScreenComponent,
+  LoginScreenServiceAccessComponent,
+} from '@perun-web-apps/perun/login';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo:'profile',
-    pathMatch:'full'
+    redirectTo: 'profile',
+    pathMatch: 'full',
   },
   {
     path: 'login',
-    component: LoginScreenComponent
+    component: LoginScreenComponent,
   },
   {
     path: 'service-access',
-    component: LoginScreenServiceAccessComponent
+    component: LoginScreenServiceAccessComponent,
   },
   {
     path: 'profile',
     component: HomePageComponent,
-    data: { breadcrumb: 'MENU_ITEMS.PROFILE'},
+    data: { breadcrumb: 'MENU_ITEMS.PROFILE' },
     children: [
       {
         path: '',
         component: ProfilePageComponent,
-        data: { breadcrumb: 'MENU_ITEMS.PROFILE'},
+        data: { breadcrumb: 'MENU_ITEMS.PROFILE' },
       },
       {
         path: 'identities',
         component: IdentitiesPageComponent,
-        data: { breadcrumb: 'MENU_ITEMS.IDENTITIES'}
+        data: { breadcrumb: 'MENU_ITEMS.IDENTITIES' },
       },
       {
         path: 'groups',
         component: GroupsPageComponent,
-        data: { breadcrumb: 'MENU_ITEMS.GROUPS'}
+        data: { breadcrumb: 'MENU_ITEMS.GROUPS' },
       },
       {
         path: 'services',
         component: ServicesPageComponent,
-        data: { breadcrumb: 'MENU_ITEMS.SERVICES'}
+        data: { breadcrumb: 'MENU_ITEMS.SERVICES' },
       },
       {
         path: 'organizations',
         component: VosPageComponent,
-        data: { breadcrumb: 'MENU_ITEMS.VOS'}
+        data: { breadcrumb: 'MENU_ITEMS.VOS' },
       },
       {
         path: 'privacy',
         component: PrivacyPageComponent,
-        data: { breadcrumb: 'MENU_ITEMS.PRIVACY'}
+        data: { breadcrumb: 'MENU_ITEMS.PRIVACY' },
       },
       {
         path: 'settings',
         component: SettingsPageComponent,
-        data: { breadcrumb: 'MENU_ITEMS.SETTINGS'},
+        data: { breadcrumb: 'MENU_ITEMS.SETTINGS' },
         children: [
           {
             path: '',
             component: SettingsOverviewComponent,
-            data: { breadcrumb: 'MENU_ITEMS.SETTINGS'}
+            data: { breadcrumb: 'MENU_ITEMS.SETTINGS' },
           },
           {
             path: 'altPasswords',
             component: SettingsAlternativePasswordsComponent,
-            data: { breadcrumb: 'SETTINGS.ALTERNATIVE_PASSWORDS'}
+            data: { breadcrumb: 'SETTINGS.ALTERNATIVE_PASSWORDS' },
           },
           {
             path: 'auth',
             component: SettingsAuthenticationComponent,
-            data: { breadcrumb: 'SETTINGS.AUTHENTICATION'}
+            data: { breadcrumb: 'SETTINGS.AUTHENTICATION' },
           },
           {
             path: 'dataQuotas',
             component: SettingsDataQuotasComponent,
-            data: { breadcrumb: 'SETTINGS.DATA_QUOTAS'}
+            data: { breadcrumb: 'SETTINGS.DATA_QUOTAS' },
           },
           {
             path: 'mailingLists',
             component: SettingsMailingListsComponent,
-            data: { breadcrumb: 'SETTINGS.MAILING_LISTS'}
+            data: { breadcrumb: 'SETTINGS.MAILING_LISTS' },
           },
           {
             path: 'prefShells',
             component: SettingsPreferredShellsComponent,
-            data: { breadcrumb: 'SETTINGS.PREFERRED_SHELLS'}
+            data: { breadcrumb: 'SETTINGS.PREFERRED_SHELLS' },
           },
           {
             path: 'prefGroupNames',
             component: SettingsPreferredUnixGroupNamesComponent,
-            data: { breadcrumb: 'SETTINGS.PREFERRED_UNIX_GROUP_NAMES'}
+            data: { breadcrumb: 'SETTINGS.PREFERRED_UNIX_GROUP_NAMES' },
           },
           {
             path: 'sambaPassword',
             component: SettingsSambaPasswordComponent,
-            data: { breadcrumb: 'SETTINGS.SAMBA_PASSWORD'}
+            data: { breadcrumb: 'SETTINGS.SAMBA_PASSWORD' },
           },
           {
             path: 'sshKeys',
             component: SettingsSSHKeysComponent,
-            data: { breadcrumb: 'SETTINGS.SSH_KEYS'}
+            data: { breadcrumb: 'SETTINGS.SSH_KEYS' },
           },
           {
             path: 'passwordReset',
             component: PasswordResetComponent,
-            data: { breadcrumb: 'SETTINGS.PASSWORD_RESET'}
+            data: { breadcrumb: 'SETTINGS.PASSWORD_RESET' },
           },
-        ]
-      }
-    ]
+        ],
+      },
+    ],
   },
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-    preloadingStrategy: PreloadAllModules,
-    scrollPositionRestoration: 'enabled',
-    relativeLinkResolution: 'legacy'
+      preloadingStrategy: PreloadAllModules,
+      scrollPositionRestoration: 'enabled',
+      relativeLinkResolution: 'legacy',
+    }),
+  ],
 })
-  ]
-})
-export class AppRoutingModule { }
+export class AppRoutingModule {}

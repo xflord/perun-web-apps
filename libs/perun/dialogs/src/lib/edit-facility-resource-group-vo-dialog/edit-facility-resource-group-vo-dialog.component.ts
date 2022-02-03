@@ -2,10 +2,12 @@ import { Component, Inject, OnInit } from '@angular/core';
 import {
   FacilitiesManagerService,
   Facility,
-  Group, GroupsManagerService,
+  Group,
+  GroupsManagerService,
   Resource,
   ResourcesManagerService,
-  Vo, VosManagerService
+  Vo,
+  VosManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
@@ -16,7 +18,7 @@ export enum EditFacilityResourceGroupVoDialogOptions {
   FACILITY,
   RESOURCE,
   VO,
-  GROUP
+  GROUP,
 }
 
 export interface EditFacilityResourceGroupVoDialogData {
@@ -31,11 +33,13 @@ export interface EditFacilityResourceGroupVoDialogData {
 @Component({
   selector: 'perun-web-apps-edit-facility-resource-group-vo-dialog',
   templateUrl: './edit-facility-resource-group-vo-dialog.component.html',
-  styleUrls: ['./edit-facility-resource-group-vo-dialog.component.scss']
+  styleUrls: ['./edit-facility-resource-group-vo-dialog.component.scss'],
 })
 export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
-
-  invalidNameMessage = this.data.dialogType === EditFacilityResourceGroupVoDialogOptions.GROUP ? this.store.get('group_name_error_message') : '';
+  invalidNameMessage =
+    this.data.dialogType === EditFacilityResourceGroupVoDialogOptions.GROUP
+      ? this.store.get('group_name_error_message')
+      : '';
 
   theme: string;
   nameCtrl: FormControl;
@@ -43,40 +47,60 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
   shortName: string;
   dialogType: EditFacilityResourceGroupVoDialogOptions;
   loading = false;
-  secondaryRegex = this.data.dialogType === EditFacilityResourceGroupVoDialogOptions.GROUP ? this.store.get('group_name_secondary_regex'): '';
+  secondaryRegex =
+    this.data.dialogType === EditFacilityResourceGroupVoDialogOptions.GROUP
+      ? this.store.get('group_name_secondary_regex')
+      : '';
 
-  constructor(private dialogRef: MatDialogRef<EditFacilityResourceGroupVoDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: EditFacilityResourceGroupVoDialogData,
-              private notificator: NotificatorService,
-              private translateService: TranslateService,
-              private facilitiesManager: FacilitiesManagerService,
-              private resourcesManager: ResourcesManagerService,
-              private groupsManager: GroupsManagerService,
-              private vosManager: VosManagerService,
-              private store: StoreService) {
-  }
+  constructor(
+    private dialogRef: MatDialogRef<EditFacilityResourceGroupVoDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: EditFacilityResourceGroupVoDialogData,
+    private notificator: NotificatorService,
+    private translateService: TranslateService,
+    private facilitiesManager: FacilitiesManagerService,
+    private resourcesManager: ResourcesManagerService,
+    private groupsManager: GroupsManagerService,
+    private vosManager: VosManagerService,
+    private store: StoreService
+  ) {}
 
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.dialogType = this.data.dialogType;
     switch (this.dialogType) {
       case EditFacilityResourceGroupVoDialogOptions.FACILITY:
-        this.nameCtrl = new FormControl(this.data.facility.name, [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.maxLength(129)]);
+        this.nameCtrl = new FormControl(this.data.facility.name, [
+          Validators.required,
+          Validators.pattern('.*[\\S]+.*'),
+          Validators.maxLength(129),
+        ]);
         this.descriptionCtrl = new FormControl(this.data.facility.description);
         break;
       case EditFacilityResourceGroupVoDialogOptions.RESOURCE:
-        this.nameCtrl = new FormControl(this.data.resource.name, [Validators.required, Validators.pattern('.*[\\S]+.*')]);
+        this.nameCtrl = new FormControl(this.data.resource.name, [
+          Validators.required,
+          Validators.pattern('.*[\\S]+.*'),
+        ]);
         this.descriptionCtrl = new FormControl(this.data.resource.description);
         break;
       case EditFacilityResourceGroupVoDialogOptions.GROUP: {
-        const nameParts = this.data.group.name.split(":");
-        this.nameCtrl = new FormControl(nameParts[nameParts.length - 1], [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.pattern(this.secondaryRegex), Validators.maxLength(129)]);
+        const nameParts = this.data.group.name.split(':');
+        this.nameCtrl = new FormControl(nameParts[nameParts.length - 1], [
+          Validators.required,
+          Validators.pattern('.*[\\S]+.*'),
+          Validators.pattern(this.secondaryRegex),
+          Validators.maxLength(129),
+        ]);
         this.descriptionCtrl = new FormControl(this.data.group.description);
         break;
       }
       case EditFacilityResourceGroupVoDialogOptions.VO:
         this.shortName = this.data.vo.shortName;
-        this.nameCtrl = new FormControl(this.data.vo.name, [Validators.required, Validators.pattern('.*[\\S]+.*'), Validators.maxLength(129)]);
+        this.nameCtrl = new FormControl(this.data.vo.name, [
+          Validators.required,
+          Validators.pattern('.*[\\S]+.*'),
+          Validators.maxLength(129),
+        ]);
         this.descriptionCtrl = new FormControl();
         break;
     }
@@ -107,46 +131,69 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
   editResource() {
     this.data.resource.name = this.nameCtrl.value;
     this.data.resource.description = this.descriptionCtrl.value;
-    this.resourcesManager.updateResource({ resource: this.data.resource }).subscribe(() => {
-      this.translateService.get('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.RESOURCE_SUCCESS').subscribe(message => {
-        this.notificator.showSuccess(message);
-        this.dialogRef.close(true);
-      });
-    }, () => this.loading = false);
+    this.resourcesManager.updateResource({ resource: this.data.resource }).subscribe(
+      () => {
+        this.translateService
+          .get('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.RESOURCE_SUCCESS')
+          .subscribe((message) => {
+            this.notificator.showSuccess(message);
+            this.dialogRef.close(true);
+          });
+      },
+      () => (this.loading = false)
+    );
   }
 
   editFacility() {
     this.data.facility.name = this.nameCtrl.value;
     this.data.facility.description = this.descriptionCtrl.value;
-    this.facilitiesManager.updateFacility({ facility: this.data.facility }).subscribe(() => {
-      this.translateService.get('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.FACILITY_SUCCESS').subscribe(message => {
-        this.notificator.showSuccess(message);
-        this.dialogRef.close(true);
-      });
-    }, () => this.loading = false);
+    this.facilitiesManager.updateFacility({ facility: this.data.facility }).subscribe(
+      () => {
+        this.translateService
+          .get('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.FACILITY_SUCCESS')
+          .subscribe((message) => {
+            this.notificator.showSuccess(message);
+            this.dialogRef.close(true);
+          });
+      },
+      () => (this.loading = false)
+    );
   }
 
   editGroup() {
-    this.groupsManager.getGroupById(this.data.group.id).subscribe(grp => {
-      const group = grp;
-      group.name = this.nameCtrl.value;
-      group.description = this.descriptionCtrl.value;
-      this.groupsManager.updateGroup({ group: group }).subscribe(() => {
-        this.translateService.get('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.GROUP_SUCCESS').subscribe(message => {
-          this.notificator.showSuccess(message);
-          this.dialogRef.close(true);
-        });
-      }, () => this.loading = false);
-    }, () => this.loading = false);
+    this.groupsManager.getGroupById(this.data.group.id).subscribe(
+      (grp) => {
+        const group = grp;
+        group.name = this.nameCtrl.value;
+        group.description = this.descriptionCtrl.value;
+        this.groupsManager.updateGroup({ group: group }).subscribe(
+          () => {
+            this.translateService
+              .get('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.GROUP_SUCCESS')
+              .subscribe((message) => {
+                this.notificator.showSuccess(message);
+                this.dialogRef.close(true);
+              });
+          },
+          () => (this.loading = false)
+        );
+      },
+      () => (this.loading = false)
+    );
   }
 
   editVo() {
     this.data.vo.name = this.nameCtrl.value;
-    this.vosManager.updateVo({ vo: this.data.vo }).subscribe(() => {
-      this.translateService.get('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.VO_SUCCESS').subscribe(message => {
-        this.notificator.showSuccess(message);
-        this.dialogRef.close(true);
-      });
-    }, () => this.loading = false);
+    this.vosManager.updateVo({ vo: this.data.vo }).subscribe(
+      () => {
+        this.translateService
+          .get('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.VO_SUCCESS')
+          .subscribe((message) => {
+            this.notificator.showSuccess(message);
+            this.dialogRef.close(true);
+          });
+      },
+      () => (this.loading = false)
+    );
   }
 }

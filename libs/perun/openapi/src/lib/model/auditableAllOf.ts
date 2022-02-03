@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
-export interface AuditableAllOf { 
-    createdAt?: string;
-    createdBy?: string;
-    modifiedAt?: string;
-    modifiedBy?: string;
-    createdByUid?: number;
-    modifiedByUid?: number;
+export interface AuditableAllOf {
+  createdAt?: string;
+  createdBy?: string;
+  modifiedAt?: string;
+  modifiedBy?: string;
+  createdByUid?: number;
+  modifiedByUid?: number;
 }
-

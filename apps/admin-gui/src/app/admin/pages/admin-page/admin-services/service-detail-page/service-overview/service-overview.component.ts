@@ -4,11 +4,10 @@ import { MenuItem } from '@perun-web-apps/perun/models';
 @Component({
   selector: 'app-service-overview',
   templateUrl: './service-overview.component.html',
-  styleUrls: ['./service-overview.component.scss']
+  styleUrls: ['./service-overview.component.scss'],
 })
 export class ServiceOverviewComponent implements OnInit {
-
-  constructor() { }
+  constructor() {}
 
   navItems: MenuItem[] = [];
 
@@ -22,15 +21,14 @@ export class ServiceOverviewComponent implements OnInit {
         cssIcon: 'perun-attributes',
         url: 'required-attributes',
         label: 'MENU_ITEMS.SERVICE.REQUIRED_ATTRIBUTES',
-        style: 'service-btn'
+        style: 'service-btn',
       },
       {
         cssIcon: 'perun-service_destination',
         url: 'destinations',
         label: 'MENU_ITEMS.SERVICE.DESTINATIONS',
-        style: 'service-btn'
-      }
+        style: 'service-btn',
+      },
     ];
   }
-
 }

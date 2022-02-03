@@ -3,61 +3,73 @@ import {
   AuditMessagesManagerService,
   MemberGroupStatus,
   MembersManagerService,
-  MembersOrderColumn, PaginatedAuditMessages,
-  PaginatedRichMembers, PaginatedRichUsers,
-  SortingOrder, UsersManagerService, UsersOrderColumn, VoMemberStatuses
+  MembersOrderColumn,
+  PaginatedAuditMessages,
+  PaginatedRichMembers,
+  PaginatedRichUsers,
+  SortingOrder,
+  UsersManagerService,
+  UsersOrderColumn,
+  VoMemberStatuses,
 } from '@perun-web-apps/perun/openapi';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DynamicPaginatingService {
+  constructor(
+    private membersService: MembersManagerService,
+    private usersService: UsersManagerService,
+    private auditMessagesManagerService: AuditMessagesManagerService
+  ) {}
 
-  constructor(private membersService: MembersManagerService,
-              private usersService: UsersManagerService,
-              private auditMessagesManagerService: AuditMessagesManagerService) { }
-
-  getMembers(voId: number,
-             attrNames: string[],
-             sortOrder: SortingOrder,
-             pageNumber: number,
-             pageSize : number,
-             sortColumn: MembersOrderColumn,
-             statuses: VoMemberStatuses[],
-             searchString?: string,
-             groupId?: number,
-             groupStatuses?: MemberGroupStatus[]): Observable<PaginatedRichMembers> {
+  getMembers(
+    voId: number,
+    attrNames: string[],
+    sortOrder: SortingOrder,
+    pageNumber: number,
+    pageSize: number,
+    sortColumn: MembersOrderColumn,
+    statuses: VoMemberStatuses[],
+    searchString?: string,
+    groupId?: number,
+    groupStatuses?: MemberGroupStatus[]
+  ): Observable<PaginatedRichMembers> {
     return this.membersService.getMembersPage({
       vo: voId,
       attrNames: attrNames,
-      query: {pageSize: pageSize,
-        offset: pageNumber*pageSize,
+      query: {
+        pageSize: pageSize,
+        offset: pageNumber * pageSize,
         order: sortOrder,
         sortColumn: sortColumn,
         statuses: statuses,
         searchString: searchString,
         groupId: groupId,
-        groupStatuses: groupStatuses}})
-
+        groupStatuses: groupStatuses,
+      },
+    });
   }
 
-  getUsers(attrNames: string[],
-           order: SortingOrder,
-           pageNumber: number,
-           pageSize: number,
-           sortColumn: UsersOrderColumn,
-           searchString: string,
-           withoutVo: boolean,
-           facilityId: number,
-           voId: number,
-           resourceId: number,
-           serviceId: number,
-           onlyAllowed: boolean): Observable<PaginatedRichUsers> {
+  getUsers(
+    attrNames: string[],
+    order: SortingOrder,
+    pageNumber: number,
+    pageSize: number,
+    sortColumn: UsersOrderColumn,
+    searchString: string,
+    withoutVo: boolean,
+    facilityId: number,
+    voId: number,
+    resourceId: number,
+    serviceId: number,
+    onlyAllowed: boolean
+  ): Observable<PaginatedRichUsers> {
     return this.usersService.getUsersPage({
       attrNames: attrNames,
       query: {
-        offset: pageSize*pageNumber,
+        offset: pageSize * pageNumber,
         pageSize: pageSize,
         order: order,
         sortColumn: sortColumn,
@@ -67,20 +79,22 @@ export class DynamicPaginatingService {
         voId: voId,
         resourceId: resourceId,
         serviceId: serviceId,
-        onlyAllowed: onlyAllowed
-      }
+        onlyAllowed: onlyAllowed,
+      },
     });
   }
 
-  getAuditMessages(order: SortingOrder,
-           pageNumber: number,
-           pageSize: number): Observable<PaginatedAuditMessages> {
+  getAuditMessages(
+    order: SortingOrder,
+    pageNumber: number,
+    pageSize: number
+  ): Observable<PaginatedAuditMessages> {
     return this.auditMessagesManagerService.getMessagesPage({
       query: {
-        offset: pageSize*pageNumber,
+        offset: pageSize * pageNumber,
         pageSize: pageSize,
-        order: order
-      }
+        order: order,
+      },
     });
   }
 }

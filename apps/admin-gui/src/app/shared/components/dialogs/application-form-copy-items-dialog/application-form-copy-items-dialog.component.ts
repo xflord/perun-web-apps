@@ -6,7 +6,7 @@ import {
   GroupsManagerService,
   RegistrarManagerService,
   Vo,
-  VosManagerService
+  VosManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService, NotificatorService } from '@perun-web-apps/perun/services';
 
@@ -19,10 +19,9 @@ export interface ApplicationFormCopyItemsDialogData {
 @Component({
   selector: 'app-application-form-copy-items-dialog',
   templateUrl: './application-form-copy-items-dialog.component.html',
-  styleUrls: ['./application-form-copy-items-dialog.component.scss']
+  styleUrls: ['./application-form-copy-items-dialog.component.scss'],
 })
 export class ApplicationFormCopyItemsDialogComponent implements OnInit {
-
   successMessage: string;
 
   vos: Vo[] = [];
@@ -34,17 +33,25 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
   theme: string;
   loading = false;
 
-  constructor(private dialogRef: MatDialogRef<ApplicationFormCopyItemsDialogComponent>,
-              private voService: VosManagerService,
-              private groupService: GroupsManagerService,
-              private translateService: TranslateService,
-              private registrarManager: RegistrarManagerService,
-              private notificatorService: NotificatorService,
-              private apiRequest: ApiRequestConfigurationService,
-              @Inject(MAT_DIALOG_DATA) public data: ApplicationFormCopyItemsDialogData) {
-    translateService.get('DIALOGS.APPLICATION_FORM_COPY_ITEMS.SUCCESS').subscribe(res => this.successMessage = res);
-    translateService.get('DIALOGS.APPLICATION_FORM_COPY_ITEMS.PRIVILEGE').subscribe(res => this.privilegeMessage = res);
-    translateService.get('DIALOGS.APPLICATION_FORM_COPY_ITEMS.NO_FORM').subscribe(res => this.noFormMessage = res);
+  constructor(
+    private dialogRef: MatDialogRef<ApplicationFormCopyItemsDialogComponent>,
+    private voService: VosManagerService,
+    private groupService: GroupsManagerService,
+    private translateService: TranslateService,
+    private registrarManager: RegistrarManagerService,
+    private notificatorService: NotificatorService,
+    private apiRequest: ApiRequestConfigurationService,
+    @Inject(MAT_DIALOG_DATA) public data: ApplicationFormCopyItemsDialogData
+  ) {
+    translateService
+      .get('DIALOGS.APPLICATION_FORM_COPY_ITEMS.SUCCESS')
+      .subscribe((res) => (this.successMessage = res));
+    translateService
+      .get('DIALOGS.APPLICATION_FORM_COPY_ITEMS.PRIVILEGE')
+      .subscribe((res) => (this.privilegeMessage = res));
+    translateService
+      .get('DIALOGS.APPLICATION_FORM_COPY_ITEMS.NO_FORM')
+      .subscribe((res) => (this.noFormMessage = res));
   }
 
   nameFunction = (group: Group) => group.name;
@@ -52,24 +59,28 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.theme = this.data.theme;
-    this.translateService.get('DIALOGS.APPLICATION_FORM_COPY_ITEMS.NO_GROUP_SELECTED').subscribe( () => {
+    this.translateService.get('DIALOGS.APPLICATION_FORM_COPY_ITEMS.NO_GROUP_SELECTED').subscribe(
+      () => {
+        this.voService.getMyVos().subscribe(
+          (vos) => {
+            this.vos = vos.sort((vo1, vo2) => {
+              if (vo1.name > vo2.name) {
+                return 1;
+              }
 
-      this.voService.getMyVos().subscribe(vos => {
+              if (vo1.name < vo2.name) {
+                return -1;
+              }
 
-        this.vos = vos.sort(((vo1, vo2) => {
-          if (vo1.name > vo2.name) {
-            return 1;
-          }
-
-          if (vo1.name < vo2.name) {
-            return -1;
-          }
-
-          return 0;
-        }));
-        this.loading = false;
-      }, () => this.loading = false);
-    }, () => this.loading = false);
+              return 0;
+            });
+            this.loading = false;
+          },
+          () => (this.loading = false)
+        );
+      },
+      () => (this.loading = false)
+    );
   }
 
   cancel() {
@@ -79,61 +90,82 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
   submit() {
     this.apiRequest.dontHandleErrorForNext();
     this.loading = true;
-    if (this.data.groupId) { // checking if the dialog is for group or Vo
-      if (this.selectedGroup === null) {   // no group selected
-        this.registrarManager.copyFormFromVoToGroup(this.selectedVo.id, this.data.groupId).subscribe(() => {
-          this.notificatorService.showSuccess(this.successMessage);
-          this.dialogRef.close(true);
-        }, error => {
-          if (error.error.name === "FormNotExistsException"){
-            this.notificatorService.showError(this.noFormMessage);
-          }
-          if (error.error.name === "PrivilegeException"){
-            this.notificatorService.showError(this.privilegeMessage);
-          }
-          this.loading = false;
-        });
+    if (this.data.groupId) {
+      // checking if the dialog is for group or Vo
+      if (this.selectedGroup === null) {
+        // no group selected
+        this.registrarManager
+          .copyFormFromVoToGroup(this.selectedVo.id, this.data.groupId)
+          .subscribe(
+            () => {
+              this.notificatorService.showSuccess(this.successMessage);
+              this.dialogRef.close(true);
+            },
+            (error) => {
+              if (error.error.name === 'FormNotExistsException') {
+                this.notificatorService.showError(this.noFormMessage);
+              }
+              if (error.error.name === 'PrivilegeException') {
+                this.notificatorService.showError(this.privilegeMessage);
+              }
+              this.loading = false;
+            }
+          );
       } else {
-        this.registrarManager.copyFormFromGroupToGroup(this.selectedGroup.id, this.data.groupId).subscribe(() => {
-          this.notificatorService.showSuccess(this.successMessage);
-          this.dialogRef.close(true);
-        }, error => {
-          if (error.error.name === "FormNotExistsException"){
-            this.notificatorService.showError(this.noFormMessage);
-          }
-          if (error.error.name === "PrivilegeException"){
-            this.notificatorService.showError(this.privilegeMessage);
-          }
-          this.loading = false;
-        });
+        this.registrarManager
+          .copyFormFromGroupToGroup(this.selectedGroup.id, this.data.groupId)
+          .subscribe(
+            () => {
+              this.notificatorService.showSuccess(this.successMessage);
+              this.dialogRef.close(true);
+            },
+            (error) => {
+              if (error.error.name === 'FormNotExistsException') {
+                this.notificatorService.showError(this.noFormMessage);
+              }
+              if (error.error.name === 'PrivilegeException') {
+                this.notificatorService.showError(this.privilegeMessage);
+              }
+              this.loading = false;
+            }
+          );
       }
     } else {
-      if (this.selectedGroup === null) {       // no group selected
-        this.registrarManager.copyFormFromVoToVo(this.selectedVo.id, this.data.voId).subscribe(() => {
-          this.notificatorService.showSuccess(this.successMessage);
-          this.dialogRef.close(true);
-        }, error => {
-          if (error.error.name === "FormNotExistsException"){
-            this.notificatorService.showError(this.noFormMessage);
+      if (this.selectedGroup === null) {
+        // no group selected
+        this.registrarManager.copyFormFromVoToVo(this.selectedVo.id, this.data.voId).subscribe(
+          () => {
+            this.notificatorService.showSuccess(this.successMessage);
+            this.dialogRef.close(true);
+          },
+          (error) => {
+            if (error.error.name === 'FormNotExistsException') {
+              this.notificatorService.showError(this.noFormMessage);
+            }
+            if (error.error.name === 'PrivilegeException') {
+              this.notificatorService.showError(this.privilegeMessage);
+            }
+            this.loading = false;
           }
-          if (error.error.name === "PrivilegeException"){
-            this.notificatorService.showError(this.privilegeMessage);
-          }
-          this.loading = false;
-        });
+        );
       } else {
-        this.registrarManager.copyFormFromGroupToVo(this.selectedGroup.id, this.data.voId).subscribe(() => {
-          this.notificatorService.showSuccess(this.successMessage);
-          this.dialogRef.close(true);
-        }, error => {
-          if (error.error.name === "FormNotExistsException"){
-            this.notificatorService.showError(this.noFormMessage);
-          }
-          if (error.error.name === "PrivilegeException"){
-            this.notificatorService.showError(this.privilegeMessage);
-          }
-          this.loading = false;
-        });
+        this.registrarManager
+          .copyFormFromGroupToVo(this.selectedGroup.id, this.data.voId)
+          .subscribe(
+            () => {
+              this.notificatorService.showSuccess(this.successMessage);
+              this.dialogRef.close(true);
+            },
+            (error) => {
+              if (error.error.name === 'FormNotExistsException') {
+                this.notificatorService.showError(this.noFormMessage);
+              }
+              if (error.error.name === 'PrivilegeException') {
+                this.notificatorService.showError(this.privilegeMessage);
+              }
+              this.loading = false;
+            }
+          );
       }
     }
   }
@@ -145,7 +177,7 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
 
   getGroups() {
     if (this.selectedVo !== undefined) {
-      this.groupService.getAllGroups(this.selectedVo.id).subscribe(groups => {
+      this.groupService.getAllGroups(this.selectedVo.id).subscribe((groups) => {
         this.groups = groups;
       });
     } else {
@@ -153,5 +185,4 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
     }
     this.selectedGroup = null;
   }
-
 }

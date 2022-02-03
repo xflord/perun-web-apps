@@ -17,20 +17,19 @@ export interface EditAttributeDialogData {
 @Component({
   selector: 'perun-web-apps-edit-attribute-dialog',
   templateUrl: './edit-attribute-dialog.component.html',
-  styleUrls: ['./edit-attribute-dialog.component.css']
+  styleUrls: ['./edit-attribute-dialog.component.css'],
 })
 export class EditAttributeDialogComponent implements OnInit {
-
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<Attribute>;
 
-  constructor(public dialogRef: MatDialogRef<EditAttributeDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: EditAttributeDialogData,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private attributesManager: AttributesManagerService
-  ) {
-  }
+  constructor(
+    public dialogRef: MatDialogRef<EditAttributeDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: EditAttributeDialogData,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private attributesManager: AttributesManagerService
+  ) {}
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource<Attribute>(this.data.attributes);
@@ -57,109 +56,133 @@ export class EditAttributeDialogComponent implements OnInit {
 
     switch (this.data.entity) {
       case 'vo':
-        this.attributesManager.setVoAttributes({
-          vo: this.data.entityId,
-          attributes: this.data.attributes
-        }).subscribe(() => {
-          this.onSuccess();
-        });
+        this.attributesManager
+          .setVoAttributes({
+            vo: this.data.entityId,
+            attributes: this.data.attributes,
+          })
+          .subscribe(() => {
+            this.onSuccess();
+          });
         break;
       case 'group':
         switch (this.data.secondEntity) {
           case 'resource':
-            this.attributesManager.setGroupResourceAttributes({
-              group: this.data.entityId,
-              resource: this.data.secondEntityId,
-              attributes: this.data.attributes
-            }).subscribe(() => this.onSuccess());
+            this.attributesManager
+              .setGroupResourceAttributes({
+                group: this.data.entityId,
+                resource: this.data.secondEntityId,
+                attributes: this.data.attributes,
+              })
+              .subscribe(() => this.onSuccess());
             break;
           default:
-            this.attributesManager.setGroupAttributes({
-              group: this.data.entityId,
-              attributes: this.data.attributes
-            }).subscribe(() => {
-              this.onSuccess();
-            });
+            this.attributesManager
+              .setGroupAttributes({
+                group: this.data.entityId,
+                attributes: this.data.attributes,
+              })
+              .subscribe(() => {
+                this.onSuccess();
+              });
         }
         break;
       case 'user':
         switch (this.data.secondEntity) {
           case 'facility':
-            this.attributesManager.setUserFacilityAttributes({
-              user: this.data.entityId,
-              facility: this.data.secondEntityId,
-              attributes: this.data.attributes
-            }).subscribe(() => this.onSuccess());
+            this.attributesManager
+              .setUserFacilityAttributes({
+                user: this.data.entityId,
+                facility: this.data.secondEntityId,
+                attributes: this.data.attributes,
+              })
+              .subscribe(() => this.onSuccess());
             break;
           default:
-            this.attributesManager.setUserAttributes({
-              user: this.data.entityId,
-              attributes: this.data.attributes
-            }).subscribe(() => {
-              this.onSuccess();
-            });
+            this.attributesManager
+              .setUserAttributes({
+                user: this.data.entityId,
+                attributes: this.data.attributes,
+              })
+              .subscribe(() => {
+                this.onSuccess();
+              });
         }
         break;
       case 'member':
         switch (this.data.secondEntity) {
           case 'resource':
-            this.attributesManager.setMemberResourceAttributes({
-              member: this.data.entityId,
-              resource: this.data.secondEntityId,
-              attributes: this.data.attributes
-            }).subscribe(() => this.onSuccess());
+            this.attributesManager
+              .setMemberResourceAttributes({
+                member: this.data.entityId,
+                resource: this.data.secondEntityId,
+                attributes: this.data.attributes,
+              })
+              .subscribe(() => this.onSuccess());
             break;
           case 'group':
-            this.attributesManager.setMemberGroupAttributes({
-              member: this.data.entityId,
-              group: this.data.secondEntityId,
-              attributes: this.data.attributes
-            }).subscribe(() => this.onSuccess());
+            this.attributesManager
+              .setMemberGroupAttributes({
+                member: this.data.entityId,
+                group: this.data.secondEntityId,
+                attributes: this.data.attributes,
+              })
+              .subscribe(() => this.onSuccess());
             break;
           default:
-            this.attributesManager.setMemberAttributes({
-              member: this.data.entityId,
-              attributes: this.data.attributes
-            }).subscribe(() => {
-              this.onSuccess();
-            });
+            this.attributesManager
+              .setMemberAttributes({
+                member: this.data.entityId,
+                attributes: this.data.attributes,
+              })
+              .subscribe(() => {
+                this.onSuccess();
+              });
         }
         break;
       case 'facility':
-        this.attributesManager.setFacilityAttributes({
-          facility: this.data.entityId,
-          attributes: this.data.attributes
-        }).subscribe(() => {
-          this.onSuccess();
-        });
+        this.attributesManager
+          .setFacilityAttributes({
+            facility: this.data.entityId,
+            attributes: this.data.attributes,
+          })
+          .subscribe(() => {
+            this.onSuccess();
+          });
         break;
       case 'host':
-        this.attributesManager.setHostAttributes({
-          host: this.data.entityId,
-          attributes: this.data.attributes
-        }).subscribe(() => {
-          this.onSuccess();
-        });
+        this.attributesManager
+          .setHostAttributes({
+            host: this.data.entityId,
+            attributes: this.data.attributes,
+          })
+          .subscribe(() => {
+            this.onSuccess();
+          });
         break;
       case 'ues':
-        this.attributesManager.setUserExtSourceAttributes({
-          userExtSource: this.data.entityId,
-          attributes: this.data.attributes
-        }).subscribe(() => {
-          this.onSuccess();
-        });
+        this.attributesManager
+          .setUserExtSourceAttributes({
+            userExtSource: this.data.entityId,
+            attributes: this.data.attributes,
+          })
+          .subscribe(() => {
+            this.onSuccess();
+          });
         break;
       case 'resource':
-        this.attributesManager.setResourceAttributes({
-          resource: this.data.entityId,
-          attributes: this.data.attributes
-        }).subscribe( () => this.onSuccess());
+        this.attributesManager
+          .setResourceAttributes({
+            resource: this.data.entityId,
+            attributes: this.data.attributes,
+          })
+          .subscribe(() => this.onSuccess());
         break;
     }
   }
 
   onSuccess() {
-    this.translate.get('DIALOGS.EDIT_ATTRIBUTES.SUCCESS').subscribe(successMessage => {
+    this.translate.get('DIALOGS.EDIT_ATTRIBUTES.SUCCESS').subscribe((successMessage) => {
       this.notificator.showSuccess(successMessage);
       this.dialogRef.close(true);
     });

@@ -1,34 +1,32 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnChanges,
-  ViewChild
-} from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {SelectionModel} from '@angular/cdk/collections';
+import { SelectionModel } from '@angular/cdk/collections';
 import { GuiAuthResolver, NotificatorService, TableCheckbox } from '@perun-web-apps/perun/services';
-import {TranslateService} from '@ngx-translate/core';
-import { ResourcesManagerService, ResourceTag} from '@perun-web-apps/perun/openapi';
+import { TranslateService } from '@ngx-translate/core';
+import { ResourcesManagerService, ResourceTag } from '@perun-web-apps/perun/openapi';
 import {
   customDataSourceFilterPredicate,
-  customDataSourceSort, downloadData, getDataForExport,
-  TABLE_ITEMS_COUNT_OPTIONS, TableWrapperComponent
+  customDataSourceSort,
+  downloadData,
+  getDataForExport,
+  TABLE_ITEMS_COUNT_OPTIONS,
+  TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-resources-tags-list',
   templateUrl: './resources-tags-list.component.html',
-  styleUrls: ['./resources-tags-list.component.scss']
+  styleUrls: ['./resources-tags-list.component.scss'],
 })
 export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
-
-  constructor( private resourceManager: ResourcesManagerService,
-               private notificator: NotificatorService,
-               private translator: TranslateService,
-               private authResolver: GuiAuthResolver,
-               private tableCheckbox: TableCheckbox) { }
+  constructor(
+    private resourceManager: ResourcesManagerService,
+    private notificator: NotificatorService,
+    private translator: TranslateService,
+    private authResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox
+  ) {}
 
   @Input()
   resourceTags: ResourceTag[] = [];
@@ -48,19 +46,18 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
     this.setDataSource();
   }
 
-  @ViewChild(TableWrapperComponent, {static: true}) child: TableWrapperComponent;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   private sort: MatSort;
 
   dataSource: MatTableDataSource<ResourceTag>;
 
-
   isChanging = new SelectionModel<ResourceTag>(true, []);
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   ngOnChanges() {
-    if (!this.authResolver.isPerunAdminOrObserver()){
-      this.displayedColumns = this.displayedColumns.filter(column => column !== 'id');
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
     this.dataSource = new MatTableDataSource<ResourceTag>(this.resourceTags);
     this.setDataSource();
@@ -70,7 +67,7 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
     this.dataSource.paginator = this.child.paginator;
   }
 
-  getDataForColumn(data: ResourceTag, column: string): string{
+  getDataForColumn(data: ResourceTag, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -81,14 +78,30 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  exportData(format: string){
-    downloadData(getDataForExport(this.dataSource.filteredData, this.displayedColumns, this.getDataForColumn, this), format);
+  exportData(format: string) {
+    downloadData(
+      getDataForExport(
+        this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getDataForColumn,
+        this
+      ),
+      format
+    );
   }
 
   setDataSource() {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: ResourceTag, filter: string) => customDataSourceFilterPredicate(data, filter, this.displayedColumns, this.getDataForColumn, this);
-      this.dataSource.sortData = (data: ResourceTag[], sort: MatSort) => customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.filterPredicate = (data: ResourceTag, filter: string) =>
+        customDataSourceFilterPredicate(
+          data,
+          filter,
+          this.displayedColumns,
+          this.getDataForColumn,
+          this
+        );
+      this.dataSource.sortData = (data: ResourceTag[], sort: MatSort) =>
+        customDataSourceSort(data, sort, this.getDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;
@@ -96,11 +109,26 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
   }
 
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.filterValue, this.child.paginator.pageSize, this.child.paginator.hasNextPage(), this.dataSource);
+    return this.tableCheckbox.isAllSelected(
+      this.selection.selected.length,
+      this.filterValue,
+      this.child.paginator.pageSize,
+      this.child.paginator.hasNextPage(),
+      this.dataSource
+    );
   }
 
   masterToggle() {
-    this.tableCheckbox.masterToggle(this.isAllSelected(), this.selection, this.filterValue, this.dataSource, this.sort, this.child.paginator.pageSize, this.child.paginator.pageIndex,false);
+    this.tableCheckbox.masterToggle(
+      this.isAllSelected(),
+      this.selection,
+      this.filterValue,
+      this.dataSource,
+      this.sort,
+      this.child.paginator.pageSize,
+      this.child.paginator.pageIndex,
+      false
+    );
   }
 
   checkboxLabel(row?: ResourceTag): string {
@@ -111,10 +139,12 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
   }
 
   save(tag: ResourceTag) {
-    this.resourceManager.updateResourceTag({resourceTag: tag}).subscribe( () => {
-      this.translator.get('SHARED.COMPONENTS.RESOURCES_TAGS_LIST.EDIT_SUCCESS').subscribe( text => {
-        this.notificator.showSuccess(text);
-      });
+    this.resourceManager.updateResourceTag({ resourceTag: tag }).subscribe(() => {
+      this.translator
+        .get('SHARED.COMPONENTS.RESOURCES_TAGS_LIST.EDIT_SUCCESS')
+        .subscribe((text) => {
+          this.notificator.showSuccess(text);
+        });
       this.isChanging.deselect(tag);
     });
   }

@@ -1,24 +1,14 @@
 <h1 class="page-subtitle">
   {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.TITLE' | translate}}
 </h1>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto">
-</mat-spinner>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
 <div *ngIf="!loading">
-
   <div class="w-100 mb-2">
-    <button
-      *ngIf="!initialPage"
-      class="mr-2"
-      mat-stroked-button
-      (click)="switchToInitial()">
+    <button *ngIf="!initialPage" class="mr-2" mat-stroked-button (click)="switchToInitial()">
       <i class="material-icons">arrow_right_alt</i>
       {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.SWITCH_INITIAL' | translate}}
     </button>
-    <button
-      *ngIf="initialPage"
-      class="mr-2"
-      mat-stroked-button
-      (click)="switchToExtension()">
+    <button *ngIf="initialPage" class="mr-2" mat-stroked-button (click)="switchToExtension()">
       <i class="material-icons">cached</i>
       {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.SWITCH_EXTENSION' | translate}}
     </button>
@@ -31,205 +21,372 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-
   </div>
   <div class="card mb-4 p-5">
     <div *ngFor="let applicationFormItem of applicationFormItems">
       <div *ngIf="isValid(applicationFormItem)" class="mb-2">
-
-        <div class="d-flex" *ngIf="(applicationFormItem.type === 'TEXTFIELD' ||
+        <div
+          class="d-flex"
+          *ngIf="(applicationFormItem.type === 'TEXTFIELD' ||
                                    applicationFormItem.type === 'VALIDATED_EMAIL' ||
                                    applicationFormItem.type === 'USERNAME') &&
                                    applicationFormItem.hidden !== 'ALWAYS'">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <div class="w-50">
-              <input type="text" class="w-100" [disabled]="applicationFormItem.disabled === 'ALWAYS'">
+              <input
+                type="text"
+                class="w-100"
+                [disabled]="applicationFormItem.disabled === 'ALWAYS'" />
             </div>
           </div>
           <div class="w-50 d-flex left">
-            <mat-icon class="pointer" *ngIf="applicationFormItem.disabled !== 'NEVER'" [matTooltip]="disabledTooltip(applicationFormItem)">lock</mat-icon>
-            <mat-icon class="pointer" *ngIf="applicationFormItem.hidden !== 'NEVER'" [matTooltip]="hiddenTooltip(applicationFormItem)">visibility_off</mat-icon>
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.disabled !== 'NEVER'"
+              [matTooltip]="disabledTooltip(applicationFormItem)"
+              >lock</mat-icon
+            >
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.hidden !== 'NEVER'"
+              [matTooltip]="hiddenTooltip(applicationFormItem)"
+              >visibility_off</mat-icon
+            >
             <span class="ml-2">{{getLocalizedHint(applicationFormItem)}}</span>
           </div>
         </div>
 
-
-        <div class="d-flex" *ngIf="applicationFormItem.type === 'FROM_FEDERATION_SHOW' &&
+        <div
+          class="d-flex"
+          *ngIf="applicationFormItem.type === 'FROM_FEDERATION_SHOW' &&
                                    applicationFormItem.hidden !== 'ALWAYS'">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <div class="w-50">
-              <input type="text" class="w-100" disabled>
+              <input type="text" class="w-100" disabled />
             </div>
           </div>
           <div class="w-50 d-flex left">
-            <mat-icon class="pointer" *ngIf="applicationFormItem.disabled !== 'NEVER'" [matTooltip]="disabledTooltip(applicationFormItem)">lock</mat-icon>
-            <mat-icon class="pointer" *ngIf="applicationFormItem.hidden !== 'NEVER'" [matTooltip]="hiddenTooltip(applicationFormItem)">visibility_off</mat-icon>
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.disabled !== 'NEVER'"
+              [matTooltip]="disabledTooltip(applicationFormItem)"
+              >lock</mat-icon
+            >
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.hidden !== 'NEVER'"
+              [matTooltip]="hiddenTooltip(applicationFormItem)"
+              >visibility_off</mat-icon
+            >
             <span class="ml-2">{{getLocalizedHint(applicationFormItem)}}</span>
           </div>
         </div>
 
-
-        <div class="d-flex" *ngIf="applicationFormItem.type === 'PASSWORD' &&
+        <div
+          class="d-flex"
+          *ngIf="applicationFormItem.type === 'PASSWORD' &&
                                    applicationFormItem.hidden !== 'ALWAYS'">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <div class="w-50">
-              <input class="mb-1 w-100" type="text" [disabled]="applicationFormItem.disabled === 'ALWAYS'"><br/>
-              <input class="w-100" type="text" [disabled]="applicationFormItem.disabled === 'ALWAYS'">
+              <input
+                class="mb-1 w-100"
+                type="text"
+                [disabled]="applicationFormItem.disabled === 'ALWAYS'" /><br />
+              <input
+                class="w-100"
+                type="text"
+                [disabled]="applicationFormItem.disabled === 'ALWAYS'" />
             </div>
           </div>
           <div class="w-50 d-flex left">
-            <mat-icon class="pointer" *ngIf="applicationFormItem.disabled !== 'NEVER'" [matTooltip]="disabledTooltip(applicationFormItem)">lock</mat-icon>
-            <mat-icon class="pointer" *ngIf="applicationFormItem.hidden !== 'NEVER'" [matTooltip]="hiddenTooltip(applicationFormItem)">visibility_off</mat-icon>
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.disabled !== 'NEVER'"
+              [matTooltip]="disabledTooltip(applicationFormItem)"
+              >lock</mat-icon
+            >
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.hidden !== 'NEVER'"
+              [matTooltip]="hiddenTooltip(applicationFormItem)"
+              >visibility_off</mat-icon
+            >
             <span class="ml-2">{{getLocalizedHint(applicationFormItem)}}</span>
           </div>
         </div>
 
-
-        <div class="d-flex" *ngIf="applicationFormItem.type === 'RADIO' &&
+        <div
+          class="d-flex"
+          *ngIf="applicationFormItem.type === 'RADIO' &&
                                    applicationFormItem.hidden !== 'ALWAYS'">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <form class="w-50">
               <div *ngFor="let item of getLocalizedOptions(applicationFormItem)">
-                <input type="radio" [disabled]="applicationFormItem.disabled === 'ALWAYS'" name="temp"> {{item}}<br>
+                <input
+                  type="radio"
+                  [disabled]="applicationFormItem.disabled === 'ALWAYS'"
+                  name="temp" />
+                {{item}}<br />
               </div>
-              <input type="reset" [disabled]="applicationFormItem.disabled === 'ALWAYS'" value="{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.CLEAR_SELECTION' | translate}}"><!--tlacitko-->
+              <input
+                type="reset"
+                [disabled]="applicationFormItem.disabled === 'ALWAYS'"
+                value="{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.CLEAR_SELECTION' | translate}}" /><!--tlacitko-->
             </form>
           </div>
           <div class="w-50 d-flex left">
-            <mat-icon class="pointer" *ngIf="applicationFormItem.disabled !== 'NEVER'" [matTooltip]="disabledTooltip(applicationFormItem)">lock</mat-icon>
-            <mat-icon class="pointer" *ngIf="applicationFormItem.hidden !== 'NEVER'" [matTooltip]="hiddenTooltip(applicationFormItem)">visibility_off</mat-icon>
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.disabled !== 'NEVER'"
+              [matTooltip]="disabledTooltip(applicationFormItem)"
+              >lock</mat-icon
+            >
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.hidden !== 'NEVER'"
+              [matTooltip]="hiddenTooltip(applicationFormItem)"
+              >visibility_off</mat-icon
+            >
             <span class="ml-2">{{getLocalizedHint(applicationFormItem)}}</span>
           </div>
         </div>
 
-
-        <div *ngIf="(applicationFormItem.type ==='HEADING' ||
+        <div
+          *ngIf="(applicationFormItem.type ==='HEADING' ||
                     applicationFormItem.type === 'HTML_COMMENT') &&
                     applicationFormItem.hidden !== 'ALWAYS'">
           <span [innerHTML]="getLocalizedLabel(applicationFormItem)"></span>
         </div>
 
-
-        <div class="d-flex" *ngIf="applicationFormItem.type === 'SELECTIONBOX' &&
+        <div
+          class="d-flex"
+          *ngIf="applicationFormItem.type === 'SELECTIONBOX' &&
                                    applicationFormItem.hidden !== 'ALWAYS'">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <div class="w-50">
               <select class="w-100" [disabled]="applicationFormItem.disabled === 'ALWAYS'">
-                <option *ngFor="let item of getLocalizedOptions(applicationFormItem)">{{item}}</option>
+                <option *ngFor="let item of getLocalizedOptions(applicationFormItem)">
+                  {{item}}
+                </option>
               </select>
             </div>
           </div>
           <div class="w-50 d-flex left">
-            <mat-icon class="pointer" *ngIf="applicationFormItem.disabled !== 'NEVER'" [matTooltip]="disabledTooltip(applicationFormItem)">lock</mat-icon>
-            <mat-icon class="pointer" *ngIf="applicationFormItem.hidden !== 'NEVER'" [matTooltip]="hiddenTooltip(applicationFormItem)">visibility_off</mat-icon>
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.disabled !== 'NEVER'"
+              [matTooltip]="disabledTooltip(applicationFormItem)"
+              >lock</mat-icon
+            >
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.hidden !== 'NEVER'"
+              [matTooltip]="hiddenTooltip(applicationFormItem)"
+              >visibility_off</mat-icon
+            >
             <span class="ml-2">{{getLocalizedHint(applicationFormItem)}}</span>
           </div>
         </div>
 
-
-        <div class="d-flex" *ngIf="applicationFormItem.type === 'TEXTAREA' &&
+        <div
+          class="d-flex"
+          *ngIf="applicationFormItem.type === 'TEXTAREA' &&
                                    applicationFormItem.hidden !== 'ALWAYS'">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
-            <textarea class="w-50" [disabled]="applicationFormItem.disabled === 'ALWAYS'"></textarea>
+            <textarea
+              class="w-50"
+              [disabled]="applicationFormItem.disabled === 'ALWAYS'"></textarea>
           </div>
           <div class="w-50 d-flex left">
-            <mat-icon class="pointer" *ngIf="applicationFormItem.disabled !== 'NEVER'" [matTooltip]="disabledTooltip(applicationFormItem)">lock</mat-icon>
-            <mat-icon class="pointer" *ngIf="applicationFormItem.hidden !== 'NEVER'" [matTooltip]="hiddenTooltip(applicationFormItem)">visibility_off</mat-icon>
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.disabled !== 'NEVER'"
+              [matTooltip]="disabledTooltip(applicationFormItem)"
+              >lock</mat-icon
+            >
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.hidden !== 'NEVER'"
+              [matTooltip]="hiddenTooltip(applicationFormItem)"
+              >visibility_off</mat-icon
+            >
             <span class="ml-2">{{getLocalizedHint(applicationFormItem)}}</span>
           </div>
         </div>
 
-
-        <div class="d-flex" *ngIf="applicationFormItem.type === 'COMBOBOX' &&
+        <div
+          class="d-flex"
+          *ngIf="applicationFormItem.type === 'COMBOBOX' &&
                                    applicationFormItem.hidden !== 'ALWAYS'">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <div class="w-50">
-              <select [(ngModel)]="mapForCombobox[applicationFormItem.id]" class="w-100"  [disabled]="applicationFormItem.disabled === 'ALWAYS'">
-                <option value="true" selected>{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.OTHER_VALUE' | translate}}</option>
-                <option value="false" *ngFor="let item of getLocalizedOptions(applicationFormItem)">{{item}}</option>
+              <select
+                [(ngModel)]="mapForCombobox[applicationFormItem.id]"
+                class="w-100"
+                [disabled]="applicationFormItem.disabled === 'ALWAYS'">
+                <option value="true" selected>
+                  {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.OTHER_VALUE' | translate}}
+                </option>
+                <option value="false" *ngFor="let item of getLocalizedOptions(applicationFormItem)">
+                  {{item}}
+                </option>
               </select>
               <div *ngIf="mapForCombobox[applicationFormItem.id] === 'true'" class="w-100">
                 <form>
-                  <input type="text">
+                  <input type="text" />
                 </form>
               </div>
             </div>
           </div>
           <div class="w-50 d-flex left">
-            <mat-icon class="pointer" *ngIf="applicationFormItem.disabled !== 'NEVER'" [matTooltip]="disabledTooltip(applicationFormItem)">lock</mat-icon>
-            <mat-icon class="pointer" *ngIf="applicationFormItem.hidden !== 'NEVER'" [matTooltip]="hiddenTooltip(applicationFormItem)">visibility_off</mat-icon>
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.disabled !== 'NEVER'"
+              [matTooltip]="disabledTooltip(applicationFormItem)"
+              >lock</mat-icon
+            >
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.hidden !== 'NEVER'"
+              [matTooltip]="hiddenTooltip(applicationFormItem)"
+              >visibility_off</mat-icon
+            >
             <span class="ml-2">{{getLocalizedHint(applicationFormItem)}}</span>
           </div>
         </div>
 
-
-        <div class="d-flex" *ngIf="applicationFormItem.type === 'CHECKBOX' &&
+        <div
+          class="d-flex"
+          *ngIf="applicationFormItem.type === 'CHECKBOX' &&
                                    applicationFormItem.hidden !== 'ALWAYS'">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <div class="w-50">
               <form class="w-100">
                 <div *ngFor="let item of getLocalizedOptions(applicationFormItem)">
-                  <input type="checkbox" [disabled]="applicationFormItem.disabled === 'ALWAYS'"> {{item}}
+                  <input type="checkbox" [disabled]="applicationFormItem.disabled === 'ALWAYS'" />
+                  {{item}}
                 </div>
               </form>
             </div>
           </div>
           <div class="w-50 d-flex left">
-            <mat-icon class="pointer" *ngIf="applicationFormItem.disabled !== 'NEVER'" [matTooltip]="disabledTooltip(applicationFormItem)">lock</mat-icon>
-            <mat-icon class="pointer" *ngIf="applicationFormItem.hidden !== 'NEVER'" [matTooltip]="hiddenTooltip(applicationFormItem)">visibility_off</mat-icon>
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.disabled !== 'NEVER'"
+              [matTooltip]="disabledTooltip(applicationFormItem)"
+              >lock</mat-icon
+            >
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.hidden !== 'NEVER'"
+              [matTooltip]="hiddenTooltip(applicationFormItem)"
+              >visibility_off</mat-icon
+            >
             <span class="ml-2">{{getLocalizedHint(applicationFormItem)}}</span>
           </div>
         </div>
 
-        <div class="d-flex" *ngIf="applicationFormItem.type === 'EMBEDDED_GROUP_APPLICATION' &&
+        <div
+          class="d-flex"
+          *ngIf="applicationFormItem.type === 'EMBEDDED_GROUP_APPLICATION' &&
                                    applicationFormItem.hidden !== 'ALWAYS'">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <div class="w-50">
-              <form class="w-100" >
-                <input type="checkbox" [disabled]="applicationFormItem.disabled === 'ALWAYS'"> example group1 <br/>
-                <input type="checkbox" [disabled]="applicationFormItem.disabled === 'ALWAYS'"> example group2 <br/>
-                <input type="checkbox" [disabled]="applicationFormItem.disabled === 'ALWAYS'"> example group3
+              <form class="w-100">
+                <input type="checkbox" [disabled]="applicationFormItem.disabled === 'ALWAYS'" />
+                example group1 <br />
+                <input type="checkbox" [disabled]="applicationFormItem.disabled === 'ALWAYS'" />
+                example group2 <br />
+                <input type="checkbox" [disabled]="applicationFormItem.disabled === 'ALWAYS'" />
+                example group3
               </form>
             </div>
           </div>
           <div class="w-50 d-flex left">
-            <mat-icon class="pointer" *ngIf="applicationFormItem.disabled !== 'NEVER'" [matTooltip]="disabledTooltip(applicationFormItem)">lock</mat-icon>
-            <mat-icon class="pointer" *ngIf="applicationFormItem.hidden !== 'NEVER'" [matTooltip]="hiddenTooltip(applicationFormItem)">visibility_off</mat-icon>
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.disabled !== 'NEVER'"
+              [matTooltip]="disabledTooltip(applicationFormItem)"
+              >lock</mat-icon
+            >
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.hidden !== 'NEVER'"
+              [matTooltip]="hiddenTooltip(applicationFormItem)"
+              >visibility_off</mat-icon
+            >
             <span class="ml-2">{{getLocalizedHint(applicationFormItem)}}</span>
           </div>
         </div>
 
-        <div class="d-flex" *ngIf="applicationFormItem.type === 'SUBMIT_BUTTON' &&
+        <div
+          class="d-flex"
+          *ngIf="applicationFormItem.type === 'SUBMIT_BUTTON' &&
                                    applicationFormItem.hidden !== 'ALWAYS'">
-          <button mat-flat-button color="accent" [disabled]="applicationFormItem.disabled === 'ALWAYS'">{{getLocalizedLabel(applicationFormItem)}}</button>
-          <mat-icon class="pointer left" *ngIf="applicationFormItem.disabled !== 'NEVER'" [matTooltip]="disabledTooltip(applicationFormItem)">lock</mat-icon>
-          <mat-icon class="pointer left" *ngIf="applicationFormItem.hidden !== 'NEVER'" [matTooltip]="hiddenTooltip(applicationFormItem)">visibility_off</mat-icon>
+          <button
+            mat-flat-button
+            color="accent"
+            [disabled]="applicationFormItem.disabled === 'ALWAYS'">
+            {{getLocalizedLabel(applicationFormItem)}}
+          </button>
+          <mat-icon
+            class="pointer left"
+            *ngIf="applicationFormItem.disabled !== 'NEVER'"
+            [matTooltip]="disabledTooltip(applicationFormItem)"
+            >lock</mat-icon
+          >
+          <mat-icon
+            class="pointer left"
+            *ngIf="applicationFormItem.hidden !== 'NEVER'"
+            [matTooltip]="hiddenTooltip(applicationFormItem)"
+            >visibility_off</mat-icon
+          >
         </div>
 
-
-        <div *ngIf="applicationFormItem.type === 'AUTO_SUBMIT_BUTTON' &&
+        <div
+          *ngIf="applicationFormItem.type === 'AUTO_SUBMIT_BUTTON' &&
                                    applicationFormItem.hidden !== 'ALWAYS'">
-          <button mat-flat-button color="accent" [disabled]="applicationFormItem.disabled === 'ALWAYS'">{{getLocalizedLabel(applicationFormItem)}}</button>
-          <mat-icon class="pointer left" *ngIf="applicationFormItem.disabled !== 'NEVER'" [matTooltip]="disabledTooltip(applicationFormItem)">lock</mat-icon>
-          <mat-icon class="pointer left" *ngIf="applicationFormItem.hidden !== 'NEVER'" [matTooltip]="hiddenTooltip(applicationFormItem)">visibility_off</mat-icon>
+          <button
+            mat-flat-button
+            color="accent"
+            [disabled]="applicationFormItem.disabled === 'ALWAYS'">
+            {{getLocalizedLabel(applicationFormItem)}}
+          </button>
+          <mat-icon
+            class="pointer left"
+            *ngIf="applicationFormItem.disabled !== 'NEVER'"
+            [matTooltip]="disabledTooltip(applicationFormItem)"
+            >lock</mat-icon
+          >
+          <mat-icon
+            class="pointer left"
+            *ngIf="applicationFormItem.hidden !== 'NEVER'"
+            [matTooltip]="hiddenTooltip(applicationFormItem)"
+            >visibility_off</mat-icon
+          >
         </div>
 
-
-        <div class="d-flex" *ngIf="applicationFormItem.type === 'TIMEZONE' &&
+        <div
+          class="d-flex"
+          *ngIf="applicationFormItem.type === 'TIMEZONE' &&
                                    applicationFormItem.hidden !== 'ALWAYS'">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <div class="w-50">
-              <select name="timezone_offset" id="timezone-offset" class="w-100" [disabled]="applicationFormItem.disabled === 'ALWAYS'">
+              <select
+                name="timezone_offset"
+                id="timezone-offset"
+                class="w-100"
+                [disabled]="applicationFormItem.disabled === 'ALWAYS'">
                 <option value="-12:00" selected="selected">
                   {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.NOT_SELECTED' | translate}}
                 </option>
@@ -240,22 +397,30 @@
                 <option value="-09:00">(GMT -9:00) Alaska</option>
                 <option value="-08:00">(GMT -8:00) Pacific Time (US &amp; Canada)</option>
                 <option value="-07:00">(GMT -7:00) Mountain Time (US &amp; Canada)</option>
-                <option value="-06:00">(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
-                <option value="-05:00">(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
+                <option value="-06:00">
+                  (GMT -6:00) Central Time (US &amp; Canada), Mexico City
+                </option>
+                <option value="-05:00">
+                  (GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima
+                </option>
                 <option value="-04:50">(GMT -4:30) Caracas</option>
                 <option value="-04:00">(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
                 <option value="-03:50">(GMT -3:30) Newfoundland</option>
                 <option value="-03:00">(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
                 <option value="-02:00">(GMT -2:00) Mid-Atlantic</option>
                 <option value="-01:00">(GMT -1:00) Azores, Cape Verde Islands</option>
-                <option value="+00:00">(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
+                <option value="+00:00">
+                  (GMT) Western Europe Time, London, Lisbon, Casablanca
+                </option>
                 <option value="+01:00">(GMT +1:00) Brussels, Copenhagen, Madrid, Paris</option>
                 <option value="+02:00">(GMT +2:00) Kaliningrad, South Africa</option>
                 <option value="+03:00">(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
                 <option value="+03:50">(GMT +3:30) Tehran</option>
                 <option value="+04:00">(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
                 <option value="+04:50">(GMT +4:30) Kabul</option>
-                <option value="+05:00">(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+                <option value="+05:00">
+                  (GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent
+                </option>
                 <option value="+05:50">(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
                 <option value="+05:75">(GMT +5:45) Kathmandu, Pokhara</option>
                 <option value="+06:00">(GMT +6:00) Almaty, Dhaka, Colombo</option>
@@ -275,11 +440,20 @@
                 <option value="+14:00">(GMT +14:00) Line Islands, Tokelau</option>
               </select>
             </div>
-
           </div>
           <div class="w-50 d-flex left">
-            <mat-icon class="pointer" *ngIf="applicationFormItem.disabled !== 'NEVER'" [matTooltip]="disabledTooltip(applicationFormItem)">lock</mat-icon>
-            <mat-icon class="pointer" *ngIf="applicationFormItem.hidden !== 'NEVER'" [matTooltip]="hiddenTooltip(applicationFormItem)">visibility_off</mat-icon>
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.disabled !== 'NEVER'"
+              [matTooltip]="disabledTooltip(applicationFormItem)"
+              >lock</mat-icon
+            >
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.hidden !== 'NEVER'"
+              [matTooltip]="hiddenTooltip(applicationFormItem)"
+              >visibility_off</mat-icon
+            >
             <span class="ml-2">{{getLocalizedHint(applicationFormItem)}}</span>
           </div>
         </div>

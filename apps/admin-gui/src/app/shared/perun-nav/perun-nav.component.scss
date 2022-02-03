@@ -9,7 +9,7 @@
   font-size: 1.4rem;
   display: flex;
   align-items: center;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
 #nav-menu-icons {
@@ -23,7 +23,8 @@
   padding: 0 8px 0 8px;
 }
 
-.logo-container ::ng-deep img, .logo-container ::ng-deep svg {
+.logo-container ::ng-deep img,
+.logo-container ::ng-deep svg {
   max-height: 50px;
 }
 

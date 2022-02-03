@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 
 export const PREF_PAGE_SIZE = 'GUI_CONFIG.PREF_PAGE_SIZE';
-export const LS_TABLE_PREFIX = "GUI_CONFIG.PREF_PAGE_SIZE.";
+export const LS_TABLE_PREFIX = 'GUI_CONFIG.PREF_PAGE_SIZE.';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GUIConfigService {
-
-  constructor() { }
+  constructor() {}
 
   public getString(key: string): string {
     return localStorage.getItem(key);

@@ -3,18 +3,31 @@
   {{'PREFERRED_SHELLS.DESCRIPTION' | customTranslate | translate}}
 </app-alert>
 
-<button mat-flat-button color="accent" (click)="addShell()">{{'PREFERRED_SHELLS.NEW_BUTTON' | customTranslate | translate}}</button>
+<button mat-flat-button color="accent" (click)="addShell()">
+  {{'PREFERRED_SHELLS.NEW_BUTTON' | customTranslate | translate}}
+</button>
 
 <!--<mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>-->
-<app-alert *ngIf="!loading && shells.length === 0" alert_type="warn">{{'PREFERRED_SHELLS.NO_SHELLS' | customTranslate | translate}}</app-alert>
+<app-alert
+  *ngIf="!loading && shells.length === 0"
+  alert_type="warn"
+  >{{'PREFERRED_SHELLS.NO_SHELLS' | customTranslate | translate}}</app-alert
+>
 <mat-list *ngIf="!loading">
   <mat-list-item *ngFor="let shell of shells; let i = index">
     <mat-form-field class="w-100">
       <mat-select [(value)]="shells[i]">
-        <mat-option *ngFor="let defShell of defaultShells" (click)="changeValue()" [value]="defShell">{{defShell}}</mat-option>
+        <mat-option
+          *ngFor="let defShell of defaultShells"
+          (click)="changeValue()"
+          [value]="defShell"
+          >{{defShell}}</mat-option
+        >
       </mat-select>
     </mat-form-field>
 
-    <button mat-flat-button color="warn" class="ml-2" (click)="removeShell(i)">{{'PREFERRED_SHELLS.REMOVE_BUTTON' | customTranslate | translate}}</button>
+    <button mat-flat-button color="warn" class="ml-2" (click)="removeShell(i)">
+      {{'PREFERRED_SHELLS.REMOVE_BUTTON' | customTranslate | translate}}
+    </button>
   </mat-list-item>
 </mat-list>

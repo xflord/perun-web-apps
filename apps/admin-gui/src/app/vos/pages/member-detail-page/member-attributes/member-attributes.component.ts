@@ -1,18 +1,14 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
-import {
-  Member,
-  MembersManagerService,
-} from '@perun-web-apps/perun/openapi';
+import { Member, MembersManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-member-attributes',
   templateUrl: './member-attributes.component.html',
-  styleUrls: ['./member-attributes.component.scss']
+  styleUrls: ['./member-attributes.component.scss'],
 })
 export class MemberAttributesComponent implements OnInit {
-
   @HostBinding('class.router-component') true;
   constructor(
     private route: ActivatedRoute,
@@ -28,17 +24,24 @@ export class MemberAttributesComponent implements OnInit {
   userFacilityAttAuth: boolean;
 
   ngOnInit() {
-    this.route.parent.params.subscribe(params => {
+    this.route.parent.params.subscribe((params) => {
       this.memberId = params['memberId'];
 
-     this.memberManager.getMemberById(this.memberId).subscribe(member => {
-       this.member = member;
+      this.memberManager.getMemberById(this.memberId).subscribe((member) => {
+        this.member = member;
 
-       this.memberGroupAttAuth = this.authResolver.isAuthorized('getMemberGroups_Member_policy', [this.member]);
-       this.memberResourceAttAuth = this.authResolver.isAuthorized('getAssignedResourcesWithStatus_Member_policy', [this.member]);
-       this.userFacilityAttAuth = this.authResolver.isAuthorized('getAssignedFacilities_User_policy', [{beanName: 'User', id: member.userId}]);
-     });
+        this.memberGroupAttAuth = this.authResolver.isAuthorized('getMemberGroups_Member_policy', [
+          this.member,
+        ]);
+        this.memberResourceAttAuth = this.authResolver.isAuthorized(
+          'getAssignedResourcesWithStatus_Member_policy',
+          [this.member]
+        );
+        this.userFacilityAttAuth = this.authResolver.isAuthorized(
+          'getAssignedFacilities_User_policy',
+          [{ beanName: 'User', id: member.userId }]
+        );
+      });
     });
   }
-
 }

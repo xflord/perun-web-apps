@@ -10,14 +10,15 @@ export interface AttributeValueListEditDialogData {
 @Component({
   selector: 'perun-web-apps-attribute-value-list-edit-dialog',
   templateUrl: './attribute-value-list-edit-dialog.component.html',
-  styleUrls: ['./attribute-value-list-edit-dialog.component.scss']
+  styleUrls: ['./attribute-value-list-edit-dialog.component.scss'],
 })
 export class AttributeValueListEditDialogComponent implements OnInit {
-
   attributeValue = '';
 
-  constructor(public dialogRef: MatDialogRef<AttributeValueListEditDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: AttributeValueListEditDialogData) { }
+  constructor(
+    public dialogRef: MatDialogRef<AttributeValueListEditDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: AttributeValueListEditDialogData
+  ) {}
 
   ngOnInit() {
     this.attributeValue = this.data.attribute.value[this.data.index];
@@ -31,5 +32,4 @@ export class AttributeValueListEditDialogComponent implements OnInit {
     this.data.attribute.value[this.data.index] = this.attributeValue;
     this.dialogRef.close(true);
   }
-
 }

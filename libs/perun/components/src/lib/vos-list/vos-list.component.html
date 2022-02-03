@@ -4,48 +4,49 @@
     [dataLength]="dataSource.filteredData.length"
     [tableId]="tableId"
     [pageSizeOptions]="pageSizeOptions">
-    <table [dataSource]="dataSource"
-           class="w-100"
-           mat-table
-           matSort
-           matSortActive="recent"
-           matSortDirection="asc"
-           matSortDisableClear>
+    <table
+      [dataSource]="dataSource"
+      class="w-100"
+      mat-table
+      matSort
+      matSortActive="recent"
+      matSortDirection="asc"
+      matSortDisableClear>
       <ng-container matColumnDef="checkbox">
-        <th *matHeaderCellDef mat-header-cell class="align-checkbox">
-        </th>
+        <th *matHeaderCellDef mat-header-cell class="align-checkbox"></th>
         <td *matCellDef="let member" class="static-column-size align-checkbox" mat-cell>
-          <mat-checkbox (change)="$event ? selection.toggle(member) : null"
-                        (click)="$event.stopPropagation()"
-                        [aria-label]="checkboxLabel(member)"
-                        [checked]="selection.isSelected(member)"
-                        color="primary">
+          <mat-checkbox
+            (change)="$event ? selection.toggle(member) : null"
+            (click)="$event.stopPropagation()"
+            [aria-label]="checkboxLabel(member)"
+            [checked]="selection.isSelected(member)"
+            color="primary">
           </mat-checkbox>
         </td>
       </ng-container>
       <ng-container matColumnDef="id">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.VOS_LIST.ID' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.VOS_LIST.ID' | translate}}
+        </th>
         <td *matCellDef="let vo" class="static-column-size" mat-cell>{{vo.id}}</td>
       </ng-container>
       <ng-container matColumnDef="recent">
-        <th *matHeaderCellDef mat-header-cell>
-        </th>
+        <th *matHeaderCellDef mat-header-cell></th>
         <td *matCellDef="let vo" mat-cell>
-          <perun-web-apps-recently-viewed-icon
-            [recentIds]="recentIds"
-            [id]="vo.id">
+          <perun-web-apps-recently-viewed-icon [recentIds]="recentIds" [id]="vo.id">
           </perun-web-apps-recently-viewed-icon>
         </td>
       </ng-container>
       <ng-container matColumnDef="shortName">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.VOS_LIST.SHORTNAME' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.VOS_LIST.SHORTNAME' | translate}}
+        </th>
         <td *matCellDef="let vo" mat-cell attr.data-cy="{{vo.shortName}}">{{vo.shortName}}</td>
       </ng-container>
       <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell
-            mat-sort-header>{{'SHARED_LIB.PERUN.COMPONENTS.VOS_LIST.NAME' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.VOS_LIST.NAME' | translate}}
+        </th>
         <td *matCellDef="let vo" mat-cell>{{vo.name}}</td>
       </ng-container>
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
@@ -55,13 +56,15 @@
         [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/organizations', vo.id]"
         [routerLink]="disableRouting ? null : ['/organizations', vo.id]"
         class="dark-hover-list-item"
-        mat-row>
-      </tr>
+        mat-row></tr>
     </table>
   </perun-web-apps-table-wrapper>
 </div>
 
-<app-alert *ngIf="dataSource.filteredData.length === 0 && vos.length !== 0" alert_type="warn" data-cy="no-filter-result">
+<app-alert
+  *ngIf="dataSource.filteredData.length === 0 && vos.length !== 0"
+  alert_type="warn"
+  data-cy="no-filter-result">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
 </app-alert>
 

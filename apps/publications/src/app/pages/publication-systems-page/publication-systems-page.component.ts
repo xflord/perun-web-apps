@@ -5,12 +5,10 @@ import { TABLE_GROUP_RESOURCES_LIST } from '@perun-web-apps/config/table-config'
 @Component({
   selector: 'perun-web-apps-publication-systems-page',
   templateUrl: './publication-systems-page.component.html',
-  styleUrls: ['./publication-systems-page.component.scss']
+  styleUrls: ['./publication-systems-page.component.scss'],
 })
 export class PublicationSystemsPageComponent implements OnInit {
-
-  constructor(private cabinetManagerService: CabinetManagerService) {
-  }
+  constructor(private cabinetManagerService: CabinetManagerService) {}
 
   publicationSystems: PublicationSystem[] = [];
   loading: boolean;
@@ -23,7 +21,7 @@ export class PublicationSystemsPageComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.cabinetManagerService.getPublicationSystems().subscribe(pubSys => {
+    this.cabinetManagerService.getPublicationSystems().subscribe((pubSys) => {
       this.publicationSystems = pubSys;
       this.loading = false;
     });

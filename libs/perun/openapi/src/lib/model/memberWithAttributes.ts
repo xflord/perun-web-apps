@@ -11,9 +11,7 @@
  */
 import { Attribute } from './attribute';
 
-
-export interface MemberWithAttributes { 
-    memberId?: number;
-    memberGroupAttributes?: Array<Attribute>;
+export interface MemberWithAttributes {
+  memberId?: number;
+  memberGroupAttributes?: Array<Attribute>;
 }
-

@@ -1,13 +1,17 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Member, MembersManagerService, Sponsor, UsersManagerService, Vo } from '@perun-web-apps/perun/openapi';
+import {
+  Member,
+  MembersManagerService,
+  Sponsor,
+  UsersManagerService,
+  Vo,
+} from '@perun-web-apps/perun/openapi';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import {
-  ChangeSponsorshipExpirationDialogComponent
-} from '@perun-web-apps/perun/dialogs';
+import { ChangeSponsorshipExpirationDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { formatDate } from '@angular/common';
 
 export interface EditMemberSponsorsDialogComponent {
@@ -19,18 +23,19 @@ export interface EditMemberSponsorsDialogComponent {
 @Component({
   selector: 'app-edit-member-sponsors-dialog',
   templateUrl: './edit-member-sponsors-dialog.component.html',
-  styleUrls: ['./edit-member-sponsors-dialog.component.scss']
+  styleUrls: ['./edit-member-sponsors-dialog.component.scss'],
 })
 export class EditMemberSponsorsDialogComponent implements OnInit {
-
-  constructor(private dialogRef: MatDialogRef<EditMemberSponsorsDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: EditMemberSponsorsDialogComponent,
-              private memberService: MembersManagerService,
-              private userService: UsersManagerService,
-              private notificator: NotificatorService,
-              private authResolver: GuiAuthResolver,
-              private translate: TranslateService,
-              private dialog: MatDialog) { }
+  constructor(
+    private dialogRef: MatDialogRef<EditMemberSponsorsDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: EditMemberSponsorsDialogComponent,
+    private memberService: MembersManagerService,
+    private userService: UsersManagerService,
+    private notificator: NotificatorService,
+    private authResolver: GuiAuthResolver,
+    private translate: TranslateService,
+    private dialog: MatDialog
+  ) {}
 
   theme: string;
   sponsors: Sponsor[];
@@ -48,54 +53,64 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Sponsor>(this.data.sponsors);
     this.vo = {
       beanName: 'Vo',
-      id: this.data.member.voId
+      id: this.data.member.voId,
     };
   }
 
   markSponsor(sponsor: Sponsor) {
-    if (this.sponsorsToRemove.has(sponsor.user.id)){
+    if (this.sponsorsToRemove.has(sponsor.user.id)) {
       this.sponsorsToRemove.delete(sponsor.user.id);
     } else {
       this.sponsorsToRemove.add(sponsor.user.id);
     }
   }
 
-  removeSponsors(sponsorIds: number[]){
-    if (sponsorIds.length === 0){
+  removeSponsors(sponsorIds: number[]) {
+    if (sponsorIds.length === 0) {
       this.notificator.showSuccess(this.translate.instant('DIALOGS.EDIT_MEMBER_SPONSORS.SUCCESS'));
       this.loading = false;
       this.dialogRef.close(true);
-      return
+      return;
     }
 
     const sponsorId = sponsorIds.pop();
-    this.memberService.removeSponsor(this.data.member.id, sponsorId).subscribe(() => {
-      this.removeSponsors(sponsorIds);
-    }, () => this.loading = false);
+    this.memberService.removeSponsor(this.data.member.id, sponsorId).subscribe(
+      () => {
+        this.removeSponsors(sponsorIds);
+      },
+      () => (this.loading = false)
+    );
   }
 
-  onSubmit(){
+  onSubmit() {
     this.loading = true;
     const sponsorIds = Array.from(this.sponsorsToRemove);
     this.removeSponsors(sponsorIds);
   }
 
-  onCancel(){
+  onCancel() {
     this.dialogRef.close(this.expirationChanged);
   }
 
   isRemoveAuthorized(sponsor: Sponsor) {
-    return this.authResolver.isAuthorized('sponsored-removeSponsor_Member_User_policy', [this.data.member])
-    && this.authResolver.isAuthorized('sponsor-removeSponsor_Member_User_policy', [sponsor.user]);
+    return (
+      this.authResolver.isAuthorized('sponsored-removeSponsor_Member_User_policy', [
+        this.data.member,
+      ]) &&
+      this.authResolver.isAuthorized('sponsor-removeSponsor_Member_User_policy', [sponsor.user])
+    );
   }
 
-  isExpirationAuthorized(sponsor: Sponsor){
-    return this.authResolver.isAuthorized('updateSponsorshipValidity_Member_User_LocalDate', [sponsor.user, this.vo]);
+  isExpirationAuthorized(sponsor: Sponsor) {
+    return this.authResolver.isAuthorized('updateSponsorshipValidity_Member_User_LocalDate', [
+      sponsor.user,
+      this.vo,
+    ]);
   }
 
-  parseDate(date){
-    if (date === null){
-      return "Never expire";
+  parseDate(date) {
+    if (date === null) {
+      return 'Never expire';
     }
     return formatDate(date, 'd.M.y', 'en');
   }
@@ -110,11 +125,11 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
 
     const dialogRef = this.dialog.open(ChangeSponsorshipExpirationDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
         this.loading = true;
         this.expirationChanged = true;
-        this.userService.getSponsorsForMember(this.data.member.id, []).subscribe(sponsors => {
+        this.userService.getSponsorsForMember(this.data.member.id, []).subscribe((sponsors) => {
           this.sponsors = sponsors;
           this.dataSource = new MatTableDataSource<Sponsor>(this.sponsors);
           this.loading = false;

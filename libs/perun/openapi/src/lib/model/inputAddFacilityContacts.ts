@@ -11,11 +11,9 @@
  */
 import { ContactGroup } from './contactGroup';
 
-
 /**
  * input to addFacilityContacts
  */
-export interface InputAddFacilityContacts { 
-    contactGroupsToAdd: Array<ContactGroup>;
+export interface InputAddFacilityContacts {
+  contactGroupsToAdd: Array<ContactGroup>;
 }
-

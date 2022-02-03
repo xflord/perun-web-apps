@@ -11,20 +11,18 @@
  */
 import { Attribute } from './attribute';
 
-
 /**
  * input to setMemberResourceAndUserAttributes
  */
-export interface InputSetMemberResourceAndUserAttributes { 
-    /**
-     * member id
-     */
-    member: number;
-    /**
-     * resource id
-     */
-    resource: number;
-    attributes: Array<Attribute>;
-    workWithUserAttributes: boolean;
+export interface InputSetMemberResourceAndUserAttributes {
+  /**
+   * member id
+   */
+  member: number;
+  /**
+   * resource id
+   */
+  resource: number;
+  attributes: Array<Attribute>;
+  workWithUserAttributes: boolean;
 }
-

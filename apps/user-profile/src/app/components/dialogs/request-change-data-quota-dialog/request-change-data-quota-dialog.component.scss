@@ -1,18 +1,18 @@
-.column-size{
+.column-size {
   width: 10rem !important;
   font-weight: bold;
 }
 
-.form-width{
+.form-width {
   width: 100%;
   overflow: hidden;
 }
 
-.label-width{
+.label-width {
   width: 100%;
 }
 
-.select-width{
+.select-width {
   width: 4rem;
 }
 
@@ -22,6 +22,6 @@
 }
 
 /* To remove the underline ripple */
-.mat-input-ripple.mat-form-field-ripple{
+.mat-input-ripple.mat-form-field-ripple {
   display: none;
 }

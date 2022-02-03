@@ -1,21 +1,17 @@
-import {RouteReuseStrategy} from '@angular/router/';
-import {ActivatedRouteSnapshot, DetachedRouteHandle} from '@angular/router';
-import {VoMembersComponent} from '../../../vos/pages/vo-detail-page/vo-members/vo-members.component';
-import {VoGroupsComponent} from '../../../vos/pages/vo-detail-page/vo-groups/vo-groups.component';
-import {VoApplicationsComponent} from '../../../vos/pages/vo-detail-page/vo-applications/vo-applications.component';
-import {GroupApplicationsComponent} from '../../../vos/pages/group-detail-page/group-applications/group-applications.component';
-import {GroupResourcesComponent} from '../../../vos/pages/group-detail-page/group-resources/group-resources.component';
-import {GroupSubgroupsComponent} from '../../../vos/pages/group-detail-page/group-subgroups/group-subgroups.component';
-import {GroupMembersComponent} from '../../../vos/pages/group-detail-page/group-members/group-members.component';
-import {
-  FacilityAllowedGroupsComponent
-} from '../../../facilities/pages/facility-detail-page/facility-allowed-groups/facility-allowed-groups.component';
-import {FacilityResourcesComponent} from '../../../facilities/pages/facility-detail-page/facility-resources/facility-resources.component';
-import {MemberGroupsComponent} from '../../../vos/pages/member-detail-page/member-groups/member-groups.component';
-import {
-  VoResourcesPreviewComponent
-} from '../../../vos/pages/vo-detail-page/vo-resources/vo-resources-preview/vo-resources-preview.component';
-import {VoResourcesStatesComponent} from '../../../vos/pages/vo-detail-page/vo-resources/vo-resources-states/vo-resources-states.component';
+import { RouteReuseStrategy } from '@angular/router/';
+import { ActivatedRouteSnapshot, DetachedRouteHandle } from '@angular/router';
+import { VoMembersComponent } from '../../../vos/pages/vo-detail-page/vo-members/vo-members.component';
+import { VoGroupsComponent } from '../../../vos/pages/vo-detail-page/vo-groups/vo-groups.component';
+import { VoApplicationsComponent } from '../../../vos/pages/vo-detail-page/vo-applications/vo-applications.component';
+import { GroupApplicationsComponent } from '../../../vos/pages/group-detail-page/group-applications/group-applications.component';
+import { GroupResourcesComponent } from '../../../vos/pages/group-detail-page/group-resources/group-resources.component';
+import { GroupSubgroupsComponent } from '../../../vos/pages/group-detail-page/group-subgroups/group-subgroups.component';
+import { GroupMembersComponent } from '../../../vos/pages/group-detail-page/group-members/group-members.component';
+import { FacilityAllowedGroupsComponent } from '../../../facilities/pages/facility-detail-page/facility-allowed-groups/facility-allowed-groups.component';
+import { FacilityResourcesComponent } from '../../../facilities/pages/facility-detail-page/facility-resources/facility-resources.component';
+import { MemberGroupsComponent } from '../../../vos/pages/member-detail-page/member-groups/member-groups.component';
+import { VoResourcesPreviewComponent } from '../../../vos/pages/vo-detail-page/vo-resources/vo-resources-preview/vo-resources-preview.component';
+import { VoResourcesStatesComponent } from '../../../vos/pages/vo-detail-page/vo-resources/vo-resources-states/vo-resources-states.component';
 import { AdminUsersComponent } from '../../../admin/pages/admin-page/admin-users/admin-users.component';
 import { VoSettingsApplicationFormComponent } from '../../../vos/pages/vo-detail-page/vo-settings/vo-settings-application-form/vo-settings-application-form.component';
 import { GroupSettingsApplicationFormComponent } from '../../../vos/pages/group-detail-page/group-settings/group-settings-application-form/group-settings-application-form.component';
@@ -31,7 +27,6 @@ export class CachedRoute {
 
 @Injectable()
 export class CacheRouteReuseStrategy implements RouteReuseStrategy {
-
   // typeToComponentToHandlers: Map<string, Map<string, DetachedRouteHandle>>;
   typeToComponentToHandlers: Map<string, Map<string, CachedRoute>>;
 
@@ -45,8 +40,8 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
         VoResourcesPreviewComponent.id,
         VoResourcesStatesComponent.id,
         VoSettingsApplicationFormComponent.id,
-        VoSettingsSponsoredMembersComponent.id
-      ]
+        VoSettingsSponsoredMembersComponent.id,
+      ],
     },
     {
       type: 'group',
@@ -55,35 +50,25 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
         GroupSubgroupsComponent.id,
         GroupResourcesComponent.id,
         GroupApplicationsComponent.id,
-        GroupSettingsApplicationFormComponent.id
-      ]
+        GroupSettingsApplicationFormComponent.id,
+      ],
     },
     {
       type: 'facility',
-      components: [
-        FacilityAllowedGroupsComponent.id,
-        FacilityResourcesComponent.id
-      ]
+      components: [FacilityAllowedGroupsComponent.id, FacilityResourcesComponent.id],
     },
     {
       type: 'member',
-      components: [
-        MemberGroupsComponent.id
-      ]
+      components: [MemberGroupsComponent.id],
     },
     {
       type: 'admin',
-      components: [
-        AdminUsersComponent.id
-      ]
+      components: [AdminUsersComponent.id],
     },
     {
       type: 'entitySelect',
-      components: [
-        VoSelectPageComponent.id,
-        FacilitySelectPageComponent.id
-      ]
-    }
+      components: [VoSelectPageComponent.id, FacilitySelectPageComponent.id],
+    },
   ];
 
   private cacheTimeMs = 300_000;
@@ -93,37 +78,36 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
       lastValue: null,
       resetType: 'vo',
       resetPath: ':voId',
-      param: 'voId'
+      param: 'voId',
     },
     {
       lastValue: null,
       resetType: 'group',
       resetPath: ':voId/groups/:groupId',
-      param: 'groupId'
+      param: 'groupId',
     },
     {
       lastValue: null,
       resetType: 'facility',
       resetPath: ':facilityId',
-      param: 'facilityId'
+      param: 'facilityId',
     },
     {
       lastValue: null,
       resetType: 'member',
       resetPath: ':voId/members/:memberId',
-      param: 'memberId'
+      param: 'memberId',
     },
     {
       lastValue: null,
       resetType: 'admin',
-      resetPath: 'admin/users'
-    }
+      resetPath: 'admin/users',
+    },
   ];
 
   private isUserNavigatingBack = false;
 
-  constructor(
-  ) {
+  constructor() {
     this.typeToComponentToHandlers = new Map<string, Map<string, CachedRoute>>();
     for (const pages of this.allowCachePages) {
       this.typeToComponentToHandlers.set(pages.type, new Map<string, CachedRoute>());
@@ -160,7 +144,7 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
     }
   }
 
-  shouldReuseRoute(before: ActivatedRouteSnapshot, curr:  ActivatedRouteSnapshot): boolean {
+  shouldReuseRoute(before: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
     this.checkResets(curr);
     return before.routeConfig === curr.routeConfig;
   }
@@ -175,7 +159,7 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
       const componentName = this.getComponentName(route.component);
       for (const pages of this.allowCachePages) {
         if (pages.components.indexOf(componentName) !== -1) {
-          const cachedData =  this.typeToComponentToHandlers.get(pages.type).get(componentName);
+          const cachedData = this.typeToComponentToHandlers.get(pages.type).get(componentName);
 
           return cachedData === undefined ? null : cachedData.routeHandle;
         }
@@ -199,7 +183,10 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
       const componentName = this.getComponentName(route.component);
       for (const pages of this.allowCachePages) {
         const cachedData = this.typeToComponentToHandlers.get(pages.type).get(componentName);
-        if (cachedData !== undefined && (this.getCurrentTimestamp() - cachedData.saveTimeStamp) < this.cacheTimeMs) {
+        if (
+          cachedData !== undefined &&
+          this.getCurrentTimestamp() - cachedData.saveTimeStamp < this.cacheTimeMs
+        ) {
           return true;
         }
       }
@@ -233,21 +220,19 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
    */
   store(route: ActivatedRouteSnapshot, detachedTree: DetachedRouteHandle): void {
     if (route.component) {
-      while(document.getElementsByTagName('mat-tooltip-component').length > 0) {
+      while (document.getElementsByTagName('mat-tooltip-component').length > 0) {
         document.getElementsByTagName('mat-tooltip-component')[0].remove();
       }
       const type = this.getComponentType(route);
-      this.typeToComponentToHandlers
-        .get(type)
-        .set(this.getComponentName(route.component), {
-          routeHandle: detachedTree,
-          saveTimeStamp: this.getCurrentTimestamp()
-        });
+      this.typeToComponentToHandlers.get(type).set(this.getComponentName(route.component), {
+        routeHandle: detachedTree,
+        saveTimeStamp: this.getCurrentTimestamp(),
+      });
     }
   }
 
   private getCurrentTimestamp(): number {
-    return + Date.now();
+    return +Date.now();
   }
 
   /**

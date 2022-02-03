@@ -1,23 +1,17 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {fadeIn} from '@perun-web-apps/perun/animations';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { fadeIn } from '@perun-web-apps/perun/animations';
 
 @Component({
   selector: 'app-vo-settings',
   templateUrl: './vo-settings.component.html',
   styleUrls: ['./vo-settings.component.scss'],
-  animations: [
-    fadeIn
-  ]
+  animations: [fadeIn],
 })
 export class VoSettingsComponent implements OnInit {
-
   @HostBinding('class.router-component') true;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router
-  ) {
+  constructor(private route: ActivatedRoute, private router: Router) {
     this.currentUrl = router.url;
     this.backButtonDisplayed = this.backButtonRegex.test(this.currentUrl);
 
@@ -37,7 +31,7 @@ export class VoSettingsComponent implements OnInit {
   voId: number;
 
   ngOnInit(): void {
-    this.route.parent.params.subscribe(parentParams => {
+    this.route.parent.params.subscribe((parentParams) => {
       this.voId = parentParams['voId'];
     });
   }

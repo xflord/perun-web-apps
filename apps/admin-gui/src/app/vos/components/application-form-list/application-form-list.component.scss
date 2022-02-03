@@ -1,9 +1,8 @@
 .cdk-drag-preview {
   box-sizing: border-box;
   border-radius: 4px;
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-  0 8px 10px 1px rgba(0, 0, 0, 0.14),
-  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drag-placeholder {
@@ -23,15 +22,15 @@
 }
 
 .make-red {
-  background-color: #FFCDD2;
+  background-color: #ffcdd2;
 }
 
 .make-green {
-  background-color: #C8E6C9;
+  background-color: #c8e6c9;
 }
 
 .make-yellow {
-  background-color: #FFF9C4;
+  background-color: #fff9c4;
 }
 
 .center {

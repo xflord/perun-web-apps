@@ -3,19 +3,25 @@
 <div class="dialog-container" mat-dialog-content *ngIf="!loading">
   <mat-form-field>
     <mat-label>{{'SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUBJECT' | translate}}</mat-label>
-    <input #subjectModel=ngModel [(ngModel)]="subject" matInput required>
-    <mat-error *ngIf="subjectModel.invalid">{{'SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUBJECT_ERROR' | translate}}</mat-error>
+    <input #subjectModel="ngModel" [(ngModel)]="subject" matInput required />
+    <mat-error
+      *ngIf="subjectModel.invalid"
+      >{{'SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUBJECT_ERROR' | translate}}</mat-error
+    >
   </mat-form-field>
   <mat-form-field>
     <mat-label>{{'SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.MESSAGE' | translate}}</mat-label>
     <textarea
-      #messageModel=ngModel
+      #messageModel="ngModel"
       [(ngModel)]="message"
       matInput
       placeholder="{{'SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.MESSAGE_PLACEHOLDER' | translate}}"
       required>
     </textarea>
-    <mat-error *ngIf="messageModel.invalid">{{'SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.MESSAGE_ERROR' | translate}}</mat-error>
+    <mat-error
+      *ngIf="messageModel.invalid"
+      >{{'SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.MESSAGE_ERROR' | translate}}</mat-error
+    >
   </mat-form-field>
 </div>
 

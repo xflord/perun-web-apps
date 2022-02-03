@@ -1,7 +1,8 @@
 <h1 class="page-title mt-2">{{'SERVICES.TITLE' | customTranslate | translate}}</h1>
 <div class="user-theme">
-  <perun-web-apps-immediate-filter [placeholder]="'SERVICES.FILTER' | customTranslate | translate"
-                                   (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
+  <perun-web-apps-immediate-filter
+    [placeholder]="'SERVICES.FILTER' | customTranslate | translate"
+    (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
 
   <mat-accordion>
     <mat-expansion-panel *ngFor="let vo of filteredVos" (opened)="getMemberData(vo)">
@@ -12,10 +13,12 @@
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
         <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-        <perun-web-apps-resources-list *ngIf="!loading" [resources]="resources" [displayedColumns]="['name', 'description']"
-                                       [disableRouting]="true"></perun-web-apps-resources-list>
+        <perun-web-apps-resources-list
+          *ngIf="!loading"
+          [resources]="resources"
+          [displayedColumns]="['name', 'description']"
+          [disableRouting]="true"></perun-web-apps-resources-list>
       </ng-template>
     </mat-expansion-panel>
   </mat-accordion>
-
 </div>

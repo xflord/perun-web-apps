@@ -1,8 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import {NotificatorService} from '@perun-web-apps/perun/services';
-import {TranslateService} from '@ngx-translate/core';
+import { NotificatorService } from '@perun-web-apps/perun/services';
+import { TranslateService } from '@ngx-translate/core';
 import { ResourcesManagerService, RichResource } from '@perun-web-apps/perun/openapi';
 
 export interface RemoveResourceDialogData {
@@ -13,15 +13,16 @@ export interface RemoveResourceDialogData {
 @Component({
   selector: 'app-remove-resource-dialog',
   templateUrl: './remove-resource-dialog.component.html',
-  styleUrls: ['./remove-resource-dialog.component.scss']
+  styleUrls: ['./remove-resource-dialog.component.scss'],
 })
 export class RemoveResourceDialogComponent implements OnInit {
-
-  constructor(public dialogRef: MatDialogRef<RemoveResourceDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: RemoveResourceDialogData,
-              private notificator: NotificatorService,
-              private translate: TranslateService,
-              private resourcesManager: ResourcesManagerService) { }
+  constructor(
+    public dialogRef: MatDialogRef<RemoveResourceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: RemoveResourceDialogData,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private resourcesManager: ResourcesManagerService
+  ) {}
 
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<RichResource>;
@@ -40,27 +41,29 @@ export class RemoveResourceDialogComponent implements OnInit {
   onDelete() {
     this.loading = true;
     if (this.data.resources.length === 0) {
-      this.translate.get('DIALOGS.REMOVE_RESOURCES.SUCCESS').subscribe(successMessage => {
+      this.translate.get('DIALOGS.REMOVE_RESOURCES.SUCCESS').subscribe((successMessage) => {
         this.loading = false;
         this.notificator.showSuccess(successMessage);
         this.dialogRef.close(true);
       });
     } else {
-      this.resourcesManager.deleteResource(this.data.resources[0].id).subscribe( () => {
-        this.data.resources.shift();
-        this.onDelete();
-      }, () => {
-        this.dialogRef.close(true);
-      });
+      this.resourcesManager.deleteResource(this.data.resources[0].id).subscribe(
+        () => {
+          this.data.resources.shift();
+          this.onDelete();
+        },
+        () => {
+          this.dialogRef.close(true);
+        }
+      );
     }
   }
 
-  onSubmit(result: {deleted: boolean, force: boolean}) {
-    if(result.deleted){
+  onSubmit(result: { deleted: boolean; force: boolean }) {
+    if (result.deleted) {
       this.onDelete();
-    } else{
+    } else {
       this.onCancel();
     }
   }
-
 }

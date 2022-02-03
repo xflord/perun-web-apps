@@ -4,9 +4,9 @@ import {
   MembersManagerService,
   PerunBean,
   ResourcesManagerService,
-  RichResource
+  RichResource,
 } from '@perun-web-apps/perun/openapi';
-import { MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { TABLE_MEMBER_RESOURCE_LIST } from '@perun-web-apps/config/table-config';
 import { ActivatedRoute } from '@angular/router';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -16,21 +16,21 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 @Component({
   selector: 'app-member-resources',
   templateUrl: './member-resources.component.html',
-  styleUrls: ['./member-resources.component.scss']
+  styleUrls: ['./member-resources.component.scss'],
 })
 export class MemberResourcesComponent implements OnInit {
-
-  constructor(private dialog: MatDialog,
-              private memberManager: MembersManagerService,
-              private resourceManager: ResourcesManagerService,
-              private route: ActivatedRoute,
-              private authResolver: GuiAuthResolver) { }
-
+  constructor(
+    private dialog: MatDialog,
+    private memberManager: MembersManagerService,
+    private resourceManager: ResourcesManagerService,
+    private route: ActivatedRoute,
+    private authResolver: GuiAuthResolver
+  ) {}
 
   member: Member;
   resources: RichResource[] = [];
 
-  filterValue = "";
+  filterValue = '';
   loading = false;
   displayedColumns: string[] = ['id', 'name', 'vo', 'facility', 'tags', 'description'];
 
@@ -40,29 +40,29 @@ export class MemberResourcesComponent implements OnInit {
   addAuth: boolean;
 
   ngOnInit(): void {
-    this.route.parent.params.subscribe( parentParams => {
+    this.route.parent.params.subscribe((parentParams) => {
       const memberId = parentParams['memberId'];
 
-      this.memberManager.getMemberById(memberId).subscribe(member => {
+      this.memberManager.getMemberById(memberId).subscribe((member) => {
         this.member = member;
         this.refreshTable();
       });
     });
   }
 
-  addResource(){
-    const config  = getDefaultDialogConfig();
+  addResource() {
+    const config = getDefaultDialogConfig();
     config.width = '1200px';
     config.data = {
       memberId: this.member.id,
       voId: this.member.voId,
-      theme: 'member-theme'
+      theme: 'member-theme',
     };
 
     const dialogRef = this.dialog.open(AddMemberToResourceDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe( result => {
-      if(result){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
         this.refreshTable();
       }
     });
@@ -70,28 +70,34 @@ export class MemberResourcesComponent implements OnInit {
 
   refreshTable() {
     this.loading = true;
-    this.resourceManager.getAssignedRichResourcesWithMember(this.member.id).subscribe(resources => {
-      this.resources = resources;
-      this.setAuthRights();
-      this.loading = false;
-    });
+    this.resourceManager
+      .getAssignedRichResourcesWithMember(this.member.id)
+      .subscribe((resources) => {
+        this.resources = resources;
+        this.setAuthRights();
+        this.loading = false;
+      });
   }
 
-  setAuthRights(){
+  setAuthRights() {
     const vo: PerunBean = {
       id: this.member.voId,
-      beanName: 'Vo'
+      beanName: 'Vo',
     };
 
-    this.addAuth = this.authResolver.isAuthorized('getRichResources_Vo_policy', [vo]) &&
+    this.addAuth =
+      this.authResolver.isAuthorized('getRichResources_Vo_policy', [vo]) &&
       this.authResolver.isAuthorized('addMembers_Group_List<Member>_policy', [vo]);
 
-    if(this.resources.length !== 0){
-      this.routeAuth = this.authResolver.isAuthorized('getResourceById_int_policy', [vo, this.resources[0]]);
+    if (this.resources.length !== 0) {
+      this.routeAuth = this.authResolver.isAuthorized('getResourceById_int_policy', [
+        vo,
+        this.resources[0],
+      ]);
     }
   }
 
-  applyFilter(filterValue: string){
+  applyFilter(filterValue: string) {
     this.filterValue = filterValue;
   }
 }

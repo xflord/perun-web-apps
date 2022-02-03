@@ -1,12 +1,12 @@
 import { Injectable, Injector } from '@angular/core';
-import { filter} from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import { StoreService } from './store.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private router: Router;
@@ -24,9 +24,9 @@ export class AuthService {
       this.startIdpFilterKeeper();
     });
 
-    this.route.queryParams.subscribe(params => {
-      if (params["idpFilter"]) {
-        this.filterShortname = params["idpFilter"];
+    this.route.queryParams.subscribe((params) => {
+      if (params['idpFilter']) {
+        this.filterShortname = params['idpFilter'];
       }
     });
   }
@@ -37,8 +37,11 @@ export class AuthService {
 
   getClientConfig(): AuthConfig {
     const filterValue = this.setIdpFilter();
-    const customQueryParams = !filterValue ? {} : { 'acr_values': filterValue};
-    if (this.store.get('oidc_client', 'oauth_scopes').split(' ').includes('offline_access') && this.store.get('oidc_client', 'oauth_offline_access_consent_prompt')) {
+    const customQueryParams = !filterValue ? {} : { acr_values: filterValue };
+    if (
+      this.store.get('oidc_client', 'oauth_scopes').split(' ').includes('offline_access') &&
+      this.store.get('oidc_client', 'oauth_offline_access_consent_prompt')
+    ) {
       customQueryParams['prompt'] = 'consent';
     }
 
@@ -51,7 +54,7 @@ export class AuthService {
       responseType: this.store.get('oidc_client', 'oauth_response_type'),
       scope: this.store.get('oidc_client', 'oauth_scopes'),
       // sessionChecksEnabled: true,
-      customQueryParams: customQueryParams
+      customQueryParams: customQueryParams,
     };
   }
 
@@ -63,16 +66,16 @@ export class AuthService {
       return null;
     }
     let filterValue = null;
-    queryParams.forEach(param => {
-      const parsedParam = param.split('=')
-      if(parsedParam[0] === 'idpFilter') {
+    queryParams.forEach((param) => {
+      const parsedParam = param.split('=');
+      if (parsedParam[0] === 'idpFilter') {
         if (filters[parsedParam[1]]) {
           this.filterShortname = parsedParam[1];
           filterValue = filters[parsedParam[1]];
         }
       }
-    })
-    if(filters['default'] && !filterValue) {
+    });
+    if (filters['default'] && !filterValue) {
       this.filterShortname = 'default';
       return filters['default'];
     }
@@ -85,19 +88,15 @@ export class AuthService {
    * @private
    */
   private startIdpFilterKeeper(): void {
-    this.router.events
-      .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe(() => {
-        const idpFilterParams: Params = { idpFilter: this.getIdpFilter() };
-        this.router.navigate(
-          [],
-          {
-            relativeTo: this.route,
-            queryParams: idpFilterParams.idpFilter === 'default' ? {} : idpFilterParams,
-            queryParamsHandling: 'merge',
-            replaceUrl: true
-          });
+    this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => {
+      const idpFilterParams: Params = { idpFilter: this.getIdpFilter() };
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: idpFilterParams.idpFilter === 'default' ? {} : idpFilterParams,
+        queryParamsHandling: 'merge',
+        replaceUrl: true,
       });
+    });
   }
 
   loadConfigData() {
@@ -111,10 +110,11 @@ export class AuthService {
     if (currentPathname === '/api-callback') {
       return this.handleAuthCallback()
         .then(() => this.startRefreshToken())
-        .then(() => this.redirectToOriginDestination())
+        .then(() => this.redirectToOriginDestination());
     } else {
-      return this.verifyAuthentication(currentPathname, queryParams)
-        .then(() => this.startRefreshToken());
+      return this.verifyAuthentication(currentPathname, queryParams).then(() =>
+        this.startRefreshToken()
+      );
     }
   }
 
@@ -135,11 +135,11 @@ export class AuthService {
   }
 
   logout() {
-    if (sessionStorage.getItem("baPrincipal")) {
-      sessionStorage.removeItem("baPrincipal");
-      sessionStorage.removeItem("basicUsername");
-      sessionStorage.removeItem("basicPassword");
-      sessionStorage.setItem("baLogout", "true");
+    if (sessionStorage.getItem('baPrincipal')) {
+      sessionStorage.removeItem('baPrincipal');
+      sessionStorage.removeItem('basicUsername');
+      sessionStorage.removeItem('basicPassword');
+      sessionStorage.setItem('baLogout', 'true');
       this.router.navigate(['/service-access']);
     } else {
       localStorage.removeItem('refresh_token');
@@ -156,7 +156,9 @@ export class AuthService {
   }
 
   getAuthorizationHeaderValue(): string {
-    return this.oauthService.hasValidAccessToken() ? 'Bearer ' + this.oauthService.getAccessToken() : '';
+    return this.oauthService.hasValidAccessToken()
+      ? 'Bearer ' + this.oauthService.getAccessToken()
+      : '';
   }
 
   startAuthentication(): void {
@@ -173,13 +175,22 @@ export class AuthService {
    */
   private isPotentiallyValidPath(path: string): boolean {
     // add '/service-access' to valid paths to enable basic auth
-    const validPaths = ['/home', '/organizations', '/facilities', '/myProfile', '/admin', '/login', '/service-access', '/profile'];
-    if (path === '/'){
+    const validPaths = [
+      '/home',
+      '/organizations',
+      '/facilities',
+      '/myProfile',
+      '/admin',
+      '/login',
+      '/service-access',
+      '/profile',
+    ];
+    if (path === '/') {
       return true;
     }
-    for (const validPath of validPaths){
+    for (const validPath of validPaths) {
       if (path.startsWith(validPath)) {
-        return  true;
+        return true;
       }
     }
 
@@ -223,8 +234,8 @@ export class AuthService {
             return new Promise<boolean>((resolve, reject) => reject("Invalid path"));
           }
 
-          sessionStorage.setItem('auth:redirect', path);
-          sessionStorage.setItem('auth:queryParams', queryParams);
+        sessionStorage.setItem('auth:redirect', path);
+        sessionStorage.setItem('auth:queryParams', queryParams);
 
           return false;
         }
@@ -247,8 +258,8 @@ export class AuthService {
 
   public redirectToOriginDestination(): Promise<boolean> {
     const mfaRoute = sessionStorage.getItem('mfa_route');
-    if (mfaRoute){
-      return this.router.navigate([mfaRoute], {replaceUrl: true})
+    if (mfaRoute) {
+      return this.router.navigate([mfaRoute], { replaceUrl: true });
     }
     let redirectUrl = sessionStorage.getItem('auth:redirect');
     const storageParams = sessionStorage.getItem('auth:queryParams');
@@ -257,10 +268,10 @@ export class AuthService {
       params = storageParams.split('&');
     }
     const queryParams: Params = {};
-    params.forEach(param => {
+    params.forEach((param) => {
       const elements = param.split('=');
       queryParams[elements[0]] = elements[1];
-    })
+    });
     if (!redirectUrl || redirectUrl === '/login') {
       redirectUrl = '/';
     }
@@ -270,7 +281,7 @@ export class AuthService {
     if (queryParams['idpFilter']) {
       this.filterShortname = queryParams['idpFilter'];
     }
-    return this.router.navigate([redirectUrl], {queryParams: queryParams, replaceUrl: true});
+    return this.router.navigate([redirectUrl], { queryParams: queryParams, replaceUrl: true });
   }
 
   public getIdpFilter(): string {

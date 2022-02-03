@@ -74,12 +74,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { PerunLoginModule } from '@perun-web-apps/perun/login';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
 import { MatMenuModule } from '@angular/material/menu';
-import { OAuthModule} from 'angular-oauth2-oidc';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
   useExisting: forwardRef(() => ApiInterceptor),
-  multi: true
+  multi: true,
 };
 
 export function createTranslateLoader(http: HttpClient) {
@@ -88,7 +88,7 @@ export function createTranslateLoader(http: HttpClient) {
 
 export function apiConfigFactory(store: StoreService): Configuration {
   const params: ConfigurationParameters = {
-    basePath: store.get('api_url')
+    basePath: store.get('api_url'),
   };
   return new Configuration(params);
 }
@@ -128,7 +128,7 @@ const loadConfigs = (appConfig: UserProfileConfigService) => () => appConfig.ini
     ShowSshDialogComponent,
     BreadcrumbsComponent,
     SettingsAuthenticationComponent,
-    AddAuthImgDialogComponent
+    AddAuthImgDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -137,9 +137,9 @@ const loadConfigs = (appConfig: UserProfileConfigService) => () => appConfig.ini
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [HttpClient]
-      }
+        useFactory: createTranslateLoader,
+        deps: [HttpClient],
+      },
     }),
     AppRoutingModule,
     MatIconModule,
@@ -174,7 +174,7 @@ const loadConfigs = (appConfig: UserProfileConfigService) => () => appConfig.ini
     PerunLoginModule,
     PerunUtilsModule,
     MatMenuModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
   ],
   providers: [
     CustomIconService,
@@ -182,31 +182,26 @@ const loadConfigs = (appConfig: UserProfileConfigService) => () => appConfig.ini
       provide: APP_INITIALIZER,
       useFactory: loadConfigs,
       multi: true,
-      deps: [UserProfileConfigService]
+      deps: [UserProfileConfigService],
     },
     {
       provide: Configuration,
       useFactory: apiConfigFactory,
-      deps: [StoreService]
+      deps: [StoreService],
     },
     UserFullNamePipe,
     ApiInterceptor,
     API_INTERCEPTOR_PROVIDER,
     {
       provide: PERUN_API_SERVICE,
-      useClass: ApiService
-    }
+      useClass: ApiService,
+    },
   ],
-  exports: [
-    SideMenuComponent,
-  ],
-  bootstrap: [AppComponent]
+  exports: [SideMenuComponent],
+  bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(
-    private customIconService: CustomIconService,
-    private translate: TranslateService
-  ) {
+  constructor(private customIconService: CustomIconService, private translate: TranslateService) {
     this.translate.setDefaultLang('en');
     this.translate.use('en');
     this.customIconService.registerPerunRefreshIcon();

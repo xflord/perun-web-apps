@@ -6,30 +6,21 @@
     <div class="font-weight-bold">
       {{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.ASK' | translate}}
     </div>
-    <table
-      mat-table
-      [dataSource]="dataSource"
-      class="w-100">
+    <table mat-table [dataSource]="dataSource" class="w-100">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let attrDefinition"> {{attrDefinition.friendlyName}} </td>
+        <td mat-cell *matCellDef="let attrDefinition">{{attrDefinition.friendlyName}}</td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns" class="font-weight-bolder"></tr>
       <tr mat-row *matRowDef="let attrDefinition; columns: displayedColumns;"></tr>
     </table>
   </div>
   <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      class="ml-auto"
-      (click)="onCancel()">
-      {{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.CANCEL' | translate}}</button>
-    <button
-      mat-flat-button
-      class="ml-2"
-      color="warn"
-      [disabled]="loading"
-      (click)="onConfirm()">
-      {{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.REMOVE' | translate}}</button>
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+      {{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.CANCEL' | translate}}
+    </button>
+    <button mat-flat-button class="ml-2" color="warn" [disabled]="loading" (click)="onConfirm()">
+      {{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.REMOVE' | translate}}
+    </button>
   </div>
 </div>

@@ -3,8 +3,12 @@
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content>
     <mat-stepper #stepper [linear]="true">
-      <mat-step [completed]="selection.selected.length !== 0 && (list !== undefined && list.addAuth)">
-        <ng-template matStepLabel>{{'DIALOGS.ADD_GROUP_RESOURCES.RESOURCES' | translate}}</ng-template>
+      <mat-step
+        [completed]="selection.selected.length !== 0 && (list !== undefined && list.addAuth)">
+        <ng-template
+          matStepLabel
+          >{{'DIALOGS.ADD_GROUP_RESOURCES.RESOURCES' | translate}}</ng-template
+        >
         <perun-web-apps-debounce-filter
           placeholder="{{'DIALOGS.ADD_GROUP_RESOURCES.FILTER' | translate}}"
           (filter)="applyFilter($event)">
@@ -17,11 +21,13 @@
           [selection]="selection"
           [groupToResource]="this.data.group"
           [displayedColumns]="['select', 'id', 'name', 'facility', 'tags', 'description']"
-          [filterValue]="filterValue"
-        ></perun-web-apps-resources-list>
+          [filterValue]="filterValue"></perun-web-apps-resources-list>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>{{'DIALOGS.ADD_GROUP_RESOURCES.OPTIONS' | translate}}</ng-template>
+        <ng-template
+          matStepLabel
+          >{{'DIALOGS.ADD_GROUP_RESOURCES.OPTIONS' | translate}}</ng-template
+        >
 
         <mat-slide-toggle
           (toggleChange)="changeSubgroupsMessage()"
@@ -59,9 +65,7 @@
     </mat-stepper>
   </div>
   <div *ngIf="!loading && stepper !== undefined" mat-dialog-actions>
-    <button
-      (click)="onCancel()"
-      mat-flat-button>
+    <button (click)="onCancel()" mat-flat-button>
       {{'DIALOGS.ADD_GROUP_RESOURCES.CANCEL' | translate}}
     </button>
     <button
@@ -86,15 +90,15 @@
     <span
       [matTooltipDisabled]="list === undefined || list.addAuth"
       matTooltip="{{'DIALOGS.ADD_GROUP_RESOURCES.ADD_PERMISSION_TOOLTIP' | translate}}">
-            <button
-              mat-flat-button
-              class="ml-2"
-              color="accent"
-              *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
-              [disabled]="selection.selected.length === 0 || loading"
-              (click)="onSubmit()">
-              {{'DIALOGS.ADD_GROUP_RESOURCES.ADD' | translate}}
-            </button>
-          </span>
+      <button
+        mat-flat-button
+        class="ml-2"
+        color="accent"
+        *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
+        [disabled]="selection.selected.length === 0 || loading"
+        (click)="onSubmit()">
+        {{'DIALOGS.ADD_GROUP_RESOURCES.ADD' | translate}}
+      </button>
+    </span>
   </div>
 </div>

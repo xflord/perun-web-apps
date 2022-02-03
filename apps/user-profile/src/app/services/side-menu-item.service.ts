@@ -2,24 +2,23 @@ import { Injectable } from '@angular/core';
 import { StoreService } from '@perun-web-apps/perun/services';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SideMenuItemService {
-
-  constructor(private store: StoreService) { }
+  constructor(private store: StoreService) {}
 
   getSideMenuItems(): SideMenuItem[] {
     const tabs = this.store.get('displayed_tabs');
-    const items: SideMenuItem[] = []
-    tabs.forEach(tab => {
-      switch (tab){
+    const items: SideMenuItem[] = [];
+    tabs.forEach((tab) => {
+      switch (tab) {
         case 'profile':
           items.push({
             label: 'MENU_ITEMS.PROFILE',
             icon: 'account_box',
             link: '/profile',
             activatedRegex: '^/profile$',
-            tabName: 'profile'
+            tabName: 'profile',
           });
           break;
         case 'identities':
@@ -28,7 +27,7 @@ export class SideMenuItemService {
             icon: 'remove_red_eye',
             link: '/profile/identities',
             activatedRegex: '^/profile/identities$',
-            tabName: 'identities'
+            tabName: 'identities',
           });
           break;
         case 'services':
@@ -37,7 +36,7 @@ export class SideMenuItemService {
             icon: 'build',
             link: '/profile/services',
             activatedRegex: '^/profile/services$',
-            tabName: 'services'
+            tabName: 'services',
           });
           break;
         case 'groups':
@@ -46,7 +45,7 @@ export class SideMenuItemService {
             icon: 'group',
             link: '/profile/groups',
             activatedRegex: '^/profile/groups$',
-            tabName: 'groups'
+            tabName: 'groups',
           });
           break;
         case 'vos':
@@ -55,7 +54,7 @@ export class SideMenuItemService {
             icon: 'account_balance',
             link: '/profile/organizations',
             activatedRegex: '^/profile/organizations$',
-            tabName: 'vos'
+            tabName: 'vos',
           });
           break;
         case 'privacy':
@@ -64,7 +63,7 @@ export class SideMenuItemService {
             icon: 'vpn_key',
             link: '/profile/privacy',
             activatedRegex: '^/profile/privacy$',
-            tabName: 'privacy'
+            tabName: 'privacy',
           });
           break;
         case 'settings':
@@ -73,25 +72,25 @@ export class SideMenuItemService {
             icon: 'settings',
             link: '/profile/settings',
             activatedRegex: '^/profile/settings',
-            tabName: 'settings'
+            tabName: 'settings',
           });
           break;
       }
-    })
+    });
     const externalServices = this.store.get('external_services');
-    externalServices.forEach(service => {
+    externalServices.forEach((service) => {
       const item = {
         icon: 'insert_link',
         link: service['url'],
         activatedRegex: '^/profile/external',
         tabName: 'external',
-        external: true
-      }
-      this.store.get('supported_languages').forEach(lang => {
+        external: true,
+      };
+      this.store.get('supported_languages').forEach((lang) => {
         item[`label_${lang}`] = service[`label_${lang}`] ?? service[`label_en`];
-      })
-      items.push(item)
-    })
+      });
+      items.push(item);
+    });
     return items;
   }
 }
@@ -102,5 +101,5 @@ export interface SideMenuItem {
   activatedRegex: string;
   tabName: string;
   external?: boolean;
-  [key:string]: string | boolean;
+  [key: string]: string | boolean;
 }

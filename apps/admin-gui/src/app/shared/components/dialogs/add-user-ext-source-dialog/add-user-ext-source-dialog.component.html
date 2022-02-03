@@ -7,7 +7,7 @@
         [formControl]="loginControl"
         matInput
         placeholder="{{'DIALOGS.ADD_USER_EXT_SOURCE.LOGIN' | translate}}"
-        required>
+        required />
       <mat-error>
         {{'DIALOGS.ADD_USER_EXT_SOURCE.EMPTY_LOGIN' | translate}}
       </mat-error>
@@ -19,7 +19,7 @@
         matInput
         placeholder="{{'DIALOGS.ADD_USER_EXT_SOURCE.EXT_SOURCE' | translate}}"
         type="text"
-        required>
+        required />
       <mat-error>
         {{'DIALOGS.ADD_USER_EXT_SOURCE.EMPTY_EXT_SOURCE' | translate}}
       </mat-error>
@@ -32,10 +32,7 @@
   </div>
 </div>
 <div mat-dialog-actions>
-  <button
-    (click)="onCancel()"
-    class="ml-auto"
-    mat-flat-button>
+  <button (click)="onCancel()" class="ml-auto" mat-flat-button>
     {{'DIALOGS.ADD_USER_EXT_SOURCE.CANCEL'|translate}}
   </button>
   <button

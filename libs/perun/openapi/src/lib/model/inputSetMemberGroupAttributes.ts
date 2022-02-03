@@ -11,19 +11,17 @@
  */
 import { Attribute } from './attribute';
 
-
 /**
  * input to setMemberGroupAttributes
  */
-export interface InputSetMemberGroupAttributes { 
-    /**
-     * member id
-     */
-    member: number;
-    /**
-     * group id
-     */
-    group: number;
-    attributes: Array<Attribute>;
+export interface InputSetMemberGroupAttributes {
+  /**
+   * member id
+   */
+  member: number;
+  /**
+   * group id
+   */
+  group: number;
+  attributes: Array<Attribute>;
 }
-
