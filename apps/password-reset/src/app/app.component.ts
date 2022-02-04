@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AttributesManagerService, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { PreferredLanguageService, StoreService } from '@perun-web-apps/perun/services';
@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, AfterViewInit{
 
   constructor(private dialog: MatDialog,
               private usersService: UsersManagerService,
@@ -27,6 +27,7 @@ export class AppComponent implements OnInit{
   authWithoutToken = false;
   contentHeight =  'calc(100vh - 84px)';
   contentBackgroundColor = this.store.get('theme', 'content_bg_color');
+  @ViewChild('footer') footer: ElementRef;
 
   ngOnInit() {
     const prefLang = this.preferredLangService.getPreferredLanguage(null);
@@ -47,7 +48,8 @@ export class AppComponent implements OnInit{
     } else {
       this.authWithoutToken = true;
       this.attributesManagerService.getLogins(this.store.getPerunPrincipal().userId).subscribe(logins => {
-        this.login = logins.find(login => login.friendlyNameParameter === this.namespace).value.toString();
+        const selectedLogin = logins.find(login => login.friendlyNameParameter === this.namespace);
+        this.login = selectedLogin ? selectedLogin.value.toString() : '';
       });
     }
   }
@@ -62,9 +64,8 @@ export class AppComponent implements OnInit{
     }
   }
 
-  setContentHeight(height: number) {
-    this.contentHeight =  'calc(100vh - 84px - '+height+'px)';
+  ngAfterViewInit(): void {
+    this.contentHeight =  'calc(100vh - 84px - '+this.footer.nativeElement.offsetHeight+'px)';
     this.changeDetector.detectChanges();
   }
-
 }
