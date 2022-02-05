@@ -1,6 +1,7 @@
 <h1 class="page-subtitle">{{'VO_DETAIL.APPLICATION.TITLE' | translate}}</h1>
 <div>
-  <perun-web-apps-refresh-button (refresh)="select()"></perun-web-apps-refresh-button>
+  <perun-web-apps-refresh-button
+    (refresh)="this.refresh=!this.refresh"></perun-web-apps-refresh-button>
   <button
     mat-stroked-button
     *ngIf="!showAllDetails"
@@ -16,7 +17,7 @@
     {{'VO_DETAIL.APPLICATION.SHOW_LESS_DETAILS' | translate}}
   </button>
   <mat-form-field class="w-25 mr-2">
-    <mat-label>{{'VO_DETAIL.APPLICATION.TABLE_STATE' | translate}}</mat-label>
+    <mat-label>{{'APPLICATIONS_LIST.STATE' | translate}}</mat-label>
     <mat-select (selectionChange)="select()" [(value)]="state" disableOptionCentering>
       <mat-option value="all">{{'VO_DETAIL.APPLICATION.SELECTION_ALL' | translate}}</mat-option>
       <mat-option value="wfmv">{{'VO_DETAIL.APPLICATION.SELECTION_WFMV' | translate}}</mat-option>
@@ -44,23 +45,15 @@
   <perun-web-apps-date-range [startDate]="startDate" [endDate]="endDate" (datePicker)="select()">
   </perun-web-apps-date-range>
 </div>
-<mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-<div *ngIf="!loading">
-  <app-applications-list
-    [tableId]="tableId"
-    [disableRouting]="!routeAuth"
-    *ngIf="!showAllDetails"
-    [filterValue]="filterValue"
-    [applications]="applications"
-    [displayedColumns]="displayedColumns"
+<div>
+  <app-applications-dynamic-list
+    [tableId]="showAllDetails ? detailTableId : tableId"
+    [searchString]="filterValue"
+    [displayedColumns]="showAllDetails ? detailedDisplayedColumns : displayedColumns"
+    [states]="currentStates"
+    [dateFrom]="startDate.value"
+    [dateTo]="endDate.value"
+    [refreshTable]="refresh"
     [group]="group">
-  </app-applications-list>
-  <app-perun-web-apps-application-list-details
-    [tableId]="detailTableId"
-    [disableRouting]="!routeAuth"
-    [filterValue]="filterValue"
-    [applications]="applications"
-    [group]="group"
-    *ngIf="showAllDetails">
-  </app-perun-web-apps-application-list-details>
+  </app-applications-dynamic-list>
 </div>

@@ -9,14 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { GroupsOrderColumn } from './groupsOrderColumn';
-import { SortingOrder } from './sortingOrder';
+import { Application } from './application';
 
-export interface GroupsPageQuery {
-  pageSize: number;
+export interface PaginatedApplications {
   offset: number;
-  order: SortingOrder;
-  sortColumn: GroupsOrderColumn;
-  memberId?: number;
-  searchString?: string;
+  pageSize: number;
+  totalCount: number;
+  data: Array<Application>;
 }

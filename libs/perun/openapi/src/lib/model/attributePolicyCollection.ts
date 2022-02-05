@@ -9,14 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { GroupsOrderColumn } from './groupsOrderColumn';
-import { SortingOrder } from './sortingOrder';
+import { AttributeAction } from './attributeAction';
+import { AttributePolicy } from './attributePolicy';
 
-export interface GroupsPageQuery {
-  pageSize: number;
-  offset: number;
-  order: SortingOrder;
-  sortColumn: GroupsOrderColumn;
-  memberId?: number;
-  searchString?: string;
+export interface AttributePolicyCollection {
+  id: number;
+  attributeId: number;
+  action: AttributeAction;
+  policies: Array<AttributePolicy>;
 }

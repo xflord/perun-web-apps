@@ -1,6 +1,7 @@
 <h1 class="page-subtitle">{{'MEMBER_DETAIL.APPLICATIONS.TITLE' | translate}}</h1>
 <div>
-  <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
+  <perun-web-apps-refresh-button
+    (refresh)="this.refresh=!this.refresh"></perun-web-apps-refresh-button>
   <button
     (click)="this.showAllDetails = true"
     *ngIf="!showAllDetails"
@@ -15,25 +16,20 @@
     mat-stroked-button>
     {{'MEMBER_DETAIL.APPLICATIONS.SHOW_LESS_DETAILS' | translate}}
   </button>
-  <perun-web-apps-immediate-filter
-    (filter)="applyFilter($event)"
-    [placeholder]="'MEMBER_DETAIL.APPLICATIONS.FILTER'"></perun-web-apps-immediate-filter>
+  <perun-web-apps-debounce-filter
+    [placeholder]="'MEMBER_DETAIL.APPLICATIONS.FILTER'"
+    (filter)="applyFilter($event)">
+  </perun-web-apps-debounce-filter>
 </div>
 <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
 <div *ngIf="!loading">
-  <app-applications-list
-    [tableId]="tableId"
-    *ngIf="!showAllDetails"
-    [filterValue]="filterValue"
-    [applications]="applications"
+  <app-applications-dynamic-list
+    [tableId]="showAllDetails ? detailTableId : tableId"
+    [searchString]="filterValue"
     [member]="member"
-    [displayedColumns]="displayedColumns">
-  </app-applications-list>
-  <app-perun-web-apps-application-list-details
-    [tableId]="detailTableId"
-    [filterValue]="filterValue"
-    [applications]="applications"
-    [member]="member"
-    *ngIf="showAllDetails">
-  </app-perun-web-apps-application-list-details>
+    [displayedColumns]="showAllDetails ? detailedDisplayedColumns : displayedColumns"
+    [states]=""
+    [dateFrom]="dateFrom"
+    [refreshTable]="refresh">
+  </app-applications-dynamic-list>
 </div>

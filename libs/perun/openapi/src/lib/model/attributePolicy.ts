@@ -9,14 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { GroupsOrderColumn } from './groupsOrderColumn';
-import { SortingOrder } from './sortingOrder';
+import { RoleObject } from './roleObject';
 
-export interface GroupsPageQuery {
-  pageSize: number;
-  offset: number;
-  order: SortingOrder;
-  sortColumn: GroupsOrderColumn;
-  memberId?: number;
-  searchString?: string;
+export interface AttributePolicy {
+  id: number;
+  role: string;
+  object: RoleObject;
+  policyCollectionId: number;
 }

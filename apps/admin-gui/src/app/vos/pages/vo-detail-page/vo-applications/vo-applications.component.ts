@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Application, RegistrarManagerService, Vo } from '@perun-web-apps/perun/openapi';
+import { AppState, RegistrarManagerService, Vo } from '@perun-web-apps/perun/openapi';
 import {
   TABLE_VO_APPLICATIONS_DETAILED,
   TABLE_VO_APPLICATIONS_NORMAL,
@@ -24,71 +24,75 @@ export class VoApplicationsComponent implements OnInit {
   ) {}
 
   state = 'pending';
-  loading = false;
-  applications: Application[] = [];
+  currentStates: AppState[] = ['NEW', 'VERIFIED'];
   vo: Vo;
-  displayedColumns: string[] = ['id', 'createdAt', 'type', 'state', 'user', 'group', 'modifiedBy'];
-  firstSearchDone: boolean;
+  simpleColumns: string[] = [
+    'id',
+    'createdAt',
+    'type',
+    'state',
+    'createdBy',
+    'groupName',
+    'modifiedBy',
+  ];
+  detailedColumns: string[] = [
+    'id',
+    'createdAt',
+    'voId',
+    'voName',
+    'groupId',
+    'groupName',
+    'type',
+    'state',
+    'extSourceName',
+    'extSourceType',
+    'user',
+    'createdBy',
+    'modifiedBy',
+    'modifiedAt',
+    'fedInfo',
+  ];
+  currentColumns: string[] = [];
   filterValue = '';
   showAllDetails = false;
   detailTableId = TABLE_VO_APPLICATIONS_DETAILED;
   tableId = TABLE_VO_APPLICATIONS_NORMAL;
-
   startDate: FormControl;
   endDate: FormControl;
-  checked = false;
+  showGroupApps = false;
+  refresh = false;
 
   ngOnInit() {
-    this.loading = true;
     this.vo = this.entityStorageService.getEntity();
     this.startDate = new FormControl(formatDate(this.yearAgo(), 'yyyy-MM-dd', 'en-GB'));
     this.endDate = new FormControl(formatDate(new Date(), 'yyyy-MM-dd', 'en-GB'));
-    this.setData(['NEW', 'VERIFIED']);
-  }
-
-  setData(state: string[]) {
-    this.registrarManager
-      .getApplicationsForVo(
-        this.vo.id,
-        state,
-        formatDate(this.startDate.value, 'yyyy-MM-dd', 'en-GB'),
-        formatDate(this.endDate.value, 'yyyy-MM-dd', 'en-GB')
-      )
-      .subscribe((applications) => {
-        if (this.checked === false) {
-          this.applications = applications.filter((application) => application.group === null);
-        } else {
-          this.applications = applications;
-        }
-        this.loading = false;
-      });
+    this.currentColumns = this.refreshColumns();
   }
 
   select() {
-    this.loading = true;
     switch (this.state) {
       case 'approved': {
-        this.setData(['APPROVED']);
+        this.currentStates = ['APPROVED'];
         break;
       }
       case 'rejected': {
-        this.setData(['REJECTED']);
+        this.currentStates = ['REJECTED'];
         break;
       }
       case 'wfmv': {
-        this.setData(['NEW']);
+        this.currentStates = ['NEW'];
         break;
       }
       case 'submited': {
-        this.setData(['VERIFIED']);
+        this.currentStates = ['VERIFIED'];
         break;
       }
       case 'pending': {
-        this.setData(['NEW', 'VERIFIED']);
+        this.currentStates = ['NEW', 'VERIFIED'];
         break;
       }
       case 'all': {
-        this.setData(null);
+        this.currentStates = null;
         break;
       }
       default: {
@@ -98,19 +102,33 @@ export class VoApplicationsComponent implements OnInit {
   }
 
   yearAgo() {
-    const date = new Date();
-    const year = date.getFullYear() - 1;
-    const month = date.getMonth();
-    const day = date.getDate();
-    return new Date(year, month, day);
+    const newDate = new Date();
+    newDate.setDate(newDate.getDate() - 365);
+    return newDate;
   }
 
   showGroupApplications(event) {
-    this.checked = event.checked;
-    this.select();
+    this.showGroupApps = event.checked;
+    this.currentColumns = this.refreshColumns();
+  }
+
+  showDetails(value: boolean) {
+    this.showAllDetails = value;
+    this.currentColumns = this.refreshColumns();
   }
 
   applyFilter(filterValue: string) {
     this.filterValue = filterValue;
+  }
+
+  refreshColumns() {
+    if (this.showAllDetails) {
+      return this.showGroupApps
+        ? this.detailedColumns
+        : this.detailedColumns.filter((c) => c !== 'groupName' && c !== 'groupId');
+    }
+    return this.showGroupApps
+      ? this.simpleColumns
+      : this.simpleColumns.filter((c) => c !== 'groupName');
   }
 }

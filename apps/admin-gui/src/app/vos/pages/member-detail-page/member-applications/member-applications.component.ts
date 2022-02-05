@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  Application,
   Member,
   MembersManagerService,
   RegistrarManagerService,
@@ -24,14 +23,40 @@ export class MemberApplicationsComponent implements OnInit {
   ) {}
 
   loading = false;
-  applications: Application[] = [];
   memberId: number;
   member: Member;
-  displayedColumns: string[] = ['id', 'createdAt', 'type', 'state', 'user', 'group', 'modifiedBy'];
+  displayedColumns: string[] = [
+    'id',
+    'createdAt',
+    'type',
+    'state',
+    'user',
+    'groupName',
+    'modifiedBy',
+  ];
+  detailedDisplayedColumns: string[] = [
+    'id',
+    'createdAt',
+    'voId',
+    'voName',
+    'groupId',
+    'groupName',
+    'type',
+    'state',
+    'extSourceName',
+    'extSourceType',
+    'user',
+    'createdBy',
+    'modifiedBy',
+    'modifiedAt',
+    'fedInfo',
+  ];
   filterValue = '';
   showAllDetails = false;
   detailTableId = TABLE_MEMBER_APPLICATIONS_DETAILED;
   tableId = TABLE_MEMBER_APPLICATIONS_NORMAL;
+  dateFrom: Date = new Date('1970-01-01');
+  refresh: boolean;
 
   ngOnInit(): void {
     this.loading = true;
@@ -40,20 +65,8 @@ export class MemberApplicationsComponent implements OnInit {
 
       this.memberManager.getMemberById(this.memberId).subscribe((member) => {
         this.member = member;
-      });
-
-      this.registrarManager.getApplicationsForMember(this.memberId).subscribe((applications) => {
-        this.applications = applications;
         this.loading = false;
       });
-    });
-  }
-
-  refreshTable() {
-    this.loading = true;
-    this.registrarManager.getApplicationsForMember(this.memberId).subscribe((applications) => {
-      this.applications = applications;
-      this.loading = false;
     });
   }
 

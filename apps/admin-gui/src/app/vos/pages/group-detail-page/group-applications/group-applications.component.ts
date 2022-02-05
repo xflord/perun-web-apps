@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Application, Group, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
+import { AppState, Group, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import {
   TABLE_GROUP_APPLICATIONS_DETAILED,
   TABLE_GROUP_APPLICATIONS_NORMAL,
@@ -26,75 +26,72 @@ export class GroupApplicationsComponent implements OnInit {
   ) {}
 
   state = 'pending';
-  loading = false;
-  applications: Application[] = [];
+  currentStates: AppState[] = ['NEW', 'VERIFIED'];
   group: Group;
-  displayedColumns: string[] = ['id', 'createdAt', 'type', 'state', 'user', 'modifiedBy'];
+  displayedColumns: string[] = [
+    'id',
+    'createdAt',
+    'type',
+    'state',
+    'createdBy',
+    'groupName',
+    'modifiedBy',
+  ];
+  detailedDisplayedColumns: string[] = [
+    'id',
+    'createdAt',
+    'voId',
+    'voName',
+    'groupId',
+    'groupName',
+    'type',
+    'state',
+    'extSourceName',
+    'extSourceType',
+    'user',
+    'createdBy',
+    'modifiedBy',
+    'modifiedAt',
+    'fedInfo',
+  ];
   filterValue = '';
   showAllDetails = false;
   detailTableId = TABLE_GROUP_APPLICATIONS_DETAILED;
   tableId = TABLE_GROUP_APPLICATIONS_NORMAL;
-  routeAuth = false;
-
+  refresh = false;
   startDate: FormControl;
   endDate: FormControl;
 
   ngOnInit() {
-    this.loading = true;
     this.group = this.entityStorageService.getEntity();
     this.startDate = new FormControl(formatDate(this.yearAgo(), 'yyyy-MM-dd', 'en-GB'));
     this.endDate = new FormControl(formatDate(new Date(), 'yyyy-MM-dd', 'en-GB'));
-    this.setData(['NEW', 'VERIFIED']);
-  }
-
-  setAuth() {
-    if (this.applications.length !== 0) {
-      this.routeAuth = this.guiAuthResolver.isAuthorized('group-getApplicationById_int_policy', [
-        this.group,
-      ]);
-    }
-  }
-
-  setData(state: string[]) {
-    this.registrarManager
-      .getApplicationsForGroup(
-        this.group.id,
-        state,
-        formatDate(this.startDate.value, 'yyyy-MM-dd', 'en-GB'),
-        formatDate(this.endDate.value, 'yyyy-MM-dd', 'en-GB')
-      )
-      .subscribe((applications) => {
-        this.applications = applications;
-        this.setAuth();
-        this.loading = false;
-      });
   }
 
   select() {
-    this.loading = true;
     switch (this.state) {
       case 'approved': {
-        this.setData(['APPROVED']);
+        this.currentStates = ['APPROVED'];
         break;
       }
       case 'rejected': {
-        this.setData(['REJECTED']);
+        this.currentStates = ['REJECTED'];
         break;
       }
       case 'wfmv': {
-        this.setData(['NEW']);
+        this.currentStates = ['NEW'];
         break;
       }
       case 'submited': {
-        this.setData(['VERIFIED']);
+        this.currentStates = ['VERIFIED'];
         break;
       }
       case 'pending': {
-        this.setData(['NEW', 'VERIFIED']);
+        this.currentStates = ['NEW', 'VERIFIED'];
         break;
       }
       case 'all': {
-        this.setData(null);
+        this.currentStates = null;
         break;
       }
       default: {
@@ -104,11 +101,9 @@ export class GroupApplicationsComponent implements OnInit {
   }
 
   yearAgo() {
-    const date = new Date();
-    const year = date.getFullYear() - 1;
-    const month = date.getMonth();
-    const day = date.getDate();
-    return new Date(year, month, day);
+    const newDate = new Date();
+    newDate.setDate(newDate.getDate() - 365);
+    return newDate;
   }
 
   applyFilter(filterValue: string) {

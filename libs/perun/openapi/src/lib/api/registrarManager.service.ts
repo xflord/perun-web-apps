@@ -34,6 +34,7 @@ import { InputAddApplicationMailForGroup } from '../model/inputAddApplicationMai
 import { InputAddApplicationMailForVo } from '../model/inputAddApplicationMailForVo';
 import { InputFormItemData } from '../model/inputFormItemData';
 import { InputFormItemData1 } from '../model/inputFormItemData1';
+import { InputGetPaginatedApplications } from '../model/inputGetPaginatedApplications';
 import { InputSendMessage } from '../model/inputSendMessage';
 import { InputSetSendingEnabled } from '../model/inputSetSendingEnabled';
 import { InputSubmitApplication } from '../model/inputSubmitApplication';
@@ -41,6 +42,7 @@ import { InputUpdateApplicationMail } from '../model/inputUpdateApplicationMail'
 import { InputUpdateForm } from '../model/inputUpdateForm';
 import { InputUpdateFormItemsForGroup } from '../model/inputUpdateFormItemsForGroup';
 import { InputUpdateFormItemsForVo } from '../model/inputUpdateFormItemsForVo';
+import { PaginatedApplications } from '../model/paginatedApplications';
 import { PerunException } from '../model/perunException';
 import { UserExtSource } from '../model/userExtSource';
 
@@ -2307,6 +2309,88 @@ export class RegistrarManagerService {
       `${this.configuration.basePath}/json/registrarManager/getApplicationsForVo`,
       {
         params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Get page of applications from the given vo, based on the query attributes.
+   * @param inputGetPaginatedApplications
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getApplicationsPage(
+    inputGetPaginatedApplications: InputGetPaginatedApplications,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<PaginatedApplications>;
+  public getApplicationsPage(
+    inputGetPaginatedApplications: InputGetPaginatedApplications,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<PaginatedApplications>>;
+  public getApplicationsPage(
+    inputGetPaginatedApplications: InputGetPaginatedApplications,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<PaginatedApplications>>;
+  public getApplicationsPage(
+    inputGetPaginatedApplications: InputGetPaginatedApplications,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (inputGetPaginatedApplications === null || inputGetPaginatedApplications === undefined) {
+      throw new Error(
+        'Required parameter inputGetPaginatedApplications was null or undefined when calling getApplicationsPage.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
+      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.post<PaginatedApplications>(
+      `${this.configuration.basePath}/json/registrarManager/getApplicationsPage`,
+      inputGetPaginatedApplications,
+      {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,

@@ -1,50 +1,70 @@
 <div
-  class="card mt-2 w-100"
-  [class.hide-table]="loading"
-  [hidden]="this.table.length === 0 || (dataSource ? dataSource.filteredData.length === 0 : false)">
+  [hidden]="this.dataSource.allObjectCount === 0 && (dataSource.loading$ | async) === false"
+  class="card mt-2">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
-    [tableId]="tableId"
-    [dataLength]="dataSource.filteredData.length"
-    [pageSizeOptions]="pageSizeOptions">
-    <table [dataSource]="dataSource" mat-table class="w-100">
+    [dataLength]="dataSource.allObjectCount"
+    [pageSizeOptions]="pageSizeOptions"
+    [tableId]="tableId">
+    <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+      <mat-spinner class="ml-auto mr-auto"></mat-spinner>
+    </div>
+    <table
+      [dataSource]="dataSource"
+      class="w-100"
+      mat-table
+      matSort
+      matSortActive="createdAt"
+      matSortDirection="desc"
+      matSortDisableClear>
       <ng-container matColumnDef="id">
-        <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.ID' | translate}}</th>
-        <td *matCellDef="let application" class="static-column-size" mat-cell>
-          {{application['id']}}
-        </td>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'APPLICATIONS_LIST.ID' | translate}}
+        </th>
+        <td *matCellDef="let application" mat-cell>{{application.id}}</td>
+      </ng-container>
+      <ng-container matColumnDef="createdAt">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'APPLICATIONS_LIST.CREATED_DATE' | translate}}
+        </th>
+        <td *matCellDef="let application" mat-cell>{{application.createdAt | date: 'd.M.y'}}</td>
       </ng-container>
       <ng-container matColumnDef="voId">
         <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.VO_ID' | translate}}</th>
-        <td *matCellDef="let application" class="static-column-size" mat-cell>
-          {{application['vo'].id}}
-        </td>
+        <td *matCellDef="let application" mat-cell>{{application['vo'].id}}</td>
       </ng-container>
       <ng-container matColumnDef="voName">
         <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.VO_NAME' | translate}}</th>
-        <td *matCellDef="let application" class="static-column-size" mat-cell>
-          {{application['vo'].name}}
-        </td>
+        <td *matCellDef="let application" mat-cell>{{application['vo'].name}}</td>
       </ng-container>
       <ng-container matColumnDef="groupId">
         <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.GROUP_ID' | translate}}</th>
-        <td *matCellDef="let application" class="static-column-size" mat-cell>
+        <td *matCellDef="let application" mat-cell>
           {{application.group ? application.group.id : '' }}
         </td>
       </ng-container>
       <ng-container matColumnDef="groupName">
         <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.GROUP_NAME' | translate}}</th>
-        <td *matCellDef="let application" class="static-column-size" mat-cell>
+        <td *matCellDef="let application" mat-cell>
           {{application.group ? application.group.name : '' }}
         </td>
       </ng-container>
       <ng-container matColumnDef="type">
-        <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.TYPE' | translate}}</th>
-        <td *matCellDef="let application" mat-cell>{{application.type}}</td>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'APPLICATIONS_LIST.TYPE' | translate}}
+        </th>
+        <td *matCellDef="let application" mat-cell>
+          <app-application-type-icon
+            [applicationType]="application.type"></app-application-type-icon>
+        </td>
       </ng-container>
       <ng-container matColumnDef="state">
-        <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.STATE' | translate}}</th>
-        <td *matCellDef="let application" mat-cell>{{application.state}}</td>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'APPLICATIONS_LIST.STATE' | translate}}
+        </th>
+        <td *matCellDef="let application" mat-cell>
+          <span [outerHTML]="application.state | applicationState"></span>
+        </td>
       </ng-container>
       <ng-container matColumnDef="extSourceName">
         <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.EXTSOURCENAME' | translate}}</th>
@@ -55,37 +75,34 @@
         <td *matCellDef="let application" mat-cell>{{application.extSourceType}}</td>
       </ng-container>
       <ng-container matColumnDef="user">
-        <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.USER' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'APPLICATIONS_LIST.USER' | translate}}
+        </th>
         <td *matCellDef="let application" mat-cell>
-          {{application.user ? (application.user | userFullName) : 'null'}}
+          <div *ngIf="application.user === null; else name">
+            {{application.createdBy.slice(application.createdBy.lastIndexOf('=') + 1, application.createdBy.length)}}
+          </div>
+          <ng-template #name>
+            {{application.user | userFullName}}
+          </ng-template>
         </td>
       </ng-container>
       <ng-container matColumnDef="createdBy">
         <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.CREATED_BY' | translate}}</th>
         <td *matCellDef="let application" mat-cell>
-          {{application.createdBy.slice(application.createdBy.lastIndexOf('=')+1, application.createdBy.length)}}
+          {{application.createdBy.slice(application.createdBy.lastIndexOf('=') + 1, application.createdBy.length)}}
         </td>
       </ng-container>
-      <ng-container matColumnDef="createdAt">
-        <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.CREATED_DATE' | translate}}</th>
-        <td *matCellDef="let application" mat-cell>{{application.createdAt | date: 'd.M.y'}}</td>
-      </ng-container>
       <ng-container matColumnDef="modifiedBy">
-        <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.MODIFIED_BY' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'APPLICATIONS_LIST.MODIFIED_BY' | translate}}
+        </th>
         <td *matCellDef="let application" mat-cell>{{getFriendlyName(application.modifiedBy)}}</td>
       </ng-container>
       <ng-container matColumnDef="modifiedAt">
         <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.MODIFIED_AT' | translate}}</th>
         <td *matCellDef="let application" mat-cell>{{application.modifiedAt | date: 'd.M.y'}}</td>
       </ng-container>
-
-      <ng-container
-        *ngFor="let disCol of addedColumns; let colIndex = index"
-        [matColumnDef]="disCol">
-        <th *matHeaderCellDef mat-header-cell>{{disCol}}</th>
-        <td *matCellDef="let application" mat-cell>{{application[disCol]}}</td>
-      </ng-container>
-
       <ng-container matColumnDef="fedInfo">
         <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.FEDINFO' | translate}}</th>
         <td *matCellDef="let application" mat-cell>{{application.fedInfo}}</td>
@@ -103,12 +120,8 @@
   </perun-web-apps-table-wrapper>
 </div>
 
-<app-alert *ngIf="this.dataSource.data.length === 0" alert_type="warn">
+<app-alert
+  *ngIf="this.dataSource.allObjectCount === 0 && (dataSource.loading$ | async) === false"
+  [alert_type]="'warn'">
   {{'VO_DETAIL.APPLICATION.NO_APPLICATION_FOUND' | translate}}
 </app-alert>
-
-<app-alert *ngIf="dataSource.filteredData.length === 0 && table.length !== 0" alert_type="warn">
-  {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
-</app-alert>
-
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>

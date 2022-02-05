@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import {
+  ApplicationsOrderColumn,
+  AppState,
   AuditMessagesManagerService,
   MemberGroupStatus,
   MembersManagerService,
   MembersOrderColumn,
+  PaginatedApplications,
   PaginatedAuditMessages,
   PaginatedRichMembers,
   PaginatedRichUsers,
+  RegistrarManagerService,
   SortingOrder,
   UsersManagerService,
   UsersOrderColumn,
@@ -21,7 +25,8 @@ export class DynamicPaginatingService {
   constructor(
     private membersService: MembersManagerService,
     private usersService: UsersManagerService,
-    private auditMessagesManagerService: AuditMessagesManagerService
+    private auditMessagesManagerService: AuditMessagesManagerService,
+    private registrarService: RegistrarManagerService
   ) {}
 
   getMembers(
@@ -94,6 +99,38 @@ export class DynamicPaginatingService {
         offset: pageSize * pageNumber,
         pageSize: pageSize,
         order: order,
+      },
+    });
+  }
+
+  getApplications(
+    pageSize: number,
+    pageIndex: number,
+    sortOrder: SortingOrder,
+    sortColumn: ApplicationsOrderColumn,
+    includeGroupApps: boolean,
+    searchString: string,
+    states: AppState[],
+    dateFrom: string,
+    dateTo: string,
+    userId: number,
+    voId: number,
+    groupId: number
+  ): Observable<PaginatedApplications> {
+    return this.registrarService.getApplicationsPage({
+      vo: voId,
+      query: {
+        pageSize: pageSize,
+        offset: pageIndex * pageSize,
+        order: sortOrder,
+        sortColumn: sortColumn,
+        includeGroupApplications: includeGroupApps,
+        searchString: searchString,
+        states: states,
+        dateFrom: dateFrom,
+        dateTo: dateTo,
+        userId: userId,
+        groupId: groupId,
       },
     });
   }

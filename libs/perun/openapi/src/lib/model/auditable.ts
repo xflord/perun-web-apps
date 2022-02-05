@@ -12,10 +12,10 @@
 import { PerunBean } from './perunBean';
 
 export interface Auditable extends PerunBean {
-  createdAt?: string;
-  createdBy?: string;
-  modifiedAt?: string;
-  modifiedBy?: string;
-  createdByUid?: number;
-  modifiedByUid?: number;
+  createdAt?: string | null;
+  createdBy?: string | null;
+  modifiedAt?: string | null;
+  modifiedBy?: string | null;
+  createdByUid?: number | null;
+  modifiedByUid?: number | null;
 }

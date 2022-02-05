@@ -12,9 +12,9 @@
 import { AttributeDefinition } from './attributeDefinition';
 
 export interface Attribute extends AttributeDefinition {
-  valueCreatedAt?: string;
-  valueCreatedBy?: string;
-  valueModifiedAt?: string;
-  valueModifiedBy?: string;
+  valueCreatedAt?: string | null;
+  valueCreatedBy?: string | null;
+  valueModifiedAt?: string | null;
+  valueModifiedBy?: string | null;
   value?: object;
 }

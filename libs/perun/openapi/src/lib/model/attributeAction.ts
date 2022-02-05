@@ -9,14 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { GroupsOrderColumn } from './groupsOrderColumn';
-import { SortingOrder } from './sortingOrder';
 
-export interface GroupsPageQuery {
-  pageSize: number;
-  offset: number;
-  order: SortingOrder;
-  sortColumn: GroupsOrderColumn;
-  memberId?: number;
-  searchString?: string;
-}
+/**
+ * Represents types of actions that users can perform upon attributes.
+ */
+export type AttributeAction = 'WRITE' | 'READ';
+
+export const AttributeAction = {
+  WRITE: 'WRITE' as AttributeAction,
+  READ: 'READ' as AttributeAction,
+};

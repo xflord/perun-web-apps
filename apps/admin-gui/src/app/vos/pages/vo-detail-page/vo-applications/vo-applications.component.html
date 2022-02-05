@@ -1,22 +1,15 @@
 <h1 class="page-subtitle">{{'VO_DETAIL.APPLICATION.TITLE' | translate}}</h1>
 <div>
-  <perun-web-apps-refresh-button (refresh)="select()"></perun-web-apps-refresh-button>
-  <button
-    mat-stroked-button
-    *ngIf="!showAllDetails"
-    class="mr-2"
-    (click)="this.showAllDetails = true">
+  <perun-web-apps-refresh-button
+    (refresh)="this.refresh = !this.refresh"></perun-web-apps-refresh-button>
+  <button mat-stroked-button *ngIf="!showAllDetails" class="mr-2" (click)="this.showDetails(true)">
     {{'VO_DETAIL.APPLICATION.SHOW_ALL_DETAILS' | translate}}
   </button>
-  <button
-    mat-stroked-button
-    *ngIf="showAllDetails"
-    class="mr-2"
-    (click)="this.showAllDetails = false">
+  <button mat-stroked-button *ngIf="showAllDetails" class="mr-2" (click)="this.showDetails(false)">
     {{'VO_DETAIL.APPLICATION.SHOW_LESS_DETAILS' | translate}}
   </button>
   <mat-form-field class="input-width-250 mr-2">
-    <mat-label>{{'VO_DETAIL.APPLICATION.TABLE_STATE' | translate}}</mat-label>
+    <mat-label>{{'APPLICATIONS_LIST.STATE' | translate}}</mat-label>
     <mat-select (selectionChange)="select()" [(value)]="state" disableOptionCentering>
       <mat-option value="all">{{'VO_DETAIL.APPLICATION.SELECTION_ALL' | translate}}</mat-option>
       <mat-option value="wfmv">{{'VO_DETAIL.APPLICATION.SELECTION_WFMV' | translate}}</mat-option>
@@ -45,24 +38,24 @@
   <perun-web-apps-date-range [startDate]="startDate" [endDate]="endDate" (datePicker)="select()">
   </perun-web-apps-date-range>
   <div>
-    <mat-checkbox color="primary" [checked]="checked" (change)="showGroupApplications($event)">
+    <mat-checkbox
+      color="primary"
+      [checked]="showGroupApps"
+      (change)="showGroupApplications($event)">
       {{'VO_DETAIL.APPLICATION.SHOW_GROUP_APPLICATIONS' | translate}}
     </mat-checkbox>
   </div>
 </div>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-<div *ngIf="!loading">
-  <app-applications-list
-    [tableId]="tableId"
-    [filterValue]="filterValue"
-    [applications]="applications"
-    [displayedColumns]="displayedColumns"
-    *ngIf="!showAllDetails">
-  </app-applications-list>
-  <app-perun-web-apps-application-list-details
-    [tableId]="detailTableId"
-    [filterValue]="filterValue"
-    [applications]="applications"
-    *ngIf="showAllDetails">
-  </app-perun-web-apps-application-list-details>
+<div>
+  <app-applications-dynamic-list
+    [tableId]="showAllDetails ? detailTableId : tableId"
+    [searchString]="filterValue"
+    [displayedColumns]="currentColumns"
+    [states]="currentStates"
+    [dateFrom]="startDate.value"
+    [dateTo]="endDate.value"
+    [includeGroupApps]="showGroupApps"
+    [refreshTable]="refresh"
+    [vo]="vo">
+  </app-applications-dynamic-list>
 </div>

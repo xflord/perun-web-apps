@@ -20,6 +20,8 @@ import { VoAttributesComponent } from './pages/vo-detail-page/vo-attributes/vo-a
 import { VoSettingsOverviewComponent } from './pages/vo-detail-page/vo-settings/vo-settings-overview/vo-settings-overview.component';
 import { VoSettingsExpirationComponent } from './pages/vo-detail-page/vo-settings/vo-settings-expiration/vo-settings-expiration.component';
 import { ApplicationsListComponent } from './components/applications-list/applications-list.component';
+import { ApplicationsDynamicListComponent } from './components/applications-dynamic-list/applications-dynamic-list.component';
+import { ApplicationTypeIconComponent } from './components/application-type-icon/application-type-icon.component';
 import { GroupApplicationsComponent } from './pages/group-detail-page/group-applications/group-applications.component';
 import { VoSettingsManagersComponent } from './pages/vo-detail-page/vo-settings/vo-settings-managers/vo-settings-managers.component';
 import { ApplicationDetailComponent } from './components/application-detail/application-detail.component';
@@ -92,6 +94,8 @@ import { VoSettingsServiceMembersComponent } from './pages/vo-detail-page/vo-set
     VoSettingsOverviewComponent,
     VoSettingsExpirationComponent,
     ApplicationsListComponent,
+    ApplicationsDynamicListComponent,
+    ApplicationTypeIconComponent,
     GroupApplicationsComponent,
     VoSettingsManagersComponent,
     ApplicationDetailComponent,

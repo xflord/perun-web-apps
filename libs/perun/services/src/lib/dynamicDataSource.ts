@@ -2,9 +2,13 @@ import { DataSource } from '@angular/cdk/collections';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import {
+  Application,
+  ApplicationsOrderColumn,
+  AppState,
   AuditMessage,
   MemberGroupStatus,
   MembersOrderColumn,
+  PaginatedApplications,
   PaginatedAuditMessages,
   PaginatedRichMembers,
   PaginatedRichUsers,
@@ -146,6 +150,66 @@ export class DynamicDataSource<T> implements DataSource<T> {
         if (this.latestQueryTime <= thisQueryTime) {
           const data: AuditMessage[] = (<PaginatedAuditMessages>paginatedAuditMessages).data;
           this.allObjectCount = (<PaginatedAuditMessages>paginatedAuditMessages).totalCount;
+          // @ts-ignore
+          this.dataSubject.next(data);
+        }
+      });
+  }
+
+  loadApplications(
+    pageSize: number,
+    pageIndex: number,
+    sortOrder: SortingOrder,
+    sortColumn: ApplicationsOrderColumn,
+    searchString: string,
+    includeGroupApps: boolean,
+    states: AppState[],
+    dateFrom: string,
+    dateTo: string,
+    userId: number,
+    groupId: number,
+    voId: number
+  ) {
+    this.loadingSubject.next(true);
+    this.latestQueryTime = Date.now();
+    const thisQueryTime = this.latestQueryTime;
+
+    this.dynamicPaginatingService
+      .getApplications(
+        pageSize,
+        pageIndex,
+        sortOrder,
+        sortColumn,
+        includeGroupApps,
+        searchString,
+        states,
+        dateFrom,
+        dateTo,
+        userId,
+        voId,
+        groupId
+      )
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject.next(false))
+      )
+      .subscribe((paginatedApplications) => {
+        if (this.latestQueryTime <= thisQueryTime) {
+          const data: Application[] = (<PaginatedApplications>paginatedApplications).data;
+          if (data !== null && data.length !== 0) {
+            if (data[0].group) {
+              this.routeAuth = this.authzService.isAuthorized(
+                'getApplicationsForGroup_Group_List<String>_policy',
+                [data[0].group]
+              );
+            } else {
+              this.routeAuth = this.authzService.isAuthorized(
+                'getApplicationsForVo_Vo_List<String>_Boolean_policy',
+                [data[0].vo]
+              );
+            }
+          }
+          this.allObjectCount = (<PaginatedApplications>paginatedApplications).totalCount;
           // @ts-ignore
           this.dataSubject.next(data);
         }

@@ -1,0 +1,11 @@
+<div>
+  <div *ngIf="applicationType === 'INITIAL'">
+    <mat-icon matTooltip="Initial" matTooltipPosition="above">arrow_right_alt</mat-icon>
+  </div>
+  <div *ngIf="applicationType === 'EXTENSION'">
+    <mat-icon matTooltip="Extension" matTooltipPosition="above">restore</mat-icon>
+  </div>
+  <div *ngIf="applicationType === 'EMBEDDED'">
+    <mat-icon matTooltip="Embedded" matTooltipPosition="above">nat</mat-icon>
+  </div>
+</div>

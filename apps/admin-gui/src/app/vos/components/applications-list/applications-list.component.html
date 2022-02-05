@@ -16,7 +16,7 @@
       matSortDisableClear>
       <ng-container matColumnDef="id">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>
-          {{'VO_DETAIL.APPLICATION.TABLE_ID' | translate}}
+          {{'APPLICATIONS_LIST.ID' | translate}}
         </th>
         <td *matCellDef="let application" class="static-column-size" mat-cell>
           {{application.id}}
@@ -24,29 +24,22 @@
       </ng-container>
       <ng-container matColumnDef="createdAt">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>
-          {{'VO_DETAIL.APPLICATION.TABLE_CREATED_DATE' | translate}}
+          {{'APPLICATIONS_LIST.CREATED_DATE' | translate}}
         </th>
         <td *matCellDef="let application" mat-cell>{{application.createdAt | date: 'd.M.y'}}</td>
       </ng-container>
       <ng-container matColumnDef="type">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>
-          {{'VO_DETAIL.APPLICATION.TABLE_TYPE' | translate}}
+          {{'APPLICATIONS_LIST.TYPE' | translate}}
         </th>
         <td *matCellDef="let application" mat-cell>
-          <div *ngIf="application.type === 'INITIAL'">
-            <mat-icon matTooltip="Initial" matTooltipPosition="above">arrow_right_alt</mat-icon>
-          </div>
-          <div *ngIf="application.type === 'EXTENSION'">
-            <mat-icon matTooltip="Extension" matTooltipPosition="above">restore</mat-icon>
-          </div>
-          <div *ngIf="application.type === 'EMBEDDED'">
-            <mat-icon matTooltip="Embedded" matTooltipPosition="above">nat</mat-icon>
-          </div>
+          <app-application-type-icon
+            [applicationType]="application.type"></app-application-type-icon>
         </td>
       </ng-container>
       <ng-container matColumnDef="state">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>
-          {{'VO_DETAIL.APPLICATION.TABLE_STATE' | translate}}
+          {{'APPLICATIONS_LIST.STATE' | translate}}
         </th>
         <td *matCellDef="let application" mat-cell>
           <span [outerHTML]="application.state | applicationState"></span>
@@ -54,7 +47,7 @@
       </ng-container>
       <ng-container matColumnDef="user">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>
-          {{'VO_DETAIL.APPLICATION.TABLE_SUBMITTED_BY' | translate}}
+          {{'APPLICATIONS_LIST.SUBMITTED_BY' | translate}}
         </th>
         <td *matCellDef="let application" mat-cell>
           <div *ngIf="application.user === null; else name">
@@ -67,7 +60,7 @@
       </ng-container>
       <ng-container matColumnDef="group">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>
-          {{'VO_DETAIL.APPLICATION.TABLE_GROUP_NAME' | translate}}
+          {{'APPLICATIONS_LIST.GROUP_NAME' | translate}}
         </th>
         <td *matCellDef="let application" mat-cell>
           <div *ngIf="application.group === null; else groupName" class="font-italic text-muted">
@@ -80,7 +73,7 @@
       </ng-container>
       <ng-container matColumnDef="modifiedBy">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>
-          {{'VO_DETAIL.APPLICATION.TABLE_MODIFIED_BY' | translate}}
+          {{'APPLICATIONS_LIST.MODIFIED_BY' | translate}}
         </th>
         <td *matCellDef="let application" mat-cell>{{getFriendlyName(application.modifiedBy)}}</td>
       </ng-container>
