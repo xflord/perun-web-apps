@@ -41,6 +41,9 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
   @Input()
   displayedColumns: string[] = ['drag', 'shortname', 'type', 'disabled', 'hidden', 'preview', 'managegroups', 'edit', 'delete'];
 
+  @Input()
+  refreshApplicationForm;
+
   @Output()
   applicationFormItemsChange = new EventEmitter<ApplicationFormItem[]>();
 
@@ -78,6 +81,9 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.dataSource = this.applicationFormItems;
+    if (this.refreshApplicationForm) {
+      this.itemsChanged = [];
+    }
 
   }
 

@@ -54,6 +54,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
 
   editAuth: boolean;
   displayedColumns: string[] = [];
+  refreshApplicationForm = false;
 
   // This counter is used to generate ids for newly added items. This fake ids are used in backend
   // to recognize new items in other items' dependencies
@@ -149,10 +150,12 @@ export class VoSettingsApplicationFormComponent implements OnInit {
 
   updateFormItems() {
     this.loading = true;
+    this.refreshApplicationForm = true;
     this.registrarManager.getFormItemsForVo(this.vo.id).subscribe( formItems => {
       this.applicationFormItems = formItems;
       this.itemsChanged = false;
       this.setAuthRights();
+      this.refreshApplicationForm = false;
       this.loading = false;
     });
   }

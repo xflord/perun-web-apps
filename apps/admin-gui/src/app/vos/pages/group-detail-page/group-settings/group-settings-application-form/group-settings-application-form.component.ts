@@ -63,6 +63,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   voHasEmbeddedGroupApplication = false;
   autoRegistrationEnabled: boolean;
   changeAutoRegistration: boolean;
+  refreshApplicationForm = false;
 
   // This counter is used to generate ids for newly added items. This fake ids are used in backend
   // to recognize new items in other items' dependencies
@@ -173,9 +174,11 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
 
   updateFormItems() {
     this.loading = true;
+    this.refreshApplicationForm = true;
     this.registrarManager.getFormItemsForGroup(this.group.id).subscribe(formItems => {
       this.applicationFormItems = formItems;
       this.itemsChanged = false;
+      this.refreshApplicationForm = false;
       this.loading = false;
     });
   }
