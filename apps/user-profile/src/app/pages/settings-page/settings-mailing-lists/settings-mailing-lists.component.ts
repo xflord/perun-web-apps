@@ -70,9 +70,9 @@ export class SettingsMailingListsComponent implements OnInit {
                     const attribute = resAtts.find(
                       (att) => att.friendlyName === 'optOutMailingList'
                     );
-                    // @ts-ignore
                     if (
                       attribute &&
+                      // @ts-ignore
                       !(disableOptOut && (disableOptOut.value as string) === 'true')
                     ) {
                       this.optOuts.push({

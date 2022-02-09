@@ -46,8 +46,8 @@ export class AddCategoryDialogComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
-    // @ts-ignore
     this.cabinetManagerService
+      // @ts-ignore
       .createCategoryCat({ category: { name: this.nameCtrl.value, rank: this.rankCtrl.value } })
       .subscribe(
         () => {
