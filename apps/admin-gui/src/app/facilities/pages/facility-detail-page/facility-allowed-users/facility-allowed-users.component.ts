@@ -106,13 +106,10 @@ export class FacilityAllowedUsersComponent implements OnInit {
       (resources) => {
         this.resources = [this.emptyResource].concat(resources);
         this.filteredResources = this.resources;
-        this.selectedResource = this.emptyResource;
 
         this.facilityService.getAllowedVos(this.facility.id).subscribe(
           (vos) => {
             this.vos = [this.emptyVo].concat(vos);
-            this.selectedVo = this.emptyVo;
-
             this.services = [];
             this.getAssignedServices(this.resources, this.resources.length - 1);
           },
@@ -128,7 +125,7 @@ export class FacilityAllowedUsersComponent implements OnInit {
     if (idx === 0) {
       this.services = [this.emptyService].concat(this.services);
       this.filteredServices = this.services;
-      this.selectedService = this.emptyService;
+
       this.changeFilter();
       this.loading = false;
       return;
