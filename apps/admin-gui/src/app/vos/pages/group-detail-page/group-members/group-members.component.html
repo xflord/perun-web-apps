@@ -42,16 +42,16 @@
     [matTooltipDisabled]="!synchEnabled"
     [matTooltipPosition]="'above'"
     matTooltip="{{'GROUP_DETAIL.MEMBERS.SYNCHRONIZED' | translate}}">
-     <button
-       (click)="onRemoveMembers()"
-       *ngIf="removeAuth"
-       [disabled]="selection.isEmpty() || synchEnabled"
-       class="mr-2"
-       color="warn"
-       data-cy="remove-members"
-       mat-flat-button>
-       {{'GROUP_DETAIL.MEMBERS.REMOVE_MEMBERS' | translate}}
-     </button>
+    <button
+      (click)="onRemoveMembers()"
+      *ngIf="removeAuth"
+      [disabled]="selection.isEmpty() || synchEnabled"
+      class="mr-2"
+      color="warn"
+      data-cy="remove-members"
+      mat-flat-button>
+      {{'GROUP_DETAIL.MEMBERS.REMOVE_MEMBERS' | translate}}
+    </button>
   </span>
   <mat-form-field class="mr-2 fix-select">
     <mat-label>{{'GROUP_DETAIL.MEMBERS.FILTER_STATUS' | translate}}</mat-label>

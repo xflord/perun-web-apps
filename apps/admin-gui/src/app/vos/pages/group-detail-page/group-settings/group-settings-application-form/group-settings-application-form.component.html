@@ -18,6 +18,7 @@
         <mat-icon class="align-text-bottom" matTooltip="Initial">arrow_right_alt</mat-icon>
         {{applicationForm.automaticApproval ?
         ('GROUP_DETAIL.SETTINGS.APPLICATION_FORM.AUTOMATIC'| translate) : ('GROUP_DETAIL.SETTINGS.APPLICATION_FORM.MANUAL'| translate)
+
         }},
 
         <mat-icon class="align-text-bottom" matTooltip="Extension">restore</mat-icon>
@@ -65,7 +66,7 @@
       mat-flat-button
       color="accent"
       class="mr-2 action-button"
-      data-cy=add-form-item
+      data-cy="add-form-item"
       (click)="add()">
       {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.ADD_BUTTON' | translate}}
     </button>
@@ -118,7 +119,10 @@
   </app-application-form-list>
 </div>
 <div *ngIf="!loading && noApplicationForm">
-  <app-alert alert_type="warn">{{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.NO_APPLICATION_FORM' | translate}}</app-alert>
+  <app-alert
+    alert_type="warn"
+    >{{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.NO_APPLICATION_FORM' | translate}}</app-alert
+  >
   <button
     *ngIf="createEmptyForm"
     mat-stroked-button

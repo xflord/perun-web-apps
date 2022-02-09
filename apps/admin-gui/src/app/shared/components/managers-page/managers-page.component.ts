@@ -289,10 +289,10 @@ export class ManagersPageComponent implements OnInit {
         this.guiAuthResolver.isAuthorized('getGroupById_int_policy', [this.complementaryObject])
       ) {
         const grp = this.complementaryObject as Group;
-        this.router.navigate(
-          ['/organizations', grp.voId, 'groups', this.complementaryObject.id],
-          { relativeTo: this.route, queryParamsHandling: 'merge' }
-        );
+        this.router.navigate(['/organizations', grp.voId, 'groups', this.complementaryObject.id], {
+          relativeTo: this.route,
+          queryParamsHandling: 'merge',
+        });
       } else if (
         this.guiAuthResolver.isAuthorized('getVoById_int_policy', [this.complementaryObject])
       ) {

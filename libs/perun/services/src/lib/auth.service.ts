@@ -119,19 +119,17 @@ export class AuthService {
   }
 
   startRefreshToken(): Promise<any> {
-    return this.isLoggedInPromise()
-      .then(isLoggedIn => {
-        if (isLoggedIn) {
-          this.oauthService.events.pipe(filter(e => e.type === 'token_expires')).subscribe(() => {
-            this.oauthService.refreshToken().then(response => {
-              localStorage.setItem('refresh_token', response['refresh_token']);
-            });
+    return this.isLoggedInPromise().then((isLoggedIn) => {
+      if (isLoggedIn) {
+        this.oauthService.events.pipe(filter((e) => e.type === 'token_expires')).subscribe(() => {
+          this.oauthService.refreshToken().then((response) => {
+            localStorage.setItem('refresh_token', response['refresh_token']);
           });
-          return true;
-        }
-        return false;
-      });
-
+        });
+        return true;
+      }
+      return false;
+    });
   }
 
   logout() {
@@ -204,10 +202,11 @@ export class AuthService {
   private tryRefreshToken(): Promise<void> {
     if (localStorage.getItem('refresh_token')) {
       sessionStorage.setItem('refresh_token', localStorage.getItem('refresh_token'));
-      return this.oauthService.loadDiscoveryDocument()
+      return this.oauthService
+        .loadDiscoveryDocument()
         .then(() => this.oauthService.refreshToken())
         .then(() => Promise.resolve())
-        .catch(err => err);
+        .catch((err) => err);
     } else {
       return Promise.resolve();
     }
@@ -228,18 +227,19 @@ export class AuthService {
   private verifyAuthentication(path: string, queryParams: string): Promise<any> {
     return this.tryRefreshToken()
       .then(() => this.isLoggedInPromise())
-      .then(isLoggedIn => {
+      .then((isLoggedIn) => {
         if (!isLoggedIn) {
           if (!this.isPotentiallyValidPath(path)) {
-            return new Promise<boolean>((resolve, reject) => reject("Invalid path"));
+            return new Promise<boolean>((resolve, reject) => reject('Invalid path'));
           }
 
-        sessionStorage.setItem('auth:redirect', path);
-        sessionStorage.setItem('auth:queryParams', queryParams);
+          sessionStorage.setItem('auth:redirect', path);
+          sessionStorage.setItem('auth:queryParams', queryParams);
 
           return false;
         }
-        this.oauthService.loadDiscoveryDocument()
+        this.oauthService
+          .loadDiscoveryDocument()
           .then(() => localStorage.setItem('refresh_token', this.oauthService.getRefreshToken()));
         return true;
       });

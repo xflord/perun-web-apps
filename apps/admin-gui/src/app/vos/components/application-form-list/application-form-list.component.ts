@@ -115,7 +115,6 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
     if (this.refreshApplicationForm) {
       this.itemsChanged = [];
     }
-
   }
 
   disabledHiddenDependency(

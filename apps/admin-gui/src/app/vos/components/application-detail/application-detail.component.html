@@ -150,6 +150,7 @@
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let userData" class="font-weight-bold">
           {{getLabel(userData.formItem)
+
           }}{{userData.formItem.type.startsWith("FROM_FEDERATION") ? '*' : ''}}
         </td>
       </ng-container>

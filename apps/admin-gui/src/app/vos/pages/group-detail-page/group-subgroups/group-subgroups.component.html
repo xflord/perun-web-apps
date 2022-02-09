@@ -15,14 +15,14 @@
     [matTooltipDisabled]="(tree === undefined && list === undefined) ||
           (tree !== undefined && tree.removeAuth) ||
           (list !== undefined && list.removeAuth)">
-
-    <button (click)="deleteGroup()"
-            *ngIf="deleteAuth"
-            mat-flat-button
-            color="warn"
-            class="mr-2"
-            data-cy=delete-group-button
-            [disabled]="selected.selected.length === 0 ||
+    <button
+      (click)="deleteGroup()"
+      *ngIf="deleteAuth"
+      mat-flat-button
+      color="warn"
+      class="mr-2"
+      data-cy="delete-group-button"
+      [disabled]="selected.selected.length === 0 ||
               (tree !== undefined && !tree.removeAuth) ||
               (list !== undefined && !list.removeAuth)">
       {{'GROUP_DETAIL.SUBGROUPS.DELETE_GROUP' | translate}}

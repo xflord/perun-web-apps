@@ -163,7 +163,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
   updateFormItems() {
     this.loading = true;
     this.refreshApplicationForm = true;
-    this.registrarManager.getFormItemsForVo(this.vo.id).subscribe( formItems => {
+    this.registrarManager.getFormItemsForVo(this.vo.id).subscribe((formItems) => {
       this.applicationFormItems = formItems;
       this.itemsChanged = false;
       this.setAuthRights();

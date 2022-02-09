@@ -1,4 +1,8 @@
 <div>
-  <mat-checkbox (change)="_sendEventToParent()" *ngIf="!readonly" [(ngModel)]="attribute.value" attr.data-cy="{{attribute.displayName | multiWordDataCy}}-value"></mat-checkbox>
+  <mat-checkbox
+    (change)="_sendEventToParent()"
+    *ngIf="!readonly"
+    [(ngModel)]="attribute.value"
+    attr.data-cy="{{attribute.displayName | multiWordDataCy}}-value"></mat-checkbox>
   <mat-label *ngIf="readonly">{{attribute.value}}</mat-label>
 </div>

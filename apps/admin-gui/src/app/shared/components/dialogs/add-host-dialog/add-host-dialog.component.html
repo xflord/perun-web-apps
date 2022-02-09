@@ -20,6 +20,7 @@
       </mat-error>
       <mat-error *ngIf="this.hostsCtrl.hasError('invalidHost')">
         {{'DIALOGS.ADD_HOST.INVALID_HOST' | translate
+
         }}{{this.hostsCtrl.getError('invalidHost').value}}
       </mat-error>
     </mat-form-field>

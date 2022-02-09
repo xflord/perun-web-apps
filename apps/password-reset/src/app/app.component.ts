@@ -1,4 +1,11 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AttributesManagerService, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { PreferredLanguageService, StoreService } from '@perun-web-apps/perun/services';
@@ -9,15 +16,16 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit, AfterViewInit{
-
-  constructor(private dialog: MatDialog,
-              private usersService: UsersManagerService,
-              private preferredLangService: PreferredLanguageService,
-              private translateService:TranslateService,
-              private store: StoreService,
-              private attributesManagerService: AttributesManagerService,
-              private changeDetector: ChangeDetectorRef) { }
+export class AppComponent implements OnInit, AfterViewInit {
+  constructor(
+    private dialog: MatDialog,
+    private usersService: UsersManagerService,
+    private preferredLangService: PreferredLanguageService,
+    private translateService: TranslateService,
+    private store: StoreService,
+    private attributesManagerService: AttributesManagerService,
+    private changeDetector: ChangeDetectorRef
+  ) {}
 
   mode: string;
   token: string;
@@ -50,10 +58,14 @@ export class AppComponent implements OnInit, AfterViewInit{
       );
     } else {
       this.authWithoutToken = true;
-      this.attributesManagerService.getLogins(this.store.getPerunPrincipal().userId).subscribe(logins => {
-        const selectedLogin = logins.find(login => login.friendlyNameParameter === this.namespace);
-        this.login = selectedLogin ? selectedLogin.value.toString() : '';
-      });
+      this.attributesManagerService
+        .getLogins(this.store.getPerunPrincipal().userId)
+        .subscribe((logins) => {
+          const selectedLogin = logins.find(
+            (login) => login.friendlyNameParameter === this.namespace
+          );
+          this.login = selectedLogin ? selectedLogin.value.toString() : '';
+        });
     }
   }
 
@@ -68,8 +80,7 @@ export class AppComponent implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit(): void {
-    this.contentHeight =  'calc(100vh - 84px - '+this.footer.nativeElement.offsetHeight+'px)';
+    this.contentHeight = 'calc(100vh - 84px - ' + this.footer.nativeElement.offsetHeight + 'px)';
     this.changeDetector.detectChanges();
   }
-
 }
