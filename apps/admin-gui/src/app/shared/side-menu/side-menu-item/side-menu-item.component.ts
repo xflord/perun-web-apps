@@ -38,7 +38,6 @@ export class SideMenuItemComponent {
   expanded = true;
   linkBgColor = this.store.get('theme', 'sidemenu_item_links_bg_color');
   linkTextColor = this.store.get('theme', 'sidemenu_item_links_text_color');
-  iconColor = this.store.get('theme', 'sidemenu_item_icon_color');
   dividerStyle = '1px solid ' + this.store.get('theme', 'sidemenu_divider_color');
 
   @Input()

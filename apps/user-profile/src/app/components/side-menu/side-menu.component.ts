@@ -34,7 +34,6 @@ export class SideMenuComponent implements OnInit {
   items: SideMenuItem[] = [];
   lang = 'en';
   textColor = this.storeService.get('theme', 'sidemenu_text_color');
-  iconColor = this.storeService.get('theme', 'sidemenu_item_icon_color');
 
   ngOnInit() {
     this.translateService.onLangChange.subscribe((lang) => {

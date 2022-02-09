@@ -311,3 +311,15 @@ $i: 0;
 .action-button::after {
   content: '\2026';
 }
+
+.perun-icon {
+  path {
+    fill: currentColor;
+  }
+  rect {
+    fill: currentColor;
+  }
+  polygon {
+    fill: currentColor;
+  }
+}
