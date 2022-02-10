@@ -2587,7 +2587,7 @@
           "DESCRIPTION": "Description",
           "DISABLED_HINT": "You don't have permission to change this attribute.",
           "EMPTY_ATTRIBUTES": "No attributes found.",
-          "EMPTY_SETTINGS": "No settings found. Use 'Add' button to add new setting.",
+          "EMPTY_SETTINGS": "No attributes found. Use 'Add' button to add new attribute.",
           "CHECKBOX_TOOLTIP": "You don't have privileges to edit this attribute"
         },
         "SELECTION_ITEM_SEARCH_SELECT": {
