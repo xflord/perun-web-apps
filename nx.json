@@ -6,107 +6,46 @@
     "nx.json": "*",
     "tsconfig.base.json": "*"
   },
-  "projects": {
-    "admin-gui": {
-      "tags": []
-    },
-    "admin-gui-e2e": {
-      "tags": [],
-      "implicitDependencies": ["admin-gui"]
-    },
-    "config": {
-      "tags": []
-    },
-    "config-table-config": {
-      "tags": []
-    },
-    "general": {
-      "tags": []
-    },
-    "password-reset": {
-      "tags": []
-    },
-    "password-reset-e2e": {
-      "tags": [],
-      "implicitDependencies": ["password-reset"]
-    },
-    "perun-animations": {
-      "tags": []
-    },
-    "perun-components": {
-      "tags": []
-    },
-    "perun-dialogs": {
-      "tags": []
-    },
-    "perun-directives": {
-      "tags": []
-    },
-    "perun-facility-services-config": {
-      "tags": []
-    },
-    "perun-login": {
-      "tags": []
-    },
-    "perun-models": {
-      "tags": []
-    },
-    "perun-namespace-password-form": {
-      "tags": []
-    },
-    "perun-openapi": {
-      "tags": []
-    },
-    "perun-pipes": {
-      "tags": []
-    },
-    "perun-services": {
-      "tags": []
-    },
-    "perun-session-expiration": {
-      "tags": []
-    },
-    "perun-tokens": {
-      "tags": []
-    },
-    "perun-urns": {
-      "tags": []
-    },
-    "perun-utils": {
-      "tags": []
-    },
-    "publications": {
-      "tags": []
-    },
-    "publications-e2e": {
-      "tags": [],
-      "implicitDependencies": ["publications"]
-    },
-    "ui": {
-      "tags": []
-    },
-    "ui-alerts": {
-      "tags": []
-    },
-    "ui-material": {
-      "tags": []
-    },
-    "user-profile": {
-      "tags": []
-    },
-    "user-profile-e2e": {
-      "tags": []
-    }
-  },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ],
+        "parallel": 1
       }
     }
   },
   "affected": {
     "defaultBase": "master"
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "4943eaad-16db-431b-972e-d43fa4fcbbd0"
+  },
+  "defaultProject": "admin-gui",
+  "generators": {
+    "@nrwl/angular:application": {
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {}
   }
 }

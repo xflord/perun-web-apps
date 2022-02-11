@@ -4,10 +4,6 @@
     "outDir": "../out-tsc/spec",
     "types": ["jasmine", "node"]
   },
-  "files": [
-    "test.ts",
-    "polyfills.ts",
-    "../../../node_modules/cypress/types/mocha/index.d.ts"
-  ],
-  "include": ["**/*.spec.ts", "**/*.d.ts"]
+  "files": ["test.ts", "polyfills.ts", "../../../node_modules/cypress/types/mocha/index.d.ts"],
+  "include": ["**/*.spec.ts", "**/*.test.ts", "**/*.d.ts"]
 }

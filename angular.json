@@ -115,11 +115,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/admin-gui/src/**/*.ts",
-              "apps/admin-gui/src/**/*.html"
-            ]
-          }
+            "lintFilePatterns": ["apps/admin-gui/src/**/*.ts", "apps/admin-gui/src/**/*.html"]
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -129,7 +127,8 @@
           },
           "outputs": ["coverage/apps/admin-gui"]
         }
-      }
+      },
+      "tags": []
     },
     "admin-gui-e2e": {
       "root": "apps/admin-gui-e2e",
@@ -153,9 +152,12 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/admin-gui-e2e/**/*.{js,ts}"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["admin-gui"]
     },
     "config": {
       "projectType": "library",
@@ -166,11 +168,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/config/src/**/*.ts",
-              "libs/config/src/**/*.html"
-            ]
-          }
+            "lintFilePatterns": ["libs/config/src/**/*.ts", "libs/config/src/**/*.html"]
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -185,7 +185,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "config-table-config": {
       "projectType": "library",
@@ -200,7 +201,8 @@
               "libs/config/table-config/src/**/*.ts",
               "libs/config/table-config/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -215,7 +217,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "general": {
       "projectType": "library",
@@ -226,11 +229,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/general/src/**/*.ts",
-              "libs/general/src/**/*.html"
-            ]
-          }
+            "lintFilePatterns": ["libs/general/src/**/*.ts", "libs/general/src/**/*.html"]
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -245,7 +246,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "password-reset": {
       "projectType": "application",
@@ -267,10 +269,7 @@
             "polyfills": "apps/password-reset/src/polyfills.ts",
             "tsConfig": "apps/password-reset/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/password-reset/src/favicon.ico",
-              "apps/password-reset/src/assets"
-            ],
+            "assets": ["apps/password-reset/src/favicon.ico", "apps/password-reset/src/assets"],
             "styles": [
               "apps/password-reset/src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.css"
@@ -363,7 +362,8 @@
               "apps/password-reset/src/**/*.ts",
               "apps/password-reset/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -373,7 +373,8 @@
           },
           "outputs": ["coverage/apps/password-reset"]
         }
-      }
+      },
+      "tags": []
     },
     "password-reset-e2e": {
       "root": "apps/password-reset-e2e",
@@ -397,9 +398,12 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/password-reset-e2e/**/*.{js,ts}"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["password-reset"]
     },
     "perun-animations": {
       "projectType": "library",
@@ -414,7 +418,8 @@
               "libs/perun/animations/src/**/*.ts",
               "libs/perun/animations/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -429,7 +434,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "perun-components": {
       "projectType": "library",
@@ -444,7 +450,8 @@
               "libs/perun/components/src/**/*.ts",
               "libs/perun/components/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -459,7 +466,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "perun-dialogs": {
       "projectType": "library",
@@ -474,7 +482,8 @@
               "libs/perun/dialogs/src/**/*.ts",
               "libs/perun/dialogs/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -489,7 +498,8 @@
         "@schematics/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "perun-directives": {
       "projectType": "library",
@@ -504,7 +514,8 @@
               "libs/perun/directives/src/**/*.ts",
               "libs/perun/directives/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -519,7 +530,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "perun-facility-services-config": {
       "projectType": "library",
@@ -534,7 +546,8 @@
               "libs/perun/facility-services-config/src/**/*.ts",
               "libs/perun/facility-services-config/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -549,7 +562,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "perun-login": {
       "projectType": "library",
@@ -560,11 +574,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/perun/login/src/**/*.ts",
-              "libs/perun/login/src/**/*.html"
-            ]
-          }
+            "lintFilePatterns": ["libs/perun/login/src/**/*.ts", "libs/perun/login/src/**/*.html"]
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -579,7 +591,8 @@
         "@schematics/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "perun-models": {
       "root": "libs/perun/models",
@@ -590,11 +603,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/perun/models/src/**/*.ts",
-              "libs/perun/models/src/**/*.html"
-            ]
-          }
+            "lintFilePatterns": ["libs/perun/models/src/**/*.ts", "libs/perun/models/src/**/*.html"]
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -604,7 +615,8 @@
           },
           "outputs": ["coverage/libs/perun/models"]
         }
-      }
+      },
+      "tags": []
     },
     "perun-namespace-password-form": {
       "projectType": "library",
@@ -627,9 +639,11 @@
               "libs/perun/namespace-password-form/src/**/*.ts",
               "libs/perun/namespace-password-form/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
-      }
+      },
+      "tags": []
     },
     "perun-openapi": {
       "projectType": "library",
@@ -644,7 +658,8 @@
               "libs/perun/openapi/src/**/*.ts",
               "libs/perun/openapi/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -655,7 +670,8 @@
           "outputs": ["coverage/libs/perun/openapi"]
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": []
     },
     "perun-pipes": {
       "projectType": "library",
@@ -666,11 +682,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/perun/pipes/src/**/*.ts",
-              "libs/perun/pipes/src/**/*.html"
-            ]
-          }
+            "lintFilePatterns": ["libs/perun/pipes/src/**/*.ts", "libs/perun/pipes/src/**/*.html"]
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -685,7 +699,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "perun-services": {
       "root": "libs/perun/services",
@@ -700,7 +715,8 @@
               "libs/perun/services/src/**/*.ts",
               "libs/perun/services/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -710,7 +726,8 @@
           },
           "outputs": ["coverage/libs/perun/services"]
         }
-      }
+      },
+      "tags": []
     },
     "perun-session-expiration": {
       "projectType": "library",
@@ -725,7 +742,8 @@
               "libs/perun/session-expiration/src/**/*.ts",
               "libs/perun/session-expiration/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -740,7 +758,8 @@
         "@schematics/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "perun-tokens": {
       "root": "libs/perun/tokens",
@@ -751,11 +770,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/perun/tokens/src/**/*.ts",
-              "libs/perun/tokens/src/**/*.html"
-            ]
-          }
+            "lintFilePatterns": ["libs/perun/tokens/src/**/*.ts", "libs/perun/tokens/src/**/*.html"]
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -765,7 +782,8 @@
           },
           "outputs": ["coverage/libs/perun/tokens"]
         }
-      }
+      },
+      "tags": []
     },
     "perun-urns": {
       "root": "libs/perun/urns",
@@ -776,11 +794,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/perun/urns/src/**/*.ts",
-              "libs/perun/urns/src/**/*.html"
-            ]
-          }
+            "lintFilePatterns": ["libs/perun/urns/src/**/*.ts", "libs/perun/urns/src/**/*.html"]
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -790,7 +806,8 @@
           },
           "outputs": ["coverage/libs/perun/urns"]
         }
-      }
+      },
+      "tags": []
     },
     "perun-utils": {
       "root": "libs/perun/utils",
@@ -801,11 +818,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/perun/utils/src/**/*.ts",
-              "libs/perun/utils/src/**/*.html"
-            ]
-          }
+            "lintFilePatterns": ["libs/perun/utils/src/**/*.ts", "libs/perun/utils/src/**/*.html"]
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -815,7 +830,8 @@
           },
           "outputs": ["coverage/libs/perun/utils"]
         }
-      }
+      },
+      "tags": []
     },
     "publications": {
       "projectType": "application",
@@ -859,10 +875,7 @@
             "polyfills": "apps/publications/src/polyfills.ts",
             "tsConfig": "apps/publications/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/publications/src/favicon.ico",
-              "apps/publications/src/assets"
-            ],
+            "assets": ["apps/publications/src/favicon.ico", "apps/publications/src/assets"],
             "styles": [
               "apps/publications/src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.css"
@@ -951,11 +964,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/publications/src/**/*.ts",
-              "apps/publications/src/**/*.html"
-            ]
-          }
+            "lintFilePatterns": ["apps/publications/src/**/*.ts", "apps/publications/src/**/*.html"]
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -965,7 +976,8 @@
           },
           "outputs": ["coverage/apps/publications"]
         }
-      }
+      },
+      "tags": []
     },
     "publications-e2e": {
       "root": "apps/publications-e2e",
@@ -989,9 +1001,12 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/publications-e2e/**/*.{js,ts}"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["publications"]
     },
     "ui": {
       "projectType": "library",
@@ -1003,7 +1018,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -1018,7 +1034,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "ui-alerts": {
       "root": "libs/ui/alerts",
@@ -1029,11 +1046,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/ui/alerts/src/**/*.ts",
-              "libs/ui/alerts/src/**/*.html"
-            ]
-          }
+            "lintFilePatterns": ["libs/ui/alerts/src/**/*.ts", "libs/ui/alerts/src/**/*.html"]
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -1043,7 +1058,8 @@
           },
           "outputs": ["coverage/libs/ui/alerts"]
         }
-      }
+      },
+      "tags": []
     },
     "ui-material": {
       "projectType": "library",
@@ -1054,11 +1070,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/ui/material/src/**/*.ts",
-              "libs/ui/material/src/**/*.html"
-            ]
-          }
+            "lintFilePatterns": ["libs/ui/material/src/**/*.ts", "libs/ui/material/src/**/*.html"]
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -1073,7 +1087,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "user-profile": {
       "projectType": "application",
@@ -1095,10 +1110,7 @@
             "polyfills": "apps/user-profile/src/polyfills.ts",
             "tsConfig": "apps/user-profile/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/user-profile/src/favicon.ico",
-              "apps/user-profile/src/assets"
-            ],
+            "assets": ["apps/user-profile/src/favicon.ico", "apps/user-profile/src/assets"],
             "styles": [
               "apps/user-profile/src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.css"
@@ -1188,11 +1200,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/user-profile/src/**/*.ts",
-              "apps/user-profile/src/**/*.html"
-            ]
-          }
+            "lintFilePatterns": ["apps/user-profile/src/**/*.ts", "apps/user-profile/src/**/*.html"]
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -1201,7 +1211,8 @@
           },
           "outputs": ["coverage/apps/user-profile"]
         }
-      }
+      },
+      "tags": []
     },
     "user-profile-e2e": {
       "root": "apps/user-profile-e2e",
@@ -1225,26 +1236,11 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/user-profile-e2e/**/*.{js,ts}"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
-      }
+      },
+      "tags": []
     }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/angular",
-    "analytics": "4943eaad-16db-431b-972e-d43fa4fcbbd0"
-  },
-  "schematics": {
-    "@nrwl/angular:application": {
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nrwl/angular:component": {}
-  },
-  "defaultProject": "admin-gui"
+  }
 }
