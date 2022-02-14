@@ -9,20 +9,18 @@
       <span class="text-muted id-font">#{{resource.id}}</span>
     </p>
     <p>
-      <strong class="mr-2"
-        >{{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.CURRENT' | translate
-
-        }}:</strong
-      >
+      <strong class="mr-2">
+        {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.CURRENT' | translate}}
+        :
+      </strong>
       {{status}}
     </p>
 
     <p>
-      <strong class="mr-2"
-        >{{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.NEW' | translate
-
-        }}:</strong
-      >
+      <strong class="mr-2">
+        {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.NEW' | translate}}
+        :
+      </strong>
       {{getReversedStatus()}}
     </p>
 
@@ -38,9 +36,8 @@
       *ngIf="status === 'INACTIVE'"
       [(ngModel)]="asyncValidation">
       <span class="font-weight-bold">
-        {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.VALIDATE' | translate
-
-        }}:
+        {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.VALIDATE' | translate}}
+        :
       </span>
       <mat-radio-button [value]="false">
         {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.SYNC' | translate}}
