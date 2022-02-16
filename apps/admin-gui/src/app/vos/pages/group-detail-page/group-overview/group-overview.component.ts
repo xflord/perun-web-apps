@@ -14,6 +14,7 @@ import {
   NotificatorService,
 } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
+import { addRecentlyVisited, addRecentlyVisitedObject } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-group-overview',
@@ -42,18 +43,47 @@ export class GroupOverviewComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.group = this.entityStorageService.getEntity();
-    if (this.group.parentGroupId !== null) {
-      this.loadParentGroupData();
-    } else {
-      this.parentGroup = null;
-      this.initNavItems();
-      this.loading = false;
-    }
+    this.loadData();
   }
 
-  private loadParentGroupData() {
-    this.groupService.getGroupById(this.group.parentGroupId).subscribe(
+  loadData() {
+    this.loading = true;
+    this.route.params.subscribe((params) => {
+      const voId = params['voId'];
+      const groupId = params['groupId'];
+      this.voService.getVoById(voId).subscribe(
+        (vo) => {
+          this.groupService.getGroupById(groupId).subscribe(
+            (group) => {
+              this.group = group;
+              this.entityStorageService.setEntity({
+                id: group.id,
+                voId: vo.id,
+                parentGroupId: group.parentGroupId,
+                beanName: group.beanName,
+              });
+              addRecentlyVisited('groups', this.group);
+              addRecentlyVisitedObject(this.group, vo.name);
+              this.loadParentGroupData(this.group.parentGroupId);
+              if (this.group.parentGroupId == null) {
+                this.parentGroup = null;
+                this.initNavItems();
+                this.loading = false;
+                return;
+              }
+              this.loading = false;
+            },
+            () => (this.loading = false)
+          );
+        },
+        () => (this.loading = false)
+      );
+    });
+  }
+
+  private loadParentGroupData(id?: number) {
+    if (id == null) return;
+    this.groupService.getGroupById(id).subscribe(
       (parentGroup) => {
         this.parentGroup = parentGroup;
         this.initNavItems();
