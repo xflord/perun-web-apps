@@ -15,7 +15,6 @@ import { FormControl } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { PerunBean } from '@perun-web-apps/perun/openapi';
-import { stringify } from 'querystring';
 
 @Component({
   selector: 'perun-web-apps-entity-search-select',
@@ -72,7 +71,7 @@ export class EntitySearchSelectComponent<T extends PerunBean>
   searchFunction: (entity: T) => string;
 
   @Input()
-  mainTextFunction: (entity: T) => string = (entity) => stringify(entity);
+  mainTextFunction: (entity: T) => string = (entity) => JSON.stringify(entity);
 
   @Input()
   secondaryTextFunction: (entity: T) => string = (entity) =>
