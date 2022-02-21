@@ -77,7 +77,7 @@
     "SERVICE_CONFIG": "Configure services",
     "DESTINATION_CONFIG": "Configure destinations",
     "DESTINATION": "Destinations",
-    "ATTS":  "Attributes",
+    "ATTS": "Attributes",
     "MANAGERS": "Managers",
     "SUMMARY": "Summary",
     "CANCEL": "Cancel",
@@ -536,7 +536,7 @@
         "NEW": "Waiting for mail verification",
         "VERIFIED": "Submitted"
       },
-      "DATE" : {
+      "DATE": {
         "START": "Start date",
         "END": "End date"
       },
@@ -686,7 +686,7 @@
         "SUCCESS_REMOVED": "External source successfully removed: "
       }
     },
-    "STATISTICS":{
+    "STATISTICS": {
       "TITLE": "Statistics",
       "VO_STATUS_COUNT": "Members by organization status",
       "GROUP_STATUS_COUNT": "Members by group status"
@@ -853,7 +853,7 @@
       "MANAGERS": "Managers",
       "ASSIGNED_SERVICES": "Assigned services",
       "ASSIGNED_MEMBERS": "Assigned members",
-      "RESOURCE_TAGS":  "Assigned tags"
+      "RESOURCE_TAGS": "Assigned tags"
     },
     "GROUP": {
       "OVERVIEW": "Overview",
@@ -1180,6 +1180,7 @@
       "SHORT_NAME_DESCRIPTION": "Internal item identification (used as a fallback when you forgot to set \"Label\" for some language).",
       "CANCEL_BUTTON": "Cancel",
       "SUBMIT_BUTTON": "Submit",
+      "SUBMIT_BUTTON_DISABLED_TOOLTIP": "This item is required and hidden or disabled, but it has no prefilled value (Source and Federation attributes are empty)",
       "BASIC_SETTINGS": "Basic settings",
       "LANGUAGE_CS": "Language: cz",
       "LANGUAGE_EN": "Language: en",
@@ -1588,7 +1589,6 @@
       "OPTIONS": "Set options",
       "NEXT": "Next",
       "BACK": "Back"
-
     },
     "ADD_GROUP_TO_REGISTRATION": {
       "TITLE": "Assign group to registration",
@@ -1821,9 +1821,9 @@
       "TITLE": "Remove service from facility",
       "CHECKBOXES_DESCRIPTION": "You can also remove:",
       "CHECKBOXES_DISABLED": "Enabled only for all resources",
-      "CHECKBOX_TASK_AND_TASK_RESULTS" : "Task and task results",
-      "CHECKBOX_TASK_RESULTS" : "Task results",
-      "CHECKBOX_DESTINATION" : "Destination",
+      "CHECKBOX_TASK_AND_TASK_RESULTS": "Task and task results",
+      "CHECKBOX_TASK_RESULTS": "Task results",
+      "CHECKBOX_DESTINATION": "Destination",
       "DESCRIPTION": "Following resources will be affected.",
       "ASK": "Do you want to proceed?",
       "SUCCESS": "Service was successfully removed",
@@ -2459,7 +2459,7 @@
     "SPONSORSHIP_MEMBERS": "Members you are sponsor of",
     "RESOURCESELFSERVICE": "Resource self service",
     "RESOURCESELFSERVICE_RESOURCES": "Resources you are manager of",
-    "RESOURCEOBSERVER":  "Resource observer",
+    "RESOURCEOBSERVER": "Resource observer",
     "RESOURCEOBSERVER_RESOURCES": "Resources you are observer of"
   },
   "SHARED_LIB": {
@@ -2517,7 +2517,7 @@
           "FIND_VO": "Find organization...",
           "NO_VO_FOUND": "No matching organization found"
         },
-        "SERVICE_PACKAGE_SEARCH_SELECT":  {
+        "SERVICE_PACKAGE_SEARCH_SELECT": {
           "SELECT_PACKAGE": "Select service package",
           "FIND_PACKAGE": "Find service package...",
           "NO_PACKAGE_FOUND": "No matching service package found"

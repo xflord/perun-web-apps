@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ApplicationFormItem, AppType, Group, Type } from '@perun-web-apps/perun/openapi';
@@ -6,7 +6,7 @@ import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/p
 import { createNewApplicationFormItem } from '@perun-web-apps/perun/utils';
 import DisabledEnum = ApplicationFormItem.DisabledEnum;
 import HiddenEnum = ApplicationFormItem.HiddenEnum;
-import { ItemType, NO_FORM_ITEM } from '@perun-web-apps/perun/components';
+import { ItemType, NO_FORM_ITEM, SelectionItem } from '@perun-web-apps/perun/components';
 import { StoreService } from '@perun-web-apps/perun/services';
 
 export interface EditApplicationFormItemDialogComponentData {
@@ -25,7 +25,7 @@ export interface EditApplicationFormItemDialogComponentData {
 export class EditApplicationFormItemDialogComponent implements OnInit {
   applicationFormItem: ApplicationFormItem;
   attributeDefinitions: AttributeDefinition[];
-  federationAttribute = '';
+  federationAttributeDN = '';
   itemType = ItemType;
   options: { [key: string]: [string, string][] };
   theme: string;
@@ -77,7 +77,8 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: EditApplicationFormItemDialogComponentData,
     private attributesManager: AttributesManagerService,
     private translateService: TranslateService,
-    private store: StoreService
+    private store: StoreService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -176,6 +177,12 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     for (const lang of this.languages) {
       this.updateOption(lang);
     }
+  }
+
+  changeFederationAttribute(fedAttribute: SelectionItem) {
+    this.applicationFormItem.federationAttribute = fedAttribute.value;
+    this.federationAttributeDN = fedAttribute.displayName;
+    this.cd.detectChanges();
   }
 
   copy(from: ApplicationFormItem, to: ApplicationFormItem) {

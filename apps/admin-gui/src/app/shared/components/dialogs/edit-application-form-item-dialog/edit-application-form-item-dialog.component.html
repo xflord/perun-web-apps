@@ -45,7 +45,7 @@
               [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REQUIRED' | translate"
               [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REQUIRED_DESCRIPTION' | translate">
               <section>
-                <mat-checkbox [(ngModel)]="this.applicationFormItem.required"> </mat-checkbox>
+                <mat-checkbox [(ngModel)]="this.applicationFormItem.required"></mat-checkbox>
               </section>
             </app-edit-application-form-item-line>
             <div *ngIf="typesWithUpdatable.indexOf(this.applicationFormItem.type) > -1">
@@ -53,7 +53,7 @@
                 [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.UPDATABLE' | translate"
                 [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.UPDATABLE_DESCRIPTION' | translate">
                 <section>
-                  <mat-checkbox [(ngModel)]="this.applicationFormItem.updatable"> </mat-checkbox>
+                  <mat-checkbox [(ngModel)]="this.applicationFormItem.updatable"></mat-checkbox>
                 </section>
               </app-edit-application-form-item-line>
             </div>
@@ -91,10 +91,10 @@
                   [selectedAttribute]="applicationFormItem.federationAttribute"
                   [asGroup]="!!data.group"
                   [type]="itemType.FEDERATION"
-                  (itemSelected)="federationAttribute = $event.value">
+                  (itemSelected)="changeFederationAttribute($event)">
                 </perun-web-apps-selection-item-search-select>
               </div>
-              <div *ngIf="federationAttribute === 'custom'" class="w-100">
+              <div *ngIf="federationAttributeDN === ' -- custom value -- '" class="w-100">
                 <mat-form-field class="w-100">
                   <input matInput [(ngModel)]="applicationFormItem.federationAttribute" />
                 </mat-form-field>
@@ -269,15 +269,25 @@
       <button mat-flat-button class="ml-auto mt-auto" (click)="cancel()">
         {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.CANCEL_BUTTON' | translate}}
       </button>
-      <button
-        mat-flat-button
-        class="ml-2 mt-auto"
-        color="accent"
-        data-cy="edit-form-item-button-dialog"
-        [disabled]="loading"
-        (click)="submit()">
-        {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SUBMIT_BUTTON' | translate}}
-      </button>
+      <div
+        [matTooltipDisabled]="!applicationFormItem.required ||
+          applicationFormItem.perunSourceAttribute !== '' ||
+          applicationFormItem.federationAttribute !== '' ||
+          (applicationFormItem.disabled !== 'ALWAYS' && applicationFormItem.hidden !== 'ALWAYS')"
+        matTooltip="{{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SUBMIT_BUTTON_DISABLED_TOOLTIP' | translate}}">
+        <button
+          mat-flat-button
+          class="ml-2 mt-auto"
+          color="accent"
+          data-cy="edit-form-item-button-dialog"
+          [disabled]="loading || (applicationFormItem.required &&
+            applicationFormItem.perunSourceAttribute === '' &&
+            applicationFormItem.federationAttribute === '' &&
+            (applicationFormItem.disabled === 'ALWAYS' || applicationFormItem.hidden === 'ALWAYS'))"
+          (click)="submit()">
+          {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SUBMIT_BUTTON' | translate}}
+        </button>
+      </div>
     </div>
   </div>
 </div>

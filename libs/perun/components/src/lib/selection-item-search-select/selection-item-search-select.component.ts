@@ -148,6 +148,9 @@ export class SelectionItemSearchSelectComponent implements OnInit {
         return;
       }
     }
+    // get correct custom value
+    this.item = this.items[1];
+    this.item.value = this.selectedAttribute;
   }
 
   sortAttributes(attributes: SelectionItem[]) {
