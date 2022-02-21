@@ -150,7 +150,7 @@
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let userData" class="font-weight-bold">
           {{getLabel(userData.formItem)}}
-          {{userData.formItem.type.startsWith("FROM_FEDERATION") ? '*' : ''}}
+          {{userData.formItem.required ? '*' : ''}}
         </td>
       </ng-container>
       <ng-container matColumnDef="value">
@@ -158,8 +158,7 @@
         <td class="word-break-all" mat-cell *matCellDef="let userData">
           {{userData.value}}
           <button
-            *ngIf="!userData.formItem.type.startsWith('FROM_FEDERATION') &&
-            (application.state === 'NEW' || application.state === 'VERIFIED') &&
+            *ngIf="(application.state === 'NEW' || application.state === 'VERIFIED') &&
             userData.formItem.type !== 'EMBEDDED_GROUP_APPLICATION'"
             mat-icon-button
             aria-label="Edit Application data"

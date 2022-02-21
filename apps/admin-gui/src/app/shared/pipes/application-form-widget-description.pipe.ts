@@ -19,14 +19,6 @@ export class ApplicationFormWidgetDescriptionPipe implements PipeTransform {
           });
         break;
       }
-      case 'FROM_FEDERATION_HIDDEN': {
-        this.translateService
-          .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.WIDGET_DESCRIPTION.FROM_FEDERATION_HIDDEN')
-          .subscribe((text) => {
-            this.returnData = text;
-          });
-        break;
-      }
       case 'HTML_COMMENT': {
         this.translateService
           .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.WIDGET_DESCRIPTION.HTML_COMMENT')
@@ -38,14 +30,6 @@ export class ApplicationFormWidgetDescriptionPipe implements PipeTransform {
       case 'TEXTFIELD': {
         this.translateService
           .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.WIDGET_DESCRIPTION.TEXTFIELD')
-          .subscribe((text) => {
-            this.returnData = text;
-          });
-        break;
-      }
-      case 'FROM_FEDERATION_SHOW': {
-        this.translateService
-          .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.WIDGET_DESCRIPTION.FROM_FEDERATION_SHOW')
           .subscribe((text) => {
             this.returnData = text;
           });

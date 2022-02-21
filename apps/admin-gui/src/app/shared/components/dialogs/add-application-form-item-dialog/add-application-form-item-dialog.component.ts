@@ -24,10 +24,8 @@ export class AddApplicationFormItemDialogComponent implements OnInit {
   selectedWidget = 'HEADING';
   widgets = [
     'HEADING',
-    'FROM_FEDERATION_HIDDEN',
     'HTML_COMMENT',
     'TEXTFIELD',
-    'FROM_FEDERATION_SHOW',
     'VALIDATED_EMAIL',
     'USERNAME',
     'PASSWORD',

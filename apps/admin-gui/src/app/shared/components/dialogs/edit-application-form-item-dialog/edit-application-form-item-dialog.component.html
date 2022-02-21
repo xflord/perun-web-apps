@@ -39,8 +39,8 @@
           </app-edit-application-form-item-line>
 
           <div
-            *ngIf="isApplicationFormItemOfType(['TEXTFIELD', 'FROM_FEDERATION_HIDDEN', 'FROM_FEDERATION_SHOW', 'USERNAME', 'VALIDATED_EMAIL',
-                                                    'PASSWORD', 'TEXTAREA', 'TIMEZONE', 'CHECKBOX', 'RADIO', 'COMBOBOX', 'SELECTIONBOX'])">
+            *ngIf="isApplicationFormItemOfType(['TEXTFIELD', 'USERNAME', 'VALIDATED_EMAIL', 'PASSWORD', 'TEXTAREA',
+                                                     'TIMEZONE', 'CHECKBOX', 'RADIO', 'COMBOBOX', 'SELECTIONBOX'])">
             <app-edit-application-form-item-line
               [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REQUIRED' | translate"
               [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REQUIRED_DESCRIPTION' | translate">
@@ -102,8 +102,7 @@
             </app-edit-application-form-item-line>
           </div>
           <div
-            *ngIf="isApplicationFormItemOfType(['TEXTFIELD', 'FROM_FEDERATION_HIDDEN', 'FROM_FEDERATION_SHOW', 'USERNAME', 'PASSWORD',
-                                                         'TEXTAREA', 'CHECKBOX', 'RADIO', 'COMBOBOX', 'SELECTIONBOX'])">
+            *ngIf="isApplicationFormItemOfType(['TEXTFIELD', 'USERNAME', 'PASSWORD', 'TEXTAREA', 'CHECKBOX', 'RADIO', 'COMBOBOX', 'SELECTIONBOX'])">
             <app-edit-application-form-item-line
               [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REGEX' | translate"
               [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REGEX_DESCRIPTION' | translate">
@@ -182,9 +181,8 @@
           </div>
 
           <div
-            *ngIf="isApplicationFormItemOfType(['TEXTFIELD', 'FROM_FEDERATION_HIDDEN', 'FROM_FEDERATION_SHOW', 'VALIDATED_EMAIL', 'USERNAME',
-                                                         'PASSWORD', 'RADIO', 'TEXTAREA', 'COMBOBOX', 'CHECKBOX', 'TIMEZONE',
-                                                         'SELECTIONBOX', 'EMBEDDED_GROUP_APPLICATION'])">
+            *ngIf="isApplicationFormItemOfType(['TEXTFIELD', 'VALIDATED_EMAIL', 'USERNAME', 'PASSWORD', 'RADIO', 'TEXTAREA',
+                                                      'COMBOBOX', 'CHECKBOX', 'TIMEZONE', 'SELECTIONBOX', 'EMBEDDED_GROUP_APPLICATION'])">
             <app-edit-application-form-item-line
               [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL' | translate"
               [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL_DESCRIPTION' | translate">
