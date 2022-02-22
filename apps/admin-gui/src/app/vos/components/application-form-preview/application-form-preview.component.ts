@@ -153,9 +153,12 @@ export class ApplicationFormPreviewComponent implements OnInit {
       applicationFormItem.i18n[this.currentLanguage] &&
       applicationFormItem.i18n[this.currentLanguage].label
     ) {
-      return applicationFormItem.i18n[this.currentLanguage].label;
+      return (
+        applicationFormItem.i18n[this.currentLanguage].label +
+        (applicationFormItem.required ? '*' : '')
+      );
     }
-    return applicationFormItem.shortname;
+    return applicationFormItem.shortname + (applicationFormItem.required ? '*' : '');
   }
 
   getLocalizedHint(applicationFormItem: ApplicationFormItem) {

@@ -1,4 +1,4 @@
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 
 <div *ngIf="this.applicationFormItems.length !== 0 && !loading" class="card mt-2">
   <div class="card-body table-theme">
@@ -24,7 +24,9 @@
           <th *matHeaderCellDef mat-header-cell>
             {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.SHORTNAME' | translate}}
           </th>
-          <td *matCellDef="let applicationFormItem" mat-cell>{{applicationFormItem.shortname}}</td>
+          <td *matCellDef="let applicationFormItem" mat-cell>
+            {{applicationFormItem.shortname}}{{applicationFormItem.required ? '*' : ''}}
+          </td>
         </ng-container>
         <ng-container matColumnDef="type">
           <th *matHeaderCellDef mat-header-cell>
@@ -41,8 +43,8 @@
           <td class="center" *matCellDef="let applicationFormItem" mat-cell>
             <div *ngIf="applicationFormItem.disabled !== 'NEVER'">
               <mat-icon class="pointer" [matTooltip]="disabledTooltip(applicationFormItem)"
-                >lock</mat-icon
-              >
+                >lock
+              </mat-icon>
               <br />
               {{disabledHiddenDependency(applicationFormItem, applicationFormItem.disabled, applicationFormItem.disabledDependencyItemId)}}
             </div>
@@ -55,8 +57,8 @@
           <td class="center" *matCellDef="let applicationFormItem" mat-cell>
             <div *ngIf="applicationFormItem.hidden !== 'NEVER'">
               <mat-icon class="pointer" [matTooltip]="hiddenTooltip(applicationFormItem)"
-                >visibility_off</mat-icon
-              >
+                >visibility_off
+              </mat-icon>
               <br />
               {{disabledHiddenDependency(applicationFormItem, applicationFormItem.hidden, applicationFormItem.hiddenDependencyItemId)}}
             </div>
