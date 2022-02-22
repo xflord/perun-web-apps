@@ -1,8 +1,8 @@
 <div>
   <h1 class="page-subtitle">{{title | translate}}</h1>
-  <app-alert *ngIf="title.includes('CONFIG')" alert_type="info">
+  <perun-web-apps-alert *ngIf="title.includes('CONFIG')" alert_type="info">
     {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.DESTINATIONS_INFO' | translate}}
-  </app-alert>
+  </perun-web-apps-alert>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
     *ngIf="addAuth"

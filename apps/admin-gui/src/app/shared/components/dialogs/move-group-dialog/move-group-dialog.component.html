@@ -16,9 +16,9 @@
         {{'DIALOGS.MOVE_GROUP.TO_GROUP' | translate}}
       </mat-radio-button>
     </mat-radio-group>
-    <app-alert *ngIf="toRootOptionDisabled && toGroupOptionDisabled" alert_type="warn">
+    <perun-web-apps-alert *ngIf="toRootOptionDisabled && toGroupOptionDisabled" alert_type="warn">
       {{'DIALOGS.MOVE_GROUP.CANNOT_MOVE' | translate}}
-    </app-alert>
+    </perun-web-apps-alert>
     <mat-form-field
       *ngIf="!toGroupOptionDisabled"
       [@openClose]="moveOption === 'toGroup' ? 'open' : 'closed'"

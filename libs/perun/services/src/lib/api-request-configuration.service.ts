@@ -6,12 +6,12 @@ import { Injectable } from '@angular/core';
 export class ApiRequestConfigurationService {
   private handleNextError = true;
 
-  dontHandleErrorForNext() {
+  dontHandleErrorForNext(): void {
     this.handleNextError = false;
   }
 
-  shouldHandleError() {
-    const value = this.handleNextError;
+  shouldHandleError(): boolean {
+    const value: boolean = this.handleNextError;
     this.handleNextError = true;
     return value;
   }

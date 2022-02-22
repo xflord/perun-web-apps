@@ -31,29 +31,15 @@ export class EditAttributeDialogComponent implements OnInit {
     private attributesManager: AttributesManagerService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.dataSource = new MatTableDataSource<Attribute>(this.data.attributes);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
-    const ids: number[] = [];
-    for (const attr of this.data.attributes) {
-      ids.push(attr.id);
-    }
-
-    const payload: any = {};
-
-    payload[this.data.entity] = this.data.entityId;
-    payload['attributes'] = ids;
-
-    if (this.data.secondEntity !== undefined) {
-      payload[this.data.secondEntity] = this.data.secondEntityId;
-    }
-
+  onSubmit(): void {
     switch (this.data.entity) {
       case 'vo':
         this.attributesManager
@@ -181,8 +167,8 @@ export class EditAttributeDialogComponent implements OnInit {
     }
   }
 
-  onSuccess() {
-    this.translate.get('DIALOGS.EDIT_ATTRIBUTES.SUCCESS').subscribe((successMessage) => {
+  private onSuccess(): void {
+    this.translate.get('DIALOGS.EDIT_ATTRIBUTES.SUCCESS').subscribe((successMessage: string) => {
       this.notificator.showSuccess(successMessage);
       this.dialogRef.close(true);
     });

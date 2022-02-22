@@ -5,22 +5,19 @@ import { NotificationData } from '@perun-web-apps/perun/models';
   providedIn: 'root',
 })
 export class NotificationStorageService {
-  constructor() {}
-
+  newNotificationsCount = 0;
   private notificationData: NotificationData[] = [];
 
-  newNotificationsCount = 0;
-
-  storeNotification(notification: NotificationData) {
+  storeNotification(notification: NotificationData): void {
     this.newNotificationsCount++;
     this.notificationData.push(notification);
   }
 
-  getNotifications() {
+  getNotifications(): NotificationData[] {
     return this.notificationData.reverse();
   }
 
-  clearNotifications() {
+  clearNotifications(): void {
     this.notificationData = [];
   }
 }

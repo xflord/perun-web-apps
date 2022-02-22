@@ -2,9 +2,9 @@
   <div class="row">
     <div class="ml-auto mr-auto d-flex flex-column align-items-center">
       <h2>{{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.LABEL' | translate}}</h2>
-      <app-alert *ngIf="wrongUsernameOrPassword" alert_type="error">
+      <perun-web-apps-alert *ngIf="wrongUsernameOrPassword" alert_type="error">
         {{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.WRONG_LOGIN_OR_PASSWORD' | translate}}
-      </app-alert>
+      </perun-web-apps-alert>
       <mat-form-field appearance="outline">
         <mat-label>{{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.USERNAME' | translate}}</mat-label>
         <input matInput required [formControl]="usernameCtrl" />

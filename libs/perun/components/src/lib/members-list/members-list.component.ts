@@ -11,7 +11,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { SelectionModel } from '@angular/cdk/collections';
-import { RichMember } from '@perun-web-apps/perun/openapi';
+import { Member, RichMember } from '@perun-web-apps/perun/openapi';
 import {
   customDataSourceFilterPredicate,
   customDataSourceSort,
@@ -38,35 +38,12 @@ import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
   styleUrls: ['./members-list.component.scss'],
 })
 export class MembersListComponent implements OnChanges, AfterViewInit {
-  constructor(
-    private dialog: MatDialog,
-    private authResolver: GuiAuthResolver,
-    private tableCheckbox: TableCheckbox,
-    private route: ActivatedRoute
-  ) {}
-
-  private sort: MatSort;
-
-  @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
-    this.sort = ms;
-  }
-
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-
-  @Input()
-  showGroupStatuses: boolean;
-
-  @Input()
-  members: RichMember[];
-
-  @Input()
-  searchString: string;
-
-  @Input()
-  selection: SelectionModel<RichMember> = new SelectionModel<RichMember>();
-
-  @Input()
-  displayedColumns: string[] = [
+  @Input() showGroupStatuses: boolean;
+  @Input() members: RichMember[];
+  @Input() searchString: string;
+  @Input() selection: SelectionModel<RichMember> = new SelectionModel<RichMember>();
+  @Input() displayedColumns: string[] = [
     'checkbox',
     'id',
     'voId',
@@ -80,49 +57,32 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     'email',
     'logins',
   ];
-
   @Input() disableStatusChange = false;
-
   @Input() disableExpirationChange = false;
-
-  @Input()
-  tableId: string;
-
-  @Input()
-  disableRouting = false;
-
-  @Input()
-  filter = '';
-
-  @Output()
-  updateTable = new EventEmitter<boolean>();
+  @Input() tableId: string;
+  @Input() disableRouting = false;
+  @Input() filter = '';
+  @Output() updateTable = new EventEmitter<boolean>();
 
   dataSource: MatTableDataSource<RichMember>;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   disabledRouting: boolean;
   groupId: number;
 
-  getSortDataForColumn(data: RichMember, column: string, outerThis: MembersListComponent): string {
-    switch (column) {
-      case 'id':
-        return data.id.toString();
-      case 'fullName':
-        if (data.user) {
-          return data.user.lastName ? data.user.lastName : data.user.firstName ?? '';
-        }
-        return '';
-      case 'status':
-        return outerThis.showGroupStatuses ? data.groupStatus : data.status;
-      case 'organization':
-        return parseOrganization(data);
-      case 'email':
-        return parseEmail(data);
-      default:
-        return '';
-    }
+  private sort: MatSort;
+
+  constructor(
+    private dialog: MatDialog,
+    private authResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox,
+    private route: ActivatedRoute
+  ) {}
+
+  @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
+    this.sort = ms;
   }
 
-  getFilterDataForColumn(data: RichMember, column: string): string {
+  static getFilterDataForColumn(data: RichMember, column: string): string {
     switch (column) {
       case 'fullName':
         if (data.user) {
@@ -138,7 +98,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  getExportDataForColumn(
+  static getExportDataForColumn(
     data: RichMember,
     column: string,
     outerThis: MembersListComponent
@@ -164,33 +124,57 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  exportData(format: string) {
+  static getSortDataForColumn(
+    data: RichMember,
+    column: string,
+    outerThis: MembersListComponent
+  ): string {
+    switch (column) {
+      case 'id':
+        return data.id.toString();
+      case 'fullName':
+        if (data.user) {
+          return data.user.lastName ? data.user.lastName : data.user.firstName ?? '';
+        }
+        return '';
+      case 'status':
+        return outerThis.showGroupStatuses ? data.groupStatus : data.status;
+      case 'organization':
+        return parseOrganization(data);
+      case 'email':
+        return parseEmail(data);
+      default:
+        return '';
+    }
+  }
+
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getExportDataForColumn,
+        MembersListComponent.getExportDataForColumn,
         this
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (!this.dataSource) {
       this.dataSource = new MatTableDataSource<RichMember>();
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
-      this.dataSource.filterPredicate = (data: RichMember, filter: string) =>
+      this.dataSource.filterPredicate = (data: RichMember, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getFilterDataForColumn,
+          MembersListComponent.getFilterDataForColumn,
           this
         );
-      this.dataSource.sortData = (data: RichMember[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getSortDataForColumn, this);
+      this.dataSource.sortData = (data: RichMember[], sort: MatSort): RichMember[] =>
+        customDataSourceSort(data, sort, MembersListComponent.getSortDataForColumn, this);
     }
     this.dataSource.filter = this.filter;
     this.dataSource.data = this.members;
@@ -202,19 +186,19 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.setDataSource();
     this.disabledRouting = this.disableRouting;
     this.route.parent?.params.subscribe((params) => {
       if (params['groupId']) {
-        this.groupId = params['groupId'];
+        this.groupId = Number(params['groupId']);
       }
     });
   }
 
   canBeSelected = (member: RichMember): boolean => member.membershipType === 'DIRECT';
 
-  isAllSelected() {
+  isAllSelected(): boolean {
     return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(
       this.selection.selected.length,
       this.filter,
@@ -227,7 +211,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     );
   }
 
-  masterToggle() {
+  masterToggle(): void {
     this.tableCheckbox.masterToggle(
       this.isAllSelected(),
       this.selection,
@@ -248,7 +232,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-  changeStatus(event: any, member: RichMember) {
+  changeStatus(event: Event, member: RichMember): void {
     event.stopPropagation();
     if (!this.disableStatusChange) {
       const config = getDefaultDialogConfig();
@@ -256,7 +240,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
       config.data = { member: member, disableChangeExpiration: this.disableExpirationChange };
 
       const dialogRef = this.dialog.open(ChangeMemberStatusDialogComponent, config);
-      dialogRef.afterClosed().subscribe((success) => {
+      dialogRef.afterClosed().subscribe((success: Member) => {
         if (success) {
           this.updateTable.emit(true);
         }
@@ -264,7 +248,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  viewMemberGroupTree(member: RichMember) {
+  viewMemberGroupTree(member: RichMember): void {
     const config = getDefaultDialogConfig();
     config.width = '800px';
     config.data = { member: member, groupId: this.groupId };

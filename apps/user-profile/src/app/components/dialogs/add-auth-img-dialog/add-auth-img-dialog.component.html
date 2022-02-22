@@ -1,15 +1,15 @@
 <div mat-dialog-title>{{'DIALOGS.ADD_AUTH_IMG.TITLE' | customTranslate | translate}}</div>
 <div class="{{theme}}">
   <div mat-dialog-content>
-    <app-alert
+    <perun-web-apps-alert
       *ngIf="!newImage"
       alert_type="info"
-      >{{'DIALOGS.ADD_AUTH_IMG.INFO' | customTranslate | translate}}</app-alert
+      >{{'DIALOGS.ADD_AUTH_IMG.INFO' | customTranslate | translate}}</perun-web-apps-alert
     >
-    <app-alert
+    <perun-web-apps-alert
       *ngIf="imgTooLong"
       alert_type="error"
-      >{{'DIALOGS.ADD_AUTH_IMG.IMG_TOO_LONG' | customTranslate | translate}}</app-alert
+      >{{'DIALOGS.ADD_AUTH_IMG.IMG_TOO_LONG' | customTranslate | translate}}</perun-web-apps-alert
     >
     <div *ngIf="newImage" class="center-content">
       <img [src]="newImage" alt="" class="img-size" />
@@ -26,10 +26,10 @@
         class="d-none"
         type="file" />
     </button>
-    <app-alert
+    <perun-web-apps-alert
       *ngIf="newImage"
       alert_type="info"
-      >{{'DIALOGS.ADD_AUTH_IMG.DELAY_INFO' | customTranslate | translate}}</app-alert
+      >{{'DIALOGS.ADD_AUTH_IMG.DELAY_INFO' | customTranslate | translate}}</perun-web-apps-alert
     >
   </div>
   <div mat-dialog-actions>

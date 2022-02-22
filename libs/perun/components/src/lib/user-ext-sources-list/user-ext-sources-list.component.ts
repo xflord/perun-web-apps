@@ -20,42 +20,58 @@ import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
   styleUrls: ['./user-ext-sources-list.component.scss'],
 })
 export class UserExtSourcesListComponent implements OnInit, OnChanges {
-  constructor(private route: ActivatedRoute, private authResolver: GuiAuthResolver) {}
-
-  @Input()
-  userExtSources: RichUserExtSource[];
-  @Input()
-  selection: SelectionModel<UserExtSource> = new SelectionModel<UserExtSource>();
-  @Input()
-  filterValue = '';
-  @Input()
-  displayedColumns: string[] = ['select', 'id', 'mail', 'extSourceName', 'login', 'lastAccess'];
-  @Input()
-  tableId: string;
-  @Input()
-  extSourceNameHeader: string;
-  @Input()
-  loginHeader: string;
-  @Input()
-  disableRouting: boolean;
+  @Input() userExtSources: RichUserExtSource[];
+  @Input() selection: SelectionModel<UserExtSource> = new SelectionModel<UserExtSource>();
+  @Input() filterValue = '';
+  @Input() displayedColumns: string[] = [
+    'select',
+    'id',
+    'mail',
+    'extSourceName',
+    'login',
+    'lastAccess',
+  ];
+  @Input() tableId: string;
+  @Input() extSourceNameHeader: string;
+  @Input() loginHeader: string;
+  @Input() disableRouting: boolean;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  dataSource: MatTableDataSource<RichUserExtSource>;
+  userId: number;
+  private sort: MatSort;
 
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  constructor(private route: ActivatedRoute, private authResolver: GuiAuthResolver) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSource();
   }
 
-  private sort: MatSort;
-  dataSource: MatTableDataSource<RichUserExtSource>;
-  userId: number;
+  static getDataForColumn(data: RichUserExtSource, column: string): string {
+    switch (column) {
+      case 'id':
+        return data.userExtSource.id.toString();
+      case 'mail': {
+        const attribute = data.attributes.find((att) => att.friendlyName === 'mail');
+        return attribute ? (attribute.value as unknown as string) : 'N/A';
+      }
+      case 'extSourceName':
+        return data.userExtSource.extSource.name;
+      case 'login':
+        return data.userExtSource.login;
+      case 'lastAccess':
+        return data.userExtSource.lastAccess.split('.')[0];
+      default:
+        return data[column] as string;
+    }
+  }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (!this.disableRouting) {
       this.route.parent.params.subscribe((params) => {
-        this.userId = params['userId'];
+        this.userId = Number(params['userId']);
       });
     }
     this.setDataSource();
@@ -69,49 +85,30 @@ export class UserExtSourcesListComponent implements OnInit, OnChanges {
     this.setDataSource();
   }
 
-  getDataForColumn(data: RichUserExtSource, column: string): string {
-    switch (column) {
-      case 'id':
-        return data.userExtSource.id.toString();
-      case 'mail': {
-        const attribute = data.attributes.find((att) => att.friendlyName === 'mail');
-        return attribute ? attribute.value.toString() : 'N/A';
-      }
-      case 'extSourceName':
-        return data.userExtSource.extSource.name;
-      case 'login':
-        return data.userExtSource.login;
-      case 'lastAccess':
-        return data.userExtSource.lastAccess.split('.')[0];
-      default:
-        return data[column];
-    }
-  }
-
-  exportData(format: string) {
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
+        UserExtSourcesListComponent.getDataForColumn,
         this
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: RichUserExtSource, filter: string) =>
+      this.dataSource.filterPredicate = (data: RichUserExtSource, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn,
+          UserExtSourcesListComponent.getDataForColumn,
           this
         );
-      this.dataSource.sortData = (data: RichUserExtSource[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: RichUserExtSource[], sort: MatSort): RichUserExtSource[] =>
+        customDataSourceSort(data, sort, UserExtSourcesListComponent.getDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;

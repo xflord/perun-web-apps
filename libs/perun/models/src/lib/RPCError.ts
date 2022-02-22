@@ -4,6 +4,6 @@ export interface RPCError {
   name: string;
   type: string;
   call?: string;
-  payload?: any;
+  payload?: object;
   urlWithParams?: string;
 }

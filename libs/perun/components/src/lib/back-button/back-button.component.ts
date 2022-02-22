@@ -8,15 +8,15 @@ import { StoreService } from '@perun-web-apps/perun/services';
   styleUrls: ['./back-button.component.scss'],
 })
 export class BackButtonComponent implements OnInit {
-  constructor(private location: Location, private storeService: StoreService) {}
-
   backButtonColor: string;
 
-  ngOnInit() {
-    this.backButtonColor = this.storeService.get('theme', 'back_button_color');
+  constructor(private location: Location, private storeService: StoreService) {}
+
+  ngOnInit(): void {
+    this.backButtonColor = this.storeService.get('theme', 'back_button_color') as string;
   }
 
-  goBack() {
+  goBack(): void {
     if (sessionStorage.getItem('onInitPage') === 'false') {
       this.location.back();
     }

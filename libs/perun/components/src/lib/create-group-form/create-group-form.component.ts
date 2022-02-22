@@ -9,30 +9,22 @@ import { Group } from '@perun-web-apps/perun/openapi';
   styleUrls: ['./create-group-form.component.css'],
 })
 export class CreateGroupFormComponent implements OnInit {
-  constructor(private store: StoreService) {}
-
-  @Input()
-  parentGroup: Group = null;
-
-  @Input()
-  voGroups: Group[] = [];
+  @Input() parentGroup: Group = null;
+  @Input() voGroups: Group[] = [];
+  @Output() nameChanged: EventEmitter<string> = new EventEmitter<string>();
+  @Output() descriptionChanged: EventEmitter<string> = new EventEmitter<string>();
+  @Output() parentGroupChanged: EventEmitter<Group> = new EventEmitter<Group>();
+  @Output() asSubgroupChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   isNotSubGroup: boolean;
   asSubgroup = false;
-  invalidNameMessage = this.store.get('group_name_error_message');
-  secondaryRegex = this.store.get('group_name_secondary_regex');
+  invalidNameMessage: string = this.store.get('group_name_error_message') as string;
+  secondaryRegex: string = this.store.get('group_name_secondary_regex') as string;
   nameControl: FormControl;
   descriptionControl: FormControl;
   selectedParent: Group;
 
-  @Output()
-  nameChanged: EventEmitter<string> = new EventEmitter<string>();
-  @Output()
-  descriptionChanged: EventEmitter<string> = new EventEmitter<string>();
-  @Output()
-  parentGroupChanged: EventEmitter<Group> = new EventEmitter<Group>();
-  @Output()
-  asSubgroupChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+  constructor(private store: StoreService) {}
 
   ngOnInit(): void {
     this.isNotSubGroup = this.parentGroup === null;
@@ -46,29 +38,29 @@ export class CreateGroupFormComponent implements OnInit {
     this.voGroups = this.voGroups.filter((grp) => grp.name !== 'members');
   }
 
-  emitName() {
+  emitName(): void {
     if (this.nameControl.invalid) {
       this.nameChanged.emit('');
     } else {
-      this.nameChanged.emit(this.nameControl.value);
+      this.nameChanged.emit(this.nameControl.value as string);
     }
   }
 
-  emitDescription() {
+  emitDescription(): void {
     if (this.descriptionControl.invalid) {
       this.descriptionChanged.emit('');
     } else {
-      this.descriptionChanged.emit(this.descriptionControl.value);
+      this.descriptionChanged.emit(this.descriptionControl.value as string);
     }
   }
 
-  emitParentGroup(parent: Group) {
+  emitParentGroup(parent: Group): void {
     this.selectedParent = parent;
 
     this.parentGroupChanged.emit(parent);
   }
 
-  emitAsSubGroup() {
+  emitAsSubGroup(): void {
     if (!this.asSubgroup) {
       this.emitParentGroup(null);
     }

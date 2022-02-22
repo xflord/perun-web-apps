@@ -19,52 +19,29 @@ import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
   styleUrls: ['./vos-list.component.scss'],
 })
 export class VosListComponent implements OnChanges {
+  @Input() vos: Vo[] | EnrichedVo[] = [];
+  @Input() recentIds: number[];
+  @Input() filterValue: string;
+  @Input() selection: SelectionModel<Vo>;
+  @Input() displayedColumns: string[] = [];
+  @Input() disableRouting = false;
+  @Input() pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  @Input() tableId: string;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+
+  dataSource: MatTableDataSource<Vo | EnrichedVo>;
+  private sort: MatSort;
+
   constructor(private authResolver: GuiAuthResolver) {}
-
-  @Input()
-  vos: Vo[] | EnrichedVo[] = [];
-
-  @Input()
-  recentIds: number[];
-
-  @Input()
-  filterValue: string;
-
-  @Input()
-  selection: SelectionModel<Vo | EnrichedVo>;
-
-  @Input()
-  displayedColumns: string[] = [];
-
-  @Input()
-  disableRouting = false;
-
-  @Input()
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
-  @Input()
-  tableId: string;
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
   }
 
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-
-  private sort: MatSort;
-
-  dataSource: MatTableDataSource<Vo | EnrichedVo>;
   static isEnrichedVo = (vo: Vo | EnrichedVo): vo is EnrichedVo =>
     (vo as EnrichedVo).vo !== undefined;
 
-  ngOnChanges() {
-    if (!this.authResolver.isPerunAdminOrObserver()) {
-      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
-    }
-    this.setDataSource();
-  }
-
-  getDataForColumn(data: Vo | EnrichedVo, column: string, otherThis: VosListComponent): string {
+  static getDataForColumn(data: Vo | EnrichedVo, column: string, otherThis: VosListComponent): string {
     if (VosListComponent.isEnrichedVo(data)) {
       data = data.vo;
     }
@@ -78,43 +55,50 @@ export class VosListComponent implements OnChanges {
         return data.name;
       case 'recent':
         if (otherThis.recentIds) {
-          if (otherThis.recentIds.indexOf(data.id) > -1) {
+          if (otherThis.recentIds.includes(data.id)) {
             return '#'.repeat(otherThis.recentIds.indexOf(data.id));
           }
         }
         return data['name'];
       default:
-        return data[column];
+        return data[column] as string;
     }
   }
 
-  exportData(format: string) {
+  ngOnChanges(): void {
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
+    }
+    this.setDataSource();
+  }
+
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
+        VosListComponent.getDataForColumn,
         this
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (!this.dataSource) {
       this.dataSource = new MatTableDataSource<Vo>();
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
-      this.dataSource.filterPredicate = (data: Vo, filter: string) =>
+      this.dataSource.filterPredicate = (data: Vo, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn,
+          VosListComponent.getDataForColumn,
           this
         );
-      this.dataSource.sortData = (data: Vo[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: Vo[], sort: MatSort): (Vo | EnrichedVo)[] =>
+        customDataSourceSort(data, sort, VosListComponent.getDataForColumn, this);
     }
     this.dataSource.filter = this.filterValue;
     this.dataSource.data = this.vos;

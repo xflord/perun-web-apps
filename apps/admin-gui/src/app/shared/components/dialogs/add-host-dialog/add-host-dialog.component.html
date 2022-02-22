@@ -23,7 +23,10 @@
         {{this.hostsCtrl.getError('invalidHost').value}}
       </mat-error>
     </mat-form-field>
-    <app-alert alert_type="info">{{'DIALOGS.ADD_HOST.HINT'| translate}}</app-alert>
+    <perun-web-apps-alert
+      alert_type="info"
+      >{{'DIALOGS.ADD_HOST.HINT'| translate}}</perun-web-apps-alert
+    >
   </div>
   <div mat-dialog-actions>
     <button mat-flat-button class="ml-auto" (click)="onCancel()">

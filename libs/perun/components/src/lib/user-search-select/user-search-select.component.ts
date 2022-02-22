@@ -8,18 +8,10 @@ import { compareFnUser, parseFullName } from '@perun-web-apps/perun/utils';
   styleUrls: ['./user-search-select.component.css'],
 })
 export class UserSearchSelectComponent implements OnInit {
-  constructor() {}
-
-  @Input()
-  users: User[];
-
-  @Input()
-  disableAutoSelect = false;
-
-  @Output()
-  userSelected = new EventEmitter<User>();
+  @Input() users: User[];
+  @Input() disableAutoSelect = false;
+  @Output() userSelected = new EventEmitter<User>();
   userFullNameFunction = parseFullName;
-
   ngOnInit(): void {
     this.users = this.users.sort(compareFnUser);
   }

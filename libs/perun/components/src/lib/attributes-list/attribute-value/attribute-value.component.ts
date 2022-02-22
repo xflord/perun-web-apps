@@ -8,26 +8,18 @@ import { Attribute } from '@perun-web-apps/perun/openapi';
   styleUrls: ['./attribute-value.component.scss'],
 })
 export class AttributeValueComponent {
-  constructor() {}
-
-  @ViewChild('map')
-  mapComponent: AttributeValueMapComponent;
-
-  @Input()
-  attribute: Attribute;
-
-  @Input()
-  readonly = false;
-
+  @ViewChild('map') mapComponent: AttributeValueMapComponent;
+  @Input() attribute: Attribute;
+  @Input() readonly = false;
   @Output() sendEventToParent2 = new EventEmitter();
 
-  updateMapAttribute() {
+  updateMapAttribute(): void {
     if (this.attribute.type === 'java.util.LinkedHashMap') {
       this.mapComponent.updateAttribute();
     }
   }
 
-  _sendEventToParent2() {
+  _sendEventToParent2(): void {
     this.sendEventToParent2.emit();
   }
 }

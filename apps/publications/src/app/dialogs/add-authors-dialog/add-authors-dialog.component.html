@@ -32,9 +32,9 @@
           [tableId]="tableIdAuthors"
           [displayedColumns]="['id', 'name', 'organization', 'email', 'add']">
         </perun-web-apps-authors-list>
-        <app-alert *ngIf="!firstSearchDone" alert_type="info">
+        <perun-web-apps-alert *ngIf="!firstSearchDone" alert_type="info">
           {{'DIALOGS.ADD_AUTHORS.SEARCH_INFO' | translate}}
-        </app-alert>
+        </perun-web-apps-alert>
       </div>
       <mat-spinner *ngIf="searchLoading" class="ml-auto mr-auto"></mat-spinner>
       <h2 mat-dialog-title class="top-margin">
@@ -51,9 +51,9 @@
           [displayedColumns]="['id', 'name', 'organization', 'email', 'remove']">
         </perun-web-apps-authors-list>
       </div>
-      <app-alert *ngIf="authorsToAdd.length === 0" alert_type="warn">
+      <perun-web-apps-alert *ngIf="authorsToAdd.length === 0" alert_type="warn">
         {{'DIALOGS.ADD_AUTHORS.NO_AUTHORS_TO_ADD' | translate}}
-      </app-alert>
+      </perun-web-apps-alert>
     </div>
   </div>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>

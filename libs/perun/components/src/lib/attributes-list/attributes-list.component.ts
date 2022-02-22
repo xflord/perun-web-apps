@@ -30,6 +30,21 @@ import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
   styleUrls: ['./attributes-list.component.scss'],
 })
 export class AttributesListComponent implements OnChanges, AfterViewInit {
+  @ViewChildren(AttributeValueComponent) items: QueryList<AttributeValueComponent>;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  @Input() attributes: Attribute[] = [];
+  @Input() selection = new SelectionModel<Attribute>(true, []);
+  @Input() displayedColumns: string[] = ['select', 'id', 'displayName', 'value', 'description'];
+  @Input() inDialog = false;
+  @Input() filterValue = '';
+  @Input() tableId: string;
+  @Input() readonly = false;
+  @Input() hiddenColumns: string[] = [];
+  @Input() emptyListText = 'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.EMPTY_SETTINGS';
+  dataSource: MatTableDataSource<Attribute>;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  private sort: MatSort;
+
   constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
@@ -37,57 +52,11 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
     this.setDataSource();
   }
 
-  @ViewChildren(AttributeValueComponent)
-  items: QueryList<AttributeValueComponent>;
-
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-
-  @Input()
-  attributes: Attribute[] = [];
-
-  @Input()
-  selection = new SelectionModel<Attribute>(true, []);
-
-  private sort: MatSort;
-
-  @Input()
-  displayedColumns: string[] = ['select', 'id', 'displayName', 'value', 'description'];
-  dataSource: MatTableDataSource<Attribute>;
-
-  // set this true when used in dialog window
-  @Input()
-  inDialog = false;
-
-  @Input()
-  filterValue = '';
-
-  @Input()
-  tableId: string;
-
-  @Input()
-  readonly = false;
-
-  @Input()
-  hiddenColumns: string[] = [];
-
-  @Input()
-  emptyListText = 'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.EMPTY_SETTINGS';
-
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
-  ngOnChanges() {
-    if (!this.authResolver.isPerunAdminOrObserver()) {
-      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
-    }
-    this.dataSource = new MatTableDataSource<Attribute>(filterCoreAttributes(this.attributes));
-    this.setDataSource();
+  static canBeSelected(attribute: Attribute): boolean {
+    return !isVirtualAttribute(attribute) && attribute.writable;
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.child.paginator;
-  }
-
-  getDataForColumn(data: Attribute, column: string): string {
+  static getDataForColumn(data: Attribute, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -104,38 +73,50 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  exportData(format: string) {
+  ngOnChanges(): void {
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
+    }
+    this.dataSource = new MatTableDataSource<Attribute>(filterCoreAttributes(this.attributes));
+    this.setDataSource();
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.child.paginator;
+  }
+
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
+        AttributesListComponent.getDataForColumn,
         this
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     this.displayedColumns = this.displayedColumns.filter((x) => !this.hiddenColumns.includes(x));
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: Attribute, filter: string) =>
+      this.dataSource.filterPredicate = (data: Attribute, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns.concat('urn'),
-          this.getDataForColumn,
+          AttributesListComponent.getDataForColumn,
           this
         );
-      this.dataSource.sortData = (data: Attribute[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: Attribute[], sort: MatSort): Attribute[] =>
+        customDataSourceSort(data, sort, AttributesListComponent.getDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;
     }
   }
 
-  isAllSelected() {
+  isAllSelected(): boolean {
     return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(
       this.selection.selected.length,
       this.filterValue,
@@ -144,11 +125,11 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
       this.child.paginator.pageIndex,
       this.dataSource,
       this.sort,
-      this.canBeSelected
+      AttributesListComponent.canBeSelected
     );
   }
 
-  masterToggle() {
+  masterToggle(): void {
     this.tableCheckbox.masterToggle(
       this.isAllSelected(),
       this.selection,
@@ -158,7 +139,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
       true,
-      this.canBeSelected
+      AttributesListComponent.canBeSelected
     );
   }
 
@@ -169,7 +150,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-  updateMapAttributes() {
+  updateMapAttributes(): void {
     for (const item of this.items.toArray()) {
       if (item.attribute.type === 'java.util.LinkedHashMap') {
         item.updateMapAttribute();
@@ -177,17 +158,13 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  onValueChange(attribute: Attribute) {
-    if (this.canBeSelected(attribute)) {
+  onValueChange(attribute: Attribute): void {
+    if (AttributesListComponent.canBeSelected(attribute)) {
       this.selection.select(attribute);
     }
   }
 
-  canBeSelected(attribute: Attribute): boolean {
-    return !isVirtualAttribute(attribute) && attribute.writable;
-  }
-
-  getAttributeFullName(attribute: Attribute) {
+  getAttributeFullName(attribute: Attribute): string {
     return `${attribute.namespace}:${attribute.friendlyName}`;
   }
 }

@@ -1,19 +1,15 @@
-import { Directive, ElementRef, HostListener, Inject, Input } from '@angular/core';
+import { Directive, HostListener, Inject, Input } from '@angular/core';
 import { ForceRouterService } from '@perun-web-apps/perun/services';
 
 @Directive({
   selector: '[perunWebAppsForceRouterLink]',
 })
 export class ForceRouterLinkDirective {
-  constructor(
-    private el: ElementRef,
-    @Inject(ForceRouterService) private router: ForceRouterService
-  ) {}
+  @Input() perunWebAppsForceRouterLink: string[];
 
-  @Input()
-  perunWebAppsForceRouterLink: any[];
+  constructor(@Inject(ForceRouterService) private router: ForceRouterService) {}
 
-  @HostListener('click') onClick() {
+  @HostListener('click') onClick(): void {
     this.router.forceNavigate(this.perunWebAppsForceRouterLink);
   }
 }

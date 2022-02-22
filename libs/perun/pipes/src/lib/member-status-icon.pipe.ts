@@ -10,7 +10,7 @@ export class MemberStatusIconPipe implements PipeTransform {
    * @param value string status
    * @param args not used
    */
-  transform(value: string): any {
+  transform(value: string): string {
     switch (value) {
       case 'VALID':
         return 'verified_user';

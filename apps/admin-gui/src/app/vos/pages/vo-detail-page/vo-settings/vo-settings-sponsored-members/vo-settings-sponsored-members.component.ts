@@ -67,7 +67,7 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
     const availableRoles = ['SPONSOR'];
     const availableRolesPrivileges = new Map<string, any>();
 
-    this.authResolver.getRolesAuthorization(availableRoles, this.vo, availableRolesPrivileges);
+    this.authResolver.setRolesAuthorization(availableRoles, this.vo, availableRolesPrivileges);
     this.findSponsorsAuth = availableRolesPrivileges.get(availableRoles[0]).readAuth;
 
     if (this.findSponsorsAuth) {

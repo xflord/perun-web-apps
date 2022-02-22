@@ -9,8 +9,6 @@ export class CustomIcon {
 
 @Injectable()
 export class CustomIconService {
-  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {}
-
   customIcons: CustomIcon[] = [
     {
       url: 'assets/img/PerunWebImages/refresh_tab-black.svg',
@@ -210,7 +208,9 @@ export class CustomIconService {
     },
   ];
 
-  registerPerunRefreshIcon() {
+  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {}
+
+  registerPerunRefreshIcon(): void {
     this.customIcons.forEach((ci) => {
       this.matIconRegistry.addSvgIcon(
         ci.name,

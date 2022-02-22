@@ -22,10 +22,10 @@
 
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
 
-  <app-alert
+  <perun-web-apps-alert
     alert_type="warn"
     *ngIf="!userMemberships.length && !adminMemberships.length && !loading"
-    >{{'GROUPS.NO_GROUPS'| customTranslate | translate}}</app-alert
+    >{{'GROUPS.NO_GROUPS'| customTranslate | translate}}</perun-web-apps-alert
   >
 
   <div *ngIf="!loading && userMemberships.length !== 0">

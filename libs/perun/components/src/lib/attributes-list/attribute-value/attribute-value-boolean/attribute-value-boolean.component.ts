@@ -8,23 +8,17 @@ import { isVirtualAttribute } from '@perun-web-apps/perun/utils';
   styleUrls: ['./attribute-value-boolean.component.scss'],
 })
 export class AttributeValueBooleanComponent implements OnInit {
-  constructor() {}
-
-  @Input()
-  attribute: Attribute;
-
-  @Input()
-  readonly = false;
-
+  @Input() attribute: Attribute;
+  @Input() readonly = false;
   @Output() sendEventToParent = new EventEmitter();
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (!this.readonly) {
       this.readonly = isVirtualAttribute(this.attribute);
     }
   }
 
-  _sendEventToParent() {
+  _sendEventToParent(): void {
     this.sendEventToParent.emit();
   }
 }

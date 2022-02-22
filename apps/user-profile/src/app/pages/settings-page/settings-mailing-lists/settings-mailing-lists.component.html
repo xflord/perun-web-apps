@@ -11,10 +11,10 @@
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
       <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-      <app-alert
+      <perun-web-apps-alert
         *ngIf="resources.length === 0 && !loading"
         alert_type="warn"
-        >{{'OPT_OUT_MAILING_LISTS.NO_MAILING_LISTS_ALERT' | customTranslate | translate}}</app-alert
+        >{{'OPT_OUT_MAILING_LISTS.NO_MAILING_LISTS_ALERT' | customTranslate | translate}}</perun-web-apps-alert
       >
       <mat-accordion *ngIf="resources.length && !loading">
         <mat-expansion-panel

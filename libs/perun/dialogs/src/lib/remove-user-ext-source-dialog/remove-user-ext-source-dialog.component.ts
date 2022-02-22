@@ -34,19 +34,19 @@ export class RemoveUserExtSourceDialogComponent implements OnInit {
   ) {
     translate
       .get('SHARED_LIB.PERUN.COMPONENTS.REMOVE_USER_EXT_SOURCE.SUCCESS')
-      .subscribe((res) => (this.successMessage = res));
+      .subscribe((res: string) => (this.successMessage = res));
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
     this.dataSource = new MatTableDataSource<RichUserExtSource>(this.data.extSources);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     if (this.data.extSources.length) {
       this.usersManagerService

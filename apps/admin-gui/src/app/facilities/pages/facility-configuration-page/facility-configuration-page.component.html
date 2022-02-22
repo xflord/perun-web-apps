@@ -21,9 +21,9 @@
       <ng-template matStepLabel>{{'FACILITY_CONFIGURATION.SERVICES' | translate}}</ng-template>
       <ng-template matStepContent>
         <h1 class="page-subtitle">{{'FACILITY_CONFIGURATION.SERVICES' | translate}}</h1>
-        <app-alert alert_type="info">
+        <perun-web-apps-alert alert_type="info">
           {{'FACILITY_CONFIGURATION.SERVICES_INFO' | translate}}
-        </app-alert>
+        </perun-web-apps-alert>
         <div class="filters">
           <perun-web-apps-immediate-filter
             class="filter"
@@ -60,9 +60,9 @@
       >
       <ng-template matStepContent>
         <h1 class="page-subtitle">{{'FACILITY_CONFIGURATION.SERVICE_CONFIG' | translate}}</h1>
-        <app-alert alert_type="info">
+        <perun-web-apps-alert alert_type="info">
           {{'FACILITY_CONFIGURATION.ATT_INFO' | translate}}
-        </app-alert>
+        </perun-web-apps-alert>
         <div class="filters">
           <button
             mat-flat-button
@@ -127,9 +127,9 @@
     <mat-step>
       <ng-template matStepLabel>{{'FACILITY_CONFIGURATION.SUMMARY' | translate}}</ng-template>
       <ng-template matStepContent>
-        <app-alert alert_type="info">
+        <perun-web-apps-alert alert_type="info">
           <i [innerHTML]="'FACILITY_CONFIGURATION.SUMMARY_INFO' | translate"></i>
-        </app-alert>
+        </perun-web-apps-alert>
         <mat-accordion
           *ngIf="stepper.selectedIndex === stepper.steps.length - 1"
           [@.disabled]="true">

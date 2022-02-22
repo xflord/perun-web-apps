@@ -7,21 +7,14 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./immediate-filter.component.scss'],
 })
 export class ImmediateFilterComponent implements OnInit {
-  constructor() {}
-
-  @Input()
-  placeholder: string;
-
-  @Output()
-  filter = new EventEmitter<string>();
-
-  @Input()
-  autoFocus = false;
+  @Input() placeholder: string;
+  @Output() filter = new EventEmitter<string>();
+  @Input() autoFocus = false;
 
   formControl = new FormControl();
 
   ngOnInit(): void {
-    this.formControl.valueChanges.subscribe((value) => {
+    this.formControl.valueChanges.subscribe((value: string) => {
       let returnValue = value.trim();
       returnValue = returnValue.toLowerCase();
       this.filter.emit(returnValue);

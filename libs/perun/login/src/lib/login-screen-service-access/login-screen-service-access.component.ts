@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthzResolverService, PerunPrincipal } from '@perun-web-apps/perun/openapi';
 import { FormControl, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'perun-web-apps-login-screen-service-access',
@@ -15,20 +13,16 @@ export class LoginScreenServiceAccessComponent implements OnInit {
   principal: PerunPrincipal;
   wrongUsernameOrPassword = false;
 
-  constructor(
-    private authzService: AuthzResolverService,
-    private dialog: MatDialog,
-    private translate: TranslateService
-  ) {}
+  constructor(private authzService: AuthzResolverService) {}
 
   ngOnInit(): void {
     this.usernameCtrl = new FormControl(null, [Validators.required]);
     this.passwordCtrl = new FormControl(null, [Validators.required]);
   }
 
-  startAuth() {
-    sessionStorage.setItem('basicUsername', this.usernameCtrl.value);
-    sessionStorage.setItem('basicPassword', this.passwordCtrl.value);
+  startAuth(): void {
+    sessionStorage.setItem('basicUsername', this.usernameCtrl.value as string);
+    sessionStorage.setItem('basicPassword', this.passwordCtrl.value as string);
     this.authzService.getPerunPrincipal().subscribe(
       (principal) => {
         sessionStorage.setItem('baPrincipal', JSON.stringify(principal));

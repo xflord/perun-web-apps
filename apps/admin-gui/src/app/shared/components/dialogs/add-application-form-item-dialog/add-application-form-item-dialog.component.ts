@@ -21,8 +21,8 @@ export class AddApplicationFormItemDialogComponent implements OnInit {
 
   items: string[] = [];
   selectedItem: string;
-  selectedWidget = 'HEADING';
-  widgets = [
+  selectedWidget: Type = 'HEADING';
+  widgets: Type[] = [
     'HEADING',
     'HTML_COMMENT',
     'TEXTFIELD',

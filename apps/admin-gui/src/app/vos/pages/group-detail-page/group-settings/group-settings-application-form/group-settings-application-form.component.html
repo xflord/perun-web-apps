@@ -102,9 +102,9 @@
     <!--    </button>-->
   </div>
 
-  <app-alert alert_type="info" *ngIf="editAuth">
+  <perun-web-apps-alert alert_type="info" *ngIf="editAuth">
     {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.DRAG_AND_DROP_INFO' | translate}}
-  </app-alert>
+  </perun-web-apps-alert>
 
   <app-application-form-list
     [loading]="loading"
@@ -117,9 +117,9 @@
   </app-application-form-list>
 </div>
 <div *ngIf="!loading && noApplicationForm">
-  <app-alert
+  <perun-web-apps-alert
     alert_type="warn"
-    >{{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.NO_APPLICATION_FORM' | translate}}</app-alert
+    >{{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.NO_APPLICATION_FORM' | translate}}</perun-web-apps-alert
   >
   <button
     *ngIf="createEmptyForm"

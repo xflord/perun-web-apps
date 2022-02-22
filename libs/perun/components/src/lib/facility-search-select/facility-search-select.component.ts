@@ -8,14 +8,9 @@ import { compareFnName } from '@perun-web-apps/perun/utils';
   styleUrls: ['./facility-search-select.component.css'],
 })
 export class FacilitySearchSelectComponent implements OnInit {
-  constructor() {}
-
-  @Input()
-  facilities: Facility[];
-
-  @Output()
-  facilitySelected = new EventEmitter<Facility>();
-  nameFunction = (facility: Facility) => facility.name;
+  @Input() facilities: Facility[];
+  @Output() facilitySelected = new EventEmitter<Facility>();
+  nameFunction = (facility: Facility): string => facility.name;
 
   ngOnInit(): void {
     this.facilities = this.facilities.sort(compareFnName);

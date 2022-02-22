@@ -8,14 +8,9 @@ import { compareFnUser, parseFullName } from '@perun-web-apps/perun/utils';
   styleUrls: ['./member-search-select.component.css'],
 })
 export class MemberSearchSelectComponent implements OnInit {
-  constructor() {}
-
-  @Input()
-  members: RichMember[];
-
-  @Output()
-  memberSelected = new EventEmitter<RichMember>();
-  memberFullNameFunction = (member: RichMember) => parseFullName(member.user);
+  @Input() members: RichMember[];
+  @Output() memberSelected = new EventEmitter<RichMember>();
+  memberFullNameFunction = (member: RichMember): string => parseFullName(member.user);
 
   ngOnInit(): void {
     this.members = this.members.sort(compareFnUser);

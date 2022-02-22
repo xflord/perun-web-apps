@@ -8,25 +8,20 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
   styleUrls: ['./group-menu.component.scss'],
 })
 export class GroupMenuComponent implements OnInit {
-  constructor(private authResolver: GuiAuthResolver) {}
-
   @Input() group: GroupFlatNode;
-
   @Input() disabled = false;
-
   @Input() displayButtons: boolean;
-
   @Output() moveGroup: EventEmitter<void> = new EventEmitter<void>();
-
   @Output() syncGroup: EventEmitter<void> = new EventEmitter<void>();
-
   @Output() changeNameDescription: EventEmitter<void> = new EventEmitter<void>();
 
   syncAuth: boolean;
   editAuth: boolean;
   moveAuth: boolean;
 
-  ngOnInit() {
+  constructor(private authResolver: GuiAuthResolver) {}
+
+  ngOnInit(): void {
     this.syncAuth = this.authResolver.isAuthorized('forceGroupSynchronization_Group_policy', [
       this.group,
     ]);
@@ -36,15 +31,15 @@ export class GroupMenuComponent implements OnInit {
       this.authResolver.isAuthorized('destination_null-moveGroup_Group_Group_policy', [this.group]);
   }
 
-  onMoveGroup() {
+  onMoveGroup(): void {
     this.moveGroup.emit();
   }
 
-  onSyncDetail() {
+  onSyncDetail(): void {
     this.syncGroup.emit();
   }
 
-  onChangeNameDescription() {
+  onChangeNameDescription(): void {
     this.changeNameDescription.emit();
   }
 }

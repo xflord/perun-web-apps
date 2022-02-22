@@ -7,23 +7,16 @@ import { compareFnName } from '@perun-web-apps/perun/utils';
   templateUrl: './vo-search-select.component.html',
   styleUrls: ['./vo-search-select.component.css'],
 })
-export class VoSearchSelectComponent implements OnChanges {
-  constructor() {}
+export class VoSearchSelectComponent implements OnChanges{
+  @Input() vo: Vo;
+  @Input() vos: Vo[];
+  @Output() voSelected = new EventEmitter<Vo>();
 
-  @Input()
-  vo: Vo;
+  nameFunction = (vo: Vo): string => vo.name;
+  shortNameFunction = (vo: Vo): string => vo.shortName;
+  searchFunction = (vo: Vo): string => vo.name + vo.shortName + String(vo.id);
 
-  @Input()
-  vos: Vo[];
-
-  @Output()
-  voSelected = new EventEmitter<Vo>();
-
-  nameFunction = (vo: Vo) => vo.name;
-  shortNameFunction = (vo: Vo) => vo.shortName;
-  searchFunction = (vo: Vo) => vo.name + vo.shortName + vo.id;
-
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.vos.sort(compareFnName);
     if (!this.vo) {
       this.vo = this.vos[0];

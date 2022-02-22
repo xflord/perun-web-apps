@@ -14,7 +14,8 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { FormControl } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { PerunBean } from '@perun-web-apps/perun/openapi';
+import { GroupResourceStatus, PerunBean } from '@perun-web-apps/perun/openapi';
+import { GroupWithStatus, ResourceWithStatus } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'perun-web-apps-entity-search-select',
@@ -24,63 +25,40 @@ import { PerunBean } from '@perun-web-apps/perun/openapi';
 export class EntitySearchSelectComponent<T extends PerunBean>
   implements OnInit, OnChanges, OnDestroy
 {
-  constructor(public cd: ChangeDetectorRef) {}
-
-  @Input()
-  entities: T[];
-
-  @Input()
-  selectPlaceholder = 'Select';
-
-  @Input()
-  findPlaceholder = 'Find...';
-
-  @Input()
-  noEntriesText = 'Nothing found';
-
-  @Input()
-  disableAutoSelect = false;
-
-  @Input()
-  entity: T = null;
-
-  @Input()
-  displayStatus = false;
-
-  @Input()
-  multiple = false;
-
-  @Input()
-  theme = '';
-
-  @Output()
-  entitySelected = new EventEmitter<T>();
-
-  @ViewChild('scrollViewport', { static: false })
-  scrollViewport: CdkVirtualScrollViewport;
+  @Input() entities: T[];
+  @Input() selectPlaceholder = 'Select';
+  @Input() findPlaceholder = 'Find...';
+  @Input() noEntriesText = 'Nothing found';
+  @Input() disableAutoSelect = false;
+  @Input() entity: T = null;
+  @Input() displayStatus = false;
+  @Input() multiple = false;
+  @Input() theme = '';
+  @Output() entitySelected = new EventEmitter<T>();
+  @ViewChild('scrollViewport', { static: false }) scrollViewport: CdkVirtualScrollViewport;
+  @Input() searchFunction: (entity: T) => string;
 
   entitiesCtrl: FormControl = new FormControl();
   entityFilterCtrl: FormControl = new FormControl();
   filteredEntities = new ReplaySubject<T[]>(1);
-
+  protected _onDestroy = new Subject<void>();
   private entitiesLen = 0;
 
-  protected _onDestroy = new Subject<void>();
+  constructor(public cd: ChangeDetectorRef) {}
 
-  @Input()
-  searchFunction: (entity: T) => string;
+  @Input() mainTextFunction: (entity: T) => string = (entity) => JSON.stringify(entity);
+  @Input() secondaryTextFunction: (entity: T) => string = (entity) =>
+    '#'.concat(
+      String(entity.id),
+      entity['description'] ? '  '.concat(entity['description'] as string) : ''
+    );
 
-  @Input()
-  mainTextFunction: (entity: T) => string = (entity) => JSON.stringify(entity);
-
-  @Input()
-  secondaryTextFunction: (entity: T) => string = (entity) =>
-    '#' + entity.id + (entity['description'] ? '  ' + entity['description'] : '');
-
-  statusTextFunction: (entity) => string = (entity) => entity.status;
+  statusTextFunction: (entity: GroupWithStatus | ResourceWithStatus) => GroupResourceStatus = (
+    entity
+  ) => entity.status;
 
   ngOnInit(): void {
-    this.entitiesCtrl.valueChanges.subscribe((entity) => this.entitySelected.emit(entity));
+    this.entitiesCtrl.valueChanges.subscribe((entity: T) => this.entitySelected.emit(entity));
 
     if (!this.disableAutoSelect && this.entity === null) {
       this.entitiesCtrl.setValue(this.entities[0]);
@@ -97,7 +75,7 @@ export class EntitySearchSelectComponent<T extends PerunBean>
     }
   }
 
-  colorByStatus(entity): string {
+  colorByStatus(entity: GroupWithStatus | ResourceWithStatus): string {
     switch (entity.status) {
       case 'ACTIVE':
         return 'green';
@@ -121,31 +99,9 @@ export class EntitySearchSelectComponent<T extends PerunBean>
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._onDestroy.next();
     this._onDestroy.complete();
-  }
-
-  private filterEntites() {
-    if (!this.entities) {
-      return;
-    }
-    // get the search keyword
-    let search = this.entityFilterCtrl.value;
-    if (!search) {
-      this.filteredEntities.next(this.entities.slice());
-      this.cd.detectChanges();
-      return;
-    } else {
-      search = this.normalize(search);
-    }
-    // filter the banks
-    this.filteredEntities.next(
-      this.entities.filter(
-        (entity) => this.normalize(this.searchFunction(entity)).indexOf(search) >= 0
-      )
-    );
-    this.cd.detectChanges();
   }
 
   /**
@@ -159,12 +115,12 @@ export class EntitySearchSelectComponent<T extends PerunBean>
       .toLowerCase();
   }
 
-  openChange() {
+  openChange(): void {
     this.scrollViewport.scrollToIndex(0);
     this.scrollViewport.checkViewportSize();
   }
 
-  getViewportHeight() {
+  getViewportHeight(): number {
     let height = this.entitiesLen * 48;
     if (height > 192) {
       height = 192;
@@ -175,24 +131,38 @@ export class EntitySearchSelectComponent<T extends PerunBean>
     return height;
   }
 
-  multipleSelectedText() {
-    if (!this.entitiesCtrl.value || this.entitiesCtrl.value.length === 0) {
+  multipleSelectedText(): string {
+    const entities: T[] = this.entitiesCtrl.value as T[];
+    if (!entities || entities.length === 0) {
       return;
     }
 
-    if (this.entitiesCtrl.value.length === this.entities.length) {
+    if (entities.length === this.entities.length) {
       return 'ALL';
-    } else if (this.entitiesCtrl.value.length > 1) {
-      return (
-        this.mainTextFunction(this.entitiesCtrl.value[0]) +
-        ` + ${this.entitiesCtrl.value.length - 1} other(s)`
-      );
+    } else if (entities.length > 1) {
+      return this.mainTextFunction(entities[0]) + ` + ${entities.length - 1} other(s)`;
     } else {
-      return (
-        this.mainTextFunction(this.entitiesCtrl.value[0]) +
-        ' ' +
-        this.secondaryTextFunction(this.entitiesCtrl.value[0])
-      );
+      return this.mainTextFunction(entities[0]) + ' ' + this.secondaryTextFunction(entities[0]);
     }
+  }
+
+  private filterEntites(): void {
+    if (!this.entities) {
+      return;
+    }
+    // get the search keyword
+    let search = this.entityFilterCtrl.value as string;
+    if (!search) {
+      this.filteredEntities.next(this.entities.slice());
+      this.cd.detectChanges();
+      return;
+    } else {
+      search = this.normalize(search);
+    }
+    // filter the banks
+    this.filteredEntities.next(
+      this.entities.filter((entity) => this.normalize(this.searchFunction(entity)).includes(search))
+    );
+    this.cd.detectChanges();
   }
 }

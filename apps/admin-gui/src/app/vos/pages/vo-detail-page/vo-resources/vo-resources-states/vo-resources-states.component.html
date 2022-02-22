@@ -10,9 +10,9 @@
       <span class="badge badge-danger ml-1">{{errorPropagation.length}}</span>
     </ng-template>
     <ng-template matTabContent>
-      <app-alert *ngIf=" !loading && errorPropagation.length === 0" alert_type="warn">
+      <perun-web-apps-alert *ngIf=" !loading && errorPropagation.length === 0" alert_type="warn">
         {{'VO_DETAIL.RESOURCES.STATES.NO_RESOURCES_IN_ERROR' | translate}}
-      </app-alert>
+      </perun-web-apps-alert>
 
       <app-state-tab [loading]="loading" [propagation]="errorPropagation"> </app-state-tab>
     </ng-template>
@@ -24,9 +24,9 @@
     </ng-template>
 
     <ng-template matTabContent>
-      <app-alert *ngIf="!loading && okPropagation.length === 0" alert_type="warn">
+      <perun-web-apps-alert *ngIf="!loading && okPropagation.length === 0" alert_type="warn">
         {{'VO_DETAIL.RESOURCES.STATES.NO_RESOURCES_IN_OK' | translate}}
-      </app-alert>
+      </perun-web-apps-alert>
 
       <app-state-tab [loading]="loading" [propagation]="okPropagation"> </app-state-tab>
     </ng-template>

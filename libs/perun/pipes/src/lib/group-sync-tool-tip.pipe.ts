@@ -7,7 +7,7 @@ import { RichGroup } from '@perun-web-apps/perun/openapi';
   name: 'groupSyncToolTip',
 })
 export class GroupSyncToolTipPipe implements PipeTransform {
-  transform(richGroup: RichGroup): unknown {
+  transform(richGroup: RichGroup): string {
     if (
       richGroup === undefined ||
       richGroup === null ||
@@ -24,14 +24,14 @@ export class GroupSyncToolTipPipe implements PipeTransform {
     if (normalSyncEnabled === null && structureSyncEnabled === null) {
       return 'VO_DETAIL.GROUPS.GROUP_NOT_SYNCED';
     }
-    const structureSyncEnabledValue = <boolean>(<unknown>structureSyncEnabled.value);
-    const normalSyncEnabledValue = <string>(<unknown>normalSyncEnabled.value);
+    const structureSyncEnabledValue = structureSyncEnabled.value as unknown as boolean;
+    const normalSyncEnabledValue = normalSyncEnabled.value as unknown as string;
 
     if (normalSyncEnabledValue === 'true') {
       const syncLastStatus = getAttribute(richGroup.attributes, Urns.GROUP_LAST_SYNC_STATE);
       const syncLastTime = getAttribute(richGroup.attributes, Urns.GROUP_LAST_SYNC_TIMESTAMP);
-      const lastStatusValue = <string>(<unknown>syncLastStatus.value);
-      const lastTimeValue = <string>(<unknown>syncLastTime.value);
+      const lastStatusValue = syncLastStatus.value as unknown as string;
+      const lastTimeValue = syncLastTime.value as unknown as string;
       if (lastStatusValue != null && lastStatusValue.trim().length > 0) {
         return 'VO_DETAIL.GROUPS.GROUP_SYNC_FAILED';
       } else {
@@ -51,8 +51,8 @@ export class GroupSyncToolTipPipe implements PipeTransform {
         richGroup.attributes,
         Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
       );
-      const lastStatusValue = <string>(<unknown>syncLastStatus.value);
-      const lastTimeValue = <string>(<unknown>syncLastTime.value);
+      const lastStatusValue = syncLastStatus.value as unknown as string;
+      const lastTimeValue = syncLastTime.value as unknown as string;
       if (lastStatusValue != null && lastStatusValue.trim().length > 0) {
         return 'VO_DETAIL.GROUPS.GROUP_SYNC_FAILED';
       } else {

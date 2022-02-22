@@ -1,7 +1,7 @@
 export { PerunApiService } from './lib/perun-api-service';
 export { GuiAuthResolver } from './lib/gui-auth-resolver.service';
 export { AuthService } from './lib/auth.service';
-export { StoreService } from './lib/store.service';
+export { StoreService, PerunConfig } from './lib/store.service';
 export { InitAuthService } from './lib/init-auth.service';
 export { CustomIconService } from './lib/custom-icon.service';
 export { ApiInterceptor } from './lib/ApiInterceptor';

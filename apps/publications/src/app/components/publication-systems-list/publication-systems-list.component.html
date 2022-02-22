@@ -56,8 +56,8 @@
   </perun-web-apps-table-wrapper>
 </div>
 
-<app-alert
+<perun-web-apps-alert
   *ngIf="dataSource.filteredData.length === 0 && publicationSystems.length !== 0"
   alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
-</app-alert>
+</perun-web-apps-alert>

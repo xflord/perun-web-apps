@@ -14,10 +14,10 @@
     <mat-spinner
       *ngIf="(loading || initLoading) && !noGroups"
       class="mr-auto ml-auto"></mat-spinner>
-    <app-alert
+    <perun-web-apps-alert
       alert_type="warn"
       *ngIf="noGroups"
-      >{{'MEMBER_DETAIL.OVERVIEW.NO_GROUPS_FOUND' | translate}}</app-alert
+      >{{'MEMBER_DETAIL.OVERVIEW.NO_GROUPS_FOUND' | translate}}</perun-web-apps-alert
     >
     <div *ngIf="!loading">
       <table mat-table [dataSource]="groupMembershipDataSource" class="ml-auto mr-auto">

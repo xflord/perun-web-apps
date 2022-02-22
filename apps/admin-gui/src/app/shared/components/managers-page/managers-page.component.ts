@@ -88,7 +88,7 @@ export class ManagersPageComponent implements OnInit {
     this.loading = true;
     this.routeAuth = this.guiAuthResolver.isPerunAdminOrObserver();
 
-    this.guiAuthResolver.getRolesAuthorization(
+    this.guiAuthResolver.setRolesAuthorization(
       this.availableRoles,
       this.complementaryObject,
       this.availableRolesPrivileges
@@ -104,7 +104,7 @@ export class ManagersPageComponent implements OnInit {
   }
 
   changeRolePrivileges() {
-    this.guiAuthResolver.getRolesAuthorization(
+    this.guiAuthResolver.setRolesAuthorization(
       this.availableRoles,
       this.complementaryObject,
       this.availableRolesPrivileges

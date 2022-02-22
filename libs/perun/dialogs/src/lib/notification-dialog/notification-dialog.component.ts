@@ -16,11 +16,11 @@ export class NotificationDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: NotificationData
   ) {}
 
-  onCloseClick() {
+  onCloseClick(): void {
     this.dialogRef.close();
   }
 
-  onBugReportClick() {
+  onBugReportClick(): void {
     this.dialogRef.afterClosed().subscribe(() => {
       const config = getDefaultDialogConfig();
       config.width = '550px';

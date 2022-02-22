@@ -29,12 +29,14 @@
         [selection]="selection">
       </app-users-list>
     </div>
-    <app-alert *ngIf="!firstSearchDone" alert_type="info">
+    <perun-web-apps-alert *ngIf="!firstSearchDone" alert_type="info">
       {{'DIALOGS.CONNECT_IDENTITY.SEARCH_HINT' | translate}}
-    </app-alert>
-    <app-alert *ngIf="!loading && firstSearchDone && identities.length === 0" alert_type="warn">
+    </perun-web-apps-alert>
+    <perun-web-apps-alert
+      *ngIf="!loading && firstSearchDone && identities.length === 0"
+      alert_type="warn">
       {{'DIALOGS.CONNECT_IDENTITY.NO_IDENTITIES' | translate}}
-    </app-alert>
+    </perun-web-apps-alert>
   </div>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
   <div mat-dialog-actions>

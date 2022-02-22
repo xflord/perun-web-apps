@@ -20,7 +20,7 @@ export class TableConfigService {
     return 10;
   }
 
-  setTablePageSize(tableId: string, value: number) {
+  setTablePageSize(tableId: string, value: number): void {
     this.guiConfigService.setNumber(LS_TABLE_PREFIX + tableId, value);
   }
 }

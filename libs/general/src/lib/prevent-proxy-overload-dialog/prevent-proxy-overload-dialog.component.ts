@@ -19,7 +19,7 @@ export class PreventProxyOverloadDialogComponent {
     private location: Location
   ) {}
 
-  redirect() {
+  redirect(): void {
     this.location.go('/');
     location.reload();
   }

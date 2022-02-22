@@ -9,39 +9,34 @@ import { TableConfigService } from '@perun-web-apps/config/table-config';
   styleUrls: ['./table-wrapper.component.css'],
 })
 export class TableWrapperComponent implements OnInit {
-  public paginator: MatPaginator;
-  @Input()
-  hideExport = false;
-  @Input()
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-  @Input()
-  dataLength = 0;
-  @Input()
-  tableId: string;
-  @Output()
-  exportData = new EventEmitter<any>();
+  @Input() hideExport = false;
+  @Input() pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  @Input() dataLength = 0;
+  @Input() tableId: string;
+  @Output() exportData = new EventEmitter<string>();
 
   pageSize = 5;
+  paginator: MatPaginator;
 
   constructor(private tableConfigService: TableConfigService) {}
 
-  ngOnInit() {
+  @ViewChild(MatPaginator, { static: true }) set matPaginator(pg: MatPaginator) {
+    this.paginator = pg;
+  }
+
+  ngOnInit(): void {
     this.pageSize = this.tableConfigService.getTablePageSize(this.tableId);
     if (this.pageSizeOptions === null) {
       this.pageSize = 5;
     }
   }
 
-  @ViewChild(MatPaginator, { static: true }) set matPaginator(pg: MatPaginator) {
-    this.paginator = pg;
-  }
-
-  pageChangedTop(event: PageEvent) {
+  pageChangedTop(event: PageEvent): void {
     this.pageSize = event.pageSize;
     this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
   }
 
-  pageChangedBottom(event: PageEvent) {
+  pageChangedBottom(event: PageEvent): void {
     this.paginator.pageSize = event.pageSize;
     this.paginator.pageIndex = event.pageIndex;
     this.paginator.page.emit(event);

@@ -7,16 +7,9 @@ import { Destination, Host } from '@perun-web-apps/perun/openapi';
   styleUrls: ['./object-list-values.component.css'],
 })
 export class ObjectListValuesComponent implements OnInit, OnChanges {
-  constructor() {}
-
-  @Input()
-  objects: Destination[] | Host[] = [];
-
-  @Input()
-  filterValue = '';
-
-  @Input()
-  paramName = '';
+  @Input() objects: Destination[] | Host[] = [];
+  @Input() filterValue = '';
+  @Input() paramName = '';
 
   showMore = false;
   defaultItemsShown = 3;
@@ -26,12 +19,12 @@ export class ObjectListValuesComponent implements OnInit, OnChanges {
     this.itemsShown = this.defaultItemsShown;
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.itemsShown = this.defaultItemsShown;
     this.showMore = false;
   }
 
-  onShowChange() {
+  onShowChange(): void {
     this.showMore = !this.showMore;
     if (this.showMore) {
       this.itemsShown = this.objects.length;

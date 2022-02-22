@@ -16,11 +16,11 @@ export class AttributeValueListDeleteDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: AttributeValueListDeleteDialogData
   ) {}
 
-  cancel() {
+  cancel(): void {
     this.dialogRef.close();
   }
 
-  submit() {
+  submit(): void {
     this.dialogRef.close(true);
   }
 }

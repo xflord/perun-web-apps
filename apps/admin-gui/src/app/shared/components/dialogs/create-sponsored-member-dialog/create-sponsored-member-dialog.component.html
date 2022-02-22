@@ -12,9 +12,9 @@
           matStepLabel
           >{{'DIALOGS.CREATE_SPONSORED_MEMBER.USER_LABEL' | translate}}</ng-template
         >
-        <app-alert alert_type="error" *ngIf="this.functionalityNotSupported">
+        <perun-web-apps-alert alert_type="error" *ngIf="this.functionalityNotSupported">
           {{'DIALOGS.CREATE_SPONSORED_MEMBER.FUNCTIONALITY_NOT_SUPPORTED' | translate}}
-        </app-alert>
+        </perun-web-apps-alert>
 
         <form class="dialog-container" [formGroup]="userControl">
           <h5 class="mt-2">
@@ -185,9 +185,9 @@
       {{'DIALOGS.CREATE_SPONSORED_MEMBER.PASSWORD' | translate}} :
       {{this.namespaceControl.get('passwordCtrl').value}}
     </div>
-    <app-alert
+    <perun-web-apps-alert
       alert_type="warn"
-      >{{'DIALOGS.CREATE_SPONSORED_MEMBER.COPY_INFORMATION' | translate}}</app-alert
+      >{{'DIALOGS.CREATE_SPONSORED_MEMBER.COPY_INFORMATION' | translate}}</perun-web-apps-alert
     >
   </div>
 

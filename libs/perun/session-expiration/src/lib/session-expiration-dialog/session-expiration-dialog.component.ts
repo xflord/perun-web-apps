@@ -9,7 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class SessionExpirationDialogComponent {
   constructor(private dialogRef: MatDialogRef<SessionExpirationDialogComponent>) {}
 
-  close() {
+  close(): void {
     this.dialogRef.close(true);
   }
 }

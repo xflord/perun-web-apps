@@ -18,26 +18,26 @@ export interface UniversalConfirmationItemsDialogData {
   styleUrls: ['./universal-confirmation-items-dialog.component.scss'],
 })
 export class UniversalConfirmationItemsDialogComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<UniversalConfirmationItemsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: UniversalConfirmationItemsDialogData
-  ) {}
-
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<string>;
   theme: string;
   loading = false;
 
-  ngOnInit() {
+  constructor(
+    public dialogRef: MatDialogRef<UniversalConfirmationItemsDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: UniversalConfirmationItemsDialogData
+  ) {}
+
+  ngOnInit(): void {
     this.theme = this.data.theme;
     this.dataSource = new MatTableDataSource<string>(this.data.items);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.dialogRef.close(true);
   }
 }

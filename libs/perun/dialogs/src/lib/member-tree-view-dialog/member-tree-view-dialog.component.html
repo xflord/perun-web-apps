@@ -12,9 +12,9 @@
         [formControl]="formControl"
         placeholder="{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.FILTER' | translate}}" />
     </mat-form-field>
-    <app-alert
+    <perun-web-apps-alert
       *ngIf="!dataSource.data.length"
-      >{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.NO_PATHS'|translate}}</app-alert
+      >{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.NO_PATHS'|translate}}</perun-web-apps-alert
     >
     <mat-tree
       *ngIf="dataSource.data.length"

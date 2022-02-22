@@ -6,8 +6,5 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./table-options.component.scss'],
 })
 export class TableOptionsComponent {
-  constructor() {}
-
-  @Output()
-  exportData = new EventEmitter();
+  @Output() exportData = new EventEmitter<string>();
 }

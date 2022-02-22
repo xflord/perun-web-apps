@@ -38,9 +38,9 @@
         {{'IMPORT_PUBLICATIONS.ADD_MYSELF' | translate}}
       </mat-checkbox>
     </div>
-    <app-alert *ngIf="!firstSearchDone" alert_type="info">
+    <perun-web-apps-alert *ngIf="!firstSearchDone" alert_type="info">
       {{'IMPORT_PUBLICATIONS.INFO' | translate}}
-    </app-alert>
+    </perun-web-apps-alert>
     <perun-web-apps-publications-list
       *ngIf="!loading"
       [publications]="publications"
@@ -54,9 +54,9 @@
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 
   <div *ngIf="importDone">
-    <app-alert alert_type="info">
+    <perun-web-apps-alert alert_type="info">
       {{'IMPORT_PUBLICATIONS.IMPORTED_INFO' | translate}}
-    </app-alert>
+    </perun-web-apps-alert>
     <mat-accordion>
       <mat-expansion-panel
         *ngFor="let publication of importedPublications; let i = index"

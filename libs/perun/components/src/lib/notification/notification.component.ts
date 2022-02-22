@@ -12,26 +12,20 @@ import { NotificationDialogComponent } from '@perun-web-apps/perun/dialogs';
   styleUrls: ['./notification.component.scss'],
 })
 export class NotificationComponent implements OnInit {
-  constructor(
-    private dialog: MatDialog,
-    private notificationStorageService: NotificationStorageService
-  ) {}
-
-  @Input()
-  data: NotificationData;
-
-  @Input()
-  inDialog: boolean;
-
-  @Input()
-  newNotification = false;
-
-  @Output()
-  closeNotification: EventEmitter<NotificationData> = new EventEmitter<NotificationData>();
+  @Input() data: NotificationData;
+  @Input() inDialog: boolean;
+  @Input() newNotification = false;
+  @Output() closeNotification: EventEmitter<NotificationData> =
+    new EventEmitter<NotificationData>();
 
   alreadyPressed = false;
   alreadyClosed = false;
   waiting = false;
+
+  constructor(
+    private dialog: MatDialog,
+    private notificationStorageService: NotificationStorageService
+  ) {}
 
   doAction(): void {
     if (this.newNotification) {
@@ -56,7 +50,7 @@ export class NotificationComponent implements OnInit {
     }
   }
 
-  closeSelf() {
+  closeSelf(): void {
     if (!this.inDialog) {
       if (this.newNotification) {
         this.alreadyClosed = true;
@@ -69,14 +63,14 @@ export class NotificationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    doAfterDelay(this.data.delay, () => {
+    void doAfterDelay(this.data.delay, () => {
       if (!this.alreadyClosed && !this.waiting) {
         this.closeSelf();
       }
     });
   }
 
-  showTimestamp() {
+  showTimestamp(): string {
     const [hours, minutes] = this.data.timeStamp.split(':');
 
     if (minutes.length < 2) {

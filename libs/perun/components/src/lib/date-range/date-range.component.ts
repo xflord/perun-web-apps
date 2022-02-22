@@ -7,32 +7,24 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./date-range.component.scss'],
 })
 export class DateRangeComponent implements OnInit {
-  constructor() {}
-
+  @Input() startDate: FormControl;
+  @Input() endDate: FormControl;
+  @Output() datePicker: EventEmitter<string> = new EventEmitter<string>();
   startMinDate: Date;
   startMaxDate: Date;
   endMinDate: Date;
   endMaxDate: Date;
 
-  @Input()
-  startDate: FormControl;
-
-  @Input()
-  endDate: FormControl;
-
-  @Output()
-  datePicker: EventEmitter<string> = new EventEmitter<string>();
-
   ngOnInit(): void {
     this.startMinDate = new Date(2000, 0, 1);
     this.endMaxDate = new Date();
-    this.startMaxDate = this.endDate.value;
-    this.endMinDate = this.startDate.value;
+    this.startMaxDate = this.endDate.value as Date;
+    this.endMinDate = this.startDate.value as Date;
   }
 
-  dateChange() {
+  dateChange(): void {
     this.datePicker.emit();
-    this.startMaxDate = this.endDate.value;
-    this.endMinDate = this.startDate.value;
+    this.startMaxDate = this.endDate.value as Date;
+    this.endMinDate = this.startDate.value as Date;
   }
 }

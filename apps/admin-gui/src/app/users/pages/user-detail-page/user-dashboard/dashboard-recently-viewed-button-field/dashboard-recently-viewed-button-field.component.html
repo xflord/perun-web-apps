@@ -1,8 +1,8 @@
 <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-<app-alert
+<perun-web-apps-alert
   *ngIf="items.length === 0 && !loading"
   alert_type="info"
-  >{{'USER_DETAIL.DASHBOARD.NO_RECENTLY_VIEWED' | translate}}</app-alert
+  >{{'USER_DETAIL.DASHBOARD.NO_RECENTLY_VIEWED' | translate}}</perun-web-apps-alert
 >
 <div *ngIf="items.length > 0" class="items-container">
   <div *ngFor="let item of items" class="item-itself-container" mat-ripple>

@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ImmediateStateMatcher } from '../perun-namespace-password-form';
 import { TranslateService } from '@ngx-translate/core';
 import { StoreService } from '@perun-web-apps/perun/services';
-import { UsersManagerService } from '@perun-web-apps/perun/openapi';
+import { Attribute, UsersManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'perun-web-apps-password-form',
@@ -11,30 +11,20 @@ import { UsersManagerService } from '@perun-web-apps/perun/openapi';
   styleUrls: ['./password-form.component.scss'],
 })
 export class PasswordFormComponent implements OnInit, OnChanges {
-  @Input()
-  formGroup: FormGroup;
+  @Input() formGroup: FormGroup;
+  @Input() passwordRequired = true;
+  @Input() tooltipPwdViaEmail = false;
+  @Input() namespace: string;
+  @Input() multiLanguage = false;
+  @Input() language = 'en';
 
-  @Input()
-  passwordRequired = true;
-
-  @Input()
-  tooltipPwdViaEmail = false;
-
-  @Input()
-  namespace: string;
-
-  @Input()
-  multiLanguage = false;
-
-  @Input()
-  language = 'en';
-
-  allPasswordRequirements = this.store.get('password_requirements_help');
   passwordRequirement: string = null;
   showNewPassword = false;
   showPasswordConfirm = false;
-
-  passwordStateMatcher = new ImmediateStateMatcher();
+  passwordStateMatcher: ImmediateStateMatcher = new ImmediateStateMatcher();
+  private allPasswordRequirements: string[] = this.store.get(
+    'password_requirements_help'
+  ) as string[];
 
   constructor(
     private translator: TranslateService,
@@ -47,18 +37,15 @@ export class PasswordFormComponent implements OnInit, OnChanges {
       this.usersManagerService
         .getRichUserWithAttributes(this.store.getPerunPrincipal().userId)
         .subscribe((richUser) => {
-          const languageAttribute = richUser.userAttributes.find(
+          const languageAttribute: Attribute = richUser.userAttributes.find(
             (att) => att.friendlyName === 'preferredLanguage'
           );
-          this.language =
-            languageAttribute && languageAttribute.value
-              ? languageAttribute.value.toString()
-              : 'en';
+          this.language = (languageAttribute?.value as unknown as string) ?? 'en';
 
           if (this.language !== 'en') {
             this.allPasswordRequirements = this.store.get(
               `password_requirements_help_${this.language}`
-            );
+            ) as string[];
           }
 
           this.changeHelp();
@@ -68,11 +55,13 @@ export class PasswordFormComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     if (this.language !== 'en') {
-      this.allPasswordRequirements = this.store.get(`password_requirements_help_${this.language}`);
+      this.allPasswordRequirements = this.store.get(
+        `password_requirements_help_${this.language}`
+      ) as string[];
     } else {
-      this.allPasswordRequirements = this.store.get('password_requirements_help');
+      this.allPasswordRequirements = this.store.get('password_requirements_help') as string[];
     }
 
     this.changeHelp();
@@ -82,23 +71,23 @@ export class PasswordFormComponent implements OnInit, OnChanges {
     if (this.tooltipPwdViaEmail) {
       return this.translator.instant(
         'SHARED_LIB.PERUN.COMPONENTS.PASSWORD_FORM_FIELD.TOOLTIP_PASSWORD_VIA_EMAIL'
-      );
+      ) as string;
     } else {
       return this.translator.instant(
         'SHARED_LIB.PERUN.COMPONENTS.PASSWORD_FORM_FIELD.TOOLTIP_PASSWORD_DISABLED'
-      );
+      ) as string;
     }
   }
 
   getErrorTooltip(): string {
-    let err = this.formGroup.get('passwordCtrl').getError('backendError');
+    let err: string = this.formGroup.get('passwordCtrl').getError('backendError') as string;
     if (err) {
       err = err.replace(':null', '');
     }
     return err;
   }
 
-  changeHelp() {
+  changeHelp(): void {
     this.passwordRequirement = this.allPasswordRequirements.find(
       (passReq) => passReq.split(':')[0] === this.namespace
     );

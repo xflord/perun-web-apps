@@ -65,7 +65,7 @@ export class OtherApplicationsService {
           break;
       }
     } else {
-      url = brand.newApps[appType];
+      url = brand.newApps[appType] as string;
       if (appType === 'pwdReset') {
         url += `?login-namespace=${login}`;
       }

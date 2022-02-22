@@ -1,3 +1,7 @@
+/* eslint-disable
+   @typescript-eslint/no-explicit-any,
+   @typescript-eslint/no-unsafe-member-access,
+   @typescript-eslint/no-unsafe-call*/
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
@@ -30,29 +34,31 @@ export class BugReportDialogComponent implements OnInit {
     private storeService: StoreService
   ) {}
 
-  ngOnInit() {
-    if (this.data.error && this.data.error.errorId) {
-      this.subject =
-        this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUBJECT_VALUE') +
-        this.parseMethod(this.data.error.call) +
-        ' (' +
-        this.data.error.errorId +
-        ')';
+  ngOnInit(): void {
+    if (this.data?.error?.errorId) {
+      this.subject = ''.concat(
+        this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUBJECT_VALUE') as string,
+        this.parseMethod(this.data.error.call),
+        ' (',
+        this.data.error.errorId,
+        ')'
+      );
     }
   }
 
-  sendBugReport() {
+  sendBugReport(): void {
     this.loading = true;
     this.rtMessages
       .sentMessageToRTWithQueue('perun', this.subject, this.getFullEmailBody())
       .subscribe(
         (rtMessage) => {
           this.dialogRef.afterClosed().subscribe(() => {
-            this.notificator.showSuccess(
-              this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUCCESS1') +
-                rtMessage.ticketNumber +
-                this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUCCESS2')
+            const msg: string = ''.concat(
+              this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUCCESS1') as string,
+              rtMessage.ticketNumber.toString(),
+              this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUCCESS2') as string
             );
+            this.notificator.showSuccess(msg);
           });
           this.dialogRef.close();
         },
@@ -66,7 +72,7 @@ export class BugReportDialogComponent implements OnInit {
   }
 
   getFullEmailBody(): string {
-    const instance = this.storeService.get('config');
+    const instance: string = this.storeService.get('config') as string;
     let text =
       this.message +
       '\n' +
@@ -81,14 +87,14 @@ export class BugReportDialogComponent implements OnInit {
     }
 
     text = text.concat(
-      this.data.error.message +
-        '\n' +
-        'Perun instance: ' +
-        instance +
-        '\n' +
-        'Request:\n' +
-        this.data.error.urlWithParams +
-        '\n\n'
+      this.data.error.message,
+      '\n',
+      'Perun instance: ',
+      instance,
+      '\n',
+      'Request:\n',
+      this.data.error.urlWithParams,
+      '\n\n'
     );
 
     if (this.data.error.payload) {
@@ -99,7 +105,8 @@ export class BugReportDialogComponent implements OnInit {
     }
 
     text = text.concat(
-      'Sended from new Perun Gui, version: ' + require('../../../../../../package.json').version
+      'Sent from new Perun Gui, version: ',
+      require('../../../../../../package.json').version as string
     );
     return text.split('\n').join('\n '); //add space after each new line
   }

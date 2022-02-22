@@ -9,11 +9,11 @@ export class PreferredLanguageService {
   constructor(private route: ActivatedRoute, private store: StoreService) {}
 
   getPreferredLanguage(userLang: string): string {
-    const supportedLang = this.store.get('supported_languages');
-    const browserLang = navigator.languages.map((lang) => lang.split('-')[0]);
+    const supportedLang: string = this.store.get('supported_languages') as string;
+    const browserLang: string[] = navigator.languages.map((lang) => lang.split('-')[0]);
 
-    const query = location.search.substr(1).split('&');
-    let urlLang = null;
+    const query: string[] = location.search.substring(1).split('&');
+    let urlLang: string = null;
     for (const param of query) {
       const p = param.split('=');
       if (p[0] === 'lang') {

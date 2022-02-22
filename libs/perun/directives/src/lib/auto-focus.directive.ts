@@ -7,6 +7,7 @@ export class AutoFocusDirective implements OnInit {
   constructor(private elementRef: ElementRef) {}
 
   ngOnInit(): void {
-    this.elementRef.nativeElement.focus();
+    const elem: HTMLInputElement = this.elementRef.nativeElement as HTMLInputElement;
+    elem.focus();
   }
 }

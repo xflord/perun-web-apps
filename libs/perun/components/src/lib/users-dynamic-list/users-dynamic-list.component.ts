@@ -28,6 +28,33 @@ import { TableConfigService } from '@perun-web-apps/config/table-config';
   styleUrls: ['./users-dynamic-list.component.css'],
 })
 export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewInit {
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  @ViewChild(MatSort) sort: MatSort;
+  @Input() selection = new SelectionModel<RichUser>(true, []);
+  @Input() displayedColumns: string[] = [
+    'select',
+    'user',
+    'id',
+    'name',
+    'email',
+    'logins',
+    'organization',
+  ];
+  @Input() tableId: string;
+  @Input() disableRouting = false;
+  @Input() searchString = '';
+  @Input() attrNames: string[] = [];
+  @Input() withoutVo: boolean;
+  @Input() updateTable: boolean;
+  @Input() facilityId: number;
+  @Input() voId: number;
+  @Input() resourceId: number;
+  @Input() serviceId: number;
+  @Input() onlyAllowed: boolean;
+
+  dataSource: DynamicDataSource<RichUser>;
+  svgIcon = 'perun-service-identity-black';
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   constructor(
     private authResolver: GuiAuthResolver,
     private tableCheckbox: TableCheckbox,
@@ -35,54 +62,27 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
     private dynamicPaginatingService: DynamicPaginatingService
   ) {}
 
-  svgIcon = 'perun-service-identity-black';
-
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-
-  @ViewChild(MatSort) sort: MatSort;
-
-  @Input()
-  selection = new SelectionModel<RichUser>(true, []);
-
-  @Input()
-  displayedColumns: string[] = ['select', 'user', 'id', 'name', 'email', 'logins', 'organization'];
-
-  @Input()
-  tableId: string;
-
-  @Input()
-  disableRouting = false;
-
-  @Input()
-  searchString = '';
-
-  @Input()
-  attrNames: string[] = [];
-
-  @Input()
-  withoutVo: boolean;
-
-  @Input()
-  updateTable: boolean;
-
-  @Input()
-  facilityId: number;
-
-  @Input()
-  voId: number;
-
-  @Input()
-  resourceId: number;
-
-  @Input()
-  serviceId: number;
-
-  @Input()
-  onlyAllowed: boolean;
-
-  dataSource: DynamicDataSource<RichUser>;
-
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  static getExportDataForColumn(data: RichUser, column: string): string {
+    switch (column) {
+      case 'id':
+        return data.id.toString();
+      case 'user':
+        return data.serviceUser ? 'service-user' : 'user';
+      case 'name':
+        if (data) {
+          return parseFullName(data);
+        }
+        return '';
+      case 'organization':
+        return parseVo(data);
+      case 'email':
+        return parseUserEmail(data);
+      case 'logins':
+        return parseLogins(data);
+      default:
+        return '';
+    }
+  }
 
   ngAfterViewInit(): void {
     this.sort.sortChange.subscribe(() => (this.child.paginator.pageIndex = 0));
@@ -92,7 +92,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
       .subscribe();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (!this.authResolver.isPerunAdminOrObserver()) {
       this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
@@ -117,14 +117,14 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
     );
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     if (this.dataSource) {
       this.child.paginator.pageIndex = 0;
       this.loadUsersPage();
     }
   }
 
-  masterToggle() {
+  masterToggle(): void {
     if (this.isAllSelected()) {
       this.selection.clear();
     } else {
@@ -132,7 +132,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
     }
   }
 
-  isAllSelected() {
+  isAllSelected(): boolean {
     const numSelected = this.selection.selected.length;
     const numRows = this.child.paginator.pageSize;
     return numSelected === numRows;
@@ -145,7 +145,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-  loadUsersPage() {
+  loadUsersPage(): void {
     const sortDirection = this.sort.direction === 'asc' ? 'ASCENDING' : 'DESCENDING';
     const sortColumn = this.sort.active === 'name' ? 'NAME' : 'ID';
     this.dataSource.loadUsers(
@@ -164,37 +164,15 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
     );
   }
 
-  exportData(format: string) {
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.getData(),
         this.displayedColumns,
-        this.getExportDataForColumn,
+        UsersDynamicListComponent.getExportDataForColumn,
         this
       ),
       format
     );
-  }
-
-  getExportDataForColumn(data: RichUser, column: string): string {
-    switch (column) {
-      case 'id':
-        return data.id.toString();
-      case 'user':
-        return data.serviceUser ? 'service-user' : 'user';
-      case 'name':
-        if (data) {
-          return parseFullName(data);
-        }
-        return '';
-      case 'organization':
-        return parseVo(data);
-      case 'email':
-        return parseUserEmail(data);
-      case 'logins':
-        return parseLogins(data);
-      default:
-        return '';
-    }
   }
 }

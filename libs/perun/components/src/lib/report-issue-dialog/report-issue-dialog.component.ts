@@ -1,3 +1,7 @@
+/* eslint-disable
+   @typescript-eslint/no-explicit-any,
+   @typescript-eslint/no-unsafe-member-access,
+   @typescript-eslint/no-unsafe-call */
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,7 +17,7 @@ declare let require: any;
 export class ReportIssueDialogComponent implements OnInit {
   message = '';
   subject = '';
-  instanceName = '';
+  private instanceName = '';
 
   constructor(
     private dialogRef: MatDialogRef<ReportIssueDialogComponent>,
@@ -23,11 +27,11 @@ export class ReportIssueDialogComponent implements OnInit {
     private storeService: StoreService
   ) {}
 
-  ngOnInit() {
-    this.instanceName = this.storeService.get('config');
+  ngOnInit(): void {
+    this.instanceName = this.storeService.get('config') as string;
   }
 
-  sendBugReport() {
+  sendBugReport(): void {
     this.rtMessages
       .sentMessageToRTWithQueue('perun', this.subject, this.getFullEmailBody())
       .subscribe((message) => {
@@ -35,7 +39,8 @@ export class ReportIssueDialogComponent implements OnInit {
           .afterClosed()
           .subscribe(() =>
             this.notificator.showSuccess(
-              this.translate.instant('DIALOGS.REPORT_ISSUE.SUCCESS') + message.ticketNumber
+              (this.translate.instant('DIALOGS.REPORT_ISSUE.SUCCESS') as string) +
+                String(message.ticketNumber)
             )
           );
         this.dialogRef.close();
@@ -43,19 +48,18 @@ export class ReportIssueDialogComponent implements OnInit {
   }
 
   getFullEmailBody(): string {
-    return (
-      this.message +
-      '\n ' +
-      '------------------------\n ' +
-      'Perun instance: ' +
-      this.instanceName +
-      '\n ' +
-      'Sended from new Perun Gui, version: ' +
-      require('../../../../../../package.json').version
+    return this.message.concat(
+      '\n ',
+      '------------------------\n ',
+      'Perun instance: ',
+      this.instanceName,
+      '\n ',
+      'Sended from new Perun Gui, version: ',
+      require('../../../../../../package.json').version as string
     );
   }
 
-  close() {
+  close(): void {
     this.dialogRef.close();
   }
 }

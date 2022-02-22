@@ -13,6 +13,9 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class InitAuthService {
+  private loginScreenShown = false;
+  private serviceAccess = false;
+  private serviceAccessLoginScreen = false;
   constructor(
     private authService: AuthService,
     private storeService: StoreService,
@@ -21,23 +24,20 @@ export class InitAuthService {
     private dialog: MatDialog,
     private router: Router
   ) {}
-  private loginScreenShown = false;
-  private serviceAccess = false;
-  private serviceAccessLoginScreen = false;
 
-  setLoginScreen(shown): void {
+  setLoginScreen(shown: boolean): void {
     this.loginScreenShown = shown;
   }
 
-  isLoginScreenShown() {
+  isLoginScreenShown(): boolean {
     return this.loginScreenShown;
   }
 
-  isServiceAccess() {
+  isServiceAccess(): boolean {
     return this.serviceAccess;
   }
 
-  isServiceAccessLoginScreenShown() {
+  isServiceAccessLoginScreenShown(): boolean {
     return this.serviceAccessLoginScreen;
   }
 
@@ -66,13 +66,13 @@ export class InitAuthService {
 
   startAuth(): Promise<void> {
     this.authService.startAuthentication();
-    return new Promise<void>(() => {});
+    return Promise.resolve();
   }
 
   /**
    * Load principal
    */
-  loadPrincipal(): Promise<any> {
+  loadPrincipal(): Promise<void> {
     return this.authzService
       .getPerunPrincipal()
       .toPromise()
@@ -105,7 +105,7 @@ export class InitAuthService {
         this.startAuth()
           // start a promise that will never resolve, so the app loading won't finish in case
           // of the auth redirect
-          .then(() => new Promise<void>(() => {}))
+          .then(() => new Promise<void>(() => {})) // eslint-disable-line
       );
     } else {
       this.setLoginScreen(true);
@@ -115,12 +115,10 @@ export class InitAuthService {
         const p = param.split('=');
         queryParams[p[0]] = p[1];
       }
-      return (
-        this.router
-          .navigate(['login'], { queryParams: queryParams, queryParamsHandling: 'merge' })
-          // forget the navigate result
-          .then(() => null)
-      );
+      return void this.router.navigate(['login'], {
+        queryParams: queryParams,
+        queryParamsHandling: 'merge',
+      });
     }
   }
 }

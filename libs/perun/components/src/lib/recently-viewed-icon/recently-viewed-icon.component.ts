@@ -6,11 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./recently-viewed-icon.component.css'],
 })
 export class RecentlyViewedIconComponent {
-  constructor() {}
-
-  @Input()
-  recentIds: number[] = [];
-
-  @Input()
-  id: number;
+  @Input() recentIds: number[] = [];
+  @Input() id: number;
 }

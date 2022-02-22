@@ -70,9 +70,9 @@
       <div *ngIf="anotherMessage">
         {{anotherMessage}}
       </div>
-      <app-alert alert_type="warn">
+      <perun-web-apps-alert alert_type="warn">
         {{'DIALOGS.DELETE_ENTITY.ASK' | translate}} {{entityType}} ?
-      </app-alert>
+      </perun-web-apps-alert>
       <table mat-table [dataSource]="entityNames" class="w-100 table-margin">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef></th>

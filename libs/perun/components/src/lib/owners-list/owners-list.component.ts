@@ -20,38 +20,24 @@ import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
 })
 export class OwnersListComponent implements OnChanges, AfterViewInit {
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-
-  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
-
-  @Input()
-  owners: Owner[] = [];
-
-  @Input()
-  selection = new SelectionModel<Owner>(true, []);
-
-  @Input()
-  tableId: string;
-
-  @Input()
-  filterValue = '';
-
-  @Input()
-  displayedColumns: string[] = ['select', 'id', 'name', 'contact', 'type'];
+  @Input() owners: Owner[] = [];
+  @Input() selection = new SelectionModel<Owner>(true, []);
+  @Input() tableId: string;
+  @Input() filterValue = '';
+  @Input() displayedColumns: string[] = ['select', 'id', 'name', 'contact', 'type'];
 
   dataSource: MatTableDataSource<Owner>;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   private sort: MatSort;
+
+  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSource();
   }
 
-  ngAfterViewInit() {
-    this.setDataSource();
-  }
-
-  getDataForColumn(data: Owner, column: string): string {
+  static getDataForColumn(data: Owner, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -66,37 +52,41 @@ export class OwnersListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  exportData(format: string) {
+  ngAfterViewInit(): void {
+    this.setDataSource();
+  }
+
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
+        OwnersListComponent.getDataForColumn,
         this
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: Owner, filter: string) =>
+      this.dataSource.filterPredicate = (data: Owner, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn,
+          OwnersListComponent.getDataForColumn,
           this
         );
-      this.dataSource.sortData = (data: Owner[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: Owner[], sort: MatSort): Owner[] =>
+        customDataSourceSort(data, sort, OwnersListComponent.getDataForColumn, this);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;
     }
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     if (!this.authResolver.isPerunAdminOrObserver()) {
       this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
@@ -104,7 +94,7 @@ export class OwnersListComponent implements OnChanges, AfterViewInit {
     this.setDataSource();
   }
 
-  isAllSelected() {
+  isAllSelected(): boolean {
     return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
       this.filterValue,
@@ -114,7 +104,7 @@ export class OwnersListComponent implements OnChanges, AfterViewInit {
     );
   }
 
-  masterToggle() {
+  masterToggle(): void {
     this.tableCheckbox.masterToggle(
       this.isAllSelected(),
       this.selection,

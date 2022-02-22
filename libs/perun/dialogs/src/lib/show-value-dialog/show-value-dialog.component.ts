@@ -25,7 +25,7 @@ export class ShowValueDialogComponent implements OnInit {
     this.title = this.data.title;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 }

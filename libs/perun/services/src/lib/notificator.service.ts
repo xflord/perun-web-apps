@@ -7,22 +7,18 @@ import { RPCError } from '@perun-web-apps/perun/models';
   providedIn: 'root',
 })
 export class NotificatorService {
-  constructor(private translate: TranslateService) {}
-
+  @Output() addNotification: EventEmitter<NotificationData> = new EventEmitter<NotificationData>();
   defaultAction: string;
   defaultRpcMessage: string;
-
   defaultErrorDelayMs = 5_000;
   defaultSuccessDelayMs = 3_000;
-
-  @Output()
-  addNotification: EventEmitter<NotificationData> = new EventEmitter<NotificationData>();
+  constructor(private translate: TranslateService) {}
 
   getDefaultActionMessage(): string {
     if (this.defaultAction === undefined) {
       return (this.defaultAction = this.translate.instant(
         'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.DEFAULT_ACTION'
-      ));
+      ) as string);
     } else {
       return this.defaultAction;
     }
@@ -32,7 +28,7 @@ export class NotificatorService {
     if (this.defaultRpcMessage === undefined) {
       return (this.defaultRpcMessage = this.translate.instant(
         'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.DEFAULT_RPC_ERROR_MESSAGE'
-      ));
+      ) as string);
     } else {
       return this.defaultRpcMessage;
     }
@@ -49,7 +45,7 @@ export class NotificatorService {
       this.showError(
         this.translate.instant(
           'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.PRIVILEGE_EXCEPTION'
-        ),
+        ) as string,
         rpcError,
         rpcError.message
       );

@@ -9,19 +9,14 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./menu-buttons-field.component.scss'],
 })
 export class MenuButtonsFieldComponent implements OnInit {
+  @Input() items: MenuItem[];
+  @Input() size = 'large';
+  voId: number;
   constructor(public dialog: MatDialog, protected route: ActivatedRoute) {}
 
-  @Input()
-  items: MenuItem[];
-
-  @Input()
-  size = 'large';
-
-  voId: number;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.voId = params['voId'];
+      this.voId = Number(params['voId']);
     });
   }
 }

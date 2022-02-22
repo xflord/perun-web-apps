@@ -9,6 +9,9 @@ import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
   providedIn: 'root',
 })
 export class AuthService {
+  loggedIn = false;
+  filterShortname: string;
+  redirectUrl: string;
   private router: Router;
 
   constructor(
@@ -26,14 +29,10 @@ export class AuthService {
 
     this.route.queryParams.subscribe((params) => {
       if (params['idpFilter']) {
-        this.filterShortname = params['idpFilter'];
+        this.filterShortname = params['idpFilter'] as string;
       }
     });
   }
-  loggedIn = false;
-  filterShortname: string;
-
-  redirectUrl: string;
 
   getClientConfig(): AuthConfig {
     const filterValue = this.setIdpFilter();
@@ -43,7 +42,9 @@ export class AuthService {
 
     const customQueryParams = !filterValue ? {} : { acr_values: filterValue };
     if (
-      this.store.get('oidc_client', 'oauth_scopes').split(' ').includes('offline_access') &&
+      (this.store.get('oidc_client', 'oauth_scopes') as string)
+        .split(' ')
+        .includes('offline_access') &&
       this.store.get('oidc_client', 'oauth_offline_access_consent_prompt')
     ) {
       customQueryParams['prompt'] = 'consent';
@@ -55,12 +56,15 @@ export class AuthService {
     }
     return {
       requestAccessToken: true,
-      issuer: this.store.get('oidc_client', 'oauth_authority'),
-      clientId: this.store.get('oidc_client', 'oauth_client_id'),
-      redirectUri: this.store.get('oidc_client', 'oauth_redirect_uri'),
-      postLogoutRedirectUri: this.store.get('oidc_client', 'oauth_post_logout_redirect_uri'),
-      responseType: this.store.get('oidc_client', 'oauth_response_type'),
-      scope: this.store.get('oidc_client', 'oauth_scopes'),
+      issuer: this.store.get('oidc_client', 'oauth_authority') as string,
+      clientId: this.store.get('oidc_client', 'oauth_client_id') as string,
+      redirectUri: this.store.get('oidc_client', 'oauth_redirect_uri') as string,
+      postLogoutRedirectUri: this.store.get(
+        'oidc_client',
+        'oauth_post_logout_redirect_uri'
+      ) as string,
+      responseType: this.store.get('oidc_client', 'oauth_response_type') as string,
+      scope: this.store.get('oidc_client', 'oauth_scopes') as string,
       clockSkewInSec: clockSkewInSec,
       // sessionChecksEnabled: true,
       customQueryParams: customQueryParams,
@@ -68,53 +72,39 @@ export class AuthService {
   }
 
   setIdpFilter(): string {
-    const queryParams = location.search.substr(1).split('&');
+    const queryParams = location.search.substring(1).split('&');
     this.filterShortname = null;
-    const filters = this.store.get('oidc_client', 'filters');
+    const filters: Map<string, string> = this.store.get('oidc_client', 'filters') as Map<
+      string,
+      string
+    >;
     if (!filters) {
       return null;
     }
-    let filterValue = null;
+    let filterValue: string = null;
     queryParams.forEach((param) => {
-      const parsedParam = param.split('=');
+      const parsedParam: string[] = param.split('=');
       if (parsedParam[0] === 'idpFilter') {
         if (filters[parsedParam[1]]) {
           this.filterShortname = parsedParam[1];
-          filterValue = filters[parsedParam[1]];
+          filterValue = filters[parsedParam[1]] as string;
         }
       }
     });
     if (filters['default'] && !filterValue) {
       this.filterShortname = 'default';
-      return filters['default'];
+      return filters['default'] as string;
     }
     return filterValue;
   }
 
-  /**
-   * Subscribes to route events and keeps the idpFilter query parameter.
-   *
-   * @private
-   */
-  private startIdpFilterKeeper(): void {
-    this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => {
-      const idpFilterParams: Params = { idpFilter: this.getIdpFilter() };
-      this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: idpFilterParams.idpFilter === 'default' ? {} : idpFilterParams,
-        queryParamsHandling: 'merge',
-        replaceUrl: true,
-      });
-    });
-  }
-
-  loadConfigData() {
+  loadConfigData(): void {
     this.oauthService.configure(this.getClientConfig());
   }
 
   verifyAuth(): Promise<boolean> {
     const currentPathname = location.pathname;
-    const queryParams = location.search.substr(1);
+    const queryParams = location.search.substring(1);
 
     if (currentPathname === '/api-callback') {
       return this.handleAuthCallback()
@@ -128,7 +118,7 @@ export class AuthService {
     }
   }
 
-  startRefreshToken(): Promise<any> {
+  startRefreshToken(): Promise<boolean> {
     return this.isLoggedInPromise().then((isLoggedIn) => {
       if (isLoggedIn) {
         this.oauthService.events.pipe(filter((e) => e.type === 'token_expires')).subscribe(() => {
@@ -140,13 +130,13 @@ export class AuthService {
     });
   }
 
-  logout() {
+  logout(): void {
     if (sessionStorage.getItem('baPrincipal')) {
       sessionStorage.removeItem('baPrincipal');
       sessionStorage.removeItem('basicUsername');
       sessionStorage.removeItem('basicPassword');
       sessionStorage.setItem('baLogout', 'true');
-      this.router.navigate(['/service-access']);
+      void this.router.navigate(['/service-access']);
     } else {
       localStorage.removeItem('refresh_token');
       this.oauthService.logOut();
@@ -168,7 +158,67 @@ export class AuthService {
   }
 
   startAuthentication(): void {
-    this.oauthService.loadDiscoveryDocumentAndLogin();
+    void this.oauthService.loadDiscoveryDocumentAndLogin();
+  }
+
+  /**
+   * This method is used to handle oauth callbacks.
+   *
+   * First, it finishes the authentication and then redirects user to the url
+   * he wanted to visit.
+   *
+   */
+  handleAuthCallback(): Promise<boolean> {
+    return this.oauthService.loadDiscoveryDocumentAndTryLogin();
+  }
+
+  redirectToOriginDestination(): Promise<boolean> {
+    const mfaRoute = sessionStorage.getItem('mfa_route');
+    if (mfaRoute) {
+      return this.router.navigate([mfaRoute], { replaceUrl: true });
+    }
+    let redirectUrl = sessionStorage.getItem('auth:redirect');
+    const storageParams = sessionStorage.getItem('auth:queryParams');
+    let params: string[] = [];
+    if (storageParams) {
+      params = storageParams.split('&');
+    }
+    const queryParams: Params = {};
+    params.forEach((param) => {
+      const elements = param.split('=');
+      queryParams[elements[0]] = elements[1];
+    });
+    if (!redirectUrl || redirectUrl === '/login') {
+      redirectUrl = '/';
+    }
+    sessionStorage.removeItem('auth:redirect');
+    sessionStorage.removeItem('auth:queryParams');
+
+    if (queryParams['idpFilter']) {
+      this.filterShortname = queryParams['idpFilter'] as string;
+    }
+    return this.router.navigate([redirectUrl], { queryParams: queryParams, replaceUrl: true });
+  }
+
+  getIdpFilter(): string {
+    return this.filterShortname;
+  }
+
+  /**
+   * Subscribes to route events and keeps the idpFilter query parameter.
+   *
+   * @private
+   */
+  private startIdpFilterKeeper(): void {
+    this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => {
+      const idpFilterParams: Params = { idpFilter: this.getIdpFilter() };
+      void this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: idpFilterParams.idpFilter === 'default' ? {} : idpFilterParams,
+        queryParamsHandling: 'merge',
+        replaceUrl: true,
+      });
+    });
   }
 
   /**
@@ -214,10 +264,20 @@ export class AuthService {
         .loadDiscoveryDocument()
         .then(() => this.refreshAndStoreToken())
         .then(() => Promise.resolve())
-        .catch((err) => err);
+        .catch(() => Promise.resolve());
     } else {
       return Promise.resolve();
     }
+  }
+
+  private refreshAndStoreToken(): Promise<boolean> {
+    return this.oauthService.refreshToken().then(
+      (response) => {
+        localStorage.setItem('refresh_token', response['refresh_token']);
+        return true;
+      },
+      () => false
+    );
   }
 
   /**
@@ -232,7 +292,7 @@ export class AuthService {
    * @return true if user is logged in, false otherwise and an error
    *         if given path is invalid
    */
-  private verifyAuthentication(path: string, queryParams: string): Promise<any> {
+  private verifyAuthentication(path: string, queryParams: string): Promise<boolean> {
     return this.tryRefreshToken()
       .then(() => this.isLoggedInPromise())
       .then((isLoggedIn) => {
@@ -248,58 +308,5 @@ export class AuthService {
         }
         return true;
       });
-  }
-
-  /**
-   * This method is used to handle oauth callbacks.
-   *
-   * First, it finishes the authentication and then redirects user to the url
-   * he wanted to visit.
-   *
-   */
-  public handleAuthCallback(): Promise<boolean> {
-    return this.oauthService.loadDiscoveryDocumentAndTryLogin();
-  }
-
-  public redirectToOriginDestination(): Promise<boolean> {
-    const mfaRoute = sessionStorage.getItem('mfa_route');
-    if (mfaRoute) {
-      return this.router.navigate([mfaRoute], { replaceUrl: true });
-    }
-    let redirectUrl = sessionStorage.getItem('auth:redirect');
-    const storageParams = sessionStorage.getItem('auth:queryParams');
-    let params: string[] = [];
-    if (storageParams) {
-      params = storageParams.split('&');
-    }
-    const queryParams: Params = {};
-    params.forEach((param) => {
-      const elements = param.split('=');
-      queryParams[elements[0]] = elements[1];
-    });
-    if (!redirectUrl || redirectUrl === '/login') {
-      redirectUrl = '/';
-    }
-    sessionStorage.removeItem('auth:redirect');
-    sessionStorage.removeItem('auth:queryParams');
-
-    if (queryParams['idpFilter']) {
-      this.filterShortname = queryParams['idpFilter'];
-    }
-    return this.router.navigate([redirectUrl], { queryParams: queryParams, replaceUrl: true });
-  }
-
-  public getIdpFilter(): string {
-    return this.filterShortname;
-  }
-
-  private refreshAndStoreToken(): Promise<boolean> {
-    return this.oauthService.refreshToken().then(
-      (response) => {
-        localStorage.setItem('refresh_token', response['refresh_token']);
-        return true;
-      },
-      () => false
-    );
   }
 }

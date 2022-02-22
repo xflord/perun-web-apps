@@ -86,9 +86,9 @@
     <!--    </button>-->
   </div>
 
-  <app-alert *ngIf="editAuth" alert_type="info">
+  <perun-web-apps-alert *ngIf="editAuth" alert_type="info">
     {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.DRAG_AND_DROP_INFO' | translate}}
-  </app-alert>
+  </perun-web-apps-alert>
 
   <app-application-form-list
     [loading]="loading"

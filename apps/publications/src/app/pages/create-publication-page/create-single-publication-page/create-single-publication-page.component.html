@@ -119,7 +119,10 @@
           </h5>
         </div>
 
-        <app-alert *ngIf="!innerLoading && !duplicateCheck" class="w-100" alert_type="warn">
+        <perun-web-apps-alert
+          *ngIf="!innerLoading && !duplicateCheck"
+          class="w-100"
+          alert_type="warn">
           <div class="flex-container">
             <span class="font-weight-bold">
               {{'CREATE_SINGLE_PUBLICATION.SIMILAR_FOUND' | translate}}.
@@ -134,7 +137,7 @@
               {{'CREATE_SINGLE_PUBLICATION.NOT_BELOW' | translate}}
             </span>
           </div>
-        </app-alert>
+        </perun-web-apps-alert>
 
         <mat-tab-group *ngIf="!innerLoading && !duplicateCheck" #similarPublicationTabs>
           <mat-tab>
@@ -206,9 +209,9 @@
       <mat-spinner *ngIf="innerLoading" class="ml-auto mr-auto"></mat-spinner>
 
       <div *ngIf="!innerLoading">
-        <app-alert
+        <perun-web-apps-alert
           alert_type="info"
-          >{{'CREATE_SINGLE_PUBLICATION.PUB_CREATED' | translate}}</app-alert
+          >{{'CREATE_SINGLE_PUBLICATION.PUB_CREATED' | translate}}</perun-web-apps-alert
         >
         <perun-web-apps-add-authors
           *ngIf="publication !== null"

@@ -46,27 +46,29 @@ export class ChangeExpirationDialogComponent implements OnInit {
     }
   }
 
-  parseDate(value: string) {
+  parseDate(value: string): string {
     return formatDate(value, 'yyyy-MM-dd', 'en_US');
   }
 
-  onChange() {
+  onChange(): void {
     if (
       this.status === 'EXPIRED' &&
       (this.newExpiration === 'never' ||
-        this.parseDate(this.expirationControl.value) > this.currentDate)
+        this.parseDate(this.expirationControl.value as string) > this.currentDate)
     ) {
       this.statusChange.emit(true);
     }
     this.expirationChanged.emit(this.newExpiration);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close({ success: false });
   }
 
-  setExpiration() {
-    this.newExpiration = formatDate(this.expirationControl.value, 'yyyy-MM-dd', 'en');
-    this.expirationControl.setValue(formatDate(this.expirationControl.value, 'yyyy-MM-dd', 'en'));
+  setExpiration(): void {
+    this.newExpiration = formatDate(this.expirationControl.value as Date, 'yyyy-MM-dd', 'en');
+    this.expirationControl.setValue(
+      formatDate(this.expirationControl.value as Date, 'yyyy-MM-dd', 'en')
+    );
   }
 }

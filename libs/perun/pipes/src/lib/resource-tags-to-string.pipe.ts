@@ -5,11 +5,11 @@ import { ResourceTag } from '@perun-web-apps/perun/openapi';
   name: 'resourceTagsToString',
 })
 export class ResourceTagsToStringPipe implements PipeTransform {
-  transform(value: any): any {
+  transform(value: ResourceTag[]): string {
     if (value == null) {
       return null;
     }
-    const tags = <[ResourceTag]>value;
+    const tags = value;
 
     let result = '';
 

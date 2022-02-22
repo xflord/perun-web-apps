@@ -6,24 +6,16 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./advanced-filter.component.scss'],
 })
 export class AdvancedFilterComponent implements OnInit {
-  constructor() {}
-
-  @Input()
-  filtersCount;
-
-  @Input()
-  advancedFilter: boolean;
-  @Output()
-  changeAdvancedFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  @Output()
-  clearFilters: EventEmitter<any> = new EventEmitter<any>();
+  @Input() filtersCount: number;
+  @Input() advancedFilter: boolean;
+  @Output() changeAdvancedFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() clearFilters: EventEmitter<void> = new EventEmitter<void>();
 
   ngOnInit(): void {
     this.changeAdvancedFilter.emit(this.advancedFilter);
   }
 
-  toggleAdvancedFilter() {
+  toggleAdvancedFilter(): void {
     this.advancedFilter = !this.advancedFilter;
     this.changeAdvancedFilter.emit(this.advancedFilter);
   }

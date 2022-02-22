@@ -37,9 +37,9 @@
       [disableRouting]="true">
     </perun-web-apps-members-list>
 
-    <app-alert *ngIf="!firstSearchDone" alert_type="info">
+    <perun-web-apps-alert *ngIf="!firstSearchDone" alert_type="info">
       {{'DIALOGS.SPONSOR_EXISTING_MEMBER.BEGIN_SEARCH' | translate}}
-    </app-alert>
+    </perun-web-apps-alert>
 
     <div>
       <br />

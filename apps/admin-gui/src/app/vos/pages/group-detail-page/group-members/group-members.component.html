@@ -1,7 +1,7 @@
 <h1 class="page-subtitle">{{'GROUP_DETAIL.MEMBERS.TITLE' | translate}}</h1>
-<app-alert *ngIf="synchEnabled" alert_type="warn">
+<perun-web-apps-alert *ngIf="synchEnabled" alert_type="warn">
   {{'GROUP_DETAIL.MEMBERS.ACTIONS_DISABLED' | translate}}
-</app-alert>
+</perun-web-apps-alert>
 <div class="align-elements">
   <perun-web-apps-refresh-button
     (click)="updateTable = !updateTable"></perun-web-apps-refresh-button>

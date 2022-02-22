@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/member-ordering */
 import {
   ChangeDetectorRef,
   Component,
@@ -24,88 +23,62 @@ import {
 } from '@perun-web-apps/perun/dialogs';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
+interface EnrichedGroupNode extends GroupFlatNode {
+  fullName: string;
+  description: string;
+}
+
 @Component({
   selector: 'perun-web-apps-groups-tree',
   templateUrl: './groups-tree.component.html',
   styleUrls: ['./groups-tree.component.scss'],
 })
 export class GroupsTreeComponent implements OnChanges {
-  constructor(
-    public cd: ChangeDetectorRef,
-    private dialog: MatDialog,
-    public authResolver: GuiAuthResolver
-  ) {}
-
-  private transformer = (node: TreeGroup, level: number) => ({
-    expandable: !!node.children && node.children.length > 0,
-    name: node.shortName,
-    fullName: node.name,
-    parentGroupId: node.parentGroupId,
-    level: level,
-    id: node.id,
-    voId: node.voId,
-    attributes: node.attributes,
-    beanName: node.beanName,
-    description: node.description,
-  });
+  @Input() theme = 'group-theme';
+  @Output() moveGroup = new EventEmitter<GroupFlatNode>();
+  @Output() refreshTable = new EventEmitter<void>();
+  @Input() groups: RichGroup[];
+  @Input() filterValue: string;
+  @Input() expandAll = false;
+  @Input() disableRouting = false;
+  @Input() selection = new SelectionModel<GroupFlatNode>(true, []);
+  @Input() hideCheckbox = false;
+  @Input() vo: Vo;
+  @ViewChild('scrollViewport', { static: false }) scrollViewport: CdkVirtualScrollViewport;
 
   displayButtons = window.innerWidth > 600;
-  @Input()
-  theme = 'group-theme';
-
-  @HostListener('window:resize', ['$event'])
-  shouldHideButtons() {
-    this.displayButtons = window.innerWidth > 600;
-  }
-
-  @Output()
-  moveGroup = new EventEmitter<GroupFlatNode>();
-
-  @Output()
-  refreshTable = new EventEmitter<void>();
-
-  @Input()
-  groups: RichGroup[];
-
-  @Input()
-  filterValue: string;
-
-  @Input()
-  expandAll = false;
-
-  @Input()
-  disableRouting = false;
-
-  @Input()
-  selection = new SelectionModel<GroupFlatNode>(true, []);
-
-  @Input()
-  hideCheckbox = false;
-
-  @Input()
-  vo: Vo;
-
-  @ViewChild('scrollViewport', { static: false })
-  scrollViewport: CdkVirtualScrollViewport;
 
   removeAuth: boolean;
   filteredGroups: RichGroup[];
 
-  treeControl = new FlatTreeControl<GroupFlatNode>(
+  treeControl = new FlatTreeControl<EnrichedGroupNode>(
     (node) => node.level,
     (node) => node.expandable
   );
 
-  treeFlattener = new MatTreeFlattener<TreeGroup, GroupFlatNode>(
-    this.transformer,
-    (node) => node.level,
-    (node) => node.expandable,
-    (node) => node.children
-  );
+  treeFlattener: MatTreeFlattener<TreeGroup, EnrichedGroupNode>;
+  dataSource: MatTreeFlatDataSource<TreeGroup, EnrichedGroupNode>;
 
-  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  constructor(
+    public cd: ChangeDetectorRef,
+    private dialog: MatDialog,
+    public authResolver: GuiAuthResolver
+  ) {
+    this.treeFlattener = new MatTreeFlattener<TreeGroup, EnrichedGroupNode>(
+      this.transformer,
+      (node) => node.level,
+      (node) => node.expandable,
+      (node) => node.children
+    );
+    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  }
 
-  ngOnChanges() {
+  @HostListener('window:resize', ['$event'])
+  shouldHideButtons(): void {
+    this.displayButtons = window.innerWidth > 600;
+  }
+
+  ngOnChanges(): void {
     if (this.expandAll) {
       this.filteredGroups = this.groups.filter(
         (option) =>
@@ -131,7 +104,7 @@ export class GroupsTreeComponent implements OnChanges {
     this.removeAuth = this.setRemoveAuth();
   }
 
-  onSyncDetail(rg: RichGroup) {
+  onSyncDetail(rg: RichGroup): void {
     const config = getDefaultDialogConfig();
     config.data = {
       groupId: rg.id,
@@ -140,7 +113,7 @@ export class GroupsTreeComponent implements OnChanges {
     this.dialog.open(GroupSyncDetailDialogComponent, config);
   }
 
-  onChangeNameDescription(rg: RichGroup) {
+  onChangeNameDescription(rg: RichGroup): void {
     const config = getDefaultDialogConfig();
     config.data = {
       theme: 'group-theme',
@@ -149,14 +122,14 @@ export class GroupsTreeComponent implements OnChanges {
     };
     const dialogRef = this.dialog.open(EditFacilityResourceGroupVoDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe((res) => {
+    dialogRef.afterClosed().subscribe((res: boolean) => {
       if (res) {
         this.refreshTable.emit();
       }
     });
   }
 
-  createGroupTrees(groups: RichGroup[]) {
+  createGroupTrees(groups: RichGroup[]): void {
     const idGroupMap: Map<number, TreeGroup> = new Map<number, TreeGroup>();
 
     for (const group of groups) {
@@ -178,7 +151,7 @@ export class GroupsTreeComponent implements OnChanges {
       }
     });
 
-    const groupTree = [];
+    const groupTree: TreeGroup[] = [];
 
     idGroupMap.forEach((group) => {
       if (group.parentGroupId === null || pseudoRooGroups.has(group.id)) {
@@ -190,11 +163,11 @@ export class GroupsTreeComponent implements OnChanges {
     this.cd.detectChanges();
   }
 
-  hasChild = (_: number, node: GroupFlatNode) => node.expandable;
+  hasChild = (_: number, node: GroupFlatNode): boolean => node.expandable;
 
-  getLevel = (node: GroupFlatNode) => node.level;
+  getLevel = (node: GroupFlatNode): number => node.level;
 
-  getParentNode(node: GroupFlatNode): GroupFlatNode | null {
+  getParentNode(node: EnrichedGroupNode): EnrichedGroupNode | null {
     const currentLevel = this.getLevel(node);
 
     if (currentLevel < 1) {
@@ -213,7 +186,7 @@ export class GroupsTreeComponent implements OnChanges {
     return null;
   }
 
-  checkRootNodeSelection(node: GroupFlatNode): void {
+  checkRootNodeSelection(node: EnrichedGroupNode): void {
     const nodeSelected = this.selection.isSelected(node);
     const descendants = this.treeControl.getDescendants(node);
     const descAllSelected = descendants.every((child) => this.selection.isSelected(child));
@@ -222,8 +195,8 @@ export class GroupsTreeComponent implements OnChanges {
     }
   }
 
-  checkAllParentsSelection(node: GroupFlatNode): void {
-    let parent: GroupFlatNode | null = this.getParentNode(node);
+  checkAllParentsSelection(node: EnrichedGroupNode): void {
+    let parent: EnrichedGroupNode | null = this.getParentNode(node);
     while (parent) {
       this.checkRootNodeSelection(parent);
       parent = this.getParentNode(parent);
@@ -231,13 +204,13 @@ export class GroupsTreeComponent implements OnChanges {
     this.removeAuth = this.setRemoveAuth();
   }
 
-  descendantsPartiallySelected(node: GroupFlatNode): boolean {
+  descendantsPartiallySelected(node: EnrichedGroupNode): boolean {
     const descendants = this.treeControl.getDescendants(node);
     const result = descendants.some((child) => this.selection.isSelected(child));
     return result && !this.selection.isSelected(node);
   }
 
-  itemSelectionToggle(node: GroupFlatNode): void {
+  itemSelectionToggle(node: EnrichedGroupNode): void {
     this.selection.toggle(node);
     const descendants = this.treeControl.getDescendants(node);
     if (this.selection.isSelected(node)) {
@@ -267,11 +240,11 @@ export class GroupsTreeComponent implements OnChanges {
     );
   }
 
-  onMoveGroup(group: GroupFlatNode) {
+  onMoveGroup(group: GroupFlatNode): void {
     this.moveGroup.emit(group);
   }
 
-  getTreeViewHeight() {
+  getTreeViewHeight(): string {
     let count = 0;
     if (this.scrollViewport) {
       count = this.scrollViewport.getDataLength();
@@ -284,6 +257,19 @@ export class GroupsTreeComponent implements OnChanges {
     if (this.scrollViewport) {
       this.scrollViewport.checkViewportSize();
     }
-    return height + 'px';
+    return String(height) + 'px';
   }
+
+  private transformer = (node: TreeGroup, level: number): EnrichedGroupNode => ({
+    expandable: !!node.children && node.children.length > 0,
+    name: node.shortName,
+    fullName: node.name,
+    parentGroupId: node.parentGroupId,
+    level: level,
+    id: node.id,
+    voId: node.voId,
+    attributes: node.attributes,
+    beanName: node.beanName,
+    description: node.description,
+  });
 }

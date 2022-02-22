@@ -94,8 +94,8 @@
   </perun-web-apps-table-wrapper>
 </div>
 
-<app-alert
+<perun-web-apps-alert
   *ngIf="this.dataSource.allObjectCount === 0 && (dataSource.loading$ | async) === false"
   [alert_type]="'warn'">
   {{'SHARED_LIB.UI.ALERTS.NO_USERS' | translate}}
-</app-alert>
+</perun-web-apps-alert>

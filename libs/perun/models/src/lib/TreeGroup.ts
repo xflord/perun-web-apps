@@ -22,7 +22,7 @@ export class TreeGroup implements Group {
     this.beanName = group.beanName;
   }
 
-  addChild(group: TreeGroup) {
+  addChild(group: TreeGroup): void {
     if (this.children == null) {
       this.children = [group];
     } else {

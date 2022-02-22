@@ -10,30 +10,25 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./attribute-value-string.component.scss'],
 })
 export class AttributeValueStringComponent implements OnInit {
-  constructor(private dialog: MatDialog) {}
-
-  @Input()
-  attribute: Attribute;
-
-  @Input()
-  readonly = false;
-
+  @Input() attribute: Attribute;
+  @Input() readonly = false;
   @Output() sendEventToParent = new EventEmitter();
 
   value: string;
+  constructor(private dialog: MatDialog) {}
 
-  ngOnInit() {
-    this.value = <string>(<unknown>this.attribute.value);
+  ngOnInit(): void {
+    this.value = this.attribute.value as unknown as string;
     if (!this.readonly) {
       this.readonly = isVirtualAttribute(this.attribute);
     }
   }
 
-  _sendEventToParent() {
+  _sendEventToParent(): void {
     this.sendEventToParent.emit();
   }
 
-  showValue(value: string, title: string) {
+  showValue(value: string, title: string): void {
     const config = getDefaultDialogConfig();
     config.width = '350px';
     config.data = {

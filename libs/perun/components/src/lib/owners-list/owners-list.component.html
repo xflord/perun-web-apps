@@ -68,9 +68,9 @@
   </perun-web-apps-table-wrapper>
 </div>
 
-<app-alert *ngIf="!owners.length" alert_type="warn">
+<perun-web-apps-alert *ngIf="!owners.length" alert_type="warn">
   {{'SHARED_LIB.PERUN.COMPONENTS.OWNERS_LIST.NO_OWNERS' | translate}}
-</app-alert>
-<app-alert *ngIf="!dataSource.filteredData.length && owners.length" alert_type="warn">
+</perun-web-apps-alert>
+<perun-web-apps-alert *ngIf="!dataSource.filteredData.length && owners.length" alert_type="warn">
   {{'SHARED_LIB.PERUN.COMPONENTS.OWNERS_LIST.NO_FILTER_OWNERS' | translate}}
-</app-alert>
+</perun-web-apps-alert>

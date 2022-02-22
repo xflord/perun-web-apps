@@ -1,6 +1,10 @@
 <h1 mat-dialog-title>{{'DIALOGS.CHANGE_EMAIL.TITLE'|customTranslate | translate}}</h1>
 <div mat-dialog-content class="dialog-container user-theme">
-  <app-alert *ngIf="pendingMails.length" alert_type="warn">{{pendingEmailsMessage}}</app-alert>
+  <perun-web-apps-alert
+    *ngIf="pendingMails.length"
+    alert_type="warn"
+    >{{pendingEmailsMessage}}</perun-web-apps-alert
+  >
   <mat-form-field class="w-100">
     <label class="w-100">
       <input

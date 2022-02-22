@@ -25,31 +25,16 @@ export type ServiceSelectValue = 'ALL' | 'NOT_SELECTED';
   styleUrls: ['./service-configurator.component.scss'],
 })
 export class ServiceConfiguratorComponent implements OnInit, OnChanges {
-  constructor(private attributesManager: AttributesManagerService, private dialog: MatDialog) {}
+  @Input() facility: Facility;
+  @Input() service: Service | ServiceSelectValue;
+  @Input() resource: Resource;
+  @Input() group: Group;
+  @Input() member: RichMember;
 
-  @Input()
-  facility: Facility;
-
-  @Input()
-  service: Service | ServiceSelectValue;
-
-  @Input()
-  resource: Resource;
-
-  @Input()
-  group: Group;
-
-  @Input()
-  member: RichMember;
-
-  @ViewChild('FacilityAList')
-  facilityAlist: AttributesListComponent;
-  @ViewChild('ResourceAList')
-  resourceAList: AttributesListComponent;
-  @ViewChild('GroupAList')
-  groupAList: AttributesListComponent;
-  @ViewChild('MemberAList')
-  memberAList: AttributesListComponent;
+  @ViewChild('FacilityAList') facilityAlist: AttributesListComponent;
+  @ViewChild('ResourceAList') resourceAList: AttributesListComponent;
+  @ViewChild('GroupAList') groupAList: AttributesListComponent;
+  @ViewChild('MemberAList') memberAList: AttributesListComponent;
 
   selectionFacility = new SelectionModel<Attribute>(true, []);
   selectionResource = new SelectionModel<Attribute>(true, []);
@@ -65,7 +50,9 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
 
   tableId = TABLE_ATTRIBUTES_SETTINGS;
 
-  ngOnInit() {
+  constructor(private attributesManager: AttributesManagerService, private dialog: MatDialog) {}
+
+  ngOnInit(): void {
     this.loadFacilityAttributes();
   }
 
@@ -105,46 +92,7 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
     }
   }
 
-  loadResourceAttributes() {
-    if (this.service === 'NOT_SELECTED') {
-      this.attributesManager
-        .getResourceAttributes(this.resource.id)
-        .subscribe((attrs) => (this.resourceAttributes = attrs));
-    } else if (this.service === 'ALL') {
-      this.attributesManager
-        .getRequiredAttributesResource(this.resource.id)
-        .subscribe((attrs) => (this.resourceAttributes = attrs));
-    } else {
-      this.attributesManager
-        .getRequiredAttributesResourceService(this.service.id, this.resource.id)
-        .subscribe((attrs) => (this.resourceAttributes = attrs));
-    }
-  }
-
-  loadFacilityAttributes() {
-    if (this.service === 'NOT_SELECTED') {
-      this.attributesManager
-        .getFacilityAttributes(this.facility.id)
-        .subscribe((attrs) => (this.facilityAttributes = attrs));
-    } else if (this.service === 'ALL') {
-      this.attributesManager
-        .getRequiredAttributesFacility(this.facility.id)
-        .subscribe((attrs) => (this.facilityAttributes = attrs));
-    } else {
-      this.attributesManager
-        .getRequiredAttributesFacilityService(this.service.id, this.facility.id)
-        .subscribe((attrs) => (this.facilityAttributes = attrs));
-    }
-  }
-
-  private reloadAll() {
-    this.loadFacilityAttributes();
-    if (this.resource !== undefined) {
-      this.loadResourceAttributes();
-    }
-  }
-
-  onAddAttFacility() {
+  onAddAttFacility(): void {
     const config = getDefaultDialogConfig();
     config.width = '1050px';
     config.data = {
@@ -163,7 +111,7 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
     });
   }
 
-  onSaveFacility() {
+  onSaveFacility(): void {
     this.facilityAlist.updateMapAttributes();
 
     const dialogRef = this.dialog.open(EditAttributeDialogComponent, {
@@ -175,7 +123,7 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.selectionFacility.clear();
         this.ngOnInit();
@@ -183,7 +131,7 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
     });
   }
 
-  onAddAttResource() {
+  onAddAttResource(): void {
     const config = getDefaultDialogConfig();
     config.width = '1050px';
     config.data = {
@@ -202,7 +150,7 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
     });
   }
 
-  onSaveResource() {
+  onSaveResource(): void {
     this.resourceAList.updateMapAttributes();
 
     const dialogRef = this.dialog.open(EditAttributeDialogComponent, {
@@ -214,7 +162,7 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.selectionResource.clear();
         this.ngOnInit();
@@ -222,7 +170,7 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
     });
   }
 
-  onAddAttGroup() {
+  onAddAttGroup(): void {
     const config = getDefaultDialogConfig();
     config.width = '1050px';
     config.data = {
@@ -234,14 +182,14 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
 
     const dialogRef = this.dialog.open(CreateAttributeDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result: string) => {
       if (result === 'saved') {
         this.reloadAll();
       }
     });
   }
 
-  onSaveGroup() {
+  onSaveGroup(): void {
     this.groupAList.updateMapAttributes();
 
     const dialogRef = this.dialog.open(EditAttributeDialogComponent, {
@@ -253,7 +201,7 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.selectionGroup.clear();
         this.ngOnInit();
@@ -261,7 +209,7 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
     });
   }
 
-  onAddAttMember() {
+  onAddAttMember(): void {
     const config = getDefaultDialogConfig();
     config.width = '1050px';
     config.data = {
@@ -280,7 +228,7 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
     });
   }
 
-  onSaveMember() {
+  onSaveMember(): void {
     this.memberAList.updateMapAttributes();
 
     const dialogRef = this.dialog.open(EditAttributeDialogComponent, {
@@ -292,11 +240,50 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.selectionMember.clear();
         this.ngOnInit();
       }
     });
+  }
+
+  private loadResourceAttributes(): void {
+    if (this.service === 'NOT_SELECTED') {
+      this.attributesManager
+        .getResourceAttributes(this.resource.id)
+        .subscribe((attrs) => (this.resourceAttributes = attrs));
+    } else if (this.service === 'ALL') {
+      this.attributesManager
+        .getRequiredAttributesResource(this.resource.id)
+        .subscribe((attrs) => (this.resourceAttributes = attrs));
+    } else {
+      this.attributesManager
+        .getRequiredAttributesResourceService(this.service.id, this.resource.id)
+        .subscribe((attrs) => (this.resourceAttributes = attrs));
+    }
+  }
+
+  private loadFacilityAttributes(): void {
+    if (this.service === 'NOT_SELECTED') {
+      this.attributesManager
+        .getFacilityAttributes(this.facility.id)
+        .subscribe((attrs) => (this.facilityAttributes = attrs));
+    } else if (this.service === 'ALL') {
+      this.attributesManager
+        .getRequiredAttributesFacility(this.facility.id)
+        .subscribe((attrs) => (this.facilityAttributes = attrs));
+    } else {
+      this.attributesManager
+        .getRequiredAttributesFacilityService(this.service.id, this.facility.id)
+        .subscribe((attrs) => (this.facilityAttributes = attrs));
+    }
+  }
+
+  private reloadAll(): void {
+    this.loadFacilityAttributes();
+    if (this.resource !== undefined) {
+      this.loadResourceAttributes();
+    }
   }
 }

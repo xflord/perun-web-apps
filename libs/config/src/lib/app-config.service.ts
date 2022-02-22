@@ -1,12 +1,29 @@
+/* eslint-disable
+   @typescript-eslint/no-explicit-any,
+   @typescript-eslint/no-unsafe-member-access,
+   @typescript-eslint/no-unsafe-call,
+   @typescript-eslint/no-unsafe-assignment */
 import { Injectable } from '@angular/core';
-// eslint-disable-next-line
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { StoreService, PerunConfig } from '@perun-web-apps/perun/services';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 import { Title } from '@angular/platform-browser';
 import { UtilsService } from '@perun-web-apps/perun/openapi';
 
 declare const tinycolor: any;
+
+export interface RGBColor {
+  r: number;
+  g: number;
+  b: number;
+  a: number;
+}
+
+export interface Link extends Element {
+  rel: string;
+  type: string;
+  href: string;
+}
 
 export interface Color {
   name: string;
@@ -47,13 +64,13 @@ export class AppConfigService {
     return new Promise<void>((resolve) => {
       colorConfigs.forEach((cc) => {
         //configuration for single items
-        const color = this.storeService.get('theme', cc.configValue);
+        const color: string = this.storeService.get('theme', cc.configValue) as string;
         document.documentElement.style.setProperty(cc.cssVariable, color);
       });
 
       entityColorConfigs.forEach((ecc) => {
         //configuration for whole entities
-        const color = this.storeService.get('theme', ecc.configValue);
+        const color: string = this.storeService.get('theme', ecc.configValue) as string;
         // set CSS variable for given entity
         document.documentElement.style.setProperty(ecc.cssVariable, color);
         // update theme for given entity
@@ -87,7 +104,7 @@ export class AppConfigService {
         .get('/assets/config/defaultConfig.json', {
           headers: this.getNoCacheHeaders(),
         })
-        .subscribe((config) => {
+        .subscribe((config: PerunConfig) => {
           this.storeService.setDefaultConfig(config);
           resolve();
         });
@@ -106,16 +123,16 @@ export class AppConfigService {
           headers: this.getNoCacheHeaders(),
         })
         .subscribe(
-          (config) => {
+          (config: PerunConfig) => {
             this.storeService.setInstanceConfig(config);
             const branding = document.location.hostname;
-            if (config['brandings'] !== undefined && config['brandings'][branding] !== undefined) {
+            if (config?.['brandings']?.[branding]) {
               this.storeService.setBanding(branding);
             }
             resolve();
           },
           () => {
-            console.log('instance config not detected');
+            // console.log('instance config not detected');
             resolve();
           }
         );
@@ -132,7 +149,7 @@ export class AppConfigService {
 
   setInstanceFavicon(): Promise<void> {
     return new Promise((resolve) => {
-      const link: any =
+      const link: Link =
         document.querySelector(`link[rel*='icon']`) || document.createElement('link');
       link.type = 'image/x-icon';
       link.rel = 'shortcut icon';
@@ -152,12 +169,12 @@ export class AppConfigService {
    */
   setApiUrl(): Promise<void> {
     return new Promise<void>((resolve) => {
-      let apiUrl = this.storeService.get('api_url');
+      let apiUrl: string = this.storeService.get('api_url') as string;
       if (location.pathname === '/service-access' || sessionStorage.getItem('baPrincipal')) {
         apiUrl = apiUrl.replace('oauth', 'ba');
       }
       this.authzSevice.configuration.basePath = apiUrl;
-      this.titleService.setTitle(this.storeService.get('document_title'));
+      this.titleService.setTitle(this.storeService.get('document_title') as string);
       resolve();
     });
   }
@@ -196,7 +213,7 @@ function computeColors(hex: string): Color[] {
 
 function getColorObject(value, name): Color {
   const c = tinycolor(value);
-  const rgb = c.toRgb();
+  const rgb: RGBColor = c.toRgb() as RGBColor;
   return {
     name: name,
     hex: c.toHexString(),

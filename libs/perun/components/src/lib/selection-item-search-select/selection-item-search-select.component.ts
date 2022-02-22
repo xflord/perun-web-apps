@@ -24,27 +24,18 @@ export enum ItemType {
   styleUrls: ['./selection-item-search-select.component.scss'],
 })
 export class SelectionItemSearchSelectComponent implements OnInit {
-  constructor(private translateService: TranslateService) {}
-
-  @Input()
-  attributes: AttributeDefinition[] = [];
-
-  @Input()
-  selectedAttribute: string;
-
-  @Input()
-  type: ItemType;
-
-  @Input()
-  asGroup = false;
-
-  @Output()
-  itemSelected = new EventEmitter<SelectionItem>();
+  @Input() attributes: AttributeDefinition[] = [];
+  @Input() selectedAttribute: string;
+  @Input() type: ItemType;
+  @Input() asGroup = false;
+  @Output() itemSelected = new EventEmitter<SelectionItem>();
 
   items: SelectionItem[] = [];
   item: SelectionItem;
 
-  private static getDefinition(attribute: AttributeDefinition) {
+  constructor(private translateService: TranslateService) {}
+
+  private static getDefinition(attribute: AttributeDefinition): string {
     const temp = attribute.namespace.split(':');
     if (temp[4] === null) {
       return 'null';
@@ -62,14 +53,14 @@ export class SelectionItemSearchSelectComponent implements OnInit {
     this.sortAttributes(this.items);
   }
 
-  nameFunction = (item: SelectionItem) => item.displayName;
-  shortNameFunction = () => null;
-  searchFunction = (item: SelectionItem) => item.displayName;
+  nameFunction = (item: SelectionItem): string => item.displayName;
+  shortNameFunction = (): string => null;
+  searchFunction = (item: SelectionItem): string => item.displayName;
 
-  createSelectionItems() {
+  createSelectionItems(): void {
     this.translateService
       .get('DIALOGS.APPLICATION_FORM_EDIT_ITEM.NO_SELECTED_ITEM')
-      .subscribe((noItem) => {
+      .subscribe((noItem: string) => {
         const emptyItem: SelectionItem = new SelectionItem(noItem, '');
         this.items.push(emptyItem);
         this.item = emptyItem;
@@ -109,14 +100,14 @@ export class SelectionItemSearchSelectComponent implements OnInit {
     }
   }
 
-  getFederationAttributes() {
+  getFederationAttributes(): void {
     this.translateService
       .get('DIALOGS.APPLICATION_FORM_EDIT_ITEM.NO_SELECTED_ITEM')
-      .subscribe((noItem) => {
+      .subscribe((noItem: string) => {
         this.items.push(new SelectionItem(noItem, ''));
         this.translateService
           .get('DIALOGS.APPLICATION_FORM_EDIT_ITEM.CUSTOM_VALUE')
-          .subscribe((custom) => {
+          .subscribe((custom: string) => {
             this.items.push(new SelectionItem(custom, 'custom'));
             this.items.push(new SelectionItem('Display name', 'displayName'));
             this.items.push(new SelectionItem('Common name', 'cn'));
@@ -141,7 +132,7 @@ export class SelectionItemSearchSelectComponent implements OnInit {
       });
   }
 
-  getFederationAttribute() {
+  getFederationAttribute(): void {
     for (const item of this.items) {
       if (item.value === this.selectedAttribute) {
         this.item = item;
@@ -153,8 +144,8 @@ export class SelectionItemSearchSelectComponent implements OnInit {
     this.item.value = this.selectedAttribute;
   }
 
-  sortAttributes(attributes: SelectionItem[]) {
-    attributes.sort((a: SelectionItem, b: SelectionItem) => {
+  sortAttributes(attributes: SelectionItem[]): void {
+    attributes.sort((a: SelectionItem, b: SelectionItem): number => {
       if (a.value === '') {
         return -1;
       }

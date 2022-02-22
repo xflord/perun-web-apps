@@ -8,9 +8,9 @@
           matStepLabel
           >{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.USERS_LABEL' | translate}}</ng-template
         >
-        <app-alert alert_type="error" *ngIf="this.functionalityNotSupported">
+        <perun-web-apps-alert alert_type="error" *ngIf="this.functionalityNotSupported">
           {{'DIALOGS.CREATE_SPONSORED_MEMBER.FUNCTIONALITY_NOT_SUPPORTED' | translate}}
-        </app-alert>
+        </perun-web-apps-alert>
         <h5 class="mt-2">{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.USERS_INFO' | translate}}</h5>
         <form class="flex-container mt-2" [formGroup]="usersInfoFormGroup">
           <mat-form-field>
@@ -69,11 +69,11 @@
           <h5 class="mb-4">
             {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.PASSWORD_MANAGEMENT' | translate}}
           </h5>
-          <app-alert
+          <perun-web-apps-alert
             alert_type="info"
             *ngIf="getSelectedNamespaceRules().namespaceName === 'No namespace'">
             {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NO_NAMESPACE_PASSWORD_INFO' | translate}}
-          </app-alert>
+          </perun-web-apps-alert>
           <mat-radio-group
             *ngIf="getSelectedNamespaceRules().namespaceName !== 'No namespace'"
             [(ngModel)]="passwordReset">
@@ -136,10 +136,10 @@
           </mat-radio-group>
         </div>
         <div *ngIf="groupAssignment === 'none'">
-          <app-alert
+          <perun-web-apps-alert
             class="mt-4"
             alert_type="info"
-            >{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DONT_ASSIGN_INFO' | translate}}</app-alert
+            >{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DONT_ASSIGN_INFO' | translate}}</perun-web-apps-alert
           >
         </div>
         <div *ngIf="groupAssignment === 'new'">
@@ -174,12 +174,12 @@
       </mat-step>
     </mat-stepper>
     <div *ngIf='state === "results"'>
-      <app-alert *ngIf="this.finishedWithErrors === false" [alert_type]="'success'">
+      <perun-web-apps-alert *ngIf="this.finishedWithErrors === false" [alert_type]="'success'">
         {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.SUCCESS' | translate}}
-      </app-alert>
-      <app-alert *ngIf="this.finishedWithErrors" [alert_type]="'warn'">
+      </perun-web-apps-alert>
+      <perun-web-apps-alert *ngIf="this.finishedWithErrors" [alert_type]="'warn'">
         {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.FINISHED_WITH_ERRORS' | translate}}
-      </app-alert>
+      </perun-web-apps-alert>
     </div>
   </div>
   <div *ngIf="!loading && stepper !== undefined && state !== 'results'" mat-dialog-actions>

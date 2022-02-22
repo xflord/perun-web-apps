@@ -12,24 +12,24 @@ export interface ConfirmationDialogData {
   styleUrls: ['./universal-confirmation-dialog.component.scss'],
 })
 export class UniversalConfirmationDialogComponent implements OnInit {
+  theme: string;
+  message: string;
+
   constructor(
     public dialogRef: MatDialogRef<UniversalConfirmationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmationDialogData
   ) {}
-
-  theme: string;
-  message: string;
 
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.message = this.data.message;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.dialogRef.close(true);
   }
 }

@@ -10,39 +10,34 @@ export const NO_FORM_ITEM: ApplicationFormItem = {};
   styleUrls: ['./app-form-item-search-select.component.css'],
 })
 export class AppFormItemSearchSelectComponent {
+  @Input() items: ApplicationFormItem[];
+  @Input() item: ApplicationFormItem = null;
+  @Output() itemSelected = new EventEmitter<ApplicationFormItem>();
   constructor(private translate: TranslateService) {}
 
-  @Input()
-  items: ApplicationFormItem[];
-  @Input()
-  item: ApplicationFormItem = null;
-
-  @Output()
-  itemSelected = new EventEmitter<ApplicationFormItem>();
-
-  nameFunction = (item: ApplicationFormItem) => {
+  nameFunction = (item: ApplicationFormItem): string => {
     if (item === NO_FORM_ITEM) {
       return this.translate.instant(
         'SHARED_LIB.PERUN.COMPONENTS.APP_FORM_ITEM_SEARCH_SELECT.NO_ITEM'
-      );
+      ) as string;
     }
     return item.shortname;
   };
-  secondaryFunction = (item: ApplicationFormItem) => {
+  secondaryFunction = (item: ApplicationFormItem): string => {
     if (item === NO_FORM_ITEM) {
       return '';
     }
     if (item.id < 0) {
       return this.translate.instant(
         'SHARED_LIB.PERUN.COMPONENTS.APP_FORM_ITEM_SEARCH_SELECT.NEW_ITEM'
-      );
+      ) as string;
     }
-    return '#' + item.id;
+    return '#' + String(item.id);
   };
-  searchFunction = (item: ApplicationFormItem) => {
+  searchFunction = (item: ApplicationFormItem): string => {
     if (item === NO_FORM_ITEM) {
       return '';
     }
-    return item.shortname + item.id;
+    return item.shortname + String(item.id);
   };
 }

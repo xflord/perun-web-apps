@@ -36,9 +36,9 @@ export interface EditFacilityResourceGroupVoDialogData {
   styleUrls: ['./edit-facility-resource-group-vo-dialog.component.scss'],
 })
 export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
-  invalidNameMessage =
+  invalidNameMessage: string =
     this.data.dialogType === EditFacilityResourceGroupVoDialogOptions.GROUP
-      ? this.store.get('group_name_error_message')
+      ? (this.store.get('group_name_error_message') as string)
       : '';
 
   theme: string;
@@ -47,9 +47,9 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
   shortName: string;
   dialogType: EditFacilityResourceGroupVoDialogOptions;
   loading = false;
-  secondaryRegex =
+  secondaryRegex: string =
     this.data.dialogType === EditFacilityResourceGroupVoDialogOptions.GROUP
-      ? this.store.get('group_name_secondary_regex')
+      ? (this.store.get('group_name_secondary_regex') as string)
       : '';
 
   constructor(
@@ -106,11 +106,11 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
     }
   }
 
-  cancel() {
+  cancel(): void {
     this.dialogRef.close(false);
   }
 
-  submit() {
+  submit(): void {
     this.loading = true;
     switch (this.dialogType) {
       case EditFacilityResourceGroupVoDialogOptions.FACILITY:
@@ -128,14 +128,14 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
     }
   }
 
-  editResource() {
-    this.data.resource.name = this.nameCtrl.value;
-    this.data.resource.description = this.descriptionCtrl.value;
+  editResource(): void {
+    this.data.resource.name = this.nameCtrl.value as string;
+    this.data.resource.description = this.descriptionCtrl.value as string;
     this.resourcesManager.updateResource({ resource: this.data.resource }).subscribe(
       () => {
         this.translateService
           .get('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.RESOURCE_SUCCESS')
-          .subscribe((message) => {
+          .subscribe((message: string) => {
             this.notificator.showSuccess(message);
             this.dialogRef.close(true);
           });
@@ -144,14 +144,14 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
     );
   }
 
-  editFacility() {
-    this.data.facility.name = this.nameCtrl.value;
-    this.data.facility.description = this.descriptionCtrl.value;
+  editFacility(): void {
+    this.data.facility.name = this.nameCtrl.value as string;
+    this.data.facility.description = this.descriptionCtrl.value as string;
     this.facilitiesManager.updateFacility({ facility: this.data.facility }).subscribe(
       () => {
         this.translateService
           .get('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.FACILITY_SUCCESS')
-          .subscribe((message) => {
+          .subscribe((message: string) => {
             this.notificator.showSuccess(message);
             this.dialogRef.close(true);
           });
@@ -160,17 +160,17 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
     );
   }
 
-  editGroup() {
+  editGroup(): void {
     this.groupsManager.getGroupById(this.data.group.id).subscribe(
       (grp) => {
         const group = grp;
-        group.name = this.nameCtrl.value;
-        group.description = this.descriptionCtrl.value;
+        group.name = this.nameCtrl.value as string;
+        group.description = this.descriptionCtrl.value as string;
         this.groupsManager.updateGroup({ group: group }).subscribe(
           () => {
             this.translateService
               .get('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.GROUP_SUCCESS')
-              .subscribe((message) => {
+              .subscribe((message: string) => {
                 this.notificator.showSuccess(message);
                 this.dialogRef.close(true);
               });
@@ -182,13 +182,13 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
     );
   }
 
-  editVo() {
-    this.data.vo.name = this.nameCtrl.value;
+  editVo(): void {
+    this.data.vo.name = this.nameCtrl.value as string;
     this.vosManager.updateVo({ vo: this.data.vo }).subscribe(
       () => {
         this.translateService
           .get('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.VO_SUCCESS')
-          .subscribe((message) => {
+          .subscribe((message: string) => {
             this.notificator.showSuccess(message);
             this.dialogRef.close(true);
           });

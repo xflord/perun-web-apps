@@ -4,12 +4,9 @@ import { Directive, HostListener, Input } from '@angular/core';
   selector: '[perunWebAppsMiddleClickRouterLink]',
 })
 export class MiddleClickRouterLinkDirective {
-  constructor() {}
+  @Input() perunWebAppsMiddleClickRouterLink: string[];
 
-  @Input()
-  perunWebAppsMiddleClickRouterLink: any[];
-
-  @HostListener('mouseup', ['$event']) onClick(event: MouseEvent) {
+  @HostListener('mouseup', ['$event']) onClick(event: MouseEvent): void {
     if (
       event.button === 1 &&
       this.perunWebAppsMiddleClickRouterLink !== null &&

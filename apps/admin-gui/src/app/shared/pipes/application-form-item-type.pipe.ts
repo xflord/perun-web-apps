@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Type } from '@perun-web-apps/perun/openapi';
 
 @Pipe({
   name: 'applicationFormItemType',
@@ -9,7 +10,7 @@ export class ApplicationFormItemTypePipe implements PipeTransform {
 
   constructor(private translateService: TranslateService) {}
 
-  transform(value: any): any {
+  transform(value: Type): string {
     switch (value) {
       case 'HEADING': {
         this.translateService

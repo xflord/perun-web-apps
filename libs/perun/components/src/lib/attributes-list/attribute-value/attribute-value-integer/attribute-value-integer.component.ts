@@ -10,27 +10,22 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./attribute-value-integer.component.css'],
 })
 export class AttributeValueIntegerComponent implements OnInit {
+  @Input() attribute: Attribute;
+  @Input() readonly = false;
+  @Output() sendEventToParent = new EventEmitter();
   constructor(private dialog: MatDialog) {}
 
-  @Input()
-  attribute: Attribute;
-
-  @Input()
-  readonly = false;
-
-  @Output() sendEventToParent = new EventEmitter();
-
-  ngOnInit() {
+  ngOnInit(): void {
     if (!this.readonly) {
       this.readonly = isVirtualAttribute(this.attribute);
     }
   }
 
-  _sendEventToParent() {
+  _sendEventToParent(): void {
     this.sendEventToParent.emit();
   }
 
-  showValue(attribute: Attribute) {
+  showValue(attribute: Attribute): void {
     const config = getDefaultDialogConfig();
     config.width = '350px';
     config.data = {

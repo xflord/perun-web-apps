@@ -6,7 +6,7 @@ import {
   AuditMessage,
   MemberGroupStatus,
   MembersOrderColumn,
-  PaginatedRichApplications,
+  PaginatedApplications,
   PaginatedAuditMessages,
   PaginatedRichMembers,
   PaginatedRichUsers,
@@ -22,22 +22,19 @@ import { DynamicPaginatingService } from './dynamic-paginating.service';
 import { GuiAuthResolver } from './gui-auth-resolver.service';
 
 export class DynamicDataSource<T> implements DataSource<T> {
-  private dataSubject = new BehaviorSubject<T[]>([]);
-
-  private loadingSubject = new BehaviorSubject<boolean>(false);
-
-  public loading$ = this.loadingSubject.asObservable();
-
-  public allObjectCount = 0;
-
-  public routeAuth = true;
-
+  loading$: Observable<boolean>;
+  allObjectCount = 0;
+  routeAuth = true;
   private latestQueryTime: number;
+  private dataSubject = new BehaviorSubject<T[]>([]);
+  private loadingSubject = new BehaviorSubject<boolean>(false);
 
   constructor(
     private dynamicPaginatingService: DynamicPaginatingService,
     private authzService: GuiAuthResolver
-  ) {}
+  ) {
+    this.loading$ = this.loadingSubject.asObservable();
+  }
 
   loadMembers(
     voId: number,
@@ -50,7 +47,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
     searchString?: string,
     groupId?: number,
     groupStatuses?: MemberGroupStatus[]
-  ) {
+  ): void {
     this.loadingSubject.next(true);
     this.latestQueryTime = Date.now();
     const thisQueryTime = this.latestQueryTime;
@@ -74,16 +71,15 @@ export class DynamicDataSource<T> implements DataSource<T> {
       )
       .subscribe((paginatedRichMembers) => {
         if (this.latestQueryTime <= thisQueryTime) {
-          const data: RichMember[] = (<PaginatedRichMembers>paginatedRichMembers).data;
+          const data: RichMember[] = (paginatedRichMembers as PaginatedRichMembers).data;
           if (data !== null && data.length !== 0) {
             this.routeAuth = this.authzService.isAuthorized('getMemberById_int_policy', [
               { beanName: 'Vo', id: voId },
               data[0],
             ]);
           }
-          this.allObjectCount = (<PaginatedRichMembers>paginatedRichMembers).totalCount;
-          // @ts-ignore
-          this.dataSubject.next(data);
+          this.allObjectCount = (paginatedRichMembers as PaginatedRichMembers).totalCount;
+          this.dataSubject.next(data as unknown as T[]);
         }
       });
   }
@@ -101,7 +97,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
     resourceId: number,
     serviceId: number,
     onlyAllowed: boolean
-  ) {
+  ): void {
     this.loadingSubject.next(true);
     this.latestQueryTime = Date.now();
     const thisQueryTime = this.latestQueryTime;
@@ -127,15 +123,14 @@ export class DynamicDataSource<T> implements DataSource<T> {
       )
       .subscribe((paginatedRichUsers) => {
         if (this.latestQueryTime <= thisQueryTime) {
-          const data: RichUser[] = (<PaginatedRichUsers>paginatedRichUsers).data;
-          this.allObjectCount = (<PaginatedRichUsers>paginatedRichUsers).totalCount;
-          // @ts-ignore
-          this.dataSubject.next(data);
+          const data: RichUser[] = (paginatedRichUsers as PaginatedRichUsers).data;
+          this.allObjectCount = (paginatedRichUsers as PaginatedRichUsers).totalCount;
+          this.dataSubject.next(data as unknown as T[]);
         }
       });
   }
 
-  loadAuditMessages(pageSize: number, pageIndex: number, sortOrder: SortingOrder) {
+  loadAuditMessages(pageSize: number, pageIndex: number, sortOrder: SortingOrder): void {
     this.loadingSubject.next(true);
     this.latestQueryTime = Date.now();
     const thisQueryTime = this.latestQueryTime;
@@ -148,10 +143,9 @@ export class DynamicDataSource<T> implements DataSource<T> {
       )
       .subscribe((paginatedAuditMessages) => {
         if (this.latestQueryTime <= thisQueryTime) {
-          const data: AuditMessage[] = (<PaginatedAuditMessages>paginatedAuditMessages).data;
-          this.allObjectCount = (<PaginatedAuditMessages>paginatedAuditMessages).totalCount;
-          // @ts-ignore
-          this.dataSubject.next(data);
+          const data: AuditMessage[] = (paginatedAuditMessages as PaginatedAuditMessages).data;
+          this.allObjectCount = (paginatedAuditMessages as PaginatedAuditMessages).totalCount;
+          this.dataSubject.next(data as unknown as T[]);
         }
       });
   }
@@ -170,7 +164,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
     groupId: number,
     voId: number,
     details?: boolean
-  ) {
+  ): void {
     this.loadingSubject.next(true);
     this.latestQueryTime = Date.now();
     const thisQueryTime = this.latestQueryTime;
@@ -197,7 +191,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
       )
       .subscribe((paginatedApplications) => {
         if (this.latestQueryTime <= thisQueryTime) {
-          const data = (<PaginatedRichApplications>paginatedApplications).data;
+          const data: Application[] = (paginatedApplications as PaginatedApplications).data;
           if (data !== null && data.length !== 0) {
             const d = <Application[]>data;
             if (d[0].group) {
@@ -212,9 +206,8 @@ export class DynamicDataSource<T> implements DataSource<T> {
               );
             }
           }
-          this.allObjectCount = (<PaginatedRichApplications>paginatedApplications).totalCount;
-          // @ts-ignore
-          this.dataSubject.next(data);
+          this.allObjectCount = (paginatedApplications as PaginatedApplications).totalCount;
+          this.dataSubject.next(data as unknown as T[]);
         }
       });
   }

@@ -3,10 +3,10 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 
 @Injectable()
 export class CustomMatPaginator extends MatPaginatorIntl {
-  getRangeLabel = function (page, pageSize, length) {
-    let estimatedLength;
+  getRangeLabel = function (page: number, pageSize: number, length: number): string {
+    let estimatedLength: string;
     if (length < 1000) {
-      estimatedLength = length;
+      estimatedLength = String(length);
     } else if (length < 10000) {
       estimatedLength = '1 000';
     } else if (length < 100000) {

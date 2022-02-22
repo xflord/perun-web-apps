@@ -20,6 +20,13 @@ export interface ChangeGroupResourceAssigmentDialogComponentData {
   styleUrls: ['./change-group-resource-assigment-dialog.component.scss'],
 })
 export class ChangeGroupResourceAssigmentDialogComponent implements OnInit {
+  loading = false;
+  status: string;
+  asyncValidation = false;
+  theme: string;
+  resource: Resource = null;
+  group: Group = null;
+
   constructor(
     private dialogRef: MatDialogRef<ChangeGroupResourceAssigmentDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: ChangeGroupResourceAssigmentDialogComponentData,
@@ -27,13 +34,6 @@ export class ChangeGroupResourceAssigmentDialogComponent implements OnInit {
     private groupService: GroupsManagerService
   ) {}
 
-  loading = false;
-  status: string;
-  asyncValidation = false;
-  theme: string;
-
-  resource: Resource = null;
-  group: Group = null;
   ngOnInit(): void {
     this.loading = true;
     this.status = this.data.status;
@@ -54,11 +54,11 @@ export class ChangeGroupResourceAssigmentDialogComponent implements OnInit {
     );
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     if (this.status === 'ACTIVE') {
       this.resourceService
@@ -87,7 +87,7 @@ export class ChangeGroupResourceAssigmentDialogComponent implements OnInit {
     }
   }
 
-  getReversedStatus() {
+  getReversedStatus(): string {
     return this.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
   }
 }

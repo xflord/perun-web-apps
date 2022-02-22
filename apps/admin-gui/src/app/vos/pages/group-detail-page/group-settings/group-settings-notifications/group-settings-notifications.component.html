@@ -47,9 +47,9 @@
   </app-notification-list>
 </div>
 <div *ngIf="noApplicationForm && !loading">
-  <app-alert
+  <perun-web-apps-alert
     alert_type="warn"
-    >{{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.NO_APPLICATION_FORM' | translate}}</app-alert
+    >{{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.NO_APPLICATION_FORM' | translate}}</perun-web-apps-alert
   >
   <button *ngIf="createFormAuth" mat-stroked-button (click)="createEmptyApplicationForm()">
     {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.CREATE_APPLICATION_FORM' | translate}}

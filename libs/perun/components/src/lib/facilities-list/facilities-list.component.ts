@@ -20,22 +20,11 @@ import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
   styleUrls: ['./facilities-list.component.scss'],
 })
 export class FacilitiesListComponent implements OnChanges {
-  constructor(private authResolver: GuiAuthResolver) {}
-
-  @Input()
-  facilities: EnrichedFacility[];
-
-  @Input()
-  recentIds: number[];
-
-  @Input()
-  filterValue: string;
-
-  @Input()
-  tableId: string;
-
-  @Input()
-  displayedColumns: string[] = [
+  @Input() facilities: EnrichedFacility[];
+  @Input() recentIds: number[];
+  @Input() filterValue: string;
+  @Input() tableId: string;
+  @Input() displayedColumns: string[] = [
     'select',
     'id',
     'recent',
@@ -45,32 +34,22 @@ export class FacilitiesListComponent implements OnChanges {
     'destinations',
     'hosts',
   ];
+  @Input() selection: SelectionModel<EnrichedFacility>;
+  @Input() pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
-  @Input()
-  selection: SelectionModel<EnrichedFacility>;
+  dataSource: MatTableDataSource<EnrichedFacility>;
+  disableRouting: boolean;
 
-  @Input()
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  private sort: MatSort;
+
+  constructor(private authResolver: GuiAuthResolver) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
   }
 
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-
-  private sort: MatSort;
-
-  dataSource: MatTableDataSource<EnrichedFacility>;
-  disableRouting: boolean;
-
-  ngOnChanges() {
-    if (!this.authResolver.isPerunAdminOrObserver()) {
-      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
-    }
-    this.setDataSource();
-  }
-
-  getDataForColumn(
+  static getDataForColumn(
     data: EnrichedFacility,
     column: string,
     otherThis: FacilitiesListComponent
@@ -86,61 +65,68 @@ export class FacilitiesListComponent implements OnChanges {
         return parseTechnicalOwnersNames(data.owners);
       case 'recent':
         if (otherThis.recentIds) {
-          if (otherThis.recentIds.indexOf(data.facility.id) > -1) {
+          if (otherThis.recentIds.includes(data.facility.id)) {
             return '#'.repeat(otherThis.recentIds.indexOf(data.facility.id));
           }
         }
-        return data['name'];
+        return data['name'] as string;
       case 'destinations':
         return data.destinations.map((d) => d.destination).join(' ; ');
       case 'hosts':
         return data.hosts.map((d) => d.hostname).join(' ; ');
       default:
-        return data[column];
+        return data[column] as string;
     }
   }
 
-  exportData(format: string) {
+  ngOnChanges(): void {
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
+    }
+    this.setDataSource();
+  }
+
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
+        FacilitiesListComponent.getDataForColumn,
         this
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (!this.dataSource) {
       this.dataSource = new MatTableDataSource<EnrichedFacility>();
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
-      this.dataSource.filterPredicate = (data: EnrichedFacility, filter: string) =>
+      this.dataSource.filterPredicate = (data: EnrichedFacility, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn,
+          FacilitiesListComponent.getDataForColumn,
           this
         );
-      this.dataSource.sortData = (data: EnrichedFacility[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: EnrichedFacility[], sort: MatSort): EnrichedFacility[] =>
+        customDataSourceSort(data, sort, FacilitiesListComponent.getDataForColumn, this);
     }
     this.dataSource.filter = this.filterValue;
     this.dataSource.data = this.facilities;
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
+  isAllSelected(): boolean {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
+  masterToggle(): void {
     if (this.isAllSelected()) {
       this.selection.clear();
     } else {

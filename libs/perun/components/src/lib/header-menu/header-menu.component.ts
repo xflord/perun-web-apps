@@ -29,11 +29,11 @@ export class HeaderMenuComponent {
     private translateService: TranslateService
   ) {}
 
-  redirectToUrl() {
+  redirectToUrl(): void {
     window.open(this.url, '_blank');
   }
 
-  onLogOut() {
+  onLogOut(): void {
     this.authService.logout();
   }
 }

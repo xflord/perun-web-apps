@@ -9,22 +9,16 @@ import { ChangeGroupResourceAssigmentDialogComponent } from '@perun-web-apps/per
   styleUrls: ['./group-resource-status.component.css'],
 })
 export class GroupResourceStatusComponent {
+  @Input() status = '';
+  @Input() groupId: number;
+  @Input() resourceId: number;
+  @Input() theme: string;
+  @Input() failureCause: string;
+  @Output() statusChange: EventEmitter<void> = new EventEmitter<void>();
+
   constructor(private dialog: MatDialog) {}
 
-  @Input()
-  status = '';
-  @Input()
-  groupId: number;
-  @Input()
-  resourceId: number;
-  @Input()
-  theme: string;
-  @Input()
-  failureCause: string;
-  @Output()
-  statusChange: EventEmitter<void> = new EventEmitter<void>();
-
-  changeStatus() {
+  changeStatus(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = {
@@ -36,7 +30,7 @@ export class GroupResourceStatusComponent {
 
     const dialogRef = this.dialog.open(ChangeGroupResourceAssigmentDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.statusChange.emit();
       }

@@ -1,11 +1,14 @@
 <footer [ngStyle]="{'background': bgColor}" class="footer-container">
   <div class="footer-columns-container">
-    <div *ngFor="let item of items" [class.my-auto]="containsLogos" class="footer-col mx-auto">
+    <div
+      *ngFor="let column of footerColumns"
+      [class.my-auto]="containsLogos"
+      class="footer-col mx-auto">
       <h6 [ngStyle]="{'color': headersTextColor}" class="font-weight-bold">
-        {{item | localisedText: language:'title'}}
+        {{column | localisedText: language:'title'}}
       </h6>
-      <div *ngIf="item.logos" [ngStyle]="{'min-height': columnContentHeight+'px'}">
-        <div *ngFor="let elem of item.elements">
+      <div *ngIf="column.logos" [ngStyle]="{'min-height': columnContentHeight+'px'}">
+        <div *ngFor="let elem of column.elements">
           <a *ngIf="elem | localisedLink:language" [href]="elem | localisedLink:language">
             <img alt="image" src="{{elem.logo | footerLogoPath}}" />
           </a>
@@ -14,8 +17,10 @@
           </span>
         </div>
       </div>
-      <div *ngIf="item.elements && !item.logos" [ngStyle]="{'height': columnContentHeight+'px'}">
-        <div *ngFor="let elem of item.elements" class="row-height">
+      <div
+        *ngIf="column.elements && !column.logos"
+        [ngStyle]="{'height': columnContentHeight+'px'}">
+        <div *ngFor="let elem of column.elements" class="row-height">
           <i
             *ngIf="elem.icon"
             [ngStyle]="{'color': linksTextColor}"

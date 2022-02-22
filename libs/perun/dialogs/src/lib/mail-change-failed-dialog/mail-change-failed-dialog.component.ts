@@ -13,8 +13,8 @@ export class MailChangeFailedDialogComponent {
     private router: Router
   ) {}
 
-  onClose() {
-    this.router.navigate([]);
+  onClose(): void {
+    void this.router.navigate([]);
     this.dialogRef.close();
   }
 }

@@ -23,7 +23,7 @@ export class RedirectPageComponent implements OnInit {
     }
 
     this.route.queryParams.subscribe((params) => {
-      this.router.navigate([params.redirectTo]);
+      void this.router.navigate([params.redirectTo]);
     });
   }
 }

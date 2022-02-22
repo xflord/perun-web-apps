@@ -20,6 +20,11 @@ export interface ChangeSponsorshipExpirationDialogData {
   styleUrls: ['./change-sponsorship-expiration-dialog.component.scss'],
 })
 export class ChangeSponsorshipExpirationDialogComponent implements OnInit {
+  loading = false;
+  minDate: Date;
+  currentExpiration: string;
+  newExpiration: string;
+  private successMessage: string;
   constructor(
     private dialogRef: MatDialogRef<ChangeSponsorshipExpirationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: ChangeSponsorshipExpirationDialogData,
@@ -31,16 +36,8 @@ export class ChangeSponsorshipExpirationDialogComponent implements OnInit {
   ) {
     translate
       .get('DIALOGS.CHANGE_EXPIRATION.SUCCESS')
-      .subscribe((res) => (this.successMessage = res));
+      .subscribe((res: string) => (this.successMessage = res));
   }
-
-  loading = false;
-
-  minDate: Date;
-
-  currentExpiration: string;
-  newExpiration: string;
-  successMessage: string;
 
   ngOnInit(): void {
     this.loading = true;
@@ -55,7 +52,7 @@ export class ChangeSponsorshipExpirationDialogComponent implements OnInit {
     this.loading = false;
   }
 
-  onExpirationChanged(newExp: string) {
+  onExpirationChanged(newExp: string): void {
     this.loading = true;
     const expiration = newExp === 'never' ? null : newExp;
 

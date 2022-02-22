@@ -41,7 +41,7 @@ export class GroupSyncDetailDialogComponent implements OnInit {
     this.loadGroup();
   }
 
-  onForceStructure() {
+  onForceStructure(): void {
     this.loading = true;
     this.groupService.forceGroupStructureSynchronization(this.data.groupId).subscribe(
       () => {
@@ -52,11 +52,11 @@ export class GroupSyncDetailDialogComponent implements OnInit {
     );
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(null);
   }
 
-  onForce() {
+  onForce(): void {
     this.loading = true;
     if (this.isBasic()) {
       this.groupService.forceGroupSynchronization(this.group.id).subscribe(
@@ -88,15 +88,15 @@ export class GroupSyncDetailDialogComponent implements OnInit {
     return 'N/A';
   }
 
-  isBasic() {
+  isBasic(): boolean {
     return this.type === 'BASIC';
   }
 
-  isStructured() {
+  isStructured(): boolean {
     return this.type === 'STRUCTURED';
   }
 
-  getLastSyncState() {
+  getLastSyncState(): string {
     if (this.isBasic()) {
       return this.lastSyncState !== '' ? this.lastSyncState : 'OK';
     }
@@ -106,7 +106,7 @@ export class GroupSyncDetailDialogComponent implements OnInit {
     return 'N/A';
   }
 
-  getLastSyncTime() {
+  getLastSyncTime(): string {
     if (this.isBasic()) {
       return this.lastSyncTime;
     }
@@ -116,11 +116,11 @@ export class GroupSyncDetailDialogComponent implements OnInit {
     return 'N/A';
   }
 
-  refresh() {
+  refresh(): void {
     this.loadGroup();
   }
 
-  private loadGroup() {
+  private loadGroup(): void {
     this.loading = true;
     this.groupService
       .getRichGroupByIdWithAttributesByNames(this.data.groupId, [
@@ -134,27 +134,24 @@ export class GroupSyncDetailDialogComponent implements OnInit {
       .subscribe((richGroup) => {
         this.group = richGroup;
 
-        this.syncEnabled = <string>(
-          (<unknown>getAttribute(this.group.attributes, Urns.GROUP_SYNC_ENABLED).value)
-        );
-        this.lastSyncState = <string>(
-          (<unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_STATE).value)
-        );
-        this.lastSyncTime = <string>(
-          (<unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_TIMESTAMP).value)
-        );
-        this.structSyncEnabled = <boolean>(
-          (<unknown>getAttribute(this.group.attributes, Urns.GROUP_STRUCTURE_SYNC_ENABLED).value)
-        );
-        this.lastStructSyncState = <string>(
-          (<unknown>getAttribute(this.group.attributes, Urns.GROUP_LAST_STRUCTURE_SYNC_STATE).value)
-        );
-        this.lastStructSyncTime = <string>(
-          (<unknown>(
-            getAttribute(this.group.attributes, Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP).value
-          ))
-        );
-
+        this.syncEnabled = getAttribute(this.group.attributes, Urns.GROUP_SYNC_ENABLED)
+          .value as unknown as string;
+        this.lastSyncState = getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_STATE)
+          .value as unknown as string;
+        this.lastSyncTime = getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_TIMESTAMP)
+          .value as unknown as string;
+        this.structSyncEnabled = getAttribute(
+          this.group.attributes,
+          Urns.GROUP_STRUCTURE_SYNC_ENABLED
+        ).value as unknown as boolean;
+        this.lastStructSyncState = getAttribute(
+          this.group.attributes,
+          Urns.GROUP_LAST_STRUCTURE_SYNC_STATE
+        ).value as unknown as string;
+        this.lastStructSyncTime = getAttribute(
+          this.group.attributes,
+          Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
+        ).value as unknown as string;
         if (this.syncEnabled !== null && this.syncEnabled === 'true') {
           this.type = 'BASIC';
         }

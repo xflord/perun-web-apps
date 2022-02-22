@@ -7,27 +7,14 @@ import { Service } from '@perun-web-apps/perun/openapi';
   styleUrls: ['./service-search-select.component.scss'],
 })
 export class ServiceSearchSelectComponent {
-  constructor() {}
+  @Input() service: Service = null;
+  @Input() services: Service[];
+  @Input() multiple = false;
+  @Input() disableAutoSelect = false;
+  @Input() theme = '';
+  @Output() serviceSelected = new EventEmitter<Service>();
 
-  @Input()
-  service: Service = null;
-
-  @Input()
-  services: Service[];
-
-  @Input()
-  multiple = false;
-
-  @Input()
-  disableAutoSelect = false;
-
-  @Input()
-  theme = '';
-
-  @Output()
-  serviceSelected = new EventEmitter<Service>();
-
-  nameFunction = (service: Service) => service.name;
-  secondaryFunction = () => '';
-  searchFunction = (service: Service) => service.name;
+  nameFunction = (service: Service): string => service.name;
+  secondaryFunction = (): string => '';
+  searchFunction = (service: Service): string => service.name;
 }

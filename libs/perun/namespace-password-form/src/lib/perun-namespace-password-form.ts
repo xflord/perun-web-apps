@@ -2,8 +2,14 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { FormControl } from '@angular/forms';
 import { UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '@perun-web-apps/perun/services';
-import { of, timer } from 'rxjs';
+import { Observable, of, timer } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { RPCError } from '@perun-web-apps/perun/models';
+
+interface PasswordError {
+  backendError: string;
+}
 
 /**
  * State matcher that shows error on inputs whenever the input is changed and invalid (by default, the error
@@ -11,7 +17,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
  */
 export class ImmediateStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null): boolean {
-    return !!(control && control.invalid && control.dirty);
+    return !!(control?.invalid && control?.dirty);
   }
 }
 
@@ -20,20 +26,27 @@ export const loginAsyncValidator =
     namespace: string,
     usersManager: UsersManagerService,
     apiRequestConfiguration: ApiRequestConfigurationService,
-    time: number = 500
+    time = 500
   ) =>
-  (input: FormControl) =>
+  (input: FormControl): Observable<PasswordError | null> =>
     timer(time).pipe(
       switchMap(() => {
         apiRequestConfiguration.dontHandleErrorForNext();
         if (!namespace || namespace === 'No namespace') {
           return of(null);
         }
-        return usersManager.checkPasswordStrength(input.value, namespace);
+        return usersManager.checkPasswordStrength(
+          input.value as string,
+          namespace
+        ) as Observable<PasswordError>;
       }),
       map(() => null),
       // catch error and send it as a valid value
-      catchError((err) =>
-        of({ backendError: err.error.message.substr(err.error.message.indexOf(':') + 1) })
-      )
-    );
+      catchError((err: HttpErrorResponse) => {
+        const innerErr: RPCError = err.error as RPCError;
+        const pwdError: PasswordError = {
+          backendError: innerErr.message.substring(innerErr.message.indexOf(':') + 1),
+        };
+        return of(pwdError);
+      })
+    ) as Observable<PasswordError>;

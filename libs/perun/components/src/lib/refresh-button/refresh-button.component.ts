@@ -6,15 +6,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./refresh-button.component.scss'],
 })
 export class RefreshButtonComponent {
-  constructor() {}
+  @Output() refresh = new EventEmitter<MouseEvent>();
+  @Input() disabled: boolean;
 
-  @Output()
-  refresh = new EventEmitter<MouseEvent>();
-
-  @Input()
-  disabled: boolean;
-
-  onClickbutton(event: MouseEvent) {
+  onClickbutton(event: MouseEvent): void {
     this.refresh.emit(event);
   }
 }

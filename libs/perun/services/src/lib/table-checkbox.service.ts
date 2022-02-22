@@ -7,28 +7,25 @@ import { SelectionModel } from '@angular/cdk/collections';
   providedIn: 'root',
 })
 export class TableCheckbox {
-  numSelected: number;
-  numCanBeSelected: number;
-  modulo: number;
-  pageStart: number;
-  pageEnd: number;
-  pageIterator: number;
-  dataLength: number;
-
-  itemsCheckedCounter: number;
-
-  constructor() {}
+  private numSelected: number;
+  private numCanBeSelected: number;
+  private modulo: number;
+  private pageStart: number;
+  private pageEnd: number;
+  private pageIterator: number;
+  private dataLength: number;
+  private itemsCheckedCounter: number;
 
   // checks if all rendered rows are selected (in this function also disabled checkboxes are allowed)
-  isAllSelectedWithDisabledCheckbox(
+  isAllSelectedWithDisabledCheckbox<T>(
     rowsSelected: number,
     filter: string,
     pageSize: number,
     nextPage: boolean,
     pageIndex: number,
-    dataSource: MatTableDataSource<any>,
+    dataSource: MatTableDataSource<T>,
     sort: MatSort,
-    canBeSelected
+    canBeSelected: (T) => boolean
   ): boolean {
     this.numSelected = rowsSelected;
     this.numCanBeSelected = 0;
@@ -41,7 +38,7 @@ export class TableCheckbox {
       this.pageEnd = this.modulo === 0 ? this.pageStart + pageSize : this.pageStart + this.modulo;
     }
 
-    dataSource.sortData(dataSource.filteredData, sort).forEach((row) => {
+    dataSource.sortData(dataSource.filteredData, sort).forEach((row: T) => {
       if (
         this.pageStart <= this.pageIterator &&
         this.pageIterator < this.pageEnd &&
@@ -55,12 +52,12 @@ export class TableCheckbox {
     return this.numSelected === this.numCanBeSelected;
   }
 
-  isAllSelected(
+  isAllSelected<T>(
     rowsSelected: number,
     filter: string,
     pageSize: number,
     nextPage: boolean,
-    dataSource: MatTableDataSource<any>
+    dataSource: MatTableDataSource<T>
   ): boolean {
     this.numSelected = rowsSelected;
     this.dataLength = filter === '' ? dataSource.data.length : dataSource.filteredData.length;
@@ -74,17 +71,17 @@ export class TableCheckbox {
   }
 
   // checks all rendered checkboxes if they are able to check
-  masterToggle(
+  masterToggle<T>(
     isAllSelected: boolean,
-    selection: SelectionModel<any>,
+    selection: SelectionModel<T>,
     filter: string,
-    dataSource: MatTableDataSource<any>,
+    dataSource: MatTableDataSource<T>,
     sort: MatSort,
     pageSize: number,
     pageIndex: number,
     someCheckboxDisabled: boolean,
-    canBeSelected?
-  ) {
+    canBeSelected?: (T) => boolean
+  ): void {
     selection.clear();
     if (!isAllSelected) {
       this.itemsCheckedCounter = 0;

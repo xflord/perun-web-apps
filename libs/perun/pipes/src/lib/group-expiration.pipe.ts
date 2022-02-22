@@ -9,9 +9,6 @@ export class GroupExpirationPipe implements PipeTransform {
     const attribute = group.attributes.find(
       (att) => att.baseFriendlyName === 'groupMembershipExpiration'
     );
-    if (attribute && attribute.value) {
-      return attribute.value as unknown as string;
-    }
-    return 'Never';
+    return (attribute?.value as unknown as string) ?? 'Never';
   }
 }

@@ -12,10 +12,10 @@
 
     <ng-template matExpansionPanelContent>
       <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-      <app-alert
+      <perun-web-apps-alert
         *ngIf="resources.length === 0 && !loading"
         alert_type="warn"
-        >{{'DATA_QUOTAS.NO_QUOTAS'|customTranslate | translate}}</app-alert
+        >{{'DATA_QUOTAS.NO_QUOTAS'|customTranslate | translate}}</perun-web-apps-alert
       >
       <mat-accordion *ngIf="resources.length && !loading">
         <mat-expansion-panel

@@ -18,7 +18,7 @@ export class ServerDownDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: ServerDownDialogData
   ) {}
 
-  refresh() {
+  refresh(): void {
     location.reload();
   }
 }

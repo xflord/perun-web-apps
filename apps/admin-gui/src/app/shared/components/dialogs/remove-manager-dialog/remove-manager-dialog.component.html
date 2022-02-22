@@ -18,9 +18,9 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns" class="font-weight-bolder"></tr>
       <tr mat-row *matRowDef="let manager; columns: displayedColumns;"></tr>
     </table>
-    <app-alert *ngIf="removeSelf" alert_type="warn">
+    <perun-web-apps-alert *ngIf="removeSelf" alert_type="warn">
       {{'DIALOGS.REMOVE_MANAGERS.WARNING_REMOVE_YOURSELF' | translate: {role: this.data.role | displayedRole} }}
-    </app-alert>
+    </perun-web-apps-alert>
   </div>
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
   <div mat-dialog-actions>

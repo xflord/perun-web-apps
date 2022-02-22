@@ -8,16 +8,10 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./expiration-select.component.css'],
 })
 export class ExpirationSelectComponent implements OnInit {
-  constructor() {}
-
-  @Input()
-  expiration = 'never';
-
+  @Input() expiration = 'never';
+  @Output() datePicker: EventEmitter<string> = new EventEmitter<string>();
   expirationControl = new FormControl(null);
   minDate: Date;
-
-  @Output()
-  datePicker: EventEmitter<string> = new EventEmitter<string>();
 
   ngOnInit(): void {
     const currentDate = new Date();
@@ -29,16 +23,16 @@ export class ExpirationSelectComponent implements OnInit {
     this.expirationControl.setValue(formatDate(this.minDate, 'yyyy-MM-dd', 'en-GB'));
   }
 
-  setExpiration() {
-    this.expiration = formatDate(this.expirationControl.value, 'yyyy-MM-dd', 'en-GB');
+  setExpiration(): void {
+    this.expiration = formatDate(this.expirationControl.value as Date, 'yyyy-MM-dd', 'en-GB');
     this.expirationControl.setValue(
-      formatDate(this.expirationControl.value, 'yyyy-MM-dd', 'en-GB')
+      formatDate(this.expirationControl.value as Date, 'yyyy-MM-dd', 'en-GB')
     );
 
     this.emitDate();
   }
 
-  emitDate() {
+  emitDate(): void {
     if (this.expiration !== 'never' && this.expirationControl.value === '') {
       return;
     }

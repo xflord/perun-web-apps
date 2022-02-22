@@ -2,20 +2,24 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { StoreService } from '@perun-web-apps/perun/services';
 
+interface CustomLabel {
+  label: string;
+  en: string;
+  cs: string;
+}
+
 @Pipe({
   name: 'customTranslate',
 })
 export class CustomTranslatePipe implements PipeTransform {
   constructor(private translate: TranslateService, private storage: StoreService) {}
 
-  transform(value: string, lang = 'en'): any {
-    const customLabelElements = this.storage.get('custom_labels');
+  transform(value: string, lang = 'en'): string {
+    const customLabelElements: CustomLabel[] = this.storage.get('custom_labels') as CustomLabel[];
     if (customLabelElements) {
-      const keys = Object.keys(customLabelElements);
-      for (const key of keys) {
-        const element = this.storage.get('custom_labels', key);
+      for (const element of customLabelElements) {
         if (element.label === value) {
-          return element[lang];
+          return element[lang] as string;
         }
       }
     }

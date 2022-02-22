@@ -36,7 +36,7 @@ export class ForceRouterService {
     });
   }
 
-  forceNavigate(commands: any[], extras?: NavigationExtras) {
+  forceNavigate(commands: string[], extras?: NavigationExtras): void {
     if (commands === null) {
       return;
     }
@@ -52,7 +52,7 @@ export class ForceRouterService {
     }
     extras.queryParams = { redirectTo: fullUrl };
 
-    this.router.navigate(['redirect'], extras);
+    void this.router.navigate(['redirect'], extras);
   }
 
   getLastState(): NavigateType {

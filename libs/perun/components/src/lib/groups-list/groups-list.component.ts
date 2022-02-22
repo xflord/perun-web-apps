@@ -15,7 +15,7 @@ import {
   EditFacilityResourceGroupVoDialogOptions,
   GroupSyncDetailDialogComponent,
 } from '@perun-web-apps/perun/dialogs';
-import { Group, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { Group, Member, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
 import {
   TABLE_ITEMS_COUNT_OPTIONS,
@@ -42,37 +42,11 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./groups-list.component.scss'],
 })
 export class GroupsListComponent implements AfterViewInit, OnChanges {
-  displayButtons = window.innerWidth > 800;
-
-  @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
-    this.sort = ms;
-  }
-
-  @Input()
-  theme = 'group-theme';
-
-  constructor(
-    private dialog: MatDialog,
-    private authResolver: GuiAuthResolver,
-    private voService: VosManagerService,
-    private tableCheckbox: TableCheckbox,
-    private changeDetector: ChangeDetectorRef
-  ) {}
-
-  @Output()
-  moveGroup = new EventEmitter<GroupWithStatus>();
-
-  @Input()
-  groups: GroupWithStatus[] = [];
-
-  @Input()
-  selection = new SelectionModel<GroupWithStatus>(true, []);
-
-  private sort: MatSort;
-  private hasMembersGroup = false;
-
-  @Input()
-  displayedColumns: string[] = [
+  @Input() theme = 'group-theme';
+  @Output() moveGroup = new EventEmitter<GroupWithStatus>();
+  @Input() groups: GroupWithStatus[] = [];
+  @Input() selection = new SelectionModel<GroupWithStatus>(true, []);
+  @Input() displayedColumns: string[] = [
     'select',
     'id',
     'recent',
@@ -85,92 +59,52 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     'expiration',
     'menu',
   ];
+  @Input() disableMembers: boolean;
+  @Input() disableGroups: boolean;
+  @Input() groupsToDisableCheckbox: Set<number> = new Set<number>();
+  @Input() groupsToDisableRouting: Set<number> = new Set<number>();
+  @Input() filter = '';
+  @Input() disableHeadCheckbox: boolean;
+  @Input() parentGroup: Group;
+  @Input() disableRouting = false;
+  @Input() authType: string;
+  @Input() memberId: number;
+  @Input() memberGroupStatus: string;
+  @Input() pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  @Input() recentIds: number[] = [];
+  @Input() resourceId: number = null;
+  @Input() tableId: string;
+  @Output() refreshTable = new EventEmitter<void>();
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
-  @Input()
-  disableMembers: boolean;
-
-  @Input()
-  disableGroups: boolean;
-
-  @Input()
-  groupsToDisableCheckbox: Set<number> = new Set<number>();
-
-  @Input()
-  groupsToDisableRouting: Set<number> = new Set<number>();
-
-  @Input()
-  filter = '';
-
-  @Input()
-  disableHeadCheckbox: boolean;
-
-  @Input()
-  parentGroup: Group;
-
-  @Input()
-  disableRouting = false;
-
-  @Input()
-  authType: string;
-
-  @Input()
-  memberId: number;
-
-  @Input()
-  memberGroupStatus: string;
-
-  @Input()
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
-  @Input()
-  recentIds: number[] = [];
-
-  @Input()
-  resourceId: number = null;
-
-  @Input()
-  tableId: string;
-
-  @Output()
-  refreshTable = new EventEmitter<void>();
-
+  displayButtons = window.innerWidth > 800;
   dataSource: MatTableDataSource<GroupWithStatus>;
-
   disabledRouting = false;
-
   vo: Vo;
   voIds: Set<number> = new Set<number>();
   voNames: Map<number, string> = new Map<number, string>();
-
   removeAuth: boolean;
 
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  private sort: MatSort;
+  private hasMembersGroup = false;
 
-  @HostListener('window:resize', ['$event'])
-  shouldHideButtons() {
-    this.displayButtons = window.innerWidth > 800;
+  constructor(
+    private dialog: MatDialog,
+    private authResolver: GuiAuthResolver,
+    private voService: VosManagerService,
+    private tableCheckbox: TableCheckbox,
+    private changeDetector: ChangeDetectorRef
+  ) {}
+
+  @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
+    this.sort = ms;
   }
 
-  ngOnChanges() {
-    this.disabledRouting = this.disableRouting;
-    this.hasMembersGroup = this.checkIfHasMembersGroup();
-    this.updateVoNames();
-    this.setDataSource();
-    if (this.authType) {
-      this.removeAuth = this.setAuth();
-    }
-  }
-
-  checkIfHasMembersGroup(): boolean {
-    for (const group of this.groups) {
-      if (group.name === 'members') {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  getDataForColumn(data: GroupWithStatus, column: string, otherThis: GroupsListComponent): string {
+  static getDataForColumn(
+    data: GroupWithStatus,
+    column: string,
+    otherThis: GroupsListComponent
+  ): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -191,11 +125,11 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
       case 'uuid':
         return data.uuid;
       default:
-        return data[column];
+        return data[column] as string;
     }
   }
 
-  getSortDataForColumn(
+  static getSortDataForColumn(
     data: GroupWithStatus,
     column: string,
     otherThis: GroupsListComponent
@@ -218,7 +152,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
       }
       case 'recent':
         if (otherThis.recentIds) {
-          if (otherThis.recentIds.indexOf(data.id) > -1) {
+          if (otherThis.recentIds.includes(data.id)) {
             return '#'.repeat(otherThis.recentIds.indexOf(data.id));
           }
         }
@@ -226,38 +160,65 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
       case 'status':
         return data.status;
       default:
-        return data[column];
+        return data[column] as string;
     }
   }
 
-  exportData(format: string) {
+  @HostListener('window:resize', ['$event'])
+  shouldHideButtons(): void {
+    this.displayButtons = window.innerWidth > 800;
+  }
+
+  ngOnChanges(): void {
+    this.disabledRouting = this.disableRouting;
+    this.hasMembersGroup = this.checkIfHasMembersGroup();
+    this.updateVoNames();
+    this.setDataSource();
+    if (this.authType) {
+      this.removeAuth = this.setAuth();
+    }
+  }
+
+  checkIfHasMembersGroup(): boolean {
+    for (const group of this.groups) {
+      if (group.name === 'members') {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
+        GroupsListComponent.getDataForColumn,
         this
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (!this.dataSource) {
       this.dataSource = new MatTableDataSource<GroupWithStatus>();
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
-      this.dataSource.filterPredicate = (data: Group | RichGroup, filter: string) =>
+      this.dataSource.filterPredicate = (data: Group | RichGroup, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn,
+          GroupsListComponent.getDataForColumn,
           this,
           true
         );
-      this.dataSource.sortData = (data: Group[] | RichGroup[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getSortDataForColumn, this);
+      this.dataSource.sortData = (
+        data: Group[] | RichGroup[],
+        sort: MatSort
+      ): Group[] | RichGroup[] =>
+        customDataSourceSort(data, sort, GroupsListComponent.getSortDataForColumn, this);
     }
     this.dataSource.filter = this.filter;
     this.dataSource.data = this.groups;
@@ -266,7 +227,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   canBeSelected = (group: GroupWithStatus): boolean =>
     (group.name !== 'members' || !this.disableMembers) && !this.disableSelect(group);
 
-  isAllSelected() {
+  isAllSelected(): boolean {
     return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(
       this.selection.selected.length,
       this.filter,
@@ -279,7 +240,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     );
   }
 
-  masterToggle() {
+  masterToggle(): void {
     this.tableCheckbox.masterToggle(
       this.isAllSelected(),
       this.selection,
@@ -324,11 +285,11 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  onMoveGroup(group: GroupWithStatus) {
+  onMoveGroup(group: GroupWithStatus): void {
     this.moveGroup.emit(group);
   }
 
-  onSyncDetail(rg: RichGroup) {
+  onSyncDetail(rg: RichGroup): void {
     const config = getDefaultDialogConfig();
     config.data = {
       groupId: rg.id,
@@ -337,7 +298,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     this.dialog.open(GroupSyncDetailDialogComponent, config);
   }
 
-  onChangeNameDescription(rg: RichGroup) {
+  onChangeNameDescription(rg: RichGroup): void {
     const config = getDefaultDialogConfig();
     config.data = {
       theme: 'group-theme',
@@ -346,7 +307,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     };
     const dialogRef = this.dialog.open(EditFacilityResourceGroupVoDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe((res) => {
+    dialogRef.afterClosed().subscribe((res: boolean) => {
       if (res) {
         this.refreshTable.emit();
       }
@@ -395,24 +356,24 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  itemSelectionToggle(item: GroupWithStatus) {
+  itemSelectionToggle(item: GroupWithStatus): void {
     this.selection.toggle(item);
     this.removeAuth = this.setAuth();
   }
 
-  isSynchronized(grp: GroupWithStatus) {
+  isSynchronized(grp: GroupWithStatus): boolean {
     if (grp.attributes) {
       return grp.attributes.some(
         (att) =>
           att.friendlyName === 'synchronizationEnabled' &&
           att.value !== null &&
-          att.value.toString() === 'true'
+          (att.value as unknown as string) === 'true'
       );
     }
     return false;
   }
 
-  getCheckboxTooltipMessage(row: GroupWithStatus) {
+  getCheckboxTooltipMessage(row: GroupWithStatus): string {
     if (this.authType === 'create-relation-dialog') {
       return 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.CREATE_RELATION_AUTH_TOOLTIP';
     } else if (this.isSynchronized(row)) {
@@ -424,7 +385,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  updateVoNames() {
+  updateVoNames(): void {
     if (this.displayedColumns.includes('vo')) {
       this.groups.forEach((grp) => {
         if (!this.voIds.has(grp.voId)) {
@@ -441,7 +402,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  changeExpiration(group: GroupWithStatus) {
+  changeExpiration(group: GroupWithStatus): void {
     const expirationAtt = group.attributes.find(
       (att) => att.baseFriendlyName === 'groupMembershipExpiration'
     );
@@ -456,8 +417,8 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     };
 
     const dialogRef = this.dialog.open(ChangeGroupExpirationDialogComponent, config);
-    dialogRef.afterClosed().subscribe((success) => {
-      if (success) {
+    dialogRef.afterClosed().subscribe((success: { success: boolean; member: Member }) => {
+      if (success.success) {
         this.refreshTable.emit();
       }
     });
@@ -471,6 +432,6 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
 
   getStatusAttribute(grp: RichGroup) {
     const filter = grp.attributes.find((att) => att.baseFriendlyName === 'groupStatus');
-    return filter != null ? filter.value.toString() : '';
+    return filter != null ? (filter.value as unknown as string) : '';
   }
 }

@@ -89,12 +89,12 @@
   </perun-web-apps-table-wrapper>
 </div>
 
-<app-alert *ngIf="resourceTags.length === 0" alert_type="warn">
+<perun-web-apps-alert *ngIf="resourceTags.length === 0" alert_type="warn">
   {{entity === 'vo' ? ('VO_DETAIL.RESOURCES.TAGS.NO_TAGS' | translate) : ('RESOURCE_DETAIL.TAGS.NO_TAGS' | translate)}}
-</app-alert>
+</perun-web-apps-alert>
 
-<app-alert
+<perun-web-apps-alert
   *ngIf="dataSource.filteredData.length === 0 && resourceTags.length !== 0"
   alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | translate}}
-</app-alert>
+</perun-web-apps-alert>

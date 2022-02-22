@@ -30,16 +30,18 @@ export class ChangeEmailDialogComponent implements OnInit {
     private usersManagerService: UsersManagerService,
     private authService: AuthService
   ) {
-    translate.get('DIALOGS.CHANGE_EMAIL.SUCCESS').subscribe((res) => (this.successMessage = res));
+    translate
+      .get('DIALOGS.CHANGE_EMAIL.SUCCESS')
+      .subscribe((res: string) => (this.successMessage = res));
     translate
       .get('DIALOGS.CHANGE_EMAIL.PENDING_MAILS_BEGIN')
-      .subscribe((res) => (this.pendingEmailsMessageStart = res));
+      .subscribe((res: string) => (this.pendingEmailsMessageStart = res));
     translate
       .get('DIALOGS.CHANGE_EMAIL.PENDING_MAILS_END')
-      .subscribe((res) => (this.pendingEmailsMessageEnd = res));
+      .subscribe((res: string) => (this.pendingEmailsMessageEnd = res));
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.emailControl = new FormControl(null, [
       Validators.required,
       Validators.pattern(
@@ -54,17 +56,16 @@ export class ChangeEmailDialogComponent implements OnInit {
         this.pendingMails.forEach(
           (mail) => (result += `${mail === this.pendingMails[0] ? '' : ', '}${mail}`)
         );
-        console.log(result);
         this.pendingEmailsMessage =
           this.pendingEmailsMessageStart + result + this.pendingEmailsMessageEnd;
       });
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 
-  onSubmit() {
+  onSubmit(): void {
     const currentUrl = window.location.href;
     const splittedUrl = currentUrl.split('/');
     const domain = splittedUrl[0] + '//' + splittedUrl[2]; // protocol with domain
@@ -72,7 +73,7 @@ export class ChangeEmailDialogComponent implements OnInit {
     this.usersManagerService
       .requestPreferredEmailChange(
         this.data.userId,
-        this.emailControl.value,
+        this.emailControl.value as string,
         this.translate.currentLang,
         '',
         domain,

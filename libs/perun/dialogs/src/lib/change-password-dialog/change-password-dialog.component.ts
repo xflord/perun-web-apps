@@ -21,10 +21,10 @@ export class ChangePasswordDialogComponent implements OnInit {
   formGroup: FormGroup;
   oldPwd: AbstractControl;
   showOldPassword = false;
-  newPwd: AbstractControl;
-  newPwdAgain: AbstractControl;
-  successMessage: string;
   loading: boolean;
+  private newPwd: AbstractControl;
+  private newPwdAgain: AbstractControl;
+  private successMessage: string;
 
   constructor(
     private dialogRef: MatDialogRef<ChangePasswordDialogComponent>,
@@ -37,7 +37,7 @@ export class ChangePasswordDialogComponent implements OnInit {
   ) {
     translate
       .get('SHARED_LIB.PERUN.COMPONENTS.CHANGE_PASSWORD_DIALOG.SUCCESS')
-      .subscribe((m) => (this.successMessage = m));
+      .subscribe((m: string) => (this.successMessage = m));
   }
 
   ngOnInit(): void {
@@ -66,18 +66,18 @@ export class ChangePasswordDialogComponent implements OnInit {
     this.newPwdAgain = this.formGroup.get('passwordAgainCtrl');
   }
 
-  close() {
+  close(): void {
     this.dialogRef.close(false);
   }
 
-  changePassword() {
+  changePassword(): void {
     this.loading = true;
     this.usersManagerService
       .changePasswordForLogin(
         this.data.login,
         this.data.namespace,
-        this.newPwd.value,
-        this.oldPwd.value,
+        this.newPwd.value as string,
+        this.oldPwd.value as string,
         true
       )
       .subscribe(() => {

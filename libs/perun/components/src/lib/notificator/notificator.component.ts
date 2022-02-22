@@ -11,6 +11,13 @@ import { NotificationStorageService } from '@perun-web-apps/perun/services';
   animations: [flyInOut],
 })
 export class NotificatorComponent {
+  @Input() displayWarning = false;
+
+  minWidth = 992;
+  notifications: NotificationData[] = [];
+
+  private mobileView = false;
+
   constructor(
     private notificator: NotificatorService,
     private notificationStorageService: NotificationStorageService
@@ -21,32 +28,24 @@ export class NotificatorComponent {
     this.getScreenSize();
   }
 
-  private mobileView = false;
-  minWidth = 992;
-
-  @Input()
-  displayWarning = false;
-
-  notifications: NotificationData[] = [];
-
   @HostListener('window:resize', ['$event'])
-  getScreenSize() {
+  getScreenSize(): void {
     this.mobileView = window.innerWidth <= this.minWidth;
   }
 
-  private processNotification(data: NotificationData): void {
-    this.notifications.push(data);
-    this.notificationStorageService.storeNotification(data);
-  }
-
-  getNotificatorTop() {
+  getNotificatorTop(): string {
     if (this.mobileView) {
       return 'initial';
     }
     return this.displayWarning ? '112px' : '64px';
   }
 
-  removeNotification(index: number) {
+  removeNotification(index: number): void {
     this.notifications.splice(index, 1);
+  }
+
+  private processNotification(data: NotificationData): void {
+    this.notifications.push(data);
+    this.notificationStorageService.storeNotification(data);
   }
 }

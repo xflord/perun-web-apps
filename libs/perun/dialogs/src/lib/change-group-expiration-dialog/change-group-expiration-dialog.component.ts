@@ -25,6 +25,17 @@ export interface ChangeGroupExpirationDialogData {
   styleUrls: ['./change-group-expiration-dialog.component.scss'],
 })
 export class ChangeGroupExpirationDialogComponent implements OnInit {
+  loading = false;
+  maxDate: Date;
+  minDate: Date;
+  currentExpiration: string;
+  newExpiration: string;
+  status: string;
+  canExtendMembership = false;
+  changeStatus: boolean;
+  private successMessage: string;
+  private expirationAttr: Attribute = null;
+
   constructor(
     private dialogRef: MatDialogRef<ChangeGroupExpirationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: ChangeGroupExpirationDialogData,
@@ -36,21 +47,8 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
   ) {
     translate
       .get('DIALOGS.CHANGE_EXPIRATION.SUCCESS')
-      .subscribe((res) => (this.successMessage = res));
+      .subscribe((res: string) => (this.successMessage = res));
   }
-
-  loading = false;
-
-  maxDate: Date;
-  minDate: Date;
-
-  expirationAttr: Attribute = null;
-  currentExpiration: string;
-  newExpiration: string;
-  status: string;
-  canExtendMembership = false;
-  changeStatus: boolean;
-  successMessage: string;
 
   ngOnInit(): void {
     this.status = this.data.status;
@@ -70,10 +68,7 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
     }
 
     this.expirationAttr = this.data.expirationAttr;
-    this.currentExpiration =
-      this.expirationAttr && this.expirationAttr.value
-        ? (this.expirationAttr.value as unknown as string)
-        : 'never';
+    this.currentExpiration = (this.expirationAttr?.value as unknown as string) ?? 'never';
     this.newExpiration = this.currentExpiration;
 
     if (this.data.statusChanged) {
@@ -111,7 +106,7 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
     }
   }
 
-  onExpirationChanged(newExp: string) {
+  onExpirationChanged(newExp: string): void {
     this.loading = true;
     if (newExp === 'groupRules') {
       this.groupManager.extendMembershipInGroup(this.data.memberId, this.data.groupId).subscribe(
@@ -123,8 +118,7 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
         () => (this.loading = false)
       );
     } else {
-      // @ts-ignore
-      this.expirationAttr.value = newExp === 'never' ? null : newExp;
+      this.expirationAttr.value = newExp === 'never' ? null : (newExp as unknown as object);
 
       this.attributesManagerService
         .setMemberGroupAttributes({
@@ -139,12 +133,14 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
                 .setGroupsMemberStatus(this.data.memberId, this.data.groupId, 'VALID')
                 .subscribe(
                   (member) => {
-                    this.translate.get('DIALOGS.CHANGE_STATUS.SUCCESS').subscribe((success) => {
-                      this.notificator.showSuccess(success);
-                      this.loading = false;
-                      this.notificator.showSuccess(this.successMessage);
-                      this.dialogRef.close({ success: true, member: member });
-                    });
+                    this.translate
+                      .get('DIALOGS.CHANGE_STATUS.SUCCESS')
+                      .subscribe((success: string) => {
+                        this.notificator.showSuccess(success);
+                        this.loading = false;
+                        this.notificator.showSuccess(this.successMessage);
+                        this.dialogRef.close({ success: true, member: member });
+                      });
                   },
                   () => (this.loading = false)
                 );

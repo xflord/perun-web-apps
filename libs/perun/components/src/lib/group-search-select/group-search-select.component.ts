@@ -8,22 +8,13 @@ import { compareFnName } from '@perun-web-apps/perun/utils';
   styleUrls: ['./group-search-select.component.css'],
 })
 export class GroupSearchSelectComponent implements OnInit {
-  @Input()
-  groups: Group[];
+  @Input() groups: Group[];
+  @Input() disableAutoSelect = false;
+  @Input() firstSelectedGroup: Group;
+  @Input() displayStatus = false;
+  @Output() groupSelected = new EventEmitter<Group>();
 
-  @Output()
-  groupSelected = new EventEmitter<Group>();
-
-  @Input()
-  disableAutoSelect = false;
-
-  @Input()
-  firstSelectedGroup: Group;
-
-  @Input()
-  displayStatus = false;
-
-  nameFunction = (group: Group) => group.name;
+  nameFunction = (group: Group): string => group.name;
 
   ngOnInit(): void {
     this.groups = this.groups.sort(compareFnName);

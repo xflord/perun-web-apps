@@ -7,17 +7,15 @@ export const LS_TABLE_PREFIX = 'GUI_CONFIG.PREF_PAGE_SIZE.';
   providedIn: 'root',
 })
 export class GUIConfigService {
-  constructor() {}
-
-  public getString(key: string): string {
+  getString(key: string): string {
     return localStorage.getItem(key);
   }
 
-  public getNumber(key: string): number {
+  getNumber(key: string): number {
     return parseInt(localStorage.getItem(key), 10);
   }
 
-  public setNumber(key: string, value: number) {
+  setNumber(key: string, value: number): void {
     localStorage.setItem(key, value.toString());
   }
 }

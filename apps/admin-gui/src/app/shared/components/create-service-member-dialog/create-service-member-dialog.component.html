@@ -201,9 +201,9 @@
             [members]="members"
             [tableId]="tableId"
             [selection]="selection"></perun-web-apps-members-list>
-          <app-alert *ngIf="!firstSearchDone" alert_type="info">
+          <perun-web-apps-alert *ngIf="!firstSearchDone" alert_type="info">
             {{'DIALOGS.CREATE_SERVICE_MEMBER.SEARCH_INFO' | translate}}
-          </app-alert>
+          </perun-web-apps-alert>
         </div>
       </mat-step>
     </mat-stepper>
