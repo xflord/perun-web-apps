@@ -6,6 +6,7 @@ import { NotFoundPageComponent } from './shared/components/not-found-page/not-fo
 import { RedirectPageComponent } from '@perun-web-apps/perun/components';
 import { LoginScreenComponent } from '@perun-web-apps/perun/login';
 import { LoginScreenServiceAccessComponent } from '@perun-web-apps/perun/login';
+import { NotAuthorizedPageComponent } from './shared/components/not-authorized-page/not-authorized-page.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: UserDashboardComponent,
+  },
+  {
+    path: 'notAuthorized',
+    component: NotAuthorizedPageComponent,
   },
   { path: '**', component: NotFoundPageComponent },
 ];

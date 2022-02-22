@@ -12,6 +12,11 @@
       "TITLE": "Page not found",
       "MESSAGE": "The page you are trying to access is missing. If you wish to continue please click the button below that will redirect you to our home page.",
       "ACTION": "Redirect"
+    },
+    "NOT_AUTHORIZED_PAGE": {
+      "TITLE": "Not authorized",
+      "DESC": "You are not authorized to access the page you were trying to reach.",
+      "REDIRECT": "Redirect Home"
     }
   },
   "NAV": {
@@ -2604,7 +2609,9 @@
             "DIALOG_CLOSE": "Close",
             "DIALOG_BUG_REPORT": "Report a bug",
             "DEFAULT_RPC_ERROR_MESSAGE": "An operation failed.",
-            "PRIVILEGE_EXCEPTION": "You are not authorized to perform this action"
+            "PRIVILEGE_EXCEPTION": "You are not authorized to perform this action",
+            "ROUTE_DENIED_ERROR": "Access denied",
+            "ROUTE_DENIED_DESC": "You are not authorized to access this page"
           }
         },
         "USER_EXT_SOURCES_LIST": {

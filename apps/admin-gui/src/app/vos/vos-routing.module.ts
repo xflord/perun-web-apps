@@ -59,6 +59,7 @@ import { GroupStatisticsComponent } from './pages/group-detail-page/group-statis
 import { ApplicationFormManageGroupsComponent } from './components/application-form-manage-groups/application-form-manage-groups.component';
 import { ResourceTagsComponent } from '../facilities/pages/resource-detail-page/resource-tags/resource-tags.component';
 import { VoSettingsServiceMembersComponent } from './pages/vo-detail-page/vo-settings/vo-settings-service-members/vo-settings-service-members.component';
+import { RouteAuthGuardService } from '../shared/route-auth-guard.service';
 
 const routes: Routes = [
   {
@@ -68,6 +69,7 @@ const routes: Routes = [
   {
     path: ':voId',
     component: VoDetailPageComponent,
+    canActivateChild: [RouteAuthGuardService],
     children: [
       {
         path: '',

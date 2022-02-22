@@ -60,6 +60,16 @@ export class NotificatorService {
     }
   }
 
+  showRouteError(): void {
+    const title: string = this.translate.instant(
+      'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.ROUTE_DENIED_ERROR'
+    );
+    const desc: string = this.translate.instant(
+      'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.ROUTE_DENIED_DESC'
+    );
+    this.showError(title, null, desc);
+  }
+
   /**
    * Shows error notification
    *
