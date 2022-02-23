@@ -554,7 +554,6 @@
         "APPROVED_BY": "Approved by",
         "REJECTED_BY": "Rejected by",
         "DATE": "Date",
-        "VALUE_BY_EXTERNALS": "Value provided by external source.",
         "VERIFY": "Verify",
         "DELETE_APPLICATION_TITLE": "Delete application",
         "DELETE_APPLICATION_DESCRIPTION": "Application with following Id will be deleted.",
