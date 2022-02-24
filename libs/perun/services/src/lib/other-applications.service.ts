@@ -61,7 +61,7 @@ export class OtherApplicationsService {
           url += '/profile/';
           break;
         case 'pwdReset':
-          url += '/pwd-reset/';
+          url += `/pwd-reset/?login-namespace=${login}`;
           break;
       }
     } else {
