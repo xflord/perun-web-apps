@@ -28,7 +28,6 @@ export class PasswordResetConfigService {
         }
       })
       .catch((err) => {
-        console.error(err);
         this.location.go('/');
         location.reload();
         throw err;

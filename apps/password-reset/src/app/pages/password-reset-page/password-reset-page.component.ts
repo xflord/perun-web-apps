@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { StoreService } from '@perun-web-apps/perun/services';
 
 @Component({
@@ -8,8 +8,6 @@ import { StoreService } from '@perun-web-apps/perun/services';
   styleUrls: ['./password-reset-page.component.scss'],
 })
 export class PasswordResetPageComponent implements OnInit {
-  constructor(private storeService: StoreService, private sanitizer: DomSanitizer) {}
-
   @Input()
   mode: string;
 
@@ -28,11 +26,13 @@ export class PasswordResetPageComponent implements OnInit {
   @Input()
   authWithoutToken: boolean;
 
-  passwordResetLogo: any;
+  passwordResetLogo: SafeHtml;
+
+  constructor(private storeService: StoreService, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.passwordResetLogo = this.sanitizer.bypassSecurityTrustHtml(
-      this.storeService.get('password_reset_logo')
+      this.storeService.get('password_reset_logo') as string
     );
   }
 }

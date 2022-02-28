@@ -7,13 +7,15 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./invalid-request-alert.component.scss'],
 })
 export class InvalidRequestAlertComponent implements OnInit {
-  constructor(private translate: TranslateService) {}
-
   invalidRequestMessage: string;
+
+  constructor(private translate: TranslateService) {}
 
   ngOnInit(): void {
     this.translate.onLangChange.subscribe(() => {
-      this.invalidRequestMessage = this.translate.instant('PAGES.PWD_RESET_PAGE.INVALID_REQUEST');
+      this.invalidRequestMessage = this.translate.instant(
+        'PAGES.PWD_RESET_PAGE.INVALID_REQUEST'
+      ) as string;
     });
   }
 }

@@ -17,6 +17,16 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
+  @ViewChild('footer') footer: ElementRef<HTMLElement>;
+  mode: string;
+  token: string;
+  namespace: string;
+  login: string;
+  validToken: boolean;
+  authWithoutToken = false;
+  contentHeight = 'calc(100vh - 84px)';
+  contentBackgroundColor = this.store.get('theme', 'content_bg_color') as string;
+
   constructor(
     private dialog: MatDialog,
     private usersService: UsersManagerService,
@@ -27,17 +37,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private changeDetector: ChangeDetectorRef
   ) {}
 
-  mode: string;
-  token: string;
-  namespace: string;
-  login: string;
-  validToken: boolean;
-  authWithoutToken = false;
-  contentHeight = 'calc(100vh - 84px)';
-  contentBackgroundColor = this.store.get('theme', 'content_bg_color');
-  @ViewChild('footer') footer: ElementRef;
-
-  ngOnInit() {
+  ngOnInit(): void {
     const prefLang = this.preferredLangService.getPreferredLanguage(null);
     this.translateService.use(prefLang);
 
@@ -64,12 +64,12 @@ export class AppComponent implements OnInit, AfterViewInit {
           const selectedLogin = logins.find(
             (login) => login.friendlyNameParameter === this.namespace
           );
-          this.login = selectedLogin ? selectedLogin.value.toString() : '';
+          this.login = selectedLogin ? String(selectedLogin.value) : '';
         });
     }
   }
 
-  parseQueryParams(paramName: string, queryParams: string) {
+  parseQueryParams(paramName: string, queryParams: string): string {
     const parameters = queryParams.split('&');
     for (const param of parameters) {
       const [name, value] = param.split('=');
@@ -80,7 +80,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.contentHeight = 'calc(100vh - 84px - ' + this.footer.nativeElement.offsetHeight + 'px)';
+    this.contentHeight =
+      'calc(100vh - 84px - ' + String(this.footer.nativeElement.offsetHeight) + 'px)';
     this.changeDetector.detectChanges();
   }
 }

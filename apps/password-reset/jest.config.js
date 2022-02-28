@@ -11,10 +11,7 @@ module.exports = {
   },
   coverageDirectory: '../../coverage/apps/password-reset',
 
-  transform: {
-    '^.+.(ts|mjs|js|html)$': 'jest-preset-angular',
-  },
-  transformIgnorePatterns: ['node_modules/(?!.*.mjs$)'],
+  transform: { '^.+\\.(ts|js|html)$': 'jest-preset-angular' },
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',
