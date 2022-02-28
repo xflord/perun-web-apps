@@ -33,6 +33,7 @@
               [aria-label]="checkboxLabel(resource)"
               [checked]="selection.isSelected(resource)"
               [disabled]="disableSelect(resource)"
+              attr.data-cy="{{resource.name}}-checkbox"
               color="primary">
             </mat-checkbox>
           </span>

@@ -10,12 +10,18 @@
     {{'FACILITY_MANAGEMENT.TITLE' | translate}}
   </h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button mat-flat-button class="action-button" (click)="onCreate()" class="mr-2" color="accent">
+  <button
+    mat-flat-button
+    class="action-button mr-2"
+    (click)="onCreate()"
+    data-cy="new-facility-button"
+    color="accent">
     {{'FACILITY_MANAGEMENT.CREATE' | translate}}
   </button>
   <button
     mat-flat-button
     class="mr-2"
+    data-cy="delete-facility-button"
     [disabled]="selection.selected.length === 0"
     (click)="onDelete()"
     color="warn">

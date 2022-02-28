@@ -6,6 +6,7 @@
       <input
         matInput
         required
+        data-cy="facility-name-input"
         [formControl]="nameControl"
         placeholder="{{'DIALOGS.CREATE_FACILITY.NAME' | translate}}" />
       <mat-error>{{"DIALOGS.CREATE_FACILITY.REQUIRE_NAME" | translate}}</mat-error>
@@ -13,6 +14,7 @@
     <mat-form-field>
       <input
         matInput
+        data-cy="facility-description-input"
         [formControl]="descControl"
         placeholder="{{'DIALOGS.CREATE_FACILITY.DESCRIPTION' | translate}}" />
     </mat-form-field>
@@ -42,6 +44,7 @@
     <button
       mat-flat-button
       class="ml2"
+      data-cy="create-facility-button"
       [disabled]="nameControl.value.trim().length === 0 || loading"
       (click)="onCreate(false)"
       color="accent">

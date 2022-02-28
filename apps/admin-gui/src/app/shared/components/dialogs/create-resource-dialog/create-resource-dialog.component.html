@@ -4,6 +4,7 @@
     <perun-web-apps-vo-search-select
       class="long-input"
       [vos]="vos"
+      data-cy="create-resource-select-vo"
       (voSelected)="selectedVo = $event">
     </perun-web-apps-vo-search-select>
 
@@ -12,6 +13,7 @@
         matInput
         required
         placeholder="{{'DIALOGS.CREATE_RESOURCE.NAME' | translate}}"
+        data-cy="create-resource-name-input"
         [formControl]="nameCtrl" />
       <mat-error>
         {{'DIALOGS.CREATE_RESOURCE.INCORRECT_NAME' | translate}}
@@ -35,6 +37,7 @@
     <button
       mat-flat-button
       class="ml-2"
+      data-cy="create-resource-dialog-button"
       [disabled]="nameCtrl.invalid || descriptionCtrl.invalid || selectedVo === null || loading"
       color="accent"
       (click)="onSubmit()">

@@ -5,6 +5,7 @@
     *ngIf="addAuth"
     mat-flat-button
     color="accent"
+    data-cy="create-resource-button"
     class="mr-2 action-button"
     (click)="createResource()">
     {{'FACILITY_DETAIL.RESOURCES.CREATE' | translate}}
@@ -14,6 +15,7 @@
     mat-flat-button
     color="warn"
     class="mr-2"
+    data-cy="delete-resource-button"
     [disabled]="selected.selected.length === 0"
     (click)="removeResource()">
     {{'FACILITY_DETAIL.RESOURCES.DELETE' | translate}}
