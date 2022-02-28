@@ -44,25 +44,25 @@ export class UserGroupsComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit() {
-    if ((this.showPrincipal = this.route.snapshot.data.showPrincipal) === true) {
+  ngOnInit(): void {
+    if ((this.showPrincipal = this.route.snapshot.data.showPrincipal as boolean)) {
       this.userId = this.store.getPerunPrincipal().user.id;
     } else {
-      this.route.parent.params.subscribe((params) => (this.userId = params['userId']));
+      this.route.parent.params.subscribe((params) => (this.userId = params['userId'] as number));
     }
     this.refreshAdminTable();
     this.refreshMemberTable();
   }
 
-  memberFilter(filterValue: string) {
+  memberFilter(filterValue: string): void {
     this.memberFilterValue = filterValue;
   }
 
-  adminFilter(filterValue: string) {
+  adminFilter(filterValue: string): void {
     this.adminFilterValue = filterValue;
   }
 
-  refreshAdminTable() {
+  refreshAdminTable(): void {
     this.adminRefresh = true;
     this.usersService.getGroupsWhereUserIsAdmin(this.userId).subscribe((groups) => {
       this.adminsGroups = groups;
@@ -70,7 +70,7 @@ export class UserGroupsComponent implements OnInit {
     });
   }
 
-  refreshMemberTable() {
+  refreshMemberTable(): void {
     this.memberRefresh = true;
     this.membersGroups = [];
     this.usersService.getVosWhereUserIsMember(this.userId).subscribe((vos) => {

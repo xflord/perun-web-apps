@@ -20,14 +20,6 @@ import {
   styleUrls: ['./resources-tags-list.component.scss'],
 })
 export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
-  constructor(
-    private resourceManager: ResourcesManagerService,
-    private notificator: NotificatorService,
-    private translator: TranslateService,
-    private authResolver: GuiAuthResolver,
-    private tableCheckbox: TableCheckbox
-  ) {}
-
   @Input()
   resourceTags: ResourceTag[] = [];
   @Input()
@@ -40,22 +32,38 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
   displayedColumns = ['select', 'id', 'name', 'edit'];
   @Input()
   entity: string;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+
+  dataSource: MatTableDataSource<ResourceTag>;
+  isChanging = new SelectionModel<ResourceTag>(true, []);
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  private sort: MatSort;
+
+  constructor(
+    private resourceManager: ResourcesManagerService,
+    private notificator: NotificatorService,
+    private translator: TranslateService,
+    private authResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox
+  ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSource();
   }
 
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  static getDataForColumn(data: ResourceTag, column: string): string {
+    switch (column) {
+      case 'id':
+        return data.id.toString();
+      case 'name':
+        return data.tagName;
+      default:
+        return '';
+    }
+  }
 
-  private sort: MatSort;
-
-  dataSource: MatTableDataSource<ResourceTag>;
-
-  isChanging = new SelectionModel<ResourceTag>(true, []);
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
-  ngOnChanges() {
+  ngOnChanges(): void {
     if (!this.authResolver.isPerunAdminOrObserver()) {
       this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
@@ -67,48 +75,35 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
     this.dataSource.paginator = this.child.paginator;
   }
 
-  getDataForColumn(data: ResourceTag, column: string): string {
-    switch (column) {
-      case 'id':
-        return data.id.toString();
-      case 'name':
-        return data.tagName;
-      default:
-        return '';
-    }
-  }
-
-  exportData(format: string) {
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
-        this
+        ResourcesTagsListComponent.getDataForColumn
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: ResourceTag, filter: string) =>
+      this.dataSource.filterPredicate = (data: ResourceTag, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn,
-          this
+          ResourcesTagsListComponent.getDataForColumn
         );
-      this.dataSource.sortData = (data: ResourceTag[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: ResourceTag[], sort: MatSort): ResourceTag[] =>
+        customDataSourceSort(data, sort, ResourcesTagsListComponent.getDataForColumn);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;
     }
   }
 
-  isAllSelected() {
+  isAllSelected(): boolean {
     return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
       this.filterValue,
@@ -118,7 +113,7 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
     );
   }
 
-  masterToggle() {
+  masterToggle(): void {
     this.tableCheckbox.masterToggle(
       this.isAllSelected(),
       this.selection,
@@ -138,18 +133,18 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-  save(tag: ResourceTag) {
+  save(tag: ResourceTag): void {
     this.resourceManager.updateResourceTag({ resourceTag: tag }).subscribe(() => {
       this.translator
         .get('SHARED.COMPONENTS.RESOURCES_TAGS_LIST.EDIT_SUCCESS')
-        .subscribe((text) => {
+        .subscribe((text: string) => {
           this.notificator.showSuccess(text);
         });
       this.isChanging.deselect(tag);
     });
   }
 
-  edit(row?: ResourceTag) {
+  edit(row?: ResourceTag): void {
     this.isChanging.select(row);
   }
 }

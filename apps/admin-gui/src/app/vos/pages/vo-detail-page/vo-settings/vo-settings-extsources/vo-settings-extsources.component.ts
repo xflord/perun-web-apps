@@ -19,6 +19,17 @@ import { RemoveExtSourceDialogComponent } from '../../../../../shared/components
   styleUrls: ['./vo-settings-extsources.component.scss'],
 })
 export class VoSettingsExtsourcesComponent implements OnInit {
+  extSources: ExtSource[] = [];
+  selection = new SelectionModel<ExtSource>(true, []);
+  loading: boolean;
+  filterValue = '';
+  successMessage: string;
+  tableId = TABLE_VO_EXTSOURCES_SETTINGS;
+  displayedColumns: string[] = [];
+  addAuth: boolean;
+  removeAuth: boolean;
+  private vo: Vo;
+
   constructor(
     private extSourceService: ExtSourcesManagerService,
     private dialog: MatDialog,
@@ -29,39 +40,17 @@ export class VoSettingsExtsourcesComponent implements OnInit {
   ) {
     this.translate
       .get('VO_DETAIL.SETTINGS.EXT_SOURCES.SUCCESS_REMOVED')
-      .subscribe((result) => (this.successMessage = result));
+      .subscribe((result: string) => (this.successMessage = result));
   }
 
-  vo: Vo;
-  extSources: ExtSource[] = [];
-  selection = new SelectionModel<ExtSource>(true, []);
-  loading: boolean;
-  filterValue = '';
-  successMessage: string;
-  tableId = TABLE_VO_EXTSOURCES_SETTINGS;
-  displayedColumns = [];
-
-  addAuth: boolean;
-  removeAuth: boolean;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.vo = this.entityStorageService.getEntity();
     this.setAuthRights();
     this.refreshTable();
   }
 
-  setAuthRights() {
-    this.addAuth = this.authResolver.isAuthorized('addExtSource_Vo_ExtSource_policy', [this.vo]);
-    this.removeAuth = this.authResolver.isAuthorized('removeExtSource_Vo_ExtSource_policy', [
-      this.vo,
-    ]);
-    this.displayedColumns = this.removeAuth
-      ? ['select', 'id', 'name', 'type']
-      : ['id', 'name', 'type'];
-  }
-
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.extSourceService.getVoExtSources(this.vo.id).subscribe((sources) => {
       this.extSources = sources;
@@ -71,11 +60,11 @@ export class VoSettingsExtsourcesComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  onAdd() {
+  onAdd(): void {
     const config = getDefaultDialogConfig();
     config.width = '1000px';
     config.data = {
@@ -92,7 +81,7 @@ export class VoSettingsExtsourcesComponent implements OnInit {
     });
   }
 
-  onRemove() {
+  onRemove(): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {
@@ -107,5 +96,15 @@ export class VoSettingsExtsourcesComponent implements OnInit {
         this.refreshTable();
       }
     });
+  }
+
+  private setAuthRights(): void {
+    this.addAuth = this.authResolver.isAuthorized('addExtSource_Vo_ExtSource_policy', [this.vo]);
+    this.removeAuth = this.authResolver.isAuthorized('removeExtSource_Vo_ExtSource_policy', [
+      this.vo,
+    ]);
+    this.displayedColumns = this.removeAuth
+      ? ['select', 'id', 'name', 'type']
+      : ['id', 'name', 'type'];
   }
 }

@@ -2,45 +2,45 @@
 <div class="{{theme}}">
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content>
-    <table mat-table [dataSource]="dataSource" class="w-100">
+    <table [dataSource]="dataSource" class="w-100" mat-table>
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>
+        <th *matHeaderCellDef mat-header-cell>
           {{'DIALOGS.EDIT_MEMBER_SPONSORS.TABLE_ID' | translate}}
         </th>
-        <td mat-cell *matCellDef="let sponsor">{{sponsor.user.id}}</td>
+        <td *matCellDef="let sponsor" mat-cell>{{sponsor.user.id}}</td>
       </ng-container>
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>
+        <th *matHeaderCellDef mat-header-cell>
           {{'DIALOGS.EDIT_MEMBER_SPONSORS.TABLE_NAME' | translate}}
         </th>
-        <td mat-cell *matCellDef="let sponsor">{{sponsor.user | userFullName}}</td>
+        <td *matCellDef="let sponsor" mat-cell>{{sponsor.user | userFullName}}</td>
       </ng-container>
       <ng-container matColumnDef="expiration">
-        <th mat-header-cell *matHeaderCellDef>
+        <th *matHeaderCellDef mat-header-cell>
           {{'DIALOGS.EDIT_MEMBER_SPONSORS.TABLE_EXPIRATION' | translate}}
         </th>
-        <td mat-cell *matCellDef="let sponsor">
+        <td *matCellDef="let sponsor" mat-cell>
           <span>{{parseDate(sponsor.validityTo)}}</span>
           <button
             *ngIf="isExpirationAuthorized(sponsor)"
-            mat-icon-button
-            (click)="changeExpiration(sponsor)">
+            (click)="changeExpiration(sponsor)"
+            mat-icon-button>
             <mat-icon> today </mat-icon>
           </button>
         </td>
       </ng-container>
       <ng-container matColumnDef="remove">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let sponsor">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let sponsor" mat-cell>
           <div
-            matTooltip="{{'DIALOGS.EDIT_MEMBER_SPONSORS.REMOVE_SPONSOR_DISABLED' | translate}}"
+            [matTooltipDisabled]="isRemoveAuthorized(sponsor)"
             [matTooltipPosition]="'above'"
-            [matTooltipDisabled]="isRemoveAuthorized(sponsor)">
+            matTooltip="{{'DIALOGS.EDIT_MEMBER_SPONSORS.REMOVE_SPONSOR_DISABLED' | translate}}">
             <button
-              mat-icon-button
+              (click)="markSponsor(sponsor)"
               class="btn-delete"
               [disabled]="!isRemoveAuthorized(sponsor)"
-              (click)="markSponsor(sponsor)">
+              mat-icon-button>
               <mat-icon
                 *ngIf="!sponsorsToRemove.has(sponsor.user.id)"
                 class="icn-delete"
@@ -54,23 +54,23 @@
           </div>
         </td>
       </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="font-weight-bolder"></tr>
+      <tr *matHeaderRowDef="displayedColumns" class="font-weight-bolder" mat-header-row></tr>
       <tr
-        mat-row
+        [class.make-red]="sponsorsToRemove.has(sponsor.user.id)"
         *matRowDef="let sponsor; columns: displayedColumns;"
-        [class.make-red]="sponsorsToRemove.has(sponsor.user.id)"></tr>
+        mat-row></tr>
     </table>
   </div>
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.EDIT_MEMBER_SPONSORS.CANCEL' | translate}}
     </button>
     <button
-      mat-flat-button
+      (click)="onSubmit()"
       class="ml-2"
       color="warn"
       [disabled]="loading || sponsorsToRemove.size === 0"
-      (click)="onSubmit()">
+      mat-flat-button>
       {{'DIALOGS.EDIT_MEMBER_SPONSORS.SUBMIT' | translate}}
     </button>
   </div>

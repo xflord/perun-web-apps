@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { UserOrganizationsComponent } from './pages/user-detail-page/user-organizations/user-organizations.component';
 import { UserGroupsComponent } from './pages/user-detail-page/user-groups/user-groups.component';
 import { UserSettingsComponent } from './pages/user-detail-page/user-settings/user-settings.component';

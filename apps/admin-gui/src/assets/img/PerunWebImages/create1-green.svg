@@ -10,19 +10,19 @@
 	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
 	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
 ]>
-<svg version="1.1" id="Vrstva_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 128 128"
-	 style="enable-background:new 0 0 128 128;" xml:space="preserve">
+<svg id="Vrstva_1" style="enable-background:new 0 0 128 128;" version="1.1" viewBox="0 0 128 128" x="0px"
+	 xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:graph="&ns_graphs;" xmlns:i="&ns_ai;" xmlns:x="&ns_extend;"
+	 xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
 <style type="text/css">
 	.st0{fill:#88BF2D;}
 </style>
 <switch>
-	<foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
+	<foreignObject height="1" requiredExtensions="&ns_ai;" width="1" x="0" y="0">
 		<i:pgfRef  xlink:href="#adobe_illustrator_pgf">
 		</i:pgfRef>
 	</foreignObject>
 	<g i:extraneous="self">
-		<polygon class="st0" points="111.8,51.8 76,51.8 76,16 51.4,16 51.4,51.8 15.6,51.8 15.6,76.4 51.4,76.4 51.4,112.2 76,112.2 
+		<polygon class="st0" points="111.8,51.8 76,51.8 76,16 51.4,16 51.4,51.8 15.6,51.8 15.6,76.4 51.4,76.4 51.4,112.2 76,112.2
 			76,76.4 111.8,76.4 		"/>
 	</g>
 </switch>

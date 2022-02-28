@@ -25,19 +25,21 @@ export class ApplicationFormPreviewComponent implements OnInit {
     private store: StoreService
   ) {}
 
-  ngOnInit() {
-    this.languages = this.store.get('supported_languages');
+  ngOnInit(): void {
+    this.languages = this.store.get('supported_languages') as string[];
     this.route.queryParamMap.subscribe((params) => {
-      this.applicationFormItems = JSON.parse(params.get('applicationFormItems'));
+      this.applicationFormItems = JSON.parse(
+        params.get('applicationFormItems')
+      ) as ApplicationFormItem[];
       this.loading = false;
     });
   }
 
-  switchToInitial() {
+  switchToInitial(): void {
     this.initialPage = true;
   }
 
-  switchToExtension() {
+  switchToExtension(): void {
     this.initialPage = false;
   }
 
@@ -55,7 +57,7 @@ export class ApplicationFormPreviewComponent implements OnInit {
     return [];
   }
 
-  isValid(applicationFormItem: ApplicationFormItem) {
+  isValid(applicationFormItem: ApplicationFormItem): boolean {
     if (applicationFormItem.forDelete) {
       return false;
     }
@@ -78,11 +80,11 @@ export class ApplicationFormPreviewComponent implements OnInit {
       case 'ALWAYS':
         return this.translate.instant(
           'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.ALWAYS_DISABLED'
-        );
+        ) as string;
       case 'IF_PREFILLED':
         messStart = this.translate.instant(
           'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.DISABLED_WHEN'
-        );
+        ) as string;
         dep =
           item.hiddenDependencyItemId === null
             ? ''
@@ -90,12 +92,12 @@ export class ApplicationFormPreviewComponent implements OnInit {
                 .shortname;
         messEnd = this.translate.instant(
           'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_PREFILLED'
-        );
+        ) as string;
         return `${messStart} ${dep} ${messEnd}`;
       case 'IF_EMPTY':
         messStart = this.translate.instant(
           'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.DISABLED_WHEN'
-        );
+        ) as string;
         dep =
           item.hiddenDependencyItemId === null
             ? ''
@@ -103,7 +105,7 @@ export class ApplicationFormPreviewComponent implements OnInit {
                 .shortname;
         messEnd = this.translate.instant(
           'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_EMPTY'
-        );
+        ) as string;
         return `${messStart} ${dep} ${messEnd}`;
       default:
         return '';
@@ -118,30 +120,30 @@ export class ApplicationFormPreviewComponent implements OnInit {
       case 'ALWAYS':
         return this.translate.instant(
           'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.ALWAYS_HIDDEN'
-        );
+        ) as string;
       case 'IF_PREFILLED':
         messStart = this.translate.instant(
           'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.HIDDEN_WHEN'
-        );
+        ) as string;
         dep =
           item.hiddenDependencyItemId === null
             ? ''
             : this.applicationFormItems.find((i) => i.id === item.hiddenDependencyItemId).shortname;
         messEnd = this.translate.instant(
           'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_PREFILLED'
-        );
+        ) as string;
         return `${messStart} ${dep} ${messEnd}`;
       case 'IF_EMPTY':
         messStart = this.translate.instant(
           'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.HIDDEN_WHEN'
-        );
+        ) as string;
         dep =
           item.hiddenDependencyItemId === null
             ? ''
             : this.applicationFormItems.find((i) => i.id === item.hiddenDependencyItemId).shortname;
         messEnd = this.translate.instant(
           'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_EMPTY'
-        );
+        ) as string;
         return `${messStart} ${dep} ${messEnd}`;
       default:
         return '';
@@ -149,10 +151,7 @@ export class ApplicationFormPreviewComponent implements OnInit {
   }
 
   getLocalizedLabel(applicationFormItem: ApplicationFormItem): string {
-    if (
-      applicationFormItem.i18n[this.currentLanguage] &&
-      applicationFormItem.i18n[this.currentLanguage].label
-    ) {
+    if (applicationFormItem.i18n[this.currentLanguage]?.label) {
       return (
         applicationFormItem.i18n[this.currentLanguage].label +
         (applicationFormItem.required ? '*' : '')
@@ -161,7 +160,7 @@ export class ApplicationFormPreviewComponent implements OnInit {
     return applicationFormItem.shortname + (applicationFormItem.required ? '*' : '');
   }
 
-  getLocalizedHint(applicationFormItem: ApplicationFormItem) {
+  getLocalizedHint(applicationFormItem: ApplicationFormItem): string {
     if (applicationFormItem.i18n[this.currentLanguage]) {
       return applicationFormItem.i18n[this.currentLanguage].help;
     }

@@ -7,7 +7,7 @@ import {
   TABLE_ITEMS_COUNT_OPTIONS,
   TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AuditMessageDetailDialogComponent } from '../dialogs/audit-message-detail-dialog/audit-message-detail-dialog.component';
 import {
   CustomMatPaginator,
@@ -33,10 +33,6 @@ import { formatDate } from '@angular/common';
   ],
 })
 export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewInit {
-  dataSource: DynamicDataSource<AuditMessage>;
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-  @ViewChild(MatSort) sort: MatSort;
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   @Input()
   tableId: string;
   @Input()
@@ -46,11 +42,32 @@ export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewI
   @Input()
   searchString: string;
 
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  @ViewChild(MatSort) sort: MatSort;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+
+  dataSource: DynamicDataSource<AuditMessage>;
+
   constructor(
     private dialog: MatDialog,
     private dynamicPaginatingService: DynamicPaginatingService,
     private tableConfigService: TableConfigService
   ) {}
+
+  static getExportDataForColumn(data: AuditMessage, column: string): string {
+    switch (column) {
+      case 'id':
+        return data.id.toString();
+      case 'timestamp':
+        return formatDate(data.createdAt, 'd.M.y H.mm.ss', 'en');
+      case 'name':
+        return data.event.name.split('.').pop();
+      case 'actor':
+        return data.actor;
+      default:
+        return '';
+    }
+  }
 
   ngAfterViewInit(): void {
     this.sort.sortChange.subscribe(() => (this.child.paginator.pageIndex = 0));
@@ -69,14 +86,14 @@ export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewI
     );
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     if (this.dataSource) {
       this.child.paginator.pageIndex = 0;
       this.loadAuditMessagesPage();
     }
   }
 
-  loadAuditMessagesPage() {
+  loadAuditMessagesPage(): void {
     const sortDirection = this.sort.direction === 'asc' ? 'ASCENDING' : 'DESCENDING';
     this.dataSource.loadAuditMessages(
       this.child.paginator.pageSize,
@@ -85,9 +102,9 @@ export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewI
     );
   }
 
-  viewDetails(auditMessage: AuditMessage) {
-    const config = getDefaultDialogConfig();
-    const tmp = JSON.parse(JSON.stringify(auditMessage));
+  viewDetails(auditMessage: AuditMessage): void {
+    const config: MatDialogConfig = getDefaultDialogConfig();
+    const tmp: string = JSON.parse(JSON.stringify(auditMessage)) as string;
     config.minWidth = '700px';
     config.maxWidth = '1000px';
     config.data = {
@@ -96,30 +113,14 @@ export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewI
     this.dialog.open(AuditMessageDetailDialogComponent, config);
   }
 
-  exportData(format: string) {
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.getData(),
         this.displayedColumns.filter((v) => v !== 'detail'),
-        this.getExportDataForColumn,
-        this
+        AuditMessagesListComponent.getExportDataForColumn
       ),
       format
     );
-  }
-
-  getExportDataForColumn(data: AuditMessage, column: string): string {
-    switch (column) {
-      case 'id':
-        return data.id.toString();
-      case 'timestamp':
-        return formatDate(data.createdAt, 'd.M.y H.mm.ss', 'en');
-      case 'name':
-        return data.event.name.split('.').pop();
-      case 'actor':
-        return data.actor;
-      default:
-        return '';
-    }
   }
 }

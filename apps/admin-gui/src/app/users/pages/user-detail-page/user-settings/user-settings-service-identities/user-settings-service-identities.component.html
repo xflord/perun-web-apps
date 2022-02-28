@@ -3,29 +3,29 @@
 <button
   *ngIf="addIdentity"
   (click)="onAdd()"
-  mat-flat-button
+  color="accent"
   class="mr-2 action-button"
-  color="accent">
+  mat-flat-button>
   {{'USER_DETAIL.SETTINGS.SERVICE_IDENTITIES.CREATE' | translate}}
 </button>
 <button
   *ngIf="removeIdentity"
   (click)="onRemove()"
   [disabled]="selection.selected.length === 0"
-  mat-flat-button
+  color="warn"
   class="mr-2"
-  color="warn">
+  mat-flat-button>
   {{'USER_DETAIL.SETTINGS.SERVICE_IDENTITIES.DELETE' | translate}}
 </button>
 
 <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
 
 <app-users-list
-  [tableId]="tableId"
-  [noUsersFoundLabel]="'USER_DETAIL.SETTINGS.SERVICE_IDENTITIES.NO_IDENTITIES' | translate"
   *ngIf="!loading"
-  [users]="identities"
+  [noUsersFoundLabel]="'USER_DETAIL.SETTINGS.SERVICE_IDENTITIES.NO_IDENTITIES' | translate"
+  [displayedColumns]="displayedColumns"
   [selection]="selection"
+  [tableId]="tableId"
   [routeToAdmin]="routeToAdminSection"
-  [displayedColumns]="displayedColumns">
+  [users]="identities">
 </app-users-list>

@@ -11,6 +11,9 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 })
 export class ResourceSettingsOverviewComponent implements OnInit {
   @HostBinding('class.router-component') true;
+  items: MenuItem[] = [];
+  resource: Resource;
+  loading = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -19,11 +22,7 @@ export class ResourceSettingsOverviewComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  items: MenuItem[] = [];
-  resource: Resource;
-  loading = false;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.resource = this.entityStorageService.getEntity();
     if (this.route.parent.parent.parent.snapshot.url[0].path === 'facilities') {
@@ -34,7 +33,7 @@ export class ResourceSettingsOverviewComponent implements OnInit {
     this.loading = false;
   }
 
-  private initItems(inVo: boolean) {
+  private initItems(inVo: boolean): void {
     this.items = [];
 
     const managersAuth = this.authResolver.isManagerPagePrivileged(this.resource);

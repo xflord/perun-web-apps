@@ -25,9 +25,9 @@
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
   <app-services-list
     *ngIf="!loading"
-    [tableId]="tableId"
+    [filterValue]="filterValue"
     [selection]="selection"
     [services]="services"
-    [filterValue]="filterValue">
+    [tableId]="tableId">
   </app-services-list>
 </div>

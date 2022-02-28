@@ -8,15 +8,15 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
   styleUrls: ['./resource-settings-managers.component.scss'],
 })
 export class ResourceSettingsManagersComponent implements OnInit {
-  constructor(
-    private guiAuthResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
-  ) {}
-
   resource: Resource;
   availableRoles: string[] = [];
   type = 'Resource';
   theme = 'resource-theme';
+
+  constructor(
+    private guiAuthResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
 
   ngOnInit(): void {
     this.resource = this.entityStorageService.getEntity();

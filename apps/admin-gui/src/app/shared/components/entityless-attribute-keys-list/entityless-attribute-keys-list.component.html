@@ -1,24 +1,24 @@
 <h1 mat-dialog-title>{{this.attDef.namespace + ':' + this.attDef.friendlyName}}</h1>
 
-<div mat-dialog-actions class="mt-3">
-  <button mat-stroked-button (click)="this.switchView.emit()">
+<div class="mt-3" mat-dialog-actions>
+  <button (click)="this.switchView.emit()" mat-stroked-button>
     {{'SHARED.COMPONENTS.ENTITYLESS_ATTRIBUTES_LIST.CANCEL' | translate}}
   </button>
-  <button mat-flat-button class="ml-2" color="accent" (click)="onSave()">
+  <button (click)="onSave()" class="ml-2" color="accent" mat-flat-button>
     {{'SHARED.COMPONENTS.ENTITYLESS_ATTRIBUTES_LIST.SAVE' | translate}}
   </button>
   <button
-    mat-flat-button
+    (click)="onAdd()"
     class="ml-2"
     color="accent"
     [disabled]="isAddButtonDisabled"
     matTooltip="save or remove new attribute first"
-    matTooltipPosition="above"
     [matTooltipDisabled]="!isAddButtonDisabled"
-    (click)="onAdd()">
+    mat-flat-button
+    matTooltipPosition="above">
     {{'SHARED.COMPONENTS.ENTITYLESS_ATTRIBUTES_LIST.ADD' | translate}}
   </button>
-  <button mat-flat-button class="ml-2" color="warn" (click)="onRemove()">
+  <button (click)="onRemove()" class="ml-2" color="warn" mat-flat-button>
     {{'SHARED.COMPONENTS.ENTITYLESS_ATTRIBUTES_LIST.REMOVE' | translate}}
   </button>
 </div>
@@ -26,10 +26,10 @@
 <div [hidden]="loading" class="mt-3" mat-dialog-content>
   <div *ngIf="records && records.length" class="card mt-3">
     <perun-web-apps-table-wrapper
-      [tableId]="tableId"
+      [pageSizeOptions]="pageSizeOptions"
       [dataLength]="dataSource.filteredData.length"
       [hideExport]="true"
-      [pageSizeOptions]="pageSizeOptions">
+      [tableId]="tableId">
       <table
         [dataSource]="dataSource"
         class="w-100"
@@ -39,7 +39,7 @@
         matSortDirection="asc"
         matSortDisableClear>
         <ng-container matColumnDef="select">
-          <th *matHeaderCellDef mat-header-cell class="align-checkbox">
+          <th *matHeaderCellDef class="align-checkbox" mat-header-cell>
             <mat-checkbox
               (change)="$event ? masterToggle() : null"
               [aria-label]="checkboxLabel()"

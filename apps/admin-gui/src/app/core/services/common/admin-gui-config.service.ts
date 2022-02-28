@@ -15,15 +15,6 @@ import { HttpErrorResponse } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AdminGuiConfigService {
-  constructor(
-    private initAuthService: InitAuthService,
-    private appConfigService: AppConfigService,
-    private authzSevice: AuthzResolverService,
-    private dialog: MatDialog,
-    private location: Location,
-    private guiAuthResolver: GuiAuthResolver
-  ) {}
-
   entityColorConfigs: EntityColorConfig[] = [
     {
       entity: 'vo',
@@ -86,6 +77,15 @@ export class AdminGuiConfigService {
     },
   ];
 
+  constructor(
+    private initAuthService: InitAuthService,
+    private appConfigService: AppConfigService,
+    private authzSevice: AuthzResolverService,
+    private dialog: MatDialog,
+    private location: Location,
+    private guiAuthResolver: GuiAuthResolver
+  ) {}
+
   initialize(): Promise<void> {
     return this.appConfigService
       .loadAppDefaultConfig()
@@ -98,7 +98,7 @@ export class AdminGuiConfigService {
       .then(() => this.initAuthService.verifyAuth())
       .catch((err) => {
         if (err === 'Invalid path') {
-          this.handleErr(err);
+          this.handleErr(err as string & HttpErrorResponse);
         } else {
           // if there is another error, it means user probably navigated to /api-callback without logging in
           console.error(err);
@@ -112,7 +112,7 @@ export class AdminGuiConfigService {
         if (isAuthenticated) {
           return this.initAuthService
             .loadPrincipal()
-            .catch((err) => this.handleErr(err))
+            .catch((err) => this.handleErr(err as string & HttpErrorResponse))
             .then(() => this.loadPolicies())
             .then(() => this.appConfigService.loadAppsConfig())
             .then(() => this.guiAuthResolver.loadRolesManagementRules());
@@ -122,7 +122,7 @@ export class AdminGuiConfigService {
       });
   }
 
-  private handleErr(err: string & HttpErrorResponse) {
+  private handleErr(err: string & HttpErrorResponse): void {
     const config = getDefaultDialogConfig();
     // FIXME: during initialization phase, it might happen that the translations are not loaded.
     if (err === 'Invalid path') {
@@ -142,7 +142,6 @@ export class AdminGuiConfigService {
 
       this.dialog.open(ServerDownDialogComponent, config);
     }
-
     console.error(err);
     throw err;
   }

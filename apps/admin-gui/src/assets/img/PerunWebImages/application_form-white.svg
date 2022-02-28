@@ -10,14 +10,14 @@
 	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
 	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
 ]>
-<svg version="1.1" id="Vrstva_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 128 128"
-	 style="enable-background:new 0 0 128 128;" xml:space="preserve">
+<svg id="Vrstva_1" style="enable-background:new 0 0 128 128;" version="1.1" viewBox="0 0 128 128" x="0px"
+	 xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:graph="&ns_graphs;" xmlns:i="&ns_ai;" xmlns:x="&ns_extend;"
+	 xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
 <style type="text/css">
 	.st0{fill:#ffffff;}
 </style>
 <switch>
-	<foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
+	<foreignObject height="1" requiredExtensions="&ns_ai;" width="1" x="0" y="0">
 		<i:pgfRef  xlink:href="#adobe_illustrator_pgf">
 		</i:pgfRef>
 	</foreignObject>
@@ -27,10 +27,10 @@
 				<path class="st0" d="M21.42,13.2v2.35v5.76v85.38v2.07v6.05h85.88v-6.05v-2.07V21.31v-5.76V13.2H21.42z M99.18,106.69H29.53
 					V21.31h69.65V106.69z"/>
 			</g>
-			<rect x="37.62" y="30.12" class="st0" width="53.78" height="8.01"/>
-			<rect x="37.62" y="46.78" class="st0" width="53.78" height="8.01"/>
-			<rect x="37.62" y="63.44" class="st0" width="53.78" height="8.01"/>
-			<rect x="37.62" y="80.1" class="st0" width="26.89" height="8.01"/>
+			<rect class="st0" height="8.01" width="53.78" x="37.62" y="30.12"/>
+			<rect class="st0" height="8.01" width="53.78" x="37.62" y="46.78"/>
+			<rect class="st0" height="8.01" width="53.78" x="37.62" y="63.44"/>
+			<rect class="st0" height="8.01" width="26.89" x="37.62" y="80.1"/>
 		</g>
 	</g>
 </switch>

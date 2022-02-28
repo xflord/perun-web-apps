@@ -22,15 +22,6 @@ export interface AssignServiceToResourceDialogData {
   styleUrls: ['./assign-service-to-resource-dialog.component.scss'],
 })
 export class AssignServiceToResourceDialogComponent implements OnInit {
-  constructor(
-    private dialogRef: MatDialogRef<AssignServiceToResourceDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: AssignServiceToResourceDialogData,
-    private notificator: NotificatorService,
-    private translate: TranslateService,
-    private resourceManager: ResourcesManagerService,
-    private servicesManager: ServicesManagerService
-  ) {}
-
   loading = false;
   theme: string;
   unAssignedServices: Service[] = [];
@@ -45,6 +36,15 @@ export class AssignServiceToResourceDialogComponent implements OnInit {
   selection = new SelectionModel<Service>(true, []);
   tableId = TABLE_ASSIGN_SERVICE_TO_RESOURCE_DIALOG;
   filterValue = '';
+
+  constructor(
+    private dialogRef: MatDialogRef<AssignServiceToResourceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: AssignServiceToResourceDialogData,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private resourceManager: ResourcesManagerService,
+    private servicesManager: ServicesManagerService
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -70,11 +70,11 @@ export class AssignServiceToResourceDialogComponent implements OnInit {
       });
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 
-  onAdd() {
+  onAdd(): void {
     this.loading = true;
     if (this.selectedPackage.id !== -1) {
       this.addServicePackage();
@@ -83,49 +83,11 @@ export class AssignServiceToResourceDialogComponent implements OnInit {
     }
   }
 
-  addServicePackage() {
-    this.resourceManager
-      .assignServicesPackage(this.data.resourceId, this.selectedPackage.id)
-      .subscribe(
-        () => {
-          this.translate
-            .get('DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.PACKAGE_SUCCESS_MESSAGE')
-            .subscribe((message) => {
-              this.notificator.showSuccess(message);
-              if (this.selection.selected.length !== 0) {
-                this.addServices();
-              } else {
-                this.dialogRef.close(true);
-              }
-            });
-        },
-        () => (this.loading = false)
-      );
-  }
-
-  addServices() {
-    const addedServices: number[] = [];
-    for (const service of this.selection.selected) {
-      addedServices.push(service.id);
-    }
-    this.resourceManager.assignServices(this.data.resourceId, addedServices).subscribe(
-      () => {
-        this.translate
-          .get('DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.SERVICE_SUCCESS_MESSAGE')
-          .subscribe((message) => {
-            this.notificator.showSuccess(message);
-            this.dialogRef.close(true);
-          });
-      },
-      () => (this.loading = false)
-    );
-  }
-
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  servicePackageSelected(servicesPackage: ServicesPackage) {
+  servicePackageSelected(servicesPackage: ServicesPackage): void {
     this.selectedPackage = servicesPackage;
     if (servicesPackage.id !== -1) {
       this.servicesManager
@@ -138,9 +100,47 @@ export class AssignServiceToResourceDialogComponent implements OnInit {
     }
   }
 
-  tabChanged() {
+  tabChanged(): void {
     this.selection.clear();
     this.filterValue = '';
     this.selectedPackage = this.servicePackages[0];
+  }
+
+  private addServicePackage(): void {
+    this.resourceManager
+      .assignServicesPackage(this.data.resourceId, this.selectedPackage.id)
+      .subscribe(
+        () => {
+          this.translate
+            .get('DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.PACKAGE_SUCCESS_MESSAGE')
+            .subscribe((message: string) => {
+              this.notificator.showSuccess(message);
+              if (this.selection.selected.length !== 0) {
+                this.addServices();
+              } else {
+                this.dialogRef.close(true);
+              }
+            });
+        },
+        () => (this.loading = false)
+      );
+  }
+
+  private addServices(): void {
+    const addedServices: number[] = [];
+    for (const service of this.selection.selected) {
+      addedServices.push(service.id);
+    }
+    this.resourceManager.assignServices(this.data.resourceId, addedServices).subscribe(
+      () => {
+        this.translate
+          .get('DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.SERVICE_SUCCESS_MESSAGE')
+          .subscribe((message: string) => {
+            this.notificator.showSuccess(message);
+            this.dialogRef.close(true);
+          });
+      },
+      () => (this.loading = false)
+    );
   }
 }

@@ -4,12 +4,12 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'nameSpaceToDef',
 })
 export class NameSpaceToDefPipe implements PipeTransform {
-  transform(value: any): any {
+  transform(value: string): string {
     if (value === null) {
       return null;
     }
 
-    const stringValue = <string>value;
+    const stringValue = value;
     return stringValue.substring(stringValue.lastIndexOf(':') + 1, stringValue.length);
   }
 }

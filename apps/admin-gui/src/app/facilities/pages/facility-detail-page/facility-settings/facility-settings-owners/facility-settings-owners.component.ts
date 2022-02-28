@@ -14,6 +14,9 @@ import { TABLE_FACILITY_OWNERS } from '@perun-web-apps/config/table-config';
   styleUrls: ['./facility-settings-owners.component.scss'],
 })
 export class FacilitySettingsOwnersComponent implements OnInit {
+  @Output()
+  ownerEmitter: EventEmitter<Owner[]> = new EventEmitter<Owner[]>();
+
   facility: Facility;
   owners: Owner[] = [];
   selection = new SelectionModel<Owner>(true, []);
@@ -21,8 +24,6 @@ export class FacilitySettingsOwnersComponent implements OnInit {
   filterValue: string;
   displayedColumns: string[] = ['id', 'name', 'contact', 'type'];
   tableId = TABLE_FACILITY_OWNERS;
-  @Output()
-  ownerEmitter: EventEmitter<Owner[]> = new EventEmitter<Owner[]>();
 
   addAuth: boolean;
   removeAuth: boolean;
@@ -41,7 +42,7 @@ export class FacilitySettingsOwnersComponent implements OnInit {
     this.refreshTable();
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.selection.clear();
     this.facilitiesManagerService.getFacilityOwners(this.facility.id).subscribe((owners) => {
@@ -51,7 +52,7 @@ export class FacilitySettingsOwnersComponent implements OnInit {
     });
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     this.addAuth = this.authResolver.isAuthorized('addOwner_Facility_Owner_policy', [
       this.facility,
     ]);
@@ -64,11 +65,11 @@ export class FacilitySettingsOwnersComponent implements OnInit {
       : ['id', 'name', 'contact', 'type'];
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  onCreate() {
+  onCreate(): void {
     const config = getDefaultDialogConfig();
     config.width = '800px';
     config.data = {
@@ -86,7 +87,7 @@ export class FacilitySettingsOwnersComponent implements OnInit {
     });
   }
 
-  onRemove() {
+  onRemove(): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {

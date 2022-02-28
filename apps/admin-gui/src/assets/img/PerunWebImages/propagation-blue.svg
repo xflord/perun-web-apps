@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 23.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Vrstva_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 128 128" style="enable-background:new 0 0 128 128;" xml:space="preserve">
+<svg id="Vrstva_1" style="enable-background:new 0 0 128 128;" version="1.1" viewBox="0 0 128 128" x="0px" xml:space="preserve"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
 <style type="text/css">
 	.st0{fill:#ffffff;}
 </style>
 <g>
 	<circle class="st0" cx="32.7" cy="63.9" r="19.6"/>
-	
-		<rect x="59" y="38" transform="matrix(-1.836970e-16 1 -1 -1.836970e-16 127.7341 1.354881e-02)" class="st0" width="9.7" height="51.7"/>
+
+		<rect class="st0" height="51.7" transform="matrix(-1.836970e-16 1 -1 -1.836970e-16 127.7341 1.354881e-02)" width="9.7" x="59" y="38"/>
 	<polygon class="st0" points="86.3,46.4 86.3,81.3 114.8,63.9 	"/>
-	
-		<rect x="47.6" y="19.7" transform="matrix(0.7071 0.7071 -0.7071 0.7071 47.5908 -23.7376)" class="st0" width="9.7" height="51.7"/>
+
+		<rect class="st0" height="51.7" transform="matrix(0.7071 0.7071 -0.7071 0.7071 47.5908 -23.7376)" width="9.7" x="47.6" y="19.7"/>
 	<polygon class="st0" points="56,17.4 80.6,42.1 88.5,9.6 	"/>
-	
-		<rect x="47.6" y="56.6" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -42.9408 61.237)" class="st0" width="9.7" height="51.7"/>
+
+		<rect class="st0" height="51.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -42.9408 61.237)" width="9.7" x="47.6" y="56.6"/>
 	<polygon class="st0" points="56,110.6 80.6,86 88.5,118.5 	"/>
 </g>
 </svg>

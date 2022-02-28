@@ -20,6 +20,15 @@ export interface CreateRelationDialogData {
   styleUrls: ['./create-relation-dialog.component.scss'],
 })
 export class CreateRelationDialogComponent implements OnInit {
+  selection = new SelectionModel<Group>(false, []);
+  groups: Group[];
+  theme: string;
+  filterValue = '';
+  loading: boolean;
+  tableId = TABLE_CREATE_RELATION_GROUP_DIALOG;
+  groupsToDisable: Set<number> = new Set<number>();
+  private successMessage: string;
+
   constructor(
     private dialogRef: MatDialogRef<CreateRelationDialogComponent>,
     private groupService: GroupsManagerService,
@@ -30,21 +39,10 @@ export class CreateRelationDialogComponent implements OnInit {
   ) {
     translate
       .get('DIALOGS.CREATE_RELATION.SUCCESS')
-      .subscribe((value) => (this.successMessage = value));
+      .subscribe((value: string) => (this.successMessage = value));
   }
 
-  successMessage: string;
-  selection = new SelectionModel<Group>(false, []);
-  groups: Group[];
-  theme: string;
-  filterValue = '';
-  loading: boolean;
-
-  tableId = TABLE_CREATE_RELATION_GROUP_DIALOG;
-
-  groupsToDisable: Set<number> = new Set<number>();
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.groupService.getGroupUnions(this.data.group.id, !this.data.reverse).subscribe(
       (unionGroups) => {
@@ -82,11 +80,11 @@ export class CreateRelationDialogComponent implements OnInit {
     );
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  private setGroupsToDisable() {
+  private setGroupsToDisable(): void {
     for (const group of this.groups) {
       if (
         !this.guiAuthResolver.isAuthorized('createGroupUnion_Group_Group_policy', [

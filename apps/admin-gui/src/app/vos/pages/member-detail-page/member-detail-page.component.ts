@@ -19,6 +19,12 @@ import {
   animations: [fadeIn],
 })
 export class MemberDetailPageComponent implements OnInit {
+  vo: Vo;
+  member: RichMember;
+  fullName = '';
+  isAuthorized = false;
+  loading = false;
+
   constructor(
     private sideMenuItemService: SideMenuItemService,
     private translate: TranslateService,
@@ -29,19 +35,11 @@ export class MemberDetailPageComponent implements OnInit {
     private authResolver: GuiAuthResolver
   ) {}
 
-  vo: Vo;
-  member: RichMember;
-
-  fullName = '';
-  isAuthorized = false;
-
-  loading = false;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.route.params.subscribe((params) => {
-      const voId = params['voId'];
-      const memberId = params['memberId'];
+      const voId = params['voId'] as number;
+      const memberId = params['memberId'] as number;
       this.isAuthorized = this.authResolver.isPerunAdminOrObserver();
 
       this.voService.getVoById(voId).subscribe(

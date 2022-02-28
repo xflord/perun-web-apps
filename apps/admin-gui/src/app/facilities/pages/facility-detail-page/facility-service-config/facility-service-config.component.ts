@@ -27,22 +27,19 @@ export type ServiceSelectValue = 'ALL' | 'NOT_SELECTED';
   styleUrls: ['./facility-service-config.component.scss'],
 })
 export class FacilityServiceConfigComponent implements OnInit {
-  constructor(
-    private facilityManager: FacilitiesManagerService,
-    private resourceManager: ResourcesManagerService,
-    private serviceManager: ServicesManagerService,
-    private membersManager: MembersManagerService,
-    private namePipe: UserFullNamePipe,
-    private translate: TranslateService,
-    private entityStorageService: EntityStorageService
-  ) {
-    this.translate
-      .get('FACILITY_DETAIL.SERVICE_CONFIG.ALL')
-      .subscribe((value) => (this.serviceAllTranslation = value));
-    this.translate
-      .get('FACILITY_DETAIL.SERVICE_CONFIG.NOT_SELECTED')
-      .subscribe((value) => (this.serviceNotSelectedTranslation = value));
-  }
+  serviceField = new FormControl();
+  resourceField = new FormControl();
+  groupField = new FormControl();
+  memberField = new FormControl();
+
+  filteredServices: Observable<Service[] | ServiceSelectValue[]>;
+  filteredResources: Observable<Resource[]>;
+  filteredGroups: Observable<Group[]>;
+  filteredMembers: Observable<RichMember[]>;
+
+  serviceAllTranslation: string;
+  serviceNotSelectedTranslation: string;
+  allowedStatuses: string[] = ['INVALID', 'VALID'];
 
   facility: Facility;
   serviceId: number;
@@ -61,21 +58,24 @@ export class FacilityServiceConfigComponent implements OnInit {
 
   private attrNames = [];
 
-  serviceField = new FormControl();
-  resourceField = new FormControl();
-  groupField = new FormControl();
-  memberField = new FormControl();
+  constructor(
+    private facilityManager: FacilitiesManagerService,
+    private resourceManager: ResourcesManagerService,
+    private serviceManager: ServicesManagerService,
+    private membersManager: MembersManagerService,
+    private namePipe: UserFullNamePipe,
+    private translate: TranslateService,
+    private entityStorageService: EntityStorageService
+  ) {
+    this.translate
+      .get('FACILITY_DETAIL.SERVICE_CONFIG.ALL')
+      .subscribe((value: string) => (this.serviceAllTranslation = value));
+    this.translate
+      .get('FACILITY_DETAIL.SERVICE_CONFIG.NOT_SELECTED')
+      .subscribe((value: string) => (this.serviceNotSelectedTranslation = value));
+  }
 
-  filteredServices: Observable<Service[] | ServiceSelectValue[]>;
-  filteredResources: Observable<Resource[]>;
-  filteredGroups: Observable<Group[]>;
-  filteredMembers: Observable<RichMember[]>;
-
-  serviceAllTranslation: string;
-  serviceNotSelectedTranslation: string;
-  allowedStatuses: string[] = ['INVALID', 'VALID'];
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.facility = this.entityStorageService.getEntity();
     this.facilityManager.getFacilityById(this.facility.id).subscribe((facility) => {
       this.facility = facility;
@@ -90,27 +90,27 @@ export class FacilityServiceConfigComponent implements OnInit {
     });
     this.filteredServices = this.serviceField.valueChanges.pipe(
       startWith(''),
-      map((value) => this._filterServices(value))
+      map((value: string) => this._filterServices(value))
     );
     this.filteredResources = this.resourceField.valueChanges.pipe(
       startWith(''),
-      map((value) => this._filterResources(value))
+      map((value: string) => this._filterResources(value))
     );
     this.filteredGroups = this.groupField.valueChanges.pipe(
       startWith(''),
-      map((value) => this._filterGroups(value))
+      map((value: string) => this._filterGroups(value))
     );
     this.filteredMembers = this.memberField.valueChanges.pipe(
       startWith(''),
-      map((value) => this._filterMembers(value))
+      map((value: string) => this._filterMembers(value))
     );
   }
 
-  onSelectedService(s: Service | ServiceSelectValue) {
+  onSelectedService(s: Service | ServiceSelectValue): void {
     this.selectedService = s;
   }
 
-  onSelectedResource(r: Resource) {
+  onSelectedResource(r: Resource): void {
     this.selectedResource = r;
     if (this.selectedResource !== undefined) {
       this.resourceManager
@@ -123,7 +123,7 @@ export class FacilityServiceConfigComponent implements OnInit {
     }
   }
 
-  onOfferAllServices(event: MatCheckboxChange) {
+  onOfferAllServices(event: MatCheckboxChange): void {
     if (!event.checked) {
       this.serviceManager
         .getAssignedServices(this.facility.id)
@@ -131,7 +131,7 @@ export class FacilityServiceConfigComponent implements OnInit {
     }
   }
 
-  onSelectedGroup(g: Group) {
+  onSelectedGroup(g: Group): void {
     this.selectedGroup = g;
     if (this.selectedGroup !== undefined) {
       this.membersManager
@@ -139,7 +139,8 @@ export class FacilityServiceConfigComponent implements OnInit {
           this.selectedGroup.id,
           false,
           this.allowedStatuses,
-          this.attrNames
+          [],
+          this.attrNames as string[]
         )
         .subscribe((members) => (this.members = members));
       this.selectedMember = undefined;
@@ -148,8 +149,57 @@ export class FacilityServiceConfigComponent implements OnInit {
     }
   }
 
-  onSelectedMember(m: RichMember) {
+  onSelectedMember(m: RichMember): void {
     this.selectedMember = m;
+  }
+
+  serviceDisplayFn(service: Service | ServiceSelectValue): string {
+    if (service !== null) {
+      if (service === 'ALL') {
+        return this.serviceAllTranslation;
+      }
+      if (service === 'NOT_SELECTED') {
+        return this.serviceNotSelectedTranslation;
+      }
+      return typeof service !== 'string' ? service.name : service;
+    }
+  }
+
+  resourceDisplayFn(resource: Resource): string {
+    if (resource !== null) {
+      return resource.name;
+    }
+  }
+
+  groupDisplayFn(group: Group): string {
+    if (group !== null) {
+      return group.name;
+    }
+  }
+
+  memberDisplayFn(member: RichMember): string {
+    if (member !== null) {
+      return this.namePipe.transform(member.user);
+    }
+  }
+
+  updatedSerVal(e: KeyboardEvent): void {
+    if ((e.target as HTMLInputElement).value === '') {
+      this.selectedService = 'NOT_SELECTED';
+    }
+  }
+
+  updatedResVal(e: KeyboardEvent): void {
+    if ((e.target as HTMLInputElement).value === '') {
+      this.groups = undefined;
+      this.members = undefined;
+    }
+  }
+
+  updatedGroupVal(e: KeyboardEvent): void {
+    if ((e.target as HTMLInputElement).value === '') {
+      this.members = undefined;
+    }
   }
 
   private _filterServices(value: string): Service[] | ServiceSelectValue[] {
@@ -198,59 +248,5 @@ export class FacilityServiceConfigComponent implements OnInit {
         .replace(/[\u0300-\u036f]/g, '')
         .includes(filterValue)
     );
-  }
-
-  serviceDisplayFn(service) {
-    if (service !== null) {
-      if (service === 'ALL') {
-        return this.serviceAllTranslation;
-      }
-      if (service === 'NOT_SELECTED') {
-        return this.serviceNotSelectedTranslation;
-      }
-      return service.name;
-    }
-  }
-
-  resourceDisplayFn(resource) {
-    if (resource !== null) {
-      return resource.name;
-    }
-  }
-
-  groupDisplayFn(group) {
-    if (group !== null) {
-      return group.name;
-    }
-  }
-
-  memberDisplayFn(member) {
-    if (member !== null) {
-      return this.namePipe.transform(member.user);
-    }
-  }
-
-  updatedSerVal(e) {
-    if (e.target.value === '') {
-      this.selectedService = 'NOT_SELECTED';
-    }
-  }
-
-  updatedResVal(e) {
-    if (e.target.value === '') {
-      this.groups = undefined;
-      this.members = undefined;
-    }
-  }
-
-  updatedGroupVal(e) {
-    if (e.target.value === '') {
-      this.members = undefined;
-    }
-  }
-
-  updatedMemVal(e) {
-    if (e.target.value === '') {
-    }
   }
 }

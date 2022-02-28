@@ -26,6 +26,20 @@ export interface AssignGroupToResourceDialogData {
 export class AssignGroupToResourceDialogComponent implements OnInit {
   @ViewChild('stepper') stepper: MatStepper;
 
+  loading = false;
+  theme: string;
+  unAssignedGroups: Group[] = this.data.onlyAutoAssignedGroups;
+  async = true;
+  autoAssignSubgroups = false;
+  asActive = true;
+  selection = new SelectionModel<Group>(true, []);
+  filterValue = '';
+  tableId = TABLE_ASSIGN_GROUP_TO_RESOURCE_DIALOG;
+  autoAssignHint: string;
+  asActiveHint: string;
+  asyncHint: string;
+  private resource: Resource;
+
   constructor(
     private dialogRef: MatDialogRef<AssignGroupToResourceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AssignGroupToResourceDialogData,
@@ -37,32 +51,19 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
     private cd: ChangeDetectorRef
   ) {}
 
-  loading = false;
-  theme: string;
-
-  resource: Resource;
-  unAssignedGroups: Group[] = this.data.onlyAutoAssignedGroups;
-  async = true;
-  autoAssignSubgroups = false;
-  asActive = true;
-  selection = new SelectionModel<Group>(true, []);
-  filterValue = '';
-
-  tableId = TABLE_ASSIGN_GROUP_TO_RESOURCE_DIALOG;
-
-  autoAssignHint: string;
-  asActiveHint: string;
-  asyncHint: string;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.theme = this.data.theme;
     this.resource = this.data.resource;
     this.autoAssignHint = this.translate.instant(
       'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.AUTO_SUBGROUPS_OFF_HINT'
-    );
-    this.asActiveHint = this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ACTIVE_ON_HINT');
-    this.asyncHint = this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_ON_HINT');
+    ) as string;
+    this.asActiveHint = this.translate.instant(
+      'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ACTIVE_ON_HINT'
+    ) as string;
+    this.asyncHint = this.translate.instant(
+      'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_ON_HINT'
+    ) as string;
     this.resourceManager.getAssignedGroups(this.resource.id).subscribe(
       (assignedGroups) => {
         this.groupService.getAllGroups(this.resource.voId).subscribe(
@@ -88,11 +89,11 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
     );
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 
-  onAdd() {
+  onAdd(): void {
     this.loading = true;
     const addedGroups: number[] = [];
     for (const group of this.selection.selected) {
@@ -111,7 +112,7 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
         () => {
           this.translate
             .get('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.SUCCESS_MESSAGE')
-            .subscribe((message) => {
+            .subscribe((message: string) => {
               this.notificator.showSuccess(message);
               this.dialogRef.close(true);
             });
@@ -120,11 +121,11 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
       );
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  canAddGroups() {
+  canAddGroups(): boolean {
     let canAdd = true;
     this.selection.selected.forEach((group) => {
       if (
@@ -139,29 +140,33 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
     return canAdd;
   }
 
-  changeSubgroupsMessage() {
+  changeSubgroupsMessage(): void {
     this.autoAssignHint = this.autoAssignSubgroups
-      ? this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.AUTO_SUBGROUPS_OFF_HINT')
-      : this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.AUTO_SUBGROUPS_ON_HINT');
+      ? (this.translate.instant(
+          'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.AUTO_SUBGROUPS_OFF_HINT'
+        ) as string)
+      : (this.translate.instant(
+          'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.AUTO_SUBGROUPS_ON_HINT'
+        ) as string);
   }
 
-  changeInactiveMessage() {
+  changeInactiveMessage(): void {
     this.asActiveHint = this.asActive
-      ? this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ACTIVE_OFF_HINT')
-      : this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ACTIVE_ON_HINT');
+      ? (this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ACTIVE_OFF_HINT') as string)
+      : (this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ACTIVE_ON_HINT') as string);
   }
 
-  changeAsyncMessage() {
+  changeAsyncMessage(): void {
     this.asyncHint = this.async
-      ? this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_OFF_HINT')
-      : this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_ON_HINT');
+      ? (this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_OFF_HINT') as string)
+      : (this.translate.instant('DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_ON_HINT') as string);
   }
 
-  stepperPrevious() {
+  stepperPrevious(): void {
     this.stepper.previous();
   }
 
-  stepperNext() {
+  stepperNext(): void {
     this.stepper.next();
   }
 }

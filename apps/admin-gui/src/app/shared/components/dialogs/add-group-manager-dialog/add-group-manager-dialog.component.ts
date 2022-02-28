@@ -32,21 +32,6 @@ export interface AddGroupManagerDialogData {
   styleUrls: ['./add-group-manager-dialog.component.scss'],
 })
 export class AddGroupManagerDialogComponent implements OnInit {
-  constructor(
-    private dialogRef: MatDialogRef<AddGroupManagerDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: AddGroupManagerDialogData,
-    private authzService: AuthzResolverService,
-    private voService: VosManagerService,
-    private groupService: GroupsManagerService,
-    private translate: TranslateService,
-    private notificator: NotificatorService,
-    protected route: ActivatedRoute,
-    protected router: Router
-  ) {
-    translate.get('DIALOGS.ADD_GROUPS.TITLE').subscribe((value) => (this.title = value));
-    translate.get('DIALOGS.ADD_GROUPS.SUCCESS').subscribe((value) => (this.successMessage = value));
-  }
-
   title: string;
   searchString = '';
   successMessage: string;
@@ -67,6 +52,23 @@ export class AddGroupManagerDialogComponent implements OnInit {
   theme: string;
 
   tableId = TABLE_SELECT_GROUP_MANAGER_DIALOG;
+
+  constructor(
+    private dialogRef: MatDialogRef<AddGroupManagerDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: AddGroupManagerDialogData,
+    private authzService: AuthzResolverService,
+    private voService: VosManagerService,
+    private groupService: GroupsManagerService,
+    private translate: TranslateService,
+    private notificator: NotificatorService,
+    protected route: ActivatedRoute,
+    protected router: Router
+  ) {
+    translate.get('DIALOGS.ADD_GROUPS.TITLE').subscribe((value: string) => (this.title = value));
+    translate
+      .get('DIALOGS.ADD_GROUPS.SUCCESS')
+      .subscribe((value: string) => (this.successMessage = value));
+  }
 
   displayFn(vo?: Vo): string | undefined {
     return vo ? vo.name : null;
@@ -94,7 +96,7 @@ export class AddGroupManagerDialogComponent implements OnInit {
       );
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.availableRoles = this.data.availableRoles;
     this.selectedRole = this.data.selectedRole;
@@ -103,7 +105,7 @@ export class AddGroupManagerDialogComponent implements OnInit {
       (vos) => {
         this.filteredOptions = this.myControl.valueChanges.pipe(
           startWith(''),
-          map((value) => this._filter(value))
+          map((value: string) => this._filter(value))
         );
 
         this.vos = vos;
@@ -113,14 +115,9 @@ export class AddGroupManagerDialogComponent implements OnInit {
     );
   }
 
-  private _filter(value: string | Vo): Vo[] {
-    const filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLowerCase;
-    return this.vos.filter((option) => option.name.toLowerCase().includes(<string>filterValue));
-  }
-
-  showVoGroups(event: MatAutocompleteSelectedEvent) {
+  showVoGroups(event: MatAutocompleteSelectedEvent): void {
     this.loading = true;
-    this.groupService.getAllGroups(event.option.value.id).subscribe(
+    this.groupService.getAllGroups((event.option.value as Vo).id).subscribe(
       (groups) => {
         this.groups = groups;
         this.loading = false;
@@ -130,7 +127,12 @@ export class AddGroupManagerDialogComponent implements OnInit {
     );
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
+  }
+
+  private _filter(value: string | Vo): Vo[] {
+    const filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLowerCase();
+    return this.vos.filter((option) => option.name.toLowerCase().includes(filterValue));
   }
 }

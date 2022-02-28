@@ -22,12 +22,15 @@ export class CreateGroupDialogComponent implements OnInit {
 
   isNotSubGroup: boolean;
   asSubgroup = false;
-  invalidNameMessage = this.store.get('group_name_error_message');
-  secondaryRegex = this.store.get('group_name_secondary_regex');
+  invalidNameMessage = this.store.get('group_name_error_message') as string;
   nameControl: FormControl;
   descriptionControl: FormControl;
   selectedParent: Group;
   voGroups: Group[] = [];
+  title: string;
+  successMessage: string;
+  successSubGroupMessage: string;
+  private secondaryRegex = this.store.get('group_name_secondary_regex') as string;
 
   constructor(
     private dialogRef: MatDialogRef<CreateGroupDialogComponent>,
@@ -39,27 +42,25 @@ export class CreateGroupDialogComponent implements OnInit {
   ) {
     this.isNotSubGroup = this.data.parentGroup === null;
     if (this.isNotSubGroup) {
-      translate.get('DIALOGS.CREATE_GROUP.TITLE').subscribe((value) => (this.title = value));
+      translate
+        .get('DIALOGS.CREATE_GROUP.TITLE')
+        .subscribe((value: string) => (this.title = value));
     } else {
-      translate.get('DIALOGS.CREATE_GROUP.TITLE_SUB_GROUP').subscribe((value) => {
+      translate.get('DIALOGS.CREATE_GROUP.TITLE_SUB_GROUP').subscribe((value: string) => {
         this.title = value + this.data.parentGroup.name;
       });
     }
     translate
       .get('DIALOGS.CREATE_GROUP.SUCCESS')
-      .subscribe((value) => (this.successMessage = value));
+      .subscribe((value: string) => (this.successMessage = value));
     translate
       .get('DIALOGS.CREATE_GROUP.SUCCESS_SUBGROUP')
-      .subscribe((value) => (this.successSubGroupMessage = value));
+      .subscribe((value: string) => (this.successSubGroupMessage = value));
   }
 
-  title: string;
+  nameFunction: (group: Group) => string = (group: Group) => group.name;
 
-  successMessage: string;
-  successSubGroupMessage: string;
-  nameFunction = (group: Group) => group.name;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
     this.invalidNameMessage =
       this.invalidNameMessage && this.secondaryRegex ? this.invalidNameMessage : '';
@@ -82,8 +83,8 @@ export class CreateGroupDialogComponent implements OnInit {
       this.groupService
         .createGroupWithVoNameDescription(
           this.data.voId,
-          this.nameControl.value,
-          this.descriptionControl.value
+          this.nameControl.value as string,
+          this.descriptionControl.value as string
         )
         .subscribe(
           () => {
@@ -98,8 +99,8 @@ export class CreateGroupDialogComponent implements OnInit {
       this.groupService
         .createGroupWithParentGroupNameDescription(
           parentGroupId,
-          this.nameControl.value,
-          this.descriptionControl.value
+          this.nameControl.value as string,
+          this.descriptionControl.value as string
         )
         .subscribe(
           () => {
@@ -112,7 +113,7 @@ export class CreateGroupDialogComponent implements OnInit {
     }
   }
 
-  loadVoGroups() {
+  loadVoGroups(): void {
     this.groupService.getAllGroups(this.data.voId).subscribe((groups) => {
       this.voGroups = groups.filter((grp) => grp.name !== 'members');
     });

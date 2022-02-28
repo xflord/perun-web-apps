@@ -1,11 +1,11 @@
 <div
-  class="card mt-2"
-  [hidden]="this.users.length === 0 || !dataSource || dataSource.filteredData.length === 0">
+  [hidden]="this.users.length === 0 || !dataSource || dataSource.filteredData.length === 0"
+  class="card mt-2">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [dataLength]="dataSource.filteredData.length"
-    [tableId]="tableId"
-    [pageSizeOptions]="pageSizeOptions">
+    [pageSizeOptions]="pageSizeOptions"
+    [tableId]="tableId">
     <table
       [dataSource]="dataSource"
       class="w-100"
@@ -15,7 +15,7 @@
       matSortDirection="asc"
       matSortDisableClear>
       <ng-container matColumnDef="select">
-        <th *matHeaderCellDef mat-header-cell class="align-checkbox">
+        <th *matHeaderCellDef class="align-checkbox" mat-header-cell>
           <mat-checkbox
             (change)="$event ? masterToggle() : null"
             *ngIf="selection.isMultipleSelection()"
@@ -48,9 +48,9 @@
           </mat-icon>
           <mat-icon
             *ngIf="user.serviceUser"
-            matTooltip="{{'MANAGERS_LIST.SERVICE' | translate}}"
+            class="align-bottom"
             [svgIcon]="svgIcon"
-            class="align-bottom">
+            matTooltip="{{'MANAGERS_LIST.SERVICE' | translate}}">
           </mat-icon>
         </td>
       </ng-container>

@@ -21,7 +21,7 @@
     (filter)="applyFilter($event)">
   </perun-web-apps-debounce-filter>
 </div>
-<mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 <div *ngIf="!loading">
   <app-applications-dynamic-list
     [tableId]="showAllDetails ? detailTableId : tableId"

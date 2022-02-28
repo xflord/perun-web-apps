@@ -17,6 +17,13 @@ export interface DeleteGroupDialogData {
   styleUrls: ['./delete-group-dialog.component.scss'],
 })
 export class DeleteGroupDialogComponent implements OnInit {
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<Group>;
+  theme: string;
+  loading = false;
+  relations: string[] = [];
+  force = false;
+
   constructor(
     public dialogRef: MatDialogRef<DeleteGroupDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DeleteGroupDialogData,
@@ -25,31 +32,24 @@ export class DeleteGroupDialogComponent implements OnInit {
     private groupService: GroupsManagerService
   ) {}
 
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<Group>;
-  theme: string;
-  loading = false;
-  relations: string[] = [];
-  force = false;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
     this.dataSource = new MatTableDataSource<Group>(this.data.groups);
-    this.relations.push(this.translate.instant('DIALOGS.DELETE_GROUP.SUBGROUP_RELATION'));
-    this.relations.push(this.translate.instant('DIALOGS.DELETE_GROUP.MEMBER_RELATION'));
+    this.relations.push(this.translate.instant('DIALOGS.DELETE_GROUP.SUBGROUP_RELATION') as string);
+    this.relations.push(this.translate.instant('DIALOGS.DELETE_GROUP.MEMBER_RELATION') as string);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onDelete() {
+  onDelete(): void {
     this.loading = true;
     const groups: number[] = this.data.groups.map((elem) => elem.id);
     this.groupService.deleteGroups({ groups: groups, forceDelete: this.force }).subscribe(
       () => {
         this.translate.get('DIALOGS.DELETE_GROUP.SUCCESS').subscribe(
-          (successMessage) => {
+          (successMessage: string) => {
             this.notificator.showSuccess(successMessage);
             this.dialogRef.close(true);
           },
@@ -60,7 +60,7 @@ export class DeleteGroupDialogComponent implements OnInit {
     );
   }
 
-  onSubmit(result: { deleted: boolean; force: boolean }) {
+  onSubmit(result: { deleted: boolean; force: boolean }): void {
     this.force = result.force;
     if (result.deleted) {
       this.onDelete();

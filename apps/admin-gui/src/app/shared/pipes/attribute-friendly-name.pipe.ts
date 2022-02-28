@@ -5,7 +5,7 @@ import { parseAttributeFriendlyName } from '@perun-web-apps/perun/utils';
   name: 'attributeFriendlyName',
 })
 export class AttributeFriendlyNamePipe implements PipeTransform {
-  transform(value: string): any {
+  transform(value: string): string {
     return parseAttributeFriendlyName(value);
   }
 }

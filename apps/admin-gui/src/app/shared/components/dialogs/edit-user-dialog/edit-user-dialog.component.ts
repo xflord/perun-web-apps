@@ -16,14 +16,6 @@ export interface EditUserDialogData {
   styleUrls: ['./edit-user-dialog.component.scss'],
 })
 export class EditUserDialogComponent implements OnInit {
-  constructor(
-    private dialogRef: MatDialogRef<EditUserDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: EditUserDialogData,
-    private userService: UsersManagerService,
-    private notificator: NotificatorService,
-    private translateService: TranslateService
-  ) {}
-
   theme: string;
   loading = false;
 
@@ -33,6 +25,14 @@ export class EditUserDialogComponent implements OnInit {
   firstName: FormControl;
   middleName: FormControl;
   lastName: FormControl;
+
+  constructor(
+    private dialogRef: MatDialogRef<EditUserDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: EditUserDialogData,
+    private userService: UsersManagerService,
+    private notificator: NotificatorService,
+    private translateService: TranslateService
+  ) {}
 
   ngOnInit(): void {
     this.theme = this.data.theme;
@@ -64,21 +64,21 @@ export class EditUserDialogComponent implements OnInit {
     ]);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSave() {
+  onSave(): void {
     this.loading = true;
-    this.data.user.titleBefore = this.titleBefore.value;
-    this.data.user.titleAfter = this.titleAfter.value;
-    this.data.user.firstName = this.firstName.value;
-    this.data.user.middleName = this.middleName.value;
-    this.data.user.lastName = this.lastName.value;
+    this.data.user.titleBefore = this.titleBefore.value as string;
+    this.data.user.titleAfter = this.titleAfter.value as string;
+    this.data.user.firstName = this.firstName.value as string;
+    this.data.user.middleName = this.middleName.value as string;
+    this.data.user.lastName = this.lastName.value as string;
 
     this.userService.updateUser({ user: this.data.user }).subscribe(
       () => {
-        this.translateService.get('DIALOGS.EDIT_USER.SUCCESS').subscribe((message) => {
+        this.translateService.get('DIALOGS.EDIT_USER.SUCCESS').subscribe((message: string) => {
           this.notificator.showSuccess(message);
           this.dialogRef.close(true);
         });

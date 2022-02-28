@@ -11,13 +11,13 @@ import { fadeIn } from '@perun-web-apps/perun/animations';
 export class VoResourcesComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
-  constructor(private route: ActivatedRoute) {}
-
   voId: number;
+
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.parent.params.subscribe((parentParams) => {
-      this.voId = parentParams['voId'];
+      this.voId = parentParams['voId'] as number;
     });
   }
 }

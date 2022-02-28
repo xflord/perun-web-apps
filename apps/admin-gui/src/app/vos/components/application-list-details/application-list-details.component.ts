@@ -1,5 +1,11 @@
 import { Component, Input, OnChanges, ViewChild } from '@angular/core';
-import { Application, Group, Member, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  Application,
+  ApplicationFormItem,
+  Group,
+  Member,
+  RegistrarManagerService,
+} from '@perun-web-apps/perun/openapi';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import {
@@ -11,35 +17,33 @@ import {
 } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
+interface ApplicationData extends Application {
+  formItem?: ApplicationFormItem;
+  shortname?: string;
+  value?: string;
+  assuranceLevel?: string;
+  prefilledValue?: string;
+}
+
 @Component({
   selector: 'app-perun-web-apps-application-list-details',
   templateUrl: './application-list-details.component.html',
   styleUrls: ['./application-list-details.component.scss'],
 })
 export class ApplicationListDetailsComponent implements OnChanges {
-  constructor(
-    private router: Router,
-    private authResolver: GuiAuthResolver,
-    private registrarManager: RegistrarManagerService
-  ) {}
-
   @Input()
   applications: Application[] = [];
-
   @Input()
   group: Group;
-
   @Input()
   member: Member;
-
   @Input()
   filterValue: string;
-
   @Input()
   tableId: string;
-
   @Input()
   disableRouting = false;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   displayedColumns: string[] = [
     'id',
@@ -58,20 +62,19 @@ export class ApplicationListDetailsComponent implements OnChanges {
     'modifiedAt',
     'fedInfo',
   ];
-
-  dataSource: MatTableDataSource<any>;
-
+  dataSource: MatTableDataSource<ApplicationData>;
   loading = false;
-
-  table = [];
-
+  table: ApplicationData[] = [];
   addedColumns = new Set<string>();
-
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
-  ngOnChanges() {
+  constructor(
+    private router: Router,
+    private authResolver: GuiAuthResolver,
+    private registrarManager: RegistrarManagerService
+  ) {}
+
+  ngOnChanges(): void {
     if (!this.authResolver.isPerunAdminOrObserver()) {
       this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
@@ -114,23 +117,25 @@ export class ApplicationListDetailsComponent implements OnChanges {
       case 'modifiedAt':
         return data.modifiedAt;
       default:
-        return data[column];
+        return data[column] as string;
     }
   }
 
-  exportData(format: string) {
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getExportDataForColumn,
-        this
+        this.getExportDataForColumn.bind(ApplicationListDetailsComponent) as (
+          data: Record<string, unknown>,
+          column: string
+        ) => string
       ),
       format
     );
   }
 
-  getApplicationsData(index: number) {
+  getApplicationsData(index: number): void {
     if (this.applications.length === index) {
       this.initialize();
       return;
@@ -169,7 +174,7 @@ export class ApplicationListDetailsComponent implements OnChanges {
     });
   }
 
-  initialize() {
+  initialize(): void {
     for (const val of this.addedColumns) {
       this.displayedColumns.push(val);
     }
@@ -183,7 +188,7 @@ export class ApplicationListDetailsComponent implements OnChanges {
     this.loading = false;
   }
 
-  getFriendlyName(modifiedBy: string) {
+  getFriendlyName(modifiedBy: string): string {
     const index = modifiedBy.lastIndexOf('/CN=');
     if (index !== -1) {
       const string = modifiedBy
@@ -197,7 +202,7 @@ export class ApplicationListDetailsComponent implements OnChanges {
     return modifiedBy;
   }
 
-  selectApplication(application: Application) {
+  selectApplication(application: Application): (string | number)[] {
     if (!this.disableRouting) {
       if (this.group) {
         return [

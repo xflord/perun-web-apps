@@ -9,11 +9,11 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class DeleteApplicationFormItemDialogComponent {
   constructor(private dialogRef: MatDialogRef<DeleteApplicationFormItemDialogComponent>) {}
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  submit() {
+  submit(): void {
     this.dialogRef.close(true);
   }
 }

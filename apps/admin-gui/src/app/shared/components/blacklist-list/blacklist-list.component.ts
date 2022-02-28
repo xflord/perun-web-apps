@@ -20,6 +20,18 @@ import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
   styleUrls: ['./blacklist-list.component.scss'],
 })
 export class BlacklistListComponent implements AfterViewInit, OnChanges {
+  @Input()
+  bansOnFacilitiesWithUsers: [BanOnFacility, User][] = [];
+  @Input()
+  selection = new SelectionModel<[BanOnFacility, User]>(true, []);
+  @Input()
+  filterValue: string;
+  @Input()
+  tableId: string;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  displayedColumns: string[] = ['select', 'userId', 'name', 'reason'];
+  dataSource: MatTableDataSource<[BanOnFacility, User]>;
   private sort: MatSort;
 
   constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
@@ -29,32 +41,7 @@ export class BlacklistListComponent implements AfterViewInit, OnChanges {
     this.setDataSource();
   }
 
-  @Input()
-  bansOnFacilitiesWithUsers: [BanOnFacility, User][] = [];
-  @Input()
-  selection = new SelectionModel<[BanOnFacility, User]>(true, []);
-  @Input()
-  filterValue: string;
-
-  @Input()
-  tableId: string;
-
-  displayedColumns: string[] = ['select', 'userId', 'name', 'reason'];
-  dataSource: MatTableDataSource<[BanOnFacility, User]>;
-
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
-  ngOnChanges() {
-    if (!this.authResolver.isPerunAdminOrObserver()) {
-      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'userId');
-    }
-    this.dataSource = new MatTableDataSource<[BanOnFacility, User]>(this.bansOnFacilitiesWithUsers);
-    this.setDataSource();
-    this.dataSource.filter = this.filterValue;
-  }
-
-  getDataForColumn(data: [BanOnFacility, User], column: string): string {
+  static getDataForColumn(data: [BanOnFacility, User], column: string): string {
     switch (column) {
       case 'userId':
         return data[1].id.toString();
@@ -67,37 +54,47 @@ export class BlacklistListComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  exportData(format: string) {
+  ngOnChanges(): void {
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'userId');
+    }
+    this.dataSource = new MatTableDataSource<[BanOnFacility, User]>(this.bansOnFacilitiesWithUsers);
+    this.setDataSource();
+    this.dataSource.filter = this.filterValue;
+  }
+
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
-        this
+        BlacklistListComponent.getDataForColumn
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: [BanOnFacility, User], filter: string) =>
+      this.dataSource.filterPredicate = (data: [BanOnFacility, User], filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn,
-          this
+          BlacklistListComponent.getDataForColumn
         );
-      this.dataSource.sortData = (data: [BanOnFacility, User][], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.sortData = (
+        data: [BanOnFacility, User][],
+        sort: MatSort
+      ): [BanOnFacility, User][] =>
+        customDataSourceSort(data, sort, BlacklistListComponent.getDataForColumn);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
+  isAllSelected(): boolean {
     return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
       this.filterValue,
@@ -108,7 +105,7 @@ export class BlacklistListComponent implements AfterViewInit, OnChanges {
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
+  masterToggle(): void {
     this.tableCheckbox.masterToggle(
       this.isAllSelected(),
       this.selection,

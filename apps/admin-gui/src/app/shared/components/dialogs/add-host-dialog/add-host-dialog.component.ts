@@ -16,14 +16,6 @@ export interface AddHostDialogData {
   styleUrls: ['./add-host-dialog.component.scss'],
 })
 export class AddHostDialogComponent implements OnInit {
-  constructor(
-    private dialogRef: MatDialogRef<AddHostDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: AddHostDialogData,
-    public facilitiesManager: FacilitiesManagerService,
-    private notificator: NotificatorService,
-    private translate: TranslateService
-  ) {}
-
   theme: string;
   loading = false;
   hostsCtrl: FormControl;
@@ -32,15 +24,32 @@ export class AddHostDialogComponent implements OnInit {
     '^(?!:\\/\\/)(?=.{1,255}$)((.{1,63}\\.){1,127}(?![0-9]*$)[a-z0-9-]+\\.?)$|^(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}$'
   );
 
+  constructor(
+    private dialogRef: MatDialogRef<AddHostDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: AddHostDialogData,
+    public facilitiesManager: FacilitiesManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService
+  ) {}
+
+  private static parseRange(range: string): number[] {
+    const [lower, upper] = range.split('-');
+
+    const from = parseInt(lower.substring(1, lower.length), 10);
+    const to = parseInt(upper.substring(0, upper.length), 10);
+
+    return [from, to];
+  }
+
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.hostsCtrl = new FormControl('', [Validators.required, this.hostsNameValidator()]);
     this.hostsCtrl.markAllAsTouched();
   }
 
-  onAdd() {
+  onAdd(): void {
     this.loading = true;
-    const hostNames = this.hostsCtrl.value.split('\n');
+    const hostNames: string[] = (this.hostsCtrl.value as string).split('\n');
     let generatedHostNames: string[] = [];
 
     for (const name of hostNames) {
@@ -48,21 +57,21 @@ export class AddHostDialogComponent implements OnInit {
     }
     this.facilitiesManager.addHosts(this.data.facilityId, generatedHostNames).subscribe(
       () => {
-        this.notificator.showSuccess(this.translate.instant('DIALOGS.ADD_HOST.SUCCESS'));
+        this.notificator.showSuccess(this.translate.instant('DIALOGS.ADD_HOST.SUCCESS') as string);
         this.dialogRef.close(true);
       },
       () => (this.loading = false)
     );
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  hostsNameValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+  private hostsNameValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: { [key: string]: string } } | null => {
       let generatedHostNames: string[] = [];
-      const hostNames = control.value.split('\n');
+      const hostNames = (control.value as string).split('\n');
       for (const name of hostNames) {
         generatedHostNames = generatedHostNames.concat(this.parseHostName(name));
       }
@@ -75,7 +84,7 @@ export class AddHostDialogComponent implements OnInit {
     };
   }
 
-  parseHostName(name: string) {
+  private parseHostName(name: string): string[] {
     const rangeRegex = new RegExp('[[0-9]+-[0-9]+]', 'g');
     const prefixes = name.split(rangeRegex);
     const suffixes = name.match(rangeRegex);
@@ -90,7 +99,7 @@ export class AddHostDialogComponent implements OnInit {
     let nameParts: string[][] = [];
 
     for (let i = 0; i < prefixes.length - 1; i++) {
-      const [from, to] = this.parseRange(suffixes[i]);
+      const [from, to] = AddHostDialogComponent.parseRange(suffixes[i]);
       let parts = [];
 
       for (let j = from; j <= to; j++) {
@@ -103,22 +112,13 @@ export class AddHostDialogComponent implements OnInit {
     return this.joinHostNames(nameParts, 0);
   }
 
-  parseRange(range: string) {
-    const [lower, upper] = range.split('-');
-
-    const from = parseInt(lower.substring(1, lower.length), 10);
-    const to = parseInt(upper.substring(0, upper.length), 10);
-
-    return [from, to];
-  }
-
-  joinHostNames(nameParts: string[][], position: number) {
+  private joinHostNames(nameParts: string[][], position: number): string[] {
     if (position === nameParts.length - 1) {
-      return [nameParts[position]];
+      return nameParts[position];
     }
 
     const suffixes = this.joinHostNames(nameParts, position + 1);
-    const joinedNames = [];
+    const joinedNames: string[] = [];
 
     for (const name of nameParts[position]) {
       for (const suffix of suffixes) {

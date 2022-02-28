@@ -11,6 +11,11 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./delete-owner-dialog.component.scss'],
 })
 export class DeleteOwnerDialogComponent implements OnInit {
+  loading: boolean;
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<Owner>;
+  owners: Owner[] = [];
+
   constructor(
     public dialogRef: MatDialogRef<DeleteOwnerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Owner[],
@@ -19,21 +24,16 @@ export class DeleteOwnerDialogComponent implements OnInit {
     private ownersManagerService: OwnersManagerService
   ) {}
 
-  loading: boolean;
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<Owner>;
-  owners: Owner[] = [];
-
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<Owner>(this.data);
     this.owners = this.data;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     if (this.owners.length) {
       this.ownersManagerService.deleteOwner(this.owners.pop().id).subscribe(
@@ -43,7 +43,7 @@ export class DeleteOwnerDialogComponent implements OnInit {
         () => (this.loading = false)
       );
     } else {
-      this.translate.get('DIALOGS.DELETE_OWNER.SUCCESS').subscribe((successMessage) => {
+      this.translate.get('DIALOGS.DELETE_OWNER.SUCCESS').subscribe((successMessage: string) => {
         this.loading = false;
         this.notificator.showSuccess(successMessage);
         this.dialogRef.close(true);

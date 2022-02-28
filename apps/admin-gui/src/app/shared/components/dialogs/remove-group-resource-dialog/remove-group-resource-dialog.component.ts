@@ -17,6 +17,10 @@ export interface RemoveGroupResourceDialogData {
   styleUrls: ['./remove-group-resource-dialog.component.scss'],
 })
 export class RemoveGroupResourceDialogComponent implements OnInit {
+  loading: boolean;
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<RichResource>;
+
   constructor(
     public dialogRef: MatDialogRef<RemoveGroupResourceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: RemoveGroupResourceDialogData,
@@ -25,28 +29,26 @@ export class RemoveGroupResourceDialogComponent implements OnInit {
     private resourcesManager: ResourcesManagerService
   ) {}
 
-  loading: boolean;
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<RichResource>;
-
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<RichResource>(this.data.resources);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     const resourceIds = this.data.resources.map((res) => res.id);
     this.resourcesManager.removeGroupFromResources(this.data.groupId, resourceIds).subscribe(
       () => {
-        this.translate.get('DIALOGS.REMOVE_RESOURCES.SUCCESS').subscribe((successMessage) => {
-          this.loading = false;
-          this.notificator.showSuccess(successMessage);
-          this.dialogRef.close(true);
-        });
+        this.translate
+          .get('DIALOGS.REMOVE_RESOURCES.SUCCESS')
+          .subscribe((successMessage: string) => {
+            this.loading = false;
+            this.notificator.showSuccess(successMessage);
+            this.dialogRef.close(true);
+          });
       },
       () => (this.loading = false)
     );

@@ -97,7 +97,6 @@ import { RemoveGroupFromResourceDialogComponent } from './components/dialogs/rem
 import { AssignGroupToResourceDialogComponent } from './components/dialogs/assign-group-to-resource-dialog/assign-group-to-resource-dialog.component';
 import { CreateResourceDialogComponent } from './components/dialogs/create-resource-dialog/create-resource-dialog.component';
 import { ExtSourceTypePipe } from './pipes/ext-source-type.pipe';
-// @ts-ignore
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { ConfigTableConfigModule } from '@perun-web-apps/config/table-config';
 import { MemberStatusTooltipPipe, PerunPipesModule } from '@perun-web-apps/perun/pipes';
@@ -172,6 +171,7 @@ import { ParseEventNamePipe } from './pipes/parse-event-name.pipe';
 import { ConsentHubsListComponent } from './components/consent-hubs-list/consent-hubs-list.component';
 import { EditEnforceConsentsDialogComponent } from './components/dialogs/edit-enforce-consents-dialog/edit-enforce-consents-dialog.component';
 import { ConsentRelatedAttributePipe } from './pipes/consent-related-attribute.pipe';
+import { MemberTypePipe } from './pipes/member-type.pipe';
 
 @NgModule({
   imports: [
@@ -437,6 +437,7 @@ import { ConsentRelatedAttributePipe } from './pipes/consent-related-attribute.p
     ConsentHubsListComponent,
     EditEnforceConsentsDialogComponent,
     ConsentRelatedAttributePipe,
+    MemberTypePipe,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe, ConsentRelatedAttributePipe],
 })

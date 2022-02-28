@@ -22,12 +22,12 @@ interface AddUserExtSourceDialogData {
   styleUrls: ['./add-user-ext-source-dialog.component.scss'],
 })
 export class AddUserExtSourceDialogComponent implements OnInit {
-  extSources: ExtSource[] = [];
   filteredExtSources: Observable<ExtSource[]>;
   loginControl: FormControl;
   extSourcesControl: FormControl;
   loading: boolean;
-  successMessage: string;
+  private extSources: ExtSource[] = [];
+  private successMessage: string;
 
   constructor(
     private dialogRef: MatDialogRef<AddUserExtSourceDialogComponent>,
@@ -39,7 +39,7 @@ export class AddUserExtSourceDialogComponent implements OnInit {
   ) {
     translate
       .get('DIALOGS.ADD_USER_EXT_SOURCE.SUCCESS')
-      .subscribe((res) => (this.successMessage = res));
+      .subscribe((res: string) => (this.successMessage = res));
   }
 
   ngOnInit(): void {
@@ -53,7 +53,7 @@ export class AddUserExtSourceDialogComponent implements OnInit {
     this.extSourcesControl.markAllAsTouched();
     this.filteredExtSources = this.extSourcesControl.valueChanges.pipe(
       startWith(''),
-      map((value) => this._filter(value))
+      map((value: string) => this._filter(value))
     );
     this.extSourcesManagerService.getExtSources().subscribe(
       (extSources) => {
@@ -61,7 +61,7 @@ export class AddUserExtSourceDialogComponent implements OnInit {
 
         this.filteredExtSources = this.extSourcesControl.valueChanges.pipe(
           startWith(''),
-          map((value) => this._filter(value))
+          map((value: string) => this._filter(value))
         );
         this.loading = false;
       },
@@ -73,17 +73,17 @@ export class AddUserExtSourceDialogComponent implements OnInit {
     return extSource ? extSource.name : null;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onAdd() {
+  onAdd(): void {
     this.loading = true;
     const ues: UserExtSource = {
       beanName: '',
-      extSource: this.extSourcesControl.value,
+      extSource: this.extSourcesControl.value as ExtSource,
       id: 0,
-      login: this.loginControl.value,
+      login: this.loginControl.value as string,
       userId: this.data.userId,
     };
     this.usersManagerService
@@ -99,9 +99,7 @@ export class AddUserExtSourceDialogComponent implements OnInit {
   }
 
   private _filter(value: string | ExtSource): ExtSource[] {
-    const filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLowerCase;
-    return this.extSources.filter((option) =>
-      option.name.toLowerCase().includes(<string>filterValue)
-    );
+    const filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLowerCase();
+    return this.extSources.filter((option) => option.name.toLowerCase().includes(filterValue));
   }
 }

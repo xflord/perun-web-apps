@@ -17,16 +17,16 @@
       <mat-form-field class="mr-2 w-75">
         <mat-label>{{'DIALOGS.ADD_GROUPS.SELECT_VO' | translate}}</mat-label>
         <input
-          type="text"
-          placeholder="{{'DIALOGS.ADD_GROUPS.SELECT_VO' | translate}}"
+          [formControl]="myControl"
+          [matAutocomplete]="auto"
           aria-label="Assignee"
           matInput
-          [formControl]="myControl"
-          [matAutocomplete]="auto" />
+          placeholder="{{'DIALOGS.ADD_GROUPS.SELECT_VO' | translate}}"
+          type="text" />
         <mat-autocomplete
           #auto="matAutocomplete"
-          [displayWith]="displayFn"
-          (optionSelected)="showVoGroups($event)">
+          (optionSelected)="showVoGroups($event)"
+          [displayWith]="displayFn">
           <mat-option *ngFor="let vo of filteredOptions | async" [value]="vo">
             {{vo.name}}
           </mat-option>
@@ -35,35 +35,35 @@
     </div>
     <perun-web-apps-debounce-filter
       *ngIf="groups !== null && groups.length > 0 && !loading"
-      placeholder="{{'DIALOGS.ADD_GROUPS.FILTER_GROUPS' | translate}}"
-      (filter)="applyFilter($event)">
+      (filter)="applyFilter($event)"
+      placeholder="{{'DIALOGS.ADD_GROUPS.FILTER_GROUPS' | translate}}">
     </perun-web-apps-debounce-filter>
     <div class="overflow-hidden">
       <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
     </div>
-    <div class="mt-3" *ngIf="groups !== null && !loading">
+    <div *ngIf="groups !== null && !loading" class="mt-3">
       <perun-web-apps-groups-list
-        [tableId]="tableId"
+        [disableMembers]="false"
         [disableRouting]="true"
         [displayedColumns]="['select', 'id', 'name', 'description']"
         [selection]="selection"
         [filter]="filterValue"
         [groups]="groups"
-        [disableMembers]="false">
+        [tableId]="tableId">
       </perun-web-apps-groups-list>
     </div>
   </div>
 
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.ADD_MANAGERS.CANCEL' | translate}}
     </button>
     <button
-      mat-flat-button
+      (click)="onSubmit()"
       class="ml-2"
       color="accent"
-      (click)="onSubmit()"
-      [disabled]="selection.selected.length === 0 || loading">
+      [disabled]="selection.selected.length === 0 || loading"
+      mat-flat-button>
       {{'DIALOGS.ADD_MANAGERS.CREATE' | translate}}
     </button>
   </div>

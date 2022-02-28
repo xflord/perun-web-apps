@@ -11,21 +11,22 @@ export interface NoServiceDialogData {
   styleUrls: ['./no-service-dialog.component.scss'],
 })
 export class NoServiceDialogComponent implements OnInit {
+  theme = '';
+
   constructor(
     public dialogRef: MatDialogRef<NoServiceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: NoServiceDialogData
   ) {}
 
-  theme = '';
   ngOnInit(): void {
     this.theme = this.data.theme;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSkip() {
+  onSkip(): void {
     this.dialogRef.close(true);
   }
 }

@@ -28,9 +28,9 @@
     <div class="w-25">
       <button
         *ngIf="editAuth"
-        mat-stroked-button
         (click)="settings()"
-        class="ml-auto action-button">
+        class="ml-auto action-button"
+        mat-stroked-button>
         <i class="material-icons">edit</i>
         {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.SETTINGS_BUTTON' | translate}}
       </button>
@@ -45,32 +45,32 @@
 
     <button
       *ngIf="editAuth"
-      mat-flat-button
+      (click)="add()"
       color="accent"
       class="mr-2 action-button"
       data-cy="add-form-item"
-      (click)="add()">
+      mat-flat-button>
       {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.ADD_BUTTON' | translate}}
     </button>
 
     <button
       *ngIf="editAuth"
-      mat-flat-button
+      (click)="save()"
       color="accent"
-      class="mr-2"
-      data-cy="save-application-form"
       [disabled]="!itemsChanged"
-      (click)="save()">
+      data-cy="save-application-form"
+      class="mr-2"
+      mat-flat-button>
       <i class="material-icons">save</i>
       {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.SAVE_BUTTON' | translate}}
     </button>
 
-    <button *ngIf="editAuth" mat-stroked-button class="mr-2 action-button" (click)="copy()">
+    <button (click)="copy()" *ngIf="editAuth" class="mr-2 action-button" mat-stroked-button>
       <i class="material-icons">file_copy</i>
       {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.COPY_VO_BUTTON' | translate}}
     </button>
 
-    <button mat-stroked-button (click)="preview()">
+    <button (click)="preview()" mat-stroked-button>
       <i class="material-icons">search</i>
       {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_BUTTON' | translate}}
     </button>
@@ -91,12 +91,12 @@
   </perun-web-apps-alert>
 
   <app-application-form-list
-    [loading]="loading"
+    (applicationFormItemsChange)="changeItems()"
     [applicationForm]="applicationForm"
     [applicationFormItems]="applicationFormItems"
-    [theme]="'vo-theme'"
+    [loading]="loading"
     [displayedColumns]="displayedColumns"
     [refreshApplicationForm]="refreshApplicationForm"
-    (applicationFormItemsChange)="changeItems()">
+    [theme]="'vo-theme'">
   </app-application-form-list>
 </div>

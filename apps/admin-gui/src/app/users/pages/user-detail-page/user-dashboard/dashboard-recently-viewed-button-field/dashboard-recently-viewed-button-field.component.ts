@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
+import { getRecentlyVisitedItems, RecentItem } from '@perun-web-apps/perun/utils';
 import {
   FacilitiesManagerService,
   Facility,
@@ -10,7 +10,7 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
-export interface RecentItem {
+interface RecentDisplayedItem {
   url: string;
   label: string;
   tooltip?: string;
@@ -25,6 +25,17 @@ export interface RecentItem {
   styleUrls: ['./dashboard-recently-viewed-button-field.component.scss'],
 })
 export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
+  items: RecentDisplayedItem[] = [];
+  vosIds: number[] = [];
+  groupsIds: number[] = [];
+  facilitiesIds: number[] = [];
+  existingRecentIds: number[] = [];
+  recentItems: RecentItem[];
+  loading: boolean;
+  vos: Vo[] = [];
+  groups: Group[] = [];
+  facilities: Facility[] = [];
+
   constructor(
     private vosManager: VosManagerService,
     private groupsManager: GroupsManagerService,
@@ -32,22 +43,9 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
     private facilitiesManager: FacilitiesManagerService
   ) {}
 
-  items: RecentItem[] = [];
-
-  vosIds: number[] = [];
-  groupsIds: number[] = [];
-  facilitiesIds: number[] = [];
-  existingRecentIds: number[] = [];
-  recentItems: any[];
-  loading: boolean;
-  vos: Vo[] = [];
-  groups: Group[] = [];
-  facilities: Facility[] = [];
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
-    this.recentItems = getRecentlyVisitedIds('recent');
-
+    this.recentItems = getRecentlyVisitedItems('recent');
     for (const item of this.recentItems) {
       switch (item.type) {
         case 'Vo': {
@@ -79,7 +77,7 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
     this.getVos();
   }
 
-  getVos() {
+  getVos(): void {
     if (this.authResolver.isAuthorized('getVosByIds_List<Integer>_policy', [])) {
       this.vosManager.getVosByIds(this.vosIds).subscribe((vos) => {
         this.vos = vos;
@@ -90,7 +88,7 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
     }
   }
 
-  getGroups() {
+  getGroups(): void {
     if (this.authResolver.isAuthorized('getGroupsByIds_List<Integer>_policy', [])) {
       this.groupsManager.getGroupsByIds(this.groupsIds).subscribe((groups) => {
         this.groups = groups;
@@ -101,7 +99,7 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
     }
   }
 
-  getFacilities() {
+  getFacilities(): void {
     if (this.authResolver.isAuthorized('getFacilitiesByIds_List<Integer>_policy', [])) {
       this.facilitiesManager.getFacilitiesByIds(this.facilitiesIds).subscribe((facilities) => {
         this.facilities = facilities;
@@ -112,7 +110,7 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
     }
   }
 
-  private addRecentlyViewedToDashboard() {
+  private addRecentlyViewedToDashboard(): void {
     for (const item of this.recentItems) {
       switch (item.type) {
         case 'Vo': {

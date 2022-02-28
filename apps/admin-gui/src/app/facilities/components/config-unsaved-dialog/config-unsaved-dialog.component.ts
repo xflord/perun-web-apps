@@ -11,21 +11,22 @@ export interface ConfigUnsavedDialogData {
   styleUrls: ['./config-unsaved-dialog.component.scss'],
 })
 export class ConfigUnsavedDialogComponent implements OnInit {
+  theme = '';
+
   constructor(
     public dialogRef: MatDialogRef<ConfigUnsavedDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfigUnsavedDialogData
   ) {}
 
-  theme = '';
   ngOnInit(): void {
     this.theme = this.data.theme;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSkip() {
+  onSkip(): void {
     this.dialogRef.close(true);
   }
 }

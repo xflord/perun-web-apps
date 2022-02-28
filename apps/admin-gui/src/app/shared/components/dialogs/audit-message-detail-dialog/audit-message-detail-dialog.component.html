@@ -31,7 +31,7 @@
     <button (click)="onClose()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.AUDIT_MESSAGE_DETAIL.CLOSE' | translate}}
     </button>
-    <button mat-button (click)="tabIndex === 0 ? copyObjects() : copyMessage()">
+    <button (click)="tabIndex === 0 ? copyObjects() : copyMessage()" mat-button>
       {{'DIALOGS.AUDIT_MESSAGE_DETAIL.COPY' | translate}}
       <mat-icon>content_copy</mat-icon>
     </button>

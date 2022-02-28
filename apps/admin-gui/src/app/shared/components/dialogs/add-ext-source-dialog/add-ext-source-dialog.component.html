@@ -6,27 +6,27 @@
       [placeholder]="'DIALOGS.ADD_EXT_SOURCES.FILTER'"
       class="font-size-1rem"></perun-web-apps-immediate-filter>
   </div>
-  <mat-spinner class="mr-auto ml-auto" *ngIf="loading"></mat-spinner>
-  <div mat-dialog-content *ngIf="!loading">
+  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content>
     <app-ext-sources-list
-      [tableId]="tableId"
+      [selection]="selection"
       [extSources]="extSources"
       [filterValue]="filterValue"
-      [selection]="selection">
+      [tableId]="tableId">
     </app-ext-sources-list>
   </div>
 
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.ADD_EXT_SOURCES.CANCEL' | translate}}
     </button>
 
     <button
-      mat-flat-button
+      (click)="onAdd()"
       class="ml-2"
       color="accent"
-      (click)="onAdd()"
-      [disabled]="selection.selected.length === 0 || loading">
+      [disabled]="selection.selected.length === 0 || loading"
+      mat-flat-button>
       {{'DIALOGS.ADD_EXT_SOURCES.ADD' | translate}}
     </button>
   </div>

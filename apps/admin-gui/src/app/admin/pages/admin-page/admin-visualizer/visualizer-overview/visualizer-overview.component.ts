@@ -9,8 +9,6 @@ import { MenuItem } from '@perun-web-apps/perun/models';
 export class VisualizerOverviewComponent {
   @HostBinding('class.router-component') true;
 
-  constructor() {}
-
   items: MenuItem[] = [
     {
       cssIcon: 'perun-module-dependencies',

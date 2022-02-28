@@ -19,6 +19,12 @@ export interface RemoveManagerDialogData {
   styleUrls: ['./remove-manager-dialog.component.scss'],
 })
 export class RemoveManagerDialogComponent implements OnInit {
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<RichUser>;
+  loading: boolean;
+  theme: string;
+  removeSelf: boolean;
+
   constructor(
     public dialogRef: MatDialogRef<RemoveManagerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: RemoveManagerDialogData,
@@ -29,14 +35,7 @@ export class RemoveManagerDialogComponent implements OnInit {
     private authService: GuiAuthResolver
   ) {}
 
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<RichUser>;
-
-  loading: boolean;
-  theme: string;
-  removeSelf: boolean;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.dataSource = new MatTableDataSource<RichUser>(this.data.managers);
     this.theme = this.data.theme;
     this.removeSelf =
@@ -44,11 +43,11 @@ export class RemoveManagerDialogComponent implements OnInit {
       !this.authService.isPerunAdmin();
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     this.authzService
       .unsetRoleWithUserComplementaryObject({
@@ -59,7 +58,7 @@ export class RemoveManagerDialogComponent implements OnInit {
       .subscribe(
         () => {
           this.translate.get('DIALOGS.REMOVE_MANAGERS.SUCCESS').subscribe(
-            (successMessage) => {
+            (successMessage: string) => {
               this.notificator.showSuccess(successMessage);
               this.loading = false;
               this.dialogRef.close(true);

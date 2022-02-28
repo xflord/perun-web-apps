@@ -13,13 +13,15 @@ import { CoreModule } from './core/core.module';
 import { RouteReuseStrategy } from '@angular/router';
 import { CacheRouteReuseStrategy } from './core/services/common/cache-route-reuse-strategy';
 import { MatIconModule } from '@angular/material/icon';
-import { CustomIconService } from '@perun-web-apps/perun/services';
+import {
+  ApiInterceptor,
+  ApiService,
+  CustomIconService,
+  StoreService,
+} from '@perun-web-apps/perun/services';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
-import { ApiService } from '@perun-web-apps/perun/services';
 import { AdminGuiConfigService } from './core/services/common/admin-gui-config.service';
 import { ApiModule, Configuration, ConfigurationParameters } from '@perun-web-apps/perun/openapi';
-import { StoreService } from '@perun-web-apps/perun/services';
-import { ApiInterceptor } from '@perun-web-apps/perun/services';
 import { GeneralModule } from '@perun-web-apps/general';
 import {
   PERFECT_SCROLLBAR_CONFIG,
@@ -36,19 +38,21 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
   multi: true,
 };
 
-export function httpLoaderFactory(http: HttpClient) {
+export function httpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 export function apiConfigFactory(store: StoreService): Configuration {
   const params: ConfigurationParameters = {
-    basePath: store.get('api_url'),
+    basePath: store.get('api_url') as string,
     // set configuration parameters here.
   };
   return new Configuration(params);
 }
 
-const loadConfigs = (appConfig: AdminGuiConfigService) => () => appConfig.initialize();
+const loadConfigs: (appConfig: AdminGuiConfigService) => () => Promise<void> =
+  (appConfig: AdminGuiConfigService) => () =>
+    appConfig.initialize();
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,

@@ -35,8 +35,8 @@
           (change)="updateAutoRegistration()"
           [disabled]="!changeAutoRegistration"
           [ngModel]="autoRegistrationEnabled"
-          color="primary"
-          #autoRegToggle>
+          #autoRegToggle
+          color="primary">
           {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.ALLOW_EMBEDDED' | translate}}
         </mat-slide-toggle>
       </div>
@@ -44,9 +44,9 @@
     <div class="w-25">
       <button
         *ngIf="editAuth"
-        mat-stroked-button
         (click)="settings()"
-        class="ml-auto action-button">
+        class="ml-auto action-button"
+        mat-stroked-button>
         <i class="material-icons">edit</i>
         {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.SETTINGS_BUTTON' | translate}}
       </button>
@@ -61,32 +61,32 @@
 
     <button
       *ngIf="editAuth"
-      mat-flat-button
+      (click)="add()"
       color="accent"
       class="mr-2 action-button"
       data-cy="add-form-item"
-      (click)="add()">
+      mat-flat-button>
       {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.ADD_BUTTON' | translate}}
     </button>
 
     <button
       *ngIf="editAuth"
-      mat-flat-button
+      (click)="save()"
       color="accent"
-      class="mr-2"
       [disabled]="!itemsChanged"
+      class="mr-2"
       data-cy="save-application-form"
-      (click)="save()">
+      mat-flat-button>
       <i class="material-icons">save</i>
       {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.SAVE_BUTTON' | translate}}
     </button>
 
-    <button *ngIf="editAuth" mat-stroked-button class="mr-2 action-button" (click)="copy()">
+    <button (click)="copy()" *ngIf="editAuth" class="mr-2 action-button" mat-stroked-button>
       <i class="material-icons">file_copy</i>
       {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.COPY_GROUP_BUTTON' | translate}}
     </button>
 
-    <button mat-stroked-button (click)="preview()">
+    <button (click)="preview()" mat-stroked-button>
       <i class="material-icons">search</i>
       {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_BUTTON' | translate}}
     </button>
@@ -107,13 +107,13 @@
   </perun-web-apps-alert>
 
   <app-application-form-list
-    [loading]="loading"
+    (applicationFormItemsChange)="changeItems()"
     [applicationForm]="applicationForm"
     [applicationFormItems]="applicationFormItems"
-    [theme]="'group-theme'"
+    [loading]="loading"
     [displayedColumns]="editAuth ? ['drag', 'shortname', 'type', 'disabled', 'hidden', 'preview', 'managegroups', 'edit', 'delete'] : ['shortname', 'type', 'disabled', 'hidden', 'preview', 'managegroups']"
     [refreshApplicationForm]="refreshApplicationForm"
-    (applicationFormItemsChange)="changeItems()">
+    [theme]="'group-theme'">
   </app-application-form-list>
 </div>
 <div *ngIf="!loading && noApplicationForm">
@@ -123,9 +123,9 @@
   >
   <button
     *ngIf="createEmptyForm"
-    mat-stroked-button
+    (click)="createEmptyApplicationForm()"
     data-cy="create-empty-form"
-    (click)="createEmptyApplicationForm()">
+    mat-stroked-button>
     {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.CREATE_APPLICATION_FORM' | translate}}
   </button>
 </div>

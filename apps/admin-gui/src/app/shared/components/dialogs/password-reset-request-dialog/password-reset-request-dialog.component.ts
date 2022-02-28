@@ -20,6 +20,16 @@ export interface PasswordResetRequestDialogData {
   styleUrls: ['./password-reset-request-dialog.component.scss'],
 })
 export class PasswordResetRequestDialogComponent implements OnInit {
+  languages = this.store.get('supported_languages') as string;
+  selectedLang = 'en';
+  pwdMails = new Map<string, string>();
+  logins: Attribute[] = [];
+  selectedLogin: Attribute;
+  selectedMail = 'user:preferredMail';
+  loading: boolean;
+  mails: string[] = [];
+  successMessage: string;
+
   constructor(
     private dialogRef: MatDialogRef<PasswordResetRequestDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: PasswordResetRequestDialogData,
@@ -31,17 +41,8 @@ export class PasswordResetRequestDialogComponent implements OnInit {
   ) {
     translate
       .get('DIALOGS.PASSWORD_RESET_REQUEST.SUCCESS')
-      .subscribe((res) => (this.successMessage = res));
+      .subscribe((res: string) => (this.successMessage = res));
   }
-  languages = this.store.get('supported_languages');
-  selectedLang = 'en';
-  pwdMails = new Map<string, string>();
-  logins: Attribute[] = [];
-  selectedLogin: Attribute;
-  selectedMail = 'user:preferredMail';
-  loading: boolean;
-  mails: string[] = [];
-  successMessage: string;
 
   ngOnInit(): void {
     this.getMailAttributes();
@@ -49,18 +50,11 @@ export class PasswordResetRequestDialogComponent implements OnInit {
     this.selectedLogin = this.logins[0];
   }
 
-  private getMailAttributes() {
-    this.pwdMails.set('user:preferredMail', 'urn:perun:user:attribute-def:def:preferredMail');
-    this.pwdMails.set('member:mail', 'urn:perun:member:attribute-def:def:mail');
-    this.mails = Array.from(this.pwdMails.keys());
-    this.selectedMail = 'user:preferredMail';
-  }
-
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     const namespace: string = this.selectedLogin.friendlyNameParameter as unknown as string;
     const currentUrl = window.location.href;
@@ -83,5 +77,12 @@ export class PasswordResetRequestDialogComponent implements OnInit {
         },
         () => (this.loading = false)
       );
+  }
+
+  private getMailAttributes(): void {
+    this.pwdMails.set('user:preferredMail', 'urn:perun:user:attribute-def:def:preferredMail');
+    this.pwdMails.set('member:mail', 'urn:perun:member:attribute-def:def:mail');
+    this.mails = Array.from(this.pwdMails.keys());
+    this.selectedMail = 'user:preferredMail';
   }
 }

@@ -2,29 +2,29 @@
 <perun-web-apps-refresh-button (refresh)="updateData()"></perun-web-apps-refresh-button>
 <button
   *ngIf="createAuth"
-  mat-flat-button
+  (click)="create()"
   class="mr-2 action-button"
   color="accent"
-  (click)="create()">
+  mat-flat-button>
   {{'VO_DETAIL.RESOURCES.TAGS.CREATE_BUTTON' | translate}}
 </button>
 
 <button
   *ngIf="addAuth"
-  mat-flat-button
+  (click)="addTag()"
   class="mr-2 action-button"
   color="accent"
-  (click)="addTag()">
+  mat-flat-button>
   {{'RESOURCE_DETAIL.TAGS.ADD_BUTTON' | translate}}
 </button>
 
 <button
   *ngIf="removeAuth"
-  mat-flat-button
-  color="warn"
+  (click)="removeTags()"
   class="mr-2"
+  color="warn"
   [disabled]="selection.selected.length === 0"
-  (click)="removeTags()">
+  mat-flat-button>
   {{'RESOURCE_DETAIL.TAGS.REMOVE_BUTTON' | translate}}
 </button>
 <perun-web-apps-immediate-filter
@@ -36,10 +36,10 @@
 
 <app-resources-tags-list
   *ngIf="!loading"
-  [selection]="selection"
-  [tableId]="tableId"
+  [displayedColumns]="displayedColumns"
+  [entity]="'resource'"
   [resourceTags]="resourceTags"
   [filterValue]="filterValue"
-  [displayedColumns]="displayedColumns"
-  [entity]="'resource'">
+  [selection]="selection"
+  [tableId]="tableId">
 </app-resources-tags-list>

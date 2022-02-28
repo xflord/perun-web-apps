@@ -4,41 +4,41 @@
     <perun-web-apps-refresh-button
       (click)="updateTable = !updateTable"></perun-web-apps-refresh-button>
     <div
-      matTooltip="{{'VO_DETAIL.MEMBERS.ADD_MEMBER_DISABLED' | translate}}"
-      [matTooltipDisabled]="!blockManualMemberAdding">
+      [matTooltipDisabled]="!blockManualMemberAdding"
+      matTooltip="{{'VO_DETAIL.MEMBERS.ADD_MEMBER_DISABLED' | translate}}">
       <button
         *ngIf="addAuth"
         [disabled]="blockManualMemberAdding"
-        mat-flat-button
+        (click)="onAddMember()"
         color="accent"
         class="mr-2 action-button"
         data-cy="add-members"
-        (click)="onAddMember()">
+        mat-flat-button>
         {{'VO_DETAIL.MEMBERS.ADD_MEMBER' | translate}}
       </button>
     </div>
     <button
       *ngIf="inviteAuth"
-      mat-flat-button
+      (click)="onInviteMember()"
       color="accent"
       class="mr-2 action-button"
-      (click)="onInviteMember()">
+      mat-flat-button>
       {{'VO_DETAIL.MEMBERS.INVITE' | translate}}
     </button>
     <button
       *ngIf="removeAuth"
-      mat-flat-button
+      (click)="onRemoveMembers()"
       color="warn"
-      class="mr-2"
-      data-cy="remove-members"
       [disabled]="selection.isEmpty()"
-      (click)="onRemoveMembers()">
+      data-cy="remove-members"
+      class="mr-2"
+      mat-flat-button>
       {{'VO_DETAIL.MEMBERS.REMOVE_MEMBERS' | translate}}
     </button>
 
     <mat-form-field class="mr-2 fix-select">
       <mat-label>{{'VO_DETAIL.MEMBERS.FILTER_STATUS' | translate}}</mat-label>
-      <mat-select [formControl]="statuses" (closed)="changeStatuses()" multiple>
+      <mat-select (closed)="changeStatuses()" [formControl]="statuses" multiple>
         <mat-select-trigger>
           {{displaySelectedStatuses() | memberStatus}}
         </mat-select-trigger>
@@ -52,20 +52,20 @@
     </mat-form-field>
 
     <perun-web-apps-debounce-filter
-      class="mt-2 search-field"
+      (filter)="onSearchByString($event)"
       [placeholder]="'VO_DETAIL.MEMBERS.SEARCH_DESCRIPTION'"
-      (filter)="onSearchByString($event)">
+      class="mt-2 search-field">
     </perun-web-apps-debounce-filter>
   </div>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
   <perun-web-apps-members-dynamic-list
     *ngIf="!loading"
-    [voId]="vo.id"
-    [tableId]="tableId"
-    [selection]="selection"
-    [displayedColumns]="displayedColumns"
     [attrNames]="attrNames"
+    [selection]="selection"
+    [tableId]="tableId"
+    [displayedColumns]="displayedColumns"
+    [updateTable]="updateTable"
     [searchString]="searchString"
     [selectedStatuses]="selectedStatuses"
-    [updateTable]="updateTable"></perun-web-apps-members-dynamic-list>
+    [voId]="vo.id"></perun-web-apps-members-dynamic-list>
 </div>

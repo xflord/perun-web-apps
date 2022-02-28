@@ -1,13 +1,13 @@
 <div
-  class="card mt-2 w-100"
   [class.hide-table]="loading"
-  [hidden]="this.table.length === 0 || (dataSource ? dataSource.filteredData.length === 0 : false)">
+  [hidden]="this.table.length === 0 || (dataSource ? dataSource.filteredData.length === 0 : false)"
+  class="card mt-2 w-100">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
-    [tableId]="tableId"
     [dataLength]="dataSource.filteredData.length"
-    [pageSizeOptions]="pageSizeOptions">
-    <table [dataSource]="dataSource" mat-table class="w-100">
+    [pageSizeOptions]="pageSizeOptions"
+    [tableId]="tableId">
+    <table [dataSource]="dataSource" class="w-100" mat-table>
       <ng-container matColumnDef="id">
         <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.ID' | translate}}</th>
         <td *matCellDef="let application" class="static-column-size" mat-cell>
@@ -63,7 +63,7 @@
       <ng-container matColumnDef="createdBy">
         <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.CREATED_BY' | translate}}</th>
         <td *matCellDef="let application" mat-cell>
-          {{application.createdBy.slice(application.createdBy.lastIndexOf('=')+1, application.createdBy.length)}}
+          {{application.createdBy.slice(application.createdBy.lastIndexOf('=') + 1, application.createdBy.length)}}
         </td>
       </ng-container>
       <ng-container matColumnDef="createdAt">

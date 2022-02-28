@@ -8,18 +8,14 @@ import { ResourceState, Task } from '@perun-web-apps/perun/openapi';
   styleUrls: ['./state-tab.component.scss'],
 })
 export class StateTabComponent implements OnChanges {
-  constructor() {}
-
   @Input()
   propagation: ResourceState[] = [];
-
   @Input()
   loading = false;
-
   datasources: MatTableDataSource<Task>[] = [];
   displayedColumns = ['id', 'service', 'status', 'scheduled', 'started', 'ended'];
 
-  getErrorCountStates(resourceStatus: ResourceState) {
+  getErrorCountStates(resourceStatus: ResourceState): number {
     let counter = 0;
     for (const task of resourceStatus.taskList) {
       if (task.status === 'ERROR' || task.status === 'GENERROR' || task.status === 'SENDERROR') {
@@ -29,7 +25,7 @@ export class StateTabComponent implements OnChanges {
     return counter;
   }
 
-  getDataSource() {
+  getDataSource(): void {
     this.datasources = [];
     for (const resourceState of this.propagation) {
       this.datasources.push(new MatTableDataSource(resourceState.taskList));

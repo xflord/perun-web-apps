@@ -21,15 +21,6 @@ import { ChangeEmailDialogComponent } from '@perun-web-apps/perun/dialogs';
 })
 export class UserOverviewComponent implements OnInit {
   @HostBinding('class.router-component') true;
-
-  constructor(
-    private userService: UsersManagerService,
-    private attributeService: AttributesManagerService,
-    private storeService: StoreService,
-    private route: ActivatedRoute,
-    private dialog: MatDialog
-  ) {}
-
   navItems: MenuItem[] = [];
   user: User;
   isServiceUser = false;
@@ -40,10 +31,18 @@ export class UserOverviewComponent implements OnInit {
   inMyProfile = false;
   preferredMail: Attribute;
 
-  ngOnInit() {
+  constructor(
+    private userService: UsersManagerService,
+    private attributeService: AttributesManagerService,
+    private storeService: StoreService,
+    private route: ActivatedRoute,
+    private dialog: MatDialog
+  ) {}
+
+  ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      if (params['userId'] !== undefined) {
-        this.userService.getUserById(params['userId']).subscribe((user) => {
+      if (params['userId']) {
+        this.userService.getUserById(params['userId'] as number).subscribe((user) => {
           this.user = user;
           this.isServiceUser = user.serviceUser;
           this.initNavItems();
@@ -65,7 +64,39 @@ export class UserOverviewComponent implements OnInit {
     });
   }
 
-  private initNavItems() {
+  changeEmail(): void {
+    const config = getDefaultDialogConfig();
+    config.width = '350px';
+    config.data = { userId: this.userID };
+
+    const dialogRef = this.dialog.open(ChangeEmailDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe((success) => {
+      if (success) {
+        this.attributeService
+          .getUserAttributeByName(this.userID, Urns.USER_DEF_PREFERRED_MAIL)
+          .subscribe((email) => {
+            this.preferredMail = email;
+            this.handleMailNotDefined();
+
+            this.mailDataSource = new MatTableDataSource<Attribute>([this.preferredMail]);
+          });
+      }
+    });
+  }
+
+  handleMailNotDefined(): void {
+    if (this.preferredMail === null || this.preferredMail === undefined) {
+      this.preferredMail = {
+        id: -1,
+        beanName: 'Attribute',
+        displayName: parseAttributeFriendlyName(Urns.USER_DEF_PREFERRED_MAIL.split(':').pop()),
+        value: new Object('-'),
+      };
+    }
+  }
+
+  private initNavItems(): void {
     this.navItems = [
       {
         cssIcon: 'perun-vo',
@@ -142,38 +173,6 @@ export class UserOverviewComponent implements OnInit {
         label: 'MENU_ITEMS.ADMIN.SETTINGS',
         style: 'user-btn',
       });
-    }
-  }
-
-  changeEmail() {
-    const config = getDefaultDialogConfig();
-    config.width = '350px';
-    config.data = { userId: this.userID };
-
-    const dialogRef = this.dialog.open(ChangeEmailDialogComponent, config);
-
-    dialogRef.afterClosed().subscribe((success) => {
-      if (success) {
-        this.attributeService
-          .getUserAttributeByName(this.userID, Urns.USER_DEF_PREFERRED_MAIL)
-          .subscribe((email) => {
-            this.preferredMail = email;
-            this.handleMailNotDefined();
-
-            this.mailDataSource = new MatTableDataSource<Attribute>([this.preferredMail]);
-          });
-      }
-    });
-  }
-
-  handleMailNotDefined() {
-    if (this.preferredMail === null || this.preferredMail === undefined) {
-      this.preferredMail = {
-        id: -1,
-        beanName: 'Attribute',
-        displayName: parseAttributeFriendlyName(Urns.USER_DEF_PREFERRED_MAIL.split(':').pop()),
-        value: Object('-'),
-      };
     }
   }
 }

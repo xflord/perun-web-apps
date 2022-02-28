@@ -21,6 +21,17 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 export class VoResourcesTagsComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
+  loading = false;
+  resourceTag: ResourceTag[] = [];
+  selection = new SelectionModel<ResourceTag>(true, []);
+  filterValue: string;
+  tableId = TABLE_VO_RESOURCES_TAGS;
+  displayedColumns: string[] = [];
+  createAuth: boolean;
+  deleteAuth: boolean;
+  editAuth: boolean;
+  private vo: Vo;
+
   constructor(
     private resourceManager: ResourcesManagerService,
     private dialog: MatDialog,
@@ -30,28 +41,14 @@ export class VoResourcesTagsComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  loading = false;
-  resourceTag: ResourceTag[] = [];
-  vo: Vo;
-
-  selection = new SelectionModel<ResourceTag>(true, []);
-
-  filterValue: string;
-  tableId = TABLE_VO_RESOURCES_TAGS;
-  displayedColumns = [];
-
-  createAuth: boolean;
-  deleteAuth: boolean;
-  editAuth: boolean;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.vo = this.entityStorageService.getEntity();
     this.setAuthRights();
     this.updateData();
   }
 
-  deleteTag() {
+  deleteTag(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = { tagsForDelete: this.selection.selected, theme: 'vo-theme' };
@@ -60,7 +57,7 @@ export class VoResourcesTagsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((success) => {
       if (success) {
-        this.translator.get('VO_DETAIL.RESOURCES.TAGS.DELETE_SUCCESS').subscribe((text) => {
+        this.translator.get('VO_DETAIL.RESOURCES.TAGS.DELETE_SUCCESS').subscribe((text: string) => {
           this.notificator.showSuccess(text);
         });
         this.updateData();
@@ -68,7 +65,7 @@ export class VoResourcesTagsComponent implements OnInit {
     });
   }
 
-  create() {
+  create(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = { voId: this.vo.id, theme: 'vo-theme' };
@@ -77,7 +74,7 @@ export class VoResourcesTagsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((success) => {
       if (success) {
-        this.translator.get('VO_DETAIL.RESOURCES.TAGS.CREATE_SUCCESS').subscribe((text) => {
+        this.translator.get('VO_DETAIL.RESOURCES.TAGS.CREATE_SUCCESS').subscribe((text: string) => {
           this.notificator.showSuccess(text);
         });
         this.updateData();
@@ -85,7 +82,7 @@ export class VoResourcesTagsComponent implements OnInit {
     });
   }
 
-  updateData() {
+  updateData(): void {
     this.loading = true;
     this.selection.clear();
     this.resourceManager.getAllResourcesTagsForVo(this.vo.id).subscribe((tags) => {
@@ -96,7 +93,11 @@ export class VoResourcesTagsComponent implements OnInit {
     });
   }
 
-  setAuthRights() {
+  applyFilter(filterValue: string): void {
+    this.filterValue = filterValue;
+  }
+
+  private setAuthRights(): void {
     this.displayedColumns = [];
 
     this.createAuth = this.authResolver.isAuthorized('createResourceTag_ResourceTag_Vo_policy', [
@@ -114,9 +115,5 @@ export class VoResourcesTagsComponent implements OnInit {
     if (this.editAuth) {
       this.displayedColumns.push('edit');
     }
-  }
-
-  applyFilter(filterValue: string) {
-    this.filterValue = filterValue;
   }
 }

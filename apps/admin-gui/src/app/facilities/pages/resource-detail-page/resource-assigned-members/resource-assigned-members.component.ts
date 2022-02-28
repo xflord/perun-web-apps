@@ -10,13 +10,6 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
   styleUrls: ['./resource-assigned-members.component.scss'],
 })
 export class ResourceAssignedMembersComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
-    private resourceService: ResourcesManagerService,
-    private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
-  ) {}
-
   loading = false;
   filterValue = '';
   tableId = TABLE_RESOURCE_MEMBERS;
@@ -26,13 +19,20 @@ export class ResourceAssignedMembersComponent implements OnInit {
 
   routeAuth: boolean;
 
+  constructor(
+    private route: ActivatedRoute,
+    private resourceService: ResourcesManagerService,
+    private authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
+
   ngOnInit(): void {
     this.loading = true;
     this.resource = this.entityStorageService.getEntity();
     this.refreshTable();
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.resourceService.getAssignedRichMembers(this.resource.id).subscribe((members) => {
       this.members = members;
@@ -41,7 +41,7 @@ export class ResourceAssignedMembersComponent implements OnInit {
     });
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     if (this.members.length !== 0) {
       this.routeAuth = this.authResolver.isAuthorized('getMemberById_int_policy', [
         this.members[0],
@@ -49,7 +49,7 @@ export class ResourceAssignedMembersComponent implements OnInit {
     }
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

@@ -9,7 +9,7 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <table mat-table [dataSource]="dataSource">
+          <table [dataSource]="dataSource" mat-table>
             <ng-container matColumnDef="attName">
               <th *matHeaderCellDef mat-header-cell></th>
               <td *matCellDef="let attribute" class="font-weight-bold" mat-cell>
@@ -37,7 +37,7 @@
       <app-member-overview-groups [member]="member" [vo]="vo"></app-member-overview-groups>
     </div>
     <div class="align-cards">
-      <mat-card class="mat-elevation-z3" *ngIf="pwdResetAuth">
+      <mat-card *ngIf="pwdResetAuth" class="mat-elevation-z3">
         <mat-card-header>
           <mat-card-title>
             <h1 class="page-subtitle">{{'MEMBER_DETAIL.OVERVIEW.RESET_PASSWORD' | translate}}</h1>
@@ -45,14 +45,14 @@
         </mat-card-header>
         <mat-card-content class="column-center">
           <div
-            [matTooltip]="'MEMBER_DETAIL.OVERVIEW.RESET_DISABLED' | translate"
-            [matTooltipDisabled]="logins.length>0">
+            [matTooltipDisabled]="logins.length>0"
+            [matTooltip]="'MEMBER_DETAIL.OVERVIEW.RESET_DISABLED' | translate">
             <button
-              mat-flat-button
+              (click)="requestPwdReset()"
               class="action-button"
               color="accent"
-              (click)="requestPwdReset()"
-              [disabled]="!logins.length">
+              [disabled]="!logins.length"
+              mat-flat-button>
               {{'MEMBER_DETAIL.OVERVIEW.SEND_REQUEST'|translate}}
             </button>
           </div>
@@ -71,11 +71,11 @@
           <mat-card-content *ngIf="sponsors.length !== 0">
             <h6 class="d-flex">
               {{'MEMBER_DETAIL.OVERVIEW.SPONSORS' | translate}}:
-              <button class="ml-auto mt-n2" (click)="changeSponsors()" mat-icon-button>
+              <button (click)="changeSponsors()" class="ml-auto mt-n2" mat-icon-button>
                 <mat-icon>edit</mat-icon>
               </button>
             </h6>
-            <table class="w-100" mat-table [dataSource]="sponsorsDataSource">
+            <table [dataSource]="sponsorsDataSource" class="w-100" mat-table>
               <ng-container matColumnDef="sponsors">
                 <th *matHeaderCellDef mat-header-cell>
                   {{'MEMBER_DETAIL.OVERVIEW.SPONSOR_NAME' | translate}}

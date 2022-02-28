@@ -27,6 +27,29 @@ import {
   styleUrls: ['./notification-list.component.scss'],
 })
 export class NotificationListComponent implements OnChanges, AfterViewInit {
+  @Input()
+  applicationMails: ApplicationMail[];
+  @Input()
+  voId: number;
+  @Input()
+  groupId: number;
+  @Input()
+  displayedColumns: string[] = ['select', 'id', 'mailType', 'appType', 'send'];
+  @Input()
+  disableSend = false;
+  @Input()
+  selection = new SelectionModel<ApplicationMail>(true, []);
+  @Input()
+  tableId: string;
+  @Input()
+  theme: string;
+  @Output()
+  selectionChange = new EventEmitter<SelectionModel<ApplicationMail>>();
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  dataSource: MatTableDataSource<ApplicationMail>;
+  private sort: MatSort;
+
   constructor(
     private registrarService: RegistrarManagerService,
     private translate: TranslateService,
@@ -36,44 +59,12 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
     private tableCheckbox: TableCheckbox
   ) {}
 
-  @Input()
-  applicationMails: ApplicationMail[];
-
-  @Input()
-  voId: number;
-
-  @Input()
-  groupId: number;
-
-  @Input()
-  displayedColumns: string[] = ['select', 'id', 'mailType', 'appType', 'send'];
-
-  @Input()
-  disableSend = false;
-
-  dataSource: MatTableDataSource<ApplicationMail>;
-
-  @Input()
-  selection = new SelectionModel<ApplicationMail>(true, []);
-  @Input()
-  tableId: string;
-  @Input()
-  theme: string;
-
-  @Output()
-  selectionChange = new EventEmitter<SelectionModel<ApplicationMail>>();
-
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSource();
   }
 
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-
-  private sort: MatSort;
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
-  ngOnChanges() {
+  ngOnChanges(): void {
     if (!this.authResolver.isPerunAdminOrObserver()) {
       this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
@@ -85,7 +76,7 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
     this.dataSource.paginator = this.child.paginator;
   }
 
-  isAllSelected() {
+  isAllSelected(): boolean {
     return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
       '',
@@ -95,7 +86,7 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
     );
   }
 
-  masterToggle() {
+  masterToggle(): void {
     this.tableCheckbox.masterToggle(
       this.isAllSelected(),
       this.selection,
@@ -115,7 +106,7 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-  changeSending(applicationMail: ApplicationMail) {
+  changeSending(applicationMail: ApplicationMail): void {
     if (applicationMail.send) {
       this.registrarService
         .setSendingEnabled({ mails: [applicationMail], enabled: false })
@@ -131,7 +122,7 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  openApplicationMailDetail(applicationMail: ApplicationMail) {
+  openApplicationMailDetail(applicationMail: ApplicationMail): void {
     const config = getDefaultDialogConfig();
     config.width = '1400px';
     config.height = '700px';
@@ -146,9 +137,11 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
     const dialog = this.dialog.open(AddEditNotificationDialogComponent, config);
     dialog.afterClosed().subscribe((success) => {
       if (success) {
-        this.translate.get('VO_DETAIL.SETTINGS.NOTIFICATIONS.EDIT_SUCCESS').subscribe((text) => {
-          this.notificator.showSuccess(text);
-        });
+        this.translate
+          .get('VO_DETAIL.SETTINGS.NOTIFICATIONS.EDIT_SUCCESS')
+          .subscribe((text: string) => {
+            this.notificator.showSuccess(text);
+          });
         this.selection.clear();
         this.selectionChange.emit(this.selection);
         this.update();
@@ -167,14 +160,14 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
     } else {
       this.translate
         .get('VO_DETAIL.SETTINGS.NOTIFICATIONS.MAIL_TYPE_' + applicationMail.mailType)
-        .subscribe((text) => {
+        .subscribe((text: string) => {
           value = text;
         });
     }
     return value;
   }
 
-  update() {
+  update(): void {
     if (this.groupId) {
       this.registrarService.getApplicationMailsForGroup(this.groupId).subscribe((mails) => {
         this.updateTable(mails);
@@ -186,18 +179,18 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  toggle(row: any) {
+  toggle(row: ApplicationMail): void {
     this.selection.toggle(row);
     this.selectionChange.emit(this.selection);
   }
 
-  updateTable(mails: ApplicationMail[]) {
+  updateTable(mails: ApplicationMail[]): void {
     this.applicationMails = mails;
     this.dataSource = new MatTableDataSource<ApplicationMail>(this.applicationMails);
     this.setDataSource();
   }
 
-  private setDataSource() {
+  private setDataSource(): void {
     if (this.dataSource) {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;

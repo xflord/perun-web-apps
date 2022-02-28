@@ -17,41 +17,41 @@
 
     <div class="card w-100 h-100">
       <ngx-graph
-        class="chart-container"
         [links]="hierarchialGraph.links"
         [nodes]="hierarchialGraph.nodes"
+        [view]="[innerWidth, innerHeight]"
         [curve]="curve"
         [draggingEnabled]="false"
         [zoomToFit$]="zoomToFit$"
-        [view]="[innerWidth, innerHeight]">
+        class="chart-container">
         <ng-template #defsTemplate>
           <svg:marker
             id="arrow"
-            viewBox="0 -5 10 10"
+            markerHeight="4"
             refX="8"
             refY="0"
             markerWidth="4"
-            markerHeight="4"
-            orient="auto">
-            <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
+            orient="auto"
+            viewBox="0 -5 10 10">
+            <svg:path class="arrow-head" d="M0,-5L10,0L0,5" />
           </svg:marker>
         </ng-template>
 
         <ng-template #nodeTemplate let-node>
           <svg:g
+            [tooltipTitle]="node.tooltip"
             class="node"
-            ngx-tooltip
             [tooltipPlacement]="'top'"
             [tooltipType]="'tooltip'"
-            [tooltipTitle]="node.tooltip">
+            ngx-tooltip>
             <svg:rect
-              [attr.width]="node.dimension.width"
+              [attr.fill]="node.color"
               [attr.height]="node.dimension.height"
-              [attr.fill]="node.color" />
+              [attr.width]="node.dimension.width" />
             <svg:text
-              alignment-baseline="central"
+              [attr.y]="node.dimension.height / 2"
               [attr.x]="10"
-              [attr.y]="node.dimension.height / 2">
+              alignment-baseline="central">
               {{node.label}}
             </svg:text>
           </svg:g>
@@ -59,9 +59,9 @@
 
         <ng-template #linkTemplate let-link>
           <svg:g class="edge">
-            <svg:path class="line" stroke-width="2" marker-end="url(#arrow)"></svg:path>
+            <svg:path class="line" marker-end="url(#arrow)" stroke-width="2"></svg:path>
             <svg:text class="edge-label" text-anchor="end">
-              <textPath style="fill: #000;" [attr.href]="'#' + link.id" startOffset="60%">
+              <textPath [attr.href]="'#' + link.id" startOffset="60%" style="fill: #000;">
                 {{link.label}}
               </textPath>
             </svg:text>

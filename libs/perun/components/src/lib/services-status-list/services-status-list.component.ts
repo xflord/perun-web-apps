@@ -147,8 +147,7 @@ export class ServicesStatusListComponent implements OnChanges, AfterViewInit {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        ServicesStatusListComponent.getDataForColumn,
-        this
+        ServicesStatusListComponent.getDataForColumn
       ),
       format
     );
@@ -161,11 +160,10 @@ export class ServicesStatusListComponent implements OnChanges, AfterViewInit {
           data,
           filter,
           this.displayedColumns,
-          ServicesStatusListComponent.getDataForColumn,
-          this
+          ServicesStatusListComponent.getDataForColumn
         );
       this.dataSource.sortData = (data: ServiceState[], sort: MatSort): ServiceState[] =>
-        customDataSourceSort(data, sort, ServicesStatusListComponent.getSortDataForColumn, this);
+        customDataSourceSort(data, sort, ServicesStatusListComponent.getSortDataForColumn);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }

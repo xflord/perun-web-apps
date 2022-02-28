@@ -24,16 +24,6 @@ export interface AddMemberGroupDialogData {
   styleUrls: ['./add-member-group-dialog.component.scss'],
 })
 export class AddMemberGroupDialogComponent implements OnInit {
-  constructor(
-    private dialogRef: MatDialogRef<AddMemberGroupDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: AddMemberGroupDialogData,
-    private groupManager: GroupsManagerService,
-    private memberManager: MembersManagerService,
-    private notificator: NotificatorService,
-    private translate: TranslateService,
-    private authResolver: GuiAuthResolver
-  ) {}
-
   theme: string;
   loading = false;
 
@@ -52,6 +42,16 @@ export class AddMemberGroupDialogComponent implements OnInit {
   ];
 
   filterValue = '';
+
+  constructor(
+    private dialogRef: MatDialogRef<AddMemberGroupDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: AddMemberGroupDialogData,
+    private groupManager: GroupsManagerService,
+    private memberManager: MembersManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private authResolver: GuiAuthResolver
+  ) {}
 
   ngOnInit(): void {
     this.theme = this.data.theme;
@@ -74,24 +74,26 @@ export class AddMemberGroupDialogComponent implements OnInit {
     });
   }
 
-  onAdd() {
+  onAdd(): void {
     const groupIds = this.selection.selected.map((group) => group.id);
     this.loading = true;
 
     this.groupManager.addMember(groupIds, this.member.id).subscribe(
       () => {
-        this.notificator.showSuccess(this.translate.instant('DIALOGS.ADD_MEMBER_GROUP.SUCCESS'));
+        this.notificator.showSuccess(
+          this.translate.instant('DIALOGS.ADD_MEMBER_GROUP.SUCCESS') as string
+        );
         this.dialogRef.close(true);
       },
       () => (this.loading = false)
     );
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

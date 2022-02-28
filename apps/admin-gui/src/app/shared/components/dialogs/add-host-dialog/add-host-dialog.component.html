@@ -1,19 +1,19 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.ADD_HOST.TITLE' | translate}}</h1>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <div *ngIf="!loading" mat-dialog-content class="dialog-container">
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
     <mat-form-field>
       <textarea
         class="md-textarea form-control"
         id="facilityAddHost"
         name="facilityAddHost"
-        rows="8"
-        cols="50"
-        matInput
-        required
+        [formControl]="hostsCtrl"
         [placeholder]="'DIALOGS.ADD_HOST.SUBTITLE' | translate"
+        cols="50"
+        required
+        matInput
         perunWebAppsAutoFocus
-        [formControl]="hostsCtrl">
+        rows="8">
       </textarea>
       <mat-error *ngIf="this.hostsCtrl.hasError('required')">
         {{'DIALOGS.ADD_HOST.EMPTY_MESSAGE' | translate}}
@@ -29,15 +29,15 @@
     >
   </div>
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.ADD_HOST.CANCEL' | translate}}
     </button>
     <button
-      mat-flat-button
+      (click)="onAdd()"
       class="ml-2"
       color="accent"
       [disabled]="hostsCtrl.invalid || loading"
-      (click)="onAdd()">
+      mat-flat-button>
       {{'DIALOGS.ADD_HOST.ADD' | translate}}
     </button>
   </div>

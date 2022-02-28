@@ -19,13 +19,7 @@ import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
   styleUrls: ['./security-teams-list.component.scss'],
 })
 export class SecurityTeamsListComponent implements AfterViewInit, OnChanges {
-  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
-
-  @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
-    this.sort = ms;
-    this.setDataSource();
-  }
-
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
   @Input()
   securityTeams: SecurityTeam[] = [];
   @Input()
@@ -36,25 +30,18 @@ export class SecurityTeamsListComponent implements AfterViewInit, OnChanges {
   tableId: string;
   @Input()
   displayedColumns: string[] = ['select', 'id', 'name', 'description'];
-
+  dataSource: MatTableDataSource<SecurityTeam>;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   private sort: MatSort;
 
-  dataSource: MatTableDataSource<SecurityTeam>;
+  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
 
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
-  ngOnChanges() {
-    if (!this.authResolver.isPerunAdminOrObserver()) {
-      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
-    }
-    this.dataSource = new MatTableDataSource<SecurityTeam>(this.securityTeams);
+  @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
+    this.sort = ms;
     this.setDataSource();
-    this.dataSource.filter = this.filterValue;
   }
 
-  getDataForColumn(data: SecurityTeam, column: string): string {
+  static getDataForColumn(data: SecurityTeam, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -67,37 +54,44 @@ export class SecurityTeamsListComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  exportData(format: string) {
+  ngOnChanges(): void {
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
+    }
+    this.dataSource = new MatTableDataSource<SecurityTeam>(this.securityTeams);
+    this.setDataSource();
+    this.dataSource.filter = this.filterValue;
+  }
+
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
-        this
+        SecurityTeamsListComponent.getDataForColumn
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: SecurityTeam, filter: string) =>
+      this.dataSource.filterPredicate = (data: SecurityTeam, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn,
-          this
+          SecurityTeamsListComponent.getDataForColumn
         );
-      this.dataSource.sortData = (data: Vo[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: Vo[], sort: MatSort): Vo[] =>
+        customDataSourceSort(data, sort, SecurityTeamsListComponent.getDataForColumn);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
+  isAllSelected(): boolean {
     return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
       this.filterValue,
@@ -108,7 +102,7 @@ export class SecurityTeamsListComponent implements AfterViewInit, OnChanges {
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
+  masterToggle(): void {
     this.tableCheckbox.masterToggle(
       this.isAllSelected(),
       this.selection,

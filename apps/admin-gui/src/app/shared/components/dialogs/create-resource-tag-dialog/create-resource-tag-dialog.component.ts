@@ -13,25 +13,25 @@ export interface CreateResourceTagDialogDialogData {
   styleUrls: ['./create-resource-tag-dialog.component.scss'],
 })
 export class CreateResourceTagDialogComponent implements OnInit {
+  name = '';
+  theme: string;
+  loading = false;
+
   constructor(
     private dialogRef: MatDialogRef<CreateResourceTagDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: CreateResourceTagDialogDialogData,
     private resourceManager: ResourcesManagerService
   ) {}
 
-  name = '';
-  theme: string;
-  loading = false;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.name !== '') {
       this.loading = true;
       this.resourceManager.createResourceTagWithTagName(this.name, this.data.voId).subscribe(

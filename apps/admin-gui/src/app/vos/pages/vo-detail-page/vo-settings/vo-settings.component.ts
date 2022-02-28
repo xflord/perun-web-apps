@@ -10,6 +10,10 @@ import { fadeIn } from '@perun-web-apps/perun/animations';
 })
 export class VoSettingsComponent implements OnInit {
   @HostBinding('class.router-component') true;
+  voId: number;
+  private backButtonRegex = new RegExp('/organizations/\\d+/settings/\\w+$');
+  private currentUrl: string;
+  private backButtonDisplayed = false;
 
   constructor(private route: ActivatedRoute, private router: Router) {
     this.currentUrl = router.url;
@@ -24,15 +28,9 @@ export class VoSettingsComponent implements OnInit {
     });
   }
 
-  backButtonRegex = new RegExp('/organizations/\\d+/settings/\\w+$');
-  currentUrl;
-  backButtonDisplayed = false;
-
-  voId: number;
-
   ngOnInit(): void {
     this.route.parent.params.subscribe((parentParams) => {
-      this.voId = parentParams['voId'];
+      this.voId = parentParams['voId'] as number;
     });
   }
 }

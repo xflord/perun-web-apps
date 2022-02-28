@@ -19,6 +19,17 @@ import { RemoveExtSourceDialogComponent } from '../../../../../shared/components
   styleUrls: ['./group-settings-extsources.component.scss'],
 })
 export class GroupSettingsExtsourcesComponent implements OnInit {
+  group: Group;
+  extSources: ExtSource[] = [];
+  selection = new SelectionModel<ExtSource>(true, []);
+  loading: boolean;
+  filterValue = '';
+  successMessage: string;
+  tableId = TABLE_GROUP_EXTSOURCES_SETTINGS;
+  displayedColumns: string[] = [];
+  addAuth: boolean;
+  removeAuth: boolean;
+
   constructor(
     private extSourceService: ExtSourcesManagerService,
     private dialog: MatDialog,
@@ -29,20 +40,8 @@ export class GroupSettingsExtsourcesComponent implements OnInit {
   ) {
     this.translate
       .get('GROUP_DETAIL.SETTINGS.EXT_SOURCES.SUCCESS_REMOVED')
-      .subscribe((result) => (this.successMessage = result));
+      .subscribe((result: string) => (this.successMessage = result));
   }
-
-  group: Group;
-  extSources: ExtSource[] = [];
-  selection = new SelectionModel<ExtSource>(true, []);
-  loading: boolean;
-  filterValue = '';
-  successMessage: string;
-  tableId = TABLE_GROUP_EXTSOURCES_SETTINGS;
-  displayedColumns = [];
-
-  addAuth: boolean;
-  removeAuth: boolean;
 
   ngOnInit(): void {
     this.group = this.entityStorageService.getEntity();
@@ -50,7 +49,7 @@ export class GroupSettingsExtsourcesComponent implements OnInit {
     this.refreshTable();
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     this.addAuth = this.authResolver.isAuthorized('addExtSource_Group_ExtSource_policy', [
       this.group,
     ]);
@@ -62,7 +61,7 @@ export class GroupSettingsExtsourcesComponent implements OnInit {
       : ['id', 'name', 'type'];
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.extSourceService.getGroupExtSources(this.group.id).subscribe((sources) => {
       this.extSources = sources;
@@ -71,11 +70,11 @@ export class GroupSettingsExtsourcesComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  onAdd() {
+  onAdd(): void {
     const config = getDefaultDialogConfig();
     config.width = '1000px';
     config.data = {
@@ -93,7 +92,7 @@ export class GroupSettingsExtsourcesComponent implements OnInit {
     });
   }
 
-  onRemove() {
+  onRemove(): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {

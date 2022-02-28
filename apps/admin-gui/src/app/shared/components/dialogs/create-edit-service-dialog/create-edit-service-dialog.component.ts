@@ -9,20 +9,13 @@ export interface CreateServiceDialogData {
   theme: string;
   service: Service;
 }
+
 @Component({
   selector: 'app-create-service-dialog',
   templateUrl: './create-edit-service-dialog.component.html',
   styleUrls: ['./create-edit-service-dialog.component.scss'],
 })
 export class CreateEditServiceDialogComponent implements OnInit {
-  constructor(
-    private dialogRef: MatDialogRef<CreateEditServiceDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: CreateServiceDialogData,
-    private serviceManager: ServicesManagerService,
-    private notificator: NotificatorService,
-    private translate: TranslateService
-  ) {}
-
   theme: string;
   loading = false;
 
@@ -38,6 +31,14 @@ export class CreateEditServiceDialogComponent implements OnInit {
   title: string;
   buttonText: string;
 
+  constructor(
+    private dialogRef: MatDialogRef<CreateEditServiceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: CreateServiceDialogData,
+    private serviceManager: ServicesManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService
+  ) {}
+
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.asEdit = this.data.service !== undefined;
@@ -50,25 +51,25 @@ export class CreateEditServiceDialogComponent implements OnInit {
       this.pathControl.setValue(this.data.service.script);
       this.status = this.data.service.enabled;
 
-      this.title = this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.EDIT_TITLE');
-      this.buttonText = this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.EDIT');
+      this.title = this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.EDIT_TITLE') as string;
+      this.buttonText = this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.EDIT') as string;
     } else {
-      this.title = this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.CREATE_TITLE');
-      this.buttonText = this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.CREATE');
+      this.title = this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.CREATE_TITLE') as string;
+      this.buttonText = this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.CREATE') as string;
     }
   }
 
-  onCreate() {
+  onCreate(): void {
     this.loading = true;
     this.serviceManager
       .createServiceWithService({
         service: {
-          name: this.nameControl.value,
+          name: this.nameControl.value as string,
           description: this.description,
-          delay: this.delayControl.value,
-          recurrence: this.recurrenceControl.value,
+          delay: this.delayControl.value as number,
+          recurrence: this.recurrenceControl.value as number,
           enabled: this.status,
-          script: this.pathControl.value,
+          script: this.pathControl.value as string,
           useExpiredMembers: false,
           id: 0,
           beanName: '',
@@ -76,24 +77,24 @@ export class CreateEditServiceDialogComponent implements OnInit {
       })
       .subscribe(() => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.CREATE_SUCCESS')
+          this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.CREATE_SUCCESS') as string
         );
         this.dialogRef.close(true);
         this.loading = false;
       });
   }
 
-  onEdit() {
+  onEdit(): void {
     this.loading = true;
     this.serviceManager
       .updateService({
         service: {
-          name: this.nameControl.value,
+          name: this.nameControl.value as string,
           description: this.description,
-          delay: this.delayControl.value,
-          recurrence: this.recurrenceControl.value,
+          delay: this.delayControl.value as number,
+          recurrence: this.recurrenceControl.value as number,
           enabled: this.status,
-          script: this.pathControl.value,
+          script: this.pathControl.value as string,
           useExpiredMembers: this.data.service.useExpiredMembers,
           id: this.data.service.id,
           beanName: this.data.service.beanName,
@@ -101,19 +102,19 @@ export class CreateEditServiceDialogComponent implements OnInit {
       })
       .subscribe(() => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.EDIT_SUCCESS')
+          this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.EDIT_SUCCESS') as string
         );
         this.dialogRef.close(true);
         this.loading = false;
       });
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  makePath() {
-    const path = './'.concat(this.nameControl.value);
+  makePath(): void {
+    const path = './'.concat(this.nameControl.value as string);
     this.pathControl.setValue(path);
   }
 }

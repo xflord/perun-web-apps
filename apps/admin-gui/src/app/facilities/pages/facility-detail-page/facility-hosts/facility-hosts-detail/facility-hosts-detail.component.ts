@@ -21,13 +21,6 @@ import { CreateAttributeDialogComponent } from '../../../../../shared/components
   styleUrls: ['./facility-hosts-detail.component.scss'],
 })
 export class FacilityHostsDetailComponent implements OnInit {
-  constructor(
-    private dialog: MatDialog,
-    private attributesManager: AttributesManagerService,
-    private facilityManager: FacilitiesManagerService,
-    private route: ActivatedRoute
-  ) {}
-
   @ViewChild('list')
   list: AttributesListComponent;
 
@@ -38,9 +31,16 @@ export class FacilityHostsDetailComponent implements OnInit {
   loading: boolean;
   tableId = TABLE_ATTRIBUTES_SETTINGS;
 
+  constructor(
+    private dialog: MatDialog,
+    private attributesManager: AttributesManagerService,
+    private facilityManager: FacilitiesManagerService,
+    private route: ActivatedRoute
+  ) {}
+
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.hostId = params['hostId'];
+      this.hostId = params['hostId'] as number;
       this.facilityManager.getHostById(this.hostId).subscribe((host) => {
         this.host = host;
       });
@@ -48,7 +48,7 @@ export class FacilityHostsDetailComponent implements OnInit {
     });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.attributesManager.getHostAttributes(this.hostId).subscribe((attributes) => {
       this.attributes = filterCoreAttributes(attributes);
@@ -57,7 +57,7 @@ export class FacilityHostsDetailComponent implements OnInit {
     });
   }
 
-  onSave() {
+  onSave(): void {
     this.list.updateMapAttributes();
 
     const config = getDefaultDialogConfig();
@@ -77,7 +77,7 @@ export class FacilityHostsDetailComponent implements OnInit {
     });
   }
 
-  addAttribute() {
+  addAttribute(): void {
     const config = getDefaultDialogConfig();
     config.width = '1050px';
     config.data = {
@@ -96,7 +96,7 @@ export class FacilityHostsDetailComponent implements OnInit {
     });
   }
 
-  removeAttribute() {
+  removeAttribute(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {

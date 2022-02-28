@@ -4,25 +4,25 @@
       {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.TITLE' | translate}} :
       {{this.applicationFormItem.shortname}}
     </h1>
-    <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-    <div *ngIf="!loading" mat-dialog-content class="dialog-container">
+    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+    <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
       <mat-tab-group color="primary">
         <mat-tab label="{{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.BASIC_SETTINGS' | translate}}">
           <app-edit-application-form-item-line
-            [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SHORT_NAME' | translate"
-            [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SHORT_NAME_DESCRIPTION' | translate">
+            [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SHORT_NAME_DESCRIPTION' | translate"
+            [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SHORT_NAME' | translate">
             <mat-form-field class="w-100">
-              <input matInput [(ngModel)]="applicationFormItem.shortname" />
+              <input [(ngModel)]="applicationFormItem.shortname" matInput />
             </mat-form-field>
           </app-edit-application-form-item-line>
           <app-edit-application-form-item-line
-            [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.INPUT_WIDGET' | translate"
-            [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.INPUT_WIDGET_DESCRIPTION' | translate">
+            [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.INPUT_WIDGET_DESCRIPTION' | translate"
+            [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.INPUT_WIDGET' | translate">
             {{applicationFormItem.type | applicationFormItemType}}
           </app-edit-application-form-item-line>
           <app-edit-application-form-item-line
-            [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DISPLAY_ON_APPLICATION' | translate"
-            [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DISPLAY_ON_APPLICATION_DESCRIPTION' | translate">
+            [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DISPLAY_ON_APPLICATION_DESCRIPTION' | translate"
+            [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DISPLAY_ON_APPLICATION' | translate">
             <section>
               <mat-checkbox
                 [ngModel]="this.applicationFormItem.applicationTypes.includes('INITIAL')"
@@ -31,8 +31,8 @@
                 {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.INITIAL' | translate}}
               </mat-checkbox>
               <mat-checkbox
-                [ngModel]="this.applicationFormItem.applicationTypes.includes('EXTENSION')"
-                (change)="onChangingType('EXTENSION')">
+                (change)="onChangingType('EXTENSION')"
+                [ngModel]="this.applicationFormItem.applicationTypes.includes('EXTENSION')">
                 {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.EXTENSION' | translate}}
               </mat-checkbox>
             </section>
@@ -42,50 +42,50 @@
             *ngIf="isApplicationFormItemOfType(['TEXTFIELD', 'USERNAME', 'VALIDATED_EMAIL', 'PASSWORD', 'TEXTAREA',
                                                      'TIMEZONE', 'CHECKBOX', 'RADIO', 'COMBOBOX', 'SELECTIONBOX'])">
             <app-edit-application-form-item-line
-              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REQUIRED' | translate"
-              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REQUIRED_DESCRIPTION' | translate">
+              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REQUIRED_DESCRIPTION' | translate"
+              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REQUIRED' | translate">
               <section>
                 <mat-checkbox [(ngModel)]="this.applicationFormItem.required"></mat-checkbox>
               </section>
             </app-edit-application-form-item-line>
             <div *ngIf="typesWithUpdatable.indexOf(this.applicationFormItem.type) > -1">
               <app-edit-application-form-item-line
-                [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.UPDATABLE' | translate"
-                [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.UPDATABLE_DESCRIPTION' | translate">
+                [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.UPDATABLE_DESCRIPTION' | translate"
+                [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.UPDATABLE' | translate">
                 <section>
                   <mat-checkbox [(ngModel)]="this.applicationFormItem.updatable"></mat-checkbox>
                 </section>
               </app-edit-application-form-item-line>
             </div>
             <app-edit-application-form-item-line
-              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SOURCE_ATTRIBUTE' | translate"
-              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SOURCE_ATTRIBUTE_DESCRIPTION' | translate">
+              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SOURCE_ATTRIBUTE_DESCRIPTION' | translate"
+              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SOURCE_ATTRIBUTE' | translate">
               <div class="w-100">
                 <perun-web-apps-selection-item-search-select
                   [attributes]="attributeDefinitions"
                   [selectedAttribute]="applicationFormItem.perunSourceAttribute"
+                  (itemSelected)="applicationFormItem.perunSourceAttribute = $event.value"
                   [asGroup]="!!data.group"
-                  [type]="itemType.SOURCE"
-                  (itemSelected)="applicationFormItem.perunSourceAttribute = $event.value">
+                  [type]="itemType.SOURCE">
                 </perun-web-apps-selection-item-search-select>
               </div>
             </app-edit-application-form-item-line>
             <app-edit-application-form-item-line
-              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DESTINATION_ATTRIBUTE' | translate"
-              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DESTINATION_ATTRIBUTE_DESCRIPTION' | translate">
+              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DESTINATION_ATTRIBUTE_DESCRIPTION' | translate"
+              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DESTINATION_ATTRIBUTE' | translate">
               <div class="w-100">
                 <perun-web-apps-selection-item-search-select
                   [attributes]="attributeDefinitions"
                   [selectedAttribute]="applicationFormItem.perunDestinationAttribute"
+                  (itemSelected)="applicationFormItem.perunDestinationAttribute = $event.value"
                   [asGroup]="!!data.group"
-                  [type]="itemType.DESTINATION"
-                  (itemSelected)="applicationFormItem.perunDestinationAttribute = $event.value">
+                  [type]="itemType.DESTINATION">
                 </perun-web-apps-selection-item-search-select>
               </div>
             </app-edit-application-form-item-line>
             <app-edit-application-form-item-line
-              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.FEDERATION_ATTRIBUTE' | translate"
-              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.FEDERATION_ATTRIBUTE_DESCRIPTION' | translate">
+              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.FEDERATION_ATTRIBUTE_DESCRIPTION' | translate"
+              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.FEDERATION_ATTRIBUTE' | translate">
               <div class="w-100">
                 <perun-web-apps-selection-item-search-select
                   [selectedAttribute]="applicationFormItem.federationAttribute"
@@ -96,7 +96,7 @@
               </div>
               <div *ngIf="federationAttributeDN === ' -- custom value -- '" class="w-100">
                 <mat-form-field class="w-100">
-                  <input matInput [(ngModel)]="applicationFormItem.federationAttribute" />
+                  <input [(ngModel)]="applicationFormItem.federationAttribute" matInput />
                 </mat-form-field>
               </div>
             </app-edit-application-form-item-line>
@@ -104,18 +104,18 @@
           <div
             *ngIf="isApplicationFormItemOfType(['TEXTFIELD', 'USERNAME', 'PASSWORD', 'TEXTAREA', 'CHECKBOX', 'RADIO', 'COMBOBOX', 'SELECTIONBOX'])">
             <app-edit-application-form-item-line
-              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REGEX' | translate"
-              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REGEX_DESCRIPTION' | translate">
+              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REGEX_DESCRIPTION' | translate"
+              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REGEX' | translate">
               <mat-form-field class="w-100">
-                <input matInput [(ngModel)]="applicationFormItem.regex" />
+                <input [(ngModel)]="applicationFormItem.regex" matInput />
               </mat-form-field>
             </app-edit-application-form-item-line>
           </div>
           <!-- Disabled part -->
           <div *ngIf="typesWithDisabled.indexOf(this.applicationFormItem.type) > -1">
             <app-edit-application-form-item-line
-              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DISABLED' | translate"
-              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DISABLED_DESCRIPTION' | translate">
+              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DISABLED_DESCRIPTION' | translate"
+              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DISABLED' | translate">
               <mat-form-field class="w-100">
                 <mat-select [(value)]="applicationFormItem.disabled" disableOptionCentering>
                   <mat-option *ngFor="let value of disabledValues" [value]="value">
@@ -125,8 +125,8 @@
               </mat-form-field>
             </app-edit-application-form-item-line>
             <app-edit-application-form-item-line
-              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DISABLED_DEPENDENCY' | translate"
-              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DISABLED_DEPENDENCY_DESCRIPTION' | translate">
+              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DISABLED_DEPENDENCY_DESCRIPTION' | translate"
+              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DISABLED_DEPENDENCY' | translate">
               <div class="w-100">
                 <perun-web-apps-app-form-item-search-select
                   *ngIf="this.disabledDependencyItem !== null"
@@ -139,8 +139,8 @@
           </div>
           <!-- Hidden part -->
           <app-edit-application-form-item-line
-            [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.HIDDEN' | translate"
-            [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.HIDDEN_DESCRIPTION' | translate">
+            [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.HIDDEN_DESCRIPTION' | translate"
+            [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.HIDDEN' | translate">
             <mat-form-field class="w-100">
               <mat-select [(value)]="applicationFormItem.hidden" disableOptionCentering>
                 <mat-option *ngFor="let value of hiddenValues" [value]="value">
@@ -150,8 +150,8 @@
             </mat-form-field>
           </app-edit-application-form-item-line>
           <app-edit-application-form-item-line
-            [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.HIDDEN_DEPENDENCY' | translate"
-            [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.HIDDEN_DEPENDENCY_DESCRIPTION' | translate">
+            [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.HIDDEN_DEPENDENCY_DESCRIPTION' | translate"
+            [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.HIDDEN_DEPENDENCY' | translate">
             <div class="w-100">
               <perun-web-apps-app-form-item-search-select
                 *ngIf="this.hiddenDependencyItem !== null"
@@ -169,13 +169,13 @@
           label="{{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LANGUAGE_'+lang | uppercase | translate}}">
           <div *ngIf="isApplicationFormItemOfType(['HEADING', 'HTML_COMMENT'])">
             <app-edit-application-form-item-line
-              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.CONTENT' | translate"
-              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.CONTENT_DESCRIPTION' | translate">
+              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.CONTENT_DESCRIPTION' | translate"
+              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.CONTENT' | translate">
               <mat-form-field class="w-100">
                 <textarea
                   [cdkTextareaAutosize]="true"
-                  matInput
-                  [(ngModel)]="applicationFormItem.i18n[lang].label"></textarea>
+                  [(ngModel)]="applicationFormItem.i18n[lang].label"
+                  matInput></textarea>
               </mat-form-field>
             </app-edit-application-form-item-line>
           </div>
@@ -184,22 +184,22 @@
             *ngIf="isApplicationFormItemOfType(['TEXTFIELD', 'VALIDATED_EMAIL', 'USERNAME', 'PASSWORD', 'RADIO', 'TEXTAREA',
                                                       'COMBOBOX', 'CHECKBOX', 'TIMEZONE', 'SELECTIONBOX', 'EMBEDDED_GROUP_APPLICATION'])">
             <app-edit-application-form-item-line
-              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL' | translate"
-              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL_DESCRIPTION' | translate">
+              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL_DESCRIPTION' | translate"
+              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL' | translate">
               <mat-form-field class="w-100">
                 <textarea [(ngModel)]="applicationFormItem.i18n[lang].label" matInput></textarea>
               </mat-form-field>
             </app-edit-application-form-item-line>
             <app-edit-application-form-item-line
-              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.HELP' | translate"
-              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.HELP_DESCRIPTION' | translate">
+              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.HELP_DESCRIPTION' | translate"
+              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.HELP' | translate">
               <mat-form-field class="w-100">
                 <textarea [(ngModel)]="applicationFormItem.i18n[lang].help" matInput></textarea>
               </mat-form-field>
             </app-edit-application-form-item-line>
             <app-edit-application-form-item-line
-              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.ERROR' | translate"
-              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.ERROR_DESCRIPTION' | translate">
+              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.ERROR_DESCRIPTION' | translate"
+              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.ERROR' | translate">
               <mat-form-field class="w-100">
                 <textarea
                   [(ngModel)]="applicationFormItem.i18n[lang].errorMessage"
@@ -209,8 +209,8 @@
           </div>
           <div *ngIf="isApplicationFormItemOfType(['SUBMIT_BUTTON', 'AUTO_SUBMIT_BUTTON'])">
             <app-edit-application-form-item-line
-              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL' | translate"
-              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL_BUTTON_DESCRIPTION' | translate">
+              [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL_BUTTON_DESCRIPTION' | translate"
+              [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL' | translate">
               <mat-form-field class="w-100">
                 <textarea [(ngModel)]="applicationFormItem.i18n[lang].label" matInput></textarea>
               </mat-form-field>
@@ -227,12 +227,12 @@
             </div>
 
             <div class="d-flex mt-2 mb-2">
-              <button mat-flat-button class="ml-auto mr-2" (click)="sortOptionsAZ(lang)">
+              <button (click)="sortOptionsAZ(lang)" class="ml-auto mr-2" mat-flat-button>
                 <i class="material-icons">arrow_downward</i>
                 {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SORT_BY_LABEL_AZ' | translate}}
               </button>
 
-              <button mat-flat-button class="mr-auto" (click)="sortOptionsZA(lang)">
+              <button (click)="sortOptionsZA(lang)" class="mr-auto" mat-flat-button>
                 <i class="material-icons">arrow_upward</i>
                 {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SORT_BY_LABEL_ZA' | translate}}
               </button>
@@ -241,22 +241,22 @@
             <div *ngFor="let option of options[lang]">
               {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.VALUE' | translate}}:
               <mat-form-field>
-                <input matInput [(ngModel)]="option[0]" />
+                <input [(ngModel)]="option[0]" matInput />
               </mat-form-field>
               {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL' | translate}}:
               <mat-form-field>
-                <input matInput [(ngModel)]="option[1]" />
+                <input [(ngModel)]="option[1]" matInput />
               </mat-form-field>
               <button
-                mat-icon-button
+                (click)="removeOption(option, lang)"
                 color="warn"
-                matTooltip="{{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REMOVE_OPTION' | translate}}"
-                (click)="removeOption(option, lang)">
+                mat-icon-button
+                matTooltip="{{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REMOVE_OPTION' | translate}}">
                 <mat-icon>clear</mat-icon>
               </button>
             </div>
 
-            <button mat-flat-button color="accent" class="mr-2" (click)="addOption(lang)">
+            <button (click)="addOption(lang)" class="mr-2" color="accent" mat-flat-button>
               {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.ADD_OPTION' | translate}}
             </button>
           </div>
@@ -264,7 +264,7 @@
       </mat-tab-group>
     </div>
     <div class="d-flex mt-auto" mat-dialog-actions>
-      <button mat-flat-button class="ml-auto mt-auto" (click)="cancel()">
+      <button (click)="cancel()" class="ml-auto mt-auto" mat-flat-button>
         {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.CANCEL_BUTTON' | translate}}
       </button>
       <div

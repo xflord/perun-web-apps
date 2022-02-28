@@ -14,12 +14,18 @@ export interface RemoveMembersDialogData {
   members: RichMember[];
   groupId?: number;
 }
+
 @Component({
   selector: 'app-remove-members-dialog',
   templateUrl: './remove-members-dialog.component.html',
   styleUrls: ['./remove-members-dialog.component.scss'],
 })
 export class RemoveMembersDialogComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'name'];
+  dataSource: MatTableDataSource<RichMember>;
+  loading: boolean;
+  theme: string;
+
   constructor(
     public dialogRef: MatDialogRef<RemoveMembersDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: RemoveMembersDialogData,
@@ -29,22 +35,16 @@ export class RemoveMembersDialogComponent implements OnInit {
     private translate: TranslateService
   ) {}
 
-  displayedColumns: string[] = ['id', 'name'];
-  dataSource: MatTableDataSource<RichMember>;
-
-  loading: boolean;
-  theme: string;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
     this.dataSource = new MatTableDataSource<RichMember>(this.data.members);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     if (this.data.groupId) {
       this.groupService
@@ -64,16 +64,16 @@ export class RemoveMembersDialogComponent implements OnInit {
     }
   }
 
-  onSuccess() {
-    const message = this.data.groupId
-      ? this.translate.instant('DIALOGS.REMOVE_MEMBERS.SUCCESS_GROUP')
-      : this.translate.instant('DIALOGS.REMOVE_MEMBERS.SUCCESS');
+  onSuccess(): void {
+    const message: string = this.data.groupId
+      ? (this.translate.instant('DIALOGS.REMOVE_MEMBERS.SUCCESS_GROUP') as string)
+      : (this.translate.instant('DIALOGS.REMOVE_MEMBERS.SUCCESS') as string);
     this.notificator.showSuccess(message);
     this.dialogRef.close(true);
     this.loading = false;
   }
 
-  onError() {
+  onError(): void {
     this.loading = false;
   }
 }

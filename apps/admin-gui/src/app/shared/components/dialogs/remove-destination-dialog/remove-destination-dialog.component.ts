@@ -16,6 +16,12 @@ export interface RemoveDestinationDialogData {
   styleUrls: ['./remove-destination-dialog.component.scss'],
 })
 export class RemoveDestinationDialogComponent implements OnInit {
+  displayedColumns: string[] = [];
+  loading = false;
+  theme: string;
+  destinations: RichDestination[];
+  dataSource: MatTableDataSource<RichDestination>;
+
   constructor(
     public dialogRef: MatDialogRef<RemoveDestinationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: RemoveDestinationDialogData,
@@ -24,15 +30,7 @@ export class RemoveDestinationDialogComponent implements OnInit {
     private serviceManager: ServicesManagerService
   ) {}
 
-  displayedColumns: string[] = [];
-
-  loading = false;
-  theme: string;
-  destinations: RichDestination[];
-
-  dataSource: MatTableDataSource<RichDestination>;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
     this.destinations = this.data.destinations;
     this.displayedColumns =
@@ -42,13 +40,15 @@ export class RemoveDestinationDialogComponent implements OnInit {
     this.dataSource = new MatTableDataSource<RichDestination>(this.data.destinations);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  deleteDestinations() {
+  deleteDestinations(): void {
     if (this.destinations.length === 0) {
-      this.notificator.showSuccess(this.translate.instant('DIALOGS.REMOVE_DESTINATIONS.SUCCESS'));
+      this.notificator.showSuccess(
+        this.translate.instant('DIALOGS.REMOVE_DESTINATIONS.SUCCESS') as string
+      );
       this.dialogRef.close(true);
       return;
     }
@@ -68,7 +68,7 @@ export class RemoveDestinationDialogComponent implements OnInit {
       );
   }
 
-  onConfirm() {
+  onConfirm(): void {
     this.loading = true;
     this.deleteDestinations();
   }

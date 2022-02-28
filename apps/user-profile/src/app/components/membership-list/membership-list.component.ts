@@ -95,8 +95,7 @@ export class MembershipListComponent implements OnChanges, AfterViewInit {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
-        this
+        this.getDataForColumn.bind(this)
       ),
       format
     );
@@ -109,11 +108,10 @@ export class MembershipListComponent implements OnChanges, AfterViewInit {
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn,
-          this
+          this.getDataForColumn.bind(this)
         );
       this.dataSource.sortData = (data: Membership[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn, this);
+        customDataSourceSort(data, sort, this.getDataForColumn.bind(this));
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;

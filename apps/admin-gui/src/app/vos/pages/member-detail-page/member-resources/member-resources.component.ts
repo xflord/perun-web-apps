@@ -19,6 +19,15 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
   styleUrls: ['./member-resources.component.scss'],
 })
 export class MemberResourcesComponent implements OnInit {
+  member: Member;
+  resources: RichResource[] = [];
+  filterValue = '';
+  loading = false;
+  displayedColumns: string[] = ['id', 'name', 'vo', 'facility', 'tags', 'description'];
+  tableId = TABLE_MEMBER_RESOURCE_LIST;
+  routeAuth: boolean;
+  addAuth: boolean;
+
   constructor(
     private dialog: MatDialog,
     private memberManager: MembersManagerService,
@@ -27,21 +36,9 @@ export class MemberResourcesComponent implements OnInit {
     private authResolver: GuiAuthResolver
   ) {}
 
-  member: Member;
-  resources: RichResource[] = [];
-
-  filterValue = '';
-  loading = false;
-  displayedColumns: string[] = ['id', 'name', 'vo', 'facility', 'tags', 'description'];
-
-  tableId = TABLE_MEMBER_RESOURCE_LIST;
-
-  routeAuth: boolean;
-  addAuth: boolean;
-
   ngOnInit(): void {
     this.route.parent.params.subscribe((parentParams) => {
-      const memberId = parentParams['memberId'];
+      const memberId = parentParams['memberId'] as number;
 
       this.memberManager.getMemberById(memberId).subscribe((member) => {
         this.member = member;
@@ -50,7 +47,7 @@ export class MemberResourcesComponent implements OnInit {
     });
   }
 
-  addResource() {
+  addResource(): void {
     const config = getDefaultDialogConfig();
     config.width = '1200px';
     config.data = {
@@ -68,7 +65,7 @@ export class MemberResourcesComponent implements OnInit {
     });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.resourceManager
       .getAssignedRichResourcesWithMember(this.member.id)
@@ -79,7 +76,7 @@ export class MemberResourcesComponent implements OnInit {
       });
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     const vo: PerunBean = {
       id: this.member.voId,
       beanName: 'Vo',
@@ -97,7 +94,7 @@ export class MemberResourcesComponent implements OnInit {
     }
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

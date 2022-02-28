@@ -19,6 +19,11 @@ export interface RemoveGroupDialogData {
   styleUrls: ['./remove-group-manager-dialog.component.scss'],
 })
 export class RemoveGroupManagerDialogComponent implements OnInit {
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<Group>;
+  loading: boolean;
+  theme: string;
+
   constructor(
     public dialogRef: MatDialogRef<RemoveGroupManagerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: RemoveGroupDialogData,
@@ -27,22 +32,16 @@ export class RemoveGroupManagerDialogComponent implements OnInit {
     private authzService: AuthzResolverService
   ) {}
 
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<Group>;
-
-  loading: boolean;
-  theme: string;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.dataSource = new MatTableDataSource<Group>(this.data.groups);
     this.theme = this.data.theme;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     this.authzService
       .unsetRoleWithGroupComplementaryObject({
@@ -53,7 +52,7 @@ export class RemoveGroupManagerDialogComponent implements OnInit {
       .subscribe(
         () => {
           this.translate.get('DIALOGS.REMOVE_GROUPS.SUCCESS').subscribe(
-            (successMessage) => {
+            (successMessage: string) => {
               this.notificator.showSuccess(successMessage);
               this.loading = false;
               this.dialogRef.close(true);

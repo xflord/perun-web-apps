@@ -1,17 +1,17 @@
 <div>
   <h1 class="page-subtitle">{{'GROUP_DETAIL.SETTINGS.RELATIONS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button mat-flat-button class="mr-2 action-button" color="accent" (click)="onCreate()">
+  <button (click)="onCreate()" class="mr-2 action-button" color="accent" mat-flat-button>
     {{'GROUP_DETAIL.SETTINGS.RELATIONS.CREATE' | translate}}
   </button>
   <button
-    mat-flat-button
-    color="warn"
+    [disabled]="selection.selected.length === 0 || (this.list !== undefined && !this.list.removeAuth)"
     class="mr-2"
+    color="warn"
     (click)="onDelete()"
-    matTooltip="{{'GROUP_DETAIL.SETTINGS.RELATIONS.DELETE_TOOLTIP' | translate}}"
+    mat-flat-button
     [matTooltipDisabled]="selection.selected.length === 0 || (this.list !== undefined && this.list.removeAuth)"
-    [disabled]="selection.selected.length === 0 || (this.list !== undefined && !this.list.removeAuth)">
+    matTooltip="{{'GROUP_DETAIL.SETTINGS.RELATIONS.DELETE_TOOLTIP' | translate}}">
     {{'GROUP_DETAIL.SETTINGS.RELATIONS.DELETE' | translate}}
   </button>
   <perun-web-apps-immediate-filter
@@ -21,17 +21,17 @@
     (change)="showReverseUnions()"
     >{{'GROUP_DETAIL.SETTINGS.RELATIONS.REVERSE_UNIONS' | translate}}</mat-checkbox
   >
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 
   <perun-web-apps-groups-list
     #list
-    [tableId]="tableId"
+    [authType]="'group-relations'"
     *ngIf="!loading"
     [groups]="groups"
     [parentGroup]="group"
-    [authType]="'group-relations'"
+    [disableHeadCheckbox]="true"
     [selection]="selection"
-    [filter]="filterValue"
     [displayedColumns]="['select', 'id', 'vo', 'name', 'description']"
-    [disableHeadCheckbox]="true"></perun-web-apps-groups-list>
+    [filter]="filterValue"
+    [tableId]="tableId"></perun-web-apps-groups-list>
 </div>

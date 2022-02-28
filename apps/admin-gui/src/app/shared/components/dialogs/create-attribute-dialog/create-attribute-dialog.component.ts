@@ -24,14 +24,16 @@ export interface CreateAttributeDialogData {
 })
 export class CreateAttributeDialogComponent implements OnInit {
   @ViewChild('list')
-  list: AttributesListComponent;
+  private list: AttributesListComponent;
+
   attributes: Attribute[] = [];
   selected = new SelectionModel<Attribute>(true, []);
-  saveSuccessMessage: string;
   showError = false;
   filterValue = '';
   tableId = TABLE_ATTRIBUTES_SETTINGS;
   loading: boolean;
+
+  private saveSuccessMessage: string;
 
   constructor(
     private dialogRef: MatDialogRef<CreateAttributeDialogComponent>,
@@ -42,10 +44,10 @@ export class CreateAttributeDialogComponent implements OnInit {
   ) {
     this.translate
       .get('DIALOGS.CREATE_ATTRIBUTE.SUCCESS_SAVE')
-      .subscribe((value) => (this.saveSuccessMessage = value));
+      .subscribe((value: string) => (this.saveSuccessMessage = value));
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const unWanted = new Array<number>();
     this.data.notEmptyAttributes.forEach((attribute) => {
       unWanted.push(attribute.id);
@@ -137,11 +139,14 @@ export class CreateAttributeDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onSave() {
+  onSave(): void {
     this.list.updateMapAttributes();
     let containsEmpty = false;
     for (const attribute of this.selected.selected) {
-      if (attribute.type === 'java.util.ArrayList' && (<Array<any>>attribute.value).length === 0) {
+      if (
+        attribute.type === 'java.util.ArrayList' &&
+        (attribute.value as Array<string | number>).length === 0
+      ) {
         containsEmpty = true;
       }
       if (attribute.value === undefined) {
@@ -293,17 +298,17 @@ export class CreateAttributeDialogComponent implements OnInit {
     }
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  handleSuccess() {
+  private handleSuccess(): void {
     this.notificator.showSuccess(this.saveSuccessMessage);
     this.selected.clear();
     this.dialogRef.close('saved');
   }
 
-  private twoEntityValid(attribute: Attribute) {
+  private twoEntityValid(attribute: Attribute): boolean {
     if (!this.data.secondEntity) {
       return true;
     }

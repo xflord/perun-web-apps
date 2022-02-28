@@ -1,15 +1,15 @@
 <div class="entity-menu-item">
   <div
+    (click)="toggle()"
     class="entity-menu-item-header"
-    matRipple
     [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
     [ngStyle]="{'background': item.backgroundColorCss, 'border-top': index ? dividerStyle: 'none'}"
-    (click)="toggle()">
+    matRipple>
     <div
       class="entity-menu-item-link {{item.labelClass}}"
-      matRipple
-      [perunWebAppsMiddleClickRouterLink]="item.baseLink">
-      <a class="entity-menu-item-label" [ngStyle]="{'color': item.textColorCss}">
+      [perunWebAppsMiddleClickRouterLink]="item.baseLink"
+      matRipple>
+      <a [ngStyle]="{'color': item.textColorCss}" class="entity-menu-item-label">
         <div>
           <mat-icon
             [ngStyle]="{'color': 'currentColor'}"
@@ -22,7 +22,7 @@
   </div>
 
   <div [@openClose]="expanded ? 'open' : 'closed'">
-    <div class="side-entity-menu {{item.linksClass}}" [ngStyle]="{'background': linkBgColor}">
+    <div [ngStyle]="{'background': linkBgColor}" class="side-entity-menu {{item.linksClass}}">
       <div *ngIf="showLinks" @rollInOut>
         <div *ngFor="let link of item.links">
           <a

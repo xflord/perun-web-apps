@@ -13,6 +13,11 @@ import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 export class VoOverviewComponent implements OnInit {
   // @HostBinding('class.router-component') true;
 
+  vo: Vo;
+  items: MenuItem[] = [];
+  navItems: MenuItem[] = [];
+  loading = false;
+
   constructor(
     private sideMenuService: SideMenuService,
     private voService: VosManagerService,
@@ -21,12 +26,6 @@ export class VoOverviewComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  vo: Vo;
-  items: MenuItem[] = [];
-  navItems: MenuItem[] = [];
-
-  loading = false;
-
   ngOnInit(): void {
     this.loading = true;
     this.vo = this.entityStorageService.getEntity();
@@ -34,7 +33,7 @@ export class VoOverviewComponent implements OnInit {
     this.loading = false;
   }
 
-  private initNavItems() {
+  private initNavItems(): void {
     // Members
     if (
       this.authResolver.isAuthorized('getCompleteRichMembers_Vo_List<String>_policy', [this.vo])

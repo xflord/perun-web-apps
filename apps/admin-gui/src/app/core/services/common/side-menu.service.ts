@@ -5,14 +5,12 @@ import { SideMenuItem } from '../../../shared/side-menu/side-menu.component';
   providedIn: 'root',
 })
 export class SideMenuService {
-  constructor() {}
-
-  @Output() accessItemsChange: EventEmitter<SideMenuItem[]> = new EventEmitter();
-  @Output() facilityItemsChange: EventEmitter<SideMenuItem[]> = new EventEmitter();
-  @Output() adminItemsChange: EventEmitter<SideMenuItem[]> = new EventEmitter();
-  @Output() userItemsChange: EventEmitter<SideMenuItem[]> = new EventEmitter();
-  @Output() resetChange: EventEmitter<void> = new EventEmitter();
-  @Output() homeItemsChange: EventEmitter<SideMenuItem[]> = new EventEmitter();
+  @Output() accessItemsChange: EventEmitter<SideMenuItem[]> = new EventEmitter<SideMenuItem[]>();
+  @Output() facilityItemsChange: EventEmitter<SideMenuItem[]> = new EventEmitter<SideMenuItem[]>();
+  @Output() adminItemsChange: EventEmitter<SideMenuItem[]> = new EventEmitter<SideMenuItem[]>();
+  @Output() userItemsChange: EventEmitter<SideMenuItem[]> = new EventEmitter<SideMenuItem[]>();
+  @Output() resetChange: EventEmitter<void> = new EventEmitter<void>();
+  @Output() homeItemsChange: EventEmitter<SideMenuItem[]> = new EventEmitter<SideMenuItem[]>();
 
   setHomeItems(items: SideMenuItem[]): void {
     this.homeItemsChange.emit(items);

@@ -4,11 +4,14 @@ import { FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { openClose } from '@perun-web-apps/perun/animations';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import {
+  ApiRequestConfigurationService,
+  GuiAuthResolver,
+  NotificatorService,
+} from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
-import { ApiRequestConfigurationService } from '@perun-web-apps/perun/services';
-import { GroupFlatNode } from '@perun-web-apps/perun/models';
+import { GroupFlatNode, RPCError } from '@perun-web-apps/perun/models';
 
 export interface MoveGroupDialogData {
   group: GroupFlatNode;
@@ -22,6 +25,17 @@ export interface MoveGroupDialogData {
   animations: [openClose],
 })
 export class MoveGroupDialogComponent implements OnInit {
+  successMessage: string;
+  errorMessage: string;
+  toRootOptionDisabled = false;
+  toGroupOptionDisabled = false;
+  otherGroups: Group[] = [];
+  filteredGroups: Observable<Group[]>;
+  otherGroupsCtrl = new FormControl(null, [Validators.required.bind(this)]);
+  moveOption: 'toGroup' | 'toRoot';
+  loading = false;
+  selectedGroup: Group = null;
+
   constructor(
     public dialogRef: MatDialogRef<MoveGroupDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: MoveGroupDialogData,
@@ -33,27 +47,13 @@ export class MoveGroupDialogComponent implements OnInit {
   ) {
     this.translate
       .get('DIALOGS.MOVE_GROUP.SUCCESS')
-      .subscribe((value) => (this.successMessage = value));
+      .subscribe((value: string) => (this.successMessage = value));
     this.translate
       .get('DIALOGS.MOVE_GROUP.ERROR')
-      .subscribe((value) => (this.errorMessage = value));
+      .subscribe((value: string) => (this.errorMessage = value));
   }
 
-  successMessage: string;
-  errorMessage: string;
-
-  toRootOptionDisabled = false;
-  toGroupOptionDisabled = false;
-
-  otherGroups: Group[] = [];
-  filteredGroups: Observable<Group[]>;
-  otherGroupsCtrl = new FormControl(null, [Validators.required]);
-  moveOption: 'toGroup' | 'toRoot';
-  loading = false;
-
-  selectedGroup: Group = null;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.groupService.getAllGroups(this.data.group.voId).subscribe(
       (allGroups) => {
@@ -75,7 +75,7 @@ export class MoveGroupDialogComponent implements OnInit {
         }
         this.filteredGroups = this.otherGroupsCtrl.valueChanges.pipe(
           startWith(''),
-          map((group) => (group ? this._filterGroups(group) : this.otherGroups.slice()))
+          map((group: string) => (group ? this._filterGroups(group) : this.otherGroups.slice()))
         );
         this.loading = false;
       },
@@ -88,6 +88,38 @@ export class MoveGroupDialogComponent implements OnInit {
     return group ? group.name : group;
   }
 
+  canMove(group: Group): boolean {
+    return (
+      this.authResolver.isAuthorized('moveGroup_Group_Group_policy', [group, this.data.group]) &&
+      this.authResolver.isAuthorized('moveGroup_Group_Group_policy', [this.data.group, group])
+    );
+  }
+
+  close(): void {
+    this.dialogRef.close();
+  }
+
+  confirm(): void {
+    this.loading = true;
+    // FIXME this might not work in case of some race condition (other request finishes sooner)
+    this.apiRequest.dontHandleErrorForNext();
+    this.groupService
+      .moveGroupWithDestinationGroupMovingGroup(
+        this.data.group.id,
+        this.otherGroupsCtrl.value ? (this.otherGroupsCtrl.value as Group).id : -1
+      )
+      .subscribe(
+        () => {
+          this.notificator.showSuccess(this.successMessage);
+          this.dialogRef.close(true);
+        },
+        (error: RPCError) => {
+          this.notificator.showRPCError(error, this.errorMessage);
+          this.dialogRef.close(false);
+        }
+      );
+  }
+
   private _filterGroups(value: unknown & string): Group[] {
     // Hack that ensures proper autocomplete value displaying
     if (typeof value === 'object') {
@@ -97,39 +129,7 @@ export class MoveGroupDialogComponent implements OnInit {
     const filterValue = value.toLowerCase();
 
     return value
-      ? this.otherGroups.filter((group) => group.name.toLowerCase().indexOf(filterValue) > -1)
+      ? this.otherGroups.filter((group) => group.name.toLowerCase().includes(filterValue))
       : this.otherGroups;
-  }
-
-  canMove(group: Group): boolean {
-    return (
-      this.authResolver.isAuthorized('moveGroup_Group_Group_policy', [group, this.data.group]) &&
-      this.authResolver.isAuthorized('moveGroup_Group_Group_policy', [this.data.group, group])
-    );
-  }
-
-  close() {
-    this.dialogRef.close();
-  }
-
-  confirm() {
-    this.loading = true;
-    // FIXME this might not work in case of some race condition (other request finishes sooner)
-    this.apiRequest.dontHandleErrorForNext();
-    this.groupService
-      .moveGroupWithDestinationGroupMovingGroup(
-        this.data.group.id,
-        this.otherGroupsCtrl.value ? this.otherGroupsCtrl.value.id : undefined
-      )
-      .subscribe(
-        () => {
-          this.notificator.showSuccess(this.successMessage);
-          this.dialogRef.close(true);
-        },
-        (error) => {
-          this.notificator.showRPCError(error, this.errorMessage);
-          this.dialogRef.close(false);
-        }
-      );
   }
 }

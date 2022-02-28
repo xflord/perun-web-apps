@@ -18,6 +18,13 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
   styleUrls: ['./service-required-attributes.component.scss'],
 })
 export class ServiceRequiredAttributesComponent implements OnInit {
+  loading = false;
+  filterValue = '';
+  selection = new SelectionModel<AttributeDefinition>(true, []);
+  attrDefinitions: AttributeDefinition[] = [];
+  tableId = TABLE_REQUIRED_ATTRIBUTES;
+  private service: Service;
+
   constructor(
     private attributeManager: AttributesManagerService,
     private dialog: MatDialog,
@@ -25,21 +32,13 @@ export class ServiceRequiredAttributesComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  loading = false;
-  filterValue = '';
-
-  service: Service;
-  selection = new SelectionModel<AttributeDefinition>(true, []);
-  attrDefinitions: AttributeDefinition[] = [];
-  tableId = TABLE_REQUIRED_ATTRIBUTES;
-
   ngOnInit(): void {
     this.loading = true;
     this.service = this.entityStorageService.getEntity();
     this.refreshTable();
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.attributeManager.getRequiredAttributesDefinition(this.service.id).subscribe((attrDef) => {
       this.selection.clear();
@@ -48,7 +47,7 @@ export class ServiceRequiredAttributesComponent implements OnInit {
     });
   }
 
-  onAdd() {
+  onAdd(): void {
     const config = getDefaultDialogConfig();
     config.width = '950px';
     config.data = {
@@ -65,7 +64,7 @@ export class ServiceRequiredAttributesComponent implements OnInit {
     });
   }
 
-  onRemove() {
+  onRemove(): void {
     const config = getDefaultDialogConfig();
     config.width = '650px';
     config.data = {
@@ -83,7 +82,7 @@ export class ServiceRequiredAttributesComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

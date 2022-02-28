@@ -10,15 +10,15 @@
 	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
 	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
 ]>
-<svg version="1.1" id="Vrstva_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 128 128"
-	 style="enable-background:new 0 0 128 128;" xml:space="preserve">
+<svg id="Vrstva_1" style="enable-background:new 0 0 128 128;" version="1.1" viewBox="0 0 128 128" x="0px"
+	 xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:graph="&ns_graphs;" xmlns:i="&ns_ai;" xmlns:x="&ns_extend;"
+	 xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
 <style type="text/css">
 	.st0{fill:#858585;}
 	.st1{fill:none;}
 </style>
 <switch>
-	<foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
+	<foreignObject height="1" requiredExtensions="&ns_ai;" width="1" x="0" y="0">
 		<i:pgfRef  xlink:href="#adobe_illustrator_pgf">
 		</i:pgfRef>
 	</foreignObject>
@@ -28,7 +28,7 @@
 			L94.61,48.24z M64.36,92.61c-4.5,0-8.15-3.65-8.15-8.15s3.65-8.15,8.15-8.15s8.15,3.65,8.15,8.15S68.86,92.61,64.36,92.61z
 			 M64.36,67.42c-4.5,0-8.15-3.65-8.15-8.15s3.65-8.15,8.15-8.15s8.15,3.65,8.15,8.15S68.86,67.42,64.36,67.42z M64.36,42.37
 			c-4.5,0-8.15-3.65-8.15-8.15s3.65-8.15,8.15-8.15s8.15,3.65,8.15,8.15S68.86,42.37,64.36,42.37z"/>
-		<rect class="st1" width="128" height="128"/>
+		<rect class="st1" height="128" width="128"/>
 	</g>
 </switch>
 </svg>

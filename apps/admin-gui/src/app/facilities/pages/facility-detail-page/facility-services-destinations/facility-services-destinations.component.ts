@@ -30,20 +30,6 @@ export class FacilityServicesDestinationsComponent implements OnInit {
   // class used for animation
   @HostBinding('class.router-component') true;
 
-  constructor(
-    private dialog: MatDialog,
-    private facilitiesManager: FacilitiesManagerService,
-    private servicesManager: ServicesManagerService,
-    private translate: TranslateService,
-    private notificator: NotificatorService,
-    private authResolver: GuiAuthResolver,
-    private serviceManager: ServicesManagerService,
-    private entityStorageService: EntityStorageService
-  ) {}
-
-  facility: Facility;
-  destinations: RichDestination[];
-  selected = new SelectionModel<RichDestination>(true, []);
   @Input()
   displayedColumns: string[] = [
     'select',
@@ -61,11 +47,13 @@ export class FacilityServicesDestinationsComponent implements OnInit {
   title = 'FACILITY_DETAIL.SERVICES_DESTINATIONS.TITLE';
   @Output()
   destinationEmitter: EventEmitter<RichDestination[]> = new EventEmitter<RichDestination[]>();
-
-  filterValue = '';
-
   @Input()
   loading: boolean;
+
+  facility: Facility;
+  destinations: RichDestination[];
+  selected = new SelectionModel<RichDestination>(true, []);
+  filterValue = '';
   tableId = TABLE_FACILITY_SERVICES_DESTINATION_LIST;
 
   addAuth: boolean;
@@ -73,14 +61,25 @@ export class FacilityServicesDestinationsComponent implements OnInit {
   allowAuth: boolean;
   blockAuth: boolean;
 
-  ngOnInit() {
+  constructor(
+    private dialog: MatDialog,
+    private facilitiesManager: FacilitiesManagerService,
+    private servicesManager: ServicesManagerService,
+    private translate: TranslateService,
+    private notificator: NotificatorService,
+    private authResolver: GuiAuthResolver,
+    private serviceManager: ServicesManagerService,
+    private entityStorageService: EntityStorageService
+  ) {}
+
+  ngOnInit(): void {
     this.loading = true;
     this.facility = this.entityStorageService.getEntity();
     this.setAuthRights();
     this.refreshTable();
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.servicesManager
       .getAllRichDestinationsForFacility(this.facility.id)
@@ -93,7 +92,7 @@ export class FacilityServicesDestinationsComponent implements OnInit {
       });
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     this.addAuth = this.authResolver.isAuthorized(
       'addDestination_Service_Facility_Destination_policy',
       [this.facility]
@@ -116,7 +115,7 @@ export class FacilityServicesDestinationsComponent implements OnInit {
       : this.displayedColumns.filter((col) => col !== 'select');
   }
 
-  addDestination() {
+  addDestination(): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {
@@ -131,7 +130,7 @@ export class FacilityServicesDestinationsComponent implements OnInit {
       if (result) {
         this.translate
           .get('FACILITY_DETAIL.SERVICES_DESTINATIONS.ADD_SUCCESS')
-          .subscribe((successMessage) => {
+          .subscribe((successMessage: string) => {
             this.refreshTable();
             this.notificator.showSuccess(successMessage);
           });
@@ -139,7 +138,7 @@ export class FacilityServicesDestinationsComponent implements OnInit {
     });
   }
 
-  removeDestination() {
+  removeDestination(): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = { destinations: this.selected.selected, theme: 'facility-theme' };
@@ -153,10 +152,10 @@ export class FacilityServicesDestinationsComponent implements OnInit {
     });
   }
 
-  blockServiceOnDestinations(destinations: RichDestination[]) {
+  blockServiceOnDestinations(destinations: RichDestination[]): void {
     if (destinations.length === 0) {
       this.notificator.showSuccess(
-        this.translate.instant('FACILITY_DETAIL.SERVICES_DESTINATIONS.BLOCK_SUCCESS')
+        this.translate.instant('FACILITY_DETAIL.SERVICES_DESTINATIONS.BLOCK_SUCCESS') as string
       );
       this.refreshTable();
       return;
@@ -171,15 +170,15 @@ export class FacilityServicesDestinationsComponent implements OnInit {
     );
   }
 
-  onBlock() {
+  onBlock(): void {
     this.loading = true;
     this.blockServiceOnDestinations(this.selected.selected);
   }
 
-  allowServiceOnDestinations(destinations: RichDestination[]) {
+  allowServiceOnDestinations(destinations: RichDestination[]): void {
     if (destinations.length === 0) {
       this.notificator.showSuccess(
-        this.translate.instant('FACILITY_DETAIL.SERVICES_DESTINATIONS.ALLOW_SUCCESS')
+        this.translate.instant('FACILITY_DETAIL.SERVICES_DESTINATIONS.ALLOW_SUCCESS') as string
       );
       this.refreshTable();
       return;
@@ -196,20 +195,20 @@ export class FacilityServicesDestinationsComponent implements OnInit {
       );
   }
 
-  onAllow() {
+  onAllow(): void {
     this.loading = true;
     this.allowServiceOnDestinations(this.selected.selected);
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  allSelectedAllowed() {
+  allSelectedAllowed(): boolean {
     return this.selected.selected.reduce((acc, destination) => acc && !destination.blocked, true);
   }
 
-  allSelectedBlocked() {
+  allSelectedBlocked(): boolean {
     return this.selected.selected.reduce((acc, destination) => acc && destination.blocked, true);
   }
 }

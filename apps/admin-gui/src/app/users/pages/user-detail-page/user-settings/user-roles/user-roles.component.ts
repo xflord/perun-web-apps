@@ -25,7 +25,7 @@ import { StoreService } from '@perun-web-apps/perun/services';
 })
 export class UserRolesComponent implements OnInit {
   @HostBinding('class.router-component') true;
-  currentIds: any[] = [];
+  currentIds: number[] = [];
 
   userId: number;
 
@@ -90,11 +90,11 @@ export class UserRolesComponent implements OnInit {
     private store: StoreService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.outerLoading = true;
     this.route.parent.params.subscribe((params) => {
       if (params['userId']) {
-        this.userId = params['userId'];
+        this.userId = params['userId'] as number;
         this.authzResolverService.getUserRoleNames(this.userId).subscribe((roleNames) => {
           this.roleNames = roleNames.map((elem) => elem.toUpperCase());
           this.authzResolverService.getUserRoles(this.userId).subscribe((roles) => {
@@ -111,7 +111,134 @@ export class UserRolesComponent implements OnInit {
     });
   }
 
-  private prepareRoles(roles: { [p: string]: { [p: string]: Array<number> } }) {
+  getAdminGroupsAndVos(): void {
+    this.loading = true;
+    this.groups = [];
+    this.usersManagerService.getGroupsWhereUserIsAdmin(this.userId).subscribe((groups) => {
+      this.groups = groups;
+      const voIds = [...new Set(this.groups.map((group) => group.voId))];
+      this.getVos(voIds);
+    });
+  }
+
+  getVos(voIds: number[]): void {
+    this.loading = true;
+    this.vos = [];
+    this.vosManagerService.getVosByIds(voIds).subscribe((vos) => {
+      this.vos = vos;
+      this.loading = false;
+    });
+  }
+
+  getInnerKeys(role: string): void {
+    if (this.roles.get(role)) {
+      const it = this.roles.get(role).entries();
+      const result: number[] = [];
+      let val: number = it.next().value as number;
+      while (val) {
+        result.push(val);
+        val = it.next().value as number;
+      }
+      this.currentIds = result;
+    } else {
+      this.currentIds = [];
+    }
+  }
+
+  getAdminVos(): void {
+    this.loading = true;
+    this.vos = [];
+    this.usersManagerService.getVosWhereUserIsAdmin(this.userId).subscribe((vos) => {
+      this.vos = vos;
+      this.loading = false;
+    });
+  }
+
+  getAdminFacilities(): void {
+    this.loading = true;
+    this.facilities = [];
+    this.facilitiesManagerService
+      .getFacilitiesWhereUserIsAdmin(this.userId)
+      .subscribe((facilities) => {
+        this.facilities = facilities.map((f) => ({ facility: f }));
+        this.loading = false;
+      });
+  }
+
+  getSelfData(): void {
+    this.loading = true;
+    this.vos = [];
+    this.users = [];
+    this.usersManagerService.getVosWhereUserIsMember(this.userId).subscribe((vos) => {
+      this.vos = vos;
+
+      const ids = this.roles.get('SELF').get('User');
+      if (!ids) {
+        this.loading = false;
+      } else {
+        this.usersManagerService.getUsersByIds(ids).subscribe((users) => {
+          this.users = users;
+          this.loading = false;
+        });
+      }
+    });
+  }
+
+  getResourcesData(role: string): void {
+    this.loading = true;
+    const resourceIds = this.roles.get(role).get('Resource');
+    this.vos = [];
+    this.facilities = [];
+    this.resources = [];
+    this.resourcesManagerService.getRichResourcesByIds(resourceIds).subscribe((resources) => {
+      this.resources = resources;
+      this.vos = this.resources
+        .map((res) => res.vo)
+        .filter((item, i, ar) => ar.indexOf(item) === i);
+      this.facilities = this.resources
+        .map((res) => ({ facility: res.facility }))
+        .filter((item, i, ar) => ar.indexOf(item) === i);
+      this.loading = false;
+    });
+  }
+
+  getMembers(): void {
+    this.loading = true;
+    const memberIds = this.roles.get('SPONSORSHIP').get('Member');
+    this.members = [];
+    this.membersManagerService.getRichMembersByIds(memberIds).subscribe((members) => {
+      this.members = members;
+      this.loading = false;
+    });
+  }
+
+  getGroupsAndVos(role: string): void {
+    this.loading = true;
+    const voIds = this.roles.get(role).get('Vo');
+    const groupIds = this.roles.get(role).get('Group');
+    this.vos = [];
+    this.groups = [];
+    this.groupsManagerService.getGroupsByIds(groupIds).subscribe((groups) => {
+      this.groups = groups;
+
+      this.vosManagerService.getVosByIds(voIds).subscribe((vos) => {
+        this.vos = vos;
+        this.loading = false;
+      });
+    });
+  }
+
+  getFacilities(role: string): void {
+    this.loading = true;
+    this.facilities = [];
+    const facilityIds = this.roles.get(role).get('Facility');
+    this.facilitiesManagerService.getFacilitiesByIds(facilityIds).subscribe((facilities) => {
+      this.facilities = facilities.map((f) => ({ facility: f }));
+      this.loading = false;
+    });
+  }
+
+  private prepareRoles(roles: { [p: string]: { [p: string]: Array<number> } }): void {
     this.roleNames.forEach((roleName) => {
       const innerMap = new Map<string, Array<number>>();
       const innerRoles = Object.keys(roles[roleName]);
@@ -174,132 +301,5 @@ export class UserRolesComponent implements OnInit {
     });
     this.roleNames = this.roleNames.filter((role) => !this.roleFilter.includes(role));
     this.outerLoading = false;
-  }
-
-  getAdminGroupsAndVos() {
-    this.loading = true;
-    this.groups = [];
-    this.usersManagerService.getGroupsWhereUserIsAdmin(this.userId).subscribe((groups) => {
-      this.groups = groups;
-      const voIds = [...new Set(this.groups.map((group) => group.voId))];
-      this.getVos(voIds);
-    });
-  }
-
-  getVos(voIds: number[]) {
-    this.loading = true;
-    this.vos = [];
-    this.vosManagerService.getVosByIds(voIds).subscribe((vos) => {
-      this.vos = vos;
-      this.loading = false;
-    });
-  }
-
-  getInnerKeys(role: string) {
-    if (this.roles.get(role)) {
-      const it = this.roles.get(role).entries();
-      const result = [];
-      let val = it.next().value;
-      while (val) {
-        result.push(val);
-        val = it.next().value;
-      }
-      this.currentIds = result;
-    } else {
-      this.currentIds = [];
-    }
-  }
-
-  getAdminVos() {
-    this.loading = true;
-    this.vos = [];
-    this.usersManagerService.getVosWhereUserIsAdmin(this.userId).subscribe((vos) => {
-      this.vos = vos;
-      this.loading = false;
-    });
-  }
-
-  getAdminFacilities() {
-    this.loading = true;
-    this.facilities = [];
-    this.facilitiesManagerService
-      .getFacilitiesWhereUserIsAdmin(this.userId)
-      .subscribe((facilities) => {
-        this.facilities = facilities.map((f) => ({ facility: f }));
-        this.loading = false;
-      });
-  }
-
-  getSelfData() {
-    this.loading = true;
-    this.vos = [];
-    this.users = [];
-    this.usersManagerService.getVosWhereUserIsMember(this.userId).subscribe((vos) => {
-      this.vos = vos;
-
-      const ids = this.roles.get('SELF').get('User');
-      if (!ids) {
-        this.loading = false;
-      } else {
-        this.usersManagerService.getUsersByIds(ids).subscribe((users) => {
-          this.users = users;
-          this.loading = false;
-        });
-      }
-    });
-  }
-
-  getResourcesData(role: string) {
-    this.loading = true;
-    const resourceIds = this.roles.get(role).get('Resource');
-    this.vos = [];
-    this.facilities = [];
-    this.resources = [];
-    this.resourcesManagerService.getRichResourcesByIds(resourceIds).subscribe((resources) => {
-      this.resources = resources;
-      this.vos = this.resources
-        .map((res) => res.vo)
-        .filter((item, i, ar) => ar.indexOf(item) === i);
-      this.facilities = this.resources
-        .map((res) => ({ facility: res.facility }))
-        .filter((item, i, ar) => ar.indexOf(item) === i);
-      this.loading = false;
-    });
-  }
-
-  getMembers() {
-    this.loading = true;
-    const memberIds = this.roles.get('SPONSORSHIP').get('Member');
-    this.members = [];
-    this.membersManagerService.getRichMembersByIds(memberIds).subscribe((members) => {
-      this.members = members;
-      this.loading = false;
-    });
-  }
-
-  getGroupsAndVos(role: string) {
-    this.loading = true;
-    const voIds = this.roles.get(role).get('Vo');
-    const groupIds = this.roles.get(role).get('Group');
-    this.vos = [];
-    this.groups = [];
-    this.groupsManagerService.getGroupsByIds(groupIds).subscribe((groups) => {
-      this.groups = groups;
-
-      this.vosManagerService.getVosByIds(voIds).subscribe((vos) => {
-        this.vos = vos;
-        this.loading = false;
-      });
-    });
-  }
-
-  getFacilities(role: string) {
-    this.loading = true;
-    this.facilities = [];
-    const facilityIds = this.roles.get(role).get('Facility');
-    this.facilitiesManagerService.getFacilitiesByIds(facilityIds).subscribe((facilities) => {
-      this.facilities = facilities.map((f) => ({ facility: f }));
-      this.loading = false;
-    });
   }
 }

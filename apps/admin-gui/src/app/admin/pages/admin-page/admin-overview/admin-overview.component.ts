@@ -9,8 +9,6 @@ import { MenuItem } from '@perun-web-apps/perun/models';
 export class AdminOverviewComponent {
   @HostBinding('class.router-component') true;
 
-  constructor() {}
-
   navItems: MenuItem[] = [
     {
       cssIcon: 'perun-attributes',

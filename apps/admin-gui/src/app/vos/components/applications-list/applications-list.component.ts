@@ -19,12 +19,6 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
   styleUrls: ['./applications-list.component.scss'],
 })
 export class ApplicationsListComponent implements OnChanges, AfterViewInit {
-  constructor(private authResolver: GuiAuthResolver) {}
-
-  @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
-    this.sort = ms;
-  }
-
   @Input()
   applications: Application[] = [];
 
@@ -46,28 +40,19 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
   @Input()
   disableRouting = false;
 
-  dataSource: MatTableDataSource<Application>;
-
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
-  private sort: MatSort;
+  dataSource: MatTableDataSource<Application>;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  private sort: MatSort;
 
-  ngAfterViewInit(): void {
-    if (!this.authResolver.isPerunAdminOrObserver()) {
-      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
-    }
+  constructor(private authResolver: GuiAuthResolver) {}
+
+  @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
+    this.sort = ms;
   }
 
-  ngOnChanges() {
-    this.setDataSource();
-  }
-
-  getSortDataForColumn(
-    data: Application,
-    column: string,
-    outerThis: ApplicationsListComponent
-  ): string {
+  static getSortDataForColumn(data: Application, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -86,17 +71,13 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
       case 'group':
         return data.group ? data.group.name : '';
       case 'modifiedBy':
-        return outerThis.parseModifiedBy(data);
+        return ApplicationsListComponent.parseModifiedBy(data);
       default:
         return '';
     }
   }
 
-  getDataForColumn(
-    data: Application,
-    column: string,
-    outerThis: ApplicationsListComponent
-  ): string {
+  static getDataForColumn(data: Application, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -113,13 +94,13 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
       case 'group':
         return data.group ? data.group.name : '';
       case 'modifiedBy':
-        return outerThis.parseModifiedBy(data);
+        return ApplicationsListComponent.parseModifiedBy(data);
       default:
         return '';
     }
   }
 
-  parseModifiedBy(data: Application) {
+  static parseModifiedBy(data: Application): string {
     const index = data.modifiedBy.lastIndexOf('/CN=');
     if (index !== -1) {
       const string = data.modifiedBy
@@ -134,39 +115,60 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
     return data.modifiedBy.toLowerCase();
   }
 
-  exportData(format: string) {
+  ngAfterViewInit(): void {
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
+    }
+  }
+
+  ngOnChanges(): void {
+    this.setDataSource();
+  }
+
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
-        this
+        ApplicationsListComponent.getDataForColumn.bind(this) as (
+          data: Application,
+          column: string
+        ) => string
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (!this.dataSource) {
       this.dataSource = new MatTableDataSource<Application>();
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
-      this.dataSource.filterPredicate = (data: Application, filter: string) =>
+      this.dataSource.filterPredicate = (data: Application, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn,
-          this
+          ApplicationsListComponent.getDataForColumn.bind(this) as (
+            data: Application,
+            column: string
+          ) => string
         );
-      this.dataSource.sortData = (data: Application[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getSortDataForColumn, this);
+      this.dataSource.sortData = (data: Application[], sort: MatSort): Application[] =>
+        customDataSourceSort(
+          data,
+          sort,
+          ApplicationsListComponent.getSortDataForColumn.bind(this) as (
+            data: Application,
+            column: string
+          ) => string
+        );
     }
     this.dataSource.filter = this.filterValue;
     this.dataSource.data = this.applications;
   }
 
-  getFriendlyName(modifiedBy: string) {
+  getFriendlyName(modifiedBy: string): string {
     const index = modifiedBy.lastIndexOf('/CN=');
     if (index !== -1) {
       const string = modifiedBy
@@ -180,7 +182,7 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
     return modifiedBy;
   }
 
-  selectApplication(application: Application) {
+  selectApplication(application: Application): (string | number)[] {
     if (!this.disableRouting) {
       if (this.group) {
         return [

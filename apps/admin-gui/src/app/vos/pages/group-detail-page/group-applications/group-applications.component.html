@@ -3,17 +3,17 @@
   <perun-web-apps-refresh-button
     (refresh)="this.refresh=!this.refresh"></perun-web-apps-refresh-button>
   <button
-    mat-stroked-button
+    (click)="this.showAllDetails = true"
     *ngIf="!showAllDetails"
     class="mr-2"
-    (click)="this.showAllDetails = true">
+    mat-stroked-button>
     {{'VO_DETAIL.APPLICATION.SHOW_ALL_DETAILS' | translate}}
   </button>
   <button
-    mat-stroked-button
+    (click)="this.showAllDetails = false"
     *ngIf="showAllDetails"
     class="mr-2"
-    (click)="this.showAllDetails = false">
+    mat-stroked-button>
     {{'VO_DETAIL.APPLICATION.SHOW_LESS_DETAILS' | translate}}
   </button>
   <mat-form-field class="w-25 mr-2">
@@ -42,7 +42,7 @@
   <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
     [placeholder]="'VO_DETAIL.APPLICATION.FILTER'"></perun-web-apps-debounce-filter>
-  <perun-web-apps-date-range [startDate]="startDate" [endDate]="endDate" (datePicker)="select()">
+  <perun-web-apps-date-range (datePicker)="select()" [endDate]="endDate" [startDate]="startDate">
   </perun-web-apps-date-range>
 </div>
 <div>

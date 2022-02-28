@@ -15,27 +15,27 @@ export interface DeleteResourceTagDialogDialogData {
   styleUrls: ['./delete-resource-tag-dialog.component.scss'],
 })
 export class DeleteResourceTagDialogComponent implements OnInit {
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<ResourceTag>;
+  theme: string;
+  loading = false;
+
   constructor(
     private dialogRef: MatDialogRef<DeleteResourceTagDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: DeleteResourceTagDialogDialogData,
     private resourceManager: ResourcesManagerService
   ) {}
 
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<ResourceTag>;
-  theme: string;
-  loading = false;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
     this.dataSource = new MatTableDataSource(this.data.tagsForDelete);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     for (const resourceTag of this.data.tagsForDelete) {
       this.resourceManager.deleteResourceTag({ resourceTag: resourceTag }).subscribe(

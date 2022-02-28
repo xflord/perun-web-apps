@@ -13,23 +13,23 @@ export class AdminUsersComponent implements OnInit {
 
   @HostBinding('class.router-component') true;
 
-  constructor(private storeService: StoreService) {}
-
   usersWithoutVo = false;
   searchString: string;
   tableId = TABLE_ADMIN_USER_SELECT;
   attributes: string[] = [];
 
-  ngOnInit() {
+  constructor(private storeService: StoreService) {}
+
+  ngOnInit(): void {
     this.attributes = [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL];
     this.attributes = this.attributes.concat(this.storeService.getLoginAttributeNames());
   }
 
-  onSearchByString(searchString: string) {
+  onSearchByString(searchString: string): void {
     this.searchString = searchString;
   }
 
-  findUsersWithoutVO() {
+  findUsersWithoutVO(): void {
     this.usersWithoutVo = !this.usersWithoutVo;
   }
 }

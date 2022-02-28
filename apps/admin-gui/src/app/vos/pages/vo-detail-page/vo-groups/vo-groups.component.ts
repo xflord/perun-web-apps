@@ -11,8 +11,7 @@ import { TABLE_VO_GROUPS } from '@perun-web-apps/config/table-config';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
-import { GroupsTreeComponent } from '@perun-web-apps/perun/components';
-import { GroupsListComponent } from '@perun-web-apps/perun/components';
+import { GroupsListComponent, GroupsTreeComponent } from '@perun-web-apps/perun/components';
 
 @Component({
   selector: 'app-vo-groups',
@@ -21,18 +20,14 @@ import { GroupsListComponent } from '@perun-web-apps/perun/components';
 })
 export class VoGroupsComponent implements OnInit {
   static id = 'VoGroupsComponent';
-
   @HostBinding('class.router-component') true;
-
-  constructor(
-    private dialog: MatDialog,
-    private groupService: GroupsManagerService,
-    public authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
-  ) {}
-
+  @ViewChild('toggle', { static: true })
+  toggle: MatSlideToggle;
+  @ViewChild('tree', {})
+  tree: GroupsTreeComponent;
+  @ViewChild('list', {})
+  list: GroupsListComponent;
   vo: Vo;
-
   groups: RichGroup[] = [];
   showGroupList = false;
   selected = new SelectionModel<RichGroup>(true, []);
@@ -41,19 +36,17 @@ export class VoGroupsComponent implements OnInit {
   filterValue = '';
   tableId = TABLE_VO_GROUPS;
 
-  @ViewChild('toggle', { static: true })
-  toggle: MatSlideToggle;
-
   createAuth: boolean;
   routeAuth: boolean;
 
-  @ViewChild('tree', {})
-  tree: GroupsTreeComponent;
+  constructor(
+    private dialog: MatDialog,
+    private groupService: GroupsManagerService,
+    public authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
 
-  @ViewChild('list', {})
-  list: GroupsListComponent;
-
-  onCreateGroup() {
+  onCreateGroup(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = { voId: this.vo.id, parentGroup: null, theme: 'vo-theme' };
@@ -68,7 +61,7 @@ export class VoGroupsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     if (localStorage.getItem('preferedValue') === 'list') {
       this.toggle.toggle();
@@ -86,7 +79,7 @@ export class VoGroupsComponent implements OnInit {
     this.loadAllGroups();
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     this.createAuth = this.authResolver.isAuthorized('createGroup_Vo_Group_policy', [this.vo]);
 
     if (this.groups.length !== 0) {
@@ -97,21 +90,18 @@ export class VoGroupsComponent implements OnInit {
     }
   }
 
-  disableRemove() {
+  disableRemove(): boolean {
     return (
       (this.tree !== undefined && !this.tree.removeAuth) ||
       (this.list !== undefined && !this.list.removeAuth)
     );
   }
 
-  disableTooltip() {
-    return (
-      (this.tree !== undefined && this.tree.removeAuth) ||
-      (this.list !== undefined && this.list.removeAuth)
-    );
+  disableTooltip(): boolean {
+    return this.tree?.removeAuth || this.list?.removeAuth;
   }
 
-  deleteGroup() {
+  deleteGroup(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = { voId: this.vo.id, groups: this.selected.selected, theme: 'vo-theme' };
@@ -125,11 +115,11 @@ export class VoGroupsComponent implements OnInit {
     });
   }
 
-  removeAllGroups() {
+  removeAllGroups(): void {
     this.selected.clear();
   }
 
-  onMoveGroup(group: GroupFlatNode | Group) {
+  onMoveGroup(group: GroupFlatNode | Group): void {
     const config = getDefaultDialogConfig();
     config.width = '550px';
     config.data = {
@@ -145,7 +135,7 @@ export class VoGroupsComponent implements OnInit {
     });
   }
 
-  loadAllGroups() {
+  loadAllGroups(): void {
     this.loading = true;
     this.groupService
       .getAllRichGroupsWithAttributesByNames(this.vo.id, [
@@ -164,7 +154,7 @@ export class VoGroupsComponent implements OnInit {
       });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
     this.filtering = filterValue !== '';
   }

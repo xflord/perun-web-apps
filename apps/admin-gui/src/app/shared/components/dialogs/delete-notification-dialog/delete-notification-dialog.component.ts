@@ -18,6 +18,11 @@ export interface DeleteApplicationFormMailDialogData {
   styleUrls: ['./delete-notification-dialog.component.scss'],
 })
 export class DeleteNotificationDialogComponent implements OnInit {
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<ApplicationMail>;
+  theme: string;
+  loading = false;
+
   constructor(
     public dialogRef: MatDialogRef<DeleteNotificationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DeleteApplicationFormMailDialogData,
@@ -26,21 +31,16 @@ export class DeleteNotificationDialogComponent implements OnInit {
     private registrarService: RegistrarManagerService
   ) {}
 
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<ApplicationMail>;
-  theme: string;
-  loading = false;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
     this.dataSource = new MatTableDataSource<ApplicationMail>(this.data.mails);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     if (this.data.groupId) {
       for (const mail of this.data.mails) {
@@ -65,7 +65,6 @@ export class DeleteNotificationDialogComponent implements OnInit {
 
   getMailType(applicationMail: ApplicationMail): string {
     let value = '';
-    // @ts-ignore
     if (
       applicationMail.mailType === undefined ||
       applicationMail.mailType === null ||
@@ -75,7 +74,7 @@ export class DeleteNotificationDialogComponent implements OnInit {
     } else {
       this.translate
         .get('VO_DETAIL.SETTINGS.NOTIFICATIONS.MAIL_TYPE_' + applicationMail.mailType)
-        .subscribe((text) => {
+        .subscribe((text: string) => {
           value = text;
         });
     }

@@ -1,17 +1,17 @@
 <div>
   <h1 class="page-subtitle">{{'FACILITY_DETAIL.ALLOWED_USERS.TITLE' | translate}}</h1>
   <div class="filters">
-    <perun-web-apps-refresh-button class="mr-2" (refresh)="refreshPage()">
+    <perun-web-apps-refresh-button (refresh)="refreshPage()" class="mr-2">
     </perun-web-apps-refresh-button>
     <perun-web-apps-debounce-filter
-      class="mr-2 filter"
+      (filter)="applyFilter($event)"
       [placeholder]="'FACILITY_DETAIL.ALLOWED_USERS.FILTER'"
-      (filter)="applyFilter($event)"></perun-web-apps-debounce-filter>
+      class="mr-2 filter"></perun-web-apps-debounce-filter>
     <perun-web-apps-advanced-filter
-      [filtersCount]="filtersCount"
-      [advancedFilter]="advancedFilter"
       (changeAdvancedFilter)="advancedFilter=$event"
-      (clearFilters)="clearFilters()">
+      [advancedFilter]="advancedFilter"
+      (clearFilters)="clearFilters()"
+      [filtersCount]="filtersCount">
     </perun-web-apps-advanced-filter>
   </div>
   <div *ngIf="advancedFilter" class="advanced-filter">
@@ -27,38 +27,38 @@
     </div>
     <div class="filters">
       <perun-web-apps-vo-search-select
-        class="search-select"
+        [vos]="vos"
         (voSelected)="voSelected($event)"
         [vo]="selectedVo"
-        [vos]="vos">
+        class="search-select">
       </perun-web-apps-vo-search-select>
       <perun-web-apps-resource-search-select
-        class="search-select"
+        [resources]="filteredResources"
         (resourceSelected)="resourceSelected($event)"
         [displayStatus]="false"
         [resource]="selectedResource"
-        [resources]="filteredResources">
+        class="search-select">
       </perun-web-apps-resource-search-select>
       <perun-web-apps-service-search-select
-        class="search-select"
+        [services]="filteredServices"
         (serviceSelected)="serviceSelected($event)"
         [service]="selectedService"
-        [services]="filteredServices">
+        class="search-select">
       </perun-web-apps-service-search-select>
     </div>
   </div>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <perun-web-apps-users-dynamic-list
     *ngIf="!loading"
-    [tableId]="tableId"
-    [searchString]="filterValue"
-    [displayedColumns]="['id', 'name', 'email', 'logins', 'organization']"
     [attrNames]="attributes"
+    [disableRouting]="!routeAuth"
+    [displayedColumns]="['id', 'name', 'email', 'logins', 'organization']"
+    [onlyAllowed]="allowed"
     [facilityId]="facility.id"
-    [voId]="selectedVo.id === -1 ? null : selectedVo.id"
+    [searchString]="filterValue"
     [resourceId]="selectedResource.id === -1 ? null : selectedResource.id"
     [serviceId]="selectedService.id === -1 ? null : selectedService.id"
-    [onlyAllowed]="allowed"
-    [disableRouting]="!routeAuth">
+    [tableId]="tableId"
+    [voId]="selectedVo.id === -1 ? null : selectedVo.id">
   </perun-web-apps-users-dynamic-list>
 </div>

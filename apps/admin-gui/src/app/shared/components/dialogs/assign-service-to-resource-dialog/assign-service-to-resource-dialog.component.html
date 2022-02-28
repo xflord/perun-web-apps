@@ -12,12 +12,12 @@
         </div>
 
         <app-services-list
-          [tableId]="tableId"
+          [services]="unAssignedServices"
           [disableRouting]="true"
           [displayedColumns]="['select', 'id', 'name', 'enabled', 'description']"
           [filterValue]="filterValue"
           [selection]="selection"
-          [services]="unAssignedServices">
+          [tableId]="tableId">
         </app-services-list>
       </mat-tab>
       <mat-tab label="{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.SELECT_PACKAGE' | translate}}">
@@ -30,26 +30,26 @@
         </div>
 
         <app-services-list
-          [tableId]="tableId"
-          [disableRouting]="true"
           *ngIf="selectedPackage.id !== -1"
+          [disableRouting]="true"
+          [services]="filteredServices"
           [displayedColumns]="['id', 'name', 'enabled', 'description']"
           [selection]="selection"
-          [services]="filteredServices">
+          [tableId]="tableId">
         </app-services-list>
       </mat-tab>
     </mat-tab-group>
   </div>
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.CANCEL_BUTTON' | translate}}
     </button>
     <button
-      mat-flat-button
+      (click)="onAdd()"
       class="ml-2"
       color="accent"
-      (click)="onAdd()"
-      [disabled]="(selection.selected.length === 0 && selectedPackage.id === -1) || loading">
+      [disabled]="(selection.selected.length === 0 && selectedPackage.id === -1) || loading"
+      mat-flat-button>
       {{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.'+(selectedPackage.id === -1 ? 'ADD_SERVICES' : 'ADD_PACKAGE') | translate}}
     </button>
   </div>

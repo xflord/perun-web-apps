@@ -19,14 +19,6 @@ export interface AddExtSourceDialogData {
   styleUrls: ['./add-ext-source-dialog.component.scss'],
 })
 export class AddExtSourceDialogComponent implements OnInit {
-  constructor(
-    private dialogRef: MatDialogRef<AddExtSourceDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: AddExtSourceDialogData,
-    private extSourceService: ExtSourcesManagerService,
-    private notificator: NotificatorService,
-    private translate: TranslateService
-  ) {}
-
   theme: string;
   extSources: ExtSource[] = [];
   selection = new SelectionModel<ExtSource>(true, []);
@@ -35,7 +27,15 @@ export class AddExtSourceDialogComponent implements OnInit {
   successMessage: string;
   tableId = TABLE_ADD_EXTSOURCE_DIALOG;
 
-  ngOnInit() {
+  constructor(
+    private dialogRef: MatDialogRef<AddExtSourceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: AddExtSourceDialogData,
+    private extSourceService: ExtSourcesManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService
+  ) {}
+
+  ngOnInit(): void {
     this.loading = true;
     this.theme = this.data.theme;
 
@@ -62,16 +62,18 @@ export class AddExtSourceDialogComponent implements OnInit {
     }
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  addVoExtSource(extSources: ExtSource[]) {
+  addVoExtSource(extSources: ExtSource[]): void {
     if (extSources.length === 0) {
-      this.translate.get('DIALOGS.ADD_EXT_SOURCES.SUCCESS_ADDED').subscribe((successMessage) => {
-        this.notificator.showSuccess(successMessage);
-        this.dialogRef.close(true);
-      });
+      this.translate
+        .get('DIALOGS.ADD_EXT_SOURCES.SUCCESS_ADDED')
+        .subscribe((successMessage: string) => {
+          this.notificator.showSuccess(successMessage);
+          this.dialogRef.close(true);
+        });
       return;
     }
 
@@ -84,12 +86,14 @@ export class AddExtSourceDialogComponent implements OnInit {
     );
   }
 
-  addGroupExtSource(extSources: ExtSource[]) {
+  addGroupExtSource(extSources: ExtSource[]): void {
     if (extSources.length === 0) {
-      this.translate.get('DIALOGS.ADD_EXT_SOURCES.SUCCESS_ADDED').subscribe((successMessage) => {
-        this.notificator.showSuccess(successMessage);
-        this.dialogRef.close(true);
-      });
+      this.translate
+        .get('DIALOGS.ADD_EXT_SOURCES.SUCCESS_ADDED')
+        .subscribe((successMessage: string) => {
+          this.notificator.showSuccess(successMessage);
+          this.dialogRef.close(true);
+        });
       return;
     }
 
@@ -102,7 +106,7 @@ export class AddExtSourceDialogComponent implements OnInit {
     );
   }
 
-  onAdd() {
+  onAdd(): void {
     this.loading = true;
     if (this.data.groupId) {
       this.addGroupExtSource(this.selection.selected);
@@ -111,7 +115,7 @@ export class AddExtSourceDialogComponent implements OnInit {
     }
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 }

@@ -2,8 +2,8 @@
   <div mat-dialog-title>
     <h1 class="page-subtitle">{{'DIALOGS.REMOVE_EXT_SOURCES.TITLE' | translate}}</h1>
   </div>
-  <mat-spinner class="mr-auto ml-auto" *ngIf="loading"></mat-spinner>
-  <div mat-dialog-content *ngIf="!loading">
+  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content>
     <p>
       {{'DIALOGS.REMOVE_EXT_SOURCES.DESCRIPTION' | translate}}
     </p>
@@ -26,11 +26,11 @@
   </div>
 
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.REMOVE_EXT_SOURCES.CANCEL' | translate}}
     </button>
 
-    <button mat-flat-button class="ml-2" color="warn" (click)="onRemove()">
+    <button (click)="onRemove()" class="ml-2" color="warn" mat-flat-button>
       {{'DIALOGS.REMOVE_EXT_SOURCES.REMOVE' | translate}}
     </button>
   </div>

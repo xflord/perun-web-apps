@@ -21,14 +21,14 @@ export class FacilityOverviewComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.facility = this.entityStorageService.getEntity();
     this.initItems();
     this.loading = false;
   }
 
-  private initItems() {
+  private initItems(): void {
     this.navItems = [];
 
     // Resources

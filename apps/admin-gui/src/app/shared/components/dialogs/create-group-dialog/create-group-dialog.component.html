@@ -29,17 +29,17 @@
       </mat-form-field>
       <mat-checkbox
         *ngIf="isNotSubGroup"
-        [labelPosition]="'before'"
+        [(ngModel)]="asSubgroup"
         (click)="loadVoGroups()"
-        [(ngModel)]="asSubgroup">
+        [labelPosition]="'before'">
         {{'DIALOGS.CREATE_GROUP.AS_SUBGROUP' | translate}}
       </mat-checkbox>
       <perun-web-apps-group-search-select
         *ngIf="asSubgroup"
-        class="long-input"
+        (groupSelected)="selectedParent = $event"
         [disableAutoSelect]="true"
         [groups]="voGroups"
-        (groupSelected)="selectedParent = $event">
+        class="long-input">
       </perun-web-apps-group-search-select>
     </div>
     <div mat-dialog-actions>

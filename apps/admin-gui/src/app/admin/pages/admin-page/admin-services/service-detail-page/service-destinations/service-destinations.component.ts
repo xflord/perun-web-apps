@@ -18,6 +18,13 @@ import { RemoveDestinationDialogComponent } from '../../../../../../shared/compo
   styleUrls: ['./service-destinations.component.scss'],
 })
 export class ServiceDestinationsComponent implements OnInit {
+  loading = false;
+  filterValue = '';
+  destinations: RichDestination[] = [];
+  selection = new SelectionModel<RichDestination>(true, []);
+  tableId = TABLE_FACILITY_SERVICES_DESTINATION_LIST;
+  private service: Service;
+
   constructor(
     private serviceManager: ServicesManagerService,
     private notificator: NotificatorService,
@@ -27,22 +34,13 @@ export class ServiceDestinationsComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  loading = false;
-  filterValue = '';
-
-  service: Service;
-  destinations: RichDestination[] = [];
-  selection = new SelectionModel<RichDestination>(true, []);
-
-  tableId = TABLE_FACILITY_SERVICES_DESTINATION_LIST;
-
   ngOnInit(): void {
     this.loading = true;
     this.service = this.entityStorageService.getEntity();
     this.refreshTable();
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.serviceManager
       .getAllRichDestinationsForService(this.service.id)
@@ -54,53 +52,17 @@ export class ServiceDestinationsComponent implements OnInit {
       });
   }
 
-  blockServiceOnDestinations(destinations: RichDestination[]) {
-    if (destinations.length === 0) {
-      this.notificator.showSuccess(
-        this.translate.instant('SERVICE_DETAIL.DESTINATIONS.BLOCK_SUCCESS')
-      );
-      this.refreshTable();
-      return;
-    }
-
-    const destination = destinations.pop();
-    this.serviceManager.blockServiceOnDestination(this.service.id, destination.id).subscribe(
-      () => {
-        this.blockServiceOnDestinations(destinations);
-      },
-      () => (this.loading = false)
-    );
-  }
-
-  onBlock() {
+  onBlock(): void {
     this.loading = true;
     this.blockServiceOnDestinations(this.selection.selected);
   }
 
-  allowServiceOnDestinations(destinations: RichDestination[]) {
-    if (destinations.length === 0) {
-      this.notificator.showSuccess(
-        this.translate.instant('SERVICE_DETAIL.DESTINATIONS.ALLOW_SUCCESS')
-      );
-      this.refreshTable();
-      return;
-    }
-
-    const destination = destinations.pop();
-    this.serviceManager.unblockServiceOnDestinationById(this.service.id, destination.id).subscribe(
-      () => {
-        this.allowServiceOnDestinations(destinations);
-      },
-      () => (this.loading = false)
-    );
-  }
-
-  onAllow() {
+  onAllow(): void {
     this.loading = true;
     this.allowServiceOnDestinations(this.selection.selected);
   }
 
-  onRemove() {
+  onRemove(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = {
@@ -117,7 +79,43 @@ export class ServiceDestinationsComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
+  }
+
+  private blockServiceOnDestinations(destinations: RichDestination[]): void {
+    if (destinations.length === 0) {
+      this.notificator.showSuccess(
+        this.translate.instant('SERVICE_DETAIL.DESTINATIONS.BLOCK_SUCCESS') as string
+      );
+      this.refreshTable();
+      return;
+    }
+
+    const destination = destinations.pop();
+    this.serviceManager.blockServiceOnDestination(this.service.id, destination.id).subscribe(
+      () => {
+        this.blockServiceOnDestinations(destinations);
+      },
+      () => (this.loading = false)
+    );
+  }
+
+  private allowServiceOnDestinations(destinations: RichDestination[]): void {
+    if (destinations.length === 0) {
+      this.notificator.showSuccess(
+        this.translate.instant('SERVICE_DETAIL.DESTINATIONS.ALLOW_SUCCESS') as string
+      );
+      this.refreshTable();
+      return;
+    }
+
+    const destination = destinations.pop();
+    this.serviceManager.unblockServiceOnDestinationById(this.service.id, destination.id).subscribe(
+      () => {
+        this.allowServiceOnDestinations(destinations);
+      },
+      () => (this.loading = false)
+    );
   }
 }

@@ -8,7 +8,7 @@
     </ng-template>
 
     <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-    <div *ngIf="!loading" mat-dialog-content class="dialog-container">
+    <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
       <div [@openClose]="invalidNotification ? 'open' : 'closed'">
         <perun-web-apps-alert
           alert_type="error"
@@ -119,8 +119,8 @@
                 <div class="pt-2">
                   <button
                     class="right-button"
-                    mat-stroked-button
-                    (click)="this.showTags = !this.showTags;">
+                    (click)="this.showTags = !this.showTags;"
+                    mat-stroked-button>
                     {{showTags ? ('DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.HIDE_TAGS' | translate) :
                     ('DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SHOW_TAGS' | translate)}}
                   </button>
@@ -129,10 +129,10 @@
                   </span>
                   <mat-form-field class="w-100">
                     <input
-                      matInput
+                      [(ngModel)]="this.applicationMail.message[lang].subject"
                       #Input
                       (focus)="isTextFocused = false"
-                      [(ngModel)]="this.applicationMail.message[lang].subject" />
+                      matInput />
                   </mat-form-field>
                 </div>
                 <div class="font-weight-bold">
@@ -141,11 +141,11 @@
 
                 <mat-form-field class="w-100">
                   <textarea
-                    matInput
+                    [(ngModel)]="this.applicationMail.message[lang].text"
                     #Textarea
-                    rows="17"
+                    matInput
                     (focus)="isTextFocused = true"
-                    [(ngModel)]="this.applicationMail.message[lang].text">
+                    rows="17">
                   </textarea>
                 </mat-form-field>
               </div>
@@ -161,30 +161,30 @@
       </mat-tab-group>
     </div>
 
-    <div mat-dialog-actions class="d-flex mt-auto">
-      <button mat-flat-button class="ml-auto" (click)="cancel()">
+    <div class="d-flex mt-auto" mat-dialog-actions>
+      <button (click)="cancel()" class="ml-auto" mat-flat-button>
         {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.CANCEL_BUTTON' | translate}}
       </button>
       <button
-        mat-flat-button
+        (click)="create()"
         *ngIf="data.createMailNotification"
         class="ml-2"
         color="accent"
         [disabled]="invalidNotification || loading"
-        (click)="create()">
+        mat-flat-button>
         {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.CREATE_BUTTON' | translate}}
       </button>
       <div
-        matTooltip="{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.EDIT_HINT' | translate}}"
+        [matTooltipDisabled]="editAuth"
         [matTooltipPosition]="'above'"
-        [matTooltipDisabled]="editAuth">
+        matTooltip="{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.EDIT_HINT' | translate}}">
         <button
-          mat-flat-button
+          (click)="save()"
           *ngIf="!data.createMailNotification"
           class="ml-2"
           color="accent"
           [disabled]="loading || !editAuth"
-          (click)="save()">
+          mat-flat-button>
           {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SAVE_BUTTON' | translate}}
         </button>
       </div>

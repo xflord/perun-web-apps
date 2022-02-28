@@ -13,10 +13,10 @@ export class VisualizerAttrModulesComponent implements OnInit {
 
   constructor(private attributesManager: AttributesManagerService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.attributesManager.getAttributeModulesDependenciesGraphText('DOT').subscribe((data) => {
       const graphData = data.graph.replace('\\t', '').replace('\\n', '').replace('\\', '');
-
+      // eslint-disable-next-line
       graphviz('#dependenciesGraph', { zoom: false }).renderDot(graphData);
     });
   }

@@ -1,14 +1,14 @@
 <div>
   <h1 class="page-subtitle">{{'ADMIN.EXT_SOURCES.TITLE' | translate}}</h1>
 
-  <button *ngIf="authResolver.isPerunAdmin()" mat-stroked-button (click)="onLoad()" class="mr-2">
+  <button (click)="onLoad()" *ngIf="authResolver.isPerunAdmin()" class="mr-2" mat-stroked-button>
     {{'ADMIN.EXT_SOURCES.LOAD' | translate}}
   </button>
 
   <perun-web-apps-immediate-filter
-    [placeholder]="'ADMIN.EXT_SOURCES.SEARCH'"
-    (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+    (filter)="applyFilter($event)"
+    [placeholder]="'ADMIN.EXT_SOURCES.SEARCH'"></perun-web-apps-immediate-filter>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 
   <app-ext-sources-list
     *ngIf="!loading"

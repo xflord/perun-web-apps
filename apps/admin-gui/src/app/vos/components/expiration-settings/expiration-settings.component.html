@@ -1,16 +1,16 @@
-<div class="card settings-card col-12 col-md-12 col-xl-6" *ngIf="currentConfiguration">
+<div *ngIf="currentConfiguration" class="card settings-card col-12 col-md-12 col-xl-6">
   <div class="d-flex flex-row align-items-baseline justify-content-between">
     <h1
-      class="settings-header"
+      [class.unselected-setting]="!mainToggle.checked"
       (click)="mainToggle.toggle()"
-      [class.unselected-setting]="!mainToggle.checked">
+      class="settings-header">
       {{'VO_MANAGEMENT.SETTINGS.EXPIRATION.TITLE' | translate}}
     </h1>
     <mat-slide-toggle
       #mainToggle
       class="ml-4"
-      color="primary"
-      [(ngModel)]="currentConfiguration.enabled">
+      [(ngModel)]="currentConfiguration.enabled"
+      color="primary">
     </mat-slide-toggle>
   </div>
 
@@ -28,22 +28,22 @@
           {{'VO_MANAGEMENT.SETTINGS.EXPIRATION.PERIOD_TYPE_DYNAMIC' | translate}}
         </mat-radio-button>
       </mat-radio-group>
-      <div class="form-container" *ngIf="staticPeriod.checked">
+      <div *ngIf="staticPeriod.checked" class="form-container">
         <mat-form-field class="date-field">
           <input
             pattern="{{datePattern}}"
-            matInput
             [(ngModel)]="currentConfiguration.periodStatic"
+            matInput
             placeholder="{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.PERIOD_INPUT_STATIC' | translate}}" />
           <mat-hint>{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.DP_HINT' | translate}}</mat-hint>
         </mat-form-field>
       </div>
-      <div class="d-flex flex-row" *ngIf="dynamicPeriod.checked">
+      <div *ngIf="dynamicPeriod.checked" class="d-flex flex-row">
         <mat-form-field class="mr-2 amount-field">
           <input
-            pattern="{{dynamicAmountPattern}}"
-            matInput
             [(ngModel)]="currentConfiguration.periodDynamic"
+            matInput
+            pattern="{{dynamicAmountPattern}}"
             placeholder="{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.AMOUNT_VALUE' | translate}}" />
         </mat-form-field>
         <mat-form-field>
@@ -68,7 +68,7 @@
         <mat-placeholder
           >{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.DONT_ALLOW_LOA_SELECT' | translate}}</mat-placeholder
         >
-        <mat-select multiple [(ngModel)]="currentConfiguration.doNotAllowLoas">
+        <mat-select [(ngModel)]="currentConfiguration.doNotAllowLoas" multiple>
           <mat-option *ngFor="let loa of loas" [value]="loa">{{loa}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -83,7 +83,7 @@
         <mat-placeholder
           >{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.DONT_EXTEND_LOA_SELECT' | translate}}</mat-placeholder
         >
-        <mat-select multiple [(ngModel)]="currentConfiguration.doNotExtendLoas">
+        <mat-select [(ngModel)]="currentConfiguration.doNotExtendLoas" multiple>
           <mat-option *ngFor="let loa of loas" [value]="loa">{{loa}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -98,8 +98,8 @@
         <mat-form-field class="mr-2 amount-field">
           <input
             pattern="{{dynamicAmountPattern}}"
-            matInput
             [(ngModel)]="currentConfiguration.gracePeriod"
+            matInput
             placeholder="{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.GRACE_AMOUNT_VALUE' | translate}}" />
         </mat-form-field>
         <mat-form-field>
@@ -135,7 +135,7 @@
             </mat-select>
           </mat-form-field>
 
-          <div class="mt-2" *ngIf="currentConfiguration.specialLoa !== null">
+          <div *ngIf="currentConfiguration.specialLoa !== null" class="mt-2">
             <mat-radio-group [(ngModel)]="currentConfiguration.specialLoaPeriodType">
               <mat-radio-button #loaStaticRadioButton class="mr-3" color="primary" value="static">
                 {{'VO_MANAGEMENT.SETTINGS.EXPIRATION.PERIOD_TYPE_STATIC' | translate}}
@@ -144,7 +144,7 @@
                 {{'VO_MANAGEMENT.SETTINGS.EXPIRATION.PERIOD_TYPE_DYNAMIC' | translate}}
               </mat-radio-button>
             </mat-radio-group>
-            <div class="form-container" *ngIf="loaStaticRadioButton.checked">
+            <div *ngIf="loaStaticRadioButton.checked" class="form-container">
               <mat-form-field class="date-field">
                 <input
                   pattern="{{datePattern}}"
@@ -154,7 +154,7 @@
                 <mat-hint>{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.DP_HINT' | translate}}</mat-hint>
               </mat-form-field>
             </div>
-            <div class="d-flex flex-row" *ngIf="loaDynamicRadioButton.checked">
+            <div *ngIf="loaDynamicRadioButton.checked" class="d-flex flex-row">
               <mat-form-field class="mr-2 amount-field">
                 <input
                   pattern="{{dynamicAmountPattern}}"
@@ -177,8 +177,8 @@
             </div>
             <div>
               <mat-checkbox
-                color="primary"
-                [(ngModel)]="currentConfiguration.specialLoaPeriodExtendExpiredMembers">
+                [(ngModel)]="currentConfiguration.specialLoaPeriodExtendExpiredMembers"
+                color="primary">
                 {{'VO_MANAGEMENT.SETTINGS.EXPIRATION.EXTEND_EXPIRED_MEMBERS_CHECKBOX' | translate}}
               </mat-checkbox>
             </div>
@@ -195,10 +195,10 @@
     matTooltip="{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.PERMISSION_DENIED_HINT' | translate}}">
     <button
       [disabled]="!areChangesMade() || !expirationAttribute.writable"
-      mat-flat-button
+      (click)="saveChanges()"
       color="primary"
       class="ml-auto"
-      (click)="saveChanges()">
+      mat-flat-button>
       {{'VO_MANAGEMENT.SETTINGS.EXPIRATION.SAVE' | translate}}
     </button>
   </div>

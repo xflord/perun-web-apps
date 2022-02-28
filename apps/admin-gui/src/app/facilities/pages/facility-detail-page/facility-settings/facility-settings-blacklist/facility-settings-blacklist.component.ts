@@ -16,12 +16,6 @@ import { EntityStorageService } from '@perun-web-apps/perun/services';
   styleUrls: ['./facility-settings-blacklist.component.scss'],
 })
 export class FacilitySettingsBlacklistComponent implements OnInit {
-  constructor(
-    private facilitiesManager: FacilitiesManagerService,
-    private usersManager: UsersManagerService,
-    private entityStorageService: EntityStorageService
-  ) {}
-
   bansOnFacilitiesWithUsers: [BanOnFacility, User][] = [];
   selected = new SelectionModel<[BanOnFacility, User]>(true, []);
   filterValue = '';
@@ -29,13 +23,19 @@ export class FacilitySettingsBlacklistComponent implements OnInit {
   tableId = TABLE_FACILITY_BLACKLIST_LIST;
   facility: Facility;
 
+  constructor(
+    private facilitiesManager: FacilitiesManagerService,
+    private usersManager: UsersManagerService,
+    private entityStorageService: EntityStorageService
+  ) {}
+
   ngOnInit(): void {
     this.loading = true;
     this.facility = this.entityStorageService.getEntity();
     this.refreshTable();
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.facilitiesManager.getBansForFacility(this.facility.id).subscribe((bansOnFacility) => {
       const listOfBans: BanOnFacility[] = bansOnFacility;
@@ -51,7 +51,7 @@ export class FacilitySettingsBlacklistComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

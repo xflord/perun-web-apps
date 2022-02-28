@@ -4,11 +4,11 @@
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
 <div *ngIf="!loading">
   <div class="w-100 mb-2">
-    <button *ngIf="!initialPage" class="mr-2" mat-stroked-button (click)="switchToInitial()">
+    <button (click)="switchToInitial()" *ngIf="!initialPage" class="mr-2" mat-stroked-button>
       <i class="material-icons">arrow_right_alt</i>
       {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.SWITCH_INITIAL' | translate}}
     </button>
-    <button *ngIf="initialPage" class="mr-2" mat-stroked-button (click)="switchToExtension()">
+    <button (click)="switchToExtension()" *ngIf="initialPage" class="mr-2" mat-stroked-button>
       <i class="material-icons">cached</i>
       {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.SWITCH_EXTENSION' | translate}}
     </button>
@@ -26,18 +26,18 @@
     <div *ngFor="let applicationFormItem of applicationFormItems">
       <div *ngIf="isValid(applicationFormItem)" class="mb-2">
         <div
-          class="d-flex"
           *ngIf="(applicationFormItem.type === 'TEXTFIELD' ||
                                    applicationFormItem.type === 'VALIDATED_EMAIL' ||
                                    applicationFormItem.type === 'USERNAME') &&
-                                   applicationFormItem.hidden !== 'ALWAYS'">
+                                   applicationFormItem.hidden !== 'ALWAYS'"
+          class="d-flex">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <div class="w-50">
               <input
-                type="text"
+                [disabled]="applicationFormItem.disabled === 'ALWAYS'"
                 class="w-100"
-                [disabled]="applicationFormItem.disabled === 'ALWAYS'" />
+                type="text" />
             </div>
           </div>
           <div class="w-50 d-flex left">
@@ -58,20 +58,20 @@
         </div>
 
         <div
-          class="d-flex"
           *ngIf="applicationFormItem.type === 'PASSWORD' &&
-                                   applicationFormItem.hidden !== 'ALWAYS'">
+                                   applicationFormItem.hidden !== 'ALWAYS'"
+          class="d-flex">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <div class="w-50">
               <input
                 class="mb-1 w-100"
-                type="text"
-                [disabled]="applicationFormItem.disabled === 'ALWAYS'" /><br />
+                [disabled]="applicationFormItem.disabled === 'ALWAYS'"
+                type="text" /><br />
               <input
                 class="w-100"
-                type="text"
-                [disabled]="applicationFormItem.disabled === 'ALWAYS'" />
+                [disabled]="applicationFormItem.disabled === 'ALWAYS'"
+                type="text" />
             </div>
           </div>
           <div class="w-50 d-flex left">
@@ -92,17 +92,17 @@
         </div>
 
         <div
-          class="d-flex"
           *ngIf="applicationFormItem.type === 'RADIO' &&
-                                   applicationFormItem.hidden !== 'ALWAYS'">
+                                   applicationFormItem.hidden !== 'ALWAYS'"
+          class="d-flex">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <form class="w-50">
               <div *ngFor="let item of getLocalizedOptions(applicationFormItem)">
                 <input
-                  type="radio"
+                  name="temp"
                   [disabled]="applicationFormItem.disabled === 'ALWAYS'"
-                  name="temp" />
+                  type="radio" />
                 {{item}}<br />
               </div>
               <input
@@ -136,13 +136,13 @@
         </div>
 
         <div
-          class="d-flex"
           *ngIf="applicationFormItem.type === 'SELECTIONBOX' &&
-                                   applicationFormItem.hidden !== 'ALWAYS'">
+                                   applicationFormItem.hidden !== 'ALWAYS'"
+          class="d-flex">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <div class="w-50">
-              <select class="w-100" [disabled]="applicationFormItem.disabled === 'ALWAYS'">
+              <select [disabled]="applicationFormItem.disabled === 'ALWAYS'" class="w-100">
                 <option *ngFor="let item of getLocalizedOptions(applicationFormItem)">
                   {{item}}
                 </option>
@@ -167,14 +167,14 @@
         </div>
 
         <div
-          class="d-flex"
           *ngIf="applicationFormItem.type === 'TEXTAREA' &&
-                                   applicationFormItem.hidden !== 'ALWAYS'">
+                                   applicationFormItem.hidden !== 'ALWAYS'"
+          class="d-flex">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <textarea
-              class="w-50"
-              [disabled]="applicationFormItem.disabled === 'ALWAYS'"></textarea>
+              [disabled]="applicationFormItem.disabled === 'ALWAYS'"
+              class="w-50"></textarea>
           </div>
           <div class="w-50 d-flex left">
             <mat-icon
@@ -194,20 +194,20 @@
         </div>
 
         <div
-          class="d-flex"
           *ngIf="applicationFormItem.type === 'COMBOBOX' &&
-                                   applicationFormItem.hidden !== 'ALWAYS'">
+                                   applicationFormItem.hidden !== 'ALWAYS'"
+          class="d-flex">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <div class="w-50">
               <select
                 [(ngModel)]="mapForCombobox[applicationFormItem.id]"
-                class="w-100"
-                [disabled]="applicationFormItem.disabled === 'ALWAYS'">
-                <option value="true" selected>
+                [disabled]="applicationFormItem.disabled === 'ALWAYS'"
+                class="w-100">
+                <option selected value="true">
                   {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.OTHER_VALUE' | translate}}
                 </option>
-                <option value="false" *ngFor="let item of getLocalizedOptions(applicationFormItem)">
+                <option *ngFor="let item of getLocalizedOptions(applicationFormItem)" value="false">
                   {{item}}
                 </option>
               </select>
@@ -236,15 +236,15 @@
         </div>
 
         <div
-          class="d-flex"
           *ngIf="applicationFormItem.type === 'CHECKBOX' &&
-                                   applicationFormItem.hidden !== 'ALWAYS'">
+                                   applicationFormItem.hidden !== 'ALWAYS'"
+          class="d-flex">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <div class="w-50">
               <form class="w-100">
                 <div *ngFor="let item of getLocalizedOptions(applicationFormItem)">
-                  <input type="checkbox" [disabled]="applicationFormItem.disabled === 'ALWAYS'" />
+                  <input [disabled]="applicationFormItem.disabled === 'ALWAYS'" type="checkbox" />
                   {{item}}
                 </div>
               </form>
@@ -268,18 +268,18 @@
         </div>
 
         <div
-          class="d-flex"
           *ngIf="applicationFormItem.type === 'EMBEDDED_GROUP_APPLICATION' &&
-                                   applicationFormItem.hidden !== 'ALWAYS'">
+                                   applicationFormItem.hidden !== 'ALWAYS'"
+          class="d-flex">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <div class="w-50">
               <form class="w-100">
-                <input type="checkbox" [disabled]="applicationFormItem.disabled === 'ALWAYS'" />
+                <input [disabled]="applicationFormItem.disabled === 'ALWAYS'" type="checkbox" />
                 example group1 <br />
-                <input type="checkbox" [disabled]="applicationFormItem.disabled === 'ALWAYS'" />
+                <input [disabled]="applicationFormItem.disabled === 'ALWAYS'" type="checkbox" />
                 example group2 <br />
-                <input type="checkbox" [disabled]="applicationFormItem.disabled === 'ALWAYS'" />
+                <input [disabled]="applicationFormItem.disabled === 'ALWAYS'" type="checkbox" />
                 example group3
               </form>
             </div>
@@ -302,13 +302,13 @@
         </div>
 
         <div
-          class="d-flex"
           *ngIf="applicationFormItem.type === 'SUBMIT_BUTTON' &&
-                                   applicationFormItem.hidden !== 'ALWAYS'">
+                                   applicationFormItem.hidden !== 'ALWAYS'"
+          class="d-flex">
           <button
-            mat-flat-button
+            [disabled]="applicationFormItem.disabled === 'ALWAYS'"
             color="accent"
-            [disabled]="applicationFormItem.disabled === 'ALWAYS'">
+            mat-flat-button>
             {{getLocalizedLabel(applicationFormItem)}}
           </button>
           <mat-icon
@@ -329,9 +329,9 @@
           *ngIf="applicationFormItem.type === 'AUTO_SUBMIT_BUTTON' &&
                                    applicationFormItem.hidden !== 'ALWAYS'">
           <button
-            mat-flat-button
+            [disabled]="applicationFormItem.disabled === 'ALWAYS'"
             color="accent"
-            [disabled]="applicationFormItem.disabled === 'ALWAYS'">
+            mat-flat-button>
             {{getLocalizedLabel(applicationFormItem)}}
           </button>
           <mat-icon
@@ -349,18 +349,18 @@
         </div>
 
         <div
-          class="d-flex"
           *ngIf="applicationFormItem.type === 'TIMEZONE' &&
-                                   applicationFormItem.hidden !== 'ALWAYS'">
+                                   applicationFormItem.hidden !== 'ALWAYS'"
+          class="d-flex">
           <div class="w-50 d-flex">
             <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
             <div class="w-50">
               <select
-                name="timezone_offset"
+                [disabled]="applicationFormItem.disabled === 'ALWAYS'"
                 id="timezone-offset"
                 class="w-100"
-                [disabled]="applicationFormItem.disabled === 'ALWAYS'">
-                <option value="-12:00" selected="selected">
+                name="timezone_offset">
+                <option selected="selected" value="-12:00">
                   {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.NOT_SELECTED' | translate}}
                 </option>
                 <option value="-12:00">(GMT -12:00) Eniwetok, Kwajalein</option>

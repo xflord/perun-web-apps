@@ -6,20 +6,18 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./tag-bar.component.scss'],
 })
 export class TagBarComponent implements OnInit {
-  constructor() {}
-
   @Output()
   addedTag = new EventEmitter<string>();
 
-  applicationRelatedTags = [];
-  userRelatedTags = [];
-  validationLinksUsersTags = [];
-  applicationLinksUsersTags = [];
-  applicationLinksAdministratorsTags = [];
-  perunLinksAdministratorsTags = [];
-  userInvitationsTags = [];
+  applicationRelatedTags: string[][] = [];
+  userRelatedTags: string[][] = [];
+  validationLinksUsersTags: string[][] = [];
+  applicationLinksUsersTags: string[][] = [];
+  applicationLinksAdministratorsTags: string[][] = [];
+  perunLinksAdministratorsTags: string[][] = [];
+  userInvitationsTags: string[][] = [];
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getApplicationRelatedTags();
     this.getUserRelatedTags();
     this.getValidationLinksUsersTags();
@@ -29,8 +27,8 @@ export class TagBarComponent implements OnInit {
     this.getUserInvitationsTags();
   }
 
-  getApplicationRelatedTags() {
-    const tags = [];
+  getApplicationRelatedTags(): void {
+    const tags: string[][] = [];
     tags.push(['appId', 'APPID_DESCRIPTION']);
     tags.push(['actor', 'ACTOR_DESCRIPTION']);
     tags.push(['extSource', 'EXTSOURCE_DESCRIPTION']);
@@ -43,8 +41,8 @@ export class TagBarComponent implements OnInit {
     this.applicationRelatedTags = tags;
   }
 
-  getUserRelatedTags() {
-    const tags = [];
+  getUserRelatedTags(): void {
+    const tags: string[][] = [];
     tags.push(['firstName', 'FIRSTNAME_DESCRIPTION']);
     tags.push(['lastName', 'LASTNAME_DESCRIPTION']);
     tags.push(['displayName', 'DISPLAYNAME_DESCRIPTION']);
@@ -55,8 +53,8 @@ export class TagBarComponent implements OnInit {
     this.userRelatedTags = tags;
   }
 
-  getValidationLinksUsersTags() {
-    const tags = [];
+  getValidationLinksUsersTags(): void {
+    const tags: string[][] = [];
     tags.push(['validationLink', 'VALIDATIONLINK_DESCRIPTION']);
     tags.push(['validationLink-krb', 'VALIDATIONKRB_DESCRIPTION']);
     tags.push(['validationLink-fed', 'VALIDATIONFED_DESCRIPTION']);
@@ -66,8 +64,8 @@ export class TagBarComponent implements OnInit {
     this.validationLinksUsersTags = tags;
   }
 
-  getApplicationLinksUsersTags() {
-    const tags = [];
+  getApplicationLinksUsersTags(): void {
+    const tags: string[][] = [];
     tags.push(['appGuiUrl', 'APPGUIURL_DESCRIPTION']);
     tags.push(['appGuiUrl-krb', 'APPGUIURLKRB_DESCRIPTION']);
     tags.push(['appGuiUrl-fed', 'APPGUIURLFED_DESCRIPTION']);
@@ -76,8 +74,8 @@ export class TagBarComponent implements OnInit {
     this.applicationLinksUsersTags = tags;
   }
 
-  getApplicationLinksAdministratorsTags() {
-    const tags = [];
+  getApplicationLinksAdministratorsTags(): void {
+    const tags: string[][] = [];
     tags.push(['appDetailUrl', 'APPDETAILURL_DESCRIPTION']);
     tags.push(['appDetailUrl-krb', 'APPDETAILURLKRB_DESCRIPTION']);
     tags.push(['appDetailUrl-fed', 'APPDETAILURLFED_DESCRIPTION']);
@@ -85,8 +83,8 @@ export class TagBarComponent implements OnInit {
     this.applicationLinksAdministratorsTags = tags;
   }
 
-  getPerunLinksAdministratorsTags() {
-    const tags = [];
+  getPerunLinksAdministratorsTags(): void {
+    const tags: string[][] = [];
     tags.push(['perunGuiUrl', 'PERUNGUIURL_DESCRIPTION']);
     tags.push(['perunGuiUrl-krb', 'PERUNGUIURLKRB_DESCRIPTION']);
     tags.push(['perunGuiUrl-fed', 'PERUNGUIURLFED_DESCRIPTION']);
@@ -94,8 +92,8 @@ export class TagBarComponent implements OnInit {
     this.perunLinksAdministratorsTags = tags;
   }
 
-  getUserInvitationsTags() {
-    const tags = [];
+  getUserInvitationsTags(): void {
+    const tags: string[][] = [];
     tags.push(['voName', 'USER_INVITATIONS_VONAME_DESCRIPTION']);
     tags.push(['groupName', 'USER_INVITATIONS_GROUPNAME_DESCRIPTION']);
     tags.push(['displayName', 'USER_INVITATIONS_DISPLAYNAME_DESCRIPTION']);
@@ -108,7 +106,7 @@ export class TagBarComponent implements OnInit {
     this.userInvitationsTags = tags;
   }
 
-  addTag(tag: string) {
+  addTag(tag: string): void {
     this.addedTag.emit(tag);
   }
 }

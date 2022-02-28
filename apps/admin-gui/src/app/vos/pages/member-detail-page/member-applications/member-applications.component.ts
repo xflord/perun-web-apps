@@ -16,12 +16,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./member-applications.component.scss'],
 })
 export class MemberApplicationsComponent implements OnInit {
-  constructor(
-    private registrarManager: RegistrarManagerService,
-    private memberManager: MembersManagerService,
-    protected route: ActivatedRoute
-  ) {}
-
   loading = false;
   memberId: number;
   member: Member;
@@ -58,10 +52,16 @@ export class MemberApplicationsComponent implements OnInit {
   dateFrom: Date = new Date('1970-01-01');
   refresh: boolean;
 
+  constructor(
+    private registrarManager: RegistrarManagerService,
+    private memberManager: MembersManagerService,
+    protected route: ActivatedRoute
+  ) {}
+
   ngOnInit(): void {
     this.loading = true;
     this.route.parent.params.subscribe((parentParams) => {
-      this.memberId = parentParams['memberId'];
+      this.memberId = parentParams['memberId'] as number;
 
       this.memberManager.getMemberById(this.memberId).subscribe((member) => {
         this.member = member;
@@ -70,7 +70,7 @@ export class MemberApplicationsComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

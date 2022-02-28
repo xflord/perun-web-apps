@@ -11,26 +11,26 @@
     {{'GROUP_DETAIL.SUBGROUPS.CREATE_GROUP' | translate}}
   </button>
   <span
-    matTooltip="{{'GROUP_DETAIL.SUBGROUPS.DELETE_PERMISSION_HINT' | translate}}"
     [matTooltipDisabled]="(tree === undefined && list === undefined) ||
           (tree !== undefined && tree.removeAuth) ||
-          (list !== undefined && list.removeAuth)">
+          (list !== undefined && list.removeAuth)"
+    matTooltip="{{'GROUP_DETAIL.SUBGROUPS.DELETE_PERMISSION_HINT' | translate}}">
     <button
       (click)="deleteGroup()"
       *ngIf="deleteAuth"
-      mat-flat-button
+      [disabled]="selected.selected.length === 0 ||
+              (tree !== undefined && !tree.removeAuth) ||
+              (list !== undefined && !list.removeAuth)"
       color="warn"
       class="mr-2"
       data-cy="delete-group-button"
-      [disabled]="selected.selected.length === 0 ||
-              (tree !== undefined && !tree.removeAuth) ||
-              (list !== undefined && !list.removeAuth)">
+      mat-flat-button>
       {{'GROUP_DETAIL.SUBGROUPS.DELETE_GROUP' | translate}}
     </button>
   </span>
   <perun-web-apps-debounce-filter
-    [placeholder]="'GROUP_DETAIL.SUBGROUPS.FILTER'"
-    (filter)="applyFilter($event)">
+    (filter)="applyFilter($event)"
+    [placeholder]="'GROUP_DETAIL.SUBGROUPS.FILTER'">
   </perun-web-apps-debounce-filter>
   <mat-slide-toggle
     #toggle
@@ -42,33 +42,33 @@
     >{{'GROUP_DETAIL.SUBGROUPS.TREE_VIEW' | translate}}</mat-slide-toggle
   >
   <label [attr.for]="toggle.inputId">{{'GROUP_DETAIL.SUBGROUPS.LIST_VIEW' | translate}}</label>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <div class="mt-3" *ngIf="!loading">
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <div *ngIf="!loading" class="mt-3">
     <perun-web-apps-groups-tree
       #tree
       *ngIf="!showGroupList"
-      [groups]="groups"
+      [disableRouting]="!routeAuth"
       [expandAll]="filtering"
-      [hideCheckbox]="!deleteAuth"
+      [groups]="groups"
       (moveGroup)="onMoveGroup($event)"
       (refreshTable)="refreshTable()"
-      [selection]="selected"
+      [hideCheckbox]="!deleteAuth"
       [filterValue]="filterValue"
-      [disableRouting]="!routeAuth">
+      [selection]="selected">
     </perun-web-apps-groups-tree>
     <perun-web-apps-groups-list
       #list
-      [tableId]="tableId"
-      [groups]="groups"
-      [selection]="selected"
+      (moveGroup)="onMoveGroup($event)"
+      (refreshTable)="refreshTable()"
+      *ngIf="showGroupList"
       [authType]="'group-subgroups'"
       [disableMembers]="true"
       [disableRouting]="!routeAuth"
       [displayedColumns]="deleteAuth ? ['select', 'id', 'name', 'description', 'menu'] : ['id', 'name', 'description', 'menu']"
-      (moveGroup)="onMoveGroup($event)"
-      (refreshTable)="refreshTable()"
+      [groups]="groups"
+      [selection]="selected"
       [filter]="filterValue"
-      *ngIf="showGroupList">
+      [tableId]="tableId">
     </perun-web-apps-groups-list>
   </div>
 </div>

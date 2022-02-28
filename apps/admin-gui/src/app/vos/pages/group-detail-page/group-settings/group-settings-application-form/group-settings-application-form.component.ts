@@ -2,6 +2,7 @@ import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import {
+  ApiRequestConfigurationService,
   EntityStorageService,
   GuiAuthResolver,
   NotificatorService,
@@ -18,9 +19,10 @@ import {
   Group,
   RegistrarManagerService,
 } from '@perun-web-apps/perun/openapi';
-import { ApiRequestConfigurationService } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { HttpErrorResponse } from '@angular/common/http';
+import { RPCError } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-group-settings-application-form',
@@ -31,6 +33,24 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   static id = 'GroupSettingsApplicationFormComponent';
 
   @HostBinding('class.router-component') true;
+  @ViewChild('autoRegToggle')
+  autoRegToggle: MatSlideToggle;
+  loading = false;
+  applicationForm: ApplicationForm;
+  applicationFormItems: ApplicationFormItem[] = [];
+  noApplicationForm = false;
+  itemsChanged = false;
+  group: Group;
+  editAuth = false;
+  createEmptyForm = false;
+  voHasEmbeddedGroupApplication = false;
+  autoRegistrationEnabled: boolean;
+  changeAutoRegistration: boolean;
+  refreshApplicationForm = false;
+  // to recognize new items in other items' dependencies
+  private idCounter = -1;
+
+  // This counter is used to generate ids for newly added items. This fake ids are used in backend
 
   constructor(
     private registrarManager: RegistrarManagerService,
@@ -44,27 +64,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  @ViewChild('autoRegToggle')
-  autoRegToggle: MatSlideToggle;
-
-  loading = false;
-  applicationForm: ApplicationForm;
-  applicationFormItems: ApplicationFormItem[] = [];
-  noApplicationForm = false;
-  itemsChanged = false;
-  group: Group;
-  editAuth = false;
-  createEmptyForm = false;
-  voHasEmbeddedGroupApplication = false;
-  autoRegistrationEnabled: boolean;
-  changeAutoRegistration: boolean;
-  refreshApplicationForm = false;
-
-  // This counter is used to generate ids for newly added items. This fake ids are used in backend
-  // to recognize new items in other items' dependencies
-  private idCounter = -1;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.group = this.entityStorageService.getEntity();
     this.setAuth();
@@ -90,18 +90,19 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
           () => (this.loading = false)
         );
       },
-      (error) => {
-        if (error.error.name === 'FormNotExistsException') {
+      (error: HttpErrorResponse) => {
+        const e = error.error as RPCError;
+        if (e.name === 'FormNotExistsException') {
           this.noApplicationForm = true;
           this.loading = false;
         } else {
-          this.notificator.showRPCError(error.error);
+          this.notificator.showRPCError(e);
         }
       }
     );
   }
 
-  setAuth() {
+  setAuth(): void {
     this.editAuth = this.guiAuthResolver.isAuthorized(
       'group-updateFormItems_ApplicationForm_List<ApplicationFormItem>_policy',
       [this.group]
@@ -116,7 +117,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     );
   }
 
-  add() {
+  add(): void {
     let config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = {
@@ -125,7 +126,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     };
 
     const dialog = this.dialog.open(AddApplicationFormItemDialogComponent, config);
-    dialog.afterClosed().subscribe((success) => {
+    dialog.afterClosed().subscribe((success: ApplicationFormItem[]) => {
       // success is field contains of two items: first is applicationFormItems with new item in it,
       // second item is new Application Form Item
       if (success) {
@@ -148,7 +149,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     });
   }
 
-  copy() {
+  copy(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = { voId: this.group.voId, groupId: this.group.id, theme: 'group-theme' };
@@ -161,7 +162,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     });
   }
 
-  settings() {
+  settings(): void {
     const config = getDefaultDialogConfig();
     config.width = '400px';
     config.data = {
@@ -172,11 +173,11 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     };
 
     const dialog = this.dialog.open(UpdateApplicationFormDialogComponent, config);
-    dialog.afterClosed().subscribe((newForm) => {
+    dialog.afterClosed().subscribe((newForm: ApplicationForm) => {
       if (newForm) {
         this.translate
           .get('GROUP_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_SETTINGS_SUCCESS')
-          .subscribe((successMessage) => {
+          .subscribe((successMessage: string) => {
             this.notificator.showSuccess(successMessage);
           });
         this.applicationForm = newForm;
@@ -184,8 +185,8 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     });
   }
 
-  preview() {
-    this.router.navigate(
+  preview(): void {
+    void this.router.navigate(
       [
         '/organizations',
         this.group.voId,
@@ -199,7 +200,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     );
   }
 
-  updateFormItems() {
+  updateFormItems(): void {
     this.loading = true;
     this.refreshApplicationForm = true;
     this.registrarManager.getFormItemsForGroup(this.group.id).subscribe((formItems) => {
@@ -210,18 +211,18 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     });
   }
 
-  changeItems() {
+  changeItems(): void {
     this.itemsChanged = true;
   }
 
-  createEmptyApplicationForm() {
+  createEmptyApplicationForm(): void {
     this.registrarManager.createApplicationFormInGroup(this.group.id).subscribe(() => {
       this.noApplicationForm = false;
       this.ngOnInit();
     });
   }
 
-  save() {
+  save(): void {
     let i = 0;
     for (const item of this.applicationFormItems) {
       item.ordnum = i;
@@ -229,7 +230,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
         i++;
       }
     }
-    // @ts-ignore
+
     // TODO reimplement this
     this.registrarManager
       .updateFormItemsForGroup({
@@ -239,19 +240,19 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
       .subscribe(() => {
         this.translate
           .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_APPLICATION_FORM_ITEMS_SUCCESS')
-          .subscribe((successMessage) => {
+          .subscribe((successMessage: string) => {
             this.notificator.showSuccess(successMessage);
           });
         this.updateFormItems();
       });
   }
 
-  clear() {
+  clear(): void {
     this.applicationFormItems = [];
     this.itemsChanged = true;
   }
 
-  updateAutoRegistration() {
+  updateAutoRegistration(): void {
     this.autoRegToggle.setDisabledState(true);
     if (this.autoRegistrationEnabled) {
       this.registrarManager.deleteGroupsFromAutoRegistration([this.group.id]).subscribe(
@@ -259,7 +260,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
           this.autoRegistrationEnabled = !this.autoRegistrationEnabled;
           this.translate
             .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_SETTINGS_SUCCESS')
-            .subscribe((successMessage) => {
+            .subscribe((successMessage: string) => {
               this.notificator.showSuccess(successMessage);
             });
           this.autoRegToggle.setDisabledState(false);
@@ -272,7 +273,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
           this.autoRegistrationEnabled = !this.autoRegistrationEnabled;
           this.translate
             .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_SETTINGS_SUCCESS')
-            .subscribe((successMessage) => {
+            .subscribe((successMessage: string) => {
               this.notificator.showSuccess(successMessage);
             });
           this.autoRegToggle.setDisabledState(false);

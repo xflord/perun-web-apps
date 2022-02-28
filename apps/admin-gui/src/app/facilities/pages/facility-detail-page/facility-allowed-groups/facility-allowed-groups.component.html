@@ -3,7 +3,7 @@
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <mat-form-field class="mr-2">
     <mat-label>{{'FACILITY_DETAIL.ALLOWED_GROUPS.SHOW_VOS_GROUPS' | translate}}</mat-label>
-    <mat-select [(value)]="selected" (selectionChange)="showGroup()">
+    <mat-select (selectionChange)="showGroup()" [(value)]="selected">
       <mat-option value="all">{{'FACILITY_DETAIL.ALLOWED_GROUPS.ALL' | translate}}</mat-option>
       <mat-option *ngFor="let vo of vos" [value]="vo.id">
         {{vo.name}}
@@ -11,17 +11,17 @@
     </mat-select>
   </mat-form-field>
   <perun-web-apps-immediate-filter
-    [placeholder]="'FACILITY_DETAIL.ALLOWED_GROUPS.FILTER'"
-    (filter)="applyFilter($event)">
+    (filter)="applyFilter($event)"
+    [placeholder]="'FACILITY_DETAIL.ALLOWED_GROUPS.FILTER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <perun-web-apps-groups-list
     *ngIf="!loading"
     [displayedColumns]="['id', 'vo', 'name', 'description']"
     [groups]="groupsToShow"
-    [tableId]="tableId"
-    [groupsToDisableRouting]="groupsWithoutRouteAuth"
+    [disableMembers]="false"
     [filter]="filterValue"
-    [disableMembers]="false">
+    [groupsToDisableRouting]="groupsWithoutRouteAuth"
+    [tableId]="tableId">
   </perun-web-apps-groups-list>
 </div>

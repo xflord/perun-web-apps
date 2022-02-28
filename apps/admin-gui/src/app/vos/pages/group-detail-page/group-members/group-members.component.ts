@@ -21,6 +21,8 @@ import { TABLE_GROUP_MEMBERS } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { InviteMemberDialogComponent } from '../../../../shared/components/dialogs/invite-member-dialog/invite-member-dialog.component';
 import { FormControl } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { RPCError } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-group-members',
@@ -32,27 +34,13 @@ export class GroupMembersComponent implements OnInit {
 
   // used for router animation
   @HostBinding('class.router-component') true;
-
-  constructor(
-    private groupService: GroupsManagerService,
-    private dialog: MatDialog,
-    private guiAuthResolver: GuiAuthResolver,
-    private storeService: StoreService,
-    private attributesManager: AttributesManagerService,
-    private apiRequest: ApiRequestConfigurationService,
-    private notificator: NotificatorService,
-    private entityStorageService: EntityStorageService
-  ) {}
-
   group: RichGroup;
   selection: SelectionModel<RichMember>;
   synchEnabled = false;
   searchString: string;
   updateTable = false;
   loading = false;
-
   tableId = TABLE_GROUP_MEMBERS;
-
   memberAttrNames = [
     Urns.MEMBER_DEF_ORGANIZATION,
     Urns.MEMBER_DEF_MAIL,
@@ -61,16 +49,6 @@ export class GroupMembersComponent implements OnInit {
     Urns.MEMBER_DEF_EXPIRATION,
     Urns.MEMBER_DEF_GROUP_EXPIRATION,
   ];
-
-  private groupAttrNames = [
-    Urns.GROUP_SYNC_ENABLED,
-    Urns.GROUP_LAST_SYNC_STATE,
-    Urns.GROUP_LAST_SYNC_TIMESTAMP,
-    Urns.GROUP_STRUCTURE_SYNC_ENABLED,
-    Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
-    Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP,
-  ];
-
   addAuth: boolean;
   removeAuth: boolean;
   inviteAuth: boolean;
@@ -87,16 +65,33 @@ export class GroupMembersComponent implements OnInit {
     'email',
     'logins',
   ];
-
   statuses = new FormControl();
   statusList = ['VALID', 'INVALID', 'EXPIRED', 'DISABLED'];
   selectedStatuses: string[] = ['VALID', 'INVALID'];
-
   groupStatuses = new FormControl();
   groupStatusList = ['VALID', 'EXPIRED'];
-  selectedGroupStatuses: ('VALID' | 'EXPIRED')[] = ['VALID'];
+  selectedGroupStatuses: string[] = ['VALID'];
+  private groupAttrNames = [
+    Urns.GROUP_SYNC_ENABLED,
+    Urns.GROUP_LAST_SYNC_STATE,
+    Urns.GROUP_LAST_SYNC_TIMESTAMP,
+    Urns.GROUP_STRUCTURE_SYNC_ENABLED,
+    Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
+    Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP,
+  ];
 
-  ngOnInit() {
+  constructor(
+    private groupService: GroupsManagerService,
+    private dialog: MatDialog,
+    private guiAuthResolver: GuiAuthResolver,
+    private storeService: StoreService,
+    private attributesManager: AttributesManagerService,
+    private apiRequest: ApiRequestConfigurationService,
+    private notificator: NotificatorService,
+    private entityStorageService: EntityStorageService
+  ) {}
+
+  ngOnInit(): void {
     this.loading = true;
     this.selection = new SelectionModel<RichMember>(true, []);
     this.statuses.setValue(this.selectedStatuses);
@@ -104,12 +99,12 @@ export class GroupMembersComponent implements OnInit {
     this.memberAttrNames = this.memberAttrNames.concat(this.storeService.getLoginAttributeNames());
     this.group = this.entityStorageService.getEntity();
     this.setAuthRights();
-    this.isManualAddingBlocked(this.group.voId, this.group.id).then(() =>
+    void this.isManualAddingBlocked(this.group.voId, this.group.id).then(() =>
       this.loadPage(this.group.id)
     );
   }
 
-  loadPage(groupId: number) {
+  loadPage(groupId: number): void {
     this.groupService
       .getRichGroupByIdWithAttributesByNames(groupId, this.groupAttrNames)
       .subscribe((group) => {
@@ -119,16 +114,16 @@ export class GroupMembersComponent implements OnInit {
       });
   }
 
-  isSynchronized() {
+  isSynchronized(): boolean {
     return this.group.attributes.some(
       (att) =>
         att.friendlyName === 'synchronizationEnabled' &&
         att.value !== null &&
-        att.value.toString() === 'true'
+        (att.value as unknown as string) === 'true'
     );
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     this.addAuth = this.guiAuthResolver.isAuthorized('addMembers_Group_List<Member>_policy', [
       this.group,
     ]);
@@ -144,12 +139,12 @@ export class GroupMembersComponent implements OnInit {
     );
   }
 
-  onSearchByString(filter: string) {
+  onSearchByString(filter: string): void {
     this.searchString = filter;
     this.updateTable = !this.updateTable;
   }
 
-  onAddMember() {
+  onAddMember(): void {
     const config = getDefaultDialogConfig();
     config.width = '1000px';
     config.data = {
@@ -171,7 +166,7 @@ export class GroupMembersComponent implements OnInit {
     });
   }
 
-  onRemoveMembers() {
+  onRemoveMembers(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {
@@ -190,7 +185,7 @@ export class GroupMembersComponent implements OnInit {
     });
   }
 
-  onInviteMember() {
+  onInviteMember(): void {
     const config = getDefaultDialogConfig();
     config.width = '650px';
     config.data = {
@@ -206,13 +201,14 @@ export class GroupMembersComponent implements OnInit {
     if (this.selectedStatuses.length === this.statusList.length) {
       return 'ALL';
     }
-    if (this.statuses.value) {
-      return `${this.statuses.value[0]}  ${
-        this.statuses.value.length > 1
+    const statuses: string[] = this.statuses.value as string[];
+    if (statuses) {
+      return `${statuses[0]}  ${
+        statuses.length > 1
           ? '(+' +
-            (this.statuses.value.length - 1) +
+            (statuses.length - 1).toString() +
             ' ' +
-            (this.statuses.value.length === 2 ? 'other)' : 'others)')
+            (statuses.length === 2 ? 'other)' : 'others)')
           : ''
       }`;
     }
@@ -223,7 +219,7 @@ export class GroupMembersComponent implements OnInit {
     if (this.selectedGroupStatuses.length === this.groupStatusList.length) {
       return 'ALL';
     } else {
-      return `${this.groupStatuses.value[0]}`;
+      return `${(this.groupStatuses.value as string[])[0]}`;
     }
   }
 
@@ -246,17 +242,18 @@ export class GroupMembersComponent implements OnInit {
                   this.blockGroupManualMemberAdding = groupAttrValue.value !== null;
                   resolve();
                 },
-                (error) => {
-                  if (error.error.name !== 'PrivilegeException') {
-                    this.notificator.showError(error);
+                (error: HttpErrorResponse) => {
+                  if ((error.error as RPCError).name !== 'PrivilegeException') {
+                    this.notificator.showError((error.error as RPCError).name);
                   }
                   resolve();
                 }
               );
           },
-          (error) => {
-            if (error.error.name !== 'PrivilegeException') {
-              this.notificator.showError(error);
+          (error: HttpErrorResponse) => {
+            const e = error.error as RPCError;
+            if (e.name !== 'PrivilegeException') {
+              this.notificator.showError(e.name);
             }
             resolve();
           }
@@ -264,11 +261,11 @@ export class GroupMembersComponent implements OnInit {
     });
   }
 
-  changeVoStatuses() {
-    this.selectedStatuses = this.statuses.value;
+  changeVoStatuses(): void {
+    this.selectedStatuses = this.statuses.value as string[];
   }
 
-  changeGroupStatuses() {
-    this.selectedGroupStatuses = this.groupStatuses.value;
+  changeGroupStatuses(): void {
+    this.selectedGroupStatuses = this.groupStatuses.value as string[];
   }
 }

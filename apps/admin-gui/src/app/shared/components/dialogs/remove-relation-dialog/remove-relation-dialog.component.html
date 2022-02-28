@@ -8,21 +8,21 @@
     <div class="font-weight-bold">
       {{'DIALOGS.REMOVE_RELATION.ASK' | translate}}
     </div>
-    <table mat-table [dataSource]="dataSource" class="w-100">
+    <table [dataSource]="dataSource" class="w-100" mat-table>
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let relation">{{relation.name}}</td>
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let relation" mat-cell>{{relation.name}}</td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="font-weight-bolder"></tr>
-      <tr mat-row *matRowDef="let relation; columns: displayedColumns;"></tr>
+      <tr *matHeaderRowDef="displayedColumns" class="font-weight-bolder" mat-header-row></tr>
+      <tr *matRowDef="let relation; columns: displayedColumns;" mat-row></tr>
     </table>
   </div>
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.REMOVE_RELATION.CANCEL' | translate}}
     </button>
-    <button mat-flat-button class="ml-2" color="warn" [disabled]="loading" (click)="onSubmit()">
+    <button (click)="onSubmit()" [disabled]="loading" class="ml-2" color="warn" mat-flat-button>
       {{'DIALOGS.REMOVE_RELATION.DELETE' | translate}}
     </button>
   </div>

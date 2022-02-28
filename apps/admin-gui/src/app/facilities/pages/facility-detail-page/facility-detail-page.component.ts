@@ -25,6 +25,11 @@ import { ReloadEntityDetailService } from '../../../core/services/common/reload-
   animations: [fadeIn],
 })
 export class FacilityDetailPageComponent implements OnInit {
+  facility: Facility;
+  editFacilityAuth = false;
+  deleteAuth = false;
+  loading = false;
+
   constructor(
     private dialog: MatDialog,
     private facilityManager: FacilitiesManagerService,
@@ -37,22 +42,17 @@ export class FacilityDetailPageComponent implements OnInit {
     private reloadEntityDetail: ReloadEntityDetailService
   ) {}
 
-  facility: Facility;
-  editFacilityAuth = false;
-  deleteAuth = false;
-  loading = false;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.reloadData();
     this.reloadEntityDetail.entityDetailChange.subscribe(() => {
       this.reloadData();
     });
   }
 
-  reloadData() {
+  reloadData(): void {
     this.loading = true;
     this.route.params.subscribe((params) => {
-      const facilityId = params['facilityId'];
+      const facilityId = params['facilityId'] as number;
 
       this.facilityManager.getFacilityById(facilityId).subscribe(
         (facility) => {
@@ -78,12 +78,12 @@ export class FacilityDetailPageComponent implements OnInit {
     });
   }
 
-  setMenuItems() {
+  setMenuItems(): void {
     const facilityItem = this.sideMenuItemService.parseFacility(this.facility);
     this.sideMenuService.setFacilityMenuItems([facilityItem]);
   }
 
-  editFacility() {
+  editFacility(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {
@@ -103,7 +103,7 @@ export class FacilityDetailPageComponent implements OnInit {
     });
   }
 
-  deleteFacility() {
+  deleteFacility(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = {
@@ -114,7 +114,7 @@ export class FacilityDetailPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.router.navigate(['']);
+        void this.router.navigate(['']);
       }
     });
   }

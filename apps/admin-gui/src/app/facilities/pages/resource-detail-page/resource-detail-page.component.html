@@ -6,23 +6,23 @@
       <mat-icon
         matTooltip="{{'RESOURCE_DETAIL.ENTITY' | translate}}"
         [ngStyle]="{'color':'black'}"
-        svgIcon="perun-resource-black"
-        class="perun-icon perun-icon-detail">
+        class="perun-icon perun-icon-detail"
+        svgIcon="perun-resource-black">
       </mat-icon>
       <div class="page-title-block">
         <div class="page-title-headline d-flex align-items-center">
-          <a class="resource-link" [routerLink]="[baseUrl]" queryParamsHandling="merge">
+          <a [routerLink]="[baseUrl]" class="resource-link" queryParamsHandling="merge">
             {{resource.name}}
           </a>
           <span class="text-muted"> &nbsp;#{{resource.id}} </span>
           <button
-            mat-icon-button
+            (click)="editResource()"
             aria-label="Edit resource"
             *ngIf="editResourceAuth"
-            (click)="editResource()">
+            mat-icon-button>
             <mat-icon>edit</mat-icon>
           </button>
-          <button *ngIf="deleteAuth" mat-icon-button (click)="deleteResource()">
+          <button (click)="deleteResource()" *ngIf="deleteAuth" mat-icon-button>
             <mat-icon>delete_forever</mat-icon>
           </button>
         </div>

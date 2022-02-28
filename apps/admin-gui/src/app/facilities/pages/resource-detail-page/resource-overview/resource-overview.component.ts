@@ -12,6 +12,9 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 export class ResourceOverviewComponent implements OnInit {
   // class used for animation
   @HostBinding('class.router-component') true;
+  navItems: MenuItem[] = [];
+  resource: Resource;
+  loading = false;
 
   constructor(
     private resourcesManager: ResourcesManagerService,
@@ -20,11 +23,7 @@ export class ResourceOverviewComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  navItems: MenuItem[] = [];
-  resource: Resource;
-  loading = false;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.resource = this.entityStorageService.getEntity();
     if (this.route.parent.parent.snapshot.url[0].path === 'facilities') {
@@ -35,7 +34,7 @@ export class ResourceOverviewComponent implements OnInit {
     this.loading = false;
   }
 
-  private initItems(inVo: boolean) {
+  private initItems(inVo: boolean): void {
     const urlStart = inVo
       ? `/organizations/${this.resource.voId}`
       : `/facilities/${this.resource.facilityId}`;

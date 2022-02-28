@@ -34,18 +34,18 @@ export class ResourceGroupsComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.resource = this.entityStorageService.getEntity();
     this.loadAllGroups();
   }
 
-  loadAllGroups() {
+  loadAllGroups(): void {
     this.loading = true;
     this.resourcesManager
       .getGroupAssignments(this.resource.id, [Urns.GROUP_SYNC_ENABLED])
       .subscribe((assignedGroups) => {
-        this.assignedGroups = <GroupWithStatus[]>assignedGroups.map((g) => {
+        this.assignedGroups = assignedGroups.map((g) => {
           const gws: GroupWithStatus = g.enrichedGroup.group;
           gws.status = g.status;
           gws.failureCause = g.failureCause;
@@ -86,7 +86,7 @@ export class ResourceGroupsComponent implements OnInit {
       });
   }
 
-  addGroup() {
+  addGroup(): void {
     const config = getDefaultDialogConfig();
     config.width = '1000px';
     config.data = {
@@ -105,7 +105,7 @@ export class ResourceGroupsComponent implements OnInit {
     });
   }
 
-  removeGroups() {
+  removeGroups(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = {
@@ -122,7 +122,7 @@ export class ResourceGroupsComponent implements OnInit {
     });
   }
 
-  canRemoveGroups() {
+  canRemoveGroups(): boolean {
     let canRemove = true;
     this.selected.selected.forEach((group) => {
       if (
@@ -137,7 +137,7 @@ export class ResourceGroupsComponent implements OnInit {
     return canRemove;
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filteredValue = filterValue;
   }
 }

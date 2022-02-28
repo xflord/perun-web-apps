@@ -3,41 +3,41 @@
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
     *ngIf="addAuth"
-    mat-flat-button
-    color="accent"
     (click)="addResource()"
-    class="mr-2 action-button">
+    color="accent"
+    class="mr-2 action-button"
+    mat-flat-button>
     {{'GROUP_DETAIL.RESOURCES.ADD' | translate}}
   </button>
   <span
-    matTooltip="{{'GROUP_DETAIL.RESOURCES.DELETE_PERMISSION_HINT' | translate}}"
-    [matTooltipDisabled]="selected.selected.length === 0 || (list !== undefined && list.removeAuth)">
+    [matTooltipDisabled]="selected.selected.length === 0 || (list !== undefined && list.removeAuth)"
+    matTooltip="{{'GROUP_DETAIL.RESOURCES.DELETE_PERMISSION_HINT' | translate}}">
     <button
-      mat-flat-button
+      (click)="removeResource()"
       color="warn"
-      class="mr-2"
       [disabled]="selected.selected.length === 0 || (list !== undefined && !list.removeAuth)"
-      (click)="removeResource()">
+      class="mr-2"
+      mat-flat-button>
       {{'GROUP_DETAIL.RESOURCES.DELETE' | translate}}
     </button>
   </span>
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'"></perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <perun-web-apps-resources-list
     #list
     *ngIf="resources && !loading"
-    [tableId]="tableId"
     (refreshTable)="refreshTable()"
+    [disableRouting]="!routingAuth"
     [filterValue]="filterValue"
     [resources]="resources"
     [routingVo]="true"
-    [disableRouting]="!routingAuth"
+    [displayedColumns]="['select', 'id', 'indirectResourceAssigment', 'name', 'status', 'facility', 'tags', 'description']"
     [selection]="selected"
-    [groupToResource]="group"
     [groupId]="group.id"
+    [groupToResource]="group"
     [resourcesToDisableCheckbox]="resourcesToDisable"
-    [displayedColumns]="['select', 'id', 'indirectResourceAssigment', 'name', 'status', 'facility', 'tags', 'description']">
+    [tableId]="tableId">
   </perun-web-apps-resources-list>
 </div>

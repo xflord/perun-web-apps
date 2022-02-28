@@ -19,13 +19,6 @@ export class FacilityResourcesComponent implements OnInit {
   // class used for animation
   @HostBinding('class.router-component') true;
 
-  constructor(
-    private dialog: MatDialog,
-    private facilitiesManager: FacilitiesManagerService,
-    private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
-  ) {}
-
   facility: Facility;
   resources: RichResource[] = [];
   selected = new SelectionModel<RichResource>(true, []);
@@ -40,13 +33,20 @@ export class FacilityResourcesComponent implements OnInit {
   removeAuth: boolean;
   routeAuth: boolean;
 
-  ngOnInit() {
+  constructor(
+    private dialog: MatDialog,
+    private facilitiesManager: FacilitiesManagerService,
+    private authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
+
+  ngOnInit(): void {
     this.facility = this.entityStorageService.getEntity();
     this.setAuthRights();
     this.refreshTable();
   }
 
-  removeResource() {
+  removeResource(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = { theme: 'facility-theme', resources: this.selected.selected };
@@ -60,7 +60,7 @@ export class FacilityResourcesComponent implements OnInit {
     });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.facilitiesManager
       .getAssignedRichResourcesForFacility(this.facility.id)
@@ -72,7 +72,7 @@ export class FacilityResourcesComponent implements OnInit {
       });
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     this.addAuth = this.authResolver.isAuthorized('createResource_Resource_Vo_Facility_policy', [
       this.facility,
     ]);
@@ -92,11 +92,11 @@ export class FacilityResourcesComponent implements OnInit {
     }
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  createResource() {
+  createResource(): void {
     const config = getDefaultDialogConfig();
     config.width = '1350px';
     config.data = { facilityId: this.facility.id, theme: 'facility-theme' };

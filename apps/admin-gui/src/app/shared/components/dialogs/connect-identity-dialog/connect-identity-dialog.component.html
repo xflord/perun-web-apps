@@ -1,6 +1,6 @@
-<div class="{{theme}}" (keyup)="onKeyInput($event)">
+<div (keyup)="onKeyInput($event)" class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.CONNECT_IDENTITY.TITLE_'+target | translate}}</h1>
-  <div mat-dialog-content class="dialog-container">
+  <div class="dialog-container" mat-dialog-content>
     <mat-form-field class="mr-2 search-field no-border-mat-input">
       <input
         matInput
@@ -12,21 +12,21 @@
       </mat-error>
     </mat-form-field>
     <button
-      mat-flat-button
-      color="primary"
-      class="mr-2 search-btn"
+      (click)="onSearchByString()"
       [disabled]="loading"
-      (click)="onSearchByString()">
+      class="mr-2 search-btn"
+      color="primary"
+      mat-flat-button>
       <mat-icon>search</mat-icon>
     </button>
     <div *ngIf="!loading">
       <app-users-list
-        [tableId]="tableId"
         [displayedColumns]="displayedColumns"
+        [selection]="selection"
         *ngIf="identities !== undefined && identities.length > 0"
-        [users]="identities"
+        [tableId]="tableId"
         [disableRouting]="true"
-        [selection]="selection">
+        [users]="identities">
       </app-users-list>
     </div>
     <perun-web-apps-alert *ngIf="!firstSearchDone" alert_type="info">
@@ -40,15 +40,15 @@
   </div>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
   <div mat-dialog-actions>
-    <button mat-flat-button (click)="onCancel()" class="ml-auto">
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.CONNECT_IDENTITY.CANCEL' | translate}}
     </button>
     <button
-      mat-flat-button
+      class="ml-2"
       (click)="onAdd()"
       [disabled]="selection.selected.length === 0"
       color="accent"
-      class="ml-2">
+      mat-flat-button>
       {{'DIALOGS.CONNECT_IDENTITY.CONNECT' | translate}}
     </button>
   </div>

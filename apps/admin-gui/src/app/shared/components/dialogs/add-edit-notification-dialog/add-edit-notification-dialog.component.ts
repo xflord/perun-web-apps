@@ -42,8 +42,8 @@ export class AddEditNotificationDialogComponent implements OnInit {
     private store: StoreService
   ) {}
 
-  ngOnInit() {
-    this.languages = this.store.get('supported_languages');
+  ngOnInit(): void {
+    this.languages = this.store.get('supported_languages') as string[];
     this.applicationMail = this.data.applicationMail;
     this.theme = this.data.theme;
 
@@ -67,11 +67,11 @@ export class AddEditNotificationDialogComponent implements OnInit {
     }
   }
 
-  cancel() {
+  cancel(): void {
     this.dialogRef.close();
   }
 
-  create() {
+  create(): void {
     this.notificationExist();
     if (this.invalidNotification) {
       return;
@@ -104,7 +104,7 @@ export class AddEditNotificationDialogComponent implements OnInit {
     }
   }
 
-  save() {
+  save(): void {
     this.loading = true;
     this.registrarService.updateApplicationMail({ mail: this.applicationMail }).subscribe(
       () => {
@@ -114,7 +114,12 @@ export class AddEditNotificationDialogComponent implements OnInit {
     );
   }
 
-  addTag(input: HTMLInputElement, textarea: HTMLTextAreaElement, language: string, tag: string) {
+  addTag(
+    input: HTMLInputElement,
+    textarea: HTMLTextAreaElement,
+    language: string,
+    tag: string
+  ): void {
     let place: HTMLInputElement | HTMLTextAreaElement;
     if (!this.isTextFocused) {
       place = input;
@@ -136,7 +141,7 @@ export class AddEditNotificationDialogComponent implements OnInit {
     place.focus();
   }
 
-  notificationExist() {
+  notificationExist(): void {
     for (const mail of this.data.applicationMails) {
       if (
         mail.mailType === this.applicationMail.mailType &&

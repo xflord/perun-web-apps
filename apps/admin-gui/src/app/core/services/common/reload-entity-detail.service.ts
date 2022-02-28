@@ -4,9 +4,7 @@ import { EventEmitter, Injectable, Output } from '@angular/core';
   providedIn: 'root',
 })
 export class ReloadEntityDetailService {
-  constructor() {}
-
-  @Output() entityDetailChange: EventEmitter<void> = new EventEmitter();
+  @Output() entityDetailChange: EventEmitter<void> = new EventEmitter<void>();
 
   reloadEntityDetail(): void {
     this.entityDetailChange.emit();

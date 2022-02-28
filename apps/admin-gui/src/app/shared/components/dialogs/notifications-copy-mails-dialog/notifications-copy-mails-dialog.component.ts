@@ -23,6 +23,14 @@ export interface NotificationsCopyMailsDialogData {
   animations: [openClose],
 })
 export class NotificationsCopyMailsDialogComponent implements OnInit {
+  vos: Vo[] = [];
+  groups: Group[] = [];
+  fakeGroup: Group;
+  selectedVo: Vo = null;
+  selectedGroup: Group = null;
+  theme: string;
+  loading = false;
+
   constructor(
     private dialogRef: MatDialogRef<NotificationsCopyMailsDialogComponent>,
     private voService: VosManagerService,
@@ -33,20 +41,13 @@ export class NotificationsCopyMailsDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: NotificationsCopyMailsDialogData
   ) {}
 
-  vos: Vo[] = [];
-  groups: Group[] = [];
-  fakeGroup: Group;
-  selectedVo: Vo = null;
-  selectedGroup: Group = null;
-  theme: string;
-  loading = false;
-  nameFunction = (group: Group) => group.name;
+  nameFunction: (group: Group) => string = (group: Group) => group.name;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
     this.loading = true;
     this.translateService.get('DIALOGS.NOTIFICATIONS_COPY_MAILS.NO_GROUP_SELECTED').subscribe(
-      (text) => {
+      (text: string) => {
         this.fakeGroup = {
           id: -1,
           name: text,
@@ -67,11 +68,11 @@ export class NotificationsCopyMailsDialogComponent implements OnInit {
     );
   }
 
-  cancel() {
+  cancel(): void {
     this.dialogRef.close(false);
   }
 
-  submit() {
+  submit(): void {
     this.loading = true;
     if (this.data.groupId) {
       // checking if the dialog is for group or Vo
@@ -115,13 +116,13 @@ export class NotificationsCopyMailsDialogComponent implements OnInit {
     }
   }
 
-  voSelected(vo: Vo) {
+  voSelected(vo: Vo): void {
     this.selectedVo = vo;
     this.getGroups();
     this.cd.detectChanges();
   }
 
-  getGroups() {
+  getGroups(): void {
     if (this.selectedVo) {
       this.groupService.getAllGroups(this.selectedVo.id).subscribe((groups) => {
         this.groups = [this.fakeGroup].concat(groups);

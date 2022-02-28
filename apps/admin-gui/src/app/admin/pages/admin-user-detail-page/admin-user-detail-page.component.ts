@@ -14,6 +14,12 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
   styleUrls: ['./admin-user-detail-page.component.scss'],
 })
 export class AdminUserDetailPageComponent implements OnInit {
+  user: User;
+  loading = false;
+  svgIcon = 'perun-user-dark';
+  private path: string;
+  private regex: string;
+
   constructor(
     private route: ActivatedRoute,
     private usersService: UsersManagerService,
@@ -24,16 +30,10 @@ export class AdminUserDetailPageComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  user: User;
-  path: string;
-  regex: string;
-  loading = false;
-  svgIcon = 'perun-user-dark';
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.route.params.subscribe((params) => {
-      const userId = params['userId'];
+      const userId = params['userId'] as number;
       this.entityStorageService.setEntity({ id: Number(userId), beanName: 'User' });
 
       this.path = `/admin/users/${userId}`;
@@ -55,7 +55,7 @@ export class AdminUserDetailPageComponent implements OnInit {
     });
   }
 
-  editUser() {
+  editUser(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {
@@ -74,7 +74,7 @@ export class AdminUserDetailPageComponent implements OnInit {
     });
   }
 
-  getUserType() {
+  getUserType(): string {
     if (this.user.serviceUser) {
       return 'Service';
     }

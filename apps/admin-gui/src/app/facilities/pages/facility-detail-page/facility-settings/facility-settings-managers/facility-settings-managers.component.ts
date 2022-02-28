@@ -10,11 +10,10 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 export class FacilitySettingsManagersComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
-  constructor(
-    private facilityService: FacilitiesManagerService,
-    private guiAuthResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
-  ) {}
+  @Input()
+  disableRouting = false;
+  @Input()
+  disableSelf = false;
 
   facility: Facility;
 
@@ -26,12 +25,13 @@ export class FacilitySettingsManagersComponent implements OnInit {
 
   theme = 'facility-theme';
 
-  @Input()
-  disableRouting = false;
-  @Input()
-  disableSelf = false;
+  constructor(
+    private facilityService: FacilitiesManagerService,
+    private guiAuthResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.facility = this.entityStorageService.getEntity();
     this.guiAuthResolver.assignAvailableRoles(this.availableRoles, 'Facility');
   }

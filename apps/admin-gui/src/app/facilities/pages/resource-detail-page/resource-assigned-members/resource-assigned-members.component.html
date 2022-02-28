@@ -6,11 +6,11 @@
 </perun-web-apps-debounce-filter>
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
 <perun-web-apps-members-list
-  [tableId]="tableId"
+  [displayedColumns]="['id', 'fullName']"
   (updateTable)="refreshTable()"
   *ngIf="!loading"
   [disableRouting]="!routeAuth"
   [filter]="filterValue"
-  [displayedColumns]="['id', 'fullName']"
-  [members]="members">
+  [members]="members"
+  [tableId]="tableId">
 </perun-web-apps-members-list>

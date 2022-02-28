@@ -10,18 +10,18 @@ import { Resource, ResourcesManagerService } from '@perun-web-apps/perun/openapi
 export class ResourceAttributesComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
+  resource: Resource;
+
+  resourceGroupAttAuth: boolean;
+  resourceMemberAttAuth: boolean;
+
   constructor(
     private authResolver: GuiAuthResolver,
     private resourceManager: ResourcesManagerService,
     private entityStorageService: EntityStorageService
   ) {}
 
-  resource: Resource;
-
-  resourceGroupAttAuth: boolean;
-  resourceMemberAttAuth: boolean;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.resource = this.entityStorageService.getEntity();
     this.resourceGroupAttAuth = this.authResolver.isAuthorized(
       'getGroupAssignments_Resource_policy',

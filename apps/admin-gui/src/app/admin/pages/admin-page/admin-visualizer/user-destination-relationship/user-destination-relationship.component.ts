@@ -7,10 +7,10 @@ import { Router } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import {
-  User,
-  UsersManagerService,
   FacilitiesManagerService,
   ServicesManagerService,
+  User,
+  UsersManagerService,
 } from '@perun-web-apps/perun/openapi';
 
 @Component({
@@ -25,10 +25,10 @@ export class UserDestinationRelationshipComponent implements OnInit {
   users: Observable<User[]>;
   chosenService = '';
   availableServices: string[] = [];
-  noServiceText: string;
   loading = false;
   destination = '';
-  selectedUser: User;
+  private noServiceText: string;
+  private selectedUser: User;
 
   constructor(
     private usersService: UsersManagerService,
@@ -39,34 +39,36 @@ export class UserDestinationRelationshipComponent implements OnInit {
     private notificator: NotificatorService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.searchField.setValue('');
     this.users = this.searchField.valueChanges.pipe(
       debounceTime(400),
       distinctUntilChanged(),
       tap(() => (this.loading = true)),
-      switchMap((term) => this.usersService.findUsers(term)),
+      switchMap((term: string) => this.usersService.findUsers(term)),
       tap(() => (this.loading = false))
     );
-    this.translate.get('ADMIN.VISUALIZER.USER_DESTINATION.SELECT_NO_SERVICE').subscribe((text) => {
-      this.noServiceText = text;
-      this.availableServices.push(this.noServiceText);
-    });
+    this.translate
+      .get('ADMIN.VISUALIZER.USER_DESTINATION.SELECT_NO_SERVICE')
+      .subscribe((text: string) => {
+        this.noServiceText = text;
+        this.availableServices.push(this.noServiceText);
+      });
   }
 
-  validateName(stepper: MatStepper) {
+  validateName(stepper: MatStepper): void {
     if (this.searchField.value === '') {
       this.translate
         .get('ADMIN.VISUALIZER.USER_DESTINATION.ERROR_NO_NAME')
-        .subscribe((errorMessage) => {
+        .subscribe((errorMessage: string) => {
           this.notificator.showError(errorMessage);
         });
       return;
     }
-    this.usersService.findUsers(this.searchField.value).subscribe((users) => {
+    this.usersService.findUsers(this.searchField.value as string).subscribe((users) => {
       for (const user of users) {
         const u = user.firstName + ' ' + user.lastName;
-        if (u.toLowerCase() === this.searchField.value.toLowerCase()) {
+        if (u.toLowerCase() === (this.searchField.value as string).toLowerCase()) {
           this.selectedUser = user;
           stepper.selected.completed = true;
           stepper.next();
@@ -77,18 +79,18 @@ export class UserDestinationRelationshipComponent implements OnInit {
       if (!this.selectedUser) {
         this.translate
           .get('ADMIN.VISUALIZER.USER_DESTINATION.ERROR_WRONG_NAME')
-          .subscribe((errorMessage) => {
+          .subscribe((errorMessage: string) => {
             this.notificator.showError(errorMessage);
           });
       }
     });
   }
 
-  validateDestination(stepper: MatStepper) {
+  validateDestination(stepper: MatStepper): void {
     if (this.destination === '') {
       this.translate
         .get('ADMIN.VISUALIZER.USER_DESTINATION.ERROR_NO_DESTINATION')
-        .subscribe((errorMessage) => {
+        .subscribe((errorMessage: string) => {
           this.notificator.showError(errorMessage);
         });
       return;
@@ -100,7 +102,7 @@ export class UserDestinationRelationshipComponent implements OnInit {
       if (facilities.length === 0) {
         this.translate
           .get('ADMIN.VISUALIZER.USER_DESTINATION.ERROR_WRONG_DESTINATION')
-          .subscribe((errorMessage) => {
+          .subscribe((errorMessage: string) => {
             this.notificator.showError(errorMessage);
           });
         return;
@@ -113,7 +115,7 @@ export class UserDestinationRelationshipComponent implements OnInit {
           .subscribe((destination) => {
             for (const potentialDestination of destination) {
               if (potentialDestination.destination === this.destination) {
-                if (this.availableServices.indexOf(potentialDestination.service.name) === -1) {
+                if (!this.availableServices.includes(potentialDestination.service.name)) {
                   this.availableServices.push(potentialDestination.service.name);
                 }
               }
@@ -123,17 +125,17 @@ export class UserDestinationRelationshipComponent implements OnInit {
     });
   }
 
-  getGraph() {
+  getGraph(): void {
     if (this.chosenService === '') {
       this.translate
         .get('ADMIN.VISUALIZER.USER_DESTINATION.ERROR_NOT_CHOSEN_SERVICE')
-        .subscribe((errorMessage) => {
+        .subscribe((errorMessage: string) => {
           this.notificator.showError(errorMessage);
         });
       return;
     }
     if (this.chosenService === this.noServiceText) {
-      this.router.navigate(['admin/visualizer/userDestinationRelationship/graph'], {
+      void this.router.navigate(['admin/visualizer/userDestinationRelationship/graph'], {
         queryParams: {
           user: this.selectedUser.id,
           destination: this.destination,
@@ -141,7 +143,7 @@ export class UserDestinationRelationshipComponent implements OnInit {
         },
       });
     } else {
-      this.router.navigate(['admin/visualizer/userDestinationRelationship/graph'], {
+      void this.router.navigate(['admin/visualizer/userDestinationRelationship/graph'], {
         queryParams: {
           user: this.selectedUser.id,
           destination: this.destination,
@@ -151,7 +153,7 @@ export class UserDestinationRelationshipComponent implements OnInit {
     }
   }
 
-  notCompleted(stepper: MatStepper) {
+  notCompleted(stepper: MatStepper): void {
     stepper.selected.completed = false;
   }
 }

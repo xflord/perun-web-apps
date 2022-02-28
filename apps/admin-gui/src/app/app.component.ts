@@ -15,9 +15,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { NewVersionDialogComponent } from './shared/components/dialogs/new-version-dialog/new-version-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { NavigationStart, Router } from '@angular/router';
+import { NavigationStart, Params, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-declare let require;
+
+// eslint-disable-next-line
+declare let require: any;
 
 @Component({
   selector: 'app-root',
@@ -25,7 +27,7 @@ declare let require;
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  public static minWidth = 992;
+  static minWidth = 992;
 
   @ViewChild('footer') footer: ElementRef;
 
@@ -36,16 +38,19 @@ export class AppComponent implements OnInit, AfterViewInit {
   isServiceAccess: boolean;
 
   principal: PerunPrincipal;
-  navBackgroundColor = this.store.get('theme', 'nav_bg_color');
-  sideBarBorderColor = this.store.get('theme', 'sidemenu_border_color');
-  contentBackgroundColor = this.store.get('theme', 'content_bg_color');
-  sideMenubackgroundColor = this.store.get('theme', 'sidemenu_bg_color');
+  navBackgroundColor = this.store.get('theme', 'nav_bg_color') as string;
+  sideBarBorderColor = this.store.get('theme', 'sidemenu_border_color') as string;
+  contentBackgroundColor = this.store.get('theme', 'content_bg_color') as string;
+  sideMenubackgroundColor = this.store.get('theme', 'sidemenu_bg_color') as string;
 
-  displayWarning: boolean = this.store.get('display_warning');
-  warningMessage: string = this.store.get('warning_message');
+  displayWarning: boolean = this.store.get('display_warning') as boolean;
+  warningMessage: string = this.store.get('warning_message') as string;
 
+  // eslint-disable-next-line
   version: string = require('../../../../package.json').version;
-  contentInnerMinHeight = this.displayWarning ? 'calc(100vh - 112px)' : 'calc(100vh - 64px)';
+  contentInnerMinHeight: string = this.displayWarning
+    ? 'calc(100vh - 112px)'
+    : 'calc(100vh - 64px)';
 
   constructor(
     private cache: CacheHelperService,
@@ -61,7 +66,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  getScreenSize() {
+  getScreenSize(): void {
     this.sidebarMode = this.isMobile() ? 'over' : 'side';
 
     this.lastScreenWidth = window.innerWidth;
@@ -106,8 +111,36 @@ export class AppComponent implements OnInit, AfterViewInit {
   // to page B with same url 'abc', user reloads application on page B
   // continues to navigate through application
   // if he accesses page B before page A (using forward/back buttons)
+
+  getTopGap(): number {
+    return this.displayWarning ? 112 : 64;
+  }
+
+  getSideNavMarginTop(): string {
+    return this.displayWarning ? '112px' : '64px';
+  }
+
+  getSideNavMinHeight(): string {
+    return this.displayWarning ? 'calc(100vh - 112px)' : 'calc(100vh - 64px)';
+  }
+
+  getNavMenuTop(): string {
+    return this.displayWarning ? '48px' : '0';
+  }
+
+  ngAfterViewInit(): void {
+    this.contentInnerMinHeight = this.displayWarning
+      ? 'calc(100vh - ' +
+        (this.footer.nativeElement as HTMLElement).offsetHeight.toString() +
+        'px - 112px)'
+      : 'calc(100vh - ' +
+        (this.footer.nativeElement as HTMLElement).offsetHeight.toString() +
+        'px - 64px)';
+    this.cd.detectChanges();
+  }
+
   // page B will be falsely evaluated as initial
-  updateInitAccessedPage(event) {
+  private updateInitAccessedPage(event: NavigationStart): void {
     if (event.url === sessionStorage.getItem('initPage')) {
       if (event.navigationTrigger === 'imperative' && event.id !== this.store.getInitialPageId()) {
         sessionStorage.setItem('onInitPage', 'false');
@@ -125,15 +158,16 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  loadAppVersion() {
+  private loadAppVersion(): void {
     const httpHeaders = new HttpHeaders({
       'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
       Pragma: 'no-cache',
       Expires: '0',
     });
-    this.http.get('/assets/config/version.json', { headers: httpHeaders }).subscribe(
-      (result) => {
-        const recentVersion = result['version'];
+    this.http
+      .get('/assets/config/version.json', { headers: httpHeaders })
+      .subscribe((result: Params) => {
+        const recentVersion: string = result['version'] as string;
         if (recentVersion) {
           if (this.version && recentVersion !== 'SNAPSHOT' && this.version !== recentVersion) {
             const config = getDefaultDialogConfig();
@@ -142,31 +176,6 @@ export class AppComponent implements OnInit, AfterViewInit {
             this.version = recentVersion;
           }
         }
-      },
-      () => {}
-    );
-  }
-
-  getTopGap() {
-    return this.displayWarning ? 112 : 64;
-  }
-
-  getSideNavMarginTop() {
-    return this.displayWarning ? '112px' : '64px';
-  }
-
-  getSideNavMinHeight() {
-    return this.displayWarning ? 'calc(100vh - 112px)' : 'calc(100vh - 64px)';
-  }
-
-  getNavMenuTop() {
-    return this.displayWarning ? '48px' : '0';
-  }
-
-  ngAfterViewInit(): void {
-    this.contentInnerMinHeight = this.displayWarning
-      ? 'calc(100vh - ' + this.footer.nativeElement.offsetHeight + 'px - 112px)'
-      : 'calc(100vh - ' + this.footer.nativeElement.offsetHeight + 'px - 64px)';
-    this.cd.detectChanges();
+      });
   }
 }

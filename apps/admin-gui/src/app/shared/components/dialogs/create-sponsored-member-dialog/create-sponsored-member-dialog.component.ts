@@ -15,7 +15,7 @@ import {
   GuiAuthResolver,
   StoreService,
 } from '@perun-web-apps/perun/services';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { Role } from '@perun-web-apps/perun/models';
@@ -36,6 +36,8 @@ export interface CreateSponsoredMemberDialogData {
   styleUrls: ['./create-sponsored-member-dialog.component.scss'],
 })
 export class CreateSponsoredMemberDialogComponent implements OnInit {
+  @ViewChild('stepper') stepper: MatStepper;
+
   theme: string;
   loading = false;
   functionalityNotSupported = false;
@@ -44,26 +46,20 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
   createdMember: RichMember;
 
   namespaceOptions: string[] = [];
-  namespaceRules: NamespaceRules[] = [];
-  selectedNamespace = null;
-  parsedRules: Map<string, { login: string; password: string }> = new Map<
-    string,
-    { login: string; password: string }
-  >();
-
+  selectedNamespace: string = null;
   userControl: FormGroup = null;
   namespaceControl: FormGroup = null;
-
   voSponsors: RichUser[] = [];
-
   selectedSponsor: User = null;
   sponsorType = 'self';
   isSponsor = false;
   isPerunAdmin = false;
-
-  expiration = 'never';
-
-  @ViewChild('stepper') stepper: MatStepper;
+  private namespaceRules: NamespaceRules[] = [];
+  private parsedRules: Map<string, { login: string; password: string }> = new Map<
+    string,
+    { login: string; password: string }
+  >();
+  private expiration = 'never';
 
   constructor(
     private dialogRef: MatDialogRef<CreateSponsoredMemberDialogComponent>,
@@ -79,70 +75,11 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     private cd: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
-    this.loading = true;
-    this.theme = this.data.theme;
-    this.voSponsors = this.data.sponsors;
-    this.isSponsor = this.guiAuthResolver.principalHasRole(Role.SPONSOR, 'Vo', this.data.voId);
-    this.isPerunAdmin = this.guiAuthResolver.isPerunAdmin();
-    this.sponsorType = this.isSponsor ? 'self' : 'other';
-    this.userControl = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      titleBefore: [''],
-      titleAfter: [''],
-    });
-
-    this.namespaceControl = this.formBuilder.group(
-      {
-        namespace: ['', Validators.required],
-        login: ['', [Validators.required]],
-        passwordCtrl: [
-          '',
-          Validators.required,
-          [loginAsyncValidator(null, this.usersService, this.apiRequestConfiguration)],
-        ],
-        passwordAgainCtrl: [''],
-        passwordReset: [false, []],
-        email: ['', [Validators.required, Validators.pattern(emailRegexString)]],
-      },
-      {
-        validators: CustomValidators.passwordMatchValidator,
-      }
-    );
-
-    this.membersService.getAllNamespacesRules().subscribe((rules) => {
-      if (this.store.get('allow_empty_sponsor_namespace')) {
-        this.namespaceRules.push({
-          namespaceName: 'No namespace',
-          requiredAttributes: [],
-          optionalAttributes: [],
-        });
-      }
-
-      this.namespaceRules = this.namespaceRules.concat(rules);
-      this.parseNamespaceRules();
-      if (this.namespaceOptions.length === 0) {
-        this.functionalityNotSupported = true;
-      }
-      this.loading = false;
-      this.cd.detectChanges();
-    });
-  }
-
-  parseNamespaceRules() {
-    for (const rule of this.namespaceRules) {
-      this.namespaceOptions.push(rule.namespaceName);
-
-      const fieldTypes = { login: 'disabled', password: 'disabled' };
-      this.parseAttributes(fieldTypes, rule.requiredAttributes, 'required');
-      this.parseAttributes(fieldTypes, rule.optionalAttributes, 'optional');
-
-      this.parsedRules.set(rule.namespaceName, fieldTypes);
-    }
-  }
-
-  parseAttributes(field, attributes, type: string) {
+  private static parseAttributes(
+    field: { login: string; password: string },
+    attributes: string[],
+    type: string
+  ): void {
     for (const att of attributes) {
       switch (att) {
         case 'login': {
@@ -159,17 +96,17 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     }
   }
 
-  onConfirm() {
+  onConfirm(): void {
     this.loading = true;
 
     const sponsoredMember: InputCreateSponsoredMember = {
       vo: this.data.voId,
       userData: {
-        firstName: this.userControl.get('firstName').value,
-        lastName: this.userControl.get('lastName').value,
-        titleAfter: this.userControl.get('titleAfter').value,
-        titleBefore: this.userControl.get('titleBefore').value,
-        email: this.namespaceControl.get('email').value,
+        firstName: this.userControl.get('firstName').value as string,
+        lastName: this.userControl.get('lastName').value as string,
+        titleAfter: this.userControl.get('titleAfter').value as string,
+        titleBefore: this.userControl.get('titleBefore').value as string,
+        email: this.namespaceControl.get('email').value as string,
       },
       sponsor:
         this.sponsorType === 'other'
@@ -177,19 +114,20 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
           : this.store.getPerunPrincipal().userId,
     };
 
-    const namespace = this.namespaceControl.get('namespace').value;
+    const namespace: string = this.namespaceControl.get('namespace').value as string;
     const rules = this.parsedRules.get(namespace);
     if (namespace !== 'No namespace') {
       sponsoredMember.userData.namespace = namespace;
     }
 
     if (rules.login !== 'disabled') {
-      sponsoredMember.userData.login = this.namespaceControl.get('login').value;
+      sponsoredMember.userData.login = this.namespaceControl.get('login').value as string;
     }
 
     if (rules.password !== 'disabled') {
-      sponsoredMember.sendActivationLink = this.namespaceControl.get('passwordReset').value;
-      sponsoredMember.userData.password = this.namespaceControl.get('passwordCtrl').value;
+      sponsoredMember.sendActivationLink = this.namespaceControl.get('passwordReset')
+        .value as boolean;
+      sponsoredMember.userData.password = this.namespaceControl.get('passwordCtrl').value as string;
     }
 
     if (this.expiration !== 'never') {
@@ -207,7 +145,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
             .filter((attr) => attr.friendlyNameParameter === namespace)
             .filter((attr) => attr.value !== null)
             .forEach((attr) => {
-              this.loginThatWasSet = attr.value.toString();
+              this.loginThatWasSet = attr.value as unknown as string;
             });
         }
         this.loading = false;
@@ -218,7 +156,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     );
   }
 
-  onCancel() {
+  onCancel(): void {
     if (this.successfullyCreated) {
       this.dialogRef.close(true);
     } else {
@@ -226,7 +164,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     }
   }
 
-  onNamespaceChanged(namespc: string) {
+  onNamespaceChanged(namespc: string): void {
     this.selectedNamespace = namespc;
     const rules = this.parsedRules.get(namespc);
     const login = this.namespaceControl.get('login');
@@ -259,7 +197,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     }
   }
 
-  passwordResetChange() {
+  passwordResetChange(): void {
     const password = this.namespaceControl.get('passwordCtrl');
     const passwordAgain = this.namespaceControl.get('passwordAgainCtrl');
     if (this.namespaceControl.get('passwordReset').value) {
@@ -273,7 +211,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     }
   }
 
-  setExpiration(newExpiration) {
+  setExpiration(newExpiration: string): void {
     if (newExpiration === 'never') {
       this.expiration = 'never';
     } else {
@@ -281,7 +219,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     }
   }
 
-  getStepperNextConditions() {
+  getStepperNextConditions(): boolean {
     switch (this.stepper.selectedIndex) {
       case 0:
         return this.userControl.invalid;
@@ -292,11 +230,82 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     }
   }
 
-  stepperPrevious() {
+  stepperPrevious(): void {
     this.stepper.previous();
   }
 
-  stepperNext() {
+  stepperNext(): void {
     this.stepper.next();
+  }
+
+  ngOnInit(): void {
+    this.loading = true;
+    this.theme = this.data.theme;
+    this.voSponsors = this.data.sponsors;
+    this.isSponsor = this.guiAuthResolver.principalHasRole(Role.SPONSOR, 'Vo', this.data.voId);
+    this.isPerunAdmin = this.guiAuthResolver.isPerunAdmin();
+    this.sponsorType = this.isSponsor ? 'self' : 'other';
+    this.userControl = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      titleBefore: [''],
+      titleAfter: [''],
+    });
+
+    this.namespaceControl = this.formBuilder.group(
+      {
+        namespace: ['', Validators.required],
+        login: ['', [Validators.required]],
+        passwordCtrl: [
+          '',
+          Validators.required,
+          [loginAsyncValidator(null, this.usersService, this.apiRequestConfiguration)],
+        ],
+        passwordAgainCtrl: [''],
+        passwordReset: [false, []],
+        email: ['', [Validators.required, Validators.pattern(emailRegexString)]],
+      },
+      {
+        validators: CustomValidators.passwordMatchValidator as ValidatorFn,
+      }
+    );
+
+    this.membersService.getAllNamespacesRules().subscribe((rules) => {
+      if (this.store.get('allow_empty_sponsor_namespace')) {
+        this.namespaceRules.push({
+          namespaceName: 'No namespace',
+          requiredAttributes: [],
+          optionalAttributes: [],
+        });
+      }
+
+      this.namespaceRules = this.namespaceRules.concat(rules);
+      this.parseNamespaceRules();
+      if (this.namespaceOptions.length === 0) {
+        this.functionalityNotSupported = true;
+      }
+      this.loading = false;
+      this.cd.detectChanges();
+    });
+  }
+
+  private parseNamespaceRules(): void {
+    for (const rule of this.namespaceRules) {
+      this.namespaceOptions.push(rule.namespaceName);
+
+      const fieldTypes = { login: 'disabled', password: 'disabled' };
+      CreateSponsoredMemberDialogComponent.parseAttributes(
+        fieldTypes,
+        rule.requiredAttributes,
+        'required'
+      );
+      CreateSponsoredMemberDialogComponent.parseAttributes(
+        fieldTypes,
+        rule.optionalAttributes,
+        'optional'
+      );
+
+      this.parsedRules.set(rule.namespaceName, fieldTypes);
+    }
   }
 }

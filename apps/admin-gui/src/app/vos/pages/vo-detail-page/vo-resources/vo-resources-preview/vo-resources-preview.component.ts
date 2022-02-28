@@ -16,6 +16,15 @@ export class VoResourcesPreviewComponent implements OnInit {
   static id = 'VoResourcesPreviewComponent';
 
   @HostBinding('class.router-component') true;
+  vo: Vo;
+  resources: RichResource[] = [];
+  selected = new SelectionModel<RichResource>(true, []);
+  loading: boolean;
+  filterValue = '';
+  displayedColumns: string[] = [];
+  tableId = TABLE_VO_RESOURCES_LIST;
+  removeAuth: boolean;
+  routeAuth = false;
 
   constructor(
     private resourcesManager: ResourcesManagerService,
@@ -24,27 +33,14 @@ export class VoResourcesPreviewComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  vo: Vo;
-  resources: RichResource[] = [];
-  selected = new SelectionModel<RichResource>(true, []);
-
-  loading: boolean;
-  filterValue = '';
-  displayedColumns = [];
-
-  tableId = TABLE_VO_RESOURCES_LIST;
-
-  removeAuth: boolean;
-  routeAuth = false;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.vo = this.entityStorageService.getEntity();
     this.setAuthRights();
     this.refreshTable();
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     this.removeAuth = this.authResolver.isAuthorized('deleteResource_Resource_policy', [this.vo]);
 
     if (this.resources.length !== 0) {
@@ -59,7 +55,7 @@ export class VoResourcesPreviewComponent implements OnInit {
       : ['id', 'name', 'facility', 'tags', 'description'];
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.resourcesManager.getRichResources(this.vo.id).subscribe((resources) => {
       this.resources = resources;
@@ -69,11 +65,11 @@ export class VoResourcesPreviewComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  deleteSelectedResources() {
+  deleteSelectedResources(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = { theme: 'vo-theme', resources: this.selected.selected };

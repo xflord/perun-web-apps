@@ -90,8 +90,7 @@ export class UserExtSourcesListComponent implements OnInit, OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        UserExtSourcesListComponent.getDataForColumn,
-        this
+        UserExtSourcesListComponent.getDataForColumn
       ),
       format
     );
@@ -104,11 +103,10 @@ export class UserExtSourcesListComponent implements OnInit, OnChanges {
           data,
           filter,
           this.displayedColumns,
-          UserExtSourcesListComponent.getDataForColumn,
-          this
+          UserExtSourcesListComponent.getDataForColumn
         );
       this.dataSource.sortData = (data: RichUserExtSource[], sort: MatSort): RichUserExtSource[] =>
-        customDataSourceSort(data, sort, UserExtSourcesListComponent.getDataForColumn, this);
+        customDataSourceSort(data, sort, UserExtSourcesListComponent.getDataForColumn);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;

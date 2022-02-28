@@ -1,6 +1,6 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.ADD_GROUP_RESOURCES.TITLE'| translate}}</h1>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content>
     <mat-stepper #stepper [linear]="true">
       <mat-step
@@ -10,18 +10,18 @@
           >{{'DIALOGS.ADD_GROUP_RESOURCES.RESOURCES' | translate}}</ng-template
         >
         <perun-web-apps-debounce-filter
-          placeholder="{{'DIALOGS.ADD_GROUP_RESOURCES.FILTER' | translate}}"
-          (filter)="applyFilter($event)">
+          (filter)="applyFilter($event)"
+          placeholder="{{'DIALOGS.ADD_GROUP_RESOURCES.FILTER' | translate}}">
         </perun-web-apps-debounce-filter>
         <perun-web-apps-resources-list
           #list
-          [tableId]="tableId"
-          [resources]="resources"
-          [disableRouting]="true"
-          [selection]="selection"
+          [filterValue]="filterValue"
           [groupToResource]="this.data.group"
+          [disableRouting]="true"
+          [resources]="resources"
+          [selection]="selection"
           [displayedColumns]="['select', 'id', 'name', 'facility', 'tags', 'description']"
-          [filterValue]="filterValue"></perun-web-apps-resources-list>
+          [tableId]="tableId"></perun-web-apps-resources-list>
       </mat-step>
       <mat-step>
         <ng-template
@@ -91,12 +91,12 @@
       [matTooltipDisabled]="list === undefined || list.addAuth"
       matTooltip="{{'DIALOGS.ADD_GROUP_RESOURCES.ADD_PERMISSION_TOOLTIP' | translate}}">
       <button
-        mat-flat-button
+        (click)="onSubmit()"
         class="ml-2"
         color="accent"
         *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
         [disabled]="selection.selected.length === 0 || loading"
-        (click)="onSubmit()">
+        mat-flat-button>
         {{'DIALOGS.ADD_GROUP_RESOURCES.ADD' | translate}}
       </button>
     </span>

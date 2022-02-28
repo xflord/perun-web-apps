@@ -22,10 +22,10 @@
   [placeholder]="'VO_MANAGEMENT.FILTER_PLACEHOLDER'"></perun-web-apps-immediate-filter>
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 <perun-web-apps-owners-list
-  [tableId]="tableId"
+  [displayedColumns]="displayedColumns"
   *ngIf="!loading"
   [filterValue]="filterValue"
   [owners]="owners"
-  [displayedColumns]="displayedColumns"
-  [selection]="selection">
+  [selection]="selection"
+  [tableId]="tableId">
 </perun-web-apps-owners-list>

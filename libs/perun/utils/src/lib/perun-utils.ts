@@ -251,6 +251,25 @@ export function getRecentlyVisitedIds(key: string): number[] {
   return [];
 }
 
+export interface RecentItem {
+  id: number;
+  type: string;
+  voName: string;
+}
+
+/**
+ * Returns saved ids for given key.
+ *
+ * @param key of local storage
+ */
+export function getRecentlyVisitedItems(key: string): RecentItem[] {
+  const recentItems: RecentItem[] = JSON.parse(localStorage.getItem(key)) as RecentItem[];
+  if (recentItems) {
+    return recentItems;
+  }
+  return [];
+}
+
 /**
  * Add entity that was just visited to localStorage.
  *
@@ -675,11 +694,10 @@ export function parseDate(value: string): string {
 }
 
 const collator = new Intl.Collator('cs', { numeric: true });
-export function customDataSourceSort<T, S>(
+export function customDataSourceSort<T>(
   data: T[],
   sort: MatSort,
-  getDataForColumn: (data: T, column: string, outerThis: S) => string,
-  outerThis: S
+  getDataForColumn: (data: T, column: string) => string
 ): T[] {
   const active = sort.active;
   const direction = sort.direction;
@@ -687,27 +705,26 @@ export function customDataSourceSort<T, S>(
     return data;
   }
   return data.sort((a, b) => {
-    const dataStrA = getDataForColumn(a, active, outerThis);
-    const dataStrB = getDataForColumn(b, active, outerThis);
+    const dataStrA = getDataForColumn(a, active);
+    const dataStrB = getDataForColumn(b, active);
     return collator.compare(dataStrA, dataStrB) * (direction === 'asc' ? 1 : -1);
   });
 }
 
-export function customDataSourceFilterPredicate<T, S>(
+export function customDataSourceFilterPredicate<T>(
   data: T,
   filter: string,
   columns: string[],
-  getDataForColumn: (data: T, column: string, outerThis: S) => string,
-  outerThis: S,
+  getDataForColumn: (data: T, column: string) => string,
   filterByUUID?: boolean
 ): boolean {
   filter = filter.toLowerCase();
   let dataStr = '';
   columns.forEach((col) => {
-    dataStr += ';' + getDataForColumn(data, col, outerThis);
+    dataStr += ';' + getDataForColumn(data, col);
   });
   if (filterByUUID) {
-    dataStr += ';' + getDataForColumn(data, 'uuid', outerThis);
+    dataStr += ';' + getDataForColumn(data, 'uuid');
   }
   return dataStr.toLowerCase().includes(filter);
 }
@@ -724,19 +741,18 @@ export function parseAttribute(data: Author, nameOfAttribute: string): string {
   return attribute;
 }
 
-export function getDataForExport<T, S>(
+export function getDataForExport<T>(
   data: T[],
   columns: string[],
-  getDataForColumn: (data: T, column: string, outerThis: S) => string,
-  outerThis: S
+  getDataForColumn: (data: T, column: string) => string
 ): T[] {
-  const result: T[] = [];
+  const result = [];
   const skippedColumns = ['checkbox', 'select', 'edit', 'menu', 'cite', 'extend', 'recent'];
   columns = columns.filter((c) => !skippedColumns.includes(c));
   data.forEach((row) => {
     let resultRow: T;
     columns.forEach((col) => {
-      resultRow[col] = (getDataForColumn(row, col, outerThis) ?? '').split('"').join("''").trim();
+      resultRow[col] = (getDataForColumn(row, col) ?? '').split('"').join("''").trim();
     });
     result.push(resultRow);
   });

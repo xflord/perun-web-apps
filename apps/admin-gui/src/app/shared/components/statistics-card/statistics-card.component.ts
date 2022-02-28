@@ -7,17 +7,12 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./statistics-card.component.scss'],
 })
 export class StatisticsCardComponent implements OnInit {
-  constructor() {}
-
   @Input()
   rowNames: string[] = [];
-
   @Input()
   title = '';
-
   @Input()
-  statistics: Map<string, any> = new Map<string, any>();
-
+  statistics: Map<string, number> = new Map<string, number>();
   dataSource: MatTableDataSource<string> = null;
   displayedColumns = ['name', 'value'];
 

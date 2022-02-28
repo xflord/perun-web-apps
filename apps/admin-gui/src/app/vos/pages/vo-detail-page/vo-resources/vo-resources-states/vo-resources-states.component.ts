@@ -9,14 +9,7 @@ import { ResourceState, TasksManagerService, Vo } from '@perun-web-apps/perun/op
 })
 export class VoResourcesStatesComponent implements OnInit {
   static id = 'VoResourcesStatesComponent';
-
   @HostBinding('class.router-component') true;
-
-  constructor(
-    private taskService: TasksManagerService,
-    private entityStorageService: EntityStorageService
-  ) {}
-
   loading = false;
   okPropagation: ResourceState[] = [];
   errorPropagation: ResourceState[] = [];
@@ -25,13 +18,18 @@ export class VoResourcesStatesComponent implements OnInit {
   vo: Vo;
   selectedIndex = 0;
 
-  ngOnInit() {
+  constructor(
+    private taskService: TasksManagerService,
+    private entityStorageService: EntityStorageService
+  ) {}
+
+  ngOnInit(): void {
     this.loading = true;
     this.vo = this.entityStorageService.getEntity();
     this.refreshTable();
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.taskService.getAllResourcesState(this.vo.id).subscribe(
       (resourceStates) => {

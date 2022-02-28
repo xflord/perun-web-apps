@@ -10,22 +10,21 @@ import { Member, MembersManagerService } from '@perun-web-apps/perun/openapi';
 })
 export class MemberAttributesComponent implements OnInit {
   @HostBinding('class.router-component') true;
+  memberId: number;
+  member: Member;
+  memberResourceAttAuth: boolean;
+  memberGroupAttAuth: boolean;
+  userFacilityAttAuth: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private authResolver: GuiAuthResolver,
     private memberManager: MembersManagerService
   ) {}
 
-  memberId: number;
-  member: Member;
-
-  memberResourceAttAuth: boolean;
-  memberGroupAttAuth: boolean;
-  userFacilityAttAuth: boolean;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.parent.params.subscribe((params) => {
-      this.memberId = params['memberId'];
+      this.memberId = params['memberId'] as number;
 
       this.memberManager.getMemberById(this.memberId).subscribe((member) => {
         this.member = member;

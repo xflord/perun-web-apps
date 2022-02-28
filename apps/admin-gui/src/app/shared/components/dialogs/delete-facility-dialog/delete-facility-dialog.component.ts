@@ -16,6 +16,14 @@ export interface DeleteFacilityDialogData {
   styleUrls: ['./delete-facility-dialog.component.scss'],
 })
 export class DeleteFacilityDialogComponent implements OnInit {
+  theme: string;
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<Facility>;
+  loading = false;
+  relations: string[] = [];
+  private facility: Facility;
+  private force = false;
+
   constructor(
     private dialogRef: MatDialogRef<DeleteFacilityDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: DeleteFacilityDialogData,
@@ -24,37 +32,33 @@ export class DeleteFacilityDialogComponent implements OnInit {
     private translate: TranslateService
   ) {}
 
-  theme: string;
-  facility: Facility;
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<Facility>;
-  loading = false;
-  force = false;
-  relations: string[] = [];
-
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.facility = this.data.facility;
     this.dataSource = new MatTableDataSource<Facility>([this.facility]);
-    this.relations.push(this.translate.instant('DIALOGS.DELETE_FACILITY.RESOURCE_RELATION'));
+    this.relations.push(
+      this.translate.instant('DIALOGS.DELETE_FACILITY.RESOURCE_RELATION') as string
+    );
   }
 
-  onConfirm() {
+  onConfirm(): void {
     this.loading = true;
     this.facilitiesManager.deleteFacility(this.facility.id, this.force).subscribe(
       () => {
-        this.notificator.showSuccess(this.translate.instant('DIALOGS.DELETE_FACILITY.SUCCESS'));
+        this.notificator.showSuccess(
+          this.translate.instant('DIALOGS.DELETE_FACILITY.SUCCESS') as string
+        );
         this.dialogRef.close(true);
       },
       () => (this.loading = false)
     );
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit(result: { deleted: boolean; force: boolean }) {
+  onSubmit(result: { deleted: boolean; force: boolean }): void {
     this.force = result.force;
     if (result.deleted) {
       this.onConfirm();

@@ -9,6 +9,4 @@ import { fadeIn } from '@perun-web-apps/perun/animations';
 })
 export class ResourceSettingsComponent {
   @HostBinding('class.router-component') true;
-
-  constructor() {}
 }

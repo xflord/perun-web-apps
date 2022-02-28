@@ -8,20 +8,17 @@ import { EntityStorageService } from '@perun-web-apps/perun/services';
   styleUrls: ['./group-statistics.component.scss'],
 })
 export class GroupStatisticsComponent implements OnInit {
+  loading = false;
+  group: Group;
+  voStatusCountsRowNames: string[] = ['Members', 'Valid', 'Invalid', 'Expired', 'Disabled'];
+  membersCountsByVoStatus: Map<string, number> = new Map<string, number>();
+  groupStatusCountsRowNames: string[] = ['Members', 'Valid', 'Expired'];
+  membersCountsByGroupStatus: Map<string, number> = new Map<string, number>();
+
   constructor(
     private groupService: GroupsManagerService,
     private entityStorageService: EntityStorageService
   ) {}
-
-  loading = false;
-
-  group: Group;
-
-  voStatusCountsRowNames: string[] = ['Members', 'Valid', 'Invalid', 'Expired', 'Disabled'];
-  membersCountsByVoStatus: Map<string, number> = new Map<string, number>();
-
-  groupStatusCountsRowNames: string[] = ['Members', 'Valid', 'Expired'];
-  membersCountsByGroupStatus: Map<string, number> = new Map<string, number>();
 
   ngOnInit(): void {
     this.loading = true;

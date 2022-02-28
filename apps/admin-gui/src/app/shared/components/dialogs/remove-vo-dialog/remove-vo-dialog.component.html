@@ -1,9 +1,9 @@
 <div class="{{theme}}">
   <app-delete-entity-dialog
+    (deleted)="onSubmit($event)"
     [entityNames]="dataSource"
     [entityType]="'organizations'"
-    [relations]="relations"
     [loading]="loading"
-    (deleted)="onSubmit($event)">
+    [relations]="relations">
   </app-delete-entity-dialog>
 </div>

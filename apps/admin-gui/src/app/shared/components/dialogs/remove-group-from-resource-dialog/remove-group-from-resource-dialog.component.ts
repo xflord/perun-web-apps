@@ -17,6 +17,11 @@ export interface RemoveGroupFromResourceDialogData {
   styleUrls: ['./remove-group-from-resource-dialog.component.scss'],
 })
 export class RemoveGroupFromResourceDialogComponent implements OnInit {
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<Group>;
+  loading = false;
+  theme: string;
+
   constructor(
     private dialogRef: MatDialogRef<RemoveGroupFromResourceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: RemoveGroupFromResourceDialogData,
@@ -25,22 +30,17 @@ export class RemoveGroupFromResourceDialogComponent implements OnInit {
     private resourceManager: ResourcesManagerService
   ) {}
 
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<Group>;
-  loading = false;
-  theme: string;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
     this.dataSource = new MatTableDataSource<Group>(this.data.groups);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 
-  onSubmit() {
-    const groupsId = [];
+  onSubmit(): void {
+    const groupsId: number[] = [];
     for (const group of this.data.groups) {
       groupsId.push(group.id);
     }
@@ -49,7 +49,7 @@ export class RemoveGroupFromResourceDialogComponent implements OnInit {
       () => {
         this.translate
           .get('DIALOGS.REMOVE_GROUP_FROM_RESOURCE.SUCCESS')
-          .subscribe((successMessage) => {
+          .subscribe((successMessage: string) => {
             this.notificator.showSuccess(successMessage);
             this.dialogRef.close(true);
           });

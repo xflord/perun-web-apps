@@ -6,15 +6,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./tag-section.component.scss'],
 })
 export class TagSectionComponent {
-  constructor() {}
-
   @Input()
-  tags: [][] = [];
+  tags: string[][] = [];
 
   @Output()
   addedTag = new EventEmitter<string>();
 
-  addTag(tag: string) {
+  addTag(tag: string): void {
     this.addedTag.emit(tag);
   }
 }

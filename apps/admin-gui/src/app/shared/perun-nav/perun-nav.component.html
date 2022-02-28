@@ -1,38 +1,38 @@
-<div id="nav-menu-icons" [ngStyle]="{'color': navTextColor}">
-  <button mat-icon-button class="mr-2 mt-auto mb-auto" (click)="sideNav.toggle()">
+<div [ngStyle]="{'color': navTextColor}" id="nav-menu-icons">
+  <button (click)="sideNav.toggle()" class="mr-2 mt-auto mb-auto" mat-icon-button>
     <mat-icon [ngStyle]="{'color': iconColor}"> menu </mat-icon>
   </button>
-  <a [routerLink]="['/home']" queryParamsHandling="merge" class="mt-auto mb-auto">
+  <a [routerLink]="['/home']" class="mt-auto mb-auto" queryParamsHandling="merge">
     <div [innerHTML]="logo" class="logo-container"></div>
   </a>
 </div>
 
-<div id="nav-devel-info" *ngIf="isDevel">
+<div *ngIf="isDevel" id="nav-devel-info">
   <span class="text-warning"> ~ 🗲&nbsp; </span>
   <span class="text-danger"> DEVEL </span>
   <span class="text-warning"> &nbsp;🗲 ~ </span>
 </div>
 
-<div id="nav-menu-user-info" [ngStyle]="{'color': navTextColor}">
+<div [ngStyle]="{'color': navTextColor}" id="nav-menu-user-info">
   <button
-    mat-icon-button
+    [matTooltip]="'NAV.NOTIFICATIONS_TOOLTIP'|translate"
     (click)="showNotificationHistory()"
-    [matTooltip]="'NAV.NOTIFICATIONS_TOOLTIP'|translate">
+    mat-icon-button>
     <mat-icon
       [ngStyle]="{'color': iconColor}"
       matBadge="{{getNewNotificationsCount() > 5 ? '5+' : getNewNotificationsCount()}}"
-      matBadgeColor="warn"
-      [matBadgeHidden]="getNewNotificationsCount() === 0">
+      [matBadgeHidden]="getNewNotificationsCount() === 0"
+      matBadgeColor="warn">
       {{getNewNotificationsCount() ? 'notifications_active' : 'notifications'}}
     </mat-icon>
   </button>
 
   <perun-web-apps-header-menu
-    [url]="profileUrl"
-    [label]="profileLabel"
-    [user]="principal.user"
-    [logoutEnabled]="logoutEnabled"
     [iconColor]="iconColor"
-    [textColor]="navTextColor">
+    [label]="profileLabel"
+    [textColor]="navTextColor"
+    [logoutEnabled]="logoutEnabled"
+    [url]="profileUrl"
+    [user]="principal.user">
   </perun-web-apps-header-menu>
 </div>

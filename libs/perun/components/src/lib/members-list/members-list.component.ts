@@ -98,10 +98,14 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     }
   }
 
+  getExportDataForColumnFun = (data: RichMember, column: string): string => {
+    return MembersListComponent.getExportDataForColumn(data, column, this.showGroupStatuses);
+  };
+
   static getExportDataForColumn(
     data: RichMember,
     column: string,
-    outerThis: MembersListComponent
+    showGroupStatuses: boolean
   ): string {
     switch (column) {
       case 'id':
@@ -112,7 +116,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
         }
         return '';
       case 'status':
-        return outerThis.showGroupStatuses ? data.groupStatus : data.status;
+        return showGroupStatuses ? data.groupStatus : data.status;
       case 'organization':
         return parseOrganization(data);
       case 'email':
@@ -124,10 +128,14 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     }
   }
 
+  getSortDataForColumnFun = (data: RichMember, column: string): string => {
+    return MembersListComponent.getSortDataForColumn(data, column, this.showGroupStatuses);
+  };
+
   static getSortDataForColumn(
     data: RichMember,
     column: string,
-    outerThis: MembersListComponent
+    showGroupStatuses: boolean
   ): string {
     switch (column) {
       case 'id':
@@ -138,7 +146,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
         }
         return '';
       case 'status':
-        return outerThis.showGroupStatuses ? data.groupStatus : data.status;
+        return showGroupStatuses ? data.groupStatus : data.status;
       case 'organization':
         return parseOrganization(data);
       case 'email':
@@ -153,8 +161,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        MembersListComponent.getExportDataForColumn,
-        this
+        this.getExportDataForColumnFun
       ),
       format
     );
@@ -170,11 +177,10 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
           data,
           filter,
           this.displayedColumns,
-          MembersListComponent.getFilterDataForColumn,
-          this
+          MembersListComponent.getFilterDataForColumn
         );
       this.dataSource.sortData = (data: RichMember[], sort: MatSort): RichMember[] =>
-        customDataSourceSort(data, sort, MembersListComponent.getSortDataForColumn, this);
+        customDataSourceSort(data, sort, this.getSortDataForColumnFun);
     }
     this.dataSource.filter = this.filter;
     this.dataSource.data = this.members;

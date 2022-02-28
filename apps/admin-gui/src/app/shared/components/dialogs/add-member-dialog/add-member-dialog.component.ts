@@ -11,6 +11,7 @@ import {
   MemberCandidate,
   MembersManagerService,
   RegistrarManagerService,
+  UserExtSource,
   VosManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
@@ -28,12 +29,27 @@ export interface AddMemberDialogData {
   type: 'vo' | 'group';
 }
 
+interface SimplifiedCandidate {
+  userExtSource: UserExtSource;
+  additionalUserExtSources: UserExtSource[];
+  attributes: { [key: string]: string };
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  titleBefore: string;
+  titleAfter: string;
+  id: number;
+}
+
 @Component({
   selector: 'app-add-member-dialog',
   templateUrl: './add-member-dialog.component.html',
   styleUrls: ['./add-member-dialog.component.scss'],
 })
 export class AddMemberDialogComponent implements OnInit {
+  @ViewChild('list', {})
+  list: MembersCandidatesListComponent;
+
   languages = ['en'];
 
   title: string;
@@ -47,9 +63,6 @@ export class AddMemberDialogComponent implements OnInit {
 
   theme: string;
   tableId = TABLE_ADD_MEMBER_CANDIDATES_DIALOG;
-
-  @ViewChild('list', {})
-  list: MembersCandidatesListComponent;
 
   inviteAuth = false;
   searchCtrl: FormControl;
@@ -70,7 +83,35 @@ export class AddMemberDialogComponent implements OnInit {
     private guiAuthResolver: GuiAuthResolver,
     private store: StoreService
   ) {
-    translate.get('DIALOGS.ADD_MEMBERS.TITLE').subscribe((value) => (this.title = value));
+    translate.get('DIALOGS.ADD_MEMBERS.TITLE').subscribe((value: string) => (this.title = value));
+  }
+
+  //perun is expecting precisely this set of values that will be in the object Candidate
+  private static createCandidate(candidate: Candidate): SimplifiedCandidate {
+    return {
+      userExtSource: candidate.userExtSource,
+      additionalUserExtSources: candidate.additionalUserExtSources,
+      attributes: candidate.attributes,
+      firstName: candidate.firstName,
+      lastName: candidate.lastName,
+      middleName: candidate.middleName,
+      titleBefore: candidate.titleBefore,
+      titleAfter: candidate.titleAfter,
+      id: candidate.id,
+    };
+  }
+
+  ngOnInit(): void {
+    this.languages = this.store.get('supported_languages') as string[];
+    this.theme = this.data.theme;
+    this.manualAddingBlocked = this.data.manualAddingBlocked;
+    if (this.data.type === 'group') {
+      this.inviteAuth = this.guiAuthResolver.isAuthorized(
+        'group-sendInvitation_Vo_Group_User_policy',
+        [this.data.group]
+      );
+    }
+    this.searchCtrl = new FormControl('', [Validators.required, Validators.pattern('.*[\\S]+.*')]);
   }
 
   onCancel(): void {
@@ -158,7 +199,7 @@ export class AddMemberDialogComponent implements OnInit {
     }
   }
 
-  onSearchByString() {
+  onSearchByString(): void {
     if (this.searchCtrl.invalid) {
       this.searchCtrl.markAllAsTouched();
       return;
@@ -173,7 +214,7 @@ export class AddMemberDialogComponent implements OnInit {
         .getCompleteCandidatesForVo(
           this.data.entityId,
           [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL],
-          this.searchCtrl.value
+          this.searchCtrl.value as string
         )
         .subscribe(
           (members) => {
@@ -188,7 +229,7 @@ export class AddMemberDialogComponent implements OnInit {
         .getCompleteCandidatesForGroup(
           this.data.entityId,
           [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL],
-          this.searchCtrl.value
+          this.searchCtrl.value as string
         )
         .subscribe(
           (members) => {
@@ -201,20 +242,7 @@ export class AddMemberDialogComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.languages = this.store.get('supported_languages');
-    this.theme = this.data.theme;
-    this.manualAddingBlocked = this.data.manualAddingBlocked;
-    if (this.data.type === 'group') {
-      this.inviteAuth = this.guiAuthResolver.isAuthorized(
-        'group-sendInvitation_Vo_Group_User_policy',
-        [this.data.group]
-      );
-    }
-    this.searchCtrl = new FormControl('', [Validators.required, Validators.pattern('.*[\\S]+.*')]);
-  }
-
-  private addUserToVo(selectedMemberCandidate: MemberCandidate) {
+  private addUserToVo(selectedMemberCandidate: MemberCandidate): void {
     this.membersManagerService
       .createMemberForUser({ vo: this.data.entityId, user: selectedMemberCandidate.richUser.id })
       .subscribe(
@@ -231,27 +259,7 @@ export class AddMemberDialogComponent implements OnInit {
       );
   }
 
-  private addCandidateToVo(selectedMemberCandidate: MemberCandidate) {
-    this.membersManagerService
-      .createMemberForCandidate({
-        vo: this.data.entityId,
-        candidate: this.createCandidate(selectedMemberCandidate.candidate),
-      })
-      .subscribe(
-        (member) => {
-          this.onAddSuccess();
-          this.membersManagerService.validateMemberAsync(member.id).subscribe(
-            () => {
-              this.onValidateSuccess();
-            },
-            () => this.onCancel()
-          );
-        },
-        () => this.onError()
-      );
-  }
-
-  private addUserToGroup(selectedMemberCandidate: MemberCandidate) {
+  private addUserToGroup(selectedMemberCandidate: MemberCandidate): void {
     const group = {
       id: this.data.group.id,
       beanName: this.data.group.beanName,
@@ -278,7 +286,7 @@ export class AddMemberDialogComponent implements OnInit {
       );
   }
 
-  private addMemberToGroup(selectedMemberCandidate: MemberCandidate) {
+  private addMemberToGroup(selectedMemberCandidate: MemberCandidate): void {
     this.groupService.addMembers(this.data.entityId, [selectedMemberCandidate.member.id]).subscribe(
       () => {
         this.onAddSuccess();
@@ -287,18 +295,13 @@ export class AddMemberDialogComponent implements OnInit {
     );
   }
 
-  private addCandidateToGroup(selectedMemberCandidate: MemberCandidate) {
-    const group = {
-      id: this.data.group.id,
-      beanName: this.data.group.beanName,
-      name: this.data.group.name,
-      voId: this.data.group.voId,
-    };
+  private addCandidateToVo(selectedMemberCandidate: MemberCandidate): void {
     this.membersManagerService
       .createMemberForCandidate({
-        vo: this.data.voId,
-        candidate: this.createCandidate(selectedMemberCandidate.candidate),
-        groups: [group],
+        vo: this.data.entityId,
+        candidate: AddMemberDialogComponent.createCandidate(
+          selectedMemberCandidate.candidate
+        ) as Candidate,
       })
       .subscribe(
         (member) => {
@@ -314,26 +317,26 @@ export class AddMemberDialogComponent implements OnInit {
       );
   }
 
-  private onAddSuccess() {
-    this.translate.get('DIALOGS.ADD_MEMBERS.SUCCESS').subscribe((msg) => {
+  private onAddSuccess(): void {
+    this.translate.get('DIALOGS.ADD_MEMBERS.SUCCESS').subscribe((msg: string) => {
       this.notificator.showSuccess(msg);
       this.dialogRef.close(true);
     });
   }
 
-  private onError() {
+  private onError(): void {
     this.selection.clear();
     this.processing = false;
   }
 
-  private onInviteSuccess() {
-    this.translate.get('DIALOGS.ADD_MEMBERS.SUCCESS_INVITE').subscribe((msg) => {
+  private onInviteSuccess(): void {
+    this.translate.get('DIALOGS.ADD_MEMBERS.SUCCESS_INVITE').subscribe((msg: string) => {
       this.notificator.showSuccess(msg);
       this.dialogRef.close(true);
     });
   }
 
-  private onValidateSuccess() {
+  private onValidateSuccess(): void {
     this.dialogRef.close(true);
     // this.translate.get('DIALOGS.ADD_MEMBERS.VALIDATION_SUCCESS').subscribe(msg => {
     //   this.notificator.showSuccess(msg);
@@ -341,18 +344,32 @@ export class AddMemberDialogComponent implements OnInit {
     // });
   }
 
-  //perun is expecting precisely this set of values that will be in the object Candidate
-  private createCandidate(candidate: Candidate): any {
-    return {
-      userExtSource: candidate.userExtSource,
-      additionalUserExtSources: candidate.additionalUserExtSources,
-      attributes: candidate.attributes,
-      firstName: candidate.firstName,
-      lastName: candidate.lastName,
-      middleName: candidate.middleName,
-      titleBefore: candidate.titleBefore,
-      titleAfter: candidate.titleAfter,
-      id: candidate.id,
+  private addCandidateToGroup(selectedMemberCandidate: MemberCandidate): void {
+    const group = {
+      id: this.data.group.id,
+      beanName: this.data.group.beanName,
+      name: this.data.group.name,
+      voId: this.data.group.voId,
     };
+    this.membersManagerService
+      .createMemberForCandidate({
+        vo: this.data.voId,
+        candidate: AddMemberDialogComponent.createCandidate(
+          selectedMemberCandidate.candidate
+        ) as Candidate,
+        groups: [group],
+      })
+      .subscribe(
+        (member) => {
+          this.onAddSuccess();
+          this.membersManagerService.validateMemberAsync(member.id).subscribe(
+            () => {
+              this.onValidateSuccess();
+            },
+            () => this.onCancel()
+          );
+        },
+        () => this.onError()
+      );
   }
 }

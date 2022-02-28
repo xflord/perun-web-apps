@@ -3,14 +3,14 @@
 
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
 
-  <div *ngIf="!loading" mat-dialog-content class="dialog-container">
+  <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
     <mat-form-field>
       <input
         matInput
-        required
+        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.NAME' | translate}}"
         (change)="makePath()"
         [formControl]="nameControl"
-        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.NAME' | translate}}" />
+        required />
       <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.RESTRICTION_NAME' | translate}}</mat-error>
     </mat-form-field>
 
@@ -24,27 +24,27 @@
     <mat-form-field>
       <input
         matInput
-        required
         [formControl]="delayControl"
-        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.DELAY' | translate}}" />
+        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.DELAY' | translate}}"
+        required />
       <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.INVALID_DELAY' | translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <input
         matInput
-        required
+        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.RECURRENCE' | translate}}"
         [formControl]="recurrenceControl"
-        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.RECURRENCE' | translate}}" />
+        required />
       <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.INVALID_RECURRENCE' | translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <input
         matInput
-        required
         [formControl]="pathControl"
-        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.PATH' | translate}}" />
+        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.PATH' | translate}}"
+        required />
       <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.REQUIRE_PATH' | translate}}</mat-error>
     </mat-form-field>
 
@@ -58,7 +58,7 @@
     </span>
   </div>
   <div *ngIf="!loading" mat-dialog-actions>
-    <button class="ml-auto" (click)="onCancel()" mat-flat-button>
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.CREATE_EDIT_SERVICE.CANCEL' | translate}}
     </button>
     <button

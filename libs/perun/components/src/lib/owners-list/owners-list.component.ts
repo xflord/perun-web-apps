@@ -61,8 +61,7 @@ export class OwnersListComponent implements OnChanges, AfterViewInit {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        OwnersListComponent.getDataForColumn,
-        this
+        OwnersListComponent.getDataForColumn
       ),
       format
     );
@@ -75,11 +74,10 @@ export class OwnersListComponent implements OnChanges, AfterViewInit {
           data,
           filter,
           this.displayedColumns,
-          OwnersListComponent.getDataForColumn,
-          this
+          OwnersListComponent.getDataForColumn
         );
       this.dataSource.sortData = (data: Owner[], sort: MatSort): Owner[] =>
-        customDataSourceSort(data, sort, OwnersListComponent.getDataForColumn, this);
+        customDataSourceSort(data, sort, OwnersListComponent.getDataForColumn);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;

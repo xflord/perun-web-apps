@@ -31,13 +31,6 @@ import { ConsentRelatedAttributePipe } from '../../pipes/consent-related-attribu
   styleUrls: ['./attr-def-list.component.scss'],
 })
 export class AttrDefListComponent implements OnChanges, AfterViewInit {
-  constructor(
-    private dialog: MatDialog,
-    private authResolver: GuiAuthResolver,
-    private tableCheckbox: TableCheckbox,
-    private consentRelatedPipe: ConsentRelatedAttributePipe
-  ) {}
-
   @Input()
   definitions: AttributeDefinition[];
   @Input()
@@ -63,23 +56,54 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
 
   @Output()
   refreshEvent = new EventEmitter<void>();
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  dataSource: MatTableDataSource<AttributeDefinition>;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  private sort: MatSort;
+
+  constructor(
+    private dialog: MatDialog,
+    private authResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox,
+    private consentRelatedPipe: ConsentRelatedAttributePipe
+  ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSource();
   }
 
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-
-  dataSource: MatTableDataSource<AttributeDefinition>;
-
-  private sort: MatSort;
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  static getDataForColumn(data: AttributeDefinition, column: string): string {
+    switch (column) {
+      case 'id':
+        return data.id.toString();
+      case 'friendlyName':
+        return data.friendlyName;
+      case 'entity':
+        return data.entity;
+      case 'namespace':
+        if (data.namespace) {
+          const stringValue = data.namespace;
+          return stringValue.substring(stringValue.lastIndexOf(':') + 1, stringValue.length);
+        }
+        return '';
+      case 'type':
+        if (data.type) {
+          const stringValue = data.type;
+          return stringValue.substring(stringValue.lastIndexOf('.') + 1, stringValue.length);
+        }
+        return '';
+      case 'unique':
+        return data.unique ? 'true' : 'false';
+      default:
+        return '';
+    }
+  }
 
   canBeSelected = (row: AttributeDefinition) =>
-    !this.consentRelatedPipe.transform(row.namespace, this.serviceEnabled, this.consentRequired);
+    !this.consentRelatedPipe.transform(row.namespace, this.serviceEnabled, this.consentRequired)
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     if (!this.authResolver.isPerunAdminOrObserver()) {
       this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
@@ -91,65 +115,39 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
     this.dataSource.paginator = this.child.paginator;
   }
 
-  getDataForColumn(data: AttributeDefinition, column: string): string {
-    switch (column) {
-      case 'id':
-        return data.id.toString();
-      case 'friendlyName':
-        return data.friendlyName;
-      case 'entity':
-        return data.entity;
-      case 'namespace':
-        if (data.namespace) {
-          const stringValue = <string>data.namespace;
-          return stringValue.substring(stringValue.lastIndexOf(':') + 1, stringValue.length);
-        }
-        return '';
-      case 'type':
-        if (data.type) {
-          const stringValue = <string>data.type;
-          return stringValue.substring(stringValue.lastIndexOf('.') + 1, stringValue.length);
-        }
-        return '';
-      case 'unique':
-        return data.unique ? 'true' : 'false';
-      default:
-        return '';
-    }
-  }
-
-  exportData(format: string) {
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
-        this
+        AttrDefListComponent.getDataForColumn
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (this.dataSource) {
       this.dataSource.filter = this.filterValue;
 
       this.dataSource.sort = this.sort;
-      this.dataSource.filterPredicate = (data: AttributeDefinition, filter: string) =>
+      this.dataSource.filterPredicate = (data: AttributeDefinition, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn,
-          this
+          AttrDefListComponent.getDataForColumn
         );
-      this.dataSource.sortData = (data: AttributeDefinition[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.sortData = (
+        data: AttributeDefinition[],
+        sort: MatSort
+      ): AttributeDefinition[] =>
+        customDataSourceSort(data, sort, AttrDefListComponent.getDataForColumn);
       this.dataSource.paginator = this.child.paginator;
     }
   }
 
-  isAllSelected() {
+  isAllSelected(): boolean {
     return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(
       this.selection.selected.length,
       this.filterValue,
@@ -162,7 +160,7 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
     );
   }
 
-  masterToggle() {
+  masterToggle(): void {
     this.tableCheckbox.masterToggle(
       this.isAllSelected(),
       this.selection,
@@ -183,7 +181,7 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-  onRowClick(attDef: AttributeDefinition) {
+  onRowClick(attDef: AttributeDefinition): void {
     if (!this.disableRouting) {
       const config = getDefaultDialogConfig();
       config.width = '700px';

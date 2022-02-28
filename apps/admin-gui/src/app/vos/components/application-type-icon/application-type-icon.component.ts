@@ -6,8 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./application-type-icon.component.css'],
 })
 export class ApplicationTypeIconComponent {
-  constructor() {}
-
   @Input()
   applicationType: string;
 }

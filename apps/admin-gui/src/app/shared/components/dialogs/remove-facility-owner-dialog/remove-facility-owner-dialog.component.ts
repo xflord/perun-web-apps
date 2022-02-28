@@ -30,19 +30,21 @@ export class RemoveFacilityOwnerDialogComponent implements OnInit {
     private translate: TranslateService,
     private facilitiesManagerService: FacilitiesManagerService
   ) {
-    translate.get('DIALOGS.REMOVE_OWNERS.SUCCESS').subscribe((res) => (this.successMessage = res));
+    translate
+      .get('DIALOGS.REMOVE_OWNERS.SUCCESS')
+      .subscribe((res: string) => (this.successMessage = res));
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.dataSource = new MatTableDataSource<Owner>(this.data.owners);
     this.theme = this.data.theme;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     if (this.data.owners.length !== 0) {
       this.facilitiesManagerService

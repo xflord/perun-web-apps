@@ -3,33 +3,33 @@
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
     *ngIf="addAuth"
-    mat-flat-button
+    (click)="addHost()"
     color="accent"
     class="mr-2 action-button"
-    (click)="addHost()">
+    mat-flat-button>
     {{'FACILITY_DETAIL.HOSTS.ADD' | translate}}
   </button>
   <button
     *ngIf="removeAuth"
-    mat-flat-button
-    color="warn"
-    class="mr-2"
+    (click)="removeHost()"
     [disabled]="selected.selected.length === 0"
-    (click)="removeHost()">
+    class="mr-2"
+    color="warn"
+    mat-flat-button>
     {{'FACILITY_DETAIL.HOSTS.REMOVE' | translate}}
   </button>
   <perun-web-apps-immediate-filter
-    [placeholder]="'FACILITY_DETAIL.HOSTS.FILTER'"
-    (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+    (filter)="applyFilter($event)"
+    [placeholder]="'FACILITY_DETAIL.HOSTS.FILTER'"></perun-web-apps-immediate-filter>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <app-hosts-list
-    [tableId]="tableId"
+    [disableRouting]="!routeAuth || disableRouting"
     *ngIf="!loading"
     [filterValue]="filterValue"
     [hosts]="hosts"
     [selection]="selected"
     [displayedColumns]="displayedColumns"
-    [disableRouting]="!routeAuth || disableRouting"
-    [facilityId]="facility.id">
+    [facilityId]="facility.id"
+    [tableId]="tableId">
   </app-hosts-list>
 </div>

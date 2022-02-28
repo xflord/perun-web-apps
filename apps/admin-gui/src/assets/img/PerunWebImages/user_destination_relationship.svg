@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 23.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Vrstva_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 128 128" style="enable-background:new 0 0 128 128;" xml:space="preserve">
+<svg id="Vrstva_1" style="enable-background:new 0 0 128 128;" version="1.1" viewBox="0 0 128 128" x="0px" xml:space="preserve"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
 <style type="text/css">
 	.st0{fill:#ffffff;}
 </style>
@@ -12,8 +12,8 @@
 	<path class="st0" d="M115.8,36.5H87.5c-2.8,0-5,2.2-5,5v44.1c0,2.8,2.2,5,5,5h28.3c2.8,0,5-2.2,5-5V41.5
 		C120.8,38.7,118.6,36.5,115.8,36.5z M113.8,81.2c0,1.2-1,2.2-2.2,2.2H91.8c-1.2,0-2.2-1-2.2-2.2V45.8c0-1.2,1-2.2,2.2-2.2h19.7
 		c1.2,0,2.2,1,2.2,2.2V81.2z"/>
-	<rect x="94.2" y="48.3" class="st0" width="14.9" height="5.3"/>
-	<polygon class="st0" points="65.9,54.8 65.9,54.9 65.9,63.5 52.6,63.5 52.6,70.6 65.9,70.6 65.9,79.4 65.9,79.4 78.2,67.1 
+	<rect class="st0" height="5.3" width="14.9" x="94.2" y="48.3"/>
+	<polygon class="st0" points="65.9,54.8 65.9,54.9 65.9,63.5 52.6,63.5 52.6,70.6 65.9,70.6 65.9,79.4 65.9,79.4 78.2,67.1
 		77.4,66.3 	"/>
 </g>
 </svg>

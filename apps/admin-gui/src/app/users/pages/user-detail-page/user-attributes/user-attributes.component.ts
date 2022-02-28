@@ -1,7 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 import { User } from '@perun-web-apps/perun/openapi';
 
 @Component({
@@ -11,6 +10,8 @@ import { User } from '@perun-web-apps/perun/openapi';
 })
 export class UserAttributesComponent implements OnInit {
   @HostBinding('class.router-component') true;
+  userId: number;
+  userFacilityAttAuth: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -18,12 +19,9 @@ export class UserAttributesComponent implements OnInit {
     private authResolver: GuiAuthResolver
   ) {}
 
-  userId: number;
-  userFacilityAttAuth: boolean;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.parent.params.subscribe((params) => {
-      this.userId = params['userId'];
+      this.userId = params['userId'] as number;
       if (this.userId === undefined) {
         this.userId = this.store.getPerunPrincipal().userId;
       }

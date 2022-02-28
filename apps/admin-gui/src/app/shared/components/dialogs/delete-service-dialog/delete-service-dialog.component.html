@@ -2,9 +2,9 @@
   <app-delete-entity-dialog
     [entityNames]="dataSource"
     [entityType]="'services'"
-    [relations]="relations"
+    (deleted)="onSubmit($event)"
     [anotherMessage]="anotherMessage"
     [loading]="loading"
-    (deleted)="onSubmit($event)">
+    [relations]="relations">
   </app-delete-entity-dialog>
 </div>

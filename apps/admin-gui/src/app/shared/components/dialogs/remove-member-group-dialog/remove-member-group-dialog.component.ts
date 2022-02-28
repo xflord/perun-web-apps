@@ -17,6 +17,11 @@ export interface RemoveMemberGroupDialogData {
   styleUrls: ['./remove-member-group-dialog.component.scss'],
 })
 export class RemoveMemberGroupDialogComponent implements OnInit {
+  theme: string;
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<Group>;
+  loading = false;
+
   constructor(
     private dialogRef: MatDialogRef<RemoveMemberGroupDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: RemoveMemberGroupDialogData,
@@ -25,30 +30,27 @@ export class RemoveMemberGroupDialogComponent implements OnInit {
     private translate: TranslateService
   ) {}
 
-  theme: string;
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<Group>;
-  loading = false;
-
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.dataSource = new MatTableDataSource<Group>(this.data.groups);
   }
 
-  onRemove() {
+  onRemove(): void {
     this.loading = true;
     const groupIds = this.dataSource.data.map((group) => group.id);
 
     this.groupManager.removeMember(groupIds, this.data.memberId).subscribe(
       () => {
-        this.notificator.showSuccess(this.translate.instant('DIALOGS.REMOVE_MEMBER_GROUP.SUCCESS'));
+        this.notificator.showSuccess(
+          this.translate.instant('DIALOGS.REMOVE_MEMBER_GROUP.SUCCESS') as string
+        );
         this.dialogRef.close(true);
       },
       () => (this.loading = false)
     );
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 }

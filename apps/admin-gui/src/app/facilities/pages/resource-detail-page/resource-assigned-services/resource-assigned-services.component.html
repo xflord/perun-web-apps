@@ -12,22 +12,22 @@
   [disabled]="selected.selected.length === 0"
   class="mr-2"
   color="warn"
-  mat-flat-button
   (click)="removeServices()"
-  *ngIf="removeServiceAuth">
+  *ngIf="removeServiceAuth"
+  mat-flat-button>
   {{'RESOURCE_DETAIL.ASSIGNED_SERVICES.REMOVE_SERVICE' | translate}}
 </button>
 <perun-web-apps-immediate-filter
-  [placeholder]="'RESOURCE_DETAIL.ASSIGNED_SERVICES.FILTER_SERVICES'"
-  (filter)="applyFilter($event)">
+  (filter)="applyFilter($event)"
+  [placeholder]="'RESOURCE_DETAIL.ASSIGNED_SERVICES.FILTER_SERVICES'">
 </perun-web-apps-immediate-filter>
-<mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 <app-services-list
-  [tableId]="tableId"
-  [services]="assignedServices"
-  [selection]="selected"
-  [filterValue]="filterValue"
-  [displayedColumns]="displayedColumns"
+  *ngIf="!loading"
   [disableRouting]="!serviceRoutingAuth"
-  *ngIf="!loading">
+  [selection]="selected"
+  [displayedColumns]="displayedColumns"
+  [filterValue]="filterValue"
+  [services]="assignedServices"
+  [tableId]="tableId">
 </app-services-list>

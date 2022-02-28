@@ -14,6 +14,9 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./service-identity-detail-page.component.css'],
 })
 export class ServiceIdentityDetailPageComponent implements OnInit {
+  user: User;
+  loading = false;
+
   constructor(
     private sideMenuService: SideMenuService,
     private usersService: UsersManagerService,
@@ -24,13 +27,10 @@ export class ServiceIdentityDetailPageComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  user: User;
-  loading = false;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.route.params.subscribe((params) => {
-      const userId = params['userId'];
+      const userId = params['userId'] as number;
       this.entityStorageService.setEntity({ id: Number(userId), beanName: 'User' });
 
       this.usersService.getUserById(userId).subscribe(
@@ -46,14 +46,14 @@ export class ServiceIdentityDetailPageComponent implements OnInit {
     });
   }
 
-  getUserType() {
+  getUserType(): string {
     if (this.user.serviceUser) {
       return 'Service';
     }
     return 'Person';
   }
 
-  editUser() {
+  editUser(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {

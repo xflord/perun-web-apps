@@ -20,6 +20,15 @@ export interface SponsorExistingMemberDialogData {
   styleUrls: ['./sponsor-existing-member-dialog.component.scss'],
 })
 export class SponsorExistingMemberDialogComponent implements OnInit {
+  loading = false;
+  theme: string;
+  tableId = TABLE_ADD_SPONSORED_MEMBERS;
+  expiration = 'never';
+  searchCtrl: FormControl = new FormControl('', [Validators.required]);
+  firstSearchDone = false;
+  members: RichMember[] = [];
+  selection: SelectionModel<RichMember> = new SelectionModel<RichMember>(true, []);
+
   constructor(
     private dialogRef: MatDialogRef<SponsorExistingMemberDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: SponsorExistingMemberDialogData,
@@ -29,31 +38,19 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
     private translate: TranslateService
   ) {}
 
-  loading = false;
-  theme: string;
-
-  tableId = TABLE_ADD_SPONSORED_MEMBERS;
-
-  expiration = 'never';
-  searchCtrl: FormControl = new FormControl('', [Validators.required]);
-  firstSearchDone = false;
-
-  members: RichMember[] = [];
-  selection: SelectionModel<RichMember> = new SelectionModel<RichMember>(true, []);
-
   ngOnInit(): void {
     this.theme = this.data.theme;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  sponsor(members: RichMember[]) {
+  sponsor(members: RichMember[]): void {
     this.loading = true;
     if (members.length === 0) {
       this.notificator.showSuccess(
-        this.translate.instant('DIALOGS.SPONSOR_EXISTING_MEMBER.SUCCESS')
+        this.translate.instant('DIALOGS.SPONSOR_EXISTING_MEMBER.SUCCESS') as string
       );
       this.loading = false;
       this.dialogRef.close(true);
@@ -83,7 +80,7 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     const members = Array.from(this.selection.selected);
     this.expiration = this.expiration === 'never' ? null : this.expiration;
@@ -91,7 +88,7 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
     this.sponsor(members);
   }
 
-  setExpiration(newExpiration) {
+  setExpiration(newExpiration: string): void {
     if (newExpiration === 'never') {
       this.expiration = 'never';
     } else {
@@ -99,7 +96,7 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
     }
   }
 
-  onSearchByString() {
+  onSearchByString(): void {
     if (this.searchCtrl.invalid) {
       this.searchCtrl.markAllAsTouched();
       return;
@@ -111,7 +108,7 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
 
     const attrNames = [Urns.MEMBER_DEF_EXPIRATION, Urns.USER_DEF_PREFERRED_MAIL];
     this.membersService
-      .findCompleteRichMembersForVo(this.data.voId, attrNames, this.searchCtrl.value)
+      .findCompleteRichMembersForVo(this.data.voId, attrNames, this.searchCtrl.value as string)
       .subscribe(
         (members) => {
           this.members = members;

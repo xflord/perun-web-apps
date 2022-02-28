@@ -7,41 +7,41 @@
     matTooltipPosition="above">
     <button
       *ngIf="createAuth || generateAuth"
-      mat-flat-button
-      color="accent"
-      class="mr-2 dropdown-toggle"
       [disabled]="findSponsorsAuth && voSponsors.length === 0"
-      [matMenuTriggerFor]="menu">
+      [matMenuTriggerFor]="menu"
+      class="mr-2 dropdown-toggle"
+      color="accent"
+      mat-flat-button>
       {{'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.CREATE' | translate}}
     </button>
   </span>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item *ngIf="createAuth" (click)="onCreate()" class="action-button">
+    <button (click)="onCreate()" *ngIf="createAuth" class="action-button" mat-menu-item>
       {{'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.CREATE_ONE' | translate}}
     </button>
-    <button mat-menu-item *ngIf="generateAuth" (click)="onGenerate()" class="action-button">
+    <button (click)="onGenerate()" *ngIf="generateAuth" class="action-button" mat-menu-item>
       {{'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.GENERATE' | translate}}
     </button>
   </mat-menu>
   <button
     *ngIf="setSponsorshipAuth"
-    mat-flat-button
+    (click)="onSponsorExistingMember()"
     color="accent"
     class="mr-2 action-button"
-    (click)="onSponsorExistingMember()">
+    mat-flat-button>
     {{'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.SPONSOR_EXISTING' | translate}}
   </button>
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.FILTER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <app-sponsored-members-list
     *ngIf="!loading"
-    [sponsoredMembers]="members"
+    (refreshTable)="refresh()"
     [disableRouting]="!routeAuth"
     [selection]="selection"
     [filterValue]="searchString"
-    [tableId]="tableId"
-    (refreshTable)="refresh()"></app-sponsored-members-list>
+    [sponsoredMembers]="members"
+    [tableId]="tableId"></app-sponsored-members-list>
 </div>

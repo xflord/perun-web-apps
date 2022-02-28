@@ -100,16 +100,20 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     this.sort = ms;
   }
 
+  getDataForColumnFun = (data: GroupWithStatus, column: string): string => {
+    return GroupsListComponent.getDataForColumn(data, column, this.voNames);
+  };
+
   static getDataForColumn(
     data: GroupWithStatus,
     column: string,
-    otherThis: GroupsListComponent
+    voNames: Map<number, string>
   ): string {
     switch (column) {
       case 'id':
         return data.id.toString();
       case 'vo':
-        return otherThis.voNames.get(data.voId);
+        return voNames.get(data.voId);
       case 'name':
         return data.name;
       case 'description':
@@ -129,16 +133,21 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     }
   }
 
+  getSortDataForColumnFun = (data: GroupWithStatus, column: string): string => {
+    return GroupsListComponent.getSortDataForColumn(data, column, this.voNames, this.recentIds);
+  };
+
   static getSortDataForColumn(
     data: GroupWithStatus,
     column: string,
-    otherThis: GroupsListComponent
+    voNames: Map<number, string>,
+    recentIds: number[]
   ): string {
     switch (column) {
       case 'id':
         return data.id.toString();
       case 'vo':
-        return otherThis.voNames.get(data.voId);
+        return voNames.get(data.voId);
       case 'name':
         return data.name;
       case 'description':
@@ -151,9 +160,9 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
         return formatDate(expirationStr, 'yyyy.MM.dd', 'en');
       }
       case 'recent':
-        if (otherThis.recentIds) {
-          if (otherThis.recentIds.includes(data.id)) {
-            return '#'.repeat(otherThis.recentIds.indexOf(data.id));
+        if (recentIds) {
+          if (recentIds.includes(data.id)) {
+            return '#'.repeat(recentIds.indexOf(data.id));
           }
         }
         return data['name'];
@@ -193,8 +202,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        GroupsListComponent.getDataForColumn,
-        this
+        this.getDataForColumnFun
       ),
       format
     );
@@ -210,15 +218,13 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
           data,
           filter,
           this.displayedColumns,
-          GroupsListComponent.getDataForColumn,
-          this,
+          this.getDataForColumnFun,
           true
         );
       this.dataSource.sortData = (
         data: Group[] | RichGroup[],
         sort: MatSort
-      ): Group[] | RichGroup[] =>
-        customDataSourceSort(data, sort, GroupsListComponent.getSortDataForColumn, this);
+      ): Group[] | RichGroup[] => customDataSourceSort(data, sort, this.getSortDataForColumnFun);
     }
     this.dataSource.filter = this.filter;
     this.dataSource.data = this.groups;

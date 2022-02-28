@@ -18,15 +18,15 @@
   <!--    {{'FACILITY_DETAIL.SECURITY_TEAMS.REMOVE'| translate}}-->
   <!--  </button>-->
   <perun-web-apps-immediate-filter
-    [placeholder]="'FACILITY_DETAIL.SECURITY_TEAMS.FILTER'"
-    (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+    (filter)="applyFilter($event)"
+    [placeholder]="'FACILITY_DETAIL.SECURITY_TEAMS.FILTER'"></perun-web-apps-immediate-filter>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <app-security-teams-list
-    [tableId]="tableId"
+    [displayedColumns]="displayedColumns"
     *ngIf="!loading"
     [filterValue]="filterValue"
     [securityTeams]="securityTeams"
-    [displayedColumns]="displayedColumns"
-    [selection]="selected">
+    [selection]="selected"
+    [tableId]="tableId">
   </app-security-teams-list>
 </div>

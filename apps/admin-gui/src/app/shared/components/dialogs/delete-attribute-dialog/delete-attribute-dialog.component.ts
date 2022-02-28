@@ -21,6 +21,11 @@ export interface DeleteAttributeDialogData {
   styleUrls: ['./delete-attribute-dialog.component.scss'],
 })
 export class DeleteAttributeDialogComponent implements OnInit {
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<Attribute>;
+  loading = false;
+  theme: string;
+
   constructor(
     public dialogRef: MatDialogRef<DeleteAttributeDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DeleteAttributeDialogData,
@@ -29,21 +34,16 @@ export class DeleteAttributeDialogComponent implements OnInit {
     private attributesManager: AttributesManagerService
   ) {}
 
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<Attribute>;
-  loading = false;
-  theme: string;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.dataSource = new MatTableDataSource<Attribute>(this.data.attributes);
     this.theme = this.data.theme;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     const ids: number[] = [];
     for (const attr of this.data.attributes) {
       ids.push(attr.id);
@@ -170,8 +170,8 @@ export class DeleteAttributeDialogComponent implements OnInit {
     }
   }
 
-  onSuccess() {
-    this.translate.get('DIALOGS.DELETE_ATTRIBUTES.SUCCESS').subscribe((successMessage) => {
+  onSuccess(): void {
+    this.translate.get('DIALOGS.DELETE_ATTRIBUTES.SUCCESS').subscribe((successMessage: string) => {
       this.notificator.showSuccess(successMessage);
       this.dialogRef.close(true);
     });

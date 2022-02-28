@@ -37,14 +37,14 @@ export class UserIdentitiesComponent implements OnInit {
     public authResolver: GuiAuthResolver
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.parent.params.subscribe((params) => {
-      this.userId = params['userId'];
+      this.userId = params['userId'] as number;
     });
     this.refreshTable();
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.selection.clear();
     this.usersManagerService.getRichUserExtSources(this.userId).subscribe(
@@ -56,7 +56,7 @@ export class UserIdentitiesComponent implements OnInit {
     );
   }
 
-  addIdentity() {
+  addIdentity(): void {
     const config = getDefaultDialogConfig();
     config.width = '1000px';
     config.data = { userId: this.userId };
@@ -68,7 +68,7 @@ export class UserIdentitiesComponent implements OnInit {
     });
   }
 
-  removeIdentity() {
+  removeIdentity(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {
@@ -85,7 +85,7 @@ export class UserIdentitiesComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

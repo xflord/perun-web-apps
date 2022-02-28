@@ -1,11 +1,11 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
-  ViewChild,
-  Output,
-  EventEmitter,
   OnInit,
+  Output,
+  ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
@@ -24,25 +24,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./application-form-list.component.scss'],
 })
 export class ApplicationFormListComponent implements OnInit, OnChanges {
-  constructor(
-    private dialog: MatDialog,
-    private notificator: NotificatorService,
-    private router: Router,
-    private translate: TranslateService
-  ) {}
-
   @Input()
   loading: boolean;
-
   @Input()
   applicationForm: ApplicationForm;
-
   @Input()
   applicationFormItems: ApplicationFormItem[] = [];
-
   @Input()
   theme: string;
-
   @Input()
   displayedColumns: string[] = [
     'drag',
@@ -55,21 +44,17 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
     'edit',
     'delete',
   ];
-
   @Input()
   refreshApplicationForm;
-
   @Output()
   applicationFormItemsChange = new EventEmitter<ApplicationFormItem[]>();
+  @ViewChild('table') table: MatTable<ApplicationFormItem>;
 
   itemsChanged: number[] = [];
-
   dataSource = this.applicationFormItems;
-  @ViewChild('table') table: MatTable<ApplicationFormItem>;
 
   mapForCombobox: Map<number, string> = new Map();
   dragDisabled = true;
-
   // labels and tooltips
   ifEmpty: string;
   ifPrefilled: string;
@@ -80,37 +65,44 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
   isEmpty: string;
   isPrefilled: string;
 
-  ngOnInit() {
+  constructor(
+    private dialog: MatDialog,
+    private notificator: NotificatorService,
+    private router: Router,
+    private translate: TranslateService
+  ) {}
+
+  ngOnInit(): void {
     // labels for hidden and disabled icons
     this.ifEmpty = this.translate.instant(
       'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.IF_EMPTY'
-    );
+    ) as string;
     this.ifPrefilled = this.translate.instant(
       'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.IF_PREFILLED'
-    );
+    ) as string;
 
     // tooltips for hidden and disabled icons
     this.alwaysDisabled = this.translate.instant(
       'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.ALWAYS_DISABLED_HINT'
-    );
+    ) as string;
     this.alwaysHidden = this.translate.instant(
       'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.ALWAYS_HIDDEN_HINT'
-    );
+    ) as string;
     this.isDisabledIf = this.translate.instant(
       'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.DISABLED_IF_HINT'
-    );
+    ) as string;
     this.isHiddenIf = this.translate.instant(
       'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.HIDDEN_IF_HINT'
-    );
+    ) as string;
     this.isEmpty = this.translate.instant(
       'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.IS_EMPTY_HINT'
-    );
+    ) as string;
     this.isPrefilled = this.translate.instant(
       'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.IS_PREFILLED_HINT'
-    );
+    ) as string;
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.dataSource = this.applicationFormItems;
     if (this.refreshApplicationForm) {
       this.itemsChanged = [];
@@ -176,7 +168,7 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
     }
   }
 
-  edit(applicationFormItem: ApplicationFormItem) {
+  edit(applicationFormItem: ApplicationFormItem): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.height = '600px';
@@ -197,7 +189,7 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
     });
   }
 
-  delete(applicationFormItem: ApplicationFormItem) {
+  delete(applicationFormItem: ApplicationFormItem): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
 
@@ -217,9 +209,9 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
     });
   }
 
-  drop(event: CdkDragDrop<ApplicationFormItem[]>) {
+  drop(event: CdkDragDrop<ApplicationFormItem[]>): void {
     this.dragDisabled = true;
-    const prevIndex = this.applicationFormItems.indexOf(event.item.data);
+    const prevIndex = this.applicationFormItems.indexOf(event.item.data as ApplicationFormItem);
     moveItemInArray(this.applicationFormItems, prevIndex, event.currentIndex);
     this.itemsChanged.push(this.applicationFormItems[event.currentIndex].id);
     this.applicationFormItemsChange.emit();
@@ -247,12 +239,12 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
     return applicationFormItem.shortname;
   }
 
-  restore(applicationFormItem: ApplicationFormItem) {
+  restore(applicationFormItem: ApplicationFormItem): void {
     applicationFormItem.forDelete = false;
   }
 
-  openManagingGroups() {
-    this.router.navigate([
+  openManagingGroups(): void {
+    void this.router.navigate([
       '/organizations',
       this.applicationForm.vo.id,
       'settings',

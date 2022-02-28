@@ -11,7 +11,7 @@
       <mat-icon> warning </mat-icon>
       {{'DIALOGS.CANCEL_CONFIG.DELETE' | translate}}
     </button>
-    <button *ngIf="!lastStep" (click)="onKeep()" color="accent" mat-flat-button>
+    <button (click)="onKeep()" *ngIf="!lastStep" color="accent" mat-flat-button>
       {{'DIALOGS.CANCEL_CONFIG.KEEP' | translate}}
     </button>
   </div>

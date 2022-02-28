@@ -9,6 +9,9 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./show-notification-history-dialog.component.scss'],
 })
 export class ShowNotificationHistoryDialogComponent implements OnInit {
+  notificationStorageService: NotificationStorageService;
+  notifications: NotificationData[];
+
   constructor(
     private dialogRef: MatDialogRef<ShowNotificationHistoryDialogComponent>,
     notificationStorageService: NotificationStorageService
@@ -16,18 +19,15 @@ export class ShowNotificationHistoryDialogComponent implements OnInit {
     this.notificationStorageService = notificationStorageService;
   }
 
-  notificationStorageService: NotificationStorageService;
-  notifications: NotificationData[];
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.notifications = this.notificationStorageService.getNotifications();
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 
-  onClear() {
+  onClear(): void {
     this.notificationStorageService.clearNotifications();
     this.notifications = [];
   }

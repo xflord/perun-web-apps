@@ -16,6 +16,12 @@ export interface CancelConfigurationDialogData {
   styleUrls: ['./cancel-configuration-dialog.component.scss'],
 })
 export class CancelConfigurationDialogComponent implements OnInit {
+  theme = '';
+  lastStep: boolean;
+  title = '';
+  info = '';
+  loading = false;
+
   constructor(
     public dialogRef: MatDialogRef<CancelConfigurationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: CancelConfigurationDialogData,
@@ -24,11 +30,6 @@ export class CancelConfigurationDialogComponent implements OnInit {
     private translate: TranslateService
   ) {}
 
-  theme = '';
-  lastStep: boolean;
-  title = '';
-  info = '';
-  loading = false;
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.lastStep = this.data.lastStep;
@@ -41,15 +42,17 @@ export class CancelConfigurationDialogComponent implements OnInit {
     }
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onDelete() {
+  onDelete(): void {
     this.loading = true;
     this.facilityService.deleteFacility(this.data.facilityId, true).subscribe(
       () => {
-        this.notificator.showSuccess(this.translate.instant('DIALOGS.CANCEL_CONFIG.SUCCESS'));
+        this.notificator.showSuccess(
+          this.translate.instant('DIALOGS.CANCEL_CONFIG.SUCCESS') as string
+        );
         this.dialogRef.close(true);
         this.loading = false;
       },
@@ -57,7 +60,7 @@ export class CancelConfigurationDialogComponent implements OnInit {
     );
   }
 
-  onKeep() {
+  onKeep(): void {
     this.dialogRef.close(true);
   }
 }

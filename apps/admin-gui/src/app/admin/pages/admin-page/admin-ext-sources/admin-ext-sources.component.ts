@@ -10,6 +10,14 @@ import { TABLE_ADMIN_EXTSOURCES } from '@perun-web-apps/config/table-config';
   styleUrls: ['./admin-ext-sources.component.scss'],
 })
 export class AdminExtSourcesComponent implements OnInit {
+  extSources: ExtSource[] = [];
+
+  filterValue = '';
+
+  loading = false;
+  tableId = TABLE_ADMIN_EXTSOURCES;
+  private loadSuccess: string;
+
   constructor(
     private extSourceService: ExtSourcesManagerService,
     private notificator: NotificatorService,
@@ -18,34 +26,25 @@ export class AdminExtSourcesComponent implements OnInit {
   ) {
     this.translate
       .get('ADMIN.EXT_SOURCES.LOAD_SUCCESS')
-      .subscribe((result) => (this.loadSuccess = result));
+      .subscribe((result: string) => (this.loadSuccess = result));
   }
 
-  extSources: ExtSource[] = [];
-
-  filterValue = '';
-
-  loading = false;
-
-  loadSuccess: string;
-  tableId = TABLE_ADMIN_EXTSOURCES;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.refreshTable();
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  onLoad() {
+  onLoad(): void {
     this.extSourceService.loadExtSourcesDefinitions().subscribe(() => {
       this.notificator.showSuccess(this.loadSuccess);
       this.refreshTable();
     });
   }
 
-  refreshTable() {
+  private refreshTable(): void {
     this.loading = true;
     this.extSourceService.getExtSources().subscribe((result) => {
       this.extSources = result;

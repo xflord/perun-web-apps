@@ -11,24 +11,24 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 export class FacilitySettingsOverviewComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
+  items: MenuItem[] = [];
+  facility: Facility;
+  loading = false;
+
   constructor(
     private facilityManager: FacilitiesManagerService,
     private authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService
   ) {}
 
-  items: MenuItem[] = [];
-  facility: Facility;
-  loading = false;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.facility = this.entityStorageService.getEntity();
     this.initItems();
     this.loading = false;
   }
 
-  private initItems() {
+  private initItems(): void {
     this.items = [];
 
     // Owners

@@ -1,10 +1,10 @@
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 <div *ngIf="!loading" class="p-2">
-  <mat-accordion multi="true" class="headers-align" togglePosition="before">
+  <mat-accordion class="headers-align" multi="true" togglePosition="before">
     <mat-expansion-panel *ngFor="let resourceStatus of propagation">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <img src="assets/img/PerunWebImages/resource-black.svg" height="28" width="28" />
+          <img height="28" src="assets/img/PerunWebImages/resource-black.svg" width="28" />
           <div class="ml-2">
             {{resourceStatus.resource.name}}
           </div>
@@ -23,36 +23,36 @@
       <ng-template matExpansionPanelContent>
         <mat-divider></mat-divider>
         <table
-          mat-table
+          class="w-100"
           *ngIf="resourceStatus.taskList.length !== 0"
           [dataSource]="datasources[propagation.indexOf(resourceStatus)]"
-          class="w-100">
+          mat-table>
           <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef>
+            <th *matHeaderCellDef mat-header-cell>
               {{'VO_DETAIL.RESOURCES.STATES.TABLE_ID' | translate}}
             </th>
-            <td mat-cell *matCellDef="let task">{{task.id}}</td>
+            <td *matCellDef="let task" mat-cell>{{task.id}}</td>
           </ng-container>
 
           <ng-container matColumnDef="service">
-            <th mat-header-cell *matHeaderCellDef>
+            <th *matHeaderCellDef mat-header-cell>
               {{'VO_DETAIL.RESOURCES.STATES.TABLE_SERVICE' | translate}}
             </th>
-            <td mat-cell *matCellDef="let task">{{task.service.name}}</td>
+            <td *matCellDef="let task" mat-cell>{{task.service.name}}</td>
           </ng-container>
 
           <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef>
+            <th *matHeaderCellDef mat-header-cell>
               {{'VO_DETAIL.RESOURCES.STATES.TABLE_STATUS' | translate}}
             </th>
-            <td mat-cell *matCellDef="let task">{{task.status}}</td>
+            <td *matCellDef="let task" mat-cell>{{task.status}}</td>
           </ng-container>
 
           <ng-container matColumnDef="scheduled">
-            <th mat-header-cell *matHeaderCellDef>
+            <th *matHeaderCellDef mat-header-cell>
               {{'VO_DETAIL.RESOURCES.STATES.TABLE_SCHEDULED' | translate}}
             </th>
-            <td mat-cell *matCellDef="let task">
+            <td *matCellDef="let task" mat-cell>
               <div *ngIf="task.schedule; else notYet">
                 {{task.schedule | date:'d.M.y H:mm:ss'}}
               </div>
@@ -63,10 +63,10 @@
           </ng-container>
 
           <ng-container matColumnDef="started">
-            <th mat-header-cell *matHeaderCellDef>
+            <th *matHeaderCellDef mat-header-cell>
               {{'VO_DETAIL.RESOURCES.STATES.TABLE_STARTED' | translate}}
             </th>
-            <td mat-cell *matCellDef="let task">
+            <td *matCellDef="let task" mat-cell>
               <div *ngIf="task.startTime; else notYet">
                 {{task.schedule | date:'d.M.y H:mm:ss'}}
               </div>
@@ -77,10 +77,10 @@
           </ng-container>
 
           <ng-container matColumnDef="ended">
-            <th mat-header-cell *matHeaderCellDef>
+            <th *matHeaderCellDef mat-header-cell>
               {{'VO_DETAIL.RESOURCES.STATES.TABLE_ENDED' | translate}}
             </th>
-            <td mat-cell *matCellDef="let task">
+            <td *matCellDef="let task" mat-cell>
               <div *ngIf="task.endTime; else notYet">
                 {{task.schedule | date:'d.M.y H:mm:ss'}}
               </div>
@@ -90,13 +90,13 @@
             </td>
           </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
           <tr
-            mat-row
-            *matRowDef="let task; columns: displayedColumns;"
             [ngClass]="{'redTableItem': task.status === 'ERROR' || task.status === 'SENDERROR' || task.status === 'GENERROR',
                           'greenTableItem': task.status === 'DONE',
-                          'yellowTableItem': task.status === 'WARNING'}"></tr>
+                          'yellowTableItem': task.status === 'WARNING'}"
+            *matRowDef="let task; columns: displayedColumns;"
+            mat-row></tr>
         </table>
 
         <div *ngIf="resourceStatus.taskList.length === 0">

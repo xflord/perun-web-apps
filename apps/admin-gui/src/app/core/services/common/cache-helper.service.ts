@@ -21,5 +21,6 @@ export class CacheHelperService {
   }
 
   // Do not remove. This method is used to instantiate this service.
-  public init(): void {}
+  // eslint-disable-next-line
+  init(): void {}
 }

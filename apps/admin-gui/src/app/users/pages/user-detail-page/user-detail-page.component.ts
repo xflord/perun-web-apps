@@ -7,6 +7,4 @@ import { fadeIn } from '@perun-web-apps/perun/animations';
   styleUrls: ['./user-detail-page.component.scss'],
   animations: [fadeIn],
 })
-export class UserDetailPageComponent {
-  constructor() {}
-}
+export class UserDetailPageComponent {}

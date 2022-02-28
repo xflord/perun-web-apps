@@ -15,32 +15,28 @@ import { TABLE_ATTRIBUTES_SETTINGS } from '@perun-web-apps/config/table-config';
   styleUrls: ['./one-entity-attribute-page.component.css'],
 })
 export class OneEntityAttributePageComponent implements OnInit {
+  @Input()
+  entity: string;
+  @Input()
+  entityId: number;
+  @ViewChild('list')
+  list: AttributesListComponent;
+  attributes: Attribute[] = [];
+  selection = new SelectionModel<Attribute>(true, []);
+  filterValue = '';
+  tableId = TABLE_ATTRIBUTES_SETTINGS;
+  loading = false;
+
   constructor(
     private attributesManagerService: AttributesManagerService,
     private dialog: MatDialog
   ) {}
 
-  @Input()
-  entity: string;
-
-  @Input()
-  entityId: number;
-
-  @ViewChild('list')
-  list: AttributesListComponent;
-
-  attributes: Attribute[] = [];
-  selection = new SelectionModel<Attribute>(true, []);
-  filterValue = '';
-  tableId = TABLE_ATTRIBUTES_SETTINGS;
-
-  loading = false;
-
   ngOnInit(): void {
     this.refreshTable();
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     switch (this.entity) {
       case 'member':
@@ -92,11 +88,11 @@ export class OneEntityAttributePageComponent implements OnInit {
     }
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  onCreate() {
+  onCreate(): void {
     const config = getDefaultDialogConfig();
     config.width = '1050px';
     config.data = {
@@ -115,7 +111,7 @@ export class OneEntityAttributePageComponent implements OnInit {
     });
   }
 
-  onSave() {
+  onSave(): void {
     // have to use this to update attribute with map in it, before saving it
     this.list.updateMapAttributes();
 
@@ -136,7 +132,7 @@ export class OneEntityAttributePageComponent implements OnInit {
     });
   }
 
-  onDelete() {
+  onDelete(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {

@@ -93,6 +93,7 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
       $variable
   );
 }
+
 // Perun entities colors
 //$vo-color: #283593;
 //var(--facility-color): #d84315;
@@ -526,10 +527,12 @@ button:focus {
   //border-left: 5px solid #ffffff;
   //font-weight: 600;
   background: var(--side-link-active) !important;
+
   &:hover {
     //background-color: rgba(255, 255, 255, 0.15) !important;
   }
 }
+
 .vo-item-activated {
   border-right: 5px solid var(--vo-color);
   color: var(--vo-color) !important;
@@ -551,6 +554,7 @@ button:focus {
     background-color: rgba(255, 50, 50, 0.15) !important;
   }
 }
+
 .facility-item-activated {
   border-right: 5px solid var(--facility-color);
   color: var(--facility-color) !important;
@@ -560,8 +564,10 @@ button:focus {
   &:hover {
     background-color: rgba(255, 80, 23, 0.15) !important;
   }
+
   //background-color: #eaeaea !important;
 }
+
 .resource-item-activated {
   border-right: 5px solid var(--resource-color);
   color: var(--resource-color) !important;
@@ -571,8 +577,10 @@ button:focus {
   &:hover {
     background-color: rgba(176, 44, 255, 0.15) !important;
   }
+
   //background-color: #eaeaea !important;
 }
+
 .group-item-activated {
   border-right: 5px solid var(--group-color);
   color: var(--group-color) !important;
@@ -583,6 +591,7 @@ button:focus {
     background-color: rgba(123, 255, 71, 0.15) !important;
   }
 }
+
 .member-item-activated {
   border-right: 5px solid var(--member-color);
   color: var(--member-color) !important;
@@ -592,6 +601,7 @@ button:focus {
   &:hover {
     background-color: rgba(255, 28, 133, 0.15) !important;
   }
+
   //background-color: #eaeaea !important;
 }
 
@@ -620,6 +630,7 @@ button:focus {
 .dark-item-links a:hover {
   //background-color: rgba(255, 255, 255, 0.15) !important;
 }
+
 .vo-item-links a:hover {
   color: var(--vo-color) !important;
   background-color: rgba(63, 76, 255, 0.15) !important;
@@ -663,18 +674,23 @@ button:focus {
 .vo-text {
   color: var(--vo-color) !important;
 }
+
 .facility-text {
   color: var(--facility-color) !important;
 }
+
 .resource-text {
   color: var(--resource-color) !important;
 }
+
 .group-text {
   color: var(--group-color) !important;
 }
+
 .member-text {
   color: var(--member-color) !important;
 }
+
 .user-text {
   color: var(--user-color) !important;
 }
@@ -706,9 +722,11 @@ button:focus {
 // might be useful
 .main-progress-bar {
   z-index: 999999;
+
   .mat-progress-bar-fill::after {
     background-color: #0081cb !important;
   }
+
   .mat-progress-bar-buffer {
     background-color: #2c2c2c;
   }
@@ -719,6 +737,7 @@ button:focus {
     padding-top: 2rem;
   }
 }
+
 #nav-menu {
   background: #102027;
   position: fixed;
@@ -738,6 +757,7 @@ textarea.cdk-textarea-autosize-measuring {
 .base-item-color {
   background-color: mat.get-color-from-palette(mat.$blue-grey-palette, 900);
 }
+
 .base-item-color-activated {
   background-color: #62727b;
 }
@@ -753,6 +773,7 @@ textarea.cdk-textarea-autosize-measuring {
     color: #ffffff !important;
     background-color: #ffffff !important;
   }
+
   input {
     caret-color: #ffffff !important;
   }
@@ -806,6 +827,7 @@ textarea.cdk-textarea-autosize-measuring {
   margin-bottom: 0.75rem;
   font-size: 1.1rem;
 }
+
 .input-width-250 {
   width: 250px;
 }
@@ -856,6 +878,7 @@ textarea.cdk-textarea-autosize-measuring {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }
+
   @media (min-width: 768px) and (max-width: 991px) {
     img {
       padding-left: 0.75rem;
@@ -905,6 +928,7 @@ textarea.cdk-textarea-autosize-measuring {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }
+
   @media (min-width: 768px) and (max-width: 991px) {
     img {
       padding-left: 0.75rem;
@@ -1006,6 +1030,7 @@ textarea.cdk-textarea-autosize-measuring {
   div {
     flex-grow: 5;
   }
+
   /*@media (min-width: 992px) and (max-width: 1199px) {
     img {
       padding-left: .75rem;
@@ -1051,6 +1076,7 @@ textarea.cdk-textarea-autosize-measuring {
 
 .user-bg-color {
   background-color: var(--user-color);
+
   .cdk-text-field-autofilled {
     background-color: black !important;
   }
@@ -1255,6 +1281,7 @@ textarea.cdk-textarea-autosize-measuring {
     color: mixw(var(--service-color), 0.1);
   }
 }
+
 // HACKS
 
 // Dont show horizontal scroll at menu items
@@ -1272,12 +1299,15 @@ textarea.cdk-textarea-autosize-measuring {
 .mat-stroked-button {
   border-radius: 0 !important;
 }
+
 .mat-flat-button {
   border-radius: 0 !important;
 }
+
 .mat-button {
   border-radius: 0 !important;
 }
+
 .card {
   border-radius: 0 !important;
 }
@@ -1287,22 +1317,27 @@ textarea.cdk-textarea-autosize-measuring {
   color: #fb8c00;
   vertical-align: bottom;
 }
+
 .material-icons.red {
   color: #ff0000;
   vertical-align: bottom;
 }
+
 .material-icons.green {
   color: #28a745;
   vertical-align: bottom;
 }
+
 .material-icons.blue {
   color: #1a87ff;
   vertical-align: bottom;
 }
+
 .material-icons.black {
   color: #000000;
   vertical-align: bottom;
 }
+
 .material-icons.grey {
   color: #808080;
   vertical-align: bottom;
@@ -1338,9 +1373,11 @@ textarea.cdk-textarea-autosize-measuring {
   path {
     fill: currentColor;
   }
+
   rect {
     fill: currentColor;
   }
+
   polygon {
     fill: currentColor;
   }
@@ -1383,6 +1420,7 @@ td.mat-cell {
   width: 100%;
   height: 100%;
 }
+
 #loader {
   display: block;
   position: relative;
@@ -1397,6 +1435,7 @@ td.mat-cell {
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
 }
+
 #loader:before {
   content: '';
   position: absolute;
@@ -1410,6 +1449,7 @@ td.mat-cell {
   -webkit-animation: spin 3s linear infinite;
   animation: spin 3s linear infinite;
 }
+
 #loader:after {
   content: '';
   position: absolute;
@@ -1423,6 +1463,7 @@ td.mat-cell {
   -webkit-animation: spin 1.5s linear infinite;
   animation: spin 1.5s linear infinite;
 }
+
 @-webkit-keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
@@ -1435,6 +1476,7 @@ td.mat-cell {
     transform: rotate(360deg);
   }
 }
+
 @keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);

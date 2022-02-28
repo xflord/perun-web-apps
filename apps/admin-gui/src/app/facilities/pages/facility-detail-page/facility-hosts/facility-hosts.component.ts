@@ -14,15 +14,12 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
   styleUrls: ['./facility-hosts.component.scss'],
 })
 export class FacilityHostsComponent implements OnInit {
-  constructor(
-    private dialog: MatDialog,
-    private facilitiesManager: FacilitiesManagerService,
-    private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
-  ) {}
-
   @Input()
   disableRouting = false;
+
+  @Output()
+  hostEmitter: EventEmitter<Host[]> = new EventEmitter<Host[]>();
+
   facility: Facility;
   hosts: Host[] = [];
   selected = new SelectionModel<Host>(true, []);
@@ -30,12 +27,17 @@ export class FacilityHostsComponent implements OnInit {
   filterValue = '';
   tableId = TABLE_FACILITY_HOSTS_LIST;
   displayedColumns: string[] = ['id', 'name'];
-  @Output()
-  hostEmitter: EventEmitter<Host[]> = new EventEmitter<Host[]>();
 
   addAuth: boolean;
   removeAuth: boolean;
   routeAuth: boolean;
+
+  constructor(
+    private dialog: MatDialog,
+    private facilitiesManager: FacilitiesManagerService,
+    private authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -47,7 +49,7 @@ export class FacilityHostsComponent implements OnInit {
     });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.facilitiesManager.getHosts(this.facility.id).subscribe((hosts) => {
       this.hosts = hosts;
@@ -58,7 +60,7 @@ export class FacilityHostsComponent implements OnInit {
     });
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     this.addAuth = this.authResolver.isAuthorized('addHosts_Facility_List<String>_policy', [
       this.facility,
     ]);
@@ -76,7 +78,7 @@ export class FacilityHostsComponent implements OnInit {
     }
   }
 
-  addHost() {
+  addHost(): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {
@@ -93,7 +95,7 @@ export class FacilityHostsComponent implements OnInit {
     });
   }
 
-  removeHost() {
+  removeHost(): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {
@@ -111,7 +113,7 @@ export class FacilityHostsComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

@@ -9,7 +9,7 @@
   <mat-card-content>
     <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
     <div *ngIf="!loading">
-      <table mat-table [dataSource]="voMembershipDataSource" class="ml-auto mr-auto">
+      <table [dataSource]="voMembershipDataSource" class="ml-auto mr-auto" mat-table>
         <ng-container matColumnDef="attName">
           <th *matHeaderCellDef mat-header-cell></th>
           <td *matCellDef="let attribute" class="font-weight-bold" mat-cell>{{attribute}}:</td>

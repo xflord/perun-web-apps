@@ -1,69 +1,69 @@
 <div id="sideMenuSpacer">
   <div class="accordion entity-menu-accordion" id="sideMenuAccordion">
-    <app-side-menu-root-item [id]="'home-item-btn'" [sideNav]="sideNav" [item]="homeItem">
+    <app-side-menu-root-item [id]="'home-item-btn'" [item]="homeItem" [sideNav]="sideNav">
     </app-side-menu-root-item>
     <div *ngFor="let item of homeItems; let i = index" @rollInOut class="overflow-hidden">
-      <app-side-menu-item [sideNav]="sideNav" [item]="item" [index]="i"> </app-side-menu-item>
+      <app-side-menu-item [index]="i" [item]="item" [sideNav]="sideNav"> </app-side-menu-item>
     </div>
 
     <app-side-menu-root-item
-      data-cy="access-item-button"
+      [item]="accessItem"
       [id]="'access-item-btn'"
       [sideNav]="sideNav"
-      [item]="accessItem">
+      data-cy="access-item-button">
     </app-side-menu-root-item>
     <div>
       <div *ngFor="let item of accessItems; let i = index" @rollInOut class="overflow-hidden">
         <app-side-menu-item
-          [sideNav]="sideNav"
-          [item]="item"
           [index]="i"
-          [showLinks]="i === accessItems.length - 1">
+          [item]="item"
+          [showLinks]="i === accessItems.length - 1"
+          [sideNav]="sideNav">
         </app-side-menu-item>
       </div>
     </div>
 
     <app-side-menu-root-item
       [id]="'facilities-item-btn'"
-      [sideNav]="sideNav"
       *ngIf="authResolver.canManageFacilities()"
-      [item]="facilityItem">
+      [item]="facilityItem"
+      [sideNav]="sideNav">
     </app-side-menu-root-item>
     <div *ngIf="authResolver.canManageFacilities()">
       <div *ngFor="let item of facilityItems; let i = index" @rollInOut class="overflow-hidden">
         <app-side-menu-item
-          [sideNav]="sideNav"
-          [item]="item"
           [index]="i"
-          [showLinks]="i === facilityItems.length - 1">
+          [item]="item"
+          [showLinks]="i === facilityItems.length - 1"
+          [sideNav]="sideNav">
         </app-side-menu-item>
       </div>
     </div>
 
     <app-side-menu-root-item
       [id]="'profile-item-btn'"
-      [sideNav]="sideNav"
+      [item]="userItem"
       [showOpen]="userItemOpened"
-      [item]="userItem">
+      [sideNav]="sideNav">
     </app-side-menu-root-item>
     <div *ngFor="let item of userItems; let i = index" @rollInOut class="overflow-hidden">
       <app-side-menu-item
-        [sideNav]="sideNav"
-        [item]="item"
         [index]="i"
-        [showLinks]="i === userItems.length - 1">
+        [item]="item"
+        [showLinks]="i === userItems.length - 1"
+        [sideNav]="sideNav">
       </app-side-menu-item>
     </div>
     <app-side-menu-root-item
       [id]="'admin-item-btn'"
-      [sideNav]="sideNav"
       *ngIf="authResolver.isPerunAdminOrObserver()"
+      [item]="adminItem"
       [showOpen]="adminItemOpened"
-      [item]="adminItem">
+      [sideNav]="sideNav">
     </app-side-menu-root-item>
     <div *ngIf="authResolver.isPerunAdminOrObserver()">
       <div *ngFor="let item of adminItems; let i = index" @rollInOut class="overflow-hidden">
-        <app-side-menu-item [sideNav]="sideNav" [item]="item" [index]="i" [showLinks]="true">
+        <app-side-menu-item [index]="i" [item]="item" [showLinks]="true" [sideNav]="sideNav">
         </app-side-menu-item>
       </div>
     </div>

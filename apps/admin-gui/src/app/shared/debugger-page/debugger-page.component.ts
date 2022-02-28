@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
-import { StoreService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-debugger-page',
@@ -9,11 +8,11 @@ import { StoreService } from '@perun-web-apps/perun/services';
   styleUrls: ['./debugger-page.component.scss'],
 })
 export class DebuggerPageComponent implements OnInit {
-  constructor(public authResolver: GuiAuthResolver, private store: StoreService) {}
-
   principal: PerunPrincipal;
 
-  ngOnInit() {
+  constructor(public authResolver: GuiAuthResolver, private store: StoreService) {}
+
+  ngOnInit(): void {
     this.principal = this.store.getPerunPrincipal();
   }
 }

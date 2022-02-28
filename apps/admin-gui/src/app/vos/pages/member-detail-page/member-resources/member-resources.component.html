@@ -3,11 +3,11 @@
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
     *ngIf="addAuth"
-    mat-flat-button
+    (click)="addResource()"
     class="action-button"
     color="accent"
     class="mr-2"
-    (click)="addResource()">
+    mat-flat-button>
     {{ 'MEMBER_DETAIL.RESOURCES.ADD' | translate}}
   </button>
   <perun-web-apps-immediate-filter
@@ -15,13 +15,13 @@
     [placeholder]="'MEMBER_DETAIL.RESOURCES.FILTER'">
   </perun-web-apps-immediate-filter>
   <perun-web-apps-resources-list
-    [tableId]="tableId"
+    [disableRouting]="!routeAuth"
     *ngIf="!loading"
     [filterValue]="filterValue"
     [displayedColumns]="displayedColumns"
     [routingVo]="true"
-    [disableRouting]="!routeAuth"
-    [resources]="resources">
+    [resources]="resources"
+    [tableId]="tableId">
   </perun-web-apps-resources-list>
 </div>
 

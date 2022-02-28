@@ -3,7 +3,7 @@
     {{'ADMIN.VISUALIZER.USER_DESTINATION.TITLE' | translate}}
   </h1>
 
-  <mat-vertical-stepper linear #stepper>
+  <mat-vertical-stepper #stepper linear>
     <mat-step completed="false">
       <ng-template
         matStepLabel
@@ -12,13 +12,13 @@
       <mat-form-field class="w-100">
         <input
           matInput
-          type="text"
+          (keydown.enter)="validateName(stepper)"
           placeholder="{{'ADMIN.VISUALIZER.USER_DESTINATION.USER_EXAMPLE' | translate}}"
+          (ngModelChange)="notCompleted(stepper)"
           [formControl]="searchField"
           [matAutocomplete]="auto"
-          (ngModelChange)="notCompleted(stepper)"
-          (keydown.enter)="validateName(stepper)" />
-        <mat-spinner *ngIf="loading" matSuffix [diameter]="20" [strokeWidth]="2"></mat-spinner>
+          type="text" />
+        <mat-spinner *ngIf="loading" [diameter]="20" [strokeWidth]="2" matSuffix></mat-spinner>
         <mat-hint
           align="start"
           >{{'ADMIN.VISUALIZER.USER_DESTINATION.USER_HINT' | translate}}</mat-hint
@@ -32,7 +32,7 @@
         </mat-autocomplete>
       </mat-form-field>
       <div>
-        <button mat-stroked-button class="mt-2" (click)="validateName(stepper)">
+        <button (click)="validateName(stepper)" class="mt-2" mat-stroked-button>
           {{'ADMIN.VISUALIZER.USER_DESTINATION.BUTTON_NEXT' | translate}}
         </button>
       </div>
@@ -46,17 +46,17 @@
       <mat-form-field class="w-100">
         <input
           matInput
-          type="text"
+          (keydown.enter)="validateDestination(stepper)"
           placeholder="{{'ADMIN.VISUALIZER.USER_DESTINATION.DESTINATION_EXAMPLE' | translate}}"
-          [(ngModel)]="destination"
           (ngModelChange)="notCompleted(stepper)"
-          (keydown.enter)="validateDestination(stepper)" />
+          [(ngModel)]="destination"
+          type="text" />
       </mat-form-field>
       <div>
-        <button mat-stroked-button class="mt-2" matStepperPrevious>
+        <button class="mt-2" mat-stroked-button matStepperPrevious>
           {{'ADMIN.VISUALIZER.USER_DESTINATION.BUTTON_BACK' | translate}}
         </button>
-        <button mat-stroked-button class="mt-2" (click)="validateDestination(stepper)">
+        <button (click)="validateDestination(stepper)" class="mt-2" mat-stroked-button>
           {{'ADMIN.VISUALIZER.USER_DESTINATION.BUTTON_NEXT' | translate}}
         </button>
       </div>
@@ -69,18 +69,18 @@
       >
       <mat-radio-group [(ngModel)]="chosenService" class="mb-2">
         <mat-radio-button
+          [value]="service"
           class="flex-column d-flex"
-          color="primary"
           *ngFor="let service of availableServices"
-          [value]="service">
+          color="primary">
           {{service}}
         </mat-radio-button>
       </mat-radio-group>
       <div>
-        <button mat-stroked-button class="mt-2" matStepperPrevious>
+        <button class="mt-2" mat-stroked-button matStepperPrevious>
           {{'ADMIN.VISUALIZER.USER_DESTINATION.BUTTON_BACK' | translate}}
         </button>
-        <button mat-stroked-button class="mt-2" (click)="getGraph()">
+        <button (click)="getGraph()" class="mt-2" mat-stroked-button>
           {{'ADMIN.VISUALIZER.USER_DESTINATION.SUBMIT_BUTTON' | translate}}
         </button>
       </div>

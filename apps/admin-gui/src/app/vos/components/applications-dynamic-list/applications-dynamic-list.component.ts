@@ -33,12 +33,6 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./applications-dynamic-list.component.css'],
 })
 export class ApplicationsDynamicListComponent implements OnInit, OnChanges, AfterViewInit {
-  constructor(
-    private authResolver: GuiAuthResolver,
-    private tableConfigService: TableConfigService,
-    private dynamicPaginatingService: DynamicPaginatingService
-  ) {}
-
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   @ViewChild(MatSort) sort: MatSort;
@@ -86,6 +80,12 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
 
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
+  constructor(
+    private authResolver: GuiAuthResolver,
+    private tableConfigService: TableConfigService,
+    private dynamicPaginatingService: DynamicPaginatingService
+  ) {}
+
   ngAfterViewInit(): void {
     this.sort.sortChange.subscribe(() => (this.child.paginator.pageIndex = 0));
 
@@ -94,7 +94,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       .subscribe();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (!this.authResolver.isPerunAdminOrObserver()) {
       this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
@@ -130,7 +130,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     });
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.refreshTable = false;
     if (this.dataSource) {
       this.child.paginator.pageIndex = 0;
@@ -138,7 +138,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     }
   }
 
-  loadApplicationsPage() {
+  loadApplicationsPage(): void {
     const sortDirection = this.sort.direction === 'asc' ? 'ASCENDING' : 'DESCENDING';
     this.dataSource.loadApplications(
       this.child.paginator.pageSize,
@@ -157,19 +157,18 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     );
   }
 
-  exportData(format: string) {
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.getData(),
         this.displayedColumns,
-        this.getExportDataForColumn,
-        this
+        this.getExportDataForColumn.bind(this) as (data: Application, column: string) => string
       ),
       format
     );
   }
 
-  selectApplication(application: Application) {
+  selectApplication(application: Application): (string | number)[] {
     if (!this.disableRouting) {
       if (this.group) {
         return [
@@ -231,11 +230,11 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       case 'modifiedAt':
         return data.modifiedAt;
       default:
-        return data[column];
+        return data[column] as string;
     }
   }
 
-  getSortDataColumn() {
+  getSortDataColumn(): ApplicationsOrderColumn {
     if (!this.sort) {
       return ApplicationsOrderColumn.DATECREATED;
     }
@@ -259,7 +258,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     }
   }
 
-  getFriendlyName(name: string) {
+  getFriendlyName(name: string): string {
     const index = name.lastIndexOf('/CN=');
     if (index !== -1) {
       const string = name.slice(index + 4, name.length).replace('/unstructuredName=', ' ');
@@ -271,7 +270,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     return name;
   }
 
-  yearAgo() {
+  yearAgo(): Date {
     const newDate = new Date();
     newDate.setDate(newDate.getDate() - 365);
     return newDate;
@@ -281,7 +280,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     return formatDate(date, 'yyyy-MM-dd', 'en-GB');
   }
 
-  getVoId() {
+  getVoId(): number {
     if (this.vo) {
       return this.vo.id;
     }

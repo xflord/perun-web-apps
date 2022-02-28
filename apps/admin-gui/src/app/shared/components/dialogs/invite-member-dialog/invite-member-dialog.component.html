@@ -1,6 +1,6 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.INVITE_MEMBER.TITLE' | translate}}</h1>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content>
     <div *ngIf="!data.groupId" class="font-italic">
       {{'DIALOGS.INVITE_MEMBER.DESCRIPTION_VO' | translate}}
@@ -40,15 +40,15 @@
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.INVITE_MEMBER.CANCEL' | translate}}
     </button>
     <button
-      mat-flat-button
+      (click)="onSubmit()"
       class="ml-2"
       color="accent"
       [disabled]="emailForm.invalid || name.invalid || loading"
-      (click)="onSubmit()">
+      mat-flat-button>
       {{'DIALOGS.INVITE_MEMBER.INVITE' | translate}}
     </button>
   </div>

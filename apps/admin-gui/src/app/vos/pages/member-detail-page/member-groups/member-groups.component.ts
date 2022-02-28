@@ -29,6 +29,17 @@ export class MemberGroupsComponent implements OnInit {
 
   @ViewChild('list', {})
   list: GroupsListComponent;
+  groups: Group[];
+  memberId: number;
+  member: Member;
+  allGroups: Group[];
+  loading: boolean;
+  filterValue = '';
+  tableId = TABLE_MEMBER_DETAIL_GROUPS;
+  selection = new SelectionModel<Group>(true, []);
+  addAuth: boolean;
+  removeAuth: boolean;
+  routeAuth: boolean;
 
   constructor(
     private groupsService: GroupsManagerService,
@@ -38,25 +49,10 @@ export class MemberGroupsComponent implements OnInit {
     private memberService: MembersManagerService
   ) {}
 
-  groups: Group[];
-  memberId: number;
-  member: Member;
-  allGroups: Group[];
-
-  loading: boolean;
-  filterValue = '';
-
-  tableId = TABLE_MEMBER_DETAIL_GROUPS;
-  selection = new SelectionModel<Group>(true, []);
-
-  addAuth: boolean;
-  removeAuth: boolean;
-  routeAuth: boolean;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.route.parent.params.subscribe((parentParams) => {
-      this.memberId = parentParams['memberId'];
+      this.memberId = parentParams['memberId'] as number;
       this.memberService.getMemberById(this.memberId).subscribe((member) => {
         this.member = member;
         this.groupsService.getAllGroups(this.member.voId).subscribe((allGroups) => {
@@ -67,7 +63,7 @@ export class MemberGroupsComponent implements OnInit {
     });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.groupsService
       .getMemberRichGroupsWithAttributesByNames(this.memberId, [
@@ -84,7 +80,7 @@ export class MemberGroupsComponent implements OnInit {
       );
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     const vo: Vo = {
       id: this.member.voId,
       beanName: 'Vo',
@@ -103,7 +99,7 @@ export class MemberGroupsComponent implements OnInit {
     }
   }
 
-  addGroup() {
+  addGroup(): void {
     const config = getDefaultDialogConfig();
     config.width = '850px';
     config.data = {
@@ -121,7 +117,7 @@ export class MemberGroupsComponent implements OnInit {
     });
   }
 
-  removeGroup() {
+  removeGroup(): void {
     const config = getDefaultDialogConfig();
     config.width = '650px';
     config.data = {
@@ -139,7 +135,7 @@ export class MemberGroupsComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

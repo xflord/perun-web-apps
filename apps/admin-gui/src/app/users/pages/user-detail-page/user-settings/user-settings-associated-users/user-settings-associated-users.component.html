@@ -1,25 +1,25 @@
 <div>
   <h1 class="page-subtitle">{{'USER_DETAIL.SETTINGS.ASSOCIATED_USERS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button (click)="onAdd()" mat-flat-button class="mr-2 action-button" color="accent">
+  <button (click)="onAdd()" class="mr-2 action-button" color="accent" mat-flat-button>
     {{'USER_DETAIL.SETTINGS.ASSOCIATED_USERS.ADD' | translate}}
   </button>
   <button
     (click)="onRemove()"
     [disabled]="selection.selected.length === 0"
-    mat-flat-button
+    color="warn"
     class="mr-2"
-    color="warn">
+    mat-flat-button>
     {{'USER_DETAIL.SETTINGS.ASSOCIATED_USERS.REMOVE' | translate}}
   </button>
   <app-users-list
-    [tableId]="tableId"
-    [noUsersFoundLabel]="'USER_DETAIL.SETTINGS.ASSOCIATED_USERS.NO_ASSOCIATED_USERS' | translate"
     *ngIf="!loading"
-    [users]="associatedUsers"
-    [selection]="selection"
+    [noUsersFoundLabel]="'USER_DETAIL.SETTINGS.ASSOCIATED_USERS.NO_ASSOCIATED_USERS' | translate"
     [disableRouting]="disableRouting"
-    [displayedColumns]="displayedColumns">
+    [displayedColumns]="displayedColumns"
+    [selection]="selection"
+    [tableId]="tableId"
+    [users]="associatedUsers">
   </app-users-list>
 </div>
 

@@ -1,9 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-// eslint-disable-next-line max-len
 import { DeleteAttributeDefinitionDialogComponent } from '../../../../shared/components/dialogs/delete-attribute-definition-dialog/delete-attribute-definition-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-// eslint-disable-next-line max-len
 import { CreateAttributeDefinitionDialogComponent } from '../../../../shared/components/dialogs/create-attribute-definition-dialog/create-attribute-definition-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/perun/openapi';
@@ -19,12 +17,6 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 export class AdminAttributesComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
-  constructor(
-    private dialog: MatDialog,
-    private attributesManager: AttributesManagerService,
-    public authResolver: GuiAuthResolver
-  ) {}
-
   attrDefinitions: AttributeDefinition[] = [];
 
   selected = new SelectionModel<AttributeDefinition>(true, []);
@@ -33,11 +25,17 @@ export class AdminAttributesComponent implements OnInit {
   loading: boolean;
   tableId = TABLE_ADMIN_ATTRIBUTES;
 
-  ngOnInit() {
+  constructor(
+    private dialog: MatDialog,
+    private attributesManager: AttributesManagerService,
+    public authResolver: GuiAuthResolver
+  ) {}
+
+  ngOnInit(): void {
     this.refreshTable();
   }
 
-  onCreate() {
+  onCreate(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
 
@@ -50,7 +48,7 @@ export class AdminAttributesComponent implements OnInit {
     });
   }
 
-  onDelete() {
+  onDelete(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {
@@ -68,7 +66,7 @@ export class AdminAttributesComponent implements OnInit {
     });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.attributesManager.getAllAttributeDefinitions().subscribe((attrDefs) => {
       this.attrDefinitions = attrDefs;
@@ -76,11 +74,11 @@ export class AdminAttributesComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  onImport() {
+  onImport(): void {
     const config = getDefaultDialogConfig();
     config.width = '700px';
 

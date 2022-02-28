@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AuditMessage } from '@perun-web-apps/perun/openapi';
+import { AuditEvent, AuditMessage } from '@perun-web-apps/perun/openapi';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 
@@ -15,12 +15,12 @@ export interface AuditMessageDetailDialogData {
   encapsulation: ViewEncapsulation.None,
 })
 export class AuditMessageDetailDialogComponent implements OnInit {
-  title;
-  actor;
-  createdAt;
-  message;
+  title: string;
+  actor: string;
+  createdAt: string;
+  message: string;
   tabIndex = 0;
-  eventData = {};
+  eventData: AuditEvent = {};
 
   constructor(
     public dialogRef: MatDialogRef<AuditMessageDetailDialogComponent>,
@@ -47,15 +47,15 @@ export class AuditMessageDetailDialogComponent implements OnInit {
     this.tabIndex = tabChangeEvent.index;
   }
 
-  copyObjects() {
+  copyObjects(): void {
     this.clipboard.copy(JSON.stringify(this.eventData, null, 2));
   }
 
-  copyMessage() {
+  copyMessage(): void {
     this.clipboard.copy(this.message);
   }
 
-  syntaxHighlight(json) {
+  syntaxHighlight(json: string): string {
     if (typeof json != 'string') {
       json = JSON.stringify(json, undefined, 2);
     }
@@ -64,15 +64,15 @@ export class AuditMessageDetailDialogComponent implements OnInit {
       /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g,
       function (match) {
         let cls = 'number';
-        if (/^"/.test(match)) {
-          if (/:$/.test(match)) {
+        if (match.startsWith('"')) {
+          if (match.endsWith(':')) {
             cls = 'key';
           } else {
             cls = 'string';
           }
         } else if (/true|false/.test(match)) {
           cls = 'boolean';
-        } else if (/null/.test(match)) {
+        } else if (match.includes('null')) {
           cls = 'null';
         }
         return '<span class="' + cls + '">' + match + '</span>';
@@ -80,7 +80,7 @@ export class AuditMessageDetailDialogComponent implements OnInit {
     );
   }
 
-  onClose() {
+  onClose(): void {
     this.dialogRef.close();
   }
 }

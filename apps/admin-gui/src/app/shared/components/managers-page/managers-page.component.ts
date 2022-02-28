@@ -21,6 +21,12 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReloadEntityDetailService } from '../../../core/services/common/reload-entity-detail.service';
 
+interface AuthPrivilege {
+  readAuth: boolean;
+  manageAuth: boolean;
+  modes: string[];
+}
+
 @Component({
   selector: 'app-managers-page',
   templateUrl: './managers-page.component.html',
@@ -28,6 +34,37 @@ import { ReloadEntityDetailService } from '../../../core/services/common/reload-
 })
 export class ManagersPageComponent implements OnInit {
   @HostBinding('class.router-component') true;
+  @Input()
+  complementaryObject: Group | Vo | Facility | Resource;
+  @Input()
+  availableRoles: string[];
+  @Input()
+  complementaryObjectType: string;
+  @Input()
+  theme: string;
+  @Input()
+  configMode = false;
+  @Input()
+  disableRouting = false;
+  @Input()
+  disableSelf = false;
+  @Input()
+  displayedUserColumns = ['select', 'id', 'name', 'email', 'logins', 'organization'];
+  @Input()
+  displayedGroupColumns = ['select', 'id', 'vo', 'name', 'description'];
+
+  groups: Group[] = [];
+  managers: RichUser[] = null;
+  selectionUsers = new SelectionModel<RichUser>(true, []);
+  selectionGroups = new SelectionModel<Group>(true, []);
+  selectedMode = '';
+  selectedRole: string;
+  loading = false;
+  tableId = TABLE_GROUP_MANAGERS_PAGE;
+  routeAuth: boolean;
+  manageAuth: boolean;
+  roleModes: string[];
+  availableRolesPrivileges: Map<string, AuthPrivilege> = new Map<string, AuthPrivilege>();
 
   constructor(
     private dialog: MatDialog,
@@ -39,52 +76,7 @@ export class ManagersPageComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  groups: Group[] = null;
-  managers: RichUser[] = null;
-
-  @Input()
-  complementaryObject: Group | Vo | Facility | Resource;
-
-  @Input()
-  availableRoles: string[];
-
-  @Input()
-  complementaryObjectType: string;
-
-  @Input()
-  theme: string;
-
-  @Input()
-  configMode = false;
-
-  @Input()
-  disableRouting = false;
-
-  @Input()
-  disableSelf = false;
-
-  @Input()
-  displayedUserColumns = ['select', 'id', 'name', 'email', 'logins', 'organization'];
-  @Input()
-  displayedGroupColumns = ['select', 'id', 'vo', 'name', 'description'];
-
-  selectionUsers = new SelectionModel<RichUser>(true, []);
-  selectionGroups = new SelectionModel<Group>(true, []);
-
-  selectedMode = '';
-  selectedRole: string;
-
-  loading = false;
-
-  tableId = TABLE_GROUP_MANAGERS_PAGE;
-
-  routeAuth: boolean;
-  manageAuth: boolean;
-  roleModes: string[];
-
-  availableRolesPrivileges: Map<string, any> = new Map<string, any>();
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.routeAuth = this.guiAuthResolver.isPerunAdminOrObserver();
 
@@ -103,7 +95,7 @@ export class ManagersPageComponent implements OnInit {
     this.refreshUsers();
   }
 
-  changeRolePrivileges() {
+  changeRolePrivileges(): void {
     this.guiAuthResolver.setRolesAuthorization(
       this.availableRoles,
       this.complementaryObject,
@@ -133,7 +125,7 @@ export class ManagersPageComponent implements OnInit {
     }
   }
 
-  tabChanged(event: MatTabChangeEvent) {
+  tabChanged(event: MatTabChangeEvent): void {
     this.loading = true;
 
     if (event.index === 0) {
@@ -145,7 +137,7 @@ export class ManagersPageComponent implements OnInit {
     }
   }
 
-  refreshUsers() {
+  refreshUsers(): void {
     this.loading = true;
     this.changeRolePrivileges();
 
@@ -172,7 +164,7 @@ export class ManagersPageComponent implements OnInit {
       );
   }
 
-  refreshGroups() {
+  refreshGroups(): void {
     this.loading = true;
     this.changeRolePrivileges();
 
@@ -194,7 +186,7 @@ export class ManagersPageComponent implements OnInit {
       );
   }
 
-  addManager() {
+  addManager(): void {
     const config = getDefaultDialogConfig();
     config.width = '1000px';
     config.data = {
@@ -213,7 +205,7 @@ export class ManagersPageComponent implements OnInit {
     });
   }
 
-  removeManager() {
+  removeManager(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {
@@ -236,7 +228,7 @@ export class ManagersPageComponent implements OnInit {
     });
   }
 
-  removeGroup() {
+  removeGroup(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {
@@ -260,7 +252,7 @@ export class ManagersPageComponent implements OnInit {
     });
   }
 
-  addGroup() {
+  addGroup(): void {
     const config = getDefaultDialogConfig();
     config.width = '1000px';
     config.data = {
@@ -278,7 +270,7 @@ export class ManagersPageComponent implements OnInit {
     });
   }
 
-  redirectToAuthRoute() {
+  redirectToAuthRoute(): void {
     if (
       this.complementaryObjectType === 'Group' &&
       (this.guiAuthResolver.isAuthorized('getGroupById_int_policy', [this.complementaryObject]) ||
@@ -288,15 +280,17 @@ export class ManagersPageComponent implements OnInit {
         this.guiAuthResolver.isAuthorized('getGroupById_int_policy', [this.complementaryObject])
       ) {
         const grp = this.complementaryObject as Group;
-        this.router.navigate(['/organizations', grp.voId, 'groups', this.complementaryObject.id], {
-          relativeTo: this.route,
-          queryParamsHandling: 'merge',
-        });
+        void this.router.navigate(
+          ['/organizations', grp.voId, 'groups', this.complementaryObject.id],
+          {
+            relativeTo: this.route,
+            queryParamsHandling: 'merge',
+          }
+        );
       } else if (
         this.guiAuthResolver.isAuthorized('getVoById_int_policy', [this.complementaryObject])
       ) {
-        // @ts-ignore
-        this.router.navigate(['/organizations', this.complementaryObject.voId], {
+        void this.router.navigate(['/organizations', this.complementaryObject['voId']], {
           queryParamsHandling: 'merge',
         });
       }
@@ -304,7 +298,7 @@ export class ManagersPageComponent implements OnInit {
       this.complementaryObjectType === 'Facility' &&
       this.guiAuthResolver.isAuthorized('getFacilityById_int_policy', [this.complementaryObject])
     ) {
-      this.router.navigate(['/facilities', this.complementaryObject.id], {
+      void this.router.navigate(['/facilities', this.complementaryObject.id], {
         relativeTo: this.route,
         queryParamsHandling: 'merge',
       });
@@ -312,7 +306,7 @@ export class ManagersPageComponent implements OnInit {
       this.complementaryObjectType === 'Vo' &&
       this.guiAuthResolver.isAuthorized('getVoById_int_policy', [this.complementaryObject])
     ) {
-      this.router.navigate(['/organizations', this.complementaryObject.id], {
+      void this.router.navigate(['/organizations', this.complementaryObject.id], {
         relativeTo: this.route,
         queryParamsHandling: 'merge',
       });
@@ -322,9 +316,12 @@ export class ManagersPageComponent implements OnInit {
         this.complementaryObject,
       ])
     ) {
-      this.router.navigate(['../../'], { relativeTo: this.route, queryParamsHandling: 'merge' });
+      void this.router.navigate(['../../'], {
+        relativeTo: this.route,
+        queryParamsHandling: 'merge',
+      });
     } else {
-      this.router.navigate(['/home'], { queryParamsHandling: 'merge' });
+      void this.router.navigate(['/home'], { queryParamsHandling: 'merge' });
       return;
     }
     this.reloadEntityDetail.reloadEntityDetail();

@@ -1,5 +1,5 @@
 <mat-sidenav-container class="dashboard" hasBackdrop="true">
-  <mat-sidenav mode="over" position="end" [(opened)]="rightSettingOpened">
+  <mat-sidenav [(opened)]="rightSettingOpened" mode="over" position="end">
     <div class="m-4 user-theme">
       <div class="page-subtitle">{{'USER_DETAIL.DASHBOARD.DASHBOARD_SETTINGS' | translate}}</div>
       <div>
@@ -21,17 +21,17 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <div class="container-fluid pl-xl-5 pr-xl-5 user-theme" *ngIf="user !== undefined">
+    <div *ngIf="user !== undefined" class="container-fluid pl-xl-5 pr-xl-5 user-theme">
       <h1 class="page-title d-flex">
-        <mat-icon svgIcon="perun-home-white" class="home-image perun-icon"></mat-icon>
+        <mat-icon class="home-image perun-icon" svgIcon="perun-home-white"></mat-icon>
         <span class="pt-1" data-cy="dashboard-welcome"
           >{{'USER_DETAIL.DASHBOARD.TITLE' | translate}} {{this.user | userFullName}}</span
         >
         <button
-          mat-stroked-button
-          *ngIf="!isOnlySelfRole"
           (click)="this.rightSettingOpened = true"
-          class="ml-auto text-bigger">
+          *ngIf="!isOnlySelfRole"
+          class="ml-auto text-bigger"
+          mat-stroked-button>
           <mat-icon>settings</mat-icon>
         </button>
       </h1>
@@ -52,16 +52,16 @@
             >
           </div>
           <div class="mx-auto pt-3">
-            <button mat-stroked-button class="text-bigger" [routerLink]="['/myProfile']">
-              <mat-icon svgIcon="perun-user-dark" class="mr-1 user-icon perun-icon"></mat-icon>
+            <button [routerLink]="['/myProfile']" class="text-bigger" mat-stroked-button>
+              <mat-icon class="mr-1 user-icon perun-icon" svgIcon="perun-user-dark"></mat-icon>
               {{'USER_DETAIL.DASHBOARD.GO_TO_MY_PROFILE' | translate}}
             </button>
 
             <button
-              mat-stroked-button
+              (click)="goToUserProfile()"
               class="text-bigger ml-2 mt-2"
               *ngIf="userProfileUrl"
-              (click)="goToUserProfile()">
+              mat-stroked-button>
               <mat-icon class="mr-1">exit_to_app</mat-icon
               >{{'USER_DETAIL.DASHBOARD.GO_TO_USER_PROFILE' | translate}} {{this.userProfileName}}
             </button>

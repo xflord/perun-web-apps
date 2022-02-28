@@ -7,35 +7,35 @@
 </perun-web-apps-alert>
 
 <perun-web-apps-refresh-button (refresh)="loadGroups()"></perun-web-apps-refresh-button>
-<button *ngIf="addAuth" mat-flat-button color="accent" class="mr-2" (click)="onAddGroup()">
+<button (click)="onAddGroup()" *ngIf="addAuth" class="mr-2" color="accent" mat-flat-button>
   {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.ADD' | translate}}
 </button>
 <span
   [matTooltipDisabled]="list === undefined || (list !== undefined && list.removeAuth)"
   matTooltip="{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.REMOVE_PERMISSION_HINT' | translate}}">
   <button
-    mat-flat-button
+    (click)="removeGroup()"
     color="warn"
-    class="mr-2"
     [disabled]="selected.selected.length === 0 || (list !== undefined && !list.removeAuth)"
-    (click)="removeGroup()">
+    class="mr-2"
+    mat-flat-button>
     {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.REMOVE' | translate}}
   </button>
 </span>
 <perun-web-apps-immediate-filter
-  [placeholder]="'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.FILTER'"
-  (filter)="this.filterValue = $event">
+  (filter)="this.filterValue = $event"
+  [placeholder]="'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.FILTER'">
 </perun-web-apps-immediate-filter>
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
 <perun-web-apps-groups-list
   #list
-  [tableId]="tableId"
-  [selection]="selected"
+  *ngIf="!loading"
+  [authType]="'application-form-manage-groups'"
   [displayedColumns]="['select', 'id', 'name', 'description']"
   [disableRouting]="true"
   [filter]="filterValue"
-  [authType]="'application-form-manage-groups'"
-  theme="vo-theme"
-  *ngIf="!loading"
-  [groups]="this.groups">
+  [groups]="this.groups"
+  [selection]="selected"
+  [tableId]="tableId"
+  theme="vo-theme">
 </perun-web-apps-groups-list>

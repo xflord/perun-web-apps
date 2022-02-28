@@ -20,16 +20,16 @@
       [consentRequired]="consentRequired$ | async">
     </app-attr-def-list>
   </div>
-  <div mat-dialog-actions *ngIf="!loading">
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+  <div *ngIf="!loading" mat-dialog-actions>
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.ADD_REQUIRED_ATTRIBUTES.CANCEL' | translate}}
     </button>
     <button
-      mat-flat-button
+      (click)="onAdd()"
       class="ml-2"
       color="accent"
       [disabled]="selection.selected.length === 0"
-      (click)="onAdd()">
+      mat-flat-button>
       {{'DIALOGS.ADD_REQUIRED_ATTRIBUTES.ADD' | translate}}
     </button>
   </div>

@@ -113,8 +113,7 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        TaskResultsListComponent.getDataForColumn,
-        this
+        TaskResultsListComponent.getDataForColumn
       ),
       format
     );
@@ -130,11 +129,10 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
           data,
           filter,
           this.displayedColumns,
-          TaskResultsListComponent.getDataForColumn,
-          this
+          TaskResultsListComponent.getDataForColumn
         );
       this.dataSource.sortData = (data: TaskResult[], sort: MatSort): TaskResult[] =>
-        customDataSourceSort(data, sort, TaskResultsListComponent.getSortDataForColumn, this);
+        customDataSourceSort(data, sort, TaskResultsListComponent.getSortDataForColumn);
     }
   }
 

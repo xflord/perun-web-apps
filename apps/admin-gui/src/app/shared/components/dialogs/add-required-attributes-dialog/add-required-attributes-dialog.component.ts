@@ -26,17 +26,6 @@ export interface AddRequiredAttributesDialogData {
   styleUrls: ['./add-required-attributes-dialog.component.scss'],
 })
 export class AddRequiredAttributesDialogComponent implements OnInit {
-  constructor(
-    private dialogRef: MatDialogRef<AddRequiredAttributesDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: AddRequiredAttributesDialogData,
-    private serviceManager: ServicesManagerService,
-    private attributesManager: AttributesManagerService,
-    private facilitiesService: FacilitiesManagerService,
-    private consentHubService: ConsentsManagerService,
-    private notificator: NotificatorService,
-    private translate: TranslateService
-  ) {}
-
   consentRequired$: Observable<boolean> = this.facilitiesService
     .getAssignedFacilitiesByService(this.data.serviceId)
     .pipe(
@@ -53,15 +42,23 @@ export class AddRequiredAttributesDialogComponent implements OnInit {
       map((service) => service.enabled),
       startWith(true)
     );
-
   theme: string;
-  serviceId: number;
-
   attrDefinitions: AttributeDefinition[] = [];
   selection = new SelectionModel<AttributeDefinition>(true, []);
-
   filterValue = '';
   loading = false;
+  private serviceId: number;
+
+  constructor(
+    private dialogRef: MatDialogRef<AddRequiredAttributesDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: AddRequiredAttributesDialogData,
+    private serviceManager: ServicesManagerService,
+    private attributesManager: AttributesManagerService,
+    private facilitiesService: FacilitiesManagerService,
+    private consentHubService: ConsentsManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -73,14 +70,14 @@ export class AddRequiredAttributesDialogComponent implements OnInit {
     });
   }
 
-  onAdd() {
+  onAdd(): void {
     this.loading = true;
     const attrDefinitionsIds = this.selection.selected.map((attrDef) => attrDef.id);
 
     this.serviceManager.addRequiredAttributes(this.serviceId, attrDefinitionsIds).subscribe(
       () => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.ADD_REQUIRED_ATTRIBUTES.SUCCESS')
+          this.translate.instant('DIALOGS.ADD_REQUIRED_ATTRIBUTES.SUCCESS') as string
         );
         this.dialogRef.close(true);
         this.loading = false;
@@ -89,11 +86,11 @@ export class AddRequiredAttributesDialogComponent implements OnInit {
     );
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

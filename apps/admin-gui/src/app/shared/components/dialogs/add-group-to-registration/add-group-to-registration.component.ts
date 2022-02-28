@@ -20,13 +20,6 @@ export interface AddGroupToRegistrationDialogData {
   styleUrls: ['./add-group-to-registration.component.css'],
 })
 export class AddGroupToRegistrationComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<AddGroupToRegistrationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: AddGroupToRegistrationDialogData,
-    private groupService: GroupsManagerService,
-    private registrarService: RegistrarManagerService
-  ) {}
-
   loading = false;
   theme: string;
   unAssignedGroups: Group[];
@@ -35,26 +28,33 @@ export class AddGroupToRegistrationComponent implements OnInit {
 
   tableId = TABLE_ADD_GROUP_TO_REGISTRATION;
 
+  constructor(
+    public dialogRef: MatDialogRef<AddGroupToRegistrationComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: AddGroupToRegistrationDialogData,
+    private groupService: GroupsManagerService,
+    private registrarService: RegistrarManagerService
+  ) {}
+
   ngOnInit(): void {
     this.loading = true;
     this.theme = this.data.theme;
     this.groupService.getAllGroups(this.data.voId).subscribe((groups) => {
       this.unAssignedGroups = groups.filter(
-        (group) => this.data.assignedGroups.indexOf(group.id) <= -1
+        (group) => !this.data.assignedGroups.includes(group.id)
       );
       this.loading = false;
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onAdd() {
+  onAdd(): void {
     this.loading = true;
     this.registrarService
       .addGroupsToAutoRegistration(this.selection.selected.map((group) => group.id))

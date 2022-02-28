@@ -7,6 +7,7 @@ import {
 import { FormControl } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { EntityStorageService } from '@perun-web-apps/perun/services';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-vo-applications',
@@ -17,12 +18,6 @@ export class VoApplicationsComponent implements OnInit {
   static id = 'VoApplicationsComponent';
 
   @HostBinding('class.router-component') true;
-
-  constructor(
-    private registrarManager: RegistrarManagerService,
-    private entityStorageService: EntityStorageService
-  ) {}
-
   state = 'pending';
   currentStates: AppState[] = ['NEW', 'VERIFIED'];
   vo: Vo;
@@ -62,14 +57,19 @@ export class VoApplicationsComponent implements OnInit {
   showGroupApps = false;
   refresh = false;
 
-  ngOnInit() {
+  constructor(
+    private registrarManager: RegistrarManagerService,
+    private entityStorageService: EntityStorageService
+  ) {}
+
+  ngOnInit(): void {
     this.vo = this.entityStorageService.getEntity();
     this.startDate = new FormControl(formatDate(this.yearAgo(), 'yyyy-MM-dd', 'en-GB'));
     this.endDate = new FormControl(formatDate(new Date(), 'yyyy-MM-dd', 'en-GB'));
     this.currentColumns = this.refreshColumns();
   }
 
-  select() {
+  select(): void {
     switch (this.state) {
       case 'approved': {
         this.currentStates = ['APPROVED'];
@@ -101,27 +101,27 @@ export class VoApplicationsComponent implements OnInit {
     }
   }
 
-  yearAgo() {
+  yearAgo(): Date {
     const newDate = new Date();
     newDate.setDate(newDate.getDate() - 365);
     return newDate;
   }
 
-  showGroupApplications(event) {
+  showGroupApplications(event: MatCheckboxChange): void {
     this.showGroupApps = event.checked;
     this.currentColumns = this.refreshColumns();
   }
 
-  showDetails(value: boolean) {
+  showDetails(value: boolean): void {
     this.showAllDetails = value;
     this.currentColumns = this.refreshColumns();
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  refreshColumns() {
+  refreshColumns(): string[] {
     if (this.showAllDetails) {
       return this.showGroupApps
         ? this.detailedColumns

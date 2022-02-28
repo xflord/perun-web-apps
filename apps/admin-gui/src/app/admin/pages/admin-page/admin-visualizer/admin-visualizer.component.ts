@@ -7,6 +7,4 @@ import { Component, HostBinding } from '@angular/core';
 })
 export class AdminVisualizerComponent {
   @HostBinding('class.router-component') true;
-
-  constructor() {}
 }

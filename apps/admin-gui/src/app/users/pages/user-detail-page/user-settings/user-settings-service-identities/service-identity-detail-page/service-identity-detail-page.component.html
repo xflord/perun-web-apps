@@ -5,8 +5,8 @@
     <mat-icon
       matTooltip="{{'MENU_ITEMS.USER.ENTITY' | translate}}"
       [ngStyle]="{'color':'black'}"
-      svgIcon="perun-service-identity"
-      class="perun-icon perun-icon-detail">
+      class="perun-icon perun-icon-detail"
+      svgIcon="perun-service-identity">
     </mat-icon>
     <div class="page-title-block">
       <div class="page-title-headline d-flex align-items-center">
@@ -17,7 +17,7 @@
           {{user | userFullName}}
         </a>
         <span class="text-muted"> &nbsp;#{{user.id}} </span>
-        <button *ngIf="authResolver.isPerunAdmin()" (click)="editUser()" mat-icon-button>
+        <button (click)="editUser()" *ngIf="authResolver.isPerunAdmin()" mat-icon-button>
           <mat-icon>edit</mat-icon>
         </button>
       </div>

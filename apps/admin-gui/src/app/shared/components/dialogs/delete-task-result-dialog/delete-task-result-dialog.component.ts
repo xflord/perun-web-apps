@@ -16,6 +16,12 @@ export interface DeleteTaskResultDialogData {
   styleUrls: ['./delete-task-result-dialog.component.scss'],
 })
 export class DeleteTaskResultDialogComponent implements OnInit {
+  loading = false;
+  theme: string;
+  dataSource = new MatTableDataSource<TaskResult>(this.data.taskResults);
+  displayedColumns = ['id', 'destination', 'time'];
+  private taskResults: TaskResult[];
+
   constructor(
     private dialogRef: MatDialogRef<DeleteTaskResultDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: DeleteTaskResultDialogData,
@@ -24,38 +30,30 @@ export class DeleteTaskResultDialogComponent implements OnInit {
     private translate: TranslateService
   ) {}
 
-  loading = false;
-  theme: string;
-  dataSource = new MatTableDataSource<TaskResult>(this.data.taskResults);
-  taskResults: TaskResult[];
-  displayedColumns = ['id', 'destination', 'time'];
-
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.taskResults = this.data.taskResults;
   }
 
-  deleteResults(): void {
+  onDelete(): void {
     this.loading = true;
     if (this.taskResults.length === 0) {
       this.dialogRef.close(true);
       this.loading = false;
-      this.notificator.showSuccess(this.translate.instant('DIALOGS.DELETE_TASK_RESULT.SUCCESS'));
+      this.notificator.showSuccess(
+        this.translate.instant('DIALOGS.DELETE_TASK_RESULT.SUCCESS') as string
+      );
       return;
     }
     this.taskManager.deleteTaskResultById({ taskResultId: this.taskResults.pop().id }).subscribe(
       () => {
-        this.deleteResults();
+        this.onDelete();
       },
       () => (this.loading = false)
     );
   }
 
-  onDelete() {
-    this.deleteResults();
-  }
-
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 }

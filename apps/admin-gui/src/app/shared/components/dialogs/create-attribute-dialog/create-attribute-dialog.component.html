@@ -14,13 +14,13 @@
     <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
     <perun-web-apps-attributes-list
       #list
-      [tableId]="tableId"
+      [emptyListText]="'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.EMPTY_ATTRIBUTES'"
       *ngIf="!loading"
       [attributes]="attributes"
       [filterValue]="filterValue"
       [inDialog]="true"
-      [emptyListText]="'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.EMPTY_ATTRIBUTES'"
-      [selection]="selected">
+      [selection]="selected"
+      [tableId]="tableId">
     </perun-web-apps-attributes-list>
   </div>
   <div mat-dialog-actions>

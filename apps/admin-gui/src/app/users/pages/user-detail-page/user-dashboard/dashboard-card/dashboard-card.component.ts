@@ -16,25 +16,23 @@ import { getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
   styleUrls: ['./dashboard-card.component.css'],
 })
 export class DashboardCardComponent implements OnInit {
-  constructor(
-    private authzResolver: AuthzResolverService,
-    private guiAuthResolver: GuiAuthResolver,
-    private resourceService: ResourcesManagerService
-  ) {}
-
   @Input()
   role: { [key: string]: Array<number> };
-
   @Input()
   roleName: string;
-
   primaryObject: string;
   svgIcon: string;
   title: string;
   roleTooltipInfo: string;
   objects: Vo[] | Group[] | RichResource[] | EnrichedFacility[];
   loading = false;
-  recentIds = [];
+  recentIds: number[] = [];
+
+  constructor(
+    private authzResolver: AuthzResolverService,
+    private guiAuthResolver: GuiAuthResolver,
+    private resourceService: ResourcesManagerService
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -45,7 +43,7 @@ export class DashboardCardComponent implements OnInit {
     this.getObjects();
   }
 
-  public getObjects() {
+  getObjects(): void {
     switch (this.primaryObject) {
       case 'Vo': {
         this.authzResolver.getVosWhereUserIsInRoles([this.roleName]).subscribe((vos) => {

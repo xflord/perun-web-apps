@@ -23,54 +23,43 @@ import { GuiAuthResolver, StoreService, TableCheckbox } from '@perun-web-apps/pe
   styleUrls: ['./users-list.component.scss'],
 })
 export class UsersListComponent implements OnChanges {
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  @Input()
+  users: RichUser[];
+  @Input()
+  selection = new SelectionModel<RichUser>(true, []);
+  @Input()
+  displayedColumns: string[] = ['select', 'user', 'id', 'name', 'email', 'logins', 'organization'];
+  @Input()
+  routeToAdmin = true;
+  @Input()
+  disableRouting = false;
+  @Input()
+  filter = '';
+  @Input()
+  tableId: string;
+  @Input()
+  noUsersFoundLabel: string;
+  @Input()
+  disableSelf = false;
+
+  svgIcon = 'perun-service-identity-black';
+  dataSource: MatTableDataSource<RichUser>;
+  principalId: number;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  private sort: MatSort;
+
   constructor(
     public authResolver: GuiAuthResolver,
     private tableCheckbox: TableCheckbox,
     private storeService: StoreService
   ) {}
 
-  svgIcon = 'perun-service-identity-black';
-
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
   }
 
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-
-  @Input()
-  users: RichUser[];
-
-  private sort: MatSort;
-
-  @Input()
-  selection = new SelectionModel<RichUser>(true, []);
-
-  @Input()
-  displayedColumns: string[] = ['select', 'user', 'id', 'name', 'email', 'logins', 'organization'];
-
-  @Input()
-  routeToAdmin = true;
-
-  @Input()
-  disableRouting = false;
-
-  @Input()
-  filter = '';
-
-  @Input()
-  tableId: string;
-
-  @Input()
-  noUsersFoundLabel: string;
-
-  @Input()
-  disableSelf = false;
-
-  dataSource: MatTableDataSource<RichUser>;
-  principalId: number;
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
-  getDataForColumn(data: RichUser, column: string): string {
+  static getDataForColumn(data: RichUser, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -92,7 +81,7 @@ export class UsersListComponent implements OnChanges {
     }
   }
 
-  getExportDataForColumn(data: RichUser, column: string): string {
+  static getExportDataForColumn(data: RichUser, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -114,39 +103,37 @@ export class UsersListComponent implements OnChanges {
     }
   }
 
-  exportData(format: string) {
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getExportDataForColumn,
-        this
+        UsersListComponent.getExportDataForColumn
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (!this.dataSource) {
       this.dataSource = new MatTableDataSource<RichUser>();
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
-      this.dataSource.filterPredicate = (data: RichUser, filter: string) =>
+      this.dataSource.filterPredicate = (data: RichUser, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn,
-          this
+          UsersListComponent.getDataForColumn
         );
-      this.dataSource.sortData = (data: RichUser[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: RichUser[], sort: MatSort): RichUser[] =>
+        customDataSourceSort(data, sort, UsersListComponent.getDataForColumn);
     }
     this.dataSource.filter = this.filter;
     this.dataSource.data = this.users;
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.principalId = this.storeService.getPerunPrincipal().userId;
     if (!this.authResolver.isPerunAdminOrObserver()) {
       this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
@@ -154,7 +141,7 @@ export class UsersListComponent implements OnChanges {
     this.setDataSource();
   }
 
-  isAllSelected() {
+  isAllSelected(): boolean {
     return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
       this.filter,
@@ -164,7 +151,7 @@ export class UsersListComponent implements OnChanges {
     );
   }
 
-  masterToggle() {
+  masterToggle(): void {
     this.tableCheckbox.masterToggle(
       this.isAllSelected(),
       this.selection,

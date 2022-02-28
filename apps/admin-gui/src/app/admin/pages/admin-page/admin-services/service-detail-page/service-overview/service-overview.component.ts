@@ -7,15 +7,13 @@ import { MenuItem } from '@perun-web-apps/perun/models';
   styleUrls: ['./service-overview.component.scss'],
 })
 export class ServiceOverviewComponent implements OnInit {
-  constructor() {}
-
   navItems: MenuItem[] = [];
 
   ngOnInit(): void {
     this.initNavItems();
   }
 
-  private initNavItems() {
+  private initNavItems(): void {
     this.navItems = [
       {
         cssIcon: 'perun-attributes',

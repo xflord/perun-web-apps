@@ -21,6 +21,14 @@ import { CreateAttributeDialogComponent } from '../dialogs/create-attribute-dial
   styleUrls: ['./identity-detail.component.scss'],
 })
 export class IdentityDetailComponent implements OnInit {
+  @ViewChild('list')
+  list: AttributesListComponent;
+  loading = false;
+  selection = new SelectionModel<Attribute>(true, []);
+  tableId = TABLE_ATTRIBUTES_SETTINGS;
+  attributes: Attribute[] = [];
+  userExtSource: UserExtSource;
+
   constructor(
     private dialog: MatDialog,
     private attributesManager: AttributesManagerService,
@@ -28,18 +36,9 @@ export class IdentityDetailComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  @ViewChild('list')
-  list: AttributesListComponent;
-
-  loading = false;
-  selection = new SelectionModel<Attribute>(true, []);
-  tableId = TABLE_ATTRIBUTES_SETTINGS;
-  attributes: Attribute[] = [];
-  userExtSource: UserExtSource;
-
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      const identityId = params['identityId'];
+      const identityId = params['identityId'] as number;
       this.userService.getUserExtSourceById(identityId).subscribe((extSource) => {
         this.userExtSource = extSource;
         this.refreshTable();
@@ -47,7 +46,7 @@ export class IdentityDetailComponent implements OnInit {
     });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.attributesManager
       .getUserExtSourceAttributes(this.userExtSource.id)
@@ -58,7 +57,7 @@ export class IdentityDetailComponent implements OnInit {
       });
   }
 
-  onAdd() {
+  onAdd(): void {
     const config = getDefaultDialogConfig();
     config.width = '1050px';
     config.data = {
@@ -77,7 +76,7 @@ export class IdentityDetailComponent implements OnInit {
     });
   }
 
-  onSave() {
+  onSave(): void {
     this.list.updateMapAttributes();
 
     const config = getDefaultDialogConfig();
@@ -97,7 +96,7 @@ export class IdentityDetailComponent implements OnInit {
     });
   }
 
-  onRemove() {
+  onRemove(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {

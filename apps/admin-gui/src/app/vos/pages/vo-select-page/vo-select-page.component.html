@@ -2,19 +2,19 @@
   <perun-web-apps-back-button> </perun-web-apps-back-button>
 
   <h1 class="page-title d-flex">
-    <mat-icon [ngStyle]="{'color':'black'}" svgIcon="perun-vo-black" class="perun-icon icon-scale">
+    <mat-icon [ngStyle]="{'color':'black'}" class="perun-icon icon-scale" svgIcon="perun-vo-black">
     </mat-icon>
     {{'VO_MANAGEMENT.TITLE' | translate}}
   </h1>
 
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
-    mat-flat-button
-    color="accent"
+    (click)="onCreateVo()"
+    *ngIf="createAuth"
     class="mr-2 action-button"
     data-cy="new-vo-button"
-    (click)="onCreateVo()"
-    *ngIf="createAuth">
+    color="accent"
+    mat-flat-button>
     {{'VO_MANAGEMENT.CREATE_VO' | translate}}
   </button>
   <button

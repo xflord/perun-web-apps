@@ -17,8 +17,8 @@ import {
   ApplicationForm,
   ApplicationMail,
   RegistrarManagerService,
-  VosManagerService,
   Vo,
+  VosManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { createNewApplicationMail, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { TABLE_VO_SETTINGS_NOTIFICATIONS } from '@perun-web-apps/config/table-config';
@@ -30,6 +30,17 @@ import { TABLE_VO_SETTINGS_NOTIFICATIONS } from '@perun-web-apps/config/table-co
 })
 export class VoSettingsNotificationsComponent implements OnInit {
   @HostBinding('class.router-component') true;
+
+  loading = false;
+  vo: Vo;
+  applicationMails: ApplicationMail[] = [];
+  selection = new SelectionModel<ApplicationMail>(true, []);
+  tableId = TABLE_VO_SETTINGS_NOTIFICATIONS;
+  displayedColumns: string[] = [];
+  addAuth: boolean;
+  removeAuth: boolean;
+  copyAuth: boolean;
+  private applicationForm: ApplicationForm;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,19 +54,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  loading = false;
-  vo: Vo;
-  applicationForm: ApplicationForm;
-  applicationMails: ApplicationMail[] = [];
-  selection = new SelectionModel<ApplicationMail>(true, []);
-  tableId = TABLE_VO_SETTINGS_NOTIFICATIONS;
-  displayedColumns: string[] = [];
-
-  addAuth: boolean;
-  removeAuth: boolean;
-  copyAuth: boolean;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.vo = this.entityStorageService.getEntity();
     this.setAuthRights();
@@ -68,7 +67,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
     });
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     this.addAuth = this.authResolver.isAuthorized(
       'vo-addMail_ApplicationForm_ApplicationMail_policy',
       [this.vo]
@@ -84,8 +83,8 @@ export class VoSettingsNotificationsComponent implements OnInit {
       : ['id', 'mailType', 'appType', 'send'];
   }
 
-  add() {
-    const supportedLangs = this.store.get('supported_languages');
+  add(): void {
+    const supportedLangs = this.store.get('supported_languages') as string[];
     const applicationMail: ApplicationMail = createNewApplicationMail(supportedLangs);
     applicationMail.formId = this.applicationForm.id;
 
@@ -103,16 +102,18 @@ export class VoSettingsNotificationsComponent implements OnInit {
     const dialog = this.dialog.open(AddEditNotificationDialogComponent, config);
     dialog.afterClosed().subscribe((success) => {
       if (success) {
-        this.translate.get('VO_DETAIL.SETTINGS.NOTIFICATIONS.ADD_SUCCESS').subscribe((text) => {
-          this.notificator.showSuccess(text);
-        });
+        this.translate
+          .get('VO_DETAIL.SETTINGS.NOTIFICATIONS.ADD_SUCCESS')
+          .subscribe((text: string) => {
+            this.notificator.showSuccess(text);
+          });
         this.selection.clear();
         this.updateTable();
       }
     });
   }
 
-  remove() {
+  remove(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = { voId: this.vo.id, mails: this.selection.selected, theme: 'vo-theme' };
@@ -120,16 +121,18 @@ export class VoSettingsNotificationsComponent implements OnInit {
     const dialog = this.dialog.open(DeleteNotificationDialogComponent, config);
     dialog.afterClosed().subscribe((success) => {
       if (success) {
-        this.translate.get('VO_DETAIL.SETTINGS.NOTIFICATIONS.DELETE_SUCCESS').subscribe((text) => {
-          this.notificator.showSuccess(text);
-        });
+        this.translate
+          .get('VO_DETAIL.SETTINGS.NOTIFICATIONS.DELETE_SUCCESS')
+          .subscribe((text: string) => {
+            this.notificator.showSuccess(text);
+          });
         this.selection.clear();
         this.updateTable();
       }
     });
   }
 
-  copy() {
+  copy(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = { voId: this.vo.id, theme: 'vo-theme' };
@@ -143,15 +146,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
     });
   }
 
-  updateTable() {
-    this.loading = true;
-    this.registrarService.getApplicationMailsForVo(this.vo.id).subscribe((mails) => {
-      this.applicationMails = mails;
-      this.loading = false;
-    });
-  }
-
-  changeEmailFooter() {
+  changeEmailFooter(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = { voId: this.vo.id, theme: 'vo-theme' };
@@ -159,7 +154,15 @@ export class VoSettingsNotificationsComponent implements OnInit {
     this.dialog.open(EditEmailFooterDialogComponent, config);
   }
 
-  changeSelection(selection: SelectionModel<ApplicationMail>) {
+  changeSelection(selection: SelectionModel<ApplicationMail>): void {
     this.selection = selection;
+  }
+
+  private updateTable(): void {
+    this.loading = true;
+    this.registrarService.getApplicationMailsForVo(this.vo.id).subscribe((mails) => {
+      this.applicationMails = mails;
+      this.loading = false;
+    });
   }
 }

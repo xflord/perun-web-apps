@@ -8,24 +8,24 @@
     <app-resources-tags-list
       *ngIf="!loading"
       [selection]="selection"
-      [tableId]="tableId"
-      [resourceTags]="resourceTags"
-      [filterValue]="filterValue"
       [displayedColumns]="displayedColumns"
-      [entity]="'resource'">
+      [entity]="'resource'"
+      [filterValue]="filterValue"
+      [resourceTags]="resourceTags"
+      [tableId]="tableId">
     </app-resources-tags-list>
   </div>
 
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'RESOURCE_DETAIL.TAGS.CANCEL' | translate}}
     </button>
     <button
-      mat-flat-button
+      (click)="onSubmit(selection.selected)"
       class="ml-2"
       color="accent"
-      (click)="onSubmit(selection.selected)"
-      [disabled]="loading || resourceTags.length === 0">
+      [disabled]="loading || resourceTags.length === 0"
+      mat-flat-button>
       {{'RESOURCE_DETAIL.TAGS.ADD_BUTTON' | translate}}
     </button>
   </div>

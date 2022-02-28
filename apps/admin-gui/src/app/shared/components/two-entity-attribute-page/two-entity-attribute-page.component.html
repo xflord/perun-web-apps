@@ -10,34 +10,34 @@
     <div class="flex-row">
       <perun-web-apps-group-search-select
         *ngIf="secondEntity === 'group'"
-        [groups]="entityValues"
+        (groupSelected)="specifySecondEntity($event)"
         [firstSelectedGroup]="specificSecondEntity"
         [displayStatus]="true"
-        (groupSelected)="specifySecondEntity($event)">
+        [groups]="entityValues">
       </perun-web-apps-group-search-select>
 
       <perun-web-apps-resource-search-select
         *ngIf="secondEntity === 'resource'"
-        [resources]="entityValues"
-        (resourceSelected)="specifySecondEntity($event)">
+        (resourceSelected)="specifySecondEntity($event)"
+        [resources]="entityValues">
       </perun-web-apps-resource-search-select>
 
       <perun-web-apps-member-search-select
         *ngIf="secondEntity === 'member'"
-        [members]="entityValues"
-        (memberSelected)="specifySecondEntity($event)">
+        (memberSelected)="specifySecondEntity($event)"
+        [members]="entityValues">
       </perun-web-apps-member-search-select>
 
       <perun-web-apps-facility-search-select
         *ngIf="secondEntity === 'facility'"
-        [facilities]="entityValues"
-        (facilitySelected)="specifySecondEntity($event)">
+        (facilitySelected)="specifySecondEntity($event)"
+        [facilities]="entityValues">
       </perun-web-apps-facility-search-select>
 
       <perun-web-apps-user-search-select
         *ngIf="secondEntity === 'user'"
-        [users]="entityValues"
-        (userSelected)="specifySecondEntity($event)">
+        (userSelected)="specifySecondEntity($event)"
+        [users]="entityValues">
       </perun-web-apps-user-search-select>
     </div>
 
@@ -45,34 +45,34 @@
       (refresh)="getAttributes(specificSecondEntity.id)"></perun-web-apps-refresh-button>
 
     <button
-      mat-flat-button
+      (click)="onAdd(specificSecondEntity.id)"
       class="mr-2 action-button"
       color="accent"
-      (click)="onAdd(specificSecondEntity.id)">
+      mat-flat-button>
       {{'MEMBER_DETAIL.SETTINGS.ATTRIBUTES.CREATE' | translate}}
     </button>
 
     <button
-      mat-flat-button
+      (click)="onSave(specificSecondEntity.id)"
       class="mr-2"
       color="accent"
-      (click)="onSave(specificSecondEntity.id)"
-      [disabled]="selection.selected.length === 0">
+      [disabled]="selection.selected.length === 0"
+      mat-flat-button>
       {{'MEMBER_DETAIL.SETTINGS.ATTRIBUTES.SAVE' | translate}}
     </button>
 
     <button
-      mat-flat-button
-      color="warn"
-      class="mr-2"
       (click)="onDelete(specificSecondEntity.id)"
-      [disabled]="selection.selected.length === 0">
+      color="warn"
+      [disabled]="selection.selected.length === 0"
+      class="mr-2"
+      mat-flat-button>
       {{'MEMBER_DETAIL.SETTINGS.ATTRIBUTES.DELETE' | translate}}
     </button>
     <perun-web-apps-immediate-filter
       (filter)="applyFilter($event)"
       [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.FILTER'"></perun-web-apps-immediate-filter>
-    <mat-spinner class="ml-auto mr-auto" *ngIf="innerLoading"></mat-spinner>
+    <mat-spinner *ngIf="innerLoading" class="ml-auto mr-auto"></mat-spinner>
     <perun-web-apps-attributes-list
       #list
       *ngIf="!innerLoading"

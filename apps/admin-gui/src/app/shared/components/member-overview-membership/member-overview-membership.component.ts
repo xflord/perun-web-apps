@@ -14,6 +14,8 @@ import {
 } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { TranslateService } from '@ngx-translate/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { RPCError } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-member-overview-membership',
@@ -21,6 +23,16 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./member-overview-membership.component.css'],
 })
 export class MemberOverviewMembershipComponent implements OnChanges {
+  @Input()
+  member: RichMember;
+  @Input()
+  vo: Vo;
+  voMembershipDataSource = new MatTableDataSource<string>();
+  voExpiration = '';
+  voExpirationAtt: Attribute;
+  loading: boolean;
+  displayedColumns = ['attName', 'attValue'];
+
   constructor(
     private dialog: MatDialog,
     public authResolver: GuiAuthResolver,
@@ -30,31 +42,19 @@ export class MemberOverviewMembershipComponent implements OnChanges {
     private notificator: NotificatorService
   ) {}
 
-  @Input()
-  member: RichMember;
-
-  @Input()
-  vo: Vo;
-
-  voMembershipDataSource = new MatTableDataSource<string>();
-  voExpiration = '';
-  voExpirationAtt: Attribute;
-  loading: boolean;
-  displayedColumns = ['attName', 'attValue'];
-
   ngOnChanges(): void {
     this.voMembershipDataSource = new MatTableDataSource<string>(['Status', 'Expiration']);
     this.refreshVoExpiration();
   }
 
-  changeStatus() {
+  changeStatus(): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = { member: this.member, voId: this.vo.id };
     const oldStatus = this.member.status;
 
     const dialogRef = this.dialog.open(ChangeMemberStatusDialogComponent, config);
-    dialogRef.afterClosed().subscribe((member) => {
+    dialogRef.afterClosed().subscribe((member: RichMember) => {
       if (member) {
         this.member = member;
         if (
@@ -68,7 +68,7 @@ export class MemberOverviewMembershipComponent implements OnChanges {
     });
   }
 
-  changeVoExpiration(statusChanged: boolean) {
+  changeVoExpiration(statusChanged: boolean): void {
     const config = getDefaultDialogConfig();
     config.width = '400px';
     config.data = {
@@ -80,7 +80,7 @@ export class MemberOverviewMembershipComponent implements OnChanges {
     };
 
     const dialogRef = this.dialog.open(ChangeVoExpirationDialogComponent, config);
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result: { success: boolean; member: RichMember }) => {
       if (result.success) {
         if (result.member) {
           this.member = result.member;
@@ -90,7 +90,7 @@ export class MemberOverviewMembershipComponent implements OnChanges {
     });
   }
 
-  refreshVoExpiration() {
+  refreshVoExpiration(): void {
     this.loading = true;
     this.apiRequest.dontHandleErrorForNext();
     this.attributesManager
@@ -99,13 +99,14 @@ export class MemberOverviewMembershipComponent implements OnChanges {
         (attr) => {
           this.voExpirationAtt = attr;
           this.voExpiration = !attr.value
-            ? this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES')
-            : attr.value;
+            ? (this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES') as string)
+            : (attr.value as unknown as string);
           this.loading = false;
         },
-        (error) => {
-          if (error.error.name !== 'PrivilegeException') {
-            this.notificator.showError(error);
+        (error: HttpErrorResponse) => {
+          const e = error.error as RPCError;
+          if (e.name !== 'PrivilegeException') {
+            this.notificator.showError(e.name);
           } else {
             this.voMembershipDataSource = new MatTableDataSource<string>(['Status']);
           }

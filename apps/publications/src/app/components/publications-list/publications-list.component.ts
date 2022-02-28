@@ -137,8 +137,7 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
-        this
+        this.getDataForColumn.bind(this)
       ),
       format
     );
@@ -172,7 +171,7 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
   private setDataSource() {
     if (this.dataSource) {
       this.dataSource.sortData = (data: PublicationForGUI[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn, this);
+        customDataSourceSort(data, sort, this.getDataForColumn.bind(this));
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }

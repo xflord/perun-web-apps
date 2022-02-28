@@ -25,6 +25,18 @@ import { UniversalConfirmationItemsDialogComponent } from '@perun-web-apps/perun
 export class ApplicationDetailComponent implements OnInit {
   // used for router animation
   @HostBinding('class.router-component') true;
+  application: Application;
+  userData: ApplicationFormItemData[] = [];
+  userMail: string;
+  displayedColumns: string[] = ['label', 'value'];
+  dataSource: MatTableDataSource<ApplicationFormItemData>;
+  loading = true;
+  dialogTheme: string;
+  verifyAuth: boolean;
+  approveAuth: boolean;
+  rejectAuth: boolean;
+  deleteAuth: boolean;
+  resendAuth: boolean;
 
   constructor(
     private registrarManager: RegistrarManagerService,
@@ -37,21 +49,7 @@ export class ApplicationDetailComponent implements OnInit {
     private usersService: UsersManagerService
   ) {}
 
-  application: Application;
-  userData: ApplicationFormItemData[] = [];
-  userMail: string;
-  displayedColumns: string[] = ['label', 'value'];
-  dataSource: MatTableDataSource<ApplicationFormItemData>;
-  loading = true;
-  dialogTheme: string;
-
-  verifyAuth: boolean;
-  approveAuth: boolean;
-  rejectAuth: boolean;
-  deleteAuth: boolean;
-  resendAuth: boolean;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.route.params.subscribe((params) => {
       this.route.parent.params.subscribe((parentParams) => {
@@ -62,7 +60,7 @@ export class ApplicationDetailComponent implements OnInit {
         } else {
           this.dialogTheme = 'vo-theme';
         }
-        const applicationId = params['applicationId'];
+        const applicationId = params['applicationId'] as number;
         this.registrarManager.getApplicationById(applicationId).subscribe((application) => {
           this.application = application;
           if (this.application.type === 'EMBEDDED' && this.application.user) {
@@ -72,7 +70,7 @@ export class ApplicationDetailComponent implements OnInit {
                 const preferredMail = user.userAttributes.find(
                   (att) => att.friendlyName === 'preferredMail'
                 );
-                this.userMail = preferredMail?.value?.toString();
+                this.userMail = (preferredMail?.value as unknown as string) ?? '';
                 this.setAuthRights();
                 this.loading = false;
               });
@@ -89,7 +87,7 @@ export class ApplicationDetailComponent implements OnInit {
     });
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     if (this.dialogTheme === 'group-theme') {
       this.verifyAuth = this.authResolver.isAuthorized('group-verifyApplication_int_policy', [
         this.application.group,
@@ -131,7 +129,7 @@ export class ApplicationDetailComponent implements OnInit {
     }
   }
 
-  getLabel(formItem: ApplicationFormItem) {
+  getLabel(formItem: ApplicationFormItem): string {
     if (formItem.i18n['en'].label !== null) {
       if (formItem.i18n['en'].label.length !== 0) {
         return formItem.i18n['en'].label; // prerobit na ne en
@@ -140,14 +138,14 @@ export class ApplicationDetailComponent implements OnInit {
     return formItem.shortname;
   }
 
-  submittedBy() {
+  submittedBy(): string {
     return this.application.createdBy.slice(
       this.application.createdBy.lastIndexOf('=') + 1,
       this.application.createdBy.length
     );
   }
 
-  getModifiedAtName(modifiedBy: string) {
+  getModifiedAtName(modifiedBy: string): string {
     const index = modifiedBy.lastIndexOf('/CN=');
     if (index !== -1) {
       const string = modifiedBy
@@ -161,7 +159,7 @@ export class ApplicationDetailComponent implements OnInit {
     return modifiedBy;
   }
 
-  resendNotification() {
+  resendNotification(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = {
@@ -173,7 +171,7 @@ export class ApplicationDetailComponent implements OnInit {
     this.dialog.open(ApplicationReSendNotificationDialogComponent, config);
   }
 
-  deleteApplication() {
+  deleteApplication(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {
@@ -192,9 +190,9 @@ export class ApplicationDetailComponent implements OnInit {
         this.registrarManager.deleteApplication(this.application.id).subscribe(() => {
           this.translate
             .get('VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DELETE_MESSAGE')
-            .subscribe((successMessage) => {
+            .subscribe((successMessage: string) => {
               this.notificator.showSuccess(successMessage);
-              this.router.navigateByUrl(
+              void this.router.navigateByUrl(
                 this.router.url.substring(0, this.router.url.lastIndexOf('/'))
               );
             });
@@ -203,7 +201,7 @@ export class ApplicationDetailComponent implements OnInit {
     });
   }
 
-  rejectApplication() {
+  rejectApplication(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = { applicationId: this.application.id, theme: this.dialogTheme };
@@ -222,13 +220,13 @@ export class ApplicationDetailComponent implements OnInit {
     });
   }
 
-  approveApplication() {
+  approveApplication(): void {
     this.loading = true;
     this.registrarManager.approveApplication(this.application.id).subscribe(
       () => {
         this.translate
           .get('VO_DETAIL.APPLICATION.APPLICATION_DETAIL.APPROVE_MESSAGE')
-          .subscribe((successMessage) => {
+          .subscribe((successMessage: string) => {
             this.notificator.showSuccess(successMessage);
           });
         this.registrarManager.getApplicationById(this.application.id).subscribe(
@@ -243,11 +241,11 @@ export class ApplicationDetailComponent implements OnInit {
     );
   }
 
-  verifyApplication() {
+  verifyApplication(): void {
     this.registrarManager.verifyApplication(this.application.id).subscribe(() => {
       this.translate
         .get('VO_DETAIL.APPLICATION.APPLICATION_DETAIL.VERIFY_MESSAGE')
-        .subscribe((successMessage) => {
+        .subscribe((successMessage: string) => {
           this.notificator.showSuccess(successMessage);
         });
       this.loading = true;
@@ -258,7 +256,7 @@ export class ApplicationDetailComponent implements OnInit {
     });
   }
 
-  editApplicationData(data: ApplicationFormItemData) {
+  editApplicationData(data: ApplicationFormItemData): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {

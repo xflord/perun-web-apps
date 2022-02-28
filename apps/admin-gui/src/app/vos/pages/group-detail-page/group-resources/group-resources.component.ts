@@ -24,6 +24,18 @@ export class GroupResourcesComponent implements OnInit {
 
   // used for router animation
   @HostBinding('class.router-component') true;
+  @ViewChild('list', {})
+  list: ResourcesListComponent;
+
+  group: Group;
+  resources: ResourceWithStatus[] = null;
+  selected = new SelectionModel<ResourceWithStatus>(true, []);
+  resourcesToDisable: Set<number>;
+  loading: boolean;
+  filterValue = '';
+  tableId = TABLE_GROUP_RESOURCES_LIST;
+  routingAuth: boolean;
+  addAuth = false;
 
   constructor(
     private resourcesManager: ResourcesManagerService,
@@ -33,28 +45,13 @@ export class GroupResourcesComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  group: Group;
-  resources: ResourceWithStatus[] = null;
-  selected = new SelectionModel<ResourceWithStatus>(true, []);
-  resourcesToDisable: Set<number>;
-
-  loading: boolean;
-  filterValue = '';
-  tableId = TABLE_GROUP_RESOURCES_LIST;
-
-  routingAuth: boolean;
-  addAuth = false;
-
-  @ViewChild('list', {})
-  list: ResourcesListComponent;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.group = this.entityStorageService.getEntity();
     this.setAuthorization();
     this.refreshTable();
   }
 
-  setAuthorization() {
+  setAuthorization(): void {
     if (this.resources !== null && this.resources.length !== 0) {
       this.routingAuth = this.guiAuthResolver.isAuthorized('getResourceById_int_policy', [
         this.resources[0],
@@ -63,10 +60,10 @@ export class GroupResourcesComponent implements OnInit {
     this.addAuth = this.guiAuthResolver.isAuthorized('getResources_Vo_policy', [this.group]);
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.resourcesManager.getResourceAssignments(this.group.id).subscribe((resources) => {
-      this.resources = <ResourceWithStatus[]>resources.map((r) => {
+      this.resources = resources.map((r) => {
         const resWithStatus: ResourceWithStatus = r.enrichedResource.resource;
         resWithStatus.facility = r.facility;
         resWithStatus.status = r.status;
@@ -86,11 +83,11 @@ export class GroupResourcesComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  addResource() {
+  addResource(): void {
     const config = getDefaultDialogConfig();
     config.width = '1000px';
     config.data = { theme: 'group-theme', group: this.group };
@@ -104,7 +101,7 @@ export class GroupResourcesComponent implements OnInit {
     });
   }
 
-  removeResource() {
+  removeResource(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {

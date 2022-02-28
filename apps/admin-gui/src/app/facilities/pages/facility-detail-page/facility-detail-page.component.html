@@ -6,8 +6,8 @@
       <mat-icon
         matTooltip="{{'FACILITY_DETAIL.ENTITY' | translate}}"
         [ngStyle]="{'color':'black'}"
-        svgIcon="perun-facility-black"
-        class="perun-icon perun-icon-detail">
+        class="perun-icon perun-icon-detail"
+        svgIcon="perun-facility-black">
       </mat-icon>
       <div class="page-title-block">
         <div class="page-title-headline d-flex align-items-center">
@@ -18,10 +18,10 @@
             >{{facility.name}}</a
           >
           <span class="text-muted"> &nbsp;#{{facility.id}} </span>
-          <button mat-icon-button *ngIf="editFacilityAuth" (click)="editFacility()">
+          <button (click)="editFacility()" *ngIf="editFacilityAuth" mat-icon-button>
             <mat-icon>edit</mat-icon>
           </button>
-          <button *ngIf="deleteAuth" mat-icon-button (click)="deleteFacility()">
+          <button (click)="deleteFacility()" *ngIf="deleteAuth" mat-icon-button>
             <mat-icon>delete_forever</mat-icon>
           </button>
         </div>

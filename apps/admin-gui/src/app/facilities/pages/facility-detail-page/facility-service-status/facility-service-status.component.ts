@@ -27,34 +27,6 @@ import { DeleteTaskDialogComponent } from '../../../../shared/components/dialogs
   styleUrls: ['./facility-service-status.component.scss'],
 })
 export class FacilityServiceStatusComponent implements OnInit {
-  constructor(
-    private tasksManager: TasksManagerService,
-    private servicesManager: ServicesManagerService,
-    private notificator: NotificatorService,
-    private translate: TranslateService,
-    private authResolver: GuiAuthResolver,
-    private facilityManager: FacilitiesManagerService,
-    private resourcesManager: ResourcesManagerService,
-    private dialog: MatDialog,
-    private entityStorageService: EntityStorageService
-  ) {
-    translate
-      .get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_FORCE_PROPAGATION')
-      .subscribe((value) => (this.successFPMessage = value));
-    translate
-      .get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_ALLOW')
-      .subscribe((value) => (this.successAllowMessage = value));
-    translate
-      .get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_BLOCK')
-      .subscribe((value) => (this.successBlockMessage = value));
-    translate
-      .get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_DELETE')
-      .subscribe((value) => (this.successDeleteMessage = value));
-    translate
-      .get('FACILITY_DETAIL.SERVICES_STATUS.ALREADY_DELETED')
-      .subscribe((value) => (this.allreadyDeletedMessage = value));
-  }
-
   facility: Facility;
   servicesStates: ServiceState[] = [];
 
@@ -82,6 +54,34 @@ export class FacilityServiceStatusComponent implements OnInit {
   deleteAuth: boolean;
   routeAuth: boolean;
 
+  constructor(
+    private tasksManager: TasksManagerService,
+    private servicesManager: ServicesManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private authResolver: GuiAuthResolver,
+    private facilityManager: FacilitiesManagerService,
+    private resourcesManager: ResourcesManagerService,
+    private dialog: MatDialog,
+    private entityStorageService: EntityStorageService
+  ) {
+    translate
+      .get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_FORCE_PROPAGATION')
+      .subscribe((value: string) => (this.successFPMessage = value));
+    translate
+      .get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_ALLOW')
+      .subscribe((value: string) => (this.successAllowMessage = value));
+    translate
+      .get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_BLOCK')
+      .subscribe((value: string) => (this.successBlockMessage = value));
+    translate
+      .get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_DELETE')
+      .subscribe((value: string) => (this.successDeleteMessage = value));
+    translate
+      .get('FACILITY_DETAIL.SERVICES_STATUS.ALREADY_DELETED')
+      .subscribe((value: string) => (this.allreadyDeletedMessage = value));
+  }
+
   ngOnInit(): void {
     this.loading = true;
     this.facility = this.entityStorageService.getEntity();
@@ -89,7 +89,7 @@ export class FacilityServiceStatusComponent implements OnInit {
     this.refreshTable();
   }
 
-  forcePropagation() {
+  forcePropagation(): void {
     for (const ss of this.selected.selected) {
       this.servicesManager.forceServicePropagation(ss.service.id, ss.facility.id).subscribe(() => {
         this.refreshTable();
@@ -98,7 +98,7 @@ export class FacilityServiceStatusComponent implements OnInit {
     }
   }
 
-  allow() {
+  allow(): void {
     for (const ss of this.selected.selected) {
       this.servicesManager.unblockServiceOnFacility(ss.service.id, ss.facility.id).subscribe(() => {
         this.refreshTable();
@@ -107,7 +107,7 @@ export class FacilityServiceStatusComponent implements OnInit {
     }
   }
 
-  block() {
+  block(): void {
     for (const ss of this.selected.selected) {
       this.servicesManager.blockServiceOnFacility(ss.service.id, ss.facility.id).subscribe(() => {
         this.refreshTable();
@@ -116,7 +116,7 @@ export class FacilityServiceStatusComponent implements OnInit {
     }
   }
 
-  removeTaskResults() {
+  removeTaskResults(): void {
     this.tasksManager
       .getTaskResultsForGUIByTask(this.selected.selected[0].task.id)
       .subscribe((taskResults) => {
@@ -130,7 +130,7 @@ export class FacilityServiceStatusComponent implements OnInit {
       });
   }
 
-  removeServiceFromFacility() {
+  removeServiceFromFacility(): void {
     this.facilityManager
       .getAssignedResourcesByAssignedServiceForFacility(
         this.selected.selected[0].facility.id,
@@ -178,7 +178,7 @@ export class FacilityServiceStatusComponent implements OnInit {
       });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.tasksManager.getFacilityServicesState(this.facility.id).subscribe((states) => {
       this.servicesStates = states;
@@ -188,7 +188,7 @@ export class FacilityServiceStatusComponent implements OnInit {
     });
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     this.propagationAuth = this.authResolver.isAuthorized(
       'forceServicePropagation_Facility_Service_policy',
       [this.facility]
@@ -207,11 +207,11 @@ export class FacilityServiceStatusComponent implements OnInit {
     ]);
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  selectionChanged() {
+  selectionChanged(): void {
     this.disableBlockButton = true;
     this.disableAllowButton = true;
     this.disableRemoveButton = this.selected.selected.length !== 1;

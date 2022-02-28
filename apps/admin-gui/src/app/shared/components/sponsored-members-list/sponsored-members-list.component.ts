@@ -24,6 +24,29 @@ import { PasswordResetRequestDialogComponent } from '../dialogs/password-reset-r
   styleUrls: ['./sponsored-members-list.component.scss'],
 })
 export class SponsoredMembersListComponent implements OnChanges {
+  @Input()
+  sponsoredMembers: MemberWithSponsors[] = [];
+  @Input()
+  selection: SelectionModel<MemberWithSponsors>;
+  @Input()
+  filterValue = '';
+  @Input()
+  displayedColumns: string[] = ['id', 'name', 'email', 'logins', 'sponsors', 'menu'];
+
+  @Input()
+  disableRouting = false;
+  @Input()
+  tableId: string;
+  @Output()
+  refreshTable = new EventEmitter<void>();
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+
+  dataSource: MatTableDataSource<MemberWithSponsors>;
+  loading = false;
+  routingStrategy = false;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  private sort: MatSort;
+
   constructor(
     private dialog: MatDialog,
     private authResolver: GuiAuthResolver,
@@ -36,46 +59,7 @@ export class SponsoredMembersListComponent implements OnChanges {
     this.sort = ms;
   }
 
-  @Input()
-  sponsoredMembers: MemberWithSponsors[] = [];
-
-  @Input()
-  selection: SelectionModel<MemberWithSponsors>;
-
-  @Input()
-  filterValue = '';
-
-  @Input()
-  displayedColumns: string[] = ['id', 'name', 'email', 'logins', 'sponsors', 'menu'];
-
-  @Input()
-  disableRouting = false;
-
-  @Input()
-  tableId: string;
-
-  @Output()
-  refreshTable = new EventEmitter<void>();
-
-  dataSource: MatTableDataSource<MemberWithSponsors>;
-  private sort: MatSort;
-  loading = false;
-
-  routingStrategy = false;
-
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
-  ngOnChanges() {
-    if (!this.authResolver.isPerunAdminOrObserver()) {
-      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
-    }
-    this.setDataSource();
-    this.routingStrategy = this.disableRouting;
-  }
-
-  getSortDataForColumn(data: MemberWithSponsors, column: string): string {
+  static getSortDataForColumn(data: MemberWithSponsors, column: string): string {
     switch (column) {
       case 'id':
         return data.member.id.toString();
@@ -93,7 +77,7 @@ export class SponsoredMembersListComponent implements OnChanges {
     }
   }
 
-  getDataForColumn(data: MemberWithSponsors, column: string): string {
+  static getDataForColumn(data: MemberWithSponsors, column: string): string {
     switch (column) {
       case 'id':
         return data.member.id.toString();
@@ -109,39 +93,48 @@ export class SponsoredMembersListComponent implements OnChanges {
     }
   }
 
-  exportData(format: string) {
+  ngOnChanges(): void {
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
+    }
+    this.setDataSource();
+    this.routingStrategy = this.disableRouting;
+  }
+
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
-        this
+        SponsoredMembersListComponent.getDataForColumn
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (!this.dataSource) {
       this.dataSource = new MatTableDataSource<MemberWithSponsors>();
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
-      this.dataSource.filterPredicate = (data: MemberWithSponsors, filter: string) =>
+      this.dataSource.filterPredicate = (data: MemberWithSponsors, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn,
-          this
+          SponsoredMembersListComponent.getDataForColumn
         );
-      this.dataSource.sortData = (data: MemberWithSponsors[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getSortDataForColumn, this);
+      this.dataSource.sortData = (
+        data: MemberWithSponsors[],
+        sort: MatSort
+      ): MemberWithSponsors[] =>
+        customDataSourceSort(data, sort, SponsoredMembersListComponent.getSortDataForColumn);
     }
     this.dataSource.filter = this.filterValue;
     this.dataSource.data = this.sponsoredMembers;
   }
 
-  showSponsors(member: MemberWithSponsors) {
+  showSponsors(member: MemberWithSponsors): void {
     const config = getDefaultDialogConfig();
     config.width = '650px';
     config.data = {
@@ -157,7 +150,7 @@ export class SponsoredMembersListComponent implements OnChanges {
     });
   }
 
-  isAllSelected() {
+  isAllSelected(): boolean {
     return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
       this.filterValue,
@@ -167,7 +160,7 @@ export class SponsoredMembersListComponent implements OnChanges {
     );
   }
 
-  masterToggle() {
+  masterToggle(): void {
     this.tableCheckbox.masterToggle(
       this.isAllSelected(),
       this.selection,
@@ -187,12 +180,14 @@ export class SponsoredMembersListComponent implements OnChanges {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.member.id + 1}`;
   }
 
-  resetPassword(sponsoredMember: MemberWithSponsors) {
+  resetPassword(sponsoredMember: MemberWithSponsors): void {
     this.loading = true;
-    const attUrns = this.storeService.get('password_namespace_attributes').map((urn) => {
-      urn = urn.split(':');
-      return urn[urn.length - 1];
-    });
+    const attUrns = (this.storeService.get('password_namespace_attributes') as string[]).map(
+      (urnString) => {
+        const urn = urnString.split(':');
+        return urn[urn.length - 1];
+      }
+    );
     this.attributesManager.getLogins(sponsoredMember.member.userId).subscribe(
       (logins) => {
         const filteredLogins = logins.filter((login) =>
@@ -217,7 +212,7 @@ export class SponsoredMembersListComponent implements OnChanges {
     );
   }
 
-  passwdResetAuth(sponsoredMember: MemberWithSponsors) {
+  passwdResetAuth(sponsoredMember: MemberWithSponsors): boolean {
     const vo: Vo = {
       id: sponsoredMember.member.voId,
       beanName: 'Vo',

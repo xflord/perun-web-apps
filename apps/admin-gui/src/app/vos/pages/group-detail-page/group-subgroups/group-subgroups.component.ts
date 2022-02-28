@@ -11,8 +11,7 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { GroupFlatNode } from '@perun-web-apps/perun/models';
 import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
-import { GroupsTreeComponent } from '@perun-web-apps/perun/components';
-import { GroupsListComponent } from '@perun-web-apps/perun/components';
+import { GroupsListComponent, GroupsTreeComponent } from '@perun-web-apps/perun/components';
 
 @Component({
   selector: 'app-group-subgroups',
@@ -24,13 +23,13 @@ export class GroupSubgroupsComponent implements OnInit {
 
   // used for router animation
   @HostBinding('class.router-component') true;
+  @ViewChild('tree', {})
+  tree: GroupsTreeComponent;
+  @ViewChild('list', {})
+  list: GroupsListComponent;
+  @ViewChild('toggle', { static: true })
+  toggle: MatSlideToggle;
 
-  constructor(
-    private dialog: MatDialog,
-    private groupService: GroupsManagerService,
-    private guiAuthResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
-  ) {}
   group: Group;
   groups: Group[] = [];
   selected = new SelectionModel<Group>(true, []);
@@ -39,21 +38,18 @@ export class GroupSubgroupsComponent implements OnInit {
   filtering = false;
   tableId = TABLE_GROUP_SUBGROUPS;
   filterValue = '';
-
   createAuth: boolean;
   deleteAuth: boolean;
   routeAuth: boolean;
 
-  @ViewChild('tree', {})
-  tree: GroupsTreeComponent;
+  constructor(
+    private dialog: MatDialog,
+    private groupService: GroupsManagerService,
+    private guiAuthResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
 
-  @ViewChild('list', {})
-  list: GroupsListComponent;
-
-  @ViewChild('toggle', { static: true })
-  toggle: MatSlideToggle;
-
-  onCreateGroup() {
+  onCreateGroup(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = { parentGroup: this.group, theme: 'group-theme' };
@@ -68,7 +64,7 @@ export class GroupSubgroupsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (localStorage.getItem('preferedValue') === 'list') {
       this.toggle.toggle();
       this.selected.clear();
@@ -84,7 +80,7 @@ export class GroupSubgroupsComponent implements OnInit {
     this.refreshTable();
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     this.createAuth = this.guiAuthResolver.isAuthorized('createGroup_Group_Group_policy', [
       this.group,
     ]);
@@ -98,7 +94,7 @@ export class GroupSubgroupsComponent implements OnInit {
     }
   }
 
-  deleteGroup() {
+  deleteGroup(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = { voId: this.group.id, groups: this.selected.selected, theme: 'group-theme' };
@@ -112,7 +108,7 @@ export class GroupSubgroupsComponent implements OnInit {
     });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.groupService
       .getAllRichSubGroupsWithGroupAttributesByNames(this.group.id, [
@@ -132,12 +128,12 @@ export class GroupSubgroupsComponent implements OnInit {
       });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
     this.filtering = filterValue !== '';
   }
 
-  onMoveGroup(group: GroupFlatNode | Group) {
+  onMoveGroup(group: GroupFlatNode | Group): void {
     const config = getDefaultDialogConfig();
     config.width = '550px';
     config.data = {

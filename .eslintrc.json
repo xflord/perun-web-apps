@@ -17,10 +17,11 @@
         "no-unused-expressions": "off",
         "no-restricted-imports": ["error", "rxjs/Rx"],
         "eqeqeq": ["error", "smart"],
-        "no-console":  ["error", { "allow": ["error"] }] ,
+        "no-console": ["error", { "allow": ["error"] }],
         "no-throw-literal": "error",
 
         // Typescript rules
+        "@typescript-eslint/unbound-method": ["error", { "ignoreStatic": true }],
         "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
         "@typescript-eslint/consistent-type-assertions": "error",
         "@typescript-eslint/explicit-function-return-type": "error", // Perhaps too strict
@@ -40,7 +41,6 @@
         "@typescript-eslint/no-explicit-any": "error",
         "@typescript-eslint/no-non-null-assertion": "error",
         "@typescript-eslint/explicit-module-boundary-types": "error",
-        "@typescript-eslint/unbound-method": ["error", { "ignoreStatic": true }],
         // Disable formatting rules as formatting is handled by Prettier
         "@typescript-eslint/no-extra-semi": "off",
         // Naming conventions - variables, selectors

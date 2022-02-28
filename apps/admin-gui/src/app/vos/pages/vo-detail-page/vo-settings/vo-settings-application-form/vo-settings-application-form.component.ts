@@ -27,8 +27,19 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 })
 export class VoSettingsApplicationFormComponent implements OnInit {
   static id = 'VoSettingsApplicationFormComponent';
-
   @HostBinding('class.router-component') true;
+  loading = false;
+  applicationForm: ApplicationForm;
+  applicationFormItems: ApplicationFormItem[] = [];
+  itemsChanged = false;
+  editAuth: boolean;
+  displayedColumns: string[] = [];
+  refreshApplicationForm = false;
+  private vo: Vo;
+
+  // This counter is used to generate ids for newly added items. This fake ids are used in backend
+  // to recognize new items in other items' dependencies
+  private idCounter = -1;
 
   constructor(
     private registrarManager: RegistrarManagerService,
@@ -41,21 +52,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  loading = false;
-  applicationForm: ApplicationForm;
-  applicationFormItems: ApplicationFormItem[] = [];
-  itemsChanged = false;
-  vo: Vo;
-
-  editAuth: boolean;
-  displayedColumns: string[] = [];
-  refreshApplicationForm = false;
-
-  // This counter is used to generate ids for newly added items. This fake ids are used in backend
-  // to recognize new items in other items' dependencies
-  private idCounter = -1;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.vo = this.entityStorageService.getEntity();
     this.setAuthRights();
@@ -68,27 +65,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
     });
   }
 
-  setAuthRights() {
-    this.editAuth = this.authResolver.isAuthorized(
-      'vo-updateFormItems_ApplicationForm_List<ApplicationFormItem>_policy',
-      [this.vo]
-    );
-    this.displayedColumns = this.editAuth
-      ? [
-          'drag',
-          'shortname',
-          'type',
-          'disabled',
-          'hidden',
-          'preview',
-          'managegroups',
-          'edit',
-          'delete',
-        ]
-      : ['shortname', 'type', 'disabled', 'hidden', 'preview', 'managegroups'];
-  }
-
-  add() {
+  add(): void {
     let config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = {
@@ -97,7 +74,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
     };
 
     const dialog = this.dialog.open(AddApplicationFormItemDialogComponent, config);
-    dialog.afterClosed().subscribe((success) => {
+    dialog.afterClosed().subscribe((success: ApplicationFormItem[]) => {
       // success is field contains of two items: first is applicationFormItems with new item in it,
       // second item is new Application Form Item
       if (success) {
@@ -119,7 +96,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
     });
   }
 
-  copy() {
+  copy(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = { voId: this.vo.id, theme: 'vo-theme' };
@@ -132,7 +109,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
     });
   }
 
-  settings() {
+  settings(): void {
     const config = getDefaultDialogConfig();
     config.width = '400px';
     config.data = {
@@ -142,11 +119,11 @@ export class VoSettingsApplicationFormComponent implements OnInit {
     };
 
     const dialog = this.dialog.open(UpdateApplicationFormDialogComponent, config);
-    dialog.afterClosed().subscribe((newForm) => {
+    dialog.afterClosed().subscribe((newForm: ApplicationForm) => {
       if (newForm) {
         this.translate
           .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_SETTINGS_SUCCESS')
-          .subscribe((successMessage) => {
+          .subscribe((successMessage: string) => {
             this.notificator.showSuccess(successMessage);
           });
         this.applicationForm = newForm;
@@ -154,13 +131,16 @@ export class VoSettingsApplicationFormComponent implements OnInit {
     });
   }
 
-  preview() {
-    this.router.navigate(['/organizations', this.vo.id, 'settings', 'applicationForm', 'preview'], {
-      queryParams: { applicationFormItems: JSON.stringify(this.applicationFormItems) },
-    });
+  preview(): void {
+    void this.router.navigate(
+      ['/organizations', this.vo.id, 'settings', 'applicationForm', 'preview'],
+      {
+        queryParams: { applicationFormItems: JSON.stringify(this.applicationFormItems) },
+      }
+    );
   }
 
-  updateFormItems() {
+  updateFormItems(): void {
     this.loading = true;
     this.refreshApplicationForm = true;
     this.registrarManager.getFormItemsForVo(this.vo.id).subscribe((formItems) => {
@@ -172,11 +152,11 @@ export class VoSettingsApplicationFormComponent implements OnInit {
     });
   }
 
-  changeItems() {
+  changeItems(): void {
     this.itemsChanged = true;
   }
 
-  save() {
+  save(): void {
     let i = 0;
     for (const item of this.applicationFormItems) {
       item.ordnum = i;
@@ -184,21 +164,41 @@ export class VoSettingsApplicationFormComponent implements OnInit {
         i++;
       }
     }
-    // @ts-ignore
+
     this.registrarManager
       .updateFormItemsForVo({ vo: this.vo.id, items: this.applicationFormItems })
       .subscribe(() => {
         this.translate
           .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_APPLICATION_FORM_ITEMS_SUCCESS')
-          .subscribe((successMessage) => {
+          .subscribe((successMessage: string) => {
             this.notificator.showSuccess(successMessage);
           });
         this.updateFormItems();
       });
   }
 
-  clear() {
+  clear(): void {
     this.applicationFormItems.forEach((appFormItem) => (appFormItem.forDelete = true));
     this.itemsChanged = true;
+  }
+
+  private setAuthRights(): void {
+    this.editAuth = this.authResolver.isAuthorized(
+      'vo-updateFormItems_ApplicationForm_List<ApplicationFormItem>_policy',
+      [this.vo]
+    );
+    this.displayedColumns = this.editAuth
+      ? [
+          'drag',
+          'shortname',
+          'type',
+          'disabled',
+          'hidden',
+          'preview',
+          'managegroups',
+          'edit',
+          'delete',
+        ]
+      : ['shortname', 'type', 'disabled', 'hidden', 'preview', 'managegroups'];
   }
 }

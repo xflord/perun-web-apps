@@ -42,10 +42,10 @@ export class AddFacilityOwnerDialogComponent implements OnInit {
   ) {
     this.translate
       .get('DIALOGS.ADD_OWNERS.SUCCESS')
-      .subscribe((result) => (this.successMessage = result));
+      .subscribe((result: string) => (this.successMessage = result));
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
     this.loading = true;
     this.ownersManagerService.getAllOwners().subscribe(
@@ -57,11 +57,11 @@ export class AddFacilityOwnerDialogComponent implements OnInit {
     );
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  onAdd() {
+  onAdd(): void {
     this.loading = true;
     if (this.selection.selected.length !== 0) {
       this.facilitiesManagerService
@@ -77,7 +77,7 @@ export class AddFacilityOwnerDialogComponent implements OnInit {
     }
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 }

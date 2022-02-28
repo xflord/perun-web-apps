@@ -10,15 +10,15 @@ import { Facility } from '@perun-web-apps/perun/openapi';
 export class FacilityAttributesComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
+  facility: Facility;
+  facilityUserAttAuth: boolean;
+
   constructor(
     private authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService
   ) {}
 
-  facility: Facility;
-  facilityUserAttAuth: boolean;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.facility = this.entityStorageService.getEntity();
     this.facilityUserAttAuth = this.authResolver.isAuthorized('getAssignedUsers_Facility_policy', [
       this.facility,

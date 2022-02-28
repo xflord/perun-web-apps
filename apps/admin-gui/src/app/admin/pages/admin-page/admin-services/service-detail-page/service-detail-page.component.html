@@ -1,12 +1,12 @@
 <div class="container-fluid pl-xl-5 pr-xl-5 service-theme">
   <perun-web-apps-back-button> </perun-web-apps-back-button>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <div class="d-flex page-title-headtitle" *ngIf="!loading && service !== undefined">
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <div *ngIf="!loading && service !== undefined" class="d-flex page-title-headtitle">
     <mat-icon
       matTooltip="{{'SERVICE_DETAIL.ENTITY' | translate}}"
       [ngStyle]="{'color':'black'}"
-      svgIcon="perun-service"
-      class="perun-icon perun-icon-detail">
+      class="perun-icon perun-icon-detail"
+      svgIcon="perun-service">
     </mat-icon>
     <div class="page-title-block">
       <div class="page-title-headline d-flex align-items-center">
@@ -39,7 +39,7 @@
         {{'SERVICE_DETAIL.STATUS' | translate}}:
         <span>
           {{service.enabled ? ('SERVICE_DETAIL.ENABLED' | translate) : ('SERVICE_DETAIL.DISABLED' | translate)}}
-          <button mat-icon-button (click)="changeServiceStatus()">
+          <button (click)="changeServiceStatus()" mat-icon-button>
             <mat-icon class="align-content-center">
               {{service.enabled ? "check_circle_outline" : "block"}}
             </mat-icon>

@@ -11,13 +11,6 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
   styleUrls: ['./facility-security-teams.component.scss'],
 })
 export class FacilitySecurityTeamsComponent implements OnInit {
-  constructor(
-    private dialog: MatDialog,
-    private facilitiesManager: FacilitiesManagerService,
-    private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
-  ) {}
-
   facility: Facility;
   securityTeams: SecurityTeam[] = [];
   selected = new SelectionModel<SecurityTeam>(true, []);
@@ -31,12 +24,19 @@ export class FacilitySecurityTeamsComponent implements OnInit {
   addAuth: boolean;
   removeAuth: boolean;
 
-  ngOnInit() {
+  constructor(
+    private dialog: MatDialog,
+    private facilitiesManager: FacilitiesManagerService,
+    private authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
+
+  ngOnInit(): void {
     this.facility = this.entityStorageService.getEntity();
     this.refreshTable();
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.facilitiesManager.getAssignedSecurityTeams(this.facility.id).subscribe((securityTeams) => {
       this.securityTeams = securityTeams;
@@ -46,7 +46,7 @@ export class FacilitySecurityTeamsComponent implements OnInit {
     });
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     this.addAuth = this.authResolver.isAuthorized(
       'assignSecurityTeam_Facility_SecurityTeam_policy',
       [this.facility]
@@ -61,15 +61,7 @@ export class FacilitySecurityTeamsComponent implements OnInit {
       : ['id', 'name', 'description'];
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
-  }
-
-  addSecurityTeam() {
-    //TODO
-  }
-
-  removeSecurityTeam() {
-    //TODO
   }
 }

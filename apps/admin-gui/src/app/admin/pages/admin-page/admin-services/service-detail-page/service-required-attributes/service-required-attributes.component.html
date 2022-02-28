@@ -3,33 +3,33 @@
   <perun-web-apps-refresh-button (refresh)="refreshTable()"> </perun-web-apps-refresh-button>
   <button
     *ngIf="authResolver.isPerunAdmin()"
-    mat-flat-button
+    (click)="onAdd()"
     color="accent"
     class="mr-2 action-button"
-    (click)="onAdd()">
+    mat-flat-button>
     {{ 'SERVICE_DETAIL.REQUIRED_ATTRIBUTES.ADD' | translate}}
   </button>
   <button
     *ngIf="authResolver.isPerunAdmin()"
-    mat-flat-button
-    color="warn"
-    class="mr-2"
+    (click)="onRemove()"
     [disabled]="selection.selected.length === 0"
-    (click)="onRemove()">
+    class="mr-2"
+    color="warn"
+    mat-flat-button>
     {{ 'SERVICE_DETAIL.REQUIRED_ATTRIBUTES.REMOVE' | translate}}
   </button>
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'SERVICE_DETAIL.REQUIRED_ATTRIBUTES.FILTER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <app-attr-def-list
     *ngIf="!loading"
-    [tableId]="tableId"
+    (refreshEvent)="refreshTable()"
     [definitions]="attrDefinitions"
-    [selection]="selection"
     [filterValue]="filterValue"
+    [selection]="selection"
     [disableRouting]="!authResolver.isPerunAdmin()"
-    (refreshEvent)="refreshTable()">
+    [tableId]="tableId">
   </app-attr-def-list>
 </div>

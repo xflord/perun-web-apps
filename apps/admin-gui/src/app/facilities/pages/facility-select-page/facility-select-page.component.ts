@@ -18,12 +18,6 @@ export class FacilitySelectPageComponent implements OnInit, AfterViewChecked {
 
   @HostBinding('class.router-component') true;
 
-  constructor(
-    private facilityManager: FacilitiesManagerService,
-    private sideMenuService: SideMenuService,
-    private dialog: MatDialog
-  ) {}
-
   facilities: EnrichedFacility[] = [];
   recentIds: number[] = [];
   loading: boolean;
@@ -32,15 +26,21 @@ export class FacilitySelectPageComponent implements OnInit, AfterViewChecked {
   selection = new SelectionModel<EnrichedFacility>(false, []);
   includeDestinations: boolean;
 
-  ngOnInit() {
+  constructor(
+    private facilityManager: FacilitiesManagerService,
+    private sideMenuService: SideMenuService,
+    private dialog: MatDialog
+  ) {}
+
+  ngOnInit(): void {
     this.refreshTable();
   }
 
-  ngAfterViewChecked() {
+  ngAfterViewChecked(): void {
     this.sideMenuService.setFacilityMenuItems([]);
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.facilityManager.getEnrichedFacilities().subscribe((facilities) => {
       this.selection.clear();
@@ -50,7 +50,7 @@ export class FacilitySelectPageComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  onCreate() {
+  onCreate(): void {
     const config = getDefaultDialogConfig();
     config.width = '800px';
     config.data = {
@@ -67,7 +67,7 @@ export class FacilitySelectPageComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  onDelete() {
+  onDelete(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = {
@@ -83,7 +83,7 @@ export class FacilitySelectPageComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

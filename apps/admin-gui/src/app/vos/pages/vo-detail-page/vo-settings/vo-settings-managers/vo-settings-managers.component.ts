@@ -11,6 +11,14 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 export class VoSettingsManagersComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
+  vo: Vo;
+
+  availableRoles: string[] = [];
+
+  type = 'Vo';
+
+  theme = 'vo-theme';
+
   constructor(
     private dialog: MatDialog,
     private voService: VosManagerService,
@@ -18,17 +26,7 @@ export class VoSettingsManagersComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  vo: Vo;
-
-  availableRoles: string[] = [];
-
-  selected = 'user';
-
-  type = 'Vo';
-
-  theme = 'vo-theme';
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.vo = this.entityStorageService.getEntity();
     this.guiAuthResolver.assignAvailableRoles(this.availableRoles, 'Vo');
   }

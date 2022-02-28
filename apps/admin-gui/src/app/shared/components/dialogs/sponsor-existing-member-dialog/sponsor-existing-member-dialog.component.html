@@ -4,11 +4,11 @@
     <mat-form-field class="mr-2 search-field adjust-width">
       <label>
         <input
-          matInput
+          [formControl]="searchCtrl"
           autocomplete="false"
-          placeholder="{{'DIALOGS.SPONSOR_EXISTING_MEMBER.DESCRIPTION' | translate}}"
+          matInput
           (keyup.enter)="onSearchByString()"
-          [formControl]="searchCtrl" />
+          placeholder="{{'DIALOGS.SPONSOR_EXISTING_MEMBER.DESCRIPTION' | translate}}" />
       </label>
       <mat-error>
         {{'DIALOGS.SPONSOR_EXISTING_MEMBER.EMPTY_SEARCH_MESSAGE' | translate}}
@@ -16,25 +16,25 @@
     </mat-form-field>
 
     <button
-      mat-flat-button
+      (click)="onSearchByString()"
       class="ml-auto"
       color="accent"
       [disabled]="loading"
-      (click)="onSearchByString()">
+      mat-flat-button>
       {{'DIALOGS.SPONSOR_EXISTING_MEMBER.SEARCH' | translate}}
     </button>
 
-    <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 
     <perun-web-apps-members-list
-      [tableId]="tableId"
+      [disableRouting]="true"
       *ngIf="firstSearchDone"
       [hidden]="loading"
       [disableStatusChange]="true"
       [members]="members"
       [selection]="selection"
       [displayedColumns]="['checkbox', 'id', 'fullName', 'status', 'sponsored', 'email']"
-      [disableRouting]="true">
+      [tableId]="tableId">
     </perun-web-apps-members-list>
 
     <perun-web-apps-alert *ngIf="!firstSearchDone" alert_type="info">
@@ -50,15 +50,15 @@
   </div>
 
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.SPONSOR_EXISTING_MEMBER.CANCEL' | translate}}
     </button>
     <button
-      mat-flat-button
+      (click)="onSubmit()"
       class="ml-2"
       color="accent"
       [disabled]="loading || selection.selected.length === 0"
-      (click)="onSubmit()">
+      mat-flat-button>
       {{'DIALOGS.SPONSOR_EXISTING_MEMBER.SPONSOR' | translate}}
     </button>
   </div>

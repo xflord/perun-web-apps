@@ -1,14 +1,14 @@
 <div class="entity-menu-item" id="{{id}}">
   <div
-    class="entity-menu-item-header"
-    matRipple
+    (click)="toggle()"
+    [class.root-header-activated]="isActive(currentUrl, item.baseColorClassRegex)"
     [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
     [ngStyle]="{'background': item.backgroundColorCss}"
-    [class.root-header-activated]="isActive(currentUrl, item.baseColorClassRegex)"
+    class="entity-menu-item-header"
     [perunWebAppsMiddleClickRouterLink]="item.baseLink"
-    (click)="toggle()">
+    matRipple>
     <div class="entity-menu-item-link {{item.labelClass}}">
-      <a class="entity-menu-item-label" [ngStyle]="{'color': item.textColorCss}">
+      <a [ngStyle]="{'color': item.textColorCss}" class="entity-menu-item-label">
         <div>
           <mat-icon
             [ngStyle]="{'color': 'currentColor'}"
@@ -21,17 +21,17 @@
   </div>
 
   <div [@openClose]="expanded ? 'open' : 'closed'">
-    <div class="side-entity-menu {{item.linksClass}}" [ngStyle]="{'background': linkBgColor}">
+    <div [ngStyle]="{'background': linkBgColor}" class="side-entity-menu {{item.linksClass}}">
       <div *ngFor="let link of item.links">
         <a
           (click)="navigate(link.url)"
           [perunWebAppsMiddleClickRouterLink]="link.url"
-          matRipple
+          [class.activated]="isActive(currentUrl, link.activatedRegex) && item.activatedClass === undefined"
           class="clickable d-flex"
           [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
+          [ngClass]="isActive(currentUrl, link.activatedRegex) && item.activatedClass !== undefined ? item.activatedClass : ''"
           [ngStyle]="{'color': linkTextColor, 'border-color': linkTextColor}"
-          [class.activated]="isActive(currentUrl, link.activatedRegex) && item.activatedClass === undefined"
-          [ngClass]="isActive(currentUrl, link.activatedRegex) && item.activatedClass !== undefined ? item.activatedClass : ''">
+          matRipple>
           {{link.label | translate}}
           <span *ngIf="link.children" class="ml-auto">
             <mat-icon
@@ -48,17 +48,17 @@
             >
           </span>
         </a>
-        <div @rollInOut *ngIf="isActive(currentUrl, link.showChildrenRegex)">
+        <div *ngIf="isActive(currentUrl, link.showChildrenRegex)" @rollInOut>
           <a
             (click)="navigate(child.url)"
-            [perunWebAppsMiddleClickRouterLink]="child.url"
-            matRipple
+            *ngFor="let child of link?.children"
+            [class.activated]="isActive(currentUrl, child.activatedRegex) && item.activatedClass === undefined"
             [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
             [ngStyle]="{'color': linkTextColor, 'border-color': linkTextColor}"
             class="pl-5 clickable"
-            *ngFor="let child of link?.children"
-            [class.activated]="isActive(currentUrl, child.activatedRegex) && item.activatedClass === undefined"
-            [ngClass]="isActive(currentUrl, child.activatedRegex) && item.activatedClass !== undefined ? item.activatedClass : ''">
+            [ngClass]="isActive(currentUrl, child.activatedRegex) && item.activatedClass !== undefined ? item.activatedClass : ''"
+            [perunWebAppsMiddleClickRouterLink]="child.url"
+            matRipple>
             {{child.label | translate}}
           </a>
         </div>

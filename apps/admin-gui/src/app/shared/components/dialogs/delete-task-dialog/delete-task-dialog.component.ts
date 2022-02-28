@@ -15,6 +15,10 @@ export interface DeleteTaskDialogCData {
   styleUrls: ['./delete-task-dialog.component.scss'],
 })
 export class DeleteTaskDialogComponent implements OnInit {
+  loading = false;
+  theme: string;
+  private taskId: number;
+
   constructor(
     private dialogRef: MatDialogRef<DeleteTaskDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DeleteTaskDialogCData,
@@ -23,20 +27,16 @@ export class DeleteTaskDialogComponent implements OnInit {
     private notificator: NotificatorService
   ) {}
 
-  loading = false;
-  theme: string;
-  taskId: number;
-
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.taskId = this.data.taskId;
   }
 
-  remove() {
+  remove(): void {
     this.loading = true;
     this.tasksManager.deleteTask({ task: this.taskId }).subscribe(
       () => {
-        this.translate.get('DIALOGS.DELETE_TASK.SUCCESS').subscribe((successMessage) => {
+        this.translate.get('DIALOGS.DELETE_TASK.SUCCESS').subscribe((successMessage: string) => {
           this.notificator.showSuccess(successMessage);
           this.dialogRef.close(true);
         });
@@ -45,7 +45,7 @@ export class DeleteTaskDialogComponent implements OnInit {
     );
   }
 
-  cancel() {
+  cancel(): void {
     this.dialogRef.close(false);
   }
 }

@@ -236,8 +236,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
       getDataForExport(
         this.dataSource.getData(),
         this.displayedColumns,
-        MembersDynamicListComponent.getExportDataForColumn,
-        this
+        MembersDynamicListComponent.getExportDataForColumn
       ),
       format
     );

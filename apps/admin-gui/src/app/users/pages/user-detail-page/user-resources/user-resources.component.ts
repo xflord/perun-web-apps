@@ -9,21 +9,21 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./user-resources.component.scss'],
 })
 export class UserResourcesComponent implements OnInit {
-  constructor(private userManager: UsersManagerService, private route: ActivatedRoute) {}
-
   resources: RichResource[] = [];
   loading: boolean;
   tableId = TABLE_ADMIN_USER_RESOURCES_LIST;
   filterValue = '';
 
+  constructor(private userManager: UsersManagerService, private route: ActivatedRoute) {}
+
   ngOnInit(): void {
     this.refreshTable();
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.route.parent.params.subscribe((parentParams) => {
-      const userId = parentParams['userId'];
+      const userId = parentParams['userId'] as number;
       this.userManager.getAssignedRichResourcesForUser(userId).subscribe((richResources) => {
         this.resources = richResources;
         this.loading = false;
@@ -31,7 +31,7 @@ export class UserResourcesComponent implements OnInit {
     });
   }
 
-  resourceFilter(filterValue: string) {
+  resourceFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

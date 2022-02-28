@@ -14,12 +14,6 @@ import { AddOwnerDialogComponent } from '../../../../shared/components/add-owner
   styleUrls: ['./admin-owners.component.scss'],
 })
 export class AdminOwnersComponent implements OnInit {
-  constructor(
-    private ownersManagerService: OwnersManagerService,
-    private dialog: MatDialog,
-    private guiAuthResolver: GuiAuthResolver
-  ) {}
-
   owners: Owner[] = [];
   selected = new SelectionModel<Owner>(true, []);
   loading: boolean;
@@ -29,17 +23,23 @@ export class AdminOwnersComponent implements OnInit {
   removeAuth: boolean;
   addAuth: boolean;
 
-  ngOnInit() {
+  constructor(
+    private ownersManagerService: OwnersManagerService,
+    private dialog: MatDialog,
+    private guiAuthResolver: GuiAuthResolver
+  ) {}
+
+  ngOnInit(): void {
     this.setAuth();
     this.refreshTable();
   }
 
-  setAuth() {
+  setAuth(): void {
     this.removeAuth = this.guiAuthResolver.isAuthorized('deleteOwner_Owner_policy', []);
     this.addAuth = this.guiAuthResolver.isAuthorized('createOwner_Owner_policy', []);
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.ownersManagerService.getAllOwners().subscribe((owners) => {
       this.owners = owners;
@@ -48,11 +48,11 @@ export class AdminOwnersComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  addOwner() {
+  addOwner(): void {
     const config = getDefaultDialogConfig();
     config.width = '400px';
     config.data = {};
@@ -66,7 +66,7 @@ export class AdminOwnersComponent implements OnInit {
     });
   }
 
-  removeOwner() {
+  removeOwner(): void {
     const config = getDefaultDialogConfig();
     config.width = '400px';
     config.data = this.selected.selected;

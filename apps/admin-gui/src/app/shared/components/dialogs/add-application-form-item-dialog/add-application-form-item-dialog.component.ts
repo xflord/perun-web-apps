@@ -17,7 +17,7 @@ export interface AddApplicationFormItemDialogComponentData {
   styleUrls: ['./add-application-form-item-dialog.component.scss'],
 })
 export class AddApplicationFormItemDialogComponent implements OnInit {
-  languages = this.store.get('supported_languages');
+  languages = this.store.get('supported_languages') as string[];
 
   items: string[] = [];
   selectedItem: string;
@@ -48,10 +48,10 @@ export class AddApplicationFormItemDialogComponent implements OnInit {
     private store: StoreService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.translateService
       .get('DIALOGS.APPLICATION_FORM_ADD_ITEM.INSERT_TO_BEGINNING')
-      .subscribe((text) => {
+      .subscribe((text: string) => {
         this.nameCtrl = new FormControl('', [
           Validators.required,
           Validators.pattern('.*[\\S]+.*'),
@@ -69,11 +69,11 @@ export class AddApplicationFormItemDialogComponent implements OnInit {
       });
   }
 
-  cancel() {
-    this.dialogRef.close(false);
+  cancel(): void {
+    this.dialogRef.close(undefined);
   }
 
-  submit() {
+  submit(): void {
     const item = this.createApplicationItem();
     this.dialogRef.close([this.data.applicationFormItems, item]);
   }
@@ -81,8 +81,8 @@ export class AddApplicationFormItemDialogComponent implements OnInit {
   createApplicationItem(): ApplicationFormItem {
     const newApplicationItem = createNewApplicationFormItem(this.languages);
     newApplicationItem.id = this.data.fakeId;
-    newApplicationItem.shortname = this.nameCtrl.value;
-    newApplicationItem.type = this.selectedWidget as Type;
+    newApplicationItem.shortname = this.nameCtrl.value as string;
+    newApplicationItem.type = this.selectedWidget;
     for (let i = 0; i < this.items.length; i++) {
       if (this.selectedItem === this.items[i]) {
         this.data.applicationFormItems.splice(i, 0, newApplicationItem);

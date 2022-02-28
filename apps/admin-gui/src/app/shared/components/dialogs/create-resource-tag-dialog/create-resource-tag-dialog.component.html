@@ -1,7 +1,7 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.CREATE_RESOURCE_TAG.TITLE' | translate}}</h1>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <div *ngIf="!loading" mat-dialog-content class="dialog-container">
+  <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
     <mat-form-field>
       <input
         matInput
@@ -12,10 +12,10 @@
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.CREATE_RESOURCE_TAG.CANCEL' | translate}}
     </button>
-    <button mat-flat-button class="ml-2" color="accent" [disabled]="loading" (click)="onSubmit()">
+    <button (click)="onSubmit()" [disabled]="loading" class="ml-2" color="accent" mat-flat-button>
       {{'DIALOGS.CREATE_RESOURCE_TAG.CREATE' | translate}}
     </button>
   </div>

@@ -1,14 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthzResolverService, PerunPrincipal } from '@perun-web-apps/perun/openapi';
-import { OtherApplicationsService, StoreService } from '@perun-web-apps/perun/services';
-import { AuthService } from '@perun-web-apps/perun/services';
+import {
+  AuthService,
+  NotificationStorageService,
+  NotificatorService,
+  OtherApplicationsService,
+  StoreService,
+} from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowNotificationHistoryDialogComponent } from '../components/dialogs/show-notification-history-dialog/show-notification-history-dialog.component';
-import { NotificationStorageService } from '@perun-web-apps/perun/services';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
-import { NotificatorService } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 
 @Component({
@@ -17,6 +20,19 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
   styleUrls: ['./perun-nav.component.scss'],
 })
 export class PerunNavComponent implements OnInit {
+  @Input()
+  sideNav: MatSidenav;
+  @Input()
+  principal: PerunPrincipal;
+
+  logoutEnabled = true;
+  navTextColor = this.store.get('theme', 'nav_text_color') as string;
+  iconColor = this.store.get('theme', 'nav_icon_color') as string;
+  profileLabel: string;
+  profileUrl: string;
+  logo: SafeHtml;
+  isDevel = false;
+
   constructor(
     private storeService: StoreService,
     private authService: AuthService,
@@ -30,30 +46,15 @@ export class PerunNavComponent implements OnInit {
     private otherApplicationService: OtherApplicationsService
   ) {}
 
-  logoutEnabled = true;
-  navTextColor = this.store.get('theme', 'nav_text_color');
-  iconColor = this.store.get('theme', 'nav_icon_color');
-
-  profileLabel: string;
-  profileUrl: string;
-
-  @Input()
-  sideNav: MatSidenav;
-
-  @Input()
-  principal: PerunPrincipal;
-  logo: any;
-  isDevel = false;
-
   ngOnInit(): void {
-    this.isDevel = this.storeService.get('is_devel');
-    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.store.get('logo'));
-    this.logoutEnabled = this.storeService.get('log_out_enabled');
-    this.profileLabel = this.storeService.get('profile_label_en');
+    this.isDevel = this.storeService.get('is_devel') as boolean;
+    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.store.get('logo') as string);
+    this.logoutEnabled = this.storeService.get('log_out_enabled') as boolean;
+    this.profileLabel = this.storeService.get('profile_label_en') as string;
     this.profileUrl = this.otherApplicationService.getUrlForOtherApplication('profile');
   }
 
-  showNotificationHistory() {
+  showNotificationHistory(): void {
     this.notificationStorageService.newNotificationsCount = 0;
 
     const config = getDefaultDialogConfig();

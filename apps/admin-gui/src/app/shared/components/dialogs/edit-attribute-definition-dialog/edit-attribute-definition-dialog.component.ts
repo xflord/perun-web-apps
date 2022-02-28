@@ -11,11 +11,10 @@ import {
   ServicesManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { slideInOutLeft, slideInOutRight, switchAnimation } from '@perun-web-apps/perun/animations';
-import { Role } from '@perun-web-apps/perun/models';
+import { AttributeForExportData, Role } from '@perun-web-apps/perun/models';
 import { TABLE_ENTITYLESS_ATTRIBUTE_KEYS } from '@perun-web-apps/config/table-config';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { AttributeForExportData } from '@perun-web-apps/perun/models';
 
 export interface EditAttributeDefinitionDialogData {
   attDef: AttributeDefinition;
@@ -28,6 +27,28 @@ export interface EditAttributeDefinitionDialogData {
   animations: [switchAnimation, slideInOutLeft, slideInOutRight],
 })
 export class EditAttributeDefinitionDialogComponent implements OnInit {
+  @ViewChild('copiedTooltip')
+  copiedToolTip: MatTooltip;
+
+  showKeys = false;
+  attDef: AttributeDefinition;
+  services: Service[];
+  readSelf = false;
+  readSelfPublic = false;
+  readSelfVo = false;
+  readVo = false;
+  readGroup = false;
+  readFacility = false;
+  writeSelf = false;
+  writeSelfPublic = false;
+  writeSelfVo = false;
+  writeVo = false;
+  writeGroup = false;
+  writeFacility = false;
+  tableId = TABLE_ENTITYLESS_ATTRIBUTE_KEYS;
+  loading = false;
+  private activatedComponent = 'Edit';
+
   constructor(
     private dialog: MatDialog,
     public dialogRef: MatDialogRef<EditAttributeDefinitionDialogComponent>,
@@ -39,33 +60,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     private serviceService: ServicesManagerService
   ) {}
 
-  @ViewChild('copiedTooltip')
-  copiedToolTip: MatTooltip;
-
-  showKeys = false;
-
-  activatedComponent = 'Edit';
-
-  attDef: AttributeDefinition;
-  services: Service[];
-
-  readSelf = false;
-  readSelfPublic = false;
-  readSelfVo = false;
-  readVo = false;
-  readGroup = false;
-  readFacility = false;
-
-  writeSelf = false;
-  writeSelfPublic = false;
-  writeSelfVo = false;
-  writeVo = false;
-  writeGroup = false;
-  writeFacility = false;
-  tableId = TABLE_ENTITYLESS_ATTRIBUTE_KEYS;
-  loading = false;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.dialogRef.addPanelClass('mat-dialog-height-transition');
     this.attDef = this.data.attDef;
@@ -96,7 +91,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     );
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     this.attributesManager
       .updateAttributeDefinition({ attributeDefinition: this.attDef })
@@ -109,7 +104,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
               () => {
                 this.translate
                   .get('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.SUCCESS')
-                  .subscribe((successMessage) => {
+                  .subscribe((successMessage: string) => {
                     this.notificator.showSuccess(successMessage);
                     this.dialogRef.close(true);
                   });
@@ -121,11 +116,39 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
       );
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  fromCheckboxesToRights(): AttributeRights[] {
+  switchShowKeys(): void {
+    this.showKeys = !this.showKeys;
+    if (this.showKeys) {
+      this.dialogRef.updateSize('800px');
+      this.activatedComponent = 'Entityless';
+    } else {
+      this.dialogRef.updateSize('700px');
+      this.activatedComponent = 'Edit';
+    }
+  }
+
+  onCopy(): void {
+    const data: AttributeForExportData = {
+      attributeDefinition: this.attDef,
+      attributeRights: this.fromCheckboxesToRights(),
+    };
+    const success = this.clipboard.copy(JSON.stringify(data));
+    if (success) {
+      this.notificator.showSuccess(
+        this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPIED') as string
+      );
+    } else {
+      this.notificator.showError(
+        this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPY_FAILED') as string
+      );
+    }
+  }
+
+  private fromCheckboxesToRights(): AttributeRights[] {
     const list: AttributeRights[] = [];
 
     const rightsSELF = {} as AttributeRights;
@@ -203,7 +226,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     return list;
   }
 
-  fromRightsToCheckboxes(rights: AttributeRights[]) {
+  private fromRightsToCheckboxes(rights: AttributeRights[]): void {
     for (const right of rights) {
       switch (right.role) {
         case Role.SELF: {
@@ -255,34 +278,6 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
           break;
         }
       }
-    }
-  }
-
-  switchShowKeys() {
-    this.showKeys = !this.showKeys;
-    if (this.showKeys) {
-      this.dialogRef.updateSize('800px');
-      this.activatedComponent = 'Entityless';
-    } else {
-      this.dialogRef.updateSize('700px');
-      this.activatedComponent = 'Edit';
-    }
-  }
-
-  onCopy() {
-    const data: AttributeForExportData = {
-      attributeDefinition: this.attDef,
-      attributeRights: this.fromCheckboxesToRights(),
-    };
-    const success = this.clipboard.copy(JSON.stringify(data));
-    if (success) {
-      this.notificator.showSuccess(
-        this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPIED')
-      );
-    } else {
-      this.notificator.showError(
-        this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPY_FAILED')
-      );
     }
   }
 }

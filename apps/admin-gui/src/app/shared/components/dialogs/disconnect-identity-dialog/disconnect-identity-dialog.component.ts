@@ -20,6 +20,16 @@ export interface RemoveUserServiceIdentityDialogData {
   styleUrls: ['./disconnect-identity-dialog.component.scss'],
 })
 export class DisconnectIdentityDialogComponent implements OnInit {
+  theme: string;
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<User>;
+  targetTitle: string;
+  targetDescription: string;
+  disconnectingLastOwner: boolean;
+  disconnectingSelf: boolean;
+  private userId: number;
+  private isService: boolean;
+
   constructor(
     private dialogRef: MatDialogRef<DisconnectIdentityDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: RemoveUserServiceIdentityDialogData,
@@ -28,16 +38,6 @@ export class DisconnectIdentityDialogComponent implements OnInit {
     private translate: TranslateService,
     private store: StoreService
   ) {}
-
-  theme: string;
-  userId: number;
-  isService: boolean;
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<User>;
-  targetTitle: string;
-  targetDescription: string;
-  disconnectingLastOwner: boolean;
-  disconnectingSelf: boolean;
 
   ngOnInit(): void {
     this.targetTitle = this.data.targetTitle;
@@ -60,7 +60,7 @@ export class DisconnectIdentityDialogComponent implements OnInit {
     });
   }
 
-  onConfirm() {
+  onConfirm(): void {
     let owner: number;
     let specificUser: number;
 
@@ -73,12 +73,14 @@ export class DisconnectIdentityDialogComponent implements OnInit {
     }
 
     this.userManager.removeSpecificUserOwner(owner, specificUser).subscribe(() => {
-      this.notificator.showSuccess(this.translate.instant('DIALOGS.DISCONNECT_IDENTITY.SUCCESS'));
+      this.notificator.showSuccess(
+        this.translate.instant('DIALOGS.DISCONNECT_IDENTITY.SUCCESS') as string
+      );
       this.dialogRef.close(true);
     });
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 }

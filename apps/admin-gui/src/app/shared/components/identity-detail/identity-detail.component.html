@@ -17,30 +17,30 @@
   </div>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
-    mat-flat-button
+    (click)="onSave()"
     class="mr-2"
     color="accent"
     [disabled]="selection.selected.length === 0"
-    (click)="onSave()">
+    mat-flat-button>
     {{ 'SHARED.IDENTITY_DETAIL.SAVE' | translate}}
   </button>
-  <button mat-flat-button color="accent" class="mr-2" (click)="onAdd()">
+  <button (click)="onAdd()" class="mr-2" color="accent" mat-flat-button>
     {{ 'SHARED.IDENTITY_DETAIL.ADD' | translate}}
   </button>
   <button
-    mat-flat-button
-    color="warn"
-    class="mr-2"
+    (click)="onRemove()"
     [disabled]="selection.selected.length === 0"
-    (click)="onRemove()">
+    class="mr-2"
+    color="warn"
+    mat-flat-button>
     {{ 'SHARED.IDENTITY_DETAIL.REMOVE' | translate}}
   </button>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <perun-web-apps-attributes-list
     #list
-    [tableId]="tableId"
+    [selection]="selection"
     *ngIf="!loading"
     [attributes]="attributes"
-    [selection]="selection">
+    [tableId]="tableId">
   </perun-web-apps-attributes-list>
 </div>

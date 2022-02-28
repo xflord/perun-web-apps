@@ -10,14 +10,14 @@
 	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
 	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
 ]>
-<svg version="1.1" id="Vrstva_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 128 128"
-	 style="enable-background:new 0 0 128 128;" xml:space="preserve">
+<svg id="Vrstva_1" style="enable-background:new 0 0 128 128;" version="1.1" viewBox="0 0 128 128" x="0px"
+	 xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:graph="&ns_graphs;" xmlns:i="&ns_ai;" xmlns:x="&ns_extend;"
+	 xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
 <style type="text/css">
 	.st0{fill:#ffffff;}
 </style>
 <switch>
-	<foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
+	<foreignObject height="1" requiredExtensions="&ns_ai;" width="1" x="0" y="0">
 		<i:pgfRef  xlink:href="#adobe_illustrator_pgf">
 		</i:pgfRef>
 	</foreignObject>
@@ -26,7 +26,7 @@
 			<path class="st0" d="M66.9,71.8c9.7-5.3,16.3-15.6,16.3-27.4c0-17.2-13.9-31.2-31.2-31.2c-17.2,0-31.2,13.9-31.2,31.2
 				c0,11.8,6.6,22.1,16.3,27.4C18.5,77.7,4.8,94.5,3,114.7h9.7C14.9,94.8,31.5,79.2,52,79.2c20.5,0,37.2,15.6,39.3,35.5h9.7
 				C99.3,94.5,85.5,77.7,66.9,71.8z M30,44.4c0-12.2,9.9-22,22-22s22,9.9,22,22c0,12.2-9.9,22-22,22S30,56.6,30,44.4z"/>
-			<polygon class="st0" points="124.3,61.6 110.2,61.6 110.2,47.5 100.6,47.5 100.6,61.6 86.5,61.6 86.5,71.3 100.6,71.3 
+			<polygon class="st0" points="124.3,61.6 110.2,61.6 110.2,47.5 100.6,47.5 100.6,61.6 86.5,61.6 86.5,71.3 100.6,71.3
 				100.6,85.4 110.2,85.4 110.2,71.3 124.3,71.3 			"/>
 		</g>
 	</g>

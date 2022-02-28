@@ -15,14 +15,6 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
   styleUrls: ['./user-settings-associated-users.component.scss'],
 })
 export class UserSettingsAssociatedUsersComponent implements OnInit {
-  constructor(
-    private dialog: MatDialog,
-    private router: Router,
-    public authResolver: GuiAuthResolver,
-    private userManager: UsersManagerService,
-    private entityStorageService: EntityStorageService
-  ) {}
-
   loading = false;
   selection = new SelectionModel<User>(false, []);
   associatedUsers: User[] = [];
@@ -32,6 +24,14 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
   addAuth: boolean;
   removeAuth: boolean;
   disableRouting: boolean;
+
+  constructor(
+    private dialog: MatDialog,
+    private router: Router,
+    public authResolver: GuiAuthResolver,
+    private userManager: UsersManagerService,
+    private entityStorageService: EntityStorageService
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -43,7 +43,7 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
     });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.userManager.getUsersBySpecificUser(this.user.id).subscribe((associatedUsers) => {
       this.associatedUsers = associatedUsers;
@@ -52,7 +52,7 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
     });
   }
 
-  setAuth() {
+  setAuth(): void {
     this.addAuth = this.authResolver.isAuthorized('addSpecificUserOwner_User_User_policy', [
       this.user,
     ]);
@@ -62,7 +62,7 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
     this.disableRouting = !this.authResolver.isPerunAdminOrObserver();
   }
 
-  onAdd() {
+  onAdd(): void {
     const config = getDefaultDialogConfig();
     config.width = '1250px';
     config.data = {
@@ -81,7 +81,7 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
     });
   }
 
-  onRemove() {
+  onRemove(): void {
     const config = getDefaultDialogConfig();
     config.width = '650px';
     config.data = {
@@ -99,7 +99,7 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (!this.authResolver.isAuthorized('getUsersBySpecificUser_User_policy', [this.user])) {
-          this.router.navigate(['/myProfile']);
+          void this.router.navigate(['/myProfile']);
         } else {
           this.refreshTable();
         }

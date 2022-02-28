@@ -5,12 +5,12 @@
     (filter)="applyFilter($event)"
     [placeholder]="'USER_DETAIL.FACILITIES.FILTER_PLACEHOLDER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <perun-web-apps-facilities-list
-    [tableId]="tableId"
+    [displayedColumns]="displayedColumns"
     *ngIf="!loading"
     [filterValue]="filterValue"
     [facilities]="facilities"
-    [displayedColumns]="displayedColumns">
+    [tableId]="tableId">
   </perun-web-apps-facilities-list>
 </div>

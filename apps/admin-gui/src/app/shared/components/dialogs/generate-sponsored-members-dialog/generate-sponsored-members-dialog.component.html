@@ -1,7 +1,7 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.TITLE' | translate}}</h1>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <div *ngIf="!loading" mat-dialog-content class="dialog-container">
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
     <mat-stepper #stepper *ngIf='state === "user-input"' [linear]="true">
       <mat-step [stepControl]="usersInfoFormGroup">
         <ng-template
@@ -12,12 +12,12 @@
           {{'DIALOGS.CREATE_SPONSORED_MEMBER.FUNCTIONALITY_NOT_SUPPORTED' | translate}}
         </perun-web-apps-alert>
         <h5 class="mt-2">{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.USERS_INFO' | translate}}</h5>
-        <form class="flex-container mt-2" [formGroup]="usersInfoFormGroup">
+        <form [formGroup]="usersInfoFormGroup" class="flex-container mt-2">
           <mat-form-field>
             <mat-select
               placeholder="{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NAMESPACE' | translate}}"
-              required
-              formControlName="namespace">
+              formControlName="namespace"
+              required>
               <mat-option *ngFor="let namespc of namespaceOptions" [value]="namespc">
                 {{namespc}}
               </mat-option>
@@ -33,14 +33,14 @@
           <mat-form-field class="pt-2">
             <mat-label>{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.INSERT_HERE'| translate}}</mat-label>
             <textarea
-              placeholder="{{this.getSelectedNamespaceRules().csvGenPlaceholder}}"
+              cols="50"
               class="md-textarea form-control"
               id="voGenerateSponsoredMembers"
               name="voGenerateSponsoredMembers"
-              rows="8"
-              cols="50"
+              formControlName="sponsoredMembers"
               matInput
-              formControlName="sponsoredMembers">
+              placeholder="{{this.getSelectedNamespaceRules().csvGenPlaceholder}}"
+              rows="8">
             </textarea>
             <mat-error *ngIf="usersInfoFormGroup.hasError('required', 'sponsoredMembers')">
               {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NAMES_ERROR' | translate}}
@@ -94,8 +94,8 @@
         <div class="mt-2">
           <h5 class="mb-4">{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.EXPIRATION' | translate}}</h5>
           <perun-web-apps-expiration-select
-            [expiration]="expiration"
-            (datePicker)="setExpiration($event)">
+            (datePicker)="setExpiration($event)"
+            [expiration]="expiration">
           </perun-web-apps-expiration-select>
         </div>
       </mat-step>
@@ -147,11 +147,11 @@
             {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.CREATE_NEW_GROUP' | translate}}
           </h5>
           <perun-web-apps-create-group-form
-            [voGroups]="allVoGroups"
+            (asSubgroupChanged)="asSubGroup = $event"
             (nameChanged)="name = $event"
             (descriptionChanged)="description = $event"
             (parentGroupChanged)="parentGroup = $event"
-            (asSubgroupChanged)="asSubGroup = $event">
+            [voGroups]="allVoGroups">
           </perun-web-apps-create-group-form>
         </div>
         <div *ngIf="groupAssignment === 'existing'">
@@ -165,10 +165,10 @@
           <perun-web-apps-groups-list
             [groups]="assignableGroups"
             [selection]="selection"
-            [displayedColumns]="['select', 'id', 'name', 'description']"
             [disableRouting]="true"
-            [tableId]="tableId"
-            [filter]="filterValue">
+            [displayedColumns]="['select', 'id', 'name', 'description']"
+            [filter]="filterValue"
+            [tableId]="tableId">
           </perun-web-apps-groups-list>
         </div>
       </mat-step>
@@ -214,22 +214,22 @@
       {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.SUBMIT' | translate}}
     </button>
   </div>
-  <div mat-dialog-actions *ngIf='state === "results"'>
-    <button mat-flat-button (click)="onClose()">
+  <div *ngIf='state === "results"' mat-dialog-actions>
+    <button (click)="onClose()" mat-flat-button>
       {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.CLOSE' | translate}}
     </button>
     <button
-      mat-flat-button
+      [matMenuTriggerFor]="menu"
       color="accent"
       class="ml-auto dropdown-toggle"
-      [matMenuTriggerFor]="menu">
+      mat-flat-button>
       {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DOWNLOAD' | translate}}
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="generatePdf()">
+      <button (click)="generatePdf()" mat-menu-item>
         {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DOWNLOAD_PDF' | translate}}
       </button>
-      <button mat-menu-item (click)="downloadCsv()">
+      <button (click)="downloadCsv()" mat-menu-item>
         {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DOWNLOAD_CSV' | translate}}
       </button>
     </mat-menu>

@@ -1,6 +1,6 @@
 <div class="{{theme}}">
   <h1 class="mat-dialog-title">{{'DIALOGS.EDIT_USER.DIALOG_TITLE' | translate}}</h1>
-  <div mat-dialog-content class="dialog-container">
+  <div class="dialog-container" mat-dialog-content>
     <mat-form-field>
       <input
         matInput
@@ -24,9 +24,9 @@
     <mat-form-field>
       <input
         matInput
-        required
+        placeholder="{{'DIALOGS.EDIT_USER.FIRST_NAME' | translate}}"
         [formControl]="firstName"
-        placeholder="{{'DIALOGS.EDIT_USER.FIRST_NAME' | translate}}" />
+        required />
       <mat-error
         *ngIf="firstName.invalid"
         >{{'DIALOGS.EDIT_USER.ERROR_FIRST_NAME' | translate}}</mat-error
@@ -45,9 +45,9 @@
     <mat-form-field>
       <input
         matInput
-        required
         [formControl]="lastName"
-        placeholder="{{'DIALOGS.EDIT_USER.LAST_NAME' | translate}}" />
+        placeholder="{{'DIALOGS.EDIT_USER.LAST_NAME' | translate}}"
+        required />
       <mat-error
         *ngIf="lastName.invalid"
         >{{'DIALOGS.EDIT_USER.ERROR_LAST_NAME'  | translate}}</mat-error
@@ -55,15 +55,15 @@
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.EDIT_USER.CANCEL' | translate}}
     </button>
     <button
-      mat-flat-button
+      (click)="onSave()"
       class="ml-2"
       color="accent"
       [disabled]="loading || firstName.invalid || lastName.invalid || titleBefore.invalid || titleAfter.invalid || middleName.invalid"
-      (click)="onSave()">
+      mat-flat-button>
       {{'DIALOGS.EDIT_USER.SAVE' | translate}}
     </button>
   </div>

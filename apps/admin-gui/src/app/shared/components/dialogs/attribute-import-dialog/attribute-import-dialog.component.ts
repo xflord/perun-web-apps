@@ -11,6 +11,10 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./attribute-import-dialog.component.scss'],
 })
 export class AttributeImportDialogComponent {
+  value = '';
+  loading = false;
+  private attributeData: AttributeForExportData;
+
   constructor(
     public dialogRef: MatDialogRef<AttributeImportDialogComponent>,
     private notificator: NotificatorService,
@@ -18,27 +22,23 @@ export class AttributeImportDialogComponent {
     private attributesManager: AttributesManagerService
   ) {}
 
-  value = '';
-  attributeData: AttributeForExportData;
-  loading = false;
-
-  create() {
+  create(): void {
     try {
       this.loading = true;
-      this.attributeData = JSON.parse(this.value);
+      this.attributeData = JSON.parse(this.value) as AttributeForExportData;
       this.attributesManager
         .createAttributeDefinition({ attribute: this.attributeData.attributeDefinition })
         .subscribe(
           (attrDef) => {
             // we have to update the attribute id of the attribute rights
-            for (let i = 0; i < this.attributeData.attributeRights.length; i++) {
-              this.attributeData.attributeRights[i].attributeId = attrDef.id;
+            for (const item of this.attributeData.attributeRights) {
+              item.attributeId = attrDef.id;
             }
             this.attributesManager
               .setAttributeRights({ rights: this.attributeData.attributeRights })
               .subscribe(() => {
                 this.notificator.showSuccess(
-                  this.translate.instant('DIALOGS.IMPORT_ATTRIBUTE_DEFINITION.SUCCESS')
+                  this.translate.instant('DIALOGS.IMPORT_ATTRIBUTE_DEFINITION.SUCCESS') as string
                 );
                 this.dialogRef.close(true);
               });
@@ -46,8 +46,7 @@ export class AttributeImportDialogComponent {
           () => (this.loading = false)
         );
     } catch (e) {
-      console.log(e);
-      this.notificator.showError(e);
+      this.notificator.showError(e as string);
       this.loading = false;
     }
   }

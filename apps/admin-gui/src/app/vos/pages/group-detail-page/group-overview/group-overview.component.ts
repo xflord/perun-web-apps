@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { MenuItem } from '@perun-web-apps/perun/models';
+import { MenuItem, RPCError } from '@perun-web-apps/perun/models';
 import { ActivatedRoute } from '@angular/router';
 import {
   AttributesManagerService,
@@ -24,6 +24,10 @@ import { addRecentlyVisited, addRecentlyVisitedObject } from '@perun-web-apps/pe
 export class GroupOverviewComponent implements OnInit {
   // used for router animation
   @HostBinding('class.router-component') true;
+  navItems: MenuItem[] = [];
+  group: Group;
+  parentGroup: Group = null;
+  loading = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,21 +40,16 @@ export class GroupOverviewComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  navItems: MenuItem[] = [];
-  group: Group;
-  parentGroup: Group = null;
-  loading = false;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.loadData();
   }
 
-  loadData() {
+  loadData(): void {
     this.loading = true;
     this.route.params.subscribe((params) => {
-      const voId = params['voId'];
-      const groupId = params['groupId'];
+      const voId = params['voId'] as number;
+      const groupId = params['groupId'] as number;
       this.voService.getVoById(voId).subscribe(
         (vo) => {
           this.groupService.getGroupById(groupId).subscribe(
@@ -81,7 +80,7 @@ export class GroupOverviewComponent implements OnInit {
     });
   }
 
-  private loadParentGroupData(id?: number) {
+  private loadParentGroupData(id?: number): void {
     if (id == null) return;
     this.groupService.getGroupById(id).subscribe(
       (parentGroup) => {
@@ -93,7 +92,7 @@ export class GroupOverviewComponent implements OnInit {
     );
   }
 
-  private initNavItems() {
+  private initNavItems(): void {
     this.navItems = [];
 
     if (
@@ -184,7 +183,7 @@ export class GroupOverviewComponent implements OnInit {
         () => {
           expirationAuth = true;
         },
-        (error) => {
+        (error: RPCError) => {
           if (error.name !== 'HttpErrorResponse') {
             this.notificator.showRPCError(error);
           }

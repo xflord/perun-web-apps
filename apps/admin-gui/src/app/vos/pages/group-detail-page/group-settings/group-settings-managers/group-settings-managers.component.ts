@@ -9,23 +9,18 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 })
 export class GroupSettingsManagersComponent implements OnInit {
   @HostBinding('class.router-component') true;
+  group: Group;
+  availableRoles: string[] = [];
+  selected = 'user';
+  type = 'Group';
+  theme = 'group-theme';
 
   constructor(
     private guiAuthResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService
   ) {}
 
-  group: Group;
-
-  availableRoles: string[] = [];
-
-  selected = 'user';
-
-  type = 'Group';
-
-  theme = 'group-theme';
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.group = this.entityStorageService.getEntity();
     this.guiAuthResolver.assignAvailableRoles(this.availableRoles, 'Group');
   }

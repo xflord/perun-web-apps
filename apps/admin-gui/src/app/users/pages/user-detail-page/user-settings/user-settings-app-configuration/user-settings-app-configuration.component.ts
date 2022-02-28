@@ -17,7 +17,7 @@ export class UserSettingsAppConfigurationComponent implements OnInit {
     this.preferredTablePageSize = this.guiConfigService.getNumber(PREF_PAGE_SIZE);
   }
 
-  updatePreferredTablePageSize() {
+  updatePreferredTablePageSize(): void {
     this.guiConfigService.setNumber(PREF_PAGE_SIZE, this.preferredTablePageSize);
   }
 }

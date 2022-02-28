@@ -1,21 +1,21 @@
 <perun-web-apps-refresh-button
-  class="mt-2"
-  (refresh)="refreshTable()"></perun-web-apps-refresh-button>
+  (refresh)="refreshTable()"
+  class="mt-2"></perun-web-apps-refresh-button>
 <button
-  mat-flat-button
+  (click)="onCreate()"
   class="mr-2 mt-2 action-button"
   color="accent"
   data-cy="add-attributes"
-  (click)="onCreate()">
+  mat-flat-button>
   {{'USER_DETAIL.SETTINGS.ATTRIBUTES.CREATE' | translate}}
 </button>
 
 <button
-  mat-flat-button
+  (click)="onSave()"
   class="mr-2 mt-2"
   color="accent"
-  (click)="onSave()"
-  [disabled]="selection.selected.length === 0">
+  [disabled]="selection.selected.length === 0"
+  mat-flat-button>
   {{'USER_DETAIL.SETTINGS.ATTRIBUTES.SAVE' | translate}}
 </button>
 
@@ -24,21 +24,21 @@
   [disabled]="selection.selected.length === 0"
   class="mt-2 mr-2"
   color="warn"
-  mat-flat-button
-  data-cy="remove-attributes">
+  data-cy="remove-attributes"
+  mat-flat-button>
   {{'USER_DETAIL.SETTINGS.ATTRIBUTES.DELETE' | translate}}
 </button>
 <perun-web-apps-immediate-filter
   (filter)="applyFilter($event)"
   [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.FILTER'"></perun-web-apps-immediate-filter>
 
-<mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 
 <perun-web-apps-attributes-list
-  [tableId]="tableId"
+  [attributes]="attributes"
   #list
   *ngIf="!loading"
   [filterValue]="filterValue"
-  [attributes]="attributes"
-  [selection]="selection">
+  [selection]="selection"
+  [tableId]="tableId">
 </perun-web-apps-attributes-list>

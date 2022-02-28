@@ -6,7 +6,7 @@
   <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
     <mat-form-field *ngIf="emailControl !== null">
       <label>
-        <input matInput required [formControl]="emailControl" />
+        <input [formControl]="emailControl" matInput required />
       </label>
       <mat-error
         *ngIf="emailControl.invalid"
@@ -15,7 +15,7 @@
     </mat-form-field>
 
     <mat-form-field *ngIf="inputControl !== null">
-      <input type="text" matInput required [formControl]="inputControl" />
+      <input [formControl]="inputControl" matInput required type="text" />
       <mat-error
         *ngIf="inputControl.invalid"
         >{{'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.EMPTY_INPUT' | translate}}</mat-error

@@ -1,7 +1,7 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.ADD_MEMBERS.TITLE' | translate}}</h1>
 
-  <div mat-dialog-content *ngIf="!processing">
+  <div *ngIf="!processing" mat-dialog-content>
     <mat-form-field class="mr-2 search-field adjust-width">
       <input
         matInput
@@ -16,40 +16,40 @@
     </mat-form-field>
 
     <button
-      mat-flat-button
+      (click)="onSearchByString()"
       class="ml-auto"
       color="accent"
       data-cy="search-button"
       [disabled]="loading"
-      (click)="onSearchByString()">
+      mat-flat-button>
       {{'DIALOGS.ADD_MEMBERS.SEARCH' | translate}}
     </button>
 
     <div class="no-bounce-scrollbar">
       <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
     </div>
-    <div class="mt-3" *ngIf="!!members && !loading">
+    <div *ngIf="!!members && !loading" class="mt-3">
       <app-members-candidates-list
         #list
         [group]="data.group"
         [tableId]="tableId"
-        [selection]="selection"
-        [members]="members"
-        [type]="data.type"
+        *ngIf="firstSearchDone"
         [blockManualAdding]="manualAddingBlocked"
-        *ngIf="firstSearchDone">
+        [members]="members"
+        [selection]="selection"
+        [type]="data.type">
       </app-members-candidates-list>
     </div>
   </div>
-  <mat-spinner class="mr-auto ml-auto" *ngIf="processing"></mat-spinner>
-  <div mat-dialog-actions *ngIf="!processing">
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+  <mat-spinner *ngIf="processing" class="mr-auto ml-auto"></mat-spinner>
+  <div *ngIf="!processing" mat-dialog-actions>
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.ADD_MEMBERS.CANCEL' | translate}}
     </button>
     <span
       matTooltip="{{'DIALOGS.ADD_MEMBERS.ADD_MEMBER_PERMISSION_TOOLTIP' | translate}}"
-      matTooltipPosition="above"
-      [matTooltipDisabled]="selection.selected.length === 0 || this.data.type !== 'group' || (list !== undefined && list.addAuth)">
+      [matTooltipDisabled]="selection.selected.length === 0 || this.data.type !== 'group' || (list !== undefined && list.addAuth)"
+      matTooltipPosition="above">
       <button
         *ngIf="this.data.type !== 'group' || (this.data.type === 'group' && inviteAuth)"
         [disabled]="selection.selected.length === 0 || loading"
@@ -68,12 +68,12 @@
       </mat-menu>
     </span>
     <button
-      mat-flat-button
+      (click)="onAdd()"
       class="ml-2"
       color="accent"
       data-cy="add-button"
-      (click)="onAdd()"
-      [disabled]="selection.selected.length === 0 || loading || (this.data.type === 'group' && list !== undefined && !list.addAuth)">
+      [disabled]="selection.selected.length === 0 || loading || (this.data.type === 'group' && list !== undefined && !list.addAuth)"
+      mat-flat-button>
       {{'DIALOGS.ADD_MEMBERS.CREATE' | translate}}
     </button>
   </div>

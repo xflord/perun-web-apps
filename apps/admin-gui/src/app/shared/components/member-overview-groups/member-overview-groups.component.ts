@@ -24,19 +24,10 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./member-overview-groups.component.css'],
 })
 export class MemberOverviewGroupsComponent implements OnChanges {
-  constructor(
-    private groupsManager: GroupsManagerService,
-    public authResolver: GuiAuthResolver,
-    private translate: TranslateService,
-    private dialog: MatDialog
-  ) {}
-
   @Input()
   vo: Vo;
-
   @Input()
   member: RichMember;
-
   loading: boolean;
   initLoading: boolean;
   groups: Group[];
@@ -45,11 +36,17 @@ export class MemberOverviewGroupsComponent implements OnChanges {
   selectedGroup: Group;
   selectedMember: RichMember;
   noGroups = false;
-
   groupMembershipDataSource = new MatTableDataSource<string>();
   expiration = '';
   expirationAtt: Attribute;
   displayedColumns = ['attName', 'attValue'];
+
+  constructor(
+    private groupsManager: GroupsManagerService,
+    public authResolver: GuiAuthResolver,
+    private translate: TranslateService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnChanges(): void {
     this.loading = true;
@@ -78,7 +75,7 @@ export class MemberOverviewGroupsComponent implements OnChanges {
     return this.groups[0];
   }
 
-  groupIsSelected(event: RichGroup) {
+  groupIsSelected(event: RichGroup): void {
     this.loading = true;
     this.selectedGroup = event;
     this.groupsManager
@@ -95,8 +92,8 @@ export class MemberOverviewGroupsComponent implements OnChanges {
         if (this.expirationAtt) {
           this.groupMembershipDataSource = new MatTableDataSource<string>(['Status', 'Expiration']);
           this.expiration = !this.expirationAtt.value
-            ? this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES')
-            : this.expirationAtt.value;
+            ? (this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES') as string)
+            : (this.expirationAtt.value as unknown as string);
         } else {
           this.groupMembershipDataSource = new MatTableDataSource<string>(['Status']);
         }
@@ -104,7 +101,7 @@ export class MemberOverviewGroupsComponent implements OnChanges {
       });
   }
 
-  changeExpiration(statusChanged = false) {
+  changeExpiration(statusChanged = false): void {
     const config = getDefaultDialogConfig();
     config.width = '400px';
     config.data = {
@@ -123,13 +120,13 @@ export class MemberOverviewGroupsComponent implements OnChanges {
     });
   }
 
-  changeStatus() {
+  changeStatus(): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = { member: this.selectedMember, voId: this.vo.id, groupId: this.selectedGroup.id };
 
     const dialogRef = this.dialog.open(ChangeMemberStatusDialogComponent, config);
-    dialogRef.afterClosed().subscribe((member) => {
+    dialogRef.afterClosed().subscribe((member: RichMember) => {
       if (member) {
         this.selectedMember = member;
         this.changeExpiration(true);

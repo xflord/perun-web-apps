@@ -16,6 +16,12 @@ export interface CreateVoDialogData {
   styleUrls: ['./create-vo-dialog.component.scss'],
 })
 export class CreateVoDialogComponent implements OnInit {
+  loading: boolean;
+  theme: string;
+  shortNameCtrl: FormControl;
+  fullNameCtrl: FormControl;
+  private successMessage: string;
+
   constructor(
     private dialogRef: MatDialogRef<CreateVoDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: CreateVoDialogData,
@@ -24,17 +30,12 @@ export class CreateVoDialogComponent implements OnInit {
     private translate: TranslateService,
     private router: Router
   ) {
-    translate.get('DIALOGS.CREATE_VO.SUCCESS').subscribe((value) => (this.successMessage = value));
+    translate
+      .get('DIALOGS.CREATE_VO.SUCCESS')
+      .subscribe((value: string) => (this.successMessage = value));
   }
 
-  successMessage: string;
-  loading: boolean;
-  theme: string;
-
-  shortNameCtrl: FormControl;
-  fullNameCtrl: FormControl;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
     this.shortNameCtrl = new FormControl(null, [
       Validators.required,
@@ -48,20 +49,22 @@ export class CreateVoDialogComponent implements OnInit {
     ]);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
-    this.voService.createVoWithName(this.fullNameCtrl.value, this.shortNameCtrl.value).subscribe(
-      (vo) => {
-        this.notificator.showSuccess(this.successMessage);
-        this.loading = false;
-        this.router.navigate(['/organizations', vo.id]);
-        this.dialogRef.close(true);
-      },
-      () => (this.loading = false)
-    );
+    this.voService
+      .createVoWithName(this.fullNameCtrl.value as string, this.shortNameCtrl.value as string)
+      .subscribe(
+        (vo) => {
+          this.notificator.showSuccess(this.successMessage);
+          this.loading = false;
+          void this.router.navigate(['/organizations', vo.id]);
+          this.dialogRef.close(true);
+        },
+        () => (this.loading = false)
+      );
   }
 }

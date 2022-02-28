@@ -29,8 +29,8 @@
             <mat-form-field class="input-style">
               <mat-select
                 disableOptionCentering="true"
-                required
-                placeholder="{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.SELECTED' | translate}}">
+                placeholder="{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.SELECTED' | translate}}"
+                required>
                 <mat-option
                   (click)="setResource(resource);
                            stepper.selected.completed = true"

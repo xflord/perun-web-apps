@@ -1,15 +1,15 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{"DIALOGS.CREATE_VO.TITLE" | translate}}</h1>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div *ngIf="!loading">
-    <div mat-dialog-content class="dialog-container">
+    <div class="dialog-container" mat-dialog-content>
       <mat-form-field>
         <input
           matInput
-          required
+          [formControl]="fullNameCtrl"
           placeholder="{{'DIALOGS.CREATE_VO.FULL_NAME' | translate}}"
           data-cy="vo-name-input"
-          [formControl]="fullNameCtrl" />
+          required />
         <mat-error>
           {{'DIALOGS.CREATE_VO.FILL_FULL_NAME' | translate}}
         </mat-error>
@@ -17,30 +17,30 @@
       <mat-form-field>
         <input
           matInput
-          required
+          [formControl]="shortNameCtrl"
           placeholder="{{'DIALOGS.CREATE_VO.SHORT_NAME' | translate}}"
           data-cy="vo-shortname-input"
-          [formControl]="shortNameCtrl" />
+          required />
         <mat-error>
           {{'DIALOGS.CREATE_VO.FILL_SHORT_NAME' | translate}}
         </mat-error>
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button mat-flat-button class="ml-auto" (click)="onCancel()">
+      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
         {{'DIALOGS.CREATE_VO.CANCEL' | translate}}
       </button>
       <div
         matTooltip="{{'DIALOGS.CREATE_VO.TOOLTIP' | translate}}"
-        matTooltipPosition="above"
-        [matTooltipDisabled]="shortNameCtrl.valid && fullNameCtrl.valid">
+        [matTooltipDisabled]="shortNameCtrl.valid && fullNameCtrl.valid"
+        matTooltipPosition="above">
         <button
-          mat-flat-button
+          (click)="onSubmit()"
           class="ml-2"
           color="accent"
           data-cy="create-vo-button"
           [disabled]="shortNameCtrl.invalid || fullNameCtrl.invalid"
-          (click)="onSubmit()">
+          mat-flat-button>
           {{'DIALOGS.CREATE_VO.CREATE' | translate}}
         </button>
       </div>

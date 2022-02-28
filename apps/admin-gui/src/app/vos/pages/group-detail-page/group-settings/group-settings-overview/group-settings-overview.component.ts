@@ -1,7 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { SideMenuService } from '../../../../../core/services/common/side-menu.service';
 import { Router } from '@angular/router';
-import { MenuItem } from '@perun-web-apps/perun/models';
+import { MenuItem, RPCError } from '@perun-web-apps/perun/models';
 import {
   AttributesManagerService,
   Group,
@@ -22,6 +22,9 @@ import { Urns } from '@perun-web-apps/perun/urns';
 })
 export class GroupSettingsOverviewComponent implements OnInit {
   @HostBinding('class.router-component') true;
+  items: MenuItem[] = [];
+  group: Group;
+  loading = false;
 
   constructor(
     private sideMenuService: SideMenuService,
@@ -34,18 +37,14 @@ export class GroupSettingsOverviewComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  items: MenuItem[] = [];
-  group: Group;
-  loading = false;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.group = this.entityStorageService.getEntity();
     this.initItems();
     this.loading = false;
   }
 
-  private initItems() {
+  private initItems(): void {
     this.items = [];
 
     //not implemented in authorization....probably must be hardcoded
@@ -61,7 +60,7 @@ export class GroupSettingsOverviewComponent implements OnInit {
             style: 'group-btn',
           });
         },
-        (error) => {
+        (error: RPCError) => {
           if (error.name !== 'HttpErrorResponse') {
             this.notificator.showRPCError(error);
           }

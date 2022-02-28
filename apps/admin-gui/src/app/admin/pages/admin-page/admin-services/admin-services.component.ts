@@ -14,17 +14,17 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
   styleUrls: ['./admin-services.component.scss'],
 })
 export class AdminServicesComponent implements OnInit {
-  constructor(
-    private serviceManager: ServicesManagerService,
-    private dialog: MatDialog,
-    public authResolver: GuiAuthResolver
-  ) {}
-
   services: Service[];
   selection = new SelectionModel<Service>(true, []);
   loading = false;
   filterValue = '';
   tableId = TABLE_ADMIN_SERVICES;
+
+  constructor(
+    private serviceManager: ServicesManagerService,
+    private dialog: MatDialog,
+    public authResolver: GuiAuthResolver
+  ) {}
 
   ngOnInit(): void {
     this.serviceManager.getServices().subscribe((services) => {
@@ -33,7 +33,7 @@ export class AdminServicesComponent implements OnInit {
     });
   }
 
-  createService() {
+  createService(): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {
@@ -49,7 +49,7 @@ export class AdminServicesComponent implements OnInit {
     });
   }
 
-  deleteService() {
+  deleteService(): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {
@@ -66,7 +66,7 @@ export class AdminServicesComponent implements OnInit {
     });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.serviceManager.getServices().subscribe((services) => {
       this.services = services;
@@ -75,7 +75,7 @@ export class AdminServicesComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

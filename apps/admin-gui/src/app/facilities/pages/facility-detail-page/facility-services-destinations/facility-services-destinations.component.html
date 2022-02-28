@@ -6,50 +6,50 @@
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
     *ngIf="addAuth"
-    mat-flat-button
+    (click)="addDestination()"
     color="accent"
     class="mr-2 action-button"
-    (click)="addDestination()">
+    mat-flat-button>
     {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.ADD' | translate}}
   </button>
   <button
     *ngIf="removeAuth"
-    mat-flat-button
-    color="warn"
+    (click)="removeDestination()"
     class="mr-2"
+    color="warn"
     [disabled]="selected.selected.length === 0"
-    (click)="removeDestination()">
+    mat-flat-button>
     {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.REMOVE' | translate}}
   </button>
   <button
     *ngIf="allowAuth"
-    mat-stroked-button
+    (click)="onAllow()"
     class="mr-2"
     [disabled]="selected.selected.length === 0 || allSelectedAllowed()"
-    (click)="onAllow()">
+    mat-stroked-button>
     <mat-icon> check_circle_outline </mat-icon>
     {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.ALLOW' | translate}}
   </button>
   <button
     *ngIf="blockAuth"
-    mat-stroked-button
+    (click)="onBlock()"
     class="mr-2"
     [disabled]="selected.selected.length === 0 || allSelectedBlocked()"
-    (click)="onBlock()">
+    mat-stroked-button>
     <mat-icon> block </mat-icon>
     {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.BLOCK' | translate}}
   </button>
   <perun-web-apps-immediate-filter
-    [placeholder]="'FACILITY_DETAIL.SERVICES_DESTINATIONS.FILTER'"
-    (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+    (filter)="applyFilter($event)"
+    [placeholder]="'FACILITY_DETAIL.SERVICES_DESTINATIONS.FILTER'"></perun-web-apps-immediate-filter>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <app-perun-web-apps-destination-list
-    [tableId]="tableId"
-    *ngIf="!loading"
     [filterValue]="filterValue"
-    [destinations]="destinations"
+    *ngIf="!loading"
     [selection]="selected"
+    [destinations]="destinations"
+    [services]="configServicesIds"
     [displayedColumns]="displayedColumns"
-    [services]="configServicesIds">
+    [tableId]="tableId">
   </app-perun-web-apps-destination-list>
 </div>

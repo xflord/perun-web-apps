@@ -7,9 +7,9 @@
   <mat-card-content class="column-center">
     <perun-web-apps-group-search-select
       *ngIf="!initLoading"
-      [groups]="groups"
       (groupSelected)="groupIsSelected($event)"
-      [firstSelectedGroup]="selectedGroup">
+      [firstSelectedGroup]="selectedGroup"
+      [groups]="groups">
     </perun-web-apps-group-search-select>
     <mat-spinner
       *ngIf="(loading || initLoading) && !noGroups"
@@ -20,7 +20,7 @@
       >{{'MEMBER_DETAIL.OVERVIEW.NO_GROUPS_FOUND' | translate}}</perun-web-apps-alert
     >
     <div *ngIf="!loading">
-      <table mat-table [dataSource]="groupMembershipDataSource" class="ml-auto mr-auto">
+      <table [dataSource]="groupMembershipDataSource" class="ml-auto mr-auto" mat-table>
         <ng-container matColumnDef="attName">
           <th *matHeaderCellDef mat-header-cell></th>
           <td *matCellDef="let attribute" class="font-weight-bold" mat-cell>{{attribute}}:</td>

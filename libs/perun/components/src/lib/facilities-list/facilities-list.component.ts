@@ -49,11 +49,11 @@ export class FacilitiesListComponent implements OnChanges {
     this.sort = ms;
   }
 
-  static getDataForColumn(
-    data: EnrichedFacility,
-    column: string,
-    otherThis: FacilitiesListComponent
-  ): string {
+  getDataForColumnFun = (data: EnrichedFacility, column: string): string => {
+    return FacilitiesListComponent.getDataForColumn(data, column, this.recentIds);
+  };
+
+  static getDataForColumn(data: EnrichedFacility, column: string, recentIds: number[]): string {
     switch (column) {
       case 'id':
         return data.facility.id.toString();
@@ -64,9 +64,9 @@ export class FacilitiesListComponent implements OnChanges {
       case 'technicalOwners':
         return parseTechnicalOwnersNames(data.owners);
       case 'recent':
-        if (otherThis.recentIds) {
-          if (otherThis.recentIds.includes(data.facility.id)) {
-            return '#'.repeat(otherThis.recentIds.indexOf(data.facility.id));
+        if (recentIds) {
+          if (recentIds.includes(data.facility.id)) {
+            return '#'.repeat(recentIds.indexOf(data.facility.id));
           }
         }
         return data['name'] as string;
@@ -91,8 +91,7 @@ export class FacilitiesListComponent implements OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        FacilitiesListComponent.getDataForColumn,
-        this
+        this.getDataForColumnFun
       ),
       format
     );
@@ -108,11 +107,10 @@ export class FacilitiesListComponent implements OnChanges {
           data,
           filter,
           this.displayedColumns,
-          FacilitiesListComponent.getDataForColumn,
-          this
+          this.getDataForColumnFun
         );
       this.dataSource.sortData = (data: EnrichedFacility[], sort: MatSort): EnrichedFacility[] =>
-        customDataSourceSort(data, sort, FacilitiesListComponent.getDataForColumn, this);
+        customDataSourceSort(data, sort, this.getDataForColumnFun);
     }
     this.dataSource.filter = this.filterValue;
     this.dataSource.data = this.facilities;

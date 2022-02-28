@@ -4,7 +4,7 @@
   <mat-expansion-panel (opened)="getSelfData()" *ngIf="isSelf">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon mat-card-avatar svgIcon="perun-user-dark" class="mr-2"></mat-icon>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-user-dark"></mat-icon>
         <p class="mt-auto mb-auto">{{'ROLES.SELF' | translate}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -20,7 +20,7 @@
       <perun-web-apps-vos-list [displayedColumns]="['id', 'name', 'shortName']" [vos]="vos">
       </perun-web-apps-vos-list>
 
-      <div class="mt-5" *ngIf="users.length">
+      <div *ngIf="users.length" class="mt-5">
         <div *ngIf="!showDescription">
           {{'ROLES.SELF_IDENTITIES_ADMIN' | translate}}
         </div>
@@ -29,9 +29,9 @@
         </div>
 
         <app-users-list
-          [users]="users"
+          [displayedColumns]="['user', 'id', 'name']"
           [disableRouting]="true"
-          [displayedColumns]="['user', 'id', 'name']">
+          [users]="users">
         </app-users-list>
       </div>
     </div>
@@ -40,7 +40,7 @@
   <mat-expansion-panel (opened)="getAdminGroupsAndVos()" *ngIf="isGroupAdmin">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon mat-card-avatar svgIcon="perun-group-black" class="mr-2"></mat-icon>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-group-black"></mat-icon>
         <p class="mt-auto mb-auto">{{'ROLES.GROUPADMIN' | translate}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -51,15 +51,15 @@
       </div>
 
       <perun-web-apps-groups-list
-        [groups]="groups"
-        [displayedColumns]="['id', 'vo', 'name', 'description']"></perun-web-apps-groups-list>
+        [displayedColumns]="['id', 'vo', 'name', 'description']"
+        [groups]="groups"></perun-web-apps-groups-list>
     </div>
   </mat-expansion-panel>
 
   <mat-expansion-panel (opened)="getGroupsAndVos('GROUPOBSERVER')" *ngIf="isGroupObserver">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon mat-card-avatar svgIcon="perun-group-black" class="mr-2"></mat-icon>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-group-black"></mat-icon>
         <p class="mt-auto mb-auto">{{'ROLES.GROUPOBSERVER' | translate}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -70,15 +70,15 @@
       </div>
 
       <perun-web-apps-groups-list
-        [groups]="groups"
-        [displayedColumns]="['id', 'recent', 'vo', 'name', 'description']"></perun-web-apps-groups-list>
+        [displayedColumns]="['id', 'recent', 'vo', 'name', 'description']"
+        [groups]="groups"></perun-web-apps-groups-list>
     </div>
   </mat-expansion-panel>
 
   <mat-expansion-panel (opened)="getAdminVos()" *ngIf="isVoAdmin">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon mat-card-avatar svgIcon="perun-vo-black" class="mr-2"></mat-icon>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-vo-black"></mat-icon>
         <p class="mt-auto mb-auto">{{'ROLES.VOADMIN' | translate}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -96,7 +96,7 @@
   <mat-expansion-panel (opened)="getVos(roles.get('VOOBSERVER').get('Vo'))" *ngIf="isVoObserver">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon mat-card-avatar svgIcon="perun-vo-black" class="mr-2"></mat-icon>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-vo-black"></mat-icon>
         <p class="mt-auto mb-auto">{{'ROLES.VOOBSERVER' | translate}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -116,7 +116,7 @@
     *ngIf="isTrustedFacilityAdmin">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon mat-card-avatar svgIcon="perun-vo-black" class="mr-2"></mat-icon>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-vo-black"></mat-icon>
         <p class="mt-auto mb-auto">{{'ROLES.TRUSTEDFACILITYADMIN' | translate}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -138,7 +138,7 @@
     *ngIf="isTopGroupCreator">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon mat-card-avatar svgIcon="perun-vo-black" class="mr-2"></mat-icon>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-vo-black"></mat-icon>
         <p class="mt-auto mb-auto">{{'ROLES.TOPGROUPCREATOR' | translate}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -156,7 +156,7 @@
   <mat-expansion-panel (opened)="getResourcesData('RESOURCEADMIN')" *ngIf="isResourceAdmin">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon mat-card-avatar svgIcon="perun-resource-black" class="mr-2"></mat-icon>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-resource-black"></mat-icon>
         <p class="mt-auto mb-auto">{{'ROLES.RESOURCEADMIN' | translate}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -168,8 +168,8 @@
 
       <perun-web-apps-resources-list
         [resources]="resources"
-        [routingVo]="true"
-        [displayedColumns]="['id', 'name', 'vo', 'facility', 'description']">
+        [displayedColumns]="['id', 'name', 'vo', 'facility', 'description']"
+        [routingVo]="true">
       </perun-web-apps-resources-list>
     </div>
   </mat-expansion-panel>
@@ -177,7 +177,7 @@
   <mat-expansion-panel (opened)="getResourcesData('RESOURCEOBSERVER')" *ngIf="isResourceObserver">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon mat-card-avatar svgIcon="perun-resource-black" class="mr-2"></mat-icon>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-resource-black"></mat-icon>
         <p class="mt-auto mb-auto">{{'ROLES.RESOURCEOBSERVER' | translate}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -189,8 +189,8 @@
 
       <perun-web-apps-resources-list
         [resources]="resources"
-        [routingVo]="true"
-        [displayedColumns]="['id', 'name', 'vo', 'facility', 'description']">
+        [displayedColumns]="['id', 'name', 'vo', 'facility', 'description']"
+        [routingVo]="true">
       </perun-web-apps-resources-list>
     </div>
   </mat-expansion-panel>
@@ -200,7 +200,7 @@
     *ngIf="isResourceSelfService">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon mat-card-avatar svgIcon="perun-resource-black" class="mr-2"></mat-icon>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-resource-black"></mat-icon>
         <p class="mt-auto mb-auto">{{'ROLES.RESOURCESELFSERVICE' | translate}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -212,8 +212,8 @@
 
       <perun-web-apps-resources-list
         [resources]="resources"
-        [routingVo]="true"
-        [displayedColumns]="['id', 'name', 'vo', 'facility', 'description']">
+        [displayedColumns]="['id', 'name', 'vo', 'facility', 'description']"
+        [routingVo]="true">
       </perun-web-apps-resources-list>
     </div>
   </mat-expansion-panel>
@@ -221,7 +221,7 @@
   <mat-expansion-panel (opened)="getAdminFacilities()" *ngIf="isFacilityAdmin">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon mat-card-avatar svgIcon="perun-facility-black" class="mr-2"></mat-icon>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-facility-black"></mat-icon>
         <p class="mt-auto mb-auto">{{'ROLES.FACILITYADMIN' | translate}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -241,7 +241,7 @@
   <mat-expansion-panel (opened)="getFacilities('FACILITYOBSERVER')" *ngIf="isFacilityObserver">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon mat-card-avatar svgIcon="perun-facility-black" class="mr-2"></mat-icon>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-facility-black"></mat-icon>
         <p class="mt-auto mb-auto">{{'ROLES.FACILITYOBSERVER' | translate}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -261,7 +261,7 @@
   <mat-expansion-panel (opened)="getMembers()" *ngIf="hasSponsorship">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon mat-card-avatar svgIcon="perun-user-dark" class="mr-2"></mat-icon>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-user-dark"></mat-icon>
         <p class="mt-auto mb-auto">{{'ROLES.SPONSORSHIP' | translate}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -272,15 +272,15 @@
       </div>
 
       <perun-web-apps-members-list
-        [members]="members"
-        [displayedColumns]="['id', 'fullName', 'sponsored']"></perun-web-apps-members-list>
+        [displayedColumns]="['id', 'fullName', 'sponsored']"
+        [members]="members"></perun-web-apps-members-list>
     </div>
   </mat-expansion-panel>
 
   <mat-expansion-panel (opened)="getVos(roles.get('SPONSOR').get('Vo'))" *ngIf="isSponsor">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon mat-card-avatar svgIcon="perun-user-dark" class="mr-2"></mat-icon>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-user-dark"></mat-icon>
         <p class="mt-auto mb-auto">{{'ROLES.SPONSOR' | translate}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -298,7 +298,7 @@
   <mat-expansion-panel *ngIf="isPerunAdmin">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon mat-card-avatar svgIcon="perun-user-dark" class="mr-2"></mat-icon>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-user-dark"></mat-icon>
         <p class="mt-auto mb-auto">{{'ROLES.PERUN_ADMIN' | translate}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -307,16 +307,16 @@
   <mat-expansion-panel *ngIf="isPerunObserver">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon mat-card-avatar svgIcon="perun-user-dark" class="mr-2"></mat-icon>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-user-dark"></mat-icon>
         <p class="mt-auto mb-auto">{{'ROLES.PERUN_OBSERVER' | translate}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
   </mat-expansion-panel>
 
-  <mat-expansion-panel *ngFor="let role of roleNames" (opened)="getInnerKeys(role)">
+  <mat-expansion-panel (opened)="getInnerKeys(role)" *ngFor="let role of roleNames">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon mat-card-avatar svgIcon="perun-user-dark" class="mr-2"></mat-icon>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-user-dark"></mat-icon>
         <p class="mt-auto mb-auto">{{role}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>

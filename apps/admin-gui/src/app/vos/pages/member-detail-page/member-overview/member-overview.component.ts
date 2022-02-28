@@ -25,6 +25,19 @@ import { EditMemberSponsorsDialogComponent } from '../../../../shared/components
 export class MemberOverviewComponent implements OnInit {
   // used for router animation
   @HostBinding('class.router-component') true;
+  expiration = '';
+  logins: Attribute[] = [];
+  member: RichMember = null;
+  navItems: MenuItem[] = [];
+  attributeNames: Array<string> = [];
+  attributes: Map<string, string[]> = new Map<string, string[]>();
+  dataSource = new MatTableDataSource<string>();
+  displayedColumns = ['attName', 'attValue'];
+  sponsors: Sponsor[] = [];
+  sponsorsDataSource = new MatTableDataSource<Sponsor>();
+  vo: Vo;
+  loading = false;
+  pwdResetAuth: boolean;
 
   constructor(
     private attributesManager: AttributesManagerService,
@@ -36,32 +49,18 @@ export class MemberOverviewComponent implements OnInit {
     private storeService: StoreService
   ) {}
 
-  expiration = '';
-  logins: Attribute[] = [];
-  member: RichMember = null;
-  navItems: MenuItem[] = [];
-
-  attributeNames: Array<string> = [];
-  attributes: Map<string, string[]> = new Map<string, string[]>();
-  dataSource = new MatTableDataSource<string>();
-  displayedColumns = ['attName', 'attValue'];
-  sponsors: Sponsor[] = [];
-  sponsorsDataSource = new MatTableDataSource<Sponsor>();
-
-  vo: Vo;
-  loading = false;
-  pwdResetAuth: boolean;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.route.parent.params.subscribe((parentParams) => {
-      const memberId = parentParams['memberId'];
+      const memberId = parentParams['memberId'] as number;
       this.attributeNames = this.storeService.getMemberProfileAttributeNames();
 
       this.membersService.getRichMemberWithAttributes(memberId).subscribe((member) => {
-        const attUrns = this.storeService.get('password_namespace_attributes').map((urn) => {
-          urn = urn.split(':');
-          return urn[urn.length - 1];
+        const attUrns: string[] = (
+          this.storeService.get('password_namespace_attributes') as string[]
+        ).map((urn: string) => {
+          const urns: string[] = urn.split(':');
+          return urns[urns.length - 1];
         });
         this.attributesManager.getLogins(member.userId).subscribe(
           (logins) => {
@@ -103,18 +102,56 @@ export class MemberOverviewComponent implements OnInit {
     });
   }
 
-  private initAttributes() {
+  requestPwdReset(): void {
+    const config = getDefaultDialogConfig();
+    config.width = '400px';
+    config.data = {
+      userId: this.member.userId,
+      memberId: this.member.id,
+      logins: this.logins,
+    };
+
+    this.dialog.open(PasswordResetRequestDialogComponent, config);
+  }
+
+  changeSponsors(): void {
+    const config = getDefaultDialogConfig();
+    config.width = '650px';
+    config.data = {
+      sponsors: this.sponsors,
+      member: this.member,
+      theme: 'member-theme',
+    };
+    const dialogRef = this.dialog.open(EditMemberSponsorsDialogComponent, config);
+    dialogRef.afterClosed().subscribe((edited) => {
+      if (edited) {
+        this.loading = true;
+        this.membersService.getRichMemberWithAttributes(this.member.id).subscribe((member) => {
+          this.member = member;
+          if (this.member.sponsored) {
+            this.usersManager.getSponsorsForMember(this.member.id, null).subscribe((sponsors) => {
+              this.sponsors = sponsors;
+              this.sponsorsDataSource.data = this.sponsors;
+            });
+          }
+          this.loading = false;
+        });
+      }
+    });
+  }
+
+  private initAttributes(): void {
     this.attributeNames.forEach((name) => {
       this.attributes.set(name, [null, '-']);
     });
     this.filterAttributes();
   }
 
-  private filterAttributes() {
+  private filterAttributes(): void {
     if (this.member.memberAttributes !== null) {
       this.member.memberAttributes.forEach((att) => {
         if (this.attributeNames.includes(att.friendlyName)) {
-          this.attributes.set(att.friendlyName, [att.displayName, att.value.toString()]);
+          this.attributes.set(att.friendlyName, [att.displayName, att.value as unknown as string]);
         }
       });
     }
@@ -122,13 +159,13 @@ export class MemberOverviewComponent implements OnInit {
     if (this.member.userAttributes !== null) {
       this.member.userAttributes.forEach((att) => {
         if (this.attributeNames.includes(att.friendlyName)) {
-          this.attributes.set(att.friendlyName, [att.displayName, att.value.toString()]);
+          this.attributes.set(att.friendlyName, [att.displayName, att.value as unknown as string]);
         }
       });
     }
   }
 
-  private initNavItems() {
+  private initNavItems(): void {
     this.navItems = [];
 
     if (this.authResolver.isAuthorized('getMemberGroups_Member_policy', [this.vo])) {
@@ -172,7 +209,7 @@ export class MemberOverviewComponent implements OnInit {
     // });
   }
 
-  private refreshData() {
+  private refreshData(): void {
     this.loading = true;
     this.membersService.getRichMemberWithAttributes(this.member.id).subscribe(
       (member) => {
@@ -181,43 +218,5 @@ export class MemberOverviewComponent implements OnInit {
       },
       () => (this.loading = false)
     );
-  }
-
-  requestPwdReset() {
-    const config = getDefaultDialogConfig();
-    config.width = '400px';
-    config.data = {
-      userId: this.member.userId,
-      memberId: this.member.id,
-      logins: this.logins,
-    };
-
-    this.dialog.open(PasswordResetRequestDialogComponent, config);
-  }
-
-  changeSponsors() {
-    const config = getDefaultDialogConfig();
-    config.width = '650px';
-    config.data = {
-      sponsors: this.sponsors,
-      member: this.member,
-      theme: 'member-theme',
-    };
-    const dialogRef = this.dialog.open(EditMemberSponsorsDialogComponent, config);
-    dialogRef.afterClosed().subscribe((edited) => {
-      if (edited) {
-        this.loading = true;
-        this.membersService.getRichMemberWithAttributes(this.member.id).subscribe((member) => {
-          this.member = member;
-          if (this.member.sponsored) {
-            this.usersManager.getSponsorsForMember(this.member.id, null).subscribe((sponsors) => {
-              this.sponsors = sponsors;
-              this.sponsorsDataSource.data = this.sponsors;
-            });
-          }
-          this.loading = false;
-        });
-      }
-    });
   }
 }

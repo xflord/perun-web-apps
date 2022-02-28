@@ -2,20 +2,20 @@
 <perun-web-apps-refresh-button (refresh)="updateData()"></perun-web-apps-refresh-button>
 <button
   *ngIf="createAuth"
-  mat-flat-button
+  (click)="create()"
   class="mr-2 action-button"
   color="accent"
-  (click)="create()">
+  mat-flat-button>
   {{'VO_DETAIL.RESOURCES.TAGS.CREATE_BUTTON' | translate}}
 </button>
 
 <button
   *ngIf="deleteAuth"
-  mat-flat-button
-  color="warn"
+  (click)="deleteTag()"
   class="mr-2"
+  color="warn"
   [disabled]="selection.selected.length === 0"
-  (click)="deleteTag()">
+  mat-flat-button>
   {{'VO_DETAIL.RESOURCES.TAGS.DELETE_BUTTON' | translate}}
 </button>
 <perun-web-apps-immediate-filter
@@ -27,9 +27,9 @@
 
 <app-resources-tags-list
   *ngIf="!loading"
-  [selection]="selection"
-  [tableId]="tableId"
+  [displayedColumns]="displayedColumns"
+  [entity]="'vo'"
   [resourceTags]="resourceTag"
   [filterValue]="filterValue"
-  [displayedColumns]="displayedColumns"
-  [entity]="'vo'"></app-resources-tags-list>
+  [selection]="selection"
+  [tableId]="tableId"></app-resources-tags-list>

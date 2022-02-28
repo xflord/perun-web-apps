@@ -15,15 +15,6 @@ import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
   styleUrls: ['./user-settings-service-identities.component.scss'],
 })
 export class UserSettingsServiceIdentitiesComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
-    private dialog: MatDialog,
-    private router: Router,
-    private userManager: UsersManagerService,
-    public authResolver: GuiAuthResolver,
-    private store: StoreService
-  ) {}
-
   loading = false;
   selection = new SelectionModel<User>(false, []);
   identities: User[] = [];
@@ -36,11 +27,20 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
   targetTitle = 'SERVICE';
   targetDescription = 'SERVICE';
 
+  constructor(
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    private router: Router,
+    private userManager: UsersManagerService,
+    public authResolver: GuiAuthResolver,
+    private store: StoreService
+  ) {}
+
   ngOnInit(): void {
     this.loading = true;
 
     this.route.parent.params.subscribe((params) => {
-      this.userId = params['userId'];
+      this.userId = params['userId'] as number;
       if (this.userId === undefined) {
         this.targetTitle = 'SERVICE';
         this.targetDescription = 'SELF';
@@ -52,7 +52,7 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
     });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.userManager.getSpecificUsersByUser(this.userId).subscribe((identities) => {
       this.identities = identities;
@@ -61,7 +61,7 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
     });
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     this.addIdentity = this.authResolver.isPerunAdmin();
     this.removeIdentity = this.authResolver.isAuthorized(
       'removeSpecificUserOwner_User_User_policy',
@@ -69,7 +69,7 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
     );
   }
 
-  onAdd() {
+  onAdd(): void {
     const config = getDefaultDialogConfig();
     config.width = '1250px';
     config.data = {
@@ -88,7 +88,7 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
     });
   }
 
-  onRemove() {
+  onRemove(): void {
     const config = getDefaultDialogConfig();
     config.width = '650px';
     config.data = {

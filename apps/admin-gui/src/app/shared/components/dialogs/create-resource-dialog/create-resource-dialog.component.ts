@@ -16,6 +16,15 @@ export interface CreateResourceDialogData {
   styleUrls: ['./create-resource-dialog.component.scss'],
 })
 export class CreateResourceDialogComponent implements OnInit {
+  nameCtrl: FormControl;
+  descriptionCtrl: FormControl;
+  vos: Vo[] = [];
+
+  theme: string;
+  loading: boolean;
+  selectedVo: Vo = null;
+  private successMessage: string;
+
   constructor(
     private dialogRef: MatDialogRef<CreateResourceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: CreateResourceDialogData,
@@ -26,19 +35,10 @@ export class CreateResourceDialogComponent implements OnInit {
   ) {
     translate
       .get('DIALOGS.CREATE_RESOURCE.SUCCESS')
-      .subscribe((value) => (this.successMessage = value));
+      .subscribe((value: string) => (this.successMessage = value));
   }
 
-  nameCtrl: FormControl;
-  descriptionCtrl: FormControl;
-  vos: Vo[] = [];
-
-  theme: string;
-  loading: boolean;
-  selectedVo: Vo = null;
-  successMessage: string;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.theme = this.data.theme;
     this.voService.getAllVos().subscribe(
@@ -53,14 +53,14 @@ export class CreateResourceDialogComponent implements OnInit {
     this.descriptionCtrl = new FormControl('');
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     this.resourcesManager
       .createResource(
         this.selectedVo.id,
         this.data.facilityId,
-        this.nameCtrl.value,
-        this.descriptionCtrl.value
+        this.nameCtrl.value as string,
+        this.descriptionCtrl.value as string
       )
       .subscribe(
         () => {
@@ -72,7 +72,7 @@ export class CreateResourceDialogComponent implements OnInit {
       );
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 }

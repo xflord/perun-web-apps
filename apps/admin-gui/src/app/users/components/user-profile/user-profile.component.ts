@@ -10,17 +10,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit {
+  principal: PerunPrincipal;
+  user: User;
+  path: string;
+
   constructor(
     private sideMenuService: SideMenuService,
     private store: StoreService,
     private router: Router
   ) {}
 
-  principal: PerunPrincipal;
-  user: User;
-  path: string;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.path = this.router.url;
     this.router.events.subscribe(() => {
       this.path = this.router.url;
@@ -30,7 +30,7 @@ export class UserProfileComponent implements OnInit {
     this.sideMenuService.setUserItems([]);
   }
 
-  getUserType() {
+  getUserType(): string {
     if (this.user.serviceUser) {
       return 'Service';
     }

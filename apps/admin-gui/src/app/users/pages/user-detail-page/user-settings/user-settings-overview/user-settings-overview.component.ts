@@ -10,19 +10,18 @@ import { UsersManagerService } from '@perun-web-apps/perun/openapi';
 })
 export class UserSettingsOverviewComponent implements OnInit {
   @HostBinding('class.router-component') true;
-
-  constructor(private route: ActivatedRoute, private userManager: UsersManagerService) {}
-
   navItems: MenuItem[] = [];
   path: string;
   isServiceUser: boolean;
   loading = false;
 
-  ngOnInit() {
+  constructor(private route: ActivatedRoute, private userManager: UsersManagerService) {}
+
+  ngOnInit(): void {
     if (window.location.pathname.startsWith('/admin')) {
       this.loading = true;
       this.route.parent.parent.params.subscribe((params) => {
-        const userId = params['userId'];
+        const userId = params['userId'] as number;
 
         this.userManager.getUserById(userId).subscribe(
           (user) => {
@@ -38,7 +37,7 @@ export class UserSettingsOverviewComponent implements OnInit {
     }
   }
 
-  private initNavItems() {
+  private initNavItems(): void {
     this.navItems = [];
     // if at user profile, add user gui config item
     if (!window.location.pathname.startsWith('/admin')) {

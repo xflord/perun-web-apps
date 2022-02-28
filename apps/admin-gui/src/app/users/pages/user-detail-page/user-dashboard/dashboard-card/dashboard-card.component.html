@@ -6,7 +6,7 @@
       <mat-icon class="dashboard-icon">info_outline</mat-icon>
     </span>
   </div>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div *ngIf="!loading">
     <span *ngIf="primaryObject === 'Vo'">
       <perun-web-apps-vos-list
@@ -19,26 +19,26 @@
     <span *ngIf="primaryObject === 'Group'">
       <perun-web-apps-groups-list
         [pageSizeOptions]="null"
+        [displayedColumns]="['id', 'recent', 'vo', 'name', 'description']"
         [groups]="this.objects"
-        [recentIds]="recentIds"
-        [displayedColumns]="['id', 'recent', 'vo', 'name', 'description']">
+        [recentIds]="recentIds">
       </perun-web-apps-groups-list>
     </span>
     <span *ngIf="primaryObject === 'Resource'">
       <perun-web-apps-resources-list
         [pageSizeOptions]="null"
-        [resources]="this.objects"
         [displayedColumns]="['id', 'recent', 'name', 'vo', 'facility']"
+        [resources]="this.objects"
         [recentIds]="recentIds"
         [routingVo]="true">
       </perun-web-apps-resources-list>
     </span>
     <span *ngIf="primaryObject === 'Facility'">
       <perun-web-apps-facilities-list
-        [pageSizeOptions]="null"
+        [displayedColumns]="['id', 'recent', 'name', 'description']"
         [facilities]="this.objects"
-        [recentIds]="recentIds"
-        [displayedColumns]="['id', 'recent', 'name', 'description']">
+        [pageSizeOptions]="null"
+        [recentIds]="recentIds">
       </perun-web-apps-facilities-list>
     </span>
   </div>

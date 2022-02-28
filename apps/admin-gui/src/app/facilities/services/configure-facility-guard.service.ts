@@ -23,7 +23,7 @@ export class ConfigureFacilityGuardService
     if (route.parent.params['facilityId'] === sessionStorage.getItem('newFacilityId')) {
       return true;
     }
-    this.router.navigate(['/home'], { queryParamsHandling: 'merge' });
+    void this.router.navigate(['/home'], { queryParamsHandling: 'merge' });
     return false;
   }
 

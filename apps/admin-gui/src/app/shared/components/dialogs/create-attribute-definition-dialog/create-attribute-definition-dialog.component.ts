@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { ActionType } from '@perun-web-apps/perun/openapi';
 import {
+  ActionType,
   AttributeDefinition,
   AttributeRights,
   AttributesManagerService,
@@ -16,13 +16,6 @@ import { Role } from '@perun-web-apps/perun/models';
   styleUrls: ['./create-attribute-definition-dialog.component.scss'],
 })
 export class CreateAttributeDefinitionDialogComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<CreateAttributeDefinitionDialogComponent>,
-    private notificator: NotificatorService,
-    private translate: TranslateService,
-    private attributesManager: AttributesManagerService
-  ) {}
-
   loading = false;
 
   attDef: AttributeDefinition;
@@ -64,7 +57,14 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
   writeGroup = false;
   writeFacility = false;
 
-  ngOnInit() {
+  constructor(
+    public dialogRef: MatDialogRef<CreateAttributeDefinitionDialogComponent>,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private attributesManager: AttributesManagerService
+  ) {}
+
+  ngOnInit(): void {
     this.attDef = {
       beanName: '',
       description: '',
@@ -79,7 +79,7 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
     };
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     this.attDef.namespace = 'urn:perun:' + this.entity + ':attribute-def:' + this.definitionType;
     this.readValueType();
@@ -90,7 +90,7 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
           () => {
             this.translate
               .get('DIALOGS.CREATE_ATTRIBUTE_DEFINITION.SUCCESS')
-              .subscribe((successMessage) => {
+              .subscribe((successMessage: string) => {
                 this.notificator.showSuccess(successMessage);
                 this.dialogRef.close(true);
               });
@@ -102,11 +102,32 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
     );
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  readRights(): AttributeRights[] {
+  disableConfirmButton(): boolean {
+    return (
+      this.attDef.friendlyName === '' ||
+      this.attDef.displayName === '' ||
+      this.attDef.description === '' ||
+      this.entity === '' ||
+      this.definitionType === '' ||
+      this.valueType === '' ||
+      this.loading
+    );
+  }
+
+  disableUniqueToggle(): boolean {
+    if (this.definitionType === 'virt' || this.entity === 'entityless') {
+      this.attDef.unique = false;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private readRights(): AttributeRights[] {
     const list: AttributeRights[] = [];
 
     const rightsSELF = {} as AttributeRights;
@@ -184,7 +205,7 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
     return list;
   }
 
-  readValueType() {
+  private readValueType(): void {
     switch (this.valueType) {
       case 'String': {
         this.attDef.type = 'java.lang.String';
@@ -206,27 +227,6 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
         this.attDef.type = 'java.util.LinkedHashMap';
         break;
       }
-    }
-  }
-
-  disableConfirmButton(): boolean {
-    return (
-      this.attDef.friendlyName === '' ||
-      this.attDef.displayName === '' ||
-      this.attDef.description === '' ||
-      this.entity === '' ||
-      this.definitionType === '' ||
-      this.valueType === '' ||
-      this.loading
-    );
-  }
-
-  disableUniqueToggle(): boolean {
-    if (this.definitionType === 'virt' || this.entity === 'entityless') {
-      this.attDef.unique = false;
-      return true;
-    } else {
-      return false;
     }
   }
 }

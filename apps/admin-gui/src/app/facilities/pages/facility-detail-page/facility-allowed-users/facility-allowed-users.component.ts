@@ -23,15 +23,6 @@ import { Urns } from '@perun-web-apps/perun/urns';
   styleUrls: ['./facility-allowed-users.component.scss'],
 })
 export class FacilityAllowedUsersComponent implements OnInit {
-  constructor(
-    private facilityService: FacilitiesManagerService,
-    private serviceService: ServicesManagerService,
-    private resourceService: ResourcesManagerService,
-    private authResolver: GuiAuthResolver,
-    private storeService: StoreService,
-    private entityStorageService: EntityStorageService
-  ) {}
-
   loading = false;
   filterValue = '';
 
@@ -68,6 +59,15 @@ export class FacilityAllowedUsersComponent implements OnInit {
   advancedFilter = false;
   filtersCount: number;
 
+  constructor(
+    private facilityService: FacilitiesManagerService,
+    private serviceService: ServicesManagerService,
+    private resourceService: ResourcesManagerService,
+    private authResolver: GuiAuthResolver,
+    private storeService: StoreService,
+    private entityStorageService: EntityStorageService
+  ) {}
+
   ngOnInit(): void {
     this.loading = true;
     this.attributes = [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL];
@@ -78,7 +78,7 @@ export class FacilityAllowedUsersComponent implements OnInit {
     this.refreshPage();
   }
 
-  changeFilter() {
+  changeFilter(): void {
     this.filtersCount = this.allowed ? 1 : 0;
     if (this.selectedVo.id !== -1) {
       this.filtersCount += 1;
@@ -91,7 +91,7 @@ export class FacilityAllowedUsersComponent implements OnInit {
     }
   }
 
-  clearFilters() {
+  clearFilters(): void {
     this.allowed = false;
     this.selectedVo = this.emptyVo;
     this.selectedResource = this.emptyResource;
@@ -99,7 +99,7 @@ export class FacilityAllowedUsersComponent implements OnInit {
     this.filtersCount = 0;
   }
 
-  refreshPage() {
+  refreshPage(): void {
     this.loading = true;
 
     this.facilityService.getAssignedResourcesForFacility(this.facility.id).subscribe(
@@ -120,7 +120,7 @@ export class FacilityAllowedUsersComponent implements OnInit {
     );
   }
 
-  getAssignedServices(resources: Resource[], idx: number) {
+  getAssignedServices(resources: Resource[], idx: number): void {
     // resource at index 0 is just placeholder
     if (idx === 0) {
       this.services = [this.emptyService].concat(this.services);
@@ -144,7 +144,9 @@ export class FacilityAllowedUsersComponent implements OnInit {
   getFilteredServices(resources: Resource[]): Service[] {
     const serviceIds: Set<number> = new Set<number>();
     resources.forEach((res) => {
-      this.resourceAssignedServices[res.id].forEach((serviceId) => serviceIds.add(serviceId));
+      this.resourceAssignedServices
+        .get(res.id)
+        .forEach((serviceId: number) => serviceIds.add(serviceId));
     });
 
     return [this.emptyService].concat(
@@ -152,11 +154,11 @@ export class FacilityAllowedUsersComponent implements OnInit {
     );
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  voSelected(vo: Vo) {
+  voSelected(vo: Vo): void {
     // prevents "fake" triggers
     if (this.selectedVo.id === vo.id) {
       return;
@@ -177,7 +179,7 @@ export class FacilityAllowedUsersComponent implements OnInit {
     this.changeFilter();
   }
 
-  resourceSelected(resource: Resource) {
+  resourceSelected(resource: Resource): void {
     // prevents "fake" triggers
     if (this.selectedResource.id === resource.id) {
       return;
@@ -194,7 +196,7 @@ export class FacilityAllowedUsersComponent implements OnInit {
     this.changeFilter();
   }
 
-  serviceSelected(service: Service) {
+  serviceSelected(service: Service): void {
     this.selectedService = service;
     this.changeFilter();
   }

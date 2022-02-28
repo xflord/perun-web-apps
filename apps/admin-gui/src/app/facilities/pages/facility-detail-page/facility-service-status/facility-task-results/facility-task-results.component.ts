@@ -14,14 +14,6 @@ import { DeleteTaskResultDialogComponent } from '../../../../../shared/component
   styleUrls: ['./facility-task-results.component.scss'],
 })
 export class FacilityTaskResultsComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
-    private taskManager: TasksManagerService,
-    private authResolver: GuiAuthResolver,
-    private dialog: MatDialog,
-    private entityStorageService: EntityStorageService
-  ) {}
-
   loading = false;
   filterValue = '';
 
@@ -47,6 +39,14 @@ export class FacilityTaskResultsComponent implements OnInit {
 
   removeAuth = false;
 
+  constructor(
+    private route: ActivatedRoute,
+    private taskManager: TasksManagerService,
+    private authResolver: GuiAuthResolver,
+    private dialog: MatDialog,
+    private entityStorageService: EntityStorageService
+  ) {}
+
   ngOnInit(): void {
     this.loading = true;
     this.facility = this.entityStorageService.getEntity();
@@ -66,7 +66,7 @@ export class FacilityTaskResultsComponent implements OnInit {
     }
 
     this.route.params.subscribe((params) => {
-      this.taskId = params['taskId'];
+      this.taskId = params['taskId'] as number;
       this.taskManager.getTaskById(this.taskId).subscribe((task) => {
         this.task = task;
         this.refreshTable();
@@ -74,7 +74,7 @@ export class FacilityTaskResultsComponent implements OnInit {
     });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.taskManager.getTaskResultsForGUIByTask(this.taskId).subscribe((taskResults) => {
       this.selection.clear();
@@ -83,7 +83,7 @@ export class FacilityTaskResultsComponent implements OnInit {
     });
   }
 
-  removeTaskResult() {
+  removeTaskResult(): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {
@@ -100,7 +100,7 @@ export class FacilityTaskResultsComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

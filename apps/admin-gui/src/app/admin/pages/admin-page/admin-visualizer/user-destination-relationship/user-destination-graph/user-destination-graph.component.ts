@@ -9,16 +9,34 @@ import {
   Group,
   GroupsManagerService,
   Member,
+  MembersManagerService,
   Resource,
   ResourcesManagerService,
   RichDestination,
   Service,
-  UsersManagerService,
-  VosManagerService,
   ServicesManagerService,
   User,
-  MembersManagerService,
+  UsersManagerService,
+  VosManagerService,
 } from '@perun-web-apps/perun/openapi';
+
+interface GraphNode {
+  id: string;
+  label: string;
+  tooltip: string;
+  color: string;
+  tip: string;
+}
+
+interface Link {
+  source: string;
+  target: string;
+}
+
+interface HierarchicalGraph {
+  nodes: GraphNode[];
+  links: Link[];
+}
 
 @Component({
   selector: 'app-user-destination-graph',
@@ -27,6 +45,27 @@ import {
 })
 export class UserDestinationGraphComponent implements OnInit {
   @HostBinding('class.router-component') true;
+
+  user: User;
+  destination: string;
+  service: string;
+  isConnected = false;
+  loading = true;
+  hierarchialGraph: HierarchicalGraph = { nodes: [], links: [] };
+  curve = shape.curveBundle;
+  zoomToFit$: Subject<boolean> = new Subject();
+  innerWidth: number;
+  innerHeight: number;
+  private membership: Member[];
+  private facilities: Facility[];
+  private idCounter = 0;
+  private localUser: string;
+  private localVo: string;
+  private localGroup: string;
+  private localResource: string;
+  private localFacility: string;
+  private localService: string;
+  private localDestination: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,31 +79,41 @@ export class UserDestinationGraphComponent implements OnInit {
     private translate: TranslateService
   ) {}
 
-  user: User;
-  destination: string;
-  service: string;
-  membership: Member[];
-  facilities: Facility[];
+  static findConnectedGroups(groups1: Group[], groups2: Group[]): Group[] {
+    const result: Group[] = [];
+    for (const item of groups1) {
+      for (const item1 of groups2) {
+        if (item.id === item1.id) {
+          result.push(item);
+        }
+      }
+    }
+    return result;
+  }
 
-  idCounter = 0;
-  isConnected = false;
-  loading = true;
+  static findConnectedResources(r1: Resource[], r2: Resource[]): Resource[] {
+    const result: Resource[] = [];
+    for (const item of r1) {
+      for (const item1 of r2) {
+        if (item.id === item1.id) {
+          result.push(item);
+        }
+      }
+    }
+    return result;
+  }
 
-  hierarchialGraph = { nodes: [], links: [] };
-  curve = shape.curveBundle;
-  zoomToFit$: Subject<boolean> = new Subject();
-  innerWidth: number;
-  innerHeight: number;
+  @HostListener('window:resize', ['$event'])
+  onResize(): void {
+    if (window.innerWidth < 600) {
+      this.innerWidth = window.innerWidth;
+    } else {
+      this.innerWidth = window.innerWidth - 420;
+    }
+    this.innerHeight = window.innerHeight;
+  }
 
-  localUser: string;
-  localVo: string;
-  localGroup: string;
-  localResource: string;
-  localFacility: string;
-  localService: string;
-  localDestination: string;
-
-  ngOnInit() {
+  ngOnInit(): void {
     if (window.innerWidth < 600) {
       this.innerWidth = window.innerWidth;
     } else {
@@ -73,10 +122,9 @@ export class UserDestinationGraphComponent implements OnInit {
     this.innerHeight = window.innerHeight;
     this.getLocalizedNames();
     this.route.queryParams.subscribe((params) => {
-      console.log(params);
-      this.destination = params['destination'];
-      this.service = params['service'];
-      this.userService.getUserById(params['user']).subscribe((user) => {
+      this.destination = params['destination'] as string;
+      this.service = params['service'] as string;
+      this.userService.getUserById(params['user'] as number).subscribe((user) => {
         this.user = user;
         this.facilityManager
           .getFacilitiesByDestination(this.destination)
@@ -96,33 +144,33 @@ export class UserDestinationGraphComponent implements OnInit {
     });
   }
 
-  showGraph() {
-    const nodeId1 = '' + this.id();
-    const nodeLabel1 = this.user.firstName + ' ' + this.user.lastName;
+  private showGraph(): void {
+    const nodeId1 = '' + this.id().toString();
+    const nodeLabel1 = this.user.firstName ?? '' + ' ' + this.user.lastName ?? '';
     const nodeTooltip1 = this.localUser;
-    const tip1 = 'user: ' + this.user.id;
-    const nodeUser = {
+    const tip1 = 'user: ' + this.user.id.toString();
+    const nodeUser: GraphNode = {
       id: nodeId1,
       label: nodeLabel1,
       tooltip: nodeTooltip1,
       color: '#FFFFCC',
       tip: tip1,
     };
-    this.hierarchialGraph.nodes = [...this.hierarchialGraph.nodes, nodeUser];
+    this.hierarchialGraph.nodes.push(nodeUser);
 
-    const nodeId2 = '' + this.id();
+    const nodeId2 = '' + this.id().toString();
     const tip2 = 'destination no id';
     if (this.service === 'noService') {
       const nodeLabel2 = this.destination;
       const nodeTooltip2 = this.localDestination + ': ' + this.destination;
-      const nodeDestination = {
+      const nodeDestination: GraphNode = {
         id: nodeId2,
         label: nodeLabel2,
         tooltip: nodeTooltip2,
         color: '#E0E0E0',
         tip: tip2,
       };
-      this.hierarchialGraph.nodes = [...this.hierarchialGraph.nodes, nodeDestination];
+      this.hierarchialGraph.nodes.push(nodeDestination);
     } else {
       const nodeLabel2 = this.service + ': ' + this.destination;
       const nodeTooltip2 =
@@ -133,14 +181,14 @@ export class UserDestinationGraphComponent implements OnInit {
         this.localDestination +
         ': ' +
         this.destination;
-      const nodeDestination = {
+      const nodeDestination: GraphNode = {
         id: nodeId2,
         label: nodeLabel2,
         tooltip: nodeTooltip2,
         color: '#E0E0E0',
         tip: tip2,
       };
-      this.hierarchialGraph.nodes = [...this.hierarchialGraph.nodes, nodeDestination];
+      this.hierarchialGraph.nodes.push(nodeDestination);
     }
 
     for (const facility of this.facilities) {
@@ -148,31 +196,38 @@ export class UserDestinationGraphComponent implements OnInit {
         .getAllRichDestinationsForFacility(facility.id)
         .subscribe((destinations) => {
           this.connectToService(facility, destinations);
-          this.delay(2000).then(() => {
+          setTimeout(() => {
             this.zoomToFit$.next(true);
             this.loading = false;
-          });
+          }, 2000);
         });
     }
   }
 
-  connectToService(facility: Facility, destinations: RichDestination[]) {
+  private connectToService(facility: Facility, destinations: RichDestination[]): void {
     if (this.isConnectedToService(destinations)) {
       this.facilityManager
         .getAssignedResourcesForFacility(facility.id)
         .subscribe((connectedResources) => {
-          for (let i = 0; i < this.membership.length; i++) {
-            this.connectToGroups(facility, this.membership[i], connectedResources);
+          for (const item of this.membership) {
+            this.connectToGroups(facility, item, connectedResources);
           }
         });
     }
   }
 
-  connectToGroups(facility: Facility, member: Member, connectedResources: Resource[]) {
+  private connectToGroups(
+    facility: Facility,
+    member: Member,
+    connectedResources: Resource[]
+  ): void {
     this.facilityManager.getAllowedGroups(facility.id, member.voId).subscribe((allowedGroups) => {
       if (allowedGroups.length !== 0) {
         this.groupService.getMemberGroups(member.id).subscribe((memberGroups) => {
-          const connectedGroups: Group[] = this.findConnectedGroups(allowedGroups, memberGroups);
+          const connectedGroups: Group[] = UserDestinationGraphComponent.findConnectedGroups(
+            allowedGroups,
+            memberGroups
+          );
           if (connectedGroups.length !== 0) {
             for (const group of connectedGroups) {
               this.connectToResource(facility, group, connectedResources);
@@ -183,9 +238,25 @@ export class UserDestinationGraphComponent implements OnInit {
     });
   }
 
-  connectToResource(facility: Facility, group: Group, connectedResources: Resource[]) {
+  private haveService(assignedServices: Service[]): boolean {
+    if (this.service === 'noService') {
+      return true;
+    }
+    for (const service of assignedServices) {
+      if (this.service === service.name) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private connectToResource(
+    facility: Facility,
+    group: Group,
+    connectedResources: Resource[]
+  ): void {
     this.resourceManager.getAssignedResourcesWithGroup(group.id).subscribe((assignedResources) => {
-      const resources: Resource[] = this.findConnectedResources(
+      const resources: Resource[] = UserDestinationGraphComponent.findConnectedResources(
         assignedResources,
         connectedResources
       );
@@ -202,84 +273,92 @@ export class UserDestinationGraphComponent implements OnInit {
     });
   }
 
-  addNodesToGraph(voId: number, group: Group, resource: Resource, facility: Facility) {
-    if (this.findEntityInGraph('Facility: ' + facility.id) === -1) {
-      const nodeId3 = '' + this.id();
+  private addNodesToGraph(
+    voId: number,
+    group: Group,
+    resource: Resource,
+    facility: Facility
+  ): void {
+    if (this.findEntityInGraph('Facility: ' + facility.id.toString()) === -1) {
+      const nodeId3 = '' + this.id().toString();
       const nodeLabel3 = this.localFacility + ': ' + facility.name;
       const nodeTooltip3 = facility.description;
-      const tip3 = 'Facility: ' + facility.id;
-      const nodeFacility = {
+      const tip3 = 'Facility: ' + facility.id.toString();
+      const nodeFacility: GraphNode = {
         id: nodeId3,
         label: nodeLabel3,
         tooltip: nodeTooltip3,
         color: '#FFCCFF',
         tip: tip3,
       };
-      this.hierarchialGraph.nodes = [...this.hierarchialGraph.nodes, nodeFacility];
+      this.hierarchialGraph.nodes.push(nodeFacility);
 
-      const linkDest = {
+      const linkDest: Link = {
         source: nodeId3,
         target: this.hierarchialGraph.nodes[this.findEntityInGraph('destination no id')].id,
       };
-      this.hierarchialGraph.links = [...this.hierarchialGraph.links, linkDest];
+      this.hierarchialGraph.links.push(linkDest);
     }
 
     this.voService.getVoById(voId).subscribe((vo) => {
-      if (this.findEntityInGraph('Vo: ' + vo.id) === -1) {
-        const nodeIdV = '' + this.id();
+      if (this.findEntityInGraph('Vo: ' + vo.id.toString()) === -1) {
+        const nodeIdV: string = this.id().toString();
         const nodeLabelV = this.localVo + ': ' + vo.shortName;
         const nodeTooltipV = vo.name;
-        const tipV = 'Vo: ' + vo.id;
-        const nodeV = {
+        const tipV = 'Vo: ' + vo.id.toString();
+        const nodeV: GraphNode = {
           id: nodeIdV,
           label: nodeLabelV,
           tooltip: nodeTooltipV,
           color: '#E5FFCC',
           tip: tipV,
         };
-        this.hierarchialGraph.nodes = [...this.hierarchialGraph.nodes, nodeV];
+        this.hierarchialGraph.nodes.push(nodeV);
 
-        const linkV = {
-          source: this.hierarchialGraph.nodes[this.findEntityInGraph('user: ' + this.user.id)].id,
+        const linkV: Link = {
+          source:
+            this.hierarchialGraph.nodes[this.findEntityInGraph('user: ' + this.user.id.toString())]
+              .id,
           target: nodeIdV,
         };
-        this.hierarchialGraph.links = [...this.hierarchialGraph.links, linkV];
+        this.hierarchialGraph.links.push(linkV);
       }
 
-      if (this.findEntityInGraph('Group: ' + group.id) === -1) {
-        const nodeIdG = '' + this.id();
+      if (this.findEntityInGraph('Group: ' + group.id.toString()) === -1) {
+        const nodeIdG: string = this.id().toString();
         const nodeLabelG = this.localGroup + ': ' + group.name;
         const nodeTooltipG = group.description;
-        const tipG = 'Group: ' + group.id;
-        const nodeG = {
+        const tipG = 'Group: ' + group.id.toString();
+        const nodeG: GraphNode = {
           id: nodeIdG,
           label: nodeLabelG,
           tooltip: nodeTooltipG,
           color: '#CCE5FF',
           tip: tipG,
         };
-        this.hierarchialGraph.nodes = [...this.hierarchialGraph.nodes, nodeG];
+        this.hierarchialGraph.nodes.push(nodeG);
 
-        const linkG = {
-          source: this.hierarchialGraph.nodes[this.findEntityInGraph('Vo: ' + vo.id)].id,
+        const linkG: Link = {
+          source: this.hierarchialGraph.nodes[this.findEntityInGraph('Vo: ' + vo.id.toString())].id,
           target: nodeIdG,
         };
-        this.hierarchialGraph.links = [...this.hierarchialGraph.links, linkG];
+        this.hierarchialGraph.links.push(linkG);
       }
 
-      const duplicate: number = this.findEntityInGraph('Resource: ' + resource.id);
+      const duplicate: number = this.findEntityInGraph('Resource: ' + resource.id.toString());
       if (duplicate !== -1) {
-        const linkR = {
-          source: this.hierarchialGraph.nodes[this.findEntityInGraph('Group: ' + group.id)].id,
+        const linkR: Link = {
+          source:
+            this.hierarchialGraph.nodes[this.findEntityInGraph('Group: ' + group.id.toString())].id,
           target: this.hierarchialGraph.nodes[duplicate].id,
         };
-        this.hierarchialGraph.links = [...this.hierarchialGraph.links, linkR];
+        this.hierarchialGraph.links.push(linkR);
       } else {
-        const nodeIdR = '' + this.id();
+        const nodeIdR: string = this.id().toString();
         const nodeLabelR = this.localResource + ': ' + resource.name;
         const nodeTooltipR = resource.description;
-        const tipR = 'Resource: ' + resource.id;
-        const nodeR = {
+        const tipR = 'Resource: ' + resource.id.toString();
+        const nodeR: GraphNode = {
           id: nodeIdR,
           label: nodeLabelR,
           tooltip: nodeTooltipR,
@@ -287,61 +366,28 @@ export class UserDestinationGraphComponent implements OnInit {
           tip: tipR,
         };
 
-        this.hierarchialGraph.nodes = [...this.hierarchialGraph.nodes, nodeR];
+        this.hierarchialGraph.nodes.push(nodeR);
 
-        const linkR = {
-          source: this.hierarchialGraph.nodes[this.findEntityInGraph('Group: ' + group.id)].id,
+        const linkR: Link = {
+          source:
+            this.hierarchialGraph.nodes[this.findEntityInGraph('Group: ' + group.id.toString())].id,
           target: nodeIdR,
         };
-        this.hierarchialGraph.links = [...this.hierarchialGraph.links, linkR];
+        this.hierarchialGraph.links.push(linkR);
 
-        const linkF = {
+        const linkF: Link = {
           source: nodeIdR,
           target:
-            this.hierarchialGraph.nodes[this.findEntityInGraph('Facility: ' + facility.id)].id,
+            this.hierarchialGraph.nodes[
+              this.findEntityInGraph('Facility: ' + facility.id.toString())
+            ].id,
         };
-        this.hierarchialGraph.links = [...this.hierarchialGraph.links, linkF];
+        this.hierarchialGraph.links.push(linkF);
       }
     });
   }
 
-  haveService(assignedServices: Service[]): boolean {
-    if (this.service === 'noService') {
-      return true;
-    }
-    for (const service of assignedServices) {
-      if (this.service === service.name) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  findConnectedGroups(groups1: Group[], groups2: Group[]): Group[] {
-    const result: Group[] = [];
-    for (let i = 0; i < groups1.length; i++) {
-      for (let j = 0; j < groups2.length; j++) {
-        if (groups1[i].id === groups2[j].id) {
-          result.push(groups1[i]);
-        }
-      }
-    }
-    return result;
-  }
-
-  findConnectedResources(r1: Resource[], r2: Resource[]): Resource[] {
-    const result: Resource[] = [];
-    for (let i = 0; i < r1.length; i++) {
-      for (let j = 0; j < r2.length; j++) {
-        if (r1[i].id === r2[j].id) {
-          result.push(r1[i]);
-        }
-      }
-    }
-    return result;
-  }
-
-  findEntityInGraph(id: string): number {
+  private findEntityInGraph(id: string): number {
     for (let i = 0; i < this.hierarchialGraph.nodes.length; i++) {
       if (this.hierarchialGraph.nodes[i].tip === id) {
         return i;
@@ -350,7 +396,7 @@ export class UserDestinationGraphComponent implements OnInit {
     return -1;
   }
 
-  isConnectedToService(destinations: RichDestination[]): boolean {
+  private isConnectedToService(destinations: RichDestination[]): boolean {
     for (const potentialDestination of destinations) {
       if (potentialDestination.destination === this.destination) {
         if (potentialDestination.service.name === this.service || this.service === 'noService') {
@@ -361,48 +407,34 @@ export class UserDestinationGraphComponent implements OnInit {
     return false;
   }
 
-  id(): number {
+  private id(): number {
     this.idCounter++;
     return this.idCounter;
   }
 
-  async delay(ms: number) {
-    await new Promise<void>((resolve) => setTimeout(() => resolve(), ms)).then(() =>
-      console.log('fired')
-    );
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    if (window.innerWidth < 600) {
-      this.innerWidth = window.innerWidth;
-    } else {
-      this.innerWidth = window.innerWidth - 420;
-    }
-    this.innerHeight = window.innerHeight;
-  }
-
-  getLocalizedNames() {
-    this.translate.get('ADMIN.VISUALIZER.USER_DESTINATION.USER').subscribe((text) => {
+  private getLocalizedNames(): void {
+    this.translate.get('ADMIN.VISUALIZER.USER_DESTINATION.USER').subscribe((text: string) => {
       this.localUser = text;
     });
-    this.translate.get('ADMIN.VISUALIZER.USER_DESTINATION.VO').subscribe((text) => {
+    this.translate.get('ADMIN.VISUALIZER.USER_DESTINATION.VO').subscribe((text: string) => {
       this.localVo = text;
     });
-    this.translate.get('ADMIN.VISUALIZER.USER_DESTINATION.GROUP').subscribe((text) => {
+    this.translate.get('ADMIN.VISUALIZER.USER_DESTINATION.GROUP').subscribe((text: string) => {
       this.localGroup = text;
     });
-    this.translate.get('ADMIN.VISUALIZER.USER_DESTINATION.RESOURCE').subscribe((text) => {
+    this.translate.get('ADMIN.VISUALIZER.USER_DESTINATION.RESOURCE').subscribe((text: string) => {
       this.localResource = text;
     });
-    this.translate.get('ADMIN.VISUALIZER.USER_DESTINATION.FACILITY').subscribe((text) => {
+    this.translate.get('ADMIN.VISUALIZER.USER_DESTINATION.FACILITY').subscribe((text: string) => {
       this.localFacility = text;
     });
-    this.translate.get('ADMIN.VISUALIZER.USER_DESTINATION.SERVICE').subscribe((text) => {
+    this.translate.get('ADMIN.VISUALIZER.USER_DESTINATION.SERVICE').subscribe((text: string) => {
       this.localService = text;
     });
-    this.translate.get('ADMIN.VISUALIZER.USER_DESTINATION.DESTINATION').subscribe((text) => {
-      this.localDestination = text;
-    });
+    this.translate
+      .get('ADMIN.VISUALIZER.USER_DESTINATION.DESTINATION')
+      .subscribe((text: string) => {
+        this.localDestination = text;
+      });
   }
 }

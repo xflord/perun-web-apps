@@ -9,12 +9,11 @@ import { Vo } from '@perun-web-apps/perun/openapi';
 })
 export class VoAttributesComponent implements OnInit {
   @HostBinding('class.router-component') true;
+  vo: Vo;
 
   constructor(private entityStorageService: EntityStorageService) {}
 
-  vo: Vo;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.vo = this.entityStorageService.getEntity();
   }
 }

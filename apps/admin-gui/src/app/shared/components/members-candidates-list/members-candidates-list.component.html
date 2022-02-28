@@ -1,9 +1,9 @@
 <div [hidden]="members.length === 0" class="card mt-2">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
-    [tableId]="tableId"
+    [pageSizeOptions]="pageSizeOptions"
     [dataLength]="dataSource.filteredData.length"
-    [pageSizeOptions]="pageSizeOptions">
+    [tableId]="tableId">
     <table
       [dataSource]="dataSource"
       class="w-100"
@@ -13,7 +13,7 @@
       matSortDirection="asc"
       matSortDisableClear>
       <ng-container matColumnDef="checkbox">
-        <th *matHeaderCellDef mat-header-cell class="align-checkbox"></th>
+        <th *matHeaderCellDef class="align-checkbox" mat-header-cell></th>
         <td *matCellDef="let memberCandidate" class="static-column-size align-checkbox" mat-cell>
           <div
             [matTooltip]="getTooltip(memberCandidate) | translate"
@@ -81,7 +81,7 @@
           {{'MEMBERS_CANDIDATES_LIST.ALREADY_MEMBER' | translate}}
         </th>
         <td *matCellDef="let memberCandidate" mat-cell>
-          {{getAlreadyMember(memberCandidate)}}
+          {{memberCandidate | memberType: type}}
         </td>
       </ng-container>
       <ng-container matColumnDef="local">

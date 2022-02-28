@@ -17,6 +17,11 @@ export interface RemoveServiceFromResourceDialogData {
   styleUrls: ['./remove-service-from-resource-dialog.component.scss'],
 })
 export class RemoveServiceFromResourceDialogComponent implements OnInit {
+  theme: string;
+  loading: boolean;
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<Service>;
+
   constructor(
     public dialogRef: MatDialogRef<RemoveServiceFromResourceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: RemoveServiceFromResourceDialogData,
@@ -25,19 +30,14 @@ export class RemoveServiceFromResourceDialogComponent implements OnInit {
     private resourcesManager: ResourcesManagerService
   ) {}
 
-  theme: string;
-  loading: boolean;
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<Service>;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
     this.dataSource = new MatTableDataSource<Service>(this.data.services);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
-    const servicesIds = [];
+    const servicesIds: number[] = [];
     for (const service of this.data.services) {
       servicesIds.push(service.id);
     }
@@ -45,7 +45,7 @@ export class RemoveServiceFromResourceDialogComponent implements OnInit {
       () => {
         this.translate
           .get('DIALOGS.REMOVE_SERVICE_FROM_RESOURCE.SUCCESS')
-          .subscribe((successMessage) => {
+          .subscribe((successMessage: string) => {
             this.notificator.showSuccess(successMessage);
             this.dialogRef.close(true);
           });
@@ -54,7 +54,7 @@ export class RemoveServiceFromResourceDialogComponent implements OnInit {
     );
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 }

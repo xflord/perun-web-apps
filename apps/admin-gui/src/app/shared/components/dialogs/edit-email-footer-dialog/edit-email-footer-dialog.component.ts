@@ -17,6 +17,12 @@ export interface ApplicationFormEmailFooterDialogData {
   styleUrls: ['./edit-email-footer-dialog.component.scss'],
 })
 export class EditEmailFooterDialogComponent implements OnInit {
+  mailFooter = '';
+  theme: string;
+  loading = false;
+  editAuth: boolean;
+  private mailAttribute: Attribute;
+
   constructor(
     private dialogRef: MatDialogRef<EditEmailFooterDialogComponent>,
     private attributesManager: AttributesManagerService,
@@ -25,13 +31,7 @@ export class EditEmailFooterDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: ApplicationFormEmailFooterDialogData
   ) {}
 
-  mailFooter = '';
-  mailAttribute: Attribute;
-  theme: string;
-  loading = false;
-  editAuth: boolean;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
     this.loading = true;
     if (this.data.groupId) {
@@ -42,16 +42,15 @@ export class EditEmailFooterDialogComponent implements OnInit {
     this.loading = false;
   }
 
-  submit() {
+  submit(): void {
     this.loading = true;
-    // @ts-ignore
-    this.mailAttribute.value = this.mailFooter;
+    this.mailAttribute.value = this.mailFooter as unknown as object;
     if (this.data.groupId) {
       this.attributesManager
         .setGroupAttribute({ group: this.data.groupId, attribute: this.mailAttribute })
         .subscribe(
           () => {
-            this.notificateSuccess();
+            this.notificationSuccess();
             this.dialogRef.close();
           },
           () => (this.loading = false)
@@ -61,7 +60,7 @@ export class EditEmailFooterDialogComponent implements OnInit {
         .setVoAttribute({ vo: this.data.voId, attribute: this.mailAttribute })
         .subscribe(
           () => {
-            this.notificateSuccess();
+            this.notificationSuccess();
             this.dialogRef.close();
           },
           () => (this.loading = false)
@@ -69,44 +68,44 @@ export class EditEmailFooterDialogComponent implements OnInit {
     }
   }
 
-  cancel() {
+  cancel(): void {
     this.dialogRef.close();
   }
 
-  getFooterForVo() {
+  private getFooterForVo(): void {
     this.attributesManager
       .getVoAttributeByName(this.data.voId, Urns.VO_DEF_MAIL_FOOTER)
       .subscribe((footer) => {
         this.mailAttribute = footer;
         this.editAuth = this.mailAttribute.writable;
         if (footer.value) {
-          // @ts-ignore
-          this.mailFooter = footer.value;
+          this.mailFooter = footer.value as unknown as string;
         } else {
           this.mailFooter = '';
         }
       });
   }
 
-  getFooterForGroup() {
+  private getFooterForGroup(): void {
     this.attributesManager
       .getGroupAttributeByName(this.data.groupId, Urns.GROUP_DEF_MAIL_FOOTER)
       .subscribe((footer) => {
         this.mailAttribute = footer;
         this.editAuth = this.mailAttribute.writable;
         if (footer.value) {
-          // @ts-ignore
-          this.mailFooter = footer.value;
+          this.mailFooter = footer.value as unknown as string;
         } else {
           this.mailFooter = '';
         }
       });
   }
 
-  notificateSuccess() {
-    this.translateService.get('DIALOGS.NOTIFICATIONS_EDIT_FOOTER.SUCCESS').subscribe((text) => {
-      this.notificator.showSuccess(text);
-      this.dialogRef.close();
-    });
+  private notificationSuccess(): void {
+    this.translateService
+      .get('DIALOGS.NOTIFICATIONS_EDIT_FOOTER.SUCCESS')
+      .subscribe((text: string) => {
+        this.notificator.showSuccess(text);
+        this.dialogRef.close();
+      });
   }
 }

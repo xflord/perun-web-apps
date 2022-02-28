@@ -8,10 +8,10 @@
   </div>
 
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto" (click)="onClose()">
+    <button (click)="onClose()" class="ml-auto" mat-flat-button>
       {{'DIALOGS.NEW_VERSION.LATER' | translate}}
     </button>
-    <button mat-flat-button class="ml-2" color="accent" (click)="onReload()">
+    <button (click)="onReload()" class="ml-2" color="accent" mat-flat-button>
       {{'DIALOGS.NEW_VERSION.RELOAD' | translate}}
     </button>
   </div>

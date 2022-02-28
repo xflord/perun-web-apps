@@ -3,26 +3,26 @@
 </h1>
 
 <div class="w-100 d-flex">
-  <button *ngIf="addAuth" mat-flat-button color="accent" class="mr-2 action-button" (click)="add()">
+  <button (click)="add()" *ngIf="addAuth" class="mr-2 action-button" color="accent" mat-flat-button>
     {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.ADD' | translate}}
   </button>
 
   <button
     *ngIf="removeAuth"
-    mat-flat-button
-    color="warn"
-    class="mr-2"
     (click)="remove()"
-    [disabled]="selection.selected.length === 0">
+    color="warn"
+    [disabled]="selection.selected.length === 0"
+    class="mr-2"
+    mat-flat-button>
     {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.REMOVE' | translate}}
   </button>
 
-  <button mat-stroked-button class="mr-2 action-button" (click)="changeEmailFooter()">
+  <button (click)="changeEmailFooter()" class="mr-2 action-button" mat-stroked-button>
     <i class="material-icons">email</i>
     {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.EMAIL_FOOTER' | translate}}
   </button>
 
-  <button *ngIf="copyAuth" mat-stroked-button class="action-button" (click)="copy()">
+  <button (click)="copy()" *ngIf="copyAuth" class="action-button" mat-stroked-button>
     <i class="material-icons">file_copy</i>
     {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.COPY_FROM_VO' | translate}}
   </button>
@@ -33,11 +33,11 @@
 <app-notification-list
   *ngIf="!loading"
   [applicationMails]="applicationMails"
-  [tableId]="tableId"
-  [voId]="vo.id"
-  [displayedColumns]="displayedColumns"
+  (selectionChange)="changeSelection($event)"
   [disableSend]="!addAuth"
+  [displayedColumns]="displayedColumns"
+  [tableId]="tableId"
   [selection]="selection"
   [theme]="'vo-theme'"
-  (selectionChange)="changeSelection($event)">
+  [voId]="vo.id">
 </app-notification-list>

@@ -14,6 +14,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserOrganizationsComponent implements OnInit {
   @HostBinding('class.router-component') true;
+  vosWhereIsAdmin: Vo[];
+  vosWhereIsMember: Vo[];
+  memberRefresh: boolean;
+  adminRefresh: boolean;
+  userId: number;
+  adminFilterValue = '';
+  memberFilterValue = '';
+  displayedColumns = ['id', 'name'];
+  adminTableId = TABLE_USER_PROFILE_ADMIN_SELECT;
+  memberTableId = TABLE_USER_PROFILE_MEMBER_SELECT;
+  isMyProfile: boolean;
 
   constructor(
     private usersService: UsersManagerService,
@@ -22,30 +33,17 @@ export class UserOrganizationsComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  vosWhereIsAdmin: Vo[];
-  vosWhereIsMember: Vo[];
-  memberRefresh: boolean;
-  adminRefresh: boolean;
-  userId: number;
-  adminFilterValue = '';
-  memberFilterValue = '';
-
-  displayedColumns = ['id', 'name'];
-  adminTableId = TABLE_USER_PROFILE_ADMIN_SELECT;
-  memberTableId = TABLE_USER_PROFILE_MEMBER_SELECT;
-  isMyProfile: boolean;
-
-  ngOnInit() {
-    if ((this.isMyProfile = this.route.snapshot.data.showPrincipal) === true) {
+  ngOnInit(): void {
+    if ((this.isMyProfile = this.route.snapshot.data.showPrincipal as boolean)) {
       this.userId = this.store.getPerunPrincipal().user.id;
     } else {
-      this.route.parent.params.subscribe((params) => (this.userId = params['userId']));
+      this.route.parent.params.subscribe((params) => (this.userId = params['userId'] as number));
     }
     this.refreshAdminTable();
     this.refreshMemberTable();
   }
 
-  refreshMemberTable() {
+  refreshMemberTable(): void {
     this.memberRefresh = true;
     this.usersService.getVosWhereUserIsMember(this.userId).subscribe(
       (vosMember) => {
@@ -56,7 +54,7 @@ export class UserOrganizationsComponent implements OnInit {
     );
   }
 
-  refreshAdminTable() {
+  refreshAdminTable(): void {
     this.adminRefresh = true;
     this.usersService.getVosWhereUserIsAdmin(this.userId).subscribe(
       (vosAdmin) => {
@@ -67,11 +65,11 @@ export class UserOrganizationsComponent implements OnInit {
     );
   }
 
-  applyMemberFilter(filterValue: string) {
+  applyMemberFilter(filterValue: string): void {
     this.memberFilterValue = filterValue;
   }
 
-  applyAdminFilter(filterValue: string) {
+  applyAdminFilter(filterValue: string): void {
     this.adminFilterValue = filterValue;
   }
 }

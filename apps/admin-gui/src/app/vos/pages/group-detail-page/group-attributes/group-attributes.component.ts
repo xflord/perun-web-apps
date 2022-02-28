@@ -9,18 +9,16 @@ import { Group } from '@perun-web-apps/perun/openapi';
 })
 export class GroupAttributesComponent implements OnInit {
   @HostBinding('class.router-component') true;
+  group: Group;
+  groupResourceAttAuth: boolean;
+  groupMemberAttAuth: boolean;
 
   constructor(
     private authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService
   ) {}
 
-  group: Group;
-
-  groupResourceAttAuth: boolean;
-  groupMemberAttAuth: boolean;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.group = this.entityStorageService.getEntity();
     this.groupResourceAttAuth = this.authResolver.isAuthorized(
       'getResourceAssignments_Group_policy',

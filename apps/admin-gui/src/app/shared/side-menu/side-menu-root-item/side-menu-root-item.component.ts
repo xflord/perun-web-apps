@@ -12,6 +12,21 @@ import { StoreService } from '@perun-web-apps/perun/services';
   animations: [openClose, rollInOut],
 })
 export class SideMenuRootItemComponent implements OnInit, OnChanges {
+  @Input()
+  item: SideMenuItem;
+  @Input()
+  index: number;
+  @Input()
+  showOpen: boolean;
+  @Input()
+  id = '';
+  @ViewChild('collapse') collapseDiv: ElementRef;
+  @Input()
+  sideNav: MatSidenav;
+
+  expanded = false;
+  linkBgColor = this.store.get('theme', 'sidemenu_item_links_bg_color') as string;
+  linkTextColor = this.store.get('theme', 'sidemenu_item_links_text_color') as string;
   currentUrl: string;
 
   constructor(private router: Router, private store: StoreService) {
@@ -24,27 +39,7 @@ export class SideMenuRootItemComponent implements OnInit, OnChanges {
     });
   }
 
-  @Input()
-  item: SideMenuItem;
-
-  @Input()
-  index: number;
-
-  @Input()
-  showOpen: boolean;
-
-  @Input()
-  id = '';
-
-  @ViewChild('collapse') collapseDiv: ElementRef;
-
-  expanded = false;
-  linkBgColor = this.store.get('theme', 'sidemenu_item_links_bg_color');
-  linkTextColor = this.store.get('theme', 'sidemenu_item_links_text_color');
-
-  @Input()
-  sideNav: MatSidenav;
-  ngOnInit() {
+  ngOnInit(): void {
     this.expanded = this.showOpen;
   }
 
@@ -52,7 +47,7 @@ export class SideMenuRootItemComponent implements OnInit, OnChanges {
     this.expanded = this.showOpen;
   }
 
-  toggle() {
+  toggle(): void {
     if (this.item.baseLink !== undefined) {
       this.navigate(this.item.baseLink);
     } else {
@@ -60,13 +55,13 @@ export class SideMenuRootItemComponent implements OnInit, OnChanges {
     }
   }
 
-  isActive(currentUrl: string, regexValue: string) {
+  isActive(currentUrl: string, regexValue: string): boolean {
     const regexp = new RegExp(regexValue);
 
     return regexp.test(currentUrl);
   }
 
-  getBgClass() {
+  getBgClass(): string {
     if (this.item.baseColorClass) {
       return this.isActive(this.currentUrl, this.item.baseColorClassRegex)
         ? this.item.colorClass
@@ -76,11 +71,11 @@ export class SideMenuRootItemComponent implements OnInit, OnChanges {
     }
   }
 
-  navigate(url) {
+  navigate(url: string[]): void {
     if (this.sideNav.mode === 'over') {
-      this.sideNav.close().then(() => this.router.navigate(url));
+      void this.sideNav.close().then(() => this.router.navigate(url));
     } else {
-      this.router.navigate(url);
+      void this.router.navigate(url);
     }
   }
 }

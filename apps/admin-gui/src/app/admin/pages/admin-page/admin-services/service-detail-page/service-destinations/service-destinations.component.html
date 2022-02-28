@@ -3,42 +3,42 @@
   <perun-web-apps-refresh-button (refresh)="refreshTable()"> </perun-web-apps-refresh-button>
   <button
     *ngIf="authResolver.isPerunAdmin()"
-    mat-flat-button
+    (click)="onRemove()"
     color="warn"
-    class="mr-2"
     [disabled]="selection.selected.length === 0"
-    (click)="onRemove()">
+    class="mr-2"
+    mat-flat-button>
     {{ 'SERVICE_DETAIL.DESTINATIONS.REMOVE' | translate}}
   </button>
   <button
     *ngIf="authResolver.isPerunAdmin()"
-    mat-flat-button
-    color="accent"
-    class="mr-2"
+    (click)="onAllow()"
     [disabled]="selection.selected.length === 0"
-    (click)="onAllow()">
+    class="mr-2"
+    color="accent"
+    mat-flat-button>
     {{ 'SERVICE_DETAIL.DESTINATIONS.ALLOW' | translate}}
   </button>
   <button
     *ngIf="authResolver.isPerunAdmin()"
-    mat-flat-button
-    color="warn"
-    class="mr-2"
+    (click)="onBlock()"
     [disabled]="selection.selected.length === 0"
-    (click)="onBlock()">
+    class="mr-2"
+    color="warn"
+    mat-flat-button>
     {{ 'SERVICE_DETAIL.DESTINATIONS.BLOCK' | translate}}
   </button>
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'SERVICE_DETAIL.DESTINATIONS.FILTER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <app-perun-web-apps-destination-list
     *ngIf="!loading"
     [destinations]="destinations"
+    [filterValue]="filterValue"
     [selection]="selection"
-    [tableId]="tableId"
     [displayedColumns]="['select', 'destinationId', 'facility', 'destination', 'type', 'status', 'propagationType']"
-    [filterValue]="filterValue">
+    [tableId]="tableId">
   </app-perun-web-apps-destination-list>
 </div>

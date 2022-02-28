@@ -90,8 +90,7 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
-        this
+        this.getDataForColumn.bind(this)
       ),
       format
     );
@@ -104,11 +103,10 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn,
-          this
+          this.getDataForColumn.bind(this)
         );
       this.dataSource.sortData = (data: Category[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn, this);
+        customDataSourceSort(data, sort, this.getDataForColumn.bind(this));
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }

@@ -16,6 +16,11 @@ export interface DialogData {
   styleUrls: ['./application-re-send-notification-dialog.component.scss'],
 })
 export class ApplicationReSendNotificationDialogComponent implements OnInit {
+  mailType: MailType = 'APP_CREATED_USER';
+  reason = '';
+  loading = false;
+  theme: string;
+
   constructor(
     public dialogRef: MatDialogRef<ApplicationReSendNotificationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -24,20 +29,15 @@ export class ApplicationReSendNotificationDialogComponent implements OnInit {
     private registrarManager: RegistrarManagerService
   ) {}
 
-  mailType: MailType = 'APP_CREATED_USER';
-  reason = '';
-  loading = false;
-  theme: string;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     if (this.mailType === 'APP_REJECTED_USER') {
       this.registrarManager
@@ -50,7 +50,7 @@ export class ApplicationReSendNotificationDialogComponent implements OnInit {
           () => {
             this.translate
               .get('DIALOGS.RE_SEND_NOTIFICATION.SUCCESS')
-              .subscribe((successMessage) => {
+              .subscribe((successMessage: string) => {
                 this.notificator.showSuccess(successMessage);
                 this.dialogRef.close();
               });
@@ -64,7 +64,7 @@ export class ApplicationReSendNotificationDialogComponent implements OnInit {
           () => {
             this.translate
               .get('DIALOGS.RE_SEND_NOTIFICATION.SUCCESS')
-              .subscribe((successMessage) => {
+              .subscribe((successMessage: string) => {
                 this.notificator.showSuccess(successMessage);
                 this.dialogRef.close();
               });

@@ -9,9 +9,7 @@ import { fadeIn } from '@perun-web-apps/perun/animations';
   animations: [fadeIn],
 })
 export class AnimatedRouterOutletComponent {
-  constructor() {}
-
-  prepareRoute(outlet: RouterOutlet) {
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
+  prepareRoute(outlet: RouterOutlet): boolean {
+    return outlet?.activatedRouteData && outlet?.activatedRouteData['animation'] !== null;
   }
 }

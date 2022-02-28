@@ -90,8 +90,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        AttributesListComponent.getDataForColumn,
-        this
+        AttributesListComponent.getDataForColumn
       ),
       format
     );
@@ -105,11 +104,10 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
           data,
           filter,
           this.displayedColumns.concat('urn'),
-          AttributesListComponent.getDataForColumn,
-          this
+          AttributesListComponent.getDataForColumn
         );
       this.dataSource.sortData = (data: Attribute[], sort: MatSort): Attribute[] =>
-        customDataSourceSort(data, sort, AttributesListComponent.getDataForColumn, this);
+        customDataSourceSort(data, sort, AttributesListComponent.getDataForColumn);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;

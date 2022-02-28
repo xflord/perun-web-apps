@@ -11,25 +11,26 @@ export class AnyToStringPipe implements PipeTransform {
     }
     switch (attribute.type) {
       case 'java.lang.String': {
-        return <string>(<unknown>attribute.value);
+        return attribute.value as unknown as string;
       }
       case 'java.lang.Integer': {
-        return attribute.value.toString();
+        return attribute.value as unknown as string;
       }
       case 'java.util.ArrayList': {
-        return this.whenValueIsArray(<string[]>attribute.value);
+        return this.whenValueIsArray(attribute.value as string[]);
       }
       case 'java.util.LinkedHashMap': {
-        return this.whenValueIsMap(<Map<string, string>>attribute.value);
+        return this.whenValueIsMap(attribute.value as Map<string, string>);
       }
       case 'java.lang.Boolean': {
-        return attribute.value.toString();
+        return attribute.value as unknown as string;
       }
       default: {
-        return <string>(<unknown>attribute.value);
+        return attribute.value as unknown as string;
       }
     }
   }
+
   whenValueIsArray(value: Array<string>): string {
     let result = '';
     value.forEach(function (str) {

@@ -3,9 +3,9 @@
   class="card mt-3">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
-    [tableId]="tableId"
+    [pageSizeOptions]="pageSizeOptions"
     [dataLength]="dataSource.filteredData.length"
-    [pageSizeOptions]="pageSizeOptions">
+    [tableId]="tableId">
     <table
       [dataSource]="dataSource"
       class="w-100"
@@ -15,7 +15,7 @@
       matSortDirection="asc"
       matSortDisableClear>
       <ng-container matColumnDef="select">
-        <th *matHeaderCellDef mat-header-cell class="align-checkbox">
+        <th *matHeaderCellDef class="align-checkbox" mat-header-cell>
           <mat-checkbox
             (change)="$event ? masterToggle() : null"
             [aria-label]="checkboxLabel()"
@@ -95,9 +95,9 @@
               (mouseenter)="disableRouting = true"
               (mouseleave)="disableRouting = routingStrategy"
               class="dark-hover-list-item"
-              aria-label="sponsors of member"
               (click)="resetPassword(sponsoredMember)"
               [disabled]="loading"
+              aria-label="sponsors of member"
               mat-icon-button>
               <mat-icon>vpn_key</mat-icon>
             </button>

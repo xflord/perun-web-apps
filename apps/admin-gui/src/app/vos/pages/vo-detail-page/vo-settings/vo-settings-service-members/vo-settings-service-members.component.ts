@@ -14,13 +14,13 @@ import { RemoveMembersDialogComponent } from '../../../../../shared/components/d
   styleUrls: ['./vo-settings-service-members.component.scss'],
 })
 export class VoSettingsServiceMembersComponent implements OnInit {
-  vo: Vo;
   members: RichMember[] = [];
   selection = new SelectionModel<RichMember>(true, []);
   searchString = '';
   loading = false;
   tableId = TABLE_SERVICE_MEMBERS;
   removeAuth: boolean;
+  private vo: Vo;
 
   constructor(
     private membersManager: MembersManagerService,
@@ -39,7 +39,7 @@ export class VoSettingsServiceMembersComponent implements OnInit {
     this.refresh();
   }
 
-  createServiceMember() {
+  createServiceMember(): void {
     const config = getDefaultDialogConfig();
     config.width = '750px';
     config.data = {
@@ -55,7 +55,7 @@ export class VoSettingsServiceMembersComponent implements OnInit {
     });
   }
 
-  onRemoveMembers() {
+  onRemoveMembers(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {
@@ -73,11 +73,11 @@ export class VoSettingsServiceMembersComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.searchString = filterValue;
   }
 
-  refresh() {
+  refresh(): void {
     this.loading = true;
     this.membersManager
       .findCompleteRichMembersForVo(this.vo.id, [null], '(Service)')

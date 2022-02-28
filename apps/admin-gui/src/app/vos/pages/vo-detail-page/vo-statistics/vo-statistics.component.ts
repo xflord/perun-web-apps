@@ -9,20 +9,8 @@ import { EntityStorageService } from '@perun-web-apps/perun/services';
   styleUrls: ['./vo-statistics.component.scss'],
 })
 export class VoStatisticsComponent implements OnInit {
-  constructor(
-    private voService: VosManagerService,
-    private entityStorageService: EntityStorageService
-  ) {}
-
   loading = false;
-
-  vo: Vo;
-
-  dataSource = new MatTableDataSource<string>();
-  displayedColumns = ['status', 'count'];
-
   rowNames: string[] = ['Members', 'Valid', 'Invalid', 'Expired', 'Disabled'];
-  allMembersCount: number;
   membersCount: Map<string, number> = new Map<string, number>([
     ['members', 0],
     ['valid', 0],
@@ -30,6 +18,14 @@ export class VoStatisticsComponent implements OnInit {
     ['expired', 0],
     ['disabled', 0],
   ]);
+  private vo: Vo;
+  private dataSource = new MatTableDataSource<string>();
+  private allMembersCount: number;
+
+  constructor(
+    private voService: VosManagerService,
+    private entityStorageService: EntityStorageService
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;

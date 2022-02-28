@@ -1,6 +1,6 @@
 <h2 class="page-subtitle">
   {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.TITLE' | translate}}
-  <span class="text-muted" *ngIf="!!application"> #{{application.id}} </span>
+  <span *ngIf="!!application" class="text-muted"> #{{application.id}} </span>
 </h2>
 <mat-divider class="mb-4"></mat-divider>
 
@@ -8,38 +8,38 @@
 
 <div *ngIf="!loading">
   <button
-    mat-flat-button
-    color="accent"
-    class="mr-2"
     (click)="verifyApplication()"
-    *ngIf="this.application.state === 'NEW' && verifyAuth">
+    color="accent"
+    *ngIf="this.application.state === 'NEW' && verifyAuth"
+    class="mr-2"
+    mat-flat-button>
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.VERIFY' | translate}}
   </button>
   <button
-    mat-flat-button
-    color="accent"
-    class="mr-2"
     (click)="approveApplication()"
-    *ngIf="(this.application.state === 'VERIFIED' || this.application.state === 'NEW') && approveAuth">
+    color="accent"
+    *ngIf="(this.application.state === 'VERIFIED' || this.application.state === 'NEW') && approveAuth"
+    class="mr-2"
+    mat-flat-button>
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.APPROVE' | translate}}
   </button>
   <button
-    mat-flat-button
-    color="warn"
-    class="mr-2"
     (click)="rejectApplication()"
-    *ngIf="(this.application.state === 'VERIFIED' || this.application.state === 'NEW') && rejectAuth">
+    color="warn"
+    *ngIf="(this.application.state === 'VERIFIED' || this.application.state === 'NEW') && rejectAuth"
+    class="mr-2"
+    mat-flat-button>
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.REJECT' | translate}}
   </button>
   <button
-    mat-flat-button
-    color="warn"
-    class="mr-2"
     (click)="deleteApplication()"
-    *ngIf="(this.application.state === 'REJECTED' || this.application.state === 'NEW') && deleteAuth">
+    color="warn"
+    *ngIf="(this.application.state === 'REJECTED' || this.application.state === 'NEW') && deleteAuth"
+    class="mr-2"
+    mat-flat-button>
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DELETE' | translate}}
   </button>
-  <button *ngIf="resendAuth" mat-stroked-button class="mr-2 mb-2" (click)="resendNotification()">
+  <button (click)="resendNotification()" *ngIf="resendAuth" class="mr-2 mb-2" mat-stroked-button>
     <i class="material-icons"> mail_outline </i>
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.SEND_NOTIFICATION' | translate}}
   </button>
@@ -85,7 +85,7 @@
     </span>
   </div>
 
-  <div class="card p-3 mt-2" *ngIf="this.application.state === 'REJECTED'">
+  <div *ngIf="this.application.state === 'REJECTED'" class="card p-3 mt-2">
     <mat-card-title
       ><i class="material-icons red">clear</i>
       {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.REJECTED_BY' | translate}}:
@@ -99,7 +99,7 @@
     </div>
   </div>
 
-  <div class="card p-3 mt-2" *ngIf="this.application.state === 'APPROVED'">
+  <div *ngIf="this.application.state === 'APPROVED'" class="card p-3 mt-2">
     <mat-card-title
       ><i class="material-icons green">done</i>
       {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.APPROVED_BY' | translate}}:
@@ -145,30 +145,30 @@
       >: {{this.application.createdAt | date:'d.M.y H:mm:ss'}}
     </div>
 
-    <table mat-table [dataSource]="dataSource" class="w-100" *ngIf="userData.length !== 0">
+    <table *ngIf="userData.length !== 0" [dataSource]="dataSource" class="w-100" mat-table>
       <ng-container matColumnDef="label">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let userData" class="font-weight-bold">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let userData" class="font-weight-bold" mat-cell>
           {{getLabel(userData.formItem)}}
         </td>
       </ng-container>
       <ng-container matColumnDef="value">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td class="word-break-all" mat-cell *matCellDef="let userData">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let userData" class="word-break-all" mat-cell>
           {{userData.value}}
           <button
             *ngIf="(application.state === 'NEW' || application.state === 'VERIFIED') &&
             userData.formItem.type !== 'EMBEDDED_GROUP_APPLICATION'"
-            mat-icon-button
+            (click)="editApplicationData(userData)"
             aria-label="Edit Application data"
-            (click)="editApplicationData(userData)">
+            mat-icon-button>
             <mat-icon>edit</mat-icon>
           </button>
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="h-50"></tr>
-      <tr mat-row *matRowDef="let userData; columns: displayedColumns;"></tr>
+      <tr *matHeaderRowDef="displayedColumns" class="h-50" mat-header-row></tr>
+      <tr *matRowDef="let userData; columns: displayedColumns;" mat-row></tr>
     </table>
   </div>
 </div>

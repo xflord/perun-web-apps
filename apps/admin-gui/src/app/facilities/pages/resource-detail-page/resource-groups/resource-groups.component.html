@@ -21,21 +21,21 @@
   </span>
 </button>
 <perun-web-apps-debounce-filter
-  [placeholder]="'RESOURCE_DETAIL.ASSIGNED_GROUPS.FILTER_GROUPS'"
-  (filter)="applyFilter($event)">
+  (filter)="applyFilter($event)"
+  [placeholder]="'RESOURCE_DETAIL.ASSIGNED_GROUPS.FILTER_GROUPS'">
 </perun-web-apps-debounce-filter>
-<mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 <perun-web-apps-groups-list
   *ngIf="!loading"
   [disableGroups]="true"
   [groupsToDisableCheckbox]="groupsToDisable"
-  [tableId]="tableId"
   (refreshTable)="loadAllGroups()"
-  [groups]="assignedGroups"
-  [filter]="filteredValue"
-  [selection]="selected"
   [disableMembers]="false"
-  [resourceId]="resource.id"
+  [groups]="assignedGroups"
   [disableRouting]="assignedGroups[0] ? !guiAuthResolver.isAuthorized('getGroupById_int_policy', [assignedGroups[0]]) : false"
-  [displayedColumns]="['select', 'id', 'indirectGroupAssigment', 'name', 'status', 'description']">
+  [displayedColumns]="['select', 'id', 'indirectGroupAssigment', 'name', 'status', 'description']"
+  [filter]="filteredValue"
+  [resourceId]="resource.id"
+  [selection]="selected"
+  [tableId]="tableId">
 </perun-web-apps-groups-list>

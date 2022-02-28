@@ -3,61 +3,61 @@
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
     *ngIf="propagationAuth"
-    mat-flat-button
-    color="accent"
-    class="mr-2"
+    (click)="forcePropagation()"
     [disabled]="selected.selected.length === 0"
-    (click)="forcePropagation()">
+    class="mr-2"
+    color="accent"
+    mat-flat-button>
     {{'FACILITY_DETAIL.SERVICES_STATUS.FORCE_PROPAGATION' | translate}}
   </button>
   <button
     *ngIf="allowAuth"
-    mat-flat-button
-    color="accent"
-    class="mr-2"
+    (click)="allow()"
     [disabled]="selected.selected.length === 0 || this.disableAllowButton"
-    (click)="allow()">
+    class="mr-2"
+    color="accent"
+    mat-flat-button>
     {{'FACILITY_DETAIL.SERVICES_STATUS.ALLOW' | translate}}
   </button>
   <button
     *ngIf="blockAuth"
-    mat-flat-button
-    color="warn"
+    (click)="block()"
     class="mr-2"
+    color="warn"
     [disabled]="selected.selected.length === 0 || this.disableBlockButton"
-    (click)="block()">
+    mat-flat-button>
     {{'FACILITY_DETAIL.SERVICES_STATUS.BLOCK' | translate}}
   </button>
   <button
     *ngIf="deleteAuth"
     mat-flat-button
-    color="warn"
-    class="mr-2 dropdown-toggle"
-    matTooltip="{{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CHECKBOXES_DISABLED' | translate}}"
-    [matTooltipDisabled]="!disableRemoveButton"
     [disabled]="disableRemoveButton"
-    [matMenuTriggerFor]="menu">
+    [matMenuTriggerFor]="menu"
+    [matTooltipDisabled]="!disableRemoveButton"
+    class="mr-2 dropdown-toggle"
+    color="warn"
+    matTooltip="{{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CHECKBOXES_DISABLED' | translate}}">
     {{'FACILITY_DETAIL.SERVICES_STATUS.REMOVE' | translate}}
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item *ngIf="!taskIsNull" (click)="removeTaskResults()">
+    <button (click)="removeTaskResults()" *ngIf="!taskIsNull" mat-menu-item>
       {{'FACILITY_DETAIL.SERVICES_STATUS.REMOVE_TASK_RESULTS' | translate}}
     </button>
-    <button mat-menu-item (click)="removeServiceFromFacility()">
+    <button (click)="removeServiceFromFacility()" mat-menu-item>
       {{'FACILITY_DETAIL.SERVICES_STATUS.REMOVE_SERVICE_FROM_FACILITY' | translate}}
     </button>
   </mat-menu>
   <perun-web-apps-immediate-filter
-    [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.TABLE_SEARCH'"
-    (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+    (filter)="applyFilter($event)"
+    [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.TABLE_SEARCH'"></perun-web-apps-immediate-filter>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <perun-web-apps-services-status-list
-    [tableId]="tableId"
+    [disableRouting]="!routeAuth"
     (selectionChange)="selectionChanged()"
     *ngIf="!loading"
     [filterValue]="filterValue"
     [servicesStatus]="servicesStates"
     [selection]="selected"
-    [disableRouting]="!routeAuth">
+    [tableId]="tableId">
   </perun-web-apps-services-status-list>
 </div>

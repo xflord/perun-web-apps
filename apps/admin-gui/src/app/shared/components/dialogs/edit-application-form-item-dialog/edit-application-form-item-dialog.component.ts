@@ -1,8 +1,14 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { ApplicationFormItem, AppType, Group, Type } from '@perun-web-apps/perun/openapi';
-import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  ApplicationFormItem,
+  AppType,
+  AttributeDefinition,
+  AttributesManagerService,
+  Group,
+  Type,
+} from '@perun-web-apps/perun/openapi';
 import { createNewApplicationFormItem } from '@perun-web-apps/perun/utils';
 import DisabledEnum = ApplicationFormItem.DisabledEnum;
 import HiddenEnum = ApplicationFormItem.HiddenEnum;
@@ -58,6 +64,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
 
   hiddenDependencyItem: ApplicationFormItem = null;
   disabledDependencyItem: ApplicationFormItem = null;
+  languages = ['en'];
   private dependencyTypes: Type[] = [
     'PASSWORD',
     'VALIDATED_EMAIL',
@@ -70,8 +77,6 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     'USERNAME',
   ];
 
-  languages = ['en'];
-
   constructor(
     private dialogRef: MatDialogRef<EditApplicationFormItemDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EditApplicationFormItemDialogComponentData,
@@ -81,8 +86,8 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     private cd: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {
-    this.languages = this.store.get('supported_languages');
+  ngOnInit(): void {
+    this.languages = this.store.get('supported_languages') as string[];
     this.hiddenDependencyItem = this.data.allItems.find(
       (item) => item.id === this.data.applicationFormItem.hiddenDependencyItemId
     );
@@ -116,19 +121,11 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     this.getOptions();
   }
 
-  private getPossibleDepItems() {
-    return [NO_FORM_ITEM].concat(
-      this.data.allItems
-        .filter((item) => this.dependencyTypes.indexOf(item.type) > -1)
-        .filter((item) => item.id !== this.data.applicationFormItem.id)
-    );
-  }
-
-  cancel() {
+  cancel(): void {
     this.dialogRef.close();
   }
 
-  submit() {
+  submit(): void {
     this.applicationFormItem.hiddenDependencyItemId =
       this.hiddenDependencyItem === NO_FORM_ITEM ? null : this.hiddenDependencyItem.id;
     this.applicationFormItem.disabledDependencyItemId =
@@ -138,7 +135,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     this.dialogRef.close(true);
   }
 
-  onChangingType(type: AppType) {
+  onChangingType(type: AppType): void {
     if (this.applicationFormItem.applicationTypes.includes(type)) {
       const index = this.applicationFormItem.applicationTypes.indexOf(type);
       this.applicationFormItem.applicationTypes.splice(index, 1);
@@ -147,45 +144,55 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     }
   }
 
-  addOption(lang: string) {
+  addOption(lang: string): void {
     this.options[lang].push(['', '']);
   }
 
-  removeOption(option: [string, string], lang: string) {
+  removeOption(option: [string, string], lang: string): void {
     this.options[lang] = this.options[lang].filter(
       (opt) => !(opt[0] === option[0] && opt[1] === option[1])
     );
   }
 
-  updateOption(lang: string) {
-    let options = '';
-    if (this.options && this.options[lang]) {
-      for (const item of this.options[lang]) {
-        if (item[0] !== '' && item[1] !== '') {
-          if (options === '') {
-            options = item[0] + '#' + item[1];
-          } else {
-            options = options + '|' + item[0] + '#' + item[1];
-          }
-        }
+  sortOptionsAZ(lang: string): void {
+    this.options[lang] = this.options[lang].sort((n1, n2) => {
+      if (n1[1] > n2[1]) {
+        return 1;
       }
-    }
-    this.applicationFormItem.i18n[lang].options = options;
+
+      if (n1[1] < n2[1]) {
+        return -1;
+      }
+
+      return 0;
+    });
   }
 
-  updateOptions() {
-    for (const lang of this.languages) {
-      this.updateOption(lang);
-    }
+  sortOptionsZA(lang: string): void {
+    this.options[lang] = this.options[lang].sort((n1, n2) => {
+      if (n1[1] > n2[1]) {
+        return -1;
+      }
+
+      if (n1[1] < n2[1]) {
+        return 1;
+      }
+
+      return 0;
+    });
   }
 
-  changeFederationAttribute(fedAttribute: SelectionItem) {
+  isApplicationFormItemOfType(types: string[]): boolean {
+    return types.includes(this.applicationFormItem.type);
+  }
+
+  changeFederationAttribute(fedAttribute: SelectionItem): void {
     this.applicationFormItem.federationAttribute = fedAttribute.value;
     this.federationAttributeDN = fedAttribute.displayName;
     this.cd.detectChanges();
   }
 
-  copy(from: ApplicationFormItem, to: ApplicationFormItem) {
+  copy(from: ApplicationFormItem, to: ApplicationFormItem): void {
     to.applicationTypes = from.applicationTypes;
     to.federationAttribute = from.federationAttribute;
     to.forDelete = from.forDelete;
@@ -210,35 +217,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     to.hiddenDependencyItemId = from.hiddenDependencyItemId;
   }
 
-  sortOptionsAZ(lang: string) {
-    this.options[lang] = this.options[lang].sort((n1, n2) => {
-      if (n1[1] > n2[1]) {
-        return 1;
-      }
-
-      if (n1[1] < n2[1]) {
-        return -1;
-      }
-
-      return 0;
-    });
-  }
-
-  sortOptionsZA(lang: string) {
-    this.options[lang] = this.options[lang].sort((n1, n2) => {
-      if (n1[1] > n2[1]) {
-        return -1;
-      }
-
-      if (n1[1] < n2[1]) {
-        return 1;
-      }
-
-      return 0;
-    });
-  }
-
-  private getOptions() {
+  private getOptions(): void {
     this.options = {};
     for (const lang of this.languages) {
       this.options[lang] = [];
@@ -252,7 +231,33 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     }
   }
 
-  isApplicationFormItemOfType(types: string[]): boolean {
-    return types.indexOf(this.applicationFormItem.type) > -1;
+  private getPossibleDepItems(): ApplicationFormItem[] {
+    return [NO_FORM_ITEM].concat(
+      this.data.allItems
+        .filter((item) => this.dependencyTypes.includes(item.type))
+        .filter((item) => item.id !== this.data.applicationFormItem.id)
+    );
+  }
+
+  private updateOption(lang: string): void {
+    let options = '';
+    if (this.options[lang] ?? false) {
+      for (const item of this.options[lang]) {
+        if (item[0] !== '' && item[1] !== '') {
+          if (options === '') {
+            options = item[0] + '#' + item[1];
+          } else {
+            options = options + '|' + item[0] + '#' + item[1];
+          }
+        }
+      }
+    }
+    this.applicationFormItem.i18n[lang].options = options;
+  }
+
+  private updateOptions(): void {
+    for (const lang of this.languages) {
+      this.updateOption(lang);
+    }
   }
 }

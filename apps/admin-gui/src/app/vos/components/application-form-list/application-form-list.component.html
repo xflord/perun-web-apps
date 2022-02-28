@@ -37,10 +37,10 @@
           </td>
         </ng-container>
         <ng-container matColumnDef="disabled">
-          <th class="center" *matHeaderCellDef mat-header-cell>
+          <th *matHeaderCellDef class="center" mat-header-cell>
             {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HEADER' | translate}}
           </th>
-          <td class="center" *matCellDef="let applicationFormItem" mat-cell>
+          <td *matCellDef="let applicationFormItem" class="center" mat-cell>
             <div *ngIf="applicationFormItem.disabled !== 'NEVER'">
               <mat-icon class="pointer" [matTooltip]="disabledTooltip(applicationFormItem)"
                 >lock
@@ -51,10 +51,10 @@
           </td>
         </ng-container>
         <ng-container matColumnDef="hidden">
-          <th class="center" *matHeaderCellDef mat-header-cell>
+          <th *matHeaderCellDef class="center" mat-header-cell>
             {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.HIDDEN_HEADER' | translate}}
           </th>
-          <td class="center" *matCellDef="let applicationFormItem" mat-cell>
+          <td *matCellDef="let applicationFormItem" class="center" mat-cell>
             <div *ngIf="applicationFormItem.hidden !== 'NEVER'">
               <mat-icon class="pointer" [matTooltip]="hiddenTooltip(applicationFormItem)"
                 >visibility_off
@@ -213,8 +213,8 @@
             <button
               (click)="openManagingGroups()"
               mat-icon-button
-              matTooltip="{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS' | translate}}"
-              *ngIf="applicationFormItem.type === 'EMBEDDED_GROUP_APPLICATION' && !applicationFormItem.forDelete">
+              *ngIf="applicationFormItem.type === 'EMBEDDED_GROUP_APPLICATION' && !applicationFormItem.forDelete"
+              matTooltip="{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS' | translate}}">
               <mat-icon>supervised_user_circle</mat-icon>
             </button>
           </td>

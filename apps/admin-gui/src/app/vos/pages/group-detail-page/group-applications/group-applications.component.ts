@@ -18,13 +18,6 @@ export class GroupApplicationsComponent implements OnInit {
 
   // used for router animation
   @HostBinding('class.router-component') true;
-
-  constructor(
-    private registrarManager: RegistrarManagerService,
-    private guiAuthResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
-  ) {}
-
   state = 'pending';
   currentStates: AppState[] = ['NEW', 'VERIFIED'];
   group: Group;
@@ -62,13 +55,19 @@ export class GroupApplicationsComponent implements OnInit {
   startDate: FormControl;
   endDate: FormControl;
 
-  ngOnInit() {
+  constructor(
+    private registrarManager: RegistrarManagerService,
+    private guiAuthResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
+
+  ngOnInit(): void {
     this.group = this.entityStorageService.getEntity();
     this.startDate = new FormControl(formatDate(this.yearAgo(), 'yyyy-MM-dd', 'en-GB'));
     this.endDate = new FormControl(formatDate(new Date(), 'yyyy-MM-dd', 'en-GB'));
   }
 
-  select() {
+  select(): void {
     switch (this.state) {
       case 'approved': {
         this.currentStates = ['APPROVED'];
@@ -100,13 +99,13 @@ export class GroupApplicationsComponent implements OnInit {
     }
   }
 
-  yearAgo() {
+  yearAgo(): Date {
     const newDate = new Date();
     newDate.setDate(newDate.getDate() - 365);
     return newDate;
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

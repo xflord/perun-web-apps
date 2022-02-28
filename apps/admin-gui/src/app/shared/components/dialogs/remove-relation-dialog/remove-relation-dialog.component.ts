@@ -18,6 +18,12 @@ export interface RemoveRelationDialogData {
   styleUrls: ['./remove-relation-dialog.component.scss'],
 })
 export class RemoveRelationDialogComponent implements OnInit {
+  successMessage: string;
+  theme: string;
+  loading: boolean;
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<Group>;
+
   constructor(
     private dialogRef: MatDialogRef<RemoveRelationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: RemoveRelationDialogData,
@@ -27,26 +33,19 @@ export class RemoveRelationDialogComponent implements OnInit {
   ) {
     translate
       .get('DIALOGS.REMOVE_RELATION.SUCCESS')
-      .subscribe((value) => (this.successMessage = value));
+      .subscribe((value: string) => (this.successMessage = value));
   }
 
-  successMessage: string;
-  theme: string;
-  loading: boolean;
-
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<Group>;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
     this.dataSource = new MatTableDataSource<Group>(this.data.groups);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     if (this.data.groups.length === 1) {
       const thisGroup = this.data.reverse ? this.data.groups[0].id : this.data.groupId;

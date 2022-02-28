@@ -169,8 +169,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
       getDataForExport(
         this.dataSource.getData(),
         this.displayedColumns,
-        UsersDynamicListComponent.getExportDataForColumn,
-        this
+        UsersDynamicListComponent.getExportDataForColumn
       ),
       format
     );

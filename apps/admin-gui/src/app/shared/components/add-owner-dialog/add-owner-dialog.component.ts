@@ -13,23 +13,24 @@ import OwnerTypeEnum = InputCreateOwner.OwnerTypeEnum;
   styleUrls: ['./add-owner-dialog.component.scss'],
 })
 export class AddOwnerDialogComponent implements OnInit {
+  successMessage: string;
+  loading: boolean;
+  nameCtrl: FormControl;
+  contactCtrl: FormControl;
+  type = '1';
+
   constructor(
     private dialogRef: MatDialogRef<AddOwnerDialogComponent>,
     private notificator: NotificatorService,
     private ownersManagerService: OwnersManagerService,
     private translate: TranslateService
   ) {
-    translate.get('DIALOGS.ADD_OWNER.SUCCESS').subscribe((value) => (this.successMessage = value));
+    translate
+      .get('DIALOGS.ADD_OWNER.SUCCESS')
+      .subscribe((value: string) => (this.successMessage = value));
   }
 
-  successMessage: string;
-  loading: boolean;
-
-  nameCtrl: FormControl;
-  contactCtrl: FormControl;
-  type = '1';
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.nameCtrl = new FormControl(null, [
       Validators.required,
       Validators.pattern('^[\\w.-]+( [\\w.-]+)*$'),
@@ -40,16 +41,16 @@ export class AddOwnerDialogComponent implements OnInit {
     ]);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     this.ownersManagerService
       .createOwner({
-        name: this.nameCtrl.value,
-        contact: this.contactCtrl.value,
+        name: this.nameCtrl.value as string,
+        contact: this.contactCtrl.value as string,
         ownerType: Number(this.type) as OwnerTypeEnum,
       })
       .subscribe(

@@ -8,11 +8,11 @@
       <mat-radio-button
         *ngIf="!toRootOptionDisabled"
         color="primary"
-        value="toRoot"
-        class="move-options">
+        class="move-options"
+        value="toRoot">
         {{'DIALOGS.MOVE_GROUP.NO_GROUP' | translate}}
       </mat-radio-button>
-      <mat-radio-button *ngIf="!toGroupOptionDisabled" value="toGroup" color="primary">
+      <mat-radio-button *ngIf="!toGroupOptionDisabled" color="primary" value="toGroup">
         {{'DIALOGS.MOVE_GROUP.TO_GROUP' | translate}}
       </mat-radio-button>
     </mat-radio-group>
@@ -26,16 +26,16 @@
       <input
         matInput
         placeholder="{{'DIALOGS.MOVE_GROUP.GROUP_SELECT' | translate}}"
-        required
         (change)="selectedGroup = null"
+        [formControl]="otherGroupsCtrl"
         [matAutocomplete]="groupSelectAutocomplete"
-        [formControl]="otherGroupsCtrl" />
+        required />
       <!--suppress AngularInvalidExpressionResultType -->
       <mat-autocomplete #groupSelectAutocomplete="matAutocomplete" [displayWith]="displayFn">
         <mat-option
           *ngFor="let group of filteredGroups | async"
-          [value]="group"
-          (click)="selectedGroup = group">
+          (click)="selectedGroup = group"
+          [value]="group">
           <span>{{group.name}}</span>
         </mat-option>
       </mat-autocomplete>
@@ -47,9 +47,9 @@
       {{'DIALOGS.MOVE_GROUP.CANCEL' | translate}}
     </button>
     <span
-      matTooltip="{{'DIALOGS.MOVE_GROUP.DISABLED_HINT' | translate}}"
+      [matTooltipDisabled]="selectedGroup !== null || moveOption === 'toRoot'"
       [matTooltipPosition]="'above'"
-      [matTooltipDisabled]="selectedGroup !== null || moveOption === 'toRoot'">
+      matTooltip="{{'DIALOGS.MOVE_GROUP.DISABLED_HINT' | translate}}">
       <button
         (click)="confirm()"
         [disabled]="((otherGroupsCtrl.invalid || selectedGroup === null) && moveOption !== 'toRoot') || loading"

@@ -10,7 +10,7 @@ export class AdminAuditLogComponent {
   tableId = TABLE_AUDIT_MESSAGES;
   refresh = false;
 
-  refreshTable() {
+  refreshTable(): void {
     this.refresh = !this.refresh;
   }
 }

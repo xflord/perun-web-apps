@@ -26,6 +26,15 @@ export interface EditMemberSponsorsDialogComponent {
   styleUrls: ['./edit-member-sponsors-dialog.component.scss'],
 })
 export class EditMemberSponsorsDialogComponent implements OnInit {
+  theme: string;
+  sponsors: Sponsor[];
+  displayedColumns: string[] = ['id', 'name', 'expiration', 'remove'];
+  dataSource: MatTableDataSource<Sponsor>;
+  loading = false;
+  sponsorsToRemove: Set<number> = new Set<number>();
+  private vo: Vo;
+  private expirationChanged = false;
+
   constructor(
     private dialogRef: MatDialogRef<EditMemberSponsorsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: EditMemberSponsorsDialogComponent,
@@ -37,16 +46,6 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
-  theme: string;
-  sponsors: Sponsor[];
-  displayedColumns: string[] = ['id', 'name', 'expiration', 'remove'];
-  dataSource: MatTableDataSource<Sponsor>;
-  loading = false;
-  vo: Vo;
-  expirationChanged = false;
-
-  sponsorsToRemove: Set<number> = new Set<number>();
-
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.sponsors = this.data.sponsors;
@@ -57,7 +56,7 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
     };
   }
 
-  markSponsor(sponsor: Sponsor) {
+  markSponsor(sponsor: Sponsor): void {
     if (this.sponsorsToRemove.has(sponsor.user.id)) {
       this.sponsorsToRemove.delete(sponsor.user.id);
     } else {
@@ -65,34 +64,17 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
     }
   }
 
-  removeSponsors(sponsorIds: number[]) {
-    if (sponsorIds.length === 0) {
-      this.notificator.showSuccess(this.translate.instant('DIALOGS.EDIT_MEMBER_SPONSORS.SUCCESS'));
-      this.loading = false;
-      this.dialogRef.close(true);
-      return;
-    }
-
-    const sponsorId = sponsorIds.pop();
-    this.memberService.removeSponsor(this.data.member.id, sponsorId).subscribe(
-      () => {
-        this.removeSponsors(sponsorIds);
-      },
-      () => (this.loading = false)
-    );
-  }
-
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     const sponsorIds = Array.from(this.sponsorsToRemove);
     this.removeSponsors(sponsorIds);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(this.expirationChanged);
   }
 
-  isRemoveAuthorized(sponsor: Sponsor) {
+  isRemoveAuthorized(sponsor: Sponsor): boolean {
     return (
       this.authResolver.isAuthorized('sponsored-removeSponsor_Member_User_policy', [
         this.data.member,
@@ -101,21 +83,21 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
     );
   }
 
-  isExpirationAuthorized(sponsor: Sponsor) {
+  isExpirationAuthorized(sponsor: Sponsor): boolean {
     return this.authResolver.isAuthorized('updateSponsorshipValidity_Member_User_LocalDate', [
       sponsor.user,
       this.vo,
     ]);
   }
 
-  parseDate(date) {
+  parseDate(date: string): string {
     if (date === null) {
       return 'Never expire';
     }
     return formatDate(date, 'd.M.y', 'en');
   }
 
-  changeExpiration(sponsor) {
+  changeExpiration(sponsor: Sponsor): void {
     const config = getDefaultDialogConfig();
     config.width = '400px';
     config.data = {
@@ -136,5 +118,24 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
         });
       }
     });
+  }
+
+  private removeSponsors(sponsorIds: number[]): void {
+    if (sponsorIds.length === 0) {
+      this.notificator.showSuccess(
+        this.translate.instant('DIALOGS.EDIT_MEMBER_SPONSORS.SUCCESS') as string
+      );
+      this.loading = false;
+      this.dialogRef.close(true);
+      return;
+    }
+
+    const sponsorId = sponsorIds.pop();
+    this.memberService.removeSponsor(this.data.member.id, sponsorId).subscribe(
+      () => {
+        this.removeSponsors(sponsorIds);
+      },
+      () => (this.loading = false)
+    );
   }
 }

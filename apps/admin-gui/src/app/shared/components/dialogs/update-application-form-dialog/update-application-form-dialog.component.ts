@@ -15,12 +15,6 @@ export interface UpdateApplicationFormDialogData {
   styleUrls: ['./update-application-form-dialog.component.scss'],
 })
 export class UpdateApplicationFormDialogComponent implements OnInit {
-  constructor(
-    private dialogRef: MatDialogRef<UpdateApplicationFormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: UpdateApplicationFormDialogData,
-    private registrarManager: RegistrarManagerService
-  ) {}
-
   entity: string;
   applicationForm: ApplicationForm;
   moduleName: string;
@@ -31,7 +25,13 @@ export class UpdateApplicationFormDialogComponent implements OnInit {
   theme: string;
   autoRegistrationEnabled: boolean;
 
-  ngOnInit() {
+  constructor(
+    private dialogRef: MatDialogRef<UpdateApplicationFormDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: UpdateApplicationFormDialogData,
+    private registrarManager: RegistrarManagerService
+  ) {}
+
+  ngOnInit(): void {
     this.theme = this.data.theme;
     this.applicationForm = this.data.applicationForm;
     this.moduleName = this.applicationForm.moduleClassName;
@@ -42,11 +42,11 @@ export class UpdateApplicationFormDialogComponent implements OnInit {
     this.autoRegistrationEnabled = this.data.autoRegistrationEnabled;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 
-  submit() {
+  submit(): void {
     this.loading = true;
     this.applicationForm.moduleClassName = this.moduleName;
     this.applicationForm.automaticApproval = this.initialState === 'auto';

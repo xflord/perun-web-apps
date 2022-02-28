@@ -19,8 +19,6 @@ import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
   styleUrls: ['./ext-sources-list.component.scss'],
 })
 export class ExtSourcesListComponent implements AfterViewInit, OnChanges {
-  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
-
   @Input()
   extSources: ExtSource[];
   @Input()
@@ -31,33 +29,20 @@ export class ExtSourcesListComponent implements AfterViewInit, OnChanges {
   displayedColumns: string[] = ['select', 'id', 'name', 'type'];
   @Input()
   tableId: string;
-
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  dataSource: MatTableDataSource<ExtSource>;
+  exporting = false;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  private sort: MatSort;
+
+  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSource();
   }
 
-  private sort: MatSort;
-
-  dataSource: MatTableDataSource<ExtSource>;
-  exporting = false;
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
-  ngAfterViewInit() {
-    this.setDataSource();
-  }
-
-  ngOnChanges(): void {
-    if (!this.authResolver.isPerunAdminOrObserver()) {
-      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
-    }
-    this.dataSource = new MatTableDataSource<ExtSource>(this.extSources);
-    this.setDataSource();
-  }
-
-  getDataForColumn(data: ExtSource, column: string): string {
+  static getDataForColumn(data: ExtSource, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -70,37 +55,47 @@ export class ExtSourcesListComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  exportData(format: string) {
+  ngAfterViewInit(): void {
+    this.setDataSource();
+  }
+
+  ngOnChanges(): void {
+    if (!this.authResolver.isPerunAdminOrObserver()) {
+      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
+    }
+    this.dataSource = new MatTableDataSource<ExtSource>(this.extSources);
+    this.setDataSource();
+  }
+
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
-        this
+        ExtSourcesListComponent.getDataForColumn
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: UserExtSource, filter: string) =>
+      this.dataSource.filterPredicate = (data: UserExtSource, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn,
-          this
+          ExtSourcesListComponent.getDataForColumn
         );
-      this.dataSource.sortData = (data: UserExtSource[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: UserExtSource[], sort: MatSort): UserExtSource[] =>
+        customDataSourceSort(data, sort, ExtSourcesListComponent.getDataForColumn);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;
     }
   }
 
-  isAllSelected() {
+  isAllSelected(): boolean {
     return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
       this.filterValue,
@@ -110,7 +105,7 @@ export class ExtSourcesListComponent implements AfterViewInit, OnChanges {
     );
   }
 
-  masterToggle() {
+  masterToggle(): void {
     this.tableCheckbox.masterToggle(
       this.isAllSelected(),
       this.selection,

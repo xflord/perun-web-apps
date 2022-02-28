@@ -1,8 +1,8 @@
 <h1 mat-dialog-title>{{'DIALOGS.APPLICATION_FORM_ADD_ITEM.TITLE' | translate}}</h1>
-<div mat-dialog-content class="dialog-container">
+<div class="dialog-container" mat-dialog-content>
   {{'DIALOGS.APPLICATION_FORM_ADD_ITEM.SHORT_NAME' | translate}}:
   <mat-form-field>
-    <input matInput required data-cy="item-short-name" [formControl]="nameCtrl" />
+    <input [formControl]="nameCtrl" data-cy="item-short-name" matInput required />
     <mat-error>
       {{'DIALOGS.APPLICATION_FORM_ADD_ITEM.FILL_NAME' | translate}}
     </mat-error>
@@ -27,16 +27,16 @@
 </div>
 
 <div mat-dialog-actions>
-  <button mat-flat-button class="ml-auto" (click)="cancel()">
+  <button (click)="cancel()" class="ml-auto" mat-flat-button>
     {{'DIALOGS.APPLICATION_FORM_ADD_ITEM.CANCEL' | translate}}
   </button>
   <button
     [disabled]="nameCtrl.invalid"
-    mat-flat-button
+    (click)="submit()"
     class="ml-2"
     color="accent"
     data-cy="add-form-item-button-dialog"
-    (click)="submit()">
+    mat-flat-button>
     {{'DIALOGS.APPLICATION_FORM_ADD_ITEM.CREATE' | translate}}
   </button>
 </div>

@@ -5,21 +5,21 @@
 <perun-web-apps-notificator [displayWarning]="displayWarning"></perun-web-apps-notificator>
 <ng-template [ngIf]="!isLoginScreenShow && !isServiceAccess && !isServiceLogin()">
   <app-perun-nav-menu
-    id="nav-menu"
+    [principal]="principal"
     [ngStyle]="{'top': getNavMenuTop(), 'background': navBackgroundColor}"
     class="mat-elevation-z3"
     [sideNav]="sidenav"
-    [principal]="principal">
+    id="nav-menu">
   </app-perun-nav-menu>
   <mat-sidenav-container
     [ngStyle]="{'margin-top': getSideNavMarginTop(),'min-height': getSideNavMinHeight()}">
     <mat-sidenav
       #sidenav
-      [ngStyle]="{'border-color': sideBarBorderColor}"
-      [mode]="sidebarMode"
-      [opened]="!isMobile()"
       [fixedInViewport]="true"
-      [fixedTopGap]="getTopGap()">
+      [mode]="sidebarMode"
+      [fixedTopGap]="getTopGap()"
+      [ngStyle]="{'border-color': sideBarBorderColor}"
+      [opened]="!isMobile()">
       <perfect-scrollbar
         [ngStyle]="{'background': sideMenubackgroundColor}"
         [scrollIndicators]="true">

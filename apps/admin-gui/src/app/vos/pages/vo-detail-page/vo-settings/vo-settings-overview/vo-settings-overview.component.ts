@@ -13,6 +13,10 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 export class VoSettingsOverviewComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
+  items: MenuItem[] = [];
+  loading = false;
+  private vo: Vo;
+
   constructor(
     private sideMenuService: SideMenuService,
     private voService: VosManagerService,
@@ -21,18 +25,14 @@ export class VoSettingsOverviewComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  items: MenuItem[] = [];
-  vo: Vo;
-  loading = false;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.vo = this.entityStorageService.getEntity();
     this.initItems();
     this.loading = false;
   }
 
-  private initItems() {
+  private initItems(): void {
     this.items = [];
     const adminOrObserver = this.authResolver.isThisVoAdminOrObserver(this.vo.id);
 

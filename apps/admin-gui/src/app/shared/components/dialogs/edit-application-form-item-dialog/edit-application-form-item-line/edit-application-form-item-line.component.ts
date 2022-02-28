@@ -6,8 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./edit-application-form-item-line.component.css'],
 })
 export class EditApplicationFormItemLineComponent {
-  constructor() {}
-
   @Input()
   label: string;
 

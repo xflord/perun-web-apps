@@ -3,8 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { AttributeDefinition } from '@perun-web-apps/perun/openapi';
-import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import { AttributeDefinition, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface DeleteAttributeDefinitionDialogData {
   attributes: AttributeDefinition[];
@@ -17,6 +16,11 @@ export interface DeleteAttributeDefinitionDialogData {
   styleUrls: ['./delete-attribute-definition-dialog.component.scss'],
 })
 export class DeleteAttributeDefinitionDialogComponent implements OnInit {
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<AttributeDefinition>;
+  loading = false;
+  theme: string;
+
   constructor(
     public dialogRef: MatDialogRef<DeleteAttributeDefinitionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DeleteAttributeDefinitionDialogData,
@@ -25,21 +29,16 @@ export class DeleteAttributeDefinitionDialogComponent implements OnInit {
     private attributesManager: AttributesManagerService
   ) {}
 
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<AttributeDefinition>;
-  loading = false;
-  theme: string;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
     this.dataSource = new MatTableDataSource<AttributeDefinition>(this.data.attributes);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     const ids: number[] = [];
     for (const attr of this.data.attributes) {
@@ -50,7 +49,7 @@ export class DeleteAttributeDefinitionDialogComponent implements OnInit {
       () => {
         this.translate
           .get('DIALOGS.DELETE_ATTRIBUTE_DEFINITION.SUCCESS')
-          .subscribe((successMessage) => {
+          .subscribe((successMessage: string) => {
             this.notificator.showSuccess(successMessage);
             this.dialogRef.close(true);
           });

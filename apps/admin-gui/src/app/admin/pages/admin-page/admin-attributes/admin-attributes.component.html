@@ -3,40 +3,40 @@
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
     *ngIf="authResolver.isPerunAdmin()"
-    mat-flat-button
     (click)="onCreate()"
+    class="mr-2 action-button"
     color="accent"
-    class="mr-2 action-button">
+    mat-flat-button>
     {{'ADMIN.ATTRIBUTES.CREATE' | translate}}
   </button>
   <button
     *ngIf="authResolver.isPerunAdmin()"
-    mat-flat-button
     (click)="onImport()"
+    class="mr-2 action-button"
     color="accent"
-    class="mr-2 action-button">
+    mat-flat-button>
     {{'ADMIN.ATTRIBUTES.IMPORT' | translate}}
   </button>
   <button
     *ngIf="authResolver.isPerunAdmin()"
-    mat-flat-button
-    color="warn"
     (click)="onDelete()"
+    color="warn"
+    [disabled]="selected.selected.length === 0"
     class="mr-2"
-    [disabled]="selected.selected.length === 0">
+    mat-flat-button>
     {{'ADMIN.ATTRIBUTES.DELETE' | translate}}
   </button>
   <perun-web-apps-immediate-filter
-    [placeholder]="'ADMIN.ATTRIBUTES.SEARCH'"
-    (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+    (filter)="applyFilter($event)"
+    [placeholder]="'ADMIN.ATTRIBUTES.SEARCH'"></perun-web-apps-immediate-filter>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <app-attr-def-list
     *ngIf="!loading"
-    [tableId]="tableId"
+    (refreshEvent)="refreshTable()"
     [definitions]="attrDefinitions"
-    [selection]="selected"
-    [filterValue]="filterValue"
     [disableRouting]="!authResolver.isPerunAdmin()"
-    (refreshEvent)="refreshTable()">
+    [filterValue]="filterValue"
+    [selection]="selected"
+    [tableId]="tableId">
   </app-attr-def-list>
 </div>

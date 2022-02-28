@@ -1,30 +1,30 @@
 <div>
   <h1 class="page-subtitle">{{'FACILITY_DETAIL.SERVICE_CONFIG.TITLE' | translate}}</h1>
-  <div class="col-12 col-lg-6 mb-2" *ngIf="!!facility">
+  <div *ngIf="!!facility" class="col-12 col-lg-6 mb-2">
     <mat-form-field *ngIf="(services !== undefined)" class="w-100">
       <input
-        type="text"
-        placeholder="{{'FACILITY_DETAIL.SERVICE_CONFIG.SERVICE_SELECT' | translate}}"
+        (keyup)="updatedSerVal($event)"
         matInput
+        placeholder="{{'FACILITY_DETAIL.SERVICE_CONFIG.SERVICE_SELECT' | translate}}"
         [formControl]="serviceField"
         [matAutocomplete]="auto"
-        (keyup)="updatedSerVal($event)" />
+        type="text" />
       <mat-autocomplete
-        autoActiveFirstOption
+        [displayWith]="serviceDisplayFn.bind(this)"
         #auto="matAutocomplete"
-        [displayWith]="serviceDisplayFn.bind(this)">
+        autoActiveFirstOption>
         <mat-option
-          [value]="'NOT_SELECTED'"
-          (onSelectionChange)="onSelectedService('NOT_SELECTED')">
+          (onSelectionChange)="onSelectedService('NOT_SELECTED')"
+          [value]="'NOT_SELECTED'">
           {{'FACILITY_DETAIL.SERVICE_CONFIG.NOT_SELECTED' | translate}}
         </mat-option>
-        <mat-option [value]="'ALL'" (onSelectionChange)="onSelectedService('ALL')">
+        <mat-option (onSelectionChange)="onSelectedService('ALL')" [value]="'ALL'">
           {{'FACILITY_DETAIL.SERVICE_CONFIG.ALL' | translate}}
         </mat-option>
         <mat-option
           *ngFor="let s of filteredServices | async"
-          [value]="s"
-          (onSelectionChange)="onSelectedService(s)">
+          (onSelectionChange)="onSelectedService(s)"
+          [value]="s">
           {{s.name}}
         </mat-option>
       </mat-autocomplete>
@@ -34,20 +34,20 @@
     </mat-checkbox>
     <mat-form-field *ngIf="(resources !== undefined) && (resources.length !== 0)" class="w-100">
       <input
-        type="text"
-        placeholder="{{'FACILITY_DETAIL.SERVICE_CONFIG.RES_SELECT' | translate}}"
+        (keyup)="updatedResVal($event)"
+        [formControl]="resourceField"
         matInput
         [matAutocomplete]="auto"
-        [formControl]="resourceField"
-        (keyup)="updatedResVal($event)" />
+        placeholder="{{'FACILITY_DETAIL.SERVICE_CONFIG.RES_SELECT' | translate}}"
+        type="text" />
       <mat-autocomplete
-        autoActiveFirstOption
+        [displayWith]="resourceDisplayFn.bind(this)"
         #auto="matAutocomplete"
-        [displayWith]="resourceDisplayFn.bind(this)">
+        autoActiveFirstOption>
         <mat-option
           *ngFor="let r of filteredResources | async"
-          [value]="r"
-          (onSelectionChange)="onSelectedResource(r)">
+          (onSelectionChange)="onSelectedResource(r)"
+          [value]="r">
           {{r.name}}
         </mat-option>
       </mat-autocomplete>
@@ -56,21 +56,21 @@
       *ngIf="(selectedResource !== undefined) && (groups !== undefined) && (groups.length !== 0)"
       class="w-100">
       <input
-        type="text"
-        placeholder="{{'FACILITY_DETAIL.SERVICE_CONFIG.GROUP_SELECT' | translate}}"
+        (keyup)="updatedGroupVal($event)"
+        [formControl]="groupField"
         matInput
         [matAutocomplete]="auto"
-        [formControl]="groupField"
-        (keyup)="updatedGroupVal($event)" />
+        placeholder="{{'FACILITY_DETAIL.SERVICE_CONFIG.GROUP_SELECT' | translate}}"
+        type="text" />
       <mat-autocomplete
-        autoActiveFirstOption
+        [displayWith]="groupDisplayFn.bind(this)"
         #auto="matAutocomplete"
         [ngClass]=""
-        [displayWith]="groupDisplayFn.bind(this)">
+        autoActiveFirstOption>
         <mat-option
           *ngFor="let g of filteredGroups | async"
-          [value]="g"
-          (onSelectionChange)="onSelectedGroup(g)">
+          (onSelectionChange)="onSelectedGroup(g)"
+          [value]="g">
           {{g.name}}
         </mat-option>
       </mat-autocomplete>
@@ -87,19 +87,19 @@
       *ngIf="(selectedGroup !== undefined) && (members !== undefined) && (members.length !== 0)"
       class="w-100">
       <input
-        type="text"
-        placeholder="{{'FACILITY_DETAIL.SERVICE_CONFIG.MEMBER_SELECT' | translate}}"
+        [matAutocomplete]="auto"
         matInput
+        placeholder="{{'FACILITY_DETAIL.SERVICE_CONFIG.MEMBER_SELECT' | translate}}"
         [formControl]="memberField"
-        [matAutocomplete]="auto" />
+        type="text" />
       <mat-autocomplete
-        autoActiveFirstOption
+        [displayWith]="memberDisplayFn.bind(this)"
         #auto="matAutocomplete"
-        [displayWith]="memberDisplayFn.bind(this)">
+        autoActiveFirstOption>
         <mat-option
           *ngFor="let m of filteredMembers | async"
-          [value]="m"
-          (onSelectionChange)="onSelectedMember(m)">
+          (onSelectionChange)="onSelectedMember(m)"
+          [value]="m">
           {{m.user | userFullName}}
         </mat-option>
       </mat-autocomplete>
@@ -110,7 +110,7 @@
     [facility]="facility"
     [resource]="selectedResource"
     [group]="selectedGroup"
-    [service]="selectedService"
-    [member]="selectedMember">
+    [member]="selectedMember"
+    [service]="selectedService">
   </perun-web-apps-service-configurator>
 </div>

@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{'DIALOGS.NOTIFICATION_LIST.TITLE' | translate}}</h1>
 <div *ngIf="notifications.length !== 0" class="hide-horizontal-scrollbar">
-  <cdk-virtual-scroll-viewport itemSize="50" class="viewport">
+  <cdk-virtual-scroll-viewport class="viewport" itemSize="50">
     <div *cdkVirtualFor="let data of notifications" class="mb-1">
       <perun-web-apps-notification [data]="data" [inDialog]="true"> </perun-web-apps-notification>
     </div>
@@ -13,10 +13,10 @@
 >
 
 <div mat-dialog-actions>
-  <button mat-flat-button class="ml-auto" (click)="onClear()">
+  <button (click)="onClear()" class="ml-auto" mat-flat-button>
     {{'DIALOGS.NOTIFICATION_LIST.CLEAR' | translate}}
   </button>
-  <button mat-flat-button class="ml-2" (click)="onCancel()">
+  <button (click)="onCancel()" class="ml-2" mat-flat-button>
     {{'DIALOGS.NOTIFICATION_LIST.CANCEL' | translate}}
   </button>
 </div>

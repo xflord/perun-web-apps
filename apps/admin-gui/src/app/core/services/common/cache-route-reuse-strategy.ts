@@ -29,9 +29,9 @@ export class CachedRoute {
 @Injectable()
 export class CacheRouteReuseStrategy implements RouteReuseStrategy {
   // typeToComponentToHandlers: Map<string, Map<string, DetachedRouteHandle>>;
-  typeToComponentToHandlers: Map<string, Map<string, CachedRoute>>;
+  private typeToComponentToHandlers: Map<string, Map<string, CachedRoute>>;
 
-  allowCachePages = [
+  private allowCachePages = [
     {
       type: 'vo',
       components: [
@@ -74,7 +74,7 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
 
   private cacheTimeMs = 300_000;
 
-  resets = [
+  private resets = [
     {
       lastValue: null,
       resetType: 'vo',
@@ -115,34 +115,27 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
     }
   }
 
-  setLastNavigationType(type: 'back' | 'direct'): void {
-    this.isUserNavigatingBack = type === 'back';
+  private static getCurrentTimestamp(): number {
+    return +Date.now();
   }
 
   /**
-   * Checks if some resets should be done on given route.
+   * Parses component name from its source.
    *
-   * Checks all resets and if their reset condition is fulfilled, pages of
-   * given type are removed from cache.
-   *
-   * @param newRoute new route
+   * @param component in string format
    */
-  checkResets(newRoute: ActivatedRouteSnapshot): void {
-    const newPath = this.getPath(newRoute);
+  private static getComponentName(component): string {
+    // eslint-disable-next-line
+    return component.id as string;
+  }
 
-    for (const reset of this.resets) {
-      // if the reset should be used and update it
-      if (reset.resetPath === newPath) {
-        const newParamValue = newRoute.params[reset.param];
-
-        // remove all cached pages for given type
-        if (reset.lastValue !== null && reset.lastValue !== newParamValue) {
-          this.typeToComponentToHandlers.get(reset.resetType).clear();
-        }
-
-        reset.lastValue = newParamValue;
-      }
-    }
+  /**
+   * Returns path from given route.
+   *
+   * @param route route
+   */
+  private static getPath(route: ActivatedRouteSnapshot): string {
+    return route.routeConfig?.path ?? '';
   }
 
   shouldReuseRoute(before: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
@@ -157,9 +150,9 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
    */
   retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle | null {
     if (route.component) {
-      const componentName = this.getComponentName(route.component);
+      const componentName = CacheRouteReuseStrategy.getComponentName(route.component);
       for (const pages of this.allowCachePages) {
-        if (pages.components.indexOf(componentName) !== -1) {
+        if (pages.components.includes(componentName)) {
           const cachedData = this.typeToComponentToHandlers.get(pages.type).get(componentName);
 
           return cachedData === undefined ? null : cachedData.routeHandle;
@@ -181,12 +174,13 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
     }
 
     if (route.component) {
-      const componentName = this.getComponentName(route.component);
+      const componentName = CacheRouteReuseStrategy.getComponentName(route.component);
       for (const pages of this.allowCachePages) {
         const cachedData = this.typeToComponentToHandlers.get(pages.type).get(componentName);
         if (
           cachedData !== undefined &&
-          this.getCurrentTimestamp() - cachedData.saveTimeStamp < this.cacheTimeMs
+          CacheRouteReuseStrategy.getCurrentTimestamp() - cachedData.saveTimeStamp <
+            this.cacheTimeMs
         ) {
           return true;
         }
@@ -202,10 +196,9 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
    */
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
     if (route.component) {
-      const componentName = this.getComponentName(route.component);
-      for (let i = 0; i < this.allowCachePages.length; ++i) {
-        const pages = this.allowCachePages[i];
-        if (pages.components.indexOf(componentName) !== -1) {
+      const componentName = CacheRouteReuseStrategy.getComponentName(route.component);
+      for (const pages of this.allowCachePages) {
+        if (pages.components.includes(componentName)) {
           return true;
         }
       }
@@ -225,24 +218,43 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
         document.getElementsByTagName('mat-tooltip-component')[0].remove();
       }
       const type = this.getComponentType(route);
-      this.typeToComponentToHandlers.get(type).set(this.getComponentName(route.component), {
-        routeHandle: detachedTree,
-        saveTimeStamp: this.getCurrentTimestamp(),
-      });
+      this.typeToComponentToHandlers
+        .get(type)
+        .set(CacheRouteReuseStrategy.getComponentName(route.component), {
+          routeHandle: detachedTree,
+          saveTimeStamp: CacheRouteReuseStrategy.getCurrentTimestamp(),
+        });
     }
   }
 
-  private getCurrentTimestamp(): number {
-    return +Date.now();
+  setLastNavigationType(type: 'back' | 'direct'): void {
+    this.isUserNavigatingBack = type === 'back';
   }
 
   /**
-   * Parses component name from its source.
+   * Checks if some resets should be done on given route.
    *
-   * @param component in string format
+   * Checks all resets and if their reset condition is fulfilled, pages of
+   * given type are removed from cache.
+   *
+   * @param newRoute new route
    */
-  private getComponentName(component) {
-    return component.id;
+  private checkResets(newRoute: ActivatedRouteSnapshot): void {
+    const newPath = CacheRouteReuseStrategy.getPath(newRoute);
+
+    for (const reset of this.resets) {
+      // if the reset should be used and update it
+      if (reset.resetPath === newPath) {
+        const newParamValue: string = newRoute.params[reset.param] as string;
+
+        // remove all cached pages for given type
+        if (reset.lastValue !== null && reset.lastValue !== newParamValue) {
+          this.typeToComponentToHandlers.get(reset.resetType).clear();
+        }
+
+        reset.lastValue = newParamValue;
+      }
+    }
   }
 
   /**
@@ -251,25 +263,13 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
    * @param route route
    */
   private getComponentType(route: ActivatedRouteSnapshot): string {
-    const componentName = this.getComponentName(route.component);
+    const componentName = CacheRouteReuseStrategy.getComponentName(route.component);
     for (const pages of this.allowCachePages) {
-      if (pages.components.indexOf(componentName) !== -1) {
+      if (pages.components.includes(componentName)) {
         return pages.type;
       }
     }
 
     return null;
-  }
-
-  /**
-   * Returns path from given route.
-   *
-   * @param route route
-   */
-  private getPath(route: ActivatedRouteSnapshot): string {
-    if (route.routeConfig !== null && route.routeConfig.path !== null) {
-      return route.routeConfig.path;
-    }
-    return '';
   }
 }

@@ -21,6 +21,18 @@ export interface AddUserServiceIdentityData {
   styleUrls: ['./connect-identity-dialog.component.scss'],
 })
 export class ConnectIdentityDialogComponent implements OnInit {
+  theme: string;
+  loading = false;
+  target: string;
+  identities: RichUser[];
+  selection = new SelectionModel<RichUser>(false, []);
+  firstSearchDone = false;
+  displayedColumns = ['select', 'id', 'user', 'name', 'email', 'logins', 'organization'];
+  tableId = TABLE_USER_SERVICE_IDENTITIES;
+  searchCtrl: FormControl;
+  private userId: number;
+  private isService: boolean;
+
   constructor(
     private dialogRef: MatDialogRef<ConnectIdentityDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: AddUserServiceIdentityData,
@@ -30,21 +42,6 @@ export class ConnectIdentityDialogComponent implements OnInit {
     private translate: TranslateService
   ) {}
 
-  theme: string;
-  userId: number;
-  isService: boolean;
-  loading = false;
-  target: string;
-  identities: RichUser[];
-  selection = new SelectionModel<RichUser>(false, []);
-
-  firstSearchDone = false;
-  displayedColumns = ['select', 'id', 'user', 'name', 'email', 'logins', 'organization'];
-
-  tableId = TABLE_USER_SERVICE_IDENTITIES;
-
-  searchCtrl: FormControl;
-
   ngOnInit(): void {
     this.target = this.data.target;
     this.theme = this.data.theme;
@@ -53,7 +50,7 @@ export class ConnectIdentityDialogComponent implements OnInit {
     this.searchCtrl = new FormControl('', [Validators.required, Validators.pattern('.*[\\S]+.*')]);
   }
 
-  onAdd() {
+  onAdd(): void {
     this.loading = true;
     let owner: number;
     let specificUser: number;
@@ -67,16 +64,18 @@ export class ConnectIdentityDialogComponent implements OnInit {
     }
 
     this.userManager.addSpecificUserOwner(owner, specificUser).subscribe(() => {
-      this.notificator.showSuccess(this.translate.instant('DIALOGS.CONNECT_IDENTITY.SUCCESS'));
+      this.notificator.showSuccess(
+        this.translate.instant('DIALOGS.CONNECT_IDENTITY.SUCCESS') as string
+      );
       this.dialogRef.close(true);
     });
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSearchByString() {
+  onSearchByString(): void {
     if (this.searchCtrl.invalid) {
       this.searchCtrl.markAllAsTouched();
       return;
@@ -85,24 +84,26 @@ export class ConnectIdentityDialogComponent implements OnInit {
     this.firstSearchDone = true;
     let attributes = [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL];
     attributes = attributes.concat(this.storeService.getLoginAttributeNames());
-    this.userManager.findRichUsersWithAttributes(this.searchCtrl.value, attributes).subscribe(
-      (identities) => {
-        this.identities = this.filterIdentities(identities);
-        this.loading = false;
-      },
-      () => {
-        this.loading = false;
-      }
-    );
+    this.userManager
+      .findRichUsersWithAttributes(this.searchCtrl.value as string, attributes)
+      .subscribe(
+        (identities) => {
+          this.identities = this.filterIdentities(identities);
+          this.loading = false;
+        },
+        () => {
+          this.loading = false;
+        }
+      );
   }
 
-  onKeyInput(event: KeyboardEvent) {
+  onKeyInput(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       this.onSearchByString();
     }
   }
 
-  filterIdentities(identities: RichUser[]): RichUser[] {
+  private filterIdentities(identities: RichUser[]): RichUser[] {
     if (this.isService) {
       return identities.filter((identity) => !identity.serviceUser);
     }

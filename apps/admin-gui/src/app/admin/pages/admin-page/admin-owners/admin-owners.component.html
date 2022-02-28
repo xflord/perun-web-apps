@@ -3,31 +3,31 @@
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
     *ngIf="addAuth"
-    mat-flat-button
-    color="accent"
     (click)="addOwner()"
-    class="mr-2 action-button">
+    color="accent"
+    class="mr-2 action-button"
+    mat-flat-button>
     {{'ADMIN.OWNERS.ADD' | translate}}
   </button>
 
   <button
-    mat-flat-button
-    color="warn"
+    (click)="removeOwner()"
     class="mr-2"
+    color="warn"
     *ngIf="removeAuth"
     [disabled]="!selected.selected.length"
-    (click)="removeOwner()">
+    mat-flat-button>
     {{'ADMIN.OWNERS.DELETE' | translate}}
   </button>
 
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'ADMIN.OWNERS.FILTER'"></perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <perun-web-apps-owners-list
-    [tableId]="tableId"
+    [selection]="selected"
     *ngIf="!loading"
     [filterValue]="filterValue"
     [owners]="owners"
-    [selection]="selected"></perun-web-apps-owners-list>
+    [tableId]="tableId"></perun-web-apps-owners-list>
 </div>

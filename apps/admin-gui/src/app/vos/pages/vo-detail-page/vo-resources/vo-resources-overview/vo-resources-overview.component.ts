@@ -11,6 +11,8 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 })
 export class VoResourcesOverviewComponent implements OnInit {
   @HostBinding('class.router-component') true;
+  items: MenuItem[] = [];
+  vo: Vo;
 
   constructor(
     private sideMenuService: SideMenuService,
@@ -19,15 +21,12 @@ export class VoResourcesOverviewComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  items: MenuItem[] = [];
-  vo: Vo;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.vo = this.entityStorageService.getEntity();
     this.initItems();
   }
 
-  private initItems() {
+  private initItems(): void {
     this.items = [
       {
         cssIcon: 'perun-resource',

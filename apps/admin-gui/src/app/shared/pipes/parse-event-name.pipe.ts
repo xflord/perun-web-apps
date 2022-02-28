@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'parseEventName',
 })
 export class ParseEventNamePipe implements PipeTransform {
-  transform(value: string) {
+  transform(value: string): string {
     if (!value) return;
     return value.split('.').pop();
   }

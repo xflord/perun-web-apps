@@ -9,26 +9,24 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./user-facilities.component.scss'],
 })
 export class UserFacilitiesComponent implements OnInit {
-  constructor(private facilityManager: FacilitiesManagerService, private route: ActivatedRoute) {}
-
   facilities: EnrichedFacility[] = [];
-
   userId: number;
-
   loading: boolean;
   filterValue = '';
   tableId = TABLE_ADMIN_FACILITIES;
   displayedColumns = ['id', 'name', 'description'];
 
+  constructor(private facilityManager: FacilitiesManagerService, private route: ActivatedRoute) {}
+
   ngOnInit(): void {
     this.loading = true;
     this.route.parent.params.subscribe((params) => {
-      this.userId = params['userId'];
+      this.userId = params['userId'] as number;
       this.refreshTable();
     });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.facilityManager.getAssignedFacilitiesByUser(this.userId).subscribe((facilities) => {
       this.facilities = facilities.map((f) => ({ facility: f }));
@@ -36,7 +34,7 @@ export class UserFacilitiesComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

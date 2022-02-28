@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SideMenuService } from '../../../core/services/common/side-menu.service';
-import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.service';
 
 @Component({
   selector: 'app-admin-page',
@@ -8,12 +7,9 @@ import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.se
   styleUrls: ['./admin-page.component.scss'],
 })
 export class AdminPageComponent implements OnInit {
-  constructor(
-    private sideMenuService: SideMenuService,
-    private sideMenuItemService: SideMenuItemService
-  ) {}
+  constructor(private sideMenuService: SideMenuService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.sideMenuService.setAdminItems([]);
   }
 }

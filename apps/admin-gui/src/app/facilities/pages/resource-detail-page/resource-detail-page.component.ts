@@ -6,6 +6,7 @@ import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.se
 import {
   FacilitiesManagerService,
   Facility,
+  Resource,
   ResourcesManagerService,
   RichResource,
   Vo,
@@ -13,8 +14,7 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { addRecentlyVisited, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
-import { Resource } from '@perun-web-apps/perun/openapi';
-import { GuiAuthResolver, EntityStorageService } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { GetResourceRoutePipe } from '@perun-web-apps/perun/pipes';
 import {
   EditFacilityResourceGroupVoDialogComponent,
@@ -22,6 +22,7 @@ import {
 } from '@perun-web-apps/perun/dialogs';
 import { RemoveResourceDialogComponent } from '../../../shared/components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
 import { ReloadEntityDetailService } from '../../../core/services/common/reload-entity-detail.service';
+import { SideMenuItem } from '../../../shared/side-menu/side-menu.component';
 
 @Component({
   selector: 'app-resource-detail-page',
@@ -30,6 +31,17 @@ import { ReloadEntityDetailService } from '../../../core/services/common/reload-
   animations: [fadeIn],
 })
 export class ResourceDetailPageComponent implements OnInit {
+  resource: RichResource;
+  vo: Vo;
+  facility: Facility;
+  underVoUrl = false;
+  facilityLinkAuth: boolean;
+  editResourceAuth: boolean;
+  voLinkAuth: boolean;
+  deleteAuth = false;
+  baseUrl = '';
+  loading = false;
+
   constructor(
     private route: ActivatedRoute,
     private facilityManager: FacilitiesManagerService,
@@ -44,28 +56,17 @@ export class ResourceDetailPageComponent implements OnInit {
     private reloadEntityDetail: ReloadEntityDetailService
   ) {}
 
-  resource: RichResource;
-  vo: Vo;
-  facility: Facility;
-  underVoUrl = false;
-  facilityLinkAuth: boolean;
-  editResourceAuth: boolean;
-  voLinkAuth: boolean;
-  deleteAuth = false;
-  baseUrl = '';
-  loading = false;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.reloadData();
     this.reloadEntityDetail.entityDetailChange.subscribe(() => {
       this.reloadData();
     });
   }
 
-  reloadData() {
+  reloadData(): void {
     this.loading = true;
     this.route.params.subscribe((params) => {
-      const resourceId = params['resourceId'];
+      const resourceId = params['resourceId'] as number;
 
       this.resourcesManager.getRichResourceById(resourceId).subscribe((resource) => {
         this.resource = resource;
@@ -103,8 +104,8 @@ export class ResourceDetailPageComponent implements OnInit {
     });
   }
 
-  setMenuItems() {
-    let parentItem;
+  setMenuItems(): void {
+    let parentItem: SideMenuItem;
     const resourceItem = this.sideMenuItemService.parseResource(this.resource, this.underVoUrl);
     if (this.underVoUrl) {
       parentItem = this.sideMenuItemService.parseVo(this.vo);
@@ -114,20 +115,7 @@ export class ResourceDetailPageComponent implements OnInit {
     this.sideMenuService.setAccessMenuItems([parentItem, resourceItem]);
   }
 
-  private setAuth() {
-    this.facilityLinkAuth = this.guiAuthResolver.isAuthorized('getFacilityById_int_policy', [
-      this.resource,
-    ]);
-    this.editResourceAuth = this.guiAuthResolver.isAuthorized('updateResource_Resource_policy', [
-      this.resource,
-    ]);
-    this.voLinkAuth = this.guiAuthResolver.isAuthorized('getVoById_int_policy', [this.resource]);
-    this.deleteAuth = this.guiAuthResolver.isAuthorized('deleteResource_Resource_policy', [
-      this.resource,
-    ]);
-  }
-
-  editResource() {
+  editResource(): void {
     let resourceForEdit: Resource;
     this.resourcesManager.getResourceById(this.resource.id).subscribe((resource) => {
       resourceForEdit = resource;
@@ -151,7 +139,7 @@ export class ResourceDetailPageComponent implements OnInit {
     });
   }
 
-  deleteResource() {
+  deleteResource(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = {
@@ -162,8 +150,21 @@ export class ResourceDetailPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.router.navigate(['../'], { relativeTo: this.route });
+        void this.router.navigate(['../'], { relativeTo: this.route });
       }
     });
+  }
+
+  private setAuth(): void {
+    this.facilityLinkAuth = this.guiAuthResolver.isAuthorized('getFacilityById_int_policy', [
+      this.resource,
+    ]);
+    this.editResourceAuth = this.guiAuthResolver.isAuthorized('updateResource_Resource_policy', [
+      this.resource,
+    ]);
+    this.voLinkAuth = this.guiAuthResolver.isAuthorized('getVoById_int_policy', [this.resource]);
+    this.deleteAuth = this.guiAuthResolver.isAuthorized('deleteResource_Resource_policy', [
+      this.resource,
+    ]);
   }
 }

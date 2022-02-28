@@ -20,8 +20,7 @@ import { getDefaultDialogConfig, getRecentlyVisitedIds } from '@perun-web-apps/p
 import { EditAttributeDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { CreateAttributeDialogComponent } from '../dialogs/create-attribute-dialog/create-attribute-dialog.component';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { ResourceWithStatus } from '@perun-web-apps/perun/models';
-import { GroupWithStatus } from '@perun-web-apps/perun/models';
+import { GroupWithStatus, ResourceWithStatus } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-two-entity-attribute-page',
@@ -29,6 +28,24 @@ import { GroupWithStatus } from '@perun-web-apps/perun/models';
   styleUrls: ['./two-entity-attribute-page.component.scss'],
 })
 export class TwoEntityAttributePageComponent implements OnInit {
+  @ViewChild('list')
+  list: AttributesListComponent;
+  @Input()
+  firstEntityId: number;
+  @Input()
+  firstEntity: string;
+  @Input()
+  secondEntity: string;
+  entityValues: Resource[] | Facility[] | Group[] | RichMember[] | User[] = [];
+  attributes: Attribute[] = [];
+  selection = new SelectionModel<Attribute>(true, []);
+  specificSecondEntity: Resource | Facility | Group | RichMember | User;
+  allowedStatuses: string[] = ['INVALID', 'VALID'];
+  loading = false;
+  innerLoading = false;
+  filterValue = '';
+  noEntityMessage: string;
+
   constructor(
     private attributesManagerService: AttributesManagerService,
     private resourcesManagerService: ResourcesManagerService,
@@ -38,35 +55,12 @@ export class TwoEntityAttributePageComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
-  @ViewChild('list')
-  list: AttributesListComponent;
-
-  @Input()
-  firstEntityId: number;
-
-  @Input()
-  firstEntity: string;
-
-  @Input()
-  secondEntity: string;
-
-  entityValues: Resource[] | Facility[] | Group[] | RichMember[] | User[] = [];
-  attributes: Attribute[] = [];
-  selection = new SelectionModel<Attribute>(true, []);
-  specificSecondEntity: Resource | Facility | Group | RichMember | User;
-  allowedStatuses: string[] = ['INVALID', 'VALID'];
-
-  loading = false;
-  innerLoading = false;
-  filterValue = '';
-  noEntityMessage: string;
-
   ngOnInit(): void {
     this.loadEntityValues();
     this.setMessages(this.secondEntity.toLowerCase());
   }
 
-  loadEntityValues() {
+  loadEntityValues(): void {
     this.loading = true;
     switch (this.firstEntity) {
       case 'member':
@@ -94,7 +88,7 @@ export class TwoEntityAttributePageComponent implements OnInit {
             this.resourcesManagerService
               .getResourceAssignments(this.firstEntityId)
               .subscribe((resources) => {
-                this.entityValues = <ResourceWithStatus[]>resources.map((r) => {
+                this.entityValues = resources.map((r) => {
                   const resWithStatus: ResourceWithStatus = r.enrichedResource.resource;
                   resWithStatus.status = r.status;
                   return resWithStatus;
@@ -145,7 +139,7 @@ export class TwoEntityAttributePageComponent implements OnInit {
             this.resourcesManagerService
               .getGroupAssignments(this.firstEntityId)
               .subscribe((groups) => {
-                this.entityValues = <GroupWithStatus[]>groups.map((g) => {
+                this.entityValues = groups.map((g) => {
                   const resWithStatus: GroupWithStatus = g.enrichedGroup.group;
                   resWithStatus.status = g.status;
                   return resWithStatus;
@@ -166,13 +160,13 @@ export class TwoEntityAttributePageComponent implements OnInit {
     }
   }
 
-  preselectEntity() {
+  preselectEntity(): void {
     if (this.entityValues.length !== 0) {
       this.findInitiallySelectedEntity();
     }
   }
 
-  findInitiallySelectedEntity() {
+  findInitiallySelectedEntity(): void {
     let initialEntity = this.entityValues[0];
     const recentIds = getRecentlyVisitedIds(this.entityKey());
     if (recentIds) {
@@ -186,7 +180,7 @@ export class TwoEntityAttributePageComponent implements OnInit {
     this.specifySecondEntity(initialEntity);
   }
 
-  entityKey() {
+  entityKey(): string {
     // Can be extended to support different entities in the future
     switch (this.secondEntity) {
       case 'group':
@@ -196,7 +190,7 @@ export class TwoEntityAttributePageComponent implements OnInit {
     }
   }
 
-  getAttributes(entityId: number) {
+  getAttributes(entityId: number): void {
     this.innerLoading = true;
     switch (this.firstEntity) {
       case 'member':
@@ -277,11 +271,11 @@ export class TwoEntityAttributePageComponent implements OnInit {
     }
   }
 
-  setMessages(entity: string) {
+  setMessages(entity: string): void {
     this.noEntityMessage = `No ${entity} assigned`;
   }
 
-  onSave(entityId: number) {
+  onSave(entityId: number): void {
     // have to use this to update attribute with map in it, before saving it
     this.list.updateMapAttributes();
 
@@ -305,7 +299,7 @@ export class TwoEntityAttributePageComponent implements OnInit {
     });
   }
 
-  onDelete(entityId: number) {
+  onDelete(entityId: number): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {
@@ -327,7 +321,7 @@ export class TwoEntityAttributePageComponent implements OnInit {
     });
   }
 
-  onAdd(entityId: number) {
+  onAdd(entityId: number): void {
     const config = getDefaultDialogConfig();
     config.width = '1050px';
     config.data = {
@@ -349,14 +343,14 @@ export class TwoEntityAttributePageComponent implements OnInit {
     });
   }
 
-  specifySecondEntity(entity: Group | Facility | Resource | RichMember | User) {
+  specifySecondEntity(entity: Group | Facility | Resource | RichMember | User): void {
     if (entity) {
       this.specificSecondEntity = entity;
       this.getAttributes(this.specificSecondEntity.id);
     }
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

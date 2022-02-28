@@ -1,4 +1,4 @@
-<div class="align-cards" *ngIf="inMyProfile">
+<div *ngIf="inMyProfile" class="align-cards">
   <mat-card class="mat-elevation-z3">
     <mat-card-header>
       <mat-card-title>
@@ -6,7 +6,7 @@
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <table class="w-100" mat-table [dataSource]="mailDataSource">
+      <table [dataSource]="mailDataSource" class="w-100" mat-table>
         <ng-container matColumnDef="name">
           <th *matHeaderCellDef mat-header-cell></th>
           <td *matCellDef="let attribute" class="font-weight-bold" mat-cell>
@@ -17,7 +17,7 @@
           <th *matHeaderCellDef mat-header-cell></th>
           <td *matCellDef="let attribute" mat-cell>
             {{attribute.value}}
-            <button class="ml-3" mat-icon-button (click)="changeEmail()">
+            <button (click)="changeEmail()" class="ml-3" mat-icon-button>
               <mat-icon>edit</mat-icon>
             </button>
           </td>

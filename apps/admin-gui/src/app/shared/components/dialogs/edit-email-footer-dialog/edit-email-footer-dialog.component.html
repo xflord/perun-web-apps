@@ -1,11 +1,11 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.TITLE' | translate}}</h1>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <div *ngIf="!loading" mat-dialog-content class="dialog-container">
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
     <div>{{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.LABEL' | translate}}:</div>
 
     <mat-form-field>
-      <textarea matInput [cdkTextareaAutosize]="true" [(ngModel)]="mailFooter"></textarea>
+      <textarea [(ngModel)]="mailFooter" [cdkTextareaAutosize]="true" matInput></textarea>
     </mat-form-field>
 
     <div class="mt-2 font-italic text-muted">

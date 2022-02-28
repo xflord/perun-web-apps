@@ -11,13 +11,10 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 export class FacilityAllowedGroupsComponent implements OnInit {
   static id = 'FacilityAllowedGroupsComponent';
 
-  @HostBinding('class.router-component') true;
+  @Input()
+  groups: Group[] = [];
 
-  constructor(
-    private facilityManager: FacilitiesManagerService,
-    private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
-  ) {}
+  @HostBinding('class.router-component') true;
 
   facility: Facility;
 
@@ -27,8 +24,6 @@ export class FacilityAllowedGroupsComponent implements OnInit {
 
   filterValue = '';
 
-  @Input()
-  groups: Group[] = [];
   selected = 'all';
 
   groupsToShow: Group[] = this.groups;
@@ -36,7 +31,13 @@ export class FacilityAllowedGroupsComponent implements OnInit {
 
   groupsWithoutRouteAuth: Set<number> = new Set<number>();
 
-  ngOnInit() {
+  constructor(
+    private facilityManager: FacilitiesManagerService,
+    private authResolver: GuiAuthResolver,
+    private entityStorageService: EntityStorageService
+  ) {}
+
+  ngOnInit(): void {
     this.loading = true;
     this.facility = this.entityStorageService.getEntity();
     this.facilityManager.getAllowedVos(this.facility.id).subscribe((vos) => {
@@ -45,7 +46,7 @@ export class FacilityAllowedGroupsComponent implements OnInit {
     });
   }
 
-  showGroup() {
+  showGroup(): void {
     if (this.selected !== 'all') {
       this.groupsToShow = this.groups.filter((t) => t.voId === parseInt(this.selected, 10));
     } else {
@@ -53,7 +54,7 @@ export class FacilityAllowedGroupsComponent implements OnInit {
     }
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.groups = [];
     this.vos.forEach((vo) => {
@@ -69,7 +70,7 @@ export class FacilityAllowedGroupsComponent implements OnInit {
     }
   }
 
-  setAuthRights(vo: Vo, groups: Group[]) {
+  setAuthRights(vo: Vo, groups: Group[]): void {
     groups.forEach((grp) => {
       if (!this.authResolver.isAuthorized('getGroupById_int_policy', [vo, grp])) {
         this.groupsWithoutRouteAuth.add(grp.id);
@@ -77,7 +78,7 @@ export class FacilityAllowedGroupsComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

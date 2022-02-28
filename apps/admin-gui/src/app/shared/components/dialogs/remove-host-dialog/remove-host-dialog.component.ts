@@ -17,6 +17,12 @@ export interface RemoveHostDialogData {
   styleUrls: ['./remove-host-dialog.component.scss'],
 })
 export class RemoveHostDialogComponent implements OnInit {
+  theme: string;
+  hosts: Host[];
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<Host>;
+  loading = false;
+
   constructor(
     private dialogRef: MatDialogRef<RemoveHostDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: RemoveHostDialogData,
@@ -25,19 +31,13 @@ export class RemoveHostDialogComponent implements OnInit {
     private translate: TranslateService
   ) {}
 
-  theme: string;
-  hosts: Host[];
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<Host>;
-  loading = false;
-
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.hosts = this.data.hosts;
     this.dataSource = new MatTableDataSource<Host>(this.data.hosts);
   }
 
-  onConfirm() {
+  onConfirm(): void {
     this.loading = true;
     this.facilitiesManager
       .removeHosts(
@@ -46,14 +46,16 @@ export class RemoveHostDialogComponent implements OnInit {
       )
       .subscribe(
         () => {
-          this.notificator.showSuccess(this.translate.instant('DIALOGS.REMOVE_HOST.SUCCESS'));
+          this.notificator.showSuccess(
+            this.translate.instant('DIALOGS.REMOVE_HOST.SUCCESS') as string
+          );
           this.dialogRef.close(true);
         },
         () => (this.loading = false)
       );
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 }

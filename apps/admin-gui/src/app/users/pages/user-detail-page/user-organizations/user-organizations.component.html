@@ -18,7 +18,7 @@
   [vos]="vosWhereIsMember">
 </perun-web-apps-vos-list>
 
-<div class="mt-5" *ngIf="!this.isMyProfile">
+<div *ngIf="!this.isMyProfile" class="mt-5">
   <h1 class="page-subtitle">{{'SHARED_LIB.PERUN.ORGANIZATIONS.USER_IS_ADMIN' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshAdminTable()"></perun-web-apps-refresh-button>
   <perun-web-apps-immediate-filter

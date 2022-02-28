@@ -16,12 +16,8 @@ import { GroupsListComponent } from '@perun-web-apps/perun/components';
   styleUrls: ['./application-form-manage-groups.component.css'],
 })
 export class ApplicationFormManageGroupsComponent implements OnInit {
-  constructor(
-    private registrarService: RegistrarManagerService,
-    public authResolver: GuiAuthResolver,
-    private dialog: MatDialog,
-    protected route: ActivatedRoute
-  ) {}
+  @ViewChild('list', {})
+  list: GroupsListComponent;
 
   loading: boolean;
   voId: number;
@@ -31,18 +27,22 @@ export class ApplicationFormManageGroupsComponent implements OnInit {
   filterValue = '';
   addAuth: boolean;
 
-  @ViewChild('list', {})
-  list: GroupsListComponent;
+  constructor(
+    private registrarService: RegistrarManagerService,
+    public authResolver: GuiAuthResolver,
+    private dialog: MatDialog,
+    protected route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
     this.route.parent.parent.params.subscribe((params) => {
-      this.voId = params['voId'];
+      this.voId = params['voId'] as number;
       this.loadGroups();
     });
   }
 
-  loadGroups() {
+  loadGroups(): void {
     this.loading = true;
     this.registrarService.getGroupsToAutoRegistration(this.voId).subscribe(
       (groups) => {
@@ -55,7 +55,7 @@ export class ApplicationFormManageGroupsComponent implements OnInit {
     );
   }
 
-  onAddGroup() {
+  onAddGroup(): void {
     const config = getDefaultDialogConfig();
     config.width = '900px';
     config.data = {
@@ -73,7 +73,7 @@ export class ApplicationFormManageGroupsComponent implements OnInit {
     });
   }
 
-  removeGroup() {
+  removeGroup(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {
@@ -99,7 +99,7 @@ export class ApplicationFormManageGroupsComponent implements OnInit {
     });
   }
 
-  private setAuthRights() {
+  private setAuthRights(): void {
     const vo = { id: this.voId, beanName: 'Vo' };
     this.addAuth = this.authResolver.isAuthorized(
       'addGroupsToAutoRegistration_List<Group>_policy',

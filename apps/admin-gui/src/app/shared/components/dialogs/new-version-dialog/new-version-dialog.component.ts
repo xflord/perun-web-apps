@@ -9,11 +9,11 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class NewVersionDialogComponent {
   constructor(private dialogRef: MatDialogRef<NewVersionDialogComponent>) {}
 
-  onReload() {
+  onReload(): void {
     location.reload();
   }
 
-  onClose() {
+  onClose(): void {
     this.dialogRef.close();
   }
 }

@@ -10,14 +10,14 @@
 	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
 	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
 ]>
-<svg version="1.1" id="Vrstva_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 128 128"
-	 style="enable-background:new 0 0 128 128;" xml:space="preserve">
+<svg id="Vrstva_1" style="enable-background:new 0 0 128 128;" version="1.1" viewBox="0 0 128 128" x="0px"
+	 xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:graph="&ns_graphs;" xmlns:i="&ns_ai;" xmlns:x="&ns_extend;"
+	 xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
 <style type="text/css">
 	.st0{fill:#858585;}
 </style>
 <switch>
-	<foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
+	<foreignObject height="1" requiredExtensions="&ns_ai;" width="1" x="0" y="0">
 		<i:pgfRef  xlink:href="#adobe_illustrator_pgf">
 		</i:pgfRef>
 	</foreignObject>
@@ -27,24 +27,24 @@
 				<path class="st0" d="M103.39,104.2V12.9h-0.32h-9.59H35.43h-9.02h-0.89v91.31H0.04V115h127.93v-10.8H103.39z M35.43,22.81h58.05
 					v81.4H69.67V87.85h-10.8v16.35H35.43V22.81z"/>
 			</g>
-			
-				<rect x="43.11" y="47.36" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -4.2516 100.0706)" class="st0" width="9.6" height="9.6"/>
-			
-				<rect x="43.11" y="30.66" transform="matrix(6.123234e-17 -1 1 6.123234e-17 12.4482 83.3709)" class="st0" width="9.6" height="9.6"/>
-			
-				<rect x="59.47" y="30.66" transform="matrix(6.123234e-17 -1 1 6.123234e-17 28.8049 99.7277)" class="st0" width="9.6" height="9.6"/>
-			
-				<rect x="75.82" y="30.66" transform="matrix(6.123234e-17 -1 1 6.123234e-17 45.1617 116.0844)" class="st0" width="9.6" height="9.6"/>
-			
-				<rect x="59.47" y="47.36" transform="matrix(6.123234e-17 -1 1 6.123234e-17 12.1052 116.4274)" class="st0" width="9.6" height="9.6"/>
-			
-				<rect x="75.82" y="47.36" transform="matrix(6.123234e-17 -1 1 6.123234e-17 28.462 132.7842)" class="st0" width="9.6" height="9.6"/>
-			
-				<rect x="43.11" y="64.06" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -20.9513 116.7704)" class="st0" width="9.6" height="9.6"/>
-			
-				<rect x="59.47" y="64.06" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -4.5945 133.1271)" class="st0" width="9.6" height="9.6"/>
-			
-				<rect x="75.82" y="64.06" transform="matrix(6.123234e-17 -1 1 6.123234e-17 11.7622 149.4839)" class="st0" width="9.6" height="9.6"/>
+
+				<rect class="st0" height="9.6" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -4.2516 100.0706)" width="9.6" x="43.11" y="47.36"/>
+
+				<rect class="st0" height="9.6" transform="matrix(6.123234e-17 -1 1 6.123234e-17 12.4482 83.3709)" width="9.6" x="43.11" y="30.66"/>
+
+				<rect class="st0" height="9.6" transform="matrix(6.123234e-17 -1 1 6.123234e-17 28.8049 99.7277)" width="9.6" x="59.47" y="30.66"/>
+
+				<rect class="st0" height="9.6" transform="matrix(6.123234e-17 -1 1 6.123234e-17 45.1617 116.0844)" width="9.6" x="75.82" y="30.66"/>
+
+				<rect class="st0" height="9.6" transform="matrix(6.123234e-17 -1 1 6.123234e-17 12.1052 116.4274)" width="9.6" x="59.47" y="47.36"/>
+
+				<rect class="st0" height="9.6" transform="matrix(6.123234e-17 -1 1 6.123234e-17 28.462 132.7842)" width="9.6" x="75.82" y="47.36"/>
+
+				<rect class="st0" height="9.6" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -20.9513 116.7704)" width="9.6" x="43.11" y="64.06"/>
+
+				<rect class="st0" height="9.6" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -4.5945 133.1271)" width="9.6" x="59.47" y="64.06"/>
+
+				<rect class="st0" height="9.6" transform="matrix(6.123234e-17 -1 1 6.123234e-17 11.7622 149.4839)" width="9.6" x="75.82" y="64.06"/>
 		</g>
 	</g>
 </switch>

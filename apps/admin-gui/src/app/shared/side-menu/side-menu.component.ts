@@ -13,37 +13,83 @@ import { rollInOut } from '@perun-web-apps/perun/animations';
   animations: [rollInOut],
 })
 export class SideMenuComponent implements OnInit {
-  constructor(
-    private sideMenuService: SideMenuService,
-    private sideMenuItemService: SideMenuItemService,
-    public authResolver: GuiAuthResolver
-  ) {}
+  @Input()
+  sideNav: MatSidenav;
 
   accessItems: SideMenuItem[] = [];
   facilityItems: SideMenuItem[] = [];
   adminItems: SideMenuItem[] = [];
   homeItems: SideMenuItem[] = [];
   userItems: SideMenuItem[] = [];
-
-  accessItem = this.sideMenuItemService.getAccessManagementItem();
-  adminItem = this.sideMenuItemService.getAdminItem();
-  facilityItem = this.sideMenuItemService.getFacilitiesManagementItem();
-  homeItem = this.sideMenuItemService.getHomeItem();
-  userItem = this.sideMenuItemService.getUserItem();
-
-  @Input()
-  sideNav: MatSidenav;
-
+  accessItem: SideMenuItem = this.sideMenuItemService.getAccessManagementItem();
+  adminItem: SideMenuItem = this.sideMenuItemService.getAdminItem();
+  facilityItem: SideMenuItem = this.sideMenuItemService.getFacilitiesManagementItem();
+  homeItem: SideMenuItem = this.sideMenuItemService.getHomeItem();
+  userItem: SideMenuItem = this.sideMenuItemService.getUserItem();
   mobileView = true;
   adminItemOpened = false;
   userItemOpened = false;
 
+  constructor(
+    private sideMenuService: SideMenuService,
+    private sideMenuItemService: SideMenuItemService,
+    public authResolver: GuiAuthResolver
+  ) {}
+
+  private static areSameItems(item1: SideMenuItem, item2: SideMenuItem): boolean {
+    return item1.label === item2.label && item1.labelClass === item2.labelClass;
+  }
+
+  private static areSameLinks(sideMenuItem: SideMenuItem, sideMenuItem2: SideMenuItem): boolean {
+    if (sideMenuItem.links.length !== sideMenuItem2.links.length) {
+      return false;
+    }
+    for (let i = 0; i < sideMenuItem.links.length; i++) {
+      if (sideMenuItem.links[i].label !== sideMenuItem2.links[i].label) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * This method is used to set new sideMenuItems to an existing array of items.
+   *
+   * The method replaces only items that were not int the origin array.
+   * If the new array has smaller size, excessive items are removed from the origin array.
+   * This method is used because of animations. Without this, they do not work properly.
+   *
+   * @param originItems origin array
+   * @param newItems new items
+   */
+  private static setNewItems(originItems: SideMenuItem[], newItems: SideMenuItem[]): void {
+    const maxLength = originItems.length > newItems.length ? originItems.length : newItems.length;
+
+    for (let i = 0; i < maxLength; i++) {
+      if (i > originItems.length - 1) {
+        originItems.push(newItems[i]);
+      } else if (i > newItems.length - 1) {
+        const originItemsLength = originItems.length;
+        for (let j = 0; j < originItemsLength - i; j++) {
+          originItems.pop();
+        }
+        break;
+      } else if (!SideMenuComponent.areSameItems(originItems[i], newItems[i])) {
+        originItems[i] = newItems[i];
+      } else if (!SideMenuComponent.areSameLinks(originItems[i], newItems[i])) {
+        originItems[i].links = newItems[i].links;
+      }
+
+      // items are same, dont switch
+    }
+  }
+
   ngOnInit(): void {
     this.mobileView = window.innerWidth <= AppComponent.minWidth;
     if (this.mobileView) {
-      this.sideNav.close();
+      void this.sideNav.close();
     } else {
-      this.sideNav.open();
+      void this.sideNav.open();
     }
 
     this.sideMenuService.facilityItemsChange.subscribe((items) => {
@@ -69,129 +115,81 @@ export class SideMenuComponent implements OnInit {
   private reset(): void {
     this.adminItemOpened = false;
     this.userItemOpened = false;
-    this.setNewItems(this.homeItems, []);
-    this.setNewItems(this.adminItems, []);
-    this.setNewItems(this.accessItems, []);
-    this.setNewItems(this.facilityItems, []);
-    this.setNewItems(this.userItems, []);
+    SideMenuComponent.setNewItems(this.homeItems, []);
+    SideMenuComponent.setNewItems(this.adminItems, []);
+    SideMenuComponent.setNewItems(this.accessItems, []);
+    SideMenuComponent.setNewItems(this.facilityItems, []);
+    SideMenuComponent.setNewItems(this.userItems, []);
   }
 
   private resetExceptHome(): void {
     this.adminItemOpened = false;
     this.userItemOpened = false;
-    this.setNewItems(this.adminItems, []);
-    this.setNewItems(this.accessItems, []);
-    this.setNewItems(this.facilityItems, []);
-    this.setNewItems(this.userItems, []);
+    SideMenuComponent.setNewItems(this.adminItems, []);
+    SideMenuComponent.setNewItems(this.accessItems, []);
+    SideMenuComponent.setNewItems(this.facilityItems, []);
+    SideMenuComponent.setNewItems(this.userItems, []);
   }
 
   private resetExceptFacility(): void {
     this.adminItemOpened = false;
     this.userItemOpened = false;
-    this.setNewItems(this.homeItems, []);
-    this.setNewItems(this.adminItems, []);
-    this.setNewItems(this.accessItems, []);
-    this.setNewItems(this.userItems, []);
+    SideMenuComponent.setNewItems(this.homeItems, []);
+    SideMenuComponent.setNewItems(this.adminItems, []);
+    SideMenuComponent.setNewItems(this.accessItems, []);
+    SideMenuComponent.setNewItems(this.userItems, []);
   }
 
   private resetExceptAccess(): void {
     this.adminItemOpened = false;
     this.userItemOpened = false;
-    this.setNewItems(this.homeItems, []);
-    this.setNewItems(this.adminItems, []);
-    this.setNewItems(this.facilityItems, []);
-    this.setNewItems(this.userItems, []);
+    SideMenuComponent.setNewItems(this.homeItems, []);
+    SideMenuComponent.setNewItems(this.adminItems, []);
+    SideMenuComponent.setNewItems(this.facilityItems, []);
+    SideMenuComponent.setNewItems(this.userItems, []);
   }
 
   private resetExceptAdmin(): void {
     this.userItemOpened = false;
-    this.setNewItems(this.homeItems, []);
-    this.setNewItems(this.accessItems, []);
-    this.setNewItems(this.facilityItems, []);
-    this.setNewItems(this.userItems, []);
+    SideMenuComponent.setNewItems(this.homeItems, []);
+    SideMenuComponent.setNewItems(this.accessItems, []);
+    SideMenuComponent.setNewItems(this.facilityItems, []);
+    SideMenuComponent.setNewItems(this.userItems, []);
   }
 
   private resetExceptUser(): void {
     this.adminItemOpened = false;
-    this.setNewItems(this.accessItems, []);
-    this.setNewItems(this.facilityItems, []);
-    this.setNewItems(this.adminItems, []);
+    SideMenuComponent.setNewItems(this.accessItems, []);
+    SideMenuComponent.setNewItems(this.facilityItems, []);
+    SideMenuComponent.setNewItems(this.adminItems, []);
   }
 
-  private setHomeItems(items: SideMenuItem[]) {
+  private setHomeItems(items: SideMenuItem[]): void {
     this.resetExceptHome();
-    this.setNewItems(this.homeItems, items);
+    SideMenuComponent.setNewItems(this.homeItems, items);
   }
 
-  private setFacilityItems(items: SideMenuItem[]) {
+  private setFacilityItems(items: SideMenuItem[]): void {
     this.resetExceptFacility();
-    this.setNewItems(this.facilityItems, items);
+    SideMenuComponent.setNewItems(this.facilityItems, items);
   }
 
-  private setAccessItems(items: SideMenuItem[]) {
+  private setAccessItems(items: SideMenuItem[]): void {
     this.resetExceptAccess();
-    this.setNewItems(this.accessItems, items);
+    SideMenuComponent.setNewItems(this.accessItems, items);
   }
 
-  private setUserItems(items: SideMenuItem[]) {
+  private setUserItems(items: SideMenuItem[]): void {
     this.userItemOpened = items.length === 0;
     this.resetExceptUser();
-    this.setNewItems(this.userItems, items);
+    SideMenuComponent.setNewItems(this.userItems, items);
   }
 
-  private setAdminItems(items: SideMenuItem[]) {
+  private setAdminItems(items: SideMenuItem[]): void {
     // hide the main Perun admin menu when some sub menu is opened
     this.adminItemOpened = items.length === 0;
     this.resetExceptAdmin();
-    this.setNewItems(this.adminItems, items);
-  }
-
-  /**
-   * This method is used to set new sideMenuItems to an existing array of items.
-   *
-   * The method replaces only items that were not int the origin array.
-   * If the new array has smaller size, excessive items are removed from the origin array.
-   * This method is used because of animations. Without this, they do not work properly.
-   *
-   * @param originItems origin array
-   * @param newItems new items
-   */
-  private setNewItems(originItems: SideMenuItem[], newItems: SideMenuItem[]) {
-    const maxLength = originItems.length > newItems.length ? originItems.length : newItems.length;
-
-    for (let i = 0; i < maxLength; i++) {
-      if (i > originItems.length - 1) {
-        originItems.push(newItems[i]);
-      } else if (i > newItems.length - 1) {
-        const originItemsLength = originItems.length;
-        for (let j = 0; j < originItemsLength - i; j++) {
-          originItems.pop();
-        }
-        break;
-      } else if (!this.areSameItems(originItems[i], newItems[i])) {
-        originItems[i] = newItems[i];
-      } else if (!this.areSameLinks(originItems[i], newItems[i])) {
-        originItems[i].links = newItems[i].links;
-      }
-
-      // items are same, dont switch
-    }
-  }
-
-  private areSameItems(item1: SideMenuItem, item2: SideMenuItem) {
-    return item1.label === item2.label && item1.labelClass === item2.labelClass;
-  }
-
-  private areSameLinks(sideMenuItem: SideMenuItem, sideMenuItem2: SideMenuItem) {
-    if (sideMenuItem.links.length !== sideMenuItem2.links.length) {
-      return false;
-    }
-    for (let i = 0; i < sideMenuItem.links.length; i++) {
-      if (sideMenuItem.links[i].label !== sideMenuItem2.links[i].label) {
-        return false;
-      }
-    }
-    return true;
+    SideMenuComponent.setNewItems(this.adminItems, items);
   }
 }
 
@@ -202,7 +200,7 @@ export interface SideMenuItem {
   activatedClass?: string;
   links: EntityMenuLink[];
   icon: string;
-  baseLink?: any[];
+  baseLink?: string[];
   expandable?: boolean;
   baseColorClass?: string;
   baseColorClassRegex?: string;
@@ -213,7 +211,7 @@ export interface SideMenuItem {
 
 export interface EntityMenuLink {
   label: string;
-  url: any[] | string;
+  url: string[] | string;
   activatedRegex: string;
   children?: EntityMenuLink[];
   showChildrenRegex?: string;

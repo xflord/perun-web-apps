@@ -38,24 +38,24 @@
     </perun-web-apps-alert>
   </div>
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
       {{"DIALOGS.CREATE_FACILITY.CANCEL" | translate}}
     </button>
     <button
-      mat-flat-button
+      (click)="onCreate(false)"
       class="ml2"
       data-cy="create-facility-button"
       [disabled]="nameControl.value.trim().length === 0 || loading"
-      (click)="onCreate(false)"
-      color="accent">
+      color="accent"
+      mat-flat-button>
       {{"DIALOGS.CREATE_FACILITY.CREATE" | translate}}
     </button>
     <button
-      mat-flat-button
+      (click)="onCreate(true)"
       class="ml2"
       [disabled]="nameControl.value.trim().length === 0 || !!srcFacility || loading"
-      (click)="onCreate(true)"
-      color="accent">
+      color="accent"
+      mat-flat-button>
       {{"DIALOGS.CREATE_FACILITY.CREATE_AND_CONFIGURE" | translate}}
     </button>
   </div>

@@ -1,9 +1,9 @@
 <div [hidden]="dataSource.filteredData.length === 0 || destinations.length === 0" class="card mt-3">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
-    [tableId]="tableId"
+    [pageSizeOptions]="pageSizeOptions"
     [dataLength]="dataSource.filteredData.length"
-    [pageSizeOptions]="pageSizeOptions">
+    [tableId]="tableId">
     <table
       [dataSource]="dataSource"
       class="w-100"
@@ -13,7 +13,7 @@
       matSortDirection="asc"
       matSortDisableClear>
       <ng-container matColumnDef="select">
-        <th *matHeaderCellDef mat-header-cell class="align-checkbox">
+        <th *matHeaderCellDef class="align-checkbox" mat-header-cell>
           <mat-checkbox
             (change)="$event ? masterToggle() : null"
             [aria-label]="checkboxLabel()"
@@ -53,8 +53,8 @@
           <mat-icon
             *ngIf="!services.has(destination.service.id)"
             class="warn"
-            matTooltipPosition="above"
-            matTooltip="{{'SHARED.COMPONENTS.DESTINATIONS_LIST.WARN' | translate}}">
+            matTooltip="{{'SHARED.COMPONENTS.DESTINATIONS_LIST.WARN' | translate}}"
+            matTooltipPosition="above">
             warning
           </mat-icon>
         </td>

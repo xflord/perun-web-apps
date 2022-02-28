@@ -20,6 +20,17 @@ import { CreateResourceTagDialogComponent } from '../../../../shared/components/
   styleUrls: ['./resource-tags.component.scss'],
 })
 export class ResourceTagsComponent implements OnInit {
+  loading = false;
+  resourceTags: ResourceTag[] = [];
+  resource: Resource;
+  selection = new SelectionModel<ResourceTag>(true, []);
+  filterValue: string;
+  tableId = TABLE_RESOURCES_TAGS;
+  displayedColumns: string[] = [];
+  createAuth: boolean;
+  addAuth: boolean;
+  removeAuth: boolean;
+
   constructor(
     private authResolver: GuiAuthResolver,
     private resourcesManager: ResourcesManagerService,
@@ -29,28 +40,14 @@ export class ResourceTagsComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  loading = false;
-  resourceTags: ResourceTag[] = [];
-  resource: Resource;
-
-  selection = new SelectionModel<ResourceTag>(true, []);
-
-  filterValue: string;
-  tableId = TABLE_RESOURCES_TAGS;
-  displayedColumns = [];
-
-  createAuth: boolean;
-  addAuth: boolean;
-  removeAuth: boolean;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.resource = this.entityStorageService.getEntity();
     this.setAuthRights();
     this.updateData();
   }
 
-  removeTags() {
+  removeTags(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {
@@ -71,10 +68,10 @@ export class ResourceTagsComponent implements OnInit {
     });
   }
 
-  removeTag(tags: ResourceTag[]) {
+  removeTag(tags: ResourceTag[]): void {
     if (tags.length === 0) {
       this.notificator.showSuccess(
-        this.translate.instant('RESOURCE_DETAIL.TAGS.REMOVED_SUCCESSFULLY')
+        this.translate.instant('RESOURCE_DETAIL.TAGS.REMOVED_SUCCESSFULLY') as string
       );
       return this.updateData();
     }
@@ -89,7 +86,7 @@ export class ResourceTagsComponent implements OnInit {
       });
   }
 
-  addTag() {
+  addTag(): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {
@@ -104,23 +101,23 @@ export class ResourceTagsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((success) => {
       if (success) {
         this.notificator.showSuccess(
-          this.translate.instant('RESOURCE_DETAIL.TAGS.ADDED_SUCCESSFULLY')
+          this.translate.instant('RESOURCE_DETAIL.TAGS.ADDED_SUCCESSFULLY') as string
         );
         this.updateData();
       }
     });
   }
 
-  create() {
+  create(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = { voId: this.resource.voId, theme: 'resource-theme' };
 
     const dialogRef = this.dialog.open(CreateResourceTagDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe((success) => {
+    dialogRef.afterClosed().subscribe((success: string) => {
       if (success) {
-        this.translate.get('VO_DETAIL.RESOURCES.TAGS.CREATE_SUCCESS').subscribe((text) => {
+        this.translate.get('VO_DETAIL.RESOURCES.TAGS.CREATE_SUCCESS').subscribe((text: string) => {
           this.notificator.showSuccess(text);
         });
         this.updateData();
@@ -128,7 +125,7 @@ export class ResourceTagsComponent implements OnInit {
     });
   }
 
-  updateData() {
+  updateData(): void {
     this.loading = true;
     this.selection.clear();
     this.resourcesManager.getAllResourcesTagsForResource(this.resource.id).subscribe((tags) => {
@@ -138,7 +135,7 @@ export class ResourceTagsComponent implements OnInit {
     });
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     const vo = {
       id: this.resource.voId,
       beanName: 'Vo',
@@ -159,7 +156,7 @@ export class ResourceTagsComponent implements OnInit {
     this.displayedColumns = this.removeAuth ? ['select', 'id', 'name'] : ['id', 'name'];
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

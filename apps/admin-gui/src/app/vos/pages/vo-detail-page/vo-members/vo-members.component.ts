@@ -16,6 +16,8 @@ import { FormControl } from '@angular/forms';
 import { TABLE_VO_MEMBERS } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { InviteMemberDialogComponent } from '../../../../shared/components/dialogs/invite-member-dialog/invite-member-dialog.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { RPCError } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-vo-members',
@@ -26,6 +28,29 @@ export class VoMembersComponent implements OnInit {
   static id = 'VoMembersComponent';
 
   @HostBinding('class.router-component') true;
+  vo: Vo;
+  members: RichMember[] = null;
+  selection = new SelectionModel<RichMember>(true, []);
+  loading = false;
+  attrNames = [
+    Urns.MEMBER_DEF_ORGANIZATION,
+    Urns.MEMBER_DEF_MAIL,
+    Urns.USER_DEF_ORGANIZATION,
+    Urns.USER_DEF_PREFERRED_MAIL,
+    Urns.MEMBER_DEF_EXPIRATION,
+  ];
+  statuses = new FormControl();
+  statusList = ['VALID', 'INVALID', 'EXPIRED', 'DISABLED'];
+  selectedStatuses: string[] = [];
+  tableId = TABLE_VO_MEMBERS;
+  displayedColumns = ['checkbox', 'id', 'fullName', 'status', 'organization', 'email', 'logins'];
+  searchString: string;
+  updateTable = false;
+  addAuth: boolean;
+  removeAuth: boolean;
+  inviteAuth: boolean;
+  routeAuth: boolean;
+  blockManualMemberAdding: boolean;
 
   constructor(
     private notificator: NotificatorService,
@@ -37,36 +62,7 @@ export class VoMembersComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  vo: Vo;
-
-  members: RichMember[] = null;
-
-  selection = new SelectionModel<RichMember>(true, []);
-  loading = false;
-
-  attrNames = [
-    Urns.MEMBER_DEF_ORGANIZATION,
-    Urns.MEMBER_DEF_MAIL,
-    Urns.USER_DEF_ORGANIZATION,
-    Urns.USER_DEF_PREFERRED_MAIL,
-    Urns.MEMBER_DEF_EXPIRATION,
-  ];
-
-  statuses = new FormControl();
-  statusList = ['VALID', 'INVALID', 'EXPIRED', 'DISABLED'];
-  selectedStatuses: string[] = [];
-  tableId = TABLE_VO_MEMBERS;
-  displayedColumns = ['checkbox', 'id', 'fullName', 'status', 'organization', 'email', 'logins'];
-  searchString: string;
-  updateTable = false;
-
-  addAuth: boolean;
-  removeAuth: boolean;
-  inviteAuth: boolean;
-  routeAuth: boolean;
-  blockManualMemberAdding: boolean;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.statuses.setValue(this.selectedStatuses);
     this.attrNames = this.attrNames.concat(this.storeService.getLoginAttributeNames());
@@ -74,10 +70,10 @@ export class VoMembersComponent implements OnInit {
     this.vo = this.entityStorageService.getEntity();
     this.setAuthRights();
 
-    this.isManualAddingBlocked(this.vo.id).then(() => (this.loading = false));
+    void this.isManualAddingBlocked(this.vo.id).then(() => (this.loading = false));
   }
 
-  setAuthRights() {
+  setAuthRights(): void {
     this.addAuth =
       this.authzService.isAuthorized('createMember_Vo_User_List<Group>_policy', [this.vo]) &&
       this.authzService.isAuthorized('createMember_Vo_Candidate_List<Group>_policy', [this.vo]);
@@ -103,12 +99,12 @@ export class VoMembersComponent implements OnInit {
     );
   }
 
-  onSearchByString(filter: string) {
+  onSearchByString(filter: string): void {
     this.searchString = filter;
     this.updateTable = !this.updateTable;
   }
 
-  onAddMember() {
+  onAddMember(): void {
     const config = getDefaultDialogConfig();
     config.width = '1000px';
     config.data = {
@@ -128,7 +124,7 @@ export class VoMembersComponent implements OnInit {
     });
   }
 
-  onRemoveMembers() {
+  onRemoveMembers(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {
@@ -146,7 +142,7 @@ export class VoMembersComponent implements OnInit {
     });
   }
 
-  onInviteMember() {
+  onInviteMember(): void {
     const config = getDefaultDialogConfig();
     config.width = '650px';
     config.data = { voId: this.vo.id, theme: 'vo-theme' };
@@ -158,20 +154,21 @@ export class VoMembersComponent implements OnInit {
     if (this.selectedStatuses.length === this.statusList.length) {
       return 'ALL';
     }
-    if (this.statuses.value) {
-      return `${this.statuses.value[0]}  ${
-        this.statuses.value.length > 1
+    const statuses: string[] = this.statuses.value as string[];
+    if (statuses) {
+      return `${statuses[0]}  ${
+        statuses.length > 1
           ? '(+' +
-            (this.statuses.value.length - 1) +
+            (statuses.length - 1).toString() +
             ' ' +
-            (this.statuses.value.length === 2 ? 'other)' : 'others)')
+            (statuses.length === 2 ? 'other)' : 'others)')
           : ''
       }`;
     }
     return '';
   }
 
-  isManualAddingBlocked(voId: number) {
+  isManualAddingBlocked(voId: number): Promise<void> {
     return new Promise<void>((resolve) => {
       this.apiRequest.dontHandleErrorForNext();
       this.attributesManager
@@ -181,9 +178,10 @@ export class VoMembersComponent implements OnInit {
             this.blockManualMemberAdding = attrValue.value !== null;
             resolve();
           },
-          (error) => {
-            if (error.error.name !== 'PrivilegeException') {
-              this.notificator.showError(error);
+          (error: HttpErrorResponse) => {
+            const e = error.error as RPCError;
+            if (e.name !== 'PrivilegeException') {
+              this.notificator.showError(e.name);
             }
             resolve();
           }
@@ -191,7 +189,7 @@ export class VoMembersComponent implements OnInit {
     });
   }
 
-  changeStatuses() {
-    this.selectedStatuses = this.statuses.value;
+  changeStatuses(): void {
+    this.selectedStatuses = this.statuses.value as string[];
   }
 }

@@ -30,6 +30,18 @@ export interface AddManagerDialogData {
   styleUrls: ['./add-manager-dialog.component.scss'],
 })
 export class AddManagerDialogComponent implements OnInit {
+  title: string;
+  successMessage: string;
+  selection = new SelectionModel<RichUser>(true, []);
+  loading: boolean;
+  users: RichUser[] = [];
+  selectedRole: Role;
+  firstSearchDone = false;
+  availableRoles: Role[];
+  theme: string;
+  tableId = TABLE_ADD_MANAGER;
+  searchCtrl: FormControl;
+
   constructor(
     private dialogRef: MatDialogRef<AddManagerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: AddManagerDialogData,
@@ -41,25 +53,11 @@ export class AddManagerDialogComponent implements OnInit {
     protected route: ActivatedRoute,
     protected router: Router
   ) {
-    translate.get('DIALOGS.ADD_MANAGERS.TITLE').subscribe((value) => (this.title = value));
+    translate.get('DIALOGS.ADD_MANAGERS.TITLE').subscribe((value: string) => (this.title = value));
     translate
       .get('DIALOGS.ADD_MANAGERS.SUCCESS')
-      .subscribe((value) => (this.successMessage = value));
+      .subscribe((value: string) => (this.successMessage = value));
   }
-
-  title: string;
-  successMessage: string;
-
-  selection = new SelectionModel<RichUser>(true, []);
-  loading: boolean;
-  users: RichUser[] = [];
-
-  selectedRole: Role;
-  firstSearchDone = false;
-  availableRoles: Role[];
-  theme: string;
-  tableId = TABLE_ADD_MANAGER;
-  searchCtrl: FormControl;
 
   ngOnInit(): void {
     this.theme = this.data.theme;
@@ -90,7 +88,7 @@ export class AddManagerDialogComponent implements OnInit {
       );
   }
 
-  onSearchByString() {
+  onSearchByString(): string {
     if (this.searchCtrl.invalid) {
       this.searchCtrl.markAllAsTouched();
       return;
@@ -102,13 +100,15 @@ export class AddManagerDialogComponent implements OnInit {
     let attributes = [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL];
     attributes = attributes.concat(this.storeService.getLoginAttributeNames());
 
-    this.usersService.findRichUsersWithAttributes(this.searchCtrl.value, attributes).subscribe(
-      (users) => {
-        this.users = users;
-        this.loading = false;
-        this.firstSearchDone = true;
-      },
-      () => (this.loading = false)
-    );
+    this.usersService
+      .findRichUsersWithAttributes(this.searchCtrl.value as string, attributes)
+      .subscribe(
+        (users) => {
+          this.users = users;
+          this.loading = false;
+          this.firstSearchDone = true;
+        },
+        () => (this.loading = false)
+      );
   }
 }

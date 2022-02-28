@@ -15,6 +15,10 @@ export interface DialogData {
   styleUrls: ['./application-reject-dialog.component.scss'],
 })
 export class ApplicationRejectDialogComponent implements OnInit {
+  reason = '';
+  loading = false;
+  theme: string;
+
   constructor(
     public dialogRef: MatDialogRef<ApplicationRejectDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -23,26 +27,24 @@ export class ApplicationRejectDialogComponent implements OnInit {
     private registrarManager: RegistrarManagerService
   ) {}
 
-  reason = '';
-  loading = false;
-  theme: string;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.theme = this.data.theme;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     this.registrarManager.rejectApplication(this.data.applicationId, this.reason).subscribe(
       () => {
-        this.translate.get('DIALOGS.REJECT_APPLICATION.SUCCESS').subscribe((successMessage) => {
-          this.notificator.showSuccess(successMessage);
-          this.dialogRef.close();
-        });
+        this.translate
+          .get('DIALOGS.REJECT_APPLICATION.SUCCESS')
+          .subscribe((successMessage: string) => {
+            this.notificator.showSuccess(successMessage);
+            this.dialogRef.close();
+          });
       },
       () => (this.loading = false)
     );

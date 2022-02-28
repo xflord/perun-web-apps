@@ -26,6 +26,21 @@ export interface DeleteServiceFromFacilityData {
   styleUrls: ['./delete-service-from-facility.component.scss'],
 })
 export class DeleteServiceFromFacilityComponent implements OnInit {
+  loading = false;
+  theme: string;
+  taskId: number;
+  resources: RichResource[] = [];
+  displayedColumns = ['select', 'id', 'vo', 'name'];
+  checkboxesDisabled = false;
+  taskChecked = true;
+  taskResultsChecked = true;
+  destinationChecked = true;
+  tableId = TABLE_RESOURCE_DELETE_SERVICE;
+  dataSource = new MatTableDataSource<RichResource>(this.data.resource);
+  selected = new SelectionModel<RichResource>(true, [...this.dataSource.data]);
+  private serviceId: number;
+  private facilityId: number;
+
   constructor(
     private dialogRef: MatDialogRef<DeleteServiceFromFacilityComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DeleteServiceFromFacilityData,
@@ -37,23 +52,6 @@ export class DeleteServiceFromFacilityComponent implements OnInit {
     private cd: ChangeDetectorRef
   ) {}
 
-  loading = false;
-  theme: string;
-  taskId: number;
-  serviceId: number;
-  facilityId: number;
-  dataSource = new MatTableDataSource<RichResource>(this.data.resource);
-  selected = new SelectionModel<RichResource>(true, [...this.dataSource.data]);
-  resources: RichResource[] = [];
-  displayedColumns = ['select', 'id', 'vo', 'name'];
-
-  checkboxesDisabled = false;
-  taskChecked = true;
-  taskResultsChecked = true;
-  destinationChecked = true;
-
-  tableId = TABLE_RESOURCE_DELETE_SERVICE;
-
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.taskId = this.data.taskId;
@@ -62,7 +60,7 @@ export class DeleteServiceFromFacilityComponent implements OnInit {
     this.resources = this.data.resource;
   }
 
-  remove() {
+  remove(): void {
     this.loading = true;
 
     // delete task results
@@ -103,7 +101,7 @@ export class DeleteServiceFromFacilityComponent implements OnInit {
         () => {
           this.translate
             .get('DIALOGS.REMOVE_SERVICE_FROM_FACILITY.SUCCESS')
-            .subscribe((successMessage) => {
+            .subscribe((successMessage: string) => {
               this.notificator.showSuccess(successMessage);
               this.dialogRef.close(true);
             });
@@ -113,11 +111,11 @@ export class DeleteServiceFromFacilityComponent implements OnInit {
     });
   }
 
-  cancel() {
+  cancel(): void {
     this.dialogRef.close(false);
   }
 
-  disableCheckboxes(allSelected) {
+  disableCheckboxes(allSelected: boolean): void {
     if (allSelected && this.checkboxesDisabled) {
       this.changeCheckboxes(true);
     }
@@ -126,7 +124,7 @@ export class DeleteServiceFromFacilityComponent implements OnInit {
     }
   }
 
-  changeCheckboxes(allSelected: boolean) {
+  changeCheckboxes(allSelected: boolean): void {
     this.checkboxesDisabled = !allSelected;
     this.taskChecked = allSelected;
     this.taskResultsChecked = allSelected;
@@ -134,7 +132,7 @@ export class DeleteServiceFromFacilityComponent implements OnInit {
     this.cd.detectChanges();
   }
 
-  change(event) {
+  change(event: { source: { id: string }; checked: boolean }): void {
     switch (event.source.id) {
       case 'task': {
         this.taskChecked = event.checked;

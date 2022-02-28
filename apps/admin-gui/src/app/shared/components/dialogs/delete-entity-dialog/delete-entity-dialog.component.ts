@@ -9,12 +9,12 @@ import { Facility, Group, Resource, Vo } from '@perun-web-apps/perun/openapi';
   styleUrls: ['./delete-entity-dialog.component.scss'],
 })
 export class DeleteEntityDialogComponent {
-  constructor() {}
-
   @Input()
   title: string;
   @Input()
-  entityNames: MatTableDataSource<Facility | Group | Vo | Resource> = new MatTableDataSource<any>();
+  entityNames: MatTableDataSource<Facility | Group | Vo | Resource> = new MatTableDataSource<
+    Facility | Group | Vo | Resource
+  >();
   @Input()
   entityType: string;
   @Input()
@@ -37,12 +37,12 @@ export class DeleteEntityDialogComponent {
   deleteReg = /^DELETE$/;
   deleteControl = new FormControl('', [Validators.required, Validators.pattern(this.deleteReg)]);
 
-  onCancel() {
+  onCancel(): void {
     const result = { deleted: false, force: false };
     this.deleted.emit(result);
   }
 
-  onDelete() {
+  onDelete(): void {
     const result = { deleted: true, force: this.force };
     this.deleted.emit(result);
   }

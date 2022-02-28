@@ -81,8 +81,8 @@
               <input
                 formControlName="loginCtrl"
                 matInput
-                required
-                [hidden]="secondFormGroup.get('loginCtrl').disabled" />
+                [hidden]="secondFormGroup.get('loginCtrl').disabled"
+                required />
               <mat-error
                 *ngIf="secondFormGroup.get('loginCtrl').hasError('required')"
                 >{{'DIALOGS.CREATE_SERVICE_MEMBER.FIELD_EMPTY' | translate}}</mat-error
@@ -134,8 +134,8 @@
               class="display-flex">
               <perun-web-apps-password-form
                 [formGroup]="secondFormGroup"
-                [passwordRequired]="!secondFormGroup.get('generatePasswordCtrl').value"
-                [namespace]="selectedNamespace">
+                [namespace]="selectedNamespace"
+                [passwordRequired]="!secondFormGroup.get('generatePasswordCtrl').value">
               </perun-web-apps-password-form>
             </div>
           </div>

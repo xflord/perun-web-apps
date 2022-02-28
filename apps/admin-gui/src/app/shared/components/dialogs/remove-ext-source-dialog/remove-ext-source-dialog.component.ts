@@ -18,6 +18,11 @@ export interface RemoveExtSourceDialogData {
   styleUrls: ['./remove-ext-source-dialog.component.scss'],
 })
 export class RemoveExtSourceDialogComponent implements OnInit {
+  theme: string;
+  extSources: ExtSource[] = [];
+  displayedColumns: string[] = ['id', 'name'];
+  loading = false;
+
   constructor(
     private dialogRef: MatDialogRef<RemoveExtSourceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: RemoveExtSourceDialogData,
@@ -27,21 +32,16 @@ export class RemoveExtSourceDialogComponent implements OnInit {
     private translate: TranslateService
   ) {}
 
-  theme: string;
-  extSources: ExtSource[] = [];
-  displayedColumns: string[] = ['id', 'name'];
-  loading = false;
-
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.extSources = this.data.extSources;
   }
 
-  removeVoExtSource() {
+  removeVoExtSource(): void {
     if (this.extSources.length === 0) {
       this.translate
         .get('DIALOGS.REMOVE_EXT_SOURCES.SUCCESS_REMOVED')
-        .subscribe((successMessage) => {
+        .subscribe((successMessage: string) => {
           this.notificator.showSuccess(successMessage);
           this.dialogRef.close(true);
         });
@@ -57,11 +57,11 @@ export class RemoveExtSourceDialogComponent implements OnInit {
     );
   }
 
-  removeGroupExtSource() {
+  removeGroupExtSource(): void {
     if (this.extSources.length === 0) {
       this.translate
         .get('DIALOGS.REMOVE_EXT_SOURCES.SUCCESS_REMOVED')
-        .subscribe((successMessage) => {
+        .subscribe((successMessage: string) => {
           this.notificator.showSuccess(successMessage);
           this.dialogRef.close(true);
         });
@@ -77,7 +77,7 @@ export class RemoveExtSourceDialogComponent implements OnInit {
     );
   }
 
-  onRemove() {
+  onRemove(): void {
     this.loading = true;
     if (this.data.groupId) {
       this.removeGroupExtSource();
@@ -86,7 +86,7 @@ export class RemoveExtSourceDialogComponent implements OnInit {
     }
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 }

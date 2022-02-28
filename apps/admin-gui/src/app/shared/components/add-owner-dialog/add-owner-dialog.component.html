@@ -1,14 +1,14 @@
 <div class="admin-theme">
   <h1 mat-dialog-title>{{"DIALOGS.ADD_OWNER.TITLE" | translate}}</h1>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div *ngIf="!loading">
-    <div mat-dialog-content class="dialog-container">
+    <div class="dialog-container" mat-dialog-content>
       <mat-form-field>
         <input
           matInput
-          required
+          [formControl]="nameCtrl"
           placeholder="{{'DIALOGS.ADD_OWNER.NAME' | translate}}"
-          [formControl]="nameCtrl" />
+          required />
         <mat-error>
           {{'DIALOGS.ADD_OWNER.FILL_NAME' | translate}}
         </mat-error>
@@ -16,9 +16,9 @@
       <mat-form-field>
         <input
           matInput
-          required
+          [formControl]="contactCtrl"
           placeholder="{{'DIALOGS.ADD_OWNER.CONTACT' | translate}}"
-          [formControl]="contactCtrl" />
+          required />
         <mat-error *ngIf="contactCtrl.hasError('required')">
           {{'DIALOGS.ADD_OWNER.FILL_CONTACT' | translate}}
         </mat-error>
@@ -34,19 +34,19 @@
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button mat-flat-button class="ml-auto" (click)="onCancel()">
+      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
         {{'DIALOGS.ADD_OWNER.CANCEL' | translate}}
       </button>
       <div
         matTooltip="{{'DIALOGS.ADD_OWNER.TOOLTIP' | translate}}"
-        matTooltipPosition="above"
-        [matTooltipDisabled]="nameCtrl.valid && contactCtrl.valid">
+        [matTooltipDisabled]="nameCtrl.valid && contactCtrl.valid"
+        matTooltipPosition="above">
         <button
-          mat-flat-button
+          (click)="onSubmit()"
           class="ml-2"
           color="accent"
           [disabled]="nameCtrl.invalid || contactCtrl.invalid"
-          (click)="onSubmit()">
+          mat-flat-button>
           {{'DIALOGS.ADD_OWNER.CREATE' | translate}}
         </button>
       </div>

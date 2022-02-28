@@ -10,8 +10,8 @@
     [matTooltipPosition]="'above'"
     matTooltip="{{'GROUP_DETAIL.MEMBERS.SYNCHRONIZED' | translate}}">
     <div
-      matTooltip="{{'GROUP_DETAIL.MEMBERS.ADD_MEMBER_DISABLED' | translate}}"
-      [matTooltipDisabled]="!blockGroupManualMemberAdding">
+      [matTooltipDisabled]="!blockGroupManualMemberAdding"
+      matTooltip="{{'GROUP_DETAIL.MEMBERS.ADD_MEMBER_DISABLED' | translate}}">
       <button
         (click)="onAddMember()"
         *ngIf="addAuth"
@@ -55,7 +55,7 @@
   </span>
   <mat-form-field class="mr-2 fix-select">
     <mat-label>{{'GROUP_DETAIL.MEMBERS.FILTER_STATUS' | translate}}</mat-label>
-    <mat-select [formControl]="statuses" (closed)="changeVoStatuses()" multiple>
+    <mat-select (closed)="changeVoStatuses()" [formControl]="statuses" multiple>
       <mat-select-trigger>
         {{displaySelectedStatuses() | memberStatus}}
       </mat-select-trigger>
@@ -69,7 +69,7 @@
   </mat-form-field>
   <mat-form-field class="mr-2 fix-select">
     <mat-label>{{'GROUP_DETAIL.MEMBERS.FILTER_GROUP_STATUS' | translate}}</mat-label>
-    <mat-select [formControl]="groupStatuses" (closed)="changeGroupStatuses()" multiple>
+    <mat-select (closed)="changeGroupStatuses()" [formControl]="groupStatuses" multiple>
       <mat-select-trigger>
         {{displaySelectedGroupStatuses() | memberStatus}}
       </mat-select-trigger>
@@ -83,22 +83,22 @@
   </mat-form-field>
 
   <perun-web-apps-debounce-filter
-    class="mt-2 search-field"
+    (filter)="onSearchByString($event)"
     [placeholder]="'GROUP_DETAIL.MEMBERS.SEARCH_DESCRIPTION'"
-    (filter)="onSearchByString($event)">
+    class="mt-2 search-field">
   </perun-web-apps-debounce-filter>
 </div>
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
 <perun-web-apps-members-dynamic-list
   *ngIf="!loading"
-  [voId]="group.voId"
+  [attrNames]="memberAttrNames"
   [groupId]="group.id"
   [tableId]="tableId"
-  [selection]="selection"
   [displayedColumns]="displayedColumns"
-  [updateTable]="updateTable"
   [searchString]="searchString"
-  [selectedStatuses]="selectedStatuses"
+  [updateTable]="updateTable"
   [selectedGroupStatuses]="selectedGroupStatuses"
-  [attrNames]="memberAttrNames">
+  [selectedStatuses]="selectedStatuses"
+  [selection]="selection"
+  [voId]="group.voId">
 </perun-web-apps-members-dynamic-list>

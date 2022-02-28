@@ -21,6 +21,13 @@ export interface EditApplicationFormItemDataDialogData {
   styleUrls: ['./edit-application-form-item-data-dialog.component.scss'],
 })
 export class EditApplicationFormItemDataDialogComponent implements OnInit {
+  loading = false;
+  theme: string;
+  itemName: string;
+  inputControl: FormControl = null;
+  emailControl: FormControl = null;
+  private formItemData: ApplicationFormItemData;
+
   constructor(
     private dialogRef: MatDialogRef<EditApplicationFormItemDataDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: EditApplicationFormItemDataDialogData,
@@ -29,18 +36,19 @@ export class EditApplicationFormItemDataDialogComponent implements OnInit {
     private registrarService: RegistrarManagerService
   ) {}
 
-  loading = false;
-  theme: string;
-  itemName: string;
-  formItemData: ApplicationFormItemData;
-
-  inputControl: FormControl = null;
-  emailControl: FormControl = null;
+  private static getLabel(formItem: ApplicationFormItem): string {
+    if (formItem.i18n['en'].label !== null) {
+      if (formItem.i18n['en'].label.length !== 0) {
+        return formItem.i18n['en'].label;
+      }
+    }
+    return formItem.shortname;
+  }
 
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.formItemData = this.data.formItemData;
-    this.itemName = this.getLabel(this.formItemData.formItem);
+    this.itemName = EditApplicationFormItemDataDialogComponent.getLabel(this.formItemData.formItem);
 
     if (this.itemName.toLowerCase().includes('mail')) {
       this.emailControl = new FormControl(this.formItemData.value, [
@@ -52,14 +60,16 @@ export class EditApplicationFormItemDataDialogComponent implements OnInit {
     }
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     this.formItemData.value =
-      this.inputControl !== null ? this.inputControl.value : this.emailControl.value;
+      this.inputControl !== null
+        ? (this.inputControl.value as string)
+        : (this.emailControl.value as string);
 
     const newFormItemData: ApplicationFormItemData = {
       id: this.formItemData.id,
@@ -78,20 +88,13 @@ export class EditApplicationFormItemDataDialogComponent implements OnInit {
       .subscribe(
         () => {
           this.notificator.showSuccess(
-            this.translateService.instant('DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.SUCCESS')
+            this.translateService.instant(
+              'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.SUCCESS'
+            ) as string
           );
           this.dialogRef.close(true);
         },
         () => (this.loading = false)
       );
-  }
-
-  getLabel(formItem: ApplicationFormItem) {
-    if (formItem.i18n['en'].label !== null) {
-      if (formItem.i18n['en'].label.length !== 0) {
-        return formItem.i18n['en'].label;
-      }
-    }
-    return formItem.shortname;
   }
 }

@@ -16,6 +16,16 @@ import { EntityStorageService } from '@perun-web-apps/perun/services';
 })
 export class GroupSettingsRelationsComponent implements OnInit {
   @HostBinding('class.router-component') true;
+  @ViewChild('list', {})
+  list: GroupsListComponent;
+
+  selection = new SelectionModel<Group>(true, []);
+  groups: Group[] = [];
+  group: Group;
+  reverse = false;
+  loading: boolean;
+  filterValue = '';
+  tableId = TABLE_GROUP_SETTINGS_RELATIONS;
 
   constructor(
     private groupService: GroupsManagerService,
@@ -23,25 +33,12 @@ export class GroupSettingsRelationsComponent implements OnInit {
     private entityStorageService: EntityStorageService
   ) {}
 
-  selection = new SelectionModel<Group>(true, []);
-  groups: Group[] = [];
-  group: Group;
-
-  reverse = false;
-  loading: boolean;
-  filterValue = '';
-
-  tableId = TABLE_GROUP_SETTINGS_RELATIONS;
-
-  @ViewChild('list', {})
-  list: GroupsListComponent;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.group = this.entityStorageService.getEntity();
     this.refreshTable();
   }
 
-  onCreate() {
+  onCreate(): void {
     const config = getDefaultDialogConfig();
     config.width = '1050px';
     config.data = {
@@ -61,7 +58,7 @@ export class GroupSettingsRelationsComponent implements OnInit {
     });
   }
 
-  onDelete() {
+  onDelete(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {
@@ -80,7 +77,7 @@ export class GroupSettingsRelationsComponent implements OnInit {
     });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.groupService.getGroupUnions(this.group.id, this.reverse).subscribe(
       (groups) => {
@@ -92,11 +89,11 @@ export class GroupSettingsRelationsComponent implements OnInit {
     );
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  showReverseUnions() {
+  showReverseUnions(): void {
     this.reverse = !this.reverse;
     this.refreshTable();
   }

@@ -17,12 +17,6 @@ export interface AddResourceTagToResourceDialogData {
   styleUrls: ['./add-resource-tag-to-resource-dialog.component.scss'],
 })
 export class AddResourceTagToResourceDialogComponent implements OnInit {
-  constructor(
-    private dialogRef: MatDialogRef<AddResourceTagToResourceDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: AddResourceTagToResourceDialogData,
-    private resourcesManager: ResourcesManagerService
-  ) {}
-
   loading: boolean;
   theme: string;
   tableId = TABLE_ADD_RESOURCES_TAGS_TO_RESOURCE;
@@ -31,9 +25,15 @@ export class AddResourceTagToResourceDialogComponent implements OnInit {
   resourceTags: ResourceTag[] = [];
   displayedColumns = ['select', 'id', 'name'];
 
-  voId: number;
-  resourceId: number;
-  assignedTags: ResourceTag[];
+  private voId: number;
+  private resourceId: number;
+  private assignedTags: ResourceTag[];
+
+  constructor(
+    private dialogRef: MatDialogRef<AddResourceTagToResourceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: AddResourceTagToResourceDialogData,
+    private resourcesManager: ResourcesManagerService
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -43,17 +43,17 @@ export class AddResourceTagToResourceDialogComponent implements OnInit {
     this.assignedTags = this.data.assignedTags;
     this.resourcesManager.getAllResourcesTagsForVo(this.voId).subscribe((tags) => {
       this.resourceTags = tags.filter(
-        (tag) => this.assignedTags.map((assignedTag) => assignedTag.id).indexOf(tag.id) <= -1
+        (tag) => !this.assignedTags.map((assignedTag) => assignedTag.id).includes(tag.id)
       );
       this.loading = false;
     });
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit(resourceTags: ResourceTag[]) {
+  onSubmit(resourceTags: ResourceTag[]): void {
     if (resourceTags.length === 0) {
       return this.dialogRef.close(true);
     }
@@ -68,7 +68,7 @@ export class AddResourceTagToResourceDialogComponent implements OnInit {
       });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }
