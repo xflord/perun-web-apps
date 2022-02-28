@@ -7,9 +7,12 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import {
+  GuiAuthResolver,
+  NotificatorService,
+  RoutePolicyService,
+} from '@perun-web-apps/perun/services';
 import { PerunBean } from '@perun-web-apps/perun/openapi';
-import { RoutePolicyService } from '../../../../../libs/perun/services/src/lib/route-policy.service';
 
 interface AuthPair {
   key: string;
