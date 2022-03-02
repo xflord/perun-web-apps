@@ -29,7 +29,22 @@ export class RoutePolicyService {
     ],
     [
       'organization-resources',
+      (vo) =>
+        this.authResolver.isAuthorized('getRichResources_Vo_policy', [vo]) ||
+        this.authResolver.isAuthorized('getAllResourcesTagsForVo_Vo_policy', [vo]) ||
+        this.authResolver.isAuthorized('getResourcesState_Vo_policy', [vo]),
+    ],
+    [
+      'organization-resources-preview',
       (vo) => this.authResolver.isAuthorized('getRichResources_Vo_policy', [vo]),
+    ],
+    [
+      'organization-resources-tags',
+      (vo) => this.authResolver.isAuthorized('getAllResourcesTagsForVo_Vo_policy', [vo]),
+    ],
+    [
+      'organization-resources-states',
+      (vo) => this.authResolver.isAuthorized('getResourcesState_Vo_policy', [vo]),
     ],
     [
       'organizations-applications',
@@ -49,6 +64,12 @@ export class RoutePolicyService {
         ),
     ],
     ['organizations-attributes', () => true],
+    [
+      'organizations-statistics',
+      (vo) =>
+        this.authResolver.isAuthorized('getMembersCount_Vo_Status_policy', [vo]) &&
+        this.authResolver.isAuthorized('getMembersCount_Vo_policy', [vo]),
+    ],
     [
       'organizations-settings',
       (vo) =>
