@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-not-authorized-page',
+  selector: 'perun-web-apps-not-authorized-page',
   templateUrl: './not-authorized-page.component.html',
   styleUrls: ['./not-authorized-page.component.scss'],
 })

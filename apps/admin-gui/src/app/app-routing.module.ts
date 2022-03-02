@@ -3,10 +3,12 @@ import { NoPreloading, RouterModule, Routes } from '@angular/router';
 import { AuthCallbackComponent } from './core/components/auth-callback/auth-callback.component';
 import { UserDashboardComponent } from './users/pages/user-detail-page/user-dashboard/user-dashboard.component';
 import { NotFoundPageComponent } from './shared/components/not-found-page/not-found-page.component';
-import { RedirectPageComponent } from '@perun-web-apps/perun/components';
+import {
+  RedirectPageComponent,
+  NotAuthorizedPageComponent,
+} from '@perun-web-apps/perun/components';
 import { LoginScreenComponent } from '@perun-web-apps/perun/login';
 import { LoginScreenServiceAccessComponent } from '@perun-web-apps/perun/login';
-import { NotAuthorizedPageComponent } from './shared/components/not-authorized-page/not-authorized-page.component';
 
 const routes: Routes = [
   {

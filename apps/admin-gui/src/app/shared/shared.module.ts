@@ -169,7 +169,6 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
 import { AuditMessagesListComponent } from './components/audit-messages-list/audit-messages-list.component';
 import { AuditMessageDetailDialogComponent } from './components/dialogs/audit-message-detail-dialog/audit-message-detail-dialog.component';
 import { ParseEventNamePipe } from './pipes/parse-event-name.pipe';
-import { NotAuthorizedPageComponent } from './components/not-authorized-page/not-authorized-page.component';
 
 @NgModule({
   imports: [
@@ -431,7 +430,6 @@ import { NotAuthorizedPageComponent } from './components/not-authorized-page/not
     AuditMessagesListComponent,
     AuditMessageDetailDialogComponent,
     ParseEventNamePipe,
-    NotAuthorizedPageComponent,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe],
 })

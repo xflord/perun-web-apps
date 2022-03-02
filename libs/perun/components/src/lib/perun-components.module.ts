@@ -88,6 +88,7 @@ import { UsersDynamicListComponent } from './users-dynamic-list/users-dynamic-li
 import { SelectionItemSearchSelectComponent } from './selection-item-search-select/selection-item-search-select.component';
 import { ServiceSearchSelectComponent } from './service-search-select/service-search-select.component';
 import { AdvancedFilterComponent } from './advanced-filter/advanced-filter.component';
+import { NotAuthorizedPageComponent } from './not-authorized-page/not-authorized-page.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -208,6 +209,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     SelectionItemSearchSelectComponent,
     ServiceSearchSelectComponent,
     AdvancedFilterComponent,
+    NotAuthorizedPageComponent,
   ],
   exports: [
     VosListComponent,
@@ -260,6 +262,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     SelectionItemSearchSelectComponent,
     ServiceSearchSelectComponent,
     AdvancedFilterComponent,
+    NotAuthorizedPageComponent,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },
