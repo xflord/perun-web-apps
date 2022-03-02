@@ -228,8 +228,7 @@ export class ManagersPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (this.guiAuthResolver.isManagerPagePrivileged(this.complementaryObject)) {
-          this.reloadEntityDetail.reloadEntityDetail();
-          this.refreshUsers();
+          this.reloadEntityDetail.reloadEntityDetail(); //the table and data in it are updated with reloading the whole page
         } else {
           this.redirectToAuthRoute();
         }
