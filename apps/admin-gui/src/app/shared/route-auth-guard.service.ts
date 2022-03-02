@@ -32,14 +32,16 @@ export class RouteAuthGuardService implements CanActivateChild {
 
   private static getBeanName(key: string): string {
     switch (key) {
-      case 'o':
+      case 'organizations':
         return 'Vo';
-      case 'g':
+      case 'groups':
         return 'Group';
-      case 'f':
+      case 'facilities':
         return 'Facility';
-      case 'r':
+      case 'resources':
         return 'Resource';
+      case 'members':
+        return 'Member';
       default:
         return '';
     }
@@ -62,7 +64,7 @@ export class RouteAuthGuardService implements CanActivateChild {
     }
 
     authPair.key = authPair.key.slice(0, authPair.key.length - 1);
-    authPair.entity.beanName = RouteAuthGuardService.getBeanName(authPair.key[0]);
+    authPair.entity.beanName = RouteAuthGuardService.getBeanName(authPair.key.split('-')[0]);
     return authPair;
   }
 
