@@ -10,6 +10,8 @@
  * Do not edit the class manually.
  */
 
-export interface GenMemberDataNode {
-  h?: Array<string>;
+
+export interface GenMemberDataNode { 
+    h?: Array<string>;
 }
+

@@ -11,9 +11,11 @@
  */
 import { ExtSource } from './extSource';
 
+
 /**
  * input to createExtSourceFromExtSourceObject
  */
-export interface ExtSourceObject {
-  extSource: ExtSource;
+export interface ExtSourceObject { 
+    extSource: ExtSource;
 }
+

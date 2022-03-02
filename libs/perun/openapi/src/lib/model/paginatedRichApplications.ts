@@ -9,15 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ApplicationFormItem } from './applicationFormItem';
+import { RichApplication } from './richApplication';
 
 
-export interface ApplicationFormItemData { 
-    id?: number;
-    formItem?: ApplicationFormItem;
-    shortname?: string;
-    value?: string;
-    assuranceLevel?: string;
-    prefilledValue?: string;
+export interface PaginatedRichApplications { 
+    offset: number;
+    pageSize: number;
+    totalCount: number;
+    data: Array<RichApplication>;
 }
 

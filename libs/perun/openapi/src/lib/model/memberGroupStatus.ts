@@ -10,12 +10,14 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * statuses of a member in a group
  */
 export type MemberGroupStatus = 'VALID' | 'EXPIRED';
 
 export const MemberGroupStatus = {
-  VALID: 'VALID' as MemberGroupStatus,
-  EXPIRED: 'EXPIRED' as MemberGroupStatus,
+    VALID: 'VALID' as MemberGroupStatus,
+    EXPIRED: 'EXPIRED' as MemberGroupStatus
 };
+

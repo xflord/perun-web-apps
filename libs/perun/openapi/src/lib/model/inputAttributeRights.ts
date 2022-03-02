@@ -11,9 +11,11 @@
  */
 import { AttributeRights } from './attributeRights';
 
+
 /**
  * Input to setAttributeRights
  */
-export interface InputAttributeRights {
-  rights: Array<AttributeRights>;
+export interface InputAttributeRights { 
+    rights: Array<AttributeRights>;
 }
+

@@ -12,7 +12,9 @@
 import { Sponsor } from './sponsor';
 import { RichMember } from './richMember';
 
-export interface MemberWithSponsors {
-  member?: RichMember;
-  sponsors?: Array<Sponsor>;
+
+export interface MemberWithSponsors { 
+    member?: RichMember;
+    sponsors?: Array<Sponsor>;
 }
+

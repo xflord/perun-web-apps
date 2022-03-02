@@ -11,9 +11,11 @@
  */
 import { AttributePolicyCollection } from './attributePolicyCollection';
 
+
 /**
  * Input to setAttributePolicyCollections
  */
-export interface InputAttributePolicyCollections {
-  policyCollections: Array<AttributePolicyCollection>;
+export interface InputAttributePolicyCollections { 
+    policyCollections: Array<AttributePolicyCollection>;
 }
+

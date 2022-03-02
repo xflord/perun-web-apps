@@ -12,12 +12,14 @@
 import { Candidate } from './candidate';
 import { User } from './user';
 
+
 /**
  * input to createSpecificMember
  */
-export interface InputSpecificMember {
-  candidate: Candidate;
-  vo: number;
-  specificUserType: string;
-  specificUserOwners: Array<User>;
+export interface InputSpecificMember { 
+    candidate: Candidate;
+    vo: number;
+    specificUserType: string;
+    specificUserOwners: Array<User>;
 }
+

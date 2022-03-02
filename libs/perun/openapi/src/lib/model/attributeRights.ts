@@ -11,8 +11,10 @@
  */
 import { ActionType } from './actionType';
 
-export interface AttributeRights {
-  attributeId: number;
-  role: string;
-  rights: Array<ActionType>;
+
+export interface AttributeRights { 
+    attributeId: number;
+    role: string;
+    rights: Array<ActionType>;
 }
+

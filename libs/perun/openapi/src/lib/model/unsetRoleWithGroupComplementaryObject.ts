@@ -11,14 +11,16 @@
  */
 import { PerunBean } from './perunBean';
 
+
 /**
  * input to unsetRoleWithUserComplementaryObject
  */
-export interface UnsetRoleWithGroupComplementaryObject {
-  role: string;
-  /**
-   * List of authorizedGroups ids
-   */
-  authorizedGroups: Array<number>;
-  complementaryObject?: PerunBean;
+export interface UnsetRoleWithGroupComplementaryObject { 
+    role: string;
+    /**
+     * List of authorizedGroups ids
+     */
+    authorizedGroups: Array<number>;
+    complementaryObject?: PerunBean;
 }
+

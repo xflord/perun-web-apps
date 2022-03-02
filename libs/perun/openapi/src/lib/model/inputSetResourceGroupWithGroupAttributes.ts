@@ -11,18 +11,20 @@
  */
 import { Attribute } from './attribute';
 
+
 /**
  * input to setResourceGroupWithGroupAttributes
  */
-export interface InputSetResourceGroupWithGroupAttributes {
-  /**
-   * resource id
-   */
-  resource: number;
-  /**
-   * group id
-   */
-  group: number;
-  attributes: Array<Attribute>;
-  workWithGroupAttributes: boolean;
+export interface InputSetResourceGroupWithGroupAttributes { 
+    /**
+     * resource id
+     */
+    resource: number;
+    /**
+     * group id
+     */
+    group: number;
+    attributes: Array<Attribute>;
+    workWithGroupAttributes: boolean;
 }
+

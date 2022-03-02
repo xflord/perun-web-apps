@@ -15,8 +15,10 @@ import { Service } from './service';
 import { Facility } from './facility';
 import { DestinationType } from './destinationType';
 
-export interface RichDestination extends Destination {
-  blocked?: boolean;
-  service?: Service;
-  facility?: Facility;
+
+export interface RichDestination extends Destination { 
+    blocked?: boolean;
+    service?: Service;
+    facility?: Facility;
 }
+

@@ -10,10 +10,12 @@
  * Do not edit the class manually.
  */
 
-export interface ItemTexts {
-  locale?: string;
-  label?: string;
-  options?: string;
-  help?: string;
-  errorMessage?: string;
+
+export interface ItemTexts { 
+    locale?: string;
+    label?: string;
+    options?: string;
+    help?: string;
+    errorMessage?: string;
 }
+

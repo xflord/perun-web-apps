@@ -11,6 +11,8 @@
  */
 import { Thanks } from './thanks';
 
-export interface ThanksForGUI extends Thanks {
-  ownerName?: string;
+
+export interface ThanksForGUI extends Thanks { 
+    ownerName?: string;
 }
+

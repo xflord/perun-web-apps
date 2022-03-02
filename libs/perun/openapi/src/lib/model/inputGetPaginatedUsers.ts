@@ -11,10 +11,12 @@
  */
 import { UsersPageQuery } from './usersPageQuery';
 
+
 /**
  * input to getPaginatedUsers
  */
-export interface InputGetPaginatedUsers {
-  attrNames: Array<string>;
-  query: UsersPageQuery;
+export interface InputGetPaginatedUsers { 
+    attrNames: Array<string>;
+    query: UsersPageQuery;
 }
+

@@ -14,9 +14,11 @@ import { Owner } from './owner';
 import { Host } from './host';
 import { Facility } from './facility';
 
-export interface EnrichedFacility {
-  facility?: Facility;
-  owners?: Array<Owner>;
-  destinations?: Array<Destination>;
-  hosts?: Array<Host>;
+
+export interface EnrichedFacility { 
+    facility?: Facility;
+    owners?: Array<Owner>;
+    destinations?: Array<Destination>;
+    hosts?: Array<Host>;
 }
+

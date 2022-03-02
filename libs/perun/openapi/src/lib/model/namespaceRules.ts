@@ -10,12 +10,14 @@
  * Do not edit the class manually.
  */
 
-export interface NamespaceRules {
-  defaultEmail?: string;
-  csvGenHeader?: string;
-  csvGenPlaceholder?: string;
-  csvGenHeaderDescription?: string;
-  namespaceName: string;
-  requiredAttributes?: Array<string>;
-  optionalAttributes?: Array<string>;
+
+export interface NamespaceRules { 
+    defaultEmail?: string;
+    csvGenHeader?: string;
+    csvGenPlaceholder?: string;
+    csvGenHeaderDescription?: string;
+    namespaceName: string;
+    requiredAttributes?: Array<string>;
+    optionalAttributes?: Array<string>;
 }
+

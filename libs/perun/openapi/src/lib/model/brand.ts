@@ -11,8 +11,10 @@
  */
 import { NewApps } from './newApps';
 
-export interface Brand {
-  name?: string;
-  oldGuiDomain?: string;
-  newApps?: NewApps;
+
+export interface Brand { 
+    name?: string;
+    oldGuiDomain?: string;
+    newApps?: NewApps;
 }
+

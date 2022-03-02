@@ -11,13 +11,15 @@
  */
 import { Attribute } from './attribute';
 
+
 /**
  * input to setResourceAttributes
  */
-export interface InputSetResourceAttributes {
-  /**
-   * resource id
-   */
-  resource: number;
-  attributes: Array<Attribute>;
+export interface InputSetResourceAttributes { 
+    /**
+     * resource id
+     */
+    resource: number;
+    attributes: Array<Attribute>;
 }
+

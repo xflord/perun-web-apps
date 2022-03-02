@@ -10,12 +10,14 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * Represents types of actions that users can perform upon attributes.
  */
 export type AttributeAction = 'WRITE' | 'READ';
 
 export const AttributeAction = {
-  WRITE: 'WRITE' as AttributeAction,
-  READ: 'READ' as AttributeAction,
+    WRITE: 'WRITE' as AttributeAction,
+    READ: 'READ' as AttributeAction
 };
+

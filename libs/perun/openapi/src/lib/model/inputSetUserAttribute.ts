@@ -11,13 +11,15 @@
  */
 import { Attribute } from './attribute';
 
+
 /**
  * input to setUserAttribute
  */
-export interface InputSetUserAttribute {
-  /**
-   * user id
-   */
-  user: number;
-  attribute: Attribute;
+export interface InputSetUserAttribute { 
+    /**
+     * user id
+     */
+    user: number;
+    attribute: Attribute;
 }
+

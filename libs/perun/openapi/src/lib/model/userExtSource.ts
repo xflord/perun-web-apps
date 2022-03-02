@@ -12,14 +12,16 @@
 import { Auditable } from './auditable';
 import { ExtSource } from './extSource';
 
-export interface UserExtSource extends Auditable {
-  login: string;
-  userId?: number;
-  loa?: number;
-  persistent?: boolean;
-  /**
-   * SQL timestamp
-   */
-  lastAccess?: string;
-  extSource: ExtSource;
+
+export interface UserExtSource extends Auditable { 
+    login: string;
+    userId?: number;
+    loa?: number;
+    persistent?: boolean;
+    /**
+     * SQL timestamp
+     */
+    lastAccess?: string;
+    extSource: ExtSource;
 }
+

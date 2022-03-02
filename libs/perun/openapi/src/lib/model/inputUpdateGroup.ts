@@ -11,9 +11,11 @@
  */
 import { Group } from './group';
 
+
 /**
  * input to updateGroup
  */
-export interface InputUpdateGroup {
-  group: Group;
+export interface InputUpdateGroup { 
+    group: Group;
 }
+

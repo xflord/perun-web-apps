@@ -11,9 +11,11 @@
  */
 import { BanOnResource } from './banOnResource';
 
+
 /**
  * input to updateBan
  */
-export interface InputUpdateBan {
-  banOnResource: BanOnResource;
+export interface InputUpdateBan { 
+    banOnResource: BanOnResource;
 }
+

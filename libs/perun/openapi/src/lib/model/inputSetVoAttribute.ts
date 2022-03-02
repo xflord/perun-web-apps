@@ -11,13 +11,15 @@
  */
 import { Attribute } from './attribute';
 
+
 /**
  * input to setVoAttribute
  */
-export interface InputSetVoAttribute {
-  /**
-   * vo id
-   */
-  vo: number;
-  attribute: Attribute;
+export interface InputSetVoAttribute { 
+    /**
+     * vo id
+     */
+    vo: number;
+    attribute: Attribute;
 }
+

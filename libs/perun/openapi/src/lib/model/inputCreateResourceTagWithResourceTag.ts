@@ -11,13 +11,15 @@
  */
 import { ResourceTag } from './resourceTag';
 
+
 /**
  * input to createResourceTagWithResourceTag
  */
-export interface InputCreateResourceTagWithResourceTag {
-  resourceTag: ResourceTag;
-  /**
-   * vo id
-   */
-  vo: number;
+export interface InputCreateResourceTagWithResourceTag { 
+    resourceTag: ResourceTag;
+    /**
+     * vo id
+     */
+    vo: number;
 }
+

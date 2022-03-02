@@ -10,10 +10,15 @@
  * Do not edit the class manually.
  */
 import { Group } from './group';
-import { Attribute } from './attribute';
+import { User } from './user';
+import { Vo } from './vo';
+import { ApplicationFormItemData } from './applicationFormItemData';
+import { AppState } from './appState';
+import { AppType } from './appType';
+import { Application } from './application';
 
 
-export interface RichGroup extends Group { 
-    attributes?: Array<Attribute>;
+export interface RichApplication { 
+    formData: Array<ApplicationFormItemData>;
 }
 

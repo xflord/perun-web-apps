@@ -1,6 +1,4 @@
 import { DataSource } from '@angular/cdk/collections';
-import { Observable, BehaviorSubject, of } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
 import {
   Application,
   ApplicationsOrderColumn,
@@ -8,7 +6,7 @@ import {
   AuditMessage,
   MemberGroupStatus,
   MembersOrderColumn,
-  PaginatedApplications,
+  PaginatedRichApplications,
   PaginatedAuditMessages,
   PaginatedRichMembers,
   PaginatedRichUsers,
@@ -17,7 +15,10 @@ import {
   SortingOrder,
   UsersOrderColumn,
   VoMemberStatuses,
+  RichApplication,
 } from '@perun-web-apps/perun/openapi';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, finalize } from 'rxjs/operators';
 import { DynamicPaginatingService } from './dynamic-paginating.service';
 import { GuiAuthResolver } from './gui-auth-resolver.service';
 
@@ -168,7 +169,8 @@ export class DynamicDataSource<T> implements DataSource<T> {
     dateTo: string,
     userId: number,
     groupId: number,
-    voId: number
+    voId: number,
+    details?:boolean
   ) {
     this.loadingSubject.next(true);
     this.latestQueryTime = Date.now();
@@ -187,7 +189,8 @@ export class DynamicDataSource<T> implements DataSource<T> {
         dateTo,
         userId,
         voId,
-        groupId
+        groupId,
+        details ?? false
       )
       .pipe(
         catchError(() => of([])),
@@ -195,21 +198,22 @@ export class DynamicDataSource<T> implements DataSource<T> {
       )
       .subscribe((paginatedApplications) => {
         if (this.latestQueryTime <= thisQueryTime) {
-          const data: Application[] = (<PaginatedApplications>paginatedApplications).data;
+          const data = (<PaginatedRichApplications>paginatedApplications).data;
           if (data !== null && data.length !== 0) {
-            if (data[0].group) {
+            const d = <Application[]>data;
+            if (d[0].group) {
               this.routeAuth = this.authzService.isAuthorized(
                 'getApplicationsForGroup_Group_List<String>_policy',
-                [data[0].group]
+                [d[0].group]
               );
             } else {
               this.routeAuth = this.authzService.isAuthorized(
                 'getApplicationsForVo_Vo_List<String>_Boolean_policy',
-                [data[0].vo]
+                [d[0].vo]
               );
             }
           }
-          this.allObjectCount = (<PaginatedApplications>paginatedApplications).totalCount;
+          this.allObjectCount = (<PaginatedRichApplications>paginatedApplications).totalCount;
           // @ts-ignore
           this.dataSubject.next(data);
         }

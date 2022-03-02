@@ -11,10 +11,12 @@
  */
 import { ApplicationMail } from './applicationMail';
 
+
 /**
  * input to addApplicationMailForVo
  */
-export interface InputAddApplicationMailForVo {
-  vo: number;
-  mail: ApplicationMail;
+export interface InputAddApplicationMailForVo { 
+    vo: number;
+    mail: ApplicationMail;
 }
+

@@ -11,10 +11,12 @@
  */
 import { ApplicationsPageQuery } from './applicationsPageQuery';
 
+
 /**
  * input to getPaginatedApplications
  */
-export interface InputGetPaginatedApplications {
-  vo: number;
-  query: ApplicationsPageQuery;
+export interface InputGetPaginatedApplications { 
+    vo: number;
+    query: ApplicationsPageQuery;
 }
+

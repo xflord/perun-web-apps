@@ -20,19 +20,21 @@ import { ExtSource } from './extSource';
 import { Facility } from './facility';
 import { Member } from './member';
 
-export interface AuditEvent {
-  attribute?: AttributeDefinition;
-  extSource?: ExtSource;
-  source?: ExtSource;
-  facility?: Facility;
-  group?: Group;
-  parentGroup?: Group;
-  member?: Member;
-  resource?: Resource;
-  service?: Service;
-  user?: User;
-  userExtSource?: UserExtSource;
-  vo?: Vo;
-  name?: string;
-  message?: string;
+
+export interface AuditEvent { 
+    attribute?: AttributeDefinition;
+    extSource?: ExtSource;
+    source?: ExtSource;
+    facility?: Facility;
+    group?: Group;
+    parentGroup?: Group;
+    member?: Member;
+    resource?: Resource;
+    service?: Service;
+    user?: User;
+    userExtSource?: UserExtSource;
+    vo?: Vo;
+    name?: string;
+    message?: string;
 }
+

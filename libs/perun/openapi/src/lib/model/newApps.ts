@@ -10,9 +10,11 @@
  * Do not edit the class manually.
  */
 
-export interface NewApps {
-  admin?: string;
-  profile?: string;
-  pwdReset?: string;
-  publications?: string;
+
+export interface NewApps { 
+    admin?: string;
+    profile?: string;
+    pwdReset?: string;
+    publications?: string;
 }
+

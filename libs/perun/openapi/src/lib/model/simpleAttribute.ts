@@ -10,12 +10,14 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * Attribute returned using the JsonSimple serializator
  */
-export interface SimpleAttribute {
-  friendlyName?: string;
-  namespace?: string;
-  unique?: boolean;
-  value?: object;
+export interface SimpleAttribute { 
+    friendlyName?: string;
+    namespace?: string;
+    unique?: boolean;
+    value?: object;
 }
+

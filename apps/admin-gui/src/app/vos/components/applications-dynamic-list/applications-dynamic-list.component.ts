@@ -1,10 +1,12 @@
 import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import {
   Application,
+  ApplicationFormItemData,
   ApplicationsOrderColumn,
   AppState,
   Group,
   Member,
+  RichApplication,
   Vo,
 } from '@perun-web-apps/perun/openapi';
 import {
@@ -77,6 +79,9 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
   @Input()
   refreshTable = false;
 
+  @Input()
+  showMoreData = false;
+
   dataSource: DynamicDataSource<Application>;
 
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
@@ -136,7 +141,8 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       this.dateToString(this.dateTo),
       this.member?.userId ?? null,
       this.group?.id ?? null,
-      this.getVoId()
+      this.getVoId(),
+      true
     );
   }
 
@@ -195,6 +201,8 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
         return data.type;
       case 'fedInfo':
         return data.fedInfo;
+      case 'formData':
+        return this.stringify((<RichApplication>data).formData);
       case 'state':
         return data.state;
       case 'extSourceName':
@@ -272,5 +280,27 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     if (this.member) {
       return this.member.voId;
     }
+  }
+
+  stringify(obj: object) {
+    const removeNullUndefined = (toFilter: object) =>
+      Object.entries(toFilter).reduce(
+        (a, [k, v]) =>
+          a[k] instanceof Object
+            ? (a[k] = removeNullUndefined(a[k]))
+            : v == null || v === 'null' || (<string>v).length === 0
+            ? a
+            : ((a[k] = v), a),
+        {}
+      );
+
+    let str = JSON.stringify(removeNullUndefined(obj));
+    str = str.replace('{', '[');
+    str = str.replace('}', ']');
+    return str;
+  }
+
+  getFormDataString(data: ApplicationFormItemData) {
+    return this.stringify(data.formItem);
   }
 }

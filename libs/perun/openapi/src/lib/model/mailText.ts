@@ -10,8 +10,10 @@
  * Do not edit the class manually.
  */
 
-export interface MailText {
-  locale?: string;
-  subject?: string;
-  text?: string;
+
+export interface MailText { 
+    locale?: string;
+    subject?: string;
+    text?: string;
 }
+

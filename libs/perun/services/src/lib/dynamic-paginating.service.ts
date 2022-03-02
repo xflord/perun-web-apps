@@ -6,7 +6,7 @@ import {
   MemberGroupStatus,
   MembersManagerService,
   MembersOrderColumn,
-  PaginatedApplications,
+  PaginatedRichApplications,
   PaginatedAuditMessages,
   PaginatedRichMembers,
   PaginatedRichUsers,
@@ -115,8 +115,9 @@ export class DynamicPaginatingService {
     dateTo: string,
     userId: number,
     voId: number,
-    groupId: number
-  ): Observable<PaginatedApplications> {
+    groupId: number,
+    getDetails: boolean
+  ): Observable<PaginatedRichApplications> {
     return this.registrarService.getApplicationsPage({
       vo: voId,
       query: {
@@ -124,8 +125,9 @@ export class DynamicPaginatingService {
         offset: pageIndex * pageSize,
         order: sortOrder,
         sortColumn: sortColumn,
-        includeGroupApplications: includeGroupApps,
         searchString: searchString,
+        includeGroupApplications: includeGroupApps,
+        getDetails: getDetails,
         states: states,
         dateFrom: dateFrom,
         dateTo: dateTo,

@@ -11,15 +11,18 @@
  */
 import { Auditable } from './auditable';
 
-export interface Owner extends Auditable {
-  name?: string;
-  contact?: string;
-  type?: Owner.TypeEnum;
+
+export interface Owner extends Auditable { 
+    name?: string;
+    contact?: string;
+    type?: Owner.TypeEnum;
 }
 export namespace Owner {
-  export type TypeEnum = 'technical' | 'administrative';
-  export const TypeEnum = {
-    Technical: 'technical' as TypeEnum,
-    Administrative: 'administrative' as TypeEnum,
-  };
+    export type TypeEnum = 'technical' | 'administrative';
+    export const TypeEnum = {
+        Technical: 'technical' as TypeEnum,
+        Administrative: 'administrative' as TypeEnum
+    };
 }
+
+

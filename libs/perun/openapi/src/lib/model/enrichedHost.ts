@@ -12,7 +12,9 @@
 import { Attribute } from './attribute';
 import { Host } from './host';
 
-export interface EnrichedHost {
-  host?: Host;
-  hostAttributes?: Array<Attribute>;
+
+export interface EnrichedHost { 
+    host?: Host;
+    hostAttributes?: Array<Attribute>;
 }
+
