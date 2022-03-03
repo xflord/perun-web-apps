@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * type of propagation of service settings to a destination
  */
 export type DestinationPropagationType = 'PARALLEL' | 'SERIAL' | 'DUMMY';
 
 export const DestinationPropagationType = {
-    PARALLEL: 'PARALLEL' as DestinationPropagationType,
-    SERIAL: 'SERIAL' as DestinationPropagationType,
-    DUMMY: 'DUMMY' as DestinationPropagationType
+  PARALLEL: 'PARALLEL' as DestinationPropagationType,
+  SERIAL: 'SERIAL' as DestinationPropagationType,
+  DUMMY: 'DUMMY' as DestinationPropagationType,
 };
-

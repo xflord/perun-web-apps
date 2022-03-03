@@ -11,11 +11,9 @@
  */
 import { RichApplication } from './richApplication';
 
-
-export interface PaginatedRichApplications { 
-    offset: number;
-    pageSize: number;
-    totalCount: number;
-    data: Array<RichApplication>;
+export interface PaginatedRichApplications {
+  offset: number;
+  pageSize: number;
+  totalCount: number;
+  data: Array<RichApplication>;
 }
-

@@ -11,11 +11,9 @@
  */
 import { BanOnFacility } from './banOnFacility';
 
-
 /**
  * input to updateBanForFacility
  */
-export interface InputUpdateBanForFacility { 
-    banOnFacility: BanOnFacility;
+export interface InputUpdateBanForFacility {
+  banOnFacility: BanOnFacility;
 }
-

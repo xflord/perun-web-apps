@@ -11,9 +11,7 @@
  */
 import { Auditable } from './auditable';
 
-
-export interface Ban extends Auditable { 
-    validityTo?: string;
-    description?: string;
+export interface Ban extends Auditable {
+  validityTo?: string;
+  description?: string;
 }
-

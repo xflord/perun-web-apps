@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 export type FacilityPropagationState = 'OK' | 'ERROR' | 'PROCESSING' | 'NOT_DETERMINED';
 
 export const FacilityPropagationState = {
-    OK: 'OK' as FacilityPropagationState,
-    ERROR: 'ERROR' as FacilityPropagationState,
-    PROCESSING: 'PROCESSING' as FacilityPropagationState,
-    NOTDETERMINED: 'NOT_DETERMINED' as FacilityPropagationState
+  OK: 'OK' as FacilityPropagationState,
+  ERROR: 'ERROR' as FacilityPropagationState,
+  PROCESSING: 'PROCESSING' as FacilityPropagationState,
+  NOTDETERMINED: 'NOT_DETERMINED' as FacilityPropagationState,
 };
-

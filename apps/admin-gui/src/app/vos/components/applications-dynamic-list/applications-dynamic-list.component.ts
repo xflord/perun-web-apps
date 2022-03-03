@@ -80,7 +80,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
   refreshTable = false;
 
   @Input()
-  showMoreData = false;
+  parsedColumns: string[] = [];
 
   dataSource: DynamicDataSource<Application>;
 
@@ -103,6 +103,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       this.dynamicPaginatingService,
       this.authResolver
     );
+
     this.dataSource.loadApplications(
       this.tableConfigService.getTablePageSize(this.tableId),
       0,
@@ -117,6 +118,16 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       this.group?.id ?? null,
       this.getVoId()
     );
+
+    this.dataSource.loading$.subscribe((val) => {
+      if (val) return;
+      if (!this.displayedColumns.includes('fedInfo')) {
+        this.parsedColumns = [];
+        return;
+      }
+      const data = <RichApplication>this.dataSource.getData()[0];
+      this.parseColumns(data.formData);
+    });
   }
 
   ngOnChanges() {
@@ -302,5 +313,24 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
 
   getFormDataString(data: ApplicationFormItemData) {
     return this.stringify(data.formItem);
+  }
+
+  parseColumns(array: Array<ApplicationFormItemData>) {
+    array.forEach((val) => {
+      if (!this.displayedColumns.includes(val.shortname)) {
+        this.displayedColumns.push(val.shortname);
+      }
+      if (!this.parsedColumns.includes(val.shortname)) {
+        this.parsedColumns.push(val.shortname);
+      }
+    });
+  }
+
+  getValue(array: Array<ApplicationFormItemData>, colName: string) {
+    const filter = array.filter((value) => value.shortname === colName);
+    if (filter.length === 0) {
+      return '';
+    }
+    return filter[0].value ?? filter[0].prefilledValue;
   }
 }

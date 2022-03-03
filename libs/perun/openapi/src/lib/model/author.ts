@@ -13,14 +13,12 @@ import { PerunBean } from './perunBean';
 import { Authorship } from './authorship';
 import { Attribute } from './attribute';
 
-
-export interface Author extends PerunBean { 
-    firstName?: string;
-    lastName?: string;
-    middleName?: string;
-    titleBefore?: string;
-    titleAfter?: string;
-    attributes?: Array<Attribute>;
-    authorships?: Array<Authorship>;
+export interface Author extends PerunBean {
+  firstName?: string;
+  lastName?: string;
+  middleName?: string;
+  titleBefore?: string;
+  titleAfter?: string;
+  attributes?: Array<Attribute>;
+  authorships?: Array<Authorship>;
 }
-

@@ -11,11 +11,9 @@
  */
 import { Service } from './service';
 
-
 /**
  * input to updateService
  */
-export interface InputUpdateService { 
-    service: Service;
+export interface InputUpdateService {
+  service: Service;
 }
-

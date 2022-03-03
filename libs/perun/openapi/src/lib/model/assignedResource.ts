@@ -14,14 +14,12 @@ import { ResourceTag } from './resourceTag';
 import { Facility } from './facility';
 import { GroupResourceStatus } from './groupResourceStatus';
 
-
-export interface AssignedResource { 
-    enrichedResource?: EnrichedResource;
-    status?: GroupResourceStatus;
-    sourceGroupId?: number;
-    failureCause?: string;
-    facility?: Facility;
-    resourceTags?: Array<ResourceTag>;
-    autoAssignSubgroups?: boolean;
+export interface AssignedResource {
+  enrichedResource?: EnrichedResource;
+  status?: GroupResourceStatus;
+  sourceGroupId?: number;
+  failureCause?: string;
+  facility?: Facility;
+  resourceTags?: Array<ResourceTag>;
+  autoAssignSubgroups?: boolean;
 }
-

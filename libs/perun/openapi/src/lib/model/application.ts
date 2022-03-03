@@ -15,21 +15,19 @@ import { Vo } from './vo';
 import { AppState } from './appState';
 import { AppType } from './appType';
 
-
-export interface Application { 
-    id?: number;
-    vo?: Vo;
-    group?: Group;
-    type?: AppType;
-    fedInfo?: string;
-    state?: AppState;
-    extSourceName?: string;
-    extSourceType?: string;
-    extSourceLoa?: number;
-    user?: User;
-    createdBy?: string;
-    createdAt?: string;
-    modifiedBy?: string;
-    modifiedAt?: string;
+export interface Application {
+  id?: number;
+  vo?: Vo;
+  group?: Group;
+  type?: AppType;
+  fedInfo?: string;
+  state?: AppState;
+  extSourceName?: string;
+  extSourceType?: string;
+  extSourceLoa?: number;
+  user?: User;
+  createdBy?: string;
+  createdAt?: string;
+  modifiedBy?: string;
+  modifiedAt?: string;
 }
-

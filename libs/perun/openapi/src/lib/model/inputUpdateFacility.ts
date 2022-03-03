@@ -11,11 +11,9 @@
  */
 import { Facility } from './facility';
 
-
 /**
  * input to updateFacility
  */
-export interface InputUpdateFacility { 
-    facility: Facility;
+export interface InputUpdateFacility {
+  facility: Facility;
 }
-

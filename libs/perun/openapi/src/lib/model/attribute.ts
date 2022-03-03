@@ -11,12 +11,10 @@
  */
 import { AttributeDefinition } from './attributeDefinition';
 
-
-export interface Attribute extends AttributeDefinition { 
-    valueCreatedAt?: string | null;
-    valueCreatedBy?: string | null;
-    valueModifiedAt?: string | null;
-    valueModifiedBy?: string | null;
-    value?: object;
+export interface Attribute extends AttributeDefinition {
+  valueCreatedAt?: string | null;
+  valueCreatedBy?: string | null;
+  valueModifiedAt?: string | null;
+  valueModifiedBy?: string | null;
+  value?: object;
 }
-

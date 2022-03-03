@@ -12,9 +12,7 @@
 import { Attribute } from './attribute';
 import { Resource } from './resource';
 
-
-export interface EnrichedResource { 
-    resource?: Resource;
-    attributes?: Array<Attribute>;
+export interface EnrichedResource {
+  resource?: Resource;
+  attributes?: Array<Attribute>;
 }
-

@@ -11,11 +11,9 @@
  */
 import { AttributeDefinition } from './attributeDefinition';
 
-
 /**
  * Input to updateAttributeDefinition
  */
-export interface InputAttributeDefinition { 
-    attributeDefinition: AttributeDefinition;
+export interface InputAttributeDefinition {
+  attributeDefinition: AttributeDefinition;
 }
-

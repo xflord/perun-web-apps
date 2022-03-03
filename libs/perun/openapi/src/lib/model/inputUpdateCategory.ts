@@ -11,11 +11,9 @@
  */
 import { Category } from './category';
 
-
 /**
  * input to updateCategory
  */
-export interface InputUpdateCategory { 
-    category: Category;
+export interface InputUpdateCategory {
+  category: Category;
 }
-

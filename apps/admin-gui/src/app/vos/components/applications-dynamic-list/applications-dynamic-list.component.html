@@ -108,27 +108,13 @@
         <td *matCellDef="let application" mat-cell>{{application.fedInfo}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="formData">
-        <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.FORM_DATA' | translate}}</th>
-        <td *matCellDef="let application; let i = index" mat-cell>
-          <ng-container *ngIf="showMoreData; else elseBlock">
-            <ng-container *ngFor="let data of application.formData">
-              {{getFormDataString(data)}}
-            </ng-container>
-          </ng-container>
-          <ng-template #elseBlock>
-            <ng-container *ngFor="let data of application.formData.slice(0,5)">
-              {{getFormDataString(data).substring(0,70)}}...
-            </ng-container>
-          </ng-template>
-          <button
-            mat-raised-button
-            (click)="showMoreData = !showMoreData;"
-            (mouseenter)="disableRouting = true"
-            (mouseleave)="disableRouting = false">
-            Show {{showMoreData? 'less' : 'all'}} form data
-          </button>
-        </td>
+      <ng-container *ngFor="let col of parsedColumns; let i = index">
+        <ng-container matColumnDef="{{col}}">
+          <th *matHeaderCellDef mat-header-cell>{{col}}</th>
+          <td *matCellDef="let application" mat-cell>
+            {{getValue(application.formData, col)}}
+          </td>
+        </ng-container>
       </ng-container>
 
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>

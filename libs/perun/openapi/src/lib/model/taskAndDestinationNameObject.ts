@@ -10,22 +10,20 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * input to deleteTaskResultsNames
  */
-export interface TaskAndDestinationNameObject { 
-    /**
-     * task id
-     */
-    taskId: number;
-    /**
-     * destination name
-     */
-    destinationName: string;
-    /**
-     * destination type
-     */
-    destinationType: string;
+export interface TaskAndDestinationNameObject {
+  /**
+   * task id
+   */
+  taskId: number;
+  /**
+   * destination name
+   */
+  destinationName: string;
+  /**
+   * destination type
+   */
+  destinationType: string;
 }
-

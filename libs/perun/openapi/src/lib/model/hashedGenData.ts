@@ -12,9 +12,7 @@
 import { Attribute } from './attribute';
 import { GenDataNode } from './genDataNode';
 
-
-export interface HashedGenData { 
-    attributes?: { [key: string]: Array<Attribute>; };
-    hierarchy?: GenDataNode;
+export interface HashedGenData {
+  attributes?: { [key: string]: Array<Attribute> };
+  hierarchy?: GenDataNode;
 }
-

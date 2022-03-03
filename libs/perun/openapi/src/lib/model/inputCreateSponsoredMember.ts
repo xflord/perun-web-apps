@@ -11,15 +11,13 @@
  */
 import { SponsoredUserData } from './sponsoredUserData';
 
-
 /**
  * input for createSponsoredMember
  */
-export interface InputCreateSponsoredMember { 
-    vo: number;
-    validityTo?: string;
-    sponsor: number;
-    sendActivationLink?: boolean;
-    userData: SponsoredUserData;
+export interface InputCreateSponsoredMember {
+  vo: number;
+  validityTo?: string;
+  sponsor: number;
+  sendActivationLink?: boolean;
+  userData: SponsoredUserData;
 }
-

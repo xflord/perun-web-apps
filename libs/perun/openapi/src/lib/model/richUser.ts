@@ -13,9 +13,7 @@ import { User } from './user';
 import { Attribute } from './attribute';
 import { UserExtSource } from './userExtSource';
 
-
-export interface RichUser extends User { 
-    userExtSources: Array<UserExtSource>;
-    userAttributes: Array<Attribute>;
+export interface RichUser extends User {
+  userExtSources: Array<UserExtSource>;
+  userAttributes: Array<Attribute>;
 }
-

@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * admin roles for a Vo
  */
 export type VoAdminRoles = 'VOOBSERVER' | 'TOPGROUPCREATOR' | 'VOADMIN';
 
 export const VoAdminRoles = {
-    VOOBSERVER: 'VOOBSERVER' as VoAdminRoles,
-    TOPGROUPCREATOR: 'TOPGROUPCREATOR' as VoAdminRoles,
-    VOADMIN: 'VOADMIN' as VoAdminRoles
+  VOOBSERVER: 'VOOBSERVER' as VoAdminRoles,
+  TOPGROUPCREATOR: 'TOPGROUPCREATOR' as VoAdminRoles,
+  VOADMIN: 'VOADMIN' as VoAdminRoles,
 };
-

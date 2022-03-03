@@ -11,12 +11,10 @@
  */
 import { Publication } from './publication';
 
-
 /**
  * input to lockPublications
  */
-export interface InputLockPublications { 
-    publications: Array<Publication>;
-    lock: boolean;
+export interface InputLockPublications {
+  publications: Array<Publication>;
+  lock: boolean;
 }
-

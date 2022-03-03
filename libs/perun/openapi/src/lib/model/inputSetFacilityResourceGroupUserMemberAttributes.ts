@@ -11,31 +11,29 @@
  */
 import { Attribute } from './attribute';
 
-
 /**
  * input to setFacilityResourceGroupUserMemberAttributes
  */
-export interface InputSetFacilityResourceGroupUserMemberAttributes { 
-    /**
-     * facility id
-     */
-    facility: number;
-    /**
-     * resource id
-     */
-    resource: number;
-    /**
-     * group id
-     */
-    group: number;
-    /**
-     * user id
-     */
-    user: number;
-    /**
-     * member id
-     */
-    member: number;
-    attributes: Array<Attribute>;
+export interface InputSetFacilityResourceGroupUserMemberAttributes {
+  /**
+   * facility id
+   */
+  facility: number;
+  /**
+   * resource id
+   */
+  resource: number;
+  /**
+   * group id
+   */
+  group: number;
+  /**
+   * user id
+   */
+  user: number;
+  /**
+   * member id
+   */
+  member: number;
+  attributes: Array<Attribute>;
 }
-

@@ -11,11 +11,9 @@
  */
 import { BanOnVo } from './banOnVo';
 
-
 /**
  * input to set vo ban
  */
-export interface InputSetVoBan { 
-    banOnVo: BanOnVo;
+export interface InputSetVoBan {
+  banOnVo: BanOnVo;
 }
-

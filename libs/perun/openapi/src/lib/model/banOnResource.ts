@@ -11,9 +11,7 @@
  */
 import { Ban } from './ban';
 
-
-export interface BanOnResource extends Ban { 
-    memberId?: number;
-    resourceId?: number;
+export interface BanOnResource extends Ban {
+  memberId?: number;
+  resourceId?: number;
 }
-

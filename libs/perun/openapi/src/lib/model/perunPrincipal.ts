@@ -11,16 +11,14 @@
  */
 import { User } from './user';
 
-
-export interface PerunPrincipal { 
-    actor?: string;
-    extSourceName?: string;
-    extSourceType?: string;
-    extSourceLoa?: number;
-    user: User;
-    authzInitialized?: boolean;
-    additionalInformations?: { [key: string]: string; };
-    userId: number;
-    roles?: { [key: string]: { [key: string]: Array<number>; }; };
+export interface PerunPrincipal {
+  actor?: string;
+  extSourceName?: string;
+  extSourceType?: string;
+  extSourceLoa?: number;
+  user: User;
+  authzInitialized?: boolean;
+  additionalInformations?: { [key: string]: string };
+  userId: number;
+  roles?: { [key: string]: { [key: string]: Array<number> } };
 }
-

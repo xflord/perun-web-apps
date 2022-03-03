@@ -11,12 +11,10 @@
  */
 import { Service } from './service';
 
-
 /**
  * input to addDestinationsDefinedByHostsOnFacility
  */
-export interface InputAddDestinationsDefinedByHostsOnFacility { 
-    services: Array<Service>;
-    facility: number;
+export interface InputAddDestinationsDefinedByHostsOnFacility {
+  services: Array<Service>;
+  facility: number;
 }
-

@@ -12,14 +12,12 @@
 import { Group } from './group';
 import { Vo } from './vo';
 
-
-export interface ApplicationForm { 
-    id?: number;
-    vo?: Vo;
-    group?: Group;
-    automaticApproval?: boolean;
-    automaticApprovalExtension?: boolean;
-    automaticApprovalEmbedded?: boolean;
-    moduleClassName?: string;
+export interface ApplicationForm {
+  id?: number;
+  vo?: Vo;
+  group?: Group;
+  automaticApproval?: boolean;
+  automaticApprovalExtension?: boolean;
+  automaticApprovalEmbedded?: boolean;
+  moduleClassName?: string;
 }
-

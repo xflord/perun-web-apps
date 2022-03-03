@@ -10,16 +10,14 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * status of the group-resource assignment
  */
 export type GroupResourceStatus = 'ACTIVE' | 'INACTIVE' | 'FAILED' | 'PROCESSING';
 
 export const GroupResourceStatus = {
-    ACTIVE: 'ACTIVE' as GroupResourceStatus,
-    INACTIVE: 'INACTIVE' as GroupResourceStatus,
-    FAILED: 'FAILED' as GroupResourceStatus,
-    PROCESSING: 'PROCESSING' as GroupResourceStatus
+  ACTIVE: 'ACTIVE' as GroupResourceStatus,
+  INACTIVE: 'INACTIVE' as GroupResourceStatus,
+  FAILED: 'FAILED' as GroupResourceStatus,
+  PROCESSING: 'PROCESSING' as GroupResourceStatus,
 };
-

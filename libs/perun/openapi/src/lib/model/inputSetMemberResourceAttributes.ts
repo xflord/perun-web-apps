@@ -11,19 +11,17 @@
  */
 import { Attribute } from './attribute';
 
-
 /**
  * input to setMemberResourceAttributes
  */
-export interface InputSetMemberResourceAttributes { 
-    /**
-     * member id
-     */
-    member: number;
-    /**
-     * resource id
-     */
-    resource: number;
-    attributes: Array<Attribute>;
+export interface InputSetMemberResourceAttributes {
+  /**
+   * member id
+   */
+  member: number;
+  /**
+   * resource id
+   */
+  resource: number;
+  attributes: Array<Attribute>;
 }
-

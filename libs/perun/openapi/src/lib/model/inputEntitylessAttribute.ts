@@ -11,15 +11,13 @@
  */
 import { Attribute } from './attribute';
 
-
 /**
  * input to setEntitylessAttribute
  */
-export interface InputEntitylessAttribute { 
-    /**
-     * key for entityless attribute
-     */
-    key: string;
-    attribute: Attribute;
+export interface InputEntitylessAttribute {
+  /**
+   * key for entityless attribute
+   */
+  key: string;
+  attribute: Attribute;
 }
-

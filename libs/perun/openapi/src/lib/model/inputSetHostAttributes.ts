@@ -11,15 +11,13 @@
  */
 import { Attribute } from './attribute';
 
-
 /**
  * input to setHostAttributes
  */
-export interface InputSetHostAttributes { 
-    /**
-     * host id
-     */
-    host: number;
-    attributes: Array<Attribute>;
+export interface InputSetHostAttributes {
+  /**
+   * host id
+   */
+  host: number;
+  attributes: Array<Attribute>;
 }
-

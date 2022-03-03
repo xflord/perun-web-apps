@@ -13,15 +13,13 @@ import { DestinationPropagationType } from './destinationPropagationType';
 import { Service } from './service';
 import { DestinationType } from './destinationType';
 
-
 /**
  * input to addDestinationToMultipleServices
  */
-export interface InputAddDestinationToMultipleServices { 
-    services: Array<Service>;
-    facility: number;
-    destination: string;
-    type: DestinationType;
-    propagationType?: DestinationPropagationType;
+export interface InputAddDestinationToMultipleServices {
+  services: Array<Service>;
+  facility: number;
+  destination: string;
+  type: DestinationType;
+  propagationType?: DestinationPropagationType;
 }
-

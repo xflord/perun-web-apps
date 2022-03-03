@@ -11,12 +11,10 @@
  */
 import { AuditEvent } from './auditEvent';
 
-
-export interface AuditMessage { 
-    event?: AuditEvent;
-    id?: number;
-    actor?: string;
-    createdAt?: string;
-    createdByUid?: number;
+export interface AuditMessage {
+  event?: AuditEvent;
+  id?: number;
+  actor?: string;
+  createdAt?: string;
+  createdByUid?: number;
 }
-

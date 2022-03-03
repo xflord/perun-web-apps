@@ -13,19 +13,17 @@ import { ApplicationsOrderColumn } from './applicationsOrderColumn';
 import { SortingOrder } from './sortingOrder';
 import { AppState } from './appState';
 
-
-export interface ApplicationsPageQuery { 
-    pageSize: number;
-    offset: number;
-    order: SortingOrder;
-    sortColumn: ApplicationsOrderColumn;
-    searchString?: string;
-    includeGroupApplications?: boolean;
-    getDetails?: boolean;
-    states?: Array<AppState>;
-    dateFrom?: string;
-    dateTo?: string;
-    userId?: number;
-    groupId?: number;
+export interface ApplicationsPageQuery {
+  pageSize: number;
+  offset: number;
+  order: SortingOrder;
+  sortColumn: ApplicationsOrderColumn;
+  searchString?: string;
+  includeGroupApplications?: boolean;
+  getDetails?: boolean;
+  states?: Array<AppState>;
+  dateFrom?: string;
+  dateTo?: string;
+  userId?: number;
+  groupId?: number;
 }
-

@@ -11,15 +11,13 @@
  */
 import { ApplicationFormItem } from './applicationFormItem';
 
-
 /**
  * input to updateFormItemsForVo
  */
-export interface InputUpdateFormItemsForVo { 
-    /**
-     * vo id
-     */
-    vo?: number;
-    items?: Array<ApplicationFormItem>;
+export interface InputUpdateFormItemsForVo {
+  /**
+   * vo id
+   */
+  vo?: number;
+  items?: Array<ApplicationFormItem>;
 }
-

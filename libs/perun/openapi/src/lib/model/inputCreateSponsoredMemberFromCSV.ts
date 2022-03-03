@@ -10,27 +10,25 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * input for createSponsoredMembersFromCSV
  */
-export interface InputCreateSponsoredMemberFromCSV { 
-    /**
-     * values separated with semicolons
-     */
-    data: Array<string>;
-    /**
-     * csv header for the given data, values are also split with semicolons
-     */
-    header: string;
-    vo: number;
-    sponsor: number;
-    namespace: string;
-    validityTo?: string;
-    sendActivationLinks?: boolean;
-    /**
-     * groups to which should be the created users assigned
-     */
-    groups?: Array<number>;
+export interface InputCreateSponsoredMemberFromCSV {
+  /**
+   * values separated with semicolons
+   */
+  data: Array<string>;
+  /**
+   * csv header for the given data, values are also split with semicolons
+   */
+  header: string;
+  vo: number;
+  sponsor: number;
+  namespace: string;
+  validityTo?: string;
+  sendActivationLinks?: boolean;
+  /**
+   * groups to which should be the created users assigned
+   */
+  groups?: Array<number>;
 }
-

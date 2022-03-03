@@ -12,13 +12,11 @@
 import { Candidate } from './candidate';
 import { Group } from './group';
 
-
 /**
  * input to create member for candidate
  */
-export interface InputCreateMemberForCandidate { 
-    vo: number;
-    candidate: Candidate;
-    groups?: Array<Group>;
+export interface InputCreateMemberForCandidate {
+  vo: number;
+  candidate: Candidate;
+  groups?: Array<Group>;
 }
-

@@ -170,7 +170,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
     userId: number,
     groupId: number,
     voId: number,
-    details?:boolean
+    details?: boolean
   ) {
     this.loadingSubject.next(true);
     this.latestQueryTime = Date.now();

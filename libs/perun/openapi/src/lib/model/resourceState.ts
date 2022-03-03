@@ -12,9 +12,7 @@
 import { Task } from './task';
 import { Resource } from './resource';
 
-
-export interface ResourceState { 
-    resource?: Resource;
-    taskList?: Array<Task>;
+export interface ResourceState {
+  resource?: Resource;
+  taskList?: Array<Task>;
 }
-

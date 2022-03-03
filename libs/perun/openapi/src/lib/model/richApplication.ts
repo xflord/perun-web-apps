@@ -17,8 +17,6 @@ import { AppState } from './appState';
 import { AppType } from './appType';
 import { Application } from './application';
 
-
-export interface RichApplication { 
-    formData: Array<ApplicationFormItemData>;
+export interface RichApplication {
+  formData: Array<ApplicationFormItemData>;
 }
-

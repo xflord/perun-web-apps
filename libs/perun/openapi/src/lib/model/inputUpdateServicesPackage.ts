@@ -11,11 +11,9 @@
  */
 import { ServicesPackage } from './servicesPackage';
 
-
 /**
  * Input to updateServicesPackage
  */
-export interface InputUpdateServicesPackage { 
-    servicesPackage: ServicesPackage;
+export interface InputUpdateServicesPackage {
+  servicesPackage: ServicesPackage;
 }
-

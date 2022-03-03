@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 export type AppType = 'INITIAL' | 'EXTENSION' | 'EMBEDDED';
 
 export const AppType = {
-    INITIAL: 'INITIAL' as AppType,
-    EXTENSION: 'EXTENSION' as AppType,
-    EMBEDDED: 'EMBEDDED' as AppType
+  INITIAL: 'INITIAL' as AppType,
+  EXTENSION: 'EXTENSION' as AppType,
+  EMBEDDED: 'EMBEDDED' as AppType,
 };
-

@@ -11,11 +11,9 @@
  */
 import { AuditMessagesPageQuery } from './auditMessagesPageQuery';
 
-
 /**
  * input to get messages page
  */
-export interface InputGetMessagesPage { 
-    query: AuditMessagesPageQuery;
+export interface InputGetMessagesPage {
+  query: AuditMessagesPageQuery;
 }
-

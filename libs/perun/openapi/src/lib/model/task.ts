@@ -14,24 +14,22 @@ import { Service } from './service';
 import { Facility } from './facility';
 import { TaskStatus } from './taskStatus';
 
-
-export interface Task { 
-    id?: number;
-    delay?: number;
-    recurrence?: number;
-    startTime?: string;
-    sentToEngine?: string;
-    sendStartTime?: string;
-    schedule?: string;
-    genStartTime?: string;
-    genEndTime?: string;
-    sendEndTime?: string;
-    endTime?: string;
-    service?: Service;
-    facility?: Facility;
-    destinations?: Array<Destination>;
-    status?: TaskStatus;
-    sourceUpdated?: boolean;
-    propagationForced?: boolean;
+export interface Task {
+  id?: number;
+  delay?: number;
+  recurrence?: number;
+  startTime?: string;
+  sentToEngine?: string;
+  sendStartTime?: string;
+  schedule?: string;
+  genStartTime?: string;
+  genEndTime?: string;
+  sendEndTime?: string;
+  endTime?: string;
+  service?: Service;
+  facility?: Facility;
+  destinations?: Array<Destination>;
+  status?: TaskStatus;
+  sourceUpdated?: boolean;
+  propagationForced?: boolean;
 }
-

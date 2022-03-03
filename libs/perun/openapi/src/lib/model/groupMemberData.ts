@@ -12,9 +12,7 @@
 import { Attribute } from './attribute';
 import { GroupMemberRelation } from './groupMemberRelation';
 
-
-export interface GroupMemberData { 
-    relations?: Array<GroupMemberRelation>;
-    groupMemberAttributes?: { [key: string]: { [key: string]: Array<Attribute>; }; };
+export interface GroupMemberData {
+  relations?: Array<GroupMemberRelation>;
+  groupMemberAttributes?: { [key: string]: { [key: string]: Array<Attribute> } };
 }
-

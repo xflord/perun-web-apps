@@ -14,16 +14,14 @@ import { PerunBean } from './perunBean';
 import { Service } from './service';
 import { TaskResultStatus } from './taskResultStatus';
 
-
-export interface TaskResult extends PerunBean { 
-    taskId?: number;
-    destinationId?: number;
-    errorMessage?: string;
-    standardMessage?: string;
-    returnCode?: number;
-    timestamp?: string;
-    status?: TaskResultStatus;
-    destination?: Destination;
-    service?: Service;
+export interface TaskResult extends PerunBean {
+  taskId?: number;
+  destinationId?: number;
+  errorMessage?: string;
+  standardMessage?: string;
+  returnCode?: number;
+  timestamp?: string;
+  status?: TaskResultStatus;
+  destination?: Destination;
+  service?: Service;
 }
-

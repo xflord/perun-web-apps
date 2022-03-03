@@ -10,27 +10,25 @@
  * Do not edit the class manually.
  */
 
-
-export interface GroupMemberRelation { 
-    /**
-     * member id
-     */
-    m?: number;
-    /**
-     * group id
-     */
-    g?: number;
-    /**
-     * source group id
-     */
-    sg?: number;
-    /**
-     * source group status
-     */
-    s?: string;
-    /**
-     * membership type
-     */
-    t?: string;
+export interface GroupMemberRelation {
+  /**
+   * member id
+   */
+  m?: number;
+  /**
+   * group id
+   */
+  g?: number;
+  /**
+   * source group id
+   */
+  sg?: number;
+  /**
+   * source group status
+   */
+  s?: string;
+  /**
+   * membership type
+   */
+  t?: string;
 }
-

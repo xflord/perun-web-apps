@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * input to deleteGroup
  */
-export interface InputDeleteGroups { 
-    groups: Array<number>;
-    /**
-     * boolean for force delete
-     */
-    forceDelete: boolean;
+export interface InputDeleteGroups {
+  groups: Array<number>;
+  /**
+   * boolean for force delete
+   */
+  forceDelete: boolean;
 }
-

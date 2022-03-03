@@ -11,11 +11,9 @@
  */
 import { RoleObject } from './roleObject';
 
-
-export interface AttributePolicy { 
-    id: number;
-    role: string;
-    object: RoleObject;
-    policyCollectionId: number;
+export interface AttributePolicy {
+  id: number;
+  role: string;
+  object: RoleObject;
+  policyCollectionId: number;
 }
-

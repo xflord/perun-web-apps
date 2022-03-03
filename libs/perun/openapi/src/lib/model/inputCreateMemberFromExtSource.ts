@@ -12,16 +12,14 @@
 import { Candidate } from './candidate';
 import { Group } from './group';
 
-
 /**
  * input to create member from extSource
  */
-export interface InputCreateMemberFromExtSource { 
-    vo: number;
-    extSourceName: string;
-    extSourceType: string;
-    login: string;
-    candidate: Candidate;
-    groups?: Array<Group>;
+export interface InputCreateMemberFromExtSource {
+  vo: number;
+  extSourceName: string;
+  extSourceType: string;
+  login: string;
+  candidate: Candidate;
+  groups?: Array<Group>;
 }
-

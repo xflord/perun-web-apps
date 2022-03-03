@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 export type GroupsOrderColumn = 'ID' | 'NAME' | 'DESCRIPTION';
 
 export const GroupsOrderColumn = {
-    ID: 'ID' as GroupsOrderColumn,
-    NAME: 'NAME' as GroupsOrderColumn,
-    DESCRIPTION: 'DESCRIPTION' as GroupsOrderColumn
+  ID: 'ID' as GroupsOrderColumn,
+  NAME: 'NAME' as GroupsOrderColumn,
+  DESCRIPTION: 'DESCRIPTION' as GroupsOrderColumn,
 };
-

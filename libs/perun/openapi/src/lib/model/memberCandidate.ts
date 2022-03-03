@@ -13,10 +13,8 @@ import { Candidate } from './candidate';
 import { RichUser } from './richUser';
 import { Member } from './member';
 
-
-export interface MemberCandidate { 
-    candidate?: Candidate;
-    member?: Member;
-    richUser?: RichUser;
+export interface MemberCandidate {
+  candidate?: Candidate;
+  member?: Member;
+  richUser?: RichUser;
 }
-

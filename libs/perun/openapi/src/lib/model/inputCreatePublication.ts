@@ -11,11 +11,9 @@
  */
 import { Publication } from './publication';
 
-
 /**
  * input to createPublication
  */
-export interface InputCreatePublication { 
-    publication: Publication;
+export interface InputCreatePublication {
+  publication: Publication;
 }
-

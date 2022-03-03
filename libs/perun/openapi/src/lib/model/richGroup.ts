@@ -12,8 +12,6 @@
 import { Group } from './group';
 import { Attribute } from './attribute';
 
-
-export interface RichGroup extends Group { 
-    attributes?: Array<Attribute>;
+export interface RichGroup extends Group {
+  attributes?: Array<Attribute>;
 }
-

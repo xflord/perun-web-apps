@@ -10,19 +10,27 @@
  * Do not edit the class manually.
  */
 
-
-export type TaskStatus = 'WAITING' | 'PLANNED' | 'GENERATING' | 'GENERROR' | 'GENERATED' | 'SENDING' | 'DONE' | 'SENDERROR' | 'ERROR' | 'WARNING';
+export type TaskStatus =
+  | 'WAITING'
+  | 'PLANNED'
+  | 'GENERATING'
+  | 'GENERROR'
+  | 'GENERATED'
+  | 'SENDING'
+  | 'DONE'
+  | 'SENDERROR'
+  | 'ERROR'
+  | 'WARNING';
 
 export const TaskStatus = {
-    WAITING: 'WAITING' as TaskStatus,
-    PLANNED: 'PLANNED' as TaskStatus,
-    GENERATING: 'GENERATING' as TaskStatus,
-    GENERROR: 'GENERROR' as TaskStatus,
-    GENERATED: 'GENERATED' as TaskStatus,
-    SENDING: 'SENDING' as TaskStatus,
-    DONE: 'DONE' as TaskStatus,
-    SENDERROR: 'SENDERROR' as TaskStatus,
-    ERROR: 'ERROR' as TaskStatus,
-    WARNING: 'WARNING' as TaskStatus
+  WAITING: 'WAITING' as TaskStatus,
+  PLANNED: 'PLANNED' as TaskStatus,
+  GENERATING: 'GENERATING' as TaskStatus,
+  GENERROR: 'GENERROR' as TaskStatus,
+  GENERATED: 'GENERATED' as TaskStatus,
+  SENDING: 'SENDING' as TaskStatus,
+  DONE: 'DONE' as TaskStatus,
+  SENDERROR: 'SENDERROR' as TaskStatus,
+  ERROR: 'ERROR' as TaskStatus,
+  WARNING: 'WARNING' as TaskStatus,
 };
-

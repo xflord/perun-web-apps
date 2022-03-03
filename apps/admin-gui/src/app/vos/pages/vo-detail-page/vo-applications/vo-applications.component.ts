@@ -51,7 +51,6 @@ export class VoApplicationsComponent implements OnInit {
     'modifiedBy',
     'modifiedAt',
     'fedInfo',
-    'formData'
   ];
   currentColumns: string[] = [];
   filterValue = '';

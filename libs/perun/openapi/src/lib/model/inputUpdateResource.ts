@@ -11,11 +11,9 @@
  */
 import { Resource } from './resource';
 
-
 /**
  * input to updateResource
  */
-export interface InputUpdateResource { 
-    resource: Resource;
+export interface InputUpdateResource {
+  resource: Resource;
 }
-

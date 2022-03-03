@@ -11,12 +11,10 @@
  */
 import { ApplicationMail } from './applicationMail';
 
-
 /**
  * input to addApplicationMailForGroup
  */
-export interface InputAddApplicationMailForGroup { 
-    group: number;
-    mail: ApplicationMail;
+export interface InputAddApplicationMailForGroup {
+  group: number;
+  mail: ApplicationMail;
 }
-

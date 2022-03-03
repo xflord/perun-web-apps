@@ -11,12 +11,10 @@
  */
 import { UserExtSource } from './userExtSource';
 
-
 /**
  * input to addUserExtSource
  */
-export interface AddUserExtSourceInput { 
-    user: number;
-    userExtSource: UserExtSource;
+export interface AddUserExtSourceInput {
+  user: number;
+  userExtSource: UserExtSource;
 }
-

@@ -11,9 +11,7 @@
  */
 import { Ban } from './ban';
 
-
-export interface BanOnFacility extends Ban { 
-    userId?: number;
-    facilityId?: number;
+export interface BanOnFacility extends Ban {
+  userId?: number;
+  facilityId?: number;
 }
-
