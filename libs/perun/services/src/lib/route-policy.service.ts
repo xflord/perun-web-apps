@@ -28,22 +28,22 @@ export class RoutePolicyService {
         ),
     ],
     [
-      'organization-resources',
+      'organizations-resources',
       (vo) =>
         this.authResolver.isAuthorized('getRichResources_Vo_policy', [vo]) ||
         this.authResolver.isAuthorized('getAllResourcesTagsForVo_Vo_policy', [vo]) ||
         this.authResolver.isAuthorized('getResourcesState_Vo_policy', [vo]),
     ],
     [
-      'organization-resources-preview',
+      'organizations-resources-preview',
       (vo) => this.authResolver.isAuthorized('getRichResources_Vo_policy', [vo]),
     ],
     [
-      'organization-resources-tags',
+      'organizations-resources-tags',
       (vo) => this.authResolver.isAuthorized('getAllResourcesTagsForVo_Vo_policy', [vo]),
     ],
     [
-      'organization-resources-states',
+      'organizations-resources-states',
       (vo) => this.authResolver.isAuthorized('getResourcesState_Vo_policy', [vo]),
     ],
     [
