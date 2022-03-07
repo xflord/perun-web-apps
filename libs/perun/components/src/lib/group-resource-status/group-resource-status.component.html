@@ -14,6 +14,7 @@
     <mat-icon class="grey">block</mat-icon>
   </span>
   <span
+    (click)="changeStatus()"
     *ngIf="status === 'FAILED'"
     matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_RESOURCE_STATUS.FAILED' | translate}}: {{this.failureCause}}"
     matTooltipPosition="above">

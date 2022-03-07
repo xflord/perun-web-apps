@@ -24,16 +24,16 @@
       {{getReversedStatus()}}
     </p>
 
-    <span *ngIf="status==='INACTIVE'" class="text-muted">
+    <span *ngIf="status ==='INACTIVE' || status ==='FAILED'" class="text-muted">
       {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.ACTIVE_HINT' | translate}}
     </span>
-    <span *ngIf="status==='ACTIVE'" class="text-muted">
+    <span *ngIf="status ==='ACTIVE'" class="text-muted">
       {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.INACTIVE_HINT' | translate}}
     </span>
 
     <mat-radio-group
       class="d-flex flex-column mt-3"
-      *ngIf="status === 'INACTIVE'"
+      *ngIf="status === 'INACTIVE' || status ==='FAILED'"
       [(ngModel)]="asyncValidation">
       <span class="font-weight-bold">
         {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.VALIDATE' | translate}}
@@ -47,10 +47,14 @@
       </mat-radio-button>
     </mat-radio-group>
 
-    <span class="text-muted" *ngIf="status === 'INACTIVE' && asyncValidation === false">
+    <span
+      class="text-muted"
+      *ngIf="(status === 'INACTIVE' || status === 'FAILED') && asyncValidation === false">
       {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.SYNC_HINT' | translate}}
     </span>
-    <span class="text-muted" *ngIf="status === 'INACTIVE' && asyncValidation === true">
+    <span
+      class="text-muted"
+      *ngIf="(status === 'INACTIVE' || status ==='FAILED') && asyncValidation === true">
       {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.ASYNC_HINT' | translate}}
     </span>
   </div>
