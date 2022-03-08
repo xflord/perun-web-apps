@@ -44,7 +44,11 @@ export class AuthService {
     ) {
       customQueryParams['prompt'] = 'consent';
     }
-
+    if (sessionStorage.getItem('mfa_route')) {
+      customQueryParams['acr_values'] = 'https://refeds.org/profile/mfa';
+      customQueryParams['prompt'] = 'login';
+      customQueryParams['max_age'] = '0';
+    }
     return {
       requestAccessToken: true,
       issuer: this.store.get('oidc_client', 'oauth_authority'),

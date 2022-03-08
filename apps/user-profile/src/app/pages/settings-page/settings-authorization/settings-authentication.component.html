@@ -1,23 +1,39 @@
-<div class="mb-5" *ngIf="displayImageBlock">
-  <h1 class="page-subtitle">{{'AUTHENTICATION.TITLE' | customTranslate | translate}}</h1>
-  <p>{{'AUTHENTICATION.ANTI_PHISHING_INFO' | customTranslate | translate}}</p>
-  <div *ngIf="imageSrc && imageSrc.length">
-    <img [src]="imageSrc" alt="" class="img-size" />
+<div [hidden]="loadingMfa || loadingImg">
+  <div class="mb-5" *ngIf="displayImageBlock">
+    <h1 class="page-subtitle">{{'AUTHENTICATION.TITLE' | customTranslate | translate}}</h1>
+    <p>{{'AUTHENTICATION.ANTI_PHISHING_INFO' | customTranslate | translate}}</p>
+    <div *ngIf="imageSrc && imageSrc.length">
+      <img [src]="imageSrc" alt="" class="img-size" />
+    </div>
+    <button (click)="onAddImg()" class="m-1 action-button" color="accent" mat-flat-button>
+      {{'AUTHENTICATION.NEW_IMG' | customTranslate | translate}}
+    </button>
+    <button
+      (click)="onDeleteImg()"
+      class="m-1"
+      color="warn"
+      [disabled]="!imgAtt || !imgAtt.value"
+      mat-flat-button>
+      {{'AUTHENTICATION.DELETE_IMG' | customTranslate | translate}}
+    </button>
   </div>
-  <button (click)="onAddImg()" class="m-1 action-button" color="accent" mat-flat-button>
-    {{'AUTHENTICATION.NEW_IMG' | customTranslate | translate}}
-  </button>
-  <button
-    (click)="onDeleteImg()"
-    class="m-1"
-    color="warn"
-    [disabled]="!imgAtt || !imgAtt.value"
-    mat-flat-button>
-    {{'AUTHENTICATION.DELETE_IMG' | customTranslate | translate}}
+
+  <h1 class="page-subtitle">{{'AUTHENTICATION.MFA' | customTranslate | translate}}</h1>
+  <span
+    [matTooltip]="'AUTHENTICATION.MFA_DISABLED' | customTranslate | translate"
+    [matTooltipDisabled]="mfaAvailable"
+    matTooltipPosition="right">
+    <mat-slide-toggle
+      [disabled]="!mfaAvailable"
+      #toggle
+      color="primary"
+      >{{'AUTHENTICATION.MFA_TOGGLE' | customTranslate | translate}}</mat-slide-toggle
+    >
+  </span>
+
+  <br />
+  <button mat-flat-button class="mt-3" (click)="redirectToMfa()" color="accent">
+    {{'AUTHENTICATION.MFA_INFO'|translate}}
   </button>
 </div>
-
-<h1 class="page-subtitle">{{'AUTHENTICATION.MFA' | customTranslate | translate}}</h1>
-<span
-  >{{'AUTHENTICATION.MFA_INFO'|translate}}<a [href]="mfaUrl">{{mfaUrl}}</a></span
->
+<mat-spinner class="ml-auto mr-auto" *ngIf="loadingMfa || loadingImg"></mat-spinner>

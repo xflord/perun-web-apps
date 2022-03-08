@@ -136,12 +136,14 @@
   "AUTHENTICATION": {
     "TITLE": "Security image",
     "MFA": "Multi-factor authentication",
+    "MFA_TOGGLE": "Turn on multi-factor authentication for all services",
+    "MFA_DISABLED": "You need to have at least one active MFA token.",
     "NEW_IMG": "New image",
     "DELETE_IMG": "Delete image",
     "ANTI_PHISHING_INFO": "You will be shown this security image before you enter your password so you will know that you are visiting the right site",
     "DELETE_IMG_DIALOG_TITLE": "Delete anti-phishing image",
     "DELETE_IMG_DIALOG_DESC": "Your security image will be deleted and will not be used during authentication process.",
-    "MFA_INFO": "To manage MFA tokens go to "
+    "MFA_INFO": "Manage my MFA tokens"
   },
   "DIALOGS": {
     "CHANGE_EMAIL": {

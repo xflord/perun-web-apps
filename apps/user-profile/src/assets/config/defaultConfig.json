@@ -70,6 +70,7 @@
     "api_url": "https://id.muni.cz/mfaapi/",
     "enable_security_image": true,
     "security_image_attribute": "urn:perun:user:attribute-def:def:securityImage:mu",
+    "enforce_mfa_attribute": "urn:perun:user:attribute-def:def:mfaEnforced:mu",
     "url_en": "https://mfa.aai.muni.cz/",
     "url_cs": "https://mfa.aai.muni.cz/"
   },

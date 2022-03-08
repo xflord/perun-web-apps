@@ -136,12 +136,14 @@
   "AUTHENTICATION": {
     "TITLE": "Bezpečnostní obrázek",
     "MFA": "Vícefázové ověření",
+    "MFA_TOGGLE": "Zapnout vícefázové ověření pro všechny služby",
+    "MFA_DISABLED": "Potřebujete mít alespoň jeden aktivní MFA token.",
     "NEW_IMG": "Nový obrázek",
     "DELETE_IMG": "Vymazat obrázek",
     "ANTI_PHISHING_INFO": "Tento bezpečnostní obrázek se vám ukáže před tím, než zadáte heslo, ujistíte se tak, že se nepřihlašujete na podvrženou stránku",
     "DELETE_IMG_DIALOG_TITLE": "Vymazat proti-phishingový obrázek",
     "DELETE_IMG_DIALOG_DESC": "Váš bezpečnostní obrázek bude odstraněn a nebude použit během autentizace.",
-    "MFA_INFO": "Pro správu prostředků vícefázového ověření (MFA) navštivte "
+    "MFA_INFO": "Spravovat moje prostředky vícefázového ověření (MFA)"
   },
   "DIALOGS": {
     "CHANGE_EMAIL": {

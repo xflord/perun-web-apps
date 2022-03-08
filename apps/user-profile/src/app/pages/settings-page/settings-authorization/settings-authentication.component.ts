@@ -1,30 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AddAuthImgDialogComponent } from '../../../components/dialogs/add-auth-img-dialog/add-auth-img-dialog.component';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { AuthService, StoreService } from '@perun-web-apps/perun/services';
 import { RemoveStringValueDialogComponent } from '../../../components/dialogs/remove-string-value-dialog/remove-string-value-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'perun-web-apps-settings-authentication',
   templateUrl: './settings-authentication.component.html',
   styleUrls: ['./settings-authentication.component.scss'],
 })
-export class SettingsAuthenticationComponent implements OnInit {
+export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
+  @ViewChild('toggle') toggle: MatSlideToggle;
+
   removeDialogTitle: string;
   imgAtt: Attribute;
   imageSrc = '';
   removeDialogDescription: string;
   mfaUrl = '';
   displayImageBlock: boolean;
+  mfaAvailable = false;
+  mfaApiUrl = '';
+  loadingMfa = false;
+  loadingImg = false;
 
   constructor(
     private dialog: MatDialog,
     private attributesManagerService: AttributesManagerService,
     private store: StoreService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private oauthService: OAuthService,
+    private authService: AuthService
   ) {
     translate
       .get('AUTHENTICATION.DELETE_IMG_DIALOG_TITLE')
@@ -34,7 +44,15 @@ export class SettingsAuthenticationComponent implements OnInit {
       .subscribe((res) => (this.removeDialogDescription = res));
   }
 
+  ngAfterViewInit(): void {
+    this.toggle.change.subscribe((change) => {
+      this.reAuthenticate(change.checked);
+    });
+  }
+
   ngOnInit(): void {
+    this.loadingMfa = true;
+    this.loadingImg = true;
     this.translate.onLangChange.subscribe(() => {
       this.translate
         .get('AUTHENTICATION.DELETE_IMG_DIALOG_TITLE')
@@ -45,7 +63,56 @@ export class SettingsAuthenticationComponent implements OnInit {
       this.mfaUrl = this.store.get('mfa', 'url_' + this.translate.currentLang);
     });
     this.mfaUrl = this.store.get('mfa', 'url_' + this.translate.currentLang);
+    this.mfaApiUrl = this.store.get('mfa', 'api_url');
+    fetch(this.mfaApiUrl + 'mfaAvailable', {
+      method: 'GET',
+      headers: { Authorization: 'Bearer ' + this.oauthService.getIdToken() },
+    })
+      .then((response) => response.text())
+      .then((responseText) => {
+        this.mfaAvailable = responseText === 'true';
+        if (this.mfaAvailable) {
+          this.loadMfa();
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+        this.loadingMfa = false;
+      });
+
     this.loadImage();
+  }
+
+  private loadMfa(): void {
+    const mfaRoute = sessionStorage.getItem('mfa_route');
+    if (mfaRoute) {
+      const enforceMfa = sessionStorage.getItem('enforce_mfa');
+      this.enableMfa(enforceMfa === 'true')
+        .then((res) => {
+          if (res.ok && enforceMfa === 'true') {
+            this.toggle.toggle();
+          }
+          this.loadingMfa = false;
+        })
+        .catch((e) => {
+          console.error(e);
+          this.loadingMfa = false;
+        });
+    } else {
+      const enforceMfaAttributeName = this.store.get('mfa', 'enforce_mfa_attribute');
+      this.attributesManagerService
+        .getUserAttributeByName(this.store.getPerunPrincipal().userId, enforceMfaAttributeName)
+        .subscribe((attr) => {
+          if (attr.value) {
+            this.toggle.toggle();
+          }
+          this.loadingMfa = false;
+        });
+    }
+    if (sessionStorage.getItem('mfa_route')) {
+      sessionStorage.removeItem('enforce_mfa');
+      sessionStorage.removeItem('mfa_route');
+    }
   }
 
   onAddImg() {
@@ -62,13 +129,29 @@ export class SettingsAuthenticationComponent implements OnInit {
     });
   }
 
-  // private transformTextToImg(text: string) {
-  //   const canvas = document.createElement('canvas');
-  //   const context = canvas.getContext('2d');
-  //   context.font = "100px Calibri";
-  //   context.fillText(text, 1, 70);
-  //   return canvas.toDataURL('image/png');
-  // }
+  reAuthenticate(enforceMfa: boolean): void {
+    sessionStorage.setItem('enforce_mfa', enforceMfa.toString());
+    sessionStorage.setItem('mfa_route', '/profile/settings/auth');
+    localStorage.removeItem('refresh_token');
+    this.oauthService.logOut(true);
+    sessionStorage.setItem('auth:redirect', location.pathname);
+    sessionStorage.setItem('auth:queryParams', location.search.substring(1));
+    this.authService.loadConfigData();
+    this.oauthService.loadDiscoveryDocumentAndLogin();
+  }
+
+  enableMfa(value: boolean): Promise<Response> {
+    const idToken = this.oauthService.getIdToken();
+    const path = `mfaEnforced`;
+    const url = `${this.mfaApiUrl}${path}`;
+    const body = `value=${value}`;
+
+    return fetch(url, {
+      method: 'PUT',
+      body: body,
+      headers: { Authorization: `Bearer ${idToken}` },
+    });
+  }
 
   onDeleteImg() {
     const config = getDefaultDialogConfig();
@@ -95,17 +178,28 @@ export class SettingsAuthenticationComponent implements OnInit {
     this.displayImageBlock = this.store.get('mfa', 'enable_security_image');
     this.attributesManagerService
       .getUserAttributeByName(this.store.getPerunPrincipal().userId, imgAttributeName)
-      .subscribe((attr) => {
-        if (!attr) {
-          this.attributesManagerService
-            .getAttributeDefinitionByName(imgAttributeName)
-            .subscribe((att) => {
-              this.imgAtt = att as Attribute;
-            });
-        } else {
-          this.imgAtt = attr;
-          this.imageSrc = this.imgAtt.value as unknown as string;
+      .subscribe(
+        (attr) => {
+          if (!attr) {
+            this.attributesManagerService
+              .getAttributeDefinitionByName(imgAttributeName)
+              .subscribe((att) => {
+                this.imgAtt = att as Attribute;
+              });
+          } else {
+            this.imgAtt = attr;
+            this.imageSrc = this.imgAtt.value as unknown as string;
+          }
+          this.loadingImg = false;
+        },
+        (e) => {
+          console.error(e);
+          this.loadingImg = false;
         }
-      });
+      );
+  }
+
+  redirectToMfa(): void {
+    window.open(this.mfaUrl, '_blank');
   }
 }
