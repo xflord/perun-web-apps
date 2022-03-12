@@ -15,7 +15,6 @@ import {
   SortingOrder,
   UsersOrderColumn,
   VoMemberStatuses,
-  RichApplication,
 } from '@perun-web-apps/perun/openapi';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';

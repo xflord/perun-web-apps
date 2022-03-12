@@ -120,11 +120,11 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     );
 
     this.dataSource.loading$.subscribe((val) => {
-      if (val) return;
-      if (!this.displayedColumns.includes('fedInfo')) {
-        this.parsedColumns = [];
-        return;
-      }
+      if (val || !this.displayedColumns.includes('fedInfo')) return;
+
+      this.displayedColumns = this.displayedColumns.filter((v) => !this.parsedColumns.includes(v));
+      this.parsedColumns = [];
+
       const data = <RichApplication>this.dataSource.getData()[0];
       this.parseColumns(data.formData);
     });
