@@ -38,6 +38,8 @@ export class AddApplicationFormItemDialogComponent implements OnInit {
     'TIMEZONE',
     'AUTO_SUBMIT_BUTTON',
     'EMBEDDED_GROUP_APPLICATION',
+    'LIST_INPUT_BOX',
+    'MAP_INPUT_BOX',
   ];
   nameCtrl: FormControl;
 

@@ -430,6 +430,60 @@
             <span class="ml-2">{{getLocalizedHint(applicationFormItem)}}</span>
           </div>
         </div>
+        <div
+          *ngIf="applicationFormItem.type === 'LIST_INPUT_BOX' &&
+                                   applicationFormItem.hidden !== 'ALWAYS'">
+          <div class="w-50 d-flex">
+            <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
+            <div class="w-50">
+              <perun-web-apps-attribute-value-list
+                [attribute]="{id: 0, beanName: 'Attribute', namespace: '', value: ['Example 1', 'Example 2']}">
+              </perun-web-apps-attribute-value-list>
+            </div>
+          </div>
+          <div class="w-50 d-flex left">
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.disabled !== 'NEVER'"
+              [matTooltip]="disabledTooltip(applicationFormItem)"
+              >lock</mat-icon
+            >
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.hidden !== 'NEVER'"
+              [matTooltip]="hiddenTooltip(applicationFormItem)"
+              >visibility_off</mat-icon
+            >
+            <span class="ml-2">{{getLocalizedHint(applicationFormItem)}}</span>
+          </div>
+        </div>
+        <div
+          *ngIf="applicationFormItem.type === 'MAP_INPUT_BOX' &&
+                                   applicationFormItem.hidden !== 'ALWAYS'">
+          <div class="w-50 d-flex">
+            <span class="w-50">{{getLocalizedLabel(applicationFormItem)}}</span>
+            <div class="w-50">
+              <perun-web-apps-attribute-value-map
+                [attribute]="{id: 0, beanName: 'Attribute', namespace: '', value: {key1: 'value 1', key2: 'value 2'}}">
+              </perun-web-apps-attribute-value-map>
+            </div>
+          </div>
+          <div class="w-50 d-flex left">
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.disabled !== 'NEVER'"
+              [matTooltip]="disabledTooltip(applicationFormItem)"
+              >lock</mat-icon
+            >
+            <mat-icon
+              class="pointer"
+              *ngIf="applicationFormItem.hidden !== 'NEVER'"
+              [matTooltip]="hiddenTooltip(applicationFormItem)"
+              >visibility_off</mat-icon
+            >
+            <span class="ml-2">{{getLocalizedHint(applicationFormItem)}}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

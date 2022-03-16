@@ -394,7 +394,9 @@
           "RADIO": "Radio (single selection)",
           "TIMEZONE": "Selection of timezone",
           "AUTO_SUBMIT_BUTTON": "Submit button with auto-submit",
-          "EMBEDDED_GROUP_APPLICATION": "Groups for embedded applications"
+          "EMBEDDED_GROUP_APPLICATION": "Groups for embedded applications",
+          "LIST_INPUT_BOX": "List input field",
+          "MAP_INPUT_BOX": "Key - value input field"
         },
         "HIDDEN": {
           "ALWAYS": "Always",
@@ -423,7 +425,9 @@
           "RADIO": "List of defined custom options with radio buttons. Single selection model. Value is stored as a string.",
           "TIMEZONE": "Selection box with predefined values of UTC timezones.",
           "AUTO_SUBMIT_BUTTON": "Button used to auto-submit the form with a custom label. All other form items are checked on valid input before submission. If validation fails (at least once) the user must submit the form manually. If it's OK, then the form is automatically submitted.",
-          "EMBEDDED_GROUP_APPLICATION": "The checkbox of real organization groups which the user can check and thus submit an application to these groups"
+          "EMBEDDED_GROUP_APPLICATION": "The checkbox of real organization groups which the user can check and thus submit an application to these groups",
+          "LIST_INPUT_BOX": "Item is used to show list values",
+          "MAP_INPUT_BOX": "Item is used to show key - value pairs"
         },
         "DISABLED_HIDDEN_ICON": {
           "IF_EMPTY": "If empty",

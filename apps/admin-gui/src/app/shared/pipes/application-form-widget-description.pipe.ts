@@ -132,6 +132,22 @@ export class ApplicationFormWidgetDescriptionPipe implements PipeTransform {
           });
         break;
       }
+      case 'LIST_INPUT_BOX': {
+        this.translateService
+          .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.WIDGET_DESCRIPTION.LIST_INPUT_BOX')
+          .subscribe((text: string) => {
+            this.returnData = text;
+          });
+        break;
+      }
+      case 'MAP_INPUT_BOX': {
+        this.translateService
+          .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.WIDGET_DESCRIPTION.MAP_INPUT_BOX')
+          .subscribe((text: string) => {
+            this.returnData = text;
+          });
+        break;
+      }
       default: {
         return value;
       }

@@ -40,7 +40,7 @@
 
           <div
             *ngIf="isApplicationFormItemOfType(['TEXTFIELD', 'USERNAME', 'VALIDATED_EMAIL', 'PASSWORD', 'TEXTAREA',
-                                                     'TIMEZONE', 'CHECKBOX', 'RADIO', 'COMBOBOX', 'SELECTIONBOX'])">
+                                                     'TIMEZONE', 'CHECKBOX', 'RADIO', 'COMBOBOX', 'SELECTIONBOX', 'LIST_INPUT_BOX', 'MAP_INPUT_BOX'])">
             <app-edit-application-form-item-line
               [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REQUIRED_DESCRIPTION' | translate"
               [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REQUIRED' | translate">
@@ -62,7 +62,7 @@
               [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SOURCE_ATTRIBUTE' | translate">
               <div class="w-100">
                 <perun-web-apps-selection-item-search-select
-                  [attributes]="attributeDefinitions"
+                  [attributes]="sourceAttributes"
                   [selectedAttribute]="applicationFormItem.perunSourceAttribute"
                   (itemSelected)="applicationFormItem.perunSourceAttribute = $event.value"
                   [asGroup]="!!data.group"
@@ -75,7 +75,7 @@
               [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DESTINATION_ATTRIBUTE' | translate">
               <div class="w-100">
                 <perun-web-apps-selection-item-search-select
-                  [attributes]="attributeDefinitions"
+                  [attributes]="destinationAttributes"
                   [selectedAttribute]="applicationFormItem.perunDestinationAttribute"
                   (itemSelected)="applicationFormItem.perunDestinationAttribute = $event.value"
                   [asGroup]="!!data.group"
@@ -102,7 +102,7 @@
             </app-edit-application-form-item-line>
           </div>
           <div
-            *ngIf="isApplicationFormItemOfType(['TEXTFIELD', 'USERNAME', 'PASSWORD', 'TEXTAREA', 'CHECKBOX', 'RADIO', 'COMBOBOX', 'SELECTIONBOX'])">
+            *ngIf="isApplicationFormItemOfType(['TEXTFIELD', 'USERNAME', 'PASSWORD', 'TEXTAREA', 'CHECKBOX', 'RADIO', 'COMBOBOX', 'SELECTIONBOX', 'LIST_INPUT_BOX', 'MAP_INPUT_BOX'])">
             <app-edit-application-form-item-line
               [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REGEX_DESCRIPTION' | translate"
               [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.REGEX' | translate">
@@ -182,7 +182,7 @@
 
           <div
             *ngIf="isApplicationFormItemOfType(['TEXTFIELD', 'VALIDATED_EMAIL', 'USERNAME', 'PASSWORD', 'RADIO', 'TEXTAREA',
-                                                      'COMBOBOX', 'CHECKBOX', 'TIMEZONE', 'SELECTIONBOX', 'EMBEDDED_GROUP_APPLICATION'])">
+                                                      'COMBOBOX', 'CHECKBOX', 'TIMEZONE', 'SELECTIONBOX', 'EMBEDDED_GROUP_APPLICATION', 'LIST_INPUT_BOX', 'MAP_INPUT_BOX'])">
             <app-edit-application-form-item-line
               [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL_DESCRIPTION' | translate"
               [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL' | translate">

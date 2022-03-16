@@ -205,6 +205,16 @@
                 <input type="checkbox" /> example group3
               </form>
             </div>
+            <div *ngIf="applicationFormItem.type === 'LIST_INPUT_BOX'">
+              <perun-web-apps-attribute-value-list
+                [attribute]="{id: 0, beanName: 'Attribute', namespace: '', value: ['Example 1', 'Example 2']}">
+              </perun-web-apps-attribute-value-list>
+            </div>
+            <div *ngIf="applicationFormItem.type === 'MAP_INPUT_BOX'">
+              <perun-web-apps-attribute-value-map
+                [attribute]="{id: 0, beanName: 'Attribute', namespace: '', value: {key1: 'value 1', key2: 'value 2'}}">
+              </perun-web-apps-attribute-value-map>
+            </div>
           </td>
         </ng-container>
         <ng-container matColumnDef="managegroups">

@@ -30,7 +30,8 @@ export interface EditApplicationFormItemDialogComponentData {
 })
 export class EditApplicationFormItemDialogComponent implements OnInit {
   applicationFormItem: ApplicationFormItem;
-  attributeDefinitions: AttributeDefinition[];
+  sourceAttributes: AttributeDefinition[];
+  destinationAttributes: AttributeDefinition[];
   federationAttributeDN = '';
   itemType = ItemType;
   options: { [key: string]: [string, string][] };
@@ -60,6 +61,8 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     'RADIO',
     'SELECTIONBOX',
     'COMBOBOX',
+    'LIST_INPUT_BOX',
+    'MAP_INPUT_BOX',
   ];
 
   hiddenDependencyItem: ApplicationFormItem = null;
@@ -107,7 +110,16 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     this.loading = true;
     this.attributesManager.getAllAttributeDefinitions().subscribe(
       (attributeDefinitions) => {
-        this.attributeDefinitions = attributeDefinitions;
+        const filteredAttributes = this.filterAttributesForWidget(attributeDefinitions);
+        this.sourceAttributes = filteredAttributes.concat(
+          this.findAttribute(attributeDefinitions, this.applicationFormItem.perunSourceAttribute)
+        );
+        this.destinationAttributes = filteredAttributes.concat(
+          this.findAttribute(
+            attributeDefinitions,
+            this.applicationFormItem.perunDestinationAttribute
+          )
+        );
         this.loading = false;
       },
       () => (this.loading = false)
@@ -258,6 +270,22 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
   private updateOptions(): void {
     for (const lang of this.languages) {
       this.updateOption(lang);
+    }
+  }
+
+  private findAttribute(attributes: AttributeDefinition[], toFind: string): AttributeDefinition {
+    return attributes.find((att) => toFind.includes(att.friendlyName));
+  }
+
+  private filterAttributesForWidget(attributes: AttributeDefinition[]): AttributeDefinition[] {
+    if (this.applicationFormItem.type === 'MAP_INPUT_BOX') {
+      return attributes.filter((att) => att.type.includes('LinkedHashMap'));
+    } else if (this.applicationFormItem.type === 'LIST_INPUT_BOX') {
+      return attributes.filter((att) => att.type.includes('ArrayList'));
+    } else {
+      return attributes.filter(
+        (att) => !att.type.includes('ArrayList') && !att.type.includes('LinkedHashMap')
+      );
     }
   }
 }
