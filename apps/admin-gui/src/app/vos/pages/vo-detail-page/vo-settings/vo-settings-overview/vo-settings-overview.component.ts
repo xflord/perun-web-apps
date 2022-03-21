@@ -81,5 +81,14 @@ export class VoSettingsOverviewComponent implements OnInit {
         style: 'vo-btn',
       });
     }
+    // Member organizations
+    if (this.authResolver.isPerunAdmin()) {
+      this.items.push({
+        cssIcon: 'perun-hierarchical-vo',
+        url: `/organizations/${this.vo.id}/settings/memberOrganizations`,
+        label: 'MENU_ITEMS.VO.MEMBER_ORGANIZATIONS',
+        style: 'vo-btn',
+      });
+    }
   }
 }

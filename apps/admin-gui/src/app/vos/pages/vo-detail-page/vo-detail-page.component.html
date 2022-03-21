@@ -6,7 +6,7 @@
       <mat-icon
         matTooltip="{{ 'VO_DETAIL.ENTITY' | translate }}"
         [ngStyle]="{'color':'black'}"
-        svgIcon="perun-vo-black"
+        [svgIcon]="enrichedVo.memberVos.length !== 0 ? 'perun-hierarchical-vo' :'perun-vo-black'"
         class="perun-icon perun-icon-detail">
       </mat-icon>
       <div class="page-title-block">
@@ -33,7 +33,15 @@
         </div>
         <span class="mt-1 entity-info">
           {{'VO_DETAIL.ENTITY' | translate}}, {{'VO_DETAIL.SHORT_NAME' | translate}}:
-          {{vo.shortName}}
+          {{vo.shortName + ((enrichedVo.memberVos.length + enrichedVo.parentVos.length) ? ',' : '')}}
+          <app-related-vos
+            *ngIf="enrichedVo.memberVos.length !== 0"
+            [title]="'VO_DETAIL.RELATED_VOS.MEMBER_VOS'"
+            [vos]="enrichedVo.memberVos"></app-related-vos>
+          <app-related-vos
+            *ngIf="enrichedVo.parentVos.length !== 0"
+            [title]="'VO_DETAIL.RELATED_VOS.PARENT_VOS'"
+            [vos]="enrichedVo.parentVos"></app-related-vos>
         </span>
       </div>
     </div>

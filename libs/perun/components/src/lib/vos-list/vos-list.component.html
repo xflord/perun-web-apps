@@ -28,33 +28,43 @@
         <th *matHeaderCellDef mat-header-cell mat-sort-header>
           {{'SHARED_LIB.PERUN.COMPONENTS.VOS_LIST.ID' | translate}}
         </th>
-        <td *matCellDef="let vo" class="static-column-size" mat-cell>{{vo.id}}</td>
+        <td *matCellDef="let vo" class="static-column-size" mat-cell>{{vo.id ?? vo.vo.id}}</td>
       </ng-container>
       <ng-container matColumnDef="recent">
         <th *matHeaderCellDef mat-header-cell></th>
         <td *matCellDef="let vo" mat-cell>
-          <perun-web-apps-recently-viewed-icon [recentIds]="recentIds" [id]="vo.id">
+          <perun-web-apps-recently-viewed-icon [recentIds]="recentIds" [id]="vo.id ?? vo.vo.id">
           </perun-web-apps-recently-viewed-icon>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="hierarchy">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let vo" mat-cell>
+          <mat-icon
+            *ngIf="vo?.memberVos?.length !== 0"
+            [svgIcon]="'perun-hierarchical-vo'"></mat-icon>
         </td>
       </ng-container>
       <ng-container matColumnDef="shortName">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>
           {{'SHARED_LIB.PERUN.COMPONENTS.VOS_LIST.SHORTNAME' | translate}}
         </th>
-        <td *matCellDef="let vo" mat-cell attr.data-cy="{{vo.shortName}}">{{vo.shortName}}</td>
+        <td *matCellDef="let vo" mat-cell attr.data-cy="{{vo.shortName ?? vo.vo.shortName}}">
+          {{vo.shortName ?? vo.vo.shortName}}
+        </td>
       </ng-container>
       <ng-container matColumnDef="name">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>
           {{'SHARED_LIB.PERUN.COMPONENTS.VOS_LIST.NAME' | translate}}
         </th>
-        <td *matCellDef="let vo" mat-cell>{{vo.name}}</td>
+        <td *matCellDef="let vo" mat-cell>{{vo.name ?? vo.vo.name}}</td>
       </ng-container>
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
       <tr
         *matRowDef="let vo; columns: displayedColumns;"
         [class.disable-outline]="disableRouting"
-        [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/organizations', vo.id]"
-        [routerLink]="disableRouting ? null : ['/organizations', vo.id]"
+        [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/organizations', vo.id ?? vo.vo.id]"
+        [perunWebAppsForceRouterLink]="disableRouting ? null : ['/organizations', vo.id ?? vo.vo.id]"
         class="dark-hover-list-item"
         mat-row></tr>
     </table>

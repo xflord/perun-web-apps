@@ -1,6 +1,6 @@
 import { AfterViewChecked, Component, HostBinding, OnInit } from '@angular/core';
 import { SideMenuService } from '../../../core/services/common/side-menu.service';
-import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { EnrichedVo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
 import {
   ApiRequestConfigurationService,
@@ -32,7 +32,7 @@ export class VoSelectPageComponent implements OnInit, AfterViewChecked {
     private apiRequest: ApiRequestConfigurationService
   ) {}
 
-  vos: Vo[] = [];
+  vos: EnrichedVo[] = [];
   recentIds = [];
   loading: boolean;
   filterValue = '';
@@ -40,19 +40,19 @@ export class VoSelectPageComponent implements OnInit, AfterViewChecked {
   createAuth: boolean;
   deleteAuth: boolean;
 
-  selection: SelectionModel<Vo>;
+  selection: SelectionModel<EnrichedVo>;
 
   displayedColumns: string[];
   tableId = TABLE_VO_SELECT;
 
   ngOnInit() {
     this.loading = true;
-    this.selection = new SelectionModel<Vo>(false, []);
+    this.selection = new SelectionModel<EnrichedVo>(false, []);
     this.createAuth = this.guiAuthResolver.isAuthorized('createVo_Vo_policy', []);
     this.deleteAuth = this.guiAuthResolver.isAuthorized('deleteVo_Vo_policy', []);
     this.displayedColumns = this.deleteAuth
-      ? ['checkbox', 'id', 'recent', 'shortName', 'name']
-      : ['id', 'recent', 'shortName', 'name'];
+      ? ['checkbox', 'id', 'hierarchy', 'recent', 'shortName', 'name']
+      : ['id', 'recent', 'hierarchy', 'shortName', 'name'];
     this.refreshTable();
   }
 
@@ -64,7 +64,7 @@ export class VoSelectPageComponent implements OnInit, AfterViewChecked {
     this.loading = true;
     this.selection.clear();
     this.apiRequest.dontHandleErrorForNext();
-    this.voService.getMyVos().subscribe(
+    this.voService.getMyEnrichedVos().subscribe(
       (vos) => {
         this.vos = vos;
         this.recentIds = getRecentlyVisitedIds('vos');

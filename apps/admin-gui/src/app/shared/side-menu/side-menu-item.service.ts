@@ -350,13 +350,13 @@ export class SideMenuItemService {
     };
   }
 
-  parseVo(vo: Vo): SideMenuItem {
+  parseVo(vo: Vo, isHierarchical = false): SideMenuItem {
     return {
       label: vo.name,
       baseLink: [`/organizations/${vo.id}`],
       links: this.getVoLinks(vo),
       colorClass: 'vo-item',
-      icon: 'perun-vo',
+      icon: isHierarchical ? 'perun-hierarchical-vo' : 'perun-vo',
       // labelClass: 'vo-text',
       activatedClass: 'dark-item-activated',
       linksClass: 'dark-item-links',
@@ -623,6 +623,15 @@ export class SideMenuItemService {
           label: 'MENU_ITEMS.VO.EXTSOURCES',
           url: [`/organizations/${vo.id}/settings/extsources`],
           activatedRegex: '/organizations/\\d+/settings/extsources$',
+        });
+      }
+
+      // Member organizations
+      if (this.authResolver.isPerunAdmin()) {
+        children.push({
+          label: 'MENU_ITEMS.VO.MEMBER_ORGANIZATIONS',
+          url: [`/organizations/${vo.id}/settings/memberOrganizations`],
+          activatedRegex: '/organizations/\\d+/settings/memberOrganizations',
         });
       }
 

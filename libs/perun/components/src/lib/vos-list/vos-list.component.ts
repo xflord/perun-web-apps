@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Vo } from '@perun-web-apps/perun/openapi';
+import { EnrichedVo, Vo } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
   customDataSourceFilterPredicate,
@@ -22,7 +22,7 @@ export class VosListComponent implements OnChanges {
   constructor(private authResolver: GuiAuthResolver) {}
 
   @Input()
-  vos: Vo[] = [];
+  vos: Vo[] | EnrichedVo[] = [];
 
   @Input()
   recentIds: number[];
@@ -31,7 +31,7 @@ export class VosListComponent implements OnChanges {
   filterValue: string;
 
   @Input()
-  selection: SelectionModel<Vo>;
+  selection: SelectionModel<Vo | EnrichedVo>;
 
   @Input()
   displayedColumns: string[] = [];
@@ -53,7 +53,9 @@ export class VosListComponent implements OnChanges {
 
   private sort: MatSort;
 
-  dataSource: MatTableDataSource<Vo>;
+  dataSource: MatTableDataSource<Vo | EnrichedVo>;
+  static isEnrichedVo = (vo: Vo | EnrichedVo): vo is EnrichedVo =>
+    (vo as EnrichedVo).vo !== undefined;
 
   ngOnChanges() {
     if (!this.authResolver.isPerunAdminOrObserver()) {
@@ -62,7 +64,11 @@ export class VosListComponent implements OnChanges {
     this.setDataSource();
   }
 
-  getDataForColumn(data: Vo, column: string, otherThis: VosListComponent): string {
+  getDataForColumn(data: Vo | EnrichedVo, column: string, otherThis: VosListComponent): string {
+    if (VosListComponent.isEnrichedVo(data)) {
+      data = data.vo;
+    }
+
     switch (column) {
       case 'id':
         return data.id.toString();

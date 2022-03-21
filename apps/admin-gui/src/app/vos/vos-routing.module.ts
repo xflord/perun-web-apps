@@ -60,6 +60,7 @@ import { ApplicationFormManageGroupsComponent } from './components/application-f
 import { ResourceTagsComponent } from '../facilities/pages/resource-detail-page/resource-tags/resource-tags.component';
 import { VoSettingsServiceMembersComponent } from './pages/vo-detail-page/vo-settings/vo-settings-service-members/vo-settings-service-members.component';
 import { RouteAuthGuardService } from '../shared/route-auth-guard.service';
+import { VoSettingsMemberOrganizationsComponent } from './pages/vo-detail-page/vo-settings/vo-settings-member-organizations/vo-settings-member-organizations.component';
 
 const routes: Routes = [
   {
@@ -184,6 +185,11 @@ const routes: Routes = [
             path: 'extsources',
             component: VoSettingsExtsourcesComponent,
             data: { animation: 'VoSettingsExtSourcesPage' },
+          },
+          {
+            path: 'memberOrganizations',
+            component: VoSettingsMemberOrganizationsComponent,
+            data: { animation: 'VoSettingsMemberOrganizationsPage' },
           },
         ],
       },

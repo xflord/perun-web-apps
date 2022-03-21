@@ -63,6 +63,9 @@ import { GroupStatisticsComponent } from './pages/group-detail-page/group-statis
 import { ApplicationFormManageGroupsComponent } from './components/application-form-manage-groups/application-form-manage-groups.component';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
 import { VoSettingsServiceMembersComponent } from './pages/vo-detail-page/vo-settings/vo-settings-service-members/vo-settings-service-members.component';
+import { VoSettingsMemberOrganizationsComponent } from './pages/vo-detail-page/vo-settings/vo-settings-member-organizations/vo-settings-member-organizations.component';
+import { AddMemberOrganizationDialogComponent } from './pages/vo-detail-page/vo-settings/vo-settings-member-organizations/add-member-organization-dialog/add-member-organization-dialog.component';
+import { RelatedVosComponent } from './components/related-vos/related-vos.component';
 
 @NgModule({
   imports: [
@@ -136,6 +139,9 @@ import { VoSettingsServiceMembersComponent } from './pages/vo-detail-page/vo-set
     GroupStatisticsComponent,
     ApplicationFormManageGroupsComponent,
     VoSettingsServiceMembersComponent,
+    VoSettingsMemberOrganizationsComponent,
+    AddMemberOrganizationDialogComponent,
+    RelatedVosComponent,
   ],
 })
 export class VosModule {}

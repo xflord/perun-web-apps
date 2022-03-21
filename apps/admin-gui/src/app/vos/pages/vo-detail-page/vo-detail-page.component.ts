@@ -3,7 +3,7 @@ import { SideMenuService } from '../../../core/services/common/side-menu.service
 import { ActivatedRoute, Router } from '@angular/router';
 import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.service';
 import { fadeIn } from '@perun-web-apps/perun/animations';
-import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { EnrichedVo, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import {
   addRecentlyVisited,
   addRecentlyVisitedObject,
@@ -38,6 +38,7 @@ export class VoDetailPageComponent implements OnInit {
   ) {}
 
   vo: Vo;
+  enrichedVo: EnrichedVo;
   editAuth: boolean;
   loading = false;
   removeAuth: boolean;
@@ -54,10 +55,11 @@ export class VoDetailPageComponent implements OnInit {
     this.route.params.subscribe((params) => {
       const voId = params['voId'];
 
-      this.voService.getVoById(voId).subscribe(
-        (vo) => {
-          this.vo = vo;
-          this.entityStorageService.setEntity({ id: vo.id, beanName: vo.beanName });
+      this.voService.getEnrichedVoById(voId).subscribe(
+        (enrichedVo) => {
+          this.vo = enrichedVo.vo;
+          this.enrichedVo = enrichedVo;
+          this.entityStorageService.setEntity({ id: this.vo.id, beanName: this.vo.beanName });
           this.editAuth = this.authResolver.isAuthorized('updateVo_Vo_policy', [this.vo]);
           this.removeAuth = this.authResolver.isAuthorized('deleteVo_Vo_policy', [this.vo]);
 
@@ -94,7 +96,8 @@ export class VoDetailPageComponent implements OnInit {
   }
 
   setMenuItems() {
-    const sideMenuItem = this.sideMenuItemService.parseVo(this.vo);
+    const isHierarchical = this.enrichedVo.memberVos.length !== 0;
+    const sideMenuItem = this.sideMenuItemService.parseVo(this.vo, isHierarchical);
 
     this.sideMenuService.setAccessMenuItems([sideMenuItem]);
   }

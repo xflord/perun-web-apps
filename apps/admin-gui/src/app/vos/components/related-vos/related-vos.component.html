@@ -1,0 +1,10 @@
+{{title | translate}}:
+<span *ngFor="let vo of vos.slice(0, 3); let i = index">
+  <a
+    class="vo-link pointer"
+    [perunWebAppsForceRouterLink]="['/organizations/', vo.id]"
+    queryParamsHandling="merge"
+    >{{vo.name}}</a
+  ><span *ngIf="vos.length > i+1">, </span>
+</span>
+<span *ngIf="vos.length > 3">&#8230;</span>

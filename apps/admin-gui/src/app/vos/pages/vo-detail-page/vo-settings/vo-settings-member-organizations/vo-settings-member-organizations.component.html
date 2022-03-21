@@ -1,0 +1,31 @@
+<h1 class="page-subtitle">{{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.TITLE' | translate}}</h1>
+<perun-web-apps-refresh-button (click)="refresh()"></perun-web-apps-refresh-button>
+<button
+  *ngIf="auth"
+  (click)="addMemberOrganization()"
+  mat-flat-button
+  class="mr-2 action-button"
+  color="accent">
+  {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD' | translate}}
+</button>
+<button
+  *ngIf="auth"
+  (click)="removeMemberOrganization()"
+  [disabled]="voSelection.selected.length === 0"
+  mat-flat-button
+  color="warn"
+  class="mr-2">
+  {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.REMOVE' | translate}}
+</button>
+<perun-web-apps-immediate-filter
+  (filter)="filterValue = $event"
+  [placeholder]="'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.FILTER'"></perun-web-apps-immediate-filter>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+<perun-web-apps-vos-list
+  *ngIf="!loading"
+  [vos]="memberVos"
+  [selection]="voSelection"
+  [filterValue]="filterValue"
+  [disableRouting]="!auth"
+  [displayedColumns]="displayedColumns">
+</perun-web-apps-vos-list>

@@ -1,0 +1,76 @@
+<div class="{{theme}}">
+  <h1 mat-dialog-title>
+    {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.TITLE' | translate}}
+  </h1>
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content class="dialog-container">
+    <mat-stepper #stepper [linear]="true">
+      <mat-step>
+        <ng-template
+          matStepLabel
+          >{{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.SELECTION_STEP' | translate}}</ng-template
+        >
+        <perun-web-apps-immediate-filter
+          (filter)="voFilter = $event"
+          [placeholder]="'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.FILTER_VOS'"></perun-web-apps-immediate-filter>
+        <perun-web-apps-vos-list
+          [vos]="vos"
+          [selection]="voSelection"
+          [displayedColumns]="displayedColumns"
+          [filterValue]="voFilter"
+          [disableRouting]="true"></perun-web-apps-vos-list>
+      </mat-step>
+      <mat-step>
+        <ng-template
+          matStepLabel
+          >{{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.CONFIRMATION_STEP' | translate}}</ng-template
+        >
+        <ng-template matStepContent>
+          <span
+            >{{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.CONFIRM' | translate}}</span
+          >
+          <table mat-table [dataSource]="voSelection.selected" class="w-100">
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let vo">{{vo.name}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columns"></tr>
+            <tr mat-row *matRowDef="let vo; columns: columns;"></tr>
+          </table>
+          <app-alert
+            [alert_type]="'warn'"
+            >{{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.WARNING' | translate}}</app-alert
+          >
+        </ng-template>
+      </mat-step>
+    </mat-stepper>
+  </div>
+  <div *ngIf="!loading" mat-dialog-actions>
+    <button (click)="close()" mat-flat-button>
+      {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.CANCEL' | translate}}
+    </button>
+    <div class="ml-auto">
+      <button
+        *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
+        (click)="stepperPrevious()"
+        mat-flat-button>
+        {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.BACK' | translate}}
+      </button>
+      <button
+        *ngIf="stepper?.selectedIndex !== 1"
+        (click)="stepperNext()"
+        [disabled]="voSelection.selected.length === 0"
+        color="accent"
+        mat-flat-button>
+        {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.NEXT' | translate}}
+      </button>
+      <button
+        *ngIf="stepper?.selectedIndex === 1"
+        (click)="addMemberOrganization()"
+        color="accent"
+        mat-flat-button>
+        {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.ADD' | translate}}
+      </button>
+    </div>
+  </div>
+</div>

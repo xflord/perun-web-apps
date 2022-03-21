@@ -271,6 +271,8 @@
   "VO_DETAIL": {
     "ENTITY": "Organization",
     "SHORT_NAME": "Short name",
+    "MEMBER_VOS": "Member organizations",
+    "PARENT_VOS": "Member of organizations",
     "BACK": "Back",
     "RESOURCES": {
       "LIST": {
@@ -516,6 +518,30 @@
         "FILTER": "Filter by name or Id",
         "CREATE": "Create",
         "DELETE": "Remove"
+      },
+      "MEMBER_ORGANIZATIONS": {
+        "TITLE": "Member organizations",
+        "ADD": "Add",
+        "REMOVE": "Remove",
+        "FILTER": "Filter by name",
+        "ADD_MEMBER_ORGANIZATION": {
+          "TITLE": "Add member organization",
+          "CANCEL": "Cancel",
+          "BACK": "Back",
+          "NEXT": "Next",
+          "ADD": "Add",
+          "SELECTION_STEP": "Select organization",
+          "FILTER_VOS": "Filter by name",
+          "CONFIRMATION_STEP": "Confirmation",
+          "CONFIRM": "Do you really want to add this organization as member?",
+          "WARNING": "Every member of this organization will become member of your organization",
+          "SUCCESS": "Member organization successfully added"
+        },
+        "REMOVE_MEMBER_ORGANIZATION": {
+          "TITLE": "Remove member organization",
+          "WARNING": "By removing this organization it's new members won't be imported to your organization.",
+          "SUCCESS": "Member organization successfully removed"
+        }
       }
     },
     "APPLICATION": {
@@ -570,6 +596,10 @@
     "STATISTICS": {
       "TITLE": "Statistics",
       "MEMBERS_COUNT": "Members by status"
+    },
+    "RELATED_VOS": {
+      "MEMBER_VOS": "Member organizations",
+      "PARENT_VOS": "Member of organizations"
     }
   },
   "GROUP_DETAIL": {
@@ -827,7 +857,8 @@
       "SPONSORS": "Sponsors",
       "SPONSORED_MEMBERS": "Sponsored members",
       "SERVICE_MEMBERS": "Service accounts",
-      "STATISTICS": "Statistics"
+      "STATISTICS": "Statistics",
+      "MEMBER_ORGANIZATIONS": "Member organizations"
     },
     "FACILITY": {
       "OVERVIEW": "Overview",
