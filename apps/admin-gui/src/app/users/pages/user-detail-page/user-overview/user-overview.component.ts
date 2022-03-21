@@ -89,7 +89,7 @@ export class UserOverviewComponent implements OnInit {
           style: 'user-btn',
         },
         {
-          cssIcon: 'perun-group',
+          cssIcon: 'perun-identity',
           url: `identities`,
           label: 'MENU_ITEMS.USER.IDENTITIES',
           style: 'user-btn',
@@ -115,14 +115,14 @@ export class UserOverviewComponent implements OnInit {
       style: 'user-btn',
     });
     this.navItems.push({
-      cssIcon: 'perun-group',
+      cssIcon: 'perun-roles',
       url: `roles`,
       label: 'MENU_ITEMS.USER.ROLES',
       style: 'user-btn',
     });
     if (this.isServiceUser) {
       this.navItems.push({
-        cssIcon: 'perun-user-dark',
+        cssIcon: 'perun-manager',
         url: `associated-users`,
         label: 'MENU_ITEMS.USER.ASSOCIATED_USERS',
         style: 'user-btn',

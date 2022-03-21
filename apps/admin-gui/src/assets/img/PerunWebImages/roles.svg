@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 23.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   version="1.1"
+   id="Vrstva_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 128 128"
+   style="enable-background:new 0 0 128 128;"
+   xml:space="preserve"
+   sodipodi:docname="roles.svg"
+   inkscape:version="1.1.2 (76b9e6a115, 2022-02-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:i="&amp;ns_ai;"><defs
+   id="defs10006" /><sodipodi:namedview
+   id="namedview10004"
+   pagecolor="#ffffff"
+   bordercolor="#111111"
+   borderopacity="1"
+   inkscape:pageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="1"
+   showgrid="false"
+   inkscape:zoom="2.4113446"
+   inkscape:cx="23.845617"
+   inkscape:cy="81.489804"
+   inkscape:window-width="2560"
+   inkscape:window-height="1375"
+   inkscape:window-x="0"
+   inkscape:window-y="0"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Vrstva_1" />
+<style
+   type="text/css"
+   id="style9995">
+	.st0{fill:#858585;}
+</style>
+<switch
+   id="switch10001"
+   transform="translate(-10)">
+	<foreignObject
+   requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/"
+   x="0"
+   y="0"
+   width="1"
+   height="1">
+		
+	</foreignObject>
+	<g
+   i:extraneous="self"
+   id="g9999">
+		<path
+   class="st0"
+   d="M 78.64,70.44 C 88.3,65.2 94.85,54.97 94.85,43.21 c 0,-17.1 -13.86,-30.97 -30.97,-30.97 -17.1,0 -30.97,13.86 -30.97,30.97 0,11.76 6.56,21.99 16.21,27.23 C 30.58,76.33 16.89,93 15.19,113.11 h 9.67 C 26.65,96.22 38.95,82.48 55.16,78.79 l 7.4,8.92 -7.41,25.4 H 73.7 l -8.22,-25.32 7.13,-9.01 c 16.21,3.69 28.51,17.43 30.3,34.32 h 9.67 C 110.87,93 97.18,76.33 78.64,70.44 Z M 41.99,43.21 c 0,-12.09 9.8,-21.89 21.89,-21.89 12.09,0 21.89,9.8 21.89,21.89 0,12.09 -9.8,21.89 -21.89,21.89 -12.09,0 -21.89,-9.8 -21.89,-21.89 z"
+   id="path9997" />
+	</g>
+</switch>
+<style
+   type="text/css"
+   id="style10091">
+	.st0{fill:#858585;}
+</style><switch
+   id="switch10097"
+   transform="matrix(0.40300011,-0.40300011,0.40300011,0.40300011,54.252969,52.216538)">
+	<foreignObject
+   requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/"
+   x="0"
+   y="0"
+   width="1"
+   height="1">
+		
+	</foreignObject>
+	<g
+   i:extraneous="self"
+   id="g10095">
+		<path
+   class="st0"
+   d="m 126.90173,17.768011 0.05,-15.4399985 -15.83001,0.030002 -49.400006,49.3999935 c -9.52,-3.509997 -20.579997,-2.049999 -28.999987,4.84 -12.63,10.35 -14.47,28.979999 -4.12,41.610002 10.34999,12.63001 28.989987,14.48 41.619987,4.12998 10.790001,-8.839983 13.680001,-23.719983 7.850001,-35.739982 l 10.32,-10.319999 0.05,0.100001 H 100.07172 L 99.631715,45.198009 H 111.13172 V 33.69801 h 11.44001 V 22.248009 l -0.12,-0.03 z M 45.031717,93.488006 c -2.89,2.370004 -7.16,1.950003 -9.52999,-0.95 -2.37,-2.89 -1.95,-7.159998 0.94999,-9.539998 2.89,-2.370001 7.16,-1.949999 9.54,0.950001 2.36,2.899998 1.94,7.169997 -0.96,9.539997 z"
+   id="path10093"
+   style="stroke-width:1" />
+	</g>
+</switch></svg>

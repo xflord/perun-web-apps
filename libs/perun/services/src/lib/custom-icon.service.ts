@@ -132,10 +132,9 @@ export class CustomIconService {
       url: 'assets/img/PerunWebImages/owner-grey.svg',
       name: 'perun-owner-grey',
     },
-    // TESTING PURPOSES
     {
-      url: 'assets/img/settings1-blue.svg',
-      name: 'settings-blue',
+      url: 'assets/img/PerunWebImages/settings1-blue.svg',
+      name: 'perun-settings1',
     },
     {
       url: 'assets/img/PerunWebImages/service_destination-blue.svg',
@@ -188,6 +187,14 @@ export class CustomIconService {
     {
       url: 'assets/img/PerunWebImages/audit_log-blue.svg',
       name: 'perun-audit-log',
+    },
+    {
+      url: 'assets/img/PerunWebImages/contact-grey.svg',
+      name: 'perun-identity',
+    },
+    {
+      url: 'assets/img/PerunWebImages/roles.svg',
+      name: 'perun-roles',
     },
   ];
 

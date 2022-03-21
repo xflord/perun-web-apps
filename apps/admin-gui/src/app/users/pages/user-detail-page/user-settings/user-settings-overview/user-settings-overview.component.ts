@@ -50,7 +50,7 @@ export class UserSettingsOverviewComponent implements OnInit {
           style: 'user-btn',
         },
         {
-          cssIcon: 'perun-settings2',
+          cssIcon: 'perun-settings1',
           url: 'guiConfig',
           label: 'MENU_ITEMS.USER.GUI_CONFIG',
           style: 'user-btn',

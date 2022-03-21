@@ -18,7 +18,7 @@ export class ServiceIdentityOverviewComponent implements OnInit {
   private initNavItems() {
     this.navItems = [
       {
-        cssIcon: 'perun-user',
+        cssIcon: 'perun-manager',
         url: `associated-users`,
         label: 'MENU_ITEMS.USER.ASSOCIATED_USERS',
         style: 'user-btn',
