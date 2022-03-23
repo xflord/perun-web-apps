@@ -3,6 +3,7 @@ context('Actions', () => {
   const dbFacilityName2 = 'test-e2e-facility-from-db-2';
   const dbVoName = 'test-e2e-vo-from-db-for-facility';
   const dbResourceName = 'test-e2e-resource-from-db';
+  
   const addedAttribute = 'login-namespace';
   const deleteAttribute = 'gid-namespace';
   const addManagerUser = 'facility-manager-2';
