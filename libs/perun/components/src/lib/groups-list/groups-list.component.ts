@@ -9,11 +9,17 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { SelectionModel } from '@angular/cdk/collections';
-import { Group, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import {
+  ChangeGroupExpirationDialogComponent,
+  EditFacilityResourceGroupVoDialogComponent,
+  EditFacilityResourceGroupVoDialogOptions,
+  GroupSyncDetailDialogComponent,
+} from '@perun-web-apps/perun/dialogs';
+import { Group, RichGroup, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
+import {
+  TABLE_ITEMS_COUNT_OPTIONS,
+  TableWrapperComponent,
   customDataSourceFilterPredicate,
   customDataSourceSort,
   downloadData,
@@ -21,19 +27,14 @@ import {
   getDefaultDialogConfig,
   getGroupExpiration,
   parseDate,
-  TABLE_ITEMS_COUNT_OPTIONS,
-  TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
-import { MatDialog } from '@angular/material/dialog';
-import {
-  ChangeGroupExpirationDialogComponent,
-  EditFacilityResourceGroupVoDialogComponent,
-  EditFacilityResourceGroupVoDialogOptions,
-  GroupSyncDetailDialogComponent,
-} from '@perun-web-apps/perun/dialogs';
-import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
-import { formatDate } from '@angular/common';
+
 import { GroupWithStatus } from '@perun-web-apps/perun/models';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { SelectionModel } from '@angular/cdk/collections';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'perun-web-apps-groups-list',
@@ -469,6 +470,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   }
 
   getStatusAttribute(grp: RichGroup) {
-    return grp.attributes.find((att) => att.baseFriendlyName === 'groupStatus').value.toString();
+    const filter = grp.attributes.find((att) => att.baseFriendlyName === 'groupStatus');
+    return filter != null ? filter.value.toString() : '';
   }
 }
