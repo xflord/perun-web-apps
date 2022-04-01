@@ -7,14 +7,14 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 import { RPCError } from '@perun-web-apps/perun/models';
 import { AuthService } from './auth.service';
 import { StoreService } from './store.service';
 import { NotificatorService } from './notificator.service';
 import { ApiRequestConfigurationService } from './api-request-configuration.service';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SessionExpirationDialogComponent } from '@perun-web-apps/perun/session-expiration';
 import { InitAuthService } from './init-auth.service';
 
@@ -28,6 +28,8 @@ export class ApiInterceptor implements HttpInterceptor {
     private dialog: MatDialog,
     private initAuthService: InitAuthService
   ) {}
+
+  dialogRefSessionExpiration: MatDialogRef<SessionExpirationDialogComponent>;
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const apiUrl = this.store.get('api_url');
@@ -45,14 +47,15 @@ export class ApiInterceptor implements HttpInterceptor {
       req.url.toString().indexOf(apiUrl) !== -1 &&
       !this.store.skipOidc() &&
       !this.authService.isLoggedIn() &&
-      !this.initAuthService.isServiceAccess()
+      !this.initAuthService.isServiceAccess() &&
+      !this.dialogRefSessionExpiration
     ) {
       const config = getDefaultDialogConfig();
       config.width = '450px';
 
-      const dialogRef = this.dialog.open(SessionExpirationDialogComponent, config);
-
-      dialogRef.afterClosed().subscribe(() => {
+      this.dialogRefSessionExpiration = this.dialog.open(SessionExpirationDialogComponent, config);
+      this.dialogRefSessionExpiration.afterClosed().subscribe(() => {
+        finalize(() => (this.dialogRefSessionExpiration = undefined));
         sessionStorage.setItem('auth:redirect', location.pathname);
         sessionStorage.setItem('auth:queryParams', location.search.substr(1));
         this.authService.startAuthentication();
