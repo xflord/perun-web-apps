@@ -3192,6 +3192,98 @@ export class UsersManagerService {
   }
 
   /**
+   * Returns user\&#39;s external source by the user\&#39;s external login and external source name.
+   * @param extSourceName external source name, e.g. IdP entityId
+   * @param extSourceLogin external source login
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getUserExtSourceByExtLoginAndExtSourceName(
+    extSourceName: string,
+    extSourceLogin: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<UserExtSource>;
+  public getUserExtSourceByExtLoginAndExtSourceName(
+    extSourceName: string,
+    extSourceLogin: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<UserExtSource>>;
+  public getUserExtSourceByExtLoginAndExtSourceName(
+    extSourceName: string,
+    extSourceLogin: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<UserExtSource>>;
+  public getUserExtSourceByExtLoginAndExtSourceName(
+    extSourceName: string,
+    extSourceLogin: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (extSourceName === null || extSourceName === undefined) {
+      throw new Error(
+        'Required parameter extSourceName was null or undefined when calling getUserExtSourceByExtLoginAndExtSourceName.'
+      );
+    }
+    if (extSourceLogin === null || extSourceLogin === undefined) {
+      throw new Error(
+        'Required parameter extSourceLogin was null or undefined when calling getUserExtSourceByExtLoginAndExtSourceName.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (extSourceName !== undefined && extSourceName !== null) {
+      queryParameters = queryParameters.set('extSourceName', <any>extSourceName);
+    }
+    if (extSourceLogin !== undefined && extSourceLogin !== null) {
+      queryParameters = queryParameters.set('extSourceLogin', <any>extSourceLogin);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
+      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<UserExtSource>(
+      `${this.configuration.basePath}/json/usersManager/getUserExtSourceByExtLoginAndExtSourceName`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
    * Returns user ext source by its id.
    * @param userExtSource id of UserExtSource
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -4948,6 +5040,86 @@ export class UsersManagerService {
       `${this.configuration.basePath}/json/usersManager/updateUser`,
       inputUpdateUser,
       {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Updates user\&#39;s userExtSource last access time in DB. We can get information which userExtSource has been used as a last one.
+   * @param userExtSource id of UserExtSource
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public updateUserExtSourceLastAccess(
+    userExtSource: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public updateUserExtSourceLastAccess(
+    userExtSource: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public updateUserExtSourceLastAccess(
+    userExtSource: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public updateUserExtSourceLastAccess(
+    userExtSource: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (userExtSource === null || userExtSource === undefined) {
+      throw new Error(
+        'Required parameter userExtSource was null or undefined when calling updateUserExtSourceLastAccess.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (userExtSource !== undefined && userExtSource !== null) {
+      queryParameters = queryParameters.set('userExtSource', <any>userExtSource);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
+      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/usersManager/updateUserExtSourceLastAccess`,
+      null,
+      {
+        params: queryParameters,
         withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,

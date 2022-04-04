@@ -30,6 +30,8 @@ export * from './registrarManager.service';
 import { RegistrarManagerService } from './registrarManager.service';
 export * from './resourcesManager.service';
 import { ResourcesManagerService } from './resourcesManager.service';
+export * from './searcher.service';
+import { SearcherService } from './searcher.service';
 export * from './servicesManager.service';
 import { ServicesManagerService } from './servicesManager.service';
 export * from './tasksManager.service';
@@ -57,6 +59,7 @@ export const APIS = [
   RTMessagesManagerService,
   RegistrarManagerService,
   ResourcesManagerService,
+  SearcherService,
   ServicesManagerService,
   TasksManagerService,
   UsersManagerService,

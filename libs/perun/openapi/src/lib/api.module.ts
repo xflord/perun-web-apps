@@ -18,6 +18,7 @@ import { OwnersManagerService } from './api/ownersManager.service';
 import { RTMessagesManagerService } from './api/rTMessagesManager.service';
 import { RegistrarManagerService } from './api/registrarManager.service';
 import { ResourcesManagerService } from './api/resourcesManager.service';
+import { SearcherService } from './api/searcher.service';
 import { ServicesManagerService } from './api/servicesManager.service';
 import { TasksManagerService } from './api/tasksManager.service';
 import { UsersManagerService } from './api/usersManager.service';
@@ -45,6 +46,7 @@ import { VosManagerService } from './api/vosManager.service';
     RTMessagesManagerService,
     RegistrarManagerService,
     ResourcesManagerService,
+    SearcherService,
     ServicesManagerService,
     TasksManagerService,
     UsersManagerService,

@@ -16,6 +16,10 @@ export interface GroupMemberRelation {
    */
   m?: number;
   /**
+   * user_id
+   */
+  u?: number;
+  /**
    * group id
    */
   g?: number;
@@ -23,6 +27,14 @@ export interface GroupMemberRelation {
    * source group id
    */
   sg?: number;
+  /**
+   * group_name
+   */
+  gn?: string;
+  /**
+   * parent_group_id
+   */
+  pg?: number;
   /**
    * source group status
    */
