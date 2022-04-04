@@ -73,6 +73,8 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
         this.mfaAvailable = responseText === 'true';
         if (this.mfaAvailable) {
           this.loadMfa();
+        } else {
+          this.loadingMfa = false;
         }
       })
       .catch((e) => {
@@ -102,12 +104,18 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
       const enforceMfaAttributeName = this.store.get('mfa', 'enforce_mfa_attribute');
       this.attributesManagerService
         .getUserAttributeByName(this.store.getPerunPrincipal().userId, enforceMfaAttributeName)
-        .subscribe((attr) => {
-          if (attr.value) {
-            this.toggle.toggle();
+        .subscribe(
+          (attr) => {
+            if (attr.value) {
+              this.toggle.toggle();
+            }
+            this.loadingMfa = false;
+          },
+          (e) => {
+            console.error(e);
+            this.loadingMfa = false;
           }
-          this.loadingMfa = false;
-        });
+        );
     }
     if (sessionStorage.getItem('mfa_route')) {
       sessionStorage.removeItem('enforce_mfa');
