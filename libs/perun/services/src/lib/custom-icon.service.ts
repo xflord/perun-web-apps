@@ -196,6 +196,10 @@ export class CustomIconService {
       url: 'assets/img/PerunWebImages/roles.svg',
       name: 'perun-roles',
     },
+    {
+      url: 'assets/img/PerunWebImages/consent-white.svg',
+      name: 'perun-consent-hubs',
+    },
   ];
 
   registerPerunRefreshIcon() {
