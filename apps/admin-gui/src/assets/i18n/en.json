@@ -1719,7 +1719,8 @@
       "ADD": "Add",
       "CANCEL": "Cancel",
       "SUCCESS": "Required attributes were added.",
-      "FILTER": "Filter"
+      "FILTER": "Filter",
+      "ACTIVE_WARN": "Service is active. Some attributes can only be added to disabled services. Preferably disable service before adding required attributes."
     },
     "REMOVE_REQUIRED_ATTRIBUTES": {
       "TITLE": "Remove required attributes",
@@ -2160,7 +2161,8 @@
       "IMPORT": "Import",
       "DELETE": "Delete",
       "SEARCH": "Filter by Id, name, entity, definition, or type",
-      "NO_ATTRIBUTES": "There are no attributes available."
+      "NO_ATTRIBUTES": "There are no attributes available.",
+      "CONSENT_RELATED_DISABLED": "Attribute requires user's permission. It can only be added, when service is disabled."
     },
     "USERS": {
       "TITLE": "Users",

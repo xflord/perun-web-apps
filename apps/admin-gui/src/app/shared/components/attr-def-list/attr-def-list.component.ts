@@ -23,6 +23,7 @@ import {
   TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
+import { ConsentRelatedAttributePipe } from '../../pipes/consent-related-attribute.pipe';
 
 @Component({
   selector: 'app-attr-def-list',
@@ -33,7 +34,8 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
   constructor(
     private dialog: MatDialog,
     private authResolver: GuiAuthResolver,
-    private tableCheckbox: TableCheckbox
+    private tableCheckbox: TableCheckbox,
+    private consentRelatedPipe: ConsentRelatedAttributePipe
   ) {}
 
   @Input()
@@ -56,6 +58,8 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
   tableId: string;
   @Input()
   disableRouting = false;
+  @Input() consentRequired = false;
+  @Input() serviceEnabled = false;
 
   @Output()
   refreshEvent = new EventEmitter<void>();
@@ -71,6 +75,9 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
 
   private sort: MatSort;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+
+  canBeSelected = (row: AttributeDefinition) =>
+    !this.consentRelatedPipe.transform(row.namespace, this.serviceEnabled, this.consentRequired);
 
   ngOnChanges() {
     if (!this.authResolver.isPerunAdminOrObserver()) {
@@ -143,12 +150,15 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
   }
 
   isAllSelected() {
-    return this.tableCheckbox.isAllSelected(
+    return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(
       this.selection.selected.length,
       this.filterValue,
       this.child.paginator.pageSize,
       this.child.paginator.hasNextPage(),
-      this.dataSource
+      this.child.paginator.pageIndex,
+      this.dataSource,
+      this.sort,
+      this.canBeSelected
     );
   }
 
@@ -161,7 +171,8 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      true,
+      this.canBeSelected
     );
   }
 

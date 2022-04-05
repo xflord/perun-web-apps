@@ -171,6 +171,7 @@ import { AuditMessageDetailDialogComponent } from './components/dialogs/audit-me
 import { ParseEventNamePipe } from './pipes/parse-event-name.pipe';
 import { ConsentHubsListComponent } from './components/consent-hubs-list/consent-hubs-list.component';
 import { EditEnforceConsentsDialogComponent } from './components/dialogs/edit-enforce-consents-dialog/edit-enforce-consents-dialog.component';
+import { ConsentRelatedAttributePipe } from './pipes/consent-related-attribute.pipe';
 
 @NgModule({
   imports: [
@@ -435,8 +436,9 @@ import { EditEnforceConsentsDialogComponent } from './components/dialogs/edit-en
     ParseEventNamePipe,
     ConsentHubsListComponent,
     EditEnforceConsentsDialogComponent,
+    ConsentRelatedAttributePipe,
   ],
-  providers: [AnyToStringPipe, ExtSourceTypePipe],
+  providers: [AnyToStringPipe, ExtSourceTypePipe, ConsentRelatedAttributePipe],
 })
 export class SharedModule {
   constructor(private translate: TranslateService) {

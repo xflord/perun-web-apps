@@ -51,6 +51,7 @@
   "skip_oidc": false,
   "group_name_secondary_regex": "^[-a-zA-Z.0-9_ ]+$",
   "group_name_error_message": "Name cannot be empty and can contain only characters a-z, A-Z, numbers, spaces, dots, '_' and '-'",
+  "enforce_consents": false,
   "footer": {
     "columns": [
       {

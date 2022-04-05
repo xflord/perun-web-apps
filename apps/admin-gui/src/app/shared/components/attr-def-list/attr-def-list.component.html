@@ -29,6 +29,10 @@
               (click)="$event.stopPropagation()"
               [aria-label]="checkboxLabel(row)"
               [checked]="selection.isSelected(row)"
+              [disabled]="row.namespace | consentRelatedAttribute:serviceEnabled:consentRequired"
+              [matTooltip]="'ADMIN.ATTRIBUTES.CONSENT_RELATED_DISABLED' | translate"
+              [matTooltipDisabled]="!(row.namespace | consentRelatedAttribute:serviceEnabled:consentRequired)"
+              matTooltipPosition="left"
               color="primary">
             </mat-checkbox>
           </td>
