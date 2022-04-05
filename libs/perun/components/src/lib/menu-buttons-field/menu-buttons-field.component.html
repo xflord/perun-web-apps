@@ -3,7 +3,6 @@
     <a
       class="{{item.style}} item-itself"
       [routerLink]="item.url"
-      [perunWebAppsMiddleClickRouterLink]="[item.url]"
       queryParamsHandling="merge"
       attr.data-cy="{{item.label | translate | multiWordDataCy}}">
       <mat-icon [svgIcon]="item.cssIcon" class="item-pic perun-icon"></mat-icon>
