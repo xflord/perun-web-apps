@@ -6,6 +6,7 @@ import { AttributesManagerService } from './api/attributesManager.service';
 import { AuditMessagesManagerService } from './api/auditMessagesManager.service';
 import { AuthzResolverService } from './api/authzResolver.service';
 import { CabinetManagerService } from './api/cabinetManager.service';
+import { ConsentsManagerService } from './api/consentsManager.service';
 import { DatabaseManagerService } from './api/databaseManager.service';
 import { ExtSourcesManagerService } from './api/extSourcesManager.service';
 import { FacilitiesManagerService } from './api/facilitiesManager.service';
@@ -32,6 +33,7 @@ import { VosManagerService } from './api/vosManager.service';
     AuditMessagesManagerService,
     AuthzResolverService,
     CabinetManagerService,
+    ConsentsManagerService,
     DatabaseManagerService,
     ExtSourcesManagerService,
     FacilitiesManagerService,
