@@ -1,6 +1,7 @@
 <h1 class="page-subtitle">{{'ADMIN.USERS.TITLE' | translate}}</h1>
 <perun-web-apps-debounce-filter
   class="mt-2 search-field"
+  [autoFocus]="true"
   [placeholder]="'ADMIN.USERS.SEARCH_PLACEHOLDER'"
   (filter)="onSearchByString($event)">
 </perun-web-apps-debounce-filter>

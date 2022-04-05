@@ -1,4 +1,7 @@
-<div [ngStyle]="{'background': headerBackgroundColor, color: headerTextColor}" id="login-nav">
+<div
+  [ngStyle]="{'background': headerBackgroundColor, color: headerTextColor}"
+  id="login-nav"
+  class="mat-elevation-z3">
   <div *ngIf="application === 'admin-gui'" class="mt-auto mb-auto">
     <div [innerHTML]="logo" class="logo-container"></div>
   </div>
