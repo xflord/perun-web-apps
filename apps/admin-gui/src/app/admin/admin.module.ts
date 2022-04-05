@@ -26,6 +26,7 @@ import { UsersModule } from '../users/users.module';
 import { ServiceDestinationsComponent } from './pages/admin-page/admin-services/service-detail-page/service-destinations/service-destinations.component';
 import { AdminOwnersComponent } from './pages/admin-page/admin-owners/admin-owners.component';
 import { AdminAuditLogComponent } from './pages/admin-page/admin-audit-log/admin-audit-log.component';
+import { AdminConsentHubsComponent } from './pages/admin-page/admin-consent-hubs/admin-consent-hubs.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { AdminAuditLogComponent } from './pages/admin-page/admin-audit-log/admin
     ServiceDestinationsComponent,
     AdminOwnersComponent,
     AdminAuditLogComponent,
+    AdminConsentHubsComponent,
   ],
   imports: [
     NgxGraphModule,

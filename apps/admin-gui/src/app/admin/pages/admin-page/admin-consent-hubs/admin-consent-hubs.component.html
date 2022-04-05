@@ -1,0 +1,17 @@
+<div>
+  <h1 class="page-subtitle">{{'ADMIN.CONSENT_HUBS.TITLE' | translate}}</h1>
+
+  <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
+  <perun-web-apps-immediate-filter
+    [placeholder]="'ADMIN.CONSENT_HUBS.SEARCH'"
+    (filter)="applyFilter($event)">
+  </perun-web-apps-immediate-filter>
+
+  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <app-perun-web-apps-consent-hubs-list
+    *ngIf="!loading"
+    [consentHubs]="consentHubs"
+    [filterValue]="filterValue"
+    [tableId]="tableId">
+  </app-perun-web-apps-consent-hubs-list>
+</div>

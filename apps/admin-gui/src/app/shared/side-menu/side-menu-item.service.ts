@@ -230,6 +230,11 @@ export class SideMenuItemService {
           url: ['/admin/audit_log'],
           activatedRegex: '^/admin/audit_log$',
         },
+        {
+          label: 'MENU_ITEMS.ADMIN.CONSENT_HUBS',
+          url: ['/admin/consent_hubs'],
+          activatedRegex: '^/admin/consent_hubs$',
+        },
       ],
     };
   }

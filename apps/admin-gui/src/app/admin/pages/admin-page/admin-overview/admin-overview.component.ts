@@ -54,5 +54,11 @@ export class AdminOverviewComponent {
       label: 'MENU_ITEMS.ADMIN.AUDIT_LOG',
       style: 'admin-btn',
     },
+    {
+      cssIcon: 'perun-consent-hubs',
+      url: '/admin/consent_hubs',
+      label: 'MENU_ITEMS.ADMIN.CONSENT_HUBS',
+      style: 'admin-btn',
+    },
   ];
 }

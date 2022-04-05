@@ -169,6 +169,8 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
 import { AuditMessagesListComponent } from './components/audit-messages-list/audit-messages-list.component';
 import { AuditMessageDetailDialogComponent } from './components/dialogs/audit-message-detail-dialog/audit-message-detail-dialog.component';
 import { ParseEventNamePipe } from './pipes/parse-event-name.pipe';
+import { ConsentHubsListComponent } from './components/consent-hubs-list/consent-hubs-list.component';
+import { EditEnforceConsentsDialogComponent } from './components/dialogs/edit-enforce-consents-dialog/edit-enforce-consents-dialog.component';
 
 @NgModule({
   imports: [
@@ -302,6 +304,7 @@ import { ParseEventNamePipe } from './pipes/parse-event-name.pipe';
     MemberOverviewMembershipComponent,
     MemberOverviewGroupsComponent,
     AuditMessagesListComponent,
+    ConsentHubsListComponent,
   ],
   declarations: [
     PerunNavComponent,
@@ -430,6 +433,8 @@ import { ParseEventNamePipe } from './pipes/parse-event-name.pipe';
     AuditMessagesListComponent,
     AuditMessageDetailDialogComponent,
     ParseEventNamePipe,
+    ConsentHubsListComponent,
+    EditEnforceConsentsDialogComponent,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe],
 })

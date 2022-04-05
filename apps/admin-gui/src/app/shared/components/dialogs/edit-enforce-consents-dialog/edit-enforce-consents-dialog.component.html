@@ -1,0 +1,34 @@
+<div class="{{this.data.theme}}">
+  <h1 mat-dialog-title>
+    {{this.data.enforceConsents
+    ? ('DIALOGS.EDIT_ENFORCE_CONSENTS_FLAG.DISABLE_TITLE' | translate)
+    : ('DIALOGS.EDIT_ENFORCE_CONSENTS_FLAG.ENFORCE_TITLE' | translate)}}
+  </h1>
+  <div mat-dialog-content>
+    <p>
+      {{this.data.enforceConsents
+      ? ('DIALOGS.EDIT_ENFORCE_CONSENTS_FLAG.DISABLE_DESCRIPTION' | translate)
+      : ('DIALOGS.EDIT_ENFORCE_CONSENTS_FLAG.ENFORCE_DESCRIPTION' | translate)}}
+    </p>
+
+    <mat-divider></mat-divider>
+    <p class="mt-2 mb-2">{{this.data.consentHubName}}</p>
+    <mat-divider></mat-divider>
+
+    <div class="font-weight-bold mt-3">
+      {{this.data.enforceConsents
+      ? ('DIALOGS.EDIT_ENFORCE_CONSENTS_FLAG.DISABLE_BOLD_DESCRIPTION' | translate)
+      : ('DIALOGS.EDIT_ENFORCE_CONSENTS_FLAG.ENFORCE_BOLD_DESCRIPTION' | translate)}}
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+      {{'DIALOGS.EDIT_ENFORCE_CONSENTS_FLAG.CANCEL_BUTTON' | translate}}
+    </button>
+    <button mat-flat-button class="ml-2" color="accent" (click)="onSubmit()">
+      {{this.data.enforceConsents
+      ? ('DIALOGS.EDIT_ENFORCE_CONSENTS_FLAG.DISABLE_BUTTON' | translate)
+      : ('DIALOGS.EDIT_ENFORCE_CONSENTS_FLAG.ENFORCE_BUTTON' | translate)}}
+    </button>
+  </div>
+</div>

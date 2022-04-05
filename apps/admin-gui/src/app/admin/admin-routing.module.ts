@@ -30,6 +30,7 @@ import { AdminOwnersComponent } from './pages/admin-page/admin-owners/admin-owne
 import { UserFacilitiesComponent } from '../users/pages/user-detail-page/user-facilities/user-facilities.component';
 import { UserAccountsComponent } from '../users/pages/user-detail-page/user-accounts/user-accounts.component';
 import { AdminAuditLogComponent } from './pages/admin-page/admin-audit-log/admin-audit-log.component';
+import { AdminConsentHubsComponent } from './pages/admin-page/admin-consent-hubs/admin-consent-hubs.component';
 
 const routes: Routes = [
   {
@@ -96,6 +97,11 @@ const routes: Routes = [
         path: 'ext_sources',
         component: AdminExtSourcesComponent,
         data: { animation: 'AdminExtSourcesPage' },
+      },
+      {
+        path: 'consent_hubs',
+        component: AdminConsentHubsComponent,
+        data: { animation: 'AdminConsentHubsPage' },
       },
     ],
   },
