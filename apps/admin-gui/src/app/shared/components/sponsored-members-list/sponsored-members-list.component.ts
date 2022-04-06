@@ -46,7 +46,7 @@ export class SponsoredMembersListComponent implements OnChanges {
   filterValue = '';
 
   @Input()
-  displayedColumns: string[] = ['id', 'name', 'sponsors', 'menu'];
+  displayedColumns: string[] = ['id', 'name', 'email', 'logins', 'sponsors', 'menu'];
 
   @Input()
   disableRouting = false;

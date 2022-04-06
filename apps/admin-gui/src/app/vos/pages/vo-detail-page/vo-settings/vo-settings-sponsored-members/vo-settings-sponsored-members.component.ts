@@ -51,14 +51,7 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
 
   voSponsors: RichUser[] = [];
 
-  //TODO uncomment when we need those parameters
-  private attrNames = [
-    //Urns.USER_DEF_ORGANIZATION,
-    //Urns.USER_DEF_PREFERRED_MAIL,
-    //Urns.MEMBER_DEF_ORGANIZATION,
-    //Urns.MEMBER_DEF_MAIL,
-    //Urns.MEMBER_DEF_EXPIRATION
-  ];
+  private attrNames = [Urns.USER_DEF_PREFERRED_MAIL];
 
   selection = new SelectionModel<MemberWithSponsors>(true, []);
   searchString = '';
@@ -68,6 +61,7 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.vo = this.entityStorageService.getEntity();
+    this.attrNames = this.attrNames.concat(this.storeService.getLoginAttributeNames());
     this.setAuthRights();
 
     const availableRoles = ['SPONSOR'];

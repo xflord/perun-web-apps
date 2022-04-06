@@ -2390,6 +2390,8 @@
       "SPONSORED_MEMBERS_LIST": {
         "ID": "Id",
         "NAME": "Name",
+        "EMAIL": "Email",
+        "LOGIN": "Login",
         "SPONSORS": "Sponsors",
         "NO_SPONSORED_MEMBERS_WARNING": "No sponsored members found",
         "PASSWORD_RESET": "Reset password"
