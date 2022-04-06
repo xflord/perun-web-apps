@@ -108,6 +108,11 @@ button:focus {
   font-size: 1.5rem;
 }
 
+.page-subtitle {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
 .dark-hover-list-item {
   &:hover {
     background-color: rgba(0, 0, 0, 0.05);
@@ -115,7 +120,7 @@ button:focus {
 }
 
 th,
-td {
+td.mat-cell {
   padding: 0.25rem !important;
 }
 

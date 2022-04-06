@@ -19,7 +19,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSortModule } from '@angular/material/sort';
@@ -50,7 +49,6 @@ import { MatSelectModule } from '@angular/material/select';
     MatNativeDateModule,
     MatSidenavModule,
     MatListModule,
-    PerunSharedComponentsModule,
     MatMenuModule,
     MatToolbarModule,
     MatSortModule,
@@ -80,7 +78,6 @@ import { MatSelectModule } from '@angular/material/select';
     MatNativeDateModule,
     MatSidenavModule,
     MatListModule,
-    PerunSharedComponentsModule,
     MatMenuModule,
     MatToolbarModule,
     MatSortModule,

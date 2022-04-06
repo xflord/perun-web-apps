@@ -23,7 +23,9 @@ import {
 import { CustomHttpParameterCodec } from '../encoder';
 import { Observable } from 'rxjs';
 
+import { Consent } from '../model/consent';
 import { ConsentHub } from '../model/consentHub';
+import { ConsentStatus } from '../model/consentStatus';
 import { InputUpdateConsentHub } from '../model/inputUpdateConsentHub';
 import { PerunException } from '../model/perunException';
 
@@ -54,6 +56,99 @@ export class ConsentsManagerService {
       this.configuration.basePath = basePath;
     }
     this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
+  }
+
+  /**
+   * Changes value of consent status.
+   * @param consent id of Consent
+   * @param status consent status
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public changeConsentStatus(
+    consent: number,
+    status: ConsentStatus,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Consent>;
+  public changeConsentStatus(
+    consent: number,
+    status: ConsentStatus,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Consent>>;
+  public changeConsentStatus(
+    consent: number,
+    status: ConsentStatus,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Consent>>;
+  public changeConsentStatus(
+    consent: number,
+    status: ConsentStatus,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (consent === null || consent === undefined) {
+      throw new Error(
+        'Required parameter consent was null or undefined when calling changeConsentStatus.'
+      );
+    }
+    if (status === null || status === undefined) {
+      throw new Error(
+        'Required parameter status was null or undefined when calling changeConsentStatus.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (consent !== undefined && consent !== null) {
+      queryParameters = queryParameters.set('consent', <any>consent);
+    }
+    if (status !== undefined && status !== null) {
+      queryParameters = queryParameters.set('status', <any>status);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
+      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.post<Consent>(
+      `${this.configuration.basePath}/urlinjsonout/consentsManager/changeConsentStatus`,
+      null,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
   }
 
   /**
@@ -110,6 +205,244 @@ export class ConsentsManagerService {
     return this.httpClient.get<Array<ConsentHub>>(
       `${this.configuration.basePath}/json/consentsManager/getAllConsentHubs`,
       {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Return list of all existing Consents
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getAllConsents(observe?: 'body', reportProgress?: boolean): Observable<Array<Consent>>;
+  public getAllConsents(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Consent>>>;
+  public getAllConsents(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Consent>>>;
+  public getAllConsents(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
+      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Consent>>(
+      `${this.configuration.basePath}/json/consentsManager/getAllConsents`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Return Consent object with corresponding id
+   * @param id numeric id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getConsentById(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Consent>;
+  public getConsentById(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Consent>>;
+  public getConsentById(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Consent>>;
+  public getConsentById(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error('Required parameter id was null or undefined when calling getConsentById.');
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (id !== undefined && id !== null) {
+      queryParameters = queryParameters.set('id', <any>id);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
+      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Consent>(
+      `${this.configuration.basePath}/json/consentsManager/getConsentById`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Return Consent object for chosen user in specified consent hub with specified status
+   * @param user id of User
+   * @param consentHub id of ConsentHub
+   * @param status consent status
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getConsentForUserAndConsentHub(
+    user: number,
+    consentHub: number,
+    status: ConsentStatus,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Consent>;
+  public getConsentForUserAndConsentHub(
+    user: number,
+    consentHub: number,
+    status: ConsentStatus,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Consent>>;
+  public getConsentForUserAndConsentHub(
+    user: number,
+    consentHub: number,
+    status: ConsentStatus,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Consent>>;
+  public getConsentForUserAndConsentHub(
+    user: number,
+    consentHub: number,
+    status: ConsentStatus,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getConsentForUserAndConsentHub.'
+      );
+    }
+    if (consentHub === null || consentHub === undefined) {
+      throw new Error(
+        'Required parameter consentHub was null or undefined when calling getConsentForUserAndConsentHub.'
+      );
+    }
+    if (status === null || status === undefined) {
+      throw new Error(
+        'Required parameter status was null or undefined when calling getConsentForUserAndConsentHub.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (consentHub !== undefined && consentHub !== null) {
+      queryParameters = queryParameters.set('consentHub', <any>consentHub);
+    }
+    if (status !== undefined && status !== null) {
+      queryParameters = queryParameters.set('status', <any>status);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
+      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Consent>(
+      `${this.configuration.basePath}/json/consentsManager/getConsentForUserAndConsentHub`,
+      {
+        params: queryParameters,
         withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
@@ -345,6 +678,440 @@ export class ConsentsManagerService {
 
     return this.httpClient.get<ConsentHub>(
       `${this.configuration.basePath}/json/consentsManager/getConsentHubByName`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Return Consents for ConsentHub with corresponding id
+   * @param consentHub id of ConsentHub
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getConsentsForConsentHub(
+    consentHub: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Consent>>;
+  public getConsentsForConsentHub(
+    consentHub: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Consent>>>;
+  public getConsentsForConsentHub(
+    consentHub: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Consent>>>;
+  public getConsentsForConsentHub(
+    consentHub: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (consentHub === null || consentHub === undefined) {
+      throw new Error(
+        'Required parameter consentHub was null or undefined when calling getConsentsForConsentHub.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (consentHub !== undefined && consentHub !== null) {
+      queryParameters = queryParameters.set('consentHub', <any>consentHub);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
+      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Consent>>(
+      `${this.configuration.basePath}/json/consentsManager/getConsentsForConsentHub/id`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Return Consents of certain status for ConsentHub with corresponding id
+   * @param consentHub id of ConsentHub
+   * @param status consent status
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getConsentsForConsentHubWithStatus(
+    consentHub: number,
+    status: ConsentStatus,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Consent>>;
+  public getConsentsForConsentHubWithStatus(
+    consentHub: number,
+    status: ConsentStatus,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Consent>>>;
+  public getConsentsForConsentHubWithStatus(
+    consentHub: number,
+    status: ConsentStatus,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Consent>>>;
+  public getConsentsForConsentHubWithStatus(
+    consentHub: number,
+    status: ConsentStatus,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (consentHub === null || consentHub === undefined) {
+      throw new Error(
+        'Required parameter consentHub was null or undefined when calling getConsentsForConsentHubWithStatus.'
+      );
+    }
+    if (status === null || status === undefined) {
+      throw new Error(
+        'Required parameter status was null or undefined when calling getConsentsForConsentHubWithStatus.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (consentHub !== undefined && consentHub !== null) {
+      queryParameters = queryParameters.set('consentHub', <any>consentHub);
+    }
+    if (status !== undefined && status !== null) {
+      queryParameters = queryParameters.set('status', <any>status);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
+      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Consent>>(
+      `${this.configuration.basePath}/json/consentsManager/getConsentsForConsentHub/id-s`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Return Consents for user with corresponding id
+   * @param user id of User
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getConsentsForUser(
+    user: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Consent>>;
+  public getConsentsForUser(
+    user: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Consent>>>;
+  public getConsentsForUser(
+    user: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Consent>>>;
+  public getConsentsForUser(
+    user: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getConsentsForUser.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
+      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Consent>>(
+      `${this.configuration.basePath}/json/consentsManager/getConsentsForUser/id`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Return Consents for specified user in specified consent hub
+   * @param user id of User
+   * @param consentHub id of ConsentHub
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getConsentsForUserAndConsentHub(
+    user: number,
+    consentHub: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Consent>>;
+  public getConsentsForUserAndConsentHub(
+    user: number,
+    consentHub: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Consent>>>;
+  public getConsentsForUserAndConsentHub(
+    user: number,
+    consentHub: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Consent>>>;
+  public getConsentsForUserAndConsentHub(
+    user: number,
+    consentHub: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getConsentsForUserAndConsentHub.'
+      );
+    }
+    if (consentHub === null || consentHub === undefined) {
+      throw new Error(
+        'Required parameter consentHub was null or undefined when calling getConsentsForUserAndConsentHub.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (consentHub !== undefined && consentHub !== null) {
+      queryParameters = queryParameters.set('consentHub', <any>consentHub);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
+      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Consent>>(
+      `${this.configuration.basePath}/json/consentsManager/getConsentsForUserAndConsentHub`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Return Consents of certain status for user with corresponding id
+   * @param user id of User
+   * @param status consent status
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getConsentsForUserWithStatus(
+    user: number,
+    status: ConsentStatus,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Consent>>;
+  public getConsentsForUserWithStatus(
+    user: number,
+    status: ConsentStatus,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Consent>>>;
+  public getConsentsForUserWithStatus(
+    user: number,
+    status: ConsentStatus,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Consent>>>;
+  public getConsentsForUserWithStatus(
+    user: number,
+    status: ConsentStatus,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getConsentsForUserWithStatus.'
+      );
+    }
+    if (status === null || status === undefined) {
+      throw new Error(
+        'Required parameter status was null or undefined when calling getConsentsForUserWithStatus.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (status !== undefined && status !== null) {
+      queryParameters = queryParameters.set('status', <any>status);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (ApiKeyAuth) required
+    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
+      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
+    }
+
+    // authentication (BasicAuth) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+    // authentication (BearerAuth) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    return this.httpClient.get<Array<Consent>>(
+      `${this.configuration.basePath}/json/consentsManager/getConsentsForUser/id-s`,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,

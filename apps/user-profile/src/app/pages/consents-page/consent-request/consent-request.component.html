@@ -1,0 +1,29 @@
+<div class="d-flex">
+  <div class="card p-4 mat-elevation-z3 ml-auto mr-auto">
+    <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+    <div *ngIf="!loading">
+      <h1 class="page-title">
+        {{ 'CONSENTS.REQUEST.TITLE' | customTranslate | translate }}
+      </h1>
+      <div class="page-subtitle">{{consent.consentHub.name}}</div>
+
+      <div>
+        {{ 'CONSENTS.REQUEST.CONSENT_TEXT_UNSIGNED' | customTranslate | translate }}:
+        <ul>
+          <li *ngFor="let attribute of consent.attributes">
+            {{ attribute.displayName }}
+          </li>
+        </ul>
+      </div>
+      <!--    <mat-checkbox class="minimize-checkbox mb-n2">{{ 'CONSENTS.REQUEST.CHECKBOX' | customTranslate | translate }}</mat-checkbox>-->
+      <div class="d-flex">
+        <button mat-flat-button color="warn" class="mr-2 ml-auto" (click)="rejectConsent()">
+          {{ 'CONSENTS.REQUEST.REJECT_CONSENT_BUTTON' | customTranslate | translate }}
+        </button>
+        <button mat-flat-button color="accent" (click)="grantConsent()">
+          {{ 'CONSENTS.REQUEST.GRANT_CONSENT_BUTTON' | customTranslate | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

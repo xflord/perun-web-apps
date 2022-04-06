@@ -89,6 +89,9 @@ import { SelectionItemSearchSelectComponent } from './selection-item-search-sele
 import { ServiceSearchSelectComponent } from './service-search-select/service-search-select.component';
 import { AdvancedFilterComponent } from './advanced-filter/advanced-filter.component';
 import { NotAuthorizedPageComponent } from './not-authorized-page/not-authorized-page.component';
+import { ConsentsListComponent } from './consents-list/consents-list.component';
+import { ConsentStatusComponent } from './consent-status/consent-status.component';
+import { UiMaterialModule } from '@perun-web-apps/ui/material';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -154,6 +157,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     ScrollingModule,
     MatDialogModule,
     PerunUtilsModule,
+    UiMaterialModule,
   ],
   declarations: [
     VosListComponent,
@@ -210,6 +214,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     ServiceSearchSelectComponent,
     AdvancedFilterComponent,
     NotAuthorizedPageComponent,
+    ConsentsListComponent,
+    ConsentStatusComponent,
   ],
   exports: [
     VosListComponent,
@@ -263,6 +269,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     ServiceSearchSelectComponent,
     AdvancedFilterComponent,
     NotAuthorizedPageComponent,
+    ConsentStatusComponent,
+    ConsentsListComponent,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

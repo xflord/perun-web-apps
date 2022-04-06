@@ -1,0 +1,12 @@
+<span *ngIf="consentStatus === 'UNSIGNED'">
+  <mat-icon color="warn">priority_high</mat-icon>
+  <span> {{'CONSENTS.STATUS_UNSIGNED' | customTranslate | translate}}</span>
+</span>
+<span *ngIf="consentStatus === 'REVOKED'">
+  <mat-icon color="warn">close</mat-icon>
+  <span> {{'CONSENTS.STATUS_REVOKED' | customTranslate | translate}}</span>
+</span>
+<span *ngIf="consentStatus === 'GRANTED'">
+  <mat-icon color="accent">check</mat-icon>
+  <span> {{'CONSENTS.STATUS_GRANTED' | customTranslate | translate}}</span>
+</span>

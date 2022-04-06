@@ -10,6 +10,8 @@
     "GROUPS": "Groups",
     "VOS": "Organizations",
     "PRIVACY": "Privacy",
+    "CONSENTS": "Consents",
+    "CONSENT_REQUEST": "Consent request",
     "SETTINGS": "Settings"
   },
   "SETTINGS": {
@@ -64,6 +66,27 @@
     "FILTER": "Filter private data by organization's name",
     "USER_INFO": "Information about you",
     "DATA": "Information used by "
+  },
+  "CONSENTS": {
+    "TITLE": "Consents",
+    "FILTER": "Filter consents by service name",
+    "GRANT_ALL": "Grant consent to all",
+    "STATUS_GRANTED": "Granted",
+    "STATUS_REVOKED": "Rejected",
+    "STATUS_UNSIGNED": "Pending",
+    "UNSIGNED_CONSENTS": "Consents that need your attention",
+    "GRANT_ALL_NOTIFICATION": "Consent granted to all services",
+    "CONSENT_GRANTED": "Consent was granted for ",
+    "CONSENT_REVOKED": "Consent was revoked for ",
+    "CONSENT_REJECTED": "Consent was rejected for ",
+    "PROCESSED_CONSENTS": "Resolved consents",
+    "REQUEST": {
+      "TITLE": "Consent request",
+      "CHECKBOX": "Revoke previous consent for attributes that are not required anymore",
+      "CONSENT_TEXT_UNSIGNED": "The requested service requires access to your personal data",
+      "GRANT_CONSENT_BUTTON": "Grant consent",
+      "REJECT_CONSENT_BUTTON": "Reject consent"
+    }
   },
   "MEMBERSHIP_LIST": {
     "NAME": "Name",
@@ -437,6 +460,17 @@
           "BACKEND_ERROR": "Entered password doesn't meet the selected namespace's criteria",
           "FIELD_EMPTY": "Empty value is not allowed",
           "PWD_DONT_MATCH": "Passwords do not match"
+        },
+        "CONSENTS_LIST": {
+          "STATUS": "Status",
+          "SERVICE_NAME": "Service name",
+          "GRANTED_TEXT": "This service has access to this personal data",
+          "REVOKED_TEXT": "This service requires access to your personal data (the service might not work properly unless the consent is granted)",
+          "UNSIGNED_TEXT": "The requested service requires access to your personal data",
+          "NO_CONSENTS": "No consents found",
+          "REVOKE_CONSENT_BUTTON": "Revoke consent",
+          "REJECT_CONSENT_BUTTON": "Reject consent",
+          "GRANT_CONSENT_BUTTON": "Grant consent"
         }
       },
       "ORGANIZATIONS": {

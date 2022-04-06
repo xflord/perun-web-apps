@@ -1,0 +1,24 @@
+tr.consent-detail-row {
+  height: 0 !important;
+}
+
+.consent-row td {
+  cursor: pointer;
+  border-bottom-width: 0 !important;
+}
+
+.consent-detail {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+th,
+td.mat-cell {
+  padding: 0 !important;
+}
+
+.mat-cell,
+.mat-footer-cell {
+  font-size: 1rem !important;
+}

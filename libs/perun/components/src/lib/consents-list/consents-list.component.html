@@ -1,0 +1,120 @@
+<div [hidden]="dataSource.filteredData.length === 0" class="card">
+  <perun-web-apps-table-wrapper
+    (exportData)="exportData($event)"
+    [tableId]="tableId"
+    [dataLength]="dataSource.filteredData.length"
+    [pageSizeOptions]="pageSizeOptions">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      matSortActive="status"
+      matSortDirection="asc"
+      matSortDisableClear
+      multiTemplateDataRows
+      class="w-100">
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef class="align-checkbox">
+          <mat-checkbox
+            color="primary"
+            (change)="$event ? masterToggle() : null"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let consent" class="static-column-size align-checkbox">
+          <mat-checkbox
+            color="primary"
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(consent) : null"
+            [checked]="selection.isSelected(consent)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.CONSENTS_LIST.STATUS' | customTranslate | translate}}
+        </th>
+        <td mat-cell *matCellDef="let consent">
+          <perun-web-apps-consent-status
+            [consentStatus]="consent.status"></perun-web-apps-consent-status>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.CONSENTS_LIST.SERVICE_NAME' | customTranslate | translate}}
+        </th>
+        <td mat-cell *matCellDef="let consent">
+          {{consent.consentHub.name}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let consent" [attr.colspan]="displayedColumns.length">
+          <div
+            [@detailExpand]="consent === expandedConsent ? 'expanded' : 'collapsed'"
+            class="consent-detail">
+            <div class="p-3">
+              <div *ngIf="consent.status === 'GRANTED'">
+                {{'SHARED_LIB.PERUN.COMPONENTS.CONSENTS_LIST.GRANTED_TEXT' | customTranslate | translate}}
+                :
+              </div>
+              <div *ngIf="consent.status === 'REVOKED'">
+                {{'SHARED_LIB.PERUN.COMPONENTS.CONSENTS_LIST.REVOKED_TEXT' | customTranslate | translate}}
+                :
+              </div>
+              <div *ngIf="consent.status === 'UNSIGNED'">
+                {{'SHARED_LIB.PERUN.COMPONENTS.CONSENTS_LIST.UNSIGNED_TEXT' | customTranslate | translate}}
+                :
+              </div>
+              <ul>
+                <li *ngFor="let attribute of consent.attributes">
+                  {{ attribute.displayName }}
+                </li>
+              </ul>
+              <div class="d-flex">
+                <button
+                  *ngIf="consent.status !== 'REVOKED'"
+                  mat-flat-button
+                  class="mr-2"
+                  color="warn"
+                  (click)="rejectConsent.emit(consent.id)">
+                  {{(consent.status === 'UNSIGNED' ? 'SHARED_LIB.PERUN.COMPONENTS.CONSENTS_LIST.REJECT_CONSENT_BUTTON' :
+                  'SHARED_LIB.PERUN.COMPONENTS.CONSENTS_LIST.REVOKE_CONSENT_BUTTON') | customTranslate | translate}}
+                </button>
+                <button
+                  *ngIf="consent.status !== 'GRANTED'"
+                  mat-flat-button
+                  color="accent"
+                  (click)="grantConsent.emit(consent.id)">
+                  {{'SHARED_LIB.PERUN.COMPONENTS.CONSENTS_LIST.GRANT_CONSENT_BUTTON' | customTranslate | translate}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let consent; columns: displayedColumns;"
+        [class.example-expanded-row]="expandedConsent === consent"
+        (click)="expandedConsent = expandedConsent === consent ? null : consent"
+        class="dark-hover-list-item consent-row"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="consent-detail-row"></tr>
+    </table>
+  </perun-web-apps-table-wrapper>
+</div>
+
+<app-alert
+  *ngIf="dataSource.filteredData.length === 0 && dataSource.data.length !== 0"
+  alert_type="warn">
+  {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | customTranslate | translate}}
+</app-alert>
+
+<app-alert *ngIf="dataSource.data.length === 0" alert_type="warn">
+  {{'SHARED_LIB.PERUN.COMPONENTS.CONSENTS_LIST.NO_CONSENTS' | customTranslate | translate}}
+</app-alert>

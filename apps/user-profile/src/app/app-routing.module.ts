@@ -22,6 +22,9 @@ import {
   LoginScreenComponent,
   LoginScreenServiceAccessComponent,
 } from '@perun-web-apps/perun/login';
+import { ConsentsPageComponent } from './pages/consents-page/consents-page.component';
+import { ConsentRequestComponent } from './pages/consents-page/consent-request/consent-request.component';
+import { ConsentsPreviewComponent } from './pages/consents-page/consents-preview/consents-preview.component';
 
 const routes: Routes = [
   {
@@ -71,6 +74,23 @@ const routes: Routes = [
         path: 'privacy',
         component: PrivacyPageComponent,
         data: { breadcrumb: 'MENU_ITEMS.PRIVACY' },
+      },
+      {
+        path: 'consents',
+        component: ConsentsPageComponent,
+        data: { breadcrumb: 'MENU_ITEMS.CONSENTS' },
+        children: [
+          {
+            path: '',
+            component: ConsentsPreviewComponent,
+            data: { breadcrumb: 'MENU_ITEMS.CONSENTS' },
+          },
+          {
+            path: ':consentId',
+            component: ConsentRequestComponent,
+            data: { breadcrumb: 'MENU_ITEMS.CONSENT_REQUEST' },
+          },
+        ],
       },
       {
         path: 'settings',

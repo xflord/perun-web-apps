@@ -66,6 +66,15 @@ export class SideMenuItemService {
             tabName: 'privacy',
           });
           break;
+        case 'consents':
+          items.push({
+            label: 'MENU_ITEMS.CONSENTS',
+            icon: 'fact_check',
+            link: '/profile/consents',
+            activatedRegex: '^/profile/consents',
+            tabName: 'consents',
+          });
+          break;
         case 'settings':
           items.push({
             label: 'MENU_ITEMS.SETTINGS',

@@ -10,6 +10,8 @@
     "GROUPS": "Skupiny",
     "VOS": "Organizace",
     "PRIVACY": "Soukromí",
+    "CONSENTS": "Souhlasy",
+    "CONSENT_REQUEST": "Žádost o souhlas",
     "SETTINGS": "Nastavení"
   },
   "SETTINGS": {
@@ -64,6 +66,27 @@
     "FILTER": "Filtrovat osobní data dle jména organizace",
     "USER_INFO": "Informace o Vás",
     "DATA": "Informace využívané organizací "
+  },
+  "CONSENTS": {
+    "TITLE": "Souhlasy",
+    "FILTER": "Filtrovat souhlasy dle jména služby",
+    "GRANT_ALL": "Dát souhlas všem",
+    "STATUS_GRANTED": "Udělen",
+    "STATUS_REVOKED": "Odmítnut",
+    "STATUS_UNSIGNED": "Nevyřízený",
+    "UNSIGNED_CONSENTS": "Souhlasy, které vyžadují vaši pozornost",
+    "GRANT_ALL_NOTIFICATION": "Souhlas udělen ke všem službám",
+    "CONSENT_GRANTED": "Souhlas byl udělen službě ",
+    "CONSENT_REVOKED": "Souhlas byl odvolán službě ",
+    "CONSENT_REJECTED": "Souhlas byl odmítnut službě ",
+    "PROCESSED_CONSENTS": "Vyřešené souhlasy",
+    "REQUEST": {
+      "TITLE": "Žádost o souhlas",
+      "CHECKBOX": "Zrušte předchozí souhlas pro atributy, které již nejsou vyžadovány",
+      "CONSENT_TEXT_UNSIGNED": "Požadovaná služba vyžaduje přístup k vašim osobním údajům",
+      "GRANT_CONSENT_BUTTON": "Udělit souhlas",
+      "REJECT_CONSENT_BUTTON": "Odmítnout souhlas"
+    }
   },
   "MEMBERSHIP_LIST": {
     "NAME": "Jméno",
@@ -361,6 +384,17 @@
           "BACKEND_ERROR": "Zadané heslo nesplňuje požadavky pro daný namespace",
           "FIELD_EMPTY": "Tohle políčko musí být vyplněné",
           "PWD_DONT_MATCH": "Hesla se neshodují"
+        },
+        "CONSENTS_LIST": {
+          "STATUS": "Status",
+          "SERVICE_NAME": "Jméno služby",
+          "GRANTED_TEXT": "Tato služba má přístup k těmto osobním údajům",
+          "REVOKED_TEXT": "Tato služba vyžaduje přístup k vašim osobním údajům (bez udělení souhlasu nemusí služba fungovat správně)",
+          "UNSIGNED_TEXT": "Požadovaná služba vyžaduje přístup k vašim osobním údajům",
+          "NO_CONSENTS": "Nebyly nalezeny žádné souhlasy",
+          "REVOKE_CONSENT_BUTTON": "Odmítnout souhlas",
+          "REJECT_CONSENT_BUTTON": "Odvolat souhlas",
+          "GRANT_CONSENT_BUTTON": "Udělit souhlas"
         }
       },
       "ORGANIZATIONS": {

@@ -108,3 +108,4 @@ export const TABLE_SERVICE_MEMBERS = '77';
 export const TABLE_ASSIGN_RESOURCE_TO_GROUP = '78';
 export const TABLE_AUDIT_MESSAGES = '79';
 export const TABLE_CONSENT_HUBS = '80';
+export const TABLE_USER_CONSENTS = '81';

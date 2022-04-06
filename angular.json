@@ -696,7 +696,6 @@
       },
       "schematics": {
         "@nrwl/angular:component": {
-          "styleext": "scss"
         }
       },
       "tags": []
