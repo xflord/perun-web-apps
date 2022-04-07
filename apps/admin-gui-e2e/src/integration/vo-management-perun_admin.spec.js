@@ -22,7 +22,7 @@ context('Actions', () => {
     cy.visit('organizations');
   })
 
-  it.only('test create vo', () => {
+  it('test create vo', () => {
 
     cy.intercept('**/vosManager/createVo/**').as('createVo')
       .intercept('**/vosManager/getVoById**').as('getVoById')
@@ -39,6 +39,8 @@ context('Actions', () => {
       // assert that the vo was created
       .get('[data-cy=vo-name-link]')
       .contains('test-e2e-vo')
+      .invoke('text')
+      .then((text) => text === "test-e2e-vo")
       .should('exist')
   });
 
@@ -279,9 +281,9 @@ context('Actions', () => {
       // assert that manager doesn't exist
       .get(`[data-cy=${dbVoManager}-checkbox]`)
       .should('not.exist')
-    });
+  });
 
-    it('test delete vo (perun admin)', () => {
+  it('test delete vo (perun admin)', () => {
 
     // change role to perun admin
     sessionStorage.setItem('baPrincipal', '{"name": "perun"}');
@@ -290,10 +292,10 @@ context('Actions', () => {
     cy.reload();
 
     cy.intercept('**/vosManager/deleteVo**').as('deleteVo')
-    .get('[data-cy=auto-focused-filter]')
-    .type(`${dbVoName}`)
-    .get(`[data-cy=${dbVoName}]`)
-    .click()
+      .get('[data-cy=auto-focused-filter]')
+      .type(`${dbVoName}`)
+      .get(`[data-cy=${dbVoName}]`)
+      .click()
       .get('[data-cy=delete-vo]')
       .click()
       .get('[data-cy=force-delete]')
@@ -309,5 +311,5 @@ context('Actions', () => {
       .type(`${dbVoName}`)
       .get(`[data-cy=${dbVoName}]`)
       .should('not.exist')
-    });
+  });
 })

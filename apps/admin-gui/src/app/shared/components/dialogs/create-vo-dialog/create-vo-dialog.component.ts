@@ -58,8 +58,8 @@ export class CreateVoDialogComponent implements OnInit {
       (vo) => {
         this.notificator.showSuccess(this.successMessage);
         this.loading = false;
-        this.dialogRef.close(true);
         this.router.navigate(['/organizations', vo.id]);
+        this.dialogRef.close(true);
       },
       () => (this.loading = false)
     );
