@@ -26,6 +26,7 @@ import { PasswordResetFormComponent } from './components/password-reset-form/pas
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 import { InvalidRequestAlertComponent } from './components/invalid-request-alert/invalid-request-alert.component';
 import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespace-password-form';
+import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -73,6 +74,7 @@ const loadConfigs = (appConfig: PasswordResetConfigService) => () => appConfig.l
     UiAlertsModule,
     PerunNamespacePasswordFormModule,
     OAuthModule.forRoot(),
+    PerunSharedComponentsModule,
   ],
   providers: [
     CustomIconService,
