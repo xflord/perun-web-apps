@@ -37,6 +37,10 @@ export class AuthService {
 
   getClientConfig(): AuthConfig {
     const filterValue = this.setIdpFilter();
+
+    //The window of time (in seconds) to allow the current time to deviate when validating id_token's iat and exp values. Default value is 10 minutes. This set it up to 1 sec.
+    const clockSkewInSec = 1;
+
     const customQueryParams = !filterValue ? {} : { acr_values: filterValue };
     if (
       this.store.get('oidc_client', 'oauth_scopes').split(' ').includes('offline_access') &&
@@ -57,6 +61,7 @@ export class AuthService {
       postLogoutRedirectUri: this.store.get('oidc_client', 'oauth_post_logout_redirect_uri'),
       responseType: this.store.get('oidc_client', 'oauth_response_type'),
       scope: this.store.get('oidc_client', 'oauth_scopes'),
+      clockSkewInSec: clockSkewInSec,
       // sessionChecksEnabled: true,
       customQueryParams: customQueryParams,
     };
@@ -113,6 +118,7 @@ export class AuthService {
 
     if (currentPathname === '/api-callback') {
       return this.handleAuthCallback()
+        .then(() => localStorage.setItem('refresh_token', this.oauthService.getRefreshToken()))
         .then(() => this.startRefreshToken())
         .then(() => this.redirectToOriginDestination());
     } else {
@@ -126,9 +132,7 @@ export class AuthService {
     return this.isLoggedInPromise().then((isLoggedIn) => {
       if (isLoggedIn) {
         this.oauthService.events.pipe(filter((e) => e.type === 'token_expires')).subscribe(() => {
-          this.oauthService.refreshToken().then((response) => {
-            localStorage.setItem('refresh_token', response['refresh_token']);
-          });
+          this.refreshAndStoreToken()
         });
         return true;
       }
@@ -208,7 +212,7 @@ export class AuthService {
       sessionStorage.setItem('refresh_token', localStorage.getItem('refresh_token'));
       return this.oauthService
         .loadDiscoveryDocument()
-        .then(() => this.oauthService.refreshToken())
+        .then(() => this.refreshAndStoreToken())
         .then(() => Promise.resolve())
         .catch((err) => err);
     } else {
@@ -242,9 +246,6 @@ export class AuthService {
 
           return false;
         }
-        this.oauthService
-          .loadDiscoveryDocument()
-          .then(() => localStorage.setItem('refresh_token', this.oauthService.getRefreshToken()));
         return true;
       });
   }
@@ -290,5 +291,14 @@ export class AuthService {
 
   public getIdpFilter(): string {
     return this.filterShortname;
+  }
+
+  private refreshAndStoreToken(): Promise<boolean> {
+    return this.oauthService.refreshToken().then((response) => {
+      localStorage.setItem('refresh_token', response['refresh_token']);
+      return true;
+    }, () => {
+      return false;
+    });
   }
 }
