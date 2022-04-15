@@ -132,7 +132,7 @@ export class AuthService {
     return this.isLoggedInPromise().then((isLoggedIn) => {
       if (isLoggedIn) {
         this.oauthService.events.pipe(filter((e) => e.type === 'token_expires')).subscribe(() => {
-          this.refreshAndStoreToken()
+          this.refreshAndStoreToken();
         });
         return true;
       }
@@ -294,11 +294,12 @@ export class AuthService {
   }
 
   private refreshAndStoreToken(): Promise<boolean> {
-    return this.oauthService.refreshToken().then((response) => {
-      localStorage.setItem('refresh_token', response['refresh_token']);
-      return true;
-    }, () => {
-      return false;
-    });
+    return this.oauthService.refreshToken().then(
+      (response) => {
+        localStorage.setItem('refresh_token', response['refresh_token']);
+        return true;
+      },
+      () => false
+    );
   }
 }

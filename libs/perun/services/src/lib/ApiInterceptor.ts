@@ -44,7 +44,7 @@ export class ApiInterceptor implements HttpInterceptor {
     }
     if (
       apiUrl !== undefined &&
-      req.url.toString().indexOf(apiUrl) !== -1 &&
+      this.isCallToPerunApi(req.url) &&
       !this.store.skipOidc() &&
       !this.authService.isLoggedIn() &&
       !this.initAuthService.isServiceAccess() &&
@@ -74,7 +74,7 @@ export class ApiInterceptor implements HttpInterceptor {
             ),
         },
       });
-    } else {
+    } else if (this.isCallToPerunApi(req.url)) {
       req = req.clone({
         setHeaders: {
           Authorization: this.authService.getAuthorizationHeaderValue(),
