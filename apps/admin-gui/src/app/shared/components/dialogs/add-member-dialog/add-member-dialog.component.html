@@ -3,15 +3,13 @@
 
   <div mat-dialog-content *ngIf="!processing">
     <mat-form-field class="mr-2 search-field adjust-width">
-      <label>
-        <input
-          matInput
-          autocomplete="false"
-          placeholder="{{'DIALOGS.ADD_MEMBERS.DESCRIPTION' | translate}}"
-          data-cy="search-members"
-          (keyup.enter)="onSearchByString()"
-          [formControl]="searchCtrl" />
-      </label>
+      <input
+        matInput
+        autocomplete="false"
+        placeholder="{{'DIALOGS.ADD_MEMBERS.DESCRIPTION' | translate}}"
+        data-cy="search-members"
+        (keyup.enter)="onSearchByString()"
+        [formControl]="searchCtrl" />
       <mat-error>
         {{'DIALOGS.ADD_MEMBERS.EMPTY_SEARCH_MESSAGE' | translate}}
       </mat-error>

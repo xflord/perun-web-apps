@@ -15,16 +15,14 @@
       </mat-form-field>
 
       <mat-form-field class="mr-2 w-100">
-        <label>
-          <input
-            matInput
-            autocomplete="false"
-            placeholder="{{'DIALOGS.ADD_MANAGERS.DESCRIPTION' | translate}}"
-            data-cy="search-manager-input"
-            perunWebAppsAutoFocus
-            (keyup.enter)="onSearchByString()"
-            [formControl]="searchCtrl" />
-        </label>
+        <input
+          matInput
+          autocomplete="false"
+          placeholder="{{'DIALOGS.ADD_MANAGERS.DESCRIPTION' | translate}}"
+          data-cy="search-manager-input"
+          perunWebAppsAutoFocus
+          (keyup.enter)="onSearchByString()"
+          [formControl]="searchCtrl" />
         <mat-error>
           {{'DIALOGS.ADD_MANAGERS.EMPTY_SEARCH_MESSAGE' | translate}}
         </mat-error>
