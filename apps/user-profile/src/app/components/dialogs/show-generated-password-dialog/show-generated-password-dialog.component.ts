@@ -11,18 +11,18 @@ export interface ShowGeneratedPasswordDialogData {
   styleUrls: ['./show-generated-password-dialog.component.scss'],
 })
 export class ShowGeneratedPasswordDialogComponent implements OnInit {
+  password = '';
+
   constructor(
     private dialogRef: MatDialogRef<ShowGeneratedPasswordDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: ShowGeneratedPasswordDialogData
   ) {}
 
-  password = '';
-
   ngOnInit(): void {
     this.password = this.data.password;
   }
 
-  onClose() {
+  onClose(): void {
     this.dialogRef.close();
   }
 }

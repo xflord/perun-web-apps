@@ -10,49 +10,37 @@ import { downloadData, getDataForExport, TableWrapperComponent } from '@perun-we
   styleUrls: ['./string-list.component.scss'],
 })
 export class StringListComponent implements OnChanges, AfterViewInit {
-  constructor() {}
-
-  @Input()
-  values: string[] = [];
-
-  @Input()
-  selection = new SelectionModel<string>(false, []);
-
-  @Input()
-  alertText = '';
-
-  @Input()
-  headerColumnText = '';
-
-  private sort: MatSort;
-
+  @Input() values: string[] = [];
+  @Input() selection = new SelectionModel<string>(false, []);
+  @Input() alertText = '';
+  @Input() headerColumnText = '';
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
   displayedColumns: string[] = ['select', 'value'];
   dataSource: MatTableDataSource<string>;
+  private sort: MatSort;
 
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  static getExportDataForColumn(data: string): string {
+    return data;
+  }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.values = this.values ? this.values : [];
     this.dataSource = new MatTableDataSource<string>(this.values);
     this.setDataSource();
   }
-  getExportDataForColumn(data: string) {
-    return data;
-  }
 
-  exportData(format: string) {
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getExportDataForColumn,
-        this
+        StringListComponent.getExportDataForColumn
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (this.dataSource) {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;

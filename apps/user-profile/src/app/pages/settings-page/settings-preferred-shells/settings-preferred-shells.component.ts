@@ -12,20 +12,6 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
   styleUrls: ['./settings-preferred-shells.component.scss'],
 })
 export class SettingsPreferredShellsComponent implements OnInit {
-  constructor(
-    private store: StoreService,
-    private attributesManagerService: AttributesManagerService,
-    private dialog: MatDialog,
-    private translateService: TranslateService
-  ) {
-    translateService
-      .get('PREFERRED_SHELLS.REMOVE_DIALOG_DESCRIPTION')
-      .subscribe((value) => (this.removeDialogDescription = value));
-    translateService
-      .get('PREFERRED_SHELLS.REMOVE_DIALOG_TITLE')
-      .subscribe((value) => (this.removeDialogTitle = value));
-  }
-
   defaultShells: string[] = ['/bin/bash', '/bin/csh', '/bin/ksh', '/bin/sh', '/bin/zsh'];
   userId: number;
   prefShellsAttribute: Attribute;
@@ -34,20 +20,34 @@ export class SettingsPreferredShellsComponent implements OnInit {
   removeDialogDescription: string;
   loading: boolean;
 
-  ngOnInit() {
+  constructor(
+    private store: StoreService,
+    private attributesManagerService: AttributesManagerService,
+    private dialog: MatDialog,
+    private translateService: TranslateService
+  ) {
+    translateService
+      .get('PREFERRED_SHELLS.REMOVE_DIALOG_DESCRIPTION')
+      .subscribe((value: string) => (this.removeDialogDescription = value));
+    translateService
+      .get('PREFERRED_SHELLS.REMOVE_DIALOG_TITLE')
+      .subscribe((value: string) => (this.removeDialogTitle = value));
+  }
+
+  ngOnInit(): void {
     this.userId = this.store.getPerunPrincipal().userId;
     this.translateService.onLangChange.subscribe(() => {
       this.translateService
         .get('PREFERRED_SHELLS.REMOVE_DIALOG_DESCRIPTION')
-        .subscribe((value) => (this.removeDialogDescription = value));
+        .subscribe((value: string) => (this.removeDialogDescription = value));
       this.translateService
         .get('PREFERRED_SHELLS.REMOVE_DIALOG_TITLE')
-        .subscribe((value) => (this.removeDialogTitle = value));
+        .subscribe((value: string) => (this.removeDialogTitle = value));
     });
     this.getAttribute();
   }
 
-  addShell() {
+  addShell(): void {
     this.shells.push('/bin/bash');
 
     this.prefShellsAttribute.value = this.shells;
@@ -57,11 +57,11 @@ export class SettingsPreferredShellsComponent implements OnInit {
         attribute: this.prefShellsAttribute,
       })
       .subscribe(() => {
-        console.log('done');
+        // console.log('done');
       });
   }
 
-  removeShell(i: number) {
+  removeShell(i: number): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {
@@ -82,20 +82,7 @@ export class SettingsPreferredShellsComponent implements OnInit {
     });
   }
 
-  private getAttribute() {
-    this.loading = true;
-    this.attributesManagerService
-      .getUserAttributeByName(this.userId, 'urn:perun:user:attribute-def:def:preferredShells')
-      .subscribe((attribute) => {
-        this.prefShellsAttribute = attribute;
-
-        // @ts-ignore
-        this.shells = this.prefShellsAttribute.value ? this.prefShellsAttribute.value : [];
-        this.loading = false;
-      });
-  }
-
-  changeValue() {
+  changeValue(): void {
     this.loading = true;
     this.prefShellsAttribute.value = this.shells;
     this.attributesManagerService
@@ -105,6 +92,18 @@ export class SettingsPreferredShellsComponent implements OnInit {
       })
       .subscribe(() => {
         this.getAttribute();
+      });
+  }
+
+  private getAttribute(): void {
+    this.loading = true;
+    this.attributesManagerService
+      .getUserAttributeByName(this.userId, 'urn:perun:user:attribute-def:def:preferredShells')
+      .subscribe((attribute) => {
+        this.prefShellsAttribute = attribute;
+
+        this.shells = (this.prefShellsAttribute?.value as string[]) ?? [];
+        this.loading = false;
       });
   }
 }

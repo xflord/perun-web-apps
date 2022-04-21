@@ -43,7 +43,7 @@ export class GroupsPageComponent implements OnInit {
     private attributesManagerService: AttributesManagerService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.userId = this.store.getPerunPrincipal().userId;
 
@@ -51,18 +51,13 @@ export class GroupsPageComponent implements OnInit {
       this.vos = vos;
       this.filteredVos = this.myControl.valueChanges.pipe(
         startWith(''),
-        map((value) => this._filter(value))
+        map((value: string) => this._filter(value))
       );
       this.getAllGroups();
     });
   }
 
-  private _filter(value: string | Vo): Vo[] {
-    const filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLowerCase;
-    return this.vos.filter((option) => option.name.toLowerCase().includes(<string>filterValue));
-  }
-
-  getAllGroups() {
+  getAllGroups(): void {
     this.loading = true;
     let i = 0;
     let j = 0;
@@ -110,14 +105,14 @@ export class GroupsPageComponent implements OnInit {
     return vo ? vo.name : null;
   }
 
-  filterByVo(event: MatAutocompleteSelectedEvent) {
+  filterByVo(event: MatAutocompleteSelectedEvent): void {
     if (event.option.value === 'all') {
       this.getAllGroups();
     } else {
       this.userMemberships = [];
       this.adminMemberships = [];
       this.loading = true;
-      const vo: Vo = event.option.value;
+      const vo: Vo = event.option.value as Vo;
       this.memberService.getMemberByUser(vo.id, this.userId).subscribe((member) => {
         this.groupService.getMemberGroups(member.id).subscribe((groups) => {
           let i = groups.length;
@@ -151,10 +146,15 @@ export class GroupsPageComponent implements OnInit {
     }
   }
 
-  extendMembership(membership: Membership) {
-    const registrarUrl = this.store.get('registrar_base_url');
+  extendMembership(membership: Membership): void {
+    const registrarUrl = this.store.get('registrar_base_url') as string;
     const group: Group = membership.entity;
     const voShortname = this.vos.find((vo) => vo.id === group.voId).shortName;
     window.location.href = `${registrarUrl}?vo=${voShortname}&group=${membership.entity.shortName}`;
+  }
+
+  private _filter(value: string | Vo): Vo[] {
+    const filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLowerCase();
+    return this.vos.filter((option) => option.name.toLowerCase().includes(filterValue));
   }
 }

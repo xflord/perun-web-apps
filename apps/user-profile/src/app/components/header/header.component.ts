@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { OtherApplicationsService, StoreService } from '@perun-web-apps/perun/services';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -9,26 +9,21 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  label = this.storeService.get('header_label_en');
-  logoutEnabled = this.storeService.get('log_out_enabled');
-  adminLabel = this.storeService.get('admin_gui_label_en');
+  @Output() sidenavToggle = new EventEmitter();
+  @Input() hideToggle = false;
+  @Input() disableLogo = false;
+
+  label = this.storeService.get('header_label_en') as string;
+  logoutEnabled = this.storeService.get('log_out_enabled') as string;
+  adminLabel = this.storeService.get('admin_gui_label_en') as string;
   principal = this.storeService.getPerunPrincipal();
 
-  @Output()
-  sidenavToggle = new EventEmitter();
-
-  @Input()
-  hideToggle = false;
-
-  @Input()
-  disableLogo = false;
-
-  bgColor = this.storeService.get('theme', 'nav_bg_color');
-  textColor = this.storeService.get('theme', 'nav_text_color');
-  iconColor = this.storeService.get('theme', 'nav_icon_color');
+  bgColor = this.storeService.get('theme', 'nav_bg_color') as string;
+  textColor = this.storeService.get('theme', 'nav_text_color') as string;
+  iconColor = this.storeService.get('theme', 'nav_icon_color') as string;
 
   isDevel = false;
-  logo: any;
+  logo: SafeHtml;
   adminGuiUrl: string;
   linkRoles: string[];
   activeLink = false;
@@ -40,19 +35,19 @@ export class HeaderComponent implements OnInit {
     private otherApplicationService: OtherApplicationsService
   ) {}
 
-  ngOnInit() {
-    this.isDevel = this.storeService.get('is_devel');
+  ngOnInit(): void {
+    this.isDevel = this.storeService.get('is_devel') as boolean;
     this.translate.onLangChange.subscribe((lang) => {
-      this.label = this.storeService.get(`header_label_${lang.lang}`);
-      this.adminLabel = this.storeService.get(`admin_gui_label_${lang.lang}`);
+      this.label = this.storeService.get(`header_label_${lang.lang}`) as string;
+      this.adminLabel = this.storeService.get(`admin_gui_label_${lang.lang}`) as string;
     });
-    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.get('logo'));
+    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.get('logo') as string);
 
     this.isLinkToGuiActive();
   }
 
-  isLinkToGuiActive() {
-    this.linkRoles = this.storeService.get('link_to_admin_gui_by_roles');
+  isLinkToGuiActive(): void {
+    this.linkRoles = this.storeService.get('link_to_admin_gui_by_roles') as string[];
     for (const roleKey in this.storeService.getPerunPrincipal().roles) {
       if (this.linkRoles.includes(roleKey)) {
         this.activeLink = true;
@@ -64,7 +59,7 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  onToggleSidenav = () => {
+  onToggleSidenav = (): void => {
     this.sidenavToggle.emit();
   };
 }

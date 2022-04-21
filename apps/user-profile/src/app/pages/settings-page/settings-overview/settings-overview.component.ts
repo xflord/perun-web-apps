@@ -14,17 +14,17 @@ interface TabItem {
   styleUrls: ['./settings-overview.component.scss'],
 })
 export class SettingsOverviewComponent implements OnInit {
-  constructor(private storeService: StoreService) {}
-
   items: TabItem[] = [];
 
-  ngOnInit() {
+  constructor(private storeService: StoreService) {}
+
+  ngOnInit(): void {
     this.initItems();
-    const displayedTabs: string[] = this.storeService.get('displayed_tabs');
+    const displayedTabs: string[] = this.storeService.get('displayed_tabs') as string[];
     this.items = this.items.filter((item) => displayedTabs.includes(item.tabName));
   }
 
-  private initItems() {
+  private initItems(): void {
     this.items = [
       {
         icon: 'lock_open',

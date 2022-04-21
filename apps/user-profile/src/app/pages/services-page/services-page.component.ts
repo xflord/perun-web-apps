@@ -14,6 +14,12 @@ import { StoreService } from '@perun-web-apps/perun/services';
   styleUrls: ['./services-page.component.scss'],
 })
 export class ServicesPageComponent implements OnInit {
+  vos: Vo[];
+  userId: number;
+  resources: RichResource[] = [];
+  filteredVos: Vo[] = [];
+  loading: boolean;
+
   constructor(
     private usersManagerService: UsersManagerService,
     private membersManagerService: MembersManagerService,
@@ -21,13 +27,7 @@ export class ServicesPageComponent implements OnInit {
     private storage: StoreService
   ) {}
 
-  vos: Vo[];
-  userId: number;
-  resources: RichResource[] = [];
-  filteredVos: Vo[] = [];
-  loading: boolean;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.userId = this.storage.getPerunPrincipal().userId;
     this.usersManagerService.getVosWhereUserIsMember(this.userId).subscribe((vos) => {
       this.vos = vos;
@@ -35,7 +35,7 @@ export class ServicesPageComponent implements OnInit {
     });
   }
 
-  getMemberData(vo: Vo) {
+  getMemberData(vo: Vo): void {
     this.loading = true;
     this.membersManagerService.getMemberByUser(vo.id, this.userId).subscribe((member) => {
       this.resourcesManagerService
@@ -47,7 +47,7 @@ export class ServicesPageComponent implements OnInit {
     });
   }
 
-  applyFilter(filter: string) {
+  applyFilter(filter: string): void {
     this.filteredVos = this.vos.filter((res) =>
       res.name.toLowerCase().includes(filter.toLowerCase())
     );

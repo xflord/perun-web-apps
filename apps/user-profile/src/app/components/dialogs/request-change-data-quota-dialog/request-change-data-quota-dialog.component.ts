@@ -19,6 +19,14 @@ export interface RequestChangeDataQuotaDialogData {
   styleUrls: ['./request-change-data-quota-dialog.component.scss'],
 })
 export class RequestChangeDataQuotaDialogComponent implements OnInit {
+  resource = '';
+  currentQuota = '';
+  reasonControl: FormControl;
+  newValueControl: FormControl;
+  units: string[] = ['MiB', 'GiB', 'TiB'];
+  selectedUnit = 'GiB';
+  successMessage: string;
+
   constructor(
     private dialogRef: MatDialogRef<RequestChangeDataQuotaDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: RequestChangeDataQuotaDialogData,
@@ -28,16 +36,8 @@ export class RequestChangeDataQuotaDialogComponent implements OnInit {
   ) {
     translate
       .get('DIALOGS.REQUEST_DATA_QUOTA_CHANGE.SUCCESS')
-      .subscribe((res) => (this.successMessage = res));
+      .subscribe((res: string) => (this.successMessage = res));
   }
-
-  resource = '';
-  currentQuota = '';
-  reasonControl: FormControl;
-  newValueControl: FormControl;
-  units: string[] = ['MiB', 'GiB', 'TiB'];
-  selectedUnit = 'GiB';
-  successMessage: string;
 
   ngOnInit(): void {
     this.resource = this.data.resource.name;
@@ -49,14 +49,22 @@ export class RequestChangeDataQuotaDialogComponent implements OnInit {
     ]);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 
-  onSubmit() {
+  onSubmit(): void {
     const subject = 'QUOTA: Change request';
     const name = new UserFullNamePipe().transform(this.data.user);
-    const text = `QUOTA CHANGE REQUEST↵ ↵ User: ${name} (user ID: ${this.data.user.id})↵ VO: ${this.data.vo.shortName} / ${this.data.vo.name} (vo ID: ${this.data.vo.id})↵ Resource: ${this.data.resource.name} (resource ID: ${this.data.resource.id})↵ Data quota↵ Requested quota: ${this.newValueControl.value}↵ Reason: ${this.reasonControl.value}↵ ↵ ↵ -------------------------------------↵ Sent from Perun GUI`;
+    const text = `QUOTA CHANGE REQUEST↵ ↵ User: ${name} (user ID: ${this.data.user.id})↵ VO: ${
+      this.data.vo.shortName
+    } / ${this.data.vo.name} (vo ID: ${this.data.vo.id})↵ Resource: ${
+      this.data.resource.name
+    } (resource ID: ${this.data.resource.id})↵ Data quota↵ Requested quota: ${
+      this.newValueControl.value as string
+    }↵ Reason: ${
+      this.reasonControl.value as string
+    }↵ ↵ ↵ -------------------------------------↵ Sent from Perun GUI`;
     this.rtMessagesService.sentMessageToRTWithVo(this.data.vo.id, subject, text).subscribe(() => {
       this.notificator.showSuccess(this.successMessage);
       this.dialogRef.close();

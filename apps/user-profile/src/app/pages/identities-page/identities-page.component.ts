@@ -18,14 +18,6 @@ import { RemoveUserExtSourceDialogComponent } from '@perun-web-apps/perun/dialog
   styleUrls: ['./identities-page.component.scss'],
 })
 export class IdentitiesPageComponent implements OnInit {
-  constructor(
-    private usersManagerService: UsersManagerService,
-    private storage: StoreService,
-    private registrarManagerService: RegistrarManagerService,
-    private dialog: MatDialog,
-    private attributesManagerService: AttributesManagerService
-  ) {}
-
   idpExtSources: RichUserExtSource[] = [];
   certExtSources: RichUserExtSource[] = [];
   otherExtSources: RichUserExtSource[] = [];
@@ -46,13 +38,21 @@ export class IdentitiesPageComponent implements OnInit {
   displayedColumnsCert = ['select', 'extSourceName', 'login', 'lastAccess'];
   displayedColumnsOther = ['extSourceName', 'login', 'lastAccess'];
 
-  ngOnInit() {
+  constructor(
+    private usersManagerService: UsersManagerService,
+    private storage: StoreService,
+    private registrarManagerService: RegistrarManagerService,
+    private dialog: MatDialog,
+    private attributesManagerService: AttributesManagerService
+  ) {}
+
+  ngOnInit(): void {
     this.userId = this.storage.getPerunPrincipal().userId;
-    this.displayCertificates = this.storage.get('display_identity_certificates');
+    this.displayCertificates = this.storage.get('display_identity_certificates') as boolean;
     this.refreshTables();
   }
 
-  refreshTables() {
+  refreshTables(): void {
     this.loading = true;
     this.idpExtSources = [];
     this.certExtSources = [];
@@ -66,9 +66,8 @@ export class IdentitiesPageComponent implements OnInit {
             'urn:perun:ues:attribute-def:def:sourceIdPName'
           )
           .subscribe((att) => {
-            if (att && att.value) {
-              // @ts-ignore
-              ues.userExtSource.extSource.name = att.value;
+            if (att?.value) {
+              ues.userExtSource.extSource.name = att.value as unknown as string;
               count--;
               this.loading = count !== 0;
               this.addToList(ues);
@@ -80,9 +79,8 @@ export class IdentitiesPageComponent implements OnInit {
                 )
                 .subscribe((att2) => {
                   count--;
-                  if (att2 && att2.value) {
-                    // @ts-ignore
-                    ues.userExtSource.extSource.name = att2.value;
+                  if (att2?.value) {
+                    ues.userExtSource.extSource.name = att2.value as unknown as string;
                   }
                   this.loading = count !== 0;
                   this.addToList(ues);
@@ -93,17 +91,17 @@ export class IdentitiesPageComponent implements OnInit {
     });
   }
 
-  addIdentity() {
+  addIdentity(): void {
     this.registrarManagerService.getConsolidatorToken().subscribe((token) => {
       const type = this.storage.getPerunPrincipal().extSourceType;
-      const consolidatorBaseUrl = this.storage.get('consolidator_base_url');
+      const consolidatorBaseUrl = this.storage.get('consolidator_base_url') as string;
       window.location.href = `${consolidatorBaseUrl}${
-        type && type.endsWith('X509') ? 'cert' : 'fed'
+        type?.endsWith('X509') ? 'cert' : 'fed'
       }-ic/ic/?target_url=${window.location.href}&token=${token}`;
     });
   }
 
-  removeIdentity(selection: SelectionModel<UserExtSource>) {
+  removeIdentity(selection: SelectionModel<UserExtSource>): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {
@@ -121,7 +119,7 @@ export class IdentitiesPageComponent implements OnInit {
     });
   }
 
-  private addToList(ues: RichUserExtSource) {
+  private addToList(ues: RichUserExtSource): void {
     if (ues.userExtSource.extSource.type.endsWith('Idp')) {
       this.idpExtSources.push(ues);
     } else if (ues.userExtSource.extSource.type.endsWith('X509')) {

@@ -6,7 +6,7 @@ import { Attribute } from '@perun-web-apps/perun/openapi';
   pure: true,
 })
 export class ValidateExpirationPipe implements PipeTransform {
-  transform(expirationAttribute: Attribute): any {
-    return expirationAttribute && expirationAttribute.value ? expirationAttribute.value : 'never';
+  transform(expirationAttribute: Attribute): string {
+    return (expirationAttribute?.value as unknown as string) ?? 'never';
   }
 }

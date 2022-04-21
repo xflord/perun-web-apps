@@ -31,7 +31,7 @@ export class BreadcrumbsComponent implements OnInit {
     });
   }
 
-  private createBreadcrumbs(route: ActivatedRoute, routerLink: string = '') {
+  private createBreadcrumbs(route: ActivatedRoute, routerLink = ''): void {
     const children: ActivatedRoute[] = route.children;
 
     if (children.length === 0 || children[0].snapshot.routeConfig.path === 'service-access') {
@@ -45,8 +45,8 @@ export class BreadcrumbsComponent implements OnInit {
       }
 
       const label = this.translate.instant(
-        child.snapshot.data[BreadcrumbsComponent.ROUTE_DATA_BREADCRUMB]
-      );
+        child.snapshot.data[BreadcrumbsComponent.ROUTE_DATA_BREADCRUMB] as string
+      ) as string;
       if (
         label &&
         (!this.menuItems[this.menuItems.length - 1] ||

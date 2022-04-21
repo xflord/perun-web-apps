@@ -7,12 +7,6 @@ import { Location } from '@angular/common';
   providedIn: 'root',
 })
 export class UserProfileConfigService {
-  constructor(
-    private initAuthService: InitAuthService,
-    private appConfigService: AppConfigService,
-    private location: Location
-  ) {}
-
   entityColorConfigs: EntityColorConfig[] = [
     {
       entity: 'user',
@@ -39,6 +33,12 @@ export class UserProfileConfigService {
       cssVariable: '--side-text-active',
     },
   ];
+
+  constructor(
+    private initAuthService: InitAuthService,
+    private appConfigService: AppConfigService,
+    private location: Location
+  ) {}
 
   initialize(): Promise<void> {
     return this.appConfigService

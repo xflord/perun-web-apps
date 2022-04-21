@@ -15,13 +15,13 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SettingsSambaPasswordComponent implements OnInit {
   showPassword: boolean;
-
   sambaExists: boolean;
   sambaAttribute: Attribute;
   sambaControl: FormControl;
   userId: number;
   showPwdTooltip: string;
   hidePwdTooltip: string;
+  successMessage: string;
 
   constructor(
     private attributesManagerService: AttributesManagerService,
@@ -30,18 +30,18 @@ export class SettingsSambaPasswordComponent implements OnInit {
     private notificator: NotificatorService,
     private translate: TranslateService
   ) {
-    translate.get('SAMBA_PASSWORD.SUCCESS_MESSAGE').subscribe((res) => (this.successMessage = res));
+    translate
+      .get('SAMBA_PASSWORD.SUCCESS_MESSAGE')
+      .subscribe((res: string) => (this.successMessage = res));
     translate
       .get('SAMBA_PASSWORD.SHOW_PWD_TOOLTIP')
-      .subscribe((res) => (this.showPwdTooltip = res));
+      .subscribe((res: string) => (this.showPwdTooltip = res));
     translate
       .get('SAMBA_PASSWORD.HIDE_PWD_TOOLTIP')
-      .subscribe((res) => (this.hidePwdTooltip = res));
+      .subscribe((res: string) => (this.hidePwdTooltip = res));
   }
 
-  successMessage: string;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.userId = this.store.getPerunPrincipal().userId;
     this.sambaControl = new FormControl('', [
       Validators.pattern(
@@ -51,12 +51,17 @@ export class SettingsSambaPasswordComponent implements OnInit {
     this.getSambaAttribute();
   }
 
-  setSambaPassword() {
-    this.sambaAttribute.value = this.sambaControl.value;
+  setSambaPassword(): void {
+    this.sambaAttribute.value = this.sambaControl.value as object;
 
     const timestamp = new Date().getTime().toString();
     this.usersManagerService
-      .createAlternativePassword(this.userId, timestamp, 'samba-du', this.sambaControl.value)
+      .createAlternativePassword(
+        this.userId,
+        timestamp,
+        'samba-du',
+        this.sambaControl.value as string
+      )
       .subscribe(() => {
         this.sambaControl.setValue('');
         this.getSambaAttribute();
@@ -64,7 +69,7 @@ export class SettingsSambaPasswordComponent implements OnInit {
       });
   }
 
-  getSambaAttribute() {
+  getSambaAttribute(): void {
     this.attributesManagerService
       .getUserAttributeByName(this.userId, 'urn:perun:user:attribute-def:def:altPasswords:samba-du')
       .subscribe((att) => {

@@ -14,26 +14,6 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
   styleUrls: ['./settings-preferred-unix-group-names.component.scss'],
 })
 export class SettingsPreferredUnixGroupNamesComponent implements OnInit {
-  constructor(
-    private store: StoreService,
-    private attributesManagerService: AttributesManagerService,
-    private dialog: MatDialog,
-    private translateService: TranslateService
-  ) {
-    translateService
-      .get('PREFERRED_UNIX_GROUP_NAMES.REMOVE_DIALOG_DESCRIPTION')
-      .subscribe((value) => (this.removeDialogDescription = value));
-    translateService
-      .get('PREFERRED_UNIX_GROUP_NAMES.REMOVE_DIALOG_TITLE')
-      .subscribe((value) => (this.removeDialogTitle = value));
-    translateService
-      .get('ALERTS.NO_PREFERRED_UNIX_GROUPS')
-      .subscribe((value) => (this.alertText = value));
-    translateService
-      .get('PREFERRED_UNIX_GROUP_NAMES.HEADER_COLUMN')
-      .subscribe((value) => (this.headerColumnText = value));
-  }
-
   namespaces: string[] = [];
   userId = this.store.getPerunPrincipal().userId;
   groupNames: Map<string, string[]> = new Map<string, string[]>();
@@ -46,21 +26,41 @@ export class SettingsPreferredUnixGroupNamesComponent implements OnInit {
   removeDialogTitle: string;
   removeDialogDescription: string;
 
-  ngOnInit() {
-    this.namespaces = this.store.get('preferred_unix_group_names');
+  constructor(
+    private store: StoreService,
+    private attributesManagerService: AttributesManagerService,
+    private dialog: MatDialog,
+    private translateService: TranslateService
+  ) {
+    translateService
+      .get('PREFERRED_UNIX_GROUP_NAMES.REMOVE_DIALOG_DESCRIPTION')
+      .subscribe((value: string) => (this.removeDialogDescription = value));
+    translateService
+      .get('PREFERRED_UNIX_GROUP_NAMES.REMOVE_DIALOG_TITLE')
+      .subscribe((value: string) => (this.removeDialogTitle = value));
+    translateService
+      .get('ALERTS.NO_PREFERRED_UNIX_GROUPS')
+      .subscribe((value: string) => (this.alertText = value));
+    translateService
+      .get('PREFERRED_UNIX_GROUP_NAMES.HEADER_COLUMN')
+      .subscribe((value: string) => (this.headerColumnText = value));
+  }
+
+  ngOnInit(): void {
+    this.namespaces = this.store.get('preferred_unix_group_names') as string[];
     this.translateService.onLangChange.subscribe(() => {
       this.translateService
         .get('PREFERRED_UNIX_GROUP_NAMES.REMOVE_DIALOG_DESCRIPTION')
-        .subscribe((value) => (this.removeDialogDescription = value));
+        .subscribe((value: string) => (this.removeDialogDescription = value));
       this.translateService
         .get('PREFERRED_UNIX_GROUP_NAMES.REMOVE_DIALOG_TITLE')
-        .subscribe((value) => (this.removeDialogTitle = value));
+        .subscribe((value: string) => (this.removeDialogTitle = value));
       this.translateService
         .get('ALERTS.NO_PREFERRED_UNIX_GROUPS')
-        .subscribe((value) => (this.alertText = value));
+        .subscribe((value: string) => (this.alertText = value));
       this.translateService
         .get('PREFERRED_UNIX_GROUP_NAMES.HEADER_COLUMN')
-        .subscribe((value) => (this.headerColumnText = value));
+        .subscribe((value: string) => (this.headerColumnText = value));
     });
     this.initSelection();
     this.namespaces.forEach((group) => {
@@ -68,27 +68,26 @@ export class SettingsPreferredUnixGroupNamesComponent implements OnInit {
     });
   }
 
-  initSelection() {
-    for (let i = 0; i < this.namespaces.length; i++) {
+  initSelection(): void {
+    this.namespaces.forEach(() => {
       this.selectionList.push(new SelectionModel<string>(true, []));
-    }
+    });
   }
 
-  getAttribute(namespace: string) {
+  getAttribute(namespace: string): void {
     this.attributesManagerService
       .getUserAttributeByName(
         this.userId,
         `urn:perun:user:attribute-def:def:preferredUnixGroupName-namespace:${namespace}`
       )
       .subscribe((names) => {
-        const value = names.value ? names.value : [];
-        // @ts-ignore
+        const value = (names?.value as string[]) ?? [];
         this.groupNames.set(namespace, value);
         this.groupNameAttributes.push(names);
       });
   }
 
-  addGroupName(namespace: string) {
+  addGroupName(namespace: string): void {
     const groups = this.groupNames.get(namespace);
 
     const config = getDefaultDialogConfig();
@@ -104,7 +103,7 @@ export class SettingsPreferredUnixGroupNamesComponent implements OnInit {
     });
   }
 
-  removeGroupName(namespace: string, index: number) {
+  removeGroupName(namespace: string, index: number): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {

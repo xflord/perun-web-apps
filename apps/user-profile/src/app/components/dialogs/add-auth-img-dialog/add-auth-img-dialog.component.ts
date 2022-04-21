@@ -30,31 +30,30 @@ export class AddAuthImgDialogComponent implements OnInit {
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.attribute = this.data.attribute;
-    // @ts-ignore
-    this.newImage = this.attribute.value;
+    this.newImage = this.attribute.value as unknown as string;
   }
 
-  handleInputChange(e) {
-    const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+  handleInputChange(e: Event | DragEvent): void {
+    const file = (e as DragEvent).dataTransfer.files[0] ?? (e.target as HTMLInputElement)?.files[0];
     const pattern = /image-*/;
     const reader = new FileReader();
     if (!file.type.match(pattern)) {
       alert('invalid format');
       return;
     }
-    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.onload = this._handleReaderLoaded.bind(this) as () => void;
     reader.readAsDataURL(file);
   }
 
-  _handleReaderLoaded(e) {
-    const reader = e.target;
-    this.imgTooLong = reader.result.length >= 5120;
-    this.newImage = reader.result;
+  _handleReaderLoaded(e: ProgressEvent): void {
+    const reader = e.target as FileReader;
+    const result = reader.result as string;
+    this.imgTooLong = result.length >= 5120;
+    this.newImage = result;
   }
 
-  onAdd() {
-    // @ts-ignore
-    this.attribute.value = this.newImage;
+  onAdd(): void {
+    this.attribute.value = this.newImage as unknown as object;
     this.attributesManagerService
       .setUserAttribute({
         attribute: this.attribute,
@@ -65,11 +64,11 @@ export class AddAuthImgDialogComponent implements OnInit {
       });
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  generateImg() {
+  generateImg(): void {
     const MAX_COLOR = 200; // Max value for a color component
     const MIN_COLOR = 120; // Min value for a color component
     const FILL_CHANCE = 0.5; // Chance of a square being filled [0, 1]
@@ -79,7 +78,7 @@ export class AddAuthImgDialogComponent implements OnInit {
     const FILL_COLOR = '#FFFFFF'; // canvas background color
 
     /* Create a temporary canvas */
-    function setupCanvas() {
+    function setupCanvas(): HTMLCanvasElement {
       const canvas = document.createElement('canvas');
       canvas.width = SIZE;
       canvas.height = SIZE;
@@ -93,15 +92,20 @@ export class AddAuthImgDialogComponent implements OnInit {
       return canvas;
     }
 
-    function fillBlock(x, y, color, context) {
+    function fillBlock(
+      x: number,
+      y: number,
+      color: number[],
+      context: CanvasRenderingContext2D
+    ): void {
       context.beginPath();
       context.rect(x * SQUARE, y * SQUARE, SQUARE, SQUARE);
       context.fillStyle = 'rgb(' + color.join(',') + ')';
       context.fill();
     }
 
-    function generateColor() {
-      const rgb = [];
+    function generateColor(): number[] {
+      const rgb: number[] = [];
       for (let i = 0; i < 3; i++) {
         const val = Math.floor(Math.random() * 256);
         const minEnforced = Math.max(MIN_COLOR, val);
@@ -111,7 +115,7 @@ export class AddAuthImgDialogComponent implements OnInit {
       return rgb;
     }
 
-    function generateImage() {
+    function generateImage(): string {
       const canvas = setupCanvas();
       const context = canvas.getContext('2d');
       const color = generateColor();

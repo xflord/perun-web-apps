@@ -19,36 +19,34 @@ export interface RemoveStringValueDialogData {
   styleUrls: ['./remove-string-value-dialog.component.scss'],
 })
 export class RemoveStringValueDialogComponent implements OnInit {
-  constructor(
-    private dialogRef: MatDialogRef<RemoveStringValueDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: RemoveStringValueDialogData,
-    private attributesManagerService: AttributesManagerService
-  ) {}
-
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<string>;
   loading: boolean;
   description: string;
   title: string;
 
-  ngOnInit() {
+  constructor(
+    private dialogRef: MatDialogRef<RemoveStringValueDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: RemoveStringValueDialogData,
+    private attributesManagerService: AttributesManagerService
+  ) {}
+
+  ngOnInit(): void {
     this.dataSource = new MatTableDataSource<string>(this.data.values);
     this.description = this.data.description;
     this.title = this.data.title;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     if (this.data.doNotShowValues) {
-      // @ts-ignore
-      this.data.attribute.value = '';
+      this.data.attribute.value = '' as unknown as object;
     } else {
-      // @ts-ignore
-      let values: string[] = this.data.attribute.value ? this.data.attribute.value : [];
+      let values: string[] = (this.data.attribute?.value as unknown as string[]) ?? [];
       if (this.data.valueIndex !== undefined) {
         values.splice(this.data.valueIndex, 1);
       } else {

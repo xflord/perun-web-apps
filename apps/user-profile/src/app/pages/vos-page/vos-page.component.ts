@@ -15,12 +15,6 @@ import { Membership } from '../../components/membership-list/membership-list.com
   styleUrls: ['./vos-page.component.scss'],
 })
 export class VosPageComponent implements OnInit {
-  constructor(
-    private usersService: UsersManagerService,
-    private store: StoreService,
-    private membersService: MembersManagerService
-  ) {}
-
   principal: PerunPrincipal;
   loading: boolean;
   userId: number;
@@ -32,14 +26,20 @@ export class VosPageComponent implements OnInit {
 
   vosCount = 0;
 
-  ngOnInit() {
+  constructor(
+    private usersService: UsersManagerService,
+    private store: StoreService,
+    private membersService: MembersManagerService
+  ) {}
+
+  ngOnInit(): void {
     this.principal = this.store.getPerunPrincipal();
     this.userId = this.principal.user.id;
 
     this.refreshTable();
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.usersService.getVosWhereUserIsMember(this.userId).subscribe((vosMember) => {
       this.usersService.getVosWhereUserIsAdmin(this.userId).subscribe((vosAdmin) => {
@@ -50,16 +50,21 @@ export class VosPageComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  isEverythingLoaded() {
+  isEverythingLoaded(): void {
     this.vosCount--;
     this.loading = this.vosCount !== 0;
   }
 
-  private fillMemberships(vos: Array<Vo>, memberships: Membership[]) {
+  extendMembership(membership: Membership): void {
+    const registrarUrl = this.store.get('registrar_base_url') as string;
+    window.location.href = `${registrarUrl}?vo=${membership.entity.shortName}`;
+  }
+
+  private fillMemberships(vos: Array<Vo>, memberships: Membership[]): void {
     this.membersService.getMembersByUser(this.userId).subscribe((members) => {
       vos.forEach((vo) => {
         const member = members.find((mem) => mem.voId === vo.id);
@@ -83,10 +88,5 @@ export class VosPageComponent implements OnInit {
         }
       });
     });
-  }
-
-  extendMembership(membership: Membership) {
-    const registrarUrl = this.store.get('registrar_base_url');
-    window.location.href = `${registrarUrl}?vo=${membership.entity.shortName}`;
   }
 }

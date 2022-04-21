@@ -15,24 +15,6 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
   styleUrls: ['./settings-ssh-keys.component.scss'],
 })
 export class SettingsSSHKeysComponent implements OnInit {
-  constructor(
-    private store: StoreService,
-    private attributesManagerService: AttributesManagerService,
-    private dialog: MatDialog,
-    private translateService: TranslateService
-  ) {
-    translateService
-      .get('SSH_KEYS.REMOVE_DIALOG_DESCRIPTION')
-      .subscribe((value) => (this.removeDialogDescription = value));
-    translateService
-      .get('SSH_KEYS.REMOVE_DIALOG_TITLE')
-      .subscribe((value) => (this.removeDialogTitle = value));
-    translateService.get('ALERTS.NO_ALT_PASSWORDS').subscribe((value) => (this.alertText = value));
-    translateService
-      .get('SSH_KEYS.HEADER_COLUMN')
-      .subscribe((value) => (this.headerColumnText = value));
-  }
-
   adminKeys: string[] = [];
   userKeys: string[] = [];
 
@@ -54,28 +36,48 @@ export class SettingsSSHKeysComponent implements OnInit {
 
   loading: boolean;
 
-  ngOnInit() {
+  constructor(
+    private store: StoreService,
+    private attributesManagerService: AttributesManagerService,
+    private dialog: MatDialog,
+    private translateService: TranslateService
+  ) {
+    translateService
+      .get('SSH_KEYS.REMOVE_DIALOG_DESCRIPTION')
+      .subscribe((value: string) => (this.removeDialogDescription = value));
+    translateService
+      .get('SSH_KEYS.REMOVE_DIALOG_TITLE')
+      .subscribe((value: string) => (this.removeDialogTitle = value));
+    translateService
+      .get('ALERTS.NO_ALT_PASSWORDS')
+      .subscribe((value: string) => (this.alertText = value));
+    translateService
+      .get('SSH_KEYS.HEADER_COLUMN')
+      .subscribe((value: string) => (this.headerColumnText = value));
+  }
+
+  ngOnInit(): void {
     this.userId = this.store.getPerunPrincipal().userId;
     this.translateService.onLangChange.subscribe(() => {
       this.translateService
         .get('SSH_KEYS.REMOVE_DIALOG_DESCRIPTION')
-        .subscribe((value) => (this.removeDialogDescription = value));
+        .subscribe((value: string) => (this.removeDialogDescription = value));
       this.translateService
         .get('SSH_KEYS.REMOVE_DIALOG_TITLE')
-        .subscribe((value) => (this.removeDialogTitle = value));
+        .subscribe((value: string) => (this.removeDialogTitle = value));
       this.translateService
         .get('ALERTS.NO_ALT_PASSWORDS')
-        .subscribe((value) => (this.alertText = value));
+        .subscribe((value: string) => (this.alertText = value));
       this.translateService
         .get('SSH_KEYS.HEADER_COLUMN')
-        .subscribe((value) => (this.headerColumnText = value));
+        .subscribe((value: string) => (this.headerColumnText = value));
     });
     this.loading = true;
     this.getUserSSH();
     this.getAdminSSH();
   }
 
-  addKey(admin: boolean) {
+  addKey(admin: boolean): void {
     const config = getDefaultDialogConfig();
     config.width = '850px';
     config.data = {
@@ -96,7 +98,7 @@ export class SettingsSSHKeysComponent implements OnInit {
     });
   }
 
-  removeKey(key: string, admin: boolean) {
+  removeKey(key: string, admin: boolean): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {
@@ -123,29 +125,27 @@ export class SettingsSSHKeysComponent implements OnInit {
     });
   }
 
-  getUserSSH() {
+  getUserSSH(): void {
     this.attributesManagerService
       .getUserAttributeByName(this.userId, this.userUrn)
       .subscribe((sshKeys) => {
         this.userKeyAttribute = sshKeys;
-        // @ts-ignore
-        this.userKeys = sshKeys.value;
+        this.userKeys = sshKeys.value as string[];
         this.loading = false;
       });
   }
 
-  getAdminSSH() {
+  getAdminSSH(): void {
     this.attributesManagerService
       .getUserAttributeByName(this.userId, this.adminUrn)
       .subscribe((sshKeys) => {
         this.adminKeyAttribute = sshKeys;
-        // @ts-ignore
-        this.adminKeys = sshKeys.value;
+        this.adminKeys = sshKeys.value as string[];
         this.loading = false;
       });
   }
 
-  showWholeKey(key: string) {
+  showWholeKey(key: string): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {

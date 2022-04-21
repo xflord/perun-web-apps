@@ -21,8 +21,15 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  public static minWidth = 992;
+  static minWidth = 992;
+  @ViewChild('footer') footer: ElementRef<HTMLDivElement>;
   sidebarMode: 'over' | 'push' | 'side' = 'side';
+  sideMenuBgColor = this.store.get('theme', 'sidemenu_bg_color') as string;
+  contentBackgroundColor = this.store.get('theme', 'content_bg_color') as string;
+  isLoginScreenShown: boolean;
+  isServiceAccess: boolean;
+  contentHeight = 'calc(100vh - 84px)';
+  headerLabel = this.store.get('header_label_en') as string;
 
   constructor(
     private store: StoreService,
@@ -35,13 +42,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.getScreenSize();
   }
 
-  sideMenuBgColor = this.store.get('theme', 'sidemenu_bg_color');
-  contentBackgroundColor = this.store.get('theme', 'content_bg_color');
-  isLoginScreenShown: boolean;
-  isServiceAccess: boolean;
-  contentHeight = 'calc(100vh - 84px)';
-  headerLabel = this.store.get('header_label_en');
-  @ViewChild('footer') footer: ElementRef;
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(): void {
+    this.sidebarMode = this.isMobile() ? 'over' : 'side';
+  }
 
   ngOnInit(): void {
     this.isLoginScreenShown = this.initAuth.isLoginScreenShown();
@@ -50,7 +54,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (this.isLoginScreenShown) {
       this.headerLabel = this.store.get(
         `header_label_${this.preferredLangService.getPreferredLanguage(null)}`
-      );
+      ) as string;
       return;
     }
     if (this.isServiceAccess) {
@@ -60,16 +64,11 @@ export class AppComponent implements OnInit, AfterViewInit {
       .getUserAttributes(this.store.getPerunPrincipal().userId)
       .subscribe((atts) => {
         const userPrefLang = atts.find((elem) => elem.friendlyName === 'preferredLanguage');
-        const userLang = userPrefLang && userPrefLang.value ? userPrefLang.value.toString() : null;
+        const userLang = (userPrefLang?.value as unknown as string) ?? null;
 
         const prefLang = this.preferredLangService.getPreferredLanguage(userLang);
         this.translateService.use(prefLang);
       });
-  }
-
-  @HostListener('window:resize', ['$event'])
-  getScreenSize() {
-    this.sidebarMode = this.isMobile() ? 'over' : 'side';
   }
 
   isMobile(): boolean {
@@ -81,7 +80,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.contentHeight = 'calc(100vh - 84px - ' + this.footer.nativeElement.offsetHeight + 'px)';
+    this.contentHeight =
+      'calc(100vh - 84px - ' + String(this.footer.nativeElement.offsetHeight) + 'px)';
     this.changeDetector.detectChanges();
   }
 }

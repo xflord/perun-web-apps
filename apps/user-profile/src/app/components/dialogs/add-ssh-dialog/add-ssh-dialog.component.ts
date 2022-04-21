@@ -34,6 +34,7 @@ export class AddSshDialogComponent implements OnInit {
     'sk-ecdsa-sha2-nistp256-cert-v01@openssh.com',
   ];
   static readonly sshKeyPattern = '^(' + AddSshDialogComponent.allowedSshKeys.join('|') + ').+$';
+  sshControl: FormControl;
 
   constructor(
     private dialogRef: MatDialogRef<AddSshDialogComponent>,
@@ -41,24 +42,22 @@ export class AddSshDialogComponent implements OnInit {
     private attributesManagerService: AttributesManagerService
   ) {}
 
-  sshControl: FormControl;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.sshControl = new FormControl(null, [
       Validators.required,
       Validators.pattern(AddSshDialogComponent.sshKeyPattern),
     ]);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
-    // @ts-ignore
-    const keys: string[] = this.data.attribute.value ? this.data.attribute.value : [];
-    if (!keys.includes(this.sshControl.value)) {
-      keys.push(this.sshControl.value);
+  onSubmit(): void {
+    const keys: string[] = (this.data.attribute?.value as unknown as string[]) ?? [];
+    const ssh = this.sshControl.value as string;
+    if (!keys.includes(ssh)) {
+      keys.push(ssh);
     }
     this.data.attribute.value = keys;
 

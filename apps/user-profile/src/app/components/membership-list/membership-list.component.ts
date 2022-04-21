@@ -31,7 +31,22 @@ export interface Membership {
   styleUrls: ['./membership-list.component.scss'],
 })
 export class MembershipListComponent implements OnChanges, AfterViewInit {
-  constructor() {}
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  @Input() members: Membership[] = [];
+  @Input() searchString = '';
+  @Input() selection: SelectionModel<Membership> = new SelectionModel<Membership>(false, []);
+  @Input() displayedColumns: string[] = [
+    'checkbox',
+    'name',
+    'description',
+    'expirationAttribute',
+    'extend',
+  ];
+  @Input() tableId: string;
+  @Input() filterValue = '';
+  @Output() extendMembership: EventEmitter<Membership> = new EventEmitter<Membership>();
+  dataSource: MatTableDataSource<Membership>;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   private sort: MatSort;
 
@@ -40,78 +55,50 @@ export class MembershipListComponent implements OnChanges, AfterViewInit {
     this.setDataSource();
   }
 
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-
-  @Input()
-  members: Membership[] = [];
-
-  @Input()
-  searchString = '';
-
-  @Input()
-  selection: SelectionModel<Membership> = new SelectionModel<Membership>(false, []);
-
-  @Input()
-  displayedColumns: string[] = ['checkbox', 'name', 'description', 'expirationAttribute', 'extend'];
-
-  @Input()
-  tableId: string;
-
-  @Input()
-  filterValue = '';
-
-  @Output()
-  extendMembership: EventEmitter<Membership> = new EventEmitter<Membership>();
-
-  dataSource: MatTableDataSource<Membership>;
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.child.paginator;
-  }
-
-  ngOnChanges() {
-    this.dataSource = new MatTableDataSource<Membership>(this.members);
-    this.setDataSource();
-  }
-
-  getDataForColumn(data: Membership, column: string): string {
+  static getDataForColumn(data: Membership, column: string): string {
     switch (column) {
       case 'name':
         return data.entity.name;
       case 'description':
         return 'description' in data.entity ? data.entity.description : '';
       case 'expirationAttribute':
-        return data.expirationAttribute && data.expirationAttribute.value
-          ? <string>(<unknown>data.expirationAttribute.value)
-          : 'never';
+        return (data?.expirationAttribute?.value as unknown as string) ?? 'never';
       default:
         return '';
     }
   }
 
-  exportData(format: string) {
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.child.paginator;
+  }
+
+  ngOnChanges(): void {
+    this.dataSource = new MatTableDataSource<Membership>(this.members);
+    this.setDataSource();
+  }
+
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn.bind(this)
+        MembershipListComponent.getDataForColumn
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: Membership, filter: string) =>
+      this.dataSource.filterPredicate = (data: Membership, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn.bind(this)
+          MembershipListComponent.getDataForColumn
         );
-      this.dataSource.sortData = (data: Membership[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn.bind(this));
+      this.dataSource.sortData = (data: Membership[], sort: MatSort): Membership[] =>
+        customDataSourceSort(data, sort, MembershipListComponent.getDataForColumn);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;
@@ -122,7 +109,7 @@ export class MembershipListComponent implements OnChanges, AfterViewInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.entity.id + 1}`;
   }
 
-  extend(membership: Membership) {
+  extend(membership: Membership): void {
     this.extendMembership.emit(membership);
   }
 }

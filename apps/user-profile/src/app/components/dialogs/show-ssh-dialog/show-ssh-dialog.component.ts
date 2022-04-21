@@ -11,18 +11,18 @@ export interface ShowSshDialogData {
   styleUrls: ['./show-ssh-dialog.component.scss'],
 })
 export class ShowSshDialogComponent implements OnInit {
+  sshKey: string;
+
   constructor(
     private dialogRef: MatDialogRef<ShowSshDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: ShowSshDialogData
   ) {}
 
-  sshKey: string;
-
   ngOnInit(): void {
     this.sshKey = this.data.value;
   }
 
-  onClose() {
+  onClose(): void {
     this.dialogRef.close();
   }
 }

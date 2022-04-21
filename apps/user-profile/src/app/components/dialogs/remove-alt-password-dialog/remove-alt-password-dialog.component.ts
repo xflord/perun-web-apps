@@ -15,25 +15,25 @@ export interface RemoveAltPasswordDialogData {
   styleUrls: ['./remove-alt-password-dialog.component.scss'],
 })
 export class RemoveAltPasswordDialogComponent implements OnInit {
+  displayedColumns: string[] = ['description'];
+  dataSource: MatTableDataSource<string>;
+  loading: boolean;
+
   constructor(
     private dialogRef: MatDialogRef<RemoveAltPasswordDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: RemoveAltPasswordDialogData,
     private usersManagerService: UsersManagerService
   ) {}
 
-  displayedColumns: string[] = ['description'];
-  dataSource: MatTableDataSource<string>;
-  loading: boolean;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.dataSource = new MatTableDataSource<string>(this.data.description);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     this.usersManagerService
       .deleteAlternativePassword(this.data.userId, 'einfra', this.data.passwordId)

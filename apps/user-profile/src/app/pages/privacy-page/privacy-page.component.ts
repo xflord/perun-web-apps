@@ -16,13 +16,6 @@ import { UserFullNamePipe } from '@perun-web-apps/perun/pipes';
   styleUrls: ['./privacy-page.component.scss'],
 })
 export class PrivacyPageComponent implements OnInit {
-  constructor(
-    private usersManagerService: UsersManagerService,
-    private membersService: MembersManagerService,
-    private attributesManagerService: AttributesManagerService,
-    private storage: StoreService
-  ) {}
-
   vos: Vo[] = [];
   userId: number;
   user: RichUser;
@@ -33,7 +26,14 @@ export class PrivacyPageComponent implements OnInit {
   innerLoading: boolean;
   filteredVos: Vo[] = [];
 
-  ngOnInit() {
+  constructor(
+    private usersManagerService: UsersManagerService,
+    private membersService: MembersManagerService,
+    private attributesManagerService: AttributesManagerService,
+    private storage: StoreService
+  ) {}
+
+  ngOnInit(): void {
     this.outerLoading = true;
     this.userId = this.storage.getPerunPrincipal().userId;
     this.usersManagerService.getVosWhereUserIsMember(this.userId).subscribe((vos) => {
@@ -43,7 +43,7 @@ export class PrivacyPageComponent implements OnInit {
     });
   }
 
-  getUserData() {
+  getUserData(): void {
     this.innerLoading = true;
     this.usersManagerService.getRichUserWithAttributes(this.userId).subscribe((user) => {
       this.user = user;
@@ -53,7 +53,7 @@ export class PrivacyPageComponent implements OnInit {
     });
   }
 
-  getMemberData(vo: Vo) {
+  getMemberData(vo: Vo): void {
     this.innerLoading = true;
     this.membersService.getMemberByUser(vo.id, this.userId).subscribe((member) => {
       this.membersService.getRichMemberWithAttributes(member.id).subscribe((richMember) => {
@@ -63,7 +63,7 @@ export class PrivacyPageComponent implements OnInit {
     });
   }
 
-  applyFilter(filter: string) {
+  applyFilter(filter: string): void {
     this.filteredVos = this.vos.filter((res) =>
       res.name.toLowerCase().includes(filter.toLowerCase())
     );

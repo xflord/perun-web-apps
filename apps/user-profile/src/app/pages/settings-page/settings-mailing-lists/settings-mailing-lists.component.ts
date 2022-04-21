@@ -18,14 +18,6 @@ import { StoreService } from '@perun-web-apps/perun/services';
   styleUrls: ['./settings-mailing-lists.component.scss'],
 })
 export class SettingsMailingListsComponent implements OnInit {
-  constructor(
-    private store: StoreService,
-    private usersManagerService: UsersManagerService,
-    private membersService: MembersManagerService,
-    private resourcesManagerService: ResourcesManagerService,
-    private attributesManagerService: AttributesManagerService
-  ) {}
-
   user: User;
   vos: Vo[] = [];
   resources: RichResource[] = [];
@@ -36,7 +28,15 @@ export class SettingsMailingListsComponent implements OnInit {
   filteredVos: Vo[] = [];
   loading: boolean;
 
-  ngOnInit() {
+  constructor(
+    private store: StoreService,
+    private usersManagerService: UsersManagerService,
+    private membersService: MembersManagerService,
+    private resourcesManagerService: ResourcesManagerService,
+    private attributesManagerService: AttributesManagerService
+  ) {}
+
+  ngOnInit(): void {
     this.user = this.store.getPerunPrincipal().user;
 
     this.usersManagerService.getVosWhereUserIsMember(this.user.id).subscribe((vos) => {
@@ -45,7 +45,7 @@ export class SettingsMailingListsComponent implements OnInit {
     });
   }
 
-  getMailingLists(vo: Vo) {
+  getMailingLists(vo: Vo): void {
     this.loading = true;
     this.resources = [];
     this.membersService.getMemberByUser(vo.id, this.user.id).subscribe((member) => {
@@ -72,8 +72,7 @@ export class SettingsMailingListsComponent implements OnInit {
                     );
                     if (
                       attribute &&
-                      // @ts-ignore
-                      !(disableOptOut && (disableOptOut.value as string) === 'true')
+                      !(disableOptOut && (disableOptOut.value as unknown as string) === 'true')
                     ) {
                       this.optOuts.push({
                         resource: resource.id,
@@ -90,22 +89,23 @@ export class SettingsMailingListsComponent implements OnInit {
     });
   }
 
-  getOptOutAttribute(resource: RichResource) {
+  getOptOutAttribute(resource: RichResource): void {
     this.index = this.resources.indexOf(resource);
     this.optOutAttribute = this.optOuts[this.index].attribute;
   }
 
-  setOptOut() {
-    // @ts-ignore
-    this.optOuts[this.index].attribute.value = this.optOutAttribute.value ? null : 'true';
+  setOptOut(): void {
+    this.optOuts[this.index].attribute.value = this.optOutAttribute.value
+      ? null
+      : ('true' as unknown as object);
     this.attributesManagerService
       .setMemberResourceAttribute(this.optOuts[this.index])
       .subscribe(() => {
-        console.log('done');
+        // console.log('done');
       });
   }
 
-  applyFilter(filter: string) {
+  applyFilter(filter: string): void {
     this.filteredVos = this.vos.filter((vo) =>
       vo.name.toLowerCase().includes(filter.toLowerCase())
     );

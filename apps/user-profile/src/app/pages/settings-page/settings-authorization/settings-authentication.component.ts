@@ -38,10 +38,10 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
   ) {
     translate
       .get('AUTHENTICATION.DELETE_IMG_DIALOG_TITLE')
-      .subscribe((res) => (this.removeDialogTitle = res));
+      .subscribe((res: string) => (this.removeDialogTitle = res));
     translate
       .get('AUTHENTICATION.DELETE_IMG_DIALOG_DESC')
-      .subscribe((res) => (this.removeDialogDescription = res));
+      .subscribe((res: string) => (this.removeDialogDescription = res));
   }
 
   ngAfterViewInit(): void {
@@ -56,11 +56,11 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
     this.translate.onLangChange.subscribe(() => {
       this.translate
         .get('AUTHENTICATION.DELETE_IMG_DIALOG_TITLE')
-        .subscribe((res) => (this.removeDialogTitle = res));
+        .subscribe((res: string) => (this.removeDialogTitle = res));
       this.translate
         .get('AUTHENTICATION.DELETE_IMG_DIALOG_DESC')
-        .subscribe((res) => (this.removeDialogDescription = res));
-      this.mfaUrl = this.store.get('mfa', 'url_' + this.translate.currentLang);
+        .subscribe((res: string) => (this.removeDialogDescription = res));
+      this.mfaUrl = this.store.get('mfa', 'url_' + this.translate.currentLang) as string;
     });
     this.mfaUrl = this.store.get('mfa', 'url_' + this.translate.currentLang);
     this.mfaApiUrl = this.store.get('mfa', 'api_url');
@@ -83,6 +83,94 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
       });
 
     this.loadImage();
+  }
+
+  onAddImg(): void {
+    const config = getDefaultDialogConfig();
+    config.width = '500px';
+    config.data = { theme: 'user-theme', attribute: this.imgAtt };
+
+    const dialogRef = this.dialog.open(AddAuthImgDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadImage();
+      }
+    });
+  }
+
+  reAuthenticate(enforceMfa: boolean): void {
+    sessionStorage.setItem('enforce_mfa', enforceMfa.toString());
+    sessionStorage.setItem('mfa_route', '/profile/settings/auth');
+    localStorage.removeItem('refresh_token');
+    this.oauthService.logOut(true);
+    sessionStorage.setItem('auth:redirect', location.pathname);
+    sessionStorage.setItem('auth:queryParams', location.search.substring(1));
+    this.authService.loadConfigData();
+    this.oauthService.loadDiscoveryDocumentAndLogin();
+  }
+
+  enableMfa(value: boolean): Promise<Response> {
+    const idToken = this.oauthService.getIdToken();
+    const path = `mfaEnforced`;
+    const url = `${this.mfaApiUrl}${path}`;
+    const body = `value=${value}`;
+
+    return fetch(url, {
+      method: 'PUT',
+      body: body,
+      headers: { Authorization: `Bearer ${idToken}` },
+    });
+  }
+
+  onDeleteImg(): void {
+    const config = getDefaultDialogConfig();
+    config.width = '600px';
+    config.data = {
+      doNotShowValues: true,
+      attribute: this.imgAtt,
+      userId: this.store.getPerunPrincipal().userId,
+      title: this.removeDialogTitle,
+      description: this.removeDialogDescription,
+    };
+
+    const dialogRef = this.dialog.open(RemoveStringValueDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe((sshAdded) => {
+      if (sshAdded) {
+        this.loadImage();
+      }
+    });
+  }
+
+  redirectToMfa(): void {
+    window.open(this.mfaUrl, '_blank');
+  }
+
+  private loadImage(): void {
+    const imgAttributeName = this.store.get('mfa', 'security_image_attribute') as string;
+    this.displayImageBlock = this.store.get('mfa', 'enable_security_image') as boolean;
+    this.attributesManagerService
+      .getUserAttributeByName(this.store.getPerunPrincipal().userId, imgAttributeName)
+      .subscribe(
+        (attr) => {
+          if (!attr) {
+            this.attributesManagerService
+              .getAttributeDefinitionByName(imgAttributeName)
+              .subscribe((att) => {
+                this.imgAtt = att as Attribute;
+              });
+          } else {
+            this.imgAtt = attr;
+            this.imageSrc = this.imgAtt.value as unknown as string;
+          }
+          this.loadingImg = false;
+        },
+        (e) => {
+          console.error(e);
+          this.loadingImg = false;
+        }
+      );
   }
 
   private loadMfa(): void {
@@ -121,93 +209,5 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
       sessionStorage.removeItem('enforce_mfa');
       sessionStorage.removeItem('mfa_route');
     }
-  }
-
-  onAddImg() {
-    const config = getDefaultDialogConfig();
-    config.width = '500px';
-    config.data = { theme: 'user-theme', attribute: this.imgAtt };
-
-    const dialogRef = this.dialog.open(AddAuthImgDialogComponent, config);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.loadImage();
-      }
-    });
-  }
-
-  reAuthenticate(enforceMfa: boolean): void {
-    sessionStorage.setItem('enforce_mfa', enforceMfa.toString());
-    sessionStorage.setItem('mfa_route', '/profile/settings/auth');
-    localStorage.removeItem('refresh_token');
-    this.oauthService.logOut(true);
-    sessionStorage.setItem('auth:redirect', location.pathname);
-    sessionStorage.setItem('auth:queryParams', location.search.substring(1));
-    this.authService.loadConfigData();
-    this.oauthService.loadDiscoveryDocumentAndLogin();
-  }
-
-  enableMfa(value: boolean): Promise<Response> {
-    const idToken = this.oauthService.getIdToken();
-    const path = `mfaEnforced`;
-    const url = `${this.mfaApiUrl}${path}`;
-    const body = `value=${value}`;
-
-    return fetch(url, {
-      method: 'PUT',
-      body: body,
-      headers: { Authorization: `Bearer ${idToken}` },
-    });
-  }
-
-  onDeleteImg() {
-    const config = getDefaultDialogConfig();
-    config.width = '600px';
-    config.data = {
-      doNotShowValues: true,
-      attribute: this.imgAtt,
-      userId: this.store.getPerunPrincipal().userId,
-      title: this.removeDialogTitle,
-      description: this.removeDialogDescription,
-    };
-
-    const dialogRef = this.dialog.open(RemoveStringValueDialogComponent, config);
-
-    dialogRef.afterClosed().subscribe((sshAdded) => {
-      if (sshAdded) {
-        this.loadImage();
-      }
-    });
-  }
-
-  private loadImage() {
-    const imgAttributeName = this.store.get('mfa', 'security_image_attribute');
-    this.displayImageBlock = this.store.get('mfa', 'enable_security_image');
-    this.attributesManagerService
-      .getUserAttributeByName(this.store.getPerunPrincipal().userId, imgAttributeName)
-      .subscribe(
-        (attr) => {
-          if (!attr) {
-            this.attributesManagerService
-              .getAttributeDefinitionByName(imgAttributeName)
-              .subscribe((att) => {
-                this.imgAtt = att as Attribute;
-              });
-          } else {
-            this.imgAtt = attr;
-            this.imageSrc = this.imgAtt.value as unknown as string;
-          }
-          this.loadingImg = false;
-        },
-        (e) => {
-          console.error(e);
-          this.loadingImg = false;
-        }
-      );
-  }
-
-  redirectToMfa(): void {
-    window.open(this.mfaUrl, '_blank');
   }
 }

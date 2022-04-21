@@ -15,26 +15,26 @@ export interface AddUnixGroupDialogData {
   styleUrls: ['./add-unix-group-dialog.component.scss'],
 })
 export class AddUnixGroupDialogComponent implements OnInit {
+  inputControl: FormControl;
+  loading: boolean;
+  groups: string[] = [];
+
   constructor(
     private dialogRef: MatDialogRef<AddUnixGroupDialogData>,
     @Inject(MAT_DIALOG_DATA) private data: AddUnixGroupDialogData,
     private attributesManagerService: AttributesManagerService
   ) {}
 
-  inputControl: FormControl;
-  loading: boolean;
-  groups: string[] = [];
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.inputControl = new FormControl(null, Validators.required);
     this.groups = this.data.groups;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     this.attributesManagerService
       .getUserAttributeByName(
@@ -42,9 +42,8 @@ export class AddUnixGroupDialogComponent implements OnInit {
         `urn:perun:user:attribute-def:def:preferredUnixGroupName-namespace:${this.data.namespace}`
       )
       .subscribe((attribute) => {
-        // @ts-ignore
-        const groups: string[] = attribute.value ? attribute.value : [];
-        groups.push(this.inputControl.value);
+        const groups: string[] = (attribute?.value as unknown as string[]) ?? [];
+        groups.push(this.inputControl.value as string);
         attribute.value = groups;
 
         this.attributesManagerService

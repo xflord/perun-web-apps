@@ -11,6 +11,10 @@ import { MatSidenav } from '@angular/material/sidenav';
   styleUrls: ['./side-menu.component.scss'],
 })
 export class SideMenuComponent implements OnInit {
+  @Input() sideNav: MatSidenav;
+  items: SideMenuItem[] = [];
+  lang = 'en';
+  textColor = this.storeService.get('theme', 'sidemenu_text_color') as string;
   private currentUrl: string;
 
   constructor(
@@ -28,37 +32,30 @@ export class SideMenuComponent implements OnInit {
     });
   }
 
-  @Input()
-  sideNav: MatSidenav;
-
-  items: SideMenuItem[] = [];
-  lang = 'en';
-  textColor = this.storeService.get('theme', 'sidemenu_text_color');
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.translateService.onLangChange.subscribe((lang) => {
       const { lang: lan } = lang;
       this.lang = lan;
     });
-    const displayedTabs: string[] = this.storeService.get('displayed_tabs');
+    const displayedTabs: string[] = this.storeService.get('displayed_tabs') as string[];
     this.items = this.sideMenuItemService.getSideMenuItems();
 
     this.items = this.items.filter((item) => displayedTabs.includes(item.tabName));
   }
 
-  isActive(regexValue: string) {
+  isActive(regexValue: string): boolean {
     const regexp = new RegExp(regexValue);
 
     return regexp.test(this.currentUrl);
   }
 
-  shouldHideMenu() {
+  shouldHideMenu(): void {
     if (this.sideNav.mode === 'over') {
-      this.sideNav.close();
+      void this.sideNav.close();
     }
   }
 
-  goToURL(link: string) {
+  goToURL(link: string): void {
     window.open(link, '_blank');
   }
 }

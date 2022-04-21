@@ -23,10 +23,19 @@ import { MailChangeFailedDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 interface DisplayedAttribute {
   attribute: Attribute;
-  displayName_en: string;
-  displayName_cz: string;
-  tooltip_en: string;
-  tooltip_cz: string;
+  displayName_en?: string;
+  displayName_cz?: string;
+  tooltip_en?: string;
+  tooltip_cz?: string;
+}
+
+interface ProfileAttribute {
+  friendly_name?: string;
+  display_name_en?: string;
+  display_name_cs?: string;
+  tooltip_en?: string;
+  tooltip_cs?: string;
+  is_virtual?: boolean;
 }
 
 @Component({
@@ -36,7 +45,7 @@ interface DisplayedAttribute {
 })
 export class ProfilePageComponent implements OnInit {
   currentLang = 'en';
-  languages = this.storeService.get('supported_languages');
+  languages = this.storeService.get('supported_languages') as string[];
   timeZones = moment.tz.names().filter((name) => !name.startsWith('Etc/'));
 
   successMessage: string;
@@ -68,10 +77,10 @@ export class ProfilePageComponent implements OnInit {
   ) {
     translateService
       .get('PROFILE_PAGE.MAIL_CHANGE_SUCCESS')
-      .subscribe((res) => (this.successMessage = res));
+      .subscribe((res: string) => (this.successMessage = res));
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const params = this.route.snapshot.queryParamMap;
     const token = params.get('token');
     const u = params.get('u');
@@ -83,7 +92,7 @@ export class ProfilePageComponent implements OnInit {
         .subscribe(
           () => {
             this.notificator.showSuccess(this.successMessage);
-            this.router.navigate([], { replaceUrl: true });
+            void this.router.navigate([], { replaceUrl: true });
             this.getData();
           },
           () => {
@@ -101,7 +110,7 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
-  getData() {
+  getData(): void {
     this.authzResolverService.getPerunPrincipal().subscribe((principal) => {
       this.userId = principal.userId;
 
@@ -111,16 +120,12 @@ export class ProfilePageComponent implements OnInit {
         const emailAttribute = richUser.userAttributes.find(
           (att) => att.friendlyName === 'preferredMail'
         );
-        // @ts-ignore
-        this.email = emailAttribute.value;
+        this.email = emailAttribute.value as unknown as string;
 
         this.languageAttribute = richUser.userAttributes.find(
           (att) => att.friendlyName === 'preferredLanguage'
         );
-        const userLang =
-          this.languageAttribute && this.languageAttribute.value
-            ? this.languageAttribute.value.toString()
-            : null;
+        const userLang = (this.languageAttribute?.value as unknown as string) ?? null;
         const prefLang = this.preferredLangService.getPreferredLanguage(userLang);
         this.translateService.use(prefLang);
         this.currentLang = prefLang;
@@ -128,15 +133,13 @@ export class ProfilePageComponent implements OnInit {
         this.timezoneAttribute = richUser.userAttributes.find(
           (att) => att.friendlyName === 'timezone'
         );
-        // @ts-ignore
-        this.currentTimezone =
-          this.timezoneAttribute && this.timezoneAttribute.value
-            ? this.timezoneAttribute.value
-            : '-';
+        this.currentTimezone = (this.timezoneAttribute?.value as unknown as string) ?? '-';
 
-        const additionalAttributesSpecs = this.storeService.get('profile_page_attributes');
+        const additionalAttributesSpecs: ProfileAttribute[] = this.storeService.get(
+          'profile_page_attributes'
+        ) as ProfileAttribute[];
         let count = 0;
-        const langs = this.storeService.get('supported_languages');
+        const langs = this.storeService.get('supported_languages') as string[];
         additionalAttributesSpecs.forEach((spec) => {
           const attribute = richUser.userAttributes.find(
             (att) => att.friendlyName === spec.friendly_name
@@ -163,21 +166,7 @@ export class ProfilePageComponent implements OnInit {
     });
   }
 
-  private addAttribute(att: AttributeDefinition, spec: any, langs: string[]) {
-    const displayedAttribute = {
-      attribute: att,
-    };
-    for (const lang of langs) {
-      displayedAttribute[`displayName_${lang}`] =
-        spec[`display_name_${lang}`] && spec[`display_name_${lang}`].length
-          ? spec[`display_name_${lang}`]
-          : att.displayName;
-      displayedAttribute[`tooltip_${lang}`] = spec[`tooltip_${lang}`] ?? '';
-    }
-    this.additionalAttributes.push(<DisplayedAttribute>displayedAttribute);
-  }
-
-  changeLanguage(lang: string) {
+  changeLanguage(lang: string): void {
     this.currentLang = lang;
     this.translateService.use(this.currentLang);
 
@@ -193,9 +182,8 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
-  setLanguage() {
-    // @ts-ignore
-    this.languageAttribute.value = this.currentLang;
+  setLanguage(): void {
+    this.languageAttribute.value = this.currentLang as unknown as object;
     this.attributesManagerService
       .setUserAttribute({
         user: this.userId,
@@ -203,14 +191,14 @@ export class ProfilePageComponent implements OnInit {
       })
       .subscribe(() => {
         // this.notificator.showSuccess("done");
-        this.router.navigate([], {
+        void this.router.navigate([], {
           queryParams: { lang: null },
           queryParamsHandling: 'merge',
         });
       });
   }
 
-  changeTimeZone(tz: string) {
+  changeTimeZone(tz: string): void {
     this.currentTimezone = tz;
 
     if (!this.timezoneAttribute) {
@@ -225,9 +213,8 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
-  setTimeZone() {
-    // @ts-ignore
-    this.timezoneAttribute.value = this.currentTimezone;
+  setTimeZone(): void {
+    this.timezoneAttribute.value = this.currentTimezone as unknown as object;
     this.attributesManagerService
       .setUserAttribute({
         user: this.userId,
@@ -238,7 +225,7 @@ export class ProfilePageComponent implements OnInit {
       });
   }
 
-  changeEmail() {
+  changeEmail(): void {
     const config = getDefaultDialogConfig();
     config.width = '350px';
     config.data = { userId: this.userId };
@@ -252,12 +239,25 @@ export class ProfilePageComponent implements OnInit {
     });
   }
 
-  getEmail() {
+  getEmail(): void {
     this.attributesManagerService
       .getUserAttributeByName(this.userId, 'urn:perun:user:attribute-def:def:preferredMail')
       .subscribe((attribute) => {
-        // @ts-ignore
-        this.email = attribute.value;
+        this.email = attribute.value as unknown as string;
       });
+  }
+
+  private addAttribute(att: AttributeDefinition, spec: ProfileAttribute, langs: string[]): void {
+    const displayedAttribute: DisplayedAttribute = {
+      attribute: att,
+    };
+    for (const lang of langs) {
+      displayedAttribute[`displayName_${lang}`] = (spec?.[`display_name_${lang}`] as string)?.length
+        ? (spec[`display_name_${lang}`] as string)
+        : att.displayName;
+
+      displayedAttribute[`tooltip_${lang}`] = (spec[`tooltip_${lang}`] as string) ?? '';
+    }
+    this.additionalAttributes.push(displayedAttribute);
   }
 }
