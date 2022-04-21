@@ -18,20 +18,6 @@ export interface AddAuthorsDialogData {
   styleUrls: ['./add-authors-dialog.component.scss'],
 })
 export class AddAuthorsDialogComponent implements OnInit {
-  constructor(
-    private dialogRef: MatDialogRef<AddAuthorsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: AddAuthorsDialogData,
-    private notificator: NotificatorService,
-    private cabinetService: CabinetManagerService,
-    private translate: TranslateService
-  ) {
-    translate
-      .get('DIALOGS.ADD_AUTHORS.SUCCESS_MESSAGE')
-      .subscribe((value) => (this.successMessage = value));
-    this.publicationId = data.publicationId;
-    this.alreadyAddedAuthors = data.alreadyAddedAuthors;
-  }
-
   searchControl: FormControl;
   successMessage: string;
   loading = false;
@@ -45,6 +31,20 @@ export class AddAuthorsDialogComponent implements OnInit {
   selection = new SelectionModel<Author>(false, []);
   reloadTable = false;
 
+  constructor(
+    private dialogRef: MatDialogRef<AddAuthorsDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: AddAuthorsDialogData,
+    private notificator: NotificatorService,
+    private cabinetService: CabinetManagerService,
+    private translate: TranslateService
+  ) {
+    translate
+      .get('DIALOGS.ADD_AUTHORS.SUCCESS_MESSAGE')
+      .subscribe((value: string) => (this.successMessage = value));
+    this.publicationId = data.publicationId;
+    this.alreadyAddedAuthors = data.alreadyAddedAuthors;
+  }
+
   ngOnInit(): void {
     this.searchControl = new FormControl('', [
       Validators.required,
@@ -52,13 +52,13 @@ export class AddAuthorsDialogComponent implements OnInit {
     ]);
   }
 
-  onSearchByString() {
+  onSearchByString(): void {
     this.searchLoading = true;
     const removeAuthors = [...this.alreadyAddedAuthors, ...this.authorsToAdd];
-    this.cabinetService.findNewAuthors(this.searchControl.value).subscribe(
+    this.cabinetService.findNewAuthors(this.searchControl.value as string).subscribe(
       (authors) => {
         authors = authors.filter(
-          (item) => removeAuthors.map((author) => author.id).indexOf(item.id) <= -1
+          (item) => !removeAuthors.map((author) => author.id).includes(item.id)
         );
         this.authors = authors;
         this.firstSearchDone = true;
@@ -70,7 +70,7 @@ export class AddAuthorsDialogComponent implements OnInit {
     );
   }
 
-  onAdd() {
+  onAdd(): void {
     this.loading = true;
     if (this.authorsToAdd.length) {
       const author = this.authorsToAdd.pop();
@@ -100,13 +100,13 @@ export class AddAuthorsDialogComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  addAuthor(author: Author) {
+  addAuthor(author: Author): void {
     this.authors = this.authors.filter((a) => a !== author);
     this.authorsToAdd.push(author);
     this.reloadTable = !this.reloadTable;
   }
 
-  removeAuthor(author: Author) {
+  removeAuthor(author: Author): void {
     this.authorsToAdd = this.authorsToAdd.filter((a) => a !== author);
   }
 }

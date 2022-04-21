@@ -11,6 +11,11 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./remove-category-dialog.component.scss'],
 })
 export class RemoveCategoryDialogComponent implements OnInit {
+  loading: boolean;
+  displayedColumns: string[] = ['name'];
+  dataSource: MatTableDataSource<Category>;
+  categories: Category[] = [];
+
   constructor(
     public dialogRef: MatDialogRef<RemoveCategoryDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Category[],
@@ -19,21 +24,16 @@ export class RemoveCategoryDialogComponent implements OnInit {
     private cabinetManagerService: CabinetManagerService
   ) {}
 
-  loading: boolean;
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<Category>;
-  categories: Category[] = [];
-
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<Category>(this.data);
     this.categories = this.data;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     if (this.categories.length) {
       this.cabinetManagerService.deleteCategory(this.categories.pop().id).subscribe(
@@ -43,7 +43,7 @@ export class RemoveCategoryDialogComponent implements OnInit {
         () => (this.loading = false)
       );
     } else {
-      this.translate.get('DIALOGS.REMOVE_CATEGORY.SUCCESS').subscribe((successMessage) => {
+      this.translate.get('DIALOGS.REMOVE_CATEGORY.SUCCESS').subscribe((successMessage: string) => {
         this.loading = false;
         this.notificator.showSuccess(successMessage);
         this.dialogRef.close(true);

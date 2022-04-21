@@ -17,37 +17,21 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./publication-systems-list.component.scss'],
 })
 export class PublicationSystemsListComponent implements AfterViewInit, OnChanges {
-  constructor() {}
+  @Input() publicationSystems: PublicationSystem[] = [];
+  @Input() filterValue: string;
+  @Input() tableId: string;
+  @Input() displayedColumns: string[] = ['id', 'friendlyName', 'loginNamespace', 'url', 'type'];
+  @Input() pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  dataSource: MatTableDataSource<PublicationSystem>;
+  private sort: MatSort;
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSource();
   }
 
-  @Input()
-  publicationSystems: PublicationSystem[] = [];
-  @Input()
-  filterValue: string;
-  @Input()
-  tableId: string;
-  @Input()
-  displayedColumns: string[] = ['id', 'friendlyName', 'loginNamespace', 'url', 'type'];
-  @Input()
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
-  private sort: MatSort;
-
-  dataSource: MatTableDataSource<PublicationSystem>;
-
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-
-  ngOnChanges() {
-    this.dataSource = new MatTableDataSource<PublicationSystem>(this.publicationSystems);
-    this.setDataSource();
-    this.dataSource.filter = this.filterValue;
-  }
-
-  getDataForColumn(data: PublicationSystem, column: string): string {
+  static getDataForColumn(data: PublicationSystem, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -60,32 +44,38 @@ export class PublicationSystemsListComponent implements AfterViewInit, OnChanges
       case 'type':
         return data.type;
       default:
-        return data[column];
+        return data[column] as string;
     }
   }
 
-  exportData(format: string) {
+  ngOnChanges(): void {
+    this.dataSource = new MatTableDataSource<PublicationSystem>(this.publicationSystems);
+    this.setDataSource();
+    this.dataSource.filter = this.filterValue;
+  }
+
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn.bind(this)
+        PublicationSystemsListComponent.getDataForColumn
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: PublicationSystem, filter: string) =>
+      this.dataSource.filterPredicate = (data: PublicationSystem, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn.bind(this)
+          PublicationSystemsListComponent.getDataForColumn
         );
-      this.dataSource.sortData = (data: PublicationSystem[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn.bind(this));
+      this.dataSource.sortData = (data: PublicationSystem[], sort: MatSort): PublicationSystem[] =>
+        customDataSourceSort(data, sort, PublicationSystemsListComponent.getDataForColumn);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }

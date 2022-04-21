@@ -8,15 +8,7 @@ import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
   providedIn: 'root',
 })
 export class PublicationsConfigService {
-  constructor(
-    private initAuthService: InitAuthService,
-    private appConfigService: AppConfigService,
-    private location: Location,
-    private authzSevice: AuthzResolverService,
-    private guiAuthResolver: GuiAuthResolver
-  ) {}
-
-  entityColorConfigs: EntityColorConfig[] = [
+  private entityColorConfigs: EntityColorConfig[] = [
     {
       entity: 'user',
       configValue: 'user_color',
@@ -24,7 +16,7 @@ export class PublicationsConfigService {
     },
   ];
 
-  colorConfigs: ColorConfig[] = [
+  private colorConfigs: ColorConfig[] = [
     {
       configValue: 'sidemenu_bg_color',
       cssVariable: '--side-bg',
@@ -42,6 +34,14 @@ export class PublicationsConfigService {
       cssVariable: '--side-text-active',
     },
   ];
+
+  constructor(
+    private initAuthService: InitAuthService,
+    private appConfigService: AppConfigService,
+    private location: Location,
+    private authzSevice: AuthzResolverService,
+    private guiAuthResolver: GuiAuthResolver
+  ) {}
 
   loadConfigs(): Promise<void> {
     return this.appConfigService

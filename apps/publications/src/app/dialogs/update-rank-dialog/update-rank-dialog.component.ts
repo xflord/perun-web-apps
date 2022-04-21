@@ -11,6 +11,11 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./update-rank-dialog.component.scss'],
 })
 export class UpdateRankDialogComponent implements OnInit {
+  successMessage: string;
+  loading: boolean;
+  categoryName = '';
+  rankCtrl: FormControl;
+
   constructor(
     private dialogRef: MatDialogRef<UpdateRankDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Category,
@@ -20,15 +25,10 @@ export class UpdateRankDialogComponent implements OnInit {
   ) {
     translate
       .get('DIALOGS.UPDATE_RANK.SUCCESS')
-      .subscribe((value) => (this.successMessage = value));
+      .subscribe((value: string) => (this.successMessage = value));
   }
 
-  successMessage: string;
-  loading: boolean;
-  categoryName = '';
-  rankCtrl: FormControl;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.categoryName = this.data.name;
     this.rankCtrl = new FormControl(this.data.rank, [
       Validators.required,
@@ -36,13 +36,13 @@ export class UpdateRankDialogComponent implements OnInit {
     ]);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
-    this.data.rank = this.rankCtrl.value;
+    this.data.rank = this.rankCtrl.value as number;
     this.cabinetManagerService.updateCategory({ category: this.data }).subscribe(
       () => {
         this.notificator.showSuccess(this.successMessage);

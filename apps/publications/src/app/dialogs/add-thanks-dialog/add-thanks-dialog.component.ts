@@ -17,6 +17,12 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./add-thanks-dialog.component.scss'],
 })
 export class AddThanksDialogComponent implements OnInit {
+  loading: boolean;
+  owners: Owner[];
+  selected = new SelectionModel<Owner>(true, []);
+  filterValue: string;
+  tableId = TABLE_ADD_THANKS_DIALOG;
+
   constructor(
     private dialogRef: MatDialogRef<AddThanksDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: PublicationForGUI,
@@ -27,37 +33,31 @@ export class AddThanksDialogComponent implements OnInit {
     private cabinetManagerService: CabinetManagerService
   ) {}
 
-  loading: boolean;
-  owners: Owner[];
-  selected = new SelectionModel<Owner>(true, []);
-  filterValue: string;
-  tableId = TABLE_ADD_THANKS_DIALOG;
-
   ngOnInit(): void {
     this.loading = true;
-    const allowedOwners = this.storeService.get('allowed_owners_for_thanks');
+    const allowedOwners = this.storeService.get('allowed_owners_for_thanks') as number[];
     this.ownersManagerService.getAllOwners().subscribe((owners) => {
       if (allowedOwners.length !== 0) {
-        this.owners = owners.filter((item) => allowedOwners.indexOf(item.id) > -1);
+        this.owners = owners.filter((item) => allowedOwners.includes(item.id));
       } else {
         this.owners = owners;
       }
       this.owners = this.owners.filter(
-        (item) => this.data.thanks.map((thanks) => thanks.ownerId).indexOf(item.id) <= -1
+        (item) => !this.data.thanks.map((thanks) => thanks.ownerId).includes(item.id)
       );
 
       this.loading = false;
     });
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     if (this.selected.selected.length === 0) {
-      this.translate.get('DIALOGS.ADD_THANKS.SUCCESS').subscribe((success) => {
+      this.translate.get('DIALOGS.ADD_THANKS.SUCCESS').subscribe((success: string) => {
         this.notificator.showSuccess(success);
         this.dialogRef.close(true);
       });

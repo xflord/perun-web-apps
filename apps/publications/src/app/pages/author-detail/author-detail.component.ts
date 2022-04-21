@@ -19,13 +19,6 @@ import { FilterPublication } from '../../components/publication-filter/publicati
   styleUrls: ['./author-detail.component.scss'],
 })
 export class AuthorDetailComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
-    private cabinetService: CabinetManagerService,
-    private userService: UsersManagerService,
-    private dialog: MatDialog
-  ) {}
-
   loading: boolean;
   initLoading: boolean;
   publications: PublicationForGUI[];
@@ -33,10 +26,17 @@ export class AuthorDetailComponent implements OnInit {
   tableId = TABLE_PUBLICATION_AUTHOR_DETAIL_PUBLICATIONS;
   author: User;
 
+  constructor(
+    private route: ActivatedRoute,
+    private cabinetService: CabinetManagerService,
+    private userService: UsersManagerService,
+    private dialog: MatDialog
+  ) {}
+
   ngOnInit(): void {
     this.initLoading = true;
     this.route.params.subscribe((params) => {
-      const authorId = params['authorId'];
+      const authorId = params['authorId'] as number;
       this.userService.getUserById(authorId).subscribe((user) => {
         this.author = user;
         this.initLoading = false;
@@ -45,7 +45,7 @@ export class AuthorDetailComponent implements OnInit {
     });
   }
 
-  removePublication() {
+  removePublication(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = this.selected.selected;
@@ -59,7 +59,7 @@ export class AuthorDetailComponent implements OnInit {
     });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.selected.clear();
     this.cabinetService
@@ -70,7 +70,7 @@ export class AuthorDetailComponent implements OnInit {
       });
   }
 
-  filterPublication(event: FilterPublication) {
+  filterPublication(event: FilterPublication): void {
     this.loading = true;
     this.selected.clear();
     this.cabinetService

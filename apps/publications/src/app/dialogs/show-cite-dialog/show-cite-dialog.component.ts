@@ -7,18 +7,18 @@ import { PublicationForGUI } from '@perun-web-apps/perun/openapi';
   styleUrls: ['./show-cite-dialog.component.scss'],
 })
 export class ShowCiteDialogComponent implements OnInit {
+  publication: PublicationForGUI;
+
   constructor(
     private dialogRef: MatDialogRef<ShowCiteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: PublicationForGUI
   ) {}
 
-  publication: PublicationForGUI;
-
   ngOnInit(): void {
     this.publication = this.data;
   }
 
-  ok() {
+  close(): void {
     this.dialogRef.close();
   }
 }

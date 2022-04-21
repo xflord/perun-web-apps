@@ -14,12 +14,6 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./categories-page.component.scss'],
 })
 export class CategoriesPageComponent implements OnInit {
-  constructor(
-    private cabinetManagerService: CabinetManagerService,
-    private dialog: MatDialog,
-    private guiAuthResolver: GuiAuthResolver
-  ) {}
-
   categories: Category[] = [];
   selected = new SelectionModel<Category>(true, []);
   loading: boolean;
@@ -29,17 +23,23 @@ export class CategoriesPageComponent implements OnInit {
   removeAuth: boolean;
   addAuth: boolean;
 
-  ngOnInit() {
+  constructor(
+    private cabinetManagerService: CabinetManagerService,
+    private dialog: MatDialog,
+    private guiAuthResolver: GuiAuthResolver
+  ) {}
+
+  ngOnInit(): void {
     this.setAuth();
     this.refreshTable();
   }
 
-  setAuth() {
+  setAuth(): void {
     this.removeAuth = this.guiAuthResolver.isAuthorized('deleteCategory_Category_policy', []);
     this.addAuth = this.guiAuthResolver.isAuthorized('createCategory_Category_policy', []);
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.cabinetManagerService.getCategories().subscribe((categories) => {
       this.categories = categories;
@@ -47,11 +47,11 @@ export class CategoriesPageComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 
-  addCategory() {
+  addCategory(): void {
     const config = getDefaultDialogConfig();
     config.width = '400px';
     config.data = {};
@@ -65,7 +65,7 @@ export class CategoriesPageComponent implements OnInit {
     });
   }
 
-  removeCategory() {
+  removeCategory(): void {
     const config = getDefaultDialogConfig();
     config.width = '400px';
     config.data = this.selected.selected;

@@ -4,6 +4,7 @@ import {
   Author,
   CabinetManagerService,
   Category,
+  InputCreatePublication,
   PublicationForGUI,
   ThanksForGUI,
   UsersManagerService,
@@ -19,6 +20,7 @@ import { NotificatorService, StoreService } from '@perun-web-apps/perun/services
 import { TranslateService } from '@ngx-translate/core';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { MatTabGroup } from '@angular/material/tabs';
+import { MatDatepicker } from '@angular/material/datepicker';
 
 const moment = _moment;
 
@@ -48,17 +50,6 @@ export const YEAR_MODE_FORMATS = {
   ],
 })
 export class CreateSinglePublicationPageComponent implements OnInit {
-  constructor(
-    private formBuilder: FormBuilder,
-    private cabinetService: CabinetManagerService,
-    private dialog: MatDialog,
-    private router: Router,
-    private notificator: NotificatorService,
-    private translate: TranslateService,
-    private storeService: StoreService,
-    private userService: UsersManagerService
-  ) {}
-
   publicationControl: FormGroup;
   similarPublications: PublicationForGUI[] = [];
   filteredPublications: PublicationForGUI[] = [];
@@ -78,6 +69,17 @@ export class CreateSinglePublicationPageComponent implements OnInit {
 
   selectedPubId = null;
   selectedPubTitle = '';
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private cabinetService: CabinetManagerService,
+    private dialog: MatDialog,
+    private router: Router,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private storeService: StoreService,
+    private userService: UsersManagerService
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -99,30 +101,34 @@ export class CreateSinglePublicationPageComponent implements OnInit {
     });
   }
 
-  chosenYearHandler(normalizedYear: Moment, datepicker: any) {
+  chosenYearHandler(normalizedYear: Moment, datepicker: MatDatepicker<Date>): void {
     this.publicationControl.get('year').setValue(normalizedYear);
     datepicker.close();
   }
 
-  createTimeout() {
+  createTimeout(): void {
     setTimeout(() => {
-      this.notificator.showSuccess(this.translate.instant('CREATE_SINGLE_PUBLICATION.SUCCESS'));
+      this.notificator.showSuccess(
+        this.translate.instant('CREATE_SINGLE_PUBLICATION.SUCCESS') as string
+      );
       this.duplicateCheck = true;
       this.innerLoading = false;
     }, 1000);
   }
 
-  createPublication() {
+  createPublication(): void {
     this.innerLoading = true;
     this.duplicateCheck = true;
-    const publicationInput: any = {
+    const publicationInput: InputCreatePublication = {
       publication: {
-        title: this.publicationControl.get('title').value,
-        categoryId: this.publicationControl.get('category').value.id,
-        year: this.publicationControl.get('year').value.year(),
-        isbn: this.publicationControl.get('isbn').value,
-        doi: this.publicationControl.get('doi').value,
-        main: this.publicationControl.get('cite').value,
+        id: 0,
+        beanName: 'Publication',
+        title: this.publicationControl.get('title').value as string,
+        categoryId: (this.publicationControl.get('category').value as Category).id,
+        year: (this.publicationControl.get('year').value as Moment).year(),
+        isbn: this.publicationControl.get('isbn').value as string,
+        doi: this.publicationControl.get('doi').value as string,
+        main: this.publicationControl.get('cite').value as string,
       },
     };
     this.userService
@@ -131,7 +137,7 @@ export class CreateSinglePublicationPageComponent implements OnInit {
         (user) => {
           const mailAtt = user.userAttributes.filter((att) => att.friendlyName === 'preferredMail');
           if (mailAtt.length !== 0) {
-            publicationInput.publication.createdBy = mailAtt[0].value;
+            publicationInput.publication.createdBy = mailAtt[0].value as unknown as string;
           }
 
           this.cabinetService.createPublication(publicationInput).subscribe(
@@ -164,17 +170,11 @@ export class CreateSinglePublicationPageComponent implements OnInit {
       );
   }
 
-  similarCheck() {
+  similarCheck(): void {
     this.innerLoading = true;
-    const title: string = this.publicationControl.get('title').value
-      ? this.publicationControl.get('title').value
-      : null;
-    const doi: string = this.publicationControl.get('doi').value
-      ? this.publicationControl.get('doi').value
-      : null;
-    const isbn: string = this.publicationControl.get('isbn').value
-      ? this.publicationControl.get('isbn').value
-      : null;
+    const title: string = (this.publicationControl.get('title').value as string) ?? null;
+    const doi: string = (this.publicationControl.get('doi').value as string) ?? null;
+    const isbn: string = (this.publicationControl.get('isbn').value as string) ?? null;
     this.cabinetService.findSimilarPublications(title, doi, isbn).subscribe((similarPubs) => {
       this.similarPublications = similarPubs;
       this.filteredPublications = similarPubs;
@@ -185,7 +185,7 @@ export class CreateSinglePublicationPageComponent implements OnInit {
     });
   }
 
-  stepChanged(event: StepperSelectionEvent) {
+  stepChanged(event: StepperSelectionEvent): void {
     if (event.selectedIndex === 1) {
       this.similarCheck();
     }
@@ -194,11 +194,11 @@ export class CreateSinglePublicationPageComponent implements OnInit {
     }
   }
 
-  redirect(commands) {
-    this.router.navigate(commands);
+  redirect(commands: string[]): void {
+    void this.router.navigate(commands);
   }
 
-  loadPublicationDetail(publication: PublicationForGUI, tabGroup: MatTabGroup) {
+  loadPublicationDetail(publication: PublicationForGUI, tabGroup: MatTabGroup): void {
     this.selectedPubId = publication.id;
     this.selectedPubTitle = publication.title;
     tabGroup.selectedIndex = 1;

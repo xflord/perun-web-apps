@@ -4,6 +4,7 @@ import {
   Author,
   CabinetManagerService,
   Category,
+  Publication,
   PublicationForGUI,
   ThanksForGUI,
 } from '@perun-web-apps/perun/openapi';
@@ -20,6 +21,19 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./publication-detail.component.scss'],
 })
 export class PublicationDetailComponent implements OnInit {
+  @Input() publicationId: number;
+  loading = false;
+  pubLoading = false;
+  initLoading = false;
+  publication: PublicationForGUI;
+  categories: Category[];
+  mode: string;
+  mainAuthorId: number;
+  mainAuthor: Author;
+  disabledColumns: string[];
+  selectionAuthors: SelectionModel<Author> = new SelectionModel<Author>(true, []);
+  selectionThanks: SelectionModel<ThanksForGUI> = new SelectionModel<ThanksForGUI>(true, []);
+
   constructor(
     private route: ActivatedRoute,
     private cabinetService: CabinetManagerService,
@@ -35,24 +49,6 @@ export class PublicationDetailComponent implements OnInit {
     );
   }
 
-  loading = false;
-  pubLoading = false;
-  initLoading = false;
-
-  @Input()
-  publicationId: number;
-  publication: PublicationForGUI;
-  categories: Category[];
-  mode: string;
-
-  mainAuthorId: number;
-  mainAuthor: Author;
-
-  disabledColumns: string[];
-
-  selectionAuthors: SelectionModel<Author> = new SelectionModel<Author>(true, []);
-  selectionThanks: SelectionModel<ThanksForGUI> = new SelectionModel<ThanksForGUI>(true, []);
-
   ngOnInit(): void {
     this.initLoading = true;
     if (this.publicationId) {
@@ -60,15 +56,15 @@ export class PublicationDetailComponent implements OnInit {
       this.loadAllData();
     } else {
       this.route.params.subscribe((params) => {
-        this.publicationId = params['publicationId'];
-        this.mainAuthorId = parseInt(params['authorId'], 10);
+        this.publicationId = Number(params['publicationId']);
+        this.mainAuthorId = Number(params['authorId']);
         this.setMode();
         this.loadAllData();
       });
     }
   }
 
-  setMode() {
+  setMode(): void {
     const url = location.pathname;
     if (url.includes('my')) {
       this.mode = 'my';
@@ -83,7 +79,7 @@ export class PublicationDetailComponent implements OnInit {
     }
   }
 
-  loadAllData() {
+  loadAllData(): void {
     this.loading = true;
     this.cabinetService.findPublicationById(this.publicationId).subscribe((publication) => {
       this.publication = publication;
@@ -96,7 +92,7 @@ export class PublicationDetailComponent implements OnInit {
     });
   }
 
-  refreshPublication() {
+  refreshPublication(): void {
     this.pubLoading = true;
     this.cabinetService.findPublicationById(this.publicationId).subscribe((publication) => {
       this.publication = publication;
@@ -104,10 +100,11 @@ export class PublicationDetailComponent implements OnInit {
     });
   }
 
-  changeLock() {
+  changeLock(): void {
     this.pubLoading = true;
-    const updatedPublication: any = {
+    const updatedPublication: Publication = {
       id: this.publication.id,
+      beanName: 'Publication',
       externalId: this.publication.externalId,
       publicationSystemId: this.publication.publicationSystemId,
       title: this.publication.title,
@@ -125,10 +122,12 @@ export class PublicationDetailComponent implements OnInit {
     this.cabinetService
       .lockPublications({ publications: [updatedPublication], lock: !this.publication.locked })
       .subscribe(() => {
-        this.translate.get('PUBLICATION_DETAIL.CHANGE_PUBLICATION_SUCCESS').subscribe((success) => {
-          this.notificator.showSuccess(success);
-          this.refreshPublication();
-        });
+        this.translate
+          .get('PUBLICATION_DETAIL.CHANGE_PUBLICATION_SUCCESS')
+          .subscribe((success: string) => {
+            this.notificator.showSuccess(success);
+            this.refreshPublication();
+          });
       });
   }
 }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService, StoreService } from '@perun-web-apps/perun/services';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatSidenav } from '@angular/material/sidenav';
 import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
 
@@ -10,30 +10,27 @@ import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  @Input() sideNav: MatSidenav;
+  principal: PerunPrincipal;
+  bgColor = this.storeService.get('theme', 'nav_bg_color') as string;
+  textColor = this.storeService.get('theme', 'nav_text_color') as string;
+  iconColor = this.storeService.get('theme', 'nav_icon_color') as string;
+  isDevel = false;
+  logo: SafeHtml;
+
   constructor(
     private storeService: StoreService,
     private authService: AuthService,
     private sanitizer: DomSanitizer
   ) {}
 
-  @Input()
-  sideNav: MatSidenav;
-
-  principal: PerunPrincipal;
-
-  bgColor = this.storeService.get('theme', 'nav_bg_color');
-  textColor = this.storeService.get('theme', 'nav_text_color');
-  iconColor = this.storeService.get('theme', 'nav_icon_color');
-  isDevel = false;
-  logo: any;
-
-  ngOnInit() {
-    this.isDevel = this.storeService.get('is_devel');
+  ngOnInit(): void {
+    this.isDevel = this.storeService.get('is_devel') as boolean;
     this.principal = this.storeService.getPerunPrincipal();
-    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.get('logo'));
+    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.get('logo') as string);
   }
 
-  onLogOut() {
+  onLogOut(): void {
     this.authService.logout();
   }
 }

@@ -10,6 +10,9 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./remove-publication-dialog.component.scss'],
 })
 export class RemovePublicationDialogComponent implements OnInit {
+  publications: PublicationForGUI[];
+  loading = false;
+
   constructor(
     private dialogRef: MatDialogRef<RemovePublicationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: PublicationForGUI[],
@@ -18,25 +21,22 @@ export class RemovePublicationDialogComponent implements OnInit {
     private cabinetService: CabinetManagerService
   ) {}
 
-  publications: PublicationForGUI[];
-  loading = false;
-
   ngOnInit(): void {
     this.publications = this.data;
   }
 
-  cancel() {
+  cancel(): void {
     this.dialogRef.close();
   }
 
-  remove() {
+  remove(): void {
     this.loading = true;
     this.cabinetService.deletePublication(this.publications.pop().id).subscribe(
       () => {
         if (this.publications.length <= 0) {
           this.translate
             .get('DIALOGS.REMOVE_PUBLICATION.REMOVE_SUCCESS')
-            .subscribe((successMessage) => {
+            .subscribe((successMessage: string) => {
               this.notificator.showSuccess(successMessage);
               this.dialogRef.close(true);
             });

@@ -8,18 +8,18 @@ import { TABLE_GROUP_RESOURCES_LIST } from '@perun-web-apps/config/table-config'
   styleUrls: ['./publication-systems-page.component.scss'],
 })
 export class PublicationSystemsPageComponent implements OnInit {
-  constructor(private cabinetManagerService: CabinetManagerService) {}
-
   publicationSystems: PublicationSystem[] = [];
   loading: boolean;
   filterValue = '';
   tableId = TABLE_GROUP_RESOURCES_LIST;
 
-  ngOnInit() {
+  constructor(private cabinetManagerService: CabinetManagerService) {}
+
+  ngOnInit(): void {
     this.refreshTable();
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.cabinetManagerService.getPublicationSystems().subscribe((pubSys) => {
       this.publicationSystems = pubSys;
@@ -27,7 +27,7 @@ export class PublicationSystemsPageComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

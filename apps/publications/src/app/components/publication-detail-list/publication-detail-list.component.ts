@@ -1,6 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { CabinetManagerService, Category, PublicationForGUI } from '@perun-web-apps/perun/openapi';
+import {
+  CabinetManagerService,
+  Category,
+  Publication,
+  PublicationForGUI,
+} from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Moment } from 'moment';
 import { FormControl, Validators } from '@angular/forms';
@@ -9,6 +14,7 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import * as _moment from 'moment';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
+import { MatDatepicker } from '@angular/material/datepicker';
 
 const moment = _moment;
 
@@ -38,37 +44,28 @@ export const YEAR_MODE_FORMATS = {
   ],
 })
 export class PublicationDetailListComponent implements OnInit {
-  constructor(
-    private cabinetService: CabinetManagerService,
-    private notificator: NotificatorService,
-    private translate: TranslateService
-  ) {}
-
-  @Input()
-  publication: PublicationForGUI;
-  @Input()
-  categories: Category[] = [];
-
-  @Output()
-  edited: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+  @Input() publication: PublicationForGUI;
+  @Input() categories: Category[] = [];
+  @Output() edited: EventEmitter<boolean> = new EventEmitter<boolean>();
   loading = false;
-
   dataSource: MatTableDataSource<{ key; value }> = null;
   displayedColumns = ['key', 'value'];
   isChanging = new SelectionModel<{ key: string; value: string }>(true, []);
-
   keys: string[];
   values: string[];
   map: { key: string; value: string }[] = [];
-
   yearControl: FormControl;
   categoryControl: FormControl;
   rankControl: FormControl;
   titleControl: FormControl;
   editing = false;
-
   maxYear: Moment;
+
+  constructor(
+    private cabinetService: CabinetManagerService,
+    private notificator: NotificatorService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -113,27 +110,29 @@ export class PublicationDetailListComponent implements OnInit {
     this.loading = false;
   }
 
-  edit() {
+  edit(): void {
     this.editing = true;
   }
 
-  save() {
+  save(): void {
     this.loading = true;
     this.editing = false;
 
     const categoryId = this.categories.find((cat) => cat.name === this.categoryControl.value).id;
+    const year: number = (this.yearControl.value as Moment).year();
 
-    const updatedPublication: any = {
+    const updatedPublication: Publication = {
       id: this.publication.id,
+      beanName: this.publication.beanName,
       externalId: this.publication.externalId,
       publicationSystemId: this.publication.publicationSystemId,
-      title: this.titleControl.value,
-      year: this.yearControl.value.year(),
+      title: this.titleControl.value as string,
+      year: year,
       main: this.publication.main,
       isbn: this.publication.isbn,
       doi: this.publication.doi,
       categoryId: categoryId,
-      rank: this.rankControl.value,
+      rank: this.rankControl.value as number,
       locked: this.publication.locked,
       createdBy: this.publication.createdBy,
       createdDate: this.publication.createdDate,
@@ -141,18 +140,20 @@ export class PublicationDetailListComponent implements OnInit {
 
     this.cabinetService.updatePublication({ publication: updatedPublication }).subscribe(
       () => {
-        this.translate.get('PUBLICATION_DETAIL.CHANGE_PUBLICATION_SUCCESS').subscribe((success) => {
-          this.notificator.showSuccess(success);
-          this.edited.emit(true);
-          this.loading = false;
-        });
+        this.translate
+          .get('PUBLICATION_DETAIL.CHANGE_PUBLICATION_SUCCESS')
+          .subscribe((success: string) => {
+            this.notificator.showSuccess(success);
+            this.edited.emit(true);
+            this.loading = false;
+          });
       },
       () => (this.loading = false)
     );
   }
 
-  chosenYearHandler(normalizedYear: Moment, datepicker: any) {
-    const ctrlValue = this.yearControl.value;
+  chosenYearHandler(normalizedYear: Moment, datepicker: MatDatepicker<Date>): void {
+    const ctrlValue = this.yearControl.value as Moment;
     ctrlValue.year(normalizedYear.year());
     this.yearControl.setValue(ctrlValue);
     datepicker.close();

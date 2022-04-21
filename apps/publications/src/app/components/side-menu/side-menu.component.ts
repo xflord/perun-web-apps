@@ -10,6 +10,11 @@ import { SideMenuItem, SideMenuItemsService } from '../../services/side-menu-ite
   styleUrls: ['./side-menu.component.scss'],
 })
 export class SideMenuComponent implements OnInit {
+  @Input() sideNav: MatSidenav;
+  items: SideMenuItem[] = [];
+  textColor = this.storeService.get('theme', 'sidemenu_text_color') as string;
+  private currentUrl: string;
+
   constructor(
     private sideMenuItemService: SideMenuItemsService,
     private storeService: StoreService,
@@ -24,26 +29,19 @@ export class SideMenuComponent implements OnInit {
     });
   }
 
-  private currentUrl: string;
-  @Input()
-  sideNav: MatSidenav;
-
-  items: SideMenuItem[] = [];
-  textColor = this.storeService.get('theme', 'sidemenu_text_color');
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.items = this.sideMenuItemService.getSideMenuItems();
   }
 
-  isActive(regexValue: string) {
+  isActive(regexValue: string): boolean {
     const regexp = new RegExp(regexValue);
 
     return regexp.test(this.currentUrl);
   }
 
-  shouldHideMenu() {
+  shouldHideMenu(): void {
     if (this.sideNav.mode === 'over') {
-      this.sideNav.close();
+      void this.sideNav.close();
     }
   }
 }

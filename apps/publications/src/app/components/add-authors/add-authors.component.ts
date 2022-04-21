@@ -15,6 +15,14 @@ import { TABLE_PUBLICATION_AUTHORS } from '@perun-web-apps/config/table-config';
   styleUrls: ['./add-authors.component.scss'],
 })
 export class AddAuthorsComponent implements OnInit {
+  @Input() publication: PublicationForGUI;
+  @Input() selection: SelectionModel<Author> = new SelectionModel<Author>(true, []);
+
+  filterValue = '';
+  loading = false;
+
+  tableId = TABLE_PUBLICATION_AUTHORS;
+
   constructor(
     private dialog: MatDialog,
     private cabinetService: CabinetManagerService,
@@ -22,21 +30,11 @@ export class AddAuthorsComponent implements OnInit {
     private translate: TranslateService
   ) {}
 
-  @Input()
-  publication: PublicationForGUI;
-  @Input()
-  selection: SelectionModel<Author> = new SelectionModel<Author>(true, []);
-
-  filterValue = '';
-  loading = false;
-
-  tableId = TABLE_PUBLICATION_AUTHORS;
-
   ngOnInit(): void {
     this.refresh();
   }
 
-  refresh() {
+  refresh(): void {
     this.loading = true;
     this.cabinetService.findAuthorsByPublicationId(this.publication.id).subscribe((authors) => {
       this.publication.authors = authors;
@@ -45,7 +43,7 @@ export class AddAuthorsComponent implements OnInit {
     });
   }
 
-  onAddAuthors() {
+  onAddAuthors(): void {
     const config = getDefaultDialogConfig();
     config.width = '800px';
     config.data = {
@@ -63,7 +61,7 @@ export class AddAuthorsComponent implements OnInit {
     });
   }
 
-  onRemoveAuthors() {
+  onRemoveAuthors(): void {
     const config = getDefaultDialogConfig();
     config.width = '800px';
     config.data = {
@@ -91,7 +89,7 @@ export class AddAuthorsComponent implements OnInit {
     });
   }
 
-  removeAuthors(authorsToRemove: Author[]) {
+  removeAuthors(authorsToRemove: Author[]): void {
     this.loading = true;
     if (authorsToRemove.length) {
       const author = authorsToRemove.pop();
@@ -103,14 +101,14 @@ export class AddAuthorsComponent implements OnInit {
       );
     } else {
       this.notificator.showSuccess(
-        this.translate.instant('DIALOGS.REMOVE_AUTHORS.SUCCESS_MESSAGE')
+        this.translate.instant('DIALOGS.REMOVE_AUTHORS.SUCCESS_MESSAGE') as string
       );
       this.selection.clear();
       this.refresh();
     }
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

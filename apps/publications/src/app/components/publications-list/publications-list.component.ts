@@ -10,6 +10,7 @@ import {
 import { MatSort } from '@angular/material/sort';
 import {
   CabinetManagerService,
+  Publication,
   PublicationForGUI,
   RichResource,
 } from '@perun-web-apps/perun/openapi';
@@ -35,31 +36,9 @@ import { ShowCiteDialogComponent } from '../../dialogs/show-cite-dialog/show-cit
   styleUrls: ['./publications-list.component.scss'],
 })
 export class PublicationsListComponent implements OnChanges, AfterViewInit {
-  constructor(
-    private tableCheckbox: TableCheckbox,
-    private cabinetService: CabinetManagerService,
-    private dialog: MatDialog,
-    private notificator: NotificatorService,
-    private translate: TranslateService
-  ) {
-    translate
-      .get('PUBLICATIONS_LIST.CHANGE_LOCK_SUCCESS')
-      .subscribe((value) => (this.changeLockMessage = value));
-    translate.get('PUBLICATIONS_LIST.LOCKED').subscribe((value) => (this.locked = value));
-    translate.get('PUBLICATIONS_LIST.UNLOCKED').subscribe((value) => (this.unlocked = value));
-  }
-
-  @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
-    this.sort = ms;
-    this.setDataSource();
-  }
-
-  @Input()
-  publications: PublicationForGUI[];
-  @Input()
-  selection = new SelectionModel<PublicationForGUI>(true, []);
-  @Input()
-  displayedColumns: string[] = [
+  @Input() publications: PublicationForGUI[];
+  @Input() selection = new SelectionModel<PublicationForGUI>(true, []);
+  @Input() displayedColumns: string[] = [
     'select',
     'id',
     'lock',
@@ -70,23 +49,15 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
     'thankedTo',
     'cite',
   ];
-  @Input()
-  tableId: string;
-  @Input()
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-  @Input()
-  routerPath: string;
-  @Input()
-  disabledRouting = false;
-  @Input()
-  openInTab = false;
-  @Input()
-  allowAlert = true;
-
-  @Output()
-  publicationSelector: EventEmitter<PublicationForGUI> = new EventEmitter<PublicationForGUI>();
-
-  private sort: MatSort;
+  @Input() tableId: string;
+  @Input() pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  @Input() routerPath: string;
+  @Input() disabledRouting = false;
+  @Input() openInTab = false;
+  @Input() allowAlert = true;
+  @Output() publicationSelector: EventEmitter<PublicationForGUI> =
+    new EventEmitter<PublicationForGUI>();
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   dataSource: MatTableDataSource<PublicationForGUI>;
   buttonPressed = false;
@@ -94,18 +65,30 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
   locked: string;
   unlocked: string;
 
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  private sort: MatSort;
 
-  ngOnChanges(): void {
-    this.dataSource = new MatTableDataSource<PublicationForGUI>(this.publications);
+  constructor(
+    private tableCheckbox: TableCheckbox,
+    private cabinetService: CabinetManagerService,
+    private dialog: MatDialog,
+    private notificator: NotificatorService,
+    private translate: TranslateService
+  ) {
+    translate
+      .get('PUBLICATIONS_LIST.CHANGE_LOCK_SUCCESS')
+      .subscribe((value: string) => (this.changeLockMessage = value));
+    translate.get('PUBLICATIONS_LIST.LOCKED').subscribe((value: string) => (this.locked = value));
+    translate
+      .get('PUBLICATIONS_LIST.UNLOCKED')
+      .subscribe((value: string) => (this.unlocked = value));
+  }
+
+  @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
+    this.sort = ms;
     this.setDataSource();
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.child.paginator;
-  }
-
-  getDataForColumn(data: PublicationForGUI, column: string): string {
+  static getDataForColumn(data: PublicationForGUI, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -128,23 +111,32 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
         return res.slice(0, -1);
       }
       default:
-        return data[column];
+        return data[column] as string;
     }
   }
 
-  exportData(format: string) {
+  ngOnChanges(): void {
+    this.dataSource = new MatTableDataSource<PublicationForGUI>(this.publications);
+    this.setDataSource();
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.child.paginator;
+  }
+
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn.bind(this)
+        PublicationsListComponent.getDataForColumn
       ),
       format
     );
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
+  isAllSelected(): boolean {
     return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
       '',
@@ -155,7 +147,7 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
+  masterToggle(): void {
     this.tableCheckbox.masterToggle(
       this.isAllSelected(),
       this.selection,
@@ -168,15 +160,6 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
     );
   }
 
-  private setDataSource() {
-    if (this.dataSource) {
-      this.dataSource.sortData = (data: PublicationForGUI[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn.bind(this));
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.child.paginator;
-    }
-  }
-
   /** The label for the checkbox on the passed row */
   checkboxLabel(row?: RichResource): string {
     if (!row) {
@@ -185,11 +168,11 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-  itemSelectionToggle(item: RichResource) {
+  itemSelectionToggle(item: RichResource): void {
     this.selection.toggle(item);
   }
 
-  showCite(publication: PublicationForGUI) {
+  showCite(publication: PublicationForGUI): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = publication;
@@ -197,7 +180,7 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
     this.dialog.open(ShowCiteDialogComponent, config);
   }
 
-  lockOrUnlockPublication(publication: PublicationForGUI) {
+  lockOrUnlockPublication(publication: PublicationForGUI): void {
     this.cabinetService
       .lockPublications({
         publications: [this.createPublication(publication)],
@@ -213,9 +196,23 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
       });
   }
 
-  private createPublication(publication: PublicationForGUI): any {
+  emitPublication(publication: PublicationForGUI): void {
+    this.publicationSelector.emit(publication);
+  }
+
+  private setDataSource(): void {
+    if (this.dataSource) {
+      this.dataSource.sortData = (data: PublicationForGUI[], sort: MatSort): PublicationForGUI[] =>
+        customDataSourceSort(data, sort, PublicationsListComponent.getDataForColumn);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.child.paginator;
+    }
+  }
+
+  private createPublication(publication: PublicationForGUI): Publication {
     return {
       id: publication.id,
+      beanName: publication.beanName,
       externalId: publication.externalId,
       publicationSystemId: publication.publicationSystemId,
       categoryId: publication.categoryId,
@@ -229,9 +226,5 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
       title: publication.title,
       year: publication.year,
     };
-  }
-
-  emitPublication(publication: PublicationForGUI) {
-    return this.publicationSelector.emit(publication);
   }
 }

@@ -43,18 +43,17 @@ export interface FilterPublication {
   ],
 })
 export class PublicationFilterComponent implements OnInit {
-  constructor(private cabinetService: CabinetManagerService) {}
-
+  @Output() filteredPublication: EventEmitter<FilterPublication> =
+    new EventEmitter<FilterPublication>();
   categories: Category[];
   title = new FormControl();
   code = new FormControl();
   selectedMode: string;
-  selectedCategory: any;
+  selectedCategory: Category | 'no_value';
   startYear = new FormControl(moment());
   endYear = new FormControl(moment());
 
-  @Output()
-  filteredPublication: EventEmitter<FilterPublication> = new EventEmitter<FilterPublication>();
+  constructor(private cabinetService: CabinetManagerService) {}
 
   ngOnInit(): void {
     this.title.setValue('');
@@ -66,19 +65,20 @@ export class PublicationFilterComponent implements OnInit {
     });
   }
 
-  filter() {
+  filter(): void {
+    const code = this.code.value as string;
     const filter = {
-      title: this.title.value,
-      isbnissn: this.selectedMode === 'isbn/issn' ? this.code.value : null,
-      doi: this.selectedMode === 'doi' ? this.code.value : null,
+      title: this.title.value as string,
+      isbnissn: this.selectedMode === 'isbn/issn' ? code : null,
+      doi: this.selectedMode === 'doi' ? code : null,
       category: this.selectedCategory !== 'no_value' ? this.selectedCategory.id : null,
-      startYear: formatDate(this.startYear.value, 'yyyy', 'en-GB'),
-      endYear: formatDate(this.endYear.value, 'yyyy', 'en-GB'),
+      startYear: formatDate(this.startYear.value as Date, 'yyyy', 'en-GB'),
+      endYear: formatDate(this.endYear.value as Date, 'yyyy', 'en-GB'),
     };
     this.filteredPublication.emit(filter);
   }
 
-  clearFilter() {
+  clearFilter(): void {
     this.title.setValue('');
     this.code.setValue('');
     this.selectedMode = 'isbn/issn';

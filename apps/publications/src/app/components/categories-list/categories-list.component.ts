@@ -30,6 +30,18 @@ import { UpdateRankDialogComponent } from '../../dialogs/update-rank-dialog/upda
   styleUrls: ['./categories-list.component.scss'],
 })
 export class CategoriesListComponent implements AfterViewInit, OnChanges {
+  @Input() categories: Category[] = [];
+  @Input() selection = new SelectionModel<Category>(true, []);
+  @Input() filterValue: string;
+  @Input() tableId: string;
+  @Input() displayedColumns: string[] = ['select', 'id', 'name', 'rank'];
+  @Input() pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  @Output() refreshTable = new EventEmitter<void>();
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  dataSource: MatTableDataSource<Category>;
+  editAuth = false;
+  private sort: MatSort;
+
   constructor(
     private guiAuthResolver: GuiAuthResolver,
     private tableCheckbox: TableCheckbox,
@@ -42,37 +54,7 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
     this.setDataSource();
   }
 
-  @Input()
-  categories: Category[] = [];
-  @Input()
-  selection = new SelectionModel<Category>(true, []);
-  @Input()
-  filterValue: string;
-  @Input()
-  tableId: string;
-  @Input()
-  displayedColumns: string[] = ['select', 'id', 'name', 'rank'];
-  @Input()
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
-  @Output()
-  refreshTable = new EventEmitter<void>();
-
-  private sort: MatSort;
-
-  dataSource: MatTableDataSource<Category>;
-
-  editAuth = false;
-
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-
-  ngOnChanges() {
-    this.dataSource = new MatTableDataSource<Category>(this.categories);
-    this.setDataSource();
-    this.dataSource.filter = this.filterValue;
-  }
-
-  getDataForColumn(data: Category, column: string): string {
+  static getDataForColumn(data: Category, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -81,39 +63,45 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
       case 'rank':
         return data.rank.toString();
       default:
-        return data[column];
+        return data[column] as string;
     }
   }
 
-  exportData(format: string) {
+  ngOnChanges(): void {
+    this.dataSource = new MatTableDataSource<Category>(this.categories);
+    this.setDataSource();
+    this.dataSource.filter = this.filterValue;
+  }
+
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn.bind(this)
+        CategoriesListComponent.getDataForColumn
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: Category, filter: string) =>
+      this.dataSource.filterPredicate = (data: Category, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn.bind(this)
+          CategoriesListComponent.getDataForColumn
         );
-      this.dataSource.sortData = (data: Category[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn.bind(this));
+      this.dataSource.sortData = (data: Category[], sort: MatSort): Category[] =>
+        customDataSourceSort(data, sort, CategoriesListComponent.getDataForColumn);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
     }
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
+  isAllSelected(): boolean {
     return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
       this.filterValue,
@@ -124,7 +112,7 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
+  masterToggle(): void {
     this.tableCheckbox.masterToggle(
       this.isAllSelected(),
       this.selection,
@@ -150,11 +138,11 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
     this.dataSource.paginator = this.child.paginator;
   }
 
-  itemSelectionToggle(item: Category) {
+  itemSelectionToggle(item: Category): void {
     this.selection.toggle(item);
   }
 
-  updateCategory(category) {
+  updateCategory(category: Category): void {
     const config = getDefaultDialogConfig();
     config.width = '400px';
     config.data = category;

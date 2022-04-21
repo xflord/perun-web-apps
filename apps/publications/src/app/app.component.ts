@@ -16,6 +16,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
+  static minWidth = 992;
+  @ViewChild('footer') footer: ElementRef<HTMLDivElement>;
+  sidebarMode: 'over' | 'push' | 'side' = 'side';
+  isLoginScreenShow: boolean;
+  isServiceAccess: boolean;
+
+  sideMenuBgColor = this.store.get('theme', 'sidemenu_bg_color') as string;
+  contentBackgroundColor = this.store.get('theme', 'content_bg_color') as string;
+  contentHeight = 'calc(100vh - 64px)';
+
   constructor(
     private store: StoreService,
     private initAuth: InitAuthService,
@@ -24,37 +34,27 @@ export class AppComponent implements OnInit, AfterViewInit {
     private router: Router
   ) {}
 
-  public static minWidth = 992;
-  sidebarMode: 'over' | 'push' | 'side' = 'side';
-  isLoginScreenShow: boolean;
-  isServiceAccess: boolean;
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(): void {
+    this.sidebarMode = this.isMobile() ? 'over' : 'side';
+  }
 
-  sideMenuBgColor = this.store.get('theme', 'sidemenu_bg_color');
-  contentBackgroundColor = this.store.get('theme', 'content_bg_color');
-  contentHeight = 'calc(100vh - 64px)';
-  @ViewChild('footer') footer: ElementRef;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.isLoginScreenShow = this.initAuth.isLoginScreenShown();
     this.isServiceAccess = this.initAuth.isServiceAccessLoginScreenShown();
     sessionStorage.removeItem('baLogout');
     const url = location.pathname;
     if (!this.authResolver.isCabinetAdmin() && (url === '/' || url.includes('/all-publications'))) {
-      this.router.navigate(['my-publications']);
+      void this.router.navigate(['my-publications']);
     }
-  }
-
-  @HostListener('window:resize', ['$event'])
-  getScreenSize() {
-    this.sidebarMode = this.isMobile() ? 'over' : 'side';
   }
 
   isMobile(): boolean {
     return window.innerWidth <= AppComponent.minWidth;
   }
 
-  setContentHeight(height: number) {
-    this.contentHeight = 'calc(100vh - 84px - ' + height + 'px)';
+  setContentHeight(height: number): void {
+    this.contentHeight = 'calc(100vh - 84px - ' + String(height) + 'px)';
     this.changeDetector.detectChanges();
   }
 
@@ -63,7 +63,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.contentHeight = 'calc(100vh - 84px - ' + this.footer.nativeElement.offsetHeight + 'px)';
+    this.contentHeight =
+      'calc(100vh - 84px - ' + String(this.footer.nativeElement.offsetHeight) + 'px)';
     this.changeDetector.detectChanges();
   }
 }

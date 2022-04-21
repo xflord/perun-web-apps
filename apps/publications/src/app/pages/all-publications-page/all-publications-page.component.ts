@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Filter } from '../Filter';
 
 @Component({
   selector: 'perun-web-apps-all-publications-page',
@@ -16,6 +17,19 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./all-publications-page.component.scss'],
 })
 export class AllPublicationsPageComponent implements OnInit {
+  loading: boolean;
+  publications: PublicationForGUI[];
+  selected = new SelectionModel<PublicationForGUI>(true, []);
+  tableId = TABLE_PUBLICATION_AUTHOR_DETAIL_PUBLICATIONS;
+  filter: Filter = {
+    title: null,
+    isbnissn: null,
+    doi: null,
+    category: null,
+    startYear: null,
+    endYear: null,
+  };
+
   constructor(
     private route: ActivatedRoute,
     private cabinetService: CabinetManagerService,
@@ -29,24 +43,11 @@ export class AllPublicationsPageComponent implements OnInit {
     );
   }
 
-  loading: boolean;
-  publications: PublicationForGUI[];
-  selected = new SelectionModel<PublicationForGUI>(true, []);
-  tableId = TABLE_PUBLICATION_AUTHOR_DETAIL_PUBLICATIONS;
-  filter = {
-    title: null,
-    isbnissn: null,
-    doi: null,
-    category: null,
-    startYear: null,
-    endYear: null,
-  };
-
   ngOnInit(): void {
     this.refreshTable();
   }
 
-  removePublication() {
+  removePublication(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = this.selected.selected;
@@ -60,7 +61,7 @@ export class AllPublicationsPageComponent implements OnInit {
     });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.selected.clear();
     this.cabinetService
@@ -81,7 +82,7 @@ export class AllPublicationsPageComponent implements OnInit {
       });
   }
 
-  filterPublication(event: FilterPublication) {
+  filterPublication(event: FilterPublication): void {
     this.filter = event;
     this.refreshTable();
   }

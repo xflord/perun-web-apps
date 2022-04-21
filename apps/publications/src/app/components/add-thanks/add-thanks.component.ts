@@ -19,6 +19,14 @@ import { UniversalConfirmationItemsDialogComponent } from '@perun-web-apps/perun
   styleUrls: ['./add-thanks.component.scss'],
 })
 export class AddThanksComponent implements OnInit {
+  @Input() publication: PublicationForGUI;
+  @Input() selection: SelectionModel<ThanksForGUI> = new SelectionModel<ThanksForGUI>(true, []);
+
+  tableId = TABLE_PUBLICATION_THANKS;
+
+  loading = false;
+  filterValue = '';
+
   constructor(
     private dialog: MatDialog,
     private cabinetService: CabinetManagerService,
@@ -26,21 +34,11 @@ export class AddThanksComponent implements OnInit {
     private translate: TranslateService
   ) {}
 
-  @Input()
-  publication: PublicationForGUI;
-  @Input()
-  selection: SelectionModel<ThanksForGUI> = new SelectionModel<ThanksForGUI>(true, []);
-
-  tableId = TABLE_PUBLICATION_THANKS;
-
-  loading = false;
-  filterValue = '';
-
   ngOnInit(): void {
     this.refresh();
   }
 
-  refresh() {
+  refresh(): void {
     this.loading = true;
     this.cabinetService.findPublicationById(this.publication.id).subscribe((publication) => {
       this.publication = publication;
@@ -49,7 +47,7 @@ export class AddThanksComponent implements OnInit {
     });
   }
 
-  onAddThanks() {
+  onAddThanks(): void {
     const config = getDefaultDialogConfig();
     config.width = '800px';
     config.data = this.publication;
@@ -63,7 +61,7 @@ export class AddThanksComponent implements OnInit {
     });
   }
 
-  onRemoveThanks() {
+  onRemoveThanks(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
     config.data = {
@@ -85,19 +83,22 @@ export class AddThanksComponent implements OnInit {
     });
   }
 
-  removeThank() {
+  removeThank(): void {
     if (this.selection.selected.length === 0) {
-      this.translate.get('PUBLICATION_DETAIL.REMOVE_THANKS_SUCCESS').subscribe((success) => {
-        this.notificator.showSuccess(success);
-        this.refresh();
-      });
+      this.translate
+        .get('PUBLICATION_DETAIL.REMOVE_THANKS_SUCCESS')
+        .subscribe((success: string) => {
+          this.notificator.showSuccess(success);
+          this.refresh();
+        });
     } else {
       this.cabinetService.deleteThanks(this.selection.selected.pop().id).subscribe(() => {
         this.removeThank();
       });
     }
   }
-  applyFilter(filterValue: string) {
+
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

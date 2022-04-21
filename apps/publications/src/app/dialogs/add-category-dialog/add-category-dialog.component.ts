@@ -11,6 +11,12 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./add-category-dialog.component.scss'],
 })
 export class AddCategoryDialogComponent implements OnInit {
+  successMessage: string;
+  loading: boolean;
+
+  nameCtrl: FormControl;
+  rankCtrl: FormControl;
+
   constructor(
     private dialogRef: MatDialogRef<AddCategoryDialogComponent>,
     private notificator: NotificatorService,
@@ -19,16 +25,10 @@ export class AddCategoryDialogComponent implements OnInit {
   ) {
     translate
       .get('DIALOGS.ADD_CATEGORY.SUCCESS')
-      .subscribe((value) => (this.successMessage = value));
+      .subscribe((value: string) => (this.successMessage = value));
   }
 
-  successMessage: string;
-  loading: boolean;
-
-  nameCtrl: FormControl;
-  rankCtrl: FormControl;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.nameCtrl = new FormControl(null, [
       Validators.required,
       Validators.pattern('^[\\w.-]+( [\\w.-]+)*$'),
@@ -40,15 +40,21 @@ export class AddCategoryDialogComponent implements OnInit {
     ]);
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.loading = true;
     this.cabinetManagerService
-      // @ts-ignore
-      .createCategoryCat({ category: { name: this.nameCtrl.value, rank: this.rankCtrl.value } })
+      .createCategoryCat({
+        category: {
+          id: 0,
+          beanName: 'Category',
+          name: this.nameCtrl.value as string,
+          rank: this.rankCtrl.value as number,
+        },
+      })
       .subscribe(
         () => {
           // this.cabinetManagerService.createCategoryNR({name: this.nameCtrl.value, rank: this.rankCtrl.value}).subscribe(vo => {

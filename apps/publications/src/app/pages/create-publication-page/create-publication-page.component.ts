@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
 export class CreatePublicationPageComponent {
   constructor(private router: Router) {}
 
-  importPublications() {
-    this.router.navigate(['create-publication', 'import']);
+  importPublications(): void {
+    void this.router.navigate(['create-publication', 'import']);
   }
 
-  createPublication() {
-    this.router.navigate(['create-publication', 'create']);
+  createPublication(): void {
+    void this.router.navigate(['create-publication', 'create']);
   }
 }

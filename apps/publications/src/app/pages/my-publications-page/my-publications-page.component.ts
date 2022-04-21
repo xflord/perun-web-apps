@@ -11,6 +11,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { TABLE_PUBLICATION_AUTHOR_DETAIL_PUBLICATIONS } from '@perun-web-apps/config/table-config';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { Filter } from '../Filter';
 
 @Component({
   selector: 'perun-web-apps-my-publications-page',
@@ -18,20 +19,13 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./my-publications-page.component.scss'],
 })
 export class MyPublicationsPageComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
-    private cabinetService: CabinetManagerService,
-    private dialog: MatDialog,
-    private authResolver: AuthzResolverService
-  ) {}
-
   loading: boolean;
   initLoading: boolean;
   publications: PublicationForGUI[];
   selected = new SelectionModel<PublicationForGUI>(true, []);
   tableId = TABLE_PUBLICATION_AUTHOR_DETAIL_PUBLICATIONS;
   authorId: number;
-  filter = {
+  filter: Filter = {
     title: null,
     isbnissn: null,
     doi: null,
@@ -39,6 +33,13 @@ export class MyPublicationsPageComponent implements OnInit {
     startYear: null,
     endYear: null,
   };
+
+  constructor(
+    private route: ActivatedRoute,
+    private cabinetService: CabinetManagerService,
+    private dialog: MatDialog,
+    private authResolver: AuthzResolverService
+  ) {}
 
   ngOnInit(): void {
     this.initLoading = true;
@@ -50,7 +51,7 @@ export class MyPublicationsPageComponent implements OnInit {
     });
   }
 
-  removePublication() {
+  removePublication(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = this.selected.selected;
@@ -64,7 +65,7 @@ export class MyPublicationsPageComponent implements OnInit {
     });
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.selected.clear();
     this.cabinetService
@@ -85,7 +86,7 @@ export class MyPublicationsPageComponent implements OnInit {
       });
   }
 
-  filterPublication(event: FilterPublication) {
+  filterPublication(event: FilterPublication): void {
     this.filter = event;
     this.refreshTable();
   }

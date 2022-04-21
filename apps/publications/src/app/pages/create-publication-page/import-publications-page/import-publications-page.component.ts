@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   CabinetManagerService,
+  InputCreatePublication,
   Publication,
   PublicationForGUI,
   PublicationSystem,
@@ -17,6 +18,7 @@ import { Router } from '@angular/router';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { UniversalConfirmationDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { Moment } from 'moment';
 
 const moment = _moment;
 
@@ -46,15 +48,6 @@ export const YEAR_MODE_FORMATS = {
   ],
 })
 export class ImportPublicationsPageComponent implements OnInit {
-  constructor(
-    private cabinetService: CabinetManagerService,
-    private storeService: StoreService,
-    private notificator: NotificatorService,
-    private translate: TranslateService,
-    private router: Router,
-    private dialog: MatDialog
-  ) {}
-
   loading = false;
   publicationSystems: PublicationSystem[] = [];
   pubSystem = new FormControl();
@@ -77,6 +70,15 @@ export class ImportPublicationsPageComponent implements OnInit {
   indexExpanded: number;
   completePublications: number[] = [];
 
+  constructor(
+    private cabinetService: CabinetManagerService,
+    private storeService: StoreService,
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
+
   ngOnInit(): void {
     this.loading = true;
     this.firstSearchDone = false;
@@ -88,24 +90,24 @@ export class ImportPublicationsPageComponent implements OnInit {
     this.cabinetService.getPublicationSystems().subscribe((publicationSystems) => {
       this.publicationSystems = publicationSystems.filter((ps) => ps.friendlyName !== 'INTERNAL');
       this.pubSystem.setValue(this.publicationSystems[0]);
-      this.pubSystemNamespace = this.pubSystem.value.loginNamespace;
+      this.pubSystemNamespace = (this.pubSystem.value as PublicationSystem).loginNamespace;
       this.loading = false;
     });
   }
 
-  selectPubSystem() {
-    this.pubSystemNamespace = this.pubSystem.value.loginNamespace;
+  selectPubSystem(): void {
+    this.pubSystemNamespace = (this.pubSystem.value as PublicationSystem).loginNamespace;
   }
 
-  searchPublications() {
+  searchPublications(): void {
     this.loading = true;
     this.firstSearchDone = true;
 
     this.cabinetService
       .findExternalPublications(
         this.storeService.getPerunPrincipal().user.id,
-        this.startYear.value.year(),
-        this.endYear.value.year(),
+        (this.startYear.value as Moment).year(),
+        (this.endYear.value as Moment).year(),
         this.pubSystemNamespace
       )
       .subscribe(
@@ -117,18 +119,20 @@ export class ImportPublicationsPageComponent implements OnInit {
       );
   }
 
-  importPublications(publications: PublicationForGUI[]) {
+  importPublications(publications: PublicationForGUI[]): void {
     this.loading = true;
     if (publications.length === 0) {
-      this.notificator.showSuccess(this.translate.instant('IMPORT_PUBLICATIONS.SUCCESS'));
+      this.notificator.showSuccess(this.translate.instant('IMPORT_PUBLICATIONS.SUCCESS') as string);
       this.importDone = true;
       this.indexExpanded = 0;
       this.loading = false;
       return;
     }
     const publication = publications.shift();
-    const publicationInput: any = {
+    const publicationInput: InputCreatePublication = {
       publication: {
+        id: 0,
+        beanName: 'Publication',
         title: publication.title,
         categoryId: publication.categoryId,
         year: publication.year,
@@ -166,11 +170,11 @@ export class ImportPublicationsPageComponent implements OnInit {
     );
   }
 
-  editPublication(index: number) {
+  editPublication(index: number): void {
     this.indexExpanded = index === this.indexExpanded ? -1 : index;
   }
 
-  completePublication(publicationId: number, indexExpanded: number) {
+  completePublication(publicationId: number, indexExpanded: number): void {
     if (!this.completePublications.includes(publicationId)) {
       this.completePublications.push(publicationId);
     }
@@ -181,7 +185,7 @@ export class ImportPublicationsPageComponent implements OnInit {
     }
   }
 
-  incompletePublication(publicationId: number) {
+  incompletePublication(publicationId: number): void {
     if (this.completePublications.includes(publicationId)) {
       this.completePublications = this.completePublications.filter(
         (pubId) => pubId !== publicationId
@@ -190,12 +194,12 @@ export class ImportPublicationsPageComponent implements OnInit {
     this.indexExpanded = -1;
   }
 
-  completeAllPublications() {
+  completeAllPublications(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = {
       theme: 'user-theme',
-      message: this.translate.instant('IMPORT_PUBLICATIONS.CHECK_ALL_MESSAGE'),
+      message: this.translate.instant('IMPORT_PUBLICATIONS.CHECK_ALL_MESSAGE') as string,
     };
 
     const dialogRef = this.dialog.open(UniversalConfirmationDialogComponent, config);
@@ -207,8 +211,10 @@ export class ImportPublicationsPageComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    this.notificator.showSuccess(this.translate.instant('IMPORT_PUBLICATIONS.SHOW_FINISH'));
-    this.router.navigate(['/my-publications']);
+  onSubmit(): void {
+    this.notificator.showSuccess(
+      this.translate.instant('IMPORT_PUBLICATIONS.SHOW_FINISH') as string
+    );
+    void this.router.navigate(['/my-publications']);
   }
 }

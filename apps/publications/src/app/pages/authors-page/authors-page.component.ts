@@ -8,18 +8,18 @@ import { TABLE_PUBLICATION_AUTHORS } from '@perun-web-apps/config/table-config';
   styleUrls: ['./authors-page.component.scss'],
 })
 export class AuthorsPageComponent implements OnInit {
-  constructor(private cabinetService: CabinetManagerService) {}
-
   filterValue = '';
   loading: boolean;
   authors: Author[];
   tableId = TABLE_PUBLICATION_AUTHORS;
 
+  constructor(private cabinetService: CabinetManagerService) {}
+
   ngOnInit(): void {
     this.refreshTable();
   }
 
-  refreshTable() {
+  refreshTable(): void {
     this.loading = true;
     this.cabinetService.findAllAuthors().subscribe((authors) => {
       this.authors = authors;
@@ -27,7 +27,7 @@ export class AuthorsPageComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
   }
 }

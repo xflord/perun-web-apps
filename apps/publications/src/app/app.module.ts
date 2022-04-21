@@ -61,18 +61,19 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
   multi: true,
 };
 
-export function createTranslateLoader(http: HttpClient) {
+export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 export function apiConfigFactory(store: StoreService): Configuration {
   const params: ConfigurationParameters = {
-    basePath: store.get('api_url'),
+    basePath: store.get('api_url') as string,
   };
   return new Configuration(params);
 }
-
-const loadConfigs = (appConfig: PublicationsConfigService) => () => appConfig.loadConfigs();
+const loadConfigs: (appConfig: PublicationsConfigService) => () => Promise<void> =
+  (appConfig: PublicationsConfigService) => () =>
+    appConfig.loadConfigs();
 
 @NgModule({
   declarations: [
