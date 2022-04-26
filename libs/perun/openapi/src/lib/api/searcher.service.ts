@@ -134,7 +134,7 @@ export class SearcherService {
     }
 
     return this.httpClient.post<Array<Resource>>(
-      `${this.configuration.basePath}/json/Searcher/getResources/attributes-match`,
+      `${this.configuration.basePath}/json/searcher/getResources/attributes-match`,
       inputGetResources1,
       {
         withCredentials: this.configuration.withCredentials,
@@ -216,7 +216,7 @@ export class SearcherService {
     }
 
     return this.httpClient.post<Array<Resource>>(
-      `${this.configuration.basePath}/json/Searcher/getResources/attributes`,
+      `${this.configuration.basePath}/json/searcher/getResources/attributes`,
       inputGetResources,
       {
         withCredentials: this.configuration.withCredentials,
@@ -298,7 +298,7 @@ export class SearcherService {
     }
 
     return this.httpClient.post<Array<Facility>>(
-      `${this.configuration.basePath}/json/Searcher/getFacilities`,
+      `${this.configuration.basePath}/json/searcher/getFacilities`,
       inputGetFacilities,
       {
         withCredentials: this.configuration.withCredentials,
@@ -380,7 +380,7 @@ export class SearcherService {
     }
 
     return this.httpClient.post<Array<Member>>(
-      `${this.configuration.basePath}/json/Searcher/getMembersByUserAttributes`,
+      `${this.configuration.basePath}/json/searcher/getMembersByUserAttributes`,
       inputGetMembersByUserAttributes,
       {
         withCredentials: this.configuration.withCredentials,
@@ -462,7 +462,7 @@ export class SearcherService {
     }
 
     return this.httpClient.post<Array<User>>(
-      `${this.configuration.basePath}/json/Searcher/getUsers`,
+      `${this.configuration.basePath}/json/searcher/getUsers`,
       inputGetUsers,
       {
         withCredentials: this.configuration.withCredentials,

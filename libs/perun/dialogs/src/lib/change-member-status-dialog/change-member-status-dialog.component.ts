@@ -13,6 +13,7 @@ export interface ChangeMemberStatusDialogData {
   member: RichMember;
   voId?: number;
   groupId?: number;
+  disableChangeExpiration?: boolean;
 }
 
 @Component({
@@ -96,9 +97,10 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
   changeStatus(event: MatSelectChange) {
     this.selectedStatus = event.value;
     if (
-      (this.actualStatus === 'VALID' && this.selectedStatus === 'EXPIRED') ||
-      (this.actualStatus === 'VALID' && this.selectedStatus === 'DISABLED') ||
-      this.selectedStatus === 'VALID'
+      ((this.actualStatus === 'VALID' && this.selectedStatus === 'EXPIRED') ||
+        (this.actualStatus === 'VALID' && this.selectedStatus === 'DISABLED') ||
+        this.selectedStatus === 'VALID') &&
+      !this.data.disableChangeExpiration
     ) {
       this.submitButtonText = this.changeStatusWithExpButton;
     } else {

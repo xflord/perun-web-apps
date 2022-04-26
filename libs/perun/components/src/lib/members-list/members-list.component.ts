@@ -69,6 +69,8 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
   displayedColumns: string[] = [
     'checkbox',
     'id',
+    'voId',
+    'userId',
     'type',
     'fullName',
     'status',
@@ -78,6 +80,10 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     'email',
     'logins',
   ];
+
+  @Input() disableStatusChange = false;
+
+  @Input() disableExpirationChange = false;
 
   @Input()
   tableId: string;
@@ -244,10 +250,10 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
 
   changeStatus(event: any, member: RichMember) {
     event.stopPropagation();
-    if (member.status === 'INVALID') {
+    if (!this.disableStatusChange) {
       const config = getDefaultDialogConfig();
       config.width = '500px';
-      config.data = { member: member };
+      config.data = { member: member, disableChangeExpiration: this.disableExpirationChange };
 
       const dialogRef = this.dialog.open(ChangeMemberStatusDialogComponent, config);
       dialogRef.afterClosed().subscribe((success) => {

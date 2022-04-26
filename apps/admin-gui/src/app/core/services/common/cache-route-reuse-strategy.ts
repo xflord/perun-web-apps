@@ -19,6 +19,7 @@ import { Injectable } from '@angular/core';
 import { VoSelectPageComponent } from '../../../vos/pages/vo-select-page/vo-select-page.component';
 import { FacilitySelectPageComponent } from '../../../facilities/pages/facility-select-page/facility-select-page.component';
 import { VoSettingsSponsoredMembersComponent } from '../../../vos/pages/vo-detail-page/vo-settings/vo-settings-sponsored-members/vo-settings-sponsored-members.component';
+import { AdminSearcherComponent } from '../../../admin/pages/admin-page/admin-searcher/admin-searcher.component';
 
 export class CachedRoute {
   routeHandle: DetachedRouteHandle;
@@ -63,7 +64,7 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
     },
     {
       type: 'admin',
-      components: [AdminUsersComponent.id],
+      components: [AdminUsersComponent.id, AdminSearcherComponent.id],
     },
     {
       type: 'entitySelect',

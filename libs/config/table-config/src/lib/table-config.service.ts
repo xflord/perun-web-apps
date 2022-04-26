@@ -109,3 +109,7 @@ export const TABLE_ASSIGN_RESOURCE_TO_GROUP = '78';
 export const TABLE_AUDIT_MESSAGES = '79';
 export const TABLE_CONSENT_HUBS = '80';
 export const TABLE_USER_CONSENTS = '81';
+export const TABLE_SEARCHER_USERS = '82';
+export const TABLE_SEARCHER_MEMBERS = '83';
+export const TABLE_SEARCHER_FACILITIES = '84';
+export const TABLE_SEARCHER_RESOURCES = '85';

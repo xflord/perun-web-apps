@@ -10,7 +10,7 @@ export class MemberStatusTooltipPipe implements PipeTransform {
     let memberExpiration = null;
     let groupExpiration = null;
 
-    if (member.memberAttributes !== null) {
+    if (member.memberAttributes) {
       memberExpiration = member.memberAttributes.find(
         (att) => att.friendlyName === 'membershipExpiration'
       );
@@ -27,12 +27,18 @@ export class MemberStatusTooltipPipe implements PipeTransform {
           : 'never'
       }`;
     } else {
-      res = `Status: ${parseMemberStatus(member.status, member.groupStatus)}
+      if (member.memberAttributes) {
+        res = `Status: ${parseMemberStatus(member.status, member.groupStatus)}
              Vo status: ${parseMemberStatus(member.status)}, Expiration: ${
-        memberExpiration && memberExpiration.value
-          ? (memberExpiration.value as unknown as string)
-          : 'never'
-      }`;
+          memberExpiration && memberExpiration.value
+            ? (memberExpiration.value as unknown as string)
+            : 'never'
+        }`;
+      } else {
+        // we can't display correct expiration without attributes, but we can still display statuses
+        res = `Status: ${parseMemberStatus(member.status, member.groupStatus)}
+             Vo status: ${parseMemberStatus(member.status)}`;
+      }
     }
     return res;
   }

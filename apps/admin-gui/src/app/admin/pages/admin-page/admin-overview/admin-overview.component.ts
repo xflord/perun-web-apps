@@ -60,5 +60,11 @@ export class AdminOverviewComponent {
       label: 'MENU_ITEMS.ADMIN.CONSENT_HUBS',
       style: 'admin-btn',
     },
+    {
+      cssIcon: 'perun-searcher',
+      url: '/admin/searcher',
+      label: 'MENU_ITEMS.ADMIN.SEARCHER',
+      style: 'admin-btn',
+    },
   ];
 }

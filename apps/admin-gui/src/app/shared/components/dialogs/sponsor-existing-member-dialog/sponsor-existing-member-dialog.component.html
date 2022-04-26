@@ -30,6 +30,7 @@
       [tableId]="tableId"
       *ngIf="firstSearchDone"
       [hidden]="loading"
+      [disableStatusChange]="true"
       [members]="members"
       [selection]="selection"
       [displayedColumns]="['checkbox', 'id', 'fullName', 'status', 'sponsored', 'email']"

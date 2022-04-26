@@ -926,7 +926,8 @@
       "SERVICES": "Services",
       "OWNERS": "Owners",
       "AUDIT_LOG": "Audit log",
-      "CONSENT_HUBS": "Consent hubs"
+      "CONSENT_HUBS": "Consent hubs",
+      "SEARCHER": "Searcher"
     },
     "VISUALIZER": {
       "ATTR_DEPENDENCIES": "Modules dependencies",
@@ -2135,6 +2136,8 @@
   },
   "MEMBERS_LIST": {
     "ID": "Id",
+    "VO_ID": "Organization Id",
+    "USER_ID": "User Id",
     "NAME": "Name",
     "STATUS": "Organization status",
     "GROUP_STATUS": "Group status",
@@ -2264,6 +2267,13 @@
     "CONSENT_HUBS": {
       "TITLE": "Consent hubs",
       "SEARCH": "Search by Id, Name or Facilities"
+    },
+    "SEARCHER": {
+      "TITLE": "Searcher",
+      "TAB_USERS": "User",
+      "TAB_MEMBERS": "Members",
+      "TAB_FACILITIES": "Facilities",
+      "TAB_RESOURCES": "Resources"
     }
   },
   "USER_DETAIL": {
@@ -2593,7 +2603,9 @@
           "TABLE_RESOURCE_ID": "Id",
           "TABLE_RESOURCE_NAME": "Name",
           "TABLE_VO_NAME": "Organization",
+          "TABLE_VO_ID": "Organization Id",
           "TABLE_FACILITY_NAME": "Facility name",
+          "TABLE_FACILITY_ID": "Facility Id",
           "TABLE_RESOURCE_TAGS": "Tags",
           "TABLE_SEARCH": "Filter",
           "TABLE_RESOURCE_DESCRIPTION": "Description",
@@ -2627,6 +2639,16 @@
           "SELECT_USER": "Select user",
           "FIND_USER": "Find user...",
           "NO_USER_FOUND": "No matching user found"
+        },
+        "ATTR_DEF_SEARCH_SELECT": {
+          "SELECT_ATTR_DEF": "Select attribute definition",
+          "FIND_ATTR_DEF": "Find attribute definition...",
+          "NO_ATTR_DEF_FOUND": "No matching attribute definition found",
+          "SEARCH_PLACEHOLDER": "Search by selected attribute",
+          "ADD_PARAMETER": "Add parameter",
+          "REMOVE_PARAMETER": "Remove",
+          "SEARCH_BUTTON": "Search",
+          "SEARCH_BUTTON_TOOLTIP": "Search string cannot be empty"
         },
         "ATTRIBUTE_VALUE_LIST": {
           "EDIT_DIALOG": {

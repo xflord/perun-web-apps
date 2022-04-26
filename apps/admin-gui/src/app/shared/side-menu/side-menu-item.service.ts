@@ -235,6 +235,11 @@ export class SideMenuItemService {
           url: ['/admin/consent_hubs'],
           activatedRegex: '^/admin/consent_hubs$',
         },
+        {
+          label: 'MENU_ITEMS.ADMIN.SEARCHER',
+          url: ['/admin/searcher'],
+          activatedRegex: '^/admin/searcher',
+        },
       ],
     };
   }

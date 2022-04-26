@@ -752,6 +752,14 @@ export function compareFnName(a, b) {
     : -1;
 }
 
+export function compareFnDisplayName(a, b) {
+  return a.displayName.toLowerCase() > b.displayName.toLowerCase()
+    ? 1
+    : a.displayName.toLowerCase() === b.displayName.toLowerCase()
+    ? 0
+    : -1;
+}
+
 export function compareFnUser(a, b) {
   let first, second;
   if (a.user) {

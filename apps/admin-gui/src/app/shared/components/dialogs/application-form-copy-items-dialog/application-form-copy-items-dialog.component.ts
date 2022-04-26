@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -41,6 +41,7 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
     private registrarManager: RegistrarManagerService,
     private notificatorService: NotificatorService,
     private apiRequest: ApiRequestConfigurationService,
+    private cd: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: ApplicationFormCopyItemsDialogData
   ) {
     translateService
@@ -63,17 +64,7 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
       () => {
         this.voService.getMyVos().subscribe(
           (vos) => {
-            this.vos = vos.sort((vo1, vo2) => {
-              if (vo1.name > vo2.name) {
-                return 1;
-              }
-
-              if (vo1.name < vo2.name) {
-                return -1;
-              }
-
-              return 0;
-            });
+            this.vos = vos;
             this.loading = false;
           },
           () => (this.loading = false)
@@ -172,6 +163,7 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
 
   voSelected(vo: Vo) {
     this.selectedVo = vo;
+    this.cd.detectChanges();
     this.getGroups();
   }
 

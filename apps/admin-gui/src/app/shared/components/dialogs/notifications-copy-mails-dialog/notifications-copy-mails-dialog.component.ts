@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { openClose } from '@perun-web-apps/perun/animations';
@@ -29,6 +29,7 @@ export class NotificationsCopyMailsDialogComponent implements OnInit {
     private groupService: GroupsManagerService,
     private translateService: TranslateService,
     private registrarService: RegistrarManagerService,
+    private cd: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: NotificationsCopyMailsDialogData
   ) {}
 
@@ -59,18 +60,6 @@ export class NotificationsCopyMailsDialogComponent implements OnInit {
 
         this.voService.getAllVos().subscribe((vos) => {
           this.vos = vos;
-
-          this.vos = vos.sort((vo1, vo2) => {
-            if (vo1.name > vo2.name) {
-              return 1;
-            }
-
-            if (vo1.name < vo2.name) {
-              return -1;
-            }
-
-            return 0;
-          });
           this.loading = false;
         });
       },
@@ -129,10 +118,11 @@ export class NotificationsCopyMailsDialogComponent implements OnInit {
   voSelected(vo: Vo) {
     this.selectedVo = vo;
     this.getGroups();
+    this.cd.detectChanges();
   }
 
   getGroups() {
-    if (this.selectedVo !== null) {
+    if (this.selectedVo) {
       this.groupService.getAllGroups(this.selectedVo.id).subscribe((groups) => {
         this.groups = [this.fakeGroup].concat(groups);
       });

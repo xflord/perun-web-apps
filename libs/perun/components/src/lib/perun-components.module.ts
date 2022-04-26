@@ -92,6 +92,7 @@ import { NotAuthorizedPageComponent } from './not-authorized-page/not-authorized
 import { ConsentsListComponent } from './consents-list/consents-list.component';
 import { ConsentStatusComponent } from './consent-status/consent-status.component';
 import { UiMaterialModule } from '@perun-web-apps/ui/material';
+import { AttributeSearchSelectComponent } from './attribute-search-select/attribute-search-select.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -216,6 +217,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     NotAuthorizedPageComponent,
     ConsentsListComponent,
     ConsentStatusComponent,
+    AttributeSearchSelectComponent,
   ],
   exports: [
     VosListComponent,
@@ -271,6 +273,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     NotAuthorizedPageComponent,
     ConsentStatusComponent,
     ConsentsListComponent,
+    AttributeSearchSelectComponent,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

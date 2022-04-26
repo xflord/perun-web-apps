@@ -52,8 +52,10 @@ export class ResourcesListComponent implements OnInit, OnChanges {
     'indirectResourceAssigment',
     'name',
     'vo',
+    'voId',
     'status',
     'facility',
+    'facilityId',
     'tags',
     'description',
   ];

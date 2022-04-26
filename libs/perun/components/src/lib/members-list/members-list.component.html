@@ -40,6 +40,18 @@
         <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'MEMBERS_LIST.ID' | translate}}</th>
         <td *matCellDef="let member" class="static-column-size" mat-cell>{{member.id}}</td>
       </ng-container>
+      <ng-container matColumnDef="voId">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MEMBERS_LIST.VO_ID' | translate}}
+        </th>
+        <td *matCellDef="let member" mat-cell>{{member.voId}}</td>
+      </ng-container>
+      <ng-container matColumnDef="userId">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MEMBERS_LIST.USER_ID' | translate}}
+        </th>
+        <td *matCellDef="let member" mat-cell>{{member.userId}}</td>
+      </ng-container>
       <ng-container matColumnDef="type">
         <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
         <td *matCellDef="let member" mat-cell>

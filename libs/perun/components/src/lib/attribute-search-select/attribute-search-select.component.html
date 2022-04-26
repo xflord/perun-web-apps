@@ -1,0 +1,49 @@
+<div *ngIf="options !== undefined" class="container ml-0 mr-0 pl-0 pr-0 mt-3">
+  <div *ngFor="let option of options" class="row">
+    <div class="col-7">
+      <perun-web-apps-entity-search-select
+        [entities]="availableAttrDefs"
+        (entitySelected)="option[0] = $event.namespace + ':' + $event.friendlyName"
+        [searchFunction]="nameFunction"
+        [mainTextFunction]="nameFunction"
+        [secondaryTextFunction]="secondaryTextFunction"
+        [selectPlaceholder]="'SHARED_LIB.PERUN.COMPONENTS.ATTR_DEF_SEARCH_SELECT.SELECT_ATTR_DEF' | translate"
+        [findPlaceholder]="'SHARED_LIB.PERUN.COMPONENTS.ATTR_DEF_SEARCH_SELECT.FIND_ATTR_DEF' | translate"
+        [noEntriesText]="'SHARED_LIB.PERUN.COMPONENTS.ATTR_DEF_SEARCH_SELECT.NO_ATTR_DEF_FOUND' | translate">
+      </perun-web-apps-entity-search-select>
+    </div>
+    <div class="col-4 pr-0">
+      <perun-web-apps-debounce-filter
+        [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.ATTR_DEF_SEARCH_SELECT.SEARCH_PLACEHOLDER'"
+        (filter)="option[1] = $event">
+      </perun-web-apps-debounce-filter>
+    </div>
+    <div class="col-1">
+      <button
+        class="mt-2"
+        mat-icon-button
+        color="warn"
+        matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.ATTR_DEF_SEARCH_SELECT.REMOVE_PARAMETER' | translate}}"
+        [disabled]="options.length === 1"
+        (click)="removeOption(option)">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </div>
+  <button mat-flat-button color="accent" class="mr-2" (click)="addOption()">
+    {{'SHARED_LIB.PERUN.COMPONENTS.ATTR_DEF_SEARCH_SELECT.ADD_PARAMETER' | translate}}
+  </button>
+  <span
+    matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.ATTR_DEF_SEARCH_SELECT.SEARCH_BUTTON_TOOLTIP' | translate}}"
+    matTooltipPosition="below"
+    [matTooltipDisabled]="!emptySearchString()">
+    <button
+      mat-stroked-button
+      class="mr-2"
+      (click)="searchEntities()"
+      [disabled]="emptySearchString()">
+      <mat-icon>search</mat-icon>
+      {{'SHARED_LIB.PERUN.COMPONENTS.ATTR_DEF_SEARCH_SELECT.SEARCH_BUTTON' | translate}}
+    </button>
+  </span>
+</div>

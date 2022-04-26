@@ -31,6 +31,7 @@ import { UserFacilitiesComponent } from '../users/pages/user-detail-page/user-fa
 import { UserAccountsComponent } from '../users/pages/user-detail-page/user-accounts/user-accounts.component';
 import { AdminAuditLogComponent } from './pages/admin-page/admin-audit-log/admin-audit-log.component';
 import { AdminConsentHubsComponent } from './pages/admin-page/admin-consent-hubs/admin-consent-hubs.component';
+import { AdminSearcherComponent } from './pages/admin-page/admin-searcher/admin-searcher.component';
 
 const routes: Routes = [
   {
@@ -102,6 +103,11 @@ const routes: Routes = [
         path: 'consent_hubs',
         component: AdminConsentHubsComponent,
         data: { animation: 'AdminConsentHubsPage' },
+      },
+      {
+        path: 'searcher',
+        component: AdminSearcherComponent,
+        data: { animation: 'AdminSearcherPage' },
       },
     ],
   },

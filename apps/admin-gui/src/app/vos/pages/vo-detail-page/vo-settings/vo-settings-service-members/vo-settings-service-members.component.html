@@ -22,5 +22,6 @@
   *ngIf="!loading"
   [displayedColumns]="['checkbox','id', 'type', 'fullName', 'status']"
   [selection]="selection"
+  [disableStatusChange]="true"
   [filter]="searchString"
   [members]="members"></perun-web-apps-members-list>

@@ -204,6 +204,10 @@ export class CustomIconService {
       url: 'assets/img/PerunWebImages/hierarchical_vo-black.svg',
       name: 'perun-hierarchical-vo',
     },
+    {
+      url: 'assets/img/PerunWebImages/searcher-blue.svg',
+      name: 'perun-searcher',
+    },
   ];
 
   registerPerunRefreshIcon() {
