@@ -25,7 +25,7 @@ context('Actions', () => {
   it('test create vo', () => {
 
     cy.intercept('**/vosManager/createVo/**').as('createVo')
-      .intercept('**/vosManager/getVoById**').as('getVoById')
+      .intercept('**/vosManager/getEnrichedVoById**').as('getVoById')
       .get('[data-cy=new-vo-button]')
       .click()
       .get('[data-cy=vo-name-input]')
