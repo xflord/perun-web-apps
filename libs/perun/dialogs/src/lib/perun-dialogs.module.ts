@@ -26,7 +26,7 @@ import { PerunPipesModule } from '@perun-web-apps/perun/pipes';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 import { AttributeValueListDeleteDialogComponent } from './attribute-value-list-delete-dialog/attribute-value-list-delete-dialog.component';
 import { ChangeEmailDialogComponent } from './change-email-dialog/change-email-dialog.component';
-import { UniversalRemoveItemsDialogComponent } from './universal-remove-items-dialog/universal-remove-items-dialog.component';
+import { UniversalConfirmationItemsDialogComponent } from './universal-confirmation-items-dialog/universal-confirmation-items-dialog.component';
 import { MemberTreeViewDialogComponent } from './member-tree-view-dialog/member-tree-view-dialog.component';
 import { RouterModule } from '@angular/router';
 import { MatTreeModule } from '@angular/material/tree';
@@ -76,7 +76,7 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
     AttributeValueListEditDialogComponent,
     AttributeValueListDeleteDialogComponent,
     ChangeEmailDialogComponent,
-    UniversalRemoveItemsDialogComponent,
+    UniversalConfirmationItemsDialogComponent,
     MemberTreeViewDialogComponent,
     MailChangeFailedDialogComponent,
     UniversalConfirmationDialogComponent,
@@ -98,7 +98,7 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
     AttributeValueListEditDialogComponent,
     AttributeValueListDeleteDialogComponent,
     ChangeEmailDialogComponent,
-    UniversalRemoveItemsDialogComponent,
+    UniversalConfirmationItemsDialogComponent,
     MemberTreeViewDialogComponent,
     MailChangeFailedDialogComponent,
     ChangeGroupExpirationDialogComponent,

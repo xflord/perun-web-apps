@@ -817,9 +817,15 @@
   "SERVICE_DETAIL": {
     "ENTITY": "Service",
     "STATUS": "Status",
+    "EVALUATE_CONSENTS": "Evaluate consents",
+    "CONFIRM_DIALOG_TITLE": "Evaluate consents confirmation",
+    "CONFIRM_DIALOG_DESCRIPTION": "Are you sure you want to evaluate consents for this service?",
+    "EVALUATION_FINISH": "Consents evaluation completed",
     "STATUS_CHANGE_SUCCESS": "Service status was successfully changed",
     "ENABLED": "Enabled",
     "DISABLED": "Disabled",
+    "USE_EXPIRED_MEMBERS_ENABLED": "This service is using expired members as well",
+    "USE_EXPIRED_MEMBERS_DISABLED": "This service is not using expired members",
     "DESCRIPTION": "Description",
     "REQUIRED_ATTRIBUTES": {
       "TITLE": "Required attributes",
@@ -2266,6 +2272,10 @@
     },
     "CONSENT_HUBS": {
       "TITLE": "Consent hubs",
+      "EVALUATE_CONSENTS": "Evaluate consents",
+      "CONFIRM_DIALOG_TITLE": "Evaluate consents confirmation",
+      "CONFIRM_DIALOG_DESCRIPTION": "Are you sure you want to evaluate consents for all selected consent hubs?",
+      "EVALUATION_FINISH": "Consents evaluation completed",
       "SEARCH": "Search by Id, Name or Facilities"
     },
     "SEARCHER": {

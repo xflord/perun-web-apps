@@ -16,6 +16,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { EditEnforceConsentsDialogComponent } from '../dialogs/edit-enforce-consents-dialog/edit-enforce-consents-dialog.component';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-perun-web-apps-consent-hubs-list',
@@ -33,8 +34,9 @@ export class ConsentHubsListComponent implements OnChanges {
 
   @Input() consentHubs: ConsentHub[];
   @Input() filterValue = '';
-  @Input() displayedColumns: string[] = ['id', 'name', 'enforceConsents', 'facilities'];
+  @Input() displayedColumns: string[] = ['select', 'id', 'name', 'enforceConsents', 'facilities'];
   @Input() tableId: string;
+  @Input() selection = new SelectionModel<ConsentHub>(true, []);
 
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
@@ -49,7 +51,7 @@ export class ConsentHubsListComponent implements OnChanges {
   exporting = false;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
-  ngOnChanges(): void {
+  ngOnChanges() {
     this.dataSource = new MatTableDataSource<ConsentHub>(this.consentHubs);
     this.setDataSource();
   }
@@ -82,6 +84,39 @@ export class ConsentHubsListComponent implements OnChanges {
       ),
       format
     );
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    return this.tableCheckbox.isAllSelected(
+      this.selection.selected.length,
+      this.filterValue,
+      this.child.paginator.pageSize,
+      this.child.paginator.hasNextPage(),
+      this.dataSource
+    );
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.tableCheckbox.masterToggle(
+      this.isAllSelected(),
+      this.selection,
+      this.filterValue,
+      this.dataSource,
+      this.sort,
+      this.child.paginator.pageSize,
+      this.child.paginator.pageIndex,
+      false
+    );
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: ConsentHub): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
   setDataSource(): void {

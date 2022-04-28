@@ -12,6 +12,27 @@
       matSortActive="id"
       matSortDirection="asc"
       matSortDisableClear>
+      <ng-container matColumnDef="select">
+        <th *matHeaderCellDef mat-header-cell class="align-checkbox">
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            [aria-label]="checkboxLabel()"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            color="primary">
+          </mat-checkbox>
+        </th>
+        <td *matCellDef="let consentHub" class="static-column-size align-checkbox" mat-cell>
+          <mat-checkbox
+            (change)="$event ? selection.toggle(consentHub) : null"
+            (click)="$event.stopPropagation()"
+            [aria-label]="checkboxLabel(consentHub)"
+            [checked]="selection.isSelected(consentHub)"
+            color="primary">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="id">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>
           {{'SHARED.COMPONENTS.CONSENT_HUBS_LIST.ID' | translate}}

@@ -18,4 +18,5 @@ export interface Service extends Auditable {
   recurrence?: number;
   enabled?: boolean;
   script?: string;
+  useExpiredMembers?: boolean;
 }

@@ -15,7 +15,7 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { EditApplicationFormItemDataDialogComponent } from '../../../shared/components/dialogs/edit-application-form-item-data-dialog/edit-application-form-item-data-dialog.component';
-import { UniversalRemoveItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { UniversalConfirmationItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 @Component({
   selector: 'app-application-detail',
@@ -181,9 +181,11 @@ export class ApplicationDetailComponent implements OnInit {
       title: 'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DELETE_APPLICATION_TITLE',
       description: 'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DELETE_APPLICATION_DESCRIPTION',
       theme: 'vo-theme',
+      type: 'remove',
+      showAsk: true,
     };
 
-    const dialogRef = this.dialog.open(UniversalRemoveItemsDialogComponent, config);
+    const dialogRef = this.dialog.open(UniversalConfirmationItemsDialogComponent, config);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {

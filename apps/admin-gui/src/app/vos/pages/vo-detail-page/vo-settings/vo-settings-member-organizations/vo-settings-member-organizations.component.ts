@@ -10,7 +10,7 @@ import {
 } from '@perun-web-apps/perun/services';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ReloadEntityDetailService } from '../../../../../core/services/common/reload-entity-detail.service';
-import { UniversalRemoveItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { UniversalConfirmationItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -91,10 +91,12 @@ export class VoSettingsMemberOrganizationsComponent implements OnInit {
       title: 'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.REMOVE_MEMBER_ORGANIZATION.TITLE',
       alert: 'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.REMOVE_MEMBER_ORGANIZATION.WARNING',
       theme: 'vo-theme',
+      type: 'remove',
+      showAsk: true,
     };
 
     this.dialog
-      .open(UniversalRemoveItemsDialogComponent, config)
+      .open(UniversalConfirmationItemsDialogComponent, config)
       .afterClosed()
       .subscribe((result) => {
         if (result) {

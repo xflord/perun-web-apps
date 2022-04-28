@@ -7,7 +7,7 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
 import { AddGroupToRegistrationComponent } from '../../../shared/components/dialogs/add-group-to-registration/add-group-to-registration.component';
-import { UniversalRemoveItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { UniversalConfirmationItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { GroupsListComponent } from '@perun-web-apps/perun/components';
 
 @Component({
@@ -82,9 +82,11 @@ export class ApplicationFormManageGroupsComponent implements OnInit {
       description:
         'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.REMOVE_GROUP_DIALOG_DESCRIPTION',
       theme: 'vo-theme',
+      type: 'remove',
+      showAsk: true,
     };
 
-    const dialogRef = this.dialog.open(UniversalRemoveItemsDialogComponent, config);
+    const dialogRef = this.dialog.open(UniversalConfirmationItemsDialogComponent, config);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {

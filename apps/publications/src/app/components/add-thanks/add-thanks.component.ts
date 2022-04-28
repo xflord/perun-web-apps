@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { TABLE_PUBLICATION_THANKS } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AddThanksDialogComponent } from '../../dialogs/add-thanks-dialog/add-thanks-dialog.component';
-import { UniversalRemoveItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { UniversalConfirmationItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 @Component({
   selector: 'perun-web-apps-add-thanks',
@@ -71,9 +71,11 @@ export class AddThanksComponent implements OnInit {
       title: 'PUBLICATION_DETAIL.REMOVE_THANKS_DIALOG_TITLE',
       description: 'PUBLICATION_DETAIL.REMOVE_THANKS_DIALOG_DESCRIPTION',
       theme: 'user-theme',
+      type: 'remove',
+      showAsk: true,
     };
 
-    const dialogRef = this.dialog.open(UniversalRemoveItemsDialogComponent, config);
+    const dialogRef = this.dialog.open(UniversalConfirmationItemsDialogComponent, config);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {

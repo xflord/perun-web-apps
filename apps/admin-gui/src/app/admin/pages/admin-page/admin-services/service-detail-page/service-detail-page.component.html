@@ -45,6 +45,17 @@
             </mat-icon>
           </button>
         </span>
+        <button
+          *ngIf="authResolver.isPerunAdmin()"
+          (click)="evaluateConsents()"
+          color="accent"
+          class="action-button ml-2"
+          mat-flat-button>
+          {{'SERVICE_DETAIL.EVALUATE_CONSENTS' | translate}}
+        </button>
+        <span class="mt-1 ml-2 entity-info">
+          {{service.useExpiredMembers ? ('SERVICE_DETAIL.USE_EXPIRED_MEMBERS_ENABLED' | translate) : ('SERVICE_DETAIL.USE_EXPIRED_MEMBERS_DISABLED' | translate)}}
+        </span>
       </div>
     </div>
   </div>

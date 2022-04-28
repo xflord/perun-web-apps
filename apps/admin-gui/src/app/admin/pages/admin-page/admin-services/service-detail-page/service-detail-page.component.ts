@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { fadeIn } from '@perun-web-apps/perun/animations';
-import { InputUpdateService, Service, ServicesManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  ConsentsManagerService,
+  InputUpdateService,
+  Service,
+  ServicesManagerService,
+} from '@perun-web-apps/perun/openapi';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SideMenuService } from '../../../../../core/services/common/side-menu.service';
 import { SideMenuItemService } from '../../../../../shared/side-menu/side-menu-item.service';
@@ -14,6 +19,7 @@ import {
 } from '@perun-web-apps/perun/services';
 import { DeleteServiceDialogComponent } from '../../../../../shared/components/dialogs/delete-service-dialog/delete-service-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import { UniversalConfirmationItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 @Component({
   selector: 'app-service-detail-page',
@@ -25,6 +31,7 @@ export class ServiceDetailPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private consentsManager: ConsentsManagerService,
     private serviceManager: ServicesManagerService,
     private sideMenuService: SideMenuService,
     private sideMenuItemService: SideMenuItemService,
@@ -117,5 +124,30 @@ export class ServiceDetailPageComponent implements OnInit {
       },
       () => (this.loading = false)
     );
+  }
+
+  evaluateConsents() {
+    const config = getDefaultDialogConfig();
+    config.width = '500px';
+    config.data = {
+      title: this.translate.instant('SERVICE_DETAIL.CONFIRM_DIALOG_TITLE'),
+      theme: 'service-theme',
+      description: this.translate.instant('SERVICE_DETAIL.CONFIRM_DIALOG_DESCRIPTION'),
+      items: [this.service.name],
+      type: 'confirmation',
+      showAsk: false,
+    };
+
+    const dialogRef = this.dialog.open(UniversalConfirmationItemsDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.consentsManager
+          .evaluateConsentsForService(this.service.id)
+          .subscribe(() =>
+            this.notificator.showSuccess(this.translate.instant('SERVICE_DETAIL.EVALUATION_FINISH'))
+          );
+      }
+    });
   }
 }

@@ -8,7 +8,7 @@ import {
   GuiAuthResolver,
   NotificatorService,
 } from '@perun-web-apps/perun/services';
-import { UniversalRemoveItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { UniversalConfirmationItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { AddResourceTagToResourceDialogComponent } from '../../../../shared/components/dialogs/add-resource-tag-to-resource-dialog/add-resource-tag-to-resource-dialog.component';
@@ -58,9 +58,11 @@ export class ResourceTagsComponent implements OnInit {
       title: 'RESOURCE_DETAIL.TAGS.REMOVE_TAGS_DIALOG_TITLE',
       description: 'RESOURCE_DETAIL.TAGS.REMOVE_TAGS_DIALOG_DESCRIPTION',
       theme: 'resource-theme',
+      type: 'remove',
+      showAsk: true,
     };
 
-    const dialogRef = this.dialog.open(UniversalRemoveItemsDialogComponent, config);
+    const dialogRef = this.dialog.open(UniversalConfirmationItemsDialogComponent, config);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {

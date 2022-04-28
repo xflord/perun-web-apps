@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AddAuthorsDialogComponent } from '../../dialogs/add-authors-dialog/add-authors-dialog.component';
-import { UniversalRemoveItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { UniversalConfirmationItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { Author, CabinetManagerService, PublicationForGUI } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
@@ -78,9 +78,11 @@ export class AddAuthorsComponent implements OnInit {
       title: 'DIALOGS.REMOVE_AUTHORS.TITLE',
       description: 'DIALOGS.REMOVE_AUTHORS.DESCRIPTION',
       theme: 'user-theme',
+      type: 'remove',
+      showAsk: true,
     };
 
-    const dialogRef = this.dialog.open(UniversalRemoveItemsDialogComponent, config);
+    const dialogRef = this.dialog.open(UniversalConfirmationItemsDialogComponent, config);
 
     dialogRef.afterClosed().subscribe((authorshipRemoved) => {
       if (authorshipRemoved) {
