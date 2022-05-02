@@ -29,7 +29,7 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
     'member_group',
     'member_resource',
     'user',
-    'user_ext_source',
+    'ues',
     'user_facility',
     'vo',
     'entityless',
