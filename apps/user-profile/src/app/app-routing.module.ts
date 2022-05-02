@@ -25,6 +25,7 @@ import {
 import { ConsentsPageComponent } from './pages/consents-page/consents-page.component';
 import { ConsentRequestComponent } from './pages/consents-page/consent-request/consent-request.component';
 import { ConsentsPreviewComponent } from './pages/consents-page/consents-preview/consents-preview.component';
+import { SettingsLocalAccountComponent } from './pages/settings-page/settings-local-account/settings-local-account.component';
 
 const routes: Routes = [
   {
@@ -116,6 +117,11 @@ const routes: Routes = [
             path: 'dataQuotas',
             component: SettingsDataQuotasComponent,
             data: { breadcrumb: 'SETTINGS.DATA_QUOTAS' },
+          },
+          {
+            path: 'localAccount',
+            component: SettingsLocalAccountComponent,
+            data: { breadcrumb: 'SETTINGS.LOCAL_ACCOUNT' },
           },
           {
             path: 'mailingLists',

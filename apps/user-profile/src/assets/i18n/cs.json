@@ -23,7 +23,8 @@
     "SAMBA_PASSWORD": "Heslo pro službu SAMBA",
     "SSH_KEYS": "SSH klíče",
     "PASSWORD_RESET": "Změna hesla",
-    "AUTHENTICATION": "Autentizace"
+    "AUTHENTICATION": "Autentizace",
+    "LOCAL_ACCOUNT": "Lokální účet"
   },
   "ORGANIZATIONS": {
     "FILTER": "Filtrovat dle jména",
@@ -167,6 +168,12 @@
     "DELETE_IMG_DIALOG_TITLE": "Vymazat proti-phishingový obrázek",
     "DELETE_IMG_DIALOG_DESC": "Váš bezpečnostní obrázek bude odstraněn a nebude použit během autentizace.",
     "MFA_INFO": "Spravovat moje prostředky vícefázového ověření (MFA)"
+  },
+  "LOCAL_ACCOUNT": {
+    "TITLE": "Lokální účet",
+    "DESC": "Spravujte svůj lokální účet",
+    "CHANGE_PWD": "Změnit heslo",
+    "ACTIVATE": "Aktivovat účet"
   },
   "DIALOGS": {
     "CHANGE_EMAIL": {

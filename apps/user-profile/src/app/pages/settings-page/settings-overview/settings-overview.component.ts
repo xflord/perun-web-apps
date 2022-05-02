@@ -45,6 +45,12 @@ export class SettingsOverviewComponent implements OnInit {
         tabName: 'data_quotas',
       },
       {
+        icon: 'face',
+        url: `/profile/settings/localAccount`,
+        label: 'SETTINGS.LOCAL_ACCOUNT',
+        tabName: 'local_acc',
+      },
+      {
         icon: 'unsubscribe',
         url: `/profile/settings/mailingLists`,
         label: 'SETTINGS.MAILING_LISTS',

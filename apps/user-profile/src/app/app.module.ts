@@ -78,6 +78,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { ConsentsPageComponent } from './pages/consents-page/consents-page.component';
 import { ConsentRequestComponent } from './pages/consents-page/consent-request/consent-request.component';
 import { ConsentsPreviewComponent } from './pages/consents-page/consents-preview/consents-preview.component';
+import { SettingsLocalAccountComponent } from './pages/settings-page/settings-local-account/settings-local-account.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -135,6 +136,7 @@ const loadConfigs = (appConfig: UserProfileConfigService) => () => appConfig.ini
     ConsentsPageComponent,
     ConsentRequestComponent,
     ConsentsPreviewComponent,
+    SettingsLocalAccountComponent,
   ],
   imports: [
     BrowserModule,

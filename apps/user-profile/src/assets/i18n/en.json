@@ -23,7 +23,8 @@
     "SAMBA_PASSWORD": "Samba password",
     "SSH_KEYS": "SSH keys",
     "PASSWORD_RESET": "Change password",
-    "AUTHENTICATION": "Authentication"
+    "AUTHENTICATION": "Authentication",
+    "LOCAL_ACCOUNT": "Local account"
   },
   "ORGANIZATIONS": {
     "FILTER": "Filter by name",
@@ -167,6 +168,12 @@
     "DELETE_IMG_DIALOG_TITLE": "Delete anti-phishing image",
     "DELETE_IMG_DIALOG_DESC": "Your security image will be deleted and will not be used during authentication process.",
     "MFA_INFO": "Manage my MFA tokens"
+  },
+  "LOCAL_ACCOUNT": {
+    "TITLE": "Local account",
+    "DESC": "Manage your local account",
+    "CHANGE_PWD": "Change password",
+    "ACTIVATE": "Activate account"
   },
   "DIALOGS": {
     "CHANGE_EMAIL": {

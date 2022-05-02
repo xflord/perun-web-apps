@@ -38,7 +38,7 @@ export class OtherApplicationsService {
    * @param appType type of requested app (admin | profile | pwdReset)
    * @param login login namespace for pwd reset app
    */
-  getUrlForOtherApplication(appType: string, login?: string): string {
+  getUrlForOtherApplication(appType: 'admin' | 'profile' | 'pwdReset', login?: string): string {
     const currentUrl = window.location.href;
     const splittedUrl = currentUrl.split('/');
     const domain = splittedUrl[0] + '//' + splittedUrl[2]; // protocol with domain

@@ -75,6 +75,7 @@
     "url_cs": "https://mfa.aai.muni.cz/"
   },
   "display_identity_certificates": true,
+  "local_account_namespace": "",
   "external_services": [
     {
       "url": "https://google.com",
@@ -106,7 +107,8 @@
     "password_reset",
     "external",
     "password_reset",
-    "auth"
+    "auth",
+    "local_acc"
   ],
   "custom_labels": [
     {
