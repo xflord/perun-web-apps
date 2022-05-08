@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AddAuthImgDialogComponent } from '../../../components/dialogs/add-auth-img-dialog/add-auth-img-dialog.component';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
-import { AuthService, StoreService } from '@perun-web-apps/perun/services';
+import { AuthService, NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { RemoveStringValueDialogComponent } from '../../../components/dialogs/remove-string-value-dialog/remove-string-value-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { OAuthService } from 'angular-oauth2-oidc';
@@ -27,6 +27,8 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
   mfaApiUrl = '';
   loadingMfa = false;
   loadingImg = false;
+  saveImgSuccess = '';
+  removeImgSuccess = '';
 
   constructor(
     private dialog: MatDialog,
@@ -34,7 +36,8 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
     private store: StoreService,
     private translate: TranslateService,
     private oauthService: OAuthService,
-    private authService: AuthService
+    private authService: AuthService,
+    private notificatorService: NotificatorService
   ) {
     translate
       .get('AUTHENTICATION.DELETE_IMG_DIALOG_TITLE')
@@ -42,6 +45,12 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
     translate
       .get('AUTHENTICATION.DELETE_IMG_DIALOG_DESC')
       .subscribe((res: string) => (this.removeDialogDescription = res));
+    translate
+      .get('AUTHENTICATION.SAVE_IMG_SUCCESS')
+      .subscribe((res: string) => (this.saveImgSuccess = res));
+    translate
+      .get('AUTHENTICATION.REMOVE_IMG_SUCCESS')
+      .subscribe((res: string) => (this.removeImgSuccess = res));
   }
 
   ngAfterViewInit(): void {
@@ -94,6 +103,7 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+        this.notificatorService.showSuccess(this.saveImgSuccess);
         this.loadImage();
       }
     });
@@ -136,8 +146,9 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
 
     const dialogRef = this.dialog.open(RemoveStringValueDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe((sshAdded) => {
-      if (sshAdded) {
+    dialogRef.afterClosed().subscribe((imgRemoved) => {
+      if (imgRemoved) {
+        this.notificatorService.showSuccess(this.removeImgSuccess);
         this.loadImage();
       }
     });

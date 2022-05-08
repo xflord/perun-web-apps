@@ -11,8 +11,8 @@
       alert_type="error"
       >{{'DIALOGS.ADD_AUTH_IMG.IMG_TOO_LONG' | customTranslate | translate}}</perun-web-apps-alert
     >
-    <div *ngIf="newImage" class="center-content">
-      <img [src]="newImage" alt="" class="img-size" />
+    <div *ngIf="newImage && !imgTooLong" class="center-content">
+      <img [src]="newImage" alt="" />
     </div>
     <button (click)="generateImg()" class="m-1" color="accent" mat-flat-button>
       {{'DIALOGS.ADD_AUTH_IMG.GENERATE' | customTranslate | translate}}

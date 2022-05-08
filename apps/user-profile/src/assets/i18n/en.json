@@ -165,9 +165,11 @@
     "NEW_IMG": "New image",
     "DELETE_IMG": "Delete image",
     "ANTI_PHISHING_INFO": "You will be shown this security image before you enter your password so you will know that you are visiting the right site",
-    "DELETE_IMG_DIALOG_TITLE": "Delete anti-phishing image",
+    "DELETE_IMG_DIALOG_TITLE": "Delete security image",
     "DELETE_IMG_DIALOG_DESC": "Your security image will be deleted and will not be used during authentication process.",
-    "MFA_INFO": "Manage my MFA tokens"
+    "MFA_INFO": "Manage my MFA tokens",
+    "SAVE_IMG_SUCCESS": "Security image has been saved.",
+    "REMOVE_IMG_SUCCESS": "Security image has been removed."
   },
   "LOCAL_ACCOUNT": {
     "TITLE": "Local account",
@@ -230,13 +232,13 @@
       "CLOSE": "Cancel"
     },
     "ADD_AUTH_IMG": {
-      "TITLE": "Change anti-phishing image",
-      "INFO": "Please, choose an image with size max 5kB",
+      "TITLE": "Change security image",
+      "INFO": "Please, choose an image.",
       "GENERATE": "Generate image",
       "UPLOAD_IMG_LABEL": "Upload an image from your computer",
       "CANCEL": "Cancel",
       "ADD": "Save image",
-      "IMG_TOO_LONG": "The image size is more than 5kB.",
+      "IMG_TOO_LONG": "Your image could not be resized to fit. Please try a different one.",
       "DELAY_INFO": "New security image usually becomes effective in 5 minutes, in rare cases it might take a couple of hours."
     }
   },

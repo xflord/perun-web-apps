@@ -3,14 +3,13 @@
     <h1 class="page-subtitle">{{'AUTHENTICATION.TITLE' | customTranslate | translate}}</h1>
     <p>{{'AUTHENTICATION.ANTI_PHISHING_INFO' | customTranslate | translate}}</p>
     <div *ngIf="imageSrc && imageSrc.length">
-      <img [src]="imageSrc" alt="" class="img-size" />
+      <img [src]="imageSrc" alt="" />
     </div>
-    <button (click)="onAddImg()" class="m-1 action-button" color="accent" mat-flat-button>
+    <button (click)="onAddImg()" class="mr-2 mt-1 action-button" color="accent" mat-flat-button>
       {{'AUTHENTICATION.NEW_IMG' | customTranslate | translate}}
     </button>
     <button
       (click)="onDeleteImg()"
-      class="m-1"
       color="warn"
       [disabled]="!imgAtt || !imgAtt.value"
       mat-flat-button>

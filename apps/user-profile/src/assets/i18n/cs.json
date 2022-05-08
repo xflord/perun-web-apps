@@ -165,9 +165,11 @@
     "NEW_IMG": "Nový obrázek",
     "DELETE_IMG": "Vymazat obrázek",
     "ANTI_PHISHING_INFO": "Tento bezpečnostní obrázek se vám ukáže před tím, než zadáte heslo, ujistíte se tak, že se nepřihlašujete na podvrženou stránku",
-    "DELETE_IMG_DIALOG_TITLE": "Vymazat proti-phishingový obrázek",
+    "DELETE_IMG_DIALOG_TITLE": "Vymazat bezpečnostní obrázek",
     "DELETE_IMG_DIALOG_DESC": "Váš bezpečnostní obrázek bude odstraněn a nebude použit během autentizace.",
-    "MFA_INFO": "Spravovat moje prostředky vícefázového ověření (MFA)"
+    "MFA_INFO": "Spravovat moje prostředky vícefázového ověření (MFA)",
+    "SAVE_IMG_SUCCESS": "Bezpečnostní obrázek byl změněn.",
+    "REMOVE_IMG_SUCCESS": "Bezpečnostní obrázek byl odebrán."
   },
   "LOCAL_ACCOUNT": {
     "TITLE": "Lokální účet",
@@ -230,13 +232,13 @@
       "CLOSE": "Zrušit"
     },
     "ADD_AUTH_IMG": {
-      "TITLE": "Změna proti-phishingového obrázku",
-      "INFO": "Prosím, zvolte obrázek s velikostí maximálně 5kB.",
+      "TITLE": "Změna bezpečnostního obrázku",
+      "INFO": "Prosím, zvolte obrázek.",
       "GENERATE": "Generovat obrázek",
       "UPLOAD_IMG_LABEL": "Nahrát obrázek z vašeho počítače",
       "CANCEL": "Zrušit",
       "ADD": "Uložit obrázek",
-      "IMG_TOO_LONG": "Velikost obrázku je větší než 5kB",
+      "IMG_TOO_LONG": "Zvolený obrázek se nepodařilo zmenšit na cílovou velikost. Prosím zvolte jiný obrázek.",
       "DELAY_INFO": "Změna bezpečnostního obrázku se projeví většinou do 5 minut, v ojedinělých případech může propagace změny trvat několik hodin."
     }
   },

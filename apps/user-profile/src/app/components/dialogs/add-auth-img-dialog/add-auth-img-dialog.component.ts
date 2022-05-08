@@ -10,7 +10,7 @@ export interface AddAuthImgDialogData {
 
 const MAX_SIZE = 100;
 const MIN_SIZE = 50;
-const MAX_LENGTH = 5120;
+const MAX_LENGTH = 6144;
 
 @Component({
   selector: 'perun-web-apps-add-auth-img-dialog',
@@ -21,8 +21,8 @@ export class AddAuthImgDialogComponent implements OnInit {
   theme: string;
   newImage = '';
   attribute: Attribute;
-  radioBtn: string;
   imgTooLong: boolean;
+  imageType: string;
 
   constructor(
     private dialogRef: MatDialogRef<AddAuthImgDialogComponent>,
@@ -35,11 +35,10 @@ export class AddAuthImgDialogComponent implements OnInit {
     this.theme = this.data.theme;
     this.attribute = this.data.attribute;
     this.newImage = this.attribute.value as unknown as string;
-    this.imageType = null;
   }
 
-  handleInputChange(e: Event | DragEvent): void {
-    const file = (e as DragEvent).dataTransfer.files[0] ?? (e.target as HTMLInputElement)?.files[0];
+  handleInputChange(e: InputEvent): void {
+    const file = e.dataTransfer?.files[0] ?? (e.target as HTMLInputElement)?.files[0];
     const pattern = /image-*/;
     const reader = new FileReader();
     if (!file.type.match(pattern)) {
@@ -51,38 +50,51 @@ export class AddAuthImgDialogComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  _handleReaderLoaded(e) {
-    const reader = e.target;
-
+  _handleReaderLoaded(event: ProgressEvent): void {
+    const reader: FileReader = event.target as FileReader;
     let size = MAX_SIZE;
-    let result = null;
-    do {
-      const img = document.createElement("img");
-      img.src = reader.result;
-      const canvas = document.createElement("canvas");
-      let ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0);
-      const width = img.width;
-      const height = img.height;
-      if (width > height) {
-        if (width > MAX_SIZE) {
-          height *= MAX_SIZE / width;
-          width = MAX_SIZE;
-        }
-      } else if (height > MAX_SIZE) {
-        width *= MAX_SIZE / height;
-        height = MAX_SIZE;
-      }
-      canvas.width = width;
-      canvas.height = height;
-      ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0, width, height);
-      result = canvas.toDataURL(this.imageType);
-      size -= 10;
-    } while(size >= MIN_SIZE && result.length >= MAX_LENGTH);
+    const compressRecursive = (): void => {
+      compressImage(reader.result as string)
+        .then((compressed) => {
+          if (size > MIN_SIZE && compressed.length > MAX_LENGTH) {
+            size -= 10;
+            compressRecursive();
+          } else {
+            this.newImage = compressed;
+            this.imgTooLong = this.newImage.length >= MAX_LENGTH;
+          }
+        })
+        .catch((error) => console.error(error));
+    };
 
-    this.imgTooLong = result.length >= MAX_LENGTH;
-    this.newImage = result;
+    const compressImage = (src: string): Promise<string> =>
+      new Promise((res, rej) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = (): void => {
+          const elem = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+          if (width > height) {
+            if (width > size) {
+              height *= size / width;
+              width = size;
+            }
+          } else if (height > size) {
+            width *= size / height;
+            height = size;
+          }
+          elem.width = width;
+          elem.height = height;
+          const ctx = elem.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          const data = ctx.canvas.toDataURL();
+          res(data);
+        };
+        img.onerror = (error): void => rej(error);
+      });
+
+    compressRecursive();
   }
 
   onAdd(): void {
