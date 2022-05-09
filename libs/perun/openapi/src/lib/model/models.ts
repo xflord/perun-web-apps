@@ -176,6 +176,7 @@ export * from './membersPageQuery';
 export * from './namespaceRules';
 export * from './newApps';
 export * from './owner';
+export * from './paginatedApplications';
 export * from './paginatedAuditMessages';
 export * from './paginatedRichApplications';
 export * from './paginatedRichGroups';

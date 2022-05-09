@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './consents-page.component.html',
   styleUrls: ['./consents-page.component.scss'],
 })
-export class ConsentsPageComponent {
-  constructor() {}
-}
+export class ConsentsPageComponent {}

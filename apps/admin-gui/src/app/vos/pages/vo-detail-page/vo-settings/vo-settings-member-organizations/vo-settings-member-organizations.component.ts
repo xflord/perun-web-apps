@@ -71,7 +71,7 @@ export class VoSettingsMemberOrganizationsComponent implements OnInit {
       });
   }
 
-  removeMemberVos() {
+  removeMemberVos(): void {
     this.vosService.removeMemberVo(this.voId, this.voSelection.selected[0].id).subscribe(() => {
       this.notificator.showSuccess(
         this.translator.instant(
@@ -83,7 +83,7 @@ export class VoSettingsMemberOrganizationsComponent implements OnInit {
     });
   }
 
-  removeMemberOrganization() {
+  removeMemberOrganization(): void {
     const config = getDefaultDialogConfig();
     config.width = '550px';
     config.data = {

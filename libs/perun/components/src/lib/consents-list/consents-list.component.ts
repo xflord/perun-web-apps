@@ -35,6 +35,19 @@ import { Consent } from '@perun-web-apps/perun/openapi';
   ],
 })
 export class ConsentsListComponent implements AfterViewInit, OnChanges {
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  @Input() filterValue = '';
+  @Input() tableId: string;
+  @Input() consents: Consent[] = [];
+  @Input() selection = new SelectionModel<Consent>(true, []);
+  @Input() displayedColumns: string[] = ['select', 'status', 'name'];
+  @Output() grantConsent: EventEmitter<number> = new EventEmitter<number>();
+  @Output() rejectConsent: EventEmitter<number> = new EventEmitter<number>();
+  expandedConsent: Consent | null;
+  dataSource: MatTableDataSource<Consent>;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  private sort: MatSort;
+
   constructor(private tableCheckbox: TableCheckbox) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
@@ -42,45 +55,7 @@ export class ConsentsListComponent implements AfterViewInit, OnChanges {
     this.setDataSource();
   }
 
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-
-  @Input()
-  consents: Consent[] = [];
-
-  @Input()
-  selection = new SelectionModel<Consent>(true, []);
-
-  private sort: MatSort;
-
-  @Input()
-  displayedColumns: string[] = ['select', 'status', 'name'];
-  expandedConsent: Consent | null;
-  dataSource: MatTableDataSource<Consent>;
-
-  @Input()
-  filterValue = '';
-
-  @Input()
-  tableId: string;
-
-  @Output()
-  grantConsent: EventEmitter<number> = new EventEmitter();
-
-  @Output()
-  rejectConsent: EventEmitter<number> = new EventEmitter();
-
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
-  ngOnChanges(): void {
-    this.dataSource = new MatTableDataSource<Consent>(this.consents);
-    this.setDataSource();
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.child.paginator;
-  }
-
-  getDataForColumn(data: Consent, column: string): string {
+  static getDataForColumn(data: Consent, column: string): string {
     switch (column) {
       case 'name':
         return data.consentHub.name;
@@ -91,37 +66,44 @@ export class ConsentsListComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  exportData(format: string) {
+  ngOnChanges(): void {
+    this.dataSource = new MatTableDataSource<Consent>(this.consents);
+    this.setDataSource();
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.child.paginator;
+  }
+
+  exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
-        this
+        ConsentsListComponent.getDataForColumn
       ),
       format
     );
   }
 
-  setDataSource() {
+  setDataSource(): void {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: Consent, filter: string) =>
+      this.dataSource.filterPredicate = (data: Consent, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn,
-          this
+          ConsentsListComponent.getDataForColumn
         );
-      this.dataSource.sortData = (data: Consent[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: Consent[], sort: MatSort): Consent[] =>
+        customDataSourceSort(data, sort, ConsentsListComponent.getDataForColumn);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;
     }
   }
 
-  isAllSelected() {
+  isAllSelected(): boolean {
     return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
       this.filterValue,
@@ -131,7 +113,7 @@ export class ConsentsListComponent implements AfterViewInit, OnChanges {
     );
   }
 
-  masterToggle() {
+  masterToggle(): void {
     this.tableCheckbox.masterToggle(
       this.isAllSelected(),
       this.selection,

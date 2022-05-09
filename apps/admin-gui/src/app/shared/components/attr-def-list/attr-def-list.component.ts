@@ -100,8 +100,8 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  canBeSelected = (row: AttributeDefinition) =>
-    !this.consentRelatedPipe.transform(row.namespace, this.serviceEnabled, this.consentRequired)
+  canBeSelected = (row: AttributeDefinition): boolean =>
+    !this.consentRelatedPipe.transform(row.namespace, this.serviceEnabled, this.consentRequired);
 
   ngOnChanges(): void {
     if (!this.authResolver.isPerunAdminOrObserver()) {

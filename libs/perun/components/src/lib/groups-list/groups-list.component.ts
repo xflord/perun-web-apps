@@ -100,10 +100,6 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     this.sort = ms;
   }
 
-  getDataForColumnFun = (data: GroupWithStatus, column: string): string => {
-    return GroupsListComponent.getDataForColumn(data, column, this.voNames);
-  };
-
   static getDataForColumn(
     data: GroupWithStatus,
     column: string,
@@ -132,10 +128,6 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
         return data[column] as string;
     }
   }
-
-  getSortDataForColumnFun = (data: GroupWithStatus, column: string): string => {
-    return GroupsListComponent.getSortDataForColumn(data, column, this.voNames, this.recentIds);
-  };
 
   static getSortDataForColumn(
     data: GroupWithStatus,
@@ -177,6 +169,14 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   shouldHideButtons(): void {
     this.displayButtons = window.innerWidth > 800;
   }
+
+  getDataForColumnFun = (data: GroupWithStatus, column: string): string => {
+    return GroupsListComponent.getDataForColumn(data, column, this.voNames);
+  };
+
+  getSortDataForColumnFun = (data: GroupWithStatus, column: string): string => {
+    return GroupsListComponent.getSortDataForColumn(data, column, this.voNames, this.recentIds);
+  };
 
   ngOnChanges(): void {
     this.disabledRouting = this.disableRouting;
@@ -436,7 +436,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     );
   }
 
-  getStatusAttribute(grp: RichGroup) {
+  getStatusAttribute(grp: RichGroup): string {
     const filter = grp.attributes.find((att) => att.baseFriendlyName === 'groupStatus');
     return filter != null ? (filter.value as unknown as string) : '';
   }

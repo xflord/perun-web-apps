@@ -16,10 +16,10 @@ export class AttributeSearchSelectComponent implements OnInit, OnChanges {
   availableAttrDefs: AttributeDefinition[] = [];
   options: string[][] = [];
 
-  nameFunction = (attr: AttributeDefinition) => attr.displayName;
-  secondaryTextFunction: (attr: AttributeDefinition) => string = (attr) => '#' + attr.id;
+  nameFunction = (attr: AttributeDefinition): string => attr.displayName;
+  secondaryTextFunction: (attr: AttributeDefinition) => string = (attr) => '#' + String(attr.id);
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.availableAttrDefs = this.attributes
       .filter((attrDef) => attrDef.entity === this.attributesForEntity)
       .sort(compareFnDisplayName);
@@ -30,7 +30,7 @@ export class AttributeSearchSelectComponent implements OnInit, OnChanges {
     this.options.push([this.attributes[0].namespace + ':' + this.attributes[0].friendlyName, '']);
   }
 
-  removeOption(option: string[]) {
+  removeOption(option: string[]): void {
     this.options = this.options.filter((opt) => opt !== option);
   }
 
@@ -42,7 +42,7 @@ export class AttributeSearchSelectComponent implements OnInit, OnChanges {
     return this.options.some((opt) => opt[1].length === 0);
   }
 
-  searchEntities() {
+  searchEntities(): void {
     const inputGetEntity: { [p: string]: string } = {};
     this.options.forEach((search) => {
       inputGetEntity[search[0]] = search[1];

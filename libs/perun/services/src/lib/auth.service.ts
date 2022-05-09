@@ -122,7 +122,7 @@ export class AuthService {
     return this.isLoggedInPromise().then((isLoggedIn) => {
       if (isLoggedIn) {
         this.oauthService.events.pipe(filter((e) => e.type === 'token_expires')).subscribe(() => {
-          this.refreshAndStoreToken();
+          void this.refreshAndStoreToken();
         });
         return true;
       }

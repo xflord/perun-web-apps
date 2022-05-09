@@ -67,7 +67,7 @@ export class AddMemberOrganizationDialogComponent implements OnInit {
         this.notificator.showSuccess(
           this.translator.instant(
             'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.SUCCESS'
-          )
+          ) as string
         );
         this.dialogRef.close(true);
       },

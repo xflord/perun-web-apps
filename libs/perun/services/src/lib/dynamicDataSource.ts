@@ -193,7 +193,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
         if (this.latestQueryTime <= thisQueryTime) {
           const data: Application[] = (paginatedApplications as PaginatedApplications).data;
           if (data !== null && data.length !== 0) {
-            const d = <Application[]>data;
+            const d = data;
             if (d[0].group) {
               this.routeAuth = this.authzService.isAuthorized(
                 'getApplicationsForGroup_Group_List<String>_policy',

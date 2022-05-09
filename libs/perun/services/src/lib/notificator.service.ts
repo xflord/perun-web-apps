@@ -59,10 +59,10 @@ export class NotificatorService {
   showRouteError(): void {
     const title: string = this.translate.instant(
       'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.ROUTE_DENIED_ERROR'
-    );
+    ) as string;
     const desc: string = this.translate.instant(
       'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.ROUTE_DENIED_DESC'
-    );
+    ) as string;
     this.showError(title, null, desc);
   }
 

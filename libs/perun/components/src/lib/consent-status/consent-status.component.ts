@@ -6,8 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./consent-status.component.scss'],
 })
 export class ConsentStatusComponent {
-  constructor() {}
-
-  @Input()
-  consentStatus: string;
+  @Input() consentStatus: string;
 }

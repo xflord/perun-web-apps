@@ -62,8 +62,8 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
         .subscribe((res: string) => (this.removeDialogDescription = res));
       this.mfaUrl = this.store.get('mfa', 'url_' + this.translate.currentLang) as string;
     });
-    this.mfaUrl = this.store.get('mfa', 'url_' + this.translate.currentLang);
-    this.mfaApiUrl = this.store.get('mfa', 'api_url');
+    this.mfaUrl = this.store.get('mfa', 'url_' + this.translate.currentLang) as string;
+    this.mfaApiUrl = this.store.get('mfa', 'api_url') as string;
     fetch(this.mfaApiUrl + 'mfaAvailable', {
       method: 'GET',
       headers: { Authorization: 'Bearer ' + this.oauthService.getIdToken() },
@@ -107,14 +107,14 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
     sessionStorage.setItem('auth:redirect', location.pathname);
     sessionStorage.setItem('auth:queryParams', location.search.substring(1));
     this.authService.loadConfigData();
-    this.oauthService.loadDiscoveryDocumentAndLogin();
+    void this.oauthService.loadDiscoveryDocumentAndLogin();
   }
 
   enableMfa(value: boolean): Promise<Response> {
     const idToken = this.oauthService.getIdToken();
     const path = `mfaEnforced`;
     const url = `${this.mfaApiUrl}${path}`;
-    const body = `value=${value}`;
+    const body = `value=${String(value)}`;
 
     return fetch(url, {
       method: 'PUT',
@@ -189,7 +189,7 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
           this.loadingMfa = false;
         });
     } else {
-      const enforceMfaAttributeName = this.store.get('mfa', 'enforce_mfa_attribute');
+      const enforceMfaAttributeName = this.store.get('mfa', 'enforce_mfa_attribute') as string;
       this.attributesManagerService
         .getUserAttributeByName(this.store.getPerunPrincipal().userId, enforceMfaAttributeName)
         .subscribe(

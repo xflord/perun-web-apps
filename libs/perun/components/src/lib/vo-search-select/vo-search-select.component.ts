@@ -7,7 +7,7 @@ import { compareFnName } from '@perun-web-apps/perun/utils';
   templateUrl: './vo-search-select.component.html',
   styleUrls: ['./vo-search-select.component.css'],
 })
-export class VoSearchSelectComponent implements OnChanges{
+export class VoSearchSelectComponent implements OnChanges {
   @Input() vo: Vo;
   @Input() vos: Vo[];
   @Output() voSelected = new EventEmitter<Vo>();

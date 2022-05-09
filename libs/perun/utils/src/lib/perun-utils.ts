@@ -17,6 +17,7 @@ import {
   Facility,
   Vo,
   Resource,
+  AttributeDefinition,
 } from '@perun-web-apps/perun/openapi';
 import { Attribute } from '@perun-web-apps/perun/openapi';
 import { MatDialogConfig } from '@angular/material/dialog';
@@ -746,7 +747,7 @@ export function getDataForExport<T>(
   columns: string[],
   getDataForColumn: (data: T, column: string) => string
 ): T[] {
-  const result = [];
+  const result: T[] = [];
   const skippedColumns = ['checkbox', 'select', 'edit', 'menu', 'cite', 'extend', 'recent'];
   columns = columns.filter((c) => !skippedColumns.includes(c));
   data.forEach((row) => {
@@ -785,7 +786,7 @@ export function compareFnName(a: ComparableEntity, b: ComparableEntity): 1 | 0 |
     : -1;
 }
 
-export function compareFnDisplayName(a, b) {
+export function compareFnDisplayName(a: AttributeDefinition, b: AttributeDefinition): number {
   return a.displayName.toLowerCase() > b.displayName.toLowerCase()
     ? 1
     : a.displayName.toLowerCase() === b.displayName.toLowerCase()
@@ -794,7 +795,7 @@ export function compareFnDisplayName(a, b) {
 }
 
 type ComparablePerson = User & RichMember;
-export function compareFnUser(a: ComparablePerson, b: ComparablePerson) {
+export function compareFnUser(a: ComparablePerson, b: ComparablePerson): number {
   let first, second;
   if (a.user) {
     first = a.user.lastName ? a.user.lastName : a.user.firstName ?? '';

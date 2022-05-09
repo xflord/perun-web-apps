@@ -24,6 +24,17 @@ import { SelectionModel } from '@angular/cdk/collections';
   styleUrls: ['./consent-hubs-list.component.scss'],
 })
 export class ConsentHubsListComponent implements OnChanges {
+  @Input() consentHubs: ConsentHub[];
+  @Input() filterValue = '';
+  @Input() displayedColumns: string[] = ['select', 'id', 'name', 'enforceConsents', 'facilities'];
+  @Input() tableId: string;
+  @Input() selection = new SelectionModel<ConsentHub>(true, []);
+  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
+  dataSource: MatTableDataSource<ConsentHub>;
+  exporting = false;
+  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  private sort: MatSort;
+
   constructor(
     private tableCheckbox: TableCheckbox,
     private dialog: MatDialog,
@@ -32,31 +43,12 @@ export class ConsentHubsListComponent implements OnChanges {
     private consentsManager: ConsentsManagerService
   ) {}
 
-  @Input() consentHubs: ConsentHub[];
-  @Input() filterValue = '';
-  @Input() displayedColumns: string[] = ['select', 'id', 'name', 'enforceConsents', 'facilities'];
-  @Input() tableId: string;
-  @Input() selection = new SelectionModel<ConsentHub>(true, []);
-
-  @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSource();
   }
 
-  private sort: MatSort;
-
-  dataSource: MatTableDataSource<ConsentHub>;
-  exporting = false;
-  pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
-  ngOnChanges() {
-    this.dataSource = new MatTableDataSource<ConsentHub>(this.consentHubs);
-    this.setDataSource();
-  }
-
-  getDataForColumn(data: ConsentHub, column: string): string {
+  static getDataForColumn(data: ConsentHub, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -66,7 +58,7 @@ export class ConsentHubsListComponent implements OnChanges {
         return data.enforceConsents ? 'true' : 'false';
       case 'facilities': {
         let result = '';
-        data.facilities.forEach((f) => (result += f.name + ' #' + f.id + ';'));
+        data.facilities.forEach((f) => (result += f.name + ' #' + String(f.id) + ';'));
         return result.slice(0, -1);
       }
       default:
@@ -74,20 +66,24 @@ export class ConsentHubsListComponent implements OnChanges {
     }
   }
 
+  ngOnChanges(): void {
+    this.dataSource = new MatTableDataSource<ConsentHub>(this.consentHubs);
+    this.setDataSource();
+  }
+
   exportData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumn,
-        this
+        ConsentHubsListComponent.getDataForColumn
       ),
       format
     );
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
+  isAllSelected(): boolean {
     return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
       this.filterValue,
@@ -98,7 +94,7 @@ export class ConsentHubsListComponent implements OnChanges {
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
+  masterToggle(): void {
     this.tableCheckbox.masterToggle(
       this.isAllSelected(),
       this.selection,
@@ -121,16 +117,15 @@ export class ConsentHubsListComponent implements OnChanges {
 
   setDataSource(): void {
     if (this.dataSource) {
-      this.dataSource.filterPredicate = (data: ConsentHub, filter: string) =>
+      this.dataSource.filterPredicate = (data: ConsentHub, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumn,
-          this
+          ConsentHubsListComponent.getDataForColumn
         );
-      this.dataSource.sortData = (data: ConsentHub[], sort: MatSort) =>
-        customDataSourceSort(data, sort, this.getDataForColumn, this);
+      this.dataSource.sortData = (data: ConsentHub[], sort: MatSort): ConsentHub[] =>
+        customDataSourceSort(data, sort, ConsentHubsListComponent.getDataForColumn);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
       this.dataSource.filter = this.filterValue;
@@ -160,7 +155,7 @@ export class ConsentHubsListComponent implements OnChanges {
             consentHub.enforceConsents = ch.enforceConsents;
             this.translate
               .get('SHARED.COMPONENTS.CONSENT_HUBS_LIST.CHANGE_ENFORCE_CONSENTS_SUCCESS')
-              .subscribe((success) => {
+              .subscribe((success: string) => {
                 this.notificator.showSuccess(success);
               });
           },

@@ -24,15 +24,7 @@ import { ResourceWithStatus } from '@perun-web-apps/perun/models';
 })
 export class AdminSearcherComponent implements OnInit {
   static id = 'AdminSearcherComponent';
-
   @HostBinding('class.router-component') true;
-
-  constructor(
-    private attributesManager: AttributesManagerService,
-    private searcher: SearcherService,
-    private voService: VosManagerService
-  ) {}
-
   loading: boolean;
   loadingEntityData = false;
   allAttrDefinitions: AttributeDefinition[] = [];
@@ -41,6 +33,12 @@ export class AdminSearcherComponent implements OnInit {
   entities: RichUser[] | RichMember[] | EnrichedFacility[] | ResourceWithStatus[] = [];
   vos: Vo[] = [];
   selectedVo: Vo;
+
+  constructor(
+    private attributesManager: AttributesManagerService,
+    private searcher: SearcherService,
+    private voService: VosManagerService
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;

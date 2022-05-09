@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
 export class LoginScreenComponent implements OnInit {
   constructor(private auth: AuthService, private router: Router) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.auth.isLoggedIn()) {
-      this.router.navigate(['/home']);
+      void this.router.navigate(['/home']);
     }
   }
   startAuth(): void {

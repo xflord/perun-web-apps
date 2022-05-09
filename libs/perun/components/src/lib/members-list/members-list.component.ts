@@ -98,10 +98,6 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  getExportDataForColumnFun = (data: RichMember, column: string): string => {
-    return MembersListComponent.getExportDataForColumn(data, column, this.showGroupStatuses);
-  };
-
   static getExportDataForColumn(
     data: RichMember,
     column: string,
@@ -128,10 +124,6 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  getSortDataForColumnFun = (data: RichMember, column: string): string => {
-    return MembersListComponent.getSortDataForColumn(data, column, this.showGroupStatuses);
-  };
-
   static getSortDataForColumn(
     data: RichMember,
     column: string,
@@ -155,6 +147,14 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
         return '';
     }
   }
+
+  getExportDataForColumnFun = (data: RichMember, column: string): string => {
+    return MembersListComponent.getExportDataForColumn(data, column, this.showGroupStatuses);
+  };
+
+  getSortDataForColumnFun = (data: RichMember, column: string): string => {
+    return MembersListComponent.getSortDataForColumn(data, column, this.showGroupStatuses);
+  };
 
   exportData(format: string): void {
     downloadData(

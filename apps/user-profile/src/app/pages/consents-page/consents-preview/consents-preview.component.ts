@@ -10,6 +10,12 @@ import { Consent, ConsentsManagerService } from '@perun-web-apps/perun/openapi';
   styleUrls: ['./consents-preview.component.scss'],
 })
 export class ConsentsPreviewComponent implements OnInit {
+  loading = false;
+  unsignedConsents: Consent[] = [];
+  signedConsents: Consent[] = [];
+  filterValueUnsigned = '';
+  filterValueSigned = '';
+
   constructor(
     private router: Router,
     private notificator: NotificatorService,
@@ -17,12 +23,6 @@ export class ConsentsPreviewComponent implements OnInit {
     private storeService: StoreService,
     private consentService: ConsentsManagerService
   ) {}
-
-  loading = false;
-  unsignedConsents: Consent[] = [];
-  signedConsents: Consent[] = [];
-  filterValueUnsigned = '';
-  filterValueSigned = '';
 
   ngOnInit(): void {
     this.loading = true;
@@ -36,14 +36,16 @@ export class ConsentsPreviewComponent implements OnInit {
     );
   }
 
-  grantAll() {
+  grantAll(): void {
     //call to backend
     this.loading = true;
-    this.notificator.showSuccess(this.translate.instant('CONSENTS.GRANT_ALL_NOTIFICATION'));
+    this.notificator.showSuccess(
+      this.translate.instant('CONSENTS.GRANT_ALL_NOTIFICATION') as string
+    );
     this.loading = false;
   }
 
-  rejectConsent(id: number) {
+  rejectConsent(id: number): void {
     this.loading = true;
     this.consentService.changeConsentStatus(id, 'REVOKED').subscribe(
       () => {
@@ -53,8 +55,8 @@ export class ConsentsPreviewComponent implements OnInit {
         this.moveConsent(consent);
         const translatedNotification =
           consent.status === 'GRANTED'
-            ? this.translate.instant('CONSENTS.CONSENT_REVOKED')
-            : this.translate.instant('CONSENTS.CONSENT_REJECTED');
+            ? (this.translate.instant('CONSENTS.CONSENT_REVOKED') as string)
+            : (this.translate.instant('CONSENTS.CONSENT_REJECTED') as string);
         consent.status = 'REVOKED';
         this.notificator.showSuccess(translatedNotification + consent.consentHub.name);
         this.loading = false;
@@ -63,14 +65,14 @@ export class ConsentsPreviewComponent implements OnInit {
     );
   }
 
-  moveConsent(consent: Consent) {
+  moveConsent(consent: Consent): void {
     if (consent.status === 'UNSIGNED') {
       this.signedConsents = [...this.signedConsents, consent];
       this.unsignedConsents = this.unsignedConsents.filter((c) => c.id !== consent.id);
     }
   }
 
-  grantConsent(id: number) {
+  grantConsent(id: number): void {
     this.loading = true;
     this.consentService.changeConsentStatus(id, 'GRANTED').subscribe(
       () => {
@@ -80,7 +82,7 @@ export class ConsentsPreviewComponent implements OnInit {
         this.moveConsent(consent);
         consent.status = 'GRANTED';
         this.notificator.showSuccess(
-          this.translate.instant('CONSENTS.CONSENT_GRANTED') + consent.consentHub.name
+          (this.translate.instant('CONSENTS.CONSENT_GRANTED') as string) + consent.consentHub.name
         );
         this.loading = false;
       },
@@ -88,11 +90,11 @@ export class ConsentsPreviewComponent implements OnInit {
     );
   }
 
-  applyFilterUnsigned($event: string) {
+  applyFilterUnsigned($event: string): void {
     this.filterValueUnsigned = $event;
   }
 
-  applyFilterSigned($event: string) {
+  applyFilterSigned($event: string): void {
     this.filterValueSigned = $event;
   }
 }

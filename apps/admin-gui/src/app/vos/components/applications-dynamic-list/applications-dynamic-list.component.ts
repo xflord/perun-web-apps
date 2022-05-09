@@ -125,7 +125,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       this.displayedColumns = this.displayedColumns.filter((v) => !this.parsedColumns.includes(v));
       this.parsedColumns = [];
 
-      const data = <RichApplication>this.dataSource.getData()[0];
+      const data = this.dataSource.getData()[0] as RichApplication;
       this.parseColumns(data.formData);
     });
   }
@@ -212,7 +212,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       case 'fedInfo':
         return data.fedInfo;
       case 'formData':
-        return this.stringify((<RichApplication>data).formData);
+        return this.stringify((data as RichApplication).formData);
       case 'state':
         return data.state;
       case 'extSourceName':
@@ -292,15 +292,15 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     }
   }
 
-  stringify(obj: object) {
-    const removeNullUndefined = (toFilter: object) =>
+  stringify(obj: object): string {
+    const removeNullUndefined = (toFilter: object): object =>
       Object.entries(toFilter).reduce(
         (a, [k, v]) =>
           a[k] instanceof Object
-            ? (a[k] = removeNullUndefined(a[k]))
-            : v == null || v === 'null' || (<string>v).length === 0
+            ? (a[k] = removeNullUndefined(a[k] as object))
+            : v == null || v === 'null' || (v as string).length === 0
             ? a
-            : ((a[k] = v), a),
+            : ((a[k] = v as string), a),
         {}
       );
 
@@ -310,11 +310,11 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     return str;
   }
 
-  getFormDataString(data: ApplicationFormItemData) {
+  getFormDataString(data: ApplicationFormItemData): string {
     return this.stringify(data.formItem);
   }
 
-  parseColumns(array: Array<ApplicationFormItemData>) {
+  parseColumns(array: Array<ApplicationFormItemData>): void {
     array.forEach((val) => {
       if (!this.displayedColumns.includes(val.shortname)) {
         this.displayedColumns.push(val.shortname);
@@ -325,7 +325,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     });
   }
 
-  getValue(array: Array<ApplicationFormItemData>, colName: string) {
+  getValue(array: Array<ApplicationFormItemData>, colName: string): string {
     const filter = array.filter((value) => value.shortname === colName);
     if (filter.length === 0) {
       return '';

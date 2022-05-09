@@ -14,6 +14,12 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./admin-consent-hubs.component.scss'],
 })
 export class AdminConsentHubsComponent implements OnInit {
+  loading = false;
+  tableId = TABLE_CONSENT_HUBS;
+  selection = new SelectionModel<ConsentHub>(true, []);
+  filterValue = '';
+  consentHubs: ConsentHub[] = [];
+
   constructor(
     private consentsManager: ConsentsManagerService,
     public authResolver: GuiAuthResolver,
@@ -21,12 +27,6 @@ export class AdminConsentHubsComponent implements OnInit {
     private translate: TranslateService,
     private dialog: MatDialog
   ) {}
-
-  loading = false;
-  tableId = TABLE_CONSENT_HUBS;
-  selection = new SelectionModel<ConsentHub>(true, []);
-  filterValue = '';
-  consentHubs: ConsentHub[] = [];
 
   ngOnInit(): void {
     this.refreshTable();
@@ -49,9 +49,11 @@ export class AdminConsentHubsComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = {
-      title: this.translate.instant('ADMIN.CONSENT_HUBS.CONFIRM_DIALOG_TITLE'),
+      title: this.translate.instant('ADMIN.CONSENT_HUBS.CONFIRM_DIALOG_TITLE') as string,
       theme: 'admin-theme',
-      description: this.translate.instant('ADMIN.CONSENT_HUBS.CONFIRM_DIALOG_DESCRIPTION'),
+      description: this.translate.instant(
+        'ADMIN.CONSENT_HUBS.CONFIRM_DIALOG_DESCRIPTION'
+      ) as string,
       items: this.selection.selected.map((hub) => hub.name),
       type: 'confirmation',
       showAsk: false,
@@ -67,7 +69,9 @@ export class AdminConsentHubsComponent implements OnInit {
 
   evaluateConsentsForConsentHub(index: number): void {
     if (index === this.selection.selected.length) {
-      this.notificator.showSuccess(this.translate.instant('ADMIN.CONSENT_HUBS.EVALUATION_FINISH'));
+      this.notificator.showSuccess(
+        this.translate.instant('ADMIN.CONSENT_HUBS.EVALUATION_FINISH') as string
+      );
       this.selection.clear();
       return;
     }

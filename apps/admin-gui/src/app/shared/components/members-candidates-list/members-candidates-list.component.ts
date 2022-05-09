@@ -29,6 +29,11 @@ import { MemberTypePipe } from '../../pipes/member-type.pipe';
   selector: 'app-members-candidates-list',
   templateUrl: './members-candidates-list.component.html',
   styleUrls: ['./members-candidates-list.component.scss'],
+  providers: [
+    {
+      provide: MemberTypePipe,
+    },
+  ],
 })
 export class MembersCandidatesListComponent implements OnChanges, AfterViewInit {
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;

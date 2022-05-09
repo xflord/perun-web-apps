@@ -21,8 +21,7 @@ import { InitAuthService } from './init-auth.service';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
-
-  dialogRefSessionExpiration: MatDialogRef<SessionExpirationDialogComponent>
+  dialogRefSessionExpiration: MatDialogRef<SessionExpirationDialogComponent>;
   constructor(
     private authService: AuthService,
     private apiRequestConfiguration: ApiRequestConfigurationService,

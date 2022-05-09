@@ -49,10 +49,6 @@ export class FacilitiesListComponent implements OnChanges {
     this.sort = ms;
   }
 
-  getDataForColumnFun = (data: EnrichedFacility, column: string): string => {
-    return FacilitiesListComponent.getDataForColumn(data, column, this.recentIds);
-  };
-
   static getDataForColumn(data: EnrichedFacility, column: string, recentIds: number[]): string {
     switch (column) {
       case 'id':
@@ -78,6 +74,10 @@ export class FacilitiesListComponent implements OnChanges {
         return data[column] as string;
     }
   }
+
+  getDataForColumnFun = (data: EnrichedFacility, column: string): string => {
+    return FacilitiesListComponent.getDataForColumn(data, column, this.recentIds);
+  };
 
   ngOnChanges(): void {
     if (!this.authResolver.isPerunAdminOrObserver()) {

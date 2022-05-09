@@ -3,6 +3,8 @@ import { ApiRequestConfigurationService, NotificatorService } from '@perun-web-a
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Consent, ConsentsManagerService } from '@perun-web-apps/perun/openapi';
+import { RPCError } from '@perun-web-apps/perun/models';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'perun-web-apps-consent-request',
@@ -11,6 +13,9 @@ import { Consent, ConsentsManagerService } from '@perun-web-apps/perun/openapi';
   encapsulation: ViewEncapsulation.None,
 })
 export class ConsentRequestComponent implements OnInit {
+  consent: Consent;
+  loading = false;
+
   constructor(
     private notificator: NotificatorService,
     private translate: TranslateService,
@@ -20,54 +25,54 @@ export class ConsentRequestComponent implements OnInit {
     private router: Router
   ) {}
 
-  consent: Consent;
-  loading = false;
-
   ngOnInit(): void {
     this.loading = true;
     this.route.params.subscribe((params) => {
-      const consentId = params['consentId'];
+      const consentId = Number(params['consentId']);
       this.apiRequest.dontHandleErrorForNext();
       this.consentService.getConsentById(consentId).subscribe(
         (consent) => {
           this.consent = consent;
           if (this.consent.status !== 'UNSIGNED') {
-            this.router.navigate(['/profile', 'consents'], { queryParamsHandling: 'merge' });
+            void this.router.navigate(['/profile', 'consents'], { queryParamsHandling: 'merge' });
           }
           this.loading = false;
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.loading = false;
-          if (error.error.name !== 'ConsentNotExistsException') {
-            this.notificator.showRPCError(error.error);
+          const e: RPCError = error.error as RPCError;
+          if (e.name !== 'ConsentNotExistsException') {
+            this.notificator.showRPCError(e);
           }
-          this.router.navigate(['/profile', 'consents'], { queryParamsHandling: 'merge' });
+          void this.router.navigate(['/profile', 'consents'], { queryParamsHandling: 'merge' });
         }
       );
     });
   }
 
-  grantConsent() {
+  grantConsent(): void {
     this.loading = true;
     this.consentService.changeConsentStatus(this.consent.id, 'GRANTED').subscribe(
       () => {
         this.notificator.showSuccess(
-          this.translate.instant('CONSENTS.CONSENT_GRANTED') + this.consent.consentHub.name
+          (this.translate.instant('CONSENTS.CONSENT_GRANTED') as string) +
+            this.consent.consentHub.name
         );
-        this.router.navigate(['/profile', 'consents'], { queryParamsHandling: 'merge' });
+        void this.router.navigate(['/profile', 'consents'], { queryParamsHandling: 'merge' });
       },
       () => (this.loading = false)
     );
   }
 
-  rejectConsent() {
+  rejectConsent(): void {
     this.loading = true;
     this.consentService.changeConsentStatus(this.consent.id, 'REVOKED').subscribe(
       () => {
         this.notificator.showSuccess(
-          this.translate.instant('CONSENTS.CONSENT_REJECTED') + this.consent.consentHub.name
+          (this.translate.instant('CONSENTS.CONSENT_REJECTED') as string) +
+            this.consent.consentHub.name
         );
-        this.router.navigate(['/profile', 'consents'], { queryParamsHandling: 'merge' });
+        void this.router.navigate(['/profile', 'consents'], { queryParamsHandling: 'merge' });
       },
       () => (this.loading = false)
     );

@@ -8,8 +8,6 @@ type Entity = Vo | Group | Resource | Facility | Member | User;
   providedIn: 'root',
 })
 export class RoutePolicyService {
-  constructor(private authResolver: GuiAuthResolver) {}
-
   // Map of page key and function determining if user is authorized to access given page
   private routePolicies: Map<string, (entity: Entity) => boolean> = new Map<
     string,
@@ -17,11 +15,12 @@ export class RoutePolicyService {
   >([
     [
       'organizations-members',
-      (vo) => this.authResolver.isAuthorized('getCompleteRichMembers_Vo_List<String>_policy', [vo]),
+      (vo): boolean =>
+        this.authResolver.isAuthorized('getCompleteRichMembers_Vo_List<String>_policy', [vo]),
     ],
     [
       'organizations-groups',
-      (vo) =>
+      (vo): boolean =>
         this.authResolver.isAuthorized(
           'getAllRichGroupsWithAttributesByNames_Vo_List<String>_policy',
           [vo]
@@ -29,69 +28,78 @@ export class RoutePolicyService {
     ],
     [
       'organizations-resources',
-      (vo) =>
+      (vo): boolean =>
         this.authResolver.isAuthorized('getRichResources_Vo_policy', [vo]) ||
         this.authResolver.isAuthorized('getAllResourcesTagsForVo_Vo_policy', [vo]) ||
         this.authResolver.isAuthorized('getResourcesState_Vo_policy', [vo]),
     ],
     [
       'organizations-resources-preview',
-      (vo) => this.authResolver.isAuthorized('getRichResources_Vo_policy', [vo]),
+      (vo): boolean => this.authResolver.isAuthorized('getRichResources_Vo_policy', [vo]),
     ],
     [
       'organizations-resources-tags',
-      (vo) => this.authResolver.isAuthorized('getAllResourcesTagsForVo_Vo_policy', [vo]),
+      (vo): boolean => this.authResolver.isAuthorized('getAllResourcesTagsForVo_Vo_policy', [vo]),
     ],
     [
       'organizations-resources-states',
-      (vo) => this.authResolver.isAuthorized('getResourcesState_Vo_policy', [vo]),
+      (vo): boolean => this.authResolver.isAuthorized('getResourcesState_Vo_policy', [vo]),
     ],
     [
       'organizations-applications',
-      (vo) =>
+      (vo): boolean =>
         this.authResolver.isAuthorized('getApplicationsForVo_Vo_List<String>_Boolean_policy', [vo]),
     ],
     [
       'organizations-sponsoredMembers',
-      (vo) => this.authResolver.isAuthorized('getSponsoredMembersAndTheirSponsors_Vo_policy', [vo]),
+      (vo): boolean =>
+        this.authResolver.isAuthorized('getSponsoredMembersAndTheirSponsors_Vo_policy', [vo]),
     ],
     [
       'organizations-serviceAccounts',
-      (vo) =>
+      (vo): boolean =>
         this.authResolver.isAuthorized(
           `createSpecificMember_Vo_Candidate_List<User>_SpecificUserType_List<Group>_policy`,
           [vo]
         ),
     ],
-    ['organizations-attributes', () => true],
+    ['organizations-attributes', (): boolean => true],
     [
       'organizations-statistics',
-      (vo) =>
+      (vo): boolean =>
         this.authResolver.isAuthorized('getMembersCount_Vo_Status_policy', [vo]) &&
         this.authResolver.isAuthorized('getMembersCount_Vo_policy', [vo]),
     ],
     [
       'organizations-settings',
-      (vo) =>
+      (vo): boolean =>
         this.authResolver.isManagerPagePrivileged(vo) ||
         this.authResolver.isAuthorized('getVoExtSources_Vo_policy', [vo]) ||
         this.authResolver.isThisVoAdminOrObserver(vo.id),
     ],
-    ['organizations-settings-expiration', (vo) => this.authResolver.isThisVoAdminOrObserver(vo.id)],
-    ['organizations-settings-managers', (vo) => this.authResolver.isManagerPagePrivileged(vo)],
+    [
+      'organizations-settings-expiration',
+      (vo): boolean => this.authResolver.isThisVoAdminOrObserver(vo.id),
+    ],
+    [
+      'organizations-settings-managers',
+      (vo): boolean => this.authResolver.isManagerPagePrivileged(vo),
+    ],
     [
       'organizations-settings-applicationForm',
-      (vo) => this.authResolver.isThisVoAdminOrObserver(vo.id),
+      (vo): boolean => this.authResolver.isThisVoAdminOrObserver(vo.id),
     ],
     [
       'organizations-settings-notifications',
-      (vo) => this.authResolver.isThisVoAdminOrObserver(vo.id),
+      (vo): boolean => this.authResolver.isThisVoAdminOrObserver(vo.id),
     ],
     [
       'organizations-settings-extsources',
-      (vo) => this.authResolver.isAuthorized('getVoExtSources_Vo_policy', [vo]),
+      (vo): boolean => this.authResolver.isAuthorized('getVoExtSources_Vo_policy', [vo]),
     ],
   ]);
+
+  constructor(private authResolver: GuiAuthResolver) {}
 
   /**
    * Determines whether user can access given page or not,

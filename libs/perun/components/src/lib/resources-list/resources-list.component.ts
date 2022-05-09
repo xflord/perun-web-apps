@@ -69,10 +69,6 @@ export class ResourcesListComponent implements OnInit, OnChanges {
     this.sort = ms;
   }
 
-  getDataForColumnFun = (data: ResourceWithStatus, column: string): string => {
-    return ResourcesListComponent.getDataForColumn(data, column, this.recentIds);
-  };
-
   static getDataForColumn(data: ResourceWithStatus, column: string, recentIds: number[]): string {
     switch (column) {
       case 'id':
@@ -111,6 +107,10 @@ export class ResourcesListComponent implements OnInit, OnChanges {
         return data[column] as string;
     }
   }
+
+  getDataForColumnFun = (data: ResourceWithStatus, column: string): string => {
+    return ResourcesListComponent.getDataForColumn(data, column, this.recentIds);
+  };
 
   ngOnInit(): void {
     this.disabledRouting = this.disableRouting;

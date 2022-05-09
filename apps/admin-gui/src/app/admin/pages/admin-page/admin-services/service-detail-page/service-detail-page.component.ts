@@ -113,13 +113,13 @@ export class ServiceDetailPageComponent implements OnInit {
     );
   }
 
-  evaluateConsents() {
+  evaluateConsents(): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = {
-      title: this.translate.instant('SERVICE_DETAIL.CONFIRM_DIALOG_TITLE'),
+      title: this.translate.instant('SERVICE_DETAIL.CONFIRM_DIALOG_TITLE') as string,
       theme: 'service-theme',
-      description: this.translate.instant('SERVICE_DETAIL.CONFIRM_DIALOG_DESCRIPTION'),
+      description: this.translate.instant('SERVICE_DETAIL.CONFIRM_DIALOG_DESCRIPTION') as string,
       items: [this.service.name],
       type: 'confirmation',
       showAsk: false,
@@ -132,7 +132,9 @@ export class ServiceDetailPageComponent implements OnInit {
         this.consentsManager
           .evaluateConsentsForService(this.service.id)
           .subscribe(() =>
-            this.notificator.showSuccess(this.translate.instant('SERVICE_DETAIL.EVALUATION_FINISH'))
+            this.notificator.showSuccess(
+              this.translate.instant('SERVICE_DETAIL.EVALUATION_FINISH') as string
+            )
           );
       }
     });

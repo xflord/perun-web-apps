@@ -21,9 +21,9 @@ export class DebounceFilterComponent implements OnInit {
   @Input() placeholder: string;
   @Input() autoFocus = false;
   @Output() filter = new EventEmitter<string>();
-  @ViewChild('groupFilterInput', { static: true }) groupFilterInput: ElementRef;
+  @ViewChild('groupFilterInput', { static: true }) groupFilterInput: ElementRef<HTMLInputElement>;
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.autoFocus) this.groupFilterInput.nativeElement.focus();
     fromEvent(this.groupFilterInput.nativeElement as FromEventTarget<KeyboardEvent>, 'keyup')
       .pipe(
