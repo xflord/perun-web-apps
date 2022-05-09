@@ -17,6 +17,8 @@ import {
 } from '@perun-web-apps/perun/dialogs';
 import { DeleteFacilityDialogComponent } from '../../../shared/components/dialogs/delete-facility-dialog/delete-facility-dialog.component';
 import { ReloadEntityDetailService } from '../../../core/services/common/reload-entity-detail.service';
+import { destroyDetailMixin } from '../../../shared/destroy-entity-detail';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-facility-detail-page',
@@ -24,7 +26,7 @@ import { ReloadEntityDetailService } from '../../../core/services/common/reload-
   styleUrls: ['./facility-detail-page.component.scss'],
   animations: [fadeIn],
 })
-export class FacilityDetailPageComponent implements OnInit {
+export class FacilityDetailPageComponent extends destroyDetailMixin() implements OnInit {
   facility: Facility;
   editFacilityAuth = false;
   deleteAuth = false;
@@ -40,11 +42,13 @@ export class FacilityDetailPageComponent implements OnInit {
     private router: Router,
     private entityStorageService: EntityStorageService,
     private reloadEntityDetail: ReloadEntityDetailService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.reloadData();
-    this.reloadEntityDetail.entityDetailChange.subscribe(() => {
+    this.reloadEntityDetail.entityDetailChange.pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.reloadData();
     });
   }

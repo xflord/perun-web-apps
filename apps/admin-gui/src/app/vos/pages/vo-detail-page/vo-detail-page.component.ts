@@ -17,6 +17,8 @@ import {
 } from '@perun-web-apps/perun/dialogs';
 import { RemoveVoDialogComponent } from '../../../shared/components/dialogs/remove-vo-dialog/remove-vo-dialog.component';
 import { ReloadEntityDetailService } from '../../../core/services/common/reload-entity-detail.service';
+import { destroyDetailMixin } from '../../../shared/destroy-entity-detail';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-vo-detail-page',
@@ -24,7 +26,7 @@ import { ReloadEntityDetailService } from '../../../core/services/common/reload-
   styleUrls: ['./vo-detail-page.component.scss'],
   animations: [fadeIn],
 })
-export class VoDetailPageComponent implements OnInit {
+export class VoDetailPageComponent extends destroyDetailMixin() implements OnInit {
   vo: Vo;
   enrichedVo: EnrichedVo;
   editAuth: boolean;
@@ -41,11 +43,13 @@ export class VoDetailPageComponent implements OnInit {
     private authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService,
     private reloadEntityDetail: ReloadEntityDetailService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.reloadData();
-    this.reloadEntityDetail.entityDetailChange.subscribe(() => {
+    this.reloadEntityDetail.entityDetailChange.pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.reloadData();
     });
   }
@@ -98,7 +102,6 @@ export class VoDetailPageComponent implements OnInit {
   setMenuItems(): void {
     const isHierarchical = this.enrichedVo.memberVos.length !== 0;
     const sideMenuItem = this.sideMenuItemService.parseVo(this.vo, isHierarchical);
-
     this.sideMenuService.setAccessMenuItems([sideMenuItem]);
   }
 

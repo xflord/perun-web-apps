@@ -23,6 +23,8 @@ import {
 import { RemoveResourceDialogComponent } from '../../../shared/components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
 import { ReloadEntityDetailService } from '../../../core/services/common/reload-entity-detail.service';
 import { SideMenuItem } from '../../../shared/side-menu/side-menu.component';
+import { destroyDetailMixin } from '../../../shared/destroy-entity-detail';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-resource-detail-page',
@@ -30,7 +32,7 @@ import { SideMenuItem } from '../../../shared/side-menu/side-menu.component';
   styleUrls: ['./resource-detail-page.component.scss'],
   animations: [fadeIn],
 })
-export class ResourceDetailPageComponent implements OnInit {
+export class ResourceDetailPageComponent extends destroyDetailMixin() implements OnInit {
   resource: RichResource;
   vo: Vo;
   facility: Facility;
@@ -54,11 +56,13 @@ export class ResourceDetailPageComponent implements OnInit {
     private router: Router,
     private entityStorageService: EntityStorageService,
     private reloadEntityDetail: ReloadEntityDetailService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.reloadData();
-    this.reloadEntityDetail.entityDetailChange.subscribe(() => {
+    this.reloadEntityDetail.entityDetailChange.pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.reloadData();
     });
   }

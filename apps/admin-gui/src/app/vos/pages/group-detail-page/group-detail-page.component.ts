@@ -24,6 +24,8 @@ import {
 } from '@perun-web-apps/perun/dialogs';
 import { DeleteGroupDialogComponent } from '../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
 import { ReloadEntityDetailService } from '../../../core/services/common/reload-entity-detail.service';
+import { destroyDetailMixin } from '../../../shared/destroy-entity-detail';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-group-detail-page',
@@ -31,7 +33,7 @@ import { ReloadEntityDetailService } from '../../../core/services/common/reload-
   styleUrls: ['./group-detail-page.component.scss'],
   animations: [fadeIn],
 })
-export class GroupDetailPageComponent implements OnInit {
+export class GroupDetailPageComponent extends destroyDetailMixin() implements OnInit {
   vo: Vo;
   group: RichGroup;
   editAuth = false;
@@ -59,10 +61,12 @@ export class GroupDetailPageComponent implements OnInit {
     private router: Router,
     private entityStorageService: EntityStorageService,
     private reloadEntityDetail: ReloadEntityDetailService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
-    this.reloadEntityDetail.entityDetailChange.subscribe(() => {
+    this.reloadEntityDetail.entityDetailChange.pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.reloadData();
     });
     this.reloadData();
