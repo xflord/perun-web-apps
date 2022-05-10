@@ -30,6 +30,7 @@ interface MemberData {
   status: string;
   login?: string;
   password?: string;
+  note?: string;
 }
 
 export interface GenerateSponsoredMembersDialogData {
@@ -319,12 +320,13 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
       login = memberData['login'] ? memberData['login'] : login;
       password = memberData['password'] ? memberData['password'] : password;
 
-      output.push({
-        name: name,
-        status: status,
-        login: login,
-        password: password,
-      });
+      const line = { name: name, status: status, login: login, password: password };
+
+      if (memberData['note']) {
+        line['note'] = memberData['note'];
+      }
+
+      output.push(line);
     });
 
     return output;
