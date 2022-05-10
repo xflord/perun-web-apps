@@ -111,6 +111,7 @@ export class ServiceDetailPageComponent implements OnInit {
         recurrence: this.service.recurrence,
         enabled: !this.service.enabled,
         script: this.service.script,
+        useExpiredMembers: this.service.useExpiredMembers,
         id: this.service.id,
         beanName: this.service.beanName,
       },
