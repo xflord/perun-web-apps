@@ -1,6 +1,8 @@
 {
   "api_url": "https://perun-dev.cesnet.cz/oauth/rpc/",
-  "document_title": "Publications",
+  "document_title": {
+    "en": "Publications"
+  },
   "oidc_client": {
     "oauth_authority": "https://login.cesnet.cz/oidc/",
     "oauth_callback": "http://localhost:4200/api-callback",

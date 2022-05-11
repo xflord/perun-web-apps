@@ -174,7 +174,7 @@ export class AppConfigService {
         apiUrl = apiUrl.replace('oauth', 'ba');
       }
       this.authzSevice.configuration.basePath = apiUrl;
-      this.titleService.setTitle(this.storeService.get('document_title') as string);
+      this.titleService.setTitle(this.storeService.get('document_title', 'en') as string);
       resolve();
     });
   }

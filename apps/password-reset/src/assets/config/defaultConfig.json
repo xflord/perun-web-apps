@@ -1,6 +1,8 @@
 {
   "api_url": "http://localhost:8081/ba/rpc/",
-  "document_title": "Password Reset",
+  "document_title": {
+    "en": "Password Reset"
+  },
   "instance_favicon": false,
   "oidc_client": {
     "oauth_authority": "",

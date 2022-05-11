@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { APP_INITIALIZER, forwardRef, NgModule, Provider } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
@@ -206,6 +206,7 @@ const loadConfigs: (appConfig: UserProfileConfigService) => () => Promise<void> 
       provide: PERUN_API_SERVICE,
       useClass: ApiService,
     },
+    Title,
   ],
   exports: [SideMenuComponent],
   bootstrap: [AppComponent],

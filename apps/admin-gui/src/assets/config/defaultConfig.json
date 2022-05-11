@@ -2,7 +2,9 @@
   "config": "default",
   "api_url": "http://localhost:8081/ba/rpc/",
   "instance_favicon": false,
-  "document_title": "Perun Web Gui",
+  "document_title": {
+    "en": "Perun Web Gui"
+  },
   "supported_languages": [
     "en"
   ],

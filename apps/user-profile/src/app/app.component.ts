@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   HostListener,
+  Inject,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -13,7 +14,9 @@ import {
   PreferredLanguageService,
 } from '@perun-web-apps/perun/services';
 import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
-import { TranslateService } from '@ngx-translate/core';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { Title } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'perun-web-apps-root',
@@ -37,7 +40,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     private translateService: TranslateService,
     private initAuth: InitAuthService,
     private changeDetector: ChangeDetectorRef,
-    private preferredLangService: PreferredLanguageService
+    private preferredLangService: PreferredLanguageService,
+    private titleService: Title,
+    @Inject(DOCUMENT) private document: Document
   ) {
     this.getScreenSize();
   }
@@ -48,6 +53,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.translateService.onLangChange.subscribe((langChange: LangChangeEvent) => {
+      const title: string = this.store.get('document_title', langChange.lang) as string;
+      this.titleService.setTitle(title);
+      this.document.documentElement.lang = langChange.lang;
+    });
+
     this.isLoginScreenShown = this.initAuth.isLoginScreenShown();
     this.isServiceAccess = this.initAuth.isServiceAccessLoginScreenShown();
     sessionStorage.removeItem('baLogout');
