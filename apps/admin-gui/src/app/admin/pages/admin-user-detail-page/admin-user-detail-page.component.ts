@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SideMenuService } from '../../../core/services/common/side-menu.service';
 import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.service';
 import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
@@ -7,6 +7,7 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { EditUserDialogComponent } from '../../../shared/components/dialogs/edit-user-dialog/edit-user-dialog.component';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { AnonymizeUserDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 @Component({
   selector: 'app-admin-user-detail-page',
@@ -27,7 +28,8 @@ export class AdminUserDetailPageComponent implements OnInit {
     private sideMenuItemService: SideMenuItemService,
     private dialog: MatDialog,
     public authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -79,5 +81,22 @@ export class AdminUserDetailPageComponent implements OnInit {
       return 'Service';
     }
     return 'Person';
+  }
+
+  anonymizeUser(): void {
+    const config = getDefaultDialogConfig();
+    config.width = '550px';
+    config.data = {
+      theme: 'admin-theme',
+      user: this.user,
+    };
+
+    const dialogRef = this.dialog.open(AnonymizeUserDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        void this.router.navigate(['/admin', 'users'], { queryParamsHandling: 'merge' });
+      }
+    });
   }
 }

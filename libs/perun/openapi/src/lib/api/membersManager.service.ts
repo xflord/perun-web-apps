@@ -3635,7 +3635,7 @@ export class MembersManagerService {
   }
 
   /**
-   * Moves membership in VO from source user to target user - moves the source user\&#39;s memberships in non-synchronized groups, member related attributes, bans and sponsorships in the VO. Removes the source user\&#39;s member object.
+   * Moves membership in VO from source user to target user - moves the source user\&#39;s memberships in non-synchronized groups, member related attributes, bans and sponsorships in the VO. Removes the source user\&#39;s member object. If VO is member of any hierarchical parent VO, user\&#39;s membership is moved in parent VOs also. If VO is parent of any hierarchical member VOs, user\&#39;s membership is not moved in member VOs.
    * @param vo id of Vo
    * @param sourceUser id of source user
    * @param targetUser id of target user

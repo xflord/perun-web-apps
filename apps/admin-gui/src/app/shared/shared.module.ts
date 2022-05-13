@@ -154,7 +154,6 @@ import { DeleteOwnerDialogComponent } from './components/delete-owner-dialog/del
 import { StatisticsCardComponent } from './components/statistics-card/statistics-card.component';
 import { ApplicationFormItemDisabledPipe } from './pipes/application-form-item-disabled.pipe';
 import { ApplicationFormItemHiddenPipe } from './pipes/application-form-item-hidden.pipe';
-import { DeleteEntityDialogComponent } from './components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { MatListModule } from '@angular/material/list';
 import { EditApplicationFormItemLineComponent } from './components/dialogs/edit-application-form-item-dialog/edit-application-form-item-line/edit-application-form-item-line.component';
 import { AddGroupToRegistrationComponent } from './components/dialogs/add-group-to-registration/add-group-to-registration.component';
@@ -172,6 +171,7 @@ import { ConsentHubsListComponent } from './components/consent-hubs-list/consent
 import { EditEnforceConsentsDialogComponent } from './components/dialogs/edit-enforce-consents-dialog/edit-enforce-consents-dialog.component';
 import { ConsentRelatedAttributePipe } from './pipes/consent-related-attribute.pipe';
 import { MemberTypePipe } from './pipes/member-type.pipe';
+import { PerunDialogsModule } from '@perun-web-apps/perun/dialogs';
 
 @NgModule({
   imports: [
@@ -222,6 +222,7 @@ import { MemberTypePipe } from './pipes/member-type.pipe';
     MatListModule,
     PerunUtilsModule,
     PerunNamespacePasswordFormModule,
+    PerunDialogsModule,
   ],
   exports: [
     NgxMatSelectSearchModule,
@@ -423,7 +424,6 @@ import { MemberTypePipe } from './pipes/member-type.pipe';
     StatisticsCardComponent,
     ApplicationFormItemDisabledPipe,
     ApplicationFormItemHiddenPipe,
-    DeleteEntityDialogComponent,
     EditApplicationFormItemLineComponent,
     AddGroupToRegistrationComponent,
     OneEntityAttributePageComponent,

@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
+import { DeleteDialogResult } from '@perun-web-apps/perun/dialogs';
 
 export interface DeleteGroupDialogData {
   theme: string;
@@ -60,7 +61,7 @@ export class DeleteGroupDialogComponent implements OnInit {
     );
   }
 
-  onSubmit(result: { deleted: boolean; force: boolean }): void {
+  onSubmit(result: DeleteDialogResult): void {
     this.force = result.force;
     if (result.deleted) {
       this.onDelete();

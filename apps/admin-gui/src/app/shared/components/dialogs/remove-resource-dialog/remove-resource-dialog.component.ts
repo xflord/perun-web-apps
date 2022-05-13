@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { ResourcesManagerService, RichResource } from '@perun-web-apps/perun/openapi';
+import { DeleteDialogResult } from '@perun-web-apps/perun/dialogs';
 
 export interface RemoveResourceDialogData {
   theme: string;
@@ -59,7 +60,7 @@ export class RemoveResourceDialogComponent implements OnInit {
     }
   }
 
-  onSubmit(result: { deleted: boolean; force: boolean }): void {
+  onSubmit(result: DeleteDialogResult): void {
     if (result.deleted) {
       this.onDelete();
     } else {

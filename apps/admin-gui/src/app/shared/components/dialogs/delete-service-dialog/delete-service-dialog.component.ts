@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { DeleteDialogResult } from '@perun-web-apps/perun/dialogs';
 
 export interface DeleteServiceDialogData {
   theme: string;
@@ -65,7 +66,7 @@ export class DeleteServiceDialogComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  onSubmit(result: { deleted: boolean; force: boolean }): void {
+  onSubmit(result: DeleteDialogResult): void {
     this.force = result.force;
     if (result.deleted) {
       this.onConfirm();

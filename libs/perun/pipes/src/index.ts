@@ -21,3 +21,4 @@ export * from './lib/sanitize-html.pipe';
 export * from './lib/style-inner-html.pipe';
 export * from './lib/footer-logo-path.pipe';
 export * from './lib/localised-text.pipe';
+export * from './lib/delete-dialog-type.pipe';

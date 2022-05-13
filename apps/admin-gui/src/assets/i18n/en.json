@@ -2043,15 +2043,22 @@
       "SUCCESS": "Owners successfully removed"
     },
     "DELETE_ENTITY": {
-      "BASIC": "Do you want to delete",
+      "BASIC": "Do you want to {{action}}",
       "ONLY": "only this",
       "OR": "or",
       "RELATIONS": "with all relations",
-      "DELETE": "Delete",
+      "DELETE": "{{action}}",
       "CANCEL": "Cancel",
-      "CONTROL": "Type \"DELETE\" to confirm",
-      "ASK": "Are you sure you want to permanently delete following",
-      "WARN": "This action will also delete all"
+      "CONTROL": "Type \"{{action}}\" to confirm",
+      "ASK": "Are you sure you want to permanently {{action}} following",
+      "WARN": "This action will also delete all",
+      "TYPE_DELETE": "delete",
+      "TYPE_ANONYMIZE": "anonymize"
+    },
+    "ANONYMIZE_USER": {
+      "VO_RELATION": "User's membership in all organizations",
+      "GROUP_RELATION": "User's membership in all groups",
+      "SUCCESS_NOTIFICATION": "User was successfully anonymized"
     },
     "CHANGE_VO_EXPIRATION": {
       "TITLE": "Change member expiration"

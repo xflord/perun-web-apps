@@ -245,22 +245,31 @@ export class UsersManagerService {
   /**
    * Anonymizes user - according to configuration, each of user\&#39;s attributes is either anonymized, kept untouched or deleted. Also deletes other user\&#39;s related data, e.g. authorships of users publications, mail change and password reset requests, bans...
    * @param user id of User
+   * @param force if true the user is removed from all groups and vos
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public anonymizeUser(user: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
   public anonymizeUser(
     user: number,
+    force?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public anonymizeUser(
+    user: number,
+    force?: boolean,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<any>>;
   public anonymizeUser(
     user: number,
+    force?: boolean,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<any>>;
   public anonymizeUser(
     user: number,
+    force?: boolean,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
@@ -271,6 +280,9 @@ export class UsersManagerService {
     let queryParameters = new HttpParams({ encoder: this.encoder });
     if (user !== undefined && user !== null) {
       queryParameters = queryParameters.set('user', <any>user);
+    }
+    if (force !== undefined && force !== null) {
+      queryParameters = queryParameters.set('force', <any>force);
     }
 
     let headers = this.defaultHeaders;

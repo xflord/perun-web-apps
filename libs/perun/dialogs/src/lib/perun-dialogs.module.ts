@@ -39,6 +39,9 @@ import { ChangeSponsorshipExpirationDialogComponent } from './change-sponsorship
 import { ChangeGroupResourceAssigmentDialogComponent } from './change-group-resource-assigment-dialog/change-group-resource-assigment-dialog.component';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespace-password-form';
+import { AnonymizeUserDialogComponent } from './anonymize-user-dialog/anonymize-user-dialog.component';
+import { DeleteEntityDialogComponent } from './delete-entity-dialog/delete-entity-dialog.component';
+import { UiMaterialModule } from '@perun-web-apps/ui/material';
 
 @NgModule({
   imports: [
@@ -62,6 +65,7 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
     MatTreeModule,
     MatSelectModule,
     PerunNamespacePasswordFormModule,
+    UiMaterialModule,
   ],
   declarations: [
     BugReportDialogComponent,
@@ -85,6 +89,8 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
     ChangeSponsorshipExpirationDialogComponent,
     ChangeGroupResourceAssigmentDialogComponent,
     ChangePasswordDialogComponent,
+    AnonymizeUserDialogComponent,
+    DeleteEntityDialogComponent,
   ],
   exports: [
     ChangeExpirationDialogComponent,
@@ -104,6 +110,8 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
     ChangeGroupExpirationDialogComponent,
     ChangeVoExpirationDialogComponent,
     ChangePasswordDialogComponent,
+    AnonymizeUserDialogComponent,
+    DeleteEntityDialogComponent,
   ],
 })
 export class PerunDialogsModule {}

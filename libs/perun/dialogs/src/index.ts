@@ -19,3 +19,5 @@ export * from './lib/change-vo-expiration-dialog/change-vo-expiration-dialog.com
 export * from './lib/change-sponsorship-expiration-dialog/change-sponsorship-expiration-dialog.component';
 export * from './lib/universal-confirmation-dialog/universal-confirmation-dialog.component';
 export * from './lib/change-group-resource-assigment-dialog/change-group-resource-assigment-dialog.component';
+export * from './lib/delete-entity-dialog/delete-entity-dialog.component';
+export * from './lib/anonymize-user-dialog/anonymize-user-dialog.component';

@@ -1,10 +1,10 @@
 <div class="{{theme}}">
-  <app-delete-entity-dialog
+  <perun-web-apps-delete-entity-dialog
     [entityNames]="dataSource"
     [entityType]="'services'"
     (deleted)="onSubmit($event)"
     [anotherMessage]="anotherMessage"
     [loading]="loading"
     [relations]="relations">
-  </app-delete-entity-dialog>
+  </perun-web-apps-delete-entity-dialog>
 </div>

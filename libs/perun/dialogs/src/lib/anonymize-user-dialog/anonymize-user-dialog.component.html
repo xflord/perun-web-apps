@@ -1,9 +1,10 @@
 <div class="{{theme}}">
   <perun-web-apps-delete-entity-dialog
     [entityNames]="dataSource"
-    [entityType]="'facilities'"
-    (deleted)="onSubmit($event)"
+    [entityType]="'user'"
+    [relations]="relations"
     [loading]="loading"
-    [relations]="relations">
+    [anonymize]="true"
+    (deleted)="onSubmit($event)">
   </perun-web-apps-delete-entity-dialog>
 </div>

@@ -1,9 +1,12 @@
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 <div *ngIf="!force && !loading">
-  <h1 mat-dialog-title>{{'DIALOGS.DELETE_ENTITY.DELETE' | translate}} {{entityType}}</h1>
+  <h1 mat-dialog-title>
+    {{'DIALOGS.DELETE_ENTITY.DELETE' | translate: {action: this.anonymize | deleteDialogType | titlecase} }}
+    {{entityType}}
+  </h1>
   <div class="dialog-container" mat-dialog-content>
     <div *ngIf="!disableForce" class="mb-4">
-      {{'DIALOGS.DELETE_ENTITY.BASIC' | translate}}
+      {{'DIALOGS.DELETE_ENTITY.BASIC' | translate: {action: this.anonymize | deleteDialogType} }}
       {{'DIALOGS.DELETE_ENTITY.ONLY' | translate}}
       {{entityType}}
       <span class="font-weight-bold">{{'DIALOGS.DELETE_ENTITY.OR' | translate}}</span>
@@ -11,14 +14,16 @@
       {{'DIALOGS.DELETE_ENTITY.RELATIONS' | translate}}?
     </div>
     <div *ngIf="disableForce" class="mb-4">
-      {{'DIALOGS.DELETE_ENTITY.BASIC' | translate}}
+      {{'DIALOGS.DELETE_ENTITY.BASIC' | translate: {action: this.anonymize | deleteDialogType} }}
       {{entityType}}
       ?
     </div>
     <table [dataSource]="entityNames" class="w-100 table-margin" mat-table>
       <ng-container matColumnDef="name">
         <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let entity" mat-cell>{{entity.name}}</td>
+        <td *matCellDef="let entity" mat-cell>
+          {{anonymize ? (entity | userFullName) : entity.name }}
+        </td>
       </ng-container>
 
       <tr *matHeaderRowDef="['name']" class="font-weight-bolder" mat-header-row></tr>
@@ -35,7 +40,7 @@
       data-cy="delete-button-dialog"
       color="warn"
       mat-flat-button>
-      {{'DIALOGS.DELETE_ENTITY.DELETE' | translate}}
+      {{'DIALOGS.DELETE_ENTITY.DELETE' | translate: {action: this.anonymize | deleteDialogType | titlecase} }}
     </button>
     <button
       *ngIf="!disableForce"
@@ -45,14 +50,14 @@
       color="warn"
       mat-flat-button>
       <mat-icon>warning</mat-icon>
-      {{'DIALOGS.DELETE_ENTITY.DELETE' | translate}}
+      {{'DIALOGS.DELETE_ENTITY.DELETE' | translate: {action: this.anonymize | deleteDialogType | titlecase} }}
       {{'DIALOGS.DELETE_ENTITY.RELATIONS' | translate}}
     </button>
   </div>
 </div>
 <div *ngIf="force && !loading">
   <h1 mat-dialog-title>
-    {{'DIALOGS.DELETE_ENTITY.DELETE' | translate}}
+    {{'DIALOGS.DELETE_ENTITY.DELETE' | translate: {action: this.anonymize | deleteDialogType | titlecase} }}
     {{entityType}}
     {{'DIALOGS.DELETE_ENTITY.RELATIONS' | translate}}
   </h1>
@@ -71,12 +76,15 @@
         {{anotherMessage}}
       </div>
       <perun-web-apps-alert alert_type="warn">
-        {{'DIALOGS.DELETE_ENTITY.ASK' | translate}} {{entityType}} ?
+        {{'DIALOGS.DELETE_ENTITY.ASK' | translate: {action: this.anonymize | deleteDialogType} }}
+        {{entityType}} ?
       </perun-web-apps-alert>
       <table mat-table [dataSource]="entityNames" class="w-100 table-margin">
         <ng-container matColumnDef="name">
           <th *matHeaderCellDef mat-header-cell></th>
-          <td *matCellDef="let entity" mat-cell>{{entity.name}}</td>
+          <td *matCellDef="let entity" mat-cell>
+            {{anonymize ? (entity | userFullName) : entity.name }}
+          </td>
         </ng-container>
 
         <tr *matHeaderRowDef="['name']" class="font-weight-bolder" mat-header-row></tr>
@@ -88,7 +96,7 @@
         [formControl]="deleteControl"
         data-cy="force-delete-control"
         matInput
-        placeholder="{{'DIALOGS.DELETE_ENTITY.CONTROL' | translate}}" />
+        placeholder="{{'DIALOGS.DELETE_ENTITY.CONTROL' | translate: {action: this.anonymize | deleteDialogType | uppercase} }}" />
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
@@ -103,7 +111,7 @@
       color="warn"
       mat-flat-button>
       <mat-icon>warning</mat-icon>
-      {{'DIALOGS.DELETE_ENTITY.DELETE' | translate}}
+      {{'DIALOGS.DELETE_ENTITY.DELETE' | translate: {action: this.anonymize | deleteDialogType | titlecase} }}
       {{'DIALOGS.DELETE_ENTITY.RELATIONS' | translate}}
     </button>
   </div>

@@ -31,6 +31,7 @@ import { SanitizeHtmlPipe } from './sanitize-html.pipe';
 import { StyleInnerHtmlPipe } from './style-inner-html.pipe';
 import { MultiWordDataCyPipe } from './multi-word-data-cy.pipe';
 import { FooterLogoPathPipe } from './footer-logo-path.pipe';
+import { DeleteDialogTypePipe } from './delete-dialog-type.pipe';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { FooterLogoPathPipe } from './footer-logo-path.pipe';
     StyleInnerHtmlPipe,
     MultiWordDataCyPipe,
     FooterLogoPathPipe,
+    DeleteDialogTypePipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -100,6 +102,7 @@ import { FooterLogoPathPipe } from './footer-logo-path.pipe';
     StyleInnerHtmlPipe,
     MultiWordDataCyPipe,
     FooterLogoPathPipe,
+    DeleteDialogTypePipe,
   ],
   imports: [CommonModule],
 })

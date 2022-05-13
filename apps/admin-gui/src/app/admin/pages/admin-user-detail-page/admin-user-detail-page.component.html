@@ -14,9 +14,14 @@
           {{user | userFullName}}
         </a>
         <span class="text-muted"> &nbsp;#{{user.id}} </span>
-        <button (click)="editUser()" *ngIf="authResolver.isPerunAdmin()" mat-icon-button>
-          <mat-icon>edit</mat-icon>
-        </button>
+        <span *ngIf="authResolver.isPerunAdmin()">
+          <button (click)="editUser()" mat-icon-button>
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button (click)="anonymizeUser()" mat-icon-button>
+            <mat-icon>no_accounts</mat-icon>
+          </button>
+        </span>
       </div>
       <div>{{'ADMIN_USER.UUID' | translate}}: {{user.uuid}}</div>
       <span class="mt-1 entity-info">

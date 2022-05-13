@@ -11,6 +11,7 @@
  */
 
 export interface NewApps {
+  api?: string;
   admin?: string;
   profile?: string;
   pwdReset?: string;
