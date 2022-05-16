@@ -54,10 +54,13 @@ export class AddMemberDialogComponent implements OnInit {
 
   title: string;
 
-  selection = new SelectionModel<MemberCandidate>(false, []);
+  selection = new SelectionModel<MemberCandidate>(true, []);
   loading: boolean;
   processing: boolean;
   members: MemberCandidate[] = [];
+  failed: MemberCandidate[] = [];
+  addSuccess = true;
+  inviteSuccess = true;
 
   firstSearchDone = false;
 
@@ -121,7 +124,11 @@ export class AddMemberDialogComponent implements OnInit {
   onAdd(): void {
     this.processing = true;
     // TODO Adds only one member at the time. In the future there would be need to add more
-    const selectedMemberCandidate = this.selection.selected[0];
+    if (this.selection.selected.length === 0) {
+      this.onAddSuccess();
+      return;
+    }
+    const selectedMemberCandidate = this.selection.selected.pop();
 
     if (this.data.type === 'vo') {
       if (selectedMemberCandidate.richUser) {
@@ -143,60 +150,68 @@ export class AddMemberDialogComponent implements OnInit {
   onInvite(lang: string): void {
     this.processing = true;
     // TODO Was not tested properly. Need to be tested on devel.
-    if (this.selection.selected[0].richUser) {
+    if (this.selection.selected.length === 0) {
+      this.onInviteSuccess();
+      return;
+    }
+    const selectedUser = this.selection.selected.pop();
+    if (selectedUser.richUser) {
       if (this.data.type === 'vo') {
         this.registrarManager
-          .sendInvitationToExistingUser(this.selection.selected[0].richUser.id, this.data.entityId)
+          .sendInvitationToExistingUser(selectedUser.richUser.id, this.data.entityId)
           .subscribe(
             () => {
-              this.onInviteSuccess();
+              this.onInvite(lang);
             },
-            () => this.onError()
+            () => this.onInviteError(selectedUser)
           );
       } else if (this.data.type === 'group') {
         this.registrarManager
           .sendInvitationGroupToExistingUser(
-            this.selection.selected[0].richUser.id,
+            selectedUser.richUser.id,
             this.data.voId,
             this.data.group.id
           )
           .subscribe(
             () => {
-              this.onInviteSuccess();
+              this.onInvite(lang);
             },
-            () => this.onError()
+            () => this.onInviteError(selectedUser)
           );
       }
     } else {
       if (this.data.type === 'vo') {
         this.registrarManager
-          .sendInvitation(
-            getCandidateEmail(this.selection.selected[0].candidate),
-            lang,
-            this.data.voId
-          )
+          .sendInvitation(getCandidateEmail(selectedUser.candidate), lang, this.data.voId)
           .subscribe(
             () => {
-              this.onInviteSuccess();
+              this.onInvite(lang);
             },
-            () => this.onError()
+            () => this.onInviteError(selectedUser)
           );
       } else if (this.data.type === 'group') {
         this.registrarManager
           .sendInvitationForGroup(
-            getCandidateEmail(this.selection.selected[0].candidate),
+            getCandidateEmail(selectedUser.candidate),
             lang,
             this.data.voId,
             this.data.group.id
           )
           .subscribe(
             () => {
-              this.onInviteSuccess();
+              this.onInvite(lang);
             },
-            () => this.onError()
+            () => this.onInviteError(selectedUser)
           );
       }
     }
+  }
+
+  filterMembers(richUsers: number[], candidates: number[], member: MemberCandidate): boolean {
+    if (member.candidate) {
+      return candidates.includes(member.candidate.id);
+    }
+    return richUsers.includes(member.richUser.id);
   }
 
   onSearchByString(): void {
@@ -205,8 +220,6 @@ export class AddMemberDialogComponent implements OnInit {
       return;
     }
     this.loading = true;
-
-    this.selection.clear();
 
     // TODO properly test it on devel when possible.
     if (this.data.type === 'vo') {
@@ -218,9 +231,7 @@ export class AddMemberDialogComponent implements OnInit {
         )
         .subscribe(
           (members) => {
-            this.members = members;
-            this.loading = false;
-            this.firstSearchDone = true;
+            this.processMemberCandidateList(members);
           },
           () => (this.loading = false)
         );
@@ -233,13 +244,29 @@ export class AddMemberDialogComponent implements OnInit {
         )
         .subscribe(
           (members) => {
-            this.members = members;
-            this.loading = false;
-            this.firstSearchDone = true;
+            this.processMemberCandidateList(members);
           },
           () => (this.loading = false)
         );
     }
+  }
+
+  private processMemberCandidateList(members: Array<MemberCandidate>): void {
+    const richUsers: number[] = [];
+    const candidates: number[] = [];
+    for (const selectedMember of this.selection.selected) {
+      if (selectedMember.candidate) {
+        candidates.push(selectedMember.candidate.id);
+      } else {
+        richUsers.push(selectedMember.richUser.id);
+      }
+    }
+    this.members = [
+      ...members.filter((el) => !this.filterMembers(richUsers, candidates, el)),
+      ...this.selection.selected,
+    ];
+    this.loading = false;
+    this.firstSearchDone = true;
   }
 
   private addUserToVo(selectedMemberCandidate: MemberCandidate): void {
@@ -247,15 +274,37 @@ export class AddMemberDialogComponent implements OnInit {
       .createMemberForUser({ vo: this.data.entityId, user: selectedMemberCandidate.richUser.id })
       .subscribe(
         (member) => {
-          this.onAddSuccess();
           this.membersManagerService.validateMemberAsync(member.id).subscribe(
             () => {
-              this.onValidateSuccess();
+              // do nothing.
             },
             () => this.onCancel()
           );
+          this.onAdd();
         },
-        () => this.onError()
+        () => this.onAddError(selectedMemberCandidate)
+      );
+  }
+
+  private addCandidateToVo(selectedMemberCandidate: MemberCandidate): void {
+    this.membersManagerService
+      .createMemberForCandidate({
+        vo: this.data.entityId,
+        candidate: AddMemberDialogComponent.createCandidate(
+          selectedMemberCandidate.candidate
+        ) as Candidate,
+      })
+      .subscribe(
+        (member) => {
+          this.membersManagerService.validateMemberAsync(member.id).subscribe(
+            () => {
+              // do nothing.
+            },
+            () => this.onCancel()
+          );
+          this.onAdd();
+        },
+        () => this.onAddError(selectedMemberCandidate)
       );
   }
 
@@ -274,74 +323,25 @@ export class AddMemberDialogComponent implements OnInit {
       })
       .subscribe(
         (member) => {
-          this.onAddSuccess();
           this.membersManagerService.validateMemberAsync(member.id).subscribe(
             () => {
-              this.onValidateSuccess();
+              // do nothing.
             },
             () => this.onCancel()
           );
+          this.onAdd();
         },
-        () => this.onError()
+        () => this.onAddError(selectedMemberCandidate)
       );
   }
 
   private addMemberToGroup(selectedMemberCandidate: MemberCandidate): void {
     this.groupService.addMembers(this.data.entityId, [selectedMemberCandidate.member.id]).subscribe(
       () => {
-        this.onAddSuccess();
+        this.onAdd();
       },
-      () => this.onError()
+      () => this.onAddError(selectedMemberCandidate)
     );
-  }
-
-  private addCandidateToVo(selectedMemberCandidate: MemberCandidate): void {
-    this.membersManagerService
-      .createMemberForCandidate({
-        vo: this.data.entityId,
-        candidate: AddMemberDialogComponent.createCandidate(
-          selectedMemberCandidate.candidate
-        ) as Candidate,
-      })
-      .subscribe(
-        (member) => {
-          this.onAddSuccess();
-          this.membersManagerService.validateMemberAsync(member.id).subscribe(
-            () => {
-              this.onValidateSuccess();
-            },
-            () => this.onCancel()
-          );
-        },
-        () => this.onError()
-      );
-  }
-
-  private onAddSuccess(): void {
-    this.translate.get('DIALOGS.ADD_MEMBERS.SUCCESS').subscribe((msg: string) => {
-      this.notificator.showSuccess(msg);
-      this.dialogRef.close(true);
-    });
-  }
-
-  private onError(): void {
-    this.selection.clear();
-    this.processing = false;
-  }
-
-  private onInviteSuccess(): void {
-    this.translate.get('DIALOGS.ADD_MEMBERS.SUCCESS_INVITE').subscribe((msg: string) => {
-      this.notificator.showSuccess(msg);
-      this.dialogRef.close(true);
-    });
-  }
-
-  private onValidateSuccess(): void {
-    this.dialogRef.close(true);
-    // this.translate.get('DIALOGS.ADD_MEMBERS.VALIDATION_SUCCESS').subscribe(msg => {
-    //   this.notificator.showSuccess(msg);
-    //   this.dialogRef.close(true);
-    // });
   }
 
   private addCandidateToGroup(selectedMemberCandidate: MemberCandidate): void {
@@ -364,12 +364,65 @@ export class AddMemberDialogComponent implements OnInit {
           this.onAddSuccess();
           this.membersManagerService.validateMemberAsync(member.id).subscribe(
             () => {
-              this.onValidateSuccess();
+              // do nothing.
             },
             () => this.onCancel()
           );
+          this.onAdd();
         },
-        () => this.onError()
+        () => this.onAddError(selectedMemberCandidate)
       );
+  }
+
+  private onAddSuccess(): void {
+    this.translate.get('DIALOGS.ADD_MEMBERS.SUCCESS').subscribe((msg) => {
+      this.notificator.showSuccess(msg as string);
+      this.dialogRef.close(true);
+    });
+  }
+
+  private onInviteError(failed: MemberCandidate): void {
+    this.translate.get('DIALOGS.ADD_MEMBERS.ERROR_INVITE').subscribe((msg) => {
+      this.notificator.showError(
+        msg as string,
+        null,
+        (this.translate.instant('DIALOGS.ADD_MEMBERS.ERROR_INVITE_DESC') as string) +
+          this.convertMemberCandidateToString(failed)
+      );
+      this.dialogRef.close(false);
+    });
+    this.selection.clear();
+    this.failed = [];
+    this.inviteSuccess = true;
+    this.processing = false;
+  }
+
+  private convertMemberCandidateToString(member: MemberCandidate): string {
+    return member.richUser
+      ? `[id: ${member.richUser.id}, ${member.richUser.firstName}, ${member.richUser.lastName}]`
+      : `[id: ${member.candidate.id}, ${member.candidate.firstName}, ${member.candidate.lastName}]`;
+  }
+
+  private onAddError(failed: MemberCandidate): void {
+    this.translate.get('DIALOGS.ADD_MEMBERS.ERROR_ADD').subscribe((msg) => {
+      this.notificator.showError(
+        msg as string,
+        null,
+        (this.translate.instant('DIALOGS.ADD_MEMBERS.ERROR_ADD_DESC') as string) +
+          this.convertMemberCandidateToString(failed)
+      );
+      this.dialogRef.close(this.selection.selected !== this.failed);
+    });
+    this.selection.clear();
+    this.failed = [];
+    this.addSuccess = true;
+    this.processing = false;
+  }
+
+  private onInviteSuccess(): void {
+    this.translate.get('DIALOGS.ADD_MEMBERS.SUCCESS_INVITE').subscribe((msg) => {
+      this.notificator.showSuccess(msg as string);
+      this.dialogRef.close(true);
+    });
   }
 }

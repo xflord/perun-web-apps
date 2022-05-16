@@ -158,8 +158,8 @@ export class GroupMembersComponent implements OnInit {
 
     const dialogRef = this.dialog.open(AddMemberDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe((success) => {
-      if (success) {
+    dialogRef.afterClosed().subscribe((wereMembersAdded) => {
+      if (wereMembersAdded) {
         this.selection.clear();
         this.updateTable = !this.updateTable;
       }
