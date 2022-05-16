@@ -80,8 +80,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.contentHeight =
-      'calc(100vh - 84px - ' + String(this.footer.nativeElement.offsetHeight) + 'px)';
+    const footerHeight: string = this.footer?.nativeElement?.offsetHeight?.toString() ?? '0';
+    this.contentHeight = 'calc(100vh - 84px - ' + footerHeight + 'px)';
     this.changeDetector.detectChanges();
   }
 }

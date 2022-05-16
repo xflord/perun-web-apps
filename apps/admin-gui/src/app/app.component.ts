@@ -29,7 +29,7 @@ declare let require: any;
 export class AppComponent implements OnInit, AfterViewInit {
   static minWidth = 992;
 
-  @ViewChild('footer') footer: ElementRef;
+  @ViewChild('footer') footer: ElementRef<HTMLDivElement>;
 
   sidebarMode: 'over' | 'push' | 'side' = 'side';
   lastScreenWidth: number;
@@ -129,13 +129,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    const footerHeight: string = this.footer?.nativeElement?.offsetHeight?.toString() ?? '0';
     this.contentInnerMinHeight = this.displayWarning
-      ? 'calc(100vh - ' +
-        (this.footer.nativeElement as HTMLElement).offsetHeight.toString() +
-        'px - 112px)'
-      : 'calc(100vh - ' +
-        (this.footer.nativeElement as HTMLElement).offsetHeight.toString() +
-        'px - 64px)';
+      ? 'calc(100vh - ' + footerHeight + 'px - 112px)'
+      : 'calc(100vh - ' + footerHeight + 'px - 64px)';
     this.cd.detectChanges();
   }
 
