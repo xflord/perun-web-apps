@@ -37,6 +37,7 @@ export class FacilityServicesDestinationsComponent implements OnInit {
     'service',
     'destination',
     'type',
+    'status',
     'propagationType',
   ];
   @Input()
