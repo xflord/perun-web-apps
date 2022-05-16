@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnChanges,
+  ViewChild,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -22,7 +29,7 @@ import {
   TABLE_ITEMS_COUNT_OPTIONS,
   TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
 import { MemberTypePipe } from '../../pipes/member-type.pipe';
 
 @Component({
@@ -64,7 +71,12 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   addAuth = false;
   private sort: MatSort;
 
-  constructor(private guiAuthResolver: GuiAuthResolver, private memberTypePipe: MemberTypePipe) {}
+  constructor(
+    private guiAuthResolver: GuiAuthResolver,
+    private memberTypePipe: MemberTypePipe,
+    private tableCheckbox: TableCheckbox,
+    private cd: ChangeDetectorRef
+  ) {}
 
   @ViewChild(MatSort) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -165,28 +177,15 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   }
 
   ngAfterViewInit(): void {
+    this.cd.detectChanges();
     this.setDataSource();
+    this.setAddAuth();
   }
 
   ngOnChanges(): void {
     this.dataSource = new MatTableDataSource<MemberCandidate>(this.members);
 
     this.setDataSource();
-  }
-
-  isAllSelected(): boolean {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  masterToggle(): void {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-    } else {
-      this.dataSource.data.forEach((row) => this.selection.select(row));
-    }
-    this.setAddAuth();
   }
 
   getEmail(memberCandidate: MemberCandidate): string {
@@ -286,7 +285,7 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
 
   setAddAuth(): void {
     if (this.group !== undefined && this.selection.selected.length !== 0) {
-      if (this.selection.selected[0].member) {
+      if (this.selection.selected.every((selected) => selected.member)) {
         this.addAuth = true;
       } else {
         this.addAuth =
@@ -309,5 +308,36 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
     return memberCandidate.member
       ? 'MEMBERS_CANDIDATES_LIST.ALREADY_MEMBER'
       : 'MEMBERS_CANDIDATES_LIST.ADDING_BLOCKED';
+  }
+
+  isAllSelected(): boolean {
+    return this.tableCheckbox.isAllSelected(
+      this.selection.selected.length,
+      '',
+      this.child.paginator.pageSize,
+      this.child.paginator.hasNextPage(),
+      this.dataSource
+    );
+  }
+
+  masterToggle(): void {
+    this.tableCheckbox.masterToggle(
+      this.isAllSelected(),
+      this.selection,
+      '',
+      this.dataSource,
+      this.sort,
+      this.child.paginator.pageSize,
+      this.child.paginator.pageIndex,
+      false
+    );
+    this.setAddAuth();
+  }
+
+  checkboxLabel(selected?: MemberCandidate): string {
+    if (!selected) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(selected) ? 'deselect' : 'select'}`;
   }
 }
