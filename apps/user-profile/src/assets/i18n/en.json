@@ -154,8 +154,10 @@
   "OPT_OUT_MAILING_LISTS": {
     "TITLE": "Opt out mailing lists",
     "FILTER": "Filter opt out mailing lists by organization's name",
-    "OPT_OUT_LABEL": "Exclude me from this mailing list",
-    "NO_MAILING_LISTS_ALERT": "You have no mailing lists assigned under this virtual organization"
+    "OPT_OUT_LABEL": "Exclude me from mailing list",
+    "NO_MAILING_LISTS_ALERT": "You have no mailing lists assigned under this virtual organization",
+    "SUBSCRIBED": "You are no longer excluded from the mailing list of ",
+    "UNSUBSCRIBED": "You are now excluded from the mailing list of "
   },
   "AUTHENTICATION": {
     "TITLE": "Security image",
