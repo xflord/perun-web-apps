@@ -97,7 +97,7 @@ export class GroupOverviewComponent implements OnInit {
 
     if (
       this.guiAuthResolver.isAuthorized(
-        'getCompleteRichMembers_Group_List<String>_boolean_policy',
+        'group-getMembersPage_Vo_MembersPageQuery_List<String>_policy',
         [this.group]
       )
     ) {

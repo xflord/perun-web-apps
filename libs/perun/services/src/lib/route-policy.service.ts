@@ -16,7 +16,9 @@ export class RoutePolicyService {
     [
       'organizations-members',
       (vo): boolean =>
-        this.authResolver.isAuthorized('getCompleteRichMembers_Vo_List<String>_policy', [vo]),
+        this.authResolver.isAuthorized('getMembersPage_Vo_MembersPageQuery_List<String>_policy', [
+          vo,
+        ]),
     ],
     [
       'organizations-groups',

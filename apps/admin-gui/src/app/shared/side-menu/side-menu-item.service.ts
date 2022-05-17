@@ -401,7 +401,9 @@ export class SideMenuItemService {
     });
 
     // Members
-    if (this.authResolver.isAuthorized('getCompleteRichMembers_Vo_List<String>_policy', [vo])) {
+    if (
+      this.authResolver.isAuthorized('getMembersPage_Vo_MembersPageQuery_List<String>_policy', [vo])
+    ) {
       links.push({
         label: 'MENU_ITEMS.VO.MEMBERS',
         url: [`/organizations/${vo.id}/members`],
@@ -883,9 +885,10 @@ export class SideMenuItemService {
 
     //Members
     if (
-      this.authResolver.isAuthorized('getCompleteRichMembers_Group_List<String>_boolean_policy', [
-        group,
-      ])
+      this.authResolver.isAuthorized(
+        'group-getMembersPage_Vo_MembersPageQuery_List<String>_policy',
+        [group]
+      )
     ) {
       links.push({
         label: 'MENU_ITEMS.GROUP.MEMBERS',
