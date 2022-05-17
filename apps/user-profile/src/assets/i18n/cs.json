@@ -154,8 +154,10 @@
   "OPT_OUT_MAILING_LISTS": {
     "TITLE": "Vyřazení ze seznamu adresátů",
     "FILTER": "Filtrovat seznamy adresátů dle jména organizace",
-    "OPT_OUT_LABEL": "Vyřadit mě z tohoto seznamu adresátů",
-    "NO_MAILING_LISTS_ALERT": "Nemáte žádné seznamy adresátů v této organizaci"
+    "OPT_OUT_LABEL": "Vyřadit mě z adresátů",
+    "NO_MAILING_LISTS_ALERT": "Nemáte žádné seznamy adresátů v této organizaci",
+    "SUBSCRIBED": "Už nejste vyřazen z adresátů  ",
+    "UNSUBSCRIBED": "Nyní jste vyřazen z adresátů  "
   },
   "AUTHENTICATION": {
     "TITLE": "Bezpečnostní obrázek",
