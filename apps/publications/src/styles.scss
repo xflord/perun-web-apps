@@ -147,7 +147,6 @@ td.mat-cell {
     height: 12px;
     position: relative;
     transform-origin: 2px 2px;
-    transform: rotateZ(-90deg);
     animation: book var(--duration) ease infinite;
     .left,
     .right {
@@ -171,13 +170,11 @@ td.mat-cell {
     .left {
       right: 28px;
       transform-origin: 58px 2px;
-      transform: rotateZ(90deg);
       animation: left var(--duration) ease infinite;
     }
     .right {
       left: 28px;
       transform-origin: 2px 2px;
-      transform: rotateZ(-90deg);
       animation: right var(--duration) ease infinite;
     }
     .middle {
