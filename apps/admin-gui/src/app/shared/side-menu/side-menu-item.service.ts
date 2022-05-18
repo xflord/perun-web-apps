@@ -291,11 +291,11 @@ export class SideMenuItemService {
     };
   }
 
-  parseVo(vo: Vo, isHierarchical = false): SideMenuItem {
+  parseVo(vo: Vo, isHierarchical = false, isMemberVo = false): SideMenuItem {
     return {
       label: vo.name,
       baseLink: [`/organizations/${vo.id}`],
-      links: this.getVoLinks(vo),
+      links: this.getVoLinks(vo, isMemberVo),
       colorClass: 'vo-item',
       icon: isHierarchical ? 'perun-hierarchical-vo' : 'perun-vo',
       // labelClass: 'vo-text',
@@ -390,7 +390,7 @@ export class SideMenuItemService {
     };
   }
 
-  getVoLinks(vo: Vo): EntityMenuLink[] {
+  getVoLinks(vo: Vo, isMemberVo: boolean): EntityMenuLink[] {
     const links: EntityMenuLink[] = [];
 
     // Overview
@@ -573,6 +573,15 @@ export class SideMenuItemService {
           label: 'MENU_ITEMS.VO.MEMBER_ORGANIZATIONS',
           url: [`/organizations/${vo.id}/settings/memberOrganizations`],
           activatedRegex: '/organizations/\\d+/settings/memberOrganizations',
+        });
+      }
+
+      // Hierarchical inclusion
+      if (this.authResolver.isPerunAdmin() && isMemberVo) {
+        children.push({
+          label: 'MENU_ITEMS.VO.HIERARCHICAL_INCLUSION',
+          url: [`/organizations/${vo.id}/settings/hierarchicalInclusion`],
+          activatedRegex: '/organizations/\\d+/settings/hierarchicalInclusion',
         });
       }
 

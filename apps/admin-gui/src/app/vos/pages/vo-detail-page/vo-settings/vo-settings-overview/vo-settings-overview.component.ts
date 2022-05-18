@@ -15,6 +15,7 @@ export class VoSettingsOverviewComponent implements OnInit {
 
   items: MenuItem[] = [];
   loading = false;
+  isMemberOfSomeOrganization = false;
   private vo: Vo;
 
   constructor(
@@ -28,8 +29,11 @@ export class VoSettingsOverviewComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.vo = this.entityStorageService.getEntity();
-    this.initItems();
-    this.loading = false;
+    this.voService.getEnrichedVoById(this.vo.id).subscribe((enrichedVo) => {
+      this.isMemberOfSomeOrganization = enrichedVo.parentVos.length !== 0;
+      this.initItems();
+      this.loading = false;
+    });
   }
 
   private initItems(): void {
@@ -87,6 +91,15 @@ export class VoSettingsOverviewComponent implements OnInit {
         cssIcon: 'perun-hierarchical-vo',
         url: `/organizations/${this.vo.id}/settings/memberOrganizations`,
         label: 'MENU_ITEMS.VO.MEMBER_ORGANIZATIONS',
+        style: 'vo-btn',
+      });
+    }
+    // Hierarchical inclusion
+    if (this.authResolver.isPerunAdmin() && this.isMemberOfSomeOrganization) {
+      this.items.push({
+        cssIcon: 'perun-hierarchical-inclusion',
+        url: `/organizations/${this.vo.id}/settings/hierarchicalInclusion`,
+        label: 'MENU_ITEMS.VO.HIERARCHICAL_INCLUSION',
         style: 'vo-btn',
       });
     }

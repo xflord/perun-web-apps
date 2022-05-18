@@ -101,7 +101,8 @@ export class VoDetailPageComponent extends destroyDetailMixin() implements OnIni
 
   setMenuItems(): void {
     const isHierarchical = this.enrichedVo.memberVos.length !== 0;
-    const sideMenuItem = this.sideMenuItemService.parseVo(this.vo, isHierarchical);
+    const isMemberVo = this.enrichedVo.parentVos.length !== 0;
+    const sideMenuItem = this.sideMenuItemService.parseVo(this.vo, isHierarchical, isMemberVo);
     this.sideMenuService.setAccessMenuItems([sideMenuItem]);
   }
 

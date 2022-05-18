@@ -66,6 +66,7 @@ import { VoSettingsServiceMembersComponent } from './pages/vo-detail-page/vo-set
 import { VoSettingsMemberOrganizationsComponent } from './pages/vo-detail-page/vo-settings/vo-settings-member-organizations/vo-settings-member-organizations.component';
 import { AddMemberOrganizationDialogComponent } from './pages/vo-detail-page/vo-settings/vo-settings-member-organizations/add-member-organization-dialog/add-member-organization-dialog.component';
 import { RelatedVosComponent } from './components/related-vos/related-vos.component';
+import { VoSettingsHierarchicalInclusionComponent } from './pages/vo-detail-page/vo-settings/vo-settings-hierarchical-inclusion/vo-settings-hierarchical-inclusion.component';
 
 @NgModule({
   imports: [
@@ -142,6 +143,7 @@ import { RelatedVosComponent } from './components/related-vos/related-vos.compon
     VoSettingsMemberOrganizationsComponent,
     AddMemberOrganizationDialogComponent,
     RelatedVosComponent,
+    VoSettingsHierarchicalInclusionComponent,
   ],
 })
 export class VosModule {}

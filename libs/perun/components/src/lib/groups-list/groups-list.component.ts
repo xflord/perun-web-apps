@@ -74,6 +74,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
   @Input() recentIds: number[] = [];
   @Input() resourceId: number = null;
   @Input() tableId: string;
+  @Input() noGroupsAlert = 'SHARED_LIB.UI.ALERTS.NO_GROUPS';
   @Output() refreshTable = new EventEmitter<void>();
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 

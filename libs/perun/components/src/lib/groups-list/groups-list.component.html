@@ -173,7 +173,7 @@
 </div>
 
 <perun-web-apps-alert *ngIf="groups.length === 0" alert_type="warn">
-  {{'SHARED_LIB.UI.ALERTS.NO_GROUPS' | translate}}
+  {{noGroupsAlert | translate}}
 </perun-web-apps-alert>
 
 <perun-web-apps-alert

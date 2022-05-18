@@ -470,7 +470,8 @@
         "UNIVERSAL_REMOVE_ITEMS_DIALOG": {
           "ASK": "Do you want to proceed?",
           "CANCEL_BUTTON": "Cancel",
-          "SUBMIT_BUTTON": "Submit"
+          "SUBMIT_BUTTON": "Submit",
+          "REMOVE_BUTTON": "Remove"
         },
         "UNIVERSAL_CONFIRMATION_DIALOG": {
           "CANCEL_BUTTON": "Cancel",

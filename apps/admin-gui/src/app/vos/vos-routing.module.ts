@@ -61,6 +61,7 @@ import { ResourceTagsComponent } from '../facilities/pages/resource-detail-page/
 import { VoSettingsServiceMembersComponent } from './pages/vo-detail-page/vo-settings/vo-settings-service-members/vo-settings-service-members.component';
 import { RouteAuthGuardService } from '../shared/route-auth-guard.service';
 import { VoSettingsMemberOrganizationsComponent } from './pages/vo-detail-page/vo-settings/vo-settings-member-organizations/vo-settings-member-organizations.component';
+import { VoSettingsHierarchicalInclusionComponent } from './pages/vo-detail-page/vo-settings/vo-settings-hierarchical-inclusion/vo-settings-hierarchical-inclusion.component';
 
 const routes: Routes = [
   {
@@ -190,6 +191,11 @@ const routes: Routes = [
             path: 'memberOrganizations',
             component: VoSettingsMemberOrganizationsComponent,
             data: { animation: 'VoSettingsMemberOrganizationsPage' },
+          },
+          {
+            path: 'hierarchicalInclusion',
+            component: VoSettingsHierarchicalInclusionComponent,
+            data: { animation: 'VoSettingsHierarchicalInclusionComponent' },
           },
         ],
       },

@@ -206,6 +206,10 @@ export class CustomIconService {
       url: 'assets/img/PerunWebImages/searcher-blue.svg',
       name: 'perun-searcher',
     },
+    {
+      url: 'assets/img/PerunWebImages/propagation-blue.svg',
+      name: 'perun-hierarchical-inclusion',
+    },
   ];
 
   constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {}

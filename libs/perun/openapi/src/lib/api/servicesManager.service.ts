@@ -3166,6 +3166,7 @@ export class ServicesManagerService {
    * @param service id of Service
    * @param facility id of Facility
    * @param filterExpiredMembers if true the method does not take members expired in groups into account
+   * @param consentEval if true the method will run consent eval
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3173,6 +3174,7 @@ export class ServicesManagerService {
     service: number,
     facility: number,
     filterExpiredMembers?: boolean,
+    consentEval?: boolean,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<HashedGenData>;
@@ -3180,6 +3182,7 @@ export class ServicesManagerService {
     service: number,
     facility: number,
     filterExpiredMembers?: boolean,
+    consentEval?: boolean,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<HashedGenData>>;
@@ -3187,6 +3190,7 @@ export class ServicesManagerService {
     service: number,
     facility: number,
     filterExpiredMembers?: boolean,
+    consentEval?: boolean,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<HashedGenData>>;
@@ -3194,6 +3198,7 @@ export class ServicesManagerService {
     service: number,
     facility: number,
     filterExpiredMembers?: boolean,
+    consentEval?: boolean,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
@@ -3217,6 +3222,9 @@ export class ServicesManagerService {
     }
     if (filterExpiredMembers !== undefined && filterExpiredMembers !== null) {
       queryParameters = queryParameters.set('filterExpiredMembers', <any>filterExpiredMembers);
+    }
+    if (consentEval !== undefined && consentEval !== null) {
+      queryParameters = queryParameters.set('consentEval', <any>consentEval);
     }
 
     let headers = this.defaultHeaders;
@@ -3266,6 +3274,7 @@ export class ServicesManagerService {
    * @param service id of Service
    * @param facility id of Facility
    * @param filterExpiredMembers if true the method does not take members expired in groups into account
+   * @param consentEval if true the method will run consent eval
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3273,6 +3282,7 @@ export class ServicesManagerService {
     service: number,
     facility: number,
     filterExpiredMembers?: boolean,
+    consentEval?: boolean,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<HashedGenData>;
@@ -3280,6 +3290,7 @@ export class ServicesManagerService {
     service: number,
     facility: number,
     filterExpiredMembers?: boolean,
+    consentEval?: boolean,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<HashedGenData>>;
@@ -3287,6 +3298,7 @@ export class ServicesManagerService {
     service: number,
     facility: number,
     filterExpiredMembers?: boolean,
+    consentEval?: boolean,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<HashedGenData>>;
@@ -3294,6 +3306,7 @@ export class ServicesManagerService {
     service: number,
     facility: number,
     filterExpiredMembers?: boolean,
+    consentEval?: boolean,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
@@ -3317,6 +3330,9 @@ export class ServicesManagerService {
     }
     if (filterExpiredMembers !== undefined && filterExpiredMembers !== null) {
       queryParameters = queryParameters.set('filterExpiredMembers', <any>filterExpiredMembers);
+    }
+    if (consentEval !== undefined && consentEval !== null) {
+      queryParameters = queryParameters.set('consentEval', <any>consentEval);
     }
 
     let headers = this.defaultHeaders;

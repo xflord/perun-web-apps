@@ -172,6 +172,7 @@ import { EditEnforceConsentsDialogComponent } from './components/dialogs/edit-en
 import { ConsentRelatedAttributePipe } from './pipes/consent-related-attribute.pipe';
 import { MemberTypePipe } from './pipes/member-type.pipe';
 import { PerunDialogsModule } from '@perun-web-apps/perun/dialogs';
+import { AddGroupHierarchicalIncludeDialogComponent } from './components/dialogs/add-group-hierarchical-include-dialog/add-group-hierarchical-include-dialog.component';
 
 @NgModule({
   imports: [
@@ -438,6 +439,7 @@ import { PerunDialogsModule } from '@perun-web-apps/perun/dialogs';
     EditEnforceConsentsDialogComponent,
     ConsentRelatedAttributePipe,
     MemberTypePipe,
+    AddGroupHierarchicalIncludeDialogComponent,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe, ConsentRelatedAttributePipe],
 })

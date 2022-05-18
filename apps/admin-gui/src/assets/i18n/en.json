@@ -542,6 +542,12 @@
           "WARNING": "By removing this organization it's new members won't be imported to your organization.",
           "SUCCESS": "Member organization successfully removed"
         }
+      },
+      "HIERARCHICAL_INCLUSION": {
+        "TITLE": "Hierarchical inclusion",
+        "ADD": "Add",
+        "REMOVE": "Remove",
+        "NO_GROUPS_ALLOWED_ALERT": "No groups are allowed for hierarchical include"
       }
     },
     "APPLICATION": {
@@ -865,7 +871,8 @@
       "SPONSORED_MEMBERS": "Sponsored members",
       "SERVICE_MEMBERS": "Service accounts",
       "STATISTICS": "Statistics",
-      "MEMBER_ORGANIZATIONS": "Member organizations"
+      "MEMBER_ORGANIZATIONS": "Member organizations",
+      "HIERARCHICAL_INCLUSION": "Hierarchical inclusion"
     },
     "FACILITY": {
       "OVERVIEW": "Overview",
@@ -1131,6 +1138,21 @@
       "NO_GROUPS_FOUND": "No groups found",
       "SELECT_VO": "Select organization",
       "FILTER_GROUPS": "Filter groups by Id, name or description"
+    },
+    "ADD_GROUPS_HIERARCHICAL_INCLUSION": {
+      "TITLE": "Allow groups for hierarchical inclusion",
+      "INFO": "Selected groups will be allowed for hierarchical inclusion. Parent organization {{parentVo}} will be able to include these groups (including group members).",
+      "SEARCH": "Search by id, name or description",
+      "NO_GROUPS_FOUND_ALERT": "No groups found.",
+      "CANCEL": "Cancel",
+      "ALLOW": "Allow",
+      "SUCCESS": "Groups were successfully allowed"
+    },
+    "REMOVE_GROUPS_HIERARCHICAL_INCLUSION": {
+      "TITLE": "Disallow groups for hierarchical inclusion",
+      "DESCRIPTION": "Selected groups will be disallowed for hierarchical inclusion.",
+      "ALERT": "Parent organization {{parentVo}} will NOT be able to include these groups.",
+      "SUCCESS": "Groups were successfully disallowed"
     },
     "REMOVE_GROUPS": {
       "TITLE": "Confirm removal",
@@ -2836,7 +2858,8 @@
         "UNIVERSAL_REMOVE_ITEMS_DIALOG": {
           "ASK": "Do you want to proceed?",
           "CANCEL_BUTTON": "Cancel",
-          "SUBMIT_BUTTON": "Submit"
+          "SUBMIT_BUTTON": "Submit",
+          "REMOVE_BUTTON": "Remove"
         },
         "MEMBER_TREEVIEW_DIALOG": {
           "TITLE": "Indirect membership’s origin of {{name}}",

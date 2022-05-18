@@ -1,0 +1,38 @@
+<div class="{{theme}}">
+  <h1 mat-dialog-title>
+    {{'DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.TITLE' | translate}}
+  </h1>
+  <div mat-dialog-content class="dialog-container">
+    <perun-web-apps-alert alert_type="info">
+      {{'DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.INFO' | translate : {parentVo: parentVo.name} }}
+    </perun-web-apps-alert>
+    <perun-web-apps-immediate-filter
+      [placeholder]="'DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.SEARCH'"
+      (filter)="applyFilter($event)">
+    </perun-web-apps-immediate-filter>
+    <perun-web-apps-groups-list
+      *ngIf="!loading"
+      [tableId]="tableId"
+      [groups]="groups"
+      [selection]="selected"
+      [filter]="filterValue"
+      [displayedColumns]="['select', 'id', 'name', 'description']"
+      [disableRouting]="true"
+      [noGroupsAlert]="'DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.NO_GROUPS_FOUND_ALERT'"
+      theme="vo-theme">
+    </perun-web-apps-groups-list>
+    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  </div>
+  <div *ngIf="!loading" mat-dialog-actions>
+    <button (click)="close()" mat-flat-button class="ml-auto">
+      {{'DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.CANCEL' | translate}}
+    </button>
+    <button
+      [disabled]="selected.selected.length === 0"
+      (click)="confirm()"
+      color="accent"
+      mat-flat-button>
+      {{'DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.ALLOW' | translate}}
+    </button>
+  </div>
+</div>
