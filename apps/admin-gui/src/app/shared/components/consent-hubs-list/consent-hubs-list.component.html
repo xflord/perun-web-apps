@@ -78,12 +78,12 @@
   </perun-web-apps-table-wrapper>
 </div>
 
-<app-alert *ngIf="consentHubs.length === 0" alert_type="warn">
+<perun-web-apps-alert *ngIf="consentHubs.length === 0" alert_type="warn">
   {{'SHARED.COMPONENTS.CONSENT_HUBS_LIST.NO_CONSENT_HUBS' | translate}}
-</app-alert>
+</perun-web-apps-alert>
 
-<app-alert
+<perun-web-apps-alert
   *ngIf="dataSource.filteredData.length === 0 && consentHubs.length !== 0"
   alert_type="warn">
   {{'SHARED.COMPONENTS.CONSENT_HUBS_LIST.NO_FILTER_RESULTS' | translate}}
-</app-alert>
+</perun-web-apps-alert>

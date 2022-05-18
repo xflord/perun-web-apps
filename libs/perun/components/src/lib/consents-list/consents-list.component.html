@@ -109,12 +109,12 @@
   </perun-web-apps-table-wrapper>
 </div>
 
-<app-alert
+<perun-web-apps-alert
   *ngIf="dataSource.filteredData.length === 0 && dataSource.data.length !== 0"
   alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_FILTER_RESULTS_ALERT' | customTranslate | translate}}
-</app-alert>
+</perun-web-apps-alert>
 
-<app-alert *ngIf="dataSource.data.length === 0" alert_type="warn">
+<perun-web-apps-alert *ngIf="dataSource.data.length === 0" alert_type="warn">
   {{'SHARED_LIB.PERUN.COMPONENTS.CONSENTS_LIST.NO_CONSENTS' | customTranslate | translate}}
-</app-alert>
+</perun-web-apps-alert>

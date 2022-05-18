@@ -37,9 +37,9 @@
             <tr mat-header-row *matHeaderRowDef="columns"></tr>
             <tr mat-row *matRowDef="let vo; columns: columns;"></tr>
           </table>
-          <app-alert
+          <perun-web-apps-alert
             [alert_type]="'warn'"
-            >{{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.WARNING' | translate}}</app-alert
+            >{{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.WARNING' | translate}}</perun-web-apps-alert
           >
         </ng-template>
       </mat-step>
