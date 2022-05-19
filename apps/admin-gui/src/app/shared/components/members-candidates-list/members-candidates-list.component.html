@@ -24,15 +24,15 @@
         </th>
         <td *matCellDef="let memberCandidate" class="static-column-size align-checkbox" mat-cell>
           <div
-            [matTooltip]="getTooltip(memberCandidate) | translate"
-            [matTooltipDisabled]="!isCheckboxDisabled(memberCandidate)"
+            [matTooltip]="memberCandidate | disabledCandidateTooltip | translate"
+            [matTooltipDisabled]="!(memberCandidate | disabledCandidate: blockManualAdding)"
             matTooltipPosition="above">
             <mat-checkbox
               (change)="$event ? itemSelectionToggle(memberCandidate) : null"
               (click)="$event.stopPropagation()"
               [aria-label]="checkboxLabel(memberCandidate)"
               [checked]="selection.isSelected(memberCandidate)"
-              [disabled]="isCheckboxDisabled(memberCandidate)"
+              [disabled]="memberCandidate | disabledCandidate: blockManualAdding"
               attr.data-cy="{{(memberCandidate.richUser ? memberCandidate.richUser.firstName : memberCandidate.candidate.firstName) | translate | lowercase}}-checkbox"
               color="primary">
             </mat-checkbox>
@@ -90,7 +90,7 @@
           {{'MEMBERS_CANDIDATES_LIST.ALREADY_MEMBER' | translate}}
         </th>
         <td *matCellDef="let memberCandidate" mat-cell>
-          {{memberCandidate | memberType: type}}
+          {{memberCandidate | memberType}}
         </td>
       </ng-container>
       <ng-container matColumnDef="local">

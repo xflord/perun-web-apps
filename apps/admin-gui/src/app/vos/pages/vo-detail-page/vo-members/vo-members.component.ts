@@ -9,7 +9,6 @@ import {
 } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveMembersDialogComponent } from '../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
-import { AddMemberDialogComponent } from '../../../../shared/components/dialogs/add-member-dialog/add-member-dialog.component';
 import {
   AttributesManagerService,
   RichMember,
@@ -23,6 +22,7 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { InviteMemberDialogComponent } from '../../../../shared/components/dialogs/invite-member-dialog/invite-member-dialog.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RPCError } from '@perun-web-apps/perun/models';
+import { VoAddMemberDialogComponent } from '../../../components/vo-add-member-dialog/vo-add-member-dialog.component';
 
 @Component({
   selector: 'app-vo-members',
@@ -114,13 +114,10 @@ export class VoMembersComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '1000px';
     config.data = {
-      entityId: this.vo.id,
       voId: this.vo.id,
-      theme: 'vo-theme',
-      type: 'vo',
     };
 
-    const dialogRef = this.dialog.open(AddMemberDialogComponent, config);
+    const dialogRef = this.dialog.open(VoAddMemberDialogComponent, config);
 
     dialogRef.afterClosed().subscribe((wereMembersAdded) => {
       if (wereMembersAdded) {

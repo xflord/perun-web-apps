@@ -1,0 +1,12 @@
+<app-add-member-dialog
+  [loading]="loading"
+  [languages]="languages"
+  [failed]="failed"
+  [members]="members | async"
+  [selection]="selection"
+  [theme]="'vo-theme'"
+  (add)="add()"
+  (cancel)="cancel($event)"
+  (invite)="invite($event)"
+  (search)="searcher.next($event)">
+</app-add-member-dialog>

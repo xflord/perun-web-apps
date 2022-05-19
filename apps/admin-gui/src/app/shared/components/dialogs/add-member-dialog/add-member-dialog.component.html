@@ -1,80 +1,105 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.ADD_MEMBERS.TITLE' | translate}}</h1>
 
-  <div mat-dialog-content *ngIf="!processing">
-    <mat-form-field class="mr-2 search-field adjust-width">
-      <input
-        matInput
-        autocomplete="false"
+  <div *ngIf="failed.length === 0">
+    <div mat-dialog-content>
+      <perun-web-apps-debounce-filter
+        error="{{'DIALOGS.ADD_MEMBERS.EMPTY_SEARCH_MESSAGE' | translate}}"
         placeholder="{{'DIALOGS.ADD_MEMBERS.DESCRIPTION' | translate}}"
         data-cy="search-members"
-        (keyup.enter)="onSearchByString()"
-        [formControl]="searchCtrl" />
-      <mat-error>
-        {{'DIALOGS.ADD_MEMBERS.EMPTY_SEARCH_MESSAGE' | translate}}
-      </mat-error>
-    </mat-form-field>
+        [autoFocus]="true"
+        [control]="searchCtrl"
+        (filter)="search.emit($event)"></perun-web-apps-debounce-filter>
 
-    <button
-      mat-flat-button
-      class="ml-auto"
-      color="accent"
-      data-cy="search-button"
-      [disabled]="loading"
-      (click)="onSearchByString()">
-      {{'DIALOGS.ADD_MEMBERS.SEARCH' | translate}}
-    </button>
-
-    <div class="no-bounce-scrollbar">
-      <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+      <div class="no-bounce-scrollbar">
+        <mat-spinner *ngIf="members === null || loading" class="mr-auto ml-auto"></mat-spinner>
+      </div>
+      <div class="mt-3" *ngIf="!!members && !loading">
+        <app-members-candidates-list
+          [tableId]="tableId"
+          [members]="members"
+          [selection]="selection"
+          [blockManualAdding]="manualAddingBlocked">
+        </app-members-candidates-list>
+      </div>
     </div>
-    <div class="mt-3" *ngIf="!!members && !loading">
-      <app-members-candidates-list
-        #list
-        [group]="data.group"
-        [tableId]="tableId"
-        [members]="members"
-        [selection]="selection"
-        [type]="data.type"
-        [blockManualAdding]="manualAddingBlocked"
-        *ngIf="firstSearchDone">
-      </app-members-candidates-list>
+    <div mat-dialog-actions>
+      <button mat-flat-button class="ml-auto" (click)="cancel.emit(false)">
+        {{'DIALOGS.ADD_MEMBERS.CANCEL' | translate}}
+      </button>
+      <span
+        matTooltip="{{'DIALOGS.ADD_MEMBERS.ADD_MEMBER_PERMISSION_TOOLTIP' | translate}}"
+        matTooltipPosition="above"
+        [matTooltipDisabled]="selection.selected.length === 0 || inviteAuth">
+        <button
+          *ngIf="inviteAuth"
+          [disabled]="selection.selected.length === 0 || !inviteAuth"
+          [matMenuTriggerFor]="menu"
+          class="ml-2 dropdown-toggle"
+          color="accent"
+          mat-flat-button>
+          {{'DIALOGS.ADD_MEMBERS.INVITE' | translate}}
+        </button>
+        <mat-menu #menu="matMenu">
+          <button (click)="invite.emit(lang)" *ngFor="let lang of languages" mat-menu-item>
+            {{'DIALOGS.ADD_MEMBERS.INVITE_IN_LANGUAGE' | translate}}
+            {{'SHARED_LIB.LANGUAGES.'+lang | uppercase | translate}}
+            {{'DIALOGS.ADD_MEMBERS.LANGUAGE' | translate}}
+          </button>
+        </mat-menu>
+      </span>
+      <span
+        matTooltip="{{'DIALOGS.ADD_MEMBERS.ADD_MEMBER_PERMISSION_TOOLTIP' | translate}}"
+        matTooltipPosition="above"
+        [matTooltipDisabled]="selection.selected.length === 0 || addAuth">
+        <button
+          mat-flat-button
+          class="ml-2"
+          color="accent"
+          data-cy="add-button"
+          (click)="add.emit()"
+          [disabled]="selection.selected.length === 0 || !addAuth">
+          {{'DIALOGS.ADD_MEMBERS.CREATE' | translate}}
+        </button>
+      </span>
     </div>
   </div>
-  <mat-spinner class="mr-auto ml-auto" *ngIf="processing"></mat-spinner>
-  <div mat-dialog-actions *ngIf="!processing">
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
-      {{'DIALOGS.ADD_MEMBERS.CANCEL' | translate}}
-    </button>
-    <span
-      matTooltip="{{'DIALOGS.ADD_MEMBERS.ADD_MEMBER_PERMISSION_TOOLTIP' | translate}}"
-      matTooltipPosition="above"
-      [matTooltipDisabled]="selection.selected.length === 0 || this.data.type !== 'group' || (list !== undefined && list.addAuth)">
-      <button
-        *ngIf="this.data.type !== 'group' || (this.data.type === 'group' && inviteAuth)"
-        [disabled]="selection.selected.length === 0 || loading"
-        [matMenuTriggerFor]="menu"
-        class="ml-2 dropdown-toggle"
-        color="accent"
-        mat-flat-button>
-        {{'DIALOGS.ADD_MEMBERS.INVITE' | translate}}
+  <div *ngIf="failed.length !== 0">
+    <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+    <div mat-dialog-content *ngIf="!loading">
+      <perun-web-apps-alert
+        class="mb-2"
+        [alert_type]="'error'"
+        >{{'DIALOGS.ADD_MEMBERS.FAILED_DESC' | translate}}</perun-web-apps-alert
+      >
+      <table [dataSource]="failedCandidateDataSource" class="w-100" mat-table>
+        <ng-container matColumnDef="userName">
+          <th *matHeaderCellDef mat-header-cell>
+            {{'DIALOGS.ADD_MEMBERS.NAME_COLUMN' | translate}}
+          </th>
+          <td *matCellDef="let failedCandidate" mat-cell>
+            {{(failedCandidate.candidate.candidate ?? failedCandidate.candidate.richUser) | userFullName}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="error">
+          <th *matHeaderCellDef mat-header-cell>
+            {{'DIALOGS.ADD_MEMBERS.ERROR_COLUMN' | translate}}
+          </th>
+          <td *matCellDef="let failedCandidate" mat-cell>
+            {{failedCandidate.errorMsg}}
+            <div class="text-muted">
+              {{failedCandidate.errorName}}
+            </div>
+          </td>
+        </ng-container>
+        <tr *matHeaderRowDef="['userName', 'error']" mat-header-row></tr>
+        <tr *matRowDef="let failedCandidate; columns: ['userName', 'error'];" mat-row></tr>
+      </table>
+    </div>
+    <div mat-dialog-actions *ngIf="!loading">
+      <button mat-flat-button class="ml-auto" (click)="cancel.emit(true)">
+        {{'DIALOGS.ADD_MEMBERS.CLOSE' | translate}}
       </button>
-      <mat-menu #menu="matMenu">
-        <button (click)="onInvite(lang)" *ngFor="let lang of languages" mat-menu-item>
-          {{'DIALOGS.ADD_MEMBERS.INVITE_IN_LANGUAGE' | translate}}
-          {{'SHARED_LIB.LANGUAGES.'+lang | uppercase | translate}}
-          {{'DIALOGS.ADD_MEMBERS.LANGUAGE' | translate}}
-        </button>
-      </mat-menu>
-    </span>
-    <button
-      mat-flat-button
-      class="ml-2"
-      color="accent"
-      data-cy="add-button"
-      (click)="onAdd()"
-      [disabled]="selection.selected.length === 0 || loading || (this.data.type === 'group' && list !== undefined && !list.addAuth)">
-      {{'DIALOGS.ADD_MEMBERS.CREATE' | translate}}
-    </button>
+    </div>
   </div>
 </div>

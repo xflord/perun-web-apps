@@ -1,21 +1,8 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnChanges,
-  ViewChild,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-  Attribute,
-  Candidate,
-  Group,
-  MemberCandidate,
-  RichUser,
-} from '@perun-web-apps/perun/openapi';
+import { Attribute, Candidate, MemberCandidate, RichUser } from '@perun-web-apps/perun/openapi';
 import {
   customDataSourceFilterPredicate,
   customDataSourceSort,
@@ -29,33 +16,22 @@ import {
   TABLE_ITEMS_COUNT_OPTIONS,
   TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
-import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
+import { TableCheckbox } from '@perun-web-apps/perun/services';
 import { MemberTypePipe } from '../../pipes/member-type.pipe';
+import { DisabledCandidatePipe } from '../../pipes/disabled-candidate.pipe';
 
 @Component({
   selector: 'app-members-candidates-list',
   templateUrl: './members-candidates-list.component.html',
   styleUrls: ['./members-candidates-list.component.scss'],
-  providers: [
-    {
-      provide: MemberTypePipe,
-    },
-  ],
+  providers: [MemberTypePipe, DisabledCandidatePipe],
 })
 export class MembersCandidatesListComponent implements OnChanges, AfterViewInit {
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
-  @Input()
-  members: MemberCandidate[];
-  @Input()
-  selection: SelectionModel<MemberCandidate>;
-  @Input()
-  type: string;
-  @Input()
-  tableId: string;
-  @Input()
-  group: Group;
-  @Input()
-  blockManualAdding = false;
+  @Input() members: MemberCandidate[];
+  @Input() selection: SelectionModel<MemberCandidate>;
+  @Input() tableId: string;
+  @Input() blockManualAdding = false;
   displayedColumns: string[] = [
     'checkbox',
     'status',
@@ -68,28 +44,38 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   ];
   dataSource: MatTableDataSource<MemberCandidate>;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-  addAuth = false;
   private sort: MatSort;
 
   constructor(
-    private guiAuthResolver: GuiAuthResolver,
     private memberTypePipe: MemberTypePipe,
-    private tableCheckbox: TableCheckbox,
-    private cd: ChangeDetectorRef
+    private disabledCandidatePipe: DisabledCandidatePipe,
+    private tableCheckbox: TableCheckbox
   ) {}
 
-  @ViewChild(MatSort) set matSort(ms: MatSort) {
+  @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSource();
   }
 
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.child.paginator;
+  }
+
+  ngOnChanges(): void {
+    this.dataSource = new MatTableDataSource<MemberCandidate>(this.members);
+    this.setDataSource();
+  }
+
+  canBeSelected = (row: MemberCandidate): boolean =>
+    !this.disabledCandidatePipe.transform(row, this.blockManualAdding);
+
   getDataForColumnFun = (data: MemberCandidate, column: string): string =>
-    this.getDataForColumn(data, column, this.type);
+    this.getDataForColumn(data, column);
 
   getExportDataForColumnFun = (data: MemberCandidate, column: string): string =>
-    this.getExportDataForColumn(data, column, this.type);
+    this.getExportDataForColumn(data, column);
 
-  getDataForColumn(data: MemberCandidate, column: string, type: string): string {
+  getDataForColumn(data: MemberCandidate, column: string): string {
     switch (column) {
       case 'status':
         return data.member ? data.member.status ?? '' : '';
@@ -109,7 +95,7 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
       case 'logins':
         return this.getLogins(data);
       case 'alreadyMember':
-        return this.memberTypePipe.transform(data, type);
+        return this.memberTypePipe.transform(data);
       case 'local':
         return data.richUser ? 'Local' : 'External identity';
       default:
@@ -117,7 +103,7 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
     }
   }
 
-  getExportDataForColumn(data: MemberCandidate, column: string, type: string): string {
+  getExportDataForColumn(data: MemberCandidate, column: string): string {
     switch (column) {
       case 'status':
         return data.member ? data.member.status ?? '' : '';
@@ -137,7 +123,7 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
       case 'logins':
         return this.getLogins(data);
       case 'alreadyMember':
-        return this.memberTypePipe.transform(data, type);
+        return this.memberTypePipe.transform(data);
       case 'local':
         return data.richUser ? 'Local' : 'External identity';
       default:
@@ -157,9 +143,6 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   }
 
   setDataSource(): void {
-    if (this.child === null || this.child === undefined || !this.child.paginator) {
-      return;
-    }
     if (this.dataSource) {
       this.dataSource.sort = this.sort;
 
@@ -174,18 +157,6 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
         customDataSourceSort(data, sort, this.getDataForColumnFun);
       this.dataSource.paginator = this.child.paginator;
     }
-  }
-
-  ngAfterViewInit(): void {
-    this.cd.detectChanges();
-    this.setDataSource();
-    this.setAddAuth();
-  }
-
-  ngOnChanges(): void {
-    this.dataSource = new MatTableDataSource<MemberCandidate>(this.members);
-
-    this.setDataSource();
   }
 
   getEmail(memberCandidate: MemberCandidate): string {
@@ -269,54 +240,20 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
     return logins;
   }
 
-  isCheckboxDisabled(memberCandidate: MemberCandidate): boolean {
-    if (this.type === 'vo') {
-      return memberCandidate.member != null;
-    } else {
-      if (memberCandidate.member) {
-        return (
-          memberCandidate.member.sourceGroupId !== 0 &&
-          memberCandidate.member.membershipType === 'DIRECT'
-        );
-      }
-    }
-    return this.blockManualAdding;
-  }
-
-  setAddAuth(): void {
-    if (this.group !== undefined && this.selection.selected.length !== 0) {
-      if (this.selection.selected.every((selected) => selected.member)) {
-        this.addAuth = true;
-      } else {
-        this.addAuth =
-          this.guiAuthResolver.isAuthorized('createMember_Vo_User_List<Group>_policy', [
-            this.group,
-          ]) &&
-          this.guiAuthResolver.isAuthorized('createMember_Vo_Candidate_List<Group>_policy', [
-            this.group,
-          ]);
-      }
-    }
-  }
-
   itemSelectionToggle(item: MemberCandidate): void {
     this.selection.toggle(item);
-    this.setAddAuth();
-  }
-
-  getTooltip(memberCandidate: MemberCandidate): string {
-    return memberCandidate.member
-      ? 'MEMBERS_CANDIDATES_LIST.ALREADY_MEMBER'
-      : 'MEMBERS_CANDIDATES_LIST.ADDING_BLOCKED';
   }
 
   isAllSelected(): boolean {
-    return this.tableCheckbox.isAllSelected(
+    return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(
       this.selection.selected.length,
       '',
       this.child.paginator.pageSize,
       this.child.paginator.hasNextPage(),
-      this.dataSource
+      this.child.paginator.pageIndex,
+      this.dataSource,
+      this.sort,
+      this.canBeSelected
     );
   }
 
@@ -329,9 +266,9 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      true,
+      this.canBeSelected
     );
-    this.setAddAuth();
   }
 
   checkboxLabel(selected?: MemberCandidate): string {

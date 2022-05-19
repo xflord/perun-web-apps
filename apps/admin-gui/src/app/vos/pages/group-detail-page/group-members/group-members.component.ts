@@ -8,7 +8,6 @@ import {
   StoreService,
 } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { AddMemberDialogComponent } from '../../../../shared/components/dialogs/add-member-dialog/add-member-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveMembersDialogComponent } from '../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
 import {
@@ -25,6 +24,7 @@ import { InviteMemberDialogComponent } from '../../../../shared/components/dialo
 import { FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RPCError } from '@perun-web-apps/perun/models';
+import { GroupAddMemberDialogComponent } from '../../../components/group-add-member-dialog/group-add-member-dialog.component';
 
 @Component({
   selector: 'app-group-members',
@@ -139,15 +139,11 @@ export class GroupMembersComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '1000px';
     config.data = {
-      voId: this.group.voId,
       group: this.group,
-      entityId: this.group.id,
       manualAddingBlocked: this.blockManualMemberAdding,
-      theme: 'group-theme',
-      type: 'group',
     };
 
-    const dialogRef = this.dialog.open(AddMemberDialogComponent, config);
+    const dialogRef = this.dialog.open(GroupAddMemberDialogComponent, config);
 
     dialogRef.afterClosed().subscribe((wereMembersAdded) => {
       if (wereMembersAdded) {

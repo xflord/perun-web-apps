@@ -11,6 +11,7 @@ import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { MatInput } from '@angular/material/input';
 import { FromEventTarget } from 'rxjs/internal/observable/fromEvent';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'perun-web-apps-debounce-filter',
@@ -20,12 +21,14 @@ import { FromEventTarget } from 'rxjs/internal/observable/fromEvent';
 export class DebounceFilterComponent implements OnInit {
   @Input() placeholder: string;
   @Input() autoFocus = false;
+  @Input() control: FormControl = new FormControl();
+  @Input() error: string;
   @Output() filter = new EventEmitter<string>();
-  @ViewChild('groupFilterInput', { static: true }) groupFilterInput: ElementRef<HTMLInputElement>;
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>;
 
   ngOnInit(): void {
-    if (this.autoFocus) this.groupFilterInput.nativeElement.focus();
-    fromEvent(this.groupFilterInput.nativeElement as FromEventTarget<KeyboardEvent>, 'keyup')
+    if (this.autoFocus) this.input.nativeElement.focus();
+    fromEvent(this.input.nativeElement as FromEventTarget<KeyboardEvent>, 'keyup')
       .pipe(
         map((event: KeyboardEvent) => {
           const target: MatInput = event.target as unknown as MatInput;
@@ -35,7 +38,9 @@ export class DebounceFilterComponent implements OnInit {
         distinctUntilChanged()
       )
       .subscribe((text: string) => {
-        this.filter.emit(text);
+        if (!this.control.invalid) {
+          this.filter.emit(text);
+        }
       });
   }
 }

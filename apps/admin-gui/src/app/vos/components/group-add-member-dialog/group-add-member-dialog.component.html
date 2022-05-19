@@ -1,0 +1,15 @@
+<app-add-member-dialog
+  [loading]="loading"
+  [languages]="languages"
+  [manualAddingBlocked]="data.manualAddingBlocked"
+  [addAuth]="addAuth"
+  [inviteAuth]="inviteAuth"
+  [failed]="failed"
+  [members]="members | async"
+  [selection]="selection"
+  [theme]="'group-theme'"
+  (add)="add()"
+  (cancel)="cancel($event)"
+  (invite)="invite($event)"
+  (search)="searcher.next($event)">
+</app-add-member-dialog>

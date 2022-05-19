@@ -173,6 +173,7 @@ import { ConsentRelatedAttributePipe } from './pipes/consent-related-attribute.p
 import { MemberTypePipe } from './pipes/member-type.pipe';
 import { PerunDialogsModule } from '@perun-web-apps/perun/dialogs';
 import { AddGroupHierarchicalIncludeDialogComponent } from './components/dialogs/add-group-hierarchical-include-dialog/add-group-hierarchical-include-dialog.component';
+import { DisabledCandidatePipe } from './pipes/disabled-candidate.pipe';
 
 @NgModule({
   imports: [
@@ -440,6 +441,7 @@ import { AddGroupHierarchicalIncludeDialogComponent } from './components/dialogs
     ConsentRelatedAttributePipe,
     MemberTypePipe,
     AddGroupHierarchicalIncludeDialogComponent,
+    DisabledCandidatePipe,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe, ConsentRelatedAttributePipe],
 })
