@@ -56,6 +56,15 @@
         >{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS_HINT' | translate}}</mat-checkbox
       >
     </span>
+
+    <span class="d-flex"
+      >{{'DIALOGS.CREATE_EDIT_SERVICE.EXPIRED_MEMBERS' | translate}}
+      <mat-checkbox
+        class="ml-3"
+        [(ngModel)]="propagateExpiredMembers"
+        >{{'DIALOGS.CREATE_EDIT_SERVICE.EXPIRED_MEMBERS_HINT' | translate}}</mat-checkbox
+      >
+    </span>
   </div>
   <div *ngIf="!loading" mat-dialog-actions>
     <button (click)="onCancel()" class="ml-auto" mat-flat-button>

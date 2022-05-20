@@ -39,11 +39,15 @@
         {{'SERVICE_DETAIL.STATUS' | translate}}:
         <span>
           {{service.enabled ? ('SERVICE_DETAIL.ENABLED' | translate) : ('SERVICE_DETAIL.DISABLED' | translate)}}
-          <button (click)="changeServiceStatus()" mat-icon-button>
-            <mat-icon class="align-content-center">
+          <button (click)="changeServiceStatus()" class="icon-button mr-2" mat-icon-button>
+            <mat-icon class="align-bottom">
               {{service.enabled ? "check_circle_outline" : "block"}}
             </mat-icon>
           </button>
+        </span>
+        {{'SERVICE_DETAIL.EXPIRED_MEMBERS' | translate}}:
+        <span>
+          {{service.useExpiredMembers ? ('SERVICE_DETAIL.PROPAGATED' | translate) : ('SERVICE_DETAIL.NOT_PROPAGATED' | translate)}}
         </span>
         <button
           *ngIf="authResolver.isPerunAdmin()"
@@ -53,9 +57,6 @@
           mat-flat-button>
           {{'SERVICE_DETAIL.EVALUATE_CONSENTS' | translate}}
         </button>
-        <span class="mt-1 ml-2 entity-info">
-          {{service.useExpiredMembers ? ('SERVICE_DETAIL.USE_EXPIRED_MEMBERS_ENABLED' | translate) : ('SERVICE_DETAIL.USE_EXPIRED_MEMBERS_DISABLED' | translate)}}
-        </span>
       </div>
     </div>
   </div>

@@ -21,6 +21,7 @@ export class CreateEditServiceDialogComponent implements OnInit {
 
   description: string;
   status = true;
+  propagateExpiredMembers = true;
 
   nameControl = new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9_]+$')]);
   delayControl = new FormControl(10, [Validators.pattern('^[0-9]*$')]);
@@ -50,6 +51,7 @@ export class CreateEditServiceDialogComponent implements OnInit {
       this.recurrenceControl.setValue(this.data.service.recurrence);
       this.pathControl.setValue(this.data.service.script);
       this.status = this.data.service.enabled;
+      this.propagateExpiredMembers = this.data.service.useExpiredMembers;
 
       this.title = this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.EDIT_TITLE') as string;
       this.buttonText = this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.EDIT') as string;
@@ -70,7 +72,7 @@ export class CreateEditServiceDialogComponent implements OnInit {
           recurrence: this.recurrenceControl.value as number,
           enabled: this.status,
           script: this.pathControl.value as string,
-          useExpiredMembers: false,
+          useExpiredMembers: this.propagateExpiredMembers,
           id: 0,
           beanName: '',
         },
@@ -95,7 +97,7 @@ export class CreateEditServiceDialogComponent implements OnInit {
           recurrence: this.recurrenceControl.value as number,
           enabled: this.status,
           script: this.pathControl.value as string,
-          useExpiredMembers: this.data.service.useExpiredMembers,
+          useExpiredMembers: this.propagateExpiredMembers,
           id: this.data.service.id,
           beanName: this.data.service.beanName,
         },
