@@ -1,19 +1,26 @@
 <div>
   <h1 class="page-subtitle">{{'GROUP_DETAIL.SETTINGS.RELATIONS.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button (click)="onCreate()" class="mr-2 action-button" color="accent" mat-flat-button>
+  <button
+    (click)="onCreate()"
+    class="mr-2 action-button"
+    color="accent"
+    [disabled]="reverse"
+    mat-flat-button>
     {{'GROUP_DETAIL.SETTINGS.RELATIONS.CREATE' | translate}}
   </button>
-  <button
-    [disabled]="selection.selected.length === 0 || (this.list !== undefined && !this.list.removeAuth)"
-    class="mr-2"
-    color="warn"
-    (click)="onDelete()"
-    mat-flat-button
-    [matTooltipDisabled]="selection.selected.length === 0 || (this.list !== undefined && this.list.removeAuth)"
-    matTooltip="{{'GROUP_DETAIL.SETTINGS.RELATIONS.DELETE_TOOLTIP' | translate}}">
-    {{'GROUP_DETAIL.SETTINGS.RELATIONS.DELETE' | translate}}
-  </button>
+  <span
+    matTooltip="{{'GROUP_DETAIL.SETTINGS.RELATIONS.DELETE_TOOLTIP' | translate}}"
+    [matTooltipDisabled]="selection.selected.length === 0 || (list !== undefined && list.removeAuth)">
+    <button
+      [disabled]="selection.selected.length === 0 || (list !== undefined && !list.removeAuth) || reverse"
+      class="mr-2"
+      color="warn"
+      (click)="onDelete()"
+      mat-flat-button>
+      {{'GROUP_DETAIL.SETTINGS.RELATIONS.DELETE' | translate}}
+    </button>
+  </span>
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'GROUP_DETAIL.SETTINGS.RELATIONS.FILTER'"></perun-web-apps-immediate-filter>

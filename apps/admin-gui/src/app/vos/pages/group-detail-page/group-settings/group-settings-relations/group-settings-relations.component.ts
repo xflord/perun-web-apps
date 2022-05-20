@@ -79,10 +79,10 @@ export class GroupSettingsRelationsComponent implements OnInit {
 
   refreshTable(): void {
     this.loading = true;
+    this.selection.clear();
     this.groupService.getGroupUnions(this.group.id, this.reverse).subscribe(
       (groups) => {
         this.groups = groups;
-        this.selection.clear();
         this.loading = false;
       },
       () => (this.loading = false)

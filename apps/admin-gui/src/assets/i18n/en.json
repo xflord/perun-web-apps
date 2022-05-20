@@ -712,7 +712,7 @@
       },
       "RELATIONS": {
         "TITLE": "Relations",
-        "DELETE": "Remove selected",
+        "DELETE": "Remove",
         "CREATE": "Add",
         "FILTER": "Filter by name, Id or description",
         "REVERSE_UNIONS": "Show reverse unions",
