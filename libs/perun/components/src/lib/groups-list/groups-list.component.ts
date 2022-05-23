@@ -332,10 +332,10 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
       return this.selection.selected.reduce(
         (acc, grp) =>
           acc &&
-          this.authResolver.isAuthorized('removeGroupUnion_Group_Group_policy', [
+          this.authResolver.isAuthorized('result-removeGroupUnion_Group_Group_policy', [
             this.parentGroup,
-            grp,
-          ]),
+          ]) &&
+          this.authResolver.isAuthorized('operand-removeGroupUnion_Group_Group_policy', [grp]),
         true
       );
     } else if (this.authType === 'vo-groups') {

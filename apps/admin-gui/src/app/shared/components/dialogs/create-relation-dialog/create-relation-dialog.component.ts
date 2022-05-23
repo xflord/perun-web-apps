@@ -87,10 +87,10 @@ export class CreateRelationDialogComponent implements OnInit {
   private setGroupsToDisable(): void {
     for (const group of this.groups) {
       if (
-        !this.guiAuthResolver.isAuthorized('createGroupUnion_Group_Group_policy', [
+        !this.guiAuthResolver.isAuthorized('result-createGroupUnion_Group_Group_policy', [
           this.data.group,
-          group,
-        ])
+        ]) ||
+        !this.guiAuthResolver.isAuthorized('operand-createGroupUnion_Group_Group_policy', [group])
       ) {
         this.groupsToDisable.add(group.id);
       }
