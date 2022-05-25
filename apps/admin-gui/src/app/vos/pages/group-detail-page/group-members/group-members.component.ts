@@ -14,11 +14,13 @@ import { RemoveMembersDialogComponent } from '../../../../shared/components/dial
 import {
   AttributesManagerService,
   GroupsManagerService,
+  MemberGroupStatus,
   RichGroup,
   RichMember,
+  VoMemberStatuses,
 } from '@perun-web-apps/perun/openapi';
 import { TABLE_GROUP_MEMBERS } from '@perun-web-apps/config/table-config';
-import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { getDefaultDialogConfig, isGroupSynchronized } from '@perun-web-apps/perun/utils';
 import { InviteMemberDialogComponent } from '../../../../shared/components/dialogs/invite-member-dialog/invite-member-dialog.component';
 import { FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -53,7 +55,6 @@ export class GroupMembersComponent implements OnInit {
   removeAuth: boolean;
   inviteAuth: boolean;
   blockManualMemberAdding: boolean;
-  blockGroupManualMemberAdding: boolean;
   displayedColumns = [
     'checkbox',
     'id',
@@ -67,10 +68,10 @@ export class GroupMembersComponent implements OnInit {
   ];
   statuses = new FormControl();
   statusList = ['VALID', 'INVALID', 'EXPIRED', 'DISABLED'];
-  selectedStatuses: string[] = ['VALID', 'INVALID'];
+  selectedStatuses: VoMemberStatuses[] = ['VALID', 'INVALID'];
   groupStatuses = new FormControl();
   groupStatusList = ['VALID', 'EXPIRED'];
-  selectedGroupStatuses: string[] = ['VALID'];
+  selectedGroupStatuses: MemberGroupStatus[] = ['VALID'];
   private groupAttrNames = [
     Urns.GROUP_SYNC_ENABLED,
     Urns.GROUP_LAST_SYNC_STATE,
@@ -78,6 +79,7 @@ export class GroupMembersComponent implements OnInit {
     Urns.GROUP_STRUCTURE_SYNC_ENABLED,
     Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
     Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP,
+    Urns.GROUP_BLOCK_MANUAL_MEMBER_ADDING,
   ];
 
   constructor(
@@ -99,9 +101,7 @@ export class GroupMembersComponent implements OnInit {
     this.memberAttrNames = this.memberAttrNames.concat(this.storeService.getLoginAttributeNames());
     this.group = this.entityStorageService.getEntity();
     this.setAuthRights();
-    void this.isManualAddingBlocked(this.group.voId, this.group.id).then(() =>
-      this.loadPage(this.group.id)
-    );
+    void this.isManualAddingBlocked(this.group.voId).then(() => this.loadPage(this.group.id));
   }
 
   loadPage(groupId: number): void {
@@ -109,18 +109,9 @@ export class GroupMembersComponent implements OnInit {
       .getRichGroupByIdWithAttributesByNames(groupId, this.groupAttrNames)
       .subscribe((group) => {
         this.group = group;
-        this.synchEnabled = this.isSynchronized();
+        this.synchEnabled = isGroupSynchronized(this.group);
         this.loading = false;
       });
-  }
-
-  isSynchronized(): boolean {
-    return this.group.attributes.some(
-      (att) =>
-        att.friendlyName === 'synchronizationEnabled' &&
-        att.value !== null &&
-        (att.value as unknown as string) === 'true'
-    );
   }
 
   setAuthRights(): void {
@@ -141,7 +132,7 @@ export class GroupMembersComponent implements OnInit {
 
   onSearchByString(filter: string): void {
     this.searchString = filter;
-    this.updateTable = !this.updateTable;
+    this.selection.clear();
   }
 
   onAddMember(): void {
@@ -223,7 +214,7 @@ export class GroupMembersComponent implements OnInit {
     }
   }
 
-  isManualAddingBlocked(voId: number, groupId: number): Promise<void> {
+  isManualAddingBlocked(voId: number): Promise<void> {
     return new Promise((resolve) => {
       this.apiRequest.dontHandleErrorForNext();
       this.attributesManager
@@ -231,24 +222,7 @@ export class GroupMembersComponent implements OnInit {
         .subscribe(
           (attrValue) => {
             this.blockManualMemberAdding = attrValue.value !== null;
-            this.apiRequest.dontHandleErrorForNext();
-            this.attributesManager
-              .getGroupAttributeByName(
-                groupId,
-                'urn:perun:group:attribute-def:def:blockManualMemberAdding'
-              )
-              .subscribe(
-                (groupAttrValue) => {
-                  this.blockGroupManualMemberAdding = groupAttrValue.value !== null;
-                  resolve();
-                },
-                (error: HttpErrorResponse) => {
-                  if ((error.error as RPCError).name !== 'PrivilegeException') {
-                    this.notificator.showError((error.error as RPCError).name);
-                  }
-                  resolve();
-                }
-              );
+            resolve();
           },
           (error: HttpErrorResponse) => {
             const e = error.error as RPCError;
@@ -262,10 +236,17 @@ export class GroupMembersComponent implements OnInit {
   }
 
   changeVoStatuses(): void {
-    this.selectedStatuses = this.statuses.value as string[];
+    this.selection.clear();
+    this.selectedStatuses = this.statuses.value as VoMemberStatuses[];
   }
 
   changeGroupStatuses(): void {
-    this.selectedGroupStatuses = this.groupStatuses.value as string[];
+    this.selection.clear();
+    this.selectedGroupStatuses = this.groupStatuses.value as MemberGroupStatus[];
+  }
+
+  refreshTable(): void {
+    this.selection.clear();
+    this.updateTable = !this.updateTable;
   }
 }

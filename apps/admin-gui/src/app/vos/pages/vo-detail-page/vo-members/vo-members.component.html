@@ -1,8 +1,7 @@
 <div class="vo-theme">
   <h1 class="page-subtitle">{{'VO_DETAIL.MEMBERS.TITLE' | translate}}</h1>
   <div class="align-elements">
-    <perun-web-apps-refresh-button
-      (click)="updateTable = !updateTable"></perun-web-apps-refresh-button>
+    <perun-web-apps-refresh-button (click)="refreshTable()"></perun-web-apps-refresh-button>
     <div
       [matTooltipDisabled]="!blockManualMemberAdding"
       matTooltip="{{'VO_DETAIL.MEMBERS.ADD_MEMBER_DISABLED' | translate}}">

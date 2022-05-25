@@ -27,6 +27,7 @@ import {
   getDefaultDialogConfig,
   getGroupExpiration,
   parseDate,
+  isGroupSynchronized,
 } from '@perun-web-apps/perun/utils';
 
 import { GroupWithStatus } from '@perun-web-apps/perun/models';
@@ -274,7 +275,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
 
   disableSelect(grp: GroupWithStatus): boolean {
     return (
-      this.disableGroups && (this.groupsToDisableCheckbox.has(grp.id) || this.isSynchronized(grp))
+      this.disableGroups && (this.groupsToDisableCheckbox.has(grp.id) || isGroupSynchronized(grp))
     );
   }
 
@@ -368,22 +369,10 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     this.removeAuth = this.setAuth();
   }
 
-  isSynchronized(grp: GroupWithStatus): boolean {
-    if (grp.attributes) {
-      return grp.attributes.some(
-        (att) =>
-          att.friendlyName === 'synchronizationEnabled' &&
-          att.value !== null &&
-          (att.value as unknown as string) === 'true'
-      );
-    }
-    return false;
-  }
-
   getCheckboxTooltipMessage(row: GroupWithStatus): string {
     if (this.authType === 'create-relation-dialog') {
       return 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.CREATE_RELATION_AUTH_TOOLTIP';
-    } else if (this.isSynchronized(row)) {
+    } else if (isGroupSynchronized(row)) {
       return 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.SYNCHRONIZED_GROUP';
     } else if (row.sourceGroupId) {
       return 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.INDIRECT_GROUP';

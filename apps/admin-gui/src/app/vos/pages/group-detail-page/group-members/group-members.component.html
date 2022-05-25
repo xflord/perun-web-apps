@@ -3,35 +3,30 @@
   {{'GROUP_DETAIL.MEMBERS.ACTIONS_DISABLED' | translate}}
 </perun-web-apps-alert>
 <div class="align-elements">
-  <perun-web-apps-refresh-button
-    (click)="updateTable = !updateTable"></perun-web-apps-refresh-button>
+  <perun-web-apps-refresh-button (click)="refreshTable()"></perun-web-apps-refresh-button>
   <span
-    [matTooltipDisabled]="!synchEnabled"
+    [matTooltipDisabled]="!(group | groupMembersActionButtonDisabled: 'add')"
     [matTooltipPosition]="'above'"
-    matTooltip="{{'GROUP_DETAIL.MEMBERS.SYNCHRONIZED' | translate}}">
-    <div
-      [matTooltipDisabled]="!blockGroupManualMemberAdding"
-      matTooltip="{{'GROUP_DETAIL.MEMBERS.ADD_MEMBER_DISABLED' | translate}}">
-      <button
-        (click)="onAddMember()"
-        *ngIf="addAuth"
-        [disabled]="synchEnabled || blockGroupManualMemberAdding"
-        class="mr-2 action-button"
-        color="accent"
-        data-cy="add-members"
-        mat-flat-button>
-        {{'GROUP_DETAIL.MEMBERS.ADD_MEMBER' | translate}}
-      </button>
-    </div>
+    matTooltip="{{group | groupMembersActionButtonDisabledTooltip: 'add' | translate}}">
+    <button
+      (click)="onAddMember()"
+      *ngIf="addAuth"
+      [disabled]="(group | groupMembersActionButtonDisabled: 'add')"
+      class="mr-2 action-button"
+      color="accent"
+      data-cy="add-members"
+      mat-flat-button>
+      {{'GROUP_DETAIL.MEMBERS.ADD_MEMBER' | translate}}
+    </button>
   </span>
   <span
-    [matTooltipDisabled]="!synchEnabled"
+    [matTooltipDisabled]="!(group | groupMembersActionButtonDisabled)"
     [matTooltipPosition]="'above'"
-    matTooltip="{{'GROUP_DETAIL.MEMBERS.SYNCHRONIZED' | translate}}">
+    matTooltip="{{group | groupMembersActionButtonDisabledTooltip | translate}}">
     <button
       (click)="onInviteMember()"
       *ngIf="inviteAuth"
-      [disabled]="synchEnabled"
+      [disabled]="(group | groupMembersActionButtonDisabled)"
       class="mr-2 action-button"
       color="accent"
       mat-flat-button>
@@ -39,13 +34,13 @@
     </button>
   </span>
   <span
-    [matTooltipDisabled]="!synchEnabled"
+    [matTooltipDisabled]="!(group | groupMembersActionButtonDisabled)"
     [matTooltipPosition]="'above'"
-    matTooltip="{{'GROUP_DETAIL.MEMBERS.SYNCHRONIZED' | translate}}">
+    matTooltip="{{group | groupMembersActionButtonDisabledTooltip | translate}}">
     <button
       (click)="onRemoveMembers()"
       *ngIf="removeAuth"
-      [disabled]="selection.isEmpty() || synchEnabled"
+      [disabled]="selection.isEmpty() || (group | groupMembersActionButtonDisabled)"
       class="mr-2"
       color="warn"
       data-cy="remove-members"

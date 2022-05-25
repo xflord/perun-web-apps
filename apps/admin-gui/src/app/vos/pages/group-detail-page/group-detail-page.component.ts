@@ -13,6 +13,7 @@ import {
   addRecentlyVisited,
   addRecentlyVisitedObject,
   getDefaultDialogConfig,
+  isGroupSynchronized,
 } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
@@ -70,15 +71,6 @@ export class GroupDetailPageComponent extends destroyDetailMixin() implements On
       this.reloadData();
     });
     this.reloadData();
-  }
-
-  isSynchronized(): boolean {
-    return this.group.attributes.some(
-      (att) =>
-        att.friendlyName === 'synchronizationEnabled' &&
-        att.value !== null &&
-        (att.value as unknown as string) === 'true'
-    );
   }
 
   onSyncDetail(): void {
@@ -141,7 +133,7 @@ export class GroupDetailPageComponent extends destroyDetailMixin() implements On
                   .subscribe(
                     (richGroup) => {
                       this.group = richGroup;
-                      this.syncEnabled = this.isSynchronized();
+                      this.syncEnabled = isGroupSynchronized(richGroup);
 
                       this.syncAuth = this.guiAuthResolver.isAuthorized(
                         'forceGroupSynchronization_Group_policy',

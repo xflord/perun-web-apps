@@ -134,7 +134,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
 
   isAllSelected(): boolean {
     const numSelected = this.selection.selected.length;
-    const numRows = this.child.paginator.pageSize;
+    const numRows = this.dataSource.getData().length;
     return numSelected === numRows;
   }
 

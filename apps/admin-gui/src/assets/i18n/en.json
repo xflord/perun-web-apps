@@ -642,7 +642,8 @@
       "INVITE_MEMBER": "Invite",
       "SYNCHRONIZED": "Action is disabled on this group, group is filled with members from external source.",
       "FILTER_STATUS": "Filter by organizations status",
-      "FILTER_GROUP_STATUS": "Filter by group status"
+      "FILTER_GROUP_STATUS": "Filter by group status",
+      "BUTTON_DISABLED_MEMBERS_GROUP": "Action is disabled on this group because it represents all members of the organization. To edit members of the organization go to organization members."
     },
     "RESOURCES": {
       "TITLE": "Resources",

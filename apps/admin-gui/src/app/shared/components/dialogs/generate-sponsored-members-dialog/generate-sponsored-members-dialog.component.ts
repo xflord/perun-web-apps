@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
-  Attribute,
   AttributesManagerService,
   Group,
   GroupsManagerService,
@@ -22,7 +21,12 @@ import { formatDate } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { TABLE_VO_GROUPS } from '@perun-web-apps/config/table-config';
-import { downloadData, emailRegexString } from '@perun-web-apps/perun/utils';
+import {
+  downloadData,
+  emailRegexString,
+  hasBooleanAttributeEnabled,
+  isGroupSynchronized,
+} from '@perun-web-apps/perun/utils';
 import { MatStepper } from '@angular/material/stepper';
 
 interface MemberData {
@@ -123,9 +127,9 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
 
     this.attributesService.getVoAttributes(this.data.voId).subscribe(
       (attributes) => {
-        this.manualMemberAddingBlocked = this.hasAttributeEnabled(
+        this.manualMemberAddingBlocked = hasBooleanAttributeEnabled(
           attributes,
-          'blockManualMemberAdding'
+          Urns.VO_BLOCK_MANUAL_MEMBER_ADDING
         );
         if (!this.manualMemberAddingBlocked) {
           this.groupsService
@@ -287,8 +291,8 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
     for (const grp of groups) {
       if (
         !(
-          this.hasAttributeEnabled(grp.attributes, 'synchronizationEnabled') ||
-          this.hasAttributeEnabled(grp.attributes, 'blockManualMemberAdding')
+          isGroupSynchronized(grp) ||
+          hasBooleanAttributeEnabled(grp.attributes, Urns.GROUP_BLOCK_MANUAL_MEMBER_ADDING)
         ) &&
         this.guiAuthResolver.isAuthorized('addMembers_Group_List<Member>_policy', [grp])
       ) {
@@ -296,15 +300,6 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
       }
     }
     return assignableGroups;
-  }
-
-  private hasAttributeEnabled(attr: Attribute[], attName: string): boolean {
-    return attr.some(
-      (att) =>
-        att.friendlyName === attName &&
-        att.value !== null &&
-        (att.value as unknown as string) === 'true'
-    );
   }
 
   private createOutputObjects(data: MemberData[]): OutputSponsoredMember[] {

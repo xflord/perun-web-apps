@@ -25,6 +25,7 @@ import { formatDate } from '@angular/common';
 import { MatSort } from '@angular/material/sort';
 import { saveAs } from 'file-saver';
 import { AbstractControl, AsyncValidatorFn, ValidatorFn } from '@angular/forms';
+import { Urns } from '@perun-web-apps/perun/urns';
 
 export const TABLE_ITEMS_COUNT_OPTIONS = [5, 10, 25, 100];
 
@@ -818,4 +819,26 @@ export function enableFormControl(
   control.setValidators(validators);
   control.setAsyncValidators(asyncValidators);
   control.updateValueAndValidity();
+}
+
+export function hasBooleanAttributeEnabled(
+  attributes: Attribute[],
+  attributeName: string
+): boolean {
+  if (attributes) {
+    return attributes.some(
+      (attribute) =>
+        attribute.namespace + ':' + attribute.friendlyName === attributeName &&
+        attribute.value !== null &&
+        String(attribute.value) === 'true'
+    );
+  }
+  return false;
+}
+
+export function isGroupSynchronized(group: RichGroup): boolean {
+  return (
+    hasBooleanAttributeEnabled(group.attributes, Urns.GROUP_SYNC_ENABLED) ||
+    hasBooleanAttributeEnabled(group.attributes, Urns.GROUP_STRUCTURE_SYNC_ENABLED)
+  );
 }

@@ -32,6 +32,8 @@ import { StyleInnerHtmlPipe } from './style-inner-html.pipe';
 import { MultiWordDataCyPipe } from './multi-word-data-cy.pipe';
 import { FooterLogoPathPipe } from './footer-logo-path.pipe';
 import { DeleteDialogTypePipe } from './delete-dialog-type.pipe';
+import { GroupMembersActionButtonDisabledPipe } from './group-members-action-button-disabled.pipe';
+import { GroupMembersActionButtonDisabledTooltipPipe } from './group-members-action-button-disabled-tooltip.pipe';
 
 @NgModule({
   declarations: [
@@ -68,6 +70,8 @@ import { DeleteDialogTypePipe } from './delete-dialog-type.pipe';
     MultiWordDataCyPipe,
     FooterLogoPathPipe,
     DeleteDialogTypePipe,
+    GroupMembersActionButtonDisabledPipe,
+    GroupMembersActionButtonDisabledTooltipPipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -103,6 +107,8 @@ import { DeleteDialogTypePipe } from './delete-dialog-type.pipe';
     MultiWordDataCyPipe,
     FooterLogoPathPipe,
     DeleteDialogTypePipe,
+    GroupMembersActionButtonDisabledPipe,
+    GroupMembersActionButtonDisabledTooltipPipe,
   ],
   imports: [CommonModule],
 })

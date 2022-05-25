@@ -10,7 +10,12 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveMembersDialogComponent } from '../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
 import { AddMemberDialogComponent } from '../../../../shared/components/dialogs/add-member-dialog/add-member-dialog.component';
-import { AttributesManagerService, RichMember, Vo } from '@perun-web-apps/perun/openapi';
+import {
+  AttributesManagerService,
+  RichMember,
+  Vo,
+  VoMemberStatuses,
+} from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { FormControl } from '@angular/forms';
 import { TABLE_VO_MEMBERS } from '@perun-web-apps/config/table-config';
@@ -41,7 +46,7 @@ export class VoMembersComponent implements OnInit {
   ];
   statuses = new FormControl();
   statusList = ['VALID', 'INVALID', 'EXPIRED', 'DISABLED'];
-  selectedStatuses: string[] = [];
+  selectedStatuses: VoMemberStatuses[] = [];
   tableId = TABLE_VO_MEMBERS;
   displayedColumns = ['checkbox', 'id', 'fullName', 'status', 'organization', 'email', 'logins'];
   searchString: string;
@@ -101,7 +106,7 @@ export class VoMembersComponent implements OnInit {
 
   onSearchByString(filter: string): void {
     this.searchString = filter;
-    this.updateTable = !this.updateTable;
+    this.selection.clear();
   }
 
   onAddMember(): void {
@@ -190,6 +195,12 @@ export class VoMembersComponent implements OnInit {
   }
 
   changeStatuses(): void {
-    this.selectedStatuses = this.statuses.value as string[];
+    this.selection.clear();
+    this.selectedStatuses = this.statuses.value as VoMemberStatuses[];
+  }
+
+  refreshTable(): void {
+    this.selection.clear();
+    this.updateTable = !this.updateTable;
   }
 }

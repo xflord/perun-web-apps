@@ -34,6 +34,8 @@
             [aria-label]="checkboxLabel(member)"
             [checked]="selection.isSelected(member)"
             attr.data-cy="{{member.user.firstName | lowercase}}-checkbox"
+            [disabled]="member.membershipType === 'INDIRECT'"
+            [matTooltip]="member.membershipType === 'INDIRECT' ? ('MEMBERS_LIST.CHECKBOX_TOOLTIP' | translate):''"
             color="primary">
           </mat-checkbox>
         </td>

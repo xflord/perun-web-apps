@@ -129,6 +129,8 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
     );
   }
 
+  canBeSelected = (member: RichMember): boolean => member.membershipType !== 'INDIRECT';
+
   ngOnChanges(): void {
     if (this.dataSource) {
       this.child.paginator.pageIndex = 0;
@@ -140,13 +142,17 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
     if (this.isAllSelected()) {
       this.selection.clear();
     } else {
-      this.dataSource.getData().forEach((row) => this.selection.select(row));
+      this.dataSource.getData().forEach((row) => {
+        if (this.canBeSelected(row)) {
+          this.selection.select(row);
+        }
+      });
     }
   }
 
   isAllSelected(): boolean {
     const numSelected = this.selection.selected.length;
-    const numRows = this.child.paginator.pageSize;
+    const numRows = this.dataSource.getData().filter((member) => this.canBeSelected(member)).length;
     return numSelected === numRows;
   }
 
