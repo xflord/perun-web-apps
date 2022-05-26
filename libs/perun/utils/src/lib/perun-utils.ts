@@ -751,7 +751,7 @@ export function getDataForExport<T>(
   const skippedColumns = ['checkbox', 'select', 'edit', 'menu', 'cite', 'extend', 'recent'];
   columns = columns.filter((c) => !skippedColumns.includes(c));
   data.forEach((row) => {
-    let resultRow: T;
+    const resultRow: T = {} as T;
     columns.forEach((col) => {
       resultRow[col] = (getDataForColumn(row, col) ?? '').split('"').join("''").trim();
     });
