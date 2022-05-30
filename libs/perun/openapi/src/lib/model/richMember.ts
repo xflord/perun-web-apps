@@ -16,7 +16,7 @@ import { Member } from './member';
 
 export interface RichMember extends Member {
   user: User;
-  userExtSources: Array<UserExtSource>;
-  userAttributes?: Array<Attribute>;
-  memberAttributes?: Array<Attribute>;
+  userExtSources: Array<UserExtSource> | null;
+  userAttributes?: Array<Attribute> | null;
+  memberAttributes?: Array<Attribute> | null;
 }

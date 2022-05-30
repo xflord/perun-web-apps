@@ -19,13 +19,17 @@ import {
   HttpResponse,
   HttpEvent,
   HttpParameterCodec,
+  HttpContext,
 } from '@angular/common/http';
 import { CustomHttpParameterCodec } from '../encoder';
 import { Observable } from 'rxjs';
 
+// @ts-ignore
 import { PerunAppsConfig } from '../model/perunAppsConfig';
+// @ts-ignore
 import { PerunException } from '../model/perunException';
 
+// @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
 
@@ -55,57 +59,123 @@ export class UtilsService {
     this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
   }
 
+  private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
+    if (typeof value === 'object' && value instanceof Date === false) {
+      httpParams = this.addToHttpParamsRecursive(httpParams, value);
+    } else {
+      httpParams = this.addToHttpParamsRecursive(httpParams, value, key);
+    }
+    return httpParams;
+  }
+
+  private addToHttpParamsRecursive(httpParams: HttpParams, value?: any, key?: string): HttpParams {
+    if (value == null) {
+      return httpParams;
+    }
+
+    if (typeof value === 'object') {
+      if (Array.isArray(value)) {
+        (value as any[]).forEach(
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+        );
+      } else if (value instanceof Date) {
+        if (key != null) {
+          httpParams = httpParams.append(key, (value as Date).toISOString().substr(0, 10));
+        } else {
+          throw Error('key may not be null if value is Date');
+        }
+      } else {
+        Object.keys(value).forEach(
+          (k) =>
+            (httpParams = this.addToHttpParamsRecursive(
+              httpParams,
+              value[k],
+              key != null ? `${key}.${k}` : k
+            ))
+        );
+      }
+    } else if (key != null) {
+      httpParams = httpParams.append(key, value);
+    } else {
+      throw Error('key may not be null if value is not object or array');
+    }
+    return httpParams;
+  }
+
   /**
    * Gets configuration of perun apps brandings and apps\&#39; domains
    * Returns object of type PerunAppsConfig
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getAppsConfig(observe?: 'body', reportProgress?: boolean): Observable<PerunAppsConfig>;
+  public getAppsConfig(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<PerunAppsConfig>;
   public getAppsConfig(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<PerunAppsConfig>>;
   public getAppsConfig(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<PerunAppsConfig>>;
-  public getAppsConfig(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-    let headers = this.defaultHeaders;
+  public getAppsConfig(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<PerunAppsConfig>(
       `${this.configuration.basePath}/json/utils/getAppsConfig`,
       {
+        context: localVarHttpContext,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -119,55 +189,72 @@ export class UtilsService {
    */
   public getGuiConfiguration(
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<{ [key: string]: string }>;
   public getGuiConfiguration(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<{ [key: string]: string }>>;
   public getGuiConfiguration(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<{ [key: string]: string }>>;
   public getGuiConfiguration(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    let headers = this.defaultHeaders;
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<{ [key: string]: string }>(
       `${this.configuration.basePath}/json/utils/getGuiConfiguration`,
       {
+        context: localVarHttpContext,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -179,52 +266,72 @@ export class UtilsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getPerunRPCVersion(observe?: 'body', reportProgress?: boolean): Observable<string>;
+  public getPerunRPCVersion(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'text/plain'; context?: HttpContext }
+  ): Observable<string>;
   public getPerunRPCVersion(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'text/plain'; context?: HttpContext }
   ): Observable<HttpResponse<string>>;
   public getPerunRPCVersion(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'text/plain'; context?: HttpContext }
   ): Observable<HttpEvent<string>>;
   public getPerunRPCVersion(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'text/plain'; context?: HttpContext }
   ): Observable<any> {
-    let headers = this.defaultHeaders;
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['text/plain'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['text/plain'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<string>(`${this.configuration.basePath}/`, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
       withCredentials: this.configuration.withCredentials,
-      headers: headers,
+      headers: localVarHeaders,
       observe: observe,
       reportProgress: reportProgress,
     });
@@ -236,54 +343,74 @@ export class UtilsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getPerunStatistics(observe?: 'body', reportProgress?: boolean): Observable<Array<string>>;
+  public getPerunStatistics(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<Array<string>>;
   public getPerunStatistics(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<string>>>;
   public getPerunStatistics(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<string>>>;
   public getPerunStatistics(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    let headers = this.defaultHeaders;
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<Array<string>>(
       `${this.configuration.basePath}/json/utils/getPerunStatistics`,
       {
+        context: localVarHttpContext,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -296,51 +423,74 @@ export class UtilsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getPerunStatus(observe?: 'body', reportProgress?: boolean): Observable<Array<string>>;
+  public getPerunStatus(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<Array<string>>;
   public getPerunStatus(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<string>>>;
   public getPerunStatus(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<string>>>;
-  public getPerunStatus(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-    let headers = this.defaultHeaders;
+  public getPerunStatus(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<Array<string>>(
       `${this.configuration.basePath}/json/utils/getPerunStatus`,
       {
+        context: localVarHttpContext,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -352,54 +502,74 @@ export class UtilsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getPerunSystemTimeInMillis(observe?: 'body', reportProgress?: boolean): Observable<number>;
+  public getPerunSystemTimeInMillis(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<number>;
   public getPerunSystemTimeInMillis(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<number>>;
   public getPerunSystemTimeInMillis(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<number>>;
   public getPerunSystemTimeInMillis(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    let headers = this.defaultHeaders;
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<number>(
       `${this.configuration.basePath}/json/utils/getPerunSystemTimeInMillis`,
       {
+        context: localVarHttpContext,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }

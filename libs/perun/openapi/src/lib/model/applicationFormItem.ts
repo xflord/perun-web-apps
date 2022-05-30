@@ -37,14 +37,14 @@ export namespace ApplicationFormItem {
   export const HiddenEnum = {
     NEVER: 'NEVER' as HiddenEnum,
     ALWAYS: 'ALWAYS' as HiddenEnum,
-    IFPREFILLED: 'IF_PREFILLED' as HiddenEnum,
-    IFEMPTY: 'IF_EMPTY' as HiddenEnum,
+    IF_PREFILLED: 'IF_PREFILLED' as HiddenEnum,
+    IF_EMPTY: 'IF_EMPTY' as HiddenEnum,
   };
   export type DisabledEnum = 'NEVER' | 'ALWAYS' | 'IF_PREFILLED' | 'IF_EMPTY';
   export const DisabledEnum = {
     NEVER: 'NEVER' as DisabledEnum,
     ALWAYS: 'ALWAYS' as DisabledEnum,
-    IFPREFILLED: 'IF_PREFILLED' as DisabledEnum,
-    IFEMPTY: 'IF_EMPTY' as DisabledEnum,
+    IF_PREFILLED: 'IF_PREFILLED' as DisabledEnum,
+    IF_EMPTY: 'IF_EMPTY' as DisabledEnum,
   };
 }

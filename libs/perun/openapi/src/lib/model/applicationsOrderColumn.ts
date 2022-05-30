@@ -21,10 +21,10 @@ export type ApplicationsOrderColumn =
 
 export const ApplicationsOrderColumn = {
   ID: 'ID' as ApplicationsOrderColumn,
-  DATECREATED: 'DATE_CREATED' as ApplicationsOrderColumn,
+  DATE_CREATED: 'DATE_CREATED' as ApplicationsOrderColumn,
   TYPE: 'TYPE' as ApplicationsOrderColumn,
   STATE: 'STATE' as ApplicationsOrderColumn,
   SUBMITTER: 'SUBMITTER' as ApplicationsOrderColumn,
-  GROUPNAME: 'GROUP_NAME' as ApplicationsOrderColumn,
-  MODIFIEDBY: 'MODIFIED_BY' as ApplicationsOrderColumn,
+  GROUP_NAME: 'GROUP_NAME' as ApplicationsOrderColumn,
+  MODIFIED_BY: 'MODIFIED_BY' as ApplicationsOrderColumn,
 };

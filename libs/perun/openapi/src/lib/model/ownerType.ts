@@ -10,11 +10,12 @@
  * Do not edit the class manually.
  */
 
-export type FacilityPropagationState = 'OK' | 'ERROR' | 'PROCESSING' | 'NOT_DETERMINED';
+/**
+ * enumeration of types of Owners
+ */
+export type OwnerType = 'technical' | 'administrative';
 
-export const FacilityPropagationState = {
-  OK: 'OK' as FacilityPropagationState,
-  ERROR: 'ERROR' as FacilityPropagationState,
-  PROCESSING: 'PROCESSING' as FacilityPropagationState,
-  NOT_DETERMINED: 'NOT_DETERMINED' as FacilityPropagationState,
+export const OwnerType = {
+  technical: 'technical' as OwnerType,
+  administrative: 'administrative' as OwnerType,
 };

@@ -17,9 +17,9 @@ export type ActionType = 'WRITE' | 'WRITE_VO' | 'WRITE_PUBLIC' | 'READ' | 'READ_
 
 export const ActionType = {
   WRITE: 'WRITE' as ActionType,
-  WRITEVO: 'WRITE_VO' as ActionType,
-  WRITEPUBLIC: 'WRITE_PUBLIC' as ActionType,
+  WRITE_VO: 'WRITE_VO' as ActionType,
+  WRITE_PUBLIC: 'WRITE_PUBLIC' as ActionType,
   READ: 'READ' as ActionType,
-  READVO: 'READ_VO' as ActionType,
-  READPUBLIC: 'READ_PUBLIC' as ActionType,
+  READ_VO: 'READ_VO' as ActionType,
+  READ_PUBLIC: 'READ_PUBLIC' as ActionType,
 };

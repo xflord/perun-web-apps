@@ -168,7 +168,7 @@ export class SettingsMailingListsComponent implements OnInit, OnDestroy {
   }
 
   unsubscribe(): void {
-    const originalState = this.optOuts[this.index].attribute.value;
+    const originalState = String(this.optOuts[this.index].attribute.value);
     this.optOuts[this.index].attribute.value = 'true' as unknown as object;
     this.attributesManagerService.setMemberResourceAttribute(this.optOuts[this.index]).subscribe(
       () => {
@@ -184,7 +184,7 @@ export class SettingsMailingListsComponent implements OnInit, OnDestroy {
     );
   }
   subscribe(): void {
-    const originalState = this.optOuts[this.index].attribute.value;
+    const originalState = String(this.optOuts[this.index].attribute.value);
     this.optOuts[this.index].attribute.value = null;
     this.attributesManagerService.setMemberResourceAttribute(this.optOuts[this.index]).subscribe(
       () => {

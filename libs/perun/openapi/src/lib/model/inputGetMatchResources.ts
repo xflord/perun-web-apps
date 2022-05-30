@@ -9,12 +9,17 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Destination } from './destination';
-import { Service } from './service';
-import { Facility } from './facility';
 
-export interface RichDestination extends Destination {
-  blocked?: boolean;
-  service?: Service;
-  facility?: Facility;
+/**
+ * Input to getResources
+ */
+export interface InputGetMatchResources {
+  /**
+   * True if partial match is allowed
+   */
+  allowPartialMatchForString: boolean;
+  /**
+   * Map of attribute names with searching values Map<sting,string>
+   */
+  attributesWithSearchingValues: { [key: string]: string };
 }

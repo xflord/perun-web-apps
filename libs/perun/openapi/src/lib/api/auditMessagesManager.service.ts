@@ -19,15 +19,21 @@ import {
   HttpResponse,
   HttpEvent,
   HttpParameterCodec,
+  HttpContext,
 } from '@angular/common/http';
 import { CustomHttpParameterCodec } from '../encoder';
 import { Observable } from 'rxjs';
 
+// @ts-ignore
 import { AuditMessage } from '../model/auditMessage';
+// @ts-ignore
 import { InputGetMessagesPage } from '../model/inputGetMessagesPage';
+// @ts-ignore
 import { PaginatedAuditMessages } from '../model/paginatedAuditMessages';
+// @ts-ignore
 import { PerunException } from '../model/perunException';
 
+// @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
 
@@ -57,6 +63,49 @@ export class AuditMessagesManagerService {
     this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
   }
 
+  private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
+    if (typeof value === 'object' && value instanceof Date === false) {
+      httpParams = this.addToHttpParamsRecursive(httpParams, value);
+    } else {
+      httpParams = this.addToHttpParamsRecursive(httpParams, value, key);
+    }
+    return httpParams;
+  }
+
+  private addToHttpParamsRecursive(httpParams: HttpParams, value?: any, key?: string): HttpParams {
+    if (value == null) {
+      return httpParams;
+    }
+
+    if (typeof value === 'object') {
+      if (Array.isArray(value)) {
+        (value as any[]).forEach(
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+        );
+      } else if (value instanceof Date) {
+        if (key != null) {
+          httpParams = httpParams.append(key, (value as Date).toISOString().substr(0, 10));
+        } else {
+          throw Error('key may not be null if value is Date');
+        }
+      } else {
+        Object.keys(value).forEach(
+          (k) =>
+            (httpParams = this.addToHttpParamsRecursive(
+              httpParams,
+              value[k],
+              key != null ? `${key}.${k}` : k
+            ))
+        );
+      }
+    } else if (key != null) {
+      httpParams = httpParams.append(key, value);
+    } else {
+      throw Error('key may not be null if value is not object or array');
+    }
+    return httpParams;
+  }
+
   /**
    * Log arbitrary auditer message/event to the audit log.
    * @param msg Message to be logged
@@ -66,22 +115,26 @@ export class AuditMessagesManagerService {
   public auditMessagesManagerLog(
     msg: string,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public auditMessagesManagerLog(
     msg: string,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public auditMessagesManagerLog(
     msg: string,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public auditMessagesManagerLog(
     msg: string,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (msg === null || msg === undefined) {
       throw new Error(
@@ -89,48 +142,61 @@ export class AuditMessagesManagerService {
       );
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (msg !== undefined && msg !== null) {
-      queryParameters = queryParameters.set('msg', <any>msg);
+      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>msg, 'msg');
     }
 
-    let headers = this.defaultHeaders;
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.post<any>(
       `${this.configuration.basePath}/urlinjsonout/auditMessagesManager/log`,
       null,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -146,22 +212,26 @@ export class AuditMessagesManagerService {
   public createAuditerConsumer(
     consumerName: string,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public createAuditerConsumer(
     consumerName: string,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public createAuditerConsumer(
     consumerName: string,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public createAuditerConsumer(
     consumerName: string,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (consumerName === null || consumerName === undefined) {
       throw new Error(
@@ -169,48 +239,65 @@ export class AuditMessagesManagerService {
       );
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (consumerName !== undefined && consumerName !== null) {
-      queryParameters = queryParameters.set('consumerName', <any>consumerName);
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
-    // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>consumerName,
+        'consumerName'
       );
     }
-    // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.post<any>(
       `${this.configuration.basePath}/urlinjsonout/auditMessagesManager/createAuditerConsumer`,
       null,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -224,55 +311,72 @@ export class AuditMessagesManagerService {
    */
   public getAllAuditerConsumers(
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<{ [key: string]: number }>;
   public getAllAuditerConsumers(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<{ [key: string]: number }>>;
   public getAllAuditerConsumers(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<{ [key: string]: number }>>;
   public getAllAuditerConsumers(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    let headers = this.defaultHeaders;
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<{ [key: string]: number }>(
       `${this.configuration.basePath}/json/auditMessagesManager/getAllAuditerConsumers`,
       {
+        context: localVarHttpContext,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -284,54 +388,74 @@ export class AuditMessagesManagerService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getAuditerMessagesCount(observe?: 'body', reportProgress?: boolean): Observable<number>;
+  public getAuditerMessagesCount(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<number>;
   public getAuditerMessagesCount(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<number>>;
   public getAuditerMessagesCount(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<number>>;
   public getAuditerMessagesCount(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    let headers = this.defaultHeaders;
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<number>(
       `${this.configuration.basePath}/json/auditMessagesManager/getAuditerMessagesCount`,
       {
+        context: localVarHttpContext,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -343,51 +467,74 @@ export class AuditMessagesManagerService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getLastMessageId(observe?: 'body', reportProgress?: boolean): Observable<number>;
+  public getLastMessageId(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<number>;
   public getLastMessageId(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<number>>;
   public getLastMessageId(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<number>>;
-  public getLastMessageId(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-    let headers = this.defaultHeaders;
+  public getLastMessageId(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<number>(
       `${this.configuration.basePath}/json/auditMessagesManager/getLastMessageId`,
       {
+        context: localVarHttpContext,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -403,64 +550,81 @@ export class AuditMessagesManagerService {
   public getMessages(
     count?: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<AuditMessage>>;
   public getMessages(
     count?: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<AuditMessage>>>;
   public getMessages(
     count?: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<AuditMessage>>>;
   public getMessages(
     count?: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (count !== undefined && count !== null) {
-      queryParameters = queryParameters.set('count', <any>count);
+      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>count, 'count');
     }
 
-    let headers = this.defaultHeaders;
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<Array<AuditMessage>>(
       `${this.configuration.basePath}/json/auditMessagesManager/getMessages`,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -476,22 +640,26 @@ export class AuditMessagesManagerService {
   public getMessagesByCount(
     count: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<AuditMessage>>;
   public getMessagesByCount(
     count: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<AuditMessage>>>;
   public getMessagesByCount(
     count: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<AuditMessage>>>;
   public getMessagesByCount(
     count: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (count === null || count === undefined) {
       throw new Error(
@@ -499,47 +667,60 @@ export class AuditMessagesManagerService {
       );
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (count !== undefined && count !== null) {
-      queryParameters = queryParameters.set('count', <any>count);
+      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>count, 'count');
     }
 
-    let headers = this.defaultHeaders;
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<Array<AuditMessage>>(
       `${this.configuration.basePath}/json/auditMessagesManager/getMessagesByCount`,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -548,64 +729,68 @@ export class AuditMessagesManagerService {
 
   /**
    * Get page of audit messages. Total count is only estimated.
-   * @param inputGetMessagesPage
+   * @param InputGetMessagesPage
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public getMessagesPage(
-    inputGetMessagesPage: InputGetMessagesPage,
+    InputGetMessagesPage: InputGetMessagesPage,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<PaginatedAuditMessages>;
   public getMessagesPage(
-    inputGetMessagesPage: InputGetMessagesPage,
+    InputGetMessagesPage: InputGetMessagesPage,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<PaginatedAuditMessages>>;
   public getMessagesPage(
-    inputGetMessagesPage: InputGetMessagesPage,
+    InputGetMessagesPage: InputGetMessagesPage,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<PaginatedAuditMessages>>;
   public getMessagesPage(
-    inputGetMessagesPage: InputGetMessagesPage,
+    InputGetMessagesPage: InputGetMessagesPage,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    if (inputGetMessagesPage === null || inputGetMessagesPage === undefined) {
+    if (InputGetMessagesPage === null || InputGetMessagesPage === undefined) {
       throw new Error(
-        'Required parameter inputGetMessagesPage was null or undefined when calling getMessagesPage.'
+        'Required parameter InputGetMessagesPage was null or undefined when calling getMessagesPage.'
       );
     }
 
-    let headers = this.defaultHeaders;
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
     }
 
     // to determine the Content-Type header
@@ -613,15 +798,28 @@ export class AuditMessagesManagerService {
     const httpContentTypeSelected: string | undefined =
       this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected !== undefined) {
-      headers = headers.set('Content-Type', httpContentTypeSelected);
+      localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.post<PaginatedAuditMessages>(
       `${this.configuration.basePath}/json/auditMessagesManager/getMessagesPage`,
-      inputGetMessagesPage,
+      InputGetMessagesPage,
       {
+        context: localVarHttpContext,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -637,22 +835,26 @@ export class AuditMessagesManagerService {
   public pollConsumerMessages(
     consumerName: string,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<AuditMessage>>;
   public pollConsumerMessages(
     consumerName: string,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<AuditMessage>>>;
   public pollConsumerMessages(
     consumerName: string,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<AuditMessage>>>;
   public pollConsumerMessages(
     consumerName: string,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (consumerName === null || consumerName === undefined) {
       throw new Error(
@@ -660,47 +862,64 @@ export class AuditMessagesManagerService {
       );
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (consumerName !== undefined && consumerName !== null) {
-      queryParameters = queryParameters.set('consumerName', <any>consumerName);
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
-    // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>consumerName,
+        'consumerName'
       );
     }
-    // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<Array<AuditMessage>>(
       `${this.configuration.basePath}/json/auditMessagesManager/pollConsumerMessages`,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -718,25 +937,29 @@ export class AuditMessagesManagerService {
     consumerName: string,
     lastProcessedId: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setLastProcessedId(
     consumerName: string,
     lastProcessedId: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setLastProcessedId(
     consumerName: string,
     lastProcessedId: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setLastProcessedId(
     consumerName: string,
     lastProcessedId: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (consumerName === null || consumerName === undefined) {
       throw new Error(
@@ -749,51 +972,72 @@ export class AuditMessagesManagerService {
       );
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (consumerName !== undefined && consumerName !== null) {
-      queryParameters = queryParameters.set('consumerName', <any>consumerName);
-    }
-    if (lastProcessedId !== undefined && lastProcessedId !== null) {
-      queryParameters = queryParameters.set('lastProcessedId', <any>lastProcessedId);
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
-    // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>consumerName,
+        'consumerName'
       );
     }
-    // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    if (lastProcessedId !== undefined && lastProcessedId !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>lastProcessedId,
+        'lastProcessedId'
+      );
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.post<any>(
       `${this.configuration.basePath}/urlinjsonout/auditMessagesManager/setLastProcessedId`,
       null,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }

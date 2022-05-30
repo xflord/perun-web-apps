@@ -71,7 +71,7 @@ export class PasswordResetComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {
-      login: login.value,
+      login: String(login.value),
       namespace: login.friendlyName.split(':')[1],
     };
 

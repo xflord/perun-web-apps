@@ -10,11 +10,12 @@
  * Do not edit the class manually.
  */
 
-export type FacilityPropagationState = 'OK' | 'ERROR' | 'PROCESSING' | 'NOT_DETERMINED';
+/**
+ * currently supported formats are DOT and TGF
+ */
+export type GraphFileFormat = 'DOT' | 'TGF';
 
-export const FacilityPropagationState = {
-  OK: 'OK' as FacilityPropagationState,
-  ERROR: 'ERROR' as FacilityPropagationState,
-  PROCESSING: 'PROCESSING' as FacilityPropagationState,
-  NOT_DETERMINED: 'NOT_DETERMINED' as FacilityPropagationState,
+export const GraphFileFormat = {
+  DOT: 'DOT' as GraphFileFormat,
+  TGF: 'TGF' as GraphFileFormat,
 };

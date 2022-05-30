@@ -63,8 +63,8 @@ export class AddApplicationFormItemDialogComponent implements OnInit {
         this.items.push(text);
         for (const item of this.data.applicationFormItems) {
           this.items.push(item.shortname);
-          if (item.type === Type.EMBEDDEDGROUPAPPLICATION) {
-            this.widgets = this.widgets.filter((type) => type !== Type.EMBEDDEDGROUPAPPLICATION);
+          if (item.type === Type.EMBEDDED_GROUP_APPLICATION) {
+            this.widgets = this.widgets.filter((type) => type !== Type.EMBEDDED_GROUP_APPLICATION);
           }
         }
         this.selectedItem = text;

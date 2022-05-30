@@ -19,16 +19,23 @@ import {
   HttpResponse,
   HttpEvent,
   HttpParameterCodec,
+  HttpContext,
 } from '@angular/common/http';
 import { CustomHttpParameterCodec } from '../encoder';
 import { Observable } from 'rxjs';
 
+// @ts-ignore
 import { Consent } from '../model/consent';
+// @ts-ignore
 import { ConsentHub } from '../model/consentHub';
+// @ts-ignore
 import { ConsentStatus } from '../model/consentStatus';
+// @ts-ignore
 import { InputUpdateConsentHub } from '../model/inputUpdateConsentHub';
+// @ts-ignore
 import { PerunException } from '../model/perunException';
 
+// @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
 
@@ -58,6 +65,49 @@ export class ConsentsManagerService {
     this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
   }
 
+  private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
+    if (typeof value === 'object' && value instanceof Date === false) {
+      httpParams = this.addToHttpParamsRecursive(httpParams, value);
+    } else {
+      httpParams = this.addToHttpParamsRecursive(httpParams, value, key);
+    }
+    return httpParams;
+  }
+
+  private addToHttpParamsRecursive(httpParams: HttpParams, value?: any, key?: string): HttpParams {
+    if (value == null) {
+      return httpParams;
+    }
+
+    if (typeof value === 'object') {
+      if (Array.isArray(value)) {
+        (value as any[]).forEach(
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+        );
+      } else if (value instanceof Date) {
+        if (key != null) {
+          httpParams = httpParams.append(key, (value as Date).toISOString().substr(0, 10));
+        } else {
+          throw Error('key may not be null if value is Date');
+        }
+      } else {
+        Object.keys(value).forEach(
+          (k) =>
+            (httpParams = this.addToHttpParamsRecursive(
+              httpParams,
+              value[k],
+              key != null ? `${key}.${k}` : k
+            ))
+        );
+      }
+    } else if (key != null) {
+      httpParams = httpParams.append(key, value);
+    } else {
+      throw Error('key may not be null if value is not object or array');
+    }
+    return httpParams;
+  }
+
   /**
    * Changes value of consent status.
    * @param consent id of Consent
@@ -69,25 +119,29 @@ export class ConsentsManagerService {
     consent: number,
     status: ConsentStatus,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Consent>;
   public changeConsentStatus(
     consent: number,
     status: ConsentStatus,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Consent>>;
   public changeConsentStatus(
     consent: number,
     status: ConsentStatus,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Consent>>;
   public changeConsentStatus(
     consent: number,
     status: ConsentStatus,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (consent === null || consent === undefined) {
       throw new Error(
@@ -100,51 +154,72 @@ export class ConsentsManagerService {
       );
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (consent !== undefined && consent !== null) {
-      queryParameters = queryParameters.set('consent', <any>consent);
-    }
-    if (status !== undefined && status !== null) {
-      queryParameters = queryParameters.set('status', <any>status);
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
-    // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>consent,
+        'consent'
       );
     }
-    // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    if (status !== undefined && status !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>status,
+        'status'
+      );
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.post<Consent>(
       `${this.configuration.basePath}/urlinjsonout/consentsManager/changeConsentStatus`,
       null,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -160,22 +235,26 @@ export class ConsentsManagerService {
   public evaluateConsentsForConsentHub(
     consentHub: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public evaluateConsentsForConsentHub(
     consentHub: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public evaluateConsentsForConsentHub(
     consentHub: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public evaluateConsentsForConsentHub(
     consentHub: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (consentHub === null || consentHub === undefined) {
       throw new Error(
@@ -183,48 +262,65 @@ export class ConsentsManagerService {
       );
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (consentHub !== undefined && consentHub !== null) {
-      queryParameters = queryParameters.set('consentHub', <any>consentHub);
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
-    // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>consentHub,
+        'consentHub'
       );
     }
-    // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.post<any>(
       `${this.configuration.basePath}/urlinjsonout/consentsManager/evaluateConsentsForConsentHub`,
       null,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -240,22 +336,26 @@ export class ConsentsManagerService {
   public evaluateConsentsForService(
     service: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public evaluateConsentsForService(
     service: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public evaluateConsentsForService(
     service: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public evaluateConsentsForService(
     service: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
@@ -263,48 +363,65 @@ export class ConsentsManagerService {
       );
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (service !== undefined && service !== null) {
-      queryParameters = queryParameters.set('service', <any>service);
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
-    // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>service,
+        'service'
       );
     }
-    // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.post<any>(
       `${this.configuration.basePath}/urlinjsonout/consentsManager/evaluateConsentsForService`,
       null,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -318,55 +435,72 @@ export class ConsentsManagerService {
    */
   public getAllConsentHubs(
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<ConsentHub>>;
   public getAllConsentHubs(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<ConsentHub>>>;
   public getAllConsentHubs(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<ConsentHub>>>;
   public getAllConsentHubs(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    let headers = this.defaultHeaders;
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<Array<ConsentHub>>(
       `${this.configuration.basePath}/json/consentsManager/getAllConsentHubs`,
       {
+        context: localVarHttpContext,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -378,51 +512,74 @@ export class ConsentsManagerService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getAllConsents(observe?: 'body', reportProgress?: boolean): Observable<Array<Consent>>;
+  public getAllConsents(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<Array<Consent>>;
   public getAllConsents(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Consent>>>;
   public getAllConsents(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Consent>>>;
-  public getAllConsents(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-    let headers = this.defaultHeaders;
+  public getAllConsents(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<Array<Consent>>(
       `${this.configuration.basePath}/json/consentsManager/getAllConsents`,
       {
+        context: localVarHttpContext,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -438,68 +595,85 @@ export class ConsentsManagerService {
   public getConsentById(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Consent>;
   public getConsentById(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Consent>>;
   public getConsentById(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Consent>>;
   public getConsentById(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling getConsentById.');
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (id !== undefined && id !== null) {
-      queryParameters = queryParameters.set('id', <any>id);
+      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>id, 'id');
     }
 
-    let headers = this.defaultHeaders;
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<Consent>(
       `${this.configuration.basePath}/json/consentsManager/getConsentById`,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -519,28 +693,32 @@ export class ConsentsManagerService {
     consentHub: number,
     status: ConsentStatus,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Consent>;
   public getConsentForUserAndConsentHub(
     user: number,
     consentHub: number,
     status: ConsentStatus,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Consent>>;
   public getConsentForUserAndConsentHub(
     user: number,
     consentHub: number,
     status: ConsentStatus,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Consent>>;
   public getConsentForUserAndConsentHub(
     user: number,
     consentHub: number,
     status: ConsentStatus,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
@@ -558,53 +736,74 @@ export class ConsentsManagerService {
       );
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (user !== undefined && user !== null) {
-      queryParameters = queryParameters.set('user', <any>user);
+      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>user, 'user');
     }
     if (consentHub !== undefined && consentHub !== null) {
-      queryParameters = queryParameters.set('consentHub', <any>consentHub);
-    }
-    if (status !== undefined && status !== null) {
-      queryParameters = queryParameters.set('status', <any>status);
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
-    // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>consentHub,
+        'consentHub'
       );
     }
-    // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    if (status !== undefined && status !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>status,
+        'status'
+      );
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<Consent>(
       `${this.configuration.basePath}/json/consentsManager/getConsentForUserAndConsentHub`,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -620,22 +819,26 @@ export class ConsentsManagerService {
   public getConsentHubByFacility(
     facility: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<ConsentHub>;
   public getConsentHubByFacility(
     facility: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<ConsentHub>>;
   public getConsentHubByFacility(
     facility: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<ConsentHub>>;
   public getConsentHubByFacility(
     facility: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
@@ -643,47 +846,64 @@ export class ConsentsManagerService {
       );
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (facility !== undefined && facility !== null) {
-      queryParameters = queryParameters.set('facility', <any>facility);
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
-    // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>facility,
+        'facility'
       );
     }
-    // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<ConsentHub>(
       `${this.configuration.basePath}/json/consentsManager/getConsentHubByFacility`,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -699,22 +919,26 @@ export class ConsentsManagerService {
   public getConsentHubById(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<ConsentHub>;
   public getConsentHubById(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<ConsentHub>>;
   public getConsentHubById(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<ConsentHub>>;
   public getConsentHubById(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -722,47 +946,60 @@ export class ConsentsManagerService {
       );
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (id !== undefined && id !== null) {
-      queryParameters = queryParameters.set('id', <any>id);
+      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>id, 'id');
     }
 
-    let headers = this.defaultHeaders;
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<ConsentHub>(
       `${this.configuration.basePath}/json/consentsManager/getConsentHubById`,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -778,22 +1015,26 @@ export class ConsentsManagerService {
   public getConsentHubByName(
     name: string,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<ConsentHub>;
   public getConsentHubByName(
     name: string,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<ConsentHub>>;
   public getConsentHubByName(
     name: string,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<ConsentHub>>;
   public getConsentHubByName(
     name: string,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (name === null || name === undefined) {
       throw new Error(
@@ -801,47 +1042,60 @@ export class ConsentsManagerService {
       );
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (name !== undefined && name !== null) {
-      queryParameters = queryParameters.set('name', <any>name);
+      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>name, 'name');
     }
 
-    let headers = this.defaultHeaders;
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<ConsentHub>(
       `${this.configuration.basePath}/json/consentsManager/getConsentHubByName`,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -857,22 +1111,26 @@ export class ConsentsManagerService {
   public getConsentsForConsentHub(
     consentHub: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Consent>>;
   public getConsentsForConsentHub(
     consentHub: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Consent>>>;
   public getConsentsForConsentHub(
     consentHub: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Consent>>>;
   public getConsentsForConsentHub(
     consentHub: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (consentHub === null || consentHub === undefined) {
       throw new Error(
@@ -880,47 +1138,64 @@ export class ConsentsManagerService {
       );
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (consentHub !== undefined && consentHub !== null) {
-      queryParameters = queryParameters.set('consentHub', <any>consentHub);
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
-    // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>consentHub,
+        'consentHub'
       );
     }
-    // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<Array<Consent>>(
       `${this.configuration.basePath}/json/consentsManager/getConsentsForConsentHub/id`,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -938,25 +1213,29 @@ export class ConsentsManagerService {
     consentHub: number,
     status: ConsentStatus,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Consent>>;
   public getConsentsForConsentHubWithStatus(
     consentHub: number,
     status: ConsentStatus,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Consent>>>;
   public getConsentsForConsentHubWithStatus(
     consentHub: number,
     status: ConsentStatus,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Consent>>>;
   public getConsentsForConsentHubWithStatus(
     consentHub: number,
     status: ConsentStatus,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (consentHub === null || consentHub === undefined) {
       throw new Error(
@@ -969,50 +1248,71 @@ export class ConsentsManagerService {
       );
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (consentHub !== undefined && consentHub !== null) {
-      queryParameters = queryParameters.set('consentHub', <any>consentHub);
-    }
-    if (status !== undefined && status !== null) {
-      queryParameters = queryParameters.set('status', <any>status);
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
-    // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>consentHub,
+        'consentHub'
       );
     }
-    // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    if (status !== undefined && status !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>status,
+        'status'
+      );
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<Array<Consent>>(
       `${this.configuration.basePath}/json/consentsManager/getConsentsForConsentHub/id-s`,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -1028,22 +1328,26 @@ export class ConsentsManagerService {
   public getConsentsForUser(
     user: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Consent>>;
   public getConsentsForUser(
     user: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Consent>>>;
   public getConsentsForUser(
     user: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Consent>>>;
   public getConsentsForUser(
     user: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
@@ -1051,47 +1355,60 @@ export class ConsentsManagerService {
       );
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (user !== undefined && user !== null) {
-      queryParameters = queryParameters.set('user', <any>user);
+      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>user, 'user');
     }
 
-    let headers = this.defaultHeaders;
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<Array<Consent>>(
       `${this.configuration.basePath}/json/consentsManager/getConsentsForUser/id`,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -1109,25 +1426,29 @@ export class ConsentsManagerService {
     user: number,
     consentHub: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Consent>>;
   public getConsentsForUserAndConsentHub(
     user: number,
     consentHub: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Consent>>>;
   public getConsentsForUserAndConsentHub(
     user: number,
     consentHub: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Consent>>>;
   public getConsentsForUserAndConsentHub(
     user: number,
     consentHub: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
@@ -1140,50 +1461,67 @@ export class ConsentsManagerService {
       );
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (user !== undefined && user !== null) {
-      queryParameters = queryParameters.set('user', <any>user);
+      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>user, 'user');
     }
     if (consentHub !== undefined && consentHub !== null) {
-      queryParameters = queryParameters.set('consentHub', <any>consentHub);
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
-    // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>consentHub,
+        'consentHub'
       );
     }
-    // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<Array<Consent>>(
       `${this.configuration.basePath}/json/consentsManager/getConsentsForUserAndConsentHub`,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -1201,25 +1539,29 @@ export class ConsentsManagerService {
     user: number,
     status: ConsentStatus,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Consent>>;
   public getConsentsForUserWithStatus(
     user: number,
     status: ConsentStatus,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Consent>>>;
   public getConsentsForUserWithStatus(
     user: number,
     status: ConsentStatus,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Consent>>>;
   public getConsentsForUserWithStatus(
     user: number,
     status: ConsentStatus,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
@@ -1232,50 +1574,67 @@ export class ConsentsManagerService {
       );
     }
 
-    let queryParameters = new HttpParams({ encoder: this.encoder });
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (user !== undefined && user !== null) {
-      queryParameters = queryParameters.set('user', <any>user);
+      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>user, 'user');
     }
     if (status !== undefined && status !== null) {
-      queryParameters = queryParameters.set('status', <any>status);
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
-    // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>status,
+        'status'
       );
     }
-    // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.get<Array<Consent>>(
       `${this.configuration.basePath}/json/consentsManager/getConsentsForUser/id-s`,
       {
-        params: queryParameters,
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }
@@ -1284,64 +1643,68 @@ export class ConsentsManagerService {
 
   /**
    * Updates a consent hub. Ignores related facilities.
-   * @param inputUpdateConsentHub
+   * @param InputUpdateConsentHub
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public updateConsentHub(
-    inputUpdateConsentHub: InputUpdateConsentHub,
+    InputUpdateConsentHub: InputUpdateConsentHub,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<ConsentHub>;
   public updateConsentHub(
-    inputUpdateConsentHub: InputUpdateConsentHub,
+    InputUpdateConsentHub: InputUpdateConsentHub,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<ConsentHub>>;
   public updateConsentHub(
-    inputUpdateConsentHub: InputUpdateConsentHub,
+    InputUpdateConsentHub: InputUpdateConsentHub,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<ConsentHub>>;
   public updateConsentHub(
-    inputUpdateConsentHub: InputUpdateConsentHub,
+    InputUpdateConsentHub: InputUpdateConsentHub,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    if (inputUpdateConsentHub === null || inputUpdateConsentHub === undefined) {
+    if (InputUpdateConsentHub === null || InputUpdateConsentHub === undefined) {
       throw new Error(
-        'Required parameter inputUpdateConsentHub was null or undefined when calling updateConsentHub.'
+        'Required parameter InputUpdateConsentHub was null or undefined when calling updateConsentHub.'
       );
     }
 
-    let headers = this.defaultHeaders;
+    let localVarHeaders = this.defaultHeaders;
 
-    // authentication (ApiKeyAuth) required
-    if (this.configuration.apiKeys && this.configuration.apiKeys['Authorization']) {
-      headers = headers.set('Authorization', this.configuration.apiKeys['Authorization']);
-    }
-
+    let localVarCredential: string | undefined;
     // authentication (BasicAuth) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
     }
+
     // authentication (BearerAuth) required
-    if (this.configuration.accessToken) {
-      const accessToken =
-        typeof this.configuration.accessToken === 'function'
-          ? this.configuration.accessToken()
-          : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
     }
-    // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
     }
 
     // to determine the Content-Type header
@@ -1349,15 +1712,28 @@ export class ConsentsManagerService {
     const httpContentTypeSelected: string | undefined =
       this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected !== undefined) {
-      headers = headers.set('Content-Type', httpContentTypeSelected);
+      localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
     }
 
     return this.httpClient.post<ConsentHub>(
       `${this.configuration.basePath}/json/consentsManager/updateConsentHub`,
-      inputUpdateConsentHub,
+      InputUpdateConsentHub,
       {
+        context: localVarHttpContext,
+        responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
+        headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
       }

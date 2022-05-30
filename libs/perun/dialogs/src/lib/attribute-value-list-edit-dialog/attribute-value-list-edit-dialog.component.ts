@@ -21,7 +21,7 @@ export class AttributeValueListEditDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.attributeValue = this.data.attribute.value[this.data.index] as string;
+    this.attributeValue = (this.data.attribute.value as string[])[this.data.index];
   }
 
   cancel(): void {
@@ -29,7 +29,7 @@ export class AttributeValueListEditDialogComponent implements OnInit {
   }
 
   submit(): void {
-    this.data.attribute.value[this.data.index] = this.attributeValue;
+    (this.data.attribute.value as string[])[this.data.index] = this.attributeValue;
     this.dialogRef.close(true);
   }
 }

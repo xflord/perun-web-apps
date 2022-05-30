@@ -1,23 +1,47 @@
 import { HttpParameterCodec } from '@angular/common/http';
 
 export interface ConfigurationParameters {
+  /**
+   *  @deprecated Since 5.0. Use credentials instead
+   */
   apiKeys?: { [key: string]: string };
   username?: string;
   password?: string;
+  /**
+   *  @deprecated Since 5.0. Use credentials instead
+   */
   accessToken?: string | (() => string);
   basePath?: string;
   withCredentials?: boolean;
   encoder?: HttpParameterCodec;
+  /**
+   * The keys are the names in the securitySchemes section of the OpenAPI
+   * document. They should map to the value used for authentication
+   * minus any standard prefixes such as 'Basic' or 'Bearer'.
+   */
+  credentials?: { [key: string]: string | (() => string | undefined) };
 }
 
 export class Configuration {
+  /**
+   *  @deprecated Since 5.0. Use credentials instead
+   */
   apiKeys?: { [key: string]: string };
   username?: string;
   password?: string;
+  /**
+   *  @deprecated Since 5.0. Use credentials instead
+   */
   accessToken?: string | (() => string);
   basePath?: string;
   withCredentials?: boolean;
   encoder?: HttpParameterCodec;
+  /**
+   * The keys are the names in the securitySchemes section of the OpenAPI
+   * document. They should map to the value used for authentication
+   * minus any standard prefixes such as 'Basic' or 'Bearer'.
+   */
+  credentials: { [key: string]: string | (() => string | undefined) };
 
   constructor(configurationParameters: ConfigurationParameters = {}) {
     this.apiKeys = configurationParameters.apiKeys;
@@ -27,6 +51,27 @@ export class Configuration {
     this.basePath = configurationParameters.basePath;
     this.withCredentials = configurationParameters.withCredentials;
     this.encoder = configurationParameters.encoder;
+    if (configurationParameters.credentials) {
+      this.credentials = configurationParameters.credentials;
+    } else {
+      this.credentials = {};
+    }
+
+    // init default BasicAuth credential
+    if (!this.credentials['BasicAuth']) {
+      this.credentials['BasicAuth'] = () => {
+        return this.username || this.password
+          ? btoa(this.username + ':' + this.password)
+          : undefined;
+      };
+    }
+
+    // init default BearerAuth credential
+    if (!this.credentials['BearerAuth']) {
+      this.credentials['BearerAuth'] = () => {
+        return typeof this.accessToken === 'function' ? this.accessToken() : this.accessToken;
+      };
+    }
   }
 
   /**
@@ -85,5 +130,10 @@ export class Configuration {
     return (
       mime !== null && (jsonMime.test(mime) || mime.toLowerCase() === 'application/json-patch+json')
     );
+  }
+
+  public lookupCredential(key: string): string | undefined {
+    const value = this.credentials[key];
+    return typeof value === 'function' ? value() : value;
   }
 }

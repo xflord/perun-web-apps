@@ -29,33 +29,10 @@ import { VosManagerService } from './api/vosManager.service';
   imports: [],
   declarations: [],
   exports: [],
-  providers: [
-    AttributesManagerService,
-    AuditMessagesManagerService,
-    AuthzResolverService,
-    CabinetManagerService,
-    ConsentsManagerService,
-    DatabaseManagerService,
-    ExtSourcesManagerService,
-    FacilitiesManagerService,
-    FacilitiesManagerByFacilityNameService,
-    GroupsManagerService,
-    IntegrationManagerService,
-    MembersManagerService,
-    OwnersManagerService,
-    RTMessagesManagerService,
-    RegistrarManagerService,
-    ResourcesManagerService,
-    SearcherService,
-    ServicesManagerService,
-    TasksManagerService,
-    UsersManagerService,
-    UtilsService,
-    VosManagerService,
-  ],
+  providers: [],
 })
 export class ApiModule {
-  public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders<any> {
+  public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders<ApiModule> {
     return {
       ngModule: ApiModule,
       providers: [{ provide: Configuration, useFactory: configurationFactory }],

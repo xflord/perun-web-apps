@@ -9,11 +9,17 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application } from './application';
 
-export interface PaginatedApplications {
-  offset: number;
-  pageSize: number;
-  totalCount: number;
-  data: Array<Application>;
+/**
+ * input to createCategory
+ */
+export interface InputCreateCategoryNR {
+  /**
+   * name of the category
+   */
+  name: string;
+  /**
+   * the rank of the category
+   */
+  rank: number;
 }

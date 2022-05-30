@@ -25,13 +25,13 @@ export type DestinationType =
   | 'host-windows-proxy';
 
 export const DestinationType = {
-  Host: 'host' as DestinationType,
-  Email: 'email' as DestinationType,
-  Semail: 'semail' as DestinationType,
-  Url: 'url' as DestinationType,
-  Userhost: 'user@host' as DestinationType,
-  Userhostport: 'user@host:port' as DestinationType,
-  ServiceSpecific: 'service-specific' as DestinationType,
-  UserhostWindows: 'user@host-windows' as DestinationType,
-  HostWindowsProxy: 'host-windows-proxy' as DestinationType,
+  host: 'host' as DestinationType,
+  email: 'email' as DestinationType,
+  semail: 'semail' as DestinationType,
+  url: 'url' as DestinationType,
+  userhost: 'user@host' as DestinationType,
+  userhostport: 'user@host:port' as DestinationType,
+  service_specific: 'service-specific' as DestinationType,
+  userhost_windows: 'user@host-windows' as DestinationType,
+  host_windows_proxy: 'host-windows-proxy' as DestinationType,
 };

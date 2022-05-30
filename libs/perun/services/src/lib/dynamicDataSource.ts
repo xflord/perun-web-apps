@@ -6,8 +6,8 @@ import {
   AuditMessage,
   MemberGroupStatus,
   MembersOrderColumn,
-  PaginatedApplications,
   PaginatedAuditMessages,
+  PaginatedRichApplications,
   PaginatedRichMembers,
   PaginatedRichUsers,
   RichMember,
@@ -191,7 +191,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
       )
       .subscribe((paginatedApplications) => {
         if (this.latestQueryTime <= thisQueryTime) {
-          const data: Application[] = (paginatedApplications as PaginatedApplications).data;
+          const data: Application[] = (paginatedApplications as PaginatedRichApplications).data;
           if (data !== null && data.length !== 0) {
             const d = data;
             if (d[0].group) {
@@ -206,7 +206,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
               );
             }
           }
-          this.allObjectCount = (paginatedApplications as PaginatedApplications).totalCount;
+          this.allObjectCount = (paginatedApplications as PaginatedRichApplications).totalCount;
           this.dataSubject.next(data as unknown as T[]);
         }
       });

@@ -16,5 +16,5 @@ export interface Attribute extends AttributeDefinition {
   valueCreatedBy?: string | null;
   valueModifiedAt?: string | null;
   valueModifiedBy?: string | null;
-  value?: object;
+  value?: any | null;
 }

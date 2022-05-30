@@ -76,15 +76,19 @@ export class SettingsDataQuotasComponent implements OnInit {
     this.attributesManagerService.getResourceAttributes(id).subscribe((atts) => {
       let quotaAttribute = atts.find((att) => att.friendlyName === 'dataQuotas');
       if (quotaAttribute?.value) {
-        const keys = Object.keys(quotaAttribute.value);
-        this.currentQuota = quotaAttribute.value[keys[0]] as string;
+        const values = Object.entries(quotaAttribute.value as { [s: string]: string }).map(
+          (entry) => String(entry[1])
+        );
+        this.currentQuota = values[0];
       } else {
         this.currentQuota = '';
       }
       quotaAttribute = atts.find((att) => att.friendlyName === 'defaultDataQuotas');
-      if (quotaAttribute) {
-        const keys = Object.keys(quotaAttribute.value);
-        this.defaultQuota = quotaAttribute.value[keys[0]] as string;
+      if (quotaAttribute?.value) {
+        const values = Object.entries(quotaAttribute.value as { [s: string]: string }).map(
+          (entry) => String(entry[1])
+        );
+        this.defaultQuota = values[0];
       } else {
         this.defaultQuota = '';
       }

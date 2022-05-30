@@ -236,13 +236,13 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
 
   getSortDataColumn(): ApplicationsOrderColumn {
     if (!this.sort) {
-      return ApplicationsOrderColumn.DATECREATED;
+      return ApplicationsOrderColumn.DATE_CREATED;
     }
     switch (this.sort.active) {
       case 'id':
         return ApplicationsOrderColumn.ID;
       case 'createdAt':
-        return ApplicationsOrderColumn.DATECREATED;
+        return ApplicationsOrderColumn.DATE_CREATED;
       case 'type':
         return ApplicationsOrderColumn.TYPE;
       case 'state':
@@ -250,11 +250,11 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       case 'user':
         return ApplicationsOrderColumn.SUBMITTER;
       case 'groupName':
-        return ApplicationsOrderColumn.GROUPNAME;
+        return ApplicationsOrderColumn.GROUP_NAME;
       case 'modifiedBy':
-        return ApplicationsOrderColumn.MODIFIEDBY;
+        return ApplicationsOrderColumn.MODIFIED_BY;
       default:
-        return ApplicationsOrderColumn.DATECREATED;
+        return ApplicationsOrderColumn.DATE_CREATED;
     }
   }
 

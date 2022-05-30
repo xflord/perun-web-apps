@@ -9,12 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Destination } from './destination';
-import { Service } from './service';
-import { Facility } from './facility';
+import { ApplicationFormItemData } from './applicationFormItemData';
 
-export interface RichDestination extends Destination {
-  blocked?: boolean;
-  service?: Service;
-  facility?: Facility;
+/**
+ * input to updateFormItemsData
+ */
+export interface InputFormItemsData {
+  /**
+   * application id
+   */
+  appId: number;
+  data: Array<ApplicationFormItemData>;
 }

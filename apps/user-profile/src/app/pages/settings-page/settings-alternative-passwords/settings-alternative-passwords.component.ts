@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { StoreService } from '@perun-web-apps/perun/services';
-import {
-  Attribute,
-  AttributesManagerService,
-  UsersManagerService,
-} from '@perun-web-apps/perun/openapi';
+import { AttributesManagerService, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ShowGeneratedPasswordDialogComponent } from '../../../components/dialogs/show-generated-password-dialog/show-generated-password-dialog.component';
@@ -26,7 +22,7 @@ export class SettingsAlternativePasswordsComponent implements OnInit {
   passwordDescriptions = new Set<string>();
   displayedValues: string[] = [];
   selection = new SelectionModel<string>(false, []);
-  altPasswordsAttribute: Attribute;
+  altPasswordsAttributeValue: Map<string, string>;
   alertText: string;
   headerColumnText: string;
   loading: boolean;
@@ -104,7 +100,7 @@ export class SettingsAlternativePasswordsComponent implements OnInit {
     config.width = '600px';
     config.data = {
       description: this.selection.selected,
-      passwordId: this.altPasswordsAttribute.value[this.selection.selected[0]] as string,
+      passwordId: this.altPasswordsAttributeValue.get(this.selection.selected[0]),
       userId: this.userId,
     };
 
@@ -123,10 +119,12 @@ export class SettingsAlternativePasswordsComponent implements OnInit {
     this.attributesManagerService
       .getUserAttributeByName(this.userId, `urn:perun:user:attribute-def:def:altPasswords:einfra`)
       .subscribe((att) => {
-        this.altPasswordsAttribute = att;
         if (att.value) {
-          const foo = Object.keys(att.value);
-          this.passwordDescriptions = new Set<string>(foo);
+          this.altPasswordsAttributeValue = new Map<string, string>(
+            Object.entries(att.value as { [s: string]: string })
+          );
+          const altPasswordsKeys = this.altPasswordsAttributeValue.keys();
+          this.passwordDescriptions = new Set<string>(altPasswordsKeys);
           this.displayedValues = Array.from(this.passwordDescriptions.values());
         } else {
           this.displayedValues = [];

@@ -10,16 +10,10 @@
  * Do not edit the class manually.
  */
 import { Auditable } from './auditable';
+import { OwnerType } from './ownerType';
 
 export interface Owner extends Auditable {
   name?: string;
   contact?: string;
-  type?: Owner.TypeEnum;
-}
-export namespace Owner {
-  export type TypeEnum = 'technical' | 'administrative';
-  export const TypeEnum = {
-    Technical: 'technical' as TypeEnum,
-    Administrative: 'administrative' as TypeEnum,
-  };
+  type?: OwnerType;
 }
