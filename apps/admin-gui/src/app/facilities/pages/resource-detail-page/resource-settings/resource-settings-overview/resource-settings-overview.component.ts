@@ -2,7 +2,11 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MenuItem } from '@perun-web-apps/perun/models';
 import { Resource, ResourcesManagerService } from '@perun-web-apps/perun/openapi';
-import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
+import {
+  EntityStorageService,
+  GuiAuthResolver,
+  RoutePolicyService,
+} from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-resource-settings-overview',
@@ -19,7 +23,8 @@ export class ResourceSettingsOverviewComponent implements OnInit {
     private route: ActivatedRoute,
     private resourceManager: ResourcesManagerService,
     private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private routePolicyService: RoutePolicyService
   ) {}
 
   ngOnInit(): void {
@@ -36,8 +41,7 @@ export class ResourceSettingsOverviewComponent implements OnInit {
   private initItems(inVo: boolean): void {
     this.items = [];
 
-    const managersAuth = this.authResolver.isManagerPagePrivileged(this.resource);
-    if (managersAuth) {
+    if (this.routePolicyService.canNavigate('resources-settings-managers', this.resource)) {
       this.items.push({
         cssIcon: 'perun-manager',
         url: `${

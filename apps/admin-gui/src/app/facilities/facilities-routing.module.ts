@@ -31,15 +31,25 @@ import { FacilityTaskResultsComponent } from './pages/facility-detail-page/facil
 import { ResourceTagsComponent } from './pages/resource-detail-page/resource-tags/resource-tags.component';
 import { FacilityConfigurationPageComponent } from './pages/facility-configuration-page/facility-configuration-page.component';
 import { ConfigureFacilityGuardService } from './services/configure-facility-guard.service';
+import { RouteAuthGuardService } from '../shared/route-auth-guard.service';
 
 const routes: Routes = [
   {
     path: '',
     component: FacilitySelectPageComponent,
+    canActivateChild: [RouteAuthGuardService],
+    children: [
+      {
+        path: '',
+        component: FacilitySelectPageComponent,
+        data: { animation: 'FacilitySelectPage' },
+      },
+    ],
   },
   {
     path: ':facilityId',
     component: FacilityDetailPageComponent,
+    canActivateChild: [RouteAuthGuardService],
     children: [
       {
         path: '',
@@ -138,6 +148,7 @@ const routes: Routes = [
   {
     path: ':facilityId/resources/:resourceId',
     component: ResourceDetailPageComponent,
+    canActivateChild: [RouteAuthGuardService],
     children: [
       {
         path: '',

@@ -204,6 +204,7 @@ const routes: Routes = [
   {
     path: ':voId/members/:memberId',
     component: MemberDetailPageComponent,
+    canActivateChild: [RouteAuthGuardService],
     children: [
       {
         path: '',
@@ -240,6 +241,7 @@ const routes: Routes = [
   {
     path: ':voId/groups/:groupId',
     component: GroupDetailPageComponent,
+    canActivateChild: [RouteAuthGuardService],
     children: [
       {
         path: '',
@@ -331,6 +333,7 @@ const routes: Routes = [
   {
     path: ':voId/resources/:resourceId',
     component: ResourceDetailPageComponent,
+    canActivateChild: [RouteAuthGuardService],
     children: [
       {
         path: '',

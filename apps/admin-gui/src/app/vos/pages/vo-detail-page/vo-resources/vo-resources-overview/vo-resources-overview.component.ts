@@ -2,7 +2,11 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { SideMenuService } from '../../../../../core/services/common/side-menu.service';
 import { MenuItem } from '@perun-web-apps/perun/models';
 import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
-import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
+import {
+  EntityStorageService,
+  GuiAuthResolver,
+  RoutePolicyService,
+} from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-vo-resources-overview',
@@ -18,7 +22,8 @@ export class VoResourcesOverviewComponent implements OnInit {
     private sideMenuService: SideMenuService,
     private voService: VosManagerService,
     private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private routePolicyService: RoutePolicyService
   ) {}
 
   ngOnInit(): void {
@@ -27,16 +32,16 @@ export class VoResourcesOverviewComponent implements OnInit {
   }
 
   private initItems(): void {
-    this.items = [
-      {
+    if (this.routePolicyService.canNavigate('organizations-resources-preview', this.vo)) {
+      this.items.push({
         cssIcon: 'perun-resource',
         url: `/organizations/${this.vo.id}/resources/preview`,
         label: 'MENU_ITEMS.VO.RESOURCE_PREVIEW',
         style: 'vo-btn',
-      },
-    ];
+      });
+    }
 
-    if (this.authResolver.isAuthorized('getAllResourcesTagsForVo_Vo_policy', [this.vo])) {
+    if (this.routePolicyService.canNavigate('organizations-resources-tags', this.vo)) {
       this.items.push({
         cssIcon: 'perun-resource-tags',
         url: `/organizations/${this.vo.id}/resources/tags`,
@@ -45,7 +50,7 @@ export class VoResourcesOverviewComponent implements OnInit {
       });
     }
 
-    if (this.authResolver.isAuthorized('getResourcesState_Vo_policy', [this.vo])) {
+    if (this.routePolicyService.canNavigate('organizations-resources-states', this.vo)) {
       this.items.push({
         cssIcon: 'perun-resources-state',
         url: `/organizations/${this.vo.id}/resources/states`,

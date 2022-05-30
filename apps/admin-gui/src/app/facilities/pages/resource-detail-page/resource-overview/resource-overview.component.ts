@@ -2,7 +2,11 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MenuItem } from '@perun-web-apps/perun/models';
 import { Resource, ResourcesManagerService } from '@perun-web-apps/perun/openapi';
-import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
+import {
+  EntityStorageService,
+  GuiAuthResolver,
+  RoutePolicyService,
+} from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-resource-overview',
@@ -20,7 +24,8 @@ export class ResourceOverviewComponent implements OnInit {
     private resourcesManager: ResourcesManagerService,
     private route: ActivatedRoute,
     public guiAuthResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private routePolicyService: RoutePolicyService
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +45,7 @@ export class ResourceOverviewComponent implements OnInit {
       : `/facilities/${this.resource.facilityId}`;
     this.navItems = [];
 
-    if (this.guiAuthResolver.isAuthorized('getAssignedGroups_Resource_policy', [this.resource])) {
+    if (this.routePolicyService.canNavigate('resources-groups', this.resource)) {
       this.navItems.push({
         cssIcon: 'perun-group',
         url: `${urlStart}/resources/${this.resource.id}/groups`,
@@ -48,7 +53,7 @@ export class ResourceOverviewComponent implements OnInit {
         style: 'resource-btn',
       });
     }
-    if (this.guiAuthResolver.isAuthorized('getAssignedServices_Resource_policy', [this.resource])) {
+    if (this.routePolicyService.canNavigate('resources-services', this.resource)) {
       this.navItems.push({
         cssIcon: 'perun-service',
         url: `/${urlStart}/resources/${this.resource.id}/services`,
@@ -56,7 +61,7 @@ export class ResourceOverviewComponent implements OnInit {
         style: 'resource-btn',
       });
     }
-    if (this.guiAuthResolver.isAuthorized('getAssignedMembers_Resource_policy', [this.resource])) {
+    if (this.routePolicyService.canNavigate('resources-members', this.resource)) {
       this.navItems.push({
         cssIcon: 'perun-user',
         url: `${urlStart}/resources/${this.resource.id}/members`,
@@ -64,11 +69,7 @@ export class ResourceOverviewComponent implements OnInit {
         style: 'resource-btn',
       });
     }
-    if (
-      this.guiAuthResolver.isAuthorized('getAllResourcesTagsForResource_Resource_policy', [
-        this.resource,
-      ])
-    ) {
+    if (this.routePolicyService.canNavigate('resources-tags', this.resource)) {
       this.navItems.push({
         cssIcon: 'perun-resource-tags',
         url: `${urlStart}/resources/${this.resource.id}/tags`,
@@ -77,15 +78,16 @@ export class ResourceOverviewComponent implements OnInit {
       });
     }
 
-    this.navItems.push({
-      cssIcon: 'perun-attributes',
-      url: `${urlStart}/resources/${this.resource.id}/attributes`,
-      label: 'MENU_ITEMS.RESOURCE.ATTRIBUTES',
-      style: 'resource-btn',
-    });
+    if (this.routePolicyService.canNavigate('resources-attributes', this.resource)) {
+      this.navItems.push({
+        cssIcon: 'perun-attributes',
+        url: `${urlStart}/resources/${this.resource.id}/attributes`,
+        label: 'MENU_ITEMS.RESOURCE.ATTRIBUTES',
+        style: 'resource-btn',
+      });
+    }
 
-    const managersAuth = this.guiAuthResolver.isManagerPagePrivileged(this.resource);
-    if (managersAuth) {
+    if (this.routePolicyService.canNavigate('resources-settings', this.resource)) {
       this.navItems.push({
         cssIcon: 'perun-settings2',
         url: `${urlStart}/resources/${this.resource.id}/settings`,

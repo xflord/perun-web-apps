@@ -5,6 +5,7 @@ import {
   ApiRequestConfigurationService,
   GuiAuthResolver,
   NotificatorService,
+  RoutePolicyService,
   StoreService,
 } from '@perun-web-apps/perun/services';
 import {
@@ -50,7 +51,8 @@ export class SideMenuItemService {
     private apiRequest: ApiRequestConfigurationService,
     private attributesManager: AttributesManagerService,
     private notificator: NotificatorService,
-    public guiAuthResolver: GuiAuthResolver
+    public guiAuthResolver: GuiAuthResolver,
+    private routePolicyService: RoutePolicyService
   ) {}
 
   getFacilitiesManagementItem(): SideMenuItem {
@@ -306,13 +308,13 @@ export class SideMenuItemService {
     };
   }
 
-  parseMember(member: RichMember, vo: Vo): SideMenuItem {
+  parseMember(member: RichMember): SideMenuItem {
     return {
       label: parseFullName(member.user),
       baseLink: [`/organizations/${member.voId}/members/${member.id}`],
       backgroundColorCss: this.memberBgColor,
       textColorCss: this.memberTextColor,
-      links: this.getMemberLinks(member, vo),
+      links: this.getMemberLinks(member),
       colorClass: 'member-item',
       icon: 'perun-user',
       // labelClass: 'member-text',
@@ -401,9 +403,7 @@ export class SideMenuItemService {
     });
 
     // Members
-    if (
-      this.authResolver.isAuthorized('getMembersPage_Vo_MembersPageQuery_List<String>_policy', [vo])
-    ) {
+    if (this.routePolicyService.canNavigate('organizations-members', vo)) {
       links.push({
         label: 'MENU_ITEMS.VO.MEMBERS',
         url: [`/organizations/${vo.id}/members`],
@@ -412,12 +412,7 @@ export class SideMenuItemService {
     }
 
     // Groups
-    if (
-      this.authResolver.isAuthorized(
-        'getAllRichGroupsWithAttributesByNames_Vo_List<String>_policy',
-        [vo]
-      )
-    ) {
+    if (this.routePolicyService.canNavigate('organizations-groups', vo)) {
       links.push({
         label: 'MENU_ITEMS.VO.GROUPS',
         url: [`/organizations/${vo.id}/groups`],
@@ -426,18 +421,19 @@ export class SideMenuItemService {
     }
 
     // Resource management
-    if (this.authResolver.isAuthorized('getRichResources_Vo_policy', [vo])) {
+    if (this.routePolicyService.canNavigate('organizations-resources', vo)) {
+      const children: EntityMenuLink[] = [];
       // Preview
-      const children = [
-        {
+      if (this.routePolicyService.canNavigate('organizations-resources-preview', vo)) {
+        children.push({
           label: 'MENU_ITEMS.VO.RESOURCE_PREVIEW',
           url: [`/organizations/${vo.id}/resources/preview`],
           activatedRegex: '/organizations/\\d+/resources/preview$',
-        },
-      ];
+        });
+      }
 
       // Tags
-      if (this.authResolver.isAuthorized('getAllResourcesTagsForVo_Vo_policy', [vo])) {
+      if (this.routePolicyService.canNavigate('organizations-resources-tags', vo)) {
         children.push({
           label: 'MENU_ITEMS.VO.RESOURCE_TAGS',
           url: [`/organizations/${vo.id}/resources/tags`],
@@ -446,7 +442,7 @@ export class SideMenuItemService {
       }
 
       // States
-      if (this.authResolver.isAuthorized('getResourcesState_Vo_policy', [vo])) {
+      if (this.routePolicyService.canNavigate('organizations-resources-states', vo)) {
         children.push({
           label: 'MENU_ITEMS.VO.RESOURCE_STATES',
           url: [`/organizations/${vo.id}/resources/states`],
@@ -464,9 +460,7 @@ export class SideMenuItemService {
     }
 
     // Applications
-    if (
-      this.authResolver.isAuthorized('getApplicationsForVo_Vo_List<String>_Boolean_policy', [vo])
-    ) {
+    if (this.routePolicyService.canNavigate('organizations-applications', vo)) {
       links.push({
         label: 'MENU_ITEMS.VO.APPLICATIONS',
         url: [`/organizations/${vo.id}/applications`],
@@ -475,7 +469,7 @@ export class SideMenuItemService {
     }
 
     // Sponsored members
-    if (this.authResolver.isAuthorized('getSponsoredMembersAndTheirSponsors_Vo_policy', [vo])) {
+    if (this.routePolicyService.canNavigate('organizations-sponsoredMembers', vo)) {
       links.push({
         label: 'MENU_ITEMS.VO.SPONSORED_MEMBERS',
         url: [`/organizations/${vo.id}/sponsoredMembers`],
@@ -484,12 +478,7 @@ export class SideMenuItemService {
     }
 
     // Service members
-    if (
-      this.authResolver.isAuthorized(
-        `createSpecificMember_Vo_Candidate_List<User>_SpecificUserType_List<Group>_policy`,
-        [vo]
-      )
-    ) {
+    if (this.routePolicyService.canNavigate('organizations-serviceAccounts', vo)) {
       links.push({
         label: 'MENU_ITEMS.VO.SERVICE_MEMBERS',
         url: [`/organizations/${vo.id}/serviceAccounts`],
@@ -498,17 +487,16 @@ export class SideMenuItemService {
     }
 
     //Attributes
-    links.push({
-      label: 'MENU_ITEMS.VO.ATTRIBUTES',
-      url: [`/organizations/${vo.id}/attributes`],
-      activatedRegex: '/organizations/\\d+/attributes$',
-    });
+    if (this.routePolicyService.canNavigate('organizations-attributes', vo)) {
+      links.push({
+        label: 'MENU_ITEMS.VO.ATTRIBUTES',
+        url: [`/organizations/${vo.id}/attributes`],
+        activatedRegex: '/organizations/\\d+/attributes$',
+      });
+    }
 
     // Statistics
-    if (
-      this.guiAuthResolver.isAuthorized('getMembersCount_Vo_Status_policy', [vo]) &&
-      this.guiAuthResolver.isAuthorized('getMembersCount_Vo_policy', [vo])
-    ) {
+    if (this.routePolicyService.canNavigate('organizations-statistics', vo)) {
       links.push({
         label: 'MENU_ITEMS.VO.STATISTICS',
         url: [`/organizations/${vo.id}/statistics`],
@@ -517,15 +505,11 @@ export class SideMenuItemService {
     }
 
     // Settings
-    const extSourcesAuth = this.authResolver.isAuthorized('getVoExtSources_Vo_policy', [vo]);
-    const managersAuth = this.authResolver.isManagerPagePrivileged(vo);
-    const adminOrObserver = this.authResolver.isThisVoAdminOrObserver(vo.id);
-
-    if (managersAuth || extSourcesAuth || adminOrObserver) {
+    if (this.routePolicyService.canNavigate('organizations-settings', vo)) {
       const children: SideMenuItemChild[] = [];
 
       // Membership
-      if (adminOrObserver) {
+      if (this.routePolicyService.canNavigate('organizations-settings-expiration', vo)) {
         children.push({
           label: 'MENU_ITEMS.VO.EXPIRATION',
           url: [`/organizations/${vo.id}/settings/expiration`],
@@ -534,7 +518,7 @@ export class SideMenuItemService {
       }
 
       // Managers
-      if (managersAuth) {
+      if (this.routePolicyService.canNavigate('organizations-settings-managers', vo)) {
         children.push({
           label: 'MENU_ITEMS.VO.MANAGERS',
           url: [`/organizations/${vo.id}/settings/managers`],
@@ -543,7 +527,7 @@ export class SideMenuItemService {
       }
 
       // Application form
-      if (adminOrObserver) {
+      if (this.routePolicyService.canNavigate('organizations-settings-applicationForm', vo)) {
         children.push({
           label: 'MENU_ITEMS.VO.APPLICATION_FORM',
           url: [`/organizations/${vo.id}/settings/applicationForm`],
@@ -552,7 +536,7 @@ export class SideMenuItemService {
       }
 
       // Notifications
-      if (adminOrObserver) {
+      if (this.routePolicyService.canNavigate('organizations-settings-notifications', vo)) {
         children.push({
           label: 'MENU_ITEMS.VO.NOTIFICATIONS',
           url: [`/organizations/${vo.id}/settings/notifications`],
@@ -561,7 +545,7 @@ export class SideMenuItemService {
       }
 
       // Ext. sources
-      if (extSourcesAuth) {
+      if (this.routePolicyService.canNavigate('organizations-settings-extsources', vo)) {
         children.push({
           label: 'MENU_ITEMS.VO.EXTSOURCES',
           url: [`/organizations/${vo.id}/settings/extsources`],
@@ -570,7 +554,7 @@ export class SideMenuItemService {
       }
 
       // Member organizations
-      if (this.authResolver.isPerunAdmin()) {
+      if (this.routePolicyService.canNavigate('organizations-settings-memberOrganizations', vo)) {
         children.push({
           label: 'MENU_ITEMS.VO.MEMBER_ORGANIZATIONS',
           url: [`/organizations/${vo.id}/settings/memberOrganizations`],
@@ -579,7 +563,10 @@ export class SideMenuItemService {
       }
 
       // Hierarchical inclusion
-      if (this.authResolver.isPerunAdmin() && isMemberVo) {
+      if (
+        this.routePolicyService.canNavigate('organizations-settings-hierarchicalInclusion', vo) &&
+        isMemberVo
+      ) {
         children.push({
           label: 'MENU_ITEMS.VO.HIERARCHICAL_INCLUSION',
           url: [`/organizations/${vo.id}/settings/hierarchicalInclusion`],
@@ -692,7 +679,7 @@ export class SideMenuItemService {
     return links;
   }
 
-  getMemberLinks(member: RichMember, vo: Vo): EntityMenuLink[] {
+  getMemberLinks(member: RichMember): EntityMenuLink[] {
     // Overview
     const links: EntityMenuLink[] = [
       {
@@ -703,7 +690,7 @@ export class SideMenuItemService {
     ];
 
     // Groups
-    if (this.authResolver.isAuthorized('getMemberGroups_Member_policy', [vo])) {
+    if (this.routePolicyService.canNavigate('members-groups', member)) {
       links.push({
         label: 'MENU_ITEMS.MEMBER.GROUPS',
         url: [`//organizations/${member.voId}/members/${member.id}/groups`],
@@ -711,7 +698,7 @@ export class SideMenuItemService {
       });
     }
     // Applications
-    if (this.authResolver.isAuthorized('vo-getApplicationsForMember_Group_Member_policy', [vo])) {
+    if (this.routePolicyService.canNavigate('members-applications', member)) {
       links.push({
         label: 'MENU_ITEMS.MEMBER.APPLICATIONS',
         url: [`//organizations/${member.voId}/members/${member.id}/applications`],
@@ -719,7 +706,7 @@ export class SideMenuItemService {
       });
     }
     // Resources
-    if (this.authResolver.isAuthorized('getAssignedRichResources_Member_policy', [vo])) {
+    if (this.routePolicyService.canNavigate('members-resources', member)) {
       links.push({
         label: 'MENU_ITEMS.MEMBER.RESOURCES',
         url: [`/organizations/${member.voId}/members/${member.id}/resources`],
@@ -728,11 +715,13 @@ export class SideMenuItemService {
     }
 
     // Attributes
-    links.push({
-      label: 'MENU_ITEMS.MEMBER.ATTRIBUTES',
-      url: [`/organizations/${member.voId}/members/${member.id}/attributes`],
-      activatedRegex: '/organizations/\\d+/members/\\d+/attributes$',
-    });
+    if (this.routePolicyService.canNavigate('members-attributes', member)) {
+      links.push({
+        label: 'MENU_ITEMS.MEMBER.ATTRIBUTES',
+        url: [`/organizations/${member.voId}/members/${member.id}/attributes`],
+        activatedRegex: '/organizations/\\d+/members/\\d+/attributes$',
+      });
+    }
 
     //Settings
     // const children = [];
@@ -758,7 +747,7 @@ export class SideMenuItemService {
     ];
 
     // Resources
-    if (this.authResolver.isAuthorized('getAssignedRichResources_Facility_policy', [facility])) {
+    if (this.routePolicyService.canNavigate('facilities-resources', facility)) {
       links.push({
         label: 'MENU_ITEMS.FACILITY.RESOURCES',
         url: [`/facilities/${facility.id}/resources`],
@@ -766,7 +755,7 @@ export class SideMenuItemService {
       });
     }
     // Allowed users
-    if (this.authResolver.isAuthorized('getAssignedUsers_Facility_Service_policy', [facility])) {
+    if (this.routePolicyService.canNavigate('facilities-allowed-users', facility)) {
       links.push({
         label: 'MENU_ITEMS.FACILITY.ALLOWED_USERS',
         url: [`/facilities/${facility.id}/allowed-users`],
@@ -774,7 +763,7 @@ export class SideMenuItemService {
       });
     }
     // Allowed groups
-    if (this.authResolver.isAuthorized('getAllowedGroups_Facility_Vo_Service_policy', [facility])) {
+    if (this.routePolicyService.canNavigate('facilities-allowed-groups', facility)) {
       links.push({
         label: 'MENU_ITEMS.FACILITY.ALLOWED_GROUPS',
         url: [`/facilities/${facility.id}/allowed-groups`],
@@ -782,7 +771,7 @@ export class SideMenuItemService {
       });
     }
     // Service state
-    if (this.authResolver.isAuthorized('getFacilityServicesState_Facility_policy', [facility])) {
+    if (this.routePolicyService.canNavigate('facilities-services-status', facility)) {
       links.push({
         label: 'MENU_ITEMS.FACILITY.SERVICES_STATUS',
         url: [`/facilities/${facility.id}/services-status`],
@@ -790,7 +779,7 @@ export class SideMenuItemService {
       });
     }
     // Service destination
-    if (this.authResolver.isAuthorized('getAllRichDestinations_Facility_policy', [facility])) {
+    if (this.routePolicyService.canNavigate('facilities-services-destinations', facility)) {
       links.push({
         label: 'MENU_ITEMS.FACILITY.SERVICES_DESTINATIONS',
         url: [`/facilities/${facility.id}/services-destinations`],
@@ -798,37 +787,27 @@ export class SideMenuItemService {
       });
     }
     // Hosts
-    // TODO fix when policies are updated
-    if (this.authResolver.isFacilityAdmin()) {
+    if (this.routePolicyService.canNavigate('facilities-hosts', facility)) {
       links.push({
         label: 'MENU_ITEMS.FACILITY.HOSTS',
         url: [`/facilities/${facility.id}/hosts`],
         activatedRegex: 'facilities/\\d+/hosts',
       });
     }
-    links.push({
-      label: 'MENU_ITEMS.FACILITY.ATTRIBUTES',
-      url: ['/facilities', facility.id.toString(), 'attributes'],
-      activatedRegex: '/facilities/\\d+/attributes$',
-    });
+    if (this.routePolicyService.canNavigate('facilities-attributes', facility)) {
+      links.push({
+        label: 'MENU_ITEMS.FACILITY.ATTRIBUTES',
+        url: ['/facilities', facility.id.toString(), 'attributes'],
+        activatedRegex: '/facilities/\\d+/attributes$',
+      });
+    }
 
     // Settings
-    const bansAuth = this.authResolver.isAuthorized('getBansForFacility_int_policy', [facility]);
-    const managersAuth = this.authResolver.isAuthorized(
-      'getRichAdmins_Facility_List<String>_boolean_boolean_policy',
-      [facility]
-    );
-    const ownersAuth = this.authResolver.isAuthorized('getOwners_Facility_policy', [facility]);
-    const securityAuth = this.authResolver.isAuthorized(
-      'getAssignedSecurityTeams_Facility_policy',
-      [facility]
-    );
-
-    if (bansAuth || managersAuth || ownersAuth || securityAuth) {
+    if (this.routePolicyService.canNavigate('facilities-settings', facility)) {
       const children: EntityMenuLink[] = [];
 
       // Owners
-      if (ownersAuth) {
+      if (this.routePolicyService.canNavigate('facilities-settings-owners', facility)) {
         children.push({
           label: 'MENU_ITEMS.FACILITY.OWNERS',
           url: ['/facilities', facility.id.toString(), 'settings', 'owners'],
@@ -836,7 +815,7 @@ export class SideMenuItemService {
         });
       }
       // Managers
-      if (managersAuth) {
+      if (this.routePolicyService.canNavigate('facilities-settings-managers', facility)) {
         children.push({
           label: 'MENU_ITEMS.FACILITY.MANAGERS',
           url: ['/facilities', facility.id.toString(), 'settings', 'managers'],
@@ -844,7 +823,7 @@ export class SideMenuItemService {
         });
       }
       // Security teams
-      if (securityAuth) {
+      if (this.routePolicyService.canNavigate('facilities-settings-security-teams', facility)) {
         children.push({
           label: 'MENU_ITEMS.FACILITY.SECURITY_TEAMS',
           url: [`/facilities/${facility.id}/settings/security-teams`],
@@ -853,7 +832,7 @@ export class SideMenuItemService {
       }
 
       // Blacklist
-      if (bansAuth) {
+      if (this.routePolicyService.canNavigate('facilities-settings-blacklist', facility)) {
         children.push({
           label: 'MENU_ITEMS.FACILITY.BLACKLIST',
           url: ['facilities', facility.id.toString(), 'settings', 'blacklist'],
@@ -884,12 +863,7 @@ export class SideMenuItemService {
     });
 
     //Members
-    if (
-      this.authResolver.isAuthorized(
-        'group-getMembersPage_Vo_MembersPageQuery_List<String>_policy',
-        [group]
-      )
-    ) {
+    if (this.routePolicyService.canNavigate('groups-members', group)) {
       links.push({
         label: 'MENU_ITEMS.GROUP.MEMBERS',
         url: [`/organizations/${group.voId}/groups/${group.id}/members`],
@@ -899,10 +873,7 @@ export class SideMenuItemService {
 
     //Subgroups
     if (
-      this.authResolver.isAuthorized(
-        'getAllRichSubGroupsWithAttributesByNames_Group_List<String>_policy',
-        [group]
-      ) &&
+      this.routePolicyService.canNavigate('groups-subgroups', group) &&
       group.name !== 'members'
     ) {
       links.push({
@@ -913,7 +884,7 @@ export class SideMenuItemService {
     }
 
     //Resources
-    if (this.authResolver.isAuthorized('getAssignedRichResources_Group_policy', [group])) {
+    if (this.routePolicyService.canNavigate('groups-resources', group)) {
       links.push({
         label: 'MENU_ITEMS.GROUP.RESOURCES',
         url: [`/organizations/${group.voId}/groups/${group.id}/resources`],
@@ -922,9 +893,7 @@ export class SideMenuItemService {
     }
 
     //Applications
-    if (
-      this.authResolver.isAuthorized('getApplicationsForGroup_Group_List<String>_policy', [group])
-    ) {
+    if (this.routePolicyService.canNavigate('groups-applications', group)) {
       links.push({
         label: 'MENU_ITEMS.GROUP.APPLICATIONS',
         url: [`/organizations/${group.voId}/groups/${group.id}/applications`],
@@ -933,25 +902,16 @@ export class SideMenuItemService {
     }
 
     //Attributes
-    links.push({
-      label: 'MENU_ITEMS.GROUP.ATTRIBUTES',
-      url: [`/organizations/${group.voId}/groups/${group.id}/attributes`],
-      activatedRegex: '/organizations/\\d+/groups/\\d+/attributes$',
-    });
+    if (this.routePolicyService.canNavigate('groups-attributes', group)) {
+      links.push({
+        label: 'MENU_ITEMS.GROUP.ATTRIBUTES',
+        url: [`/organizations/${group.voId}/groups/${group.id}/attributes`],
+        activatedRegex: '/organizations/\\d+/groups/\\d+/attributes$',
+      });
+    }
 
     //Statistics
-    const countAuth = this.guiAuthResolver.isAuthorized('getGroupMembersCount_Group_policy', [
-      group,
-    ]);
-    const countByVoStatusAuth = this.guiAuthResolver.isAuthorized(
-      'getGroupMembersCountsByVoStatus_Group_policy',
-      [group]
-    );
-    const countByGroupStatusAuth = this.guiAuthResolver.isAuthorized(
-      'getGroupMembersCountsByGroupStatus_Group_policy',
-      [group]
-    );
-    if (countAuth && countByVoStatusAuth && countByGroupStatusAuth) {
+    if (this.routePolicyService.canNavigate('groups-statistics', group)) {
       links.push({
         label: 'MENU_ITEMS.GROUP.STATISTICS',
         url: [`/organizations/${group.voId}/groups/${group.id}/statistics`],
@@ -959,6 +919,7 @@ export class SideMenuItemService {
       });
     }
 
+    // FIXME - manage via canNavigate - problem with async call in route-policy.service.ts
     //SettingsMembership
     //not implemented in authorization....probably must be hardcoded
     this.apiRequest.dontHandleErrorForNext();
@@ -980,7 +941,7 @@ export class SideMenuItemService {
       );
 
     //SettingsManagers
-    if (this.authResolver.isManagerPagePrivileged(group)) {
+    if (this.routePolicyService.canNavigate('groups-settings-managers', group)) {
       settingsChildrenLinks.push({
         label: 'MENU_ITEMS.GROUP.MANAGERS',
         url: [`/organizations/${group.voId}/groups/${group.id}/settings/managers`],
@@ -989,9 +950,7 @@ export class SideMenuItemService {
     }
 
     //SettingsApplicationForm
-    if (
-      this.authResolver.isAuthorized('group-getFormItems_ApplicationForm_AppType_policy', [group])
-    ) {
+    if (this.routePolicyService.canNavigate('groups-settings-applicationForm', group)) {
       settingsChildrenLinks.push({
         label: 'MENU_ITEMS.GROUP.APPLICATION_FORM',
         url: [`/organizations/${group.voId}/groups/${group.id}/settings/applicationForm`],
@@ -1000,9 +959,7 @@ export class SideMenuItemService {
     }
 
     //SettingsNotifications
-    if (
-      this.authResolver.isAuthorized('group-getFormItems_ApplicationForm_AppType_policy', [group])
-    ) {
+    if (this.routePolicyService.canNavigate('groups-settings-notifications', group)) {
       settingsChildrenLinks.push({
         label: 'MENU_ITEMS.GROUP.NOTIFICATIONS',
         url: [`/organizations/${group.voId}/groups/${group.id}/settings/notifications`],
@@ -1011,7 +968,7 @@ export class SideMenuItemService {
     }
 
     //SettingsRelations
-    if (this.authResolver.isAuthorized('getGroupUnions_Group_boolean_policy', [group])) {
+    if (this.routePolicyService.canNavigate('groups-settings-relations', group)) {
       settingsChildrenLinks.push({
         label: 'MENU_ITEMS.GROUP.RELATIONS',
         url: [`/organizations/${group.voId}/groups/${group.id}/settings/relations`],
@@ -1020,7 +977,7 @@ export class SideMenuItemService {
     }
 
     //SettingsExtSources
-    if (this.authResolver.isAuthorized('getGroupExtSources_Group_policy', [group])) {
+    if (this.routePolicyService.canNavigate('groups-settings-extsources', group)) {
       settingsChildrenLinks.push({
         label: 'MENU_ITEMS.GROUP.EXTSOURCES',
         url: [`/organizations/${group.voId}/groups/${group.id}/settings/extsources`],
@@ -1055,43 +1012,43 @@ export class SideMenuItemService {
       },
     ];
 
-    if (this.authResolver.isAuthorized('getAssignedGroups_Resource_policy', [resource])) {
+    if (this.routePolicyService.canNavigate('resources-groups', resource)) {
       links.push({
         label: 'MENU_ITEMS.RESOURCE.ASSIGNED_GROUPS',
         url: [baseUrl, 'groups'],
         activatedRegex: `${regexStart}/\\d+/resources/\\d+/groups$`,
       });
     }
-    if (this.authResolver.isAuthorized('getAssignedServices_Resource_policy', [resource])) {
+    if (this.routePolicyService.canNavigate('resources-services', resource)) {
       links.push({
         label: 'MENU_ITEMS.RESOURCE.ASSIGNED_SERVICES',
         url: [baseUrl, 'services'],
         activatedRegex: `${regexStart}/\\d+/resources/\\d+/services$`,
       });
     }
-    if (this.authResolver.isAuthorized('getAssignedMembers_Resource_policy', [resource])) {
+    if (this.routePolicyService.canNavigate('resources-members', resource)) {
       links.push({
         label: 'MENU_ITEMS.RESOURCE.ASSIGNED_MEMBERS',
         url: [baseUrl, 'members'],
         activatedRegex: `${regexStart}/\\d+/resources/\\d+/members$`,
       });
     }
-    if (
-      this.authResolver.isAuthorized('getAllResourcesTagsForResource_Resource_policy', [resource])
-    ) {
+    if (this.routePolicyService.canNavigate('resources-tags', resource)) {
       links.push({
         label: 'MENU_ITEMS.RESOURCE.RESOURCE_TAGS',
         url: [baseUrl, 'tags'],
         activatedRegex: `${regexStart}/\\d+/resources/\\d+/tags$`,
       });
     }
-    links.push({
-      label: 'MENU_ITEMS.RESOURCE.ATTRIBUTES',
-      url: [baseUrl, `attributes`],
-      activatedRegex: `${regexStart}/\\d+/resources/\\d+/attributes$`,
-    });
+    if (this.routePolicyService.canNavigate('resources-attributes', resource)) {
+      links.push({
+        label: 'MENU_ITEMS.RESOURCE.ATTRIBUTES',
+        url: [baseUrl, `attributes`],
+        activatedRegex: `${regexStart}/\\d+/resources/\\d+/attributes$`,
+      });
+    }
 
-    if (this.authResolver.isManagerPagePrivileged(resource)) {
+    if (this.routePolicyService.canNavigate('resources-settings', resource)) {
       links.push({
         label: 'MENU_ITEMS.RESOURCE.SETTINGS',
         url: [baseUrl, `settings`],

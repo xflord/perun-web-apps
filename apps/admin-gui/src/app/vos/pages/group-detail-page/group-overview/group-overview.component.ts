@@ -12,6 +12,7 @@ import {
   EntityStorageService,
   GuiAuthResolver,
   NotificatorService,
+  RoutePolicyService,
 } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { addRecentlyVisited, addRecentlyVisitedObject } from '@perun-web-apps/perun/utils';
@@ -37,7 +38,8 @@ export class GroupOverviewComponent implements OnInit {
     private apiRequest: ApiRequestConfigurationService,
     private attributesManager: AttributesManagerService,
     private notificator: NotificatorService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private routePolicyService: RoutePolicyService
   ) {}
 
   ngOnInit(): void {
@@ -95,12 +97,7 @@ export class GroupOverviewComponent implements OnInit {
   private initNavItems(): void {
     this.navItems = [];
 
-    if (
-      this.guiAuthResolver.isAuthorized(
-        'group-getMembersPage_Vo_MembersPageQuery_List<String>_policy',
-        [this.group]
-      )
-    ) {
+    if (this.routePolicyService.canNavigate('groups-members', this.group)) {
       this.navItems.push({
         cssIcon: 'perun-user',
         url: `/organizations/${this.group.voId}/groups/${this.group.id}/members`,
@@ -110,10 +107,7 @@ export class GroupOverviewComponent implements OnInit {
     }
 
     if (
-      this.guiAuthResolver.isAuthorized(
-        'getAllRichSubGroupsWithAttributesByNames_Group_List<String>_policy',
-        [this.group]
-      ) &&
+      this.routePolicyService.canNavigate('groups-subgroups', this.group) &&
       this.group.name !== 'members'
     ) {
       this.navItems.push({
@@ -124,7 +118,7 @@ export class GroupOverviewComponent implements OnInit {
       });
     }
 
-    if (this.guiAuthResolver.isAuthorized('getAssignedRichResources_Group_policy', [this.group])) {
+    if (this.routePolicyService.canNavigate('groups-resources', this.group)) {
       this.navItems.push({
         cssIcon: 'perun-manage-facility',
         url: `/organizations/${this.group.voId}/groups/${this.group.id}/resources`,
@@ -133,11 +127,7 @@ export class GroupOverviewComponent implements OnInit {
       });
     }
 
-    if (
-      this.guiAuthResolver.isAuthorized('getApplicationsForGroup_Group_List<String>_policy', [
-        this.group,
-      ])
-    ) {
+    if (this.routePolicyService.canNavigate('groups-applications', this.group)) {
       this.navItems.push({
         cssIcon: 'perun-applications',
         url: `/organizations/${this.group.voId}/groups/${this.group.id}/applications`,
@@ -146,25 +136,16 @@ export class GroupOverviewComponent implements OnInit {
       });
     }
 
-    this.navItems.push({
-      cssIcon: 'perun-attributes',
-      url: `/organizations/${this.group.voId}/groups/${this.group.id}/attributes`,
-      label: 'MENU_ITEMS.GROUP.ATTRIBUTES',
-      style: 'group-btn',
-    });
+    if (this.routePolicyService.canNavigate('groups-attributes', this.group)) {
+      this.navItems.push({
+        cssIcon: 'perun-attributes',
+        url: `/organizations/${this.group.voId}/groups/${this.group.id}/attributes`,
+        label: 'MENU_ITEMS.GROUP.ATTRIBUTES',
+        style: 'group-btn',
+      });
+    }
 
-    const countAuth = this.guiAuthResolver.isAuthorized('getGroupMembersCount_Group_policy', [
-      this.group,
-    ]);
-    const countByVoStatusAuth = this.guiAuthResolver.isAuthorized(
-      'getGroupMembersCountsByVoStatus_Group_policy',
-      [this.group]
-    );
-    const countByGroupStatusAuth = this.guiAuthResolver.isAuthorized(
-      'getGroupMembersCountsByGroupStatus_Group_policy',
-      [this.group]
-    );
-    if (countAuth && countByGroupStatusAuth && countByVoStatusAuth) {
+    if (this.routePolicyService.canNavigate('groups-statistics', this.group)) {
       this.navItems.push({
         cssIcon: 'perun-statistics',
         url: `/organizations/${this.group.voId}/groups/${this.group.id}/statistics`,
@@ -173,6 +154,7 @@ export class GroupOverviewComponent implements OnInit {
       });
     }
 
+    // FIXME - manage via canNavigate - problem with async call in route-policy.service.ts
     //SettingsMembership
     //not implemented in authorization....probably must be hardcoded
     let expirationAuth = false;
@@ -190,19 +172,7 @@ export class GroupOverviewComponent implements OnInit {
         }
       );
 
-    const managerAuth = this.guiAuthResolver.isManagerPagePrivileged(this.group);
-    const appFormAuth = this.guiAuthResolver.isAuthorized(
-      'group-getFormItems_ApplicationForm_AppType_policy',
-      [this.group]
-    );
-    const notificationAuth = this.guiAuthResolver.isAuthorized(
-      'group-getFormItems_ApplicationForm_AppType_policy',
-      [this.group]
-    );
-    const relationAuth = this.guiAuthResolver.isAuthorized('getGroupUnions_Group_boolean_policy', [
-      this.group,
-    ]);
-    if (expirationAuth || managerAuth || appFormAuth || notificationAuth || relationAuth) {
+    if (expirationAuth || this.routePolicyService.canNavigate('groups-settings', this.group)) {
       this.navItems.push({
         cssIcon: 'perun-settings2',
         url: `/organizations/${this.group.voId}/groups/${this.group.id}/settings`,

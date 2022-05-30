@@ -113,10 +113,11 @@ export class ResourceDetailPageComponent extends destroyDetailMixin() implements
     const resourceItem = this.sideMenuItemService.parseResource(this.resource, this.underVoUrl);
     if (this.underVoUrl) {
       parentItem = this.sideMenuItemService.parseVo(this.vo);
+      this.sideMenuService.setAccessMenuItems([parentItem, resourceItem]);
     } else {
       parentItem = this.sideMenuItemService.parseFacility(this.facility);
+      this.sideMenuService.setFacilityMenuItems([parentItem, resourceItem]);
     }
-    this.sideMenuService.setAccessMenuItems([parentItem, resourceItem]);
   }
 
   editResource(): void {

@@ -12,6 +12,7 @@ import {
   EntityStorageService,
   GuiAuthResolver,
   NotificatorService,
+  RoutePolicyService,
 } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 
@@ -34,7 +35,8 @@ export class GroupSettingsOverviewComponent implements OnInit {
     private apiRequest: ApiRequestConfigurationService,
     private attributesManager: AttributesManagerService,
     private notificator: NotificatorService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private routePolicyService: RoutePolicyService
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +49,7 @@ export class GroupSettingsOverviewComponent implements OnInit {
   private initItems(): void {
     this.items = [];
 
+    // FIXME - manage via canNavigate - problem with async call in route-policy.service.ts
     //not implemented in authorization....probably must be hardcoded
     this.apiRequest.dontHandleErrorForNext();
     this.attributesManager
@@ -67,7 +70,7 @@ export class GroupSettingsOverviewComponent implements OnInit {
         }
       );
 
-    if (this.guiAuthResolver.isManagerPagePrivileged(this.group)) {
+    if (this.routePolicyService.canNavigate('groups-settings-managers', this.group)) {
       this.items.push({
         cssIcon: 'perun-manager',
         url: `/organizations/${this.group.voId}/groups/${this.group.id}/settings/managers`,
@@ -76,11 +79,7 @@ export class GroupSettingsOverviewComponent implements OnInit {
       });
     }
 
-    if (
-      this.guiAuthResolver.isAuthorized('group-getFormItems_ApplicationForm_AppType_policy', [
-        this.group,
-      ])
-    ) {
+    if (this.routePolicyService.canNavigate('groups-settings-applicationForm', this.group)) {
       this.items.push({
         cssIcon: 'perun-application-form',
         url: `/organizations/${this.group.voId}/groups/${this.group.id}/settings/applicationForm`,
@@ -89,11 +88,7 @@ export class GroupSettingsOverviewComponent implements OnInit {
       });
     }
 
-    if (
-      this.guiAuthResolver.isAuthorized('group-getFormItems_ApplicationForm_AppType_policy', [
-        this.group,
-      ])
-    ) {
+    if (this.routePolicyService.canNavigate('groups-settings-notifications', this.group)) {
       this.items.push({
         cssIcon: 'perun-notification',
         url: `/organizations/${this.group.voId}/groups/${this.group.id}/settings/notifications`,
@@ -102,7 +97,7 @@ export class GroupSettingsOverviewComponent implements OnInit {
       });
     }
 
-    if (this.guiAuthResolver.isAuthorized('getGroupUnions_Group_boolean_policy', [this.group])) {
+    if (this.routePolicyService.canNavigate('groups-settings-relations', this.group)) {
       this.items.push({
         cssIcon: 'perun-group',
         url: `/organizations/${this.group.voId}/groups/${this.group.id}/settings/relations`,
@@ -111,7 +106,7 @@ export class GroupSettingsOverviewComponent implements OnInit {
       });
     }
 
-    if (this.guiAuthResolver.isAuthorized('getGroupExtSources_Group_policy', [this.group])) {
+    if (this.routePolicyService.canNavigate('groups-settings-extsources', this.group)) {
       this.items.push({
         cssIcon: 'perun-external-sources',
         url: `/organizations/${this.group.voId}/groups/${this.group.id}/settings/extsources`,

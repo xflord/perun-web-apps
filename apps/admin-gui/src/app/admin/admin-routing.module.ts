@@ -32,11 +32,13 @@ import { UserAccountsComponent } from '../users/pages/user-detail-page/user-acco
 import { AdminAuditLogComponent } from './pages/admin-page/admin-audit-log/admin-audit-log.component';
 import { AdminConsentHubsComponent } from './pages/admin-page/admin-consent-hubs/admin-consent-hubs.component';
 import { AdminSearcherComponent } from './pages/admin-page/admin-searcher/admin-searcher.component';
+import { RouteAuthGuardService } from '../shared/route-auth-guard.service';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminPageComponent,
+    canActivateChild: [RouteAuthGuardService],
     children: [
       {
         path: '',
@@ -114,6 +116,7 @@ const routes: Routes = [
   {
     path: 'users/:userId',
     component: AdminUserDetailPageComponent,
+    canActivateChild: [RouteAuthGuardService],
     children: [
       {
         path: '',
@@ -191,6 +194,7 @@ const routes: Routes = [
   {
     path: 'services/:serviceId',
     component: ServiceDetailPageComponent,
+    canActivateChild: [RouteAuthGuardService],
     children: [
       {
         path: '',

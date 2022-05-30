@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from '@perun-web-apps/perun/models';
 import { SideMenuService } from '../../../../core/services/common/side-menu.service';
 import { Router } from '@angular/router';
-import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
+import {
+  EntityStorageService,
+  GuiAuthResolver,
+  RoutePolicyService,
+} from '@perun-web-apps/perun/services';
 import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 
 @Component({
@@ -23,7 +27,8 @@ export class VoOverviewComponent implements OnInit {
     private voService: VosManagerService,
     protected router: Router,
     protected authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private routePolicyService: RoutePolicyService
   ) {}
 
   ngOnInit(): void {
@@ -35,11 +40,7 @@ export class VoOverviewComponent implements OnInit {
 
   private initNavItems(): void {
     // Members
-    if (
-      this.authResolver.isAuthorized('getMembersPage_Vo_MembersPageQuery_List<String>_policy', [
-        this.vo,
-      ])
-    ) {
+    if (this.routePolicyService.canNavigate('organizations-members', this.vo)) {
       this.navItems.push({
         cssIcon: 'perun-user',
         url: `/organizations/${this.vo.id}/members`,
@@ -49,12 +50,7 @@ export class VoOverviewComponent implements OnInit {
     }
 
     // Groups
-    if (
-      this.authResolver.isAuthorized(
-        'getAllRichGroupsWithAttributesByNames_Vo_List<String>_policy',
-        [this.vo]
-      )
-    ) {
+    if (this.routePolicyService.canNavigate('organizations-groups', this.vo)) {
       this.navItems.push({
         cssIcon: 'perun-group',
         url: `/organizations/${this.vo.id}/groups`,
@@ -64,7 +60,7 @@ export class VoOverviewComponent implements OnInit {
     }
 
     // Resource management
-    if (this.authResolver.isAuthorized('getRichResources_Vo_policy', [this.vo])) {
+    if (this.routePolicyService.canNavigate('organizations-resources', this.vo)) {
       this.navItems.push({
         cssIcon: 'perun-manage-facility',
         url: `/organizations/${this.vo.id}/resources`,
@@ -74,11 +70,7 @@ export class VoOverviewComponent implements OnInit {
     }
 
     // Applications
-    if (
-      this.authResolver.isAuthorized('getApplicationsForVo_Vo_List<String>_Boolean_policy', [
-        this.vo,
-      ])
-    ) {
+    if (this.routePolicyService.canNavigate('organizations-applications', this.vo)) {
       this.navItems.push({
         cssIcon: 'perun-applications',
         url: `/organizations/${this.vo.id}/applications`,
@@ -88,9 +80,7 @@ export class VoOverviewComponent implements OnInit {
     }
 
     // Sponsored members
-    if (
-      this.authResolver.isAuthorized('getSponsoredMembersAndTheirSponsors_Vo_policy', [this.vo])
-    ) {
+    if (this.routePolicyService.canNavigate('organizations-sponsoredMembers', this.vo)) {
       this.navItems.push({
         cssIcon: 'perun-user',
         url: `/organizations/${this.vo.id}/sponsoredMembers`,
@@ -100,12 +90,7 @@ export class VoOverviewComponent implements OnInit {
     }
 
     // Service members
-    if (
-      this.authResolver.isAuthorized(
-        `createSpecificMember_Vo_Candidate_List<User>_SpecificUserType_List<Group>_policy`,
-        [this.vo]
-      )
-    ) {
+    if (this.routePolicyService.canNavigate('organizations-serviceAccounts', this.vo)) {
       this.navItems.push({
         cssIcon: 'perun-service-identity',
         url: `/organizations/${this.vo.id}/serviceAccounts`,
@@ -115,18 +100,17 @@ export class VoOverviewComponent implements OnInit {
     }
 
     // Attributes
-    this.navItems.push({
-      cssIcon: 'perun-attributes',
-      url: `/organizations/${this.vo.id}/attributes`,
-      label: 'MENU_ITEMS.VO.ATTRIBUTES',
-      style: 'vo-btn',
-    });
+    if (this.routePolicyService.canNavigate('organizations-attributes', this.vo)) {
+      this.navItems.push({
+        cssIcon: 'perun-attributes',
+        url: `/organizations/${this.vo.id}/attributes`,
+        label: 'MENU_ITEMS.VO.ATTRIBUTES',
+        style: 'vo-btn',
+      });
+    }
 
     // Statistics
-    if (
-      this.authResolver.isAuthorized('getMembersCount_Vo_Status_policy', [this.vo]) &&
-      this.authResolver.isAuthorized('getMembersCount_Vo_policy', [this.vo])
-    ) {
+    if (this.routePolicyService.canNavigate('organizations-statistics', this.vo)) {
       this.navItems.push({
         cssIcon: 'perun-statistics',
         url: `/organizations/${this.vo.id}/statistics`,
@@ -136,11 +120,7 @@ export class VoOverviewComponent implements OnInit {
     }
 
     // Settings
-    if (
-      this.authResolver.isManagerPagePrivileged(this.vo) ||
-      this.authResolver.isAuthorized('getVoExtSources_Vo_policy', [this.vo]) ||
-      this.authResolver.isThisVoAdminOrObserver(this.vo.id)
-    ) {
+    if (this.routePolicyService.canNavigate('organizations-settings', this.vo)) {
       this.navItems.push({
         cssIcon: 'perun-settings2',
         url: `/organizations/${this.vo.id}/settings`,

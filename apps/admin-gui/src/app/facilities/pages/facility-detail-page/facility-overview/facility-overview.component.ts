@@ -1,7 +1,11 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { MenuItem } from '@perun-web-apps/perun/models';
 import { FacilitiesManagerService, Facility } from '@perun-web-apps/perun/openapi';
-import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
+import {
+  EntityStorageService,
+  GuiAuthResolver,
+  RoutePolicyService,
+} from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-facility-overview',
@@ -18,7 +22,8 @@ export class FacilityOverviewComponent implements OnInit {
   constructor(
     private facilityManager: FacilitiesManagerService,
     private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private routePolicyService: RoutePolicyService
   ) {}
 
   ngOnInit(): void {
@@ -32,9 +37,7 @@ export class FacilityOverviewComponent implements OnInit {
     this.navItems = [];
 
     // Resources
-    if (
-      this.authResolver.isAuthorized('getAssignedRichResources_Facility_policy', [this.facility])
-    ) {
+    if (this.routePolicyService.canNavigate('facilities-resources', this.facility)) {
       this.navItems.push({
         cssIcon: 'perun-manage-facility',
         url: `/facilities/${this.facility.id}/resources`,
@@ -43,9 +46,7 @@ export class FacilityOverviewComponent implements OnInit {
       });
     }
     // Allowed users
-    if (
-      this.authResolver.isAuthorized('getAssignedUsers_Facility_Service_policy', [this.facility])
-    ) {
+    if (this.routePolicyService.canNavigate('facilities-allowed-users', this.facility)) {
       this.navItems.push({
         cssIcon: 'perun-user',
         url: `/facilities/${this.facility.id}/allowed-users`,
@@ -54,9 +55,7 @@ export class FacilityOverviewComponent implements OnInit {
       });
     }
     // Allowed groups
-    if (
-      this.authResolver.isAuthorized('getAllowedGroups_Facility_Vo_Service_policy', [this.facility])
-    ) {
+    if (this.routePolicyService.canNavigate('facilities-allowed-groups', this.facility)) {
       this.navItems.push({
         cssIcon: 'perun-group',
         url: `/facilities/${this.facility.id}/allowed-groups`,
@@ -65,9 +64,7 @@ export class FacilityOverviewComponent implements OnInit {
       });
     }
     // Service state
-    if (
-      this.authResolver.isAuthorized('getFacilityServicesState_Facility_policy', [this.facility])
-    ) {
+    if (this.routePolicyService.canNavigate('facilities-services-status', this.facility)) {
       this.navItems.push({
         cssIcon: 'perun-service-status',
         url: `/facilities/${this.facility.id}/services-status`,
@@ -76,7 +73,7 @@ export class FacilityOverviewComponent implements OnInit {
       });
     }
     // Service destination
-    if (this.authResolver.isAuthorized('getAllRichDestinations_Facility_policy', [this.facility])) {
+    if (this.routePolicyService.canNavigate('facilities-services-destinations', this.facility)) {
       this.navItems.push({
         cssIcon: 'perun-service_destination',
         url: `/facilities/${this.facility.id}/services-destinations`,
@@ -85,8 +82,7 @@ export class FacilityOverviewComponent implements OnInit {
       });
     }
     // Hosts
-    // TODO fix when policies are updated
-    if (this.authResolver.isFacilityAdmin()) {
+    if (this.routePolicyService.canNavigate('facilities-hosts', this.facility)) {
       this.navItems.push({
         cssIcon: 'perun-hosts',
         url: `/facilities/${this.facility.id}/hosts`,
@@ -95,20 +91,17 @@ export class FacilityOverviewComponent implements OnInit {
       });
     }
     // Attributes
-    this.navItems.push({
-      cssIcon: 'perun-attributes',
-      url: `/facilities/${this.facility.id}/attributes`,
-      label: 'MENU_ITEMS.FACILITY.ATTRIBUTES',
-      style: 'facility-btn',
-    });
+    if (this.routePolicyService.canNavigate('facilities-attributes', this.facility)) {
+      this.navItems.push({
+        cssIcon: 'perun-attributes',
+        url: `/facilities/${this.facility.id}/attributes`,
+        label: 'MENU_ITEMS.FACILITY.ATTRIBUTES',
+        style: 'facility-btn',
+      });
+    }
 
     // Settings
-    if (
-      this.authResolver.isAuthorized('getBansForFacility_int_policy', [this.facility]) ||
-      this.authResolver.isManagerPagePrivileged(this.facility) ||
-      this.authResolver.isAuthorized('getOwners_Facility_policy', [this.facility]) ||
-      this.authResolver.isAuthorized('getAssignedSecurityTeams_Facility_policy', [this.facility])
-    ) {
+    if (this.routePolicyService.canNavigate('facilities-settings', this.facility)) {
       this.navItems.push({
         cssIcon: 'perun-settings2',
         url: `/facilities/${this.facility.id}/settings`,

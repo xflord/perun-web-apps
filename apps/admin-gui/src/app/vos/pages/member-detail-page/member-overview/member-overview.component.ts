@@ -13,7 +13,7 @@ import {
   UsersManagerService,
   Vo,
 } from '@perun-web-apps/perun/openapi';
-import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, RoutePolicyService, StoreService } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { EditMemberSponsorsDialogComponent } from '../../../../shared/components/dialogs/edit-member-sponsors-dialog/edit-member-sponsors-dialog.component';
 
@@ -46,7 +46,8 @@ export class MemberOverviewComponent implements OnInit {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     public authResolver: GuiAuthResolver,
-    private storeService: StoreService
+    private storeService: StoreService,
+    private routePolicyService: RoutePolicyService
   ) {}
 
   ngOnInit(): void {
@@ -168,7 +169,7 @@ export class MemberOverviewComponent implements OnInit {
   private initNavItems(): void {
     this.navItems = [];
 
-    if (this.authResolver.isAuthorized('getMemberGroups_Member_policy', [this.vo])) {
+    if (this.routePolicyService.canNavigate('members-groups', this.member)) {
       this.navItems.push({
         cssIcon: 'perun-group',
         url: `/organizations/${this.member.voId}/members/${this.member.id}/groups`,
@@ -176,9 +177,7 @@ export class MemberOverviewComponent implements OnInit {
         style: 'member-btn',
       });
     }
-    if (
-      this.authResolver.isAuthorized('vo-getApplicationsForMember_Group_Member_policy', [this.vo])
-    ) {
+    if (this.routePolicyService.canNavigate('members-applications', this.member)) {
       this.navItems.push({
         cssIcon: 'perun-applications',
         url: `/organizations/${this.member.voId}/members/${this.member.id}/applications`,
@@ -186,7 +185,7 @@ export class MemberOverviewComponent implements OnInit {
         style: 'member-btn',
       });
     }
-    if (this.authResolver.isAuthorized('getAssignedRichResources_Member_policy', [this.vo])) {
+    if (this.routePolicyService.canNavigate('members-resources', this.member)) {
       this.navItems.push({
         cssIcon: 'perun-resource',
         url: `/organizations/${this.member.voId}/members/${this.member.id}/resources`,
@@ -194,19 +193,14 @@ export class MemberOverviewComponent implements OnInit {
         style: 'member-btn',
       });
     }
-    this.navItems.push({
-      cssIcon: 'perun-attributes',
-      url: `/organizations/${this.vo.id}/members/${this.member.id}/attributes`,
-      label: 'MENU_ITEMS.MEMBER.ATTRIBUTES',
-      style: 'member-btn',
-    });
-
-    // this.navItems.push({
-    //   cssIcon: 'perun-settings2',
-    //   url: `/organizations/${this.member.voId}/members/${this.member.id}/settings`,
-    //   label: 'MENU_ITEMS.MEMBER.SETTINGS',
-    //   style: 'member-btn'
-    // });
+    if (this.routePolicyService.canNavigate('members-attributes', this.member)) {
+      this.navItems.push({
+        cssIcon: 'perun-attributes',
+        url: `/organizations/${this.vo.id}/members/${this.member.id}/attributes`,
+        label: 'MENU_ITEMS.MEMBER.ATTRIBUTES',
+        style: 'member-btn',
+      });
+    }
   }
 
   private refreshData(): void {

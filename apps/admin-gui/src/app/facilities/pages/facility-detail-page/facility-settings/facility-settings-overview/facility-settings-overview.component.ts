@@ -1,7 +1,11 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { MenuItem } from '@perun-web-apps/perun/models';
 import { FacilitiesManagerService, Facility } from '@perun-web-apps/perun/openapi';
-import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
+import {
+  EntityStorageService,
+  GuiAuthResolver,
+  RoutePolicyService,
+} from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-facility-settings-overview',
@@ -18,7 +22,8 @@ export class FacilitySettingsOverviewComponent implements OnInit {
   constructor(
     private facilityManager: FacilitiesManagerService,
     private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private routePolicyService: RoutePolicyService
   ) {}
 
   ngOnInit(): void {
@@ -32,7 +37,7 @@ export class FacilitySettingsOverviewComponent implements OnInit {
     this.items = [];
 
     // Owners
-    if (this.authResolver.isAuthorized('getOwners_Facility_policy', [this.facility])) {
+    if (this.routePolicyService.canNavigate('facilities-settings-owners', this.facility)) {
       this.items.push({
         cssIcon: 'perun-owner-grey',
         url: `/facilities/${this.facility.id}/settings/owners`,
@@ -41,7 +46,7 @@ export class FacilitySettingsOverviewComponent implements OnInit {
       });
     }
     // Managers
-    if (this.authResolver.isManagerPagePrivileged(this.facility)) {
+    if (this.routePolicyService.canNavigate('facilities-settings-managers', this.facility)) {
       this.items.push({
         cssIcon: 'perun-manager',
         url: `/facilities/${this.facility.id}/settings/managers`,
@@ -50,9 +55,7 @@ export class FacilitySettingsOverviewComponent implements OnInit {
       });
     }
     // Security teams
-    if (
-      this.authResolver.isAuthorized('getAssignedSecurityTeams_Facility_policy', [this.facility])
-    ) {
+    if (this.routePolicyService.canNavigate('facilities-settings-security-teams', this.facility)) {
       this.items.push({
         cssIcon: 'perun-security-teams',
         url: `/facilities/${this.facility.id}/settings/security-teams`,
@@ -61,7 +64,7 @@ export class FacilitySettingsOverviewComponent implements OnInit {
       });
     }
     // Blacklist
-    if (this.authResolver.isAuthorized('getBansForFacility_int_policy', [this.facility])) {
+    if (this.routePolicyService.canNavigate('facilities-settings-blacklist', this.facility)) {
       this.items.push({
         cssIcon: 'perun-black-list',
         url: `/facilities/${this.facility.id}/settings/blacklist`,
