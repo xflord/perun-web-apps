@@ -44,9 +44,9 @@ export class RemoveStringValueDialogComponent implements OnInit {
   onSubmit(): void {
     this.loading = true;
     if (this.data.doNotShowValues) {
-      this.data.attribute.value = '' as unknown as object;
+      this.data.attribute.value = '';
     } else {
-      let values: string[] = (this.data.attribute?.value as unknown as string[]) ?? [];
+      let values: string[] = (this.data.attribute?.value as string[]) ?? [];
       if (this.data.valueIndex !== undefined) {
         values.splice(this.data.valueIndex, 1);
       } else {

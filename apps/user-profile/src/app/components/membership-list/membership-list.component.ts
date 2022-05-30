@@ -62,7 +62,7 @@ export class MembershipListComponent implements OnChanges, AfterViewInit {
       case 'description':
         return 'description' in data.entity ? data.entity.description : '';
       case 'expirationAttribute':
-        return (data?.expirationAttribute?.value as unknown as string) ?? 'never';
+        return (data?.expirationAttribute?.value as string) ?? 'never';
       default:
         return '';
     }

@@ -145,7 +145,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
             .filter((attr) => attr.friendlyNameParameter === namespace)
             .filter((attr) => attr.value !== null)
             .forEach((attr) => {
-              this.loginThatWasSet = attr.value as unknown as string;
+              this.loginThatWasSet = attr.value as string;
             });
         }
         this.loading = false;

@@ -93,7 +93,7 @@ export class MemberOverviewGroupsComponent implements OnChanges {
           this.groupMembershipDataSource = new MatTableDataSource<string>(['Status', 'Expiration']);
           this.expiration = !this.expirationAtt.value
             ? (this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES') as string)
-            : (this.expirationAtt.value as unknown as string);
+            : (this.expirationAtt.value as string);
         } else {
           this.groupMembershipDataSource = new MatTableDataSource<string>(['Status']);
         }

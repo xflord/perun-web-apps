@@ -24,7 +24,9 @@ export class AttributeValueMapComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.attribute.value) {
-      const map = this.attribute.value as Map<string, string>;
+      const map = new Map<string, string>(
+        Object.entries(this.attribute.value as { [s: string]: string })
+      );
       for (const [key, value] of map.entries()) {
         this.keys.push(key);
         this.values.push(value);

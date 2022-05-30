@@ -44,7 +44,7 @@ export class EditEmailFooterDialogComponent implements OnInit {
 
   submit(): void {
     this.loading = true;
-    this.mailAttribute.value = this.mailFooter as unknown as object;
+    this.mailAttribute.value = this.mailFooter;
     if (this.data.groupId) {
       this.attributesManager
         .setGroupAttribute({ group: this.data.groupId, attribute: this.mailAttribute })
@@ -79,7 +79,7 @@ export class EditEmailFooterDialogComponent implements OnInit {
         this.mailAttribute = footer;
         this.editAuth = this.mailAttribute.writable;
         if (footer.value) {
-          this.mailFooter = footer.value as unknown as string;
+          this.mailFooter = footer.value as string;
         } else {
           this.mailFooter = '';
         }
@@ -93,7 +93,7 @@ export class EditEmailFooterDialogComponent implements OnInit {
         this.mailAttribute = footer;
         this.editAuth = this.mailAttribute.writable;
         if (footer.value) {
-          this.mailFooter = footer.value as unknown as string;
+          this.mailFooter = footer.value as string;
         } else {
           this.mailFooter = '';
         }

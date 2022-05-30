@@ -18,7 +18,7 @@ export class AttributeValueStringComponent implements OnInit {
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.value = this.attribute.value as unknown as string;
+    this.value = this.attribute.value as string;
     if (!this.readonly) {
       this.readonly = isVirtualAttribute(this.attribute);
     }

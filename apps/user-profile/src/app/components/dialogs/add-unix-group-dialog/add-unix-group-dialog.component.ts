@@ -42,7 +42,7 @@ export class AddUnixGroupDialogComponent implements OnInit {
         `urn:perun:user:attribute-def:def:preferredUnixGroupName-namespace:${this.data.namespace}`
       )
       .subscribe((attribute) => {
-        const groups: string[] = (attribute?.value as unknown as string[]) ?? [];
+        const groups: string[] = (attribute?.value as string[]) ?? [];
         groups.push(this.inputControl.value as string);
         attribute.value = groups;
 

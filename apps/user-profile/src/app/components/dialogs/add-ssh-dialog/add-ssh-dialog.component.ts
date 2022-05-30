@@ -54,7 +54,7 @@ export class AddSshDialogComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const keys: string[] = (this.data.attribute?.value as unknown as string[]) ?? [];
+    const keys: string[] = (this.data.attribute?.value as string[]) ?? [];
     const ssh = this.sshControl.value as string;
     if (!keys.includes(ssh)) {
       keys.push(ssh);

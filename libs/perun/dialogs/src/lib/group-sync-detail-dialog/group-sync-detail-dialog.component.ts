@@ -135,23 +135,23 @@ export class GroupSyncDetailDialogComponent implements OnInit {
         this.group = richGroup;
 
         this.syncEnabled = getAttribute(this.group.attributes, Urns.GROUP_SYNC_ENABLED)
-          .value as unknown as string;
+          .value as string;
         this.lastSyncState = getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_STATE)
-          .value as unknown as string;
+          .value as string;
         this.lastSyncTime = getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_TIMESTAMP)
-          .value as unknown as string;
+          .value as string;
         this.structSyncEnabled = getAttribute(
           this.group.attributes,
           Urns.GROUP_STRUCTURE_SYNC_ENABLED
-        ).value as unknown as boolean;
+        ).value as boolean;
         this.lastStructSyncState = getAttribute(
           this.group.attributes,
           Urns.GROUP_LAST_STRUCTURE_SYNC_STATE
-        ).value as unknown as string;
+        ).value as string;
         this.lastStructSyncTime = getAttribute(
           this.group.attributes,
           Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
-        ).value as unknown as string;
+        ).value as string;
         if (this.syncEnabled !== null && this.syncEnabled === 'true') {
           this.type = 'BASIC';
         }

@@ -11,10 +11,10 @@ export class AnyToStringPipe implements PipeTransform {
     }
     switch (attribute.type) {
       case 'java.lang.String': {
-        return attribute.value as unknown as string;
+        return attribute.value as string;
       }
       case 'java.lang.Integer': {
-        return attribute.value as unknown as string;
+        return String(attribute.value);
       }
       case 'java.util.ArrayList': {
         return this.whenValueIsArray(attribute.value as string[]);
@@ -23,10 +23,10 @@ export class AnyToStringPipe implements PipeTransform {
         return this.whenValueIsMap(attribute.value as Map<string, string>);
       }
       case 'java.lang.Boolean': {
-        return attribute.value as unknown as string;
+        return String(attribute.value);
       }
       default: {
-        return attribute.value as unknown as string;
+        return String(attribute.value);
       }
     }
   }

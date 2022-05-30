@@ -100,7 +100,7 @@ export class MemberOverviewMembershipComponent implements OnChanges {
           this.voExpirationAtt = attr;
           this.voExpiration = !attr.value
             ? (this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES') as string)
-            : (attr.value as unknown as string);
+            : (attr.value as string);
           this.loading = false;
         },
         (error: HttpErrorResponse) => {

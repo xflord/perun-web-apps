@@ -134,7 +134,7 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
     if (data.attributes) {
       data.attributes.forEach((attr) => {
         if (attr.friendlyName === nameOfAttribute) {
-          attribute = attr.value as unknown as string;
+          attribute = attr.value as string;
         }
       });
     }

@@ -40,7 +40,7 @@ export class PasswordFormComponent implements OnInit, OnChanges {
           const languageAttribute: Attribute = richUser.userAttributes.find(
             (att) => att.friendlyName === 'preferredLanguage'
           );
-          this.language = (languageAttribute?.value as unknown as string) ?? 'en';
+          this.language = (languageAttribute?.value as string) ?? 'en';
 
           if (this.language !== 'en') {
             this.allPasswordRequirements = this.store.get(

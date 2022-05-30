@@ -65,9 +65,9 @@ export class IdentitiesPageComponent implements OnInit {
             ues.userExtSource.id,
             'urn:perun:ues:attribute-def:def:sourceIdPName'
           )
-          .subscribe((att) => {
-            if (att?.value) {
-              ues.userExtSource.extSource.name = att.value as unknown as string;
+          .subscribe((sourceName) => {
+            if (sourceName?.value) {
+              ues.userExtSource.extSource.name = sourceName.value as string;
               count--;
               this.loading = count !== 0;
               this.addToList(ues);
@@ -77,10 +77,10 @@ export class IdentitiesPageComponent implements OnInit {
                   ues.userExtSource.id,
                   'urn:perun:ues:attribute-def:def:IdPOrganizationName'
                 )
-                .subscribe((att2) => {
+                .subscribe((orgName) => {
                   count--;
-                  if (att2?.value) {
-                    ues.userExtSource.extSource.name = att2.value as unknown as string;
+                  if (orgName?.value) {
+                    ues.userExtSource.extSource.name = orgName.value as string;
                   }
                   this.loading = count !== 0;
                   this.addToList(ues);

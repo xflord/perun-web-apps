@@ -137,7 +137,7 @@ export class CreateSinglePublicationPageComponent implements OnInit {
         (user) => {
           const mailAtt = user.userAttributes.filter((att) => att.friendlyName === 'preferredMail');
           if (mailAtt.length !== 0) {
-            publicationInput.publication.createdBy = mailAtt[0].value as unknown as string;
+            publicationInput.publication.createdBy = mailAtt[0].value as string;
           }
 
           this.cabinetService.createPublication(publicationInput).subscribe(

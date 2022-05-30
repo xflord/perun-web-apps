@@ -42,14 +42,14 @@ export function parseEmail(richMember: RichMember): string {
   let email = '';
   richMember?.userAttributes.forEach((attr) => {
     if (attr.friendlyName === 'preferredMail') {
-      email = attr.value as unknown as string;
+      email = attr.value as string;
     }
   });
 
   if (email && email.length === 0 && richMember.memberAttributes !== null) {
     richMember.memberAttributes.forEach((attr) => {
       if (attr.friendlyName === 'mail' && attr.value !== null) {
-        email = attr.value as unknown as string;
+        email = attr.value as string;
       }
     });
   }
@@ -66,7 +66,7 @@ export function parseUserEmail(richUser: RichUser): string {
   if (richUser) {
     richUser.userAttributes.forEach((attr) => {
       if (attr.friendlyName === 'preferredMail') {
-        email = attr.value as unknown as string;
+        email = attr.value as string;
       }
     });
   }
@@ -80,12 +80,7 @@ export function parseUserLogins(richUser: RichUser): string {
       .filter((attr) => attr.baseFriendlyName === 'login-namespace')
       .filter((attr) => attr.value !== null)
       .forEach((attr) => {
-        logins = logins.concat(
-          attr.friendlyNameParameter,
-          ': ',
-          attr.value as unknown as string,
-          ', '
-        );
+        logins = logins.concat(attr.friendlyNameParameter, ': ', attr.value as string, ', ');
       });
   }
 
@@ -108,12 +103,7 @@ export function parseLogins(richMember: RichMember | RichUser): string {
       .filter((attr) => attr.baseFriendlyName === 'login-namespace')
       .filter((attr) => attr.value !== null)
       .forEach((attr) => {
-        logins = logins.concat(
-          attr.friendlyNameParameter,
-          ': ',
-          attr.value as unknown as string,
-          ', '
-        );
+        logins = logins.concat(attr.friendlyNameParameter, ': ', attr.value as string, ', ');
       });
   }
 
@@ -399,7 +389,7 @@ export function parseVo(richUser: RichUser): string {
   if (richUser) {
     richUser.userAttributes.forEach((attr) => {
       if (attr.friendlyName === 'organization') {
-        result = attr.value as unknown as string;
+        result = attr.value as string;
       }
     });
   }
@@ -666,14 +656,14 @@ export function parseOrganization(richMember: RichMember): string {
 
   richMember?.memberAttributes.forEach((attr) => {
     if (attr.friendlyName === 'organization' && attr.value !== null) {
-      organization = attr.value as unknown as string;
+      organization = attr.value as string;
     }
   });
 
   if (organization.length === 0) {
     richMember?.userAttributes.forEach((attr) => {
       if (attr.friendlyName === 'organization') {
-        organization = attr.value as unknown as string;
+        organization = attr.value as string;
       }
     });
   }
@@ -685,7 +675,7 @@ export function getGroupExpiration(group: RichGroup): string {
     (att) => att.baseFriendlyName === 'groupMembershipExpiration'
   );
 
-  return (attribute?.value as unknown as string) ?? 'Never';
+  return (attribute?.value as string) ?? 'Never';
 }
 
 export function parseDate(value: string): string {
@@ -736,7 +726,7 @@ export function parseAttribute(data: Author, nameOfAttribute: string): string {
   if (data.attributes) {
     data.attributes.forEach((attr) => {
       if (attr.friendlyName === nameOfAttribute) {
-        attribute = attr.value as unknown as string;
+        attribute = attr.value as string;
       }
     });
   }

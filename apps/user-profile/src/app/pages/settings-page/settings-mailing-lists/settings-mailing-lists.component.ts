@@ -138,10 +138,7 @@ export class SettingsMailingListsComponent implements OnInit, OnDestroy {
                     const attribute = resAtts.find(
                       (att) => att.friendlyName === 'optOutMailingList'
                     );
-                    if (
-                      attribute &&
-                      !(disableOptOut && (disableOptOut.value as unknown as string) === 'true')
-                    ) {
+                    if (attribute && !((disableOptOut?.value as string) === 'true')) {
                       this.optOuts.push({
                         resource: resource.id,
                         member: member.id,
@@ -169,7 +166,7 @@ export class SettingsMailingListsComponent implements OnInit, OnDestroy {
 
   unsubscribe(): void {
     const originalState = String(this.optOuts[this.index].attribute.value);
-    this.optOuts[this.index].attribute.value = 'true' as unknown as object;
+    this.optOuts[this.index].attribute.value = 'true';
     this.attributesManagerService.setMemberResourceAttribute(this.optOuts[this.index]).subscribe(
       () => {
         this.notificator.showSuccess(

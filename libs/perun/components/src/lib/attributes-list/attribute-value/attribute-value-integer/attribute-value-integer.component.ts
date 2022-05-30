@@ -29,7 +29,7 @@ export class AttributeValueIntegerComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '350px';
     config.data = {
-      value: attribute.value as unknown as string,
+      value: attribute.value as string,
       title: attribute.displayName,
     };
     this.dialog.open(ShowValueDialogComponent, config);

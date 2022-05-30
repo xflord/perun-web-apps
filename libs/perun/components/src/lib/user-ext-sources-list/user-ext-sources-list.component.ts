@@ -55,7 +55,7 @@ export class UserExtSourcesListComponent implements OnInit, OnChanges {
         return data.userExtSource.id.toString();
       case 'mail': {
         const attribute = data.attributes.find((att) => att.friendlyName === 'mail');
-        return attribute ? (attribute.value as unknown as string) : 'N/A';
+        return attribute ? (attribute.value as string) : 'N/A';
       }
       case 'extSourceName':
         return data.userExtSource.extSource.name;

@@ -66,7 +66,7 @@ export class ChangeVoExpirationDialogComponent implements OnInit {
     }
 
     this.expirationAttr = this.data.expirationAttr;
-    this.currentExpiration = (this.expirationAttr?.value as unknown as string) ?? 'never';
+    this.currentExpiration = (this.expirationAttr?.value as string) ?? 'never';
     this.newExpiration = this.currentExpiration;
 
     if (this.data.statusChanged) {
@@ -114,7 +114,7 @@ export class ChangeVoExpirationDialogComponent implements OnInit {
         () => (this.loading = false)
       );
     } else {
-      this.expirationAttr.value = newExp === 'never' ? null : (newExp as unknown as object);
+      this.expirationAttr.value = newExp === 'never' ? null : newExp;
 
       this.attributesManagerService
         .setMemberAttribute({

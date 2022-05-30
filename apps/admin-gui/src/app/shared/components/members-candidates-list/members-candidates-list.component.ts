@@ -201,7 +201,7 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
         }
       }
       if (email?.value != null) {
-        return (email.value as unknown as string).replace(',', ' ');
+        return (email.value as string).replace(',', ' ');
       }
       return '';
     } else {
@@ -242,7 +242,7 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
           }
           // parse login namespace
           const parsedNamespace: string = userAttribute.friendlyName.substring(16);
-          logins += parsedNamespace + ': ' + (userAttribute.value as unknown as string);
+          logins += parsedNamespace + ': ' + (userAttribute.value as string);
         }
       }
     }

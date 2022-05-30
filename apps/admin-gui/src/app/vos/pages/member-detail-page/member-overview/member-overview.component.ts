@@ -151,7 +151,7 @@ export class MemberOverviewComponent implements OnInit {
     if (this.member.memberAttributes !== null) {
       this.member.memberAttributes.forEach((att) => {
         if (this.attributeNames.includes(att.friendlyName)) {
-          this.attributes.set(att.friendlyName, [att.displayName, att.value as unknown as string]);
+          this.attributes.set(att.friendlyName, [att.displayName, att.value as string]);
         }
       });
     }
@@ -159,7 +159,7 @@ export class MemberOverviewComponent implements OnInit {
     if (this.member.userAttributes !== null) {
       this.member.userAttributes.forEach((att) => {
         if (this.attributeNames.includes(att.friendlyName)) {
-          this.attributes.set(att.friendlyName, [att.displayName, att.value as unknown as string]);
+          this.attributes.set(att.friendlyName, [att.displayName, att.value as string]);
         }
       });
     }

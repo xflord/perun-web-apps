@@ -75,7 +75,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       .getUserAttributes(this.store.getPerunPrincipal().userId)
       .subscribe((atts) => {
         const userPrefLang = atts.find((elem) => elem.friendlyName === 'preferredLanguage');
-        const userLang = (userPrefLang?.value as unknown as string) ?? null;
+        const userLang = (userPrefLang?.value as string) ?? null;
 
         const prefLang = this.preferredLangService.getPreferredLanguage(userLang);
         this.translateService.use(prefLang);

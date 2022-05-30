@@ -120,12 +120,12 @@ export class ProfilePageComponent implements OnInit {
         const emailAttribute = richUser.userAttributes.find(
           (att) => att.friendlyName === 'preferredMail'
         );
-        this.email = emailAttribute.value as unknown as string;
+        this.email = (emailAttribute?.value as string) ?? '-';
 
         this.languageAttribute = richUser.userAttributes.find(
           (att) => att.friendlyName === 'preferredLanguage'
         );
-        const userLang = (this.languageAttribute?.value as unknown as string) ?? null;
+        const userLang = (this.languageAttribute?.value as string) ?? null;
         const prefLang = this.preferredLangService.getPreferredLanguage(userLang);
         this.translateService.use(prefLang);
         this.currentLang = prefLang;
@@ -133,7 +133,7 @@ export class ProfilePageComponent implements OnInit {
         this.timezoneAttribute = richUser.userAttributes.find(
           (att) => att.friendlyName === 'timezone'
         );
-        this.currentTimezone = (this.timezoneAttribute?.value as unknown as string) ?? '-';
+        this.currentTimezone = (this.timezoneAttribute?.value as string) ?? '-';
 
         const additionalAttributesSpecs: ProfileAttribute[] = this.storeService.get(
           'profile_page_attributes'
@@ -183,7 +183,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   setLanguage(): void {
-    this.languageAttribute.value = this.currentLang as unknown as object;
+    this.languageAttribute.value = this.currentLang;
     this.attributesManagerService
       .setUserAttribute({
         user: this.userId,
@@ -214,7 +214,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   setTimeZone(): void {
-    this.timezoneAttribute.value = this.currentTimezone as unknown as object;
+    this.timezoneAttribute.value = this.currentTimezone;
     this.attributesManagerService
       .setUserAttribute({
         user: this.userId,
@@ -243,7 +243,7 @@ export class ProfilePageComponent implements OnInit {
     this.attributesManagerService
       .getUserAttributeByName(this.userId, 'urn:perun:user:attribute-def:def:preferredMail')
       .subscribe((attribute) => {
-        this.email = attribute.value as unknown as string;
+        this.email = (attribute?.value as string) ?? '-';
       });
   }
 

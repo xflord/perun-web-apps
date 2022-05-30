@@ -70,7 +70,7 @@ export class ApplicationDetailComponent implements OnInit {
                 const preferredMail = user.userAttributes.find(
                   (att) => att.friendlyName === 'preferredMail'
                 );
-                this.userMail = (preferredMail?.value as unknown as string) ?? '';
+                this.userMail = preferredMail?.value as string;
                 this.setAuthRights();
                 this.loading = false;
               });

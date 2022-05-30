@@ -173,7 +173,7 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
               });
           } else {
             this.imgAtt = attr;
-            this.imageSrc = this.imgAtt.value as unknown as string;
+            this.imageSrc = this.imgAtt.value as string;
           }
           this.loadingImg = false;
         },

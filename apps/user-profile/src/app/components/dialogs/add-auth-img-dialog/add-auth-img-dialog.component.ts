@@ -34,7 +34,7 @@ export class AddAuthImgDialogComponent implements OnInit {
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.attribute = this.data.attribute;
-    this.newImage = this.attribute.value as unknown as string;
+    this.newImage = this.attribute.value as string;
   }
 
   handleInputChange(e: InputEvent): void {
@@ -98,7 +98,7 @@ export class AddAuthImgDialogComponent implements OnInit {
   }
 
   onAdd(): void {
-    this.attribute.value = this.newImage as unknown as object;
+    this.attribute.value = this.newImage;
     this.attributesManagerService
       .setUserAttribute({
         attribute: this.attribute,

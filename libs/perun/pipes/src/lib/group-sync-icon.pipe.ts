@@ -24,14 +24,14 @@ export class GroupSyncIconPipe implements PipeTransform {
     if (normalSyncEnabled === null && structureSyncEnabled === null) {
       return '';
     }
-    const structureSyncEnabledValue = structureSyncEnabled.value as unknown as string;
-    const normalSyncEnabledValue = normalSyncEnabled.value as unknown as string;
+    const structureSyncEnabledValue = structureSyncEnabled.value as boolean;
+    const normalSyncEnabledValue = normalSyncEnabled.value as string;
 
     if (normalSyncEnabledValue === 'true') {
       const syncLastStatus = getAttribute(richGroup.attributes, Urns.GROUP_LAST_SYNC_STATE);
       const syncLastTime = getAttribute(richGroup.attributes, Urns.GROUP_LAST_SYNC_TIMESTAMP);
-      const lastStatusValue = syncLastStatus.value as unknown as string;
-      const lastTimeValue = syncLastTime.value as unknown as string;
+      const lastStatusValue = syncLastStatus.value as string;
+      const lastTimeValue = syncLastTime.value as string;
       if (lastStatusValue != null && lastStatusValue.trim().length > 0) {
         return 'sync_problem';
       } else {
@@ -51,8 +51,8 @@ export class GroupSyncIconPipe implements PipeTransform {
         richGroup.attributes,
         Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
       );
-      const lastStatusValue = syncLastStatus.value as unknown as string;
-      const lastTimeValue = syncLastTime.value as unknown as string;
+      const lastStatusValue = syncLastStatus.value as string;
+      const lastTimeValue = syncLastTime.value as string;
       if (lastStatusValue != null && lastStatusValue.trim().length > 0) {
         return 'sync_problem';
       } else {
