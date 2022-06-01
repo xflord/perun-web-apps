@@ -37,6 +37,8 @@ import { DeleteDialogTypePipe } from './delete-dialog-type.pipe';
 import { GroupMembersActionButtonDisabledPipe } from './group-members-action-button-disabled.pipe';
 import { GroupMembersActionButtonDisabledTooltipPipe } from './group-members-action-button-disabled-tooltip.pipe';
 import { DisabledCandidateTooltipPipe } from './disabled-candidate-tooltip.pipe';
+import { DisplayedRolePipe } from './displayed-role.pipe';
+import { DisableUniqueAttributePipe } from './disable-unique-attribute.pipe';
 
 @NgModule({
   declarations: [
@@ -78,6 +80,8 @@ import { DisabledCandidateTooltipPipe } from './disabled-candidate-tooltip.pipe'
     GroupMembersActionButtonDisabledPipe,
     GroupMembersActionButtonDisabledTooltipPipe,
     DisabledCandidateTooltipPipe,
+    DisplayedRolePipe,
+    DisableUniqueAttributePipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -118,6 +122,8 @@ import { DisabledCandidateTooltipPipe } from './disabled-candidate-tooltip.pipe'
     GroupMembersActionButtonDisabledPipe,
     GroupMembersActionButtonDisabledTooltipPipe,
     DisabledCandidateTooltipPipe,
+    DisplayedRolePipe,
+    DisableUniqueAttributePipe,
   ],
   imports: [CommonModule],
 })

@@ -1,0 +1,17 @@
+<perun-web-apps-alert alert_type="info">
+  {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_RIGHTS.INFO'  | translate}}
+</perun-web-apps-alert>
+<div *ngFor="let collection of collections; index as i">
+  <perun-web-apps-attribute-rights-collection
+    [collection]="collection.action === action ? collection : null"
+    (collectionRemoved)="removeCollection(i)">
+  </perun-web-apps-attribute-rights-collection>
+  <div *ngIf="i !== lastIndex && collection.action === action" class="divider">
+    {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_RIGHTS.OR'  | translate}}
+  </div>
+</div>
+<div class="button-container">
+  <button class="add-button" color="accent" mat-icon-button (click)="addCollection()">
+    <mat-icon inline="true">add_circle</mat-icon>
+  </button>
+</div>

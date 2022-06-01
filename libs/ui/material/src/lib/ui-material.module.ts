@@ -25,6 +25,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   imports: [
@@ -56,6 +58,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatTooltipModule,
     MatSelectModule,
     MatRippleModule,
+    MatTableModule,
+    MatSlideToggleModule,
   ],
   exports: [
     MatCardModule,
@@ -85,6 +89,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatTooltipModule,
     MatSelectModule,
     MatRippleModule,
+    MatTabsModule,
+    MatSlideToggleModule,
   ],
 })
 export class UiMaterialModule {}

@@ -93,6 +93,11 @@ import { ConsentsListComponent } from './consents-list/consents-list.component';
 import { ConsentStatusComponent } from './consent-status/consent-status.component';
 import { UiMaterialModule } from '@perun-web-apps/ui/material';
 import { AttributeSearchSelectComponent } from './attribute-search-select/attribute-search-select.component';
+import { AttributeRightsTabComponent } from './attribute-rights-tab/attribute-rights-tab.component';
+import { AttributeRightsCollectionComponent } from './attribute-rights-collection/attribute-rights-collection.component';
+import { AttributeRightsItemComponent } from './attribute-rights-item/attribute-rights-item.component';
+import { AttributeRightsTabGroupComponent } from './attribute-rights-tab-group/attribute-rights-tab-group.component';
+import { AttributeUniqueToggleComponent } from './attribute-unique-toggle/attribute-unique-toggle.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -218,6 +223,11 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     ConsentsListComponent,
     ConsentStatusComponent,
     AttributeSearchSelectComponent,
+    AttributeRightsTabComponent,
+    AttributeRightsCollectionComponent,
+    AttributeRightsItemComponent,
+    AttributeRightsTabGroupComponent,
+    AttributeUniqueToggleComponent,
   ],
   exports: [
     VosListComponent,
@@ -274,6 +284,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     ConsentStatusComponent,
     ConsentsListComponent,
     AttributeSearchSelectComponent,
+    AttributeRightsTabGroupComponent,
+    AttributeUniqueToggleComponent,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

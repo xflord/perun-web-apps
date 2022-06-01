@@ -37,7 +37,7 @@ export class AdminAttributesComponent implements OnInit {
 
   onCreate(): void {
     const config = getDefaultDialogConfig();
-    config.width = '500px';
+    config.width = '650px';
 
     const dialogRef = this.dialog.open(CreateAttributeDefinitionDialogComponent, config);
 

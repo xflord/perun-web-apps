@@ -75,7 +75,6 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { TagSectionComponent } from './components/dialogs/add-edit-notification-dialog/tag-section/tag-section.component';
 import { TagBarComponent } from './components/dialogs/add-edit-notification-dialog/tag-bar/tag-bar.component';
 import { NotificationsCopyMailsDialogComponent } from './components/dialogs/notifications-copy-mails-dialog/notifications-copy-mails-dialog.component';
-import { DisplayedRolePipe } from './pipes/displayed-role.pipe';
 import { AnimatedRouterOutletComponent } from './components/animated-router-outlet/animated-router-outlet.component';
 import { ResourcesTagsListComponent } from './components/resources-tags-list/resources-tags-list.component';
 // eslint-disable-next-line max-len
@@ -280,7 +279,6 @@ import { DisabledCandidatePipe } from './pipes/disabled-candidate.pipe';
     ScrollingModule,
     ManagersPageComponent,
     ScrollingModule,
-    DisplayedRolePipe,
     ScrollingModule,
     AnimatedRouterOutletComponent,
     ResourcesTagsListComponent,
@@ -352,7 +350,6 @@ import { DisabledCandidatePipe } from './pipes/disabled-candidate.pipe';
     TagBarComponent,
     NotificationsCopyMailsDialogComponent,
     ManagersPageComponent,
-    DisplayedRolePipe,
     AnimatedRouterOutletComponent,
     ResourcesTagsListComponent,
     DeleteAttributeDefinitionDialogComponent,

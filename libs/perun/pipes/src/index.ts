@@ -25,3 +25,4 @@ export * from './lib/footer-logo-path.pipe';
 export * from './lib/localised-text.pipe';
 export * from './lib/delete-dialog-type.pipe';
 export * from './lib/disabled-candidate-tooltip.pipe';
+export * from './lib/disable-unique-attribute.pipe';

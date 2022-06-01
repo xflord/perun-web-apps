@@ -1,0 +1,24 @@
+<div class="flex-row">
+  <mat-form-field class="grow-item">
+    <mat-select
+      [(ngModel)]="policy.role"
+      (selectionChange)="changeRole($event)"
+      placeholder="{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_RIGHTS.ROLE' | translate}}">
+      <mat-option
+        *ngFor="let role of roles | async"
+        [value]="role"
+        >{{role | displayedRole}}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select
+      [(ngModel)]="policy.object"
+      placeholder="{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_RIGHTS.ENTITY' | translate}}">
+      <mat-option *ngFor="let obj of objects | async" [value]="obj">{{obj}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button class="close-button" color="warn" mat-icon-button (click)="remove()">
+    <mat-icon inline="true">remove_circle</mat-icon>
+  </button>
+</div>

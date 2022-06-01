@@ -1,0 +1,14 @@
+<div
+  *ngIf="{disable: attDef | disableUniqueAttribute} as vm"
+  class="unique-toggle-container"
+  [matTooltipDisabled]="!vm.disable"
+  matTooltipPosition="above"
+  matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_UNIQUE_TOGGLE.TOOLTIP'| translate}}">
+  <mat-slide-toggle
+    color="accent"
+    labelPosition="before"
+    [(ngModel)]="attDef.unique"
+    [disabled]="vm.disable">
+    {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_UNIQUE_TOGGLE.UNIQUE' | translate}}
+  </mat-slide-toggle>
+</div>

@@ -1,25 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { NotificatorService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
 import {
-  ActionType,
   AttributeDefinition,
-  AttributeRights,
+  AttributePolicyCollection,
   AttributesManagerService,
 } from '@perun-web-apps/perun/openapi';
-import { Role } from '@perun-web-apps/perun/models';
+import { FormBuilder, Validators } from '@angular/forms';
+import { debounceTime, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, of, zip } from 'rxjs';
+import { AttributeRightsService, NotificatorService } from '@perun-web-apps/perun/services';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  AttributeDefinitionType,
+  AttributeEntity,
+  AttributeForm,
+  AttributeValueType,
+} from '@perun-web-apps/perun/models';
+import { DisableUniqueAttributePipe } from '@perun-web-apps/perun/pipes';
 
 @Component({
   selector: 'app-create-attribute-definition-dialog',
   templateUrl: './create-attribute-definition-dialog.component.html',
   styleUrls: ['./create-attribute-definition-dialog.component.scss'],
+  providers: [DisableUniqueAttributePipe],
 })
-export class CreateAttributeDefinitionDialogComponent implements OnInit {
+export class CreateAttributeDefinitionDialogComponent {
   loading = false;
-
-  attDef: AttributeDefinition;
-  entities: string[] = [
+  attributeControl = this.formBuilder.group({
+    friendlyName: ['', Validators.required],
+    displayName: ['', Validators.required],
+    description: ['', Validators.required],
+    entity: ['', Validators.required],
+    definitionType: ['', Validators.required],
+    valueType: ['', Validators.required],
+  });
+  entities: AttributeEntity[] = [
     'facility',
     'resource',
     'group',
@@ -34,199 +49,78 @@ export class CreateAttributeDefinitionDialogComponent implements OnInit {
     'vo',
     'entityless',
   ];
-
-  definitionTypes: string[] = ['def', 'opt', 'virt', 'core'];
-  definitionType = '';
-
-  valueTypes: string[] = ['String', 'Integer', 'Boolean', 'Array', 'LinkedHashMap'];
-  valueType = '';
-
-  entity: string;
-
-  readSelf = false;
-  readSelfPublic = false;
-  readSelfVo = false;
-  readVo = false;
-  readGroup = false;
-  readFacility = false;
-
-  writeSelf = false;
-  writeSelfPublic = false;
-  writeSelfVo = false;
-  writeVo = false;
-  writeGroup = false;
-  writeFacility = false;
+  definitionTypes: AttributeDefinitionType[] = ['def', 'opt', 'virt', 'core'];
+  valueTypes: AttributeValueType[] = [
+    'java.lang.String',
+    'java.lang.Integer',
+    'java.lang.Boolean',
+    'java.util.Array',
+    'java.util.LinkedHashMap',
+  ];
+  attDef = new BehaviorSubject<AttributeDefinition>({
+    id: 0,
+    beanName: '',
+    namespace: '',
+    unique: false,
+  });
+  collections: AttributePolicyCollection[] = [];
 
   constructor(
-    public dialogRef: MatDialogRef<CreateAttributeDefinitionDialogComponent>,
+    private dialogRef: MatDialogRef<CreateAttributeDefinitionDialogComponent>,
+    private formBuilder: FormBuilder,
+    private attributeService: AttributesManagerService,
+    private attributeRightsService: AttributeRightsService,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private attributesManager: AttributesManagerService
-  ) {}
-
-  ngOnInit(): void {
-    this.attDef = {
-      beanName: '',
-      description: '',
-      displayName: '',
-      entity: '',
-      friendlyName: '',
-      id: undefined,
-      namespace: '',
-      type: '',
-      unique: false,
-      writable: false,
-    };
+    private uniqueAttPipe: DisableUniqueAttributePipe
+  ) {
+    this.attributeControl.valueChanges.pipe(debounceTime(200)).subscribe((value: AttributeForm) => {
+      this.setAttribute(value);
+    });
   }
 
-  onSubmit(): void {
+  submit(): void {
     this.loading = true;
-    this.attDef.namespace = 'urn:perun:' + this.entity + ':attribute-def:' + this.definitionType;
-    this.readValueType();
-    this.attributesManager.createAttributeDefinition({ attribute: this.attDef }).subscribe(
-      (attDef) => {
-        this.attDef = attDef;
-        this.attributesManager.setAttributeRights({ rights: this.readRights() }).subscribe(
-          () => {
-            this.translate
-              .get('DIALOGS.CREATE_ATTRIBUTE_DEFINITION.SUCCESS')
-              .subscribe((successMessage: string) => {
-                this.notificator.showSuccess(successMessage);
-                this.dialogRef.close(true);
-              });
-          },
-          () => (this.loading = false)
-        );
-      },
-      () => (this.loading = false)
-    );
+    this.attributeService
+      .createAttributeDefinition({ attribute: this.attDef.getValue() })
+      .pipe(
+        switchMap((attDef) => zip(of(attDef.id), of(this.collections))),
+        this.attributeRightsService.addAttributeId(),
+        this.attributeRightsService.filterNullInPolicy(),
+        switchMap((collections) =>
+          this.attributeService.setAttributePolicyCollections({ policyCollections: collections })
+        )
+      )
+      .subscribe(
+        () => {
+          this.notificator.showSuccess(
+            this.translate.instant('DIALOGS.CREATE_ATTRIBUTE_DEFINITION.SUCCESS') as string
+          );
+          this.dialogRef.close(true);
+        },
+        () => (this.loading = false)
+      );
   }
 
-  onCancel(): void {
+  cancel(): void {
     this.dialogRef.close(false);
   }
 
-  disableConfirmButton(): boolean {
-    return (
-      this.attDef.friendlyName === '' ||
-      this.attDef.displayName === '' ||
-      this.attDef.description === '' ||
-      this.entity === '' ||
-      this.definitionType === '' ||
-      this.valueType === '' ||
-      this.loading
-    );
+  private setAttribute(value: AttributeForm): void {
+    const newAtt: AttributeDefinition = {
+      id: 0,
+      beanName: '',
+      friendlyName: value.friendlyName,
+      displayName: value.displayName,
+      description: value.description,
+      type: value.valueType,
+      namespace: this.createNamespace(value.entity, value.definitionType),
+    };
+    newAtt.unique = this.attDef.getValue().unique && !this.uniqueAttPipe.transform(newAtt);
+    this.attDef.next(newAtt);
   }
 
-  disableUniqueToggle(): boolean {
-    if (this.definitionType === 'virt' || this.entity === 'entityless') {
-      this.attDef.unique = false;
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  private readRights(): AttributeRights[] {
-    const list: AttributeRights[] = [];
-
-    const rightsSELF = {} as AttributeRights;
-    rightsSELF.attributeId = this.attDef.id;
-    rightsSELF.role = Role.SELF;
-    rightsSELF.rights = [];
-
-    if (this.readSelf) {
-      rightsSELF.rights.push('READ');
-    }
-    if (this.readSelfPublic) {
-      rightsSELF.rights.push('READ_PUBLIC');
-    }
-    if (this.readSelfVo) {
-      rightsSELF.rights.push('READ_VO');
-    }
-
-    if (this.writeSelf) {
-      rightsSELF.rights.push('WRITE');
-    }
-    if (this.writeSelfPublic) {
-      rightsSELF.rights.push('WRITE_PUBLIC');
-    }
-    if (this.writeSelfVo) {
-      rightsSELF.rights.push('WRITE_VO');
-    }
-
-    list.push(rightsSELF);
-
-    const rightsVO = {} as AttributeRights;
-    rightsVO.attributeId = this.attDef.id;
-    rightsVO.role = Role.VOADMIN;
-    rightsVO.rights = [];
-
-    if (this.readVo) {
-      rightsVO.rights.push(ActionType.READ);
-    }
-
-    if (this.writeVo) {
-      rightsVO.rights.push(ActionType.WRITE);
-    }
-
-    list.push(rightsVO);
-
-    const rightsGROUP = {} as AttributeRights;
-    rightsGROUP.attributeId = this.attDef.id;
-    rightsGROUP.role = Role.GROUPADMIN;
-    rightsGROUP.rights = [];
-
-    if (this.readGroup) {
-      rightsGROUP.rights.push(ActionType.READ);
-    }
-
-    if (this.writeGroup) {
-      rightsGROUP.rights.push(ActionType.WRITE);
-    }
-
-    list.push(rightsGROUP);
-
-    const rightsFACILITY = {} as AttributeRights;
-    rightsFACILITY.attributeId = this.attDef.id;
-    rightsFACILITY.role = Role.FACILITYADMIN;
-    rightsFACILITY.rights = [];
-
-    if (this.readFacility) {
-      rightsFACILITY.rights.push(ActionType.READ);
-    }
-
-    if (this.writeFacility) {
-      rightsFACILITY.rights.push(ActionType.WRITE);
-    }
-
-    list.push(rightsFACILITY);
-
-    return list;
-  }
-
-  private readValueType(): void {
-    switch (this.valueType) {
-      case 'String': {
-        this.attDef.type = 'java.lang.String';
-        break;
-      }
-      case 'Integer': {
-        this.attDef.type = 'java.lang.Integer';
-        break;
-      }
-      case 'Boolean': {
-        this.attDef.type = 'java.lang.Boolean';
-        break;
-      }
-      case 'Array': {
-        this.attDef.type = 'java.util.ArrayList';
-        break;
-      }
-      case 'LinkedHashMap': {
-        this.attDef.type = 'java.util.LinkedHashMap';
-        break;
-      }
-    }
+  private createNamespace(entity: AttributeEntity, def: AttributeDefinitionType): string {
+    return 'urn:perun:' + entity + ':attribute-def:' + def;
   }
 }

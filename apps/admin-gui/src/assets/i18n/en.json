@@ -1446,23 +1446,10 @@
       "ENTITY": "Entity",
       "DEFINITION": "Definition",
       "VALUE_TYPE": "Value Type",
-      "UNIQUE": "Unique",
-      "READ": "Read",
-      "WRITE": "Write",
-      "SELF": "Self",
-      "SELF_PUBLIC": "Self Public",
-      "SELF_VO": "Self organization",
-      "VO": "Organization",
-      "GROUP": "Group",
-      "FACILITY": "Facility",
       "CANCEL": "Cancel",
       "CONFIRM": "Create",
       "SUCCESS": "Attribute Definition successfully created",
-      "ERROR_FIELD_EMPTY": "This field can't be empty",
-      "ERROR_SELECT_SOMETHING": "You have to select something",
-      "ERROR_FILL_REQUIRED": "Fill all required fields",
-      "TOOLTIP_UNIQUE": "Entityless Attributes or Attributes with definitions 'virt' CAN'T be UNIQUE",
-      "TOOLTIP_CONFIRM": "Fill every required field"
+      "ERROR_FIELD_EMPTY": "This field can't be empty"
     },
     "DELETE_ATTRIBUTE_DEFINITION": {
       "TITLE": "Confirm delete action",
@@ -1589,6 +1576,7 @@
       "SUCCESS_REMOVED": "External sources were successfully removed"
     },
     "EDIT_ATTRIBUTE_DEFINITION": {
+      "TITLE": "Edit attribute definition",
       "COPY_FOR_IMPORT": "Copy for import",
       "COPIED": "Data copied to clipboard.",
       "COPY": "Copy failed.",
@@ -1596,21 +1584,10 @@
       "DISPLAY_NAME": "Display name",
       "ERROR_FIELD_EMPTY": "This field can't be empty",
       "DESCRIPTION": "Description",
-      "UNIQUE": "Unique",
-      "TOOLTIP_UNIQUE": "Entityless Attributes or Attributes with definitions 'virt' CAN'T be UNIQUE",
-      "READ": "Read",
-      "WRITE": "Write",
-      "SELF": "Self",
-      "SELF_PUBLIC": "Self Public",
-      "SELF_VO": "Self organization",
-      "VO": "Organization",
-      "GROUP": "Group",
-      "FACILITY": "Facility",
       "CANCEL": "Cancel",
       "CONFIRM": "Submit",
-      "TOOLTIP_CONFIRM": "Fill every required field",
       "SHOW_KEYS": "Show keys",
-      "SERVICES": "Dependent services:"
+      "SERVICES": "Dependent services"
     },
     "REMOVE_DESTINATIONS": {
       "TITLE": "Remove destination from service",
@@ -2582,7 +2559,12 @@
     "RESOURCESELFSERVICE": "Resource self service",
     "RESOURCESELFSERVICE_RESOURCES": "Resources you are manager of",
     "RESOURCEOBSERVER": "Resource observer",
-    "RESOURCEOBSERVER_RESOURCES": "Resources you are observer of"
+    "RESOURCEOBSERVER_RESOURCES": "Resources you are observer of",
+    "SECURITYADMIN":  "Security admin",
+    "SERVICEUSER": "Service user",
+    "CABINETADMIN": "Cabinet admin",
+    "MEMBERSHIP": "Membership",
+    "AUDITCONSUMERADMIN": "Audit consumer admin"
   },
   "SHARED_LIB": {
     "PERUN": {
@@ -2915,6 +2897,19 @@
         "ADVANCED_FILTER": {
           "FILTERS": "Filters",
           "CLEAR_FILTERS": "Clear filters"
+        },
+        "ATTRIBUTE_RIGHTS": {
+          "READ": "Read",
+          "WRITE": "Write",
+          "ROLE": "Select role",
+          "ENTITY": "Connect entity",
+          "AND": "AND",
+          "OR": "OR",
+          "INFO": "Create collecions of multiple rules. Each rule must be fulfilled for the collection to be valid. User needs to suffice at least one collection to be eligible for given action."
+        },
+        "ATTRIBUTE_UNIQUE_TOGGLE": {
+          "UNIQUE": "Unique",
+          "TOOLTIP": "Entityless, virtual or core attributes can NOT be UNIQUE"
         }
       },
       "ORGANIZATIONS": {

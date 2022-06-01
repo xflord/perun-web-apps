@@ -1,0 +1,12 @@
+<mat-tab-group>
+  <mat-tab *ngFor="let action of actionTabs">
+    <ng-template matTabLabel>
+      {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_RIGHTS.' + action | translate}}
+    </ng-template>
+    <perun-web-apps-attribute-rights-tab
+      [attributeId]="attDef?.id"
+      [collections]="collections"
+      [action]="action">
+    </perun-web-apps-attribute-rights-tab>
+  </mat-tab>
+</mat-tab-group>
