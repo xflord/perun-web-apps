@@ -337,7 +337,7 @@ export class ExpirationSettingsComponent implements OnInit, OnChanges {
   }
 
   private parseSpecialLoaPeriod(config: ExpirationConfiguration): string {
-    if (!config.specialLoaPeriodEnabled) {
+    if (!config.specialLoaPeriodEnabled || !config.specialLoa) {
       return null;
     }
 

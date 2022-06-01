@@ -80,7 +80,7 @@ export class VoSettingsServiceMembersComponent implements OnInit {
   refresh(): void {
     this.loading = true;
     this.membersManager
-      .findCompleteRichMembersForVo(this.vo.id, [null], '(Service)')
+      .findCompleteRichMembersForVo(this.vo.id, [''], '(Service)')
       .subscribe((members) => {
         this.members = members;
         this.loading = false;

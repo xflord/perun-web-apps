@@ -16,11 +16,8 @@ export class SettingsToggleItemComponent implements AfterViewInit {
 
   @Output() modelChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  @Input()
   modelValue: boolean;
-
-  @Input() get model(): boolean {
-    return this.modelValue;
-  }
 
   ngAfterViewInit(): void {
     this.toggle.change.subscribe(() => this.valueChanged());

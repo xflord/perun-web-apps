@@ -62,7 +62,9 @@
     <!--  Dont allow loa  -->
 
     <app-settings-toggle-item
-      [(model)]="currentConfiguration.doNotAllowLoasEnabled"
+      ngDefaultControl
+      [(ngModel)]="currentConfiguration.doNotAllowLoasEnabled"
+      [modelValue]="currentConfiguration.doNotAllowLoasEnabled"
       [title]="'VO_MANAGEMENT.SETTINGS.EXPIRATION.DONT_ALLOW_LOA_LABEL' | translate">
       <mat-form-field>
         <mat-placeholder
@@ -77,7 +79,9 @@
     <!--  Dont extend loa  -->
 
     <app-settings-toggle-item
-      [(model)]="currentConfiguration.doNotExtendLoasEnabled"
+      ngDefaultControl
+      [(ngModel)]="currentConfiguration.doNotExtendLoasEnabled"
+      [modelValue]="currentConfiguration.doNotExtendLoasEnabled"
       [title]="'VO_MANAGEMENT.SETTINGS.EXPIRATION.DONT_EXTEND_LOA_LABEL' | translate">
       <mat-form-field>
         <mat-placeholder
@@ -92,7 +96,9 @@
     <!-- Grace period -->
 
     <app-settings-toggle-item
-      [(model)]="currentConfiguration.gracePeriodEnabled"
+      ngDefaultControl
+      [(ngModel)]="currentConfiguration.gracePeriodEnabled"
+      [modelValue]="currentConfiguration.gracePeriodEnabled"
       [title]="'VO_MANAGEMENT.SETTINGS.EXPIRATION.GRACE_PERIOD_LABEL' | translate">
       <div class="d-flex flex-row">
         <mat-form-field class="mr-2 amount-field">
@@ -120,7 +126,9 @@
     <!--  Loa period  -->
 
     <app-settings-toggle-item
-      [(model)]="currentConfiguration.specialLoaPeriodEnabled"
+      ngDefaultControl
+      [(ngModel)]="currentConfiguration.specialLoaPeriodEnabled"
+      [modelValue]="currentConfiguration.specialLoaPeriodEnabled"
       [title]="'VO_MANAGEMENT.SETTINGS.EXPIRATION.LOA_PERIOD_LABEL' | translate">
       <div class="ml-1">
         <div>
