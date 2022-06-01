@@ -61,7 +61,6 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.loadingMfa = true;
-    this.loadingImg = true;
     this.translate.onLangChange.subscribe(() => {
       this.translate
         .get('AUTHENTICATION.DELETE_IMG_DIALOG_TITLE')
@@ -90,8 +89,10 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
         console.error(e);
         this.loadingMfa = false;
       });
-
-    this.loadImage();
+    this.displayImageBlock = this.store.get('mfa', 'enable_security_image') as boolean;
+    if (this.displayImageBlock) {
+      this.loadImage();
+    }
   }
 
   onAddImg(): void {
@@ -159,8 +160,8 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
   }
 
   private loadImage(): void {
+    this.loadingImg = true;
     const imgAttributeName = this.store.get('mfa', 'security_image_attribute') as string;
-    this.displayImageBlock = this.store.get('mfa', 'enable_security_image') as boolean;
     this.attributesManagerService
       .getUserAttributeByName(this.store.getPerunPrincipal().userId, imgAttributeName)
       .subscribe(
