@@ -64,6 +64,8 @@ export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewI
         return data.event.name.split('.').pop();
       case 'actor':
         return data.actor;
+      case 'event.message':
+        return data.event.message;
       default:
         return '';
     }

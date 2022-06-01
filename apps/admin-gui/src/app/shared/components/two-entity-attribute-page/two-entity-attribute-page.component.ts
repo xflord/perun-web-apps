@@ -192,6 +192,7 @@ export class TwoEntityAttributePageComponent implements OnInit {
 
   getAttributes(entityId: number): void {
     this.innerLoading = true;
+    this.selection.clear();
     switch (this.firstEntity) {
       case 'member':
         switch (this.secondEntity) {

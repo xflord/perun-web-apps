@@ -14,6 +14,8 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
   styleUrls: ['./admin-services.component.scss'],
 })
 export class AdminServicesComponent implements OnInit {
+  static id = 'AdminServicesComponent';
+
   services: Service[];
   selection = new SelectionModel<Service>(true, []);
   loading = false;

@@ -428,6 +428,6 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
 
   getStatusAttribute(grp: RichGroup): string {
     const filter = grp.attributes.find((att) => att.baseFriendlyName === 'groupStatus');
-    return filter !== null ? (filter.value as string) : '';
+    return filter?.value ? (filter.value as string) : '';
   }
 }

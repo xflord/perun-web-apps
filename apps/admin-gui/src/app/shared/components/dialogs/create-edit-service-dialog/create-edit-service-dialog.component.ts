@@ -77,13 +77,16 @@ export class CreateEditServiceDialogComponent implements OnInit {
           beanName: '',
         },
       })
-      .subscribe(() => {
-        this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.CREATE_SUCCESS') as string
-        );
-        this.dialogRef.close(true);
-        this.loading = false;
-      });
+      .subscribe(
+        () => {
+          this.notificator.showSuccess(
+            this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.CREATE_SUCCESS') as string
+          );
+          this.dialogRef.close(true);
+          this.loading = false;
+        },
+        () => (this.loading = false)
+      );
   }
 
   onEdit(): void {
@@ -102,13 +105,16 @@ export class CreateEditServiceDialogComponent implements OnInit {
           beanName: this.data.service.beanName,
         },
       })
-      .subscribe(() => {
-        this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.EDIT_SUCCESS') as string
-        );
-        this.dialogRef.close(true);
-        this.loading = false;
-      });
+      .subscribe(
+        () => {
+          this.notificator.showSuccess(
+            this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.EDIT_SUCCESS') as string
+          );
+          this.dialogRef.close(true);
+          this.loading = false;
+        },
+        () => (this.loading = false)
+      );
   }
 
   onCancel(): void {

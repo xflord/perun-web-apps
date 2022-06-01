@@ -8,6 +8,7 @@ import {
   Vo,
 } from '@perun-web-apps/perun/openapi';
 import { ActivatedRoute } from '@angular/router';
+import { Urns } from '@perun-web-apps/perun/urns';
 
 @Component({
   selector: 'app-perun-web-apps-user-accounts',
@@ -52,7 +53,7 @@ export class UserAccountsComponent implements OnInit {
         this.member = member;
         this.groupService
           .getMemberRichGroupsWithAttributesByNames(this.member.id, [
-            'urn:perun:member_group:attribute-def:virt:groupStatus',
+            Urns.MEMBER_DEF_GROUP_EXPIRATION,
           ])
           .subscribe(
             (groups) => {

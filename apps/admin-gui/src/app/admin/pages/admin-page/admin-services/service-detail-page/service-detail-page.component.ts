@@ -81,7 +81,7 @@ export class ServiceDetailPageComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteServiceDialogComponent, config);
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result !== undefined) {
+      if (result) {
         void this.router.navigate(['/admin/services']);
       }
     });

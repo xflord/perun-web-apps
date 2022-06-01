@@ -15,11 +15,11 @@
     <p class="mt-2 mb-2">{{this.data.consentHubName}}</p>
     <mat-divider></mat-divider>
 
-    <div class="font-weight-bold mt-3">
+    <perun-web-apps-alert alert_type="warn">
       {{this.data.enforceConsents
       ? ('DIALOGS.EDIT_ENFORCE_CONSENTS_FLAG.DISABLE_BOLD_DESCRIPTION' | translate)
       : ('DIALOGS.EDIT_ENFORCE_CONSENTS_FLAG.ENFORCE_BOLD_DESCRIPTION' | translate)}}
-    </div>
+    </perun-web-apps-alert>
   </div>
   <div mat-dialog-actions>
     <button mat-flat-button class="ml-auto" (click)="onCancel()">

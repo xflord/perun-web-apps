@@ -31,7 +31,10 @@
         <perun-web-apps-groups-list
           *ngIf="!loading"
           [groups]="groups"
-          [displayedColumns]="['id', 'recent', 'name', 'description', 'groupStatus', 'expiration']">
+          [memberId]="member.id"
+          [memberGroupStatus]="member.groupStatus"
+          (refreshTable)="loadMember(selectedVo)"
+          [displayedColumns]="['id', 'recent', 'name', 'description', 'expiration']">
         </perun-web-apps-groups-list>
       </div>
     </ng-template>
