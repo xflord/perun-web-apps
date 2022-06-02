@@ -17,6 +17,8 @@ import { MemberEmailPipe } from './member-email.pipe';
 import { MemberLoginsPipe } from './member-logins.pipe';
 import { GroupExpirationPipe } from './group-expiration.pipe';
 import { MemberOrganizationPipe } from './member-organization.pipe';
+import { MemberListCheckboxDisabledPipe } from './member-list-checkbox-disabled.pipe';
+import { MemberCheckboxLabelPipe } from './member-checkbox-label.pipe';
 import { ParseDatePipe } from './parse-date.pipe';
 import { TechnicalOwnersPipe } from './technical-owners.pipe';
 import { FilterUniqueObjectsPipe } from './filter-unique-objects.pipe';
@@ -54,6 +56,8 @@ import { GroupMembersActionButtonDisabledTooltipPipe } from './group-members-act
     MemberEmailPipe,
     MemberLoginsPipe,
     MemberOrganizationPipe,
+    MemberListCheckboxDisabledPipe,
+    MemberCheckboxLabelPipe,
     GroupExpirationPipe,
     ParseDatePipe,
     TechnicalOwnersPipe,
@@ -92,6 +96,8 @@ import { GroupMembersActionButtonDisabledTooltipPipe } from './group-members-act
     MemberLoginsPipe,
     GroupExpirationPipe,
     MemberOrganizationPipe,
+    MemberListCheckboxDisabledPipe,
+    MemberCheckboxLabelPipe,
     ParseDatePipe,
     TechnicalOwnersPipe,
     FilterUniqueObjectsPipe,
