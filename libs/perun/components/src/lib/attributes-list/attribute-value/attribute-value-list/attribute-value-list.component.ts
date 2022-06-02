@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Attribute } from '@perun-web-apps/perun/openapi';
@@ -30,7 +30,7 @@ export class AttributeValueListComponent implements OnInit {
   defaultItemsShown = 5;
   itemsShown: number;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private changeDetector: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.removable = !isVirtualAttribute(this.attribute) && !this.readonly;
@@ -80,6 +80,7 @@ export class AttributeValueListComponent implements OnInit {
         (this.attribute.value as string[]).splice(index, 1);
         this.values = this.attribute.value as string[];
         this.sendEventToParent.emit();
+        this.changeDetector.detectChanges();
       }
     });
   }

@@ -21,6 +21,7 @@ import { FacilitySelectPageComponent } from '../../../facilities/pages/facility-
 import { VoSettingsSponsoredMembersComponent } from '../../../vos/pages/vo-detail-page/vo-settings/vo-settings-sponsored-members/vo-settings-sponsored-members.component';
 import { AdminSearcherComponent } from '../../../admin/pages/admin-page/admin-searcher/admin-searcher.component';
 import { AdminServicesComponent } from '../../../admin/pages/admin-page/admin-services/admin-services.component';
+import { FacilityAllowedUsersComponent } from '../../../facilities/pages/facility-detail-page/facility-allowed-users/facility-allowed-users.component';
 
 export class CachedRoute {
   routeHandle: DetachedRouteHandle;
@@ -57,7 +58,11 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
     },
     {
       type: 'facility',
-      components: [FacilityAllowedGroupsComponent.id, FacilityResourcesComponent.id],
+      components: [
+        FacilityAllowedGroupsComponent.id,
+        FacilityResourcesComponent.id,
+        FacilityAllowedUsersComponent.id,
+      ],
     },
     {
       type: 'member',

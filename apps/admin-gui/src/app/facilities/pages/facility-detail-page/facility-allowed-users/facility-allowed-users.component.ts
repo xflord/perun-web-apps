@@ -23,6 +23,8 @@ import { Urns } from '@perun-web-apps/perun/urns';
   styleUrls: ['./facility-allowed-users.component.scss'],
 })
 export class FacilityAllowedUsersComponent implements OnInit {
+  static id = 'FacilityAllowedUsersComponent';
+
   loading = false;
   filterValue = '';
 
@@ -134,7 +136,10 @@ export class FacilityAllowedUsersComponent implements OnInit {
     this.resourceService.getAssignedServicesToResource(resources[idx].id).subscribe(
       (services) => {
         this.services = this.services.concat(services);
-        this.resourceAssignedServices[resources[idx].id] = services.map((service) => service.id);
+        this.resourceAssignedServices.set(
+          resources[idx].id,
+          services.map((service) => service.id)
+        );
         this.getAssignedServices(resources, idx - 1);
       },
       () => (this.loading = false)
