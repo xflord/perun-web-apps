@@ -49,7 +49,7 @@ export class ServiceDetailPageComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.route.params.subscribe((params: Params) => {
-      this.serviceId = params['serviceId'] as number;
+      this.serviceId = Number(params['serviceId']);
       this.refresh();
     });
   }

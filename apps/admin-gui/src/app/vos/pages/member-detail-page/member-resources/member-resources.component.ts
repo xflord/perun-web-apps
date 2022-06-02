@@ -38,7 +38,7 @@ export class MemberResourcesComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.parent.params.subscribe((parentParams) => {
-      const memberId = parentParams['memberId'] as number;
+      const memberId = Number(parentParams['memberId']);
 
       this.memberManager.getMemberById(memberId).subscribe((member) => {
         this.member = member;

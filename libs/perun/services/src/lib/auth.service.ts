@@ -29,7 +29,7 @@ export class AuthService {
 
     this.route.queryParams.subscribe((params) => {
       if (params['idpFilter']) {
-        this.filterShortname = params['idpFilter'] as string;
+        this.filterShortname = String(params['idpFilter']);
       }
     });
   }
@@ -195,7 +195,7 @@ export class AuthService {
     sessionStorage.removeItem('auth:queryParams');
 
     if (queryParams['idpFilter']) {
-      this.filterShortname = queryParams['idpFilter'] as string;
+      this.filterShortname = String(queryParams['idpFilter']);
     }
     return this.router.navigate([redirectUrl], { queryParams: queryParams, replaceUrl: true });
   }

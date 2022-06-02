@@ -37,7 +37,7 @@ export class ApplicationFormManageGroupsComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.route.parent.parent.params.subscribe((params) => {
-      this.voId = params['voId'] as number;
+      this.voId = Number(params['voId']);
       this.loadGroups();
     });
   }

@@ -23,7 +23,7 @@ export class UserResourcesComponent implements OnInit {
   refreshTable(): void {
     this.loading = true;
     this.route.parent.params.subscribe((parentParams) => {
-      const userId = parentParams['userId'] as number;
+      const userId = Number(parentParams['userId']);
       this.userManager.getAssignedRichResourcesForUser(userId).subscribe((richResources) => {
         this.resources = richResources;
         this.loading = false;

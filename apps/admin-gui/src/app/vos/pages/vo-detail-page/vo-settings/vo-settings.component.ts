@@ -30,7 +30,7 @@ export class VoSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.parent.params.subscribe((parentParams) => {
-      this.voId = parentParams['voId'] as number;
+      this.voId = Number(parentParams['voId']);
     });
   }
 }

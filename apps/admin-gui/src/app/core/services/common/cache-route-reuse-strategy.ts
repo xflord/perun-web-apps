@@ -251,7 +251,7 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
     for (const reset of this.resets) {
       // if the reset should be used and update it
       if (reset.resetPath === newPath) {
-        const newParamValue: string = newRoute.params[reset.param] as string;
+        const newParamValue = String(newRoute.params[reset.param]);
 
         // remove all cached pages for given type
         if (reset.lastValue !== null && reset.lastValue !== newParamValue) {

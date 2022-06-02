@@ -122,9 +122,9 @@ export class UserDestinationGraphComponent implements OnInit {
     this.innerHeight = window.innerHeight;
     this.getLocalizedNames();
     this.route.queryParams.subscribe((params) => {
-      this.destination = params['destination'] as string;
-      this.service = params['service'] as string;
-      this.userService.getUserById(params['user'] as number).subscribe((user) => {
+      this.destination = String(params['destination']);
+      this.service = String(params['service']);
+      this.userService.getUserById(Number(params['user'])).subscribe((user) => {
         this.user = user;
         this.facilityManager
           .getFacilitiesByDestination(this.destination)

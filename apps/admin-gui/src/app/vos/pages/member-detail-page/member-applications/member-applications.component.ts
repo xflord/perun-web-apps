@@ -61,7 +61,7 @@ export class MemberApplicationsComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.route.parent.params.subscribe((parentParams) => {
-      this.memberId = parentParams['memberId'] as number;
+      this.memberId = Number(parentParams['memberId']);
 
       this.memberManager.getMemberById(this.memberId).subscribe((member) => {
         this.member = member;

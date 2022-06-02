@@ -35,7 +35,7 @@ export class AdminUserDetailPageComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.route.params.subscribe((params) => {
-      const userId = params['userId'] as number;
+      const userId = Number(params['userId']);
       this.entityStorageService.setEntity({ id: Number(userId), beanName: 'User' });
 
       this.path = `/admin/users/${userId}`;

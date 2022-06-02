@@ -52,7 +52,7 @@ export class MemberGroupsComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.route.parent.params.subscribe((parentParams) => {
-      this.memberId = parentParams['memberId'] as number;
+      this.memberId = Number(parentParams['memberId']);
       this.memberService.getMemberById(this.memberId).subscribe((member) => {
         this.member = member;
         this.groupsService.getAllGroups(this.member.voId).subscribe((allGroups) => {

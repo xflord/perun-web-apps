@@ -21,7 +21,7 @@ export class UserFacilitiesComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.route.parent.params.subscribe((params) => {
-      this.userId = params['userId'] as number;
+      this.userId = Number(params['userId']);
       this.refreshTable();
     });
   }

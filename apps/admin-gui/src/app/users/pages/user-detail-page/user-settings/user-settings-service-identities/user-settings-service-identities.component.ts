@@ -40,7 +40,7 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
     this.loading = true;
 
     this.route.parent.params.subscribe((params) => {
-      this.userId = params['userId'] as number;
+      this.userId = Number(params['userId']);
       if (this.userId === undefined) {
         this.targetTitle = 'SERVICE';
         this.targetDescription = 'SELF';

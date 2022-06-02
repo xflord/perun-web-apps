@@ -34,7 +34,7 @@ export class UserAccountsComponent implements OnInit {
   ngOnInit(): void {
     this.initLoading = true;
     this.route.parent.params.subscribe((params) => {
-      this.userId = params['userId'] as number;
+      this.userId = Number(params['userId']);
       this.usersService.getVosWhereUserIsMember(this.userId).subscribe(
         (vos) => {
           this.vos = vos;

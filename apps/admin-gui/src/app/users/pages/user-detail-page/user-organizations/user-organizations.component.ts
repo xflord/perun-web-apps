@@ -37,7 +37,7 @@ export class UserOrganizationsComponent implements OnInit {
     if ((this.isMyProfile = this.route.snapshot.data.showPrincipal as boolean)) {
       this.userId = this.store.getPerunPrincipal().user.id;
     } else {
-      this.route.parent.params.subscribe((params) => (this.userId = params['userId'] as number));
+      this.route.parent.params.subscribe((params) => (this.userId = Number(params['userId'])));
     }
     this.refreshAdminTable();
     this.refreshMemberTable();

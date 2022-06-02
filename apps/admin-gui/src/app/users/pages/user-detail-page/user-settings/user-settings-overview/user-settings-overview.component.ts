@@ -21,7 +21,7 @@ export class UserSettingsOverviewComponent implements OnInit {
     if (window.location.pathname.startsWith('/admin')) {
       this.loading = true;
       this.route.parent.parent.params.subscribe((params) => {
-        const userId = params['userId'] as number;
+        const userId = Number(params['userId']);
 
         this.userManager.getUserById(userId).subscribe(
           (user) => {

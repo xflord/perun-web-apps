@@ -55,9 +55,9 @@ export class SettingsMailingListsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.queryParams
       .subscribe((params) => {
-        this.selectedVo = params['vo'] as string;
-        this.selectedResource = params['resource'] as string;
-        this.changeOptOut = params['action'] as string;
+        this.selectedVo = String(params['vo']);
+        this.selectedResource = String(params['resource']);
+        this.changeOptOut = String(params['action']);
 
         this.user = this.store.getPerunPrincipal().user;
 

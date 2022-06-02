@@ -70,7 +70,7 @@ export class ResourceDetailPageComponent extends destroyDetailMixin() implements
   reloadData(): void {
     this.loading = true;
     this.route.params.subscribe((params) => {
-      const resourceId = params['resourceId'] as number;
+      const resourceId = Number(params['resourceId']);
 
       this.resourcesManager.getRichResourceById(resourceId).subscribe((resource) => {
         this.resource = resource;

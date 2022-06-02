@@ -60,7 +60,7 @@ export class ApplicationDetailComponent implements OnInit {
         } else {
           this.dialogTheme = 'vo-theme';
         }
-        const applicationId = params['applicationId'] as number;
+        const applicationId = Number(params['applicationId']);
         this.registrarManager.getApplicationById(applicationId).subscribe((application) => {
           this.application = application;
           if (this.application.type === 'EMBEDDED' && this.application.user) {

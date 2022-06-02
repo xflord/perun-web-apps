@@ -38,7 +38,7 @@ export class IdentityDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      const identityId = params['identityId'] as number;
+      const identityId = Number(params['identityId']);
       this.userService.getUserExtSourceById(identityId).subscribe((extSource) => {
         this.userExtSource = extSource;
         this.refreshTable();

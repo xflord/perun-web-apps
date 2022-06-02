@@ -42,7 +42,7 @@ export class UserOverviewComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       if (params['userId']) {
-        this.userService.getUserById(params['userId'] as number).subscribe((user) => {
+        this.userService.getUserById(Number(params['userId'])).subscribe((user) => {
           this.user = user;
           this.isServiceUser = user.serviceUser;
           this.initNavItems();

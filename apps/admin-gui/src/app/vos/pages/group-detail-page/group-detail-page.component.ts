@@ -105,8 +105,8 @@ export class GroupDetailPageComponent extends destroyDetailMixin() implements On
   reloadData(): void {
     this.loading = true;
     this.route.params.subscribe((params) => {
-      const voId = params['voId'] as number;
-      const groupId = params['groupId'] as number;
+      const voId = Number(params['voId']);
+      const groupId = Number(params['groupId']);
 
       this.voService.getVoById(voId).subscribe(
         (vo) => {

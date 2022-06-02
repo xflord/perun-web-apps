@@ -36,7 +36,7 @@ export class AuthorDetailComponent implements OnInit {
   ngOnInit(): void {
     this.initLoading = true;
     this.route.params.subscribe((params) => {
-      const authorId = params['authorId'] as number;
+      const authorId = Number(params['authorId']);
       this.userService.getUserById(authorId).subscribe((user) => {
         this.author = user;
         this.initLoading = false;

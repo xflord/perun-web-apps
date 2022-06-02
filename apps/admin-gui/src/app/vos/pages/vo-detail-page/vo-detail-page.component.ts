@@ -57,7 +57,7 @@ export class VoDetailPageComponent extends destroyDetailMixin() implements OnIni
   reloadData(): void {
     this.loading = true;
     this.route.params.subscribe((params) => {
-      const voId = params['voId'] as number;
+      const voId = Number(params['voId']);
 
       this.voService.getEnrichedVoById(voId).subscribe(
         (enrichedVo) => {

@@ -94,7 +94,7 @@ export class UserRolesComponent implements OnInit {
     this.outerLoading = true;
     this.route.parent.params.subscribe((params) => {
       if (params['userId']) {
-        this.userId = params['userId'] as number;
+        this.userId = Number(params['userId']);
         this.authzResolverService.getUserRoleNames(this.userId).subscribe((roleNames) => {
           this.roleNames = roleNames.map((elem) => elem.toUpperCase());
           this.authzResolverService.getUserRoles(this.userId).subscribe((roles) => {

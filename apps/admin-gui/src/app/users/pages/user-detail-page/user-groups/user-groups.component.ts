@@ -48,7 +48,7 @@ export class UserGroupsComponent implements OnInit {
     if ((this.showPrincipal = this.route.snapshot.data.showPrincipal as boolean)) {
       this.userId = this.store.getPerunPrincipal().user.id;
     } else {
-      this.route.parent.params.subscribe((params) => (this.userId = params['userId'] as number));
+      this.route.parent.params.subscribe((params) => (this.userId = Number(params['userId'])));
     }
     this.refreshAdminTable();
     this.refreshMemberTable();

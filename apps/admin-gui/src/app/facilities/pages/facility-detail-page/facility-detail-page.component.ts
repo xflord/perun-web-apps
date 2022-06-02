@@ -56,7 +56,7 @@ export class FacilityDetailPageComponent extends destroyDetailMixin() implements
   reloadData(): void {
     this.loading = true;
     this.route.params.subscribe((params) => {
-      const facilityId = params['facilityId'] as number;
+      const facilityId = Number(params['facilityId']);
 
       this.facilityManager.getFacilityById(facilityId).subscribe(
         (facility) => {

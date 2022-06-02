@@ -30,8 +30,8 @@ export class ServiceIdentityDetailPageComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.route.params.subscribe((params) => {
-      const userId = params['userId'] as number;
-      this.entityStorageService.setEntity({ id: Number(userId), beanName: 'User' });
+      const userId = Number(params['userId']);
+      this.entityStorageService.setEntity({ id: userId, beanName: 'User' });
 
       this.usersService.getUserById(userId).subscribe(
         (user) => {

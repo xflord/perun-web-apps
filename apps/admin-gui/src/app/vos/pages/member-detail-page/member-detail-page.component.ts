@@ -38,8 +38,8 @@ export class MemberDetailPageComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.route.params.subscribe((params) => {
-      const voId = params['voId'] as number;
-      const memberId = params['memberId'] as number;
+      const voId = Number(params['voId']);
+      const memberId = Number(params['memberId']);
       this.isAuthorized = this.authResolver.isPerunAdminOrObserver();
 
       this.voService.getVoById(voId).subscribe(

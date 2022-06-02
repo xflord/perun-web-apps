@@ -40,7 +40,7 @@ export class FacilityHostsDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.hostId = params['hostId'] as number;
+      this.hostId = Number(params['hostId']);
       this.facilityManager.getHostById(this.hostId).subscribe((host) => {
         this.host = host;
       });

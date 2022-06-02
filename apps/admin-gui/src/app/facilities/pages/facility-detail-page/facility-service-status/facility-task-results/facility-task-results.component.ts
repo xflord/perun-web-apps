@@ -66,7 +66,7 @@ export class FacilityTaskResultsComponent implements OnInit {
     }
 
     this.route.params.subscribe((params) => {
-      this.taskId = params['taskId'] as number;
+      this.taskId = Number(params['taskId']);
       this.taskManager.getTaskById(this.taskId).subscribe((task) => {
         this.task = task;
         this.refreshTable();
