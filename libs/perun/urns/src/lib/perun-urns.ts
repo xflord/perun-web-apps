@@ -6,6 +6,7 @@ export class Urns {
   static MEMBER_DEF_ORGANIZATION = 'urn:perun:member:attribute-def:def:organization';
   static MEMBER_DEF_MAIL = 'urn:perun:member:attribute-def:def:mail';
   static MEMBER_CORE_ID = 'urn:perun:member:attribute-def:core:id';
+  static MEMBER_LIFECYCLE_ALTERABLE = 'urn:perun:member:attribute-def:virt:isLifecycleAlterable';
 
   // Vo
   static VO_DEF_EXPIRATION_RULES = 'urn:perun:vo:attribute-def:def:membershipExpirationRules';

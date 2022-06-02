@@ -43,6 +43,7 @@ export class VoMembersComponent implements OnInit {
     Urns.USER_DEF_ORGANIZATION,
     Urns.USER_DEF_PREFERRED_MAIL,
     Urns.MEMBER_DEF_EXPIRATION,
+    Urns.MEMBER_LIFECYCLE_ALTERABLE,
   ];
   statuses = new FormControl();
   statusList = ['VALID', 'INVALID', 'EXPIRED', 'DISABLED'];

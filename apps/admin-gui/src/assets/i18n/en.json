@@ -2195,7 +2195,8 @@
     "NO_MEMBERS_ALERT": "No members present",
     "NO_FILTER_RESULTS_ALERT": "No members are matching your query",
     "INDIRECT_MEMBER": "Indirect member",
-    "CHECKBOX_TOOLTIP": "Indirect members cannot be removed"
+    "CHECKBOX_TOOLTIP_INDIRECT": "Indirect members cannot be removed",
+    "CHECKBOX_TOOLTIP_UNALTERABLE": "Members from member organizations cannot be directly removed"
   },
   "MEMBERS_CANDIDATES_LIST": {
     "STATUS": "Status",
