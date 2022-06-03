@@ -22,7 +22,7 @@ export class UserAttributesComponent implements OnInit {
   ngOnInit(): void {
     this.route.parent.params.subscribe((params) => {
       this.userId = Number(params['userId']);
-      if (this.userId === undefined) {
+      if (!this.userId) {
         this.userId = this.store.getPerunPrincipal().userId;
       }
 
