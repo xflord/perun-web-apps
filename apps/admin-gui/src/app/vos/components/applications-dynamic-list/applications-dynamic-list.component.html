@@ -1,6 +1,4 @@
-<div
-  [hidden]="this.dataSource.allObjectCount === 0 && (dataSource.loading$ | async) === false"
-  class="card mt-2">
+<div [hidden]="this.dataSource.allObjectCount === 0" class="card mt-2">
   <perun-web-apps-table-wrapper
     (exportData)="exportData($event)"
     [dataLength]="dataSource.allObjectCount"

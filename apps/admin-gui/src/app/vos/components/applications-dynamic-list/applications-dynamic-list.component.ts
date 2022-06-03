@@ -73,7 +73,6 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
   @Input()
   refreshTable = false;
 
-  @Input()
   parsedColumns: string[] = [];
 
   dataSource: DynamicDataSource<Application>;
@@ -126,7 +125,9 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       this.parsedColumns = [];
 
       const data = this.dataSource.getData()[0] as RichApplication;
-      this.parseColumns(data.formData);
+      if (data) {
+        this.parseColumns(data.formData);
+      }
     });
   }
 

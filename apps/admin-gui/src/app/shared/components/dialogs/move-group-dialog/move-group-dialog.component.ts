@@ -106,7 +106,7 @@ export class MoveGroupDialogComponent implements OnInit {
     this.groupService
       .moveGroupWithDestinationGroupMovingGroup(
         this.data.group.id,
-        this.otherGroupsCtrl.value ? (this.otherGroupsCtrl.value as Group).id : -1
+        this.otherGroupsCtrl.value ? (this.otherGroupsCtrl.value as Group).id : undefined
       )
       .subscribe(
         () => {
