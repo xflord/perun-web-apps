@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { fadeIn } from '@perun-web-apps/perun/animations';
 import {
   ConsentsManagerService,
-  InputUpdateService,
   Service,
   ServicesManagerService,
 } from '@perun-web-apps/perun/openapi';
@@ -66,7 +65,7 @@ export class ServiceDetailPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.ngOnInit();
+        this.refresh();
       }
     });
   }
@@ -88,28 +87,26 @@ export class ServiceDetailPageComponent implements OnInit {
   }
 
   changeServiceStatus(): void {
-    this.loading = true;
-    const inputService: InputUpdateService = {
-      service: {
-        name: this.service.name,
-        description: this.service.description,
-        delay: this.service.delay,
-        recurrence: this.service.recurrence,
-        enabled: !this.service.enabled,
-        script: this.service.script,
-        useExpiredMembers: this.service.useExpiredMembers,
-        id: this.service.id,
-        beanName: this.service.beanName,
-      },
-    };
-    this.serviceManager.updateService(inputService).subscribe(
+    this.service.enabled = !this.service.enabled;
+    this.serviceManager.updateService({ service: this.service }).subscribe(
       () => {
         this.notificator.showSuccess(
           this.translate.instant('SERVICE_DETAIL.STATUS_CHANGE_SUCCESS') as string
         );
-        this.refresh();
       },
-      () => (this.loading = false)
+      () => (this.service.enabled = !this.service.enabled)
+    );
+  }
+
+  propagationChange(): void {
+    this.service.useExpiredMembers = !this.service.useExpiredMembers;
+    this.serviceManager.updateService({ service: this.service }).subscribe(
+      () => {
+        this.notificator.showSuccess(
+          this.translate.instant('SERVICE_DETAIL.PROPAGATION_CHANGE_SUCCESS') as string
+        );
+      },
+      () => (this.service.useExpiredMembers = !this.service.useExpiredMembers)
     );
   }
 

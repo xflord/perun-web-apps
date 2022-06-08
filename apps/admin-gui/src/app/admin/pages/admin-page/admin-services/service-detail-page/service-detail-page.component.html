@@ -1,60 +1,62 @@
 <div class="container-fluid pl-xl-5 pr-xl-5 service-theme">
   <perun-web-apps-back-button> </perun-web-apps-back-button>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <div *ngIf="!loading && service !== undefined" class="d-flex page-title-headtitle">
+  <div *ngIf="!loading" class="page-title-headtitle detail-layout">
     <mat-icon
       matTooltip="{{'SERVICE_DETAIL.ENTITY' | translate}}"
       [ngStyle]="{'color':'black'}"
       class="perun-icon perun-icon-detail"
       svgIcon="perun-service">
     </mat-icon>
-    <div class="page-title-block">
-      <div class="page-title-headline d-flex align-items-center">
-        <a
-          [routerLink]="['/admin/services', service.id]"
-          class="service-link"
-          queryParamsHandling="merge">
-          {{service.name}}
-        </a>
-        <span class="text-muted"> &nbsp; #{{service.id}} </span>
-        <button
-          *ngIf="authResolver.isPerunAdmin()"
-          (click)="editService()"
-          aria-label="Edit service"
-          mat-icon-button>
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button
-          *ngIf="authResolver.isPerunAdmin()"
-          (click)="removeService()"
-          aria-label="Remove service"
-          mat-icon-button>
-          <mat-icon>delete_forever</mat-icon>
-        </button>
+    <div class="wrap-container">
+      <div class="detail-info">
+        <div class="flex-column">
+          <div class="page-title-headline d-flex align-items-center">
+            <a
+              [routerLink]="['/admin/services', service.id]"
+              class="service-link"
+              queryParamsHandling="merge">
+              {{service.name}}
+            </a>
+            <span class="text-muted"> &nbsp; #{{service.id}} </span>
+            <button
+              *ngIf="authResolver.isPerunAdmin()"
+              (click)="editService()"
+              aria-label="Edit service"
+              mat-icon-button>
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              *ngIf="authResolver.isPerunAdmin()"
+              (click)="removeService()"
+              aria-label="Remove service"
+              mat-icon-button>
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </div>
+          <span class="mt-1 entity-info">
+            {{'SERVICE_DETAIL.DESCRIPTION' | translate}}: {{service.description}}
+          </span>
+        </div>
       </div>
-      <span class="mt-1 entity-info">
-        {{'SERVICE_DETAIL.DESCRIPTION' | translate}}: {{service.description}}
-      </span>
-      <div class="mt-1 entity-info">
-        {{'SERVICE_DETAIL.STATUS' | translate}}:
-        <span>
-          {{service.enabled ? ('SERVICE_DETAIL.ENABLED' | translate) : ('SERVICE_DETAIL.DISABLED' | translate)}}
-          <button (click)="changeServiceStatus()" class="icon-button mr-2" mat-icon-button>
-            <mat-icon class="align-bottom">
-              {{service.enabled ? "check_circle_outline" : "block"}}
-            </mat-icon>
-          </button>
-        </span>
-        {{'SERVICE_DETAIL.EXPIRED_MEMBERS' | translate}}:
-        <span>
-          {{service.useExpiredMembers ? ('SERVICE_DETAIL.PROPAGATED' | translate) : ('SERVICE_DETAIL.NOT_PROPAGATED' | translate)}}
-        </span>
+      <div class="detail-actions">
+        <mat-slide-toggle
+          [checked]="service.enabled"
+          (toggleChange)="changeServiceStatus()"
+          labelPosition="before">
+          {{'SERVICE_DETAIL.ENABLE' | translate}}
+        </mat-slide-toggle>
+        <mat-slide-toggle
+          [checked]="service.useExpiredMembers"
+          (toggleChange)="propagationChange()"
+          labelPosition="before">
+          {{'SERVICE_DETAIL.PROPAGATE' | translate}}
+        </mat-slide-toggle>
         <button
           *ngIf="authResolver.isPerunAdmin()"
           (click)="evaluateConsents()"
-          color="accent"
-          class="action-button ml-2"
-          mat-flat-button>
+          class="action-button evaluate-button"
+          mat-stroked-button>
           {{'SERVICE_DETAIL.EVALUATE_CONSENTS' | translate}}
         </button>
       </div>

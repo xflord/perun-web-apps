@@ -1,5 +1,29 @@
-.icon-button {
-  line-height: inherit !important;
-  width: inherit !important;
-  height: inherit !important;
+.detail-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 1.2em;
+}
+
+.detail-info {
+  display: flex;
+  flex-direction: row;
+  margin-right: 1.2em;
+}
+
+.wrap-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.3em;
+}
+
+.detail-actions {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  padding-left: 0.5em;
+}
+
+.evaluate-button {
+  width: fit-content;
 }
