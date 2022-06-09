@@ -12,6 +12,7 @@
 
 export interface MailText {
   locale?: string;
+  htmlFormat?: boolean;
   subject?: string;
   text?: string;
 }

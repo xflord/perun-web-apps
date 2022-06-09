@@ -32,6 +32,8 @@ export class AddEditNotificationDialogComponent implements OnInit {
   theme: string;
   editAuth: boolean;
   languages = ['en'];
+  formats = ['plain_text', 'html'];
+  htmlAuth: boolean;
 
   constructor(
     private dialogRef: MatDialogRef<AddEditNotificationDialogComponent>,
@@ -44,6 +46,8 @@ export class AddEditNotificationDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.languages = this.store.get('supported_languages') as string[];
+    // at this moment we want to enable the html notification settings just for Perun Admin
+    this.htmlAuth = this.authResolver.isPerunAdmin();
     this.applicationMail = this.data.applicationMail;
     this.theme = this.data.theme;
 
@@ -115,28 +119,49 @@ export class AddEditNotificationDialogComponent implements OnInit {
   }
 
   addTag(
-    input: HTMLInputElement,
-    textarea: HTMLTextAreaElement,
+    input: HTMLDivElement,
+    textarea: HTMLDivElement,
     language: string,
-    tag: string
+    tag: string,
+    format: string
   ): void {
     let place: HTMLInputElement | HTMLTextAreaElement;
     if (!this.isTextFocused) {
-      place = input;
+      place =
+        format === 'plain_text'
+          ? (input.children.item(0) as HTMLInputElement)
+          : (input.children.item(1) as HTMLInputElement);
     } else {
-      place = textarea;
+      place =
+        format === 'plain_text'
+          ? (textarea.children.item(0) as HTMLTextAreaElement)
+          : (textarea.children.item(1) as HTMLTextAreaElement);
     }
     const position: number = place.selectionStart;
     if (this.isTextFocused) {
-      this.applicationMail.message[language].text =
-        this.applicationMail.message[language].text.substring(0, position) +
-        tag +
-        this.applicationMail.message[language].text.substring(position);
+      if (format === 'html') {
+        this.applicationMail.htmlMessage[language].text =
+          this.applicationMail.htmlMessage[language].text.substring(0, position) +
+          tag +
+          this.applicationMail.htmlMessage[language].text.substring(position);
+      } else {
+        this.applicationMail.message[language].text =
+          this.applicationMail.message[language].text.substring(0, position) +
+          tag +
+          this.applicationMail.message[language].text.substring(position);
+      }
     } else {
-      this.applicationMail.message[language].subject =
-        this.applicationMail.message[language].subject.substring(0, position) +
-        tag +
-        this.applicationMail.message[language].subject.substring(position);
+      if (format === 'html') {
+        this.applicationMail.htmlMessage[language].subject =
+          this.applicationMail.htmlMessage[language].subject.substring(0, position) +
+          tag +
+          this.applicationMail.htmlMessage[language].subject.substring(position);
+      } else {
+        this.applicationMail.message[language].subject =
+          this.applicationMail.message[language].subject.substring(0, position) +
+          tag +
+          this.applicationMail.message[language].subject.substring(position);
+      }
     }
     place.focus();
   }

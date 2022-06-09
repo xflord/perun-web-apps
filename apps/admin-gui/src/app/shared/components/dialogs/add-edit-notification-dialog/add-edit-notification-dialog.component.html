@@ -114,48 +114,80 @@
           *ngFor="let lang of languages"
           label="{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.LANG_' + lang | uppercase | translate}}">
           <ng-template matTabContent>
-            <div class="d-flex w-100">
-              <div class="pr-2 w-100">
-                <div class="pt-2">
-                  <button
-                    class="right-button"
-                    (click)="this.showTags = !this.showTags;"
-                    mat-stroked-button>
-                    {{showTags ? ('DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.HIDE_TAGS' | translate) :
-                    ('DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SHOW_TAGS' | translate)}}
-                  </button>
-                  <span class="font-weight-bold pr-2">
-                    {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SUBJECT' | translate}}:
+            <perun-web-apps-alert alert_type="info" *ngIf="htmlAuth">
+              <i [innerHTML]="'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.FORMAT_INFO' | translate"></i>
+            </perun-web-apps-alert>
+            <perun-web-apps-alert alert_type="info" *ngIf="!htmlAuth">
+              {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.FORMAT_INFO_NOT_AUTHORIZED' | translate}}
+            </perun-web-apps-alert>
+            <mat-tab-group color="primary">
+              <mat-tab *ngFor="let format of formats" [disabled]="format === 'html' && !htmlAuth">
+                <ng-template mat-tab-label>
+                  <span [ngClass]="{'disabled-label': format === 'html' && !htmlAuth}">
+                    {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.FORMAT_' + format | uppercase | translate}}
                   </span>
-                  <mat-form-field class="w-100">
-                    <input
-                      [(ngModel)]="this.applicationMail.message[lang].subject"
-                      #Input
-                      (focus)="isTextFocused = false"
-                      matInput />
-                  </mat-form-field>
+                </ng-template>
+                <div class="d-flex w-100">
+                  <div class="pr-2 w-100">
+                    <div class="pt-2">
+                      <button
+                        class="right-button"
+                        (click)="this.showTags = !this.showTags;"
+                        mat-stroked-button>
+                        {{showTags ? ('DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.HIDE_TAGS' | translate) :
+                        ('DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SHOW_TAGS' | translate)}}
+                      </button>
+                      <span class="font-weight-bold pr-2">
+                        {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SUBJECT' | translate}}:
+                      </span>
+                      <mat-form-field class="w-100">
+                        <div #Input>
+                          <input
+                            *ngIf="format === 'plain_text'"
+                            [(ngModel)]="this.applicationMail.message[lang].subject"
+                            (focus)="isTextFocused = false"
+                            matInput />
+                          <input
+                            *ngIf="format === 'html'"
+                            [(ngModel)]="this.applicationMail.htmlMessage[lang].subject"
+                            (focus)="isTextFocused = false"
+                            matInput />
+                        </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="font-weight-bold">
+                      {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.TEXT' | translate}}:
+                    </div>
+
+                    <mat-form-field class="w-100">
+                      <div #Textarea>
+                        <textarea
+                          *ngIf="format === 'plain_text'"
+                          [(ngModel)]="this.applicationMail.message[lang].text"
+                          matInput
+                          (focus)="isTextFocused = true"
+                          rows="17">
+                        </textarea>
+                        <textarea
+                          *ngIf="format === 'html'"
+                          [(ngModel)]="this.applicationMail.htmlMessage[lang].text"
+                          matInput
+                          (focus)="isTextFocused = true"
+                          rows="17">
+                        </textarea>
+                      </div>
+                    </mat-form-field>
+                  </div>
+
+                  <mat-divider *ngIf="showTags" class="ml-3 mr-3" vertical="true"></mat-divider>
+
+                  <div [@tagsOpenClose]="showTags ? 'open' : 'closed'">
+                    <app-tag-bar (addedTag)="addTag(Input, Textarea, lang, $event, format)">
+                    </app-tag-bar>
+                  </div>
                 </div>
-                <div class="font-weight-bold">
-                  {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.TEXT' | translate}}:
-                </div>
-
-                <mat-form-field class="w-100">
-                  <textarea
-                    [(ngModel)]="this.applicationMail.message[lang].text"
-                    #Textarea
-                    matInput
-                    (focus)="isTextFocused = true"
-                    rows="17">
-                  </textarea>
-                </mat-form-field>
-              </div>
-
-              <mat-divider *ngIf="showTags" class="ml-3 mr-3" vertical="true"></mat-divider>
-
-              <div [@tagsOpenClose]="showTags ? 'open' : 'closed'">
-                <app-tag-bar (addedTag)="addTag(Input, Textarea, lang, $event)"> </app-tag-bar>
-              </div>
-            </div>
+              </mat-tab>
+            </mat-tab-group>
           </ng-template>
         </mat-tab>
       </mat-tab-group>

@@ -592,9 +592,11 @@ export function createNewApplicationMail(langs = ['en', 'cs']): ApplicationMail 
     mailType: 'APP_CREATED_USER',
     send: true,
     message: {},
+    htmlMessage: {},
   };
   langs.forEach((lang) => {
-    mail.message[lang] = { locale: lang, subject: '', text: '' };
+    mail.message[lang] = { locale: lang, htmlFormat: false, subject: '', text: '' };
+    mail.htmlMessage[lang] = { locale: lang, htmlFormat: true, subject: '', text: '' };
   });
   return mail;
 }

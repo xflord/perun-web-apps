@@ -20,4 +20,5 @@ export interface ApplicationMail {
   mailType?: MailType;
   send?: boolean;
   message?: { [key: string]: MailText };
+  htmlMessage?: { [key: string]: MailText };
 }
