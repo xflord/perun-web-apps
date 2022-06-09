@@ -106,7 +106,7 @@ export class VoSelectPageComponent implements OnInit, AfterViewChecked {
     config.width = '500px';
     config.data = {
       theme: 'vo-theme',
-      vos: [this.selection.selected[0]],
+      vos: [this.selection.selected[0].vo],
     };
     const dialogRef = this.dialog.open(RemoveVoDialogComponent, config);
 
