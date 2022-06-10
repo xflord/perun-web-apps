@@ -113,8 +113,6 @@ context('Actions', () => {
       .click()
       .get('[data-cy=search-members]')
       .type(`${dbUser}`)
-      .get('[data-cy=search-button]')
-      .click()
       .get(`[data-cy=${dbUser}-checkbox]`)
       .click()
       .get('[data-cy=add-button]')
