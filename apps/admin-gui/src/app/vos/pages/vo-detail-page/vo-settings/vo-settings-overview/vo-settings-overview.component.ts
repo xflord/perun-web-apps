@@ -1,13 +1,8 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { SideMenuService } from '../../../../../core/services/common/side-menu.service';
 import { Router } from '@angular/router';
 import { MenuItem } from '@perun-web-apps/perun/models';
 import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
-import {
-  EntityStorageService,
-  GuiAuthResolver,
-  RoutePolicyService,
-} from '@perun-web-apps/perun/services';
+import { EntityStorageService, RoutePolicyService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-vo-settings-overview',
@@ -23,9 +18,7 @@ export class VoSettingsOverviewComponent implements OnInit {
   private vo: Vo;
 
   constructor(
-    private sideMenuService: SideMenuService,
     private voService: VosManagerService,
-    private authResolver: GuiAuthResolver,
     protected router: Router,
     private entityStorageService: EntityStorageService,
     private routePolicyService: RoutePolicyService
@@ -43,7 +36,6 @@ export class VoSettingsOverviewComponent implements OnInit {
 
   private initItems(): void {
     this.items = [];
-    const adminOrObserver = this.authResolver.isThisVoAdminOrObserver(this.vo.id);
 
     // Membership
     if (this.routePolicyService.canNavigate('organizations-settings-expiration', this.vo)) {
