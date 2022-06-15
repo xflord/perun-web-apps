@@ -83,6 +83,11 @@ export class InitAuthService {
         } else {
           this.storeService.setPerunPrincipal(perunPrincipal);
           this.authResolver.init(perunPrincipal);
+          const previousUrl = localStorage.getItem('routeAuthGuard');
+          if (previousUrl) {
+            localStorage.removeItem('routeAuthGuard');
+            void this.router.navigate([previousUrl]);
+          }
         }
       });
   }
@@ -101,6 +106,7 @@ export class InitAuthService {
         resolve();
       });
     } else if (this.storeService.get('auto_auth_redirect')) {
+      localStorage.setItem('routeAuthGuard', window.location.pathname);
       return (
         this.startAuth()
           // start a promise that will never resolve, so the app loading won't finish in case
@@ -109,6 +115,7 @@ export class InitAuthService {
       );
     } else {
       this.setLoginScreen(true);
+      localStorage.setItem('routeAuthGuard', window.location.pathname);
       const query = location.search.substr(1).split('&');
       const queryParams = {};
       for (const param of query) {
