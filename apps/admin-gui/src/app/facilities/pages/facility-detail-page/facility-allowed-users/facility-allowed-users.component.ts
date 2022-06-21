@@ -112,50 +112,19 @@ export class FacilityAllowedUsersComponent implements OnInit {
         this.facilityService.getAllowedVos(this.facility.id).subscribe(
           (vos) => {
             this.vos = [this.emptyVo].concat(vos);
-            this.services = [];
-            this.getAssignedServices(this.resources, this.resources.length - 1);
+            this.serviceService.getAssignedServices(this.facility.id).subscribe(
+              (services) => {
+                this.services = [this.emptyService].concat(services);
+                this.filteredServices = this.services;
+                this.loading = false;
+              },
+              () => (this.loading = false)
+            );
           },
           () => (this.loading = false)
         );
       },
       () => (this.loading = false)
-    );
-  }
-
-  getAssignedServices(resources: Resource[], idx: number): void {
-    // resource at index 0 is just placeholder
-    if (idx === 0) {
-      this.services = [this.emptyService].concat(this.services);
-      this.filteredServices = this.services;
-
-      this.changeFilter();
-      this.loading = false;
-      return;
-    }
-
-    this.resourceService.getAssignedServicesToResource(resources[idx].id).subscribe(
-      (services) => {
-        this.services = this.services.concat(services);
-        this.resourceAssignedServices.set(
-          resources[idx].id,
-          services.map((service) => service.id)
-        );
-        this.getAssignedServices(resources, idx - 1);
-      },
-      () => (this.loading = false)
-    );
-  }
-
-  getFilteredServices(resources: Resource[]): Service[] {
-    const serviceIds: Set<number> = new Set<number>();
-    resources.forEach((res) => {
-      this.resourceAssignedServices
-        .get(res.id)
-        .forEach((serviceId: number) => serviceIds.add(serviceId));
-    });
-
-    return [this.emptyService].concat(
-      this.services.filter((service) => serviceIds.has(service.id))
     );
   }
 
@@ -178,7 +147,14 @@ export class FacilityAllowedUsersComponent implements OnInit {
       this.filteredServices = this.services;
     } else {
       this.filteredResources = this.resources.filter((res) => res.voId === vo.id);
-      this.filteredServices = this.getFilteredServices(this.filteredResources);
+      this.serviceService.getAssignedServicesVo(this.facility.id, vo.id).subscribe(
+        (services) => {
+          this.filteredServices = [this.emptyService].concat(services);
+          this.loading = false;
+        },
+        () => (this.loading = false)
+      );
+
       this.filteredResources = [this.emptyResource].concat(this.filteredResources);
     }
     this.changeFilter();
@@ -196,7 +172,13 @@ export class FacilityAllowedUsersComponent implements OnInit {
     if (resource.id === -1) {
       this.filteredServices = this.services;
     } else {
-      this.filteredServices = this.getFilteredServices([resource]);
+      this.resourceService.getAssignedServicesToResource(resource.id).subscribe(
+        (services) => {
+          this.filteredServices = [this.emptyService].concat(services);
+          this.loading = false;
+        },
+        () => (this.loading = false)
+      );
     }
     this.changeFilter();
   }
