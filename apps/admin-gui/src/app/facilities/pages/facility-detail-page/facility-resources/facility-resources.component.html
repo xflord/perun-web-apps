@@ -1,28 +1,38 @@
 <div>
   <h1 class="page-subtitle">{{'FACILITY_DETAIL.RESOURCES.TITLE' | translate}}</h1>
-  <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button
-    *ngIf="addAuth"
-    mat-flat-button
-    color="accent"
-    data-cy="create-resource-button"
-    class="mr-2 action-button"
-    (click)="createResource()">
-    {{'FACILITY_DETAIL.RESOURCES.CREATE' | translate}}
-  </button>
-  <button
-    *ngIf="removeAuth"
-    mat-flat-button
-    color="warn"
-    class="mr-2"
-    data-cy="delete-resource-button"
-    [disabled]="selected.selected.length === 0"
-    (click)="removeResource()">
-    {{'FACILITY_DETAIL.RESOURCES.DELETE' | translate}}
-  </button>
-  <perun-web-apps-immediate-filter
-    [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'"
-    (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
+  <div class="align-elements">
+    <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
+    <button
+      *ngIf="addAuth"
+      mat-flat-button
+      color="accent"
+      data-cy="create-resource-button"
+      class="mr-2 action-button"
+      (click)="createResource()">
+      {{'FACILITY_DETAIL.RESOURCES.CREATE' | translate}}
+    </button>
+    <button
+      *ngIf="removeAuth"
+      mat-flat-button
+      color="warn"
+      class="mr-2"
+      data-cy="delete-resource-button"
+      [disabled]="selected.selected.length === 0"
+      (click)="removeResource()">
+      {{'FACILITY_DETAIL.RESOURCES.DELETE' | translate}}
+    </button>
+    <perun-web-apps-service-search-select
+      [services]="services"
+      (serviceSelected)="serviceSelected($event)"
+      [service]="selectedService"
+      class="search-select mr-2">
+    </perun-web-apps-service-search-select>
+    <perun-web-apps-immediate-filter
+      [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'"
+      (filter)="applyFilter($event)"
+      class="filter-field">
+    </perun-web-apps-immediate-filter>
+  </div>
   <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
   <perun-web-apps-resources-list
     [tableId]="tableId"
