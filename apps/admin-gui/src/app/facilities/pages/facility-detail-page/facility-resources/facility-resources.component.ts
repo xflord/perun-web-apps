@@ -2,7 +2,13 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveResourceDialogComponent } from '../../../../shared/components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
-import { FacilitiesManagerService, Facility, RichResource } from '@perun-web-apps/perun/openapi';
+import {
+  FacilitiesManagerService,
+  ServicesManagerService,
+  Facility,
+  RichResource,
+  Service,
+} from '@perun-web-apps/perun/openapi';
 import { CreateResourceDialogComponent } from '../../../../shared/components/dialogs/create-resource-dialog/create-resource-dialog.component';
 import { TABLE_FACILITY_RESOURCES_LIST } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -23,6 +29,10 @@ export class FacilityResourcesComponent implements OnInit {
   resources: RichResource[] = [];
   selected = new SelectionModel<RichResource>(true, []);
 
+  emptyService: Service = { id: -1, beanName: 'Service', name: 'All' };
+  services: Service[] = [this.emptyService];
+  selectedService: Service = this.emptyService;
+
   filterValue = '';
 
   loading: boolean;
@@ -36,6 +46,7 @@ export class FacilityResourcesComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private facilitiesManager: FacilitiesManagerService,
+    private servicesManager: ServicesManagerService,
     private authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService
   ) {}
@@ -43,6 +54,9 @@ export class FacilityResourcesComponent implements OnInit {
   ngOnInit(): void {
     this.facility = this.entityStorageService.getEntity();
     this.setAuthRights();
+    this.servicesManager.getAssignedServices(this.facility.id).subscribe((services) => {
+      this.services = [this.emptyService].concat(services);
+    });
     this.refreshTable();
   }
 
@@ -62,14 +76,25 @@ export class FacilityResourcesComponent implements OnInit {
 
   refreshTable(): void {
     this.loading = true;
-    this.facilitiesManager
-      .getAssignedRichResourcesForFacility(this.facility.id)
-      .subscribe((resources) => {
-        this.resources = resources;
-        this.selected.clear();
-        this.setAuthRights();
-        this.loading = false;
-      });
+    if (this.selectedService.id === -1) {
+      this.facilitiesManager
+        .getAssignedRichResourcesForFacility(this.facility.id)
+        .subscribe((resources) => {
+          this.resources = resources;
+          this.selected.clear();
+          this.setAuthRights();
+          this.loading = false;
+        });
+    } else {
+      this.facilitiesManager
+        .getAssignedRichResourcesForFacilityAndService(this.facility.id, this.selectedService.id)
+        .subscribe((resources) => {
+          this.resources = resources;
+          this.selected.clear();
+          this.setAuthRights();
+          this.loading = false;
+        });
+    }
   }
 
   setAuthRights(): void {
@@ -108,5 +133,10 @@ export class FacilityResourcesComponent implements OnInit {
         this.refreshTable();
       }
     });
+  }
+
+  serviceSelected(service: Service): void {
+    this.selectedService = service;
+    this.refreshTable();
   }
 }

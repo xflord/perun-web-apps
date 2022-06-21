@@ -13,7 +13,7 @@ import {
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { FormControl } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { GroupResourceStatus, PerunBean } from '@perun-web-apps/perun/openapi';
 import { GroupWithStatus, ResourceWithStatus } from '@perun-web-apps/perun/models';
 
@@ -58,7 +58,9 @@ export class EntitySearchSelectComponent<T extends PerunBean>
   ) => entity.status;
 
   ngOnInit(): void {
-    this.entitiesCtrl.valueChanges.subscribe((entity: T) => this.entitySelected.emit(entity));
+    this.entitiesCtrl.valueChanges
+      .pipe(distinctUntilChanged())
+      .subscribe((entity: T) => this.entitySelected.emit(entity));
 
     if (!this.disableAutoSelect && this.entity === null) {
       this.entitiesCtrl.setValue(this.entities[0]);
