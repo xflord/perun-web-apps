@@ -41,7 +41,7 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
 
     this.route.parent.params.subscribe((params) => {
       this.userId = Number(params['userId']);
-      if (this.userId === undefined) {
+      if (!this.userId) {
         this.targetTitle = 'SERVICE';
         this.targetDescription = 'SELF';
         this.userId = this.store.getPerunPrincipal().userId;
