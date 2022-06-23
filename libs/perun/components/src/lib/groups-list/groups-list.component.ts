@@ -408,8 +408,7 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
       memberId: this.memberId,
       groupId: group.id,
       expirationAttr: expirationAtt,
-      mode: 'group',
-      status: this.memberGroupStatus,
+      status: this.getStatusAttribute(group),
     };
 
     const dialogRef = this.dialog.open(ChangeGroupExpirationDialogComponent, config);

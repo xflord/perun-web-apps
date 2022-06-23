@@ -54,6 +54,7 @@ export class UserAccountsComponent implements OnInit {
         this.groupService
           .getMemberRichGroupsWithAttributesByNames(this.member.id, [
             Urns.MEMBER_DEF_GROUP_EXPIRATION,
+            Urns.MEMBER_GROUP_STATUS,
           ])
           .subscribe(
             (groups) => {

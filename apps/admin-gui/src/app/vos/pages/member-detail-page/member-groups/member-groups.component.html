@@ -29,7 +29,7 @@
   #list
   (refreshTable)="refreshTable()"
   *ngIf="!loading"
-  [displayedColumns]="['select', 'id', 'vo', 'name', 'description', 'expiration']"
+  [displayedColumns]="['select', 'id', 'name', 'description', 'expiration', 'groupStatus']"
   [authType]="'member-groups'"
   [filter]="filterValue"
   [memberId]="memberId"
