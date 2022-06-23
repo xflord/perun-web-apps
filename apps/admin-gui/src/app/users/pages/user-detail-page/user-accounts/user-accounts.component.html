@@ -34,7 +34,7 @@
           [memberId]="member.id"
           [memberGroupStatus]="member.groupStatus"
           (refreshTable)="loadMember(selectedVo)"
-          [displayedColumns]="['id', 'recent', 'name', 'description', 'expiration']">
+          [displayedColumns]="['id', 'recent', 'name', 'description', 'expiration', 'groupStatus']">
         </perun-web-apps-groups-list>
       </div>
     </ng-template>

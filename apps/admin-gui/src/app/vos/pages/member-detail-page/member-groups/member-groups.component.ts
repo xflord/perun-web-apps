@@ -15,6 +15,7 @@ import { AddMemberGroupDialogComponent } from '../../../../shared/components/dia
 import { RemoveMemberGroupDialogComponent } from '../../../../shared/components/dialogs/remove-member-group-dialog/remove-member-group-dialog.component';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { GroupsListComponent } from '@perun-web-apps/perun/components';
+import { Urns } from '@perun-web-apps/perun/urns';
 
 @Component({
   selector: 'app-member-groups',
@@ -67,7 +68,8 @@ export class MemberGroupsComponent implements OnInit {
     this.loading = true;
     this.groupsService
       .getMemberRichGroupsWithAttributesByNames(this.memberId, [
-        'urn:perun:member_group:attribute-def:def:groupMembershipExpiration',
+        Urns.MEMBER_DEF_GROUP_EXPIRATION,
+        Urns.MEMBER_GROUP_STATUS,
       ])
       .subscribe(
         (groups) => {
