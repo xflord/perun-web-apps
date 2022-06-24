@@ -340,7 +340,7 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
   onSearchByString(): void {
     this.loading = true;
     this.membersManagerService
-      .findCompleteRichMembersForVo(this.data.voId, [null], this.searchCtrl.value as string)
+      .findCompleteRichMembersForVo(this.data.voId, [''], this.searchCtrl.value as string)
       .subscribe((members) => {
         this.members = members.filter((m) => !m.user.specificUser);
         this.firstSearchDone = true;
@@ -426,11 +426,7 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
       case 0:
         return this.firstFormGroup.invalid || this.firstFormGroup.pending;
       case 1:
-        return (
-          this.secondFormGroup.invalid ||
-          this.secondFormGroup.pending ||
-          this.secondFormGroup.get('namespaceCtrl').value === 'Not selected'
-        );
+        return this.secondFormGroup.invalid || this.secondFormGroup.pending;
       default:
         return false;
     }
