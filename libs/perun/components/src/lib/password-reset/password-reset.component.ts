@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
-import { OtherApplicationsService, StoreService } from '@perun-web-apps/perun/services';
+import {
+  EntityStorageService,
+  OtherApplicationsService,
+  StoreService,
+} from '@perun-web-apps/perun/services';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -13,8 +17,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./password-reset.component.scss'],
 })
 export class PasswordResetComponent implements OnInit {
+  @Input() authenticationPage = false;
+  @Output() filteredNamespaces: EventEmitter<string[]> = new EventEmitter<string[]>();
   logins: Attribute[] = [];
-  displayedColumns: string[] = ['namespace', 'value', 'reset', 'change'];
+  displayedColumns: string[];
   dataSource: MatTableDataSource<Attribute>;
   private nameSpaces: string[] = [];
   private userId: number;
@@ -25,29 +31,40 @@ export class PasswordResetComponent implements OnInit {
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private otherApplicationService: OtherApplicationsService
+    private otherApplicationService: OtherApplicationsService,
+    private entityStorageService: EntityStorageService
   ) {}
 
   ngOnInit(): void {
-    this.userId = this.store.getPerunPrincipal().userId;
-    this.nameSpaces = this.store.get('password_namespace_attributes') as string[];
-    this.attributesManagerService.getLogins(this.userId).subscribe((logins) => {
-      const parsedNamespaces = this.nameSpaces.map((nameSpace) => {
-        const elems = nameSpace.split(':');
-        return elems[elems.length - 1];
-      });
+    this.userId = this.authenticationPage
+      ? this.entityStorageService.getEntity().id
+      : this.store.getPerunPrincipal().userId;
+    this.displayedColumns = this.authenticationPage
+      ? ['namespace', 'value', 'change']
+      : ['namespace', 'value', 'reset', 'change'];
+    this.nameSpaces = (this.store.get('password_namespace_attributes') as string[]).map(
+      (urn: string) => {
+        const urns: string[] = urn.split(':');
+        return urns[urns.length - 1];
+      }
+    );
+    this.refreshTable();
+  }
 
-      this.logins = logins.filter((login) =>
-        parsedNamespaces.includes(login.friendlyNameParameter)
-      );
+  refreshTable(): void {
+    this.attributesManagerService.getLogins(this.userId).subscribe((logins) => {
+      this.logins = logins.filter((login) => this.nameSpaces.includes(login.friendlyNameParameter));
+      this.filteredNamespaces.emit(logins.map((login) => login.friendlyNameParameter));
       this.dataSource = new MatTableDataSource<Attribute>(logins);
 
-      const params = this.route.snapshot.queryParamMap;
-      const namespace = params.get('namespace');
-      if (namespace) {
-        const login = this.logins.find((a) => a.friendlyNameParameter === namespace);
-        if (login) {
-          this.changePassword(login);
+      if (!this.authenticationPage) {
+        const params = this.route.snapshot.queryParamMap;
+        const namespace = params.get('namespace');
+        if (namespace) {
+          const login = this.logins.find((a) => a.friendlyNameParameter === namespace);
+          if (login) {
+            this.changePassword(login);
+          }
         }
       }
     });
@@ -61,12 +78,14 @@ export class PasswordResetComponent implements OnInit {
   }
 
   changePassword(login: Attribute): void {
-    void this.router.navigate([], {
-      queryParams: {
-        namespace: login.friendlyNameParameter,
-      },
-      queryParamsHandling: 'merge',
-    });
+    if (!this.authenticationPage) {
+      void this.router.navigate([], {
+        queryParams: {
+          namespace: login.friendlyNameParameter,
+        },
+        queryParamsHandling: 'merge',
+      });
+    }
 
     const config = getDefaultDialogConfig();
     config.width = '600px';

@@ -173,6 +173,9 @@ import { MemberTypePipe } from './pipes/member-type.pipe';
 import { PerunDialogsModule } from '@perun-web-apps/perun/dialogs';
 import { AddGroupHierarchicalIncludeDialogComponent } from './components/dialogs/add-group-hierarchical-include-dialog/add-group-hierarchical-include-dialog.component';
 import { DisabledCandidatePipe } from './pipes/disabled-candidate.pipe';
+import { LoginForNamespaceComponent } from './components/login-for-namespace/login-for-namespace.component';
+import { SetLoginDialogComponent } from './components/set-login-dialog/set-login-dialog.component';
+import { LoginPasswordFormWithGenerateOptionComponent } from './components/login-password-form-with-generate-option/login-password-form-with-generate-option.component';
 
 @NgModule({
   imports: [
@@ -439,6 +442,9 @@ import { DisabledCandidatePipe } from './pipes/disabled-candidate.pipe';
     MemberTypePipe,
     AddGroupHierarchicalIncludeDialogComponent,
     DisabledCandidatePipe,
+    LoginForNamespaceComponent,
+    SetLoginDialogComponent,
+    LoginPasswordFormWithGenerateOptionComponent,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe, ConsentRelatedAttributePipe],
 })

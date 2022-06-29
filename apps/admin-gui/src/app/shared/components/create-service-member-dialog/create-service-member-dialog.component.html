@@ -63,82 +63,10 @@
             matStepLabel
             >{{'DIALOGS.CREATE_SERVICE_MEMBER.SET_CREDENTIALS' | translate}}</ng-template
           >
-          <div class="display-flex">
-            <mat-form-field>
-              <mat-label>{{'DIALOGS.CREATE_SERVICE_MEMBER.NAMESPACE' | translate}}</mat-label>
-              <mat-select
-                (valueChange)="onNamespaceChanged($event)"
-                formControlName="namespaceCtrl">
-                <mat-option *ngFor="let namespace of namespaceOptions" [value]="namespace">
-                  {{namespace}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field
-              [floatLabel]="secondFormGroup.get('loginCtrl').disabled ? 'always' : null">
-              <mat-label>{{'DIALOGS.CREATE_SERVICE_MEMBER.LOGIN' | translate}}</mat-label>
-              <input
-                formControlName="loginCtrl"
-                matInput
-                [hidden]="secondFormGroup.get('loginCtrl').disabled"
-                required />
-              <mat-error
-                *ngIf="secondFormGroup.get('loginCtrl').hasError('required')"
-                >{{'DIALOGS.CREATE_SERVICE_MEMBER.FIELD_EMPTY' | translate}}</mat-error
-              >
-              <mat-error
-                *ngIf="secondFormGroup.get('loginCtrl').hasError('loginExists')"
-                >{{'DIALOGS.CREATE_SERVICE_MEMBER.LOGIN_EXISTS' | translate}}</mat-error
-              >
-              <mat-error
-                *ngIf="secondFormGroup.get('loginCtrl').hasError('pattern')
-              && !secondFormGroup.get('loginCtrl').hasError('minlength')"
-                >{{'DIALOGS.CREATE_SERVICE_MEMBER.LOGIN_FORMAT' | translate}}</mat-error
-              >
-              <mat-error
-                *ngIf="secondFormGroup.get('loginCtrl').hasError('maxlength')"
-                >{{'DIALOGS.CREATE_SERVICE_MEMBER.LOGIN_LONG' | translate}}</mat-error
-              >
-              <mat-error
-                *ngIf="secondFormGroup.get('loginCtrl').hasError('minlength')"
-                >{{'DIALOGS.CREATE_SERVICE_MEMBER.LOGIN_SHORT' | translate}}</mat-error
-              >
-              <span *ngIf="secondFormGroup.get('loginCtrl').disabled" class="input-disabled">
-                {{(secondFormGroup.get('namespaceCtrl').value === 'Not selected' ? 'DIALOGS.CREATE_SERVICE_MEMBER.LOGIN_DISABLED' : 'DIALOGS.CREATE_SERVICE_MEMBER.LOGIN_DISABLED_FOR_NAMESPACE') | translate}}
-              </span>
-            </mat-form-field>
-
-            <mat-radio-group
-              (ngModelChange)="passwordOptionChanged()"
-              [matTooltipDisabled]="secondFormGroup.get('namespaceCtrl').value !== 'Not selected'"
-              class="display-flex mt-3"
-              formControlName="generatePasswordCtrl"
-              matTooltip="{{'DIALOGS.CREATE_SERVICE_MEMBER.PASSWORD_NOT_SUPPORTED' | translate}}"
-              matTooltipPosition="left">
-              <mat-radio-button
-                [checked]="secondFormGroup.get('generatePasswordCtrl').value && secondFormGroup.get('generatePasswordCtrl').enabled"
-                [value]="true">
-                {{'DIALOGS.CREATE_SERVICE_MEMBER.PASSWORD_RANDOM' | translate}}
-              </mat-radio-button>
-
-              <mat-radio-button
-                [checked]="!secondFormGroup.get('generatePasswordCtrl').value && secondFormGroup.get('generatePasswordCtrl').enabled"
-                [value]="false">
-                {{'DIALOGS.CREATE_SERVICE_MEMBER.ENTER_PASSWORD' | translate}}
-              </mat-radio-button>
-            </mat-radio-group>
-
-            <div
-              [class.input-disabled]="secondFormGroup.get('generatePasswordCtrl').value"
-              class="display-flex">
-              <perun-web-apps-password-form
-                [formGroup]="secondFormGroup"
-                [namespace]="selectedNamespace"
-                [passwordRequired]="!secondFormGroup.get('generatePasswordCtrl').value">
-              </perun-web-apps-password-form>
-            </div>
-          </div>
+          <app-login-password-form-with-generate-option
+            [formGroup]="secondFormGroup"
+            (parsedRulesOutput)="parsedRules = $event">
+          </app-login-password-form-with-generate-option>
         </form>
       </mat-step>
       <mat-step>

@@ -61,6 +61,7 @@ import { UserFacilitiesComponent } from './pages/user-detail-page/user-facilitie
 import { UserAccountsComponent } from './pages/user-detail-page/user-accounts/user-accounts.component';
 import { ServiceIdentityDetailPageComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-detail-page/service-identity-detail-page.component';
 import { ServiceIdentityOverviewComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-detail-page/service-identity-overview/service-identity-overview.component';
+import { UserSettingAuthenticationComponent } from './pages/user-detail-page/user-settings/user-setting-authentication/user-setting-authentication.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { ServiceIdentityOverviewComponent } from './pages/user-detail-page/user-
     UserAccountsComponent,
     ServiceIdentityDetailPageComponent,
     ServiceIdentityOverviewComponent,
+    UserSettingAuthenticationComponent,
   ],
   exports: [UserDetailPageComponent],
   imports: [

@@ -14,6 +14,7 @@ export class PasswordFormComponent implements OnInit, OnChanges {
   @Input() formGroup: FormGroup;
   @Input() passwordRequired = true;
   @Input() tooltipPwdViaEmail = false;
+  @Input() tooltipPwdDisabledForNamespace = false;
   @Input() namespace: string;
   @Input() multiLanguage = false;
   @Input() language = 'en';

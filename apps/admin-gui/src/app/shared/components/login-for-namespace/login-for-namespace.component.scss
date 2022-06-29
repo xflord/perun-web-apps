@@ -1,0 +1,9 @@
+.display-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-disabled {
+  pointer-events: none;
+  color: #888888;
+}

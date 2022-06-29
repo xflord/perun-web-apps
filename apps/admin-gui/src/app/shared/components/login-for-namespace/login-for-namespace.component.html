@@ -1,0 +1,43 @@
+<div [formGroup]="formGroup" class="display-flex">
+  <mat-form-field>
+    <mat-label>{{'SHARED.COMPONENTS.LOGIN_FOR_NAMESPACE.NAMESPACE' | translate}}</mat-label>
+    <mat-select (valueChange)="onNamespaceChanged($event)" formControlName="namespaceCtrl">
+      <mat-option *ngFor="let namespace of namespaceOptions" [value]="namespace">
+        {{namespace}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field [floatLabel]="formGroup.get('loginCtrl').disabled ? 'always' : null">
+    <mat-label>{{'SHARED.COMPONENTS.LOGIN_FOR_NAMESPACE.LOGIN' | translate}}</mat-label>
+    <input
+      formControlName="loginCtrl"
+      matInput
+      [hidden]="formGroup.get('loginCtrl').disabled"
+      required />
+    <mat-error
+      *ngIf="formGroup.get('loginCtrl').hasError('required')"
+      >{{'SHARED.COMPONENTS.LOGIN_FOR_NAMESPACE.FIELD_EMPTY' | translate}}</mat-error
+    >
+    <mat-error
+      *ngIf="formGroup.get('loginCtrl').hasError('loginExists')"
+      >{{'SHARED.COMPONENTS.LOGIN_FOR_NAMESPACE.LOGIN_EXISTS' | translate}}</mat-error
+    >
+    <mat-error
+      *ngIf="formGroup.get('loginCtrl').hasError('pattern')
+              && !formGroup.get('loginCtrl').hasError('minlength')"
+      >{{'SHARED.COMPONENTS.LOGIN_FOR_NAMESPACE.LOGIN_FORMAT' | translate}}</mat-error
+    >
+    <mat-error
+      *ngIf="formGroup.get('loginCtrl').hasError('maxlength')"
+      >{{'SHARED.COMPONENTS.LOGIN_FOR_NAMESPACE.LOGIN_LONG' | translate}}</mat-error
+    >
+    <mat-error
+      *ngIf="formGroup.get('loginCtrl').hasError('minlength')"
+      >{{'SHARED.COMPONENTS.LOGIN_FOR_NAMESPACE.LOGIN_SHORT' | translate}}</mat-error
+    >
+    <span *ngIf="formGroup.get('loginCtrl').disabled" class="input-disabled">
+      {{(formGroup.get('namespaceCtrl').value === 'Not selected' ? 'SHARED.COMPONENTS.LOGIN_FOR_NAMESPACE.LOGIN_DISABLED' : 'SHARED.COMPONENTS.LOGIN_FOR_NAMESPACE.LOGIN_DISABLED_FOR_NAMESPACE') | translate}}
+    </span>
+  </mat-form-field>
+</div>

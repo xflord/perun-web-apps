@@ -29,6 +29,7 @@ export class MemberOverviewComponent implements OnInit {
   logins: Attribute[] = [];
   member: RichMember = null;
   navItems: MenuItem[] = [];
+  attUrns: string[];
   attributeNames: Array<string> = [];
   attributes: Map<string, string[]> = new Map<string, string[]>();
   dataSource = new MatTableDataSource<string>();
@@ -57,15 +58,17 @@ export class MemberOverviewComponent implements OnInit {
       this.attributeNames = this.storeService.getMemberProfileAttributeNames();
 
       this.membersService.getRichMemberWithAttributes(memberId).subscribe((member) => {
-        const attUrns: string[] = (
-          this.storeService.get('password_namespace_attributes') as string[]
-        ).map((urn: string) => {
-          const urns: string[] = urn.split(':');
-          return urns[urns.length - 1];
-        });
+        this.attUrns = (this.storeService.get('password_namespace_attributes') as string[]).map(
+          (urn: string) => {
+            const urns: string[] = urn.split(':');
+            return urns[urns.length - 1];
+          }
+        );
         this.attributesManager.getLogins(member.userId).subscribe(
           (logins) => {
-            this.logins = logins.filter((login) => attUrns.includes(login.friendlyNameParameter));
+            this.logins = logins.filter((login) =>
+              this.attUrns.includes(login.friendlyNameParameter)
+            );
             this.member = member;
 
             this.initAttributes();

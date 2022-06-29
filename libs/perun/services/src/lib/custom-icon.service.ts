@@ -71,6 +71,10 @@ export class CustomIconService {
       name: 'perun-manager',
     },
     {
+      url: 'assets/img/PerunWebImages/authentication-blue.svg',
+      name: 'perun-authentication',
+    },
+    {
       url: 'assets/img/PerunWebImages/application_form-white.svg',
       name: 'perun-application-form',
     },

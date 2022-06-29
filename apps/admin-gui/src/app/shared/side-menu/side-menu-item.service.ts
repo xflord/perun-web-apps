@@ -354,6 +354,11 @@ export class SideMenuItemService {
           url: [`/myProfile/service-identities/${user.id}/associated-users`],
           activatedRegex: '/myProfile/service-identities/\\d+/associated-users',
         },
+        {
+          label: 'MENU_ITEMS.USER.AUTHENTICATION',
+          url: [`/myProfile/service-identities/${user.id}/authentication`],
+          activatedRegex: '/myProfile/service-identities/\\d+/authentication',
+        },
       ],
       colorClass: 'user-bg-color',
       icon: 'perun-service-identity',

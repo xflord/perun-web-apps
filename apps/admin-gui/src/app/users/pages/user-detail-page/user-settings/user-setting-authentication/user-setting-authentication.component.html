@@ -1,0 +1,10 @@
+<h1 class="page-subtitle">{{'USER_DETAIL.SETTINGS.AUTHENTICATION.TITLE' | translate}}</h1>
+<perun-web-apps-refresh-button (refresh)="logins.refreshTable()"></perun-web-apps-refresh-button>
+<button (click)="onAdd()" class="mr-2 action-button" color="accent" mat-flat-button>
+  {{'USER_DETAIL.SETTINGS.AUTHENTICATION.ADD' | translate}}
+</button>
+<perun-web-apps-password-reset
+  #logins
+  [authenticationPage]="true"
+  (filteredNamespaces)="filteredNamespaces = $event">
+</perun-web-apps-password-reset>

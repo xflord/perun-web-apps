@@ -1,0 +1,23 @@
+<div class="vo-theme">
+  <h1 class="mat-dialog-title">{{'DIALOGS.SET_LOGIN.TITLE' | translate}}</h1>
+  <div *ngIf="!processing" class="dialog-container" mat-dialog-content>
+    <app-login-password-form-with-generate-option
+      [formGroup]="formGroup"
+      [filteredNamespace]="this.data.filteredNamespaces">
+    </app-login-password-form-with-generate-option>
+  </div>
+  <mat-spinner *ngIf="processing" class="ml-auto mr-auto"></mat-spinner>
+  <div mat-dialog-actions>
+    <button (click)="onCancel()" mat-flat-button class="ml-auto">
+      {{'DIALOGS.SET_LOGIN.CANCEL' | translate}}
+    </button>
+    <button
+      (click)="onSetLogin()"
+      [disabled]="(formGroup.get('namespaceCtrl').value === 'Not selected' || formGroup.invalid || formGroup.pending) || processing"
+      class="ml-2"
+      color="accent"
+      mat-flat-button>
+      {{"DIALOGS.SET_LOGIN.SET_LOGIN" | translate}}
+    </button>
+  </div>
+</div>

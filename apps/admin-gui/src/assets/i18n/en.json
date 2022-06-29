@@ -966,6 +966,7 @@
       "FACILITIES": "Facilities",
       "RESOURCES": "Resources",
       "ASSOCIATED_USERS": "Account managers",
+      "AUTHENTICATION": "Authentication",
       "ENTITY": "User",
       "USER_TYPE": "User type",
       "ACCOUNTS": "Accounts"
@@ -2087,8 +2088,6 @@
       "CREATE_IDENTITY": "Create service account",
       "NAME": "Account name",
       "EMAIL": "Email",
-      "NAMESPACE": "Namespace",
-      "LOGIN": "Login",
       "SUBJECT_DN": "Subject DN",
       "ISSUER_DN": "Issuer DN",
       "ASSOCIATE_USERS": "Associate real users",
@@ -2099,21 +2098,22 @@
       "ADD_USER": "Add",
       "SUCCESS_MEMBER": "The service account has been created successfully",
       "SUCCESS_PWD": "Password has been set successfully",
-      "LOGIN_FORMAT": "Login has to start with a letter and consist only of characters: a-z0-9_-",
-      "LOGIN_DISABLED_FOR_NAMESPACE": "Logins in this namespace are generated automatically.",
-      "LOGIN_LONG": "Login is too long",
-      "LOGIN_SHORT": "Login is too short",
-      "LOGIN_EXISTS": "Login already exists",
       "NEXT": "Next",
       "BACK": "Back",
       "PASSWORD_NOT_SUPPORTED": "The selected namespace does not support setting of the password.",
       "EMAIL_INVALID": "Enter a valid email address",
       "FIELD_EMPTY": "This field cannot be empty",
       "MINIMAL_USERS": "At least 1 user has to be assigned.",
-      "LOGIN_DISABLED": "To enter the login, you need to select a namespace first",
       "SET_CREDENTIALS": "Set credentials",
       "PASSWORD_RANDOM": "Set password later",
       "ENTER_PASSWORD": "Set password now"
+    },
+    "SET_LOGIN": {
+      "TITLE": "Add login and password",
+      "SET_LOGIN": "Add",
+      "CANCEL": "Cancel",
+      "SUCCESS_LOGIN": "Login was successfully set",
+      "SUCCESS_PASSWORD": "Password was successfully set"
     },
     "AUDIT_MESSAGE_DETAIL": {
       "TITLE": "Audit message detail",
@@ -2394,6 +2394,10 @@
         "REMOVE": "Disconnect",
         "NO_ASSOCIATED_USERS": "No accounts connected."
       },
+      "AUTHENTICATION": {
+        "TITLE": "Authentication",
+        "ADD": "Add"
+      },
       "FACILITY_ATTRIBUTES": {
         "TITLE": "Facility attributes"
       }
@@ -2513,6 +2517,17 @@
         "NO_CONSENT_HUBS": "No consent hubs found",
         "NO_FILTER_RESULTS": "No consent hubs are matching your query",
         "CHANGE_ENFORCE_CONSENTS_SUCCESS": "Enforce consents flag was successfully updated"
+      },
+      "LOGIN_FOR_NAMESPACE": {
+        "NAMESPACE": "Namespace",
+        "LOGIN": "Login",
+        "FIELD_EMPTY": "This field cannot be empty",
+        "LOGIN_EXISTS": "Login already exists",
+        "LOGIN_FORMAT": "Login has to start with a letter and consist only of characters: a-z0-9_-",
+        "LOGIN_LONG": "Login is too long",
+        "LOGIN_SHORT": "Login is too short",
+        "LOGIN_DISABLED": "To enter the login, you need to select a namespace first",
+        "LOGIN_DISABLED_FOR_NAMESPACE": "Logins in this namespace are generated automatically."
       }
     },
     "IDENTITY_DETAIL": {

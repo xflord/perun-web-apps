@@ -14,6 +14,7 @@ import { UserSettingsServiceIdentitiesComponent } from './pages/user-detail-page
 import { ServiceIdentityDetailPageComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-detail-page/service-identity-detail-page.component';
 import { ServiceIdentityOverviewComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-detail-page/service-identity-overview/service-identity-overview.component';
 import { UserSettingsAssociatedUsersComponent } from './pages/user-detail-page/user-settings/user-settings-associated-users/user-settings-associated-users.component';
+import { UserSettingAuthenticationComponent } from './pages/user-detail-page/user-settings/user-setting-authentication/user-setting-authentication.component';
 
 const routes: Routes = [
   {
@@ -84,6 +85,10 @@ const routes: Routes = [
       {
         path: 'associated-users',
         component: UserSettingsAssociatedUsersComponent,
+      },
+      {
+        path: 'authentication',
+        component: UserSettingAuthenticationComponent,
       },
     ],
   },
