@@ -52,7 +52,7 @@ import { AddThanksComponent } from './components/add-thanks/add-thanks.component
 import { ImportPublicationsPageComponent } from './pages/create-publication-page/import-publications-page/import-publications-page.component';
 import { YearRangeComponent } from './components/year-range/year-range.component';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
-import { OAuthModule } from 'angular-oauth2-oidc';
+import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
@@ -151,6 +151,7 @@ const loadConfigs: (appConfig: PublicationsConfigService) => () => Promise<void>
       useClass: ApiService,
     },
     MomentDateModule,
+    { provide: OAuthStorage, useFactory: (): OAuthStorage => localStorage },
   ],
   bootstrap: [AppComponent],
 })

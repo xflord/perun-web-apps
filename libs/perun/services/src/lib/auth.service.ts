@@ -3,7 +3,7 @@ import { filter } from 'rxjs/operators';
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import { StoreService } from './store.service';
 import { MatDialog } from '@angular/material/dialog';
-import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
+import { AuthConfig, OAuthInfoEvent, OAuthService } from 'angular-oauth2-oidc';
 
 @Injectable({
   providedIn: 'root',
@@ -37,8 +37,13 @@ export class AuthService {
   getClientConfig(): AuthConfig {
     const filterValue = this.setIdpFilter();
 
-    //The window of time (in seconds) to allow the current time to deviate when validating id_token's iat and exp values. Default value is 10 minutes. This set it up to 1 sec.
+    //The window of time (in seconds) to allow the current time to deviate when validating
+    // id_token's iat and exp values. Default value is 10 minutes. This set it up to 1 sec.
     const clockSkewInSec = 1;
+    const randomSalt = Math.random() * 0.25;
+    //expiration of tokens was moved from 0.75(default) to random number from 0.5 to 0.75
+    // so the refreshing of the token is not triggered by multiple tabs at the same time
+    const timeoutFactor = 0.5 + randomSalt;
 
     const customQueryParams = !filterValue ? {} : { acr_values: filterValue };
     if (
@@ -66,6 +71,7 @@ export class AuthService {
       responseType: this.store.get('oidc_client', 'oauth_response_type') as string,
       scope: this.store.get('oidc_client', 'oauth_scopes') as string,
       clockSkewInSec: clockSkewInSec,
+      timeoutFactor: timeoutFactor,
       // sessionChecksEnabled: true,
       customQueryParams: customQueryParams,
     };
@@ -108,7 +114,6 @@ export class AuthService {
 
     if (currentPathname === '/api-callback') {
       return this.handleAuthCallback()
-        .then(() => localStorage.setItem('refresh_token', this.oauthService.getRefreshToken()))
         .then(() => this.startRefreshToken())
         .then(() => this.redirectToOriginDestination());
     } else {
@@ -121,9 +126,13 @@ export class AuthService {
   startRefreshToken(): Promise<boolean> {
     return this.isLoggedInPromise().then((isLoggedIn) => {
       if (isLoggedIn) {
-        this.oauthService.events.pipe(filter((e) => e.type === 'token_expires')).subscribe(() => {
-          void this.refreshAndStoreToken();
-        });
+        this.oauthService.events
+          .pipe(
+            filter((e: OAuthInfoEvent) => e.type === 'token_expires' && e.info === 'access_token')
+          )
+          .subscribe(() => {
+            void this.refreshAndStoreToken();
+          });
         return true;
       }
       return false;
@@ -258,11 +267,8 @@ export class AuthService {
    * if successful, sign-in is not required
    */
   private tryRefreshToken(): Promise<void> {
-    if (localStorage.getItem('refresh_token')) {
-      sessionStorage.setItem('refresh_token', localStorage.getItem('refresh_token'));
-      return this.oauthService
-        .loadDiscoveryDocument()
-        .then(() => this.refreshAndStoreToken())
+    if (localStorage.getItem('refresh_token') && !this.isLoggedIn()) {
+      return this.refreshAndStoreToken()
         .then(() => Promise.resolve())
         .catch(() => Promise.resolve());
     } else {
@@ -272,8 +278,7 @@ export class AuthService {
 
   private refreshAndStoreToken(): Promise<boolean> {
     return this.oauthService.refreshToken().then(
-      (response) => {
-        localStorage.setItem('refresh_token', response['refresh_token']);
+      () => {
         return true;
       },
       () => false
@@ -293,7 +298,9 @@ export class AuthService {
    *         if given path is invalid
    */
   private verifyAuthentication(path: string, queryParams: string): Promise<boolean> {
-    return this.tryRefreshToken()
+    return this.oauthService
+      .loadDiscoveryDocument()
+      .then(() => this.tryRefreshToken())
       .then(() => this.isLoggedInPromise())
       .then((isLoggedIn) => {
         if (!isLoggedIn) {

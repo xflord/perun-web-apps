@@ -19,7 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { PasswordResetConfigService } from './services/password-reset-config.service';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { UiMaterialModule } from '@perun-web-apps/ui/material';
-import { OAuthModule } from 'angular-oauth2-oidc';
+import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { HeaderComponent } from './components/header/header.component';
 import { PasswordResetPageComponent } from './pages/password-reset-page/password-reset-page.component';
 import { PasswordResetFormComponent } from './components/password-reset-form/password-reset-form.component';
@@ -96,6 +96,7 @@ const loadConfigs = (appConfig: PasswordResetConfigService) => (): Promise<void>
       provide: PERUN_API_SERVICE,
       useClass: ApiService,
     },
+    { provide: OAuthStorage, useFactory: (): OAuthStorage => localStorage },
   ],
   bootstrap: [AppComponent],
 })

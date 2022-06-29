@@ -74,7 +74,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { PerunLoginModule } from '@perun-web-apps/perun/login';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
 import { MatMenuModule } from '@angular/material/menu';
-import { OAuthModule } from 'angular-oauth2-oidc';
+import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { ConsentsPageComponent } from './pages/consents-page/consents-page.component';
 import { ConsentRequestComponent } from './pages/consents-page/consent-request/consent-request.component';
 import { ConsentsPreviewComponent } from './pages/consents-page/consents-preview/consents-preview.component';
@@ -207,6 +207,7 @@ const loadConfigs: (appConfig: UserProfileConfigService) => () => Promise<void> 
       useClass: ApiService,
     },
     Title,
+    { provide: OAuthStorage, useFactory: (): OAuthStorage => localStorage },
   ],
   exports: [SideMenuComponent],
   bootstrap: [AppComponent],
