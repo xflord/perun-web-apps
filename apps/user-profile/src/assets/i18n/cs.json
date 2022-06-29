@@ -242,6 +242,12 @@
       "ADD": "Uložit obrázek",
       "IMG_TOO_LONG": "Zvolený obrázek se nepodařilo zmenšit na cílovou velikost. Prosím zvolte jiný obrázek.",
       "DELAY_INFO": "Změna bezpečnostního obrázku se projeví většinou do 5 minut, v ojedinělých případech může propagace změny trvat několik hodin."
+    },
+    "ACTIVATE_LOCAL_ACCOUNT": {
+      "TITLE": "Aktivovat účet",
+      "ACTIVATE": "Aktivovat",
+      "CANCEL": "Zrušit",
+      "SUCCESS": "Účet byl úspěšně aktivován"
     }
   },
   "ALERTS": {

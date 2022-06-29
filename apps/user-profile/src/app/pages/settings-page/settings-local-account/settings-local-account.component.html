@@ -3,7 +3,10 @@
   {{'LOCAL_ACCOUNT.DESC' | customTranslate | translate}}
 </div>
 <div *ngIf="{exists: loginExists$ | async} as login">
-  <button mat-flat-button color="accent" (click)="openPwdReset(!login.exists)">
-    {{(login.exists ? 'LOCAL_ACCOUNT.CHANGE_PWD' : 'LOCAL_ACCOUNT.ACTIVATE') | customTranslate | translate}}
+  <button *ngIf="login.exists" mat-flat-button color="accent" (click)="openPwdReset()">
+    {{'LOCAL_ACCOUNT.CHANGE_PWD' | customTranslate | translate}}
+  </button>
+  <button *ngIf="!login.exists" mat-flat-button color="accent" (click)="activateAccount()">
+    {{'LOCAL_ACCOUNT.ACTIVATE' | customTranslate | translate}}
   </button>
 </div>

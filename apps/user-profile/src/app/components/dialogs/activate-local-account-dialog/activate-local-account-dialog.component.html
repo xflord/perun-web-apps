@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>{{'DIALOGS.ACTIVATE_LOCAL_ACCOUNT.TITLE'|customTranslate | translate}}</h1>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+<div *ngIf="!loading" mat-dialog-content class="dialog-container user-theme">
+  <perun-web-apps-password-form
+    [formGroup]="pwdForm"
+    [namespace]="data.namespace"
+    [language]="lang">
+  </perun-web-apps-password-form>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button class="ml-auto mr-2" (click)="cancel()">
+    {{'DIALOGS.ACTIVATE_LOCAL_ACCOUNT.CANCEL'|customTranslate | translate}}
+  </button>
+  <button
+    mat-flat-button
+    color="accent"
+    [disabled]="loading || pwdForm.invalid"
+    (click)="activate()">
+    {{'DIALOGS.ACTIVATE_LOCAL_ACCOUNT.ACTIVATE' | customTranslate | translate}}
+  </button>
+</div>

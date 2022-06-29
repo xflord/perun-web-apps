@@ -242,6 +242,12 @@
       "ADD": "Save image",
       "IMG_TOO_LONG": "Your image could not be resized to fit. Please try a different one.",
       "DELAY_INFO": "New security image usually becomes effective in 5 minutes, in rare cases it might take a couple of hours."
+    },
+    "ACTIVATE_LOCAL_ACCOUNT": {
+      "TITLE": "Activate account",
+      "ACTIVATE": "Activate",
+      "CANCEL": "Cancel",
+      "SUCCESS": "Account was successfully activated"
     }
   },
   "ALERTS": {
