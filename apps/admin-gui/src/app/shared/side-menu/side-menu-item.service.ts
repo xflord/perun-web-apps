@@ -693,7 +693,7 @@ export class SideMenuItemService {
     if (this.routePolicyService.canNavigate('members-groups', member)) {
       links.push({
         label: 'MENU_ITEMS.MEMBER.GROUPS',
-        url: [`//organizations/${member.voId}/members/${member.id}/groups`],
+        url: [`/organizations/${member.voId}/members/${member.id}/groups`],
         activatedRegex: '/organizations/\\d+/members/\\d+/groups',
       });
     }
@@ -701,7 +701,7 @@ export class SideMenuItemService {
     if (this.routePolicyService.canNavigate('members-applications', member)) {
       links.push({
         label: 'MENU_ITEMS.MEMBER.APPLICATIONS',
-        url: [`//organizations/${member.voId}/members/${member.id}/applications`],
+        url: [`/organizations/${member.voId}/members/${member.id}/applications`],
         activatedRegex: '/organizations/\\d+/members/\\d+/applications',
       });
     }
