@@ -12,6 +12,7 @@ import {
   Vo,
 } from '@perun-web-apps/perun/openapi';
 import { StoreService, NotificatorService } from '@perun-web-apps/perun/services';
+import { compareFnName } from '@perun-web-apps/perun/utils';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -62,7 +63,7 @@ export class SettingsMailingListsComponent implements OnInit, OnDestroy {
         this.user = this.store.getPerunPrincipal().user;
 
         this.usersManagerService.getVosWhereUserIsMember(this.user.id).subscribe((vos) => {
-          this.vos = vos;
+          this.vos = vos.sort(compareFnName);
           this.filteredVos = vos;
           if (this.selectedResource !== undefined) {
             const vo = this.vos.find((obj) => obj.shortName === this.selectedVo);
@@ -155,6 +156,7 @@ export class SettingsMailingListsComponent implements OnInit, OnDestroy {
               });
           });
         });
+      this.resources.sort(compareFnName);
     });
   }
 
