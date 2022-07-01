@@ -297,23 +297,25 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
         }
       );
     } else {
-      this.usersManagerService.reservePasswordForUser(member.userId, namespace, password).subscribe(
-        () => {
-          this.usersManagerService.validatePasswordForUser(member.userId, namespace).subscribe(
-            () => {
-              this.validateMember(member.id);
-            },
-            () => {
-              this.processing = false;
-              this.dialogRef.close(true);
-            }
-          );
-        },
-        () => {
-          this.processing = false;
-          this.dialogRef.close(true);
-        }
-      );
+      this.usersManagerService
+        .reservePasswordForUser({ user: member.userId, namespace: namespace, password: password })
+        .subscribe(
+          () => {
+            this.usersManagerService.validatePasswordForUser(member.userId, namespace).subscribe(
+              () => {
+                this.validateMember(member.id);
+              },
+              () => {
+                this.processing = false;
+                this.dialogRef.close(true);
+              }
+            );
+          },
+          () => {
+            this.processing = false;
+            this.dialogRef.close(true);
+          }
+        );
     }
   }
 

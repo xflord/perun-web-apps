@@ -64,21 +64,21 @@ export class PasswordResetFormComponent implements OnInit {
     this.loading = true;
     if (this.authWithoutToken) {
       this.usersService
-        .changePasswordForLogin(
-          this.login,
-          this.namespace,
-          this.newPasswdForm.get('passwordCtrl').value as string
-        )
+        .changePasswordForLogin({
+          login: this.login,
+          namespace: this.namespace,
+          newPassword: this.newPasswdForm.get('passwordCtrl').value as string,
+        })
         .subscribe(() => {
           this.success = true;
           this.loading = false;
         });
     } else {
       this.usersService
-        .changeNonAuthzPasswordByToken(
-          this.token,
-          this.newPasswdForm.get('passwordCtrl').value as string
-        )
+        .changeNonAuthzPasswordByToken({
+          token: this.token,
+          password: this.newPasswdForm.get('passwordCtrl').value as string,
+        })
         .subscribe(() => {
           this.success = true;
           this.loading = false;

@@ -29,9 +29,23 @@ import { AddUserExtSourceInput } from '../model/addUserExtSourceInput';
 // @ts-ignore
 import { Group } from '../model/group';
 // @ts-ignore
+import { InputChangeNonAuthzPasswordByToken } from '../model/inputChangeNonAuthzPasswordByToken';
+// @ts-ignore
+import { InputChangePasswordForLogin } from '../model/inputChangePasswordForLogin';
+// @ts-ignore
+import { InputChangePasswordForUser } from '../model/inputChangePasswordForUser';
+// @ts-ignore
+import { InputCheckPasswordStrength } from '../model/inputCheckPasswordStrength';
+// @ts-ignore
+import { InputCreateAlternativePassword } from '../model/inputCreateAlternativePassword';
+// @ts-ignore
 import { InputCreateServiceUser } from '../model/inputCreateServiceUser';
 // @ts-ignore
 import { InputGetPaginatedUsers } from '../model/inputGetPaginatedUsers';
+// @ts-ignore
+import { InputReservePasswordForLogin } from '../model/inputReservePasswordForLogin';
+// @ts-ignore
+import { InputReservePasswordForUser } from '../model/inputReservePasswordForUser';
 // @ts-ignore
 import { InputUpdateUser } from '../model/inputUpdateUser';
 // @ts-ignore
@@ -445,68 +459,41 @@ export class UsersManagerService {
   /**
    * Changes user password in defined login-namespace based on token parameter.
    * This method throws PasswordResetLinkExpiredException when the password reset request expired. This method throws PasswordResetLinkNotValidException when the password reset request was already used or has never existed.
-   * @param token token for the password reset request
-   * @param password password
-   * @param lang language to get notifications in (optional)
+   * @param InputChangeNonAuthzPasswordByToken
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public changeNonAuthzPasswordByToken(
-    token: string,
-    password: string,
-    lang?: string,
+    InputChangeNonAuthzPasswordByToken: InputChangeNonAuthzPasswordByToken,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public changeNonAuthzPasswordByToken(
-    token: string,
-    password: string,
-    lang?: string,
+    InputChangeNonAuthzPasswordByToken: InputChangeNonAuthzPasswordByToken,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public changeNonAuthzPasswordByToken(
-    token: string,
-    password: string,
-    lang?: string,
+    InputChangeNonAuthzPasswordByToken: InputChangeNonAuthzPasswordByToken,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public changeNonAuthzPasswordByToken(
-    token: string,
-    password: string,
-    lang?: string,
+    InputChangeNonAuthzPasswordByToken: InputChangeNonAuthzPasswordByToken,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    if (token === null || token === undefined) {
+    if (
+      InputChangeNonAuthzPasswordByToken === null ||
+      InputChangeNonAuthzPasswordByToken === undefined
+    ) {
       throw new Error(
-        'Required parameter token was null or undefined when calling changeNonAuthzPasswordByToken.'
+        'Required parameter InputChangeNonAuthzPasswordByToken was null or undefined when calling changeNonAuthzPasswordByToken.'
       );
-    }
-    if (password === null || password === undefined) {
-      throw new Error(
-        'Required parameter password was null or undefined when calling changeNonAuthzPasswordByToken.'
-      );
-    }
-
-    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
-    if (token !== undefined && token !== null) {
-      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>token, 'token');
-    }
-    if (password !== undefined && password !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>password,
-        'password'
-      );
-    }
-    if (lang !== undefined && lang !== null) {
-      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>lang, 'lang');
     }
 
     let localVarHeaders = this.defaultHeaders;
@@ -539,6 +526,14 @@ export class UsersManagerService {
       localVarHttpContext = new HttpContext();
     }
 
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+    }
+
     let responseType_: 'text' | 'json' | 'blob' = 'json';
     if (localVarHttpHeaderAcceptSelected) {
       if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -551,11 +546,10 @@ export class UsersManagerService {
     }
 
     return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/usersManager/changeNonAuthzPassword/token`,
-      null,
+      `${this.configuration.basePath}/json/usersManager/changeNonAuthzPassword/token`,
+      InputChangeNonAuthzPasswordByToken,
       {
         context: localVarHttpContext,
-        params: localVarQueryParameters,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -567,100 +561,37 @@ export class UsersManagerService {
 
   /**
    * Changes password for a user in specified login-namespace.
-   * @param login login
-   * @param namespace namespace
-   * @param newPassword
-   * @param oldPassword
-   * @param checkOldPassword True if the oldPassword has to be checked. When omitted it defaults to false.
+   * @param InputChangePasswordForLogin
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public changePasswordForLogin(
-    login: string,
-    namespace: string,
-    newPassword: string,
-    oldPassword?: string,
-    checkOldPassword?: boolean,
+    InputChangePasswordForLogin: InputChangePasswordForLogin,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public changePasswordForLogin(
-    login: string,
-    namespace: string,
-    newPassword: string,
-    oldPassword?: string,
-    checkOldPassword?: boolean,
+    InputChangePasswordForLogin: InputChangePasswordForLogin,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public changePasswordForLogin(
-    login: string,
-    namespace: string,
-    newPassword: string,
-    oldPassword?: string,
-    checkOldPassword?: boolean,
+    InputChangePasswordForLogin: InputChangePasswordForLogin,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public changePasswordForLogin(
-    login: string,
-    namespace: string,
-    newPassword: string,
-    oldPassword?: string,
-    checkOldPassword?: boolean,
+    InputChangePasswordForLogin: InputChangePasswordForLogin,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    if (login === null || login === undefined) {
+    if (InputChangePasswordForLogin === null || InputChangePasswordForLogin === undefined) {
       throw new Error(
-        'Required parameter login was null or undefined when calling changePasswordForLogin.'
-      );
-    }
-    if (namespace === null || namespace === undefined) {
-      throw new Error(
-        'Required parameter namespace was null or undefined when calling changePasswordForLogin.'
-      );
-    }
-    if (newPassword === null || newPassword === undefined) {
-      throw new Error(
-        'Required parameter newPassword was null or undefined when calling changePasswordForLogin.'
-      );
-    }
-
-    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
-    if (login !== undefined && login !== null) {
-      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>login, 'login');
-    }
-    if (namespace !== undefined && namespace !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>namespace,
-        'namespace'
-      );
-    }
-    if (newPassword !== undefined && newPassword !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>newPassword,
-        'newPassword'
-      );
-    }
-    if (oldPassword !== undefined && oldPassword !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>oldPassword,
-        'oldPassword'
-      );
-    }
-    if (checkOldPassword !== undefined && checkOldPassword !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>checkOldPassword,
-        'checkOldPassword'
+        'Required parameter InputChangePasswordForLogin was null or undefined when calling changePasswordForLogin.'
       );
     }
 
@@ -694,6 +625,14 @@ export class UsersManagerService {
       localVarHttpContext = new HttpContext();
     }
 
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+    }
+
     let responseType_: 'text' | 'json' | 'blob' = 'json';
     if (localVarHttpHeaderAcceptSelected) {
       if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -706,11 +645,10 @@ export class UsersManagerService {
     }
 
     return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/usersManager/changePassword/login`,
-      null,
+      `${this.configuration.basePath}/json/usersManager/changePassword/login`,
+      InputChangePasswordForLogin,
       {
         context: localVarHttpContext,
-        params: localVarQueryParameters,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -722,100 +660,37 @@ export class UsersManagerService {
 
   /**
    * Changes password for a user in specified login-namespace.
-   * @param user id of User
-   * @param namespace namespace
-   * @param newPassword
-   * @param oldPassword
-   * @param checkOldPassword True if the oldPassword has to be checked. When omitted it defaults to false.
+   * @param InputChangePasswordForUser
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public changePasswordForUser(
-    user: number,
-    namespace: string,
-    newPassword: string,
-    oldPassword?: string,
-    checkOldPassword?: boolean,
+    InputChangePasswordForUser: InputChangePasswordForUser,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public changePasswordForUser(
-    user: number,
-    namespace: string,
-    newPassword: string,
-    oldPassword?: string,
-    checkOldPassword?: boolean,
+    InputChangePasswordForUser: InputChangePasswordForUser,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public changePasswordForUser(
-    user: number,
-    namespace: string,
-    newPassword: string,
-    oldPassword?: string,
-    checkOldPassword?: boolean,
+    InputChangePasswordForUser: InputChangePasswordForUser,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public changePasswordForUser(
-    user: number,
-    namespace: string,
-    newPassword: string,
-    oldPassword?: string,
-    checkOldPassword?: boolean,
+    InputChangePasswordForUser: InputChangePasswordForUser,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    if (user === null || user === undefined) {
+    if (InputChangePasswordForUser === null || InputChangePasswordForUser === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling changePasswordForUser.'
-      );
-    }
-    if (namespace === null || namespace === undefined) {
-      throw new Error(
-        'Required parameter namespace was null or undefined when calling changePasswordForUser.'
-      );
-    }
-    if (newPassword === null || newPassword === undefined) {
-      throw new Error(
-        'Required parameter newPassword was null or undefined when calling changePasswordForUser.'
-      );
-    }
-
-    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
-    if (user !== undefined && user !== null) {
-      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>user, 'user');
-    }
-    if (namespace !== undefined && namespace !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>namespace,
-        'namespace'
-      );
-    }
-    if (newPassword !== undefined && newPassword !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>newPassword,
-        'newPassword'
-      );
-    }
-    if (oldPassword !== undefined && oldPassword !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>oldPassword,
-        'oldPassword'
-      );
-    }
-    if (checkOldPassword !== undefined && checkOldPassword !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>checkOldPassword,
-        'checkOldPassword'
+        'Required parameter InputChangePasswordForUser was null or undefined when calling changePasswordForUser.'
       );
     }
 
@@ -849,6 +724,14 @@ export class UsersManagerService {
       localVarHttpContext = new HttpContext();
     }
 
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+    }
+
     let responseType_: 'text' | 'json' | 'blob' = 'json';
     if (localVarHttpHeaderAcceptSelected) {
       if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -861,11 +744,10 @@ export class UsersManagerService {
     }
 
     return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/usersManager/changePassword/user`,
-      null,
+      `${this.configuration.basePath}/json/usersManager/changePassword/user`,
+      InputChangePasswordForUser,
       {
         context: localVarHttpContext,
-        params: localVarQueryParameters,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -973,65 +855,39 @@ export class UsersManagerService {
   }
 
   /**
-   * Check password strength for the given namespace.
+   * Check password strength for the given namespace. Some namespaces may require passing also login for complete password strength check.
    * If the check fails, the PasswordStrengthException error is returned.
-   * @param password password
-   * @param namespace namespace
+   * @param InputCheckPasswordStrength
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public checkPasswordStrength(
-    password: string,
-    namespace: string,
+    InputCheckPasswordStrength: InputCheckPasswordStrength,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public checkPasswordStrength(
-    password: string,
-    namespace: string,
+    InputCheckPasswordStrength: InputCheckPasswordStrength,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public checkPasswordStrength(
-    password: string,
-    namespace: string,
+    InputCheckPasswordStrength: InputCheckPasswordStrength,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public checkPasswordStrength(
-    password: string,
-    namespace: string,
+    InputCheckPasswordStrength: InputCheckPasswordStrength,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    if (password === null || password === undefined) {
+    if (InputCheckPasswordStrength === null || InputCheckPasswordStrength === undefined) {
       throw new Error(
-        'Required parameter password was null or undefined when calling checkPasswordStrength.'
-      );
-    }
-    if (namespace === null || namespace === undefined) {
-      throw new Error(
-        'Required parameter namespace was null or undefined when calling checkPasswordStrength.'
-      );
-    }
-
-    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
-    if (password !== undefined && password !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>password,
-        'password'
-      );
-    }
-    if (namespace !== undefined && namespace !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>namespace,
-        'namespace'
+        'Required parameter InputCheckPasswordStrength was null or undefined when calling checkPasswordStrength.'
       );
     }
 
@@ -1065,151 +921,12 @@ export class UsersManagerService {
       localVarHttpContext = new HttpContext();
     }
 
-    let responseType_: 'text' | 'json' | 'blob' = 'json';
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-        responseType_ = 'text';
-      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
-        responseType_ = 'json';
-      } else {
-        responseType_ = 'blob';
-      }
-    }
-
-    return this.httpClient.get<any>(
-      `${this.configuration.basePath}/json/usersManager/checkPasswordStrength`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
-  }
-
-  /**
-   * Creates alternative password in external system.
-   * @param user id of User
-   * @param description
-   * @param loginNamespace
-   * @param password
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public createAlternativePassword(
-    user: number,
-    description: string,
-    loginNamespace: string,
-    password: string,
-    observe?: 'body',
-    reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
-  ): Observable<any>;
-  public createAlternativePassword(
-    user: number,
-    description: string,
-    loginNamespace: string,
-    password: string,
-    observe?: 'response',
-    reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
-  ): Observable<HttpResponse<any>>;
-  public createAlternativePassword(
-    user: number,
-    description: string,
-    loginNamespace: string,
-    password: string,
-    observe?: 'events',
-    reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
-  ): Observable<HttpEvent<any>>;
-  public createAlternativePassword(
-    user: number,
-    description: string,
-    loginNamespace: string,
-    password: string,
-    observe: any = 'body',
-    reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
-  ): Observable<any> {
-    if (user === null || user === undefined) {
-      throw new Error(
-        'Required parameter user was null or undefined when calling createAlternativePassword.'
-      );
-    }
-    if (description === null || description === undefined) {
-      throw new Error(
-        'Required parameter description was null or undefined when calling createAlternativePassword.'
-      );
-    }
-    if (loginNamespace === null || loginNamespace === undefined) {
-      throw new Error(
-        'Required parameter loginNamespace was null or undefined when calling createAlternativePassword.'
-      );
-    }
-    if (password === null || password === undefined) {
-      throw new Error(
-        'Required parameter password was null or undefined when calling createAlternativePassword.'
-      );
-    }
-
-    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
-    if (user !== undefined && user !== null) {
-      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>user, 'user');
-    }
-    if (description !== undefined && description !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>description,
-        'description'
-      );
-    }
-    if (loginNamespace !== undefined && loginNamespace !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>loginNamespace,
-        'loginNamespace'
-      );
-    }
-    if (password !== undefined && password !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>password,
-        'password'
-      );
-    }
-
-    let localVarHeaders = this.defaultHeaders;
-
-    let localVarCredential: string | undefined;
-    // authentication (BasicAuth) required
-    localVarCredential = this.configuration.lookupCredential('BasicAuth');
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
-    }
-
-    // authentication (BearerAuth) required
-    localVarCredential = this.configuration.lookupCredential('BearerAuth');
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
-    }
-
-    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
-      // to determine the Accept header
-      const httpHeaderAccepts: string[] = ['application/json'];
-      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-    }
-
-    let localVarHttpContext: HttpContext | undefined = options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
     }
 
     let responseType_: 'text' | 'json' | 'blob' = 'json';
@@ -1224,11 +941,109 @@ export class UsersManagerService {
     }
 
     return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/usersManager/createAlternativePassword`,
-      null,
+      `${this.configuration.basePath}/json/usersManager/checkPasswordStrength`,
+      InputCheckPasswordStrength,
       {
         context: localVarHttpContext,
-        params: localVarQueryParameters,
+        responseType: <any>responseType_,
+        withCredentials: this.configuration.withCredentials,
+        headers: localVarHeaders,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Creates alternative password in external system.
+   * @param InputCreateAlternativePassword
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public createAlternativePassword(
+    InputCreateAlternativePassword: InputCreateAlternativePassword,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any>;
+  public createAlternativePassword(
+    InputCreateAlternativePassword: InputCreateAlternativePassword,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<any>>;
+  public createAlternativePassword(
+    InputCreateAlternativePassword: InputCreateAlternativePassword,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<any>>;
+  public createAlternativePassword(
+    InputCreateAlternativePassword: InputCreateAlternativePassword,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (InputCreateAlternativePassword === null || InputCreateAlternativePassword === undefined) {
+      throw new Error(
+        'Required parameter InputCreateAlternativePassword was null or undefined when calling createAlternativePassword.'
+      );
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/json/usersManager/createAlternativePassword`,
+      InputCreateAlternativePassword,
+      {
+        context: localVarHttpContext,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -5847,76 +5662,37 @@ export class UsersManagerService {
 
   /**
    * Reserves password for a user in specified login-namespace.
-   * @param login login
-   * @param namespace namespace
-   * @param password password
+   * @param InputReservePasswordForLogin
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public reservePasswordForLogin(
-    login: string,
-    namespace: string,
-    password: string,
+    InputReservePasswordForLogin: InputReservePasswordForLogin,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public reservePasswordForLogin(
-    login: string,
-    namespace: string,
-    password: string,
+    InputReservePasswordForLogin: InputReservePasswordForLogin,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public reservePasswordForLogin(
-    login: string,
-    namespace: string,
-    password: string,
+    InputReservePasswordForLogin: InputReservePasswordForLogin,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public reservePasswordForLogin(
-    login: string,
-    namespace: string,
-    password: string,
+    InputReservePasswordForLogin: InputReservePasswordForLogin,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    if (login === null || login === undefined) {
+    if (InputReservePasswordForLogin === null || InputReservePasswordForLogin === undefined) {
       throw new Error(
-        'Required parameter login was null or undefined when calling reservePasswordForLogin.'
-      );
-    }
-    if (namespace === null || namespace === undefined) {
-      throw new Error(
-        'Required parameter namespace was null or undefined when calling reservePasswordForLogin.'
-      );
-    }
-    if (password === null || password === undefined) {
-      throw new Error(
-        'Required parameter password was null or undefined when calling reservePasswordForLogin.'
-      );
-    }
-
-    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
-    if (login !== undefined && login !== null) {
-      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>login, 'login');
-    }
-    if (namespace !== undefined && namespace !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>namespace,
-        'namespace'
-      );
-    }
-    if (password !== undefined && password !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>password,
-        'password'
+        'Required parameter InputReservePasswordForLogin was null or undefined when calling reservePasswordForLogin.'
       );
     }
 
@@ -5950,6 +5726,14 @@ export class UsersManagerService {
       localVarHttpContext = new HttpContext();
     }
 
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+    }
+
     let responseType_: 'text' | 'json' | 'blob' = 'json';
     if (localVarHttpHeaderAcceptSelected) {
       if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -5962,11 +5746,10 @@ export class UsersManagerService {
     }
 
     return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/usersManager/reservePassword/login`,
-      null,
+      `${this.configuration.basePath}/json/usersManager/reservePassword/login`,
+      InputReservePasswordForLogin,
       {
         context: localVarHttpContext,
-        params: localVarQueryParameters,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -5978,76 +5761,37 @@ export class UsersManagerService {
 
   /**
    * Reserves password for a user in specified login-namespace.
-   * @param user id of User
-   * @param namespace namespace
-   * @param password password
+   * @param InputReservePasswordForUser
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public reservePasswordForUser(
-    user: number,
-    namespace: string,
-    password: string,
+    InputReservePasswordForUser: InputReservePasswordForUser,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public reservePasswordForUser(
-    user: number,
-    namespace: string,
-    password: string,
+    InputReservePasswordForUser: InputReservePasswordForUser,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public reservePasswordForUser(
-    user: number,
-    namespace: string,
-    password: string,
+    InputReservePasswordForUser: InputReservePasswordForUser,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public reservePasswordForUser(
-    user: number,
-    namespace: string,
-    password: string,
+    InputReservePasswordForUser: InputReservePasswordForUser,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    if (user === null || user === undefined) {
+    if (InputReservePasswordForUser === null || InputReservePasswordForUser === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling reservePasswordForUser.'
-      );
-    }
-    if (namespace === null || namespace === undefined) {
-      throw new Error(
-        'Required parameter namespace was null or undefined when calling reservePasswordForUser.'
-      );
-    }
-    if (password === null || password === undefined) {
-      throw new Error(
-        'Required parameter password was null or undefined when calling reservePasswordForUser.'
-      );
-    }
-
-    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
-    if (user !== undefined && user !== null) {
-      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>user, 'user');
-    }
-    if (namespace !== undefined && namespace !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>namespace,
-        'namespace'
-      );
-    }
-    if (password !== undefined && password !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>password,
-        'password'
+        'Required parameter InputReservePasswordForUser was null or undefined when calling reservePasswordForUser.'
       );
     }
 
@@ -6081,6 +5825,14 @@ export class UsersManagerService {
       localVarHttpContext = new HttpContext();
     }
 
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+    }
+
     let responseType_: 'text' | 'json' | 'blob' = 'json';
     if (localVarHttpHeaderAcceptSelected) {
       if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -6093,11 +5845,10 @@ export class UsersManagerService {
     }
 
     return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/usersManager/reservePassword/user`,
-      null,
+      `${this.configuration.basePath}/json/usersManager/reservePassword/user`,
+      InputReservePasswordForUser,
       {
         context: localVarHttpContext,
-        params: localVarQueryParameters,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,

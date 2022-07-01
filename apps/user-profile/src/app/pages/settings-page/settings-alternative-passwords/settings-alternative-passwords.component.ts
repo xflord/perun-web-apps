@@ -55,12 +55,12 @@ export class SettingsAlternativePasswordsComponent implements OnInit {
   createPassword(): void {
     const password = this.generatePassword();
     this.usersManagerService
-      .createAlternativePassword(
-        this.userId,
-        this.altPasswordCtrl.value as string,
-        'einfra',
-        password
-      )
+      .createAlternativePassword({
+        user: this.userId,
+        description: this.altPasswordCtrl.value as string,
+        loginNamespace: 'einfra',
+        password: password,
+      })
       .subscribe(() => {
         const config = getDefaultDialogConfig();
         config.width = '600px';

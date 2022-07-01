@@ -53,7 +53,11 @@ export class ActivateLocalAccountDialogComponent {
     this.loading = true;
     const pwd: string = this.pwdForm.get('passwordCtrl').value as string;
     this.userManager
-      .reservePasswordForUser(this.data.userId, this.data.namespace, pwd)
+      .reservePasswordForUser({
+        user: this.data.userId,
+        namespace: this.data.namespace,
+        password: pwd,
+      })
       .pipe(
         switchMap(() =>
           this.userManager.validatePasswordForUser(this.data.userId, this.data.namespace)

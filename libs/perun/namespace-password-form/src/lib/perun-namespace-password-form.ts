@@ -35,10 +35,10 @@ export const loginAsyncValidator =
         if (!namespace || namespace === 'No namespace') {
           return of(null);
         }
-        return usersManager.checkPasswordStrength(
-          input.value as string,
-          namespace
-        ) as Observable<PasswordError>;
+        return usersManager.checkPasswordStrength({
+          password: input.value as string,
+          namespace: namespace,
+        }) as Observable<PasswordError>;
       }),
       map(() => null),
       // catch error and send it as a valid value

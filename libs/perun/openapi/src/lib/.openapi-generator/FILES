@@ -98,7 +98,12 @@ model/inputAssignResourceTagToResource.ts
 model/inputAttributeDefinition.ts
 model/inputAttributePolicyCollections.ts
 model/inputAttributeRights.ts
+model/inputChangeNonAuthzPasswordByToken.ts
+model/inputChangePasswordForLogin.ts
+model/inputChangePasswordForUser.ts
+model/inputCheckPasswordStrength.ts
 model/inputCopyResource.ts
+model/inputCreateAlternativePassword.ts
 model/inputCreateAttributeDefinition.ts
 model/inputCreateAuthorship.ts
 model/inputCreateCategory.ts
@@ -137,6 +142,8 @@ model/inputGetResources.ts
 model/inputGetUsers.ts
 model/inputLockPublications.ts
 model/inputRemoveResourceTagFromResource.ts
+model/inputReservePasswordForLogin.ts
+model/inputReservePasswordForUser.ts
 model/inputSendMessage.ts
 model/inputSetBan.ts
 model/inputSetBanForUserOnFacility.ts

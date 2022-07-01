@@ -73,13 +73,13 @@ export class ChangePasswordDialogComponent implements OnInit {
   changePassword(): void {
     this.loading = true;
     this.usersManagerService
-      .changePasswordForLogin(
-        this.data.login,
-        this.data.namespace,
-        this.newPwd.value as string,
-        this.oldPwd.value as string,
-        true
-      )
+      .changePasswordForLogin({
+        login: this.data.login,
+        namespace: this.data.namespace,
+        newPassword: this.newPwd.value as string,
+        oldPassword: this.oldPwd.value as string,
+        checkOldPassword: true,
+      })
       .subscribe(() => {
         this.notificator.showSuccess(this.successMessage);
         this.loading = false;

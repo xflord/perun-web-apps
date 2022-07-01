@@ -56,12 +56,12 @@ export class SettingsSambaPasswordComponent implements OnInit {
 
     const timestamp = new Date().getTime().toString();
     this.usersManagerService
-      .createAlternativePassword(
-        this.userId,
-        timestamp,
-        'samba-du',
-        this.sambaControl.value as string
-      )
+      .createAlternativePassword({
+        user: this.userId,
+        description: timestamp,
+        loginNamespace: 'samba-du',
+        password: this.sambaControl.value as string,
+      })
       .subscribe(() => {
         this.sambaControl.setValue('');
         this.getSambaAttribute();
