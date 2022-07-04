@@ -17,6 +17,8 @@
     "BA_USERNAME_GROUP_MANAGER": "groupManager",
     "BA_PASSWORD_GROUP_MANAGER": "test",
     "BA_USERNAME_FACILITY_MANAGER": "facilityManager",
-    "BA_PASSWORD_FACILITY_MANAGER": "test"
+    "BA_PASSWORD_FACILITY_MANAGER": "test",
+    "BA_USERNAME_RESOURCE_MANAGER": "resourceManager",
+    "BA_PASSWORD_RESOURCE_MANAGER": "test"
   }
 }

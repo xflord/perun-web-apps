@@ -82,7 +82,8 @@
       [disabled]="selection.selected.length === 0 || !canAddGroups()"
       color="accent"
       mat-flat-button
-      type="button">
+      type="button"
+      data-cy="next-button">
       {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.NEXT' | translate}}
     </button>
     <button
@@ -91,7 +92,8 @@
       class="ml-2"
       color="accent"
       mat-flat-button
-      type="button">
+      type="button"
+      data-cy="assign-button">
       {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ADD_BUTTON' | translate}}
     </button>
   </div>
