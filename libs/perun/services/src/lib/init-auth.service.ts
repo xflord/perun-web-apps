@@ -53,14 +53,14 @@ export class InitAuthService {
       } else {
         return this.router.navigate([location.pathname]).then(() => true);
       }
-    }
+    } else if (location.pathname !== '/service-access') {
+      this.authService.loadConfigData();
 
-    this.authService.loadConfigData();
-
-    if (this.storeService.skipOidc()) {
-      return new Promise<boolean>((resolve) => resolve(true));
-    } else {
-      return this.authService.verifyAuth();
+      if (this.storeService.skipOidc()) {
+        return new Promise<boolean>((resolve) => resolve(true));
+      } else {
+        return this.authService.verifyAuth();
+      }
     }
   }
 
