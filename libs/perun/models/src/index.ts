@@ -11,3 +11,4 @@ export * from './lib/NotificationData';
 export * from './lib/GroupWithStatus';
 export * from './lib/ResourceWithStatus';
 export * from './lib/AttributeForm';
+export * from './lib/ConfigProperties';

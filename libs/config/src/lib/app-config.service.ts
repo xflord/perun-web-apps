@@ -5,10 +5,11 @@
    @typescript-eslint/no-unsafe-assignment */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { StoreService, PerunConfig } from '@perun-web-apps/perun/services';
+import { StoreService } from '@perun-web-apps/perun/services';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 import { Title } from '@angular/platform-browser';
 import { UtilsService } from '@perun-web-apps/perun/openapi';
+import { PerunConfig } from '@perun-web-apps/perun/models';
 
 declare const tinycolor: any;
 

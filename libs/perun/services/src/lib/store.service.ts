@@ -1,58 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment */
 import { Injectable } from '@angular/core';
 import { PerunAppsConfig, PerunPrincipal } from '@perun-web-apps/perun/openapi';
-
-interface CopyrightItem {
-  name: string;
-  url: string;
-}
-
-interface FooterElement {
-  logo: string;
-  icon: string;
-  dialog?: string;
-  link_en?: string;
-  link_cs?: string;
-  label_en?: string;
-  label_cs?: string;
-}
-
-interface FooterColumn {
-  title_en?: string;
-  title_cs?: string;
-  logos?: boolean;
-  elements: FooterElement[];
-}
-
-interface Footer {
-  columns: FooterColumn[];
-  copyrightItems: CopyrightItem[];
-}
-
-export interface PerunConfig {
-  config: string;
-  api_url: string;
-  oidc_client: object; // can be specified further
-  password_namespace_attributes: string[];
-  pwd_reset_base_url: string;
-  auto_auth_redirect?: boolean;
-  supported_languages?: string[];
-  login_namespace_attributes?: string[];
-  log_out_enabled?: boolean;
-  profile_label_en?: string;
-  footer?: Footer;
-  is_devel?: boolean;
-  instance_favicon?: boolean;
-  document_title?: string;
-  allow_empty_sponsor_namespace?: string;
-  member_profile_attributes_friendly_names?: string[];
-  skip_oidc?: boolean;
-  groupNameSecondaryRegex?: string;
-  groupNameErrorMessage?: string;
-  brandings?: object;
-  display_warning?: boolean;
-  warning_message?: string;
-}
+import { PerunConfig } from '@perun-web-apps/perun/models';
 
 /**
  * Class that just store data about instance and default configuration.
@@ -102,11 +50,11 @@ export class StoreService {
   }
 
   getLoginAttributeNames(): string[] {
-    return this.get('login_namespace_attributes') as string[];
+    return this.getProperty('login_namespace_attributes');
   }
 
   getMemberProfileAttributeNames(): string[] {
-    return this.get('member_profile_attributes_friendly_names') as string[];
+    return this.getProperty('member_profile_attributes_friendly_names');
   }
 
   setBanding(branding: string): void {
@@ -114,21 +62,35 @@ export class StoreService {
   }
 
   skipOidc(): boolean {
-    return this.get('skip_oidc') as boolean;
+    return this.getProperty('skip_oidc');
+  }
+
+  getProperty<T extends keyof PerunConfig>(key: T): PerunConfig[T] {
+    const configs: PerunConfig[] = [
+      this.instanceConfig.brandings?.[this.branding],
+      this.instanceConfig,
+      this.defaultConfig,
+    ];
+
+    let currentValue: PerunConfig[T] = null;
+    for (const config of configs) {
+      if (config && !currentValue) {
+        currentValue = config[key];
+      }
+    }
+
+    return currentValue;
   }
 
   /**
-   * Get key from json configuration. If key is not present in instance
-   * configuration method returns value from default configuration.
-   * @param keys
+   * @deprecated - Use method `getProperty` instead.
    */
+  /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment */
   get(...keys: string[]): any {
     let currentValue: string;
 
     if (this.branding !== '') {
-      const brandingConfig: PerunConfig = this.instanceConfig.brandings[
-        this.branding
-      ] as PerunConfig;
+      const brandingConfig: PerunConfig = this.instanceConfig.brandings[this.branding];
       for (let i = 0; i < keys.length; ++i) {
         if (i === 0) {
           currentValue = brandingConfig[keys[i]];
