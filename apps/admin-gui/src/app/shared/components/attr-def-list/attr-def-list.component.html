@@ -25,6 +25,7 @@
           </th>
           <td *matCellDef="let row" class="static-column-size align-checkbox" mat-cell>
             <mat-checkbox
+              attr.data-cy="{{row.displayName | multiWordDataCy}}-checkbox"
               (change)="$event ? selection.toggle(row) : null"
               (click)="$event.stopPropagation()"
               [aria-label]="checkboxLabel(row)"

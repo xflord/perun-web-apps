@@ -42,7 +42,12 @@
         <th *matHeaderCellDef mat-header-cell mat-sort-header>
           {{'SHARED.COMPONENTS.EXT_SOURCES_LIST.NAME' | translate}}
         </th>
-        <td *matCellDef="let extSource" mat-cell>{{extSource.name}}</td>
+        <td
+          *matCellDef="let extSource"
+          mat-cell
+          attr.data-cy="{{extSource.name | lowercase}}-name-td">
+          {{extSource.name}}
+        </td>
       </ng-container>
       <ng-container matColumnDef="type">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>

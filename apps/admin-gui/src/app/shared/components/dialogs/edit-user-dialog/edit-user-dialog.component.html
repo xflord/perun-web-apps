@@ -26,6 +26,7 @@
         matInput
         placeholder="{{'DIALOGS.EDIT_USER.FIRST_NAME' | translate}}"
         [formControl]="firstName"
+        data-cy="user-first-name-input"
         required />
       <mat-error
         *ngIf="firstName.invalid"
@@ -63,6 +64,7 @@
       class="ml-2"
       color="accent"
       [disabled]="loading || firstName.invalid || lastName.invalid || titleBefore.invalid || titleAfter.invalid || middleName.invalid"
+      data-cy="user-save-button"
       mat-flat-button>
       {{'DIALOGS.EDIT_USER.SAVE' | translate}}
     </button>

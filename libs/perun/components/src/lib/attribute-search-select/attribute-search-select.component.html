@@ -38,6 +38,7 @@
     matTooltipPosition="below"
     [matTooltipDisabled]="!emptySearchString()">
     <button
+      data-cy="searcher-search-button"
       mat-stroked-button
       class="mr-2"
       (click)="searchEntities()"

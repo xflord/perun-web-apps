@@ -6,6 +6,7 @@
     (click)="onCreate()"
     class="mr-2 action-button"
     color="accent"
+    data-cy="new-attr-definition-button"
     mat-flat-button>
     {{'ADMIN.ATTRIBUTES.CREATE' | translate}}
   </button>
@@ -23,6 +24,7 @@
     color="warn"
     [disabled]="selected.selected.length === 0"
     class="mr-2"
+    data-cy="delete-attr-definition-button"
     mat-flat-button>
     {{'ADMIN.ATTRIBUTES.DELETE' | translate}}
   </button>

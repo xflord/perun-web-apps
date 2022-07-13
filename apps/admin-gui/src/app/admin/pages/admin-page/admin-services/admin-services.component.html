@@ -6,6 +6,7 @@
     (click)="createService()"
     color="accent"
     class="action-button mr-2"
+    data-cy="service-create-button"
     mat-flat-button>
     {{'ADMIN.SERVICES.CREATE' | translate}}
   </button>
@@ -15,6 +16,7 @@
     [disabled]="selection.selected.length === 0"
     class="mr-2"
     color="warn"
+    data-cy="service-delete-button"
     mat-flat-button>
     {{'ADMIN.SERVICES.DELETE' | translate}}
   </button>

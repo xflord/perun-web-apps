@@ -13,6 +13,7 @@
         <div class="flex-column">
           <div class="page-title-headline d-flex align-items-center">
             <a
+              data-cy="service-name-link"
               [routerLink]="['/admin/services', service.id]"
               class="service-link"
               queryParamsHandling="merge">
@@ -23,6 +24,7 @@
               *ngIf="authResolver.isPerunAdmin()"
               (click)="editService()"
               aria-label="Edit service"
+              data-cy="service-edit-button"
               mat-icon-button>
               <mat-icon>edit</mat-icon>
             </button>

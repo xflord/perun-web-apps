@@ -1,5 +1,10 @@
 <mat-form-field class="filter-field mr-2">
-  <input matInput #input placeholder="{{placeholder | translate}}" [formControl]="control" />
+  <input
+    matInput
+    #input
+    placeholder="{{placeholder | translate}}"
+    [formControl]="control"
+    data-cy="filter-input" />
   <mat-error>
     {{error}}
   </mat-error>

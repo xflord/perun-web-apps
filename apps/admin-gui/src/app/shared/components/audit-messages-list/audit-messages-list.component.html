@@ -37,7 +37,11 @@
 
       <ng-container matColumnDef="name">
         <th *matHeaderCellDef mat-header-cell>{{'AUDIT_MESSAGES_LIST.EVENT_NAME' | translate}}</th>
-        <td *matCellDef="let auditMessage" class="static-column-size" mat-cell>
+        <td
+          *matCellDef="let auditMessage"
+          class="static-column-size"
+          mat-cell
+          data-cy="audit-message-td">
           {{auditMessage.event.name | parseEventName}}
         </td>
       </ng-container>

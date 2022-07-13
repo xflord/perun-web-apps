@@ -10,12 +10,16 @@
     </mat-icon>
     <div class="page-title-block">
       <div class="page-title-headline d-flex align-items-center">
-        <a [routerLink]="['/admin/users', user.id]" class="user-link" queryParamsHandling="merge">
+        <a
+          [routerLink]="['/admin/users', user.id]"
+          class="user-link"
+          queryParamsHandling="merge"
+          data-cy="user-name-link">
           {{user | userFullName}}
         </a>
         <span class="text-muted"> &nbsp;#{{user.id}} </span>
         <span *ngIf="authResolver.isPerunAdmin()">
-          <button (click)="editUser()" mat-icon-button>
+          <button (click)="editUser()" mat-icon-button data-cy="edit-user-button">
             <mat-icon>edit</mat-icon>
           </button>
           <button (click)="anonymizeUser()" mat-icon-button>

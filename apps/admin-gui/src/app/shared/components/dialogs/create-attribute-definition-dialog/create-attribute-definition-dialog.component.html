@@ -8,6 +8,7 @@
           matInput
           formControlName="friendlyName"
           placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.FRIENDLY_NAME' | translate}}"
+          data-cy="attribute-friendly-name-input"
           required />
         <mat-error *ngIf="attributeControl.hasError('required', 'friendlyName')">
           {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
@@ -18,6 +19,7 @@
           matInput
           formControlName="displayName"
           placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.DISPLAY_NAME' | translate}}"
+          data-cy="attribute-display-name-input"
           required />
         <mat-error *ngIf="attributeControl.hasError('required', 'displayName')">
           {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
@@ -29,6 +31,7 @@
           formControlName="description"
           cdkTextareaAutosize
           placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.DESCRIPTION' | translate}}"
+          data-cy="attribute-description-input"
           required>
         </textarea>
         <mat-error *ngIf="attributeControl.hasError('required', 'description')">
@@ -39,6 +42,7 @@
         <mat-select
           placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ENTITY' | translate}}"
           formControlName="entity"
+          data-cy="attribute-entity-input"
           required>
           <mat-option *ngFor="let entity of entities" [value]="entity">{{entity}}</mat-option>
         </mat-select>
@@ -50,6 +54,7 @@
         <mat-select
           placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.DEFINITION' | translate}}"
           formControlName="definitionType"
+          data-cy="attribute-definition-type-input"
           required>
           <mat-option *ngFor="let defType of definitionTypes" [value]="defType"
             >{{defType}}
@@ -63,6 +68,7 @@
         <mat-select
           placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.VALUE_TYPE' | translate}}"
           formControlName="valueType"
+          data-cy="attribute-value-type-input"
           required>
           <mat-option *ngFor="let valType of valueTypes" [value]="valType">
             {{valType | attributeTypeClean}}
@@ -89,6 +95,7 @@
       color="accent"
       (click)="submit()"
       [disabled]="loading || attributeControl.invalid"
+      data-cy="create-attr-definition-button"
       mat-flat-button>
       {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.CONFIRM' | translate}}
     </button>

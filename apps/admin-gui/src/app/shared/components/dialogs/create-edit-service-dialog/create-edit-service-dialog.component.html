@@ -10,6 +10,7 @@
         placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.NAME' | translate}}"
         (change)="makePath()"
         [formControl]="nameControl"
+        data-cy="service-name-input"
         required />
       <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.RESTRICTION_NAME' | translate}}</mat-error>
     </mat-form-field>
@@ -18,6 +19,7 @@
       <input
         [(ngModel)]="description"
         matInput
+        data-cy="service-description-input"
         placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.DESCRIPTION' | translate}}" />
     </mat-form-field>
 
@@ -75,6 +77,7 @@
       class="ml-2"
       color="accent"
       (click)="asEdit ? onEdit() : onCreate()"
+      data-cy="service-create-edit-dialog-button"
       mat-flat-button>
       {{buttonText}}
     </button>
