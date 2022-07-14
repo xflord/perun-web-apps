@@ -4,11 +4,7 @@
   {{'SSH_KEYS.NEW_KEY'|customTranslate | translate}}
 </button>
 <mat-list>
-  <mat-list-item
-    *ngFor="let key of userKeys"
-    class="dark-hover-list-item"
-    matRipple
-    style="width: auto">
+  <mat-list-item *ngFor="let key of userKeys" class="dark-hover-list-item w-auto" matRipple>
     <p (click)="showWholeKey(key)" class="truncate center-content cursor-pointer">{{key}}</p>
     <button
       [cdkCopyToClipboard]="key"
@@ -35,11 +31,7 @@
   {{'SSH_KEYS.NEW_KEY'|customTranslate | translate}}
 </button>
 <mat-list>
-  <mat-list-item
-    *ngFor="let key of adminKeys"
-    class="dark-hover-list-item"
-    matRipple
-    style="width: auto">
+  <mat-list-item *ngFor="let key of adminKeys" class="dark-hover-list-item w-auto" matRipple>
     <label class="truncate center-content" (click)="showWholeKey(key)">{{key}}</label>
     <button
       mat-icon-button

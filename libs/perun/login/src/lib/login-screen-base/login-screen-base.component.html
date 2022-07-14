@@ -5,7 +5,7 @@
   <div *ngIf="application === 'admin-gui'" class="mt-auto mb-auto">
     <div [innerHTML]="logo" class="logo-container"></div>
   </div>
-  <div *ngIf="application === 'publications'" style=" display: flex; flex-direction: row;">
+  <div *ngIf="application === 'publications'" class="display-flex-row">
     <div [innerHTML]="logo" class="logo-container mt-auto mb-auto"></div>
     <mat-icon
       svgIcon="perun-publications-white"

@@ -1,5 +1,5 @@
 <!--The min-height is a hack to prevent page scrolling on tab switching-->
-<div style="min-height: 500px">
+<div class="min-height">
   <mat-tab-group [dynamicHeight]="true" [(selectedIndex)]="showTab">
     <mat-tab [label]="facility.name + ' (facility)'">
       <button mat-flat-button class="mr-2 mt-3" color="accent" (click)="onAddAttFacility()">

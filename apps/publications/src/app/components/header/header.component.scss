@@ -6,6 +6,11 @@
   padding: 0;
 }
 
+.display-flex {
+  display: flex;
+  flex-direction: row;
+}
+
 #nav-devel-info {
   font-weight: 500;
   font-size: 1.4rem;

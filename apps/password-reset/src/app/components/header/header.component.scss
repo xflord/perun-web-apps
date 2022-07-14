@@ -6,6 +6,11 @@
   padding: 0;
 }
 
+.display-flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
 .logo-container {
   padding: 0 8px 0 8px;
 }
