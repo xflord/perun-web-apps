@@ -2178,7 +2178,10 @@
     "NO_FILTER_RESULTS_ALERT": "No members are matching your query",
     "INDIRECT_MEMBER": "Indirect member",
     "CHECKBOX_TOOLTIP_INDIRECT": "Indirect members cannot be removed",
-    "CHECKBOX_TOOLTIP_UNALTERABLE": "Members from member organizations cannot be directly removed"
+    "CHECKBOX_TOOLTIP_UNALTERABLE": "Members from member organizations cannot be directly removed",
+    "STATUS_TOOLTIP_INDIRECT": "Member status from member organization cannot be directly changed",
+    "STATUS_TOOLTIP_GROUP_INDIRECT": "Indirect member status cannot be changed",
+    "STATUS_TOOLTIP_MEMBERS_GROUP": "Group status in 'members' group cannot be directly changed"
   },
   "MEMBERS_CANDIDATES_LIST": {
     "STATUS": "Status",

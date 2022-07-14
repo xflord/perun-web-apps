@@ -845,3 +845,25 @@ export function parseQueryParams(paramName: string, queryParams: string): string
   }
   return '';
 }
+
+export function isMemberIndirect(member: RichMember): boolean {
+  if (member.membershipType === 'INDIRECT') {
+    return true;
+  }
+  const attr = member.memberAttributes?.find((obj) => obj.friendlyName === 'isLifecycleAlterable');
+  if (attr) {
+    return !attr.value ?? false;
+  }
+  return false;
+}
+
+export function isMemberIndirectString(member: RichMember): string {
+  if (member.membershipType === 'INDIRECT') {
+    return 'INDIRECT';
+  }
+  const attr = member.memberAttributes?.find((obj) => obj.friendlyName === 'isLifecycleAlterable');
+  if (attr) {
+    return !attr.value ? 'UNALTERABLE' : 'DIRECT' ?? 'DIRECT';
+  }
+  return 'UNKNOWN';
+}

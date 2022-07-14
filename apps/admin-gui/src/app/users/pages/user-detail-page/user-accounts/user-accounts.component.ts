@@ -50,19 +50,24 @@ export class UserAccountsComponent implements OnInit {
     this.selectedVo = vo;
     this.membersService.getMemberByUser(this.selectedVo.id, this.userId).subscribe(
       (member) => {
-        this.member = member;
-        this.groupService
-          .getMemberRichGroupsWithAttributesByNames(this.member.id, [
-            Urns.MEMBER_DEF_GROUP_EXPIRATION,
-            Urns.MEMBER_GROUP_STATUS,
-          ])
-          .subscribe(
-            (groups) => {
-              this.groups = groups;
-              this.loading = false;
-            },
-            () => (this.loading = false)
-          );
+        this.membersService.getRichMemberWithAttributes(member.id).subscribe(
+          (m) => {
+            this.member = m;
+            this.groupService
+              .getMemberRichGroupsWithAttributesByNames(this.member.id, [
+                Urns.MEMBER_DEF_GROUP_EXPIRATION,
+                Urns.MEMBER_GROUP_STATUS,
+              ])
+              .subscribe(
+                (groups) => {
+                  this.groups = groups;
+                  this.loading = false;
+                },
+                () => (this.loading = false)
+              );
+          },
+          () => (this.loading = false)
+        );
       },
       () => (this.loading = false)
     );

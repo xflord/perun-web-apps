@@ -18,15 +18,14 @@
           <th *matHeaderCellDef mat-header-cell></th>
           <td *matCellDef="let attribute" class="column-center" mat-cell>
             <div *ngIf="attribute === 'Status'">
-              <i
-                class="material-icons vert-center mr-1 {{(member.status | memberStatusIconColor)}}">
+              <i class="material-icons vert-center mr-1 {{(member | memberStatusIconColor)}}">
                 {{member.status | memberStatusIcon}}
               </i>
               <b class="vert-top">
                 {{member.status | transformMemberStatus}}
               </b>
               <button
-                *ngIf="authResolver.isThisVoAdmin(vo.id)"
+                *ngIf="authResolver.isThisVoAdmin(vo.id) && !(member | memberStatusDisabled)"
                 (click)="changeStatus()"
                 mat-icon-button>
                 <mat-icon>edit</mat-icon>
@@ -37,7 +36,7 @@
                 {{voExpiration | parseDate}}
               </i>
               <button
-                *ngIf="authResolver.isThisVoAdmin(vo.id)"
+                *ngIf="authResolver.isThisVoAdmin(vo.id) && !(member | memberStatusDisabled)"
                 (click)="changeVoExpiration(false)"
                 mat-icon-button>
                 <mat-icon>edit</mat-icon>

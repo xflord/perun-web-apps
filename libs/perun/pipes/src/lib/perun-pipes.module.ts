@@ -17,7 +17,7 @@ import { MemberEmailPipe } from './member-email.pipe';
 import { MemberLoginsPipe } from './member-logins.pipe';
 import { GroupExpirationPipe } from './group-expiration.pipe';
 import { MemberOrganizationPipe } from './member-organization.pipe';
-import { MemberListCheckboxDisabledPipe } from './member-list-checkbox-disabled.pipe';
+import { MemberStatusDisabledPipe } from './member-status-disabled.pipe';
 import { MemberCheckboxLabelPipe } from './member-checkbox-label.pipe';
 import { ParseDatePipe } from './parse-date.pipe';
 import { TechnicalOwnersPipe } from './technical-owners.pipe';
@@ -39,6 +39,7 @@ import { GroupMembersActionButtonDisabledTooltipPipe } from './group-members-act
 import { DisabledCandidateTooltipPipe } from './disabled-candidate-tooltip.pipe';
 import { DisplayedRolePipe } from './displayed-role.pipe';
 import { DisableUniqueAttributePipe } from './disable-unique-attribute.pipe';
+import { GroupStatusIconColorPipe } from './group-status-icon-color';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import { DisableUniqueAttributePipe } from './disable-unique-attribute.pipe';
     MemberEmailPipe,
     MemberLoginsPipe,
     MemberOrganizationPipe,
-    MemberListCheckboxDisabledPipe,
+    MemberStatusDisabledPipe,
     MemberCheckboxLabelPipe,
     GroupExpirationPipe,
     ParseDatePipe,
@@ -77,6 +78,7 @@ import { DisableUniqueAttributePipe } from './disable-unique-attribute.pipe';
     MultiWordDataCyPipe,
     FooterLogoPathPipe,
     DeleteDialogTypePipe,
+    GroupStatusIconColorPipe,
     GroupMembersActionButtonDisabledPipe,
     GroupMembersActionButtonDisabledTooltipPipe,
     DisabledCandidateTooltipPipe,
@@ -101,8 +103,9 @@ import { DisableUniqueAttributePipe } from './disable-unique-attribute.pipe';
     MemberEmailPipe,
     MemberLoginsPipe,
     GroupExpirationPipe,
+    GroupStatusIconColorPipe,
     MemberOrganizationPipe,
-    MemberListCheckboxDisabledPipe,
+    MemberStatusDisabledPipe,
     MemberCheckboxLabelPipe,
     ParseDatePipe,
     TechnicalOwnersPipe,

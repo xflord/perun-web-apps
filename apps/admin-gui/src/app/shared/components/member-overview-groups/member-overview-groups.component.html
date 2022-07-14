@@ -30,14 +30,14 @@
           <td *matCellDef="let attribute" class="column-center" mat-cell>
             <div *ngIf="attribute === 'Status'">
               <i
-                class="material-icons vert-center mr-1 {{(selectedMember.groupStatus | memberStatusIconColor)}}">
+                class="material-icons vert-center mr-1 {{(selectedMember.groupStatus | groupStatusIconColor)}}">
                 {{selectedMember.groupStatus | memberStatusIcon}}
               </i>
               <b class="vert-top">
                 {{selectedMember.groupStatus | transformMemberStatus}}
               </b>
               <button
-                *ngIf="authResolver.isThisVoAdmin(vo.id) || authResolver.isThisGroupAdmin(this.selectedGroup.id)"
+                *ngIf="authResolver.isThisVoAdmin(vo.id) || authResolver.isThisGroupAdmin(selectedGroup.id)"
                 (click)="changeStatus()"
                 mat-icon-button>
                 <mat-icon>edit</mat-icon>
@@ -48,7 +48,7 @@
                 {{expiration | parseDate}}
               </i>
               <button
-                *ngIf="authResolver.isThisVoAdmin(vo.id) || authResolver.isThisGroupAdmin(this.selectedGroup.id)"
+                *ngIf="authResolver.isThisVoAdmin(vo.id) || authResolver.isThisGroupAdmin(selectedGroup.id)"
                 (click)="changeExpiration()"
                 mat-icon-button>
                 <mat-icon>edit</mat-icon>

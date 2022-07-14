@@ -50,6 +50,7 @@ export class GroupMembersComponent implements OnInit {
     Urns.USER_DEF_PREFERRED_MAIL,
     Urns.MEMBER_DEF_EXPIRATION,
     Urns.MEMBER_DEF_GROUP_EXPIRATION,
+    Urns.MEMBER_LIFECYCLE_ALTERABLE,
   ];
   addAuth: boolean;
   removeAuth: boolean;

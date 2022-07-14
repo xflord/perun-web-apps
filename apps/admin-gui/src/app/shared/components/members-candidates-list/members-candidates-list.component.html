@@ -46,7 +46,7 @@
         <td *matCellDef="let memberCandidate" mat-cell>
           <i
             *ngIf="memberCandidate.member"
-            class="material-icons {{memberCandidate.member.status | memberStatusIconColor}}"
+            class="material-icons {{memberCandidate.member | memberStatusIconColor}}"
             matTooltip="{{memberCandidate.member.status}}"
             matTooltipPosition="left">
             {{memberCandidate.member.status | memberStatusIcon}}

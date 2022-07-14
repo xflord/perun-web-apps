@@ -78,7 +78,7 @@
         <td *matCellDef="let member" mat-cell>
           <i
             (click)="changeStatus($event, member)"
-            class="material-icons {{(member.status | memberStatusIconColor)}}"
+            class="material-icons {{(member | memberStatusIconColor)}}"
             matTooltip="{{member | memberStatusTooltip: false}}"
             matTooltipClass="status-tooltip"
             matTooltipPosition="left">
@@ -95,7 +95,7 @@
         <td *matCellDef="let member" mat-cell>
           <i
             (click)="changeStatus($event, member)"
-            class="material-icons {{member.groupStatus | memberStatusIconColor}}"
+            class="material-icons {{member.groupStatus | groupStatusIconColor}}"
             matTooltip="{{member | memberStatusTooltip: true}}"
             matTooltipClass="status-tooltip"
             matTooltipPosition="left">

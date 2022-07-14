@@ -1,23 +1,12 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SelectionModel } from '@angular/cdk/collections';
 import {
-  Member,
-  MemberGroupStatus,
-  RichMember,
-  VoMemberStatuses,
-} from '@perun-web-apps/perun/openapi';
-import {
-  downloadData,
-  getDataForExport,
-  getDefaultDialogConfig,
-  parseEmail,
-  parseFullName,
-  parseLogins,
-  parseOrganization,
-  TABLE_ITEMS_COUNT_OPTIONS,
-} from '@perun-web-apps/perun/utils';
+  AfterViewInit,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import {
   ChangeGroupExpirationDialogComponent,
   ChangeMemberStatusDialogComponent,
@@ -25,20 +14,43 @@ import {
   MemberTreeViewDialogComponent,
 } from '@perun-web-apps/perun/dialogs';
 import {
+  DynamicDataSource,
   DynamicPaginatingService,
   GuiAuthResolver,
-  DynamicDataSource,
   TableCheckbox,
 } from '@perun-web-apps/perun/services';
+import {
+  Member,
+  MemberGroupStatus,
+  RichMember,
+  VoMemberStatuses,
+} from '@perun-web-apps/perun/openapi';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {
+  TABLE_ITEMS_COUNT_OPTIONS,
+  downloadData,
+  getDataForExport,
+  getDefaultDialogConfig,
+  isMemberIndirect,
+  parseEmail,
+  parseFullName,
+  parseLogins,
+  parseOrganization,
+  isMemberIndirectString,
+} from '@perun-web-apps/perun/utils';
+
+import { MatSort } from '@angular/material/sort';
+import { SelectionModel } from '@angular/cdk/collections';
+import { TableConfigService } from '@perun-web-apps/config/table-config';
+import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
 import { merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
-import { TableConfigService } from '@perun-web-apps/config/table-config';
 
 @Component({
   selector: 'perun-web-apps-members-dynamic-list',
   templateUrl: './members-dynamic-list.component.html',
   styleUrls: ['./members-dynamic-list.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnChanges {
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
@@ -63,6 +75,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
   @Input() selectedStatuses: VoMemberStatuses[];
   @Input() tableId: string;
   @Input() updateTable: boolean;
+  @Input() isMembersGroup: boolean;
 
   dataSource: DynamicDataSource<RichMember>;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
@@ -129,7 +142,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
     );
   }
 
-  canBeSelected = (member: RichMember): boolean => member.membershipType !== 'INDIRECT';
+  canBeSelected = (member: RichMember): boolean => !isMemberIndirect(member);
 
   ngOnChanges(): void {
     if (this.dataSource) {
@@ -165,6 +178,13 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
 
   changeStatus(event: Event, member: RichMember, groupId?: number): void {
     event.stopPropagation();
+
+    // Skip crating the status dialog, if the current group is 'members'
+    if (this.isMembersGroup && groupId) return;
+    // Skip crating the status dialog, if the member is indirect or unalterable
+    const indirect = isMemberIndirectString(member);
+    if ((indirect === 'INDIRECT' && groupId) || (!groupId && indirect === 'UNALTERABLE')) return;
+
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = { member: member, voId: this.voId, groupId: groupId };

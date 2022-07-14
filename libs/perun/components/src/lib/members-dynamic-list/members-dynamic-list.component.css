@@ -5,3 +5,11 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+.cursor-default {
+  cursor: default;
+}
+
+.status-tooltip {
+  white-space: pre-line;
+}
