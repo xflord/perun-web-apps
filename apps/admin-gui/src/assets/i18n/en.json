@@ -2799,6 +2799,7 @@
           "STARTED": "Started",
           "ENDED": "Ended",
           "NO_SERVICES_STATUS_WARNING": "No service configuration was propagated to this facility.",
+          "NO_DESTINATIONS_TOOLTIP": "No destinations are set.",
           "NOT_YET": "NOT YET"
         },
         "TASK_RESULTS_LIST": {

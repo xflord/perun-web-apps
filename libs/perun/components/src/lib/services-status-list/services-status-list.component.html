@@ -54,7 +54,15 @@
         <th mat-header-cell mat-sort-header *matHeaderCellDef>
           {{'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.STATUS' | translate}}
         </th>
-        <td mat-cell *matCellDef="let serviceState">{{serviceState.status}}</td>
+        <td mat-cell *matCellDef="let serviceState">
+          {{serviceState.status}}
+          <mat-icon
+            *ngIf="!serviceState.hasDestinations"
+            [matTooltip]="'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.NO_DESTINATIONS_TOOLTIP' | translate"
+            class="align-text-bottom ml-1">
+            warning
+          </mat-icon>
+        </td>
       </ng-container>
       <ng-container matColumnDef="blocked">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>
