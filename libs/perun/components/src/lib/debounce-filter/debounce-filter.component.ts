@@ -10,7 +10,6 @@ import {
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { MatInput } from '@angular/material/input';
-import { FromEventTarget } from 'rxjs/internal/observable/fromEvent';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -28,7 +27,7 @@ export class DebounceFilterComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.autoFocus) this.input.nativeElement.focus();
-    fromEvent(this.input.nativeElement as FromEventTarget<KeyboardEvent>, 'keyup')
+    fromEvent(this.input.nativeElement, 'keyup')
       .pipe(
         map((event: KeyboardEvent) => {
           const target: MatInput = event.target as unknown as MatInput;

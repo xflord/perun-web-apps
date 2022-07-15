@@ -25,7 +25,6 @@ import { NoServiceDialogComponent } from '../../components/no-service-dialog/no-
 import { ConfigUnsavedDialogComponent } from '../../components/config-unsaved-dialog/config-unsaved-dialog.component';
 import { CancelConfigurationDialogComponent } from '../../components/cancel-configuration-dialog/cancel-configuration-dialog.component';
 import { Router } from '@angular/router';
-import { isArray } from 'rxjs/internal-compatibility';
 import { FormControl, Validators } from '@angular/forms';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 
@@ -268,7 +267,7 @@ export class FacilityConfigurationPageComponent implements OnInit, AfterViewInit
 
   getNonEmptyAttributes(): void {
     this.filteredAttributes = this.attributes.filter((att) => {
-      if (!!att.value && (!isArray(att.value) || att.value.length !== 0)) {
+      if (!!att.value && (!Array.isArray(att.value) || att.value.length !== 0)) {
         return att;
       }
     });
