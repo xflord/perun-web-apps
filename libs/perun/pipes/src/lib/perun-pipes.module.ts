@@ -41,6 +41,10 @@ import { DisplayedRolePipe } from './displayed-role.pipe';
 import { DisableUniqueAttributePipe } from './disable-unique-attribute.pipe';
 import { GroupStatusIconColorPipe } from './group-status-icon-color';
 import { IsAllSelectedPipe } from './is-all-selected.pipe';
+import { FindAttributePipe } from './find-attribute.pipe';
+import { CanManageGroupPipe } from './can-manage-group.pipe';
+import { DisableGroupSelectPipe } from './disable-group-select.pipe';
+import { GroupCheckboxTooltipPipe } from './group-checkbox-tooltip.pipe';
 
 @NgModule({
   declarations: [
@@ -86,6 +90,10 @@ import { IsAllSelectedPipe } from './is-all-selected.pipe';
     DisplayedRolePipe,
     DisableUniqueAttributePipe,
     IsAllSelectedPipe,
+    FindAttributePipe,
+    CanManageGroupPipe,
+    DisableGroupSelectPipe,
+    GroupCheckboxTooltipPipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -130,6 +138,10 @@ import { IsAllSelectedPipe } from './is-all-selected.pipe';
     DisplayedRolePipe,
     DisableUniqueAttributePipe,
     IsAllSelectedPipe,
+    FindAttributePipe,
+    CanManageGroupPipe,
+    DisableGroupSelectPipe,
+    GroupCheckboxTooltipPipe,
   ],
   imports: [CommonModule],
 })

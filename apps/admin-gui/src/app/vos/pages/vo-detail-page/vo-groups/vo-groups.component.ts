@@ -1,49 +1,108 @@
-import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateGroupDialogComponent } from '../../../../shared/components/dialogs/create-group-dialog/create-group-dialog.component';
 import { DeleteGroupDialogComponent } from '../../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
-import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { Group, GroupsManagerService, RichGroup, Vo } from '@perun-web-apps/perun/openapi';
-import { GroupFlatNode } from '@perun-web-apps/perun/models';
+import {
+  downloadData,
+  getDataForExport,
+  getDefaultDialogConfig,
+} from '@perun-web-apps/perun/utils';
+import {
+  Group,
+  GroupsManagerService,
+  GroupsOrderColumn,
+  PaginatedRichGroups,
+  RichGroup,
+  Vo,
+} from '@perun-web-apps/perun/openapi';
+import { GroupFlatNode, GroupWithStatus, PageQuery } from '@perun-web-apps/perun/models';
 import { TABLE_VO_GROUPS } from '@perun-web-apps/config/table-config';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
-import { GroupsListComponent, GroupsTreeComponent } from '@perun-web-apps/perun/components';
+import { BehaviorSubject, merge, Observable } from 'rxjs';
+import { map, startWith, switchMap, tap } from 'rxjs/operators';
+import { GroupUtilsService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-vo-groups',
   templateUrl: './vo-groups.component.html',
   styleUrls: ['./vo-groups.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VoGroupsComponent implements OnInit {
   static id = 'VoGroupsComponent';
   @HostBinding('class.router-component') true;
-  @ViewChild('toggle', { static: true })
-  toggle: MatSlideToggle;
-  @ViewChild('tree', {})
-  tree: GroupsTreeComponent;
-  @ViewChild('list', {})
-  list: GroupsListComponent;
+  @ViewChild('toggle', { static: true }) toggle: MatSlideToggle;
   vo: Vo;
   groups: RichGroup[] = [];
+  nextPage = new BehaviorSubject<PageQuery>({});
+  groupPage$: Observable<PaginatedRichGroups> = this.nextPage.pipe(
+    switchMap((pageQuery) =>
+      this.groupService.getGroupsPage({
+        vo: this.vo.id,
+        attrNames: this.attrNames,
+        query: {
+          order: pageQuery.order,
+          pageSize: pageQuery.pageSize,
+          offset: pageQuery.offset,
+          searchString: pageQuery.searchString,
+          sortColumn: pageQuery.sortColumn as GroupsOrderColumn,
+        },
+      })
+    ),
+    // 'Tapping' is generally a last resort
+    tap((page) => {
+      this.groups = page.data;
+      this.setAuthRights();
+      this.selected.clear();
+      setTimeout(() => this.loadingSubject$.next(false), 200);
+    }),
+    startWith({ data: [], totalCount: 0, offset: 0, pageSize: 0 })
+  );
+
   showGroupList = false;
   selected = new SelectionModel<RichGroup>(true, []);
-  loading: boolean;
+  loadingSubject$ = new BehaviorSubject(false);
+  loading$: Observable<boolean> = merge(
+    this.loadingSubject$,
+    this.nextPage.pipe(map((): boolean => true))
+  );
   filtering = false;
   filterValue = '';
   tableId = TABLE_VO_GROUPS;
+  displayedColumns = ['select', 'id', 'name', 'description', 'menu'];
 
   createAuth: boolean;
   routeAuth: boolean;
+  removeAuth$: Observable<boolean> = this.selected.changed.pipe(
+    map((change) =>
+      change.source.selected.reduce(
+        (acc, grp) =>
+          acc && this.authResolver.isAuthorized('deleteGroup_Group_boolean_policy', [this.vo, grp]),
+        true
+      )
+    ),
+    startWith(true)
+  );
+
+  private attrNames = [
+    Urns.GROUP_SYNC_ENABLED,
+    Urns.GROUP_LAST_SYNC_STATE,
+    Urns.GROUP_LAST_SYNC_TIMESTAMP,
+    Urns.GROUP_STRUCTURE_SYNC_ENABLED,
+    Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
+    Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP,
+  ];
 
   constructor(
     private dialog: MatDialog,
     private groupService: GroupsManagerService,
     public authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private groupUtils: GroupUtilsService
   ) {}
 
   onCreateGroup(): void {
@@ -55,28 +114,27 @@ export class VoGroupsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((groupCreated) => {
       if (groupCreated) {
-        this.loading = true;
-        this.loadAllGroups();
+        this.refresh();
       }
     });
   }
 
   ngOnInit(): void {
-    this.loading = true;
+    this.vo = this.entityStorageService.getEntity();
+    this.setAuthRights();
+
     if (localStorage.getItem('preferedValue') === 'list') {
       this.toggle.toggle();
-      this.selected.clear();
       this.showGroupList = true;
+    } else {
+      this.refresh();
     }
+
     this.toggle.change.subscribe(() => {
       const value = this.toggle.checked ? 'list' : 'tree';
       localStorage.setItem('preferedValue', value);
-      this.loadAllGroups();
+      this.refresh();
     });
-
-    this.vo = this.entityStorageService.getEntity();
-    this.setAuthRights();
-    this.loadAllGroups();
   }
 
   setAuthRights(): void {
@@ -90,17 +148,6 @@ export class VoGroupsComponent implements OnInit {
     }
   }
 
-  disableRemove(): boolean {
-    return (
-      (this.tree !== undefined && !this.tree.removeAuth) ||
-      (this.list !== undefined && !this.list.removeAuth)
-    );
-  }
-
-  disableTooltip(): boolean {
-    return this.tree?.removeAuth || this.list?.removeAuth;
-  }
-
   deleteGroup(): void {
     const config = getDefaultDialogConfig();
     config.width = '450px';
@@ -110,7 +157,7 @@ export class VoGroupsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.loadAllGroups();
+        this.refresh();
       }
     });
   }
@@ -130,32 +177,61 @@ export class VoGroupsComponent implements OnInit {
     const dialogRef = this.dialog.open(MoveGroupDialogComponent, config);
     dialogRef.afterClosed().subscribe((groupMoved) => {
       if (groupMoved) {
-        this.loadAllGroups();
+        this.refresh();
       }
     });
   }
 
   loadAllGroups(): void {
-    this.loading = true;
     this.groupService
-      .getAllRichGroupsWithAttributesByNames(this.vo.id, [
-        Urns.GROUP_SYNC_ENABLED,
-        Urns.GROUP_LAST_SYNC_STATE,
-        Urns.GROUP_LAST_SYNC_TIMESTAMP,
-        Urns.GROUP_STRUCTURE_SYNC_ENABLED,
-        Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
-        Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP,
-      ])
+      .getAllRichGroupsWithAttributesByNames(this.vo.id, this.attrNames)
       .subscribe((groups) => {
         this.groups = groups;
         this.selected.clear();
         this.setAuthRights();
-        this.loading = false;
+        this.loadingSubject$.next(false);
       });
   }
 
   applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
     this.filtering = filterValue !== '';
+  }
+
+  refresh(): void {
+    this.loadingSubject$.next(true);
+    if (this.showGroupList) {
+      this.nextPage.next(this.nextPage.value);
+    } else {
+      this.loadAllGroups();
+    }
+  }
+
+  downloadAll(a: { format: string; length: number }): void {
+    const query = this.nextPage.getValue();
+    const getDataForCol = (data: GroupWithStatus, column: string): string => {
+      return this.groupUtils.getDataForColumn(data, column);
+    };
+
+    this.groupService
+      .getGroupsPage({
+        vo: this.vo.id,
+        attrNames: this.attrNames,
+        query: {
+          order: query.order,
+          pageSize: a.length,
+          offset: 0,
+          searchString: query.searchString,
+          sortColumn: query.sortColumn as GroupsOrderColumn,
+        },
+      })
+      .subscribe({
+        next: (paginatedGroups) => {
+          downloadData(
+            getDataForExport(paginatedGroups.data, this.displayedColumns, getDataForCol),
+            a.format
+          );
+        },
+      });
   }
 }

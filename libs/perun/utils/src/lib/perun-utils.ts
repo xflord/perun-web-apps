@@ -13,7 +13,6 @@ import {
   ApplicationMail,
   ApplicationFormItem,
   RichGroup,
-  Author,
   Facility,
   Vo,
   Resource,
@@ -723,15 +722,13 @@ export function customDataSourceFilterPredicate<T>(
   return dataStr.toLowerCase().includes(filter);
 }
 
-export function parseAttribute(data: Author, nameOfAttribute: string): string {
+export function findAttribute(attributes: Attribute[], friendlyName: string): string {
   let attribute = '';
-  if (data.attributes) {
-    data.attributes.forEach((attr) => {
-      if (attr.friendlyName === nameOfAttribute) {
-        attribute = attr.value as string;
-      }
-    });
-  }
+  attributes?.forEach((attr) => {
+    if (attr.friendlyName === friendlyName) {
+      attribute = attr.value as string;
+    }
+  });
   return attribute;
 }
 

@@ -99,6 +99,7 @@ import { AttributeRightsItemComponent } from './attribute-rights-item/attribute-
 import { AttributeRightsTabGroupComponent } from './attribute-rights-tab-group/attribute-rights-tab-group.component';
 import { AttributeUniqueToggleComponent } from './attribute-unique-toggle/attribute-unique-toggle.component';
 import { AttributeCriticalOperationsTogglesComponent } from './attribute-critical-operations-toggles/attribute-critical-operations-toggles.component';
+import { LoaderDirective } from '@perun-web-apps/perun/directives';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -230,6 +231,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     AttributeRightsTabGroupComponent,
     AttributeUniqueToggleComponent,
     AttributeCriticalOperationsTogglesComponent,
+    LoaderDirective,
   ],
   exports: [
     VosListComponent,
@@ -289,6 +291,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     AttributeRightsTabGroupComponent,
     AttributeUniqueToggleComponent,
     AttributeCriticalOperationsTogglesComponent,
+    LoaderDirective,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

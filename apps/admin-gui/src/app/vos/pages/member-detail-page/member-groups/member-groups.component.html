@@ -9,13 +9,14 @@
   {{'MEMBER_DETAIL.GROUPS.ADD' | translate}}
 </button>
 <span
-  [matTooltipDisabled]="list === undefined || (list !== undefined && list.removeAuth)"
+  *ngIf="{removeAuth: removeAuth$ | async} as auth"
+  [matTooltipDisabled]="auth.removeAuth"
   matTooltip="{{'MEMBER_DETAIL.GROUPS.REMOVE_PERMISSION_HINT' | translate}}">
   <button
     class="mr-2"
     color="warn"
     (click)="removeGroup()"
-    [disabled]="selection.selected.length === 0 || (list !== undefined && !list.removeAuth)"
+    [disabled]="selection.selected.length === 0 || !auth.removeAuth"
     mat-flat-button>
     {{'MEMBER_DETAIL.GROUPS.REMOVE' | translate}}
   </button>
@@ -26,15 +27,13 @@
 </perun-web-apps-immediate-filter>
 <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
 <perun-web-apps-groups-list
-  #list
-  (refreshTable)="refreshTable()"
   *ngIf="!loading"
+  (refreshTable)="refreshTable()"
   [displayedColumns]="['select', 'id', 'name', 'description', 'expiration', 'groupStatus']"
-  [authType]="'member-groups'"
-  [filter]="filterValue"
   [memberId]="memberId"
   [disableRouting]="!routeAuth"
   [groups]="groups"
+  [filter]="filterValue"
   [memberGroupStatus]="member.groupStatus"
   [selection]="selection"
   [tableId]="tableId">

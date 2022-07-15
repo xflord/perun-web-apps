@@ -10,10 +10,11 @@
     {{'GROUP_DETAIL.SETTINGS.RELATIONS.CREATE' | translate}}
   </button>
   <span
+    *ngIf="{removeAuth: removeAuth$ | async} as auth"
     matTooltip="{{'GROUP_DETAIL.SETTINGS.RELATIONS.DELETE_TOOLTIP' | translate}}"
-    [matTooltipDisabled]="selection.selected.length === 0 || (list !== undefined && list.removeAuth)">
+    [matTooltipDisabled]="selection.selected.length === 0 || auth.removeAuth">
     <button
-      [disabled]="selection.selected.length === 0 || (list !== undefined && !list.removeAuth) || reverse"
+      [disabled]="selection.selected.length === 0 || !auth.removeAuth || reverse"
       class="mr-2"
       color="warn"
       (click)="onDelete()"
@@ -31,8 +32,6 @@
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 
   <perun-web-apps-groups-list
-    #list
-    [authType]="'group-relations'"
     *ngIf="!loading"
     [groups]="groups"
     [parentGroup]="group"

@@ -14,7 +14,6 @@
   <div class="dialog-container" mat-dialog-content>
     <perun-web-apps-groups-list
       *ngIf="!loading"
-      [authType]="'create-relation-dialog'"
       [groupsToDisableCheckbox]="groupsToDisable"
       [disableGroups]="true"
       [groups]="groups"
@@ -23,7 +22,9 @@
       [disableRouting]="true"
       [displayedColumns]="['select', 'id', 'name', 'description']"
       [filter]="filterValue"
-      [tableId]="tableId"></perun-web-apps-groups-list>
+      [tableId]="tableId"
+      [relation]="true">
+    </perun-web-apps-groups-list>
   </div>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div mat-dialog-actions>

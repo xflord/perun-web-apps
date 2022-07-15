@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   Group,
@@ -14,8 +14,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddMemberGroupDialogComponent } from '../../../../shared/components/dialogs/add-member-group-dialog/add-member-group-dialog.component';
 import { RemoveMemberGroupDialogComponent } from '../../../../shared/components/dialogs/remove-member-group-dialog/remove-member-group-dialog.component';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
-import { GroupsListComponent } from '@perun-web-apps/perun/components';
 import { Urns } from '@perun-web-apps/perun/urns';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-member-groups',
@@ -28,8 +29,6 @@ export class MemberGroupsComponent implements OnInit {
   // used for router animation
   @HostBinding('class.router-component') true;
 
-  @ViewChild('list', {})
-  list: GroupsListComponent;
   groups: Group[];
   memberId: number;
   member: Member;
@@ -39,8 +38,17 @@ export class MemberGroupsComponent implements OnInit {
   tableId = TABLE_MEMBER_DETAIL_GROUPS;
   selection = new SelectionModel<Group>(true, []);
   addAuth: boolean;
-  removeAuth: boolean;
   routeAuth: boolean;
+  removeAuth$: Observable<boolean> = this.selection.changed.pipe(
+    map((change) =>
+      change.source.selected.reduce(
+        (acc, grp) =>
+          acc && this.authResolver.isAuthorized('removeMember_Member_List<Group>_policy', [grp]),
+        true
+      )
+    ),
+    startWith(true)
+  );
 
   constructor(
     private groupsService: GroupsManagerService,

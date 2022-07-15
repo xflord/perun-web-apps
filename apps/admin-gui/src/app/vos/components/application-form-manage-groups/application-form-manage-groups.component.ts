@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Group, RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -8,7 +8,8 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
 import { AddGroupToRegistrationComponent } from '../../../shared/components/dialogs/add-group-to-registration/add-group-to-registration.component';
 import { UniversalConfirmationItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
-import { GroupsListComponent } from '@perun-web-apps/perun/components';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-application-form-manage-groups',
@@ -16,9 +17,6 @@ import { GroupsListComponent } from '@perun-web-apps/perun/components';
   styleUrls: ['./application-form-manage-groups.component.css'],
 })
 export class ApplicationFormManageGroupsComponent implements OnInit {
-  @ViewChild('list', {})
-  list: GroupsListComponent;
-
   loading: boolean;
   voId: number;
   groups: Group[] = [];
@@ -26,6 +24,20 @@ export class ApplicationFormManageGroupsComponent implements OnInit {
   tableId = TABLE_APPLICATION_FORM_ITEM_MANAGE_GROUP;
   filterValue = '';
   addAuth: boolean;
+  removeAuth$: Observable<boolean> = this.selected.changed.pipe(
+    map((change) => {
+      return change.source.selected.reduce(
+        (acc, grp) =>
+          acc &&
+          this.authResolver.isAuthorized('deleteGroupsFromAutoRegistration_List<Group>_policy', [
+            { id: this.voId, beanName: 'Vo' },
+            grp,
+          ]),
+        true
+      );
+    }),
+    startWith(true)
+  );
 
   constructor(
     private registrarService: RegistrarManagerService,

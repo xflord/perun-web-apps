@@ -11,12 +11,13 @@
   {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.ADD' | translate}}
 </button>
 <span
-  [matTooltipDisabled]="list === undefined || (list !== undefined && list.removeAuth)"
+  *ngIf="{ removeAuth: removeAuth$ | async } as auth"
+  [matTooltipDisabled]="selected.selected.length === 0 || auth.removeAuth"
   matTooltip="{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.REMOVE_PERMISSION_HINT' | translate}}">
   <button
     (click)="removeGroup()"
     color="warn"
-    [disabled]="selected.selected.length === 0 || (list !== undefined && !list.removeAuth)"
+    [disabled]="selected.selected.length === 0 || !auth.removeAuth"
     class="mr-2"
     mat-flat-button>
     {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.REMOVE' | translate}}
@@ -28,13 +29,11 @@
 </perun-web-apps-immediate-filter>
 <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
 <perun-web-apps-groups-list
-  #list
   *ngIf="!loading"
-  [authType]="'application-form-manage-groups'"
   [displayedColumns]="['select', 'id', 'name', 'description']"
   [disableRouting]="true"
-  [filter]="filterValue"
   [groups]="this.groups"
+  [filter]="filterValue"
   [selection]="selected"
   [tableId]="tableId"
   theme="vo-theme">

@@ -13,7 +13,7 @@ import {
   customDataSourceSort,
   downloadData,
   getDataForExport,
-  parseAttribute,
+  findAttribute,
   parseFullName,
   parseName,
   TABLE_ITEMS_COUNT_OPTIONS,
@@ -64,9 +64,9 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
       case 'name':
         return parseName(data);
       case 'organization':
-        return parseAttribute(data, 'organization');
+        return findAttribute(data.attributes, 'organization');
       case 'email':
-        return parseAttribute(data, 'preferredMail');
+        return findAttribute(data.attributes, 'preferredMail');
       case 'numberOfPublications':
         return data.authorships.length.toString();
       default:
@@ -81,9 +81,9 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
       case 'name':
         return parseFullName(data);
       case 'organization':
-        return parseAttribute(data, 'organization');
+        return findAttribute(data.attributes, 'organization');
       case 'email':
-        return parseAttribute(data, 'preferredMail');
+        return findAttribute(data.attributes, 'preferredMail');
       case 'numberOfPublications':
         return data.authorships.length.toString();
       default:
@@ -98,9 +98,9 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
       case 'name':
         return data.lastName ? data.lastName : data.firstName ?? '';
       case 'organization':
-        return parseAttribute(data, 'organization');
+        return findAttribute(data.attributes, 'organization');
       case 'email':
-        return parseAttribute(data, 'preferredMail');
+        return findAttribute(data.attributes, 'preferredMail');
       case 'numberOfPublications':
         return data.authorships.length.toString();
       default:

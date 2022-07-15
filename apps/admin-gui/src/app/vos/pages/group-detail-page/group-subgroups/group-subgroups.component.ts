@@ -11,7 +11,8 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { GroupFlatNode } from '@perun-web-apps/perun/models';
 import { MoveGroupDialogComponent } from '../../../../shared/components/dialogs/move-group-dialog/move-group-dialog.component';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
-import { GroupsListComponent, GroupsTreeComponent } from '@perun-web-apps/perun/components';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-group-subgroups',
@@ -23,12 +24,7 @@ export class GroupSubgroupsComponent implements OnInit {
 
   // used for router animation
   @HostBinding('class.router-component') true;
-  @ViewChild('tree', {})
-  tree: GroupsTreeComponent;
-  @ViewChild('list', {})
-  list: GroupsListComponent;
-  @ViewChild('toggle', { static: true })
-  toggle: MatSlideToggle;
+  @ViewChild('toggle', { static: true }) toggle: MatSlideToggle;
 
   group: Group;
   groups: Group[] = [];
@@ -41,6 +37,16 @@ export class GroupSubgroupsComponent implements OnInit {
   createAuth: boolean;
   deleteAuth: boolean;
   routeAuth: boolean;
+  removeAuth$: Observable<boolean> = this.selected.changed.pipe(
+    map((changed) => {
+      return changed.source.selected.reduce(
+        (acc, grp) =>
+          acc && this.guiAuthResolver.isAuthorized('deleteGroup_Group_boolean_policy', [grp]),
+        true
+      );
+    }),
+    startWith(true)
+  );
 
   constructor(
     private dialog: MatDialog,

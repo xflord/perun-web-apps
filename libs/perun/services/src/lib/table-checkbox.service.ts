@@ -1,7 +1,8 @@
-import { SelectionModel } from '@angular/cdk/collections';
 import { Injectable } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { SelectionModel } from '@angular/cdk/collections';
+import { DynamicDataSource } from '@perun-web-apps/perun/models';
 
 @Injectable({
   providedIn: 'root',
@@ -88,6 +89,48 @@ export class TableCheckbox {
         }
 
         this.pageIterator++;
+      });
+    }
+  }
+
+  /**
+   * Determines if all rendered rows are selected.
+   *
+   * @param dataSource Dynamic data source
+   * @param selectedCount number of selected rows
+   * @param canBeSelected By default all rows can be selected
+   */
+  isAllSelectedPaginated<T>(
+    dataSource: DynamicDataSource<T>,
+    selectedCount: number,
+    canBeSelected: (T) => boolean = (): boolean => true
+  ): boolean {
+    return (
+      selectedCount ===
+      dataSource.data.reduce((acc: number, val: T) => acc + Number(canBeSelected(val)), 0)
+    );
+  }
+
+  /**
+   * Handles the (de)select all actions
+   *
+   * @param dataSource Dynamic data source
+   * @param selection Selection model
+   * @param selectAll Flag, all rows to be selected
+   * @param canBeSelected By default all rows can be selected
+   */
+  masterTogglePaginated<T>(
+    dataSource: DynamicDataSource<T>,
+    selection: SelectionModel<T>,
+    selectAll: boolean,
+    canBeSelected: (T) => boolean = (): boolean => true
+  ): void {
+    selection.clear();
+    if (selectAll) {
+      dataSource.data.forEach((row) => {
+        if (canBeSelected(row)) {
+          selection.select(row);
+        }
       });
     }
   }

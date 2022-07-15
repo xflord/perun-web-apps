@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
@@ -6,8 +6,9 @@ import { CreateRelationDialogComponent } from '../../../../../shared/components/
 import { RemoveRelationDialogComponent } from '../../../../../shared/components/dialogs/remove-relation-dialog/remove-relation-dialog.component';
 import { TABLE_GROUP_SETTINGS_RELATIONS } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { GroupsListComponent } from '@perun-web-apps/perun/components';
-import { EntityStorageService } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-group-settings-relations',
@@ -16,8 +17,6 @@ import { EntityStorageService } from '@perun-web-apps/perun/services';
 })
 export class GroupSettingsRelationsComponent implements OnInit {
   @HostBinding('class.router-component') true;
-  @ViewChild('list', {})
-  list: GroupsListComponent;
 
   selection = new SelectionModel<Group>(true, []);
   groups: Group[] = [];
@@ -26,11 +25,25 @@ export class GroupSettingsRelationsComponent implements OnInit {
   loading: boolean;
   filterValue = '';
   tableId = TABLE_GROUP_SETTINGS_RELATIONS;
+  removeAuth$: Observable<boolean> = this.selection.changed.pipe(
+    map((changed) => {
+      return changed.source.selected.reduce(
+        (acc, grp) =>
+          acc &&
+          this.authResolver.isAuthorized('result-removeGroupUnion_Group_Group_policy', [
+            { id: this.group.id, beanName: 'Group' },
+          ]) &&
+          this.authResolver.isAuthorized('operand-removeGroupUnion_Group_Group_policy', [grp]),
+        true
+      );
+    })
+  );
 
   constructor(
     private groupService: GroupsManagerService,
     private dialog: MatDialog,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private authResolver: GuiAuthResolver
   ) {}
 
   ngOnInit(): void {

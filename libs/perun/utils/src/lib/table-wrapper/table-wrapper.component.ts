@@ -40,6 +40,8 @@ export class TableWrapperComponent implements OnInit {
     if (this.pageSizeOptions === null) {
       this.pageSize = 5;
     }
+
+    this.paginator._changePageSize(this.pageSize); // Ensures that any subscriber to MatPaginator page event will get correct initial page size
   }
 
   pageChangedTop(event: PageEvent): void {
