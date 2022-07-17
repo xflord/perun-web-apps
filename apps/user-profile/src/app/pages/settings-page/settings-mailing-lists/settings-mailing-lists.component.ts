@@ -119,7 +119,7 @@ export class SettingsMailingListsComponent implements OnInit, OnDestroy {
     this.resources = [];
     this.membersService.getMemberByUser(vo.id, this.user.id).subscribe((member) => {
       this.resourcesManagerService
-        .getAssignedRichResourcesWithMember(member.id)
+        .getMailingServiceRichResourcesWithMember(member.id)
         .subscribe((resources) => {
           let count = resources.length;
           if (!count) {
