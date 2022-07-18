@@ -62,6 +62,7 @@ import { VoSettingsServiceMembersComponent } from './pages/vo-detail-page/vo-set
 import { RouteAuthGuardService } from '../shared/route-auth-guard.service';
 import { VoSettingsMemberOrganizationsComponent } from './pages/vo-detail-page/vo-settings/vo-settings-member-organizations/vo-settings-member-organizations.component';
 import { VoSettingsHierarchicalInclusionComponent } from './pages/vo-detail-page/vo-settings/vo-settings-hierarchical-inclusion/vo-settings-hierarchical-inclusion.component';
+import { GroupRolesComponent } from './pages/group-detail-page/group-roles/group-roles.component';
 
 const routes: Routes = [
   {
@@ -277,6 +278,11 @@ const routes: Routes = [
         path: 'statistics',
         component: GroupStatisticsComponent,
         data: { animation: 'GroupStatisticsPage' },
+      },
+      {
+        path: 'roles',
+        component: GroupRolesComponent,
+        data: { animation: 'GroupRolesPage' },
       },
       {
         path: 'settings',

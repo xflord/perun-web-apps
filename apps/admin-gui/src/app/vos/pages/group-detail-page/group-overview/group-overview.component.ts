@@ -154,6 +154,15 @@ export class GroupOverviewComponent implements OnInit {
       });
     }
 
+    if (this.routePolicyService.canNavigate('groups-roles', this.group)) {
+      this.navItems.push({
+        cssIcon: 'perun-roles',
+        url: `/organizations/${this.group.voId}/groups/${this.group.id}/roles`,
+        label: 'MENU_ITEMS.GROUP.ROLES',
+        style: 'group-btn',
+      });
+    }
+
     // FIXME - manage via canNavigate - problem with async call in route-policy.service.ts
     //SettingsMembership
     //not implemented in authorization....probably must be hardcoded

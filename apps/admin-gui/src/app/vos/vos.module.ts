@@ -69,6 +69,7 @@ import { RelatedVosComponent } from './components/related-vos/related-vos.compon
 import { VoSettingsHierarchicalInclusionComponent } from './pages/vo-detail-page/vo-settings/vo-settings-hierarchical-inclusion/vo-settings-hierarchical-inclusion.component';
 import { VoAddMemberDialogComponent } from './components/vo-add-member-dialog/vo-add-member-dialog.component';
 import { GroupAddMemberDialogComponent } from './components/group-add-member-dialog/group-add-member-dialog.component';
+import { GroupRolesComponent } from './pages/group-detail-page/group-roles/group-roles.component';
 
 @NgModule({
   imports: [
@@ -109,6 +110,7 @@ import { GroupAddMemberDialogComponent } from './components/group-add-member-dia
     GroupMembersComponent,
     GroupApplicationsComponent,
     GroupResourcesComponent,
+    GroupRolesComponent,
     GroupSettingsComponent,
     GroupAttributesComponent,
     GroupSettingsOverviewComponent,

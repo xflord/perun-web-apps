@@ -917,7 +917,8 @@
       "NOTIFICATIONS": "Notifications",
       "RELATIONS": "Relations",
       "EXTSOURCES": "External sources",
-      "STATISTICS": "Statistics"
+      "STATISTICS": "Statistics",
+      "ROLES": "Roles"
     },
     "MEMBER": {
       "OVERVIEW": "Overview",
@@ -2542,6 +2543,7 @@
   },
   "ROLES": {
     "TITLE": "Roles",
+    "NO_ROLES": "No roles found",
     "VOADMIN": "Organization admin",
     "VOADMIN_VOS": "Organizations you are manager of",
     "VOOBSERVER": "Organization observer",

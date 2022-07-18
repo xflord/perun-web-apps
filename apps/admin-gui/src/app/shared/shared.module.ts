@@ -176,6 +176,7 @@ import { DisabledCandidatePipe } from './pipes/disabled-candidate.pipe';
 import { LoginForNamespaceComponent } from './components/login-for-namespace/login-for-namespace.component';
 import { SetLoginDialogComponent } from './components/set-login-dialog/set-login-dialog.component';
 import { LoginPasswordFormWithGenerateOptionComponent } from './components/login-password-form-with-generate-option/login-password-form-with-generate-option.component';
+import { RolesPageComponent } from './components/roles-list/roles-page.component';
 
 @NgModule({
   imports: [
@@ -310,6 +311,7 @@ import { LoginPasswordFormWithGenerateOptionComponent } from './components/login
     MemberOverviewGroupsComponent,
     AuditMessagesListComponent,
     ConsentHubsListComponent,
+    RolesPageComponent,
   ],
   declarations: [
     PerunNavComponent,
@@ -445,6 +447,7 @@ import { LoginPasswordFormWithGenerateOptionComponent } from './components/login
     LoginForNamespaceComponent,
     SetLoginDialogComponent,
     LoginPasswordFormWithGenerateOptionComponent,
+    RolesPageComponent,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe, ConsentRelatedAttributePipe],
 })

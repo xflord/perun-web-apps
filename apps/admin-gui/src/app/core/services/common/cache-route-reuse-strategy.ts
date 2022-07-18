@@ -22,6 +22,7 @@ import { VoSettingsSponsoredMembersComponent } from '../../../vos/pages/vo-detai
 import { AdminSearcherComponent } from '../../../admin/pages/admin-page/admin-searcher/admin-searcher.component';
 import { AdminServicesComponent } from '../../../admin/pages/admin-page/admin-services/admin-services.component';
 import { FacilityAllowedUsersComponent } from '../../../facilities/pages/facility-detail-page/facility-allowed-users/facility-allowed-users.component';
+import { GroupRolesComponent } from '../../../vos/pages/group-detail-page/group-roles/group-roles.component';
 
 export class CachedRoute {
   routeHandle: DetachedRouteHandle;
@@ -52,6 +53,7 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
         GroupMembersComponent.id,
         GroupSubgroupsComponent.id,
         GroupResourcesComponent.id,
+        GroupRolesComponent.id,
         GroupApplicationsComponent.id,
         GroupSettingsApplicationFormComponent.id,
       ],

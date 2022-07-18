@@ -924,6 +924,15 @@ export class SideMenuItemService {
       });
     }
 
+    //Roles
+    if (this.routePolicyService.canNavigate('groups-roles', group)) {
+      links.push({
+        label: 'MENU_ITEMS.GROUP.ROLES',
+        url: [`/organizations/${group.voId}/groups/${group.id}/roles`],
+        activatedRegex: '/organizations/\\d+/groups/\\d+/roles',
+      });
+    }
+
     // FIXME - manage via canNavigate - problem with async call in route-policy.service.ts
     //SettingsMembership
     //not implemented in authorization....probably must be hardcoded

@@ -197,6 +197,10 @@ export class RoutePolicyService {
         this.authResolver.isAuthorized('getGroupMembersCountsByGroupStatus_Group_policy', [group]),
     ],
     [
+      'groups-roles',
+      (group): boolean => this.authResolver.isAuthorized('getGroupRoles_int_policy', [group]),
+    ],
+    [
       'groups-settings',
       (group): boolean =>
         this.authResolver.isManagerPagePrivileged(group) ||
