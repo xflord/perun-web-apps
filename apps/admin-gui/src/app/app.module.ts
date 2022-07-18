@@ -23,11 +23,7 @@ import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { AdminGuiConfigService } from './core/services/common/admin-gui-config.service';
 import { ApiModule, Configuration, ConfigurationParameters } from '@perun-web-apps/perun/openapi';
 import { GeneralModule } from '@perun-web-apps/general';
-import {
-  PERFECT_SCROLLBAR_CONFIG,
-  PerfectScrollbarConfigInterface,
-  PerfectScrollbarModule,
-} from 'ngx-perfect-scrollbar';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { PerunLoginModule } from '@perun-web-apps/perun/login';
 import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
@@ -54,10 +50,6 @@ const loadConfigs: (appConfig: AdminGuiConfigService) => () => Promise<void> =
   (appConfig: AdminGuiConfigService) => () =>
     appConfig.initialize();
 
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true,
-};
-
 @NgModule({
   declarations: [AppComponent, MainMenuPageComponent],
   imports: [
@@ -77,9 +69,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       },
     }),
     ApiModule,
-    PerfectScrollbarModule,
     PerunSharedComponentsModule,
     PerunLoginModule,
+    NgScrollbarModule.withConfig({
+      autoWidthDisabled: false,
+      visibility: 'hover',
+    }),
     OAuthModule.forRoot(),
   ],
   providers: [
@@ -106,10 +101,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     },
     ApiInterceptor,
     API_INTERCEPTOR_PROVIDER,
-    {
-      provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
-    },
     { provide: OAuthStorage, useFactory: (): OAuthStorage => localStorage },
   ],
   bootstrap: [AppComponent],

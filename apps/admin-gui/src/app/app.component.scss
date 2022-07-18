@@ -22,3 +22,8 @@
   line-height: 36px;
   font-size: 1rem;
 }
+
+ng-scrollbar {
+  --scrollbar-thumb-color: #6a6a6a;
+  --scrollbar-thumb-hover-color: lightgrey;
+}

@@ -18,13 +18,11 @@
       [fixedInViewport]="true"
       [mode]="sidebarMode"
       [fixedTopGap]="getTopGap()"
-      [ngStyle]="{'border-color': sideBarBorderColor}"
+      [ngStyle]="{'border-color': sideBarBorderColor, 'background': sideMenubackgroundColor}"
       [opened]="!isMobile()">
-      <perfect-scrollbar
-        [ngStyle]="{'background': sideMenubackgroundColor}"
-        [scrollIndicators]="true">
+      <ng-scrollbar>
         <app-side-menu [sideNav]="sidenav"></app-side-menu>
-      </perfect-scrollbar>
+      </ng-scrollbar>
     </mat-sidenav>
 
     <mat-sidenav-content
