@@ -17,6 +17,7 @@ export class UserRolesComponent implements OnInit {
   roleNames: string[] = [];
   outerLoading: boolean;
   showDescription: boolean;
+  entityType: 'SELF' | 'USER';
   roleFilter = [
     'SELF',
     'GROUPADMIN',
@@ -34,6 +35,7 @@ export class UserRolesComponent implements OnInit {
     'FACILITYOBSERVER',
     'PERUNADMIN',
     'PERUNOBSERVER',
+    'MEMBERSHIP',
   ];
 
   constructor(
@@ -44,20 +46,20 @@ export class UserRolesComponent implements OnInit {
 
   ngOnInit(): void {
     this.outerLoading = true;
+    this.showDescription = true;
     this.route.parent.params.subscribe((params) => {
       if (params['userId']) {
         this.userId = Number(params['userId']);
-        this.authzResolverService.getUserRoleNames(this.userId).subscribe((roleNames) => {
-          this.roleNames = roleNames.map((elem) => elem.toUpperCase());
-          this.authzResolverService.getUserRoles(this.userId).subscribe((roles) => {
-            this.prepareRoles(roles);
-          });
+        this.authzResolverService.getUserRoles(this.userId).subscribe((roles) => {
+          this.roleNames = Object.keys(roles).map((role) => role.toUpperCase());
+          this.entityType = 'USER';
+          this.prepareRoles(roles);
         });
       } else {
-        this.showDescription = true;
         const principal = this.store.getPerunPrincipal();
         this.userId = principal.userId;
         this.roleNames = Object.keys(principal.roles);
+        this.entityType = 'SELF';
         this.prepareRoles(principal.roles);
       }
     });

@@ -36,6 +36,9 @@ export class RolesPageComponent {
   @Input()
   entityId: number;
 
+  @Input()
+  entityType: 'SELF' | 'USER' | 'GROUP';
+
   groups: Group[] = [];
   vos: Vo[] = [];
   facilities: EnrichedFacility[] = [];
@@ -111,6 +114,86 @@ export class RolesPageComponent {
         this.users = users;
         this.loading = false;
       });
+    });
+  }
+
+  getMembershipData(
+    groupIds: number[],
+    voIds: number[],
+    resourceIds: number[],
+    facilityIds: number[]
+  ): void {
+    this.loading = true;
+    this.vos = [];
+    this.resources = [];
+    this.groups = [];
+    this.facilities = [];
+    this.getResourcesIfArrayNotEmpty(resourceIds)
+      .then(() =>
+        this.getFacilitiesIfArrayNotEmpty(facilityIds)
+          .then(() =>
+            this.getVosIfArrayNotEmpty(voIds)
+              .then(() =>
+                this.getGroupsIfArrayNotEmpty(groupIds)
+                  .then(() => (this.loading = false))
+                  .catch((error) => console.error(error))
+              )
+              .catch((error) => console.error(error))
+          )
+          .catch((error) => console.error(error))
+      )
+      .catch((error) => console.error(error));
+  }
+
+  getResourcesIfArrayNotEmpty(resourceIds: number[]): Promise<void> {
+    return new Promise((resolve) => {
+      if (resourceIds && resourceIds.length !== 0) {
+        this.resourcesManagerService.getRichResourcesByIds(resourceIds).subscribe((resources) => {
+          this.resources = resources;
+          resolve();
+        });
+      } else {
+        resolve();
+      }
+    });
+  }
+
+  getFacilitiesIfArrayNotEmpty(facilityIds: number[]): Promise<void> {
+    return new Promise((resolve) => {
+      if (facilityIds && facilityIds.length !== 0) {
+        this.facilitiesManagerService.getFacilitiesByIds(facilityIds).subscribe((facilities) => {
+          this.facilities = facilities.map((f) => ({ facility: f }));
+          resolve();
+        });
+      } else {
+        resolve();
+      }
+    });
+  }
+
+  getVosIfArrayNotEmpty(voIds: number[]): Promise<void> {
+    return new Promise((resolve) => {
+      if (voIds && voIds.length !== 0) {
+        this.vosManagerService.getVosByIds(voIds).subscribe((vos) => {
+          this.vos = vos;
+          resolve();
+        });
+      } else {
+        resolve();
+      }
+    });
+  }
+
+  getGroupsIfArrayNotEmpty(groupIds: number[]): Promise<void> {
+    return new Promise((resolve) => {
+      if (groupIds && groupIds.length !== 0) {
+        this.groupsManagerService.getGroupsByIds(groupIds).subscribe((groups) => {
+          this.groups = groups;
+          resolve();
+        });
+      } else {
+        resolve();
+      }
     });
   }
 

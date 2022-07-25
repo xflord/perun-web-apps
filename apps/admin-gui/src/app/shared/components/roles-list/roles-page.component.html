@@ -12,22 +12,9 @@
     </mat-expansion-panel-header>
     <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
     <div *ngIf="!loading">
-      <div *ngIf="!showDescription">
-        {{'ROLES.SELF_VOS_ADMIN' | translate}}
-      </div>
-      <div *ngIf="showDescription">
-        {{'ROLES.SELF_VOS' | translate}}
-      </div>
-
-      <perun-web-apps-vos-list [displayedColumns]="['id', 'name', 'shortName']" [vos]="vos">
-      </perun-web-apps-vos-list>
-
-      <div *ngIf="users.length" class="mt-5">
-        <div *ngIf="!showDescription">
-          {{'ROLES.SELF_IDENTITIES_ADMIN' | translate}}
-        </div>
+      <div *ngIf="users.length">
         <div *ngIf="showDescription">
-          {{'ROLES.SELF_IDENTITIES' | translate}}
+          {{'ROLES.SELF_IDENTITIES_' + entityType | translate}}
         </div>
 
         <app-users-list
@@ -35,6 +22,60 @@
           [disableRouting]="true"
           [users]="users">
         </app-users-list>
+      </div>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
+    (opened)="getMembershipData(roles.get('MEMBERSHIP').get('Group'), roles.get('MEMBERSHIP').get('Vo'), roles.get('MEMBERSHIP').get('Resource'), roles.get('MEMBERSHIP').get('Facility'))"
+    *ngIf="roles.get('MEMBERSHIP')">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-user-dark"></mat-icon>
+        <p class="mt-auto mb-auto">{{'ROLES.MEMBERSHIP' | translate}}</p>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+    <div *ngIf="!loading">
+      <div *ngIf="vos.length">
+        <div *ngIf="showDescription">
+          {{'ROLES.MEMBERSHIP_VOS_' + entityType | translate}}
+        </div>
+
+        <perun-web-apps-vos-list [displayedColumns]="['id', 'name', 'shortName']" [vos]="vos">
+        </perun-web-apps-vos-list>
+      </div>
+
+      <div *ngIf="groups.length" class="mt-5">
+        <div *ngIf="showDescription">
+          {{'ROLES.MEMBERSHIP_GROUPS_' + entityType | translate}}
+        </div>
+
+        <perun-web-apps-groups-list
+          [displayedColumns]="['id', 'vo', 'name', 'description']"
+          [groups]="groups"></perun-web-apps-groups-list>
+      </div>
+
+      <div *ngIf="resources.length" class="mt-5">
+        <div *ngIf="showDescription">
+          {{'ROLES.MEMBERSHIP_RESOURCES_' + entityType | translate}}
+        </div>
+
+        <perun-web-apps-resources-list
+          [resources]="resources"
+          [displayedColumns]="['id', 'name', 'vo', 'facility', 'description']">
+        </perun-web-apps-resources-list>
+      </div>
+
+      <div *ngIf="facilities.length" class="mt-5">
+        <div *ngIf="showDescription">
+          {{'ROLES.MEMBERSHIP_FACILITIES_' + entityType | translate}}
+        </div>
+
+        <perun-web-apps-facilities-list
+          [displayedColumns]="['id', 'name', 'description']"
+          [facilities]="facilities">
+        </perun-web-apps-facilities-list>
       </div>
     </div>
   </mat-expansion-panel>
@@ -50,8 +91,8 @@
     </mat-expansion-panel-header>
     <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
     <div *ngIf="!loading">
-      <div *ngIf="showDescription">
-        {{'ROLES.GROUPADMIN_GROUPS' | translate}}
+      <div *ngIf="showDescription" [ngSwitch]="entityType">
+        {{'ROLES.GROUPADMIN_GROUPS_' + entityType | translate}}
       </div>
 
       <perun-web-apps-groups-list
@@ -72,7 +113,7 @@
     <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
     <div *ngIf="!loading">
       <div *ngIf="showDescription">
-        {{'ROLES.GROUPOBSERVER_GROUPS' | translate}}
+        {{'ROLES.GROUPOBSERVER_GROUPS_' + entityType | translate}}
       </div>
 
       <perun-web-apps-groups-list
@@ -93,7 +134,7 @@
     <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
     <div *ngIf="!loading">
       <div *ngIf="showDescription">
-        {{'ROLES.VOADMIN_VOS' | translate}}
+        {{'ROLES.VOADMIN_VOS_' + entityType | translate}}
       </div>
 
       <perun-web-apps-vos-list [displayedColumns]="['id', 'name', 'shortName']" [vos]="vos">
@@ -113,7 +154,7 @@
     <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
     <div *ngIf="!loading">
       <div *ngIf="showDescription">
-        {{'ROLES.VOOBSERVER_VOS' | translate}}
+        {{'ROLES.VOOBSERVER_VOS_' + entityType | translate}}
       </div>
 
       <perun-web-apps-vos-list [displayedColumns]="['id', 'name', 'shortName']" [vos]="vos">
@@ -134,7 +175,7 @@
     <div *ngIf="!loading">
       <div>
         <div *ngIf="showDescription">
-          {{'ROLES.TRUSTEDFACILITYADMIN_VOS' | translate}}
+          {{'ROLES.TRUSTEDFACILITYADMIN_VOS_' + entityType | translate}}
         </div>
 
         <perun-web-apps-vos-list [displayedColumns]="['id', 'name', 'shortName']" [vos]="vos">
@@ -155,7 +196,7 @@
     <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
     <div *ngIf="!loading">
       <div *ngIf="showDescription">
-        {{'ROLES.TOPGROUPCREATOR_VOS' | translate}}
+        {{'ROLES.TOPGROUPCREATOR_VOS_' + entityType | translate}}
       </div>
 
       <perun-web-apps-vos-list [displayedColumns]="['id', 'name', 'shortName']" [vos]="vos">
@@ -175,7 +216,7 @@
     <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
     <div *ngIf="!loading">
       <div *ngIf="showDescription">
-        {{'ROLES.RESOURCEADMIN_RESOURCES' | translate}}
+        {{'ROLES.RESOURCEADMIN_RESOURCES_' + entityType | translate}}
       </div>
 
       <perun-web-apps-resources-list
@@ -198,7 +239,7 @@
     <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
     <div *ngIf="!loading">
       <div *ngIf="showDescription">
-        {{'ROLES.RESOURCEOBSERVER_RESOURCES' | translate}}
+        {{'ROLES.RESOURCEOBSERVER_RESOURCES_' + entityType | translate}}
       </div>
 
       <perun-web-apps-resources-list
@@ -221,7 +262,7 @@
     <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
     <div *ngIf="!loading">
       <div *ngIf="showDescription">
-        {{'ROLES.RESOURCESELFSERVICE_RESOURCES' | translate}}
+        {{'ROLES.RESOURCESELFSERVICE_RESOURCES_' + entityType | translate}}
       </div>
 
       <perun-web-apps-resources-list
@@ -244,7 +285,7 @@
     <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
     <div *ngIf="!loading">
       <div *ngIf="showDescription">
-        {{'ROLES.FACILITYADMIN_FACILITIES' | translate}}
+        {{'ROLES.FACILITYADMIN_FACILITIES_' + entityType | translate}}
       </div>
 
       <perun-web-apps-facilities-list
@@ -266,7 +307,7 @@
     <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
     <div *ngIf="!loading">
       <div *ngIf="showDescription">
-        {{'ROLES.FACILITYOBSERVER_FACILITIES' | translate}}
+        {{'ROLES.FACILITYOBSERVER_FACILITIES_' + entityType | translate}}
       </div>
 
       <perun-web-apps-facilities-list
@@ -288,7 +329,7 @@
     <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
     <div *ngIf="!loading">
       <div *ngIf="showDescription">
-        {{'ROLES.SPONSORSHIP_MEMBERS' | translate}}
+        {{'ROLES.SPONSORSHIP_MEMBERS_' + entityType | translate}}
       </div>
 
       <perun-web-apps-members-list
@@ -309,7 +350,7 @@
     <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
     <div *ngIf="!loading">
       <div *ngIf="showDescription">
-        {{'ROLES.SPONSOR_VOS' | translate}}
+        {{'ROLES.SPONSOR_VOS_' + entityType | translate}}
       </div>
 
       <perun-web-apps-vos-list [displayedColumns]="['id', 'name', 'shortName']" [vos]="vos">

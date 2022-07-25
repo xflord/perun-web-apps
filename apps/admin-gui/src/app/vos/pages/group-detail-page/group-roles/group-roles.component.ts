@@ -42,12 +42,10 @@ export class GroupRolesComponent implements OnInit {
   ngOnInit(): void {
     this.outerLoading = true;
     this.groupId = this.entityStorageService.getEntity().id;
-    this.authzResolverService.getGroupRoleNames(this.groupId).subscribe((roleNames) => {
-      this.roleNames = roleNames.map((elem) => elem.toUpperCase());
-      this.authzResolverService.getGroupRoles(this.groupId).subscribe((roles) => {
-        this.prepareRoles(roles);
-        this.outerLoading = false;
-      });
+    this.authzResolverService.getGroupRoles(this.groupId).subscribe((roles) => {
+      this.roleNames = Object.keys(roles).map((role) => role.toUpperCase());
+      this.prepareRoles(roles);
+      this.outerLoading = false;
     });
   }
 
