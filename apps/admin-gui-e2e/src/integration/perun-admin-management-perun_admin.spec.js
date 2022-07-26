@@ -8,7 +8,7 @@ context('Actions', () => {
 
   const dbSearcherAttrDisplayName = 'login-namespace:einfra';
   const dbSearcherAttrValue = 'e2etestlogin';
-  const dbSearcherUserFirstName = 'Test5';
+  const dbSearcherUserFirstName = 'Test6';
 
   before(() => {
     if (Cypress.env('BA_USERNAME')) {
@@ -90,20 +90,20 @@ context('Actions', () => {
       .intercept('**/usersManager/getUserById**').as('getUserById')
       .get('[data-cy=users]')
       .click()
-      .get('[data-cy=test4-td]')
+      .get('[data-cy=test5-td]')
       .click()
       .get('[data-cy=edit-user-button]')
       .click()
       .get('[data-cy=user-first-name-input]')
       .clear()
-      .type("Test444")
+      .type("Test555")
       .get('[data-cy=user-save-button]')
       .click()
       .wait('@updateUser')
       .wait('@getUserById')
       // assert that the name changed
       .get('[data-cy=user-name-link]')
-      .contains('Test444 User14')
+      .contains('Test555 User14')
   });
 
   it('test create service', () => {
