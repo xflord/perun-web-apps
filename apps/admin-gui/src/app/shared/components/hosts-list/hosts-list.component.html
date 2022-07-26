@@ -1,6 +1,7 @@
 <div [hidden]="dataSource.filteredData.length === 0 || hosts.length === 0" class="card mt-3">
   <perun-web-apps-table-wrapper
-    (exportData)="exportData($event)"
+    (exportDisplayedData)="exportDisplayedData($event)"
+    (exportAllData)="exportAllData($event)"
     [pageSizeOptions]="pageSizeOptions"
     [dataLength]="dataSource.filteredData.length"
     [tableId]="tableId">

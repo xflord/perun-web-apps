@@ -115,7 +115,7 @@ export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewI
     this.dialog.open(AuditMessageDetailDialogComponent, config);
   }
 
-  exportData(format: string): void {
+  exportDisplayedData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.getData(),

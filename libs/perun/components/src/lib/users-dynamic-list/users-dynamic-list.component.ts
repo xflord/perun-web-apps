@@ -4,6 +4,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import {
   downloadData,
   getDataForExport,
+  getDefaultDialogConfig,
   parseFullName,
   parseLogins,
   parseUserEmail,
@@ -21,6 +22,8 @@ import {
 import { merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { TableConfigService } from '@perun-web-apps/config/table-config';
+import { MatDialog } from '@angular/material/dialog';
+import { ExportDataDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 @Component({
   selector: 'perun-web-apps-users-dynamic-list',
@@ -59,7 +62,8 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
     private authResolver: GuiAuthResolver,
     private tableCheckbox: TableCheckbox,
     private tableConfigService: TableConfigService,
-    private dynamicPaginatingService: DynamicPaginatingService
+    private dynamicPaginatingService: DynamicPaginatingService,
+    private dialog: MatDialog
   ) {}
 
   static getExportDataForColumn(data: RichUser, column: string): string {
@@ -164,7 +168,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
     );
   }
 
-  exportData(format: string): void {
+  exportDisplayedData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.getData(),
@@ -173,5 +177,40 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
       ),
       format
     );
+  }
+
+  exportAllData(format: string): void {
+    const sortDirection = this.sort.direction === 'asc' ? 'ASCENDING' : 'DESCENDING';
+    const sortColumn = this.sort.active === 'name' ? 'NAME' : 'ID';
+
+    const config = getDefaultDialogConfig();
+    config.width = '300px';
+    const exportLoading = this.dialog.open(ExportDataDialogComponent, config);
+
+    this.dataSource
+      .getAllUsers(
+        this.attrNames,
+        sortDirection,
+        this.child.paginator.length,
+        sortColumn,
+        this.searchString,
+        this.withoutVo,
+        this.facilityId,
+        this.voId,
+        this.resourceId,
+        this.serviceId,
+        this.onlyAllowed
+      )
+      .subscribe((response) => {
+        exportLoading.close();
+        downloadData(
+          getDataForExport(
+            response,
+            this.displayedColumns,
+            UsersDynamicListComponent.getExportDataForColumn
+          ),
+          format
+        );
+      });
   }
 }

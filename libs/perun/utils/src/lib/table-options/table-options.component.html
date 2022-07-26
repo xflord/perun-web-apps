@@ -10,6 +10,15 @@
   </mat-menu>
 
   <mat-menu #exportOptions="matMenu">
-    <button mat-menu-item (click)="exportData.emit('csv')">Csv</button>
+    <button mat-menu-item [matMenuTriggerFor]="selectData">Csv</button>
+  </mat-menu>
+
+  <mat-menu #selectData="matMenu" xPosition="before">
+    <button mat-menu-item (click)="exportDisplayedData.emit( 'csv' )">
+      {{'SHARED_LIB.PERUN.COMPONENTS.TABLE_OPTIONS.DISPLAYED_DATA' | translate}}
+    </button>
+    <button *ngIf="allowExportAll" mat-menu-item (click)="exportAllData.emit( 'csv' )">
+      {{'SHARED_LIB.PERUN.COMPONENTS.TABLE_OPTIONS.ALL_DATA' | translate}}
+    </button>
   </mat-menu>
 </div>

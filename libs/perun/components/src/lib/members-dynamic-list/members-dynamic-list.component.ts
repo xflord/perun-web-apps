@@ -12,6 +12,7 @@ import {
   ChangeMemberStatusDialogComponent,
   ChangeVoExpirationDialogComponent,
   MemberTreeViewDialogComponent,
+  ExportDataDialogComponent,
 } from '@perun-web-apps/perun/dialogs';
 import {
   DynamicDataSource,
@@ -257,7 +258,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
     );
   }
 
-  exportData(format: string): void {
+  exportDisplayedData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.getData(),
@@ -266,6 +267,39 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
       ),
       format
     );
+  }
+
+  exportAllData(format: string): void {
+    const sortDirection = this.sort.direction === 'asc' ? 'ASCENDING' : 'DESCENDING';
+    const sortColumn = this.sort.active === 'fullName' ? 'NAME' : 'ID';
+
+    const config = getDefaultDialogConfig();
+    config.width = '300px';
+    const exportLoading = this.dialog.open(ExportDataDialogComponent, config);
+
+    this.dataSource
+      .getAllMembers(
+        this.voId,
+        this.attrNames,
+        sortDirection,
+        this.child.paginator.length,
+        sortColumn,
+        this.selectedStatuses,
+        this.searchString,
+        this.groupId,
+        this.selectedGroupStatuses
+      )
+      .subscribe((response) => {
+        exportLoading.close();
+        downloadData(
+          getDataForExport(
+            response,
+            this.displayedColumns,
+            MembersDynamicListComponent.getExportDataForColumn
+          ),
+          format
+        );
+      });
   }
 
   viewMemberGroupTree(event: Event, member: RichMember): void {

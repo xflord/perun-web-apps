@@ -10,13 +10,14 @@ import {
   PaginatedRichApplications,
   PaginatedRichMembers,
   PaginatedRichUsers,
+  RichApplication,
   RichMember,
   RichUser,
   SortingOrder,
   UsersOrderColumn,
   VoMemberStatuses,
 } from '@perun-web-apps/perun/openapi';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { DynamicPaginatingService } from './dynamic-paginating.service';
 import { GuiAuthResolver } from './gui-auth-resolver.service';
@@ -25,6 +26,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
   loading$: Observable<boolean>;
   allObjectCount = 0;
   routeAuth = true;
+  step = 10000;
   private latestQueryTime: number;
   private dataSubject = new BehaviorSubject<T[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
@@ -84,6 +86,48 @@ export class DynamicDataSource<T> implements DataSource<T> {
       });
   }
 
+  getAllMembers(
+    voId: number,
+    attrNames: string[],
+    sortOrder: SortingOrder,
+    totalCount: number,
+    sortColumn: MembersOrderColumn,
+    statuses: VoMemberStatuses[],
+    searchString?: string,
+    groupId?: number,
+    groupStatuses?: MemberGroupStatus[]
+  ): Observable<RichMember[]> {
+    return new Observable((subscriber) => {
+      const requests = [];
+      for (let pageNumber = 0; pageNumber < Math.ceil(totalCount / this.step); pageNumber++) {
+        requests.push(
+          this.dynamicPaginatingService.getMembers(
+            voId,
+            attrNames,
+            sortOrder,
+            pageNumber,
+            this.step,
+            sortColumn,
+            statuses,
+            searchString,
+            groupId,
+            groupStatuses
+          )
+        );
+      }
+      forkJoin(requests).subscribe({
+        next: (results) => {
+          const mergedData = [].concat(
+            ...results.map((result) => (result as PaginatedRichMembers).data)
+          );
+          subscriber.next(mergedData as RichMember[]);
+          subscriber.complete();
+        },
+        error: (error) => subscriber.error(error),
+      });
+    });
+  }
+
   loadUsers(
     attrNames: string[],
     pageSize: number,
@@ -130,6 +174,52 @@ export class DynamicDataSource<T> implements DataSource<T> {
       });
   }
 
+  getAllUsers(
+    attrNames: string[],
+    order: SortingOrder,
+    totalCount: number,
+    sortColumn: UsersOrderColumn,
+    searchString: string,
+    withoutVo: boolean,
+    facilityId: number,
+    voId: number,
+    resourceId: number,
+    serviceId: number,
+    onlyAllowed: boolean
+  ): Observable<RichUser[]> {
+    return new Observable((subscriber) => {
+      const requests = [];
+      for (let pageNumber = 0; pageNumber < Math.ceil(totalCount / this.step); pageNumber++) {
+        requests.push(
+          this.dynamicPaginatingService.getUsers(
+            attrNames,
+            order,
+            pageNumber,
+            this.step,
+            sortColumn,
+            searchString,
+            withoutVo,
+            facilityId,
+            voId,
+            resourceId,
+            serviceId,
+            onlyAllowed
+          )
+        );
+      }
+      forkJoin(requests).subscribe({
+        next: (results) => {
+          const mergedData = [].concat(
+            ...results.map((result) => (result as PaginatedRichUsers).data)
+          );
+          subscriber.next(mergedData as RichUser[]);
+          subscriber.complete();
+        },
+        error: (error) => subscriber.error(error),
+      });
+    });
+  }
+
   loadAuditMessages(pageSize: number, pageIndex: number, sortOrder: SortingOrder): void {
     this.loadingSubject.next(true);
     this.latestQueryTime = Date.now();
@@ -148,6 +238,27 @@ export class DynamicDataSource<T> implements DataSource<T> {
           this.dataSubject.next(data as unknown as T[]);
         }
       });
+  }
+
+  getAllAuditMessages(totalCount: number, sortOrder: SortingOrder): Observable<AuditMessage[]> {
+    return new Observable((subscriber) => {
+      const requests = [];
+      for (let pageNumber = 0; pageNumber < Math.ceil(totalCount / this.step); pageNumber++) {
+        requests.push(
+          this.dynamicPaginatingService.getAuditMessages(sortOrder, pageNumber, this.step)
+        );
+      }
+      forkJoin(requests).subscribe({
+        next: (results) => {
+          const mergedData = [].concat(
+            ...results.map((result) => (result as PaginatedAuditMessages).data)
+          );
+          subscriber.next(mergedData as AuditMessage[]);
+          subscriber.complete();
+        },
+        error: (error) => subscriber.error(error),
+      });
+    });
   }
 
   loadApplications(
@@ -210,6 +321,54 @@ export class DynamicDataSource<T> implements DataSource<T> {
           this.dataSubject.next(data as unknown as T[]);
         }
       });
+  }
+
+  getAllApplications(
+    totalCount: number,
+    sortOrder: SortingOrder,
+    sortColumn: ApplicationsOrderColumn,
+    searchString: string,
+    includeGroupApps: boolean,
+    states: AppState[],
+    dateFrom: string,
+    dateTo: string,
+    userId: number,
+    groupId: number,
+    voId: number,
+    details?: boolean
+  ): Observable<RichApplication[]> {
+    return new Observable((subscriber) => {
+      const requests = [];
+      for (let pageNumber = 0; pageNumber < Math.ceil(totalCount / this.step); pageNumber++) {
+        requests.push(
+          this.dynamicPaginatingService.getApplications(
+            this.step,
+            pageNumber,
+            sortOrder,
+            sortColumn,
+            includeGroupApps,
+            searchString,
+            states,
+            dateFrom,
+            dateTo,
+            userId,
+            voId,
+            groupId,
+            details ?? false
+          )
+        );
+      }
+      forkJoin(requests).subscribe({
+        next: (results) => {
+          const mergedData = [].concat(
+            ...results.map((result) => (result as PaginatedRichApplications).data)
+          );
+          subscriber.next(mergedData as RichApplication[]);
+          subscriber.complete();
+        },
+        error: (error) => subscriber.error(error),
+      });
+    });
   }
 
   connect(): Observable<T[]> {

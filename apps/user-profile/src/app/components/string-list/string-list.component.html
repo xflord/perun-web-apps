@@ -1,6 +1,7 @@
 <div class="card mt-2" [hidden]="!values.length">
   <perun-web-apps-table-wrapper
-    (exportData)="exportData($event)"
+    (exportDisplayedData)="exportDisplayedData($event)"
+    (exportAllData)="exportAllData($event)"
     [dataLength]="dataSource.filteredData.length">
     <table [dataSource]="dataSource" class="w-100" mat-table>
       <ng-container matColumnDef="select">

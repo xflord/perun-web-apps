@@ -3,7 +3,8 @@
   [hidden]="this.table.length === 0 || (dataSource ? dataSource.filteredData.length === 0 : false)"
   class="card mt-2 w-100">
   <perun-web-apps-table-wrapper
-    (exportData)="exportData($event)"
+    (exportDisplayedData)="exportDisplayedData($event)"
+    (exportAllData)="exportAllData($event)"
     [dataLength]="dataSource.filteredData.length"
     [pageSizeOptions]="pageSizeOptions"
     [tableId]="tableId">

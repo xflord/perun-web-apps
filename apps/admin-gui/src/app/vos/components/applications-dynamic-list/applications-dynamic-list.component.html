@@ -1,6 +1,7 @@
 <div [hidden]="this.dataSource.allObjectCount === 0" class="card mt-2">
   <perun-web-apps-table-wrapper
-    (exportData)="exportData($event)"
+    (exportDisplayedData)="exportDisplayedData($event)"
+    (exportAllData)="exportAllData($event)"
     [dataLength]="dataSource.allObjectCount"
     [pageSizeOptions]="pageSizeOptions"
     [tableId]="tableId">

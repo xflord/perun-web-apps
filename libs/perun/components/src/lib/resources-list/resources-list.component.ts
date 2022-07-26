@@ -124,10 +124,25 @@ export class ResourcesListComponent implements OnInit, OnChanges {
     this.setAuth();
   }
 
-  exportData(format: string): void {
+  exportAllData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
+        this.displayedColumns,
+        this.getDataForColumnFun
+      ),
+      format
+    );
+  }
+
+  exportDisplayedData(format: string): void {
+    const start = this.dataSource.paginator.pageIndex * this.dataSource.paginator.pageSize;
+    const end = start + this.dataSource.paginator.pageSize;
+    downloadData(
+      getDataForExport(
+        this.dataSource
+          .sortData(this.dataSource.filteredData, this.dataSource.sort)
+          .slice(start, end),
         this.displayedColumns,
         this.getDataForColumnFun
       ),

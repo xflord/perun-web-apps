@@ -12,6 +12,7 @@ import {
 import {
   downloadData,
   getDataForExport,
+  getDefaultDialogConfig,
   parseFullName,
   TABLE_ITEMS_COUNT_OPTIONS,
   TableWrapperComponent,
@@ -26,6 +27,8 @@ import { merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { TableConfigService } from '@perun-web-apps/config/table-config';
 import { formatDate } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { ExportDataDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 @Component({
   selector: 'app-applications-dynamic-list',
@@ -82,7 +85,8 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
   constructor(
     private authResolver: GuiAuthResolver,
     private tableConfigService: TableConfigService,
-    private dynamicPaginatingService: DynamicPaginatingService
+    private dynamicPaginatingService: DynamicPaginatingService,
+    private dialog: MatDialog
   ) {}
 
   ngAfterViewInit(): void {
@@ -158,7 +162,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     );
   }
 
-  exportData(format: string): void {
+  exportDisplayedData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.getData(),
@@ -167,6 +171,41 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       ),
       format
     );
+  }
+
+  exportAllData(format: string): void {
+    const sortDirection = this.sort.direction === 'asc' ? 'ASCENDING' : 'DESCENDING';
+
+    const config = getDefaultDialogConfig();
+    config.width = '300px';
+    const exportLoading = this.dialog.open(ExportDataDialogComponent, config);
+
+    this.dataSource
+      .getAllApplications(
+        this.child.paginator.length,
+        sortDirection,
+        this.getSortDataColumn(),
+        this.searchString,
+        this.includeGroupApps,
+        this.states,
+        this.dateToString(this.dateFrom),
+        this.dateToString(this.dateTo),
+        this.member?.userId ?? null,
+        this.group?.id ?? null,
+        this.getVoId(),
+        true
+      )
+      .subscribe((response) => {
+        exportLoading.close();
+        downloadData(
+          getDataForExport(
+            response,
+            this.displayedColumns,
+            this.getExportDataForColumn.bind(this) as (data: Application, column: string) => string
+          ),
+          format
+        );
+      });
   }
 
   selectApplication(application: Application): (string | number)[] {

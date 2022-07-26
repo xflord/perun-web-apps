@@ -115,10 +115,25 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
     this.dataSource.paginator = this.child.paginator;
   }
 
-  exportData(format: string): void {
+  exportAllData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
+        this.displayedColumns,
+        AttrDefListComponent.getDataForColumn
+      ),
+      format
+    );
+  }
+
+  exportDisplayedData(format: string): void {
+    const start = this.dataSource.paginator.pageIndex * this.dataSource.paginator.pageSize;
+    const end = start + this.dataSource.paginator.pageSize;
+    downloadData(
+      getDataForExport(
+        this.dataSource
+          .sortData(this.dataSource.filteredData, this.dataSource.sort)
+          .slice(start, end),
         this.displayedColumns,
         AttrDefListComponent.getDataForColumn
       ),

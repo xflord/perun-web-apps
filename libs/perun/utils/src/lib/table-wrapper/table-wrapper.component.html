@@ -7,7 +7,9 @@
       [pageSize]="pageSize">
     </mat-paginator>
     <perun-web-apps-table-options
-      (exportData)="exportData.emit($event)"
+      (exportDisplayedData)="exportDisplayedData.emit($event)"
+      (exportAllData)="exportAllData.emit($event)"
+      [allowExportAll]="allowExportAll"
       *ngIf="!hideExport"></perun-web-apps-table-options>
   </div>
   <div class="overflow-auto border-top">
@@ -23,7 +25,9 @@
       [pageSize]="paginator.pageSize">
     </mat-paginator>
     <perun-web-apps-table-options
-      (exportData)="exportData.emit($event)"
+      (exportDisplayedData)="exportDisplayedData.emit($event)"
+      (exportAllData)="exportAllData.emit($event)"
+      [allowExportAll]="allowExportAll"
       *ngIf="!hideExport"></perun-web-apps-table-options>
   </div>
 </div>

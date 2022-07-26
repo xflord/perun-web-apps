@@ -13,7 +13,9 @@ export class TableWrapperComponent implements OnInit {
   @Input() pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   @Input() dataLength = 0;
   @Input() tableId: string;
-  @Output() exportData = new EventEmitter<string>();
+  @Input() allowExportAll = true;
+  @Output() exportDisplayedData = new EventEmitter<string>();
+  @Output() exportAllData = new EventEmitter<string>();
 
   pageSize = 5;
   paginator: MatPaginator;

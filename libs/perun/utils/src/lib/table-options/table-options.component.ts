@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'perun-web-apps-table-options',
@@ -6,5 +6,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./table-options.component.scss'],
 })
 export class TableOptionsComponent {
-  @Output() exportData = new EventEmitter<string>();
+  @Input() allowExportAll: boolean;
+  @Output() exportDisplayedData = new EventEmitter<string>();
+  @Output() exportAllData = new EventEmitter<string>();
 }

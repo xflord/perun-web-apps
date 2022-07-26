@@ -42,6 +42,7 @@ import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespac
 import { AnonymizeUserDialogComponent } from './anonymize-user-dialog/anonymize-user-dialog.component';
 import { DeleteEntityDialogComponent } from './delete-entity-dialog/delete-entity-dialog.component';
 import { UiMaterialModule } from '@perun-web-apps/ui/material';
+import { ExportDataDialogComponent } from './exporting-data-dialog/export-data-dialog.component';
 
 @NgModule({
   imports: [
@@ -91,6 +92,7 @@ import { UiMaterialModule } from '@perun-web-apps/ui/material';
     ChangePasswordDialogComponent,
     AnonymizeUserDialogComponent,
     DeleteEntityDialogComponent,
+    ExportDataDialogComponent,
   ],
   exports: [
     ChangeExpirationDialogComponent,
@@ -112,6 +114,7 @@ import { UiMaterialModule } from '@perun-web-apps/ui/material';
     ChangePasswordDialogComponent,
     AnonymizeUserDialogComponent,
     DeleteEntityDialogComponent,
+    ExportDataDialogComponent,
   ],
 })
 export class PerunDialogsModule {}

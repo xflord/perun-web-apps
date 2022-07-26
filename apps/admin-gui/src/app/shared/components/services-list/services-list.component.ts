@@ -81,12 +81,27 @@ export class ServicesListComponent implements AfterViewInit, OnChanges {
     });
   }
 
-  exportData(format: string): void {
+  exportAllData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        ServicesListComponent.getDataForColumn as (data: Service, column: string) => string
+        ServicesListComponent.getDataForColumn
+      ),
+      format
+    );
+  }
+
+  exportDisplayedData(format: string): void {
+    const start = this.dataSource.paginator.pageIndex * this.dataSource.paginator.pageSize;
+    const end = start + this.dataSource.paginator.pageSize;
+    downloadData(
+      getDataForExport(
+        this.dataSource
+          .sortData(this.dataSource.filteredData, this.dataSource.sort)
+          .slice(start, end),
+        this.displayedColumns,
+        ServicesListComponent.getDataForColumn
       ),
       format
     );

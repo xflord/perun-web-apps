@@ -156,7 +156,22 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     return MembersListComponent.getSortDataForColumn(data, column, this.showGroupStatuses);
   };
 
-  exportData(format: string): void {
+  exportDisplayedData(format: string): void {
+    const start = this.dataSource.paginator.pageIndex * this.dataSource.paginator.pageSize;
+    const end = start + this.dataSource.paginator.pageSize;
+    downloadData(
+      getDataForExport(
+        this.dataSource
+          .sortData(this.dataSource.filteredData, this.dataSource.sort)
+          .slice(start, end),
+        this.displayedColumns,
+        this.getExportDataForColumnFun
+      ),
+      format
+    );
+  }
+
+  exportAllData(format: string): void {
     downloadData(
       getDataForExport(
         this.dataSource.filteredData,

@@ -21,3 +21,4 @@ export * from './lib/universal-confirmation-dialog/universal-confirmation-dialog
 export * from './lib/change-group-resource-assigment-dialog/change-group-resource-assigment-dialog.component';
 export * from './lib/delete-entity-dialog/delete-entity-dialog.component';
 export * from './lib/anonymize-user-dialog/anonymize-user-dialog.component';
+export * from './lib/exporting-data-dialog/export-data-dialog.component';
