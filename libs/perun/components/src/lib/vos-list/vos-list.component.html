@@ -63,6 +63,7 @@
       <tr
         *matRowDef="let vo; columns: displayedColumns;"
         [class.disable-outline]="disableRouting"
+        [class.cursor-pointer]="!disableRouting"
         [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/organizations', vo.id ?? vo.vo.id]"
         [perunWebAppsForceRouterLink]="disableRouting ? null : ['/organizations', vo.id ?? vo.vo.id]"
         class="dark-hover-list-item"

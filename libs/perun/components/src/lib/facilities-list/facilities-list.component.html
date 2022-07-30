@@ -68,8 +68,8 @@
         </th>
         <td *matCellDef="let facility" mat-cell>
           <perun-web-apps-object-list-values
-            (mouseenter)="disableRouting = true"
-            (mouseleave)="disableRouting = false"
+            (mouseenter)="localDisableRouting = true"
+            (mouseleave)="localDisableRouting = false"
             [objects]="facility.destinations | filterUniqueObjects: filterValue:'destination'"
             [paramName]="'destination'"></perun-web-apps-object-list-values>
         </td>
@@ -80,8 +80,8 @@
         </th>
         <td *matCellDef="let facility" mat-cell>
           <perun-web-apps-object-list-values
-            (mouseenter)="disableRouting = true"
-            (mouseleave)="disableRouting = false"
+            (mouseenter)="localDisableRouting = true"
+            (mouseleave)="localDisableRouting = false"
             [objects]="facility.hosts | filterUniqueObjects: filterValue:'hostname'"
             [paramName]="'hostname'"></perun-web-apps-object-list-values>
         </td>
@@ -89,8 +89,10 @@
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
       <tr
         *matRowDef="let facility; columns: displayedColumns;"
+        [class.cursor-pointer]="!disableRouting"
+        [class.disable-outline]="disableRouting"
         [perunWebAppsMiddleClickRouterLink]="['/facilities', facility.facility.id]"
-        [routerLink]="disableRouting ? [] : ['/facilities', facility.facility.id]"
+        [routerLink]="(disableRouting || localDisableRouting) ? [] : ['/facilities', facility.facility.id]"
         class="dark-hover-list-item"
         mat-row></tr>
     </table>

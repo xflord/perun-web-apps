@@ -42,7 +42,10 @@
           {{'ROLES.MEMBERSHIP_VOS_' + entityType | translate}}
         </div>
 
-        <perun-web-apps-vos-list [displayedColumns]="['id', 'name', 'shortName']" [vos]="vos">
+        <perun-web-apps-vos-list
+          [displayedColumns]="['id', 'name', 'shortName']"
+          [vos]="vos"
+          [disableRouting]="true">
         </perun-web-apps-vos-list>
       </div>
 
@@ -53,7 +56,8 @@
 
         <perun-web-apps-groups-list
           [displayedColumns]="['id', 'vo', 'name', 'description']"
-          [groups]="groups"></perun-web-apps-groups-list>
+          [groups]="groups"
+          [disableRouting]="true"></perun-web-apps-groups-list>
       </div>
 
       <div *ngIf="resources.length" class="mt-5">
@@ -63,7 +67,8 @@
 
         <perun-web-apps-resources-list
           [resources]="resources"
-          [displayedColumns]="['id', 'name', 'vo', 'facility', 'description']">
+          [displayedColumns]="['id', 'name', 'vo', 'facility', 'description']"
+          [disableRouting]="true">
         </perun-web-apps-resources-list>
       </div>
 
@@ -74,7 +79,8 @@
 
         <perun-web-apps-facilities-list
           [displayedColumns]="['id', 'name', 'description']"
-          [facilities]="facilities">
+          [facilities]="facilities"
+          [disableRouting]="true">
         </perun-web-apps-facilities-list>
       </div>
     </div>
