@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AddAuthImgDialogComponent } from '../../../components/dialogs/add-auth-img-dialog/add-auth-img-dialog.component';
@@ -14,7 +14,7 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
   templateUrl: './settings-authentication.component.html',
   styleUrls: ['./settings-authentication.component.scss'],
 })
-export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
+export class SettingsAuthenticationComponent implements OnInit {
   @ViewChild('toggle') toggle: MatSlideToggle;
 
   removeDialogTitle: string;
@@ -23,9 +23,6 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
   removeDialogDescription: string;
   mfaUrl = '';
   displayImageBlock: boolean;
-  mfaAvailable = false;
-  mfaApiUrl = '';
-  loadingMfa = false;
   loadingImg = false;
   saveImgSuccess = '';
   removeImgSuccess = '';
@@ -53,14 +50,7 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
       .subscribe((res: string) => (this.removeImgSuccess = res));
   }
 
-  ngAfterViewInit(): void {
-    this.toggle.change.subscribe((change) => {
-      this.reAuthenticate(change.checked);
-    });
-  }
-
   ngOnInit(): void {
-    this.loadingMfa = true;
     this.translate.onLangChange.subscribe(() => {
       this.translate
         .get('AUTHENTICATION.DELETE_IMG_DIALOG_TITLE')
@@ -70,29 +60,38 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
         .subscribe((res: string) => (this.removeDialogDescription = res));
       this.mfaUrl = this.store.get('mfa', 'url_' + this.translate.currentLang) as string;
     });
+
     this.mfaUrl = this.store.get('mfa', 'url_' + this.translate.currentLang) as string;
-    this.mfaApiUrl = this.store.get('mfa', 'api_url') as string;
-    fetch(this.mfaApiUrl + 'mfaAvailable', {
-      method: 'GET',
-      headers: { Authorization: 'Bearer ' + this.oauthService.getIdToken() },
-    })
-      .then((response) => response.text())
-      .then((responseText) => {
-        this.mfaAvailable = responseText === 'true';
-        if (this.mfaAvailable) {
-          this.loadMfa();
-        } else {
-          this.loadingMfa = false;
-        }
-      })
-      .catch((e) => {
-        console.error(e);
-        this.loadingMfa = false;
-      });
     this.displayImageBlock = this.store.get('mfa', 'enable_security_image') as boolean;
     if (this.displayImageBlock) {
       this.loadImage();
     }
+  }
+
+  loadImage(): void {
+    this.loadingImg = true;
+    const imgAttributeName = this.store.get('mfa', 'security_image_attribute') as string;
+    this.attributesManagerService
+      .getUserAttributeByName(this.store.getPerunPrincipal().userId, imgAttributeName)
+      .subscribe(
+        (attr) => {
+          if (!attr) {
+            this.attributesManagerService
+              .getAttributeDefinitionByName(imgAttributeName)
+              .subscribe((att) => {
+                this.imgAtt = att as Attribute;
+              });
+          } else {
+            this.imgAtt = attr;
+            this.imageSrc = this.imgAtt.value as string;
+          }
+          this.loadingImg = false;
+        },
+        (e) => {
+          console.error(e);
+          this.loadingImg = false;
+        }
+      );
   }
 
   onAddImg(): void {
@@ -107,30 +106,6 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
         this.notificatorService.showSuccess(this.saveImgSuccess);
         this.loadImage();
       }
-    });
-  }
-
-  reAuthenticate(enforceMfa: boolean): void {
-    sessionStorage.setItem('enforce_mfa', enforceMfa.toString());
-    sessionStorage.setItem('mfa_route', '/profile/settings/auth');
-    localStorage.removeItem('refresh_token');
-    this.oauthService.logOut(true);
-    sessionStorage.setItem('auth:redirect', location.pathname);
-    sessionStorage.setItem('auth:queryParams', location.search.substring(1));
-    this.authService.loadConfigData();
-    void this.oauthService.loadDiscoveryDocumentAndLogin();
-  }
-
-  enableMfa(value: boolean): Promise<Response> {
-    const idToken = this.oauthService.getIdToken();
-    const path = `mfaEnforced`;
-    const url = `${this.mfaApiUrl}${path}`;
-    const body = `value=${String(value)}`;
-
-    return fetch(url, {
-      method: 'PUT',
-      body: body,
-      headers: { Authorization: `Bearer ${idToken}` },
     });
   }
 
@@ -157,69 +132,5 @@ export class SettingsAuthenticationComponent implements OnInit, AfterViewInit {
 
   redirectToMfa(): void {
     window.open(this.mfaUrl, '_blank');
-  }
-
-  private loadImage(): void {
-    this.loadingImg = true;
-    const imgAttributeName = this.store.get('mfa', 'security_image_attribute') as string;
-    this.attributesManagerService
-      .getUserAttributeByName(this.store.getPerunPrincipal().userId, imgAttributeName)
-      .subscribe(
-        (attr) => {
-          if (!attr) {
-            this.attributesManagerService
-              .getAttributeDefinitionByName(imgAttributeName)
-              .subscribe((att) => {
-                this.imgAtt = att as Attribute;
-              });
-          } else {
-            this.imgAtt = attr;
-            this.imageSrc = this.imgAtt.value as string;
-          }
-          this.loadingImg = false;
-        },
-        (e) => {
-          console.error(e);
-          this.loadingImg = false;
-        }
-      );
-  }
-
-  private loadMfa(): void {
-    const mfaRoute = sessionStorage.getItem('mfa_route');
-    if (mfaRoute) {
-      const enforceMfa = sessionStorage.getItem('enforce_mfa');
-      this.enableMfa(enforceMfa === 'true')
-        .then((res) => {
-          if (res.ok && enforceMfa === 'true') {
-            this.toggle.toggle();
-          }
-          this.loadingMfa = false;
-        })
-        .catch((e) => {
-          console.error(e);
-          this.loadingMfa = false;
-        });
-    } else {
-      const enforceMfaAttributeName = this.store.get('mfa', 'enforce_mfa_attribute') as string;
-      this.attributesManagerService
-        .getUserAttributeByName(this.store.getPerunPrincipal().userId, enforceMfaAttributeName)
-        .subscribe(
-          (attr) => {
-            if (attr.value) {
-              this.toggle.toggle();
-            }
-            this.loadingMfa = false;
-          },
-          (e) => {
-            console.error(e);
-            this.loadingMfa = false;
-          }
-        );
-    }
-    if (sessionStorage.getItem('mfa_route')) {
-      sessionStorage.removeItem('enforce_mfa');
-      sessionStorage.removeItem('mfa_route');
-    }
   }
 }

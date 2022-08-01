@@ -164,6 +164,7 @@
     "MFA": "Vícefázové ověření",
     "MFA_TOGGLE": "Zapnout vícefázové ověření pro všechny služby",
     "MFA_DISABLED": "Potřebujete mít alespoň jeden aktivní MFA token.",
+    "MFA_SAVE": "Uložit nastavení",
     "NEW_IMG": "Nový obrázek",
     "DELETE_IMG": "Vymazat obrázek",
     "ANTI_PHISHING_INFO": "Tento bezpečnostní obrázek se vám ukáže před tím, než zadáte heslo, ujistíte se tak, že se nepřihlašujete na podvrženou stránku",

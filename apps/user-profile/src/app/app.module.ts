@@ -81,6 +81,7 @@ import { ConsentsPreviewComponent } from './pages/consents-page/consents-preview
 import { SettingsLocalAccountComponent } from './pages/settings-page/settings-local-account/settings-local-account.component';
 import { ActivateLocalAccountDialogComponent } from './components/dialogs/activate-local-account-dialog/activate-local-account-dialog.component';
 import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespace-password-form';
+import { MfaSettingsComponent } from './pages/settings-page/settings-authorization/mfa-settings/mfa-settings.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -142,6 +143,7 @@ const loadConfigs: (appConfig: UserProfileConfigService) => () => Promise<void> 
     ConsentsPreviewComponent,
     SettingsLocalAccountComponent,
     ActivateLocalAccountDialogComponent,
+    MfaSettingsComponent,
   ],
   imports: [
     BrowserModule,

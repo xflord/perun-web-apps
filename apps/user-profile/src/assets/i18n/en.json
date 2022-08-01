@@ -166,6 +166,7 @@
     "MFA": "Multi-factor authentication",
     "MFA_TOGGLE": "Turn on multi-factor authentication for all services",
     "MFA_DISABLED": "You need to have at least one active MFA token.",
+    "MFA_SAVE": "Save settings",
     "NEW_IMG": "New image",
     "DELETE_IMG": "Delete image",
     "ANTI_PHISHING_INFO": "You will be shown this security image before you enter your password so you will know that you are visiting the right site",

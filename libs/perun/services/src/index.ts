@@ -21,3 +21,4 @@ export { CustomMatPaginator } from './lib/custom-mat-paginator';
 export { EntityStorageService } from './lib/entity-storage.service';
 export { RoutePolicyService } from './lib/route-policy.service';
 export { AttributeRightsService } from './lib/attribute-rights.service';
+export { MfaApiService } from './lib/mfa-api.service';
