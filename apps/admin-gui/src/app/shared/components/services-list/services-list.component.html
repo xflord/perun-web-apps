@@ -55,13 +55,13 @@
         <td *matCellDef="let service" mat-cell>
           <mat-icon
             *ngIf="service.enabled"
-            class="align-bottom"
+            class="align-bottom green"
             matTooltip="{{'SHARED.COMPONENTS.SERVICES_LIST.ENABLED' | translate}}">
             check_circle_outline
           </mat-icon>
           <mat-icon
             *ngIf="!service.enabled"
-            class="align-bottom"
+            class="align-bottom red"
             matTooltip="{{'SHARED.COMPONENTS.SERVICES_LIST.DISABLED' | translate}}">
             block
           </mat-icon>
