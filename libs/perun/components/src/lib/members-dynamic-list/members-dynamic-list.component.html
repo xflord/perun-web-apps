@@ -34,7 +34,7 @@
             [aria-label]="checkboxLabel(member)"
             [checked]="selection.isSelected(member)"
             attr.data-cy="{{member.user.firstName | lowercase}}-checkbox"
-            [disabled]="(groupId === undefined) && (member | memberListCheckboxDisabled)"
+            [disabled]="(member | memberListCheckboxDisabled)"
             [matTooltip]="(member | memberCheckboxLabel)"
             color="primary">
           </mat-checkbox>
