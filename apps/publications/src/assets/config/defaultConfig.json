@@ -17,6 +17,7 @@
     "en"
   ],
   "auto_auth_redirect": true,
+  "allow_service_access": true,
   "footer": {
     "columns": [
       {

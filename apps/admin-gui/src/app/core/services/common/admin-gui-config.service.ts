@@ -115,7 +115,8 @@ export class AdminGuiConfigService {
             .catch((err) => this.handleErr(err as string & HttpErrorResponse))
             .then(() => this.loadPolicies())
             .then(() => this.appConfigService.loadAppsConfig())
-            .then(() => this.guiAuthResolver.loadRolesManagementRules());
+            .then(() => this.guiAuthResolver.loadRolesManagementRules())
+            .then(() => this.initAuthService.checkRouteGuard());
         } else {
           return this.initAuthService.handleAuthStart();
         }
@@ -148,13 +149,13 @@ export class AdminGuiConfigService {
 
   private loadPolicies(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.authzSevice.getAllPolicies().subscribe(
-        (policies) => {
+      this.authzSevice.getAllPolicies().subscribe({
+        next: (policies) => {
           this.guiAuthResolver.setPerunPolicies(policies);
           resolve();
         },
-        (error) => reject(error)
-      );
+        error: (error) => reject(error),
+      });
     });
   }
 }

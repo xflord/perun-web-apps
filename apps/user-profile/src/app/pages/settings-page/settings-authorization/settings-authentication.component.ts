@@ -3,10 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AddAuthImgDialogComponent } from '../../../components/dialogs/add-auth-img-dialog/add-auth-img-dialog.component';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
-import { AuthService, NotificatorService, StoreService } from '@perun-web-apps/perun/services';
+import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { RemoveStringValueDialogComponent } from '../../../components/dialogs/remove-string-value-dialog/remove-string-value-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
-import { OAuthService } from 'angular-oauth2-oidc';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @Component({
@@ -32,8 +31,6 @@ export class SettingsAuthenticationComponent implements OnInit {
     private attributesManagerService: AttributesManagerService,
     private store: StoreService,
     private translate: TranslateService,
-    private oauthService: OAuthService,
-    private authService: AuthService,
     private notificatorService: NotificatorService
   ) {
     translate

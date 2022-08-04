@@ -14,7 +14,6 @@
     "oauth_response_type": "code",
     "oauth_offline_access_consent_prompt": true
   },
-  "skip_oidc": false,
   "auto_auth_redirect": true,
   "is_devel": false,
   "supported_languages": ["en"],

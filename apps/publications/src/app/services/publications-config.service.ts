@@ -61,7 +61,10 @@ export class PublicationsConfigService {
       .then((isAuthenticated) => {
         // if the authentication is successful, continue
         if (isAuthenticated) {
-          return this.initAuthService.loadPrincipal().then(() => this.loadPolicies());
+          return this.initAuthService
+            .loadPrincipal()
+            .then(() => this.loadPolicies())
+            .then(() => this.initAuthService.checkRouteGuard());
         } else {
           return this.initAuthService.handleAuthStart();
         }

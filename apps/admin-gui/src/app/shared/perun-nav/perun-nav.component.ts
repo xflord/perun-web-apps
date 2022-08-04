@@ -1,17 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { AuthzResolverService, PerunPrincipal } from '@perun-web-apps/perun/openapi';
+import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
 import {
-  AuthService,
   NotificationStorageService,
-  NotificatorService,
   OtherApplicationsService,
   StoreService,
 } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowNotificationHistoryDialogComponent } from '../components/dialogs/show-notification-history-dialog/show-notification-history-dialog.component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { TranslateService } from '@ngx-translate/core';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 
 @Component({
@@ -35,11 +32,7 @@ export class PerunNavComponent implements OnInit {
 
   constructor(
     private storeService: StoreService,
-    private authService: AuthService,
-    public authzResolverService: AuthzResolverService,
     private dialog: MatDialog,
-    private notificator: NotificatorService,
-    private translateService: TranslateService,
     private store: StoreService,
     private sanitizer: DomSanitizer,
     private notificationStorageService: NotificationStorageService,

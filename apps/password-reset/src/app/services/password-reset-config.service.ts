@@ -20,7 +20,7 @@ export class PasswordResetConfigService {
       .then(() => this.appConfigService.setApiUrl())
       .then(() => this.appConfigService.setInstanceFavicon())
       .then(() => {
-        const queryParams = location.search.substr(1);
+        const queryParams = location.search.substring(1);
         if (!queryParams.includes('token')) {
           return this.initAuthService.verifyAuth();
         } else {
@@ -35,9 +35,11 @@ export class PasswordResetConfigService {
       .then((isAuthenticated) => {
         // if the authentication is successful, continue
         if (isAuthenticated) {
-          const queryParams = location.search.substr(1);
+          const queryParams = location.search.substring(1);
           if (!queryParams.includes('token')) {
-            return this.initAuthService.loadPrincipal();
+            return this.initAuthService
+              .loadPrincipal()
+              .then(() => this.initAuthService.checkRouteGuard());
           }
           return;
         } else {

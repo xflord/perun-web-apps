@@ -45,7 +45,6 @@ export class ApiInterceptor implements HttpInterceptor {
     if (
       apiUrl !== undefined &&
       this.isCallToPerunApi(req.url) &&
-      !this.store.skipOidc() &&
       !this.authService.isLoggedIn() &&
       !this.initAuthService.isServiceAccess() &&
       !this.dialogRefSessionExpiration
@@ -85,10 +84,7 @@ export class ApiInterceptor implements HttpInterceptor {
     const shouldHandleError = this.apiRequestConfiguration.shouldHandleError();
 
     const shouldReloadPrincipal =
-      req.method === 'POST' &&
-      !this.store.skipOidc() &&
-      this.isNotConsolidatorOrLinker() &&
-      this.isCallToPerunApi(req.url);
+      req.method === 'POST' && this.isNotConsolidatorOrLinker() && this.isCallToPerunApi(req.url);
 
     return next.handle(req).pipe(
       tap(

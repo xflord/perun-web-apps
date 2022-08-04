@@ -61,10 +61,6 @@ export class StoreService {
     this.branding = branding;
   }
 
-  skipOidc(): boolean {
-    return this.getProperty('skip_oidc');
-  }
-
   getProperty<T extends keyof PerunConfig>(key: T): PerunConfig[T] {
     const configs: PerunConfig[] = [
       this.instanceConfig?.brandings?.[this.branding],
@@ -74,7 +70,7 @@ export class StoreService {
 
     let currentValue: PerunConfig[T] = null;
     for (const config of configs) {
-      if (config && !currentValue) {
+      if (config && (currentValue === null || currentValue == undefined)) {
         currentValue = config[key];
       }
     }

@@ -371,7 +371,7 @@ export class MfaSettingsComponent implements OnInit {
     this.oauthService.logOut(true);
     sessionStorage.setItem('auth:redirect', location.pathname);
     sessionStorage.setItem('auth:queryParams', location.search.substring(1));
-    this.authService.loadConfigData();
+    this.authService.loadOidcConfigData();
     void this.oauthService.loadDiscoveryDocumentAndLogin();
   }
 

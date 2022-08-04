@@ -62,7 +62,8 @@ export class UserProfileConfigService {
         if (isAuthenticated) {
           return this.initAuthService
             .loadPrincipal()
-            .then(() => this.appConfigService.loadAppsConfig());
+            .then(() => this.appConfigService.loadAppsConfig())
+            .then(() => this.initAuthService.checkRouteGuard());
         } else {
           return this.initAuthService.handleAuthStart();
         }
