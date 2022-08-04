@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -10,7 +10,7 @@ import { formatDate } from '@angular/common';
 export class ExpirationSelectComponent implements OnInit {
   @Input() expiration = 'never';
   @Output() datePicker: EventEmitter<string> = new EventEmitter<string>();
-  expirationControl = new FormControl(null);
+  expirationControl = new UntypedFormControl(null);
   minDate: Date;
 
   ngOnInit(): void {

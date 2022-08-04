@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
@@ -21,7 +21,7 @@ import {
 export class UserDestinationRelationshipComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
-  searchField: FormControl = new FormControl();
+  searchField: UntypedFormControl = new UntypedFormControl();
   users: Observable<User[]>;
   chosenService = '';
   availableServices: string[] = [];

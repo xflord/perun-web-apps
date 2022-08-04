@@ -15,7 +15,7 @@ import {
 import { Role } from '@perun-web-apps/perun/models';
 import { TABLE_ADD_MANAGER } from '@perun-web-apps/config/table-config';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 
 export interface AddManagerDialogData {
   complementaryObject: Vo | Group | Facility;
@@ -40,7 +40,7 @@ export class AddManagerDialogComponent implements OnInit {
   availableRoles: Role[];
   theme: string;
   tableId = TABLE_ADD_MANAGER;
-  searchCtrl: FormControl;
+  searchCtrl: UntypedFormControl;
 
   constructor(
     private dialogRef: MatDialogRef<AddManagerDialogComponent>,
@@ -63,7 +63,10 @@ export class AddManagerDialogComponent implements OnInit {
     this.theme = this.data.theme;
     this.availableRoles = this.data.availableRoles;
     this.selectedRole = this.data.selectedRole;
-    this.searchCtrl = new FormControl('', [Validators.required, Validators.pattern('.*[\\S]+.*')]);
+    this.searchCtrl = new UntypedFormControl('', [
+      Validators.required,
+      Validators.pattern('.*[\\S]+.*'),
+    ]);
   }
 
   onCancel(): void {

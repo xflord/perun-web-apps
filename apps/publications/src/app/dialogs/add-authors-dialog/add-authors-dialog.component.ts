@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { Author, CabinetManagerService } from '@perun-web-apps/perun/openapi';
 import { TABLE_PUBLICATION_AUTHORS } from '@perun-web-apps/config/table-config';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -18,7 +18,7 @@ export interface AddAuthorsDialogData {
   styleUrls: ['./add-authors-dialog.component.scss'],
 })
 export class AddAuthorsDialogComponent implements OnInit {
-  searchControl: FormControl;
+  searchControl: UntypedFormControl;
   successMessage: string;
   loading = false;
   searchLoading = false;
@@ -46,7 +46,7 @@ export class AddAuthorsDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.searchControl = new FormControl('', [
+    this.searchControl = new UntypedFormControl('', [
       Validators.required,
       Validators.pattern('.*[\\S]+.*'),
     ]);

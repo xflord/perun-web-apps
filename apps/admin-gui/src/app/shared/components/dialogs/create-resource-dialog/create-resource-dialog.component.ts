@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ResourcesManagerService, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { NotificatorService } from '@perun-web-apps/perun/services';
@@ -16,8 +16,8 @@ export interface CreateResourceDialogData {
   styleUrls: ['./create-resource-dialog.component.scss'],
 })
 export class CreateResourceDialogComponent implements OnInit {
-  nameCtrl: FormControl;
-  descriptionCtrl: FormControl;
+  nameCtrl: UntypedFormControl;
+  descriptionCtrl: UntypedFormControl;
   vos: Vo[] = [];
 
   theme: string;
@@ -49,8 +49,11 @@ export class CreateResourceDialogComponent implements OnInit {
       () => (this.loading = false)
     );
 
-    this.nameCtrl = new FormControl(null, [Validators.required, Validators.pattern('.*[\\S]+.*')]);
-    this.descriptionCtrl = new FormControl('');
+    this.nameCtrl = new UntypedFormControl(null, [
+      Validators.required,
+      Validators.pattern('.*[\\S]+.*'),
+    ]);
+    this.descriptionCtrl = new UntypedFormControl('');
   }
 
   onSubmit(): void {

@@ -1,17 +1,15 @@
-module.exports = {
+/* eslint-disable */
+export default {
+  displayName: 'perun-namespace-password-form',
   preset: '../../../jest.preset.js',
-  coverageDirectory: '../../../coverage/libs/perun/components',
-
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
-      stringifyContentPathRegex: '\\.(html|svg)$',
-
       tsconfig: '<rootDir>/tsconfig.spec.json',
+      stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  displayName: 'perun-components',
-
+  coverageDirectory: '../../../coverage/libs/perun/namespace-password-form',
   transform: {
     '^.+.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

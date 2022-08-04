@@ -16,7 +16,13 @@ import {
   StoreService,
 } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Urns } from '@perun-web-apps/perun/urns';
@@ -62,7 +68,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   functionalityNotSupported = false;
 
   namespaceOptions: string[] = [];
-  usersInfoFormGroup: FormGroup;
+  usersInfoFormGroup: UntypedFormGroup;
   state: 'user-input' | 'results' = 'user-input';
   passwordReset = 'generate';
   groupAssignment: string = null;
@@ -95,7 +101,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
     private guiAuthResolver: GuiAuthResolver,
     private groupsService: GroupsManagerService,
     private attributesService: AttributesManagerService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private sponsoredMembersPDFService: SponsoredMembersPdfService,
     private cd: ChangeDetectorRef
   ) {}

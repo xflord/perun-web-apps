@@ -3,7 +3,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { ApiRequestConfigurationService, StoreService } from '@perun-web-apps/perun/services';
 import { UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { loginAsyncValidator } from '@perun-web-apps/perun/namespace-password-form';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { CustomValidators } from '@perun-web-apps/perun/utils';
 
 @Component({
@@ -30,14 +35,14 @@ export class PasswordResetFormComponent implements OnInit {
   loading = false;
   success = false;
   language = 'en';
-  newPasswdForm: FormGroup;
+  newPasswdForm: UntypedFormGroup;
 
   constructor(
     private storeService: StoreService,
     private translate: TranslateService,
     private apiRequestConfiguration: ApiRequestConfigurationService,
     private usersService: UsersManagerService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: UntypedFormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -47,10 +52,10 @@ export class PasswordResetFormComponent implements OnInit {
     });
     this.newPasswdForm = this._formBuilder.group(
       {
-        passwordCtrl: new FormControl('', Validators.required, [
+        passwordCtrl: new UntypedFormControl('', Validators.required, [
           loginAsyncValidator(this.namespace, this.usersService, this.apiRequestConfiguration),
         ]),
-        passwordAgainCtrl: new FormControl('', Validators.required),
+        passwordAgainCtrl: new UntypedFormControl('', Validators.required),
       },
       {
         validators: CustomValidators.passwordMatchValidator,

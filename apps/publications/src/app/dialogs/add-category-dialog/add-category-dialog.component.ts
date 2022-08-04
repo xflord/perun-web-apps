@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { CabinetManagerService } from '@perun-web-apps/perun/openapi';
 import { TranslateService } from '@ngx-translate/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'perun-web-apps-add-category-dialog',
@@ -14,8 +14,8 @@ export class AddCategoryDialogComponent implements OnInit {
   successMessage: string;
   loading: boolean;
 
-  nameCtrl: FormControl;
-  rankCtrl: FormControl;
+  nameCtrl: UntypedFormControl;
+  rankCtrl: UntypedFormControl;
 
   constructor(
     private dialogRef: MatDialogRef<AddCategoryDialogComponent>,
@@ -29,12 +29,12 @@ export class AddCategoryDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.nameCtrl = new FormControl(null, [
+    this.nameCtrl = new UntypedFormControl(null, [
       Validators.required,
       Validators.pattern('^[\\w.-]+( [\\w.-]+)*$'),
       Validators.maxLength(128),
     ]);
-    this.rankCtrl = new FormControl(null, [
+    this.rankCtrl = new UntypedFormControl(null, [
       Validators.required,
       Validators.pattern('^[0-9]+(\\.[0-9])?$'),
     ]);

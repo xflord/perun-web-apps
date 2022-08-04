@@ -9,7 +9,7 @@ import {
   VosManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { StoreService } from '@perun-web-apps/perun/services';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -25,7 +25,7 @@ export class GroupsPageComponent implements OnInit {
   loading = false;
   userId: number;
   vos: Vo[] = [];
-  myControl = new FormControl();
+  myControl = new UntypedFormControl();
   filteredVos: Observable<Vo[]>;
 
   selection = new SelectionModel<Membership>(false, []);

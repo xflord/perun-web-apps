@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FacilitiesManagerService } from '@perun-web-apps/perun/openapi';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, ValidatorFn, Validators } from '@angular/forms';
 
 export interface AddHostDialogData {
   theme: string;
@@ -18,7 +18,7 @@ export interface AddHostDialogData {
 export class AddHostDialogComponent implements OnInit {
   theme: string;
   loading = false;
-  hostsCtrl: FormControl;
+  hostsCtrl: UntypedFormControl;
 
   hostPattern = new RegExp(
     '^(?!:\\/\\/)(?=.{1,255}$)((.{1,63}\\.){1,127}(?![0-9]*$)[a-z0-9-]+\\.?)$|^(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}$'
@@ -43,7 +43,7 @@ export class AddHostDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.theme = this.data.theme;
-    this.hostsCtrl = new FormControl('', [Validators.required, this.hostsNameValidator()]);
+    this.hostsCtrl = new UntypedFormControl('', [Validators.required, this.hostsNameValidator()]);
     this.hostsCtrl.markAllAsTouched();
   }
 

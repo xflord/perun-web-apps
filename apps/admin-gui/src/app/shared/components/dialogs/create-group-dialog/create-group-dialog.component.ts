@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 
 export interface CreateGroupDialogData {
   parentGroup: Group;
@@ -23,8 +23,8 @@ export class CreateGroupDialogComponent implements OnInit {
   isNotSubGroup: boolean;
   asSubgroup = false;
   invalidNameMessage = this.store.get('group_name_error_message') as string;
-  nameControl: FormControl;
-  descriptionControl: FormControl;
+  nameControl: UntypedFormControl;
+  descriptionControl: UntypedFormControl;
   selectedParent: Group;
   voGroups: Group[] = [];
   title: string;
@@ -64,12 +64,12 @@ export class CreateGroupDialogComponent implements OnInit {
     this.theme = this.data.theme;
     this.invalidNameMessage =
       this.invalidNameMessage && this.secondaryRegex ? this.invalidNameMessage : '';
-    this.nameControl = new FormControl('', [
+    this.nameControl = new UntypedFormControl('', [
       Validators.required,
       Validators.pattern(this.secondaryRegex ? this.secondaryRegex : ''),
       Validators.pattern('.*[\\S]+.*'),
     ]);
-    this.descriptionControl = new FormControl('');
+    this.descriptionControl = new UntypedFormControl('');
     this.selectedParent = null;
   }
 

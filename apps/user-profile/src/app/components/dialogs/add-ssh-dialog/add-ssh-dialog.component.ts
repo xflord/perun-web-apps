@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 
 export interface AddSshDialogData {
   attribute: Attribute;
@@ -34,7 +34,7 @@ export class AddSshDialogComponent implements OnInit {
     'sk-ecdsa-sha2-nistp256-cert-v01@openssh.com',
   ];
   static readonly sshKeyPattern = '^(' + AddSshDialogComponent.allowedSshKeys.join('|') + ').+$';
-  sshControl: FormControl;
+  sshControl: UntypedFormControl;
 
   constructor(
     private dialogRef: MatDialogRef<AddSshDialogComponent>,
@@ -43,7 +43,7 @@ export class AddSshDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.sshControl = new FormControl(null, [
+    this.sshControl = new UntypedFormControl(null, [
       Validators.required,
       Validators.pattern(AddSshDialogComponent.sshKeyPattern),
     ]);

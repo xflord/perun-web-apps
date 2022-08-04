@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { formatDate } from '@angular/common';
 
@@ -29,7 +29,7 @@ export class ChangeExpirationDialogComponent implements OnInit {
   statusChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   successMessage: string;
-  expirationControl: FormControl = new FormControl(null);
+  expirationControl: UntypedFormControl = new UntypedFormControl(null);
   currentDate: string;
 
   constructor(private dialogRef: MatDialogRef<ChangeExpirationDialogComponent>) {}

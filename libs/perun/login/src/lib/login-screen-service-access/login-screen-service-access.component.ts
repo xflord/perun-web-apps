@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthzResolverService, PerunPrincipal } from '@perun-web-apps/perun/openapi';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'perun-web-apps-login-screen-service-access',
@@ -8,16 +8,16 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./login-screen-service-access.component.css'],
 })
 export class LoginScreenServiceAccessComponent implements OnInit {
-  usernameCtrl: FormControl;
-  passwordCtrl: FormControl;
+  usernameCtrl: UntypedFormControl;
+  passwordCtrl: UntypedFormControl;
   principal: PerunPrincipal;
   wrongUsernameOrPassword = false;
 
   constructor(private authzService: AuthzResolverService) {}
 
   ngOnInit(): void {
-    this.usernameCtrl = new FormControl(null, [Validators.required]);
-    this.passwordCtrl = new FormControl(null, [Validators.required]);
+    this.usernameCtrl = new UntypedFormControl(null, [Validators.required]);
+    this.passwordCtrl = new UntypedFormControl(null, [Validators.required]);
   }
 
   startAuth(): void {

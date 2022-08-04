@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UsersManagerService } from '@perun-web-apps/perun/openapi';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '@perun-web-apps/perun/utils';
 import { loginAsyncValidator } from '@perun-web-apps/perun/namespace-password-form';
 import { ApiRequestConfigurationService, NotificatorService } from '@perun-web-apps/perun/services';
@@ -18,7 +18,7 @@ export interface ChangePasswordDialogData {
   styleUrls: ['./change-password-dialog.component.css'],
 })
 export class ChangePasswordDialogComponent implements OnInit {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   oldPwd: AbstractControl;
   showOldPassword = false;
   loading: boolean;
@@ -29,7 +29,7 @@ export class ChangePasswordDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<ChangePasswordDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: ChangePasswordDialogData,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     private usersManagerService: UsersManagerService,
     private apiRequestConfiguration: ApiRequestConfigurationService,
     private notificator: NotificatorService,

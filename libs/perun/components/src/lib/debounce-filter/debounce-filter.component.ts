@@ -10,7 +10,7 @@ import {
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { MatInput } from '@angular/material/input';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 @Component({
   selector: 'perun-web-apps-debounce-filter',
@@ -20,7 +20,7 @@ import { FormControl } from '@angular/forms';
 export class DebounceFilterComponent implements OnInit {
   @Input() placeholder: string;
   @Input() autoFocus = false;
-  @Input() control: FormControl = new FormControl();
+  @Input() control: UntypedFormControl = new UntypedFormControl();
   @Input() error: string;
   @Output() filter = new EventEmitter<string>();
   @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>;

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 @Component({
   selector: 'perun-web-apps-immediate-filter',
@@ -11,7 +11,7 @@ export class ImmediateFilterComponent implements OnInit {
   @Output() filter = new EventEmitter<string>();
   @Input() autoFocus = false;
 
-  formControl = new FormControl();
+  formControl = new UntypedFormControl();
 
   ngOnInit(): void {
     this.formControl.valueChanges.subscribe((value: string) => {

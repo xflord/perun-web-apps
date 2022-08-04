@@ -5,7 +5,7 @@ import {
   UsersManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -17,7 +17,7 @@ export class SettingsSambaPasswordComponent implements OnInit {
   showPassword: boolean;
   sambaExists: boolean;
   sambaAttribute: Attribute;
-  sambaControl: FormControl;
+  sambaControl: UntypedFormControl;
   userId: number;
   showPwdTooltip: string;
   hidePwdTooltip: string;
@@ -43,7 +43,7 @@ export class SettingsSambaPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.store.getPerunPrincipal().userId;
-    this.sambaControl = new FormControl('', [
+    this.sambaControl = new UntypedFormControl('', [
       Validators.pattern(
         '((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])|(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&/=?_.,:;\\-])|(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%&/=?_.,:;\\-])|(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%&/=?_.,:;\\-])).{3,}'
       ),

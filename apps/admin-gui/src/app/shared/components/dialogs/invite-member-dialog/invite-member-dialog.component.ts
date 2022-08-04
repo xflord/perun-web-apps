@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormControl, ValidatorFn, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
@@ -17,10 +17,10 @@ export interface InviteMemberDialogData {
   styleUrls: ['./invite-member-dialog.component.scss'],
 })
 export class InviteMemberDialogComponent implements OnInit {
-  emailForm = new FormControl('', [Validators.required, Validators.email.bind(this)]);
+  emailForm = new UntypedFormControl('', [Validators.required, Validators.email.bind(this)]);
   languages = ['en'];
   currentLanguage = 'en';
-  name = new FormControl('', Validators.required as ValidatorFn);
+  name = new UntypedFormControl('', Validators.required as ValidatorFn);
   loading = false;
   theme: string;
 

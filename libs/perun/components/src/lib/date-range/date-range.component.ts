@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 @Component({
   selector: 'perun-web-apps-date-range',
@@ -7,8 +7,8 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./date-range.component.scss'],
 })
 export class DateRangeComponent implements OnInit {
-  @Input() startDate: FormControl;
-  @Input() endDate: FormControl;
+  @Input() startDate: UntypedFormControl;
+  @Input() endDate: UntypedFormControl;
   @Output() datePicker: EventEmitter<string> = new EventEmitter<string>();
   startMinDate: Date;
   startMaxDate: Date;

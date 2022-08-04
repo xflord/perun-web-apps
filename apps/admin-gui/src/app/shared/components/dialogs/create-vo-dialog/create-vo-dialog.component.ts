@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { VosManagerService } from '@perun-web-apps/perun/openapi';
 import { Router } from '@angular/router';
 
@@ -18,8 +18,8 @@ export interface CreateVoDialogData {
 export class CreateVoDialogComponent implements OnInit {
   loading: boolean;
   theme: string;
-  shortNameCtrl: FormControl;
-  fullNameCtrl: FormControl;
+  shortNameCtrl: UntypedFormControl;
+  fullNameCtrl: UntypedFormControl;
   private successMessage: string;
 
   constructor(
@@ -37,12 +37,12 @@ export class CreateVoDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.theme = this.data.theme;
-    this.shortNameCtrl = new FormControl(null, [
+    this.shortNameCtrl = new UntypedFormControl(null, [
       Validators.required,
       Validators.pattern('^[\\w.-]+$'),
       Validators.maxLength(33),
     ]);
-    this.fullNameCtrl = new FormControl(null, [
+    this.fullNameCtrl = new UntypedFormControl(null, [
       Validators.required,
       Validators.pattern('.*[\\S]+.*'),
       Validators.maxLength(129),

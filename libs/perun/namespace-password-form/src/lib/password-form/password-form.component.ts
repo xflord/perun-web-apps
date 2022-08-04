@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ImmediateStateMatcher } from '../perun-namespace-password-form';
 import { TranslateService } from '@ngx-translate/core';
 import { StoreService } from '@perun-web-apps/perun/services';
@@ -11,7 +11,7 @@ import { Attribute, UsersManagerService } from '@perun-web-apps/perun/openapi';
   styleUrls: ['./password-form.component.scss'],
 })
 export class PasswordFormComponent implements OnInit, OnChanges {
-  @Input() formGroup: FormGroup;
+  @Input() formGroup: UntypedFormGroup;
   @Input() passwordRequired = true;
   @Input() tooltipPwdViaEmail = false;
   @Input() tooltipPwdDisabledForNamespace = false;

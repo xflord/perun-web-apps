@@ -2,6 +2,7 @@
   "version": 1,
   "projects": {
     "admin-gui": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "projectType": "application",
       "schematics": {
         "@nrwl/angular:component": {
@@ -122,7 +123,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/admin-gui/jest.config.js",
+            "jestConfig": "apps/admin-gui/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/apps/admin-gui"]
@@ -131,6 +132,7 @@
       "tags": []
     },
     "admin-gui-e2e": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "root": "apps/admin-gui-e2e",
       "sourceRoot": "apps/admin-gui-e2e/src",
       "projectType": "application",
@@ -160,6 +162,7 @@
       "implicitDependencies": ["admin-gui"]
     },
     "config": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "projectType": "library",
       "root": "libs/config",
       "sourceRoot": "libs/config/src",
@@ -175,7 +178,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/config/jest.config.js",
+            "jestConfig": "libs/config/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/config"]
@@ -189,6 +192,7 @@
       "tags": []
     },
     "config-table-config": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "projectType": "library",
       "root": "libs/config/table-config",
       "sourceRoot": "libs/config/table-config/src",
@@ -207,7 +211,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/config/table-config/jest.config.js",
+            "jestConfig": "libs/config/table-config/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/config/table-config"]
@@ -221,122 +225,7 @@
       "tags": []
     },
     "consolidator": {
-      "projectType": "application",
-      "root": "apps/consolidator",
-      "sourceRoot": "apps/consolidator/src",
-      "prefix": "perun-web-apps",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/apps/consolidator",
-            "index": "apps/consolidator/src/index.html",
-            "main": "apps/consolidator/src/main.ts",
-            "polyfills": "apps/consolidator/src/polyfills.ts",
-            "tsConfig": "apps/consolidator/tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "assets": ["apps/consolidator/src/favicon.ico", "apps/consolidator/src/assets"],
-            "styles": ["apps/consolidator/src/styles.scss"],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "apps/consolidator/src/environments/environment.ts",
-                  "with": "apps/consolidator/src/environments/environment.prod.ts"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
-              "buildOptimizer": false,
-              "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production": {
-              "browserTarget": "consolidator:build:production"
-            },
-            "development": {
-              "browserTarget": "consolidator:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "consolidator:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/consolidator/src/**/*.ts", "apps/consolidator/src/**/*.html"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/consolidator"],
-          "options": {
-            "jestConfig": "apps/consolidator/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "tags": []
-    },
-    "consolidator-e2e": {
-      "root": "apps/consolidator-e2e",
-      "sourceRoot": "apps/consolidator-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/consolidator-e2e/cypress.json",
-            "devServerTarget": "consolidator:serve:development"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "consolidator:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["apps/consolidator-e2e/**/*.{js,ts}"]
-          }
-        }
-      },
-      "tags": [],
-      "implicitDependencies": ["consolidator"]
-    },
-    "consolidator": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "projectType": "application",
       "schematics": {
         "@nrwl/angular:component": {
@@ -357,10 +246,7 @@
             "polyfills": "apps/consolidator/src/polyfills.ts",
             "tsConfig": "apps/consolidator/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/consolidator/src/favicon.ico",
-              "apps/consolidator/src/assets"
-            ],
+            "assets": ["apps/consolidator/src/favicon.ico", "apps/consolidator/src/assets"],
             "styles": [
               "apps/consolidator/src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.css"
@@ -449,23 +335,21 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/consolidator/src/**/*.ts",
-              "apps/consolidator/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/consolidator/src/**/*.ts", "apps/consolidator/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/apps/consolidator"],
           "options": {
-            "jestConfig": "apps/consolidator/jest.config.js",
+            "jestConfig": "apps/consolidator/jest.config.ts",
             "passWithNoTests": true
           }
         }
       }
     },
     "consolidator-e2e": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "root": "apps/consolidator-e2e",
       "sourceRoot": "apps/consolidator-e2e/src",
       "projectType": "application",
@@ -492,6 +376,7 @@
       }
     },
     "general": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "projectType": "library",
       "root": "libs/general",
       "sourceRoot": "libs/general/src",
@@ -507,7 +392,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/general/jest.config.js",
+            "jestConfig": "libs/general/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/general"]
@@ -520,123 +405,8 @@
       },
       "tags": []
     },
-    "linker": {
-      "projectType": "application",
-      "root": "apps/linker",
-      "sourceRoot": "apps/linker/src",
-      "prefix": "perun-web-apps",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/apps/linker",
-            "index": "apps/linker/src/index.html",
-            "main": "apps/linker/src/main.ts",
-            "polyfills": "apps/linker/src/polyfills.ts",
-            "tsConfig": "apps/linker/tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "assets": ["apps/linker/src/favicon.ico", "apps/linker/src/assets"],
-            "styles": ["apps/linker/src/styles.scss"],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "apps/linker/src/environments/environment.ts",
-                  "with": "apps/linker/src/environments/environment.prod.ts"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
-              "buildOptimizer": false,
-              "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production": {
-              "browserTarget": "linker:build:production"
-            },
-            "development": {
-              "browserTarget": "linker:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "linker:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/linker/src/**/*.ts", "apps/linker/src/**/*.html"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/linker"],
-          "options": {
-            "jestConfig": "apps/linker/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "tags": []
-    },
-    "linker-e2e": {
-      "root": "apps/linker-e2e",
-      "sourceRoot": "apps/linker-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/linker-e2e/cypress.json",
-            "devServerTarget": "linker:serve:development"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "linker:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["apps/linker-e2e/**/*.{js,ts}"]
-          }
-        }
-      },
-      "tags": [],
-      "implicitDependencies": ["linker"]
-    },
     "lib-linker": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "projectType": "library",
       "root": "libs/lib-linker",
       "sourceRoot": "libs/lib-linker/src",
@@ -646,22 +416,20 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/lib-linker"],
           "options": {
-            "jestConfig": "libs/lib-linker/jest.config.js",
+            "jestConfig": "libs/lib-linker/jest.config.ts",
             "passWithNoTests": true
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/lib-linker/src/**/*.ts",
-              "libs/lib-linker/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/lib-linker/src/**/*.ts", "libs/lib-linker/src/**/*.html"]
           }
         }
       }
     },
     "linker": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "projectType": "application",
       "root": "apps/linker",
       "sourceRoot": "apps/linker/src",
@@ -764,23 +532,21 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/linker/src/**/*.ts",
-              "apps/linker/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/linker/src/**/*.ts", "apps/linker/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/apps/linker"],
           "options": {
-            "jestConfig": "apps/linker/jest.config.js",
+            "jestConfig": "apps/linker/jest.config.ts",
             "passWithNoTests": true
           }
         }
       }
     },
     "linker-e2e": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "root": "apps/linker-e2e",
       "sourceRoot": "apps/linker-e2e/src",
       "projectType": "application",
@@ -807,6 +573,7 @@
       }
     },
     "password-reset": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -925,7 +692,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/password-reset/jest.config.js",
+            "jestConfig": "apps/password-reset/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/apps/password-reset"]
@@ -934,6 +701,7 @@
       "tags": []
     },
     "password-reset-e2e": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "root": "apps/password-reset-e2e",
       "sourceRoot": "apps/password-reset-e2e/src",
       "projectType": "application",
@@ -963,6 +731,7 @@
       "implicitDependencies": ["password-reset"]
     },
     "perun-animations": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "projectType": "library",
       "root": "libs/perun/animations",
       "sourceRoot": "libs/perun/animations/src",
@@ -981,7 +750,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/perun/animations/jest.config.js",
+            "jestConfig": "libs/perun/animations/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/perun/animations"]
@@ -995,6 +764,7 @@
       "tags": []
     },
     "perun-components": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "projectType": "library",
       "root": "libs/perun/components",
       "sourceRoot": "libs/perun/components/src",
@@ -1013,19 +783,19 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/perun/components/jest.config.js",
+            "jestConfig": "libs/perun/components/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/perun/components"]
         }
       },
       "schematics": {
-        "@nrwl/angular:component": {
-        }
+        "@nrwl/angular:component": {}
       },
       "tags": []
     },
     "perun-dialogs": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "projectType": "library",
       "root": "libs/perun/dialogs",
       "sourceRoot": "libs/perun/dialogs/src",
@@ -1044,7 +814,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/perun/dialogs/jest.config.js",
+            "jestConfig": "libs/perun/dialogs/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/perun/dialogs"]
@@ -1058,6 +828,7 @@
       "tags": []
     },
     "perun-directives": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "projectType": "library",
       "root": "libs/perun/directives",
       "sourceRoot": "libs/perun/directives/src",
@@ -1076,7 +847,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/perun/directives/jest.config.js",
+            "jestConfig": "libs/perun/directives/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/perun/directives"]
@@ -1090,6 +861,7 @@
       "tags": []
     },
     "perun-facility-services-config": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "projectType": "library",
       "root": "libs/perun/facility-services-config",
       "sourceRoot": "libs/perun/facility-services-config/src",
@@ -1108,7 +880,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/perun/facility-services-config/jest.config.js",
+            "jestConfig": "libs/perun/facility-services-config/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/perun/facility-services-config"]
@@ -1122,6 +894,7 @@
       "tags": []
     },
     "perun-login": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "projectType": "library",
       "root": "libs/perun/login",
       "sourceRoot": "libs/perun/login/src",
@@ -1137,7 +910,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/perun/login/jest.config.js",
+            "jestConfig": "libs/perun/login/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/perun/login"]
@@ -1151,6 +924,7 @@
       "tags": []
     },
     "perun-models": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "root": "libs/perun/models",
       "sourceRoot": "libs/perun/models/src",
       "projectType": "library",
@@ -1166,7 +940,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/perun/models/jest.config.js",
+            "jestConfig": "libs/perun/models/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/perun/models"]
@@ -1175,6 +949,7 @@
       "tags": []
     },
     "perun-namespace-password-form": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "projectType": "library",
       "root": "libs/perun/namespace-password-form",
       "sourceRoot": "libs/perun/namespace-password-form/src",
@@ -1184,7 +959,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/perun/namespace-password-form"],
           "options": {
-            "jestConfig": "libs/perun/namespace-password-form/jest.config.js",
+            "jestConfig": "libs/perun/namespace-password-form/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -1202,6 +977,7 @@
       "tags": []
     },
     "perun-openapi": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "projectType": "library",
       "root": "libs/perun/openapi",
       "sourceRoot": "libs/perun/openapi/src",
@@ -1220,7 +996,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/perun/openapi/jest.config.js",
+            "jestConfig": "libs/perun/openapi/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/perun/openapi"]
@@ -1230,6 +1006,7 @@
       "tags": []
     },
     "perun-pipes": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "projectType": "library",
       "root": "libs/perun/pipes",
       "sourceRoot": "libs/perun/pipes/src",
@@ -1245,7 +1022,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/perun/pipes/jest.config.js",
+            "jestConfig": "libs/perun/pipes/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/perun/pipes"]
@@ -1259,6 +1036,7 @@
       "tags": []
     },
     "perun-services": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "root": "libs/perun/services",
       "sourceRoot": "libs/perun/services/src",
       "projectType": "library",
@@ -1277,7 +1055,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/perun/services/jest.config.js",
+            "jestConfig": "libs/perun/services/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/perun/services"]
@@ -1286,6 +1064,7 @@
       "tags": []
     },
     "perun-session-expiration": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "projectType": "library",
       "root": "libs/perun/session-expiration",
       "sourceRoot": "libs/perun/session-expiration/src",
@@ -1304,7 +1083,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/perun/session-expiration/jest.config.js",
+            "jestConfig": "libs/perun/session-expiration/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/perun/session-expiration"]
@@ -1318,6 +1097,7 @@
       "tags": []
     },
     "perun-tokens": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "root": "libs/perun/tokens",
       "sourceRoot": "libs/perun/tokens/src",
       "projectType": "library",
@@ -1333,7 +1113,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/perun/tokens/jest.config.js",
+            "jestConfig": "libs/perun/tokens/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/perun/tokens"]
@@ -1342,6 +1122,7 @@
       "tags": []
     },
     "perun-urns": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "root": "libs/perun/urns",
       "sourceRoot": "libs/perun/urns/src",
       "projectType": "library",
@@ -1357,7 +1138,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/perun/urns/jest.config.js",
+            "jestConfig": "libs/perun/urns/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/perun/urns"]
@@ -1366,6 +1147,7 @@
       "tags": []
     },
     "perun-utils": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "root": "libs/perun/utils",
       "sourceRoot": "libs/perun/utils/src",
       "projectType": "library",
@@ -1381,7 +1163,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/perun/utils/jest.config.js",
+            "jestConfig": "libs/perun/utils/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/perun/utils"]
@@ -1390,6 +1172,7 @@
       "tags": []
     },
     "publications": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -1527,7 +1310,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/publications/jest.config.js",
+            "jestConfig": "apps/publications/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/apps/publications"]
@@ -1536,6 +1319,7 @@
       "tags": []
     },
     "publications-e2e": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "root": "apps/publications-e2e",
       "sourceRoot": "apps/publications-e2e/src",
       "projectType": "application",
@@ -1565,6 +1349,7 @@
       "implicitDependencies": ["publications"]
     },
     "ui": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "projectType": "library",
       "root": "libs/ui",
       "sourceRoot": "libs/ui/src",
@@ -1580,7 +1365,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/ui/jest.config.js",
+            "jestConfig": "libs/ui/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/ui"]
@@ -1594,6 +1379,7 @@
       "tags": []
     },
     "ui-alerts": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "root": "libs/ui/alerts",
       "sourceRoot": "libs/ui/alerts/src",
       "projectType": "library",
@@ -1609,7 +1395,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/ui/alerts/jest.config.js",
+            "jestConfig": "libs/ui/alerts/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/ui/alerts"]
@@ -1618,6 +1404,7 @@
       "tags": []
     },
     "ui-material": {
+      "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "projectType": "library",
       "root": "libs/ui/material",
       "sourceRoot": "libs/ui/material/src",
@@ -1633,7 +1420,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/ui/material/jest.config.js",
+            "jestConfig": "libs/ui/material/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/ui/material"]
@@ -1647,6 +1434,7 @@
       "tags": []
     },
     "user-profile": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "projectType": "application",
       "schematics": {
         "@nrwl/angular:component": {
@@ -1763,7 +1551,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/user-profile/jest.config.js"
+            "jestConfig": "apps/user-profile/jest.config.ts"
           },
           "outputs": ["coverage/apps/user-profile"]
         }
@@ -1771,6 +1559,7 @@
       "tags": []
     },
     "user-profile-e2e": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "root": "apps/user-profile-e2e",
       "sourceRoot": "apps/user-profile-e2e/src",
       "projectType": "application",

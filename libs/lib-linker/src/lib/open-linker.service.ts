@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OtherApplicationsService, StoreService } from '@perun-web-apps/perun/services';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { MatDialog } from '@angular/material/dialog';
-import { MatDialogRef } from '@angular/material/dialog/dialog-ref';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FocusOnLinkerDialogComponent } from './focus-on-linker-dialog/focus-on-linker-dialog.component';
 import { LinkerResult } from './models/LinkerResult';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';

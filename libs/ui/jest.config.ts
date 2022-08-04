@@ -1,6 +1,7 @@
-module.exports = {
-  preset: '../../../jest.preset.js',
-  coverageDirectory: '../../../coverage/libs/config/table-config',
+/* eslint-disable */
+export default {
+  preset: '../../jest.preset.js',
+  coverageDirectory: '../../coverage/libs/ui',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -10,7 +11,7 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
-  displayName: 'config-table-config',
+  displayName: 'ui',
 
   transform: {
     '^.+.(ts|mjs|js|html)$': 'jest-preset-angular',

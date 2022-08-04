@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { StoreService } from '@perun-web-apps/perun/services';
 import { AttributesManagerService, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,7 +15,7 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
   styleUrls: ['./settings-alternative-passwords.component.scss'],
 })
 export class SettingsAlternativePasswordsComponent implements OnInit {
-  altPasswordCtrl = new FormControl(null, [Validators.required]);
+  altPasswordCtrl = new UntypedFormControl(null, [Validators.required]);
   userId = this.store.getPerunPrincipal().userId;
   removeDialogTitle: string;
   removeDialogDescription: string;

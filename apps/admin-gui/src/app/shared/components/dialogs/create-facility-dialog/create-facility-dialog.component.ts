@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FacilitiesManagerService, Facility } from '@perun-web-apps/perun/openapi';
 import { EntityStorageService, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 export interface CreateFacilityDialogData {
@@ -17,8 +17,8 @@ export interface CreateFacilityDialogData {
 })
 export class CreateFacilityDialogComponent implements OnInit {
   theme: string;
-  nameControl = new FormControl('', [Validators.required]);
-  descControl = new FormControl('');
+  nameControl = new UntypedFormControl('', [Validators.required]);
+  descControl = new UntypedFormControl('');
   facilities: Facility[];
   srcFacility: Facility = null;
   loading = false;

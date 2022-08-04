@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { TABLE_USER_SERVICE_IDENTITIES } from '@perun-web-apps/config/table-config';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 
 export interface AddUserServiceIdentityData {
   userId: number;
@@ -29,7 +29,7 @@ export class ConnectIdentityDialogComponent implements OnInit {
   firstSearchDone = false;
   displayedColumns = ['select', 'id', 'user', 'name', 'email', 'logins', 'organization'];
   tableId = TABLE_USER_SERVICE_IDENTITIES;
-  searchCtrl: FormControl;
+  searchCtrl: UntypedFormControl;
   private userId: number;
   private isService: boolean;
 
@@ -47,7 +47,10 @@ export class ConnectIdentityDialogComponent implements OnInit {
     this.theme = this.data.theme;
     this.userId = this.data.userId;
     this.isService = this.data.isService;
-    this.searchCtrl = new FormControl('', [Validators.required, Validators.pattern('.*[\\S]+.*')]);
+    this.searchCtrl = new UntypedFormControl('', [
+      Validators.required,
+      Validators.pattern('.*[\\S]+.*'),
+    ]);
   }
 
   onAdd(): void {

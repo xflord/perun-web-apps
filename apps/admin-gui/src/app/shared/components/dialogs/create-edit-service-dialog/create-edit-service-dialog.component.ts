@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { Service, ServicesManagerService } from '@perun-web-apps/perun/openapi';
 
 export interface CreateServiceDialogData {
@@ -23,10 +23,13 @@ export class CreateEditServiceDialogComponent implements OnInit {
   status = true;
   propagateExpiredMembers = true;
 
-  nameControl = new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9_]+$')]);
-  delayControl = new FormControl(10, [Validators.pattern('^[0-9]*$')]);
-  recurrenceControl = new FormControl(2, [Validators.pattern('^[0-9]*$')]);
-  pathControl = new FormControl('', [Validators.required]);
+  nameControl = new UntypedFormControl('', [
+    Validators.required,
+    Validators.pattern('^[a-zA-Z0-9_]+$'),
+  ]);
+  delayControl = new UntypedFormControl(10, [Validators.pattern('^[0-9]*$')]);
+  recurrenceControl = new UntypedFormControl(2, [Validators.pattern('^[0-9]*$')]);
+  pathControl = new UntypedFormControl('', [Validators.required]);
 
   asEdit = false;
   title: string;

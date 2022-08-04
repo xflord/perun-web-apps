@@ -1,7 +1,7 @@
-module.exports = {
+/* eslint-disable */
+export default {
+  displayName: 'password-reset',
   preset: '../../jest.preset.js',
-  coverageDirectory: '../../coverage/libs/config',
-
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -10,12 +10,9 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
-  displayName: 'config',
+  coverageDirectory: '../../coverage/apps/password-reset',
 
-  transform: {
-    '^.+.(ts|mjs|js|html)$': 'jest-preset-angular',
-  },
-  transformIgnorePatterns: ['node_modules/(?!.*.mjs$)'],
+  transform: { '^.+\\.(ts|js|html)$': 'jest-preset-angular' },
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',

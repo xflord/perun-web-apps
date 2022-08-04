@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { TranslateService } from '@ngx-translate/core';
@@ -17,7 +17,7 @@ export interface ChangeEmailDialogData {
 export class ChangeEmailDialogComponent implements OnInit {
   successMessage: string;
   pendingMails: string[] = [];
-  emailControl: FormControl;
+  emailControl: UntypedFormControl;
   pendingEmailsMessageStart: string;
   pendingEmailsMessageEnd: string;
   pendingEmailsMessage: string;
@@ -42,7 +42,7 @@ export class ChangeEmailDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.emailControl = new FormControl(null, [
+    this.emailControl = new UntypedFormControl(null, [
       Validators.required,
       Validators.pattern(
         /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i

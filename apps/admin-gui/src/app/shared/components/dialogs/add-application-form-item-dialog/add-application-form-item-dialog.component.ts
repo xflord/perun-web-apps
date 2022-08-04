@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { StoreService } from '@perun-web-apps/perun/services';
 import { ApplicationFormItem, Type } from '@perun-web-apps/perun/openapi';
 import { createNewApplicationFormItem } from '@perun-web-apps/perun/utils';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 
 export interface AddApplicationFormItemDialogComponentData {
   applicationFormItems: ApplicationFormItem[];
@@ -41,7 +41,7 @@ export class AddApplicationFormItemDialogComponent implements OnInit {
     'LIST_INPUT_BOX',
     'MAP_INPUT_BOX',
   ];
-  nameCtrl: FormControl;
+  nameCtrl: UntypedFormControl;
 
   constructor(
     private dialogRef: MatDialogRef<AddApplicationFormItemDialogComponent>,
@@ -54,7 +54,7 @@ export class AddApplicationFormItemDialogComponent implements OnInit {
     this.translateService
       .get('DIALOGS.APPLICATION_FORM_ADD_ITEM.INSERT_TO_BEGINNING')
       .subscribe((text: string) => {
-        this.nameCtrl = new FormControl('', [
+        this.nameCtrl = new UntypedFormControl('', [
           Validators.required,
           Validators.pattern('.*[\\S]+.*'),
           Validators.maxLength(129),

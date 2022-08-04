@@ -16,7 +16,7 @@ import {
   RichResource,
   Service,
 } from '@perun-web-apps/perun/openapi';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -41,7 +41,7 @@ export class AddMemberToResourceDialogComponent implements OnInit, AfterViewInit
   processing = false;
   membersGroupsId: Set<number> = new Set<number>();
 
-  facilityCtrl: FormControl = new FormControl();
+  facilityCtrl: UntypedFormControl = new UntypedFormControl();
 
   filteredFacilities: Observable<string[]>;
   facilitiesNames: string[] = [];

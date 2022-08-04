@@ -5,7 +5,7 @@ import {
   UserExtSource,
   UsersManagerService,
 } from '@perun-web-apps/perun/openapi';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificatorService } from '@perun-web-apps/perun/services';
@@ -23,8 +23,8 @@ interface AddUserExtSourceDialogData {
 })
 export class AddUserExtSourceDialogComponent implements OnInit {
   filteredExtSources: Observable<ExtSource[]>;
-  loginControl: FormControl;
-  extSourcesControl: FormControl;
+  loginControl: UntypedFormControl;
+  extSourcesControl: UntypedFormControl;
   loading: boolean;
   private extSources: ExtSource[] = [];
   private successMessage: string;
@@ -44,11 +44,11 @@ export class AddUserExtSourceDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.loginControl = new FormControl('', [
+    this.loginControl = new UntypedFormControl('', [
       Validators.required,
       Validators.pattern('.*[\\S]+.*'),
     ]);
-    this.extSourcesControl = new FormControl('', [Validators.required]);
+    this.extSourcesControl = new UntypedFormControl('', [Validators.required]);
     this.loginControl.markAllAsTouched();
     this.extSourcesControl.markAllAsTouched();
     this.filteredExtSources = this.extSourcesControl.valueChanges.pipe(

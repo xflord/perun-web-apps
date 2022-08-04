@@ -16,7 +16,7 @@ import {
   VoMemberStatuses,
 } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { TABLE_VO_MEMBERS } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { InviteMemberDialogComponent } from '../../../../shared/components/dialogs/invite-member-dialog/invite-member-dialog.component';
@@ -45,7 +45,7 @@ export class VoMembersComponent implements OnInit {
     Urns.MEMBER_DEF_EXPIRATION,
     Urns.MEMBER_LIFECYCLE_ALTERABLE,
   ];
-  statuses = new FormControl();
+  statuses = new UntypedFormControl();
   statusList = ['VALID', 'INVALID', 'EXPIRED', 'DISABLED'];
   selectedStatuses: VoMemberStatuses[] = [];
   tableId = TABLE_VO_MEMBERS;

@@ -1,6 +1,8 @@
-module.exports = {
-  displayName: 'perun-session-expiration',
+/* eslint-disable */
+export default {
   preset: '../../../jest.preset.js',
+  coverageDirectory: '../../../coverage/libs/config/table-config',
+
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -9,7 +11,7 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
-  coverageDirectory: '../../../coverage/libs/perun/session-expiration',
+  displayName: 'config-table-config',
 
   transform: {
     '^.+.(ts|mjs|js|html)$': 'jest-preset-angular',

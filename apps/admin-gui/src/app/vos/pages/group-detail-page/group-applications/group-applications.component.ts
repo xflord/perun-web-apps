@@ -5,7 +5,7 @@ import {
   TABLE_GROUP_APPLICATIONS_NORMAL,
 } from '@perun-web-apps/config/table-config';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -52,8 +52,8 @@ export class GroupApplicationsComponent implements OnInit {
   detailTableId = TABLE_GROUP_APPLICATIONS_DETAILED;
   tableId = TABLE_GROUP_APPLICATIONS_NORMAL;
   refresh = false;
-  startDate: FormControl;
-  endDate: FormControl;
+  startDate: UntypedFormControl;
+  endDate: UntypedFormControl;
 
   constructor(
     private registrarManager: RegistrarManagerService,
@@ -63,8 +63,8 @@ export class GroupApplicationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.group = this.entityStorageService.getEntity();
-    this.startDate = new FormControl(formatDate(this.yearAgo(), 'yyyy-MM-dd', 'en-GB'));
-    this.endDate = new FormControl(formatDate(new Date(), 'yyyy-MM-dd', 'en-GB'));
+    this.startDate = new UntypedFormControl(formatDate(this.yearAgo(), 'yyyy-MM-dd', 'en-GB'));
+    this.endDate = new UntypedFormControl(formatDate(new Date(), 'yyyy-MM-dd', 'en-GB'));
   }
 
   select(): void {

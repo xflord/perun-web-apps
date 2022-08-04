@@ -21,9 +21,9 @@
       "@perun-web-apps/config/table-config": ["libs/config/table-config/src/index.ts"],
       "@perun-web-apps/dialogs": ["libs/dialogs/src/index.ts"],
       "@perun-web-apps/general": ["libs/general/src/index.ts"],
+      "@perun-web-apps/lib-linker": ["libs/lib-linker/src/index.ts"],
       "@perun-web-apps/perun/animations": ["libs/perun/animations/src/index.ts"],
       "@perun-web-apps/perun/components": ["libs/perun/components/src/index.ts"],
-      "@perun-web-apps/lib-linker": ["libs/lib-linker/src/index.ts"],
       "@perun-web-apps/perun/dialogs": ["libs/perun/dialogs/src/index.ts"],
       "@perun-web-apps/perun/directives": ["libs/perun/directives/src/index.ts"],
       "@perun-web-apps/perun/facility-services-config": [

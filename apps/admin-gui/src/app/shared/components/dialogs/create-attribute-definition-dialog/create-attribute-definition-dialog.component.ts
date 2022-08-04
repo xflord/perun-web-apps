@@ -5,7 +5,7 @@ import {
   AttributePolicyCollection,
   AttributesManagerService,
 } from '@perun-web-apps/perun/openapi';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { debounceTime, switchMap } from 'rxjs/operators';
 import { BehaviorSubject, of, zip } from 'rxjs';
 import { AttributeRightsService, NotificatorService } from '@perun-web-apps/perun/services';
@@ -67,7 +67,7 @@ export class CreateAttributeDefinitionDialogComponent {
 
   constructor(
     private dialogRef: MatDialogRef<CreateAttributeDefinitionDialogComponent>,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private attributeService: AttributesManagerService,
     private attributeRightsService: AttributeRightsService,
     private notificator: NotificatorService,

@@ -5,7 +5,7 @@ import { NotificatorService } from '@perun-web-apps/perun/services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import {
   AuthzResolverService,
@@ -45,7 +45,7 @@ export class AddGroupManagerDialogComponent implements OnInit {
 
   selectedRole: Role;
   filteredOptions: Observable<Vo[]>;
-  myControl = new FormControl();
+  myControl = new UntypedFormControl();
   firstSearchDone = false;
 
   availableRoles: Role[];

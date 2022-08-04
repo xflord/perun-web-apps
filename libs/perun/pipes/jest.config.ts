@@ -1,6 +1,7 @@
-module.exports = {
+/* eslint-disable */
+export default {
   preset: '../../../jest.preset.js',
-  coverageDirectory: '../../../coverage/libs/ui/material',
+  coverageDirectory: '../../../coverage/libs/perun/pipes',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -10,7 +11,7 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
-  displayName: 'ui-material',
+  displayName: 'perun-pipes',
 
   transform: {
     '^.+.(ts|mjs|js|html)$': 'jest-preset-angular',

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { UntypedFormGroup, Validators } from '@angular/forms';
 import { enableFormControl } from '@perun-web-apps/perun/utils';
 import { loginAsyncValidator } from '@perun-web-apps/perun/namespace-password-form';
 import { MembersManagerService, UsersManagerService } from '@perun-web-apps/perun/openapi';
@@ -11,7 +11,7 @@ import { ApiRequestConfigurationService } from '@perun-web-apps/perun/services';
   styleUrls: ['./login-password-form-with-generate-option.component.scss'],
 })
 export class LoginPasswordFormWithGenerateOptionComponent {
-  @Input() formGroup: FormGroup;
+  @Input() formGroup: UntypedFormGroup;
   @Input() filteredNamespace: string[] = null;
   @Output() parsedRulesOutput = new EventEmitter<Map<string, { login: string }>>();
 

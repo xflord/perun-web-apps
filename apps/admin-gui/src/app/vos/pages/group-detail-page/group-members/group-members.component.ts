@@ -21,7 +21,7 @@ import {
 import { TABLE_GROUP_MEMBERS } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig, isGroupSynchronized } from '@perun-web-apps/perun/utils';
 import { InviteMemberDialogComponent } from '../../../../shared/components/dialogs/invite-member-dialog/invite-member-dialog.component';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RPCError } from '@perun-web-apps/perun/models';
 import { GroupAddMemberDialogComponent } from '../../../components/group-add-member-dialog/group-add-member-dialog.component';
@@ -66,10 +66,10 @@ export class GroupMembersComponent implements OnInit {
     'email',
     'logins',
   ];
-  statuses = new FormControl();
+  statuses = new UntypedFormControl();
   statusList = ['VALID', 'INVALID', 'EXPIRED', 'DISABLED'];
   selectedStatuses: VoMemberStatuses[] = ['VALID', 'INVALID'];
-  groupStatuses = new FormControl();
+  groupStatuses = new UntypedFormControl();
   groupStatusList = ['VALID', 'EXPIRED'];
   selectedGroupStatuses: MemberGroupStatus[] = ['VALID'];
   private groupAttrNames = [

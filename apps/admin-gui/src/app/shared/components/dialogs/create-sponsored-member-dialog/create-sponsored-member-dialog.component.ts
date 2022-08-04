@@ -15,7 +15,7 @@ import {
   GuiAuthResolver,
   StoreService,
 } from '@perun-web-apps/perun/services';
-import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { Role } from '@perun-web-apps/perun/models';
@@ -47,8 +47,8 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
 
   namespaceOptions: string[] = [];
   selectedNamespace: string = null;
-  userControl: FormGroup = null;
-  namespaceControl: FormGroup = null;
+  userControl: UntypedFormGroup = null;
+  namespaceControl: UntypedFormGroup = null;
   voSponsors: RichUser[] = [];
   selectedSponsor: User = null;
   sponsorType = 'self';
@@ -71,7 +71,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     private translator: TranslateService,
     private authzService: AuthzResolverService,
     private guiAuthResolver: GuiAuthResolver,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private cd: ChangeDetectorRef
   ) {}
 

@@ -4,7 +4,7 @@ import { NotificatorService, StoreService } from '@perun-web-apps/perun/services
 import { MembersManagerService, RichMember } from '@perun-web-apps/perun/openapi';
 import { TranslateService } from '@ngx-translate/core';
 import { formatDate } from '@angular/common';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { TABLE_ADD_SPONSORED_MEMBERS } from '@perun-web-apps/config/table-config';
@@ -24,7 +24,7 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
   theme: string;
   tableId = TABLE_ADD_SPONSORED_MEMBERS;
   expiration = 'never';
-  searchCtrl: FormControl = new FormControl('', [Validators.required]);
+  searchCtrl: UntypedFormControl = new UntypedFormControl('', [Validators.required]);
   firstSearchDone = false;
   members: RichMember[] = [];
   selection: SelectionModel<RichMember> = new SelectionModel<RichMember>(true, []);

@@ -8,7 +8,7 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Moment } from 'moment';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import * as _moment from 'moment';
@@ -54,10 +54,10 @@ export class PublicationDetailListComponent implements OnInit {
   keys: string[];
   values: string[];
   map: { key: string; value: string }[] = [];
-  yearControl: FormControl;
-  categoryControl: FormControl;
-  rankControl: FormControl;
-  titleControl: FormControl;
+  yearControl: UntypedFormControl;
+  categoryControl: UntypedFormControl;
+  rankControl: UntypedFormControl;
+  titleControl: UntypedFormControl;
   editing = false;
   maxYear: Moment;
 
@@ -97,10 +97,10 @@ export class PublicationDetailListComponent implements OnInit {
     }
     this.dataSource = new MatTableDataSource<{ key; value }>(this.map);
 
-    this.titleControl = new FormControl(this.publication.title, Validators.required);
-    this.yearControl = new FormControl(moment().year(this.publication.year));
-    this.categoryControl = new FormControl(this.publication.categoryName);
-    this.rankControl = new FormControl(this.publication.rank, [
+    this.titleControl = new UntypedFormControl(this.publication.title, Validators.required);
+    this.yearControl = new UntypedFormControl(moment().year(this.publication.year));
+    this.categoryControl = new UntypedFormControl(this.publication.categoryName);
+    this.rankControl = new UntypedFormControl(this.publication.rank, [
       Validators.pattern(/^[0-9]+(\.[0-9])?$/),
       Validators.required,
     ]);

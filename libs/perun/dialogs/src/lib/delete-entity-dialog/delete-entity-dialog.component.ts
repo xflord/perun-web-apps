@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Facility, Group, Resource, Service, User, Vo } from '@perun-web-apps/perun/openapi';
 
@@ -39,11 +39,11 @@ export class DeleteEntityDialogComponent implements OnInit {
   force = false;
 
   deleteReg: RegExp;
-  deleteControl: FormControl;
+  deleteControl: UntypedFormControl;
 
   ngOnInit(): void {
     this.deleteReg = this.anonymize ? /^ANONYMIZE$/ : /^DELETE$/;
-    this.deleteControl = new FormControl('', [
+    this.deleteControl = new UntypedFormControl('', [
       Validators.required,
       Validators.pattern(this.deleteReg),
     ]);

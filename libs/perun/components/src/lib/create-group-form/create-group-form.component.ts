@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { StoreService } from '@perun-web-apps/perun/services';
 import { Group } from '@perun-web-apps/perun/openapi';
 
@@ -20,20 +20,23 @@ export class CreateGroupFormComponent implements OnInit {
   asSubgroup = false;
   invalidNameMessage: string = this.store.get('group_name_error_message') as string;
   secondaryRegex: string = this.store.get('group_name_secondary_regex') as string;
-  nameControl: FormControl;
-  descriptionControl: FormControl;
+  nameControl: UntypedFormControl;
+  descriptionControl: UntypedFormControl;
   selectedParent: Group;
 
   constructor(private store: StoreService) {}
 
   ngOnInit(): void {
     this.isNotSubGroup = this.parentGroup === null;
-    this.nameControl = new FormControl('', [
+    this.nameControl = new UntypedFormControl('', [
       Validators.required,
       Validators.pattern(this.secondaryRegex ? this.secondaryRegex : ''),
       Validators.pattern('.*[\\S]+.*'),
     ]);
-    this.descriptionControl = new FormControl('', [Validators.required, Validators.maxLength(129)]);
+    this.descriptionControl = new UntypedFormControl('', [
+      Validators.required,
+      Validators.maxLength(129),
+    ]);
     this.selectedParent = null;
     this.voGroups = this.voGroups.filter((grp) => grp.name !== 'members');
   }

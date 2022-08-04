@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 
 export interface AddUnixGroupDialogData {
   userId: number;
@@ -15,7 +15,7 @@ export interface AddUnixGroupDialogData {
   styleUrls: ['./add-unix-group-dialog.component.scss'],
 })
 export class AddUnixGroupDialogComponent implements OnInit {
-  inputControl: FormControl;
+  inputControl: UntypedFormControl;
   loading: boolean;
   groups: string[] = [];
 
@@ -26,7 +26,7 @@ export class AddUnixGroupDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.inputControl = new FormControl(null, Validators.required);
+    this.inputControl = new UntypedFormControl(null, Validators.required);
     this.groups = this.data.groups;
   }
 

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MemberCandidate } from '@perun-web-apps/perun/openapi';
 import { TABLE_ADD_MEMBER_CANDIDATES_DIALOG } from '@perun-web-apps/config/table-config';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { FailedCandidate } from '../../../../vos/components/add-member.service';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -26,7 +26,7 @@ export class AddMemberDialogComponent implements OnInit {
   @Output() search: EventEmitter<string> = new EventEmitter<string>();
   @Output() invite: EventEmitter<string> = new EventEmitter<string>();
   tableId = TABLE_ADD_MEMBER_CANDIDATES_DIALOG;
-  searchCtrl: FormControl = new FormControl('', [
+  searchCtrl: UntypedFormControl = new UntypedFormControl('', [
     Validators.required,
     Validators.pattern('.*[\\S]+.*'),
   ]);

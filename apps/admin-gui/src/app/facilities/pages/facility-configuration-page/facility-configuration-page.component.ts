@@ -25,7 +25,7 @@ import { NoServiceDialogComponent } from '../../components/no-service-dialog/no-
 import { ConfigUnsavedDialogComponent } from '../../components/config-unsaved-dialog/config-unsaved-dialog.component';
 import { CancelConfigurationDialogComponent } from '../../components/cancel-configuration-dialog/cancel-configuration-dialog.component';
 import { Router } from '@angular/router';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 
 @Component({
@@ -53,8 +53,8 @@ export class FacilityConfigurationPageComponent implements OnInit, AfterViewInit
   availableRoles: string[] = [];
   filterValue = '';
   ATTRIBUTES_IDX = 3;
-  serviceControl: FormControl = new FormControl(false, Validators.requiredTrue);
-  attributesControl: FormControl = new FormControl(true, Validators.requiredTrue);
+  serviceControl: UntypedFormControl = new UntypedFormControl(false, Validators.requiredTrue);
+  attributesControl: UntypedFormControl = new UntypedFormControl(true, Validators.requiredTrue);
   private allowNavigate = false;
   private attributes: Attribute[] = [];
   private attributeIds: Set<number> = new Set<number>();

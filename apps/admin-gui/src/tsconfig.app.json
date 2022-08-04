@@ -5,12 +5,6 @@
     "outDir": "../out-tsc/app",
     "types": []
   },
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts",
-    "**/*.test.ts"
-  ],
-  "include": [
-    "../**/*.ts"
-  ]
+  "exclude": ["test.ts", "**/*.spec.ts", "**/*.test.ts", "jest.config.ts"],
+  "include": ["../**/*.ts"]
 }

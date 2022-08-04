@@ -9,7 +9,7 @@ import {
   Service,
   ServicesManagerService,
 } from '@perun-web-apps/perun/openapi';
-import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, ValidatorFn, Validators } from '@angular/forms';
 import { emailRegexString } from '@perun-web-apps/perun/utils';
 
 export interface AddServicesDestinationDialogData {
@@ -27,7 +27,7 @@ export interface AddServicesDestinationDialogData {
 export class AddServicesDestinationDialogComponent implements OnInit {
   servicesOnFacility: boolean;
   services: Service[] = [];
-  serviceControl: FormControl;
+  serviceControl: UntypedFormControl;
   types: string[] = [
     'host',
     'user@host',
@@ -42,10 +42,10 @@ export class AddServicesDestinationDialogComponent implements OnInit {
   selectedType = 'host';
   propagations: string[] = ['PARALLEL', 'DUMMY'];
   selectedPropagation = 'PARALLEL';
-  destinationControl: FormControl;
+  destinationControl: UntypedFormControl;
   useFacilityHost = false;
   loading = false;
-  private emailControl: FormControl;
+  private emailControl: UntypedFormControl;
 
   private emailRegex = new RegExp(emailRegexString);
   private hostPattern = new RegExp(
@@ -70,9 +70,9 @@ export class AddServicesDestinationDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.serviceControl = new FormControl(undefined, Validators.required);
-    this.destinationControl = new FormControl('', this.getDestinationValidator());
-    this.emailControl = new FormControl('', [
+    this.serviceControl = new UntypedFormControl(undefined, Validators.required);
+    this.destinationControl = new UntypedFormControl('', this.getDestinationValidator());
+    this.emailControl = new UntypedFormControl('', [
       Validators.required,
       Validators.pattern(this.emailRegex),
     ]);

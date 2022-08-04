@@ -12,7 +12,7 @@ import {
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 
 export enum EditFacilityResourceGroupVoDialogOptions {
   FACILITY,
@@ -42,8 +42,8 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
       : '';
 
   theme: string;
-  nameCtrl: FormControl;
-  descriptionCtrl: FormControl;
+  nameCtrl: UntypedFormControl;
+  descriptionCtrl: UntypedFormControl;
   shortName: string;
   dialogType: EditFacilityResourceGroupVoDialogOptions;
   loading = false;
@@ -69,39 +69,39 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
     this.dialogType = this.data.dialogType;
     switch (this.dialogType) {
       case EditFacilityResourceGroupVoDialogOptions.FACILITY:
-        this.nameCtrl = new FormControl(this.data.facility.name, [
+        this.nameCtrl = new UntypedFormControl(this.data.facility.name, [
           Validators.required,
           Validators.pattern('.*[\\S]+.*'),
           Validators.maxLength(129),
         ]);
-        this.descriptionCtrl = new FormControl(this.data.facility.description);
+        this.descriptionCtrl = new UntypedFormControl(this.data.facility.description);
         break;
       case EditFacilityResourceGroupVoDialogOptions.RESOURCE:
-        this.nameCtrl = new FormControl(this.data.resource.name, [
+        this.nameCtrl = new UntypedFormControl(this.data.resource.name, [
           Validators.required,
           Validators.pattern('.*[\\S]+.*'),
         ]);
-        this.descriptionCtrl = new FormControl(this.data.resource.description);
+        this.descriptionCtrl = new UntypedFormControl(this.data.resource.description);
         break;
       case EditFacilityResourceGroupVoDialogOptions.GROUP: {
         const nameParts = this.data.group.name.split(':');
-        this.nameCtrl = new FormControl(nameParts[nameParts.length - 1], [
+        this.nameCtrl = new UntypedFormControl(nameParts[nameParts.length - 1], [
           Validators.required,
           Validators.pattern('.*[\\S]+.*'),
           Validators.pattern(this.secondaryRegex),
           Validators.maxLength(129),
         ]);
-        this.descriptionCtrl = new FormControl(this.data.group.description);
+        this.descriptionCtrl = new UntypedFormControl(this.data.group.description);
         break;
       }
       case EditFacilityResourceGroupVoDialogOptions.VO:
         this.shortName = this.data.vo.shortName;
-        this.nameCtrl = new FormControl(this.data.vo.name, [
+        this.nameCtrl = new UntypedFormControl(this.data.vo.name, [
           Validators.required,
           Validators.pattern('.*[\\S]+.*'),
           Validators.maxLength(129),
         ]);
-        this.descriptionCtrl = new FormControl();
+        this.descriptionCtrl = new UntypedFormControl();
         break;
     }
   }

@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { InputCreateOwner, OwnersManagerService } from '@perun-web-apps/perun/openapi';
 import { TranslateService } from '@ngx-translate/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { emailRegexString } from '@perun-web-apps/perun/utils';
 import OwnerTypeEnum = InputCreateOwner.OwnerTypeEnum;
 
@@ -15,8 +15,8 @@ import OwnerTypeEnum = InputCreateOwner.OwnerTypeEnum;
 export class AddOwnerDialogComponent implements OnInit {
   successMessage: string;
   loading: boolean;
-  nameCtrl: FormControl;
-  contactCtrl: FormControl;
+  nameCtrl: UntypedFormControl;
+  contactCtrl: UntypedFormControl;
   type = '1';
 
   constructor(
@@ -31,11 +31,11 @@ export class AddOwnerDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.nameCtrl = new FormControl(null, [
+    this.nameCtrl = new UntypedFormControl(null, [
       Validators.required,
       Validators.pattern('^[\\w.-]+( [\\w.-]+)*$'),
     ]);
-    this.contactCtrl = new FormControl(null, [
+    this.contactCtrl = new UntypedFormControl(null, [
       Validators.required,
       Validators.pattern(emailRegexString),
     ]);

@@ -1,5 +1,5 @@
 import { ErrorStateMatcher } from '@angular/material/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '@perun-web-apps/perun/services';
 import { Observable, of, timer } from 'rxjs';
@@ -16,7 +16,7 @@ interface PasswordError {
  * is shown after leaving the input field)
  */
 export class ImmediateStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null): boolean {
+  isErrorState(control: UntypedFormControl | null): boolean {
     return !!(control?.invalid && control?.dirty);
   }
 }
@@ -28,7 +28,7 @@ export const loginAsyncValidator =
     apiRequestConfiguration: ApiRequestConfigurationService,
     time = 500
   ) =>
-  (input: FormControl): Observable<PasswordError | null> =>
+  (input: UntypedFormControl): Observable<PasswordError | null> =>
     timer(time).pipe(
       switchMap(() => {
         apiRequestConfiguration.dontHandleErrorForNext();

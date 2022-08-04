@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   AttributesManagerService,
@@ -22,14 +22,14 @@ export interface SetLoginDialogComponentData {
   styleUrls: ['./set-login-dialog.component.scss'],
 })
 export class SetLoginDialogComponent implements OnInit, AfterViewInit {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   processing = false;
   userId: number;
 
   constructor(
     private dialogRef: MatDialogRef<SetLoginDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: SetLoginDialogComponentData,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private usersManagerService: UsersManagerService,
     private membersManagerService: MembersManagerService,
     private attributesManagerService: AttributesManagerService,

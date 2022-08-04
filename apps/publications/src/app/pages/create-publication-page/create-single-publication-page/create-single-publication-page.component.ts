@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import {
   Author,
   CabinetManagerService,
@@ -50,7 +50,7 @@ export const YEAR_MODE_FORMATS = {
   ],
 })
 export class CreateSinglePublicationPageComponent implements OnInit {
-  publicationControl: FormGroup;
+  publicationControl: UntypedFormGroup;
   similarPublications: PublicationForGUI[] = [];
   filteredPublications: PublicationForGUI[] = [];
   categories: Category[] = [];
@@ -71,7 +71,7 @@ export class CreateSinglePublicationPageComponent implements OnInit {
   selectedPubTitle = '';
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private cabinetService: CabinetManagerService,
     private dialog: MatDialog,
     private router: Router,

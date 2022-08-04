@@ -7,7 +7,7 @@ import {
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 
 export interface EditApplicationFormItemDataDialogData {
   theme: string;
@@ -24,8 +24,8 @@ export class EditApplicationFormItemDataDialogComponent implements OnInit {
   loading = false;
   theme: string;
   itemName: string;
-  inputControl: FormControl = null;
-  emailControl: FormControl = null;
+  inputControl: UntypedFormControl = null;
+  emailControl: UntypedFormControl = null;
   private formItemData: ApplicationFormItemData;
 
   constructor(
@@ -51,12 +51,12 @@ export class EditApplicationFormItemDataDialogComponent implements OnInit {
     this.itemName = EditApplicationFormItemDataDialogComponent.getLabel(this.formItemData.formItem);
 
     if (this.itemName.toLowerCase().includes('mail')) {
-      this.emailControl = new FormControl(this.formItemData.value, [
+      this.emailControl = new UntypedFormControl(this.formItemData.value, [
         Validators.required,
         Validators.email,
       ]);
     } else {
-      this.inputControl = new FormControl(this.formItemData.value, [Validators.required]);
+      this.inputControl = new UntypedFormControl(this.formItemData.value, [Validators.required]);
     }
   }
 

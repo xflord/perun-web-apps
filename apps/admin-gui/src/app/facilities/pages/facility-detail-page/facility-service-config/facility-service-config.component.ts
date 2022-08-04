@@ -12,7 +12,7 @@ import {
   Vo,
 } from '@perun-web-apps/perun/openapi';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { UserFullNamePipe } from '@perun-web-apps/perun/pipes';
@@ -27,10 +27,10 @@ export type ServiceSelectValue = 'ALL' | 'NOT_SELECTED';
   styleUrls: ['./facility-service-config.component.scss'],
 })
 export class FacilityServiceConfigComponent implements OnInit {
-  serviceField = new FormControl();
-  resourceField = new FormControl();
-  groupField = new FormControl();
-  memberField = new FormControl();
+  serviceField = new UntypedFormControl();
+  resourceField = new UntypedFormControl();
+  groupField = new UntypedFormControl();
+  memberField = new UntypedFormControl();
 
   filteredServices: Observable<Service[] | ServiceSelectValue[]>;
   filteredResources: Observable<Resource[]>;

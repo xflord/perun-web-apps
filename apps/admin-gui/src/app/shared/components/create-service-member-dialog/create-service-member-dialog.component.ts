@@ -22,7 +22,13 @@ import {
   StoreService,
 } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
-import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TABLE_VO_MEMBERS } from '@perun-web-apps/config/table-config';
 import { CustomValidators } from '@perun-web-apps/perun/utils';
@@ -40,14 +46,14 @@ export interface CreateServiceMemberDialogData {
 })
 export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit {
   @ViewChild('stepper') stepper: MatStepper;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+  firstFormGroup: UntypedFormGroup;
+  secondFormGroup: UntypedFormGroup;
 
   parsedRules: Map<string, { login: string }> = new Map<string, { login: string }>();
 
   loading: boolean;
   firstSearchDone = false;
-  searchCtrl = new FormControl('');
+  searchCtrl = new UntypedFormControl('');
   members: RichMember[] = [];
   selection = new SelectionModel<RichMember>(true, []);
   tableId = TABLE_VO_MEMBERS;
@@ -66,7 +72,7 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
     private translate: TranslateService,
     private store: StoreService,
     private apiRequestConfiguration: ApiRequestConfigurationService,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     private cd: ChangeDetectorRef
   ) {
     translate

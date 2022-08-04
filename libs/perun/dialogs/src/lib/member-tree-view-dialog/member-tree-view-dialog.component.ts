@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Group, GroupsManagerService, RichMember } from '@perun-web-apps/perun/openapi';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { parseFullName } from '@perun-web-apps/perun/utils';
 
 export interface MemberTreeViewDialogData {
@@ -30,7 +30,7 @@ export class MemberTreeViewDialogComponent implements OnInit {
   treeControl = new NestedTreeControl<GroupNode>((node) => node.children);
   loading: boolean;
   dataSource = new MatTreeNestedDataSource<GroupNode>();
-  formControl = new FormControl('');
+  formControl = new UntypedFormControl('');
   userName = '';
   private groupTree: GroupNode[] = [];
   private paths: Group[][] = [];

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CabinetManagerService, Category } from '@perun-web-apps/perun/openapi';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import * as _moment from 'moment';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -46,12 +46,12 @@ export class PublicationFilterComponent implements OnInit {
   @Output() filteredPublication: EventEmitter<FilterPublication> =
     new EventEmitter<FilterPublication>();
   categories: Category[];
-  title = new FormControl();
-  code = new FormControl();
+  title = new UntypedFormControl();
+  code = new UntypedFormControl();
   selectedMode: string;
   selectedCategory: Category | 'no_value';
-  startYear = new FormControl(moment());
-  endYear = new FormControl(moment());
+  startYear = new UntypedFormControl(moment());
+  endYear = new UntypedFormControl(moment());
 
   constructor(private cabinetService: CabinetManagerService) {}
 
@@ -83,8 +83,8 @@ export class PublicationFilterComponent implements OnInit {
     this.code.setValue('');
     this.selectedMode = 'isbn/issn';
     this.selectedCategory = 'no_value';
-    this.startYear = new FormControl(moment());
-    this.endYear = new FormControl(moment());
+    this.startYear = new UntypedFormControl(moment());
+    this.endYear = new UntypedFormControl(moment());
     const filter = {
       title: null,
       isbnissn: null,

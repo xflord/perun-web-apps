@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
 
 @Component({
@@ -8,8 +8,8 @@ import { MatDatepicker } from '@angular/material/datepicker';
   styleUrls: ['./year-range.component.scss'],
 })
 export class YearRangeComponent implements OnInit {
-  @Input() startYear: FormControl;
-  @Input() endYear: FormControl;
+  @Input() startYear: UntypedFormControl;
+  @Input() endYear: UntypedFormControl;
   startMaxYear: Date;
   endMinYear: Date;
   endMaxYear: Date;
@@ -21,8 +21,8 @@ export class YearRangeComponent implements OnInit {
   }
 
   chosenYearHandler(
-    dateFormControl: FormControl,
-    event: FormControl,
+    dateFormControl: UntypedFormControl,
+    event: UntypedFormControl,
     datepicker: MatDatepicker<Date>
   ): void {
     dateFormControl.setValue(event);

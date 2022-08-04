@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   AbstractControl,
   AsyncValidatorFn,
-  FormGroup,
+  UntypedFormGroup,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
@@ -21,7 +21,7 @@ import { enableFormControl } from '@perun-web-apps/perun/utils';
   styleUrls: ['./login-for-namespace.component.scss'],
 })
 export class LoginForNamespaceComponent implements OnInit {
-  @Input() formGroup: FormGroup;
+  @Input() formGroup: UntypedFormGroup;
   @Input() filteredNamespaces: string[] = null;
   @Output() namespaceChanged = new EventEmitter<string>();
   @Output() parsedRulesChanged = new EventEmitter<Map<string, { login: string }>>();

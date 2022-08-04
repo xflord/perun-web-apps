@@ -11,7 +11,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { GroupResourceStatus, PerunBean } from '@perun-web-apps/perun/openapi';
@@ -38,8 +38,8 @@ export class EntitySearchSelectComponent<T extends PerunBean>
   @ViewChild('scrollViewport', { static: false }) scrollViewport: CdkVirtualScrollViewport;
   @Input() searchFunction: (entity: T) => string;
 
-  entitiesCtrl: FormControl = new FormControl();
-  entityFilterCtrl: FormControl = new FormControl();
+  entitiesCtrl: UntypedFormControl = new UntypedFormControl();
+  entityFilterCtrl: UntypedFormControl = new UntypedFormControl();
   filteredEntities = new ReplaySubject<T[]>(1);
   protected _onDestroy = new Subject<void>();
   private entitiesLen = 0;

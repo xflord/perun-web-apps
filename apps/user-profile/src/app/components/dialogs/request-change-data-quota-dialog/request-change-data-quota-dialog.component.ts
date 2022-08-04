@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { RichResource, RTMessagesManagerService, User, Vo } from '@perun-web-apps/perun/openapi';
 import { UserFullNamePipe } from '@perun-web-apps/perun/pipes';
 import { NotificatorService } from '@perun-web-apps/perun/services';
@@ -21,8 +21,8 @@ export interface RequestChangeDataQuotaDialogData {
 export class RequestChangeDataQuotaDialogComponent implements OnInit {
   resource = '';
   currentQuota = '';
-  reasonControl: FormControl;
-  newValueControl: FormControl;
+  reasonControl: UntypedFormControl;
+  newValueControl: UntypedFormControl;
   units: string[] = ['MiB', 'GiB', 'TiB'];
   selectedUnit = 'GiB';
   successMessage: string;
@@ -42,8 +42,8 @@ export class RequestChangeDataQuotaDialogComponent implements OnInit {
   ngOnInit(): void {
     this.resource = this.data.resource.name;
     this.currentQuota = this.data.currentQuota;
-    this.reasonControl = new FormControl(null, [Validators.required]);
-    this.newValueControl = new FormControl(null, [
+    this.reasonControl = new UntypedFormControl(null, [Validators.required]);
+    this.newValueControl = new UntypedFormControl(null, [
       Validators.required,
       Validators.pattern('[1-9][0-9]*'),
     ]);

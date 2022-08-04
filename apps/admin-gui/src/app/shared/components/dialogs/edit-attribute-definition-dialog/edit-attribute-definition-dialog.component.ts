@@ -15,7 +15,7 @@ import { TABLE_ENTITYLESS_ATTRIBUTE_KEYS } from '@perun-web-apps/config/table-co
 import { Clipboard } from '@angular/cdk/clipboard';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 export interface EditAttributeDefinitionDialogData {
   attDef: AttributeDefinition;
@@ -32,7 +32,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
   loading = false;
   showKeys = false;
   attDef: AttributeDefinition = this.data.attDef;
-  attributeControl: FormGroup = this.formBuilder.group({
+  attributeControl: UntypedFormGroup = this.formBuilder.group({
     name: [this.attDef.displayName, Validators.required],
     description: [this.attDef.description, Validators.required],
   });
@@ -49,7 +49,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     private clipboard: Clipboard,
     private attributesManager: AttributesManagerService,
     private serviceService: ServicesManagerService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private attributeRightsService: AttributeRightsService
   ) {}
 

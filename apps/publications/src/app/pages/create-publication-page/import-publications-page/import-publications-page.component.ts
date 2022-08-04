@@ -6,7 +6,7 @@ import {
   PublicationForGUI,
   PublicationSystem,
 } from '@perun-web-apps/perun/openapi';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import * as _moment from 'moment';
@@ -50,7 +50,7 @@ export const YEAR_MODE_FORMATS = {
 export class ImportPublicationsPageComponent implements OnInit {
   loading = false;
   publicationSystems: PublicationSystem[] = [];
-  pubSystem = new FormControl();
+  pubSystem = new UntypedFormControl();
   pubSystemNamespace: string;
   publications: PublicationForGUI[] = [];
 
@@ -59,8 +59,8 @@ export class ImportPublicationsPageComponent implements OnInit {
   displayedColumns = ['select', 'id', 'lock', 'title', 'reportedBy', 'year', 'category'];
   firstSearchDone: boolean;
 
-  startYear: FormControl;
-  endYear: FormControl;
+  startYear: UntypedFormControl;
+  endYear: UntypedFormControl;
 
   userId: number;
   userAsAuthor = true;
@@ -84,8 +84,8 @@ export class ImportPublicationsPageComponent implements OnInit {
     this.firstSearchDone = false;
     this.userId = this.storeService.getPerunPrincipal().user.id;
 
-    this.startYear = new FormControl(moment().subtract(1, 'year'));
-    this.endYear = new FormControl(moment());
+    this.startYear = new UntypedFormControl(moment().subtract(1, 'year'));
+    this.endYear = new UntypedFormControl(moment());
 
     this.cabinetService.getPublicationSystems().subscribe((publicationSystems) => {
       this.publicationSystems = publicationSystems.filter((ps) => ps.friendlyName !== 'INTERNAL');

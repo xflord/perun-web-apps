@@ -4,7 +4,7 @@ import {
   TABLE_VO_APPLICATIONS_DETAILED,
   TABLE_VO_APPLICATIONS_NORMAL,
 } from '@perun-web-apps/config/table-config';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { EntityStorageService } from '@perun-web-apps/perun/services';
 import { MatCheckboxChange } from '@angular/material/checkbox';
@@ -52,8 +52,8 @@ export class VoApplicationsComponent implements OnInit {
   showAllDetails = false;
   detailTableId = TABLE_VO_APPLICATIONS_DETAILED;
   tableId = TABLE_VO_APPLICATIONS_NORMAL;
-  startDate: FormControl;
-  endDate: FormControl;
+  startDate: UntypedFormControl;
+  endDate: UntypedFormControl;
   showGroupApps = false;
   refresh = false;
 
@@ -64,8 +64,8 @@ export class VoApplicationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.vo = this.entityStorageService.getEntity();
-    this.startDate = new FormControl(formatDate(this.yearAgo(), 'yyyy-MM-dd', 'en-GB'));
-    this.endDate = new FormControl(formatDate(new Date(), 'yyyy-MM-dd', 'en-GB'));
+    this.startDate = new UntypedFormControl(formatDate(this.yearAgo(), 'yyyy-MM-dd', 'en-GB'));
+    this.endDate = new UntypedFormControl(formatDate(new Date(), 'yyyy-MM-dd', 'en-GB'));
     this.currentColumns = this.refreshColumns();
   }
 

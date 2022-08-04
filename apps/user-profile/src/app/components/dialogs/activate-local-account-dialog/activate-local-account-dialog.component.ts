@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { FormBuilder, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormBuilder, ValidatorFn, Validators } from '@angular/forms';
 import { CustomValidators } from '@perun-web-apps/perun/utils';
 import { UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService, NotificatorService } from '@perun-web-apps/perun/services';
@@ -41,7 +41,7 @@ export class ActivateLocalAccountDialogComponent {
     private userManager: UsersManagerService,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private apiRequestConfiguration: ApiRequestConfigurationService
   ) {}
 
