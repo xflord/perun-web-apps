@@ -5,7 +5,7 @@
   },
   "MENU_ITEMS": {
     "PROFILE": "Profil",
-    "IDENTITIES": "Spojené identity",
+    "IDENTITIES": "Spojené účty",
     "SERVICES": "Služby",
     "GROUPS": "Skupiny",
     "VOS": "Organizace",
@@ -51,7 +51,7 @@
     "MAIL_CHANGE_SUCCESS": "Preferovaný email byl změněn"
   },
   "IDENTITIES": {
-    "IDP": "Vaše spojené identity",
+    "IDP": "Vaše spojené účty",
     "CERT": "Vaše certifikáty",
     "OTHER": "Ostatní",
     "ADD": "Přidat",
@@ -59,8 +59,10 @@
     "EXT_SOURCE_NAME_CERT": "Poskytovatel certifikátu",
     "EXT_SOURCE_NAME_OTHER": "Jméno externího zdroje",
     "LOGIN_CERT": "DN",
-    "LOGIN_IDP": "Připojená identita",
-    "OTHER_TOOLTIP": "Identity, které nebyly získány přes Konsolidátor identit"
+    "LOGIN_IDP": "Připojený účet",
+    "OTHER_TOOLTIP": "Účty, které nebyly získány přes Spojování účtů",
+    "SUCCESSFULLY_ADDED": "Účet byl úspěšně přidán",
+    "MESSAGE_SENT_TO_SUPPORT": "Email byl odeslán support týmu"
   },
   "PRIVACY": {
     "TITLE": "Soukromí",
@@ -332,12 +334,12 @@
         },
         "USER_EXT_SOURCES_LIST": {
           "MAIL": "Email",
-          "EXT_SOURCE_NAME": "Původ připojené identity",
+          "EXT_SOURCE_NAME": "Původ připojeného účtu",
           "LOGIN": "Jméno",
           "LAST_ACCESS": "Poslední použití",
-          "NO_IDENTITIES": "Nenalezeny žádné identity",
+          "NO_IDENTITIES": "Nenalezeny žádné účty",
           "ID": "Id",
-          "CANNOT_BE_DELETED_TOOLTIP": "Tato identita je trvalá, takže nemůže být odstraněna",
+          "CANNOT_BE_DELETED_TOOLTIP": "Tento účet je trvalý, takže nemůže být odstraněn",
           "LOA": "Úroveň důvěry"
         },
         "BUG_REPORT": {
@@ -353,12 +355,12 @@
           "SUCCESS": "Nahlášená chyba byla odoslána"
         },
         "REMOVE_USER_EXT_SOURCE": {
-          "TITLE": "Odstranit uživateli externi identitu",
-          "DESCRIPTION": "Následující externí identita bude odstraněna",
+          "TITLE": "Odstranit uživateli externí účet",
+          "DESCRIPTION": "Následující externí účet bude odstraněn",
           "ASK": "Jste si jistí, že chcete pokračovat?",
           "CANCEL": "Zrušit",
           "REMOVE": "Odstranit",
-          "SUCCESS": "Uživatelova externí identita byla odstraněna"
+          "SUCCESS": "Uživatelův externí účet byl odstraněn"
         },
         "PASSWORD_RESET": {
           "TITLE": "Změna hesla",

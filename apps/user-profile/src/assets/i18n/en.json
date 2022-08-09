@@ -5,7 +5,7 @@
   },
   "MENU_ITEMS": {
     "PROFILE": "Profile",
-    "IDENTITIES": "Linked identities",
+    "IDENTITIES": "Linked accounts",
     "SERVICES": "Services",
     "GROUPS": "Groups",
     "VOS": "Organizations",
@@ -51,7 +51,7 @@
     "MAIL_CHANGE_SUCCESS": "Preferred mail has been changed"
   },
   "IDENTITIES": {
-    "IDP": "Your linked identities",
+    "IDP": "Your linked accounts",
     "CERT": "Your certificates",
     "OTHER": "Other",
     "ADD": "Add",
@@ -59,9 +59,9 @@
     "EXT_SOURCE_NAME_CERT": "Certificate issuer",
     "EXT_SOURCE_NAME_OTHER": "External source name",
     "LOGIN_CERT": "DN",
-    "LOGIN_IDP": "Linked identity",
-    "OTHER_TOOLTIP": "Identities that were not acquired through Identity consolidator",
-    "SUCCESSFULLY_ADDED": "Identity was successfully added",
+    "LOGIN_IDP": "Linked account",
+    "OTHER_TOOLTIP": "Accounts that were not acquired through Account linking",
+    "SUCCESSFULLY_ADDED": "Account was successfully added",
     "MESSAGE_SENT_TO_SUPPORT": "Email was sent to support team"
   },
   "PRIVACY": {
@@ -381,12 +381,12 @@
         },
         "USER_EXT_SOURCES_LIST": {
           "MAIL": "Email",
-          "EXT_SOURCE_NAME": "Source of linked identity",
+          "EXT_SOURCE_NAME": "Source of linked account",
           "LOGIN": "Login",
           "LAST_ACCESS": "Last login",
-          "NO_IDENTITIES": "No external identities found",
+          "NO_IDENTITIES": "No external account found",
           "ID": "Id",
-          "CANNOT_BE_DELETED_TOOLTIP": "This identity is persistent, so it cannot be deleted",
+          "CANNOT_BE_DELETED_TOOLTIP": "This account is persistent, so it cannot be deleted",
           "LOA": "Level of assurance"
         },
         "BUG_REPORT": {
@@ -403,12 +403,12 @@
           "SUCCESS2": " was created."
         },
         "REMOVE_USER_EXT_SOURCE": {
-          "TITLE": "Remove user's external identity",
-          "DESCRIPTION": "Following external identity will be removed",
+          "TITLE": "Remove user's external account",
+          "DESCRIPTION": "Following external account will be removed",
           "ASK": "Are you sure you want to continue?",
           "CANCEL": "Cancel",
           "REMOVE": "Remove",
-          "SUCCESS": "User external source successfully removed"
+          "SUCCESS": "User's external account successfully removed"
         },
         "PASSWORD_RESET": {
           "TITLE": "Change password",

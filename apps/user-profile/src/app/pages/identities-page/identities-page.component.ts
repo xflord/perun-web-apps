@@ -13,6 +13,7 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { RemoveUserExtSourceDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { LinkerResult, OpenLinkerService } from '@perun-web-apps/lib-linker';
 import { TranslateService } from '@ngx-translate/core';
+import { Urns } from '@perun-web-apps/perun/urns';
 
 @Component({
   selector: 'perun-web-apps-identities-page',
@@ -36,7 +37,7 @@ export class IdentitiesPageComponent implements OnInit {
   loading: boolean;
   displayCertificates: boolean;
 
-  displayedColumnsIdp = ['select', 'extSourceName', 'login', 'lastAccess'];
+  displayedColumnsIdp = ['select', 'extSourceName', 'login', 'mail', 'lastAccess'];
   displayedColumnsCert = ['select', 'extSourceName', 'login', 'lastAccess'];
   displayedColumnsOther = ['extSourceName', 'login', 'lastAccess'];
 
@@ -66,13 +67,20 @@ export class IdentitiesPageComponent implements OnInit {
       let count = userExtSources.length;
       userExtSources.forEach((ues) => {
         this.attributesManagerService
-          .getUserExtSourceAttributeByName(
-            ues.userExtSource.id,
-            'urn:perun:ues:attribute-def:def:sourceIdPName'
-          )
-          .subscribe((sourceName) => {
-            if (sourceName?.value) {
-              ues.userExtSource.extSource.name = sourceName.value as string;
+          .getUserExtSourceAttributesByNames(ues.userExtSource.id, [
+            Urns.UES_SOURCE_IDP_NAME,
+            Urns.UES_DEF_MAIL,
+          ])
+          .subscribe((attributes) => {
+            attributes
+              .filter((attr) => attr.baseFriendlyName === 'mail' && attr.value === null)
+              .map((attr) => ues.attributes.push(attr));
+            let sourceName: string;
+            attributes
+              .filter((attr) => attr.baseFriendlyName === 'sourceIdPName' && attr?.value)
+              .map((attr) => (sourceName = attr.value as string));
+            if (sourceName) {
+              ues.userExtSource.extSource.name = sourceName;
               count--;
               this.loading = count !== 0;
               this.addToList(ues);
@@ -80,7 +88,7 @@ export class IdentitiesPageComponent implements OnInit {
               this.attributesManagerService
                 .getUserExtSourceAttributeByName(
                   ues.userExtSource.id,
-                  'urn:perun:ues:attribute-def:def:IdPOrganizationName'
+                  Urns.UES_IDP_ORGANIZATION_NAME
                 )
                 .subscribe((orgName) => {
                   count--;

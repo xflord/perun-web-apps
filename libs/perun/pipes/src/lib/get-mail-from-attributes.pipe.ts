@@ -7,6 +7,6 @@ import { Attribute } from '@perun-web-apps/perun/openapi';
 export class GetMailFromAttributesPipe implements PipeTransform {
   transform(attributes: Attribute[]): string {
     const attribute = attributes.find((att) => att.friendlyName === 'mail');
-    return (attribute?.value as string) ?? 'N/A';
+    return (attribute?.value as string) ?? '';
   }
 }

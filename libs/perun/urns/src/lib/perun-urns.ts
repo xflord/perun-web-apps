@@ -39,4 +39,5 @@ export class Urns {
   static UES_DEF_MAIL = 'urn:perun:ues:attribute-def:def:mail';
   static UES_DEF_ORGANIZATION = 'urn:perun:ues:attribute-def:def:o';
   static UES_SOURCE_IDP_NAME = 'urn:perun:ues:attribute-def:def:sourceIdPName';
+  static UES_IDP_ORGANIZATION_NAME = 'urn:perun:ues:attribute-def:def:IdPOrganizationName';
 }
