@@ -29,7 +29,6 @@ import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
 import { GeneralModule } from '@perun-web-apps/general';
 import { LibLinkerModule } from '@perun-web-apps/lib-linker';
 import { ListOfIdentitiesComponent } from './components/list-of-identities/list-of-identities.component';
-import { ConnectIdentitySectionComponent } from './components/connect-identity-section/connect-identity-section.component';
 import { ShowResultPageComponent } from './components/show-result-page/show-result-page.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
@@ -58,7 +57,6 @@ const loadConfigs = (appConfig: ConsolidatorConfigService) => (): Promise<void> 
     HeaderComponent,
     MainWindowComponent,
     ListOfIdentitiesComponent,
-    ConnectIdentitySectionComponent,
     ShowResultPageComponent,
   ],
   imports: [

@@ -2,13 +2,18 @@
   "HEADER": {
     "TITLE": "Account linking"
   },
+  "NAV": {
+    "LOGOUT": "Log out",
+    "OTHER_APPLICATIONS": "Other applications"
+  },
   "LIST_OF_IDENTITIES": {
-    "IS_NOT_KNOWN_IDENTITY": "The account is not registered in the system",
     "SIGN_NOT_KNOW": "You are trying to sign in with",
     "SIGN_KNOW": "You are signed in with",
-    "LINKED_ACCOUNTS": "Linked accounts"
+    "LINKED_ACCOUNTS": "Linked accounts",
+    "DELETE_DISABLED_TOOLTIP": "You are logged in by this account"
   },
-  "CONNECT_IDENTITY_SECTION": {
+  "MAIN_WINDOW": {
+    "IS_NOT_KNOWN_IDENTITY": "The account is not registered in the system",
     "TITLE_NO_SIMILAR_FOUND": "We didn't find any similar account",
     "NO_SIMILAR_FOUND_HELP": "Please prove your account by logging in using one of the registered accounts.",
     "CONNECT_OTHER_ACCOUNT": "Connect another account",
@@ -19,7 +24,7 @@
   },
   "SHOW_RESULT": {
     "TRY_AGAIN": "Try it again",
-    "ADD_ANOTHER": "Add another account"
+    "BACK_HOME": "Back to home page"
   },
   "SHARED_LIB": {
     "PERUN": {
@@ -32,6 +37,25 @@
           "TITLE": "Session expiration",
           "DESCRIPTION": "Your session has expired. Please sign in to continue.",
           "SIGN_IN": "Sign in"
+        },
+        "REPORT_ISSUE": {
+          "TITLE": "Report an issue",
+          "SUBJECT": "Subject",
+          "SUBJECT_ERROR": "Subject cannot be empty.",
+          "MESSAGE": "Message",
+          "MESSAGE_PLACEHOLDER": "Please describe the issue",
+          "MESSAGE_HINT": "Please try to describe in detail the problem.",
+          "CANCEL": "Cancel",
+          "SEND": "Send",
+          "SUCCESS": "Issue report was sent and got ticket number: "
+        },
+        "REMOVE_USER_EXT_SOURCE": {
+          "TITLE": "Remove account",
+          "DESCRIPTION": "Following account will be removed",
+          "ASK": "Are you sure you want to continue?",
+          "CANCEL": "Cancel",
+          "REMOVE": "Remove",
+          "SUCCESS": "User account successfully removed"
         }
       }
     },

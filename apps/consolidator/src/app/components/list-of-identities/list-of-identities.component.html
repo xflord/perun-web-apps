@@ -1,4 +1,4 @@
-<div class="card p-4 mat-elevation-z3">
+<div>
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
   <div *ngIf="!loading">
     <span *ngIf="unknownIdentity" class="mt-n3">{{
@@ -40,7 +40,24 @@
           <ng-container matColumnDef="value">
             <th *matHeaderCellDef mat-header-cell></th>
             <td *matCellDef="let attribute" class="pr-3" mat-cell>
-              {{attribute.value}}
+              <span *ngIf="attribute.name !== 'Linked accounts'">{{attribute.value}}</span>
+              <span *ngIf="attribute.name === 'Linked accounts'">
+                <span *ngFor="let account of attribute.value">
+                  {{account}}
+                  <span
+                    [matTooltip]="'LIST_OF_IDENTITIES.DELETE_DISABLED_TOOLTIP' | translate"
+                    [matTooltipDisabled]="!account.includes(idpProvider)">
+                    <button
+                      mat-icon-button
+                      color="warn"
+                      (click)="openDeleteDialog(account)"
+                      [disabled]="account.includes(idpProvider)">
+                      <mat-icon>clear</mat-icon>
+                    </button>
+                  </span>
+                  <br />
+                </span>
+              </span>
             </td>
           </ng-container>
           <tr *matRowDef="let attribute; columns: ['name', 'value'];" mat-row></tr>

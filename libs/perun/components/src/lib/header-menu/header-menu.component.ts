@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { AuthzResolverService, User } from '@perun-web-apps/perun/openapi';
-import { AuthService, NotificatorService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
+import { User } from '@perun-web-apps/perun/openapi';
+import { AuthService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'perun-web-apps-header-menu',
@@ -22,12 +21,7 @@ export class HeaderMenuComponent {
   @Input()
   label: string;
 
-  constructor(
-    private authService: AuthService,
-    public authzResolverService: AuthzResolverService,
-    private notificator: NotificatorService,
-    private translateService: TranslateService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   redirectToUrl(): void {
     window.open(this.url, '_blank');

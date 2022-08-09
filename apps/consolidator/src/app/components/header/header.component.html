@@ -1,7 +1,7 @@
 <div [ngStyle]="{ background: bgColor, color: textColor }" id="login-nav" class="mat-elevation-z3">
-  <div class="mt-auto mb-auto">
+  <a [routerLink]="['/consolidate']" class="mt-auto mb-auto" queryParamsHandling="merge">
     <div [innerHTML]="logo" class="logo-container"></div>
-  </div>
+  </a>
   <p [ngStyle]="{ color: textColor }" class="ml-3 mt-auto mb-auto page-subtitle">
     {{ 'HEADER.TITLE' | translate }}
   </p>
@@ -11,4 +11,14 @@
     <span class="text-danger"> DEVEL </span>
     <span class="text-warning"> &nbsp;🗲 ~ </span>
   </div>
+
+  <perun-web-apps-header-menu
+    id="nav-menu-user-info"
+    [iconColor]="iconColor"
+    [label]="profileLabel"
+    [textColor]="textColor"
+    [logoutEnabled]="logoutEnabled"
+    [url]="profileUrl"
+    [user]="principal.user">
+  </perun-web-apps-header-menu>
 </div>

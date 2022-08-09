@@ -8,3 +8,15 @@
   flex-wrap: wrap;
   gap: 1.5rem;
 }
+
+.perun-icon-similar {
+  transform: scale(2);
+  margin-left: 1rem;
+  margin-top: 1rem;
+  color: black;
+}
+
+.identity-card {
+  background-color: whitesmoke;
+  max-width: 450px;
+}

@@ -13,7 +13,7 @@
 
 <button mat-button [matMenuTriggerFor]="menu">
   <mat-icon [ngStyle]="{'color': iconColor}"> person </mat-icon>
-  <span [ngStyle]="{'color': textColor}" class="d-none d-lg-inline">
+  <span *ngIf="user !== null" [ngStyle]="{'color': textColor}" class="d-none d-lg-inline">
     {{user.titleBefore}}
     {{user.firstName}}
     {{user.middleName}}

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { OtherApplicationsService, StoreService } from '@perun-web-apps/perun/services';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
@@ -12,7 +12,15 @@ export class HeaderComponent {
   textColor = this.storeService.getProperty('theme').nav_text_color;
   iconColor = this.storeService.getProperty('theme').nav_icon_color;
   isDevel = this.storeService.getProperty('is_devel');
+  logoutEnabled = this.storeService.getProperty('log_out_enabled');
+  profileLabel = this.storeService.getProperty('profile_label_en');
+  principal = this.storeService.getPerunPrincipal();
+  profileUrl = this.otherApplicationService.getUrlForOtherApplication('profile');
   logo: SafeHtml = this.sanitizer.bypassSecurityTrustHtml(this.storeService.getProperty('logo'));
 
-  constructor(private storeService: StoreService, private sanitizer: DomSanitizer) {}
+  constructor(
+    private storeService: StoreService,
+    private sanitizer: DomSanitizer,
+    private otherApplicationService: OtherApplicationsService
+  ) {}
 }
