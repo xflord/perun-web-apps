@@ -398,6 +398,8 @@ export class MfaSettingsComponent implements OnInit {
         // when token is valid, but user is logged in without MFA -> enforce MFA
         if (err.error.error === 'MFA is required') {
           this.saveSettings(true);
+        } else {
+          this.loadingMfa = false;
         }
       }
     );
@@ -421,6 +423,8 @@ export class MfaSettingsComponent implements OnInit {
         // when token is valid, but user is logged in without MFA -> enforce MFA
         if (err.error.error === 'MFA is required') {
           this.saveSettings(true);
+        } else {
+          this.loadingMfa = false;
         }
       }
     );
