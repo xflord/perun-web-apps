@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AttributeRightsService, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import {
+  AttributeAction,
   AttributeDefinition,
   AttributePolicyCollection,
   AttributesManagerService,
@@ -32,6 +33,10 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
   loading = false;
   showKeys = false;
   attDef: AttributeDefinition = this.data.attDef;
+  initReadOperations: boolean;
+  initWriteOperations: boolean;
+  finalReadOperations: boolean;
+  finalWriteOperations: boolean;
   attributeControl: UntypedFormGroup = this.formBuilder.group({
     name: [this.attDef.displayName, Validators.required],
     description: [this.attDef.description, Validators.required],
@@ -55,9 +60,11 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.dialogRef.addPanelClass('mat-dialog-height-transition');
-    this.attributesManager
-      .getAttributePolicyCollections(this.attDef.id)
-      .subscribe(this.collections$);
+    this.attributesManager.getAttributeRules(this.attDef.id).subscribe((attrRights) => {
+      this.collections$ = new BehaviorSubject(attrRights.attributePolicyCollections);
+      this.initReadOperations = attrRights.criticalActions.includes('READ');
+      this.initWriteOperations = attrRights.criticalActions.includes('WRITE');
+    });
   }
 
   onSubmit(): void {
@@ -70,6 +77,22 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
         this.attributeRightsService.filterNullInPolicy(),
         switchMap((collections) =>
           this.attributesManager.setAttributePolicyCollections({ policyCollections: collections })
+        ),
+        switchMap(() =>
+          this.attributeRightsService.updateAttributeAction(
+            this.finalReadOperations,
+            this.initReadOperations,
+            this.attDef.id,
+            AttributeAction.READ
+          )
+        ),
+        switchMap(() =>
+          this.attributeRightsService.updateAttributeAction(
+            this.finalWriteOperations,
+            this.initWriteOperations,
+            this.attDef.id,
+            AttributeAction.WRITE
+          )
         )
       )
       .subscribe(

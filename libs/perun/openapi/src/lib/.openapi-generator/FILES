@@ -48,6 +48,7 @@ model/attributeDefinition.ts
 model/attributePolicy.ts
 model/attributePolicyCollection.ts
 model/attributeRights.ts
+model/attributeRules.ts
 model/auditEvent.ts
 model/auditMessage.ts
 model/auditMessagesPageQuery.ts

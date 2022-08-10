@@ -32,6 +32,13 @@
       <perun-web-apps-attribute-unique-toggle [attDef]="attDef">
       </perun-web-apps-attribute-unique-toggle>
 
+      <perun-web-apps-attribute-critical-operations-toggles
+        [readOperation]="initReadOperations"
+        [writeOperation]="initWriteOperations"
+        (readOperationChanged)="finalReadOperations=$event"
+        (writeOperationChanged)="finalWriteOperations=$event">
+      </perun-web-apps-attribute-critical-operations-toggles>
+
       <perun-web-apps-attribute-rights-tab-group
         [attDef]="attDef"
         [collections]="collections$ | async">

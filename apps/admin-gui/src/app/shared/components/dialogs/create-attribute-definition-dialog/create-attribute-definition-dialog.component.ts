@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import {
+  AttributeAction,
   AttributeDefinition,
   AttributePolicyCollection,
   AttributesManagerService,
@@ -64,6 +65,9 @@ export class CreateAttributeDefinitionDialogComponent {
     unique: false,
   });
   collections: AttributePolicyCollection[] = [];
+  finalReadOperations: boolean;
+  finalWriteOperations: boolean;
+  attDefCreated: AttributeDefinition;
 
   constructor(
     private dialogRef: MatDialogRef<CreateAttributeDefinitionDialogComponent>,
@@ -84,11 +88,30 @@ export class CreateAttributeDefinitionDialogComponent {
     this.attributeService
       .createAttributeDefinition({ attribute: this.attDef.getValue() })
       .pipe(
-        switchMap((attDef) => zip(of(attDef.id), of(this.collections))),
+        switchMap((attDef) => {
+          this.attDefCreated = attDef;
+          return zip(of(attDef.id), of(this.collections));
+        }),
         this.attributeRightsService.addAttributeId(),
         this.attributeRightsService.filterNullInPolicy(),
         switchMap((collections) =>
           this.attributeService.setAttributePolicyCollections({ policyCollections: collections })
+        ),
+        switchMap(() =>
+          this.attributeRightsService.updateAttributeAction(
+            this.finalReadOperations,
+            false,
+            this.attDefCreated.id,
+            AttributeAction.READ
+          )
+        ),
+        switchMap(() =>
+          this.attributeRightsService.updateAttributeAction(
+            this.finalWriteOperations,
+            true, // we want all newly created attributes by default with critical write operations
+            this.attDefCreated.id,
+            AttributeAction.WRITE
+          )
         )
       )
       .subscribe(

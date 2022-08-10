@@ -1310,40 +1310,40 @@ export class ResourcesManagerService {
 
   /**
    * Assigns ResourceRag to resource. The ResourceTag must contain its id, voId and tagName.
-   * @param inputAssignResourceTagToResource
+   * @param InputAssignResourceTagToResource
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public assignResourceTagToResource(
-    inputAssignResourceTagToResource: InputAssignResourceTagToResource,
+    InputAssignResourceTagToResource: InputAssignResourceTagToResource,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public assignResourceTagToResource(
-    inputAssignResourceTagToResource: InputAssignResourceTagToResource,
+    InputAssignResourceTagToResource: InputAssignResourceTagToResource,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public assignResourceTagToResource(
-    inputAssignResourceTagToResource: InputAssignResourceTagToResource,
+    InputAssignResourceTagToResource: InputAssignResourceTagToResource,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public assignResourceTagToResource(
-    inputAssignResourceTagToResource: InputAssignResourceTagToResource,
+    InputAssignResourceTagToResource: InputAssignResourceTagToResource,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (
-      inputAssignResourceTagToResource === null ||
-      inputAssignResourceTagToResource === undefined
+      InputAssignResourceTagToResource === null ||
+      InputAssignResourceTagToResource === undefined
     ) {
       throw new Error(
-        'Required parameter inputAssignResourceTagToResource was null or undefined when calling assignResourceTagToResource.'
+        'Required parameter InputAssignResourceTagToResource was null or undefined when calling assignResourceTagToResource.'
       );
     }
 
@@ -1398,7 +1398,7 @@ export class ResourcesManagerService {
 
     return this.httpClient.post<any>(
       `${this.configuration.basePath}/json/resourcesManager/assignResourceTagToResource`,
-      inputAssignResourceTagToResource,
+      InputAssignResourceTagToResource,
       {
         context: localVarHttpContext,
         responseType: <any>responseType_,
@@ -1768,37 +1768,37 @@ export class ResourcesManagerService {
 
   /**
    * Copy \&quot;template\&quot; settings from user\&#39;s another existing resource and create new resource with this template. The settings are attributes, services, tags (if exists), groups and their members (if the resources are from the same VO and withGroups is true) Template Resource can be from any of user\&#39;s facilities.
-   * @param inputCopyResource
+   * @param InputCopyResource
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public copyResource(
-    inputCopyResource: InputCopyResource,
+    InputCopyResource: InputCopyResource,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Resource>;
   public copyResource(
-    inputCopyResource: InputCopyResource,
+    InputCopyResource: InputCopyResource,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Resource>>;
   public copyResource(
-    inputCopyResource: InputCopyResource,
+    InputCopyResource: InputCopyResource,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Resource>>;
   public copyResource(
-    inputCopyResource: InputCopyResource,
+    InputCopyResource: InputCopyResource,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    if (inputCopyResource === null || inputCopyResource === undefined) {
+    if (InputCopyResource === null || InputCopyResource === undefined) {
       throw new Error(
-        'Required parameter inputCopyResource was null or undefined when calling copyResource.'
+        'Required parameter InputCopyResource was null or undefined when calling copyResource.'
       );
     }
 
@@ -1853,7 +1853,7 @@ export class ResourcesManagerService {
 
     return this.httpClient.post<Resource>(
       `${this.configuration.basePath}/json/resourcesManager/copyResource`,
-      inputCopyResource,
+      InputCopyResource,
       {
         context: localVarHttpContext,
         responseType: <any>responseType_,
@@ -2002,40 +2002,40 @@ export class ResourcesManagerService {
 
   /**
    * Create new resource tag in VO
-   * @param inputCreateResourceTagWithResourceTag
+   * @param InputCreateResourceTagWithResourceTag
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public createResourceTagWithResourceTag(
-    inputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag,
+    InputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<ResourceTag>;
   public createResourceTagWithResourceTag(
-    inputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag,
+    InputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<ResourceTag>>;
   public createResourceTagWithResourceTag(
-    inputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag,
+    InputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<ResourceTag>>;
   public createResourceTagWithResourceTag(
-    inputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag,
+    InputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (
-      inputCreateResourceTagWithResourceTag === null ||
-      inputCreateResourceTagWithResourceTag === undefined
+      InputCreateResourceTagWithResourceTag === null ||
+      InputCreateResourceTagWithResourceTag === undefined
     ) {
       throw new Error(
-        'Required parameter inputCreateResourceTagWithResourceTag was null or undefined when calling createResourceTagWithResourceTag.'
+        'Required parameter InputCreateResourceTagWithResourceTag was null or undefined when calling createResourceTagWithResourceTag.'
       );
     }
 
@@ -2090,7 +2090,7 @@ export class ResourcesManagerService {
 
     return this.httpClient.post<ResourceTag>(
       `${this.configuration.basePath}/json/resourcesManager/createResourceTag/resourceTag`,
-      inputCreateResourceTagWithResourceTag,
+      InputCreateResourceTagWithResourceTag,
       {
         context: localVarHttpContext,
         responseType: <any>responseType_,
@@ -2627,37 +2627,37 @@ export class ResourcesManagerService {
 
   /**
    * Delete resource tag by it\&#39;s id and VO_ID
-   * @param inputDeleteResourceTag
+   * @param InputDeleteResourceTag
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public deleteResourceTag(
-    inputDeleteResourceTag: InputDeleteResourceTag,
+    InputDeleteResourceTag: InputDeleteResourceTag,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public deleteResourceTag(
-    inputDeleteResourceTag: InputDeleteResourceTag,
+    InputDeleteResourceTag: InputDeleteResourceTag,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public deleteResourceTag(
-    inputDeleteResourceTag: InputDeleteResourceTag,
+    InputDeleteResourceTag: InputDeleteResourceTag,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public deleteResourceTag(
-    inputDeleteResourceTag: InputDeleteResourceTag,
+    InputDeleteResourceTag: InputDeleteResourceTag,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    if (inputDeleteResourceTag === null || inputDeleteResourceTag === undefined) {
+    if (InputDeleteResourceTag === null || InputDeleteResourceTag === undefined) {
       throw new Error(
-        'Required parameter inputDeleteResourceTag was null or undefined when calling deleteResourceTag.'
+        'Required parameter InputDeleteResourceTag was null or undefined when calling deleteResourceTag.'
       );
     }
 
@@ -2712,7 +2712,7 @@ export class ResourcesManagerService {
 
     return this.httpClient.post<any>(
       `${this.configuration.basePath}/json/resourcesManager/deleteResourceTag`,
-      inputDeleteResourceTag,
+      InputDeleteResourceTag,
       {
         context: localVarHttpContext,
         responseType: <any>responseType_,
@@ -2942,40 +2942,40 @@ export class ResourcesManagerService {
 
   /**
    * Get all resources with the specific tag assigned.
-   * @param inputGetAllResourcesByResourceTag
+   * @param InputGetAllResourcesByResourceTag
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public getAllResourcesByResourceTag(
-    inputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag,
+    InputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Resource>>;
   public getAllResourcesByResourceTag(
-    inputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag,
+    InputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Resource>>>;
   public getAllResourcesByResourceTag(
-    inputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag,
+    InputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Resource>>>;
   public getAllResourcesByResourceTag(
-    inputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag,
+    InputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (
-      inputGetAllResourcesByResourceTag === null ||
-      inputGetAllResourcesByResourceTag === undefined
+      InputGetAllResourcesByResourceTag === null ||
+      InputGetAllResourcesByResourceTag === undefined
     ) {
       throw new Error(
-        'Required parameter inputGetAllResourcesByResourceTag was null or undefined when calling getAllResourcesByResourceTag.'
+        'Required parameter InputGetAllResourcesByResourceTag was null or undefined when calling getAllResourcesByResourceTag.'
       );
     }
 
@@ -3030,7 +3030,7 @@ export class ResourcesManagerService {
 
     return this.httpClient.post<Array<Resource>>(
       `${this.configuration.basePath}/json/resourcesManager/getAllResourcesByResourceTag`,
-      inputGetAllResourcesByResourceTag,
+      InputGetAllResourcesByResourceTag,
       {
         context: localVarHttpContext,
         responseType: <any>responseType_,
@@ -8432,40 +8432,40 @@ export class ResourcesManagerService {
 
   /**
    * Removes ResourceRag from a resource. The ResourceTag must contain its id, voId and tagName.
-   * @param inputRemoveResourceTagFromResource
+   * @param InputRemoveResourceTagFromResource
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public removeResourceTagFromResource(
-    inputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource,
+    InputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public removeResourceTagFromResource(
-    inputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource,
+    InputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public removeResourceTagFromResource(
-    inputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource,
+    InputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public removeResourceTagFromResource(
-    inputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource,
+    InputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
     if (
-      inputRemoveResourceTagFromResource === null ||
-      inputRemoveResourceTagFromResource === undefined
+      InputRemoveResourceTagFromResource === null ||
+      InputRemoveResourceTagFromResource === undefined
     ) {
       throw new Error(
-        'Required parameter inputRemoveResourceTagFromResource was null or undefined when calling removeResourceTagFromResource.'
+        'Required parameter InputRemoveResourceTagFromResource was null or undefined when calling removeResourceTagFromResource.'
       );
     }
 
@@ -8520,7 +8520,7 @@ export class ResourcesManagerService {
 
     return this.httpClient.post<any>(
       `${this.configuration.basePath}/json/resourcesManager/removeResourceTagFromResource`,
-      inputRemoveResourceTagFromResource,
+      InputRemoveResourceTagFromResource,
       {
         context: localVarHttpContext,
         responseType: <any>responseType_,
@@ -9004,37 +9004,37 @@ export class ResourcesManagerService {
 
   /**
    * Set ban for member on resource.
-   * @param inputSetBan
+   * @param InputSetBan
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public setResourceBan(
-    inputSetBan: InputSetBan,
+    InputSetBan: InputSetBan,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<BanOnResource>;
   public setResourceBan(
-    inputSetBan: InputSetBan,
+    InputSetBan: InputSetBan,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<BanOnResource>>;
   public setResourceBan(
-    inputSetBan: InputSetBan,
+    InputSetBan: InputSetBan,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<BanOnResource>>;
   public setResourceBan(
-    inputSetBan: InputSetBan,
+    InputSetBan: InputSetBan,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    if (inputSetBan === null || inputSetBan === undefined) {
+    if (InputSetBan === null || InputSetBan === undefined) {
       throw new Error(
-        'Required parameter inputSetBan was null or undefined when calling setResourceBan.'
+        'Required parameter InputSetBan was null or undefined when calling setResourceBan.'
       );
     }
 
@@ -9089,7 +9089,7 @@ export class ResourcesManagerService {
 
     return this.httpClient.post<BanOnResource>(
       `${this.configuration.basePath}/json/resourcesManager/setBan`,
-      inputSetBan,
+      InputSetBan,
       {
         context: localVarHttpContext,
         responseType: <any>responseType_,
@@ -9225,37 +9225,37 @@ export class ResourcesManagerService {
 
   /**
    * Updates a resource.
-   * @param inputUpdateResource
+   * @param InputUpdateResource
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public updateResource(
-    inputUpdateResource: InputUpdateResource,
+    InputUpdateResource: InputUpdateResource,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public updateResource(
-    inputUpdateResource: InputUpdateResource,
+    InputUpdateResource: InputUpdateResource,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public updateResource(
-    inputUpdateResource: InputUpdateResource,
+    InputUpdateResource: InputUpdateResource,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public updateResource(
-    inputUpdateResource: InputUpdateResource,
+    InputUpdateResource: InputUpdateResource,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    if (inputUpdateResource === null || inputUpdateResource === undefined) {
+    if (InputUpdateResource === null || InputUpdateResource === undefined) {
       throw new Error(
-        'Required parameter inputUpdateResource was null or undefined when calling updateResource.'
+        'Required parameter InputUpdateResource was null or undefined when calling updateResource.'
       );
     }
 
@@ -9310,7 +9310,7 @@ export class ResourcesManagerService {
 
     return this.httpClient.post<any>(
       `${this.configuration.basePath}/json/resourcesManager/updateResource`,
-      inputUpdateResource,
+      InputUpdateResource,
       {
         context: localVarHttpContext,
         responseType: <any>responseType_,
@@ -9324,37 +9324,37 @@ export class ResourcesManagerService {
 
   /**
    * Update existing ban (description, validation timestamp)
-   * @param inputUpdateBan
+   * @param InputUpdateBan
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public updateResourceBan(
-    inputUpdateBan: InputUpdateBan,
+    InputUpdateBan: InputUpdateBan,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<BanOnResource>;
   public updateResourceBan(
-    inputUpdateBan: InputUpdateBan,
+    InputUpdateBan: InputUpdateBan,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<BanOnResource>>;
   public updateResourceBan(
-    inputUpdateBan: InputUpdateBan,
+    InputUpdateBan: InputUpdateBan,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<BanOnResource>>;
   public updateResourceBan(
-    inputUpdateBan: InputUpdateBan,
+    InputUpdateBan: InputUpdateBan,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    if (inputUpdateBan === null || inputUpdateBan === undefined) {
+    if (InputUpdateBan === null || InputUpdateBan === undefined) {
       throw new Error(
-        'Required parameter inputUpdateBan was null or undefined when calling updateResourceBan.'
+        'Required parameter InputUpdateBan was null or undefined when calling updateResourceBan.'
       );
     }
 
@@ -9409,7 +9409,7 @@ export class ResourcesManagerService {
 
     return this.httpClient.post<BanOnResource>(
       `${this.configuration.basePath}/json/resourcesManager/updateBan`,
-      inputUpdateBan,
+      InputUpdateBan,
       {
         context: localVarHttpContext,
         responseType: <any>responseType_,
@@ -9423,37 +9423,37 @@ export class ResourcesManagerService {
 
   /**
    * Update resource tag name by it\&#39;s id and VO_ID
-   * @param inputUpdateResourceTag
+   * @param InputUpdateResourceTag
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public updateResourceTag(
-    inputUpdateResourceTag: InputUpdateResourceTag,
+    InputUpdateResourceTag: InputUpdateResourceTag,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<ResourceTag>;
   public updateResourceTag(
-    inputUpdateResourceTag: InputUpdateResourceTag,
+    InputUpdateResourceTag: InputUpdateResourceTag,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<ResourceTag>>;
   public updateResourceTag(
-    inputUpdateResourceTag: InputUpdateResourceTag,
+    InputUpdateResourceTag: InputUpdateResourceTag,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<ResourceTag>>;
   public updateResourceTag(
-    inputUpdateResourceTag: InputUpdateResourceTag,
+    InputUpdateResourceTag: InputUpdateResourceTag,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any> {
-    if (inputUpdateResourceTag === null || inputUpdateResourceTag === undefined) {
+    if (InputUpdateResourceTag === null || InputUpdateResourceTag === undefined) {
       throw new Error(
-        'Required parameter inputUpdateResourceTag was null or undefined when calling updateResourceTag.'
+        'Required parameter InputUpdateResourceTag was null or undefined when calling updateResourceTag.'
       );
     }
 
@@ -9508,7 +9508,7 @@ export class ResourcesManagerService {
 
     return this.httpClient.post<ResourceTag>(
       `${this.configuration.basePath}/json/resourcesManager/updateResourceTag`,
-      inputUpdateResourceTag,
+      InputUpdateResourceTag,
       {
         context: localVarHttpContext,
         responseType: <any>responseType_,
