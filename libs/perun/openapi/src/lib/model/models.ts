@@ -18,6 +18,7 @@ export * from './attributeDefinition';
 export * from './attributePolicy';
 export * from './attributePolicyCollection';
 export * from './attributeRights';
+export * from './attributeRules';
 export * from './auditEvent';
 export * from './auditMessage';
 export * from './auditMessagesPageQuery';

@@ -98,6 +98,7 @@ import { AttributeRightsCollectionComponent } from './attribute-rights-collectio
 import { AttributeRightsItemComponent } from './attribute-rights-item/attribute-rights-item.component';
 import { AttributeRightsTabGroupComponent } from './attribute-rights-tab-group/attribute-rights-tab-group.component';
 import { AttributeUniqueToggleComponent } from './attribute-unique-toggle/attribute-unique-toggle.component';
+import { AttributeCriticalOperationsTogglesComponent } from './attribute-critical-operations-toggles/attribute-critical-operations-toggles.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -228,6 +229,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     AttributeRightsItemComponent,
     AttributeRightsTabGroupComponent,
     AttributeUniqueToggleComponent,
+    AttributeCriticalOperationsTogglesComponent,
   ],
   exports: [
     VosListComponent,
@@ -286,6 +288,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     AttributeSearchSelectComponent,
     AttributeRightsTabGroupComponent,
     AttributeUniqueToggleComponent,
+    AttributeCriticalOperationsTogglesComponent,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },
