@@ -403,12 +403,12 @@
           "SUCCESS2": " was created."
         },
         "REMOVE_USER_EXT_SOURCE": {
-          "TITLE": "Remove user's external account",
-          "DESCRIPTION": "Following external account will be removed",
+          "TITLE": "Remove account",
+          "DESCRIPTION": "Following account will be removed",
           "ASK": "Are you sure you want to continue?",
           "CANCEL": "Cancel",
           "REMOVE": "Remove",
-          "SUCCESS": "User's external account successfully removed"
+          "SUCCESS": "Account successfully removed"
         },
         "PASSWORD_RESET": {
           "TITLE": "Change password",

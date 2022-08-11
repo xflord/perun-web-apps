@@ -355,12 +355,12 @@
           "SUCCESS": "Nahlášená chyba byla odoslána"
         },
         "REMOVE_USER_EXT_SOURCE": {
-          "TITLE": "Odstranit uživateli externí účet",
-          "DESCRIPTION": "Následující externí účet bude odstraněn",
+          "TITLE": "Odstranit účet",
+          "DESCRIPTION": "Následující účet bude odstraněn",
           "ASK": "Jste si jistí, že chcete pokračovat?",
           "CANCEL": "Zrušit",
           "REMOVE": "Odstranit",
-          "SUCCESS": "Uživatelův externí účet byl odstraněn"
+          "SUCCESS": "Účet byl odstraněn"
         },
         "PASSWORD_RESET": {
           "TITLE": "Změna hesla",
