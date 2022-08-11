@@ -90,3 +90,7 @@ $password-reset-theme: mat.define-light-theme(
 .mat-tooltip {
   font-size: 13px !important;
 }
+
+mat-icon {
+  overflow: inherit !important;
+}

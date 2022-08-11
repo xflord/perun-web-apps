@@ -215,3 +215,7 @@ button:focus {
 mat-chip-list {
   pointer-events: none;
 }
+
+mat-icon {
+  overflow: inherit !important;
+}

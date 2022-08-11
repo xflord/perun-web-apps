@@ -1565,3 +1565,7 @@ td.mat-cell {
 .align-checkbox mat-checkbox {
   margin-top: 7px !important;
 }
+
+mat-icon {
+  overflow: inherit !important;
+}

@@ -212,3 +212,7 @@ td.mat-cell {
 .noBorderDialog .mat-dialog-container {
   background-color: black;
 }
+
+mat-icon {
+  overflow: inherit !important;
+}

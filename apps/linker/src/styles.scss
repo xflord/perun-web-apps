@@ -181,3 +181,7 @@ button {
 button:focus {
   outline: none !important;
 }
+
+mat-icon {
+  overflow: inherit !important;
+}
