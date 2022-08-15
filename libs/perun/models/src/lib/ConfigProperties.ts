@@ -112,6 +112,7 @@ interface ProfileCustomLabel {
 interface ProfileMFA {
   api_url: string;
   enable_security_image: boolean;
+  enable_detail_settings: boolean;
   security_image_attribute: string;
   enforce_mfa_attribute: string;
   url_en: string;

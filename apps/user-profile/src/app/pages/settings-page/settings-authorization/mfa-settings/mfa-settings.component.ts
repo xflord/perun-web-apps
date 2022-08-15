@@ -25,6 +25,7 @@ export class MfaSettingsComponent implements OnInit {
   loadingMfa = false;
 
   enforceMfa: boolean;
+  enableDetailSettings: boolean;
   showDetail = false;
   loadingCategories = false;
   includeCategories: string[] = [];
@@ -47,6 +48,7 @@ export class MfaSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadingMfa = true;
+    this.enableDetailSettings = this.store.getProperty('mfa').enable_detail_settings;
     this.mfaApiService.isMfaAvailable().subscribe(
       (isAvailable) => {
         this.mfaAvailable = isAvailable;

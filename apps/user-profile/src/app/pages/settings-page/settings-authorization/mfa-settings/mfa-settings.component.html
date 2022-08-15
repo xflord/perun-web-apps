@@ -8,8 +8,9 @@
       >{{'AUTHENTICATION.MFA_TOGGLE' | customTranslate | translate}}
       <button
         mat-icon-button
-        class="ml-2 mr-3"
+        class="ml-2"
         (click)="showDetailSettings()"
+        [hidden]="!enableDetailSettings"
         [disabled]="!mfaAvailable">
         <mat-icon>{{showDetail ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
       </button>
@@ -18,6 +19,7 @@
   <button
     mat-flat-button
     color="accent"
+    class="ml-3"
     (click)="saveSettings()"
     [disabled]="unchangedSettings && unchangedEnforce">
     {{'AUTHENTICATION.MFA_SAVE'|translate}}
