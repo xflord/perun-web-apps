@@ -49,7 +49,9 @@ export class GroupAddMemberDialogComponent implements OnInit {
   );
   failed: FailedCandidate[] = [];
   selection: SelectionModel<MemberCandidate> = new SelectionModel<MemberCandidate>(true, []);
-  attrNames: string[] = [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL];
+  attrNames: string[] = [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL].concat(
+    this.store.getLoginAttributeNames()
+  );
   languages: string[] = this.store.get('supported_languages') as string[];
 
   constructor(
