@@ -2296,7 +2296,9 @@
       "CONFIRM_DIALOG_TITLE": "Evaluate consents confirmation",
       "CONFIRM_DIALOG_DESCRIPTION": "Are you sure you want to evaluate consents for all selected consent hubs?",
       "EVALUATION_FINISH": "Consents evaluation completed",
-      "SEARCH": "Search by Id, Name or Facilities"
+      "SEARCH": "Search by Id, Name or Facilities",
+      "GLOBAL_DISABLED": "Global consent enforcing is disabled on this Perun instance, any following changes will have no effect.",
+      "TOOLTIP": "Global consent enforcing is disabled."
     },
     "SEARCHER": {
       "TITLE": "Searcher",

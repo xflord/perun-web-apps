@@ -129,6 +129,7 @@ export interface PerunConfig {
   // Optional
   auto_auth_redirect?: boolean;
   supported_languages?: string[];
+  enforce_consents?: boolean;
   is_devel?: boolean;
   instance_favicon?: boolean;
   log_out_enabled?: boolean;

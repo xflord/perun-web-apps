@@ -1,16 +1,22 @@
 <div>
   <h1 class="page-subtitle">{{'ADMIN.CONSENT_HUBS.TITLE' | translate}}</h1>
-
+  <perun-web-apps-alert *ngIf="!globalForceConsents" alert_type="warn">
+    {{'ADMIN.CONSENT_HUBS.GLOBAL_DISABLED' | translate}}
+  </perun-web-apps-alert>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button
-    *ngIf="authResolver.isPerunAdmin()"
-    (click)="evaluateConsents()"
-    [disabled]="selection.selected.length === 0"
-    color="accent"
-    class="action-button mr-2"
-    mat-flat-button>
-    {{'ADMIN.CONSENT_HUBS.EVALUATE_CONSENTS' | translate}}
-  </button>
+  <span
+    [matTooltipDisabled]="globalForceConsents"
+    matTooltip="{{'ADMIN.CONSENT_HUBS.TOOLTIP' | translate}}">
+    <button
+      *ngIf="authResolver.isPerunAdmin()"
+      (click)="evaluateConsents()"
+      [disabled]="!globalForceConsents || selection.selected.length === 0"
+      color="accent"
+      class="action-button mr-2"
+      mat-flat-button>
+      {{'ADMIN.CONSENT_HUBS.EVALUATE_CONSENTS' | translate}}
+    </button>
+  </span>
   <perun-web-apps-immediate-filter
     [placeholder]="'ADMIN.CONSENT_HUBS.SEARCH'"
     (filter)="applyFilter($event)">

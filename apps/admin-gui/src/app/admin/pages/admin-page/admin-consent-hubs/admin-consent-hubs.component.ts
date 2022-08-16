@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConsentHub, ConsentsManagerService } from '@perun-web-apps/perun/openapi';
 import { TABLE_CONSENT_HUBS } from '@perun-web-apps/config/table-config';
 import { SelectionModel } from '@angular/cdk/collections';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { UniversalConfirmationItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { TranslateService } from '@ngx-translate/core';
@@ -19,16 +19,19 @@ export class AdminConsentHubsComponent implements OnInit {
   selection = new SelectionModel<ConsentHub>(true, []);
   filterValue = '';
   consentHubs: ConsentHub[] = [];
+  globalForceConsents: boolean;
 
   constructor(
     private consentsManager: ConsentsManagerService,
     public authResolver: GuiAuthResolver,
     private notificator: NotificatorService,
     private translate: TranslateService,
+    private store: StoreService,
     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
+    this.globalForceConsents = this.store.getProperty('enforce_consents');
     this.refreshTable();
   }
 
