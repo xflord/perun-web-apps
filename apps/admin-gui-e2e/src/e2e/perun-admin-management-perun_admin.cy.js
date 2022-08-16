@@ -17,18 +17,19 @@ context('Actions', () => {
       sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD'));
       cy.visit('service-access');
     }
-  })
+  });
 
   beforeEach(() => {
     // save route for correct authorization
     localStorage.setItem('routeAuthGuard', '/admin');
     cy.visit('admin');
-  })
+  });
 
   it('test create attribute', () => {
-
-    cy.intercept('**/attributesManager/createAttribute**').as('createAttribute')
-      .intercept('**/attributesManager/getAttributesDefinition**').as('getAttributesDefinition')
+    cy.intercept('**/attributesManager/createAttribute**')
+      .as('createAttribute')
+      .intercept('**/attributesManager/getAttributesDefinition**')
+      .as('getAttributesDefinition')
       .get('[data-cy=attribute-definitions]')
       .click()
       .get('[data-cy=new-attr-definition-button]')
@@ -62,13 +63,14 @@ context('Actions', () => {
       .get('[data-cy=unfocused-filter]')
       .type('testAttrE2E')
       .get('[data-cy=testattre2e-checkbox]')
-      .should('exist')
+      .should('exist');
   });
 
   it('test delete attribute', () => {
-
-    cy.intercept('**/attributesManager/deleteAttributes**').as('deleteAttributes')
-      .intercept('**/attributesManager/getAttributesDefinition**').as('getAttributesDefinition')
+    cy.intercept('**/attributesManager/deleteAttributes**')
+      .as('deleteAttributes')
+      .intercept('**/attributesManager/getAttributesDefinition**')
+      .as('getAttributesDefinition')
       .get('[data-cy=attribute-definitions]')
       .click()
       .get('[data-cy=e2e-test-attr-from-db-checkbox]')
@@ -81,13 +83,14 @@ context('Actions', () => {
       .wait('@getAttributesDefinition')
       // assert that attribute doesn't exist
       .get(`[data-cy=e2e-test-attr-from-db-checkbox]`)
-      .should('not.exist')
+      .should('not.exist');
   });
 
   it('test change users name', () => {
-
-    cy.intercept('**/usersManager/updateUser**').as('updateUser')
-      .intercept('**/usersManager/getUserById**').as('getUserById')
+    cy.intercept('**/usersManager/updateUser**')
+      .as('updateUser')
+      .intercept('**/usersManager/getUserById**')
+      .as('getUserById')
       .get('[data-cy=users]')
       .click()
       .get('[data-cy=test5-td]')
@@ -96,41 +99,43 @@ context('Actions', () => {
       .click()
       .get('[data-cy=user-first-name-input]')
       .clear()
-      .type("Test555")
+      .type('Test555')
       .get('[data-cy=user-save-button]')
       .click()
       .wait('@updateUser')
       .wait('@getUserById')
       // assert that the name changed
       .get('[data-cy=user-name-link]')
-      .contains('Test555 User14')
+      .contains('Test555 User14');
   });
 
   it('test create service', () => {
-
-    cy.intercept('**/servicesManager/createService**').as('createService')
-      .intercept('**/servicesManager/getServices**').as('getServices')
+    cy.intercept('**/servicesManager/createService**')
+      .as('createService')
+      .intercept('**/servicesManager/getServices**')
+      .as('getServices')
       .get('[data-cy=services]')
       .click()
       .get('[data-cy=service-create-button]')
       .click()
       .get('[data-cy=service-name-input]')
-      .type("e2e_test_service")
+      .type('e2e_test_service')
       .get('[data-cy=service-description-input]')
-      .type("testing service")
+      .type('testing service')
       .get('[data-cy=service-create-edit-dialog-button]')
       .click()
       .wait('@createService')
       .wait('@getServices')
       // assert that service exists
       .get('[data-cy=e2e_test_service-checkbox]')
-      .should('exist')
+      .should('exist');
   });
 
   it('test delete service', () => {
-
-    cy.intercept('**/servicesManager/deleteService**').as('deleteService')
-      .intercept('**/servicesManager/getServices**').as('getServices')
+    cy.intercept('**/servicesManager/deleteService**')
+      .as('deleteService')
+      .intercept('**/servicesManager/getServices**')
+      .as('getServices')
       .get('[data-cy=services]')
       .click()
       .get(`[data-cy=${dbServiceName.toLowerCase()}-checkbox]`)
@@ -143,13 +148,14 @@ context('Actions', () => {
       .wait('@getServices')
       // assert that service doesn't exist
       .get(`[data-cy=${dbServiceName.toLowerCase()}-checkbox]`)
-      .should('not.exist')
+      .should('not.exist');
   });
 
   it('test rename service', () => {
-
-    cy.intercept('**/servicesManager/updateService**').as('updateService')
-      .intercept('**/servicesManager/getServiceById**').as('getServiceById')
+    cy.intercept('**/servicesManager/updateService**')
+      .as('updateService')
+      .intercept('**/servicesManager/getServiceById**')
+      .as('getServiceById')
       .get('[data-cy=services]')
       .click()
       .get(`[data-cy=${dbServiceName2.toLowerCase()}-name-td]`)
@@ -165,35 +171,28 @@ context('Actions', () => {
       .wait('@getServiceById')
       // assert that service is renamed
       .get(`[data-cy=service-name-link]`)
-      .contains(dbServiceName2 + 'edit')
+      .contains(dbServiceName2 + 'edit');
   });
 
   it('test list ext sources', () => {
-
     cy.get('[data-cy=external-sources]')
       .click()
       .get(`[data-cy=${dbExtSourceName.toLowerCase()}-name-td]`)
-      .should('exist')
+      .should('exist');
   });
 
   it('test list audit messages', () => {
-
-    cy.get('[data-cy=audit-log]')
-      .click()
-      .get(`[data-cy=audit-message-td]`)
-      .should('exist')
+    cy.get('[data-cy=audit-log]').click().get(`[data-cy=audit-message-td]`).should('exist');
   });
 
   it('test list consent hubs', () => {
-
     cy.get('[data-cy=consent-hubs]')
       .click()
       .get(`[data-cy=${dbConsentHubName.toLowerCase()}-name-td]`)
-      .should('exist')
+      .should('exist');
   });
 
   it('test search attribute', () => {
-
     cy.get('[data-cy=searcher]')
       .click()
       .get(`[data-cy=filter-input]`)
@@ -206,6 +205,6 @@ context('Actions', () => {
       .get('[data-cy=searcher-search-button]')
       .click()
       .get(`[data-cy=${dbSearcherUserFirstName.toLowerCase()}-firstName-td]`)
-      .should('exist')
+      .should('exist');
   });
-})
+});

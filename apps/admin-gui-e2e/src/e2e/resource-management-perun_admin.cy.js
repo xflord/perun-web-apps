@@ -29,47 +29,46 @@ context('Actions', () => {
       .get('[data-cy=resource-list]')
       .click()
       .get(`[data-cy=${dbResourceName}]`)
-      .click()
-  })
+      .click();
+  });
 
   it('test add attribute', () => {
-
     cy.get('[data-cy=attributes]')
       .click()
       .get('[data-cy=add-attributes]')
       .click()
       .get(`[data-cy=${dbAttributeToAdd}-value]`)
       .type('test')
-      .intercept('**/attributesManager/getAttributes/r**').as('getAttributes')
+      .intercept('**/attributesManager/getAttributes/r**')
+      .as('getAttributes')
       .get('[data-cy=save-selected-attributes]')
       .click()
       .wait('@getAttributes')
 
       // check that attribute was added
       .get(`[data-cy=${dbAttributeToAdd}-value]`)
-      .should('exist')
+      .should('exist');
   });
 
   it('test delete attribute', () => {
-
     cy.get('[data-cy=attributes]')
       .click()
       .get(`[data-cy=${dbAttributeToDelete}-checkbox]`)
       .click()
       .get('[data-cy=remove-attributes]')
       .click()
-      .intercept('**/attributesManager/getAttributes/r**').as('getAttributes')
+      .intercept('**/attributesManager/getAttributes/r**')
+      .as('getAttributes')
       .get('[data-cy=delete-attributes]')
       .click()
       .wait('@getAttributes')
 
       // check that attribute was deleted
       .get(`[data-cy=${dbAttributeToDelete}-checkbox]`)
-      .should('not.exist')
+      .should('not.exist');
   });
 
   it('test add resource manager', () => {
-
     cy.get('[data-cy=advanced-settings]')
       .click()
       .get('[data-cy=managers]')
@@ -82,18 +81,18 @@ context('Actions', () => {
       .click()
       .get(`[data-cy=${dbAddManager}-checkbox]`)
       .click()
-      .intercept('**/authzResolver/getRichAdmins**').as('getRichAdmins')
+      .intercept('**/authzResolver/getRichAdmins**')
+      .as('getRichAdmins')
       .get('[data-cy=add-manager-button-dialog]')
       .click()
       .wait('@getRichAdmins')
 
       // assert that manager was added
       .get(`[data-cy=${dbAddManager}-checkbox]`)
-      .should('exist')
+      .should('exist');
   });
 
   it('test remove resource manager', () => {
-
     cy.get('[data-cy=advanced-settings]')
       .click()
       .get('[data-cy=managers]')
@@ -102,18 +101,18 @@ context('Actions', () => {
       .click()
       .get('[data-cy=remove-manager-button]')
       .click()
-      .intercept('**/authzResolver/getRichAdmins**').as('getRichAdmins')
+      .intercept('**/authzResolver/getRichAdmins**')
+      .as('getRichAdmins')
       .get('[data-cy=remove-manager-button-dialog]')
       .click()
       .wait('@getRichAdmins')
 
       // assert that manager was removed
       .get(`[data-cy=${dbRemoveManager}-checkbox]`)
-      .should('not.exist')
+      .should('not.exist');
   });
 
-  it( 'test assign group to resource', () => {
-
+  it('test assign group to resource', () => {
     cy.get('[data-cy=assigned-groups]')
       .click()
       .get('[data-cy=add-group-button]')
@@ -122,31 +121,32 @@ context('Actions', () => {
       .click()
       .get('[data-cy=next-button]')
       .click()
-      .intercept('**/resourcesManager/getGroupAssignments**').as('getGroupAssignments')
+      .intercept('**/resourcesManager/getGroupAssignments**')
+      .as('getGroupAssignments')
       .get('[data-cy=assign-button]')
       .click()
       .wait('@getGroupAssignments')
 
-    //  assert that group was added
+      //  assert that group was added
       .get(`[data-cy=${dbGroupToAssign}-checkbox]`)
-      .should('exist')
-  })
+      .should('exist');
+  });
 
-  it( 'test remove group from resource', () => {
-
+  it('test remove group from resource', () => {
     cy.get('[data-cy=assigned-groups]')
       .click()
       .get(`[data-cy=${dbGroupToRemove}-checkbox]`)
       .click()
       .get('[data-cy=remove-group-button]')
       .click()
-      .intercept('**/resourcesManager/getGroupAssignments**').as('getGroupAssignments')
+      .intercept('**/resourcesManager/getGroupAssignments**')
+      .as('getGroupAssignments')
       .get('[data-cy=delete-button]')
       .click()
       .wait('@getGroupAssignments')
 
       //  assert that group was removed
       .get(`[data-cy=${dbGroupToRemove}-checkbox]`)
-      .should('not.exist')
-  })
-})
+      .should('not.exist');
+  });
+});

@@ -140,9 +140,10 @@
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/admin-gui-e2e/cypress.json",
+            "cypressConfig": "apps/admin-gui-e2e/cypress.config.ts",
             "tsConfig": "apps/admin-gui-e2e/tsconfig.e2e.json",
-            "devServerTarget": "admin-gui:serve"
+            "devServerTarget": "admin-gui:serve",
+            "testingType": "e2e"
           },
           "configurations": {
             "production": {
@@ -357,9 +358,10 @@
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/consolidator-e2e/cypress.json",
+            "cypressConfig": "apps/consolidator-e2e/cypress.config.ts",
             "tsConfig": "apps/consolidator-e2e/tsconfig.e2e.json",
-            "devServerTarget": "consolidator:serve:development"
+            "devServerTarget": "consolidator:serve:development",
+            "testingType": "e2e"
           },
           "configurations": {
             "production": {
@@ -554,9 +556,10 @@
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/linker-e2e/cypress.json",
+            "cypressConfig": "apps/linker-e2e/cypress.config.ts",
             "tsConfig": "apps/linker-e2e/tsconfig.e2e.json",
-            "devServerTarget": "linker:serve:development"
+            "devServerTarget": "linker:serve:development",
+            "testingType": "e2e"
           },
           "configurations": {
             "production": {
@@ -709,9 +712,10 @@
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/password-reset-e2e/cypress.json",
+            "cypressConfig": "apps/password-reset-e2e/cypress.config.ts",
             "tsConfig": "apps/password-reset-e2e/tsconfig.e2e.json",
-            "devServerTarget": "password-reset:serve"
+            "devServerTarget": "password-reset:serve",
+            "testingType": "e2e"
           },
           "configurations": {
             "production": {
@@ -1327,9 +1331,10 @@
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/publications-e2e/cypress.json",
+            "cypressConfig": "apps/publications-e2e/cypress.config.ts",
             "tsConfig": "apps/publications-e2e/tsconfig.e2e.json",
-            "devServerTarget": "publications:serve"
+            "devServerTarget": "publications:serve",
+            "testingType": "e2e"
           },
           "configurations": {
             "production": {
@@ -1567,9 +1572,10 @@
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/user-profile-e2e/cypress.json",
+            "cypressConfig": "apps/user-profile-e2e/cypress.config.ts",
             "tsConfig": "apps/user-profile-e2e/tsconfig.e2e.json",
-            "devServerTarget": "user-profile:serve"
+            "devServerTarget": "user-profile:serve",
+            "testingType": "e2e"
           },
           "configurations": {
             "production": {

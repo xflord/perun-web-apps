@@ -16,17 +16,17 @@ context('Actions', () => {
       sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD_FACILITY_MANAGER'));
       cy.visit('service-access');
     }
-  })
+  });
 
   beforeEach(() => {
     // save route for correct authorization
     localStorage.setItem('routeAuthGuard', '/facilities');
     cy.visit('facilities');
-  })
+  });
 
   it('test create facility', () => {
-
-    cy.intercept('**/facilitiesManager/getFacilities').as('getFacilities')
+    cy.intercept('**/facilitiesManager/getFacilities')
+      .as('getFacilities')
       .get('[data-cy=new-facility-button]')
       .click()
       .wait('@getFacilities')
@@ -36,18 +36,19 @@ context('Actions', () => {
       .type('test-e2e-facility-description')
       .get('[data-cy=create-facility-button]')
       .click()
-      .intercept('**/facilitiesManager/getEnrichedFacilities').as('getEnrichedFacilities')
+      .intercept('**/facilitiesManager/getEnrichedFacilities')
+      .as('getEnrichedFacilities')
       .wait('@getEnrichedFacilities')
       // assert that the facility was created
       .get('[data-cy=auto-focused-filter]')
       .type('test-e2e-facility')
       .get('[data-cy=test-e2e-facility-checkbox]')
-      .should('exist')
+      .should('exist');
   });
 
   it('test delete facility', () => {
-
-    cy.intercept('**/facilitiesManager/getEnrichedFacilities').as('getEnrichedFacilities')
+    cy.intercept('**/facilitiesManager/getEnrichedFacilities')
+      .as('getEnrichedFacilities')
       .wait('@getEnrichedFacilities')
       .get(`[data-cy=${dbFacilityName1}-checkbox]`)
       .click()
@@ -57,13 +58,14 @@ context('Actions', () => {
       .click()
       .wait('@getEnrichedFacilities')
       .get(`[data-cy=${dbFacilityName1}-checkbox]`)
-      .should('not.exist')
+      .should('not.exist');
   });
 
   it('test create resource', () => {
-
-    cy.intercept('**/facilitiesManager/getEnrichedFacilities').as('getEnrichedFacilities')
-      .intercept('**/vosManager/getAllVos').as('getAllVos')
+    cy.intercept('**/facilitiesManager/getEnrichedFacilities')
+      .as('getEnrichedFacilities')
+      .intercept('**/vosManager/getAllVos')
+      .as('getAllVos')
       .wait('@getEnrichedFacilities')
       .get(`[data-cy=${dbFacilityName2}]`)
       .click()
@@ -81,16 +83,18 @@ context('Actions', () => {
       .type('test-e2e-resource')
       .get('[data-cy=create-resource-dialog-button]')
       .click()
-      .intercept('**/facilitiesManager/getAssignedRichResources?**').as('getAssignedResources')
+      .intercept('**/facilitiesManager/getAssignedRichResources?**')
+      .as('getAssignedResources')
       .wait('@getAssignedResources')
       .get('[data-cy=test-e2e-resource-checkbox]')
-      .should('exist')
+      .should('exist');
   });
 
   it('test delete resource', () => {
-
-    cy.intercept('**/facilitiesManager/getEnrichedFacilities').as('getEnrichedFacilities')
-      .intercept('**/facilitiesManager/getAssignedRichResources?**').as('getAssignedResources')
+    cy.intercept('**/facilitiesManager/getEnrichedFacilities')
+      .as('getEnrichedFacilities')
+      .intercept('**/facilitiesManager/getAssignedRichResources?**')
+      .as('getAssignedResources')
       .wait('@getEnrichedFacilities')
       .get(`[data-cy=${dbFacilityName2}]`)
       .click()
@@ -105,12 +109,12 @@ context('Actions', () => {
       .click()
       .wait('@getAssignedResources')
       .get(`[data-cy=${dbResourceName}-checkbox]`)
-      .should('not.exist')
+      .should('not.exist');
   });
 
   it('test add attribute', () => {
-
-    cy.intercept('**/facilitiesManager/getEnrichedFacilities').as('getEnrichedFacilities')
+    cy.intercept('**/facilitiesManager/getEnrichedFacilities')
+      .as('getEnrichedFacilities')
       .wait('@getEnrichedFacilities')
       .get(`[data-cy=${dbFacilityName2}]`)
       .click()
@@ -124,16 +128,17 @@ context('Actions', () => {
       .type('einfra')
       .get('[data-cy=save-selected-attributes]')
       .click()
-      .intercept('**/attributesManager/getAttributes/**').as('getAttributes')
+      .intercept('**/attributesManager/getAttributes/**')
+      .as('getAttributes')
       .wait('@getAttributes')
       // assert that attribute exists
       .get(`[data-cy=${addedAttribute}-value]`)
-      .should('exist')
+      .should('exist');
   });
 
   it('test delete attribute', () => {
-
-    cy.intercept('**/facilitiesManager/getEnrichedFacilities').as('getEnrichedFacilities')
+    cy.intercept('**/facilitiesManager/getEnrichedFacilities')
+      .as('getEnrichedFacilities')
       .wait('@getEnrichedFacilities')
       .get(`[data-cy=${dbFacilityName2}]`)
       .click()
@@ -145,17 +150,19 @@ context('Actions', () => {
       .click()
       .get('[data-cy=delete-attributes]')
       .click()
-      .intercept('**/attributesManager/getAttributes/**').as('getAttributes')
+      .intercept('**/attributesManager/getAttributes/**')
+      .as('getAttributes')
       .wait('@getAttributes')
       // assert that attribute exists
       .get(`[data-cy=${deleteAttribute}-checkbox]`)
-      .should('not.exist')
+      .should('not.exist');
   });
 
   it('test add facility manager', () => {
-
-    cy.intercept('**/facilitiesManager/getEnrichedFacilities').as('getEnrichedFacilities')
-      .intercept('**/usersManager/findRichUsersWithAttributes?**').as('findRichUsers')
+    cy.intercept('**/facilitiesManager/getEnrichedFacilities')
+      .as('getEnrichedFacilities')
+      .intercept('**/usersManager/findRichUsersWithAttributes?**')
+      .as('findRichUsers')
       .wait('@getEnrichedFacilities')
       .get(`[data-cy=${dbFacilityName2}]`)
       .click()
@@ -174,16 +181,17 @@ context('Actions', () => {
       .click()
       .get('[data-cy=add-manager-button-dialog]')
       .click()
-      .intercept('**/authzResolver/getRichAdmins?**').as('getRichAdmins')
+      .intercept('**/authzResolver/getRichAdmins?**')
+      .as('getRichAdmins')
       .wait('@getRichAdmins')
       // assert that manager was added
       .get(`[data-cy=${addManagerUser}-checkbox]`)
-      .should('exist')
+      .should('exist');
   });
 
   it('test remove facility manager', () => {
-
-    cy.intercept('**/facilitiesManager/getEnrichedFacilities').as('getEnrichedFacilities')
+    cy.intercept('**/facilitiesManager/getEnrichedFacilities')
+      .as('getEnrichedFacilities')
       .wait('@getEnrichedFacilities')
       .get(`[data-cy=${dbFacilityName2}]`)
       .click()
@@ -197,10 +205,11 @@ context('Actions', () => {
       .click()
       .get('[data-cy=remove-manager-button-dialog]')
       .click()
-      .intercept('**/authzResolver/getRichAdmins?**').as('getRichAdmins')
+      .intercept('**/authzResolver/getRichAdmins?**')
+      .as('getRichAdmins')
       .wait('@getRichAdmins')
       // assert that manager doesn't exist
       .get(`[data-cy=${removeManagerUser}-checkbox]`)
-      .should('not.exist')
+      .should('not.exist');
   });
-})
+});

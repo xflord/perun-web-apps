@@ -54,4 +54,7 @@ apps/consolidator/src/assets/config/instanceFavicon.ico
 apps/linker/src/assets/config/instanceConfig.json
 apps/linker/src/assets/config/instanceFavicon.ico
 
+#e2e dist files
+apps/admin-gui-e2e/dist
+
 .angular

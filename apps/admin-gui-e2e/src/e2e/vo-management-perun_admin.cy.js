@@ -16,16 +16,17 @@ context('Actions', () => {
       sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD_VO_MANAGER'));
       cy.visit('service-access');
     }
-  })
+  });
 
   beforeEach(() => {
     cy.visit('organizations');
-  })
+  });
 
   it('test create vo', () => {
-
-    cy.intercept('**/vosManager/createVo/**').as('createVo')
-      .intercept('**/vosManager/getEnrichedVoById**').as('getVoById')
+    cy.intercept('**/vosManager/createVo/**')
+      .as('createVo')
+      .intercept('**/vosManager/getEnrichedVoById**')
+      .as('getVoById')
       .get('[data-cy=new-vo-button]')
       .click()
       .get('[data-cy=vo-name-input]')
@@ -40,13 +41,13 @@ context('Actions', () => {
       .get('[data-cy=vo-name-link]')
       .contains('test-e2e-vo')
       .invoke('text')
-      .then((text) => text === "test-e2e-vo")
-      .should('exist')
+      .then((text) => text === 'test-e2e-vo')
+      .should('exist');
   });
 
   it('test add attribute', () => {
-
-    cy.intercept('**/attributesManager/setAttributes/vo').as('setAttributes')
+    cy.intercept('**/attributesManager/setAttributes/vo')
+      .as('setAttributes')
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=attributes]')
@@ -56,19 +57,20 @@ context('Actions', () => {
       // get attribute Notification default language
       .get(`[data-cy=${addedAttribute}-value]`)
       .type('en')
-      .intercept('**/attributesManager/getAttributes/vo**').as('getAttributes')
+      .intercept('**/attributesManager/getAttributes/vo**')
+      .as('getAttributes')
       .get('[data-cy=save-selected-attributes]')
       .click()
       .wait('@setAttributes')
       .wait('@getAttributes')
       // assert that attribute exists
       .get(`[data-cy=${addedAttribute}-value]`)
-      .should('exist')
+      .should('exist');
   });
 
   it('test delete attribute', () => {
-
-    cy.intercept('**/attributesManager/removeAttributes/**').as('removeAttributes')
+    cy.intercept('**/attributesManager/removeAttributes/**')
+      .as('removeAttributes')
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=attributes]')
@@ -78,19 +80,20 @@ context('Actions', () => {
       .click()
       .get('[data-cy=remove-attributes]')
       .click()
-      .intercept('**/attributesManager/getAttributes/vo**').as('getAttributes')
+      .intercept('**/attributesManager/getAttributes/vo**')
+      .as('getAttributes')
       .get('[data-cy=delete-attributes]')
       .click()
       .wait('@removeAttributes')
       .wait('@getAttributes')
       // assert that attribute exists
       .get('[data-cy=link-to-aup-checkbox]')
-      .should('not.exist')
+      .should('not.exist');
   });
 
   it('test add vo member', () => {
-
-    cy.intercept('**/membersManager/createMember/u').as('createMember')
+    cy.intercept('**/membersManager/createMember/u')
+      .as('createMember')
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=members]')
@@ -103,17 +106,18 @@ context('Actions', () => {
       .click()
       .get('[data-cy=add-button]')
       .click()
-      .intercept('**/membersManager/getMembersPage').as('getMembers')
+      .intercept('**/membersManager/getMembersPage')
+      .as('getMembers')
       .wait('@createMember')
       .wait('@getMembers')
       // assert that member was created
       .get(`[data-cy=${dbUser}-checkbox]`)
-      .should('exist')
+      .should('exist');
   });
 
   it('test remove vo member', () => {
-
-    cy.intercept('**/membersManager/deleteMembers**').as('deleteMembers')
+    cy.intercept('**/membersManager/deleteMembers**')
+      .as('deleteMembers')
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=members]')
@@ -124,17 +128,18 @@ context('Actions', () => {
       .click()
       .get('[data-cy=remove-members-dialog]')
       .click()
-      .intercept('**/membersManager/getMembersPage').as('getMembers')
+      .intercept('**/membersManager/getMembersPage')
+      .as('getMembers')
       .wait('@deleteMembers')
       .wait('@getMembers')
       // assert that member was removed
       .get(`[data-cy=${dbVoManager}-checkbox]`)
-      .should('not.exist')
+      .should('not.exist');
   });
 
   it('test add group', () => {
-
-    cy.intercept('**/groupsManager/createGroup/**').as('createGroup')
+    cy.intercept('**/groupsManager/createGroup/**')
+      .as('createGroup')
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=groups]')
@@ -148,16 +153,17 @@ context('Actions', () => {
       .get('[data-cy=create-group-button-dialog]')
       .click()
       .wait('@createGroup')
-      .intercept('**/groupsManager/getAllRichGroupsWithAttributesByNames**').as('getGroups')
+      .intercept('**/groupsManager/getAllRichGroupsWithAttributesByNames**')
+      .as('getGroups')
       .wait('@getGroups')
       // assert that group was created
       .get('[data-cy=test-group-checkbox]')
-      .should('exist')
+      .should('exist');
   });
 
   it('test remove group', () => {
-
-    cy.intercept('**/groupsManager/deleteGroups').as('deleteGroups')
+    cy.intercept('**/groupsManager/deleteGroups')
+      .as('deleteGroups')
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=groups]')
@@ -169,16 +175,17 @@ context('Actions', () => {
       .get('[data-cy=delete-button-dialog]')
       .click()
       .wait('@deleteGroups')
-      .intercept('**/groupsManager/getAllRichGroupsWithAttributesByNames**').as('getGroups')
+      .intercept('**/groupsManager/getAllRichGroupsWithAttributesByNames**')
+      .as('getGroups')
       .wait('@getGroups')
       // assert that group was deleted
       .get(`[data-cy=${dbGroupName}-checkbox]`)
-      .should('not.exist')
+      .should('not.exist');
   });
 
   it('test create vo application form item', () => {
-
-    cy.intercept('**/registrarManager/updateFormItems/**').as('addFormItem')
+    cy.intercept('**/registrarManager/updateFormItems/**')
+      .as('addFormItem')
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=advanced-settings]')
@@ -193,7 +200,8 @@ context('Actions', () => {
       .click()
       .get('[data-cy=edit-form-item-button-dialog]')
       .click()
-      .intercept('**/registrarManager/getFormItems/vo**').as('getFormItems')
+      .intercept('**/registrarManager/getFormItems/vo**')
+      .as('getFormItems')
       .get('[data-cy=save-application-form]')
       .click()
       .wait('@addFormItem')
@@ -203,13 +211,14 @@ context('Actions', () => {
       .wait('@getFormItems')
       // assert that form item exists
       .get('[data-cy=header-delete]')
-      .should('exist')
+      .should('exist');
   });
 
   it('test delete vo application form item', () => {
-
-    cy.intercept('**/registrarManager/updateFormItems/**').as('deleteFormItem')
-      .intercept('**/registrarManager/getFormItems/vo**').as('getFormItems')
+    cy.intercept('**/registrarManager/updateFormItems/**')
+      .as('deleteFormItem')
+      .intercept('**/registrarManager/getFormItems/vo**')
+      .as('getFormItems')
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=advanced-settings]')
@@ -228,12 +237,12 @@ context('Actions', () => {
       .click()
       // assert that form item doesn't exist
       .get(`[data-cy=${dbApplicationItemTextFieldName}-delete]`)
-      .should('not.exist')
+      .should('not.exist');
   });
 
   it('test add vo manager', () => {
-
-    cy.intercept('**/authzResolver/setRole/**').as('setRole')
+    cy.intercept('**/authzResolver/setRole/**')
+      .as('setRole')
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=advanced-settings]')
@@ -250,17 +259,18 @@ context('Actions', () => {
       .click()
       .get('[data-cy=add-manager-button-dialog]')
       .click()
-      .intercept('**/authzResolver/getRichAdmins**').as('getRichAdmins')
+      .intercept('**/authzResolver/getRichAdmins**')
+      .as('getRichAdmins')
       .wait('@setRole')
       .wait('@getRichAdmins')
       // assert that manager was added
       .get(`[data-cy=${dbUser}-checkbox]`)
-      .should('exist')
+      .should('exist');
   });
 
   it('test remove vo manager', () => {
-
-    cy.intercept('**/authzResolver/unsetRole/**').as('unsetRole')
+    cy.intercept('**/authzResolver/unsetRole/**')
+      .as('unsetRole')
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=advanced-settings]')
@@ -271,25 +281,26 @@ context('Actions', () => {
       .click()
       .get('[data-cy=remove-manager-button]')
       .click()
-      .intercept('**/authzResolver/getRichAdmins**').as('getRichAdmins')
+      .intercept('**/authzResolver/getRichAdmins**')
+      .as('getRichAdmins')
       .get('[data-cy=remove-manager-button-dialog]')
       .click()
       .wait('@unsetRole')
       .wait('@getRichAdmins')
       // assert that manager doesn't exist
       .get(`[data-cy=${dbVoManager}-checkbox]`)
-      .should('not.exist')
+      .should('not.exist');
   });
 
   it('test delete vo (perun admin)', () => {
-
     // change role to perun admin
     sessionStorage.setItem('baPrincipal', '{"name": "perun"}');
     sessionStorage.setItem('basicUsername', Cypress.env('BA_USERNAME'));
     sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD'));
     cy.reload();
 
-    cy.intercept('**/vosManager/deleteVo**').as('deleteVo')
+    cy.intercept('**/vosManager/deleteVo**')
+      .as('deleteVo')
       .get('[data-cy=auto-focused-filter]')
       .type(`${dbVoName}`)
       .get(`[data-cy=${dbVoName}]`)
@@ -308,6 +319,6 @@ context('Actions', () => {
       .get('[data-cy=auto-focused-filter]')
       .type(`${dbVoName}`)
       .get(`[data-cy=${dbVoName}]`)
-      .should('not.exist')
+      .should('not.exist');
   });
-})
+});
