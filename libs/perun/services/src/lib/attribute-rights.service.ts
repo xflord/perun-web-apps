@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  AttributeAction,
   AttributePolicyCollection,
-  AttributesManagerService,
   AuthzResolverService,
   RoleManagementRules,
   RoleObject,
@@ -17,10 +15,7 @@ import { Observable, of, ReplaySubject } from 'rxjs';
 export class AttributeRightsService {
   private roleWithObjects$ = new ReplaySubject<Map<Role, RoleObject[]>>(1);
 
-  constructor(
-    private authService: AuthzResolverService,
-    private attributesManager: AttributesManagerService
-  ) {
+  constructor(private authService: AuthzResolverService) {
     this.authService
       .getAllRolesManagementRules()
       .pipe(
@@ -71,23 +66,6 @@ export class AttributeRightsService {
         })
       );
     };
-  }
-
-  updateAttributeAction(
-    finalOperations: boolean,
-    initOperations: boolean,
-    attrDefId: number,
-    operationType: AttributeAction
-  ): Observable<void> {
-    if (finalOperations !== undefined && finalOperations !== initOperations) {
-      return this.attributesManager.setAttributeActionCriticality(
-        attrDefId,
-        operationType,
-        finalOperations
-      ) as Observable<void>;
-    } else {
-      return of(void 0);
-    }
   }
 
   /**

@@ -2959,11 +2959,6 @@
         "ATTRIBUTE_UNIQUE_TOGGLE": {
           "UNIQUE": "Unique",
           "TOOLTIP": "Entityless, virtual or core attributes can NOT be UNIQUE"
-        },
-        "ATTRIBUTE_CRITICAL_OPERATIONS_TOGGLE": {
-          "READ": "READ operations critical",
-          "WRITE": "WRITE operations critical",
-          "INFO": "All operations of the selected type (READ/WRITE) for this attribute will require multi-factor authentication for objects that are marked as critical."
         }
       },
       "ORGANIZATIONS": {
