@@ -1,0 +1,30 @@
+<div>
+  <div mat-dialog-title>
+    <h1 class="page-subtitle">
+      {{'SHARED_LIB.CONSOLIDATOR.SEND_MESSAGE_TO_SUPPORT_DIALOG.TITLE' | translate}}
+    </h1>
+  </div>
+  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content>
+    <perun-web-apps-alert alert_type="info">
+      {{'SHARED_LIB.CONSOLIDATOR.SEND_MESSAGE_TO_SUPPORT_DIALOG.SUBTITLE' | translate}}
+    </perun-web-apps-alert>
+    <mat-form-field class="w-100">
+      <textarea
+        [(ngModel)]="message"
+        matInput
+        cdkTextareaAutosize
+        placeholder="{{'SHARED_LIB.CONSOLIDATOR.SEND_MESSAGE_TO_SUPPORT_DIALOG.PLACEHOLDER' | translate}}"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions>
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+      {{'SHARED_LIB.CONSOLIDATOR.SEND_MESSAGE_TO_SUPPORT_DIALOG.CANCEL' | translate}}
+    </button>
+
+    <button (click)="onSend()" class="ml-2" color="accent" mat-flat-button>
+      {{'SHARED_LIB.CONSOLIDATOR.SEND_MESSAGE_TO_SUPPORT_DIALOG.SUBMIT' | translate}}
+    </button>
+  </div>
+</div>

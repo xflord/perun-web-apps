@@ -22,7 +22,9 @@
     "CONSOLIDATOR": {
       "OK_TITLE": "Success!",
       "OK_SUBTITLE": "Accounts successfully linked.",
-      "IDENTITY_REGISTERED_ALREADY_TITLE": "This account is linked to another user. The account could not be automatically linked.",
+      "OK_SUBTITLE_WITH_MAIL_1": "Account ",
+      "OK_SUBTITLE_WITH_MAIL_2": " successfully linked.",
+      "IDENTITY_REGISTERED_ALREADY_TITLE": "We cannot automatically link these accounts.",
       "IDENTITY_REGISTERED_ALREADY_SUBTITLE": "Please contact the user support.",
       "IDENTITY_IDENTICAL_TITLE": "You logged in with the same account.",
       "IDENTITY_IDENTICAL_SUBTITLE": "",
@@ -33,13 +35,13 @@
       "TOKEN_EXPIRED_TITLE": "Some logins are expired!",
       "TOKEN_EXPIRED_SUBTITLE": "Please close this window and refresh the web application you came from.",
       "MESSAGE_SENT_TO_SUPPORT_TITLE": "Email was sent to user support.",
-      "MESSAGE_SENT_TO_SUPPORT_SUBTITLE": "Our user support will answer your email as soon as possible.",
+      "MESSAGE_SENT_TO_SUPPORT_SUBTITLE": "Our user support will answer you as soon as possible to your email",
       "UNKNOWN_ERROR_TITLE": "Something went wrong.",
       "UNKNOWN_ERROR_SUBTITLE": "Please try again later or contact the user support at",
       "SEND_MESSAGE_TO_SUPPORT_DIALOG": {
         "TITLE": "Send message to User Support",
-        "SUBTITLE": "Technical info will be sent automatically",
-        "SELECT_PREFERRED_EMAIL": "Select your preferable contact email",
+        "SUBTITLE": "You can send this message or you can write your own text. Technical info will be sent automatically.",
+        "PLACEHOLDER": "Message for support",
         "CANCEL": "Cancel",
         "SUBMIT": "Send"
       }

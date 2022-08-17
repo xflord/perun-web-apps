@@ -27,6 +27,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { LibLinkerModule } from '@perun-web-apps/lib-linker';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SendMessageDialogComponent } from './components/send-message-dialog/send-message-dialog.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -49,7 +50,7 @@ const loadConfigs = (appConfig: LinkerConfigService) => (): Promise<void> =>
   appConfig.loadConfigs();
 
 @NgModule({
-  declarations: [AppComponent, ShowResultComponent],
+  declarations: [AppComponent, ShowResultComponent, SendMessageDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

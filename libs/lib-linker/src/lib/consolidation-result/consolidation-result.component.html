@@ -12,9 +12,19 @@
       <h1>
         {{('SHARED_LIB.CONSOLIDATOR.' + result + '_TITLE') | translate}}
       </h1>
-      <h5>
+      <h5 *ngIf="!(userMail && result === 'OK')">
         {{('SHARED_LIB.CONSOLIDATOR.' + result + '_SUBTITLE') | translate}}
-        <span *ngIf="result === 'UNKNOWN_ERROR'"> {{supportMail}} </span>
+        <span *ngIf="result === 'UNKNOWN_ERROR'">
+          {{supportMail}}
+        </span>
+        <span *ngIf="result === 'MESSAGE_SENT_TO_SUPPORT'">
+          {{userMail}}
+        </span>
+      </h5>
+      <h5 *ngIf="userMail && result === 'OK'">
+        {{'SHARED_LIB.CONSOLIDATOR.OK_SUBTITLE_WITH_MAIL_1' | translate}}
+        {{userMail}}
+        {{'SHARED_LIB.CONSOLIDATOR.OK_SUBTITLE_WITH_MAIL_2' | translate}}
       </h5>
     </div>
   </div>

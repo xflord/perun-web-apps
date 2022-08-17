@@ -11,6 +11,7 @@ export class ConsolidationResultComponent implements OnChanges {
   @Input()
   result: LinkerResult;
   supportMail = this.store.getProperty('support_mail');
+  userMail: string = this.store.getPerunPrincipal().additionalInformations.mail;
   color = '';
   icon = '';
 
