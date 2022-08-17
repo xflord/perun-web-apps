@@ -35,6 +35,7 @@ export class TagBarComponent implements OnInit {
     tags.push(['voName', 'VONAME_DESCRIPTION']);
     tags.push(['groupName', 'GROUPNAME_DESCRIPTION']);
     tags.push(['mailFooter', 'MAILFOOTER_DESCRIPTION']);
+    tags.push(['htmlMailFooter', 'HTMLMAILFOOTER_DESCRIPTION']);
     tags.push(['errors', 'ERRORS_DESCRIPTION']);
     tags.push(['customMessage', 'CUSTOMMESSAGE_DESCRIPTION']);
     tags.push(['fromApp-itemName', 'FROMAPPITEMNAME_DESCRIPTION']);
@@ -98,6 +99,7 @@ export class TagBarComponent implements OnInit {
     tags.push(['groupName', 'USER_INVITATIONS_GROUPNAME_DESCRIPTION']);
     tags.push(['displayName', 'USER_INVITATIONS_DISPLAYNAME_DESCRIPTION']);
     tags.push(['mailFooter', 'USER_INVITATIONS_MAILFOOTER_DESCRIPTION']);
+    tags.push(['htmlMailFooter', 'USER_INVITATIONS_HTMLMAILFOOTER_DESCRIPTION']);
     tags.push(['invitationLink', 'INVITATIONLINK_DESCRIPTION']);
     tags.push(['invitationLink-krb', 'INVITATIONLINKKRB_DESCRIPTION']);
     tags.push(['invitationLink-fed', 'INVITATIONLINKFED_DESCRIPTION']);

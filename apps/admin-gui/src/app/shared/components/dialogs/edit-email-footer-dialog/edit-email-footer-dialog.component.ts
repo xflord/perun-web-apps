@@ -18,10 +18,14 @@ export interface ApplicationFormEmailFooterDialogData {
 })
 export class EditEmailFooterDialogComponent implements OnInit {
   mailFooter = '';
+  htmlMailFooter = '';
   theme: string;
   loading = false;
-  editAuth: boolean;
+  plainEdithAuth: boolean;
+  htmlEditAuth: boolean;
+  formats = ['plain_text', 'html'];
   private mailAttribute: Attribute;
+  private htmlMailAttribute: Attribute;
 
   constructor(
     private dialogRef: MatDialogRef<EditEmailFooterDialogComponent>,
@@ -45,26 +49,45 @@ export class EditEmailFooterDialogComponent implements OnInit {
   submit(): void {
     this.loading = true;
     this.mailAttribute.value = this.mailFooter;
+    this.htmlMailAttribute.value = this.htmlMailFooter;
     if (this.data.groupId) {
       this.attributesManager
         .setGroupAttribute({ group: this.data.groupId, attribute: this.mailAttribute })
-        .subscribe(
-          () => {
-            this.notificationSuccess();
-            this.dialogRef.close();
+        .subscribe({
+          next: () => {
+            if (this.htmlEditAuth) {
+              this.attributesManager
+                .setGroupAttribute({ group: this.data.groupId, attribute: this.htmlMailAttribute })
+                .subscribe({
+                  next: () => {
+                    this.notificationSuccess();
+                    this.dialogRef.close();
+                  },
+                  error: () => (this.loading = false),
+                });
+            }
           },
-          () => (this.loading = false)
-        );
+          error: () => (this.loading = false),
+        });
     } else {
       this.attributesManager
         .setVoAttribute({ vo: this.data.voId, attribute: this.mailAttribute })
-        .subscribe(
-          () => {
-            this.notificationSuccess();
-            this.dialogRef.close();
+        .subscribe({
+          next: () => {
+            if (this.htmlEditAuth) {
+              this.attributesManager
+                .setVoAttribute({ vo: this.data.voId, attribute: this.htmlMailAttribute })
+                .subscribe({
+                  next: () => {
+                    this.notificationSuccess();
+                    this.dialogRef.close();
+                  },
+                  error: () => (this.loading = false),
+                });
+            }
           },
-          () => (this.loading = false)
-        );
+          error: () => (this.loading = false),
+        });
     }
   }
 
@@ -77,11 +100,22 @@ export class EditEmailFooterDialogComponent implements OnInit {
       .getVoAttributeByName(this.data.voId, Urns.VO_DEF_MAIL_FOOTER)
       .subscribe((footer) => {
         this.mailAttribute = footer;
-        this.editAuth = this.mailAttribute.writable;
+        this.plainEdithAuth = this.mailAttribute.writable;
         if (footer.value) {
           this.mailFooter = footer.value as string;
         } else {
           this.mailFooter = '';
+        }
+      });
+    this.attributesManager
+      .getVoAttributeByName(this.data.voId, Urns.VO_DEF_MAIL_HTML_FOOTER)
+      .subscribe((footer) => {
+        this.htmlMailAttribute = footer;
+        this.htmlEditAuth = this.htmlMailAttribute.writable;
+        if (footer.value) {
+          this.htmlMailFooter = footer.value as string;
+        } else {
+          this.htmlMailFooter = '';
         }
       });
   }
@@ -91,11 +125,22 @@ export class EditEmailFooterDialogComponent implements OnInit {
       .getGroupAttributeByName(this.data.groupId, Urns.GROUP_DEF_MAIL_FOOTER)
       .subscribe((footer) => {
         this.mailAttribute = footer;
-        this.editAuth = this.mailAttribute.writable;
+        this.plainEdithAuth = this.mailAttribute.writable;
         if (footer.value) {
           this.mailFooter = footer.value as string;
         } else {
           this.mailFooter = '';
+        }
+      });
+    this.attributesManager
+      .getGroupAttributeByName(this.data.groupId, Urns.GROUP_DEF_MAIL_HTML_FOOTER)
+      .subscribe((footer) => {
+        this.htmlMailAttribute = footer;
+        this.htmlEditAuth = this.htmlMailAttribute.writable;
+        if (footer.value) {
+          this.htmlMailFooter = footer.value as string;
+        } else {
+          this.htmlMailFooter = '';
         }
       });
   }
