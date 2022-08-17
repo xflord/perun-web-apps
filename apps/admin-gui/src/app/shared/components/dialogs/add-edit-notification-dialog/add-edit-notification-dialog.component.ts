@@ -125,18 +125,9 @@ export class AddEditNotificationDialogComponent implements OnInit {
     tag: string,
     format: string
   ): void {
-    let place: HTMLInputElement | HTMLTextAreaElement;
-    if (!this.isTextFocused) {
-      place =
-        format === 'plain_text'
-          ? (input.children.item(0) as HTMLInputElement)
-          : (input.children.item(1) as HTMLInputElement);
-    } else {
-      place =
-        format === 'plain_text'
-          ? (textarea.children.item(0) as HTMLTextAreaElement)
-          : (textarea.children.item(1) as HTMLTextAreaElement);
-    }
+    const place: HTMLInputElement | HTMLTextAreaElement = this.isTextFocused
+      ? (textarea.children.item(0) as HTMLTextAreaElement)
+      : (input.children.item(0) as HTMLInputElement);
     const position: number = place.selectionStart;
     if (this.isTextFocused) {
       if (format === 'html') {
