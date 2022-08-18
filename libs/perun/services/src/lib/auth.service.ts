@@ -59,11 +59,19 @@ export class AuthService {
     }
     if (sessionStorage.getItem('mfa_route')) {
       customQueryParams['acr_values'] = 'https://refeds.org/profile/mfa';
-      customQueryParams['prompt'] = 'login';
+      if (customQueryParams['prompt']) {
+        customQueryParams['prompt'] += ' login';
+      } else {
+        customQueryParams['prompt'] = 'login';
+      }
       customQueryParams['max_age'] = '0';
     }
     if (this.store.getProperty('application') === 'Linker') {
-      customQueryParams['prompt'] = 'login';
+      if (customQueryParams['prompt']) {
+        customQueryParams['prompt'] += ' login';
+      } else {
+        customQueryParams['prompt'] = 'login';
+      }
       const selectedIdP = parseQueryParams('idphint', location.search.substring(1));
       if (selectedIdP) {
         customQueryParams['idphint'] = selectedIdP;
