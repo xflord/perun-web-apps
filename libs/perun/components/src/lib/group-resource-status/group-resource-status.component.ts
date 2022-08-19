@@ -12,6 +12,7 @@ export class GroupResourceStatusComponent {
   @Input() status = '';
   @Input() groupId: number;
   @Input() resourceId: number;
+  @Input() groupName: string;
   @Input() theme: string;
   @Input() failureCause: string;
   @Output() statusChange: EventEmitter<void> = new EventEmitter<void>();
