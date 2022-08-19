@@ -3,14 +3,16 @@
     (click)="changeStatus()"
     *ngIf="status === 'ACTIVE'"
     matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_RESOURCE_STATUS.ACTIVE' | translate}}"
-    matTooltipPosition="above">
+    matTooltipPosition="above"
+    attr.data-cy="{{groupName}}-active">
     <mat-icon class="green">check_circle_outline</mat-icon>
   </span>
   <span
     (click)="changeStatus()"
     *ngIf="status === 'INACTIVE'"
     matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_RESOURCE_STATUS.INACTIVE' | translate}}"
-    matTooltipPosition="above">
+    matTooltipPosition="above"
+    attr.data-cy="{{groupName}}-inactive">
     <mat-icon class="grey">block</mat-icon>
   </span>
   <span

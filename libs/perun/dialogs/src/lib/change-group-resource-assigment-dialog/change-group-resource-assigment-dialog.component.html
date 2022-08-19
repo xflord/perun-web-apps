@@ -62,7 +62,12 @@
     <button class="ml-auto mr-2" mat-flat-button (click)="onCancel()">
       {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.CANCEL' | translate}}
     </button>
-    <button mat-flat-button color="accent" [disabled]="loading" (click)="onSubmit()">
+    <button
+      data-cy="change-status-button"
+      mat-flat-button
+      color="accent"
+      [disabled]="loading"
+      (click)="onSubmit()">
       {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.'+(status === 'ACTIVE' ? 'DEACTIVATE' : 'ACTIVATE') | translate}}
     </button>
   </div>
