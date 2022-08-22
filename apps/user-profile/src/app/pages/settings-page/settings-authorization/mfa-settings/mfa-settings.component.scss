@@ -1,0 +1,15 @@
+.toggle-and-button {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.toggle-ellipsis {
+  height: 40px;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.show-button {
+  white-space: nowrap;
+}

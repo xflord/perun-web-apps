@@ -49,8 +49,8 @@ export class MfaSettingsComponent implements OnInit {
   ngOnInit(): void {
     this.loadingMfa = true;
     this.enableDetailSettings = this.store.getProperty('mfa').enable_detail_settings;
-    this.mfaApiService.isMfaAvailable().subscribe(
-      (isAvailable) => {
+    this.mfaApiService.isMfaAvailable().subscribe({
+      next: (isAvailable) => {
         this.mfaAvailable = isAvailable;
         if (isAvailable) {
           this.loadMfa();
@@ -58,11 +58,11 @@ export class MfaSettingsComponent implements OnInit {
           this.loadingMfa = false;
         }
       },
-      (err) => {
+      error: (err) => {
         console.error(err);
         this.loadingMfa = false;
-      }
-    );
+      },
+    });
   }
 
   /**
@@ -86,8 +86,8 @@ export class MfaSettingsComponent implements OnInit {
       const enforceMfaAttributeName = this.store.get('mfa', 'enforce_mfa_attribute') as string;
       this.attributesManagerService
         .getUserAttributeByName(this.store.getPerunPrincipal().userId, enforceMfaAttributeName)
-        .subscribe(
-          (attr) => {
+        .subscribe({
+          next: (attr) => {
             if (attr.value) {
               this.enforceMfa = true;
               this.toggle.toggle();
@@ -96,11 +96,11 @@ export class MfaSettingsComponent implements OnInit {
             }
             this.loadingMfa = false;
           },
-          (e) => {
+          error: (e) => {
             console.error(e);
             this.loadingMfa = false;
-          }
-        );
+          },
+        });
     }
   }
 
@@ -109,16 +109,16 @@ export class MfaSettingsComponent implements OnInit {
    */
   getCategoriesAndSettings(): void {
     this.loadingCategories = true;
-    this.mfaApiService.getCategories().subscribe(
-      (categories) => {
+    this.mfaApiService.getCategories().subscribe({
+      next: (categories) => {
         this.categories = categories;
         this.getSettings();
       },
-      (err) => {
+      error: (err) => {
         console.error(err);
         this.loadingCategories = false;
-      }
-    );
+      },
+    });
   }
 
   /**
@@ -133,8 +133,8 @@ export class MfaSettingsComponent implements OnInit {
       this.showDetail = !this.showDetail;
       this.loadingCategories = false;
     } else {
-      this.mfaApiService.getSettings().subscribe(
-        (settings) => {
+      this.mfaApiService.getSettings().subscribe({
+        next: (settings) => {
           if (settings.length !== 0) {
             if (settings.all) {
               this.allCategories = true;
@@ -149,11 +149,11 @@ export class MfaSettingsComponent implements OnInit {
           this.showDetail = !this.showDetail;
           this.loadingCategories = false;
         },
-        (err) => {
+        error: (err) => {
           console.error(err);
           this.loadingCategories = false;
-        }
-      );
+        },
+      });
     }
   }
 
@@ -380,8 +380,8 @@ export class MfaSettingsComponent implements OnInit {
    * @param enforceMfa turn on/off mfa for all services according to toggle
    */
   changeEnforceMfa(enforceMfa: boolean): void {
-    this.mfaApiService.enforceMfaForAllServices(enforceMfa).subscribe(
-      () => {
+    this.mfaApiService.enforceMfaForAllServices(enforceMfa).subscribe({
+      next: () => {
         if (enforceMfa) {
           this.enforceMfa = true;
           if (!this.toggle.checked) {
@@ -396,15 +396,15 @@ export class MfaSettingsComponent implements OnInit {
         sessionStorage.removeItem('mfa_route');
         this.loadingMfa = false;
       },
-      (err) => {
+      error: (err) => {
         // when token is valid, but user is logged in without MFA -> enforce MFA
         if (err.error.error === 'MFA is required') {
           this.saveSettings(true);
         } else {
           this.loadingMfa = false;
         }
-      }
-    );
+      },
+    });
   }
 
   /**
@@ -413,22 +413,22 @@ export class MfaSettingsComponent implements OnInit {
   updateDetailSettings(): void {
     const body = sessionStorage.getItem('settings_mfa');
 
-    this.mfaApiService.updateDetailSettings(body).subscribe(
-      () => {
+    this.mfaApiService.updateDetailSettings(body).subscribe({
+      next: () => {
         this.unchangedSettings = true;
         this.unchangedEnforce = true;
         sessionStorage.removeItem('settings_mfa');
         sessionStorage.removeItem('mfa_route');
         this.loadingMfa = false;
       },
-      (err) => {
+      error: (err) => {
         // when token is valid, but user is logged in without MFA -> enforce MFA
         if (err.error.error === 'MFA is required') {
           this.saveSettings(true);
         } else {
           this.loadingMfa = false;
         }
-      }
-    );
+      },
+    });
   }
 }

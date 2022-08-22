@@ -1,20 +1,25 @@
 <mat-spinner class="ml-auto mr-auto mt-2" *ngIf="loadingMfa"></mat-spinner>
 <div [hidden]="loadingMfa">
   <span
+    class="toggle-and-button"
     [matTooltip]="'AUTHENTICATION.MFA_DISABLED' | customTranslate | translate"
     [matTooltipDisabled]="mfaAvailable"
     matTooltipPosition="right">
-    <mat-slide-toggle [disabled]="!mfaAvailable" (toggleChange)="toggleEnableMfa()" #toggle
+    <mat-slide-toggle
+      class="toggle-ellipsis"
+      [disabled]="!mfaAvailable"
+      (toggleChange)="toggleEnableMfa()"
+      #toggle
       >{{'AUTHENTICATION.MFA_TOGGLE' | customTranslate | translate}}
-      <button
-        mat-icon-button
-        class="ml-2"
-        (click)="showDetailSettings()"
-        [hidden]="!enableDetailSettings"
-        [disabled]="!mfaAvailable">
-        <mat-icon>{{showDetail ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
-      </button>
     </mat-slide-toggle>
+    <button
+      class="show-button"
+      mat-icon-button
+      (click)="showDetailSettings()"
+      [hidden]="!enableDetailSettings"
+      [disabled]="!mfaAvailable">
+      <mat-icon>{{showDetail ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
+    </button>
   </span>
   <button
     mat-flat-button
@@ -26,15 +31,22 @@
   </button>
   <div *ngIf="showDetail">
     <div *ngFor="let category of categories | keyvalue">
-      <mat-slide-toggle
-        [checked]="category.value.value"
-        class="ml-4"
-        (toggleChange)="toggleCategory(category.value)">
-        {{category.value.label[this.translate.currentLang]}}
-        <button mat-icon-button (click)="category.value.show = !category.value.show">
-          <mat-icon>{{category.value.show ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
+      <span class="toggle-and-button">
+        <mat-slide-toggle
+          class="ml-4 toggle-ellipsis"
+          [checked]="category.value.value"
+          (toggleChange)="toggleCategory(category.value)">
+          {{category.value.label[this.translate.currentLang]}}
+        </mat-slide-toggle>
+        <button
+          class="show-button"
+          mat-icon-button
+          (click)="category.value.show = !category.value.show">
+          <mat-icon>
+            {{category.value.show ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}
+          </mat-icon>
         </button>
-      </mat-slide-toggle>
+      </span>
       <div *ngIf="category.value.show">
         <div *ngFor="let rps of category?.value['rps'] | keyvalue">
           <mat-slide-toggle
