@@ -220,14 +220,9 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
   canBeSelected = (member: RichMember): boolean => member.membershipType === 'DIRECT';
 
   isAllSelected(): boolean {
-    return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(
+    return this.tableCheckbox.isAllSelected<RichMember>(
       this.selection.selected.length,
-      this.filter,
-      this.child.paginator.pageSize,
-      this.child.paginator.hasNextPage(),
-      this.child.paginator.pageIndex,
       this.dataSource,
-      this.sort,
       this.canBeSelected
     );
   }

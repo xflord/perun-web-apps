@@ -73,6 +73,10 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
     }
   }
 
+  canBeSelected(attribute: Attribute): boolean {
+    return !isVirtualAttribute(attribute) && attribute.writable;
+  }
+
   ngOnChanges(): void {
     if (!this.authResolver.isPerunAdminOrObserver()) {
       this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
@@ -130,14 +134,9 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
   }
 
   isAllSelected(): boolean {
-    return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(
+    return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
-      this.filterValue,
-      this.child.paginator.pageSize,
-      this.child.paginator.hasNextPage(),
-      this.child.paginator.pageIndex,
       this.dataSource,
-      this.sort,
       AttributesListComponent.canBeSelected
     );
   }

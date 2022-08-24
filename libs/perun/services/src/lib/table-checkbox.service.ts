@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Injectable } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Injectable({
   providedIn: 'root',
@@ -17,26 +17,28 @@ export class TableCheckbox {
   private itemsCheckedCounter: number;
 
   // checks if all rendered rows are selected (in this function also disabled checkboxes are allowed)
-  isAllSelectedWithDisabledCheckbox<T>(
+  isAllSelected<T>(
     rowsSelected: number,
-    filter: string,
-    pageSize: number,
-    nextPage: boolean,
-    pageIndex: number,
     dataSource: MatTableDataSource<T>,
-    sort: MatSort,
-    canBeSelected: (T) => boolean
+    canBeSelected: (item: T) => boolean = (): boolean => true
   ): boolean {
-    this.numSelected = rowsSelected;
+    const pageSize = dataSource.paginator.pageSize ?? 0;
+    const pageIndex = dataSource.paginator.pageIndex ?? 0;
+    const nextPage = dataSource.paginator.hasNextPage();
+    const hasFilter = dataSource.data.length === dataSource.filteredData.length;
+
     this.numCanBeSelected = 0;
     this.pageStart = pageIndex * pageSize;
     this.pageEnd = this.pageStart + pageSize;
-    this.pageIterator = 0;
-    this.dataLength = filter === '' ? dataSource.data.length : dataSource.filteredData.length;
+    this.numSelected = rowsSelected;
+    this.dataLength = hasFilter ? dataSource.data.length : dataSource.filteredData.length;
+    const sort = dataSource.sort;
+
     if (!nextPage) {
       this.modulo = this.dataLength % pageSize;
       this.pageEnd = this.modulo === 0 ? this.pageStart + pageSize : this.pageStart + this.modulo;
     }
+    this.pageIterator = 0;
 
     dataSource.sortData(dataSource.filteredData, sort).forEach((row: T) => {
       if (
@@ -48,25 +50,6 @@ export class TableCheckbox {
       }
       this.pageIterator++;
     });
-
-    return this.numSelected === this.numCanBeSelected;
-  }
-
-  isAllSelected<T>(
-    rowsSelected: number,
-    filter: string,
-    pageSize: number,
-    nextPage: boolean,
-    dataSource: MatTableDataSource<T>
-  ): boolean {
-    this.numSelected = rowsSelected;
-    this.dataLength = filter === '' ? dataSource.data.length : dataSource.filteredData.length;
-    if (nextPage) {
-      this.numCanBeSelected = pageSize;
-    } else {
-      this.modulo = this.dataLength % pageSize;
-      this.numCanBeSelected = this.modulo === 0 ? pageSize : this.modulo;
-    }
     return this.numSelected === this.numCanBeSelected;
   }
 

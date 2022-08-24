@@ -40,6 +40,7 @@ import { DisabledCandidateTooltipPipe } from './disabled-candidate-tooltip.pipe'
 import { DisplayedRolePipe } from './displayed-role.pipe';
 import { DisableUniqueAttributePipe } from './disable-unique-attribute.pipe';
 import { GroupStatusIconColorPipe } from './group-status-icon-color';
+import { IsAllSelectedPipe } from './is-all-selected.pipe';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { GroupStatusIconColorPipe } from './group-status-icon-color';
     DisabledCandidateTooltipPipe,
     DisplayedRolePipe,
     DisableUniqueAttributePipe,
+    IsAllSelectedPipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -127,6 +129,7 @@ import { GroupStatusIconColorPipe } from './group-status-icon-color';
     DisabledCandidateTooltipPipe,
     DisplayedRolePipe,
     DisableUniqueAttributePipe,
+    IsAllSelectedPipe,
   ],
   imports: [CommonModule],
 })

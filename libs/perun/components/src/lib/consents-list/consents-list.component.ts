@@ -119,13 +119,7 @@ export class ConsentsListComponent implements AfterViewInit, OnChanges {
   }
 
   isAllSelected(): boolean {
-    return this.tableCheckbox.isAllSelected(
-      this.selection.selected.length,
-      this.filterValue,
-      this.child.paginator.pageSize,
-      this.child.paginator.hasNextPage(),
-      this.dataSource
-    );
+    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.dataSource);
   }
 
   masterToggle(): void {

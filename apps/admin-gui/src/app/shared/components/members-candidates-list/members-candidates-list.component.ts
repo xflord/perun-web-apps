@@ -260,14 +260,9 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   }
 
   isAllSelected(): boolean {
-    return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(
+    return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
-      '',
-      this.child.paginator.pageSize,
-      this.child.paginator.hasNextPage(),
-      this.child.paginator.pageIndex,
       this.dataSource,
-      this.sort,
       this.canBeSelected
     );
   }

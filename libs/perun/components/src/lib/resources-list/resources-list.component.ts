@@ -174,14 +174,9 @@ export class ResourcesListComponent implements OnInit, OnChanges {
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected(): boolean {
-    const isAllSelected = this.tableCheckbox.isAllSelectedWithDisabledCheckbox(
+    const isAllSelected = this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
-      this.filterValue,
-      this.child.paginator.pageSize,
-      this.child.paginator.hasNextPage(),
-      this.child.paginator.pageIndex,
       this.dataSource,
-      this.sort,
       this.canBeSelected
     );
     this.allSelected.emit(isAllSelected);

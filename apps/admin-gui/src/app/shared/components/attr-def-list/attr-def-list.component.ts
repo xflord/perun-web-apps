@@ -163,14 +163,9 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
   }
 
   isAllSelected(): boolean {
-    return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(
+    return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
-      this.filterValue,
-      this.child.paginator.pageSize,
-      this.child.paginator.hasNextPage(),
-      this.child.paginator.pageIndex,
       this.dataSource,
-      this.sort,
       this.canBeSelected
     );
   }

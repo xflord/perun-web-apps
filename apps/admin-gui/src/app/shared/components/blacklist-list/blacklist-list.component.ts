@@ -110,13 +110,7 @@ export class BlacklistListComponent implements AfterViewInit, OnChanges {
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected(): boolean {
-    return this.tableCheckbox.isAllSelected(
-      this.selection.selected.length,
-      this.filterValue,
-      this.child.paginator.pageSize,
-      this.child.paginator.hasNextPage(),
-      this.dataSource
-    );
+    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.dataSource);
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */

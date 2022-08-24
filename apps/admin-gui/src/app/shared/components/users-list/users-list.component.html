@@ -15,14 +15,16 @@
       matSortActive="id"
       matSortDirection="asc"
       matSortDisableClear>
-      <ng-container matColumnDef="select">
+      <ng-container
+        matColumnDef="select"
+        *ngIf="(dataSource | isAllSelected: selection.selected.length) as selected">
         <th *matHeaderCellDef class="align-checkbox" mat-header-cell>
           <mat-checkbox
             (change)="$event ? masterToggle() : null"
             *ngIf="selection.isMultipleSelection()"
             [aria-label]="checkboxLabel()"
-            [checked]="selection.hasValue() && isAllSelected()"
-            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            [checked]="selection.hasValue() && selected"
+            [indeterminate]="selection.hasValue() && !selected"
             color="primary">
           </mat-checkbox>
         </th>

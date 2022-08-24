@@ -251,14 +251,9 @@ export class GroupsListComponent implements AfterViewInit, OnChanges {
     (group.name !== 'members' || !this.disableMembers) && !this.disableSelect(group);
 
   isAllSelected(): boolean {
-    return this.tableCheckbox.isAllSelectedWithDisabledCheckbox(
+    return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
-      this.filter,
-      this.child.paginator.pageSize,
-      this.child.paginator.hasNextPage(),
-      this.child.paginator.pageIndex,
       this.dataSource,
-      this.sort,
       this.canBeSelected
     );
   }
