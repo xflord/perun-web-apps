@@ -35,7 +35,7 @@ export class AuthService {
   }
 
   loadOidcConfigData(): void {
-    this.oauthService.configure(this.getOidcClientConfig());
+    this.oauthService.configure(this.getClientConfig());
   }
 
   logout(): void {
@@ -64,35 +64,88 @@ export class AuthService {
     void this.oauthService.loadDiscoveryDocumentAndLogin();
   }
 
-  redirectToOriginDestination(): Promise<boolean> {
-    const mfaRoute = sessionStorage.getItem('mfa_route');
-    if (mfaRoute) {
-      return this.router.navigate([mfaRoute], { replaceUrl: true });
-    }
-
-    let redirectUrl = sessionStorage.getItem('auth:redirect');
-    sessionStorage.removeItem('auth:redirect');
-    if (!redirectUrl || redirectUrl === '/login') {
-      redirectUrl = '/';
-    }
-
-    const storageParams = sessionStorage.getItem('auth:queryParams');
-    sessionStorage.removeItem('auth:queryParams');
-    let params: string[] = [];
-    if (storageParams) {
-      params = storageParams.split('&');
-    }
-    const queryParams: Params = {};
-    params.forEach((param) => {
-      const elements = param.split('=');
-      queryParams[elements[0]] = elements[1];
-    });
-
-    return this.router.navigate([redirectUrl], { queryParams: queryParams, replaceUrl: true });
-  }
-
   getIdpFilter(): string {
     return this.filterShortname;
+  }
+
+  private getClientConfig(): AuthConfig {
+    const filterValue = this.setIdpFilter();
+
+    //The window of time (in seconds) to allow the current time to deviate when validating
+    // id_token's iat and exp values. Default value is 10 minutes. This set it up to 1 sec.
+    const clockSkewInSec = 1;
+    const randomSalt = Math.random() * 0.25;
+    //Defines when the token_timeout event should be raised.
+    //Expiration of tokens was moved from 0.75(default) to random number from 0.5 to 0.75
+    //So the refreshing of the token is not triggered by multiple tabs at the same time
+    const timeoutFactor = 0.5 + randomSalt;
+
+    const customQueryParams = !filterValue ? {} : { acr_values: filterValue };
+    const oidcClientProperties: OidcClient = this.store.getProperty('oidc_client');
+    if (
+      oidcClientProperties.oauth_scopes.split(' ').includes('offline_access') &&
+      oidcClientProperties.oauth_offline_access_consent_prompt
+    ) {
+      customQueryParams['prompt'] = 'consent';
+    }
+    if (sessionStorage.getItem('mfa_route')) {
+      customQueryParams['acr_values'] = 'https://refeds.org/profile/mfa';
+      if (customQueryParams['prompt']) {
+        customQueryParams['prompt'] += ' login';
+      } else {
+        customQueryParams['prompt'] = 'login';
+      }
+      customQueryParams['max_age'] = '0';
+    }
+    if (this.store.getProperty('application') === 'Linker') {
+      if (customQueryParams['prompt']) {
+        customQueryParams['prompt'] += ' login';
+      } else {
+        customQueryParams['prompt'] = 'login';
+      }
+      const selectedIdP = parseQueryParams('idphint', location.search.substring(1));
+      if (selectedIdP) {
+        customQueryParams['idphint'] = selectedIdP;
+      }
+    }
+    return {
+      requestAccessToken: true,
+      issuer: oidcClientProperties.oauth_authority,
+      clientId: oidcClientProperties.oauth_client_id,
+      redirectUri: oidcClientProperties.oauth_redirect_uri,
+      postLogoutRedirectUri: oidcClientProperties.oauth_post_logout_redirect_uri,
+      responseType: oidcClientProperties.oauth_response_type,
+      scope: oidcClientProperties.oauth_scopes,
+      clockSkewInSec: clockSkewInSec,
+      timeoutFactor: timeoutFactor,
+      userinfoEndpoint: this.store.getProperty('oidc_client').user_info_endpoint_url,
+      customQueryParams: customQueryParams,
+    };
+  }
+
+  private setIdpFilter(): string {
+    const queryParams = location.search.length ? location.search.substring(1).split('&') : [];
+
+    this.filterShortname = null;
+    const filters: Record<string, string> = this.store.getProperty('oidc_client').filters;
+    if (!filters) {
+      return null;
+    }
+    let filterValue: string = null;
+    queryParams.forEach((param) => {
+      const parsedParam: string[] = param.split('=');
+      if (parsedParam[0] === 'idpFilter') {
+        if (filters[parsedParam[1]]) {
+          this.filterShortname = parsedParam[1];
+          filterValue = filters[parsedParam[1]];
+        }
+      }
+    });
+    if (filters['default'] && !filterValue) {
+      this.filterShortname = 'default';
+      return filters['default'];
+    }
+    return filterValue;
   }
 
   /**
@@ -110,77 +163,5 @@ export class AuthService {
         replaceUrl: true,
       });
     });
-  }
-
-  private getOidcClientConfig(): AuthConfig {
-    const filterValue = this.setIdpFilter();
-
-    //The window of time (in seconds) to allow the current time to deviate when validating
-    // id_token's iat and exp values. Default value is 10 minutes. This set it up to 1 sec.
-    const clockSkewInSec = 1;
-    const randomSalt = Math.random() * 0.25;
-    //Defines when the token_timeout event should be raised.
-    //Expiration of tokens was moved from 0.75(default) to random number from 0.5 to 0.75
-    //So the refreshing of the token is not triggered by multiple tabs at the same time
-    const timeoutFactor = 0.5 + randomSalt;
-
-    const customQueryParams = !filterValue ? {} : { acr_values: filterValue };
-    const oidcClientProperties: OidcClient = this.store.getProperty('oidc_client');
-
-    if (
-      oidcClientProperties.oauth_scopes.split(' ').includes('offline_access') &&
-      oidcClientProperties.oauth_offline_access_consent_prompt
-    ) {
-      customQueryParams['prompt'] = 'consent';
-    }
-    if (sessionStorage.getItem('mfa_route')) {
-      customQueryParams['acr_values'] = 'https://refeds.org/profile/mfa';
-      customQueryParams['prompt'] = 'login';
-      customQueryParams['max_age'] = '0';
-    }
-    if (this.store.getProperty('application') === 'Linker') {
-      customQueryParams['prompt'] = 'login';
-      const selectedIdP = parseQueryParams('idphint', location.search.substring(1));
-      if (selectedIdP) {
-        customQueryParams['idphint'] = selectedIdP;
-      }
-    }
-    return {
-      requestAccessToken: true,
-      issuer: oidcClientProperties.oauth_authority,
-      clientId: oidcClientProperties.oauth_client_id,
-      redirectUri: oidcClientProperties.oauth_redirect_uri,
-      postLogoutRedirectUri: oidcClientProperties.oauth_post_logout_redirect_uri,
-      responseType: oidcClientProperties.oauth_response_type,
-      scope: oidcClientProperties.oauth_scopes,
-      clockSkewInSec: clockSkewInSec,
-      timeoutFactor: timeoutFactor,
-      userinfoEndpoint: oidcClientProperties.user_info_endpoint_url,
-      customQueryParams: customQueryParams,
-    };
-  }
-
-  private setIdpFilter(): string {
-    const queryParams = location.search.substring(1).split('&');
-    this.filterShortname = null;
-    const filters: Record<string, string> = this.store.getProperty('oidc_client').filters;
-    if (!filters) {
-      return null;
-    }
-    let filterValue: string = null;
-    queryParams.forEach((param) => {
-      const parsedParam: string[] = param.split('=');
-      if (parsedParam[0] === 'idpFilter') {
-        if (filters[parsedParam[1]]) {
-          this.filterShortname = parsedParam[1];
-          filterValue = filters[parsedParam[1]] as string;
-        }
-      }
-    });
-    if (filters['default'] && !filterValue) {
-      this.filterShortname = 'default';
-      return filters['default'] as string;
-    }
-    return filterValue;
   }
 }

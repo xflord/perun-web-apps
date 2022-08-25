@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+// eslint-disable-next-line
 import { AuthService } from './auth.service';
 import { StoreService } from './store.service';
 import { GuiAuthResolver } from './gui-auth-resolver.service';
@@ -6,9 +7,9 @@ import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDontExistDialogComponent } from '@perun-web-apps/general';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Params, Router } from '@angular/router';
 import { OAuthInfoEvent, OAuthService } from 'angular-oauth2-oidc';
+import { filter } from 'rxjs/operators';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable({
@@ -28,10 +29,6 @@ export class InitAuthService {
     private dialog: MatDialog,
     private router: Router
   ) {}
-
-  setLoginScreen(shown: boolean): void {
-    this.loginScreenShown = shown;
-  }
 
   isLoginScreenShown(): boolean {
     return this.loginScreenShown;
@@ -63,7 +60,7 @@ export class InitAuthService {
         return this.oauthService
           .loadDiscoveryDocumentAndTryLogin()
           .then(() => this.startRefreshToken())
-          .then(() => this.authService.redirectToOriginDestination());
+          .then(() => this.redirectToOriginDestination());
       } else {
         return this.oauthService
           .loadDiscoveryDocument()
@@ -75,20 +72,18 @@ export class InitAuthService {
 
               return false;
             }
-
-            if (!this.authService.isLoggedIn()) {
+            if (!this.oauthService.hasValidAccessToken()) {
               if (!this.isPotentiallyValidPath(currentPathname)) {
-                return new Promise<boolean>((resolve, reject) => reject('Invalid path'));
+                return Promise.reject('Invalid path');
               }
 
               sessionStorage.setItem('auth:redirect', currentPathname);
               sessionStorage.setItem('auth:queryParams', queryParams);
 
               return false;
-            } else {
-              this.startRefreshToken();
-              return true;
             }
+
+            return this.startRefreshToken();
           });
       }
     }
@@ -132,50 +127,35 @@ export class InitAuthService {
    * If the property is set to false, a redirect to local page /login will be
    * made.
    */
-  handleAuthStart(): void {
+  handleAuthStart(): Promise<void> {
+    if (this.storeService.getProperty('auto_service_access_redirect')) {
+      this.serviceAccess = true;
+      this.serviceAccessLoginScreen = true;
+      return void this.router.navigate(['service-access'], { queryParamsHandling: 'merge' });
+    }
     if (location.pathname === '/service-access' || sessionStorage.getItem('baPrincipal')) {
       this.serviceAccess = true;
       this.serviceAccessLoginScreen = true;
+      return Promise.resolve();
     } else if (this.storeService.getProperty('auto_auth_redirect')) {
       localStorage.setItem('routeAuthGuard', window.location.pathname);
-      this.authService.startAuthentication();
+      return (
+        this.startAuth()
+          // start a promise that will never resolve, so the app loading won't finish in case
+          // of the auth redirect
+          .then(() => new Promise<void>(() => {})) // eslint-disable-line
+      );
     } else {
       this.setLoginScreen(true);
       localStorage.setItem('routeAuthGuard', window.location.pathname);
-      void this.router.navigate(['login'], {
+      return void this.router.navigate(['login'], {
         queryParamsHandling: 'merge',
       });
     }
   }
 
-  /**
-   *  Set up check whether access token expires, when it does, it gets automatically refreshed (if possible)
-   */
-  startRefreshToken(): void {
-    if (this.oauthService.hasValidAccessToken()) {
-      this.oauthService.events
-        .pipe(
-          filter((e: OAuthInfoEvent) => e.type === 'token_expires' && e.info === 'access_token')
-        )
-        .subscribe(() => {
-          void this.oauthService.refreshToken();
-        });
-    }
-  }
-
-  /**
-   * Tries to refresh access token if refresh token is present,
-   * if successful, sign-in is not required
-   */
-  private tryRefreshToken(): Promise<void> {
-    if (localStorage.getItem('refresh_token') && !this.authService.isLoggedIn()) {
-      return this.oauthService
-        .refreshToken()
-        .then(() => Promise.resolve())
-        .catch(() => Promise.resolve());
-    } else {
-      return Promise.resolve();
-    }
+  private setLoginScreen(shown: boolean): void {
+    this.loginScreenShown = shown;
   }
 
   /**
@@ -194,8 +174,8 @@ export class InitAuthService {
       '/myProfile',
       '/admin',
       '/login',
-      '/profile',
       '/service-access',
+      '/profile',
     ];
     if (path === '/') {
       return true;
@@ -207,5 +187,66 @@ export class InitAuthService {
     }
 
     return false;
+  }
+
+  private startRefreshToken(): Promise<boolean> {
+    if (this.oauthService.hasValidAccessToken()) {
+      this.oauthService.events
+        .pipe(
+          filter((e: OAuthInfoEvent) => e.type === 'token_expires' && e.info === 'access_token')
+        )
+        .subscribe(() => {
+          void this.oauthService.refreshToken();
+        });
+      return Promise.resolve(true);
+    }
+    return Promise.resolve(false);
+  }
+
+  /**
+   * Tries to refresh access token if refresh token is present,
+   * if successful, sign-in is not required
+   */
+  private tryRefreshToken(): Promise<void> {
+    if (localStorage.getItem('refresh_token') && !this.oauthService.hasValidAccessToken()) {
+      return this.oauthService
+        .refreshToken()
+        .then(() => Promise.resolve())
+        .catch(() => Promise.resolve());
+    } else {
+      return Promise.resolve();
+    }
+  }
+
+  private redirectToOriginDestination(): Promise<boolean> {
+    const mfaRoute = sessionStorage.getItem('mfa_route');
+    if (mfaRoute) {
+      return this.router.navigate([mfaRoute], { replaceUrl: true });
+    }
+
+    let redirectUrl = sessionStorage.getItem('auth:redirect');
+    if (!redirectUrl || redirectUrl === '/login') {
+      redirectUrl = '/';
+    }
+    sessionStorage.removeItem('auth:redirect');
+
+    const storageParams = sessionStorage.getItem('auth:queryParams');
+    let params: string[] = [];
+    if (storageParams) {
+      params = storageParams.split('&');
+    }
+    const queryParams: Params = {};
+    params.forEach((param) => {
+      const elements = param.split('=');
+      queryParams[elements[0]] = elements[1];
+    });
+    sessionStorage.removeItem('auth:queryParams');
+
+    return this.router.navigate([redirectUrl], { queryParams: queryParams, replaceUrl: true });
+  }
+
+  private startAuth(): Promise<void> {
+    this.authService.startAuthentication();
+    return Promise.resolve();
   }
 }

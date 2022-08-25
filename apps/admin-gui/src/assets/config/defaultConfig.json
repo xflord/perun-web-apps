@@ -12,6 +12,7 @@
   "display_warning": false,
   "warning_message": "BETA version of new Perun GUI. It doesn’t contain all functionality. Please report any issues to support mail below.",
   "auto_auth_redirect": true,
+  "auto_service_access_redirect": false,
   "oidc_client": {
     "oauth_authority": "",
     "oauth_callback": "http://localhost:4200/api-callback",

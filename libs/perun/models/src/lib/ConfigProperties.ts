@@ -141,6 +141,7 @@ export interface PerunConfig {
   brandings?: Record<string, PerunConfig>;
   logo?: string;
   theme?: PerunTheme;
+  auto_service_access_redirect: boolean;
 
   // Admin gui specific
   // Required

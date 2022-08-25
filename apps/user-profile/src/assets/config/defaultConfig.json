@@ -7,7 +7,6 @@
   },
   "instance_favicon": false,
   "auto_auth_redirect": true,
-  "allow_service_access": true,
   "supported_languages": [
     "en"
   ],

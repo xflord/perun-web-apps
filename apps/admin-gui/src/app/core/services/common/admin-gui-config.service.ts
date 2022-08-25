@@ -10,6 +10,7 @@ import {
 } from '@perun-web-apps/general';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { HttpErrorResponse } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -148,14 +149,8 @@ export class AdminGuiConfigService {
   }
 
   private loadPolicies(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.authzSevice.getAllPolicies().subscribe({
-        next: (policies) => {
-          this.guiAuthResolver.setPerunPolicies(policies);
-          resolve();
-        },
-        error: (error) => reject(error),
-      });
-    });
+    return firstValueFrom(this.authzSevice.getAllPolicies()).then((policies) =>
+      this.guiAuthResolver.setPerunPolicies(policies)
+    );
   }
 }

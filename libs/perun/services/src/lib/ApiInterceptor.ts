@@ -22,6 +22,7 @@ import { InitAuthService } from './init-auth.service';
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
   dialogRefSessionExpiration: MatDialogRef<SessionExpirationDialogComponent>;
+
   constructor(
     private authService: AuthService,
     private apiRequestConfiguration: ApiRequestConfigurationService,
@@ -87,25 +88,25 @@ export class ApiInterceptor implements HttpInterceptor {
       req.method === 'POST' && this.isNotConsolidatorOrLinker() && this.isCallToPerunApi(req.url);
 
     return next.handle(req).pipe(
-      tap(
-        (x) => {
+      tap({
+        next: (x) => {
           if (x instanceof HttpResponse && shouldReloadPrincipal) {
             void this.initAuthService.loadPrincipal();
           }
         },
-        (err: HttpErrorResponse) => {
+        error: (err: HttpErrorResponse) => {
           // Handle this err
           const errRpc: RPCError = this.formatErrors(err, req);
           if (errRpc === undefined) {
-            return throwError(err);
+            return throwError(() => err);
           }
           if (shouldHandleError) {
             this.notificator.showRPCError(errRpc);
           } else {
-            return throwError(errRpc);
+            return throwError(() => errRpc);
           }
-        }
-      )
+        },
+      })
     );
   }
 

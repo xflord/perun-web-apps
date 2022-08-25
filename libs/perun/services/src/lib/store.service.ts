@@ -70,7 +70,7 @@ export class StoreService {
 
     let currentValue: PerunConfig[T] = null;
     for (const config of configs) {
-      if (config && (currentValue === null || currentValue == undefined)) {
+      if (config && (currentValue === null || currentValue === undefined)) {
         currentValue = config[key];
       }
     }

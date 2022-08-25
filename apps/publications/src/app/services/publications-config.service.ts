@@ -3,6 +3,7 @@ import { GuiAuthResolver, InitAuthService } from '@perun-web-apps/perun/services
 import { AppConfigService, ColorConfig, EntityColorConfig } from '@perun-web-apps/config';
 import { Location } from '@angular/common';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -72,14 +73,8 @@ export class PublicationsConfigService {
   }
 
   private loadPolicies(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.authzSevice.getAllPolicies().subscribe(
-        (policies) => {
-          this.guiAuthResolver.setPerunPolicies(policies);
-          resolve();
-        },
-        (error) => reject(error)
-      );
+    return firstValueFrom(this.authzSevice.getAllPolicies()).then((policies) => {
+      this.guiAuthResolver.setPerunPolicies(policies);
     });
   }
 }
