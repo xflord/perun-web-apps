@@ -23,6 +23,8 @@ export default defineConfig({
       BA_USERNAME_RESOURCE_MANAGER: 'resourceManager',
       BA_PASSWORD_RESOURCE_MANAGER: 'test',
       BA_PASSWORD_TOP_GROUP_CREATOR: 'topGroupCreator',
+      BA_USERNAME_SPONSOR: 'sponsor',
+      BA_PASSWORD_SPONSOR: 'test',
     },
     specPattern: 'src/e2e/**/*.cy.{js,jsx,ts,tsx}',
     supportFile: false,

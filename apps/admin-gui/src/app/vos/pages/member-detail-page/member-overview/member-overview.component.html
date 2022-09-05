@@ -80,7 +80,7 @@
                 <th *matHeaderCellDef mat-header-cell>
                   {{'MEMBER_DETAIL.OVERVIEW.SPONSOR_NAME' | translate}}
                 </th>
-                <td *matCellDef="let sponsor" mat-cell>
+                <td *matCellDef="let sponsor" mat-cell attr.data-cy="{{sponsor.user.firstName}}">
                   {{sponsor.user | userFullName}}
                 </td>
               </ng-container>

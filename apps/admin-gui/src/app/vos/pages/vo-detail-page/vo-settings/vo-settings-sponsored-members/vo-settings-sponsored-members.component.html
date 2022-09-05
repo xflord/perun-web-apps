@@ -16,14 +16,15 @@
     </button>
   </span>
   <mat-menu #menu="matMenu">
-    <button (click)="onCreate()" *ngIf="createAuth" class="action-button" mat-menu-item>
+    <button data-cy="sponsor-new-button" (click)="onCreate()" *ngIf="createAuth" class="action-button" mat-menu-item>
       {{'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.CREATE_ONE' | translate}}
     </button>
-    <button (click)="onGenerate()" *ngIf="generateAuth" class="action-button" mat-menu-item>
+    <button data-cy="sponsor-csv-button" (click)="onGenerate()" *ngIf="generateAuth" class="action-button" mat-menu-item>
       {{'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.GENERATE' | translate}}
     </button>
   </mat-menu>
   <button
+    data-cy="sponsor-existing-button"
     *ngIf="setSponsorshipAuth"
     (click)="onSponsorExistingMember()"
     color="accent"

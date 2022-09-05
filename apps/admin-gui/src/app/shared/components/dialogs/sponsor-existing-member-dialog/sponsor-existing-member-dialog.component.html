@@ -4,6 +4,7 @@
     <mat-form-field class="mr-2 search-field adjust-width">
       <label>
         <input
+          data-cy="sponsor-search-input"
           [formControl]="searchCtrl"
           autocomplete="false"
           matInput
@@ -16,6 +17,7 @@
     </mat-form-field>
 
     <button
+      data-cy="sponsor-search-button"
       (click)="onSearchByString()"
       class="ml-auto"
       color="accent"
