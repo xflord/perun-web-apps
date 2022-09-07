@@ -11,6 +11,7 @@ import { Params, Router } from '@angular/router';
 import { OAuthInfoEvent, OAuthService } from 'angular-oauth2-oidc';
 import { filter } from 'rxjs/operators';
 import { firstValueFrom } from 'rxjs';
+import { MfaHandlerService } from './mfa-handler.service';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,8 @@ export class InitAuthService {
     private authResolver: GuiAuthResolver,
     private authzService: AuthzResolverService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private mfaHandlerService: MfaHandlerService
   ) {}
 
   isLoginScreenShown(): boolean {
@@ -46,6 +48,10 @@ export class InitAuthService {
    * Checks how user got to the page (with which metadata) and proceeds accordingly
    */
   verifyAuth(): Promise<boolean> {
+    // if this application is opened just for MFA, then log out from single factor
+    // and force multi factor authentication
+    this.mfaHandlerService.mfaWindowForceLogout();
+
     if (sessionStorage.getItem('baPrincipal')) {
       this.serviceAccess = true;
       const pathName = location.pathname === '/service-access' ? '' : location.pathname;
@@ -138,7 +144,9 @@ export class InitAuthService {
       this.serviceAccessLoginScreen = true;
       return Promise.resolve();
     } else if (this.storeService.getProperty('auto_auth_redirect')) {
-      localStorage.setItem('routeAuthGuard', window.location.pathname);
+      if (!sessionStorage.getItem('mfaProcessed')) {
+        localStorage.setItem('routeAuthGuard', window.location.pathname);
+      }
       return (
         this.startAuth()
           // start a promise that will never resolve, so the app loading won't finish in case

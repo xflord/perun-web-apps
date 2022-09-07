@@ -88,8 +88,10 @@ export class AuthService {
     ) {
       customQueryParams['prompt'] = 'consent';
     }
-    if (sessionStorage.getItem('mfa_route')) {
+    if (sessionStorage.getItem('mfa_route') || sessionStorage.getItem('mfaProcessed')) {
       customQueryParams['acr_values'] = 'https://refeds.org/profile/mfa';
+    }
+    if (sessionStorage.getItem('mfa_route')) {
       if (customQueryParams['prompt']) {
         customQueryParams['prompt'] += ' login';
       } else {

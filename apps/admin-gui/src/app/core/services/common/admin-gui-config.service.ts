@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { GuiAuthResolver, InitAuthService } from '@perun-web-apps/perun/services';
+import {
+  GuiAuthResolver,
+  InitAuthService,
+  MfaHandlerService,
+} from '@perun-web-apps/perun/services';
 import { AppConfigService, ColorConfig, EntityColorConfig } from '@perun-web-apps/config';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 import { MatDialog } from '@angular/material/dialog';
@@ -84,7 +88,8 @@ export class AdminGuiConfigService {
     private authzSevice: AuthzResolverService,
     private dialog: MatDialog,
     private location: Location,
-    private guiAuthResolver: GuiAuthResolver
+    private guiAuthResolver: GuiAuthResolver,
+    private mfaHandlerService: MfaHandlerService
   ) {}
 
   initialize(): Promise<void> {
@@ -101,6 +106,8 @@ export class AdminGuiConfigService {
         if (err === 'Invalid path') {
           this.handleErr(err as string & HttpErrorResponse);
         } else {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
+          this.mfaHandlerService.catchNoMfaTokenError(err?.params?.error);
           // if there is another error, it means user probably navigated to /api-callback without logging in
           console.error(err);
           this.location.go('/');
@@ -111,6 +118,9 @@ export class AdminGuiConfigService {
       .then((isAuthenticated) => {
         // if the authentication is successful, continue
         if (isAuthenticated) {
+          // if this application is opened just for MFA, then close the window after MFA is successfully done
+          this.mfaHandlerService.closeMfaWindow();
+
           return this.initAuthService
             .loadPrincipal()
             .catch((err) => this.handleErr(err as string & HttpErrorResponse))

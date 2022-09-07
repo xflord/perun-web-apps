@@ -90,8 +90,11 @@ export class SettingsPreferredShellsComponent implements OnInit {
         user: this.userId,
         attribute: this.prefShellsAttribute,
       })
-      .subscribe(() => {
-        this.getAttribute();
+      .subscribe({
+        next: () => {
+          this.getAttribute();
+        },
+        error: () => (this.loading = false),
       });
   }
 

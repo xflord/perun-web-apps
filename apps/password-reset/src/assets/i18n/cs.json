@@ -18,6 +18,22 @@
   "SHARED_LIB": {
     "PERUN": {
       "COMPONENTS": {
+        "MFA_REQUIRED_DIALOG": {
+          "TITLE": "Vyžadována step-up authentizace",
+          "INFO": "Pro vykonání této akce musíte provést step-up authentizaci.",
+          "CANCEL": "Zrušit",
+          "STEP_UP": "Step-up authentizace"
+        },
+        "NO_MFA_TOKEN": {
+          "TITLE": "Žádný MFA token",
+          "INFO": "Potřebujete mít alespoň jeden aktivní MFA token. Prosím upravte Vaše MFA tokeny.",
+          "CANCEL": "Zrušit",
+          "MANAGE_TOKENS": "Spravovat tokeny"
+        },
+        "FOCUS_ON_MFA_DIALOG": {
+          "MODAL": "Modalní okno otevřeno.",
+          "MODAL_WARNING": "Pokud se Vám žádné okno neotevřelo, zkontrolujte si prosím nastavení svého prohlížeče."
+        },
         "USER_DONT_EXIST": {
           "TITLE": "Požadovaný uživatel (dle ID nebo externí identity) neexistuje."
         },

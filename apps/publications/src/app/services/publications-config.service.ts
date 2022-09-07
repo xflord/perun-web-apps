@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { GuiAuthResolver, InitAuthService } from '@perun-web-apps/perun/services';
+import {
+  GuiAuthResolver,
+  InitAuthService,
+  MfaHandlerService,
+} from '@perun-web-apps/perun/services';
 import { AppConfigService, ColorConfig, EntityColorConfig } from '@perun-web-apps/config';
 import { Location } from '@angular/common';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
@@ -41,7 +45,8 @@ export class PublicationsConfigService {
     private appConfigService: AppConfigService,
     private location: Location,
     private authzSevice: AuthzResolverService,
-    private guiAuthResolver: GuiAuthResolver
+    private guiAuthResolver: GuiAuthResolver,
+    private mfaHandlerService: MfaHandlerService
   ) {}
 
   loadConfigs(): Promise<void> {
@@ -54,6 +59,8 @@ export class PublicationsConfigService {
       )
       .then(() => this.initAuthService.verifyAuth())
       .catch((err) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
+        this.mfaHandlerService.catchNoMfaTokenError(err?.params?.error);
         console.error(err);
         this.location.go('/');
         location.reload();
@@ -62,6 +69,9 @@ export class PublicationsConfigService {
       .then((isAuthenticated) => {
         // if the authentication is successful, continue
         if (isAuthenticated) {
+          // if this application is opened just for MFA, then close the window after MFA is successfully done
+          this.mfaHandlerService.closeMfaWindow();
+
           return this.initAuthService
             .loadPrincipal()
             .then(() => this.loadPolicies())

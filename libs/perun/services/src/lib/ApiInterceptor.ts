@@ -8,7 +8,7 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { finalize, tap } from 'rxjs/operators';
+import { finalize, tap, switchMap, catchError } from 'rxjs/operators';
 import { RPCError } from '@perun-web-apps/perun/models';
 import { AuthService } from './auth.service';
 import { StoreService } from './store.service';
@@ -18,6 +18,7 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SessionExpirationDialogComponent } from '@perun-web-apps/perun/session-expiration';
 import { InitAuthService } from './init-auth.service';
+import { MfaHandlerService } from './mfa-handler.service';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
@@ -29,7 +30,8 @@ export class ApiInterceptor implements HttpInterceptor {
     private notificator: NotificatorService,
     private store: StoreService,
     private dialog: MatDialog,
-    private initAuthService: InitAuthService
+    private initAuthService: InitAuthService,
+    private mfaHandlerService: MfaHandlerService
   ) {}
 
   intercept<T>(req: HttpRequest<T>, next: HttpHandler): Observable<HttpEvent<T>> {
@@ -81,6 +83,11 @@ export class ApiInterceptor implements HttpInterceptor {
         },
       });
     }
+
+    return this.handleRequest(req, next);
+  }
+
+  private handleRequest<T>(req: HttpRequest<T>, next: HttpHandler): Observable<HttpEvent<T>> {
     // Also handle errors globally, if not disabled
     const shouldHandleError = this.apiRequestConfiguration.shouldHandleError();
 
@@ -88,26 +95,47 @@ export class ApiInterceptor implements HttpInterceptor {
       req.method === 'POST' && this.isNotConsolidatorOrLinker() && this.isCallToPerunApi(req.url);
 
     return next.handle(req).pipe(
-      tap({
-        next: (x) => {
-          if (x instanceof HttpResponse && shouldReloadPrincipal) {
-            void this.initAuthService.loadPrincipal();
-          }
-        },
-        error: (err: HttpErrorResponse) => {
-          // Handle this err
+      tap((response) => {
+        if (response instanceof HttpResponse && shouldReloadPrincipal) {
+          void this.initAuthService.loadPrincipal();
+        }
+      }),
+      catchError((err: HttpErrorResponse) => {
+        const e = err.error as RPCError;
+        // catch MFA required error and start MFA logic
+        if (e.type === 'MfaPrivilegeException' || e.type === 'MfaRolePrivilegeException') {
+          return this.mfaHandlerService.openMfaWindow().pipe(
+            switchMap((verified) => {
+              if (verified) {
+                if (e.type === 'MfaRolePrivilegeException') {
+                  window.location.reload();
+                }
+                return this.handleRequest(this.replaceAuthenticationToken(req), next);
+              }
+              return throwError(() => e);
+            })
+          );
+        } else {
+          // Handle other errors
           const errRpc: RPCError = this.formatErrors(err, req);
           if (errRpc === undefined) {
             return throwError(() => err);
           }
           if (shouldHandleError) {
             this.notificator.showRPCError(errRpc);
-          } else {
-            return throwError(() => errRpc);
           }
-        },
+          return throwError(() => errRpc);
+        }
       })
     );
+  }
+
+  private replaceAuthenticationToken<T>(req: HttpRequest<T>): HttpRequest<T> {
+    return req.clone({
+      setHeaders: {
+        Authorization: this.authService.getAuthorizationHeaderValue(),
+      },
+    });
   }
 
   private isCallToPerunApi(url: string): boolean {

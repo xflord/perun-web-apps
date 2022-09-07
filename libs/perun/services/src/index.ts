@@ -22,3 +22,4 @@ export { EntityStorageService } from './lib/entity-storage.service';
 export { RoutePolicyService } from './lib/route-policy.service';
 export { AttributeRightsService } from './lib/attribute-rights.service';
 export { MfaApiService } from './lib/mfa-api.service';
+export { MfaHandlerService } from './lib/mfa-handler.service';

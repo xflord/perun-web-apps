@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { InitAuthService } from '@perun-web-apps/perun/services';
+import { InitAuthService, MfaHandlerService } from '@perun-web-apps/perun/services';
 import { AppConfigService } from '@perun-web-apps/config';
 import { Location } from '@angular/common';
 import { LinkIdentitiesService } from './link-identities.service';
@@ -12,7 +12,8 @@ export class LinkerConfigService {
     private initAuthService: InitAuthService,
     private appConfigService: AppConfigService,
     private location: Location,
-    private linkIdentitiesService: LinkIdentitiesService
+    private linkIdentitiesService: LinkIdentitiesService,
+    private mfaHandlerService: MfaHandlerService
   ) {}
 
   loadConfigs(): Promise<void> {
@@ -22,6 +23,8 @@ export class LinkerConfigService {
       .then(() => this.appConfigService.setApiUrl())
       .then(() => this.initAuthService.verifyAuth())
       .catch((err) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
+        this.mfaHandlerService.catchNoMfaTokenError(err?.params?.error);
         console.error(err);
         this.location.go('/');
         location.reload();
@@ -30,6 +33,9 @@ export class LinkerConfigService {
       .then((isAuthenticated) => {
         // if the authentication is successful, continue
         if (isAuthenticated) {
+          // if this application is opened just for MFA, then close the window after MFA is successfully done
+          this.mfaHandlerService.closeMfaWindow();
+
           return this.initAuthService.simpleLoadPrincipal().then(() => {
             return this.linkIdentitiesService.consolidate();
           });

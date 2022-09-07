@@ -203,11 +203,14 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   updateFormItems(): void {
     this.loading = true;
     this.refreshApplicationForm = true;
-    this.registrarManager.getFormItemsForGroup(this.group.id).subscribe((formItems) => {
-      this.applicationFormItems = formItems;
-      this.itemsChanged = false;
-      this.refreshApplicationForm = false;
-      this.loading = false;
+    this.registrarManager.getFormItemsForGroup(this.group.id).subscribe({
+      next: (formItems) => {
+        this.applicationFormItems = formItems;
+        this.itemsChanged = false;
+        this.refreshApplicationForm = false;
+        this.loading = false;
+      },
+      error: () => (this.loading = false),
     });
   }
 

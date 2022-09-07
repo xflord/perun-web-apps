@@ -23,6 +23,9 @@
     "oauth_response_type": "code",
     "oauth_offline_access_consent_prompt": true
   },
+  "mfa": {
+    "url_en": "https://mfa.id.muni.cz/"
+  },
   "login_namespace_attributes": [
     "urn:perun:user:attribute-def:def:login-namespace:einfra",
     "urn:perun:user:attribute-def:def:login-namespace:einfra-services",

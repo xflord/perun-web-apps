@@ -12,6 +12,9 @@
     "oauth_response_type": "code",
     "oauth_offline_access_consent_prompt": true
   },
+  "mfa": {
+    "url_en": "https://mfa.id.muni.cz/"
+  },
   "application": "Linker",
   "document_title": "Linker",
   "support_mail": "perun@cesnet.cz",

@@ -158,14 +158,17 @@ export class DeleteAttributeDialogComponent implements OnInit {
         );
         break;
       case 'ues':
-        this.attributesManager.removeUesAttributes(this.data.entityId, ids).subscribe(() => {
-          this.onSuccess();
+        this.attributesManager.removeUesAttributes(this.data.entityId, ids).subscribe({
+          next: () => {
+            this.onSuccess();
+          },
+          error: () => (this.loading = false),
         });
         break;
       case 'resource':
         this.attributesManager
           .removeResourceAttributes(this.data.entityId, ids)
-          .subscribe(() => this.onSuccess());
+          .subscribe({ next: () => this.onSuccess(), error: () => (this.loading = false) });
         break;
     }
   }

@@ -66,11 +66,14 @@ export class ConnectIdentityDialogComponent implements OnInit {
       specificUser = this.selection.selected[0].id;
     }
 
-    this.userManager.addSpecificUserOwner(owner, specificUser).subscribe(() => {
-      this.notificator.showSuccess(
-        this.translate.instant('DIALOGS.CONNECT_IDENTITY.SUCCESS') as string
-      );
-      this.dialogRef.close(true);
+    this.userManager.addSpecificUserOwner(owner, specificUser).subscribe({
+      next: () => {
+        this.notificator.showSuccess(
+          this.translate.instant('DIALOGS.CONNECT_IDENTITY.SUCCESS') as string
+        );
+        this.dialogRef.close(true);
+      },
+      error: () => (this.loading = false),
     });
   }
 

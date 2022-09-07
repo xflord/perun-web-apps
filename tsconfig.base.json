@@ -31,6 +31,9 @@
       ],
       "@perun-web-apps/perun/login": ["libs/perun/login/src/index.ts"],
       "@perun-web-apps/perun/models": ["libs/perun/models/src/index.ts"],
+      "@perun-web-apps/perun/multi-factor-authentication": [
+        "libs/perun/multi-factor-authentication/src/index.ts"
+      ],
       "@perun-web-apps/perun/namespace-password-form": [
         "libs/perun/namespace-password-form/src/index.ts"
       ],

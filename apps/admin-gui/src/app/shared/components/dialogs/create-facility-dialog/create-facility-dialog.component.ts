@@ -52,14 +52,17 @@ export class CreateFacilityDialogComponent implements OnInit {
     this.configure = configure;
     this.facilitiesManager
       .createFacility(this.nameControl.value as string, this.descControl.value as string)
-      .subscribe((facility) => {
-        this.entityStorageService.setEntity({ id: facility.id, beanName: facility.beanName });
-        sessionStorage.setItem('newFacilityId', String(facility.id));
-        if (this.srcFacility !== null) {
-          this.copyFacilitySettings(facility.id);
-        } else {
-          this.handleSuccess(facility.id);
-        }
+      .subscribe({
+        next: (facility) => {
+          this.entityStorageService.setEntity({ id: facility.id, beanName: facility.beanName });
+          sessionStorage.setItem('newFacilityId', String(facility.id));
+          if (this.srcFacility !== null) {
+            this.copyFacilitySettings(facility.id);
+          } else {
+            this.handleSuccess(facility.id);
+          }
+        },
+        error: () => (this.loading = false),
       });
   }
 

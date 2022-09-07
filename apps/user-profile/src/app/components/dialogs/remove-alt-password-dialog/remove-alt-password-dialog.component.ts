@@ -37,9 +37,12 @@ export class RemoveAltPasswordDialogComponent implements OnInit {
     this.loading = true;
     this.usersManagerService
       .deleteAlternativePassword(this.data.userId, 'einfra', this.data.passwordId)
-      .subscribe(() => {
-        this.loading = false;
-        this.dialogRef.close(true);
+      .subscribe({
+        next: () => {
+          this.loading = false;
+          this.dialogRef.close(true);
+        },
+        error: () => (this.loading = false),
       });
   }
 }

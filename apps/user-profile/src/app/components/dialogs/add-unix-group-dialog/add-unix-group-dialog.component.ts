@@ -48,9 +48,12 @@ export class AddUnixGroupDialogComponent implements OnInit {
 
         this.attributesManagerService
           .setUserAttribute({ user: this.data.userId, attribute: attribute })
-          .subscribe(() => {
-            this.loading = false;
-            this.dialogRef.close(true);
+          .subscribe({
+            next: () => {
+              this.loading = false;
+              this.dialogRef.close(true);
+            },
+            error: () => (this.loading = false),
           });
       });
   }

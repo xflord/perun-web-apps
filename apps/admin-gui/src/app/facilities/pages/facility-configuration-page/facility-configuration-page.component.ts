@@ -240,10 +240,13 @@ export class FacilityConfigurationPageComponent implements OnInit, AfterViewInit
   onRemoveAttributes(): void {
     this.processing = true;
     const ids = this.attSelection.selected.map((att) => att.id);
-    this.attributesManager.removeFacilityAttributes(this.facility.id, ids).subscribe(() => {
-      this.notificator.showSuccess(this.removeMsg);
-      this.getRequiredAttributes();
-      this.processing = false;
+    this.attributesManager.removeFacilityAttributes(this.facility.id, ids).subscribe({
+      next: () => {
+        this.notificator.showSuccess(this.removeMsg);
+        this.getRequiredAttributes();
+        this.processing = false;
+      },
+      error: () => (this.processing = false),
     });
   }
 

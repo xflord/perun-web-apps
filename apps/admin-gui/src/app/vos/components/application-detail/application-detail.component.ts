@@ -249,9 +249,12 @@ export class ApplicationDetailComponent implements OnInit {
           this.notificator.showSuccess(successMessage);
         });
       this.loading = true;
-      this.registrarManager.getApplicationById(this.application.id).subscribe((reloaded) => {
-        this.application = reloaded;
-        this.loading = false;
+      this.registrarManager.getApplicationById(this.application.id).subscribe({
+        next: (reloaded) => {
+          this.application = reloaded;
+          this.loading = false;
+        },
+        error: () => (this.loading = false),
       });
     });
   }

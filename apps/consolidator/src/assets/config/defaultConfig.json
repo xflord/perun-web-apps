@@ -13,6 +13,9 @@
     "user_info_endpoint_url": "https://proxy.aai.muni.cz/OIDC/userinfo",
     "oauth_offline_access_consent_prompt": true
   },
+  "mfa": {
+    "url_en": "https://mfa.id.muni.cz/"
+  },
   "application": "Consolidator",
   "document_title": "Consolidator",
   "use_localhost_linker_url": false,

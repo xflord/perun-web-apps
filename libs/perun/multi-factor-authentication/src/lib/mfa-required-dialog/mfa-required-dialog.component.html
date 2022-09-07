@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>{{'SHARED_LIB.PERUN.COMPONENTS.MFA_REQUIRED_DIALOG.TITLE' | translate}}</h1>
+<div class="dialog-container" mat-dialog-content>
+  <perun-web-apps-alert alert_type="warn">
+    {{'SHARED_LIB.PERUN.COMPONENTS.MFA_REQUIRED_DIALOG.INFO' | translate}}
+  </perun-web-apps-alert>
+</div>
+<div mat-dialog-actions>
+  <button (click)="cancel()" class="ml-auto" mat-flat-button>
+    {{'SHARED_LIB.PERUN.COMPONENTS.MFA_REQUIRED_DIALOG.CANCEL' | translate}}
+  </button>
+  <button (click)="submit()" class="ml-2" color="accent" mat-flat-button>
+    {{'SHARED_LIB.PERUN.COMPONENTS.MFA_REQUIRED_DIALOG.STEP_UP' | translate}}
+  </button>
+</div>

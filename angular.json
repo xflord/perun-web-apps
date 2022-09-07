@@ -952,6 +952,32 @@
       },
       "tags": []
     },
+    "perun-multi-factor-authentication": {
+      "projectType": "library",
+      "root": "libs/perun/multi-factor-authentication",
+      "sourceRoot": "libs/perun/multi-factor-authentication/src",
+      "prefix": "perun-web-apps",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/perun/multi-factor-authentication"],
+          "options": {
+            "jestConfig": "libs/perun/multi-factor-authentication/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/perun/multi-factor-authentication/**/*.ts",
+              "libs/perun/multi-factor-authentication/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "perun-namespace-password-form": {
       "$schema": "../../../node_modules/nx/schemas/project-schema.json",
       "projectType": "library",

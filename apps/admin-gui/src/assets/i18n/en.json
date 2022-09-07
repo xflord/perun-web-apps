@@ -2916,6 +2916,22 @@
           "CLOSE": "Close",
           "NO_PATHS": "No paths include the entered group name."
         },
+        "MFA_REQUIRED_DIALOG": {
+          "TITLE": "Step-up authentication required",
+          "INFO": "To perform this action you need to execute step-up authentication.",
+          "CANCEL": "Cancel",
+          "STEP_UP": "Step-up authentication"
+        },
+        "NO_MFA_TOKEN": {
+          "TITLE": "No MFA token",
+          "INFO": "You need to have at least one active MFA token. Please manage your MFA tokens.",
+          "CANCEL": "Cancel",
+          "MANAGE_TOKENS": "Manage tokens"
+        },
+        "FOCUS_ON_MFA_DIALOG": {
+          "MODAL": "Modal window is opened.",
+          "MODAL_WARNING": "Please check your browser settings if no modal window is open."
+        },
         "OWNERS_LIST": {
           "ID": "Id",
           "NAME": "Name",
