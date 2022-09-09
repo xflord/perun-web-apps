@@ -37,6 +37,7 @@
             [matTooltipPosition]="'above'"
             matTooltip="{{'DIALOGS.EDIT_MEMBER_SPONSORS.REMOVE_SPONSOR_DISABLED' | translate}}">
             <button
+              attr.data-cy="{{sponsor.user.firstName}}-unsponsor-mark-button"
               (click)="markSponsor(sponsor)"
               class="btn-delete"
               [disabled]="!isRemoveAuthorized(sponsor)"
@@ -66,6 +67,7 @@
       {{'DIALOGS.EDIT_MEMBER_SPONSORS.CANCEL' | translate}}
     </button>
     <button
+      data-cy="unsponsor-confirm-button"
       (click)="onSubmit()"
       class="ml-2"
       color="warn"

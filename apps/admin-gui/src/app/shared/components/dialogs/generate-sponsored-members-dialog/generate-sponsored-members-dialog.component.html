@@ -15,10 +15,14 @@
         <form [formGroup]="usersInfoFormGroup" class="flex-container mt-2">
           <mat-form-field>
             <mat-select
+              data-cy="namespace-filter"
               placeholder="{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NAMESPACE' | translate}}"
               formControlName="namespace"
               required>
-              <mat-option *ngFor="let namespc of namespaceOptions" [value]="namespc">
+              <mat-option
+                *ngFor="let namespc of namespaceOptions"
+                [value]="namespc"
+                attr.data-cy="{{namespc}}">
                 {{namespc}}
               </mat-option>
             </mat-select>
@@ -33,6 +37,7 @@
           <mat-form-field class="pt-2">
             <mat-label>{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.INSERT_HERE'| translate}}</mat-label>
             <textarea
+              data-cy="csv-input"
               cols="50"
               class="md-textarea form-control"
               id="voGenerateSponsoredMembers"
@@ -110,7 +115,7 @@
             (change)="groupAssigmentChanged()"
             [(ngModel)]="groupAssignment"
             class="flex-container">
-            <mat-radio-button value="none">
+            <mat-radio-button value="none" data-cy="no-assign-button">
               {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NO_ASSIGN' | translate}}
             </mat-radio-button>
             <span
@@ -194,6 +199,7 @@
       {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.BACK' | translate}}
     </button>
     <button
+      data-cy="next-button"
       (click)="stepperNext()"
       *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
       [class.ml-2]="stepper !== undefined && stepper.selectedIndex !== 0"
@@ -204,6 +210,7 @@
       {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NEXT' | translate}}
     </button>
     <button
+      data-cy="submit-button"
       (click)="onSubmit()"
       *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
       [disabled]="groupAssignment === null ||
@@ -215,7 +222,7 @@
     </button>
   </div>
   <div *ngIf='state === "results"' mat-dialog-actions>
-    <button (click)="onClose()" mat-flat-button>
+    <button (click)="onClose()" mat-flat-button data-cy="close-button">
       {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.CLOSE' | translate}}
     </button>
     <button

@@ -22,6 +22,7 @@
           </h5>
           <mat-form-field class="mt-4">
             <input
+              data-cy="first-name-input"
               matInput
               formControlName="firstName"
               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.FIRST_NAME' | translate}}"
@@ -33,6 +34,7 @@
 
           <mat-form-field>
             <input
+              data-cy="last-name-input"
               matInput
               formControlName="lastName"
               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.LAST_NAME' | translate}}"
@@ -64,13 +66,16 @@
         >
         <h5 class="mt-2">{{'DIALOGS.CREATE_SPONSORED_MEMBER.NAMESPACE_TITLE' | translate}}</h5>
         <form [formGroup]="namespaceControl" class="dialog-container mt-4">
-          <mat-form-field>
+          <mat-form-field data-cy="namespace-filter">
             <mat-select
               formControlName="namespace"
               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.NAMESPACE' | translate}}"
               (valueChange)="onNamespaceChanged($event)"
               required>
-              <mat-option *ngFor="let namespc of namespaceOptions" [value]="namespc">
+              <mat-option
+                *ngFor="let namespc of namespaceOptions"
+                [value]="namespc"
+                attr.data-cy="{{namespc}}">
                 {{namespc}}
               </mat-option>
             </mat-select>
@@ -84,6 +89,7 @@
             [matTooltipDisabled]="namespaceControl.get('login').enabled"
             matTooltipPosition="left">
             <input
+              data-cy="login-input"
               matInput
               formControlName="login"
               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.LOGIN' | translate}}"
@@ -95,6 +101,7 @@
 
           <mat-form-field>
             <input
+              data-cy="email-input"
               matInput
               placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.EMAIL' | translate}}"
               formControlName="email"
@@ -192,7 +199,7 @@
   </div>
 
   <div *ngIf="successfullyCreated" mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+    <button (click)="onCancel()" class="ml-auto" mat-flat-button data-cy="ok-button">
       {{'DIALOGS.CREATE_SPONSORED_MEMBER.OK' | translate}}
     </button>
   </div>
@@ -209,6 +216,7 @@
       {{'DIALOGS.CREATE_SPONSORED_MEMBER.BACK' | translate}}
     </button>
     <button
+      data-cy="next-button"
       (click)="stepperNext()"
       *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
       [class.ml-2]="stepper !== undefined && stepper.selectedIndex !== 0"
@@ -220,6 +228,7 @@
       {{'DIALOGS.CREATE_SPONSORED_MEMBER.NEXT' | translate}}
     </button>
     <button
+      data-cy="confirm-button"
       (click)="onConfirm()"
       *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
       [disabled]="sponsorType === null || (sponsorType === 'other' && selectedSponsor === null)"
