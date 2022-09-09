@@ -27,6 +27,7 @@
         </th>
         <td *matCellDef="let member" class="static-column-size align-checkbox" mat-cell>
           <mat-checkbox
+            attr.data-cy="{{member.user.firstName}}-checkbox"
             (change)="$event ? selection.toggle(member) : null"
             (click)="$event.stopPropagation()"
             [aria-label]="checkboxLabel(member)"

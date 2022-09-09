@@ -80,6 +80,7 @@
         <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
         <td *matCellDef="let sponsoredMember" mat-cell>
           <button
+            attr.data-cy="{{sponsoredMember.member.user.firstName}}-edit-sponsors-button"
             (click)="showSponsors(sponsoredMember)"
             (mouseenter)="disableRouting = true"
             (mouseleave)="disableRouting = routingStrategy"
@@ -93,6 +94,7 @@
             [matTooltipPosition]="'above'"
             [matTooltip]="'SHARED.COMPONENTS.SPONSORED_MEMBERS_LIST.PASSWORD_RESET' | translate">
             <button
+              attr.data-cy="{{sponsoredMember.member.user.firstName}}-reset-passwd-button"
               (mouseenter)="disableRouting = true"
               (mouseleave)="disableRouting = routingStrategy"
               class="dark-hover-list-item"
@@ -109,6 +111,7 @@
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
       <tr
         *matRowDef="let sponsoredMember; columns: displayedColumns;"
+        attr.data-cy="{{sponsoredMember.member.user.firstName}}-name"
         [class.cursor-pointer]="!disableRouting"
         [class.disable-outline]="disableRouting"
         [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/organizations', sponsoredMember.member.voId, 'members', sponsoredMember.member.id]"
