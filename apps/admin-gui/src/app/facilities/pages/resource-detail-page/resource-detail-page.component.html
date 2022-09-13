@@ -31,6 +31,7 @@
           {{'RESOURCE_DETAIL.ENTITY' | translate}}, {{'RESOURCE_DETAIL.VO' | translate}}:
           <a
             *ngIf="voLinkAuth"
+            attr.data-cy="{{resource.vo.name}}"
             [routerLink]="['/organizations', resource.vo.id]"
             queryParamsHandling="merge"
             class="resource-link"
@@ -43,6 +44,7 @@
           <a
             class="resource-link"
             *ngIf="facilityLinkAuth"
+            attr.data-cy="{{resource.facility.name}}"
             queryParamsHandling="merge"
             [routerLink]="['/facilities', resource.facilityId]"
             >{{resource.facility.name}}</a
