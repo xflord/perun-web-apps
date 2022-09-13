@@ -28,6 +28,8 @@ export default defineConfig({
       BA_PASSWORD_RESOURCE_SELF_SERVICE: 'test',
       BA_USERNAME_TRUSTED_FACILITY_ADMIN: 'trustedFacilityAdmin',
       BA_PASSWORD_TRUSTED_FACILITY_ADMIN: 'test',
+      BA_USERNAME_GROUP_OBSERVER: 'groupObserver',
+      BA_PASSWORD_GROUP_OBSERVER: 'test',
     },
     specPattern: 'src/e2e/**/*.cy.{js,jsx,ts,tsx}',
     supportFile: false,

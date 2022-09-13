@@ -44,7 +44,10 @@
       </ng-container>
       <ng-container matColumnDef="groupName">
         <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.GROUP_NAME' | translate}}</th>
-        <td *matCellDef="let application" mat-cell>
+        <td
+          *matCellDef="let application"
+          mat-cell
+          attr.data-cy="{{application.group ? application.group.name : 'no-group' | multiWordDataCy}}-groupname-td">
           {{application.group ? application.group.name : '' }}
         </td>
       </ng-container>

@@ -60,7 +60,12 @@
         <th *matHeaderCellDef mat-header-cell mat-sort-header>
           {{'MEMBERS_LIST.NAME' | translate}}
         </th>
-        <td *matCellDef="let member" mat-cell>{{member.user | userFullName}}</td>
+        <td
+          *matCellDef="let member"
+          mat-cell
+          attr.data-cy="{{member.user.firstName | lowercase}}-firstName-td">
+          {{member.user | userFullName}}
+        </td>
       </ng-container>
       <ng-container matColumnDef="status">
         <th *matHeaderCellDef mat-header-cell>{{'MEMBERS_LIST.STATUS' | translate}}</th>

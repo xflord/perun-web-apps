@@ -24,7 +24,10 @@
           <th *matHeaderCellDef mat-header-cell>
             {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.SHORTNAME' | translate}}
           </th>
-          <td *matCellDef="let applicationFormItem" mat-cell>
+          <td
+            *matCellDef="let applicationFormItem"
+            mat-cell
+            attr.data-cy="{{applicationFormItem.shortname | multiWordDataCy}}-shortname-td">
             {{applicationFormItem.shortname}}{{applicationFormItem.required ? '*' : ''}}
           </td>
         </ng-container>
