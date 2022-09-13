@@ -38,11 +38,7 @@
 
       <ng-container matColumnDef="name">
         <th *matHeaderCellDef mat-header-cell>{{'AUDIT_MESSAGES_LIST.EVENT_NAME' | translate}}</th>
-        <td
-          *matCellDef="let auditMessage"
-          class="static-column-size"
-          mat-cell
-          data-cy="audit-message-td">
+        <td *matCellDef="let auditMessage" class="static-column-size" mat-cell>
           {{auditMessage.event.name | parseEventName}}
         </td>
       </ng-container>
@@ -64,7 +60,11 @@
       <ng-container matColumnDef="detail">
         <th *matHeaderCellDef mat-header-cell></th>
         <td *matCellDef="let auditMessage" class="static-column-size" mat-cell>
-          <button (click)="viewDetails(auditMessage)" color="accent" mat-flat-button>
+          <button
+            (click)="viewDetails(auditMessage)"
+            data-cy="audit-message-detail-button"
+            color="accent"
+            mat-flat-button>
             {{'AUDIT_MESSAGES_LIST.VIEW_DETAIL' | translate}}
           </button>
         </td>

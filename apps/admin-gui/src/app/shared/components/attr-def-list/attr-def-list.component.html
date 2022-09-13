@@ -49,7 +49,12 @@
           <th *matHeaderCellDef mat-header-cell mat-sort-header>
             {{'ADMIN.ATTRIBUTES.TABLE_ATTR_FRIENDLY_NAME' | translate}}
           </th>
-          <td *matCellDef="let attrDef" mat-cell>{{attrDef.friendlyName}}</td>
+          <td
+            attr.data-cy="{{attrDef.friendlyName | multiWordDataCy}}-friendly-name"
+            *matCellDef="let attrDef"
+            mat-cell>
+            {{attrDef.friendlyName}}
+          </td>
         </ng-container>
         <ng-container matColumnDef="entity">
           <th *matHeaderCellDef mat-header-cell mat-sort-header>

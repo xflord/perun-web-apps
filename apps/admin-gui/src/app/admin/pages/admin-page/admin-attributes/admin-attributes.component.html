@@ -36,7 +36,7 @@
     *ngIf="!loading"
     (refreshEvent)="refreshTable()"
     [definitions]="attrDefinitions"
-    [disableRouting]="!authResolver.isPerunAdmin()"
+    [disableRouting]="!authResolver.isPerunAdminOrObserver()"
     [filterValue]="filterValue"
     [selection]="selected"
     [tableId]="tableId">

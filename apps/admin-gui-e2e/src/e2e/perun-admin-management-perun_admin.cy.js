@@ -1,10 +1,12 @@
 /// <reference types="cypress" />
 
 context('Actions', () => {
+  const dbAttrFriendlyName = 'perunAdminTestAttr';
   const dbServiceName = 'test_service_db';
   const dbServiceName2 = 'test_service_db2';
   const dbExtSourceName = 'test_ext_source_db';
   const dbConsentHubName = 'test-e2e-facility-from-db-3';
+  const dbOwnerName = 'DbOwnerTest';
 
   const dbSearcherAttrDisplayName = 'login-namespace:einfra';
   const dbSearcherAttrValue = 'e2etestlogin';
@@ -23,6 +25,17 @@ context('Actions', () => {
     // save route for correct authorization
     localStorage.setItem('routeAuthGuard', '/admin');
     cy.visit('admin');
+  });
+
+  it('test attribute detail', () => {
+    cy.get('[data-cy=attribute-definitions]')
+      .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbAttrFriendlyName)
+      .get(`[data-cy=${dbAttrFriendlyName.toLowerCase()}-friendly-name]`)
+      .click()
+      .get('[data-cy=display-name-input]')
+      .should('have.value', dbAttrFriendlyName);
   });
 
   it('test create attribute', () => {
@@ -93,6 +106,8 @@ context('Actions', () => {
       .as('getUserById')
       .get('[data-cy=users]')
       .click()
+      .get('[data-cy=filter-input]')
+      .type('test5')
       .get('[data-cy=test5-td]')
       .click()
       .get('[data-cy=edit-user-button]')
@@ -181,8 +196,17 @@ context('Actions', () => {
       .should('exist');
   });
 
-  it('test list audit messages', () => {
-    cy.get('[data-cy=audit-log]').click().get(`[data-cy=audit-message-td]`).should('exist');
+  it('test audit message detail', () => {
+    cy.get('[data-cy=audit-log]')
+      .click()
+      .get(`[data-cy=audit-message-detail-button]`)
+      .first()
+      .click()
+      .get('.mat-tab-label')
+      .contains('Message')
+      .click()
+      .get(`[data-cy=audit-message-text]`)
+      .should('not.be.empty');
   });
 
   it('test list consent hubs', () => {
@@ -205,6 +229,13 @@ context('Actions', () => {
       .get('[data-cy=searcher-search-button]')
       .click()
       .get(`[data-cy=${dbSearcherUserFirstName.toLowerCase()}-firstName-td]`)
+      .should('exist');
+  });
+
+  it('test list owners', () => {
+    cy.get('[data-cy=owners]')
+      .click()
+      .get(`[data-cy=${dbOwnerName}]`)
       .should('exist');
   });
 });
