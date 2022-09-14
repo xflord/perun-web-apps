@@ -3,6 +3,7 @@
 </h1>
 
 <div class="w-100 d-flex">
+  <perun-web-apps-refresh-button (click)="refresh()"></perun-web-apps-refresh-button>
   <button (click)="add()" *ngIf="addAuth" class="mr-2 action-button" color="accent" mat-flat-button>
     {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.ADD' | translate}}
   </button>

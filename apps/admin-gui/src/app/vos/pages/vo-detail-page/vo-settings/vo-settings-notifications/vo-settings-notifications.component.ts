@@ -55,9 +55,13 @@ export class VoSettingsNotificationsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loading = true;
     this.vo = this.entityStorageService.getEntity();
     this.setAuthRights();
+    this.refresh();
+  }
+
+  refresh(): void {
+    this.loading = true;
     this.registrarService.getVoApplicationForm(this.vo.id).subscribe((form) => {
       this.applicationForm = form;
       this.registrarService.getApplicationMailsForVo(this.vo.id).subscribe((mails) => {

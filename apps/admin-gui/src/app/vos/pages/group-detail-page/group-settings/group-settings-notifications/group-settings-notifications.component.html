@@ -3,6 +3,7 @@
 </h1>
 <div *ngIf="!noApplicationForm">
   <div class="w-100 d-flex">
+    <perun-web-apps-refresh-button (click)="refresh()"></perun-web-apps-refresh-button>
     <button
       *ngIf="addAuth"
       (click)="add()"

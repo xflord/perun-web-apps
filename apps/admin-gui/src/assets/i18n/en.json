@@ -2284,7 +2284,6 @@
     },
     "EXT_SOURCES": {
       "TITLE": "External sources",
-      "LOAD": "Load External sources",
       "SEARCH": "Search by Id, Name or Type",
       "LOAD_SUCCESS": "External sources successfully loaded"
     },

@@ -17,6 +17,7 @@ export class AdminUsersComponent implements OnInit {
   searchString: string;
   tableId = TABLE_ADMIN_USER_SELECT;
   attributes: string[] = [];
+  update = false;
 
   constructor(private storeService: StoreService) {}
 
@@ -31,5 +32,9 @@ export class AdminUsersComponent implements OnInit {
 
   findUsersWithoutVO(): void {
     this.usersWithoutVo = !this.usersWithoutVo;
+  }
+
+  refresh(): void {
+    this.update = !this.update;
   }
 }

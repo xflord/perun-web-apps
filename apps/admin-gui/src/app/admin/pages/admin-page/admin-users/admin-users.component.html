@@ -1,4 +1,5 @@
 <h1 class="page-subtitle">{{'ADMIN.USERS.TITLE' | translate}}</h1>
+<perun-web-apps-refresh-button (click)="refresh()"></perun-web-apps-refresh-button>
 <perun-web-apps-debounce-filter
   class="mt-2 search-field"
   [autoFocus]="true"
@@ -14,5 +15,6 @@
   [attrNames]="attributes"
   [displayedColumns]="['user', 'id', 'name', 'email', 'logins', 'organization']"
   [tableId]="tableId"
-  [withoutVo]="usersWithoutVo">
+  [withoutVo]="usersWithoutVo"
+  [updateTable]="update">
 </perun-web-apps-users-dynamic-list>

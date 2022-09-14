@@ -58,10 +58,13 @@ export class GroupSettingsNotificationsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loading = true;
     this.group = this.entityStorageService.getEntity();
     this.setAuthRights();
+    this.refresh();
+  }
 
+  refresh(): void {
+    this.loading = true;
     // FIXME this might not work in case of some race condition (other request finishes sooner)
     this.apiRequest.dontHandleErrorForNext();
     this.registrarService.getGroupApplicationForm(this.group.id).subscribe(

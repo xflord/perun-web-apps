@@ -1,9 +1,6 @@
 <div>
   <h1 class="page-subtitle">{{'ADMIN.EXT_SOURCES.TITLE' | translate}}</h1>
-
-  <button (click)="onLoad()" *ngIf="authResolver.isPerunAdmin()" class="mr-2" mat-stroked-button>
-    {{'ADMIN.EXT_SOURCES.LOAD' | translate}}
-  </button>
+  <perun-web-apps-refresh-button (click)="onLoad()"></perun-web-apps-refresh-button>
 
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
