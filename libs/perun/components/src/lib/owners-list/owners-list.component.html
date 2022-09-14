@@ -45,7 +45,7 @@
         <th *matHeaderCellDef mat-header-cell mat-sort-header>
           {{'SHARED_LIB.PERUN.COMPONENTS.OWNERS_LIST.NAME' | translate}}
         </th>
-        <td *matCellDef="let owner" mat-cell>{{owner.name}}</td>
+        <td *matCellDef="let owner" mat-cell attr.data-cy="{{owner.name}}">{{owner.name}}</td>
       </ng-container>
       <ng-container matColumnDef="contact">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>

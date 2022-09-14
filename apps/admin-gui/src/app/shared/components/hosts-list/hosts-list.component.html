@@ -44,7 +44,9 @@
         <th *matHeaderCellDef mat-header-cell mat-sort-header>
           {{'SHARED.COMPONENTS.HOSTS_LIST.TABLE_HOST_NAME' | translate}}
         </th>
-        <td *matCellDef="let host" mat-cell>{{host.hostname}}</td>
+        <td *matCellDef="let host" mat-cell attr.data-cy="{{host.hostname | multiWordDataCy}}">
+          {{host.hostname}}
+        </td>
       </ng-container>
 
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
