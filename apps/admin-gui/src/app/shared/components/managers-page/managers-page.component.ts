@@ -243,7 +243,6 @@ export class ManagersPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (this.guiAuthResolver.isManagerPagePrivileged(this.complementaryObject)) {
-          this.reloadEntityDetail.reloadEntityDetail();
           this.refreshGroups();
         } else {
           this.redirectToAuthRoute();
