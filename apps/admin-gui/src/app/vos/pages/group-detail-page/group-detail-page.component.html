@@ -12,6 +12,7 @@
       <div class="page-title-block">
         <div class="page-title-headline d-flex align-items-center">
           <a
+            attr.data-cy="{{group.shortName}}-shortName"
             class="group-link"
             [routerLink]="['/organizations', vo.id, 'groups', group.id]"
             queryParamsHandling="merge">

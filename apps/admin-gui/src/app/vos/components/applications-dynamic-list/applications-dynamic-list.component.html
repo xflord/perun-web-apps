@@ -91,7 +91,10 @@
       </ng-container>
       <ng-container matColumnDef="createdBy">
         <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.CREATED_BY' | translate}}</th>
-        <td *matCellDef="let application" mat-cell>
+        <td
+          *matCellDef="let application"
+          attr.data-cy="{{application.createdBy}}-createdBy"
+          mat-cell>
           {{application.createdBy.slice(application.createdBy.lastIndexOf('=') + 1, application.createdBy.length)}}
         </td>
       </ng-container>

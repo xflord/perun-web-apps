@@ -34,6 +34,8 @@ export default defineConfig({
       BA_PASSWORD_FACILITY_OBSERVER: 'test',
       BA_USERNAME_RESOURCE_OBSERVER: 'resourceObserver',
       BA_PASSWORD_RESOURCE_OBSERVER: 'test',
+      BA_USERNAME_VO_OBSERVER: 'voObserver',
+      BA_PASSWORD_VO_OBSERVER: 'test',
     },
     specPattern: 'src/e2e/**/*.cy.{js,jsx,ts,tsx}',
     supportFile: false,
