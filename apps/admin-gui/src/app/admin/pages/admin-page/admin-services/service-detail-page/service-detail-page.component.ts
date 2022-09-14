@@ -49,6 +49,7 @@ export class ServiceDetailPageComponent implements OnInit {
     this.loading = true;
     this.route.params.subscribe((params: Params) => {
       this.serviceId = Number(params['serviceId']);
+      this.entityStorageService.setEntity({ id: this.serviceId, beanName: 'Service' });
       this.refresh();
     });
   }
@@ -141,7 +142,6 @@ export class ServiceDetailPageComponent implements OnInit {
     this.serviceManager.getServiceById(this.serviceId).subscribe(
       (service) => {
         this.service = service;
-        this.entityStorageService.setEntity({ id: service.id, beanName: service.beanName });
 
         const serviceItems = this.sideMenuItemService.parseService(this.service);
         this.sideMenuService.setAdminItems([serviceItems]);
