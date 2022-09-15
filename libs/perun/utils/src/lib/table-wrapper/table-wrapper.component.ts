@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { TABLE_ITEMS_COUNT_OPTIONS } from '../perun-utils';
 import { TableConfigService } from '@perun-web-apps/config/table-config';
@@ -16,6 +24,7 @@ export class TableWrapperComponent implements OnInit {
   @Input() allowExportAll = true;
   @Output() exportDisplayedData = new EventEmitter<string>();
   @Output() exportAllData = new EventEmitter<string>();
+  @ViewChild('topNav') topNav: ElementRef<HTMLDivElement>;
 
   pageSize = 5;
   paginator: MatPaginator;
@@ -46,5 +55,10 @@ export class TableWrapperComponent implements OnInit {
     if (this.tableId) {
       this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
     }
+    this.topNav.nativeElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    }); // scroll to top of table on page changes
   }
 }
