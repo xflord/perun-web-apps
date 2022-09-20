@@ -37,6 +37,7 @@ export class UserDashboardComponent implements OnInit {
     'TOPGROUPCREATOR',
     'VOOBSERVER',
     'GROUPOBSERVER',
+    'GROUPMEMBERSHIPMANAGER',
     'FACILITYOBSERVER',
     'RESOURCEOBSERVER',
   ];

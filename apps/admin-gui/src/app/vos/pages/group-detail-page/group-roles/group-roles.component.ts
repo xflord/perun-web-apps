@@ -32,6 +32,7 @@ export class GroupRolesComponent implements OnInit {
     'FACILITYOBSERVER',
     'PERUNADMIN',
     'PERUNOBSERVER',
+    'GROUPMEMBERSHIPMANAGER',
   ];
 
   constructor(

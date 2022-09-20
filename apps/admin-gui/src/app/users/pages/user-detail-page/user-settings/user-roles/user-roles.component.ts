@@ -36,6 +36,7 @@ export class UserRolesComponent implements OnInit {
     'PERUNADMIN',
     'PERUNOBSERVER',
     'MEMBERSHIP',
+    'GROUPMEMBERSHIPMANAGER',
   ];
 
   constructor(
