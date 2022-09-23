@@ -60,15 +60,21 @@
         class="text-decoration-none"
         target="_blank"
         >{{index ? ', ' + item.name : item.name}}</a
-      >
-    </span>
-    Version
+      > </span
+    >, web application:
     <a
       [href]="githubRepository"
       [ngStyle]="{'color': copyrightTextColor}"
       class="text-decoration-none"
       target="_blank"
-      >{{version}}</a
+      >{{guiVersion}}</a
+    >, server:
+    <a
+      [href]="githubBackendRepository"
+      [ngStyle]="{'color': copyrightTextColor}"
+      class="text-decoration-none"
+      target="_blank"
+      >{{backendVersion}}</a
     >
   </div>
 </footer>

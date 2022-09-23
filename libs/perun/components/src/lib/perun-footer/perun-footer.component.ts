@@ -9,6 +9,7 @@ import { StoreService } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslatedElem } from '@perun-web-apps/perun/pipes';
+import { UtilsService } from '@perun-web-apps/perun/openapi';
 declare let require: any;
 
 interface FooterElement extends TranslatedElem {
@@ -46,15 +47,21 @@ export class PerunFooterComponent implements OnInit {
   headersTextColor: string = this.storeService.get('theme', 'footer_headers_text_color') as string;
   linksTextColor: string = this.storeService.get('theme', 'footer_links_text_color') as string;
   githubRepository: string = this.storeService.get('footer', 'github_releases') as string;
+  githubBackendRepository: string = this.storeService.get(
+    'footer',
+    'github_backend_releases'
+  ) as string;
   iconColor: string = this.storeService.get('theme', 'footer_icon_color') as string;
   bgColor: string = this.storeService.get('theme', 'footer_bg_color') as string;
-  version = '';
+  backendVersion = '';
+  guiVersion = '';
   language = 'en';
   columnContentHeight = 0;
 
   constructor(
     private storeService: StoreService,
     private translateService: TranslateService,
+    private utilsService: UtilsService,
     private dialog: MatDialog
   ) {}
 
@@ -62,7 +69,13 @@ export class PerunFooterComponent implements OnInit {
     this.translateService.onLangChange.subscribe((lang) => {
       this.language = lang.lang;
     });
-    this.version = require('../../../../../../package.json').version as string;
+
+    this.guiVersion = require('../../../../../../package.json').version as string;
+    this.utilsService.getPerunStatus().subscribe((val) => {
+      const versionString = val[0];
+      this.backendVersion = versionString.substring(versionString.indexOf(':') + 2);
+    });
+
     this.footerColumns = this.storeService.get('footer', 'columns') as FooterColumn[];
     for (const col of this.footerColumns) {
       if (col.logos) {

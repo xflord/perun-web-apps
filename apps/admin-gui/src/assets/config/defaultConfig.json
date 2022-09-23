@@ -114,7 +114,8 @@
         "url": "https://www.cerit-sc.cz/"
       }
     ],
-    "github_releases": "https://www.github.com/CESNET/perun-web-apps/releases/"
+    "github_releases": "https://www.github.com/CESNET/perun-web-apps/releases/",
+    "github_backend_releases": "https://www.github.com/CESNET/perun/releases/"
   },
   "log_out_enabled": true,
   "profile_label_en": "Profile",
