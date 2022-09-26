@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, HostBinding, OnInit, AfterViewInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveResourceDialogComponent } from '../../../../shared/components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
@@ -19,7 +19,7 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
   templateUrl: './facility-resources.component.html',
   styleUrls: ['./facility-resources.component.scss'],
 })
-export class FacilityResourcesComponent implements OnInit {
+export class FacilityResourcesComponent implements OnInit, AfterViewInit {
   static id = 'FacilityResourcesComponent';
 
   // class used for animation
@@ -48,7 +48,8 @@ export class FacilityResourcesComponent implements OnInit {
     private facilitiesManager: FacilitiesManagerService,
     private servicesManager: ServicesManagerService,
     private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -57,7 +58,10 @@ export class FacilityResourcesComponent implements OnInit {
     this.servicesManager.getAssignedServices(this.facility.id).subscribe((services) => {
       this.services = [this.emptyService].concat(services);
     });
-    this.refreshTable();
+  }
+
+  ngAfterViewInit(): void {
+    this.cd.detectChanges();
   }
 
   removeResource(): void {
