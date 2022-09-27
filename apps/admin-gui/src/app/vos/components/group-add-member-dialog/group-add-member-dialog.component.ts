@@ -95,6 +95,8 @@ export class GroupAddMemberDialogComponent implements OnInit {
     this.loading = true;
     if (this.selection.selected.length === 0) {
       if (this.failed.length !== 0) {
+        this.failed = this.failed.filter((failed) => failed !== null);
+        this.selection.clear();
         this.loading = false;
       } else {
         this.addMemberService.success('DIALOGS.ADD_MEMBERS.SUCCESS_ADD');
@@ -118,6 +120,8 @@ export class GroupAddMemberDialogComponent implements OnInit {
     this.loading = true;
     if (this.selection.selected.length === 0) {
       if (this.failed.length !== 0) {
+        this.failed = this.failed.filter((failed) => failed !== null);
+        this.selection.clear();
         this.loading = false;
       } else {
         this.addMemberService.success('DIALOGS.ADD_MEMBERS.SUCCESS_INVITE');

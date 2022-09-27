@@ -66,8 +66,12 @@ export class AddMemberService {
   }
 
   getCandidateWithError(candidate: MemberCandidate, error: HttpErrorResponse): FailedCandidate {
-    const e: RPCError = error.error as RPCError;
-    const msg: string = e.message.split(':').splice(1).join();
-    return { candidate: candidate, errorName: e.name, errorMsg: msg };
+    if (String(error.type) === 'MfaPrivilegeException') {
+      return null;
+    } else {
+      const e: RPCError = error.error as RPCError;
+      const msg: string = e.message.split(':').splice(1).join();
+      return { candidate: candidate, errorName: e.name, errorMsg: msg };
+    }
   }
 }
