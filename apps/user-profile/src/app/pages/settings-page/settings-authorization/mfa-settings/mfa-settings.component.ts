@@ -83,7 +83,7 @@ export class MfaSettingsComponent implements OnInit {
       }
     } else {
       // load enforce_mfa from attribute
-      const enforceMfaAttributeName = this.store.get('mfa', 'enforce_mfa_attribute') as string;
+      const enforceMfaAttributeName = this.store.getProperty('mfa').enforce_mfa_attribute;
       this.attributesManagerService
         .getUserAttributeByName(this.store.getPerunPrincipal().userId, enforceMfaAttributeName)
         .subscribe({

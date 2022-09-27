@@ -11,13 +11,14 @@ import { TranslateService } from '@ngx-translate/core';
 export class HeaderComponent implements OnInit {
   logo: SafeHtml;
 
-  bgColor = this.storeService.get('theme', 'nav_bg_color') as string;
-  textColor = this.storeService.get('theme', 'nav_text_color') as string;
-  iconColor = this.storeService.get('theme', 'nav_icon_color') as string;
-  label = this.storeService.get(
-    `header_label_${this.preferredLangService.getPreferredLanguage(null)}`
-  ) as string;
-  isDevel = this.storeService.get('is_devel') as string;
+  bgColor = this.storeService.getProperty('theme').nav_bg_color;
+  textColor = this.storeService.getProperty('theme').nav_text_color;
+  iconColor = this.storeService.getProperty('theme').nav_icon_color;
+  preferredLanguage = this.preferredLangService.getPreferredLanguage(null);
+  label = this.storeService.getProperty(
+    this.preferredLanguage === 'en' ? 'header_label_en' : 'header_label_cs'
+  );
+  isDevel = this.storeService.getProperty('is_devel');
 
   constructor(
     private storeService: StoreService,
@@ -28,9 +29,12 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.translateService.onLangChange.subscribe((lang) => {
-      this.label = this.storeService.get(`header_label_${lang.lang}`) as string;
+      this.label =
+        lang.lang === 'en'
+          ? this.storeService.getProperty('header_label_en')
+          : this.storeService.getProperty('header_label_cs');
     });
-    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.get('logo') as string);
+    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.getProperty('logo'));
   }
 
   changeLanguage(): void {

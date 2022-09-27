@@ -60,7 +60,7 @@ export class VosPageComponent implements OnInit {
   }
 
   extendMembership(membership: Membership): void {
-    const registrarUrl = this.store.get('registrar_base_url') as string;
+    const registrarUrl = this.store.getProperty('registrar_base_url');
     window.location.href = `${registrarUrl}?vo=${membership.entity.shortName}`;
   }
 

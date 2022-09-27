@@ -17,7 +17,7 @@ export class ConsentRelatedAttributePipe implements PipeTransform {
   constructor(private storeService: StoreService) {}
 
   transform(attNamespace: string, serviceEnabled: boolean, enforceHubConsent: boolean): boolean {
-    const enforceInstanceConsent: boolean = this.storeService.get('enforce_consents') as boolean;
+    const enforceInstanceConsent: boolean = this.storeService.getProperty('enforce_consents');
     if (!enforceInstanceConsent || !enforceHubConsent || !serviceEnabled) {
       return false;
     }

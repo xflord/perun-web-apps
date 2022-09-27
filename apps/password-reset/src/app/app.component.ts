@@ -26,7 +26,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   validToken: boolean;
   authWithoutToken = false;
   contentHeight = 'calc(100vh - 84px)';
-  contentBackgroundColor = this.store.get('theme', 'content_bg_color') as string;
+  contentBackgroundColor = this.store.getProperty('theme').content_bg_color;
 
   constructor(
     private dialog: MatDialog,

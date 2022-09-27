@@ -26,7 +26,7 @@ export class ApplicationFormPreviewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.languages = this.store.get('supported_languages') as string[];
+    this.languages = this.store.getProperty('supported_languages');
     this.route.queryParamMap.subscribe((params) => {
       this.applicationFormItems = JSON.parse(
         params.get('applicationFormItems')

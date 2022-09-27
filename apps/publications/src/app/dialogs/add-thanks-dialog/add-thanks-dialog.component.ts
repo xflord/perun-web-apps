@@ -35,10 +35,10 @@ export class AddThanksDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    const allowedOwners = this.storeService.get('allowed_owners_for_thanks') as number[];
+    const allowedOwners = this.storeService.getProperty('allowed_owners_for_thanks');
     this.ownersManagerService.getAllOwners().subscribe((owners) => {
       if (allowedOwners.length !== 0) {
-        this.owners = owners.filter((item) => allowedOwners.includes(item.id));
+        this.owners = owners.filter((item) => allowedOwners.includes(String(item.id)));
       } else {
         this.owners = owners;
       }

@@ -45,7 +45,7 @@ export class AddEditNotificationDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.languages = this.store.get('supported_languages') as string[];
+    this.languages = this.store.getProperty('supported_languages');
     // at this moment we want to enable the html notification settings just for Perun Admin
     this.htmlAuth = this.authResolver.isPerunAdmin();
     this.applicationMail = this.data.applicationMail;

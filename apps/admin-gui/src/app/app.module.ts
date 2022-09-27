@@ -40,7 +40,7 @@ export function httpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 
 export function apiConfigFactory(store: StoreService): Configuration {
   const params: ConfigurationParameters = {
-    basePath: store.get('api_url') as string,
+    basePath: store.getProperty('api_url'),
     // set configuration parameters here.
   };
   return new Configuration(params);

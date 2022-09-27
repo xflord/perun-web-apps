@@ -17,7 +17,7 @@ export interface AddApplicationFormItemDialogComponentData {
   styleUrls: ['./add-application-form-item-dialog.component.scss'],
 })
 export class AddApplicationFormItemDialogComponent implements OnInit {
-  languages = this.store.get('supported_languages') as string[];
+  languages = this.store.getProperty('supported_languages');
 
   items: string[] = [];
   selectedItem: string;

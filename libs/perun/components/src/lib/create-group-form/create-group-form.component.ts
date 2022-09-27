@@ -18,8 +18,8 @@ export class CreateGroupFormComponent implements OnInit {
 
   isNotSubGroup: boolean;
   asSubgroup = false;
-  invalidNameMessage: string = this.store.get('group_name_error_message') as string;
-  secondaryRegex: string = this.store.get('group_name_secondary_regex') as string;
+  invalidNameMessage: string = this.store.getProperty('group_name_error_message');
+  secondaryRegex: string = this.store.getProperty('group_name_secondary_regex');
   nameControl: UntypedFormControl;
   descriptionControl: UntypedFormControl;
   selectedParent: Group;

@@ -145,7 +145,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
                 this.allVoGroups = grps.filter((grp) => grp.name !== 'members');
                 this.assignableGroups = this.filterAssignableGroups(grps);
                 this.membersService.getAllNamespacesRules().subscribe((rules) => {
-                  if (this.store.get('allow_empty_sponsor_namespace')) {
+                  if (this.store.getProperty('allow_empty_sponsor_namespace')) {
                     this.namespaceRules.push({
                       namespaceName: 'No namespace',
                       csvGenHeader:

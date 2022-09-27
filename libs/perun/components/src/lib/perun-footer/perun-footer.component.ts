@@ -8,26 +8,9 @@ import { ReportIssueDialogComponent } from '../report-issue-dialog/report-issue-
 import { StoreService } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { TranslateService } from '@ngx-translate/core';
-import { TranslatedElem } from '@perun-web-apps/perun/pipes';
 import { UtilsService } from '@perun-web-apps/perun/openapi';
+import { CopyrightItem, FooterColumn } from '@perun-web-apps/perun/models';
 declare let require: any;
-
-interface FooterElement extends TranslatedElem {
-  logo?: string;
-  icon?: string;
-  dialog?: string;
-  link_en: string;
-}
-
-interface FooterColumn extends TranslatedElem {
-  elements: FooterElement[];
-  logos: string[];
-}
-
-interface FooterCopyrightItems {
-  name: string;
-  url: string;
-}
 
 @Component({
   selector: 'perun-web-apps-footer',
@@ -35,24 +18,19 @@ interface FooterCopyrightItems {
   styleUrls: ['./perun-footer.component.scss'],
 })
 export class PerunFooterComponent implements OnInit {
-  copyrightTextColor: string = this.storeService.get(
-    'theme',
-    'footer_copyright_text_color'
-  ) as string;
+  copyrightTextColor: string = this.storeService.getProperty('theme').footer_copyright_text_color;
 
   footerColumns: FooterColumn[] = [];
-  copyrightItems: FooterCopyrightItems[] = [];
+  copyrightItems: CopyrightItem[] = [];
   currentYear: number = new Date().getFullYear();
   containsLogos = false;
-  headersTextColor: string = this.storeService.get('theme', 'footer_headers_text_color') as string;
-  linksTextColor: string = this.storeService.get('theme', 'footer_links_text_color') as string;
-  githubRepository: string = this.storeService.get('footer', 'github_releases') as string;
-  githubBackendRepository: string = this.storeService.get(
-    'footer',
-    'github_backend_releases'
-  ) as string;
-  iconColor: string = this.storeService.get('theme', 'footer_icon_color') as string;
-  bgColor: string = this.storeService.get('theme', 'footer_bg_color') as string;
+  headersTextColor: string = this.storeService.getProperty('theme').footer_headers_text_color;
+  linksTextColor: string = this.storeService.getProperty('theme').footer_links_text_color;
+  githubRepository: string = this.storeService.getProperty('footer').github_releases;
+  githubBackendRepository: string = this.storeService.getProperty('footer').github_backend_releases;
+  iconColor: string = this.storeService.getProperty('theme').footer_icon_color;
+  bgColor: string = this.storeService.getProperty('theme').footer_bg_color;
+  version = '';
   backendVersion = '';
   guiVersion = '';
   language = 'en';
@@ -69,6 +47,8 @@ export class PerunFooterComponent implements OnInit {
     this.translateService.onLangChange.subscribe((lang) => {
       this.language = lang.lang;
     });
+    this.version = require('../../../../../../package.json').version as string;
+    this.footerColumns = this.storeService.getProperty('footer').columns;
 
     this.guiVersion = require('../../../../../../package.json').version as string;
     this.utilsService.getPerunStatus().subscribe((val) => {
@@ -76,7 +56,7 @@ export class PerunFooterComponent implements OnInit {
       this.backendVersion = versionString.substring(versionString.indexOf(':') + 2);
     });
 
-    this.footerColumns = this.storeService.get('footer', 'columns') as FooterColumn[];
+    this.footerColumns = this.storeService.getProperty('footer').columns;
     for (const col of this.footerColumns) {
       if (col.logos) {
         this.containsLogos = true;
@@ -84,10 +64,7 @@ export class PerunFooterComponent implements OnInit {
         this.columnContentHeight = col.elements.length * 25;
       }
     }
-    this.copyrightItems = this.storeService.get(
-      'footer',
-      'copyright_items'
-    ) as FooterCopyrightItems[];
+    this.copyrightItems = this.storeService.getProperty('footer').copyrightItems;
   }
 
   openDialog(name: string): void {

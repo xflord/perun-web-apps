@@ -38,13 +38,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   isServiceAccess: boolean;
 
   principal: PerunPrincipal;
-  navBackgroundColor = this.store.get('theme', 'nav_bg_color') as string;
-  sideBarBorderColor = this.store.get('theme', 'sidemenu_border_color') as string;
-  contentBackgroundColor = this.store.get('theme', 'content_bg_color') as string;
-  sideMenubackgroundColor = this.store.get('theme', 'sidemenu_bg_color') as string;
+  theme = this.store.getProperty('theme');
+  navBackgroundColor = this.theme.nav_bg_color;
+  sideBarBorderColor = this.theme.sidemenu_border_color;
+  contentBackgroundColor = this.theme.content_bg_color;
+  sideMenubackgroundColor = this.theme.sidemenu_bg_color;
 
-  displayWarning: boolean = this.store.get('display_warning') as boolean;
-  warningMessage: string = this.store.get('warning_message') as string;
+  displayWarning: boolean = this.store.getProperty('display_warning');
+  warningMessage: string = this.store.getProperty('warning_message');
 
   // eslint-disable-next-line
   version: string = require('../../../../package.json').version;

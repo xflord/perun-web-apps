@@ -48,6 +48,8 @@ export class SettingsAuthenticationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const mfa = this.store.getProperty('mfa');
+
     this.translate.onLangChange.subscribe(() => {
       this.translate
         .get('AUTHENTICATION.DELETE_IMG_DIALOG_TITLE')
@@ -55,11 +57,11 @@ export class SettingsAuthenticationComponent implements OnInit {
       this.translate
         .get('AUTHENTICATION.DELETE_IMG_DIALOG_DESC')
         .subscribe((res: string) => (this.removeDialogDescription = res));
-      this.mfaUrl = this.store.get('mfa', 'url_' + this.translate.currentLang) as string;
+      this.mfaUrl = this.translate.currentLang === 'en' ? mfa.url_en : mfa.url_cs;
     });
 
-    this.mfaUrl = this.store.get('mfa', 'url_' + this.translate.currentLang) as string;
-    this.displayImageBlock = this.store.get('mfa', 'enable_security_image') as boolean;
+    this.mfaUrl = this.translate.currentLang === 'en' ? mfa.url_en : mfa.url_cs;
+    this.displayImageBlock = this.store.getProperty('mfa').enable_security_image;
     if (this.displayImageBlock) {
       this.loadImage();
     }
@@ -67,7 +69,7 @@ export class SettingsAuthenticationComponent implements OnInit {
 
   loadImage(): void {
     this.loadingImg = true;
-    const imgAttributeName = this.store.get('mfa', 'security_image_attribute') as string;
+    const imgAttributeName = this.store.getProperty('mfa').security_image_attribute;
     this.attributesManagerService
       .getUserAttributeByName(this.store.getPerunPrincipal().userId, imgAttributeName)
       .subscribe(

@@ -22,7 +22,7 @@ export class ApiService implements PerunApiService {
 
   getApiUrl(): string {
     if (this.api_url === undefined) {
-      this.api_url = this.storeService.get('api_url') as string;
+      this.api_url = this.storeService.getProperty('api_url');
     }
     return this.api_url + '/';
   }

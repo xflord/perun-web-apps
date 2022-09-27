@@ -13,7 +13,7 @@ export class BackButtonComponent implements OnInit {
   constructor(private location: Location, private storeService: StoreService) {}
 
   ngOnInit(): void {
-    this.backButtonColor = this.storeService.get('theme', 'back_button_color') as string;
+    this.backButtonColor = this.storeService.getProperty('theme').back_button_color;
   }
 
   goBack(): void {

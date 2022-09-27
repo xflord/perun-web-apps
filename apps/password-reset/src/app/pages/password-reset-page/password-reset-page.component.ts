@@ -32,7 +32,7 @@ export class PasswordResetPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.passwordResetLogo = this.sanitizer.bypassSecurityTrustHtml(
-      this.storeService.get('password_reset_logo') as string
+      this.storeService.getProperty('password_reset_logo')
     );
   }
 }

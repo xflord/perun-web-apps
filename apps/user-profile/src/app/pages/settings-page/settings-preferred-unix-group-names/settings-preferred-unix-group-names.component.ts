@@ -47,7 +47,7 @@ export class SettingsPreferredUnixGroupNamesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.namespaces = this.store.get('preferred_unix_group_names') as string[];
+    this.namespaces = this.store.getProperty('preferred_unix_group_names');
     this.translateService.onLangChange.subscribe(() => {
       this.translateService
         .get('PREFERRED_UNIX_GROUP_NAMES.REMOVE_DIALOG_DESCRIPTION')

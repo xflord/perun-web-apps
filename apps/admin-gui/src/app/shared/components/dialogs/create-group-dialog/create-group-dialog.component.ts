@@ -22,7 +22,7 @@ export class CreateGroupDialogComponent implements OnInit {
 
   isNotSubGroup: boolean;
   asSubgroup = false;
-  invalidNameMessage = this.store.get('group_name_error_message') as string;
+  invalidNameMessage = this.store.getProperty('group_name_error_message');
   nameControl: UntypedFormControl;
   descriptionControl: UntypedFormControl;
   selectedParent: Group;
@@ -30,7 +30,7 @@ export class CreateGroupDialogComponent implements OnInit {
   title: string;
   successMessage: string;
   successSubGroupMessage: string;
-  private secondaryRegex = this.store.get('group_name_secondary_regex') as string;
+  private secondaryRegex = this.store.getProperty('group_name_secondary_regex');
 
   constructor(
     private dialogRef: MatDialogRef<CreateGroupDialogComponent>,

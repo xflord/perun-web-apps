@@ -58,12 +58,12 @@ export class MemberOverviewComponent implements OnInit {
       this.attributeNames = this.storeService.getMemberProfileAttributeNames();
 
       this.membersService.getRichMemberWithAttributes(memberId).subscribe((member) => {
-        this.attUrns = (this.storeService.get('password_namespace_attributes') as string[]).map(
-          (urn: string) => {
+        this.attUrns = this.storeService
+          .getProperty('password_namespace_attributes')
+          .map((urn: string) => {
             const urns: string[] = urn.split(':');
             return urns[urns.length - 1];
-          }
-        );
+          });
         this.attributesManager.getLogins(member.userId).subscribe(
           (logins) => {
             this.logins = logins.filter((login) =>

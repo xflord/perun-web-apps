@@ -25,8 +25,8 @@ export class SideMenuRootItemComponent implements OnInit, OnChanges {
   sideNav: MatSidenav;
 
   expanded = false;
-  linkBgColor = this.store.get('theme', 'sidemenu_item_links_bg_color') as string;
-  linkTextColor = this.store.get('theme', 'sidemenu_item_links_text_color') as string;
+  linkBgColor = this.store.getProperty('theme').sidemenu_item_links_bg_color;
+  linkTextColor = this.store.getProperty('theme').sidemenu_item_links_text_color;
   currentUrl: string;
 
   constructor(private router: Router, private store: StoreService) {

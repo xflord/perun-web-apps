@@ -43,7 +43,7 @@ export class VoAddMemberDialogComponent {
   attrNames: string[] = [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL].concat(
     this.store.getLoginAttributeNames()
   );
-  languages: string[] = this.store.get('supported_languages') as string[];
+  languages: string[] = this.store.getProperty('supported_languages');
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: VoAddMemberData,

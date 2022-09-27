@@ -65,13 +65,13 @@ export class AppConfigService {
     return new Promise<void>((resolve) => {
       colorConfigs.forEach((cc) => {
         //configuration for single items
-        const color: string = this.storeService.get('theme', cc.configValue) as string;
+        const color: string = this.storeService.getProperty('theme')[cc.configValue];
         document.documentElement.style.setProperty(cc.cssVariable, color);
       });
 
       entityColorConfigs.forEach((ecc) => {
         //configuration for whole entities
-        const color: string = this.storeService.get('theme', ecc.configValue) as string;
+        const color: string = this.storeService.getProperty('theme')[ecc.configValue];
         // set CSS variable for given entity
         document.documentElement.style.setProperty(ecc.cssVariable, color);
         // update theme for given entity
@@ -155,7 +155,7 @@ export class AppConfigService {
       link.type = 'image/x-icon';
       link.rel = 'shortcut icon';
 
-      if (this.storeService.get('instance_favicon')) {
+      if (this.storeService.getProperty('instance_favicon')) {
         link.href = './assets/config/instanceFavicon.ico';
       } else {
         link.href = './assets/img/perun.ico';
@@ -170,12 +170,12 @@ export class AppConfigService {
    */
   setApiUrl(): Promise<void> {
     return new Promise<void>((resolve) => {
-      let apiUrl: string = this.storeService.get('api_url') as string;
+      let apiUrl: string = this.storeService.getProperty('api_url');
       if (location.pathname === '/service-access' || sessionStorage.getItem('baPrincipal')) {
         apiUrl = apiUrl.replace('oauth', 'ba');
       }
       this.authzSevice.configuration.basePath = apiUrl;
-      this.titleService.setTitle(this.storeService.get('document_title', 'en') as string);
+      this.titleService.setTitle(this.storeService.getProperty('document_title').en);
       resolve();
     });
   }

@@ -9,7 +9,7 @@ export class PreferredLanguageService {
   constructor(private route: ActivatedRoute, private store: StoreService) {}
 
   getPreferredLanguage(userLang: string): string {
-    const supportedLang: string = this.store.get('supported_languages') as string;
+    const supportedLang: string[] = this.store.getProperty('supported_languages');
     const browserLang: string[] = navigator.languages.map((lang) => lang.split('-')[0]);
 
     const query: string[] = location.search.substring(1).split('&');

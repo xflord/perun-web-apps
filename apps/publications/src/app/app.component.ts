@@ -22,8 +22,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   isLoginScreenShow: boolean;
   isServiceAccess: boolean;
 
-  sideMenuBgColor = this.store.get('theme', 'sidemenu_bg_color') as string;
-  contentBackgroundColor = this.store.get('theme', 'content_bg_color') as string;
+  sideMenuBgColor = this.store.getProperty('theme').sidemenu_bg_color;
+  contentBackgroundColor = this.store.getProperty('theme').content_bg_color;
   contentHeight = 'calc(100vh - 64px)';
 
   constructor(

@@ -27,12 +27,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   static minWidth = 992;
   @ViewChild('footer') footer: ElementRef<HTMLDivElement>;
   sidebarMode: 'over' | 'push' | 'side' = 'side';
-  sideMenuBgColor = this.store.get('theme', 'sidemenu_bg_color') as string;
-  contentBackgroundColor = this.store.get('theme', 'content_bg_color') as string;
+  sideMenuBgColor = this.store.getProperty('theme').sidemenu_bg_color;
+  contentBackgroundColor = this.store.getProperty('theme').content_bg_color;
   isLoginScreenShown: boolean;
   isServiceAccess: boolean;
   contentHeight = 'calc(100vh - 84px)';
-  headerLabel = this.store.get('header_label_en') as string;
+  headerLabel = this.store.getProperty('header_label_en');
 
   constructor(
     private store: StoreService,
@@ -54,7 +54,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.translateService.onLangChange.subscribe((langChange: LangChangeEvent) => {
-      const title: string = this.store.get('document_title', langChange.lang) as string;
+      const documentTitle = this.store.getProperty('document_title');
+      const title: string = langChange.lang === 'en' ? documentTitle.en : documentTitle.cs;
       this.titleService.setTitle(title);
       this.document.documentElement.lang = langChange.lang;
     });
@@ -63,9 +64,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.isServiceAccess = this.initAuth.isServiceAccessLoginScreenShown();
     sessionStorage.removeItem('baLogout');
     if (this.isLoginScreenShown) {
-      this.headerLabel = this.store.get(
-        `header_label_${this.preferredLangService.getPreferredLanguage(null)}`
-      ) as string;
+      const preferredLanguage = this.preferredLangService.getPreferredLanguage(null);
+      this.headerLabel = this.store.getProperty(
+        preferredLanguage === 'en' ? 'header_label_en' : 'header_label_cs'
+      );
       return;
     }
     if (this.isServiceAccess) {

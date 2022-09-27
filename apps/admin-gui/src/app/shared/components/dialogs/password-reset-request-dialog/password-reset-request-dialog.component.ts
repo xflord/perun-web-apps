@@ -20,7 +20,7 @@ export interface PasswordResetRequestDialogData {
   styleUrls: ['./password-reset-request-dialog.component.scss'],
 })
 export class PasswordResetRequestDialogComponent implements OnInit {
-  languages = this.store.get('supported_languages') as string;
+  languages = this.store.getProperty('supported_languages');
   selectedLang = 'en';
   pwdMails = new Map<string, string>();
   logins: Attribute[] = [];

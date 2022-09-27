@@ -12,9 +12,9 @@ import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
 export class HeaderComponent implements OnInit {
   @Input() sideNav: MatSidenav;
   principal: PerunPrincipal;
-  bgColor = this.storeService.get('theme', 'nav_bg_color') as string;
-  textColor = this.storeService.get('theme', 'nav_text_color') as string;
-  iconColor = this.storeService.get('theme', 'nav_icon_color') as string;
+  bgColor = this.storeService.getProperty('theme').nav_bg_color;
+  textColor = this.storeService.getProperty('theme').nav_text_color;
+  iconColor = this.storeService.getProperty('theme').nav_icon_color;
   isDevel = false;
   logo: SafeHtml;
 
@@ -25,9 +25,9 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isDevel = this.storeService.get('is_devel') as boolean;
+    this.isDevel = this.storeService.getProperty('is_devel');
     this.principal = this.storeService.getPerunPrincipal();
-    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.get('logo') as string);
+    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.getProperty('logo'));
   }
 
   onLogOut(): void {

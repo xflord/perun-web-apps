@@ -42,12 +42,10 @@ export class PasswordResetComponent implements OnInit {
     this.displayedColumns = this.authenticationPage
       ? ['namespace', 'value', 'change']
       : ['namespace', 'value', 'reset', 'change'];
-    this.nameSpaces = (this.store.get('password_namespace_attributes') as string[]).map(
-      (urn: string) => {
-        const urns: string[] = urn.split(':');
-        return urns[urns.length - 1];
-      }
-    );
+    this.nameSpaces = this.store.getProperty('password_namespace_attributes').map((urn: string) => {
+      const urns: string[] = urn.split(':');
+      return urns[urns.length - 1];
+    });
     this.refreshTable();
   }
 

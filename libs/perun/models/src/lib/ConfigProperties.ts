@@ -1,5 +1,3 @@
-import { SafeHtml } from '@angular/platform-browser';
-
 export interface OidcClient {
   oauth_authority: string;
   oauth_callback: string;
@@ -19,10 +17,12 @@ interface PerunTheme {
   nav_bg_color?: string;
   nav_text_color?: string;
   nav_icon_color?: string;
+  header_text_color?: string;
   footer_bg_color?: string;
   footer_headers_text_color?: string;
   footer_links_text_color?: string;
   footer_copyright_text_color?: string;
+  footer_icon_color?: string;
   sidemenu_divider_color?: string;
   sidemenu_bg_color?: string;
   sidemenu_border_color?: string;
@@ -57,12 +57,12 @@ interface PerunTheme {
   service_color?: string;
 }
 
-interface CopyrightItem {
+export interface CopyrightItem {
   name: string;
   url: string;
 }
 
-interface FooterElement {
+export interface FooterElement {
   logo: string;
   icon?: string;
   dialog?: string;
@@ -72,7 +72,7 @@ interface FooterElement {
   label_cs?: string;
 }
 
-interface FooterColumn {
+export interface FooterColumn {
   title_en: string;
   title_cs?: string;
   logos?: boolean;
@@ -82,6 +82,8 @@ interface FooterColumn {
 interface Footer {
   columns: FooterColumn[];
   copyrightItems: CopyrightItem[];
+  github_releases?: string;
+  github_backend_releases?: string;
 }
 
 interface DocumentTitle {
@@ -156,6 +158,9 @@ export interface PerunConfig {
   display_warning?: boolean;
   warning_message?: string;
   logo_padding?: string;
+  group_name_error_message?: string;
+  group_name_secondary_regex?: string;
+  link_to_admin_gui_by_roles?: string[];
 
   // User profile specific
   // Required
@@ -180,9 +185,9 @@ export interface PerunConfig {
 
   // Password reset specific
   // Optional
-  password_requirements_help_en?: string;
-  password_requirements_help_cs?: string;
-  password_reset_logo?: SafeHtml;
+  password_requirements_help?: string[];
+  password_requirements_help_cs?: string[];
+  password_reset_logo?: string;
 
   //Consolidator + Linker
   application: string;

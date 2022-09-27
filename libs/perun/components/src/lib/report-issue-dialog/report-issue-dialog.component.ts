@@ -28,7 +28,7 @@ export class ReportIssueDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.instanceName = this.storeService.get('config') as string;
+    this.instanceName = this.storeService.getProperty('config');
   }
 
   sendBugReport(): void {

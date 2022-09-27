@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StoreService } from '@perun-web-apps/perun/services';
 
-interface ExternalService {
-  url: string;
-  label_cs: string;
-  label_en: string;
-}
-
 @Injectable({
   providedIn: 'root',
 })
@@ -14,7 +8,7 @@ export class SideMenuItemService {
   constructor(private store: StoreService) {}
 
   getSideMenuItems(): SideMenuItem[] {
-    const tabs = this.store.get('displayed_tabs') as string[];
+    const tabs = this.store.getProperty('displayed_tabs');
     const items: SideMenuItem[] = [];
     tabs.forEach((tab) => {
       switch (tab) {
@@ -92,7 +86,7 @@ export class SideMenuItemService {
           break;
       }
     });
-    const externalServices = this.store.get('external_services') as ExternalService[];
+    const externalServices = this.store.getProperty('external_services');
     externalServices.forEach((service) => {
       const item: SideMenuItem = {
         icon: 'insert_link',
@@ -101,7 +95,7 @@ export class SideMenuItemService {
         tabName: 'external',
         external: true,
       };
-      const languages: string[] = this.store.get('supported_languages') as string[];
+      const languages: string[] = this.store.getProperty('supported_languages');
       languages.forEach((lang) => {
         item[`label_${lang}`] = String(service[`label_${lang}`]) ?? service.label_en;
       });

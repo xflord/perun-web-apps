@@ -14,7 +14,7 @@ export class SideMenuComponent implements OnInit {
   @Input() sideNav: MatSidenav;
   items: SideMenuItem[] = [];
   lang = 'en';
-  textColor = this.storeService.get('theme', 'sidemenu_text_color') as string;
+  textColor = this.storeService.getProperty('theme').sidemenu_text_color;
   private currentUrl: string;
 
   constructor(
@@ -37,7 +37,7 @@ export class SideMenuComponent implements OnInit {
       const { lang: lan } = lang;
       this.lang = lan;
     });
-    const displayedTabs: string[] = this.storeService.get('displayed_tabs') as string[];
+    const displayedTabs: string[] = this.storeService.getProperty('displayed_tabs');
     this.items = this.sideMenuItemService.getSideMenuItems();
 
     this.items = this.items.filter((item) => displayedTabs.includes(item.tabName));

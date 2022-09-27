@@ -23,9 +23,7 @@ export class PasswordFormComponent implements OnInit, OnChanges {
   showNewPassword = false;
   showPasswordConfirm = false;
   passwordStateMatcher: ImmediateStateMatcher = new ImmediateStateMatcher();
-  private allPasswordRequirements: string[] = this.store.get(
-    'password_requirements_help'
-  ) as string[];
+  private allPasswordRequirements: string[] = this.store.getProperty('password_requirements_help');
 
   constructor(
     private translator: TranslateService,
@@ -44,9 +42,11 @@ export class PasswordFormComponent implements OnInit, OnChanges {
           this.language = (languageAttribute?.value as string) ?? 'en';
 
           if (this.language !== 'en') {
-            this.allPasswordRequirements = this.store.get(
-              `password_requirements_help_${this.language}`
-            ) as string[];
+            this.allPasswordRequirements = this.store.getProperty(
+              this.language === 'en'
+                ? 'password_requirements_help'
+                : 'password_requirements_help_cs'
+            );
           }
 
           this.changeHelp();
@@ -58,11 +58,11 @@ export class PasswordFormComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     if (this.language !== 'en') {
-      this.allPasswordRequirements = this.store.get(
-        `password_requirements_help_${this.language}`
-      ) as string[];
+      this.allPasswordRequirements = this.store.getProperty(
+        this.language === 'en' ? 'password_requirements_help' : 'password_requirements_help_cs'
+      );
     } else {
-      this.allPasswordRequirements = this.store.get('password_requirements_help') as string[];
+      this.allPasswordRequirements = this.store.getProperty('password_requirements_help');
     }
 
     this.changeHelp();

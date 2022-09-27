@@ -72,7 +72,7 @@ export class BugReportDialogComponent implements OnInit {
   }
 
   getFullEmailBody(): string {
-    const instance: string = this.storeService.get('config') as string;
+    const instance: string = this.storeService.getProperty('config');
     let text =
       this.message +
       '\n' +

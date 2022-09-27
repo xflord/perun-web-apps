@@ -35,7 +35,7 @@ export class ApiInterceptor implements HttpInterceptor {
   ) {}
 
   intercept<T>(req: HttpRequest<T>, next: HttpHandler): Observable<HttpEvent<T>> {
-    const apiUrl: string = this.store.get('api_url') as string;
+    const apiUrl: string = this.store.getProperty('api_url');
     // check if the request is trying to access localization file, if so
     // disable cache
     if (req.url.includes('i18n')) {
@@ -139,7 +139,7 @@ export class ApiInterceptor implements HttpInterceptor {
   }
 
   private isCallToPerunApi(url: string): boolean {
-    return url.startsWith(this.store.get('api_url') as string);
+    return url.startsWith(this.store.getProperty('api_url'));
   }
 
   private formatErrors<T>(error: HttpErrorResponse, req: HttpRequest<T>): RPCError {

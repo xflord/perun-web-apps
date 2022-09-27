@@ -12,7 +12,7 @@ import { SideMenuItem, SideMenuItemsService } from '../../services/side-menu-ite
 export class SideMenuComponent implements OnInit {
   @Input() sideNav: MatSidenav;
   items: SideMenuItem[] = [];
-  textColor = this.storeService.get('theme', 'sidemenu_text_color') as string;
+  textColor = this.storeService.getProperty('theme').sidemenu_text_color;
   private currentUrl: string;
 
   constructor(

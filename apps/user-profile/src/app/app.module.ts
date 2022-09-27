@@ -95,7 +95,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 
 export function apiConfigFactory(store: StoreService): Configuration {
   const params: ConfigurationParameters = {
-    basePath: store.get('api_url') as string,
+    basePath: store.getProperty('api_url'),
   };
   return new Configuration(params);
 }

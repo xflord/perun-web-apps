@@ -34,7 +34,7 @@ export class InviteMemberDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.languages = this.store.get('supported_languages') as string[];
+    this.languages = this.store.getProperty('supported_languages');
     this.theme = this.data.theme;
   }
 

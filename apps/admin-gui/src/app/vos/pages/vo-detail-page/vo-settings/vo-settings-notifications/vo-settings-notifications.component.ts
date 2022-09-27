@@ -88,7 +88,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
   }
 
   add(): void {
-    const supportedLangs = this.store.get('supported_languages') as string[];
+    const supportedLangs = this.store.getProperty('supported_languages');
     const applicationMail: ApplicationMail = createNewApplicationMail(supportedLangs);
     applicationMail.formId = this.applicationForm.id;
 

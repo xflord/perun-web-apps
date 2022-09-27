@@ -13,14 +13,14 @@ export class HeaderComponent implements OnInit {
   @Input() hideToggle = false;
   @Input() disableLogo = false;
 
-  label = this.storeService.get('header_label_en') as string;
-  logoutEnabled = this.storeService.get('log_out_enabled') as string;
-  adminLabel = this.storeService.get('admin_gui_label_en') as string;
+  label = this.storeService.getProperty('header_label_en');
+  logoutEnabled = this.storeService.getProperty('log_out_enabled');
+  adminLabel = this.storeService.getProperty('admin_gui_label_en');
   principal = this.storeService.getPerunPrincipal();
 
-  bgColor = this.storeService.get('theme', 'nav_bg_color') as string;
-  textColor = this.storeService.get('theme', 'nav_text_color') as string;
-  iconColor = this.storeService.get('theme', 'nav_icon_color') as string;
+  bgColor = this.storeService.getProperty('theme').nav_bg_color;
+  textColor = this.storeService.getProperty('theme').nav_text_color;
+  iconColor = this.storeService.getProperty('theme').nav_icon_color;
 
   isDevel = false;
   logo: SafeHtml;
@@ -36,18 +36,22 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isDevel = this.storeService.get('is_devel') as boolean;
+    this.isDevel = this.storeService.getProperty('is_devel');
     this.translate.onLangChange.subscribe((lang) => {
-      this.label = this.storeService.get(`header_label_${lang.lang}`) as string;
-      this.adminLabel = this.storeService.get(`admin_gui_label_${lang.lang}`) as string;
+      this.label = this.storeService.getProperty(
+        lang.lang === 'en' ? 'header_label_en' : 'header_label_cs'
+      );
+      this.adminLabel = this.storeService.getProperty(
+        lang.lang === 'en' ? 'admin_gui_label_en' : 'admin_gui_label_cs'
+      );
     });
-    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.get('logo') as string);
+    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.getProperty('logo'));
 
     this.isLinkToGuiActive();
   }
 
   isLinkToGuiActive(): void {
-    this.linkRoles = this.storeService.get('link_to_admin_gui_by_roles') as string[];
+    this.linkRoles = this.storeService.getProperty('link_to_admin_gui_by_roles');
     for (const roleKey in this.storeService.getPerunPrincipal().roles) {
       if (this.linkRoles.includes(roleKey)) {
         this.activeLink = true;

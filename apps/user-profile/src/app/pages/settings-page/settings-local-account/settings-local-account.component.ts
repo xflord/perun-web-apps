@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class SettingsLocalAccountComponent {
   userId: number = this.store.getPerunPrincipal().userId;
-  namespace: string = this.store.get('local_account_namespace') as string;
+  namespace: string = this.store.getProperty('local_account_namespace');
   loginExists$: Observable<boolean> = this.userService.loginExist(this.userId, this.namespace);
 
   constructor(

@@ -54,7 +54,7 @@ export class IdentitiesPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.storage.getPerunPrincipal().userId;
-    this.displayCertificates = this.storage.get('display_identity_certificates') as boolean;
+    this.displayCertificates = this.storage.getProperty('display_identity_certificates');
     this.refreshTables();
   }
 
@@ -141,7 +141,7 @@ export class IdentitiesPageComponent implements OnInit {
     } else {
       this.registrarManagerService.getConsolidatorToken().subscribe((token) => {
         const type = this.storage.getPerunPrincipal().extSourceType;
-        const consolidatorBaseUrl = this.storage.get('consolidator_base_url') as string;
+        const consolidatorBaseUrl = this.storage.getProperty('consolidator_base_url');
         window.location.href = `${consolidatorBaseUrl}${
           type?.endsWith('X509') ? 'cert' : 'fed'
         }-ic/ic/?target_url=${window.location.href}&token=${token}`;

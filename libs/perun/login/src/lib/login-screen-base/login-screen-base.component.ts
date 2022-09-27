@@ -14,7 +14,7 @@ export class LoginScreenBaseComponent implements OnInit {
   textColor: string;
   headerBackgroundColor: string;
   headerTextColor: string;
-  contentBackgroundColor: string = this.storeService.get('theme', 'content_bg_color') as string;
+  contentBackgroundColor: string = this.storeService.getProperty('theme').content_bg_color;
   logo: SafeHtml;
 
   constructor(
@@ -25,11 +25,11 @@ export class LoginScreenBaseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.headerBackgroundColor = this.storeService.get('theme', 'nav_bg_color') as string;
-    this.headerTextColor = this.storeService.get('theme', 'nav_text_color') as string;
-    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.get('logo') as string);
+    this.headerBackgroundColor = this.storeService.getProperty('theme').nav_bg_color;
+    this.headerTextColor = this.storeService.getProperty('theme').nav_text_color;
+    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.getProperty('logo'));
     this.textColor = this.headerTitle
-      ? (this.storeService.get('theme', 'header_text_color') as string)
+      ? this.storeService.getProperty('theme').header_text_color
       : '';
 
     if (this.application === 'user-profile') {

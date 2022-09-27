@@ -23,8 +23,8 @@ export class PerunNavComponent implements OnInit {
   principal: PerunPrincipal;
 
   logoutEnabled = true;
-  navTextColor = this.store.get('theme', 'nav_text_color') as string;
-  iconColor = this.store.get('theme', 'nav_icon_color') as string;
+  navTextColor = this.store.getProperty('theme').nav_text_color;
+  iconColor = this.store.getProperty('theme').nav_icon_color;
   profileLabel: string;
   profileUrl: string;
   logo: SafeHtml;
@@ -40,10 +40,10 @@ export class PerunNavComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isDevel = this.storeService.get('is_devel') as boolean;
-    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.store.get('logo') as string);
-    this.logoutEnabled = this.storeService.get('log_out_enabled') as boolean;
-    this.profileLabel = this.storeService.get('profile_label_en') as string;
+    this.isDevel = this.storeService.getProperty('is_devel');
+    this.logo = this.sanitizer.bypassSecurityTrustHtml(this.store.getProperty('logo'));
+    this.logoutEnabled = this.storeService.getProperty('log_out_enabled');
+    this.profileLabel = this.storeService.getProperty('profile_label_en');
     this.profileUrl = this.otherApplicationService.getUrlForOtherApplication('profile');
   }
 

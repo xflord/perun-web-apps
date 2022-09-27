@@ -271,7 +271,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     );
 
     this.membersService.getAllNamespacesRules().subscribe((rules) => {
-      if (this.store.get('allow_empty_sponsor_namespace')) {
+      if (this.store.getProperty('allow_empty_sponsor_namespace')) {
         this.namespaceRules.push({
           namespaceName: 'No namespace',
           requiredAttributes: [],

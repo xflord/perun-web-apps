@@ -38,7 +38,7 @@ export interface EditFacilityResourceGroupVoDialogData {
 export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
   invalidNameMessage: string =
     this.data.dialogType === EditFacilityResourceGroupVoDialogOptions.GROUP
-      ? (this.store.get('group_name_error_message') as string)
+      ? this.store.getProperty('group_name_error_message')
       : '';
 
   theme: string;
@@ -49,7 +49,7 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
   loading = false;
   secondaryRegex: string =
     this.data.dialogType === EditFacilityResourceGroupVoDialogOptions.GROUP
-      ? (this.store.get('group_name_secondary_regex') as string)
+      ? this.store.getProperty('group_name_secondary_regex')
       : '';
 
   constructor(

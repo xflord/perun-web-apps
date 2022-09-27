@@ -23,9 +23,9 @@ export class SideMenuItemComponent {
   sideNav: MatSidenav;
   currentUrl: string;
   expanded = true;
-  linkBgColor = this.store.get('theme', 'sidemenu_item_links_bg_color') as string;
-  linkTextColor = this.store.get('theme', 'sidemenu_item_links_text_color') as string;
-  dividerStyle = '1px solid ' + (this.store.get('theme', 'sidemenu_divider_color') as string);
+  linkBgColor = this.store.getProperty('theme').sidemenu_item_links_bg_color;
+  linkTextColor = this.store.getProperty('theme').sidemenu_item_links_text_color;
+  dividerStyle = '1px solid ' + this.store.getProperty('theme').sidemenu_divider_color;
 
   constructor(private router: Router, private store: StoreService) {
     this.currentUrl = router.url;

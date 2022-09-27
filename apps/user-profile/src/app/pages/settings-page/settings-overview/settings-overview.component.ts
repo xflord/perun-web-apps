@@ -20,7 +20,7 @@ export class SettingsOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.initItems();
-    const displayedTabs: string[] = this.storeService.get('displayed_tabs') as string[];
+    const displayedTabs: string[] = this.storeService.getProperty('displayed_tabs');
     this.items = this.items.filter((item) => displayedTabs.includes(item.tabName));
   }
 
