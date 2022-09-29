@@ -30,12 +30,12 @@
   "registrar_base_url": "https://perun-dev.cesnet.cz/fed/registrar/",
   "use_localhost_linker_url": false,
   "password_requirements_help": [
-    "default:Please <b>avoid using accented characters</b>. It might not be supported by all backend components and services.",
+    "default:Password must be at least 8 characters long. Please <b>avoid using accented characters</b>. It might not be supported by all backend components and services.",
     "einfra:<p>Password must:</p><ul><li>contain only printable (non-accented) characters</li><li>be at least 10 characters long</li><li>consist of at least 3 of 4 character groups:<ul><li>lower-case letters</li><li>upper-case letters</li><li>digits</li><li>special characters</li></ul></li></ul>",
     "vsup:<p>Password requirements:</p><ul><li>the minimum password length is 8 characters</li><li>must contain characters of at least three sets of characters</li><li>character sets are: [a-z], [A-Z], [0-9], [!#%&()[]*+,./:;<=>?@^_&#96;&#123;&#125;&#124;~-]</li><li>letters must not contain diacritics, the space is allowed</li><li>may not include your name, surname, personal number or username</li></ul>"
   ],
   "password_requirements_help_cs": [
-    "default:Prosím <b>vyhněte se použití znaků s diakritikou</b>. Jejich použití nemusí být podporováno všemi systémy a službami.",
+    "default:Heslo musí být alespoň 8 znakú dlouhé. Prosím <b>vyhněte se použití znaků s diakritikou</b>. Jejich použití nemusí být podporováno všemi systémy a službami.",
     "einfra:<p>Heslo musí:</p><ul><li>obsahovat pouze tisknutelné znaky bez diakritiky</li><li>být alespoň 10 znaků dlouhé</li><li>obsahovat nejméně 3 ze 4 skupin znaků:<ul><li>malá písmena</li><li>velká písmena</li><li>čísla</li><li>speciální znaky</li></ul></li></ul>",
     "vsup:<p>Pravidla hesla:</p><ul><li>minimální délka hesla je 8 znaků</li><li>musí obsahovat znaky minimálně ze tří sad znaků</li><li>sady znaků jsou: [a-z], [A-Z], [0-9], [!#%&()[]*+,./:;<=>?@^_&#96;&#123;&#125;&#124;~-]</li><li>písmena nesmí obsahovat diakritiku, mezera je povolená</li><li>nesmí obsahovat Vaše jméno, příjmení, osobní číslo nebo uživatelské jméno</li></ul>"
   ],
