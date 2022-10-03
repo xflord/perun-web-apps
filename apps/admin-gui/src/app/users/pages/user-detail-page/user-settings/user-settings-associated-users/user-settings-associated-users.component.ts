@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { TABLE_USER_ASSOCIATED_USERS } from '@perun-web-apps/config/table-config';
-import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
+import { RichUser, User, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ConnectIdentityDialogComponent } from '../../../../../shared/components/dialogs/connect-identity-dialog/connect-identity-dialog.component';
 import { DisconnectIdentityDialogComponent } from '../../../../../shared/components/dialogs/disconnect-identity-dialog/disconnect-identity-dialog.component';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-settings-associated-users',
@@ -16,11 +17,11 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 })
 export class UserSettingsAssociatedUsersComponent implements OnInit {
   loading = false;
-  selection = new SelectionModel<User>(false, []);
-  associatedUsers: User[] = [];
+  selection = new SelectionModel<RichUser>(false, []);
+  associatedUsers: RichUser[] = [];
   user: User;
   tableId = TABLE_USER_ASSOCIATED_USERS;
-  displayedColumns = ['select', 'id', 'user', 'name'];
+  displayedColumns = ['select', 'id', 'user', 'name', 'email', 'logins', 'organization'];
   addAuth: boolean;
   removeAuth: boolean;
   disableRouting: boolean;
@@ -36,20 +37,25 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.user = this.entityStorageService.getEntity();
-    this.userManager.getUsersBySpecificUser(this.user.id).subscribe((associatedUsers) => {
-      this.associatedUsers = associatedUsers;
-      this.setAuth();
-      this.loading = false;
-    });
+    this.refreshTable();
   }
 
   refreshTable(): void {
     this.loading = true;
-    this.userManager.getUsersBySpecificUser(this.user.id).subscribe((associatedUsers) => {
-      this.associatedUsers = associatedUsers;
-      this.selection.clear();
-      this.loading = false;
-    });
+    this.userManager
+      .getUsersBySpecificUser(this.user.id)
+      .pipe(
+        map((associatedUsers) => associatedUsers.map((user) => user.id)),
+        switchMap((usersIds: number[]) =>
+          this.userManager.getRichUsersWithAttributesByIds(usersIds)
+        )
+      )
+      .subscribe((associatedUsers) => {
+        this.associatedUsers = associatedUsers;
+        this.selection.clear();
+        this.setAuth();
+        this.loading = false;
+      });
   }
 
   setAuth(): void {
