@@ -15,7 +15,7 @@ import { Vo } from './vo';
 export interface ApplicationForm {
   id?: number;
   vo?: Vo;
-  group?: Group;
+  group?: Group | null;
   automaticApproval?: boolean;
   automaticApprovalExtension?: boolean;
   automaticApprovalEmbedded?: boolean;

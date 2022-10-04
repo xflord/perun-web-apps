@@ -45,6 +45,19 @@
         [service]="selectedService"
         class="search-select">
       </perun-web-apps-service-search-select>
+      <mat-form-field class="search-select" *ngIf="globalForceConsents && facilityForceConsents">
+        <mat-label>{{'CONSENTS.STATUS' | translate}}</mat-label>
+        <mat-select (closed)="consentStatusSelected()" [formControl]="statuses" multiple>
+          <mat-select-trigger>
+            {{displaySelectedStatuses()}}
+          </mat-select-trigger>
+          <mat-option
+            *ngFor="let status of consentStatusesList"
+            [value]="status"
+            >{{"CONSENTS.STATUS_" + status | translate}}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
@@ -59,6 +72,8 @@
     [resourceId]="selectedResource.id === -1 ? null : selectedResource.id"
     [serviceId]="selectedService.id === -1 ? null : selectedService.id"
     [tableId]="tableId"
-    [voId]="selectedVo.id === -1 ? null : selectedVo.id">
+    [voId]="selectedVo.id === -1 ? null : selectedVo.id"
+    [consentStatuses]="selectedConsentStatuses"
+    [includeConsents]="globalForceConsents && facilityForceConsents">
   </perun-web-apps-users-dynamic-list>
 </div>

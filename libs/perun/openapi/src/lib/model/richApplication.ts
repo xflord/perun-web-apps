@@ -21,7 +21,7 @@ export interface RichApplication {
   formData: Array<ApplicationFormItemData>;
   id?: number;
   vo?: Vo;
-  group?: Group;
+  group?: Group | null;
   type?: AppType;
   fedInfo?: string;
   state?: AppState;

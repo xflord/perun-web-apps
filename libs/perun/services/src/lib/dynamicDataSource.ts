@@ -4,6 +4,7 @@ import {
   ApplicationsOrderColumn,
   AppState,
   AuditMessage,
+  ConsentStatus,
   MemberGroupStatus,
   MembersOrderColumn,
   PaginatedAuditMessages,
@@ -148,7 +149,8 @@ export class DynamicDataSource<T> implements DataSource<T> {
     voId: number,
     resourceId: number,
     serviceId: number,
-    onlyAllowed: boolean
+    onlyAllowed: boolean,
+    consentStatuses: ConsentStatus[]
   ): void {
     this.loadingSubject.next(true);
     this.latestQueryTime = Date.now();
@@ -167,7 +169,8 @@ export class DynamicDataSource<T> implements DataSource<T> {
         voId,
         resourceId,
         serviceId,
-        onlyAllowed
+        onlyAllowed,
+        consentStatuses
       )
       .pipe(
         catchError(() => of([])),
@@ -193,7 +196,8 @@ export class DynamicDataSource<T> implements DataSource<T> {
     voId: number,
     resourceId: number,
     serviceId: number,
-    onlyAllowed: boolean
+    onlyAllowed: boolean,
+    consentStatuses: ConsentStatus[]
   ): Observable<RichUser[]> {
     return new Observable((subscriber) => {
       const requests = [];
@@ -211,7 +215,8 @@ export class DynamicDataSource<T> implements DataSource<T> {
             voId,
             resourceId,
             serviceId,
-            onlyAllowed
+            onlyAllowed,
+            consentStatuses
           )
         );
       }

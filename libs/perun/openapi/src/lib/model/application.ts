@@ -18,7 +18,7 @@ import { AppType } from './appType';
 export interface Application {
   id?: number;
   vo?: Vo;
-  group?: Group;
+  group?: Group | null;
   type?: AppType;
   fedInfo?: string;
   state?: AppState;

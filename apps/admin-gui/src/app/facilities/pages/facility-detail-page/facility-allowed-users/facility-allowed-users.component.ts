@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TABLE_FACILITY_ALLOWED_USERS } from '@perun-web-apps/config/table-config';
 import {
+  ConsentStatus,
+  ConsentsManagerService,
   FacilitiesManagerService,
   Facility,
   Resource,
@@ -14,8 +16,10 @@ import {
   EntityStorageService,
   GuiAuthResolver,
   StoreService,
+  PerunTranslateService,
 } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-facility-allowed-users',
@@ -48,6 +52,12 @@ export class FacilityAllowedUsersComponent implements OnInit {
   filteredServices: Service[] = [this.emptyService];
   selectedService: Service = this.emptyService;
 
+  globalForceConsents: boolean;
+  facilityForceConsents: boolean;
+  consentStatusesList = ['UNSIGNED', 'GRANTED', 'REVOKED'];
+  selectedConsentStatuses: ConsentStatus[] = [];
+  statuses: FormControl<ConsentStatus[]>;
+
   resourceAssignedServices: Map<number, number[]> = new Map<number, number[]>();
 
   tableId = TABLE_FACILITY_ALLOWED_USERS;
@@ -67,14 +77,21 @@ export class FacilityAllowedUsersComponent implements OnInit {
     private resourceService: ResourcesManagerService,
     private authResolver: GuiAuthResolver,
     private storeService: StoreService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private consentService: ConsentsManagerService,
+    private translate: PerunTranslateService
   ) {}
 
   ngOnInit(): void {
     this.loading = true;
+    this.statuses = new FormControl<ConsentStatus[]>(this.selectedConsentStatuses);
     this.attributes = [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL];
     this.attributes = this.attributes.concat(this.storeService.getLoginAttributeNames());
     this.facility = this.entityStorageService.getEntity();
+    this.globalForceConsents = this.storeService.getProperty('enforce_consents');
+    this.consentService.getConsentHubByFacility(this.facility.id).subscribe((hub) => {
+      this.facilityForceConsents = hub.enforceConsents;
+    });
     this.routeAuth = this.authResolver.isPerunAdminOrObserver();
     this.changeFilter();
     this.refreshPage();
@@ -91,6 +108,9 @@ export class FacilityAllowedUsersComponent implements OnInit {
     if (this.selectedService.id !== -1) {
       this.filtersCount += 1;
     }
+    if (this.selectedConsentStatuses.length > 0) {
+      this.filtersCount += 1;
+    }
   }
 
   clearFilters(): void {
@@ -98,6 +118,8 @@ export class FacilityAllowedUsersComponent implements OnInit {
     this.selectedVo = this.emptyVo;
     this.selectedResource = this.emptyResource;
     this.selectedService = this.emptyService;
+    this.selectedConsentStatuses = [];
+    this.statuses.setValue(this.selectedConsentStatuses);
     this.filtersCount = 0;
   }
 
@@ -186,5 +208,29 @@ export class FacilityAllowedUsersComponent implements OnInit {
   serviceSelected(service: Service): void {
     this.selectedService = service;
     this.changeFilter();
+  }
+
+  consentStatusSelected(): void {
+    this.selectedConsentStatuses = this.statuses.value;
+    this.changeFilter();
+  }
+
+  displaySelectedStatuses(): string {
+    if (this.selectedConsentStatuses.length === this.consentStatusesList.length) {
+      return 'ALL';
+    }
+    const statuses: string[] = this.statuses.value;
+    if (statuses) {
+      const translatedStatus = this.translate.instant('CONSENTS.STATUS_' + statuses[0]);
+      return `${translatedStatus}  ${
+        statuses.length > 1
+          ? '(+' +
+            (statuses.length - 1).toString() +
+            ' ' +
+            (statuses.length === 2 ? 'other)' : 'others)')
+          : ''
+      }`;
+    }
+    return '';
   }
 }

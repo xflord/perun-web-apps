@@ -9,10 +9,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Group } from './group';
 import { Attribute } from './attribute';
+import { Facility } from './facility';
 
-export interface EnrichedGroup {
-  group?: Group | null;
-  attributes?: Array<Attribute>;
+export interface FacilityWithAttributes extends Facility {
+  attributes: Array<Attribute>;
 }

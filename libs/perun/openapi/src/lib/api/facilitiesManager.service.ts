@@ -33,6 +33,8 @@ import { EnrichedHost } from '../model/enrichedHost';
 // @ts-ignore
 import { Facility } from '../model/facility';
 // @ts-ignore
+import { FacilityWithAttributes } from '../model/facilityWithAttributes';
+// @ts-ignore
 import { Group } from '../model/group';
 // @ts-ignore
 import { Host } from '../model/host';
@@ -6482,6 +6484,142 @@ export class FacilitiesManagerService {
 
     return this.httpClient.get<Array<Facility>>(
       `${this.configuration.basePath}/json/facilitiesManager/getFacilitiesByAttribute`,
+      {
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
+        withCredentials: this.configuration.withCredentials,
+        headers: localVarHeaders,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Searches (partially!) for facilities with the attribute \&#39;attributeName\&#39; and its value \&#39;attributeValue\&#39;. Found Facilities are returned along with attributes listed in \&#39;attrNames\&#39;.
+   * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+   * @param attributeValue string value of Attribute
+   * @param attrNames list of attribute names List&lt;String&gt;
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getFacilitiesByAttributeWithAttributes(
+    attributeName: string,
+    attributeValue: string,
+    attrNames: Array<string>,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<Array<FacilityWithAttributes>>;
+  public getFacilitiesByAttributeWithAttributes(
+    attributeName: string,
+    attributeValue: string,
+    attrNames: Array<string>,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<Array<FacilityWithAttributes>>>;
+  public getFacilitiesByAttributeWithAttributes(
+    attributeName: string,
+    attributeValue: string,
+    attrNames: Array<string>,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<Array<FacilityWithAttributes>>>;
+  public getFacilitiesByAttributeWithAttributes(
+    attributeName: string,
+    attributeValue: string,
+    attrNames: Array<string>,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (attributeName === null || attributeName === undefined) {
+      throw new Error(
+        'Required parameter attributeName was null or undefined when calling getFacilitiesByAttributeWithAttributes.'
+      );
+    }
+    if (attributeValue === null || attributeValue === undefined) {
+      throw new Error(
+        'Required parameter attributeValue was null or undefined when calling getFacilitiesByAttributeWithAttributes.'
+      );
+    }
+    if (attrNames === null || attrNames === undefined) {
+      throw new Error(
+        'Required parameter attrNames was null or undefined when calling getFacilitiesByAttributeWithAttributes.'
+      );
+    }
+
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
+    if (attributeName !== undefined && attributeName !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>attributeName,
+        'attributeName'
+      );
+    }
+    if (attributeValue !== undefined && attributeValue !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>attributeValue,
+        'attributeValue'
+      );
+    }
+    if (attrNames) {
+      attrNames.forEach((element) => {
+        localVarQueryParameters = this.addToHttpParams(
+          localVarQueryParameters,
+          <any>element,
+          'attrNames[]'
+        );
+      });
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    return this.httpClient.get<Array<FacilityWithAttributes>>(
+      `${this.configuration.basePath}/json/facilitiesManager/getFacilitiesByAttributeWithAttributes`,
       {
         context: localVarHttpContext,
         params: localVarQueryParameters,

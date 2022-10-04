@@ -15,5 +15,5 @@ import { Group } from './group';
  * input to updateGroup
  */
 export interface InputUpdateGroup {
-  group: Group;
+  group: Group | null;
 }
