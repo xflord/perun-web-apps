@@ -728,7 +728,7 @@ export class AuditMessagesManagerService {
   }
 
   /**
-   * Returns \&quot;count\&quot; number of messages that are less or equal than the given ID (descending order).
+   * Returns \&quot;count\&quot; number of messages that are more or equal than the given ID (ascending order), i.e. the method returns newer messages by provided ID.
    * @param id Starting id from which the messages will be taken
    * @param count Number of messages that will be returned
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.

@@ -45,6 +45,7 @@ import { FindAttributePipe } from './find-attribute.pipe';
 import { CanManageGroupPipe } from './can-manage-group.pipe';
 import { DisableGroupSelectPipe } from './disable-group-select.pipe';
 import { GroupCheckboxTooltipPipe } from './group-checkbox-tooltip.pipe';
+import { ConsentStatusIconPipe } from './consent-status-icon.pipe';
 import { CheckboxLabelPipe } from './checkbox-label.pipe';
 import { MasterCheckboxLabelPipe } from './master-checkbox-label.pipe';
 
@@ -98,6 +99,7 @@ import { MasterCheckboxLabelPipe } from './master-checkbox-label.pipe';
     GroupCheckboxTooltipPipe,
     CheckboxLabelPipe,
     MasterCheckboxLabelPipe,
+    ConsentStatusIconPipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -148,6 +150,7 @@ import { MasterCheckboxLabelPipe } from './master-checkbox-label.pipe';
     GroupCheckboxTooltipPipe,
     CheckboxLabelPipe,
     MasterCheckboxLabelPipe,
+    ConsentStatusIconPipe,
   ],
   imports: [CommonModule],
 })

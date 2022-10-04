@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { UsersOrderColumn } from './usersOrderColumn';
+import { ConsentStatus } from './consentStatus';
 import { SortingOrder } from './sortingOrder';
 
 export interface UsersPageQuery {
@@ -24,4 +25,5 @@ export interface UsersPageQuery {
   serviceId?: number;
   resourceId?: number;
   onlyAllowed?: boolean;
+  consentStatuses?: Array<ConsentStatus>;
 }

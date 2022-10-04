@@ -80,6 +80,7 @@ model/extSourceObject.ts
 model/facility.ts
 model/facilityPropagationState.ts
 model/facilityState.ts
+model/facilityWithAttributes.ts
 model/genDataNode.ts
 model/genMemberDataNode.ts
 model/graphDTO.ts
@@ -253,6 +254,8 @@ model/serviceAttributes.ts
 model/serviceForGUI.ts
 model/serviceState.ts
 model/servicesPackage.ts
+model/setRoleForGroup.ts
+model/setRoleForUser.ts
 model/setRoleWithGroupComplementaryObject.ts
 model/setRoleWithUserComplementaryObject.ts
 model/simpleAttribute.ts
@@ -270,6 +273,8 @@ model/taskStatus.ts
 model/thanks.ts
 model/thanksForGUI.ts
 model/type.ts
+model/unsetRoleForGroup.ts
+model/unsetRoleForUser.ts
 model/unsetRoleWithGroupComplementaryObject.ts
 model/unsetRoleWithUserComplementaryObject.ts
 model/user.ts

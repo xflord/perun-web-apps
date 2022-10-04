@@ -15,6 +15,7 @@ import {
   UsersManagerService,
   UsersOrderColumn,
   VoMemberStatuses,
+  ConsentStatus,
 } from '@perun-web-apps/perun/openapi';
 import { Observable } from 'rxjs';
 
@@ -69,7 +70,8 @@ export class DynamicPaginatingService {
     voId: number,
     resourceId: number,
     serviceId: number,
-    onlyAllowed: boolean
+    onlyAllowed: boolean,
+    consentStatuses: ConsentStatus[]
   ): Observable<PaginatedRichUsers> {
     return this.usersService.getUsersPage({
       attrNames: attrNames,
@@ -85,6 +87,7 @@ export class DynamicPaginatingService {
         resourceId: resourceId,
         serviceId: serviceId,
         onlyAllowed: onlyAllowed,
+        consentStatuses: consentStatuses,
       },
     });
   }

@@ -74,6 +74,13 @@
     "CREATE": "Create",
     "DELETE": "Delete"
   },
+  "CONSENTS": {
+    "STATUS": "Consent status",
+    "STATUS_GRANTED": "Granted",
+    "STATUS_REVOKED": "Rejected",
+    "STATUS_UNSIGNED": "Pending",
+    "SELECTION_ALL": "All"
+  },
   "FACILITY_CONFIGURATION": {
     "TITLE": "Configure facility",
     "OWNERS": "Owners",

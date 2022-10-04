@@ -25,8 +25,8 @@ export interface AuditEvent {
   extSource?: ExtSource;
   source?: ExtSource;
   facility?: Facility;
-  group?: Group;
-  parentGroup?: Group;
+  group?: Group | null;
+  parentGroup?: Group | null;
   member?: Member;
   resource?: Resource;
   service?: Service;

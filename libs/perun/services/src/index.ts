@@ -1,4 +1,5 @@
 export { PerunApiService } from './lib/perun-api-service';
+export { PerunTranslateService } from './lib/perun-translate.service';
 export { GuiAuthResolver } from './lib/gui-auth-resolver.service';
 export { AuthService } from './lib/auth.service';
 export { StoreService } from './lib/store.service';

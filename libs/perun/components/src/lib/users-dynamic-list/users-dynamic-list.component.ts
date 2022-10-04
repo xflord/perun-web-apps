@@ -1,5 +1,10 @@
 import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
-import { RichUser } from '@perun-web-apps/perun/openapi';
+import {
+  Consent,
+  ConsentsManagerService,
+  ConsentStatus,
+  RichUser,
+} from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
   downloadData,
@@ -24,11 +29,15 @@ import { tap } from 'rxjs/operators';
 import { TableConfigService } from '@perun-web-apps/config/table-config';
 import { MatDialog } from '@angular/material/dialog';
 import { ExportDataDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { UserWithConsentStatus } from '@perun-web-apps/perun/models';
+import { ConsentStatusIconPipe } from '@perun-web-apps/perun/pipes';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'perun-web-apps-users-dynamic-list',
   templateUrl: './users-dynamic-list.component.html',
   styleUrls: ['./users-dynamic-list.component.css'],
+  providers: [ConsentStatusIconPipe],
 })
 export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
@@ -54,19 +63,25 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
   @Input() resourceId: number;
   @Input() serviceId: number;
   @Input() onlyAllowed: boolean;
+  @Input() consentStatuses: ConsentStatus[];
+  @Input() includeConsents = false;
 
+  consents: Consent[];
   dataSource: DynamicDataSource<RichUser>;
   svgIcon = 'perun-service-identity-black';
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   constructor(
     private authResolver: GuiAuthResolver,
+    private consentService: ConsentsManagerService,
     private tableCheckbox: TableCheckbox,
     private tableConfigService: TableConfigService,
     private dynamicPaginatingService: DynamicPaginatingService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private consentPipe: ConsentStatusIconPipe,
+    private translate: TranslateService
   ) {}
 
-  static getExportDataForColumn(data: RichUser, column: string): string {
+  static getExportDataForColumn(data: UserWithConsentStatus, column: string): string {
     switch (column) {
       case 'id':
         return data.id.toString();
@@ -83,6 +98,8 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
         return parseUserEmail(data);
       case 'logins':
         return parseLogins(data);
+      case 'consentStatus':
+        return data.consent;
       default:
         return '';
     }
@@ -100,11 +117,15 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
     if (!this.authResolver.isPerunAdminOrObserver()) {
       this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
+    if (this.includeConsents) {
+      this.displayedColumns.push('consentStatus');
+    }
 
     this.dataSource = new DynamicDataSource<RichUser>(
       this.dynamicPaginatingService,
       this.authResolver
     );
+    this.loadConsents();
     this.dataSource.loadUsers(
       this.attrNames,
       this.tableConfigService.getTablePageSize(this.tableId),
@@ -117,7 +138,8 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
       this.voId,
       this.resourceId,
       this.serviceId,
-      this.onlyAllowed
+      this.onlyAllowed,
+      this.consentStatuses
     );
   }
 
@@ -157,14 +179,27 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
       this.voId,
       this.resourceId,
       this.serviceId,
-      this.onlyAllowed
+      this.onlyAllowed,
+      this.consentStatuses
     );
+  }
+
+  loadConsents(): void {
+    if (this.includeConsents) {
+      this.consentService
+        .getConsentHubByFacility(this.facilityId)
+        .subscribe((consentHub) =>
+          this.consentService
+            .getConsentsForConsentHub(consentHub.id)
+            .subscribe((consents) => (this.consents = consents))
+        );
+    }
   }
 
   exportDisplayedData(format: string): void {
     downloadData(
       getDataForExport(
-        this.dataSource.getData(),
+        this.getConsentsForUsers(this.dataSource.getData()),
         this.displayedColumns,
         UsersDynamicListComponent.getExportDataForColumn
       ),
@@ -192,18 +227,34 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
         this.voId,
         this.resourceId,
         this.serviceId,
-        this.onlyAllowed
+        this.onlyAllowed,
+        this.consentStatuses
       )
       .subscribe((response) => {
         exportLoading.close();
         downloadData(
           getDataForExport(
-            response,
+            this.getConsentsForUsers(response),
             this.displayedColumns,
             UsersDynamicListComponent.getExportDataForColumn
           ),
           format
         );
       });
+  }
+
+  getConsentsForUsers(users: RichUser[]): UserWithConsentStatus[] | RichUser[] {
+    const result: UserWithConsentStatus[] = [];
+    if (this.includeConsents) {
+      users.forEach((user) => {
+        const uwc: UserWithConsentStatus = user;
+        uwc.consent = this.translate.instant(
+          'CONSENTS.STATUS_' + this.consentPipe.transform(user, this.consents)
+        ) as string;
+        result.push(uwc);
+      });
+      return result;
+    }
+    return users;
   }
 }

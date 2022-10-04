@@ -9,10 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Group } from './group';
-import { Attribute } from './attribute';
 
-export interface EnrichedGroup {
-  group?: Group | null;
-  attributes?: Array<Attribute>;
+/**
+ * input to setRoleForUser
+ */
+export interface SetRoleForUser {
+  role: string;
+  user: number;
 }
