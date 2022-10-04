@@ -9,7 +9,6 @@ import {
   VosManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService, NotificatorService } from '@perun-web-apps/perun/services';
-import { HttpErrorResponse } from '@angular/common/http';
 import { RPCError } from '@perun-web-apps/perun/models';
 
 export interface ApplicationFormCopyItemsDialogData {
@@ -93,12 +92,11 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
               this.notificatorService.showSuccess(this.successMessage);
               this.dialogRef.close(true);
             },
-            (error: HttpErrorResponse) => {
-              const e = error.error as RPCError;
-              if (e.name === 'FormNotExistsException') {
+            (error: RPCError) => {
+              if (error.name === 'FormNotExistsException') {
                 this.notificatorService.showError(this.noFormMessage);
               }
-              if (e.name === 'PrivilegeException') {
+              if (error.name === 'PrivilegeException') {
                 this.notificatorService.showError(this.privilegeMessage);
               }
               this.loading = false;
@@ -112,12 +110,11 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
               this.notificatorService.showSuccess(this.successMessage);
               this.dialogRef.close(true);
             },
-            (error: HttpErrorResponse) => {
-              const e = error.error as RPCError;
-              if (e.name === 'FormNotExistsException') {
+            (error: RPCError) => {
+              if (error.name === 'FormNotExistsException') {
                 this.notificatorService.showError(this.noFormMessage);
               }
-              if (e.name === 'PrivilegeException') {
+              if (error.name === 'PrivilegeException') {
                 this.notificatorService.showError(this.privilegeMessage);
               }
               this.loading = false;
@@ -132,12 +129,11 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
             this.notificatorService.showSuccess(this.successMessage);
             this.dialogRef.close(true);
           },
-          (error: HttpErrorResponse) => {
-            const e = error.error as RPCError;
-            if (e.name === 'FormNotExistsException') {
+          (error: RPCError) => {
+            if (error.name === 'FormNotExistsException') {
               this.notificatorService.showError(this.noFormMessage);
             }
-            if (e.name === 'PrivilegeException') {
+            if (error.name === 'PrivilegeException') {
               this.notificatorService.showError(this.privilegeMessage);
             }
             this.loading = false;
@@ -151,12 +147,11 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
               this.notificatorService.showSuccess(this.successMessage);
               this.dialogRef.close(true);
             },
-            (error: HttpErrorResponse) => {
-              const e = error.error as RPCError;
-              if (e.name === 'FormNotExistsException') {
+            (error: RPCError) => {
+              if (error.name === 'FormNotExistsException') {
                 this.notificatorService.showError(this.noFormMessage);
               }
-              if (e.name === 'PrivilegeException') {
+              if (error.name === 'PrivilegeException') {
                 this.notificatorService.showError(this.privilegeMessage);
               }
               this.loading = false;

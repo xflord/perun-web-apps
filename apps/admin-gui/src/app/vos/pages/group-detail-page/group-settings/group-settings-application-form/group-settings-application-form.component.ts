@@ -21,7 +21,6 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
-import { HttpErrorResponse } from '@angular/common/http';
 import { RPCError } from '@perun-web-apps/perun/models';
 
 @Component({
@@ -90,13 +89,12 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
           () => (this.loading = false)
         );
       },
-      (error: HttpErrorResponse) => {
-        const e = error.error as RPCError;
-        if (e.name === 'FormNotExistsException') {
+      (error: RPCError) => {
+        if (error.name === 'FormNotExistsException') {
           this.noApplicationForm = true;
           this.loading = false;
         } else {
-          this.notificator.showRPCError(e);
+          this.notificator.showRPCError(error);
         }
       }
     );

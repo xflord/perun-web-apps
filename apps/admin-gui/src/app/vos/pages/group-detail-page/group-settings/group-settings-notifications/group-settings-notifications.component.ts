@@ -23,7 +23,6 @@ import { createNewApplicationMail, getDefaultDialogConfig } from '@perun-web-app
 import { TABLE_GROUP_SETTINGS_NOTIFICATIONS } from '@perun-web-apps/config/table-config';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { RPCError } from '@perun-web-apps/perun/models';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-group-settings-notifications',
@@ -91,14 +90,13 @@ export class GroupSettingsNotificationsComponent implements OnInit {
             );
         });
       },
-      (error: HttpErrorResponse) => {
-        const e = error.error as RPCError;
-        if (e.name === 'FormNotExistsException') {
+      (error: RPCError) => {
+        if (error.name === 'FormNotExistsException') {
           this.noApplicationForm = true;
           this.setAuthRights();
           this.loading = false;
         } else {
-          this.notificator.showRPCError(e);
+          this.notificator.showRPCError(error);
         }
       }
     );
