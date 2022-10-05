@@ -1,16 +1,16 @@
 <h1 class="mb-3" mat-dialog-title>
-  {{'DIALOGS.REQUEST_DATA_QUOTA_CHANGE.TITLE'|customTranslate | translate}}
+  {{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.TITLE'|customTranslate | translate}}
 </h1>
 <div class="user-theme">
   <div>
     <p class="column-size">
-      {{'DIALOGS.REQUEST_DATA_QUOTA_CHANGE.RESOURCE'|customTranslate | translate}}
+      {{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.RESOURCE'|customTranslate | translate}}
     </p>
     <p>{{resource}}</p>
   </div>
   <div>
     <p class="column-size">
-      {{'DIALOGS.REQUEST_DATA_QUOTA_CHANGE.CURRENT_QUOTA'|customTranslate | translate}}
+      {{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.CURRENT_QUOTA'|customTranslate | translate}}
     </p>
     <p>{{currentQuota}}</p>
   </div>
@@ -21,7 +21,7 @@
           matInput
           required
           type="number"
-          placeholder="{{'DIALOGS.REQUEST_DATA_QUOTA_CHANGE.REQUESTED_QUOTA'|customTranslate | translate}}"
+          placeholder="{{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.REQUESTED_QUOTA'|customTranslate | translate}}"
           [formControl]="newValueControl" />
       </label>
     </mat-form-field>
@@ -37,7 +37,7 @@
         <textarea
           matInput
           required
-          placeholder="{{'DIALOGS.REQUEST_DATA_QUOTA_CHANGE.REASON'| customTranslate | translate}}"
+          placeholder="{{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.REASON'| customTranslate | translate}}"
           rows="4"
           [formControl]="reasonControl"></textarea>
       </label>
@@ -46,7 +46,7 @@
 
   <div mat-dialog-actions>
     <button mat-flat-button class="ml-auto" (click)="onCancel()">
-      {{'DIALOGS.REQUEST_DATA_QUOTA_CHANGE.CANCEL'|customTranslate | translate}}
+      {{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.CANCEL'|customTranslate | translate}}
     </button>
     <button
       class="ml-2"
@@ -54,7 +54,7 @@
       color="accent"
       [disabled]="reasonControl.invalid"
       (click)="onSubmit()">
-      {{'DIALOGS.REQUEST_DATA_QUOTA_CHANGE.SEND'|customTranslate | translate}}
+      {{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.SEND'|customTranslate | translate}}
     </button>
   </div>
 </div>

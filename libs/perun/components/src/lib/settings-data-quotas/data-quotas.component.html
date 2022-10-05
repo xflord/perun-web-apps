@@ -1,0 +1,52 @@
+<h1 class="page-title">
+  {{'SHARED_LIB.PERUN.COMPONENTS.DATA_QUOTAS.TITLE' | customTranslate | translate}}
+</h1>
+<perun-web-apps-immediate-filter
+  [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.DATA_QUOTAS.FILTER' | customTranslate | translate"
+  (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let vo of filteredVos" (opened)="getMembersResources(vo)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{vo.name}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+      <perun-web-apps-alert
+        *ngIf="resources.length === 0 && !loading"
+        alert_type="warn"
+        >{{'SHARED_LIB.PERUN.COMPONENTS.DATA_QUOTAS.NO_QUOTAS'|customTranslate | translate}}</perun-web-apps-alert
+      >
+      <mat-accordion *ngIf="resources.length && !loading">
+        <mat-expansion-panel
+          *ngFor="let resource of resources"
+          (opened)="getResAttributes(resource.id)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{resource.name}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div *ngIf="defaultQuota">
+            <p>
+              <strong
+                >{{'SHARED_LIB.PERUN.COMPONENTS.DATA_QUOTAS.QUOTA'|customTranslate | translate}}</strong
+              >
+              {{quotasMarkup}}
+            </p>
+            <p class="color-gray">
+              {{'SHARED_LIB.PERUN.COMPONENTS.DATA_QUOTAS.QUOTA_INFO'|customTranslate | translate}}
+            </p>
+            <button mat-flat-button color="primary" (click)="requestChangeQuota(vo, resource)">
+              {{'SHARED_LIB.PERUN.COMPONENTS.DATA_QUOTAS.CHANGE'|customTranslate | translate}}
+            </button>
+          </div>
+          <p *ngIf="!defaultQuota">
+            {{'SHARED_LIB.PERUN.COMPONENTS.DATA_QUOTAS.NO_QUOTAS'|customTranslate | translate}}
+          </p>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </ng-template>
+  </mat-expansion-panel>
+</mat-accordion>

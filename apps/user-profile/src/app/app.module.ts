@@ -18,10 +18,8 @@ import { SettingsOverviewComponent } from './pages/settings-page/settings-overvi
 import { SettingsSSHKeysComponent } from './pages/settings-page/settings-ssh-keys/settings-ssh-keys.component';
 import { SettingsPreferredUnixGroupNamesComponent } from './pages/settings-page/settings-preferred-unix-group-names/settings-preferred-unix-group-names.component';
 import { SettingsPreferredShellsComponent } from './pages/settings-page/settings-preferred-shells/settings-preferred-shells.component';
-import { SettingsDataQuotasComponent } from './pages/settings-page/settings-data-quotas/settings-data-quotas.component';
 import { SettingsAlternativePasswordsComponent } from './pages/settings-page/settings-alternative-passwords/settings-alternative-passwords.component';
 import { SettingsSambaPasswordComponent } from './pages/settings-page/settings-samba-password/settings-samba-password.component';
-import { SettingsMailingListsComponent } from './pages/settings-page/settings-mailing-lists/settings-mailing-lists.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CustomIconService, StoreService } from '@perun-web-apps/perun/services';
@@ -55,7 +53,6 @@ import { ShowGeneratedPasswordDialogComponent } from './components/dialogs/show-
 import { StringListComponent } from './components/string-list/string-list.component';
 import { RemoveAltPasswordDialogComponent } from './components/dialogs/remove-alt-password-dialog/remove-alt-password-dialog.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
-import { RequestChangeDataQuotaDialogComponent } from './components/dialogs/request-change-data-quota-dialog/request-change-data-quota-dialog.component';
 import { PerunPipesModule, UserFullNamePipe } from '@perun-web-apps/perun/pipes';
 import { MembershipListComponent } from './components/membership-list/membership-list.component';
 import { ValidateExpirationPipe } from './pipes/validate-expiration.pipe';
@@ -83,6 +80,8 @@ import { ActivateLocalAccountDialogComponent } from './components/dialogs/activa
 import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespace-password-form';
 import { MfaSettingsComponent } from './pages/settings-page/settings-authorization/mfa-settings/mfa-settings.component';
 import { CategoryLabelPipe } from './pipes/category-label.pipe';
+import { SettingsMailingListsComponent } from './pages/settings-page/settings-mailing-lists/settings-mailing-lists.component';
+import { SettingsDataQuotasComponent } from './pages/settings-page/settings-data-quotas/settings-data-quotas.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -118,10 +117,10 @@ const loadConfigs: (appConfig: UserProfileConfigService) => () => Promise<void> 
     SettingsSSHKeysComponent,
     SettingsPreferredUnixGroupNamesComponent,
     SettingsPreferredShellsComponent,
-    SettingsDataQuotasComponent,
     SettingsAlternativePasswordsComponent,
     SettingsSambaPasswordComponent,
     SettingsMailingListsComponent,
+    SettingsDataQuotasComponent,
     SideMenuComponent,
     HeaderComponent,
     PrivacyPageComponent,
@@ -132,7 +131,6 @@ const loadConfigs: (appConfig: UserProfileConfigService) => () => Promise<void> 
     ShowGeneratedPasswordDialogComponent,
     StringListComponent,
     RemoveAltPasswordDialogComponent,
-    RequestChangeDataQuotaDialogComponent,
     MembershipListComponent,
     ValidateExpirationPipe,
     CategoryLabelPipe,

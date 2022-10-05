@@ -145,22 +145,6 @@
     "GENERATE": "Vygenerovat",
     "HEADER_COLUMN":"Popis"
   },
-  "DATA_QUOTAS": {
-    "TITLE": "Kvóty dat",
-    "FILTER": "Filtrovat kvóty dat dle jména organizace",
-    "QUOTA": "Datová kvóta: ",
-    "CHANGE": "Změnit",
-    "QUOTA_INFO": "Kvóty dat používají \"soft limit : hard limit\" notaci a jsou vázány na specifický objem dat.",
-    "NO_QUOTAS": "Nebyly nalezeny žádné služby, kde by bylo možné zažádat o změnu kvóty."
-  },
-  "OPT_OUT_MAILING_LISTS": {
-    "TITLE": "Vyřazení ze seznamu adresátů",
-    "FILTER": "Filtrovat seznamy adresátů dle jména organizace",
-    "OPT_OUT_LABEL": "Vyřadit mě z adresátů",
-    "NO_MAILING_LISTS_ALERT": "Nemáte žádné seznamy adresátů v této organizaci",
-    "SUBSCRIBED": "Už nejste vyřazen z adresátů  ",
-    "UNSUBSCRIBED": "Nyní jste vyřazen z adresátů  "
-  },
   "AUTHENTICATION": {
     "TITLE": "Bezpečnostní obrázek",
     "MFA": "Vícefázové ověření",
@@ -222,16 +206,6 @@
       "LABEL": "Prosím zkopírujte si heslo nyní. Nebude vícekrát zobrazeno.",
       "CLOSE": "Close",
       "COPY": "Zkopírovat do schránky"
-    },
-    "REQUEST_DATA_QUOTA_CHANGE": {
-      "TITLE": "Žádost o změnu datové kvóty",
-      "RESOURCE": "Zdroj",
-      "CURRENT_QUOTA": "Momentální kvóta",
-      "REQUESTED_QUOTA": "Požadovaná kvóta",
-      "REASON": "Důvod",
-      "SEND": "Poslat",
-      "CANCEL": "Zrušit",
-      "SUCCESS": "Žádost o změnu datové kvóty byla odeslána"
     },
     "SHOW_SSH": {
       "CLOSE": "Zrušit"
@@ -431,6 +405,32 @@
           "REVOKE_CONSENT_BUTTON": "Odmítnout souhlas",
           "REJECT_CONSENT_BUTTON": "Odvolat souhlas",
           "GRANT_CONSENT_BUTTON": "Udělit souhlas"
+        },
+        "DATA_QUOTAS": {
+          "TITLE": "Kvóty dat",
+          "FILTER": "Filtrovat kvóty dat dle jména organizace",
+          "QUOTA": "Datová kvóta: ",
+          "CHANGE": "Změnit",
+          "QUOTA_INFO": "Kvóty dat používají \"soft limit : hard limit\" notaci a jsou vázány na specifický objem dat.",
+          "NO_QUOTAS": "Nebyly nalezeny žádné služby, kde by bylo možné zažádat o změnu kvóty."
+        },
+        "OPT_OUT_MAILING_LISTS": {
+          "TITLE": "Vyřazení ze seznamu adresátů",
+          "FILTER": "Filtrovat seznamy adresátů dle jména organizace",
+          "OPT_OUT_LABEL": "Vyřadit mě z adresátů",
+          "NO_MAILING_LISTS_ALERT": "Nemáte žádné seznamy adresátů v této organizaci",
+          "SUBSCRIBED": "Už nejste vyřazen z adresátů  ",
+          "UNSUBSCRIBED": "Nyní jste vyřazen z adresátů  "
+        },
+        "REQUEST_DATA_QUOTA_CHANGE": {
+          "TITLE": "Žádost o změnu datové kvóty",
+          "RESOURCE": "Zdroj",
+          "CURRENT_QUOTA": "Momentální kvóta",
+          "REQUESTED_QUOTA": "Požadovaná kvóta",
+          "REASON": "Důvod",
+          "SEND": "Poslat",
+          "CANCEL": "Zrušit",
+          "SUCCESS": "Žádost o změnu datové kvóty byla odeslána"
         }
       },
       "ORGANIZATIONS": {

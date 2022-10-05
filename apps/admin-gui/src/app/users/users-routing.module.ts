@@ -15,6 +15,8 @@ import { ServiceIdentityDetailPageComponent } from './pages/user-detail-page/use
 import { ServiceIdentityOverviewComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-detail-page/service-identity-overview/service-identity-overview.component';
 import { UserSettingsAssociatedUsersComponent } from './pages/user-detail-page/user-settings/user-settings-associated-users/user-settings-associated-users.component';
 import { UserSettingAuthenticationComponent } from './pages/user-detail-page/user-settings/user-setting-authentication/user-setting-authentication.component';
+import { UserSettingsMailingListsComponent } from './pages/user-detail-page/user-settings/user-settings-mailing-lists/user-settings-mailing-lists.component';
+import { UserSettingsDataQuotasComponent } from './pages/user-detail-page/user-settings/user-settings-data-quotas/user-settings-data-quotas.component';
 
 const routes: Routes = [
   {
@@ -89,6 +91,14 @@ const routes: Routes = [
       {
         path: 'authentication',
         component: UserSettingAuthenticationComponent,
+      },
+      {
+        path: 'mailing-lists',
+        component: UserSettingsMailingListsComponent,
+      },
+      {
+        path: 'data-quotas',
+        component: UserSettingsDataQuotasComponent,
       },
     ],
   },

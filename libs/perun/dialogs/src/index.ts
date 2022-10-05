@@ -22,3 +22,4 @@ export * from './lib/change-group-resource-assigment-dialog/change-group-resourc
 export * from './lib/delete-entity-dialog/delete-entity-dialog.component';
 export * from './lib/anonymize-user-dialog/anonymize-user-dialog.component';
 export * from './lib/exporting-data-dialog/export-data-dialog.component';
+export * from './lib/request-change-data-quota-dialog/request-change-data-quota-dialog.component';
