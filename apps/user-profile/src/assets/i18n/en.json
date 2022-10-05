@@ -145,22 +145,6 @@
     "GENERATE": "Generate",
     "HEADER_COLUMN":"Description"
   },
-  "DATA_QUOTAS": {
-    "TITLE": "Data quotas",
-    "FILTER": "Filter data quotas by organization's name",
-    "QUOTA": "Data quota: ",
-    "CHANGE": "Change",
-    "QUOTA_INFO": "Quotas are using \"soft limit : hard limit\" notation and are bound to specific volume.",
-    "NO_QUOTAS": "No assigned data quotas"
-  },
-  "OPT_OUT_MAILING_LISTS": {
-    "TITLE": "Opt out mailing lists",
-    "FILTER": "Filter opt out mailing lists by organization's name",
-    "OPT_OUT_LABEL": "Exclude me from mailing list",
-    "NO_MAILING_LISTS_ALERT": "You have no mailing lists assigned under this virtual organization",
-    "SUBSCRIBED": "You are no longer excluded from the mailing list of ",
-    "UNSUBSCRIBED": "You are now excluded from the mailing list of "
-  },
   "AUTHENTICATION": {
     "TITLE": "Security image",
     "MFA": "Multi-factor authentication",
@@ -222,16 +206,6 @@
       "LABEL": "Please copy the password now. It will not be shown again.",
       "CLOSE": "Close",
       "COPY": "Copy"
-    },
-    "REQUEST_DATA_QUOTA_CHANGE": {
-      "TITLE": "Data quota change request",
-      "RESOURCE": "Resource",
-      "CURRENT_QUOTA": "Current quota",
-      "REQUESTED_QUOTA": "Requested quota",
-      "REASON": "Reason",
-      "SEND": "Send",
-      "CANCEL": "Cancel",
-      "SUCCESS": "Request for changing the data quota has been sent"
     },
     "SHOW_SSH": {
       "CLOSE": "Cancel"
@@ -507,6 +481,32 @@
           "REVOKE_CONSENT_BUTTON": "Revoke consent",
           "REJECT_CONSENT_BUTTON": "Reject consent",
           "GRANT_CONSENT_BUTTON": "Grant consent"
+        },
+        "DATA_QUOTAS": {
+          "TITLE": "Data quotas",
+          "FILTER": "Filter data quotas by organization's name",
+          "QUOTA": "Data quota: ",
+          "CHANGE": "Change",
+          "QUOTA_INFO": "Quotas are using \"soft limit : hard limit\" notation and are bound to specific volume.",
+          "NO_QUOTAS": "No assigned data quotas"
+        },
+        "OPT_OUT_MAILING_LISTS": {
+          "TITLE": "Opt out mailing lists",
+          "FILTER": "Filter opt out mailing lists by organization's name",
+          "OPT_OUT_LABEL": "Exclude me from mailing list",
+          "NO_MAILING_LISTS_ALERT": "You have no mailing lists assigned under this virtual organization",
+          "SUBSCRIBED": "You are no longer excluded from the mailing list of ",
+          "UNSUBSCRIBED": "You are now excluded from the mailing list of "
+        },
+        "REQUEST_DATA_QUOTA_CHANGE": {
+          "TITLE": "Data quota change request",
+          "RESOURCE": "Resource",
+          "CURRENT_QUOTA": "Current quota",
+          "REQUESTED_QUOTA": "Requested quota",
+          "REASON": "Reason",
+          "SEND": "Send",
+          "CANCEL": "Cancel",
+          "SUCCESS": "Request for changing the data quota has been sent"
         }
       },
       "ORGANIZATIONS": {

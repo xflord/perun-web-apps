@@ -19,3 +19,5 @@ export * from './lib/app-form-item-search-select/app-form-item-search-select.com
 export * from './lib/header-menu/header-menu.component';
 export * from './lib/selection-item-search-select/selection-item-search-select.component';
 export * from './lib/not-authorized-page/not-authorized-page.component';
+export * from './lib/settings-data-quotas/data-quotas.component';
+export * from './lib/settings-mailing-lists/mailing-lists.component';

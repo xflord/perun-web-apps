@@ -62,6 +62,8 @@ import { UserAccountsComponent } from './pages/user-detail-page/user-accounts/us
 import { ServiceIdentityDetailPageComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-detail-page/service-identity-detail-page.component';
 import { ServiceIdentityOverviewComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-detail-page/service-identity-overview/service-identity-overview.component';
 import { UserSettingAuthenticationComponent } from './pages/user-detail-page/user-settings/user-setting-authentication/user-setting-authentication.component';
+import { UserSettingsDataQuotasComponent } from './pages/user-detail-page/user-settings/user-settings-data-quotas/user-settings-data-quotas.component';
+import { UserSettingsMailingListsComponent } from './pages/user-detail-page/user-settings/user-settings-mailing-lists/user-settings-mailing-lists.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +89,8 @@ import { UserSettingAuthenticationComponent } from './pages/user-detail-page/use
     ServiceIdentityDetailPageComponent,
     ServiceIdentityOverviewComponent,
     UserSettingAuthenticationComponent,
+    UserSettingsDataQuotasComponent,
+    UserSettingsMailingListsComponent,
   ],
   exports: [UserDetailPageComponent],
   imports: [

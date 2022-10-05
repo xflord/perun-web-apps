@@ -970,7 +970,9 @@
       "AUTHENTICATION": "Authentication",
       "ENTITY": "User",
       "USER_TYPE": "User type",
-      "ACCOUNTS": "Accounts"
+      "ACCOUNTS": "Accounts",
+      "MAILING_LISTS": "Mailing lists opt-out",
+      "DATA_QUOTAS": "Data quotas"
     },
     "SERVICE": {
       "OVERVIEW": "Overview",
@@ -2999,6 +3001,32 @@
           "READ": "READ operations critical",
           "WRITE": "WRITE operations critical",
           "INFO": "All operations of the selected type (READ/WRITE) for this attribute will require multi-factor authentication for objects that are marked as critical."
+        },
+        "DATA_QUOTAS": {
+          "TITLE": "Data quotas",
+          "FILTER": "Filter data quotas by organization's name",
+          "QUOTA": "Data quota: ",
+          "CHANGE": "Change",
+          "QUOTA_INFO": "Quotas are using \"soft limit : hard limit\" notation and are bound to specific volume.",
+          "NO_QUOTAS": "No assigned data quotas"
+        },
+        "OPT_OUT_MAILING_LISTS": {
+          "TITLE": "Opt out mailing lists",
+          "FILTER": "Filter opt out mailing lists by organization's name",
+          "OPT_OUT_LABEL": "Exclude me from mailing list",
+          "NO_MAILING_LISTS_ALERT": "You have no mailing lists assigned under this virtual organization",
+          "SUBSCRIBED": "You are no longer excluded from the mailing list of ",
+          "UNSUBSCRIBED": "You are now excluded from the mailing list of "
+        },
+        "REQUEST_DATA_QUOTA_CHANGE": {
+          "TITLE": "Data quota change request",
+          "RESOURCE": "Resource",
+          "CURRENT_QUOTA": "Current quota",
+          "REQUESTED_QUOTA": "Requested quota",
+          "REASON": "Reason",
+          "SEND": "Send",
+          "CANCEL": "Cancel",
+          "SUCCESS": "Request for changing the data quota has been sent"
         }
       },
       "ORGANIZATIONS": {

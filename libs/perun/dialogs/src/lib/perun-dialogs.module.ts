@@ -43,6 +43,7 @@ import { AnonymizeUserDialogComponent } from './anonymize-user-dialog/anonymize-
 import { DeleteEntityDialogComponent } from './delete-entity-dialog/delete-entity-dialog.component';
 import { UiMaterialModule } from '@perun-web-apps/ui/material';
 import { ExportDataDialogComponent } from './exporting-data-dialog/export-data-dialog.component';
+import { RequestChangeDataQuotaDialogComponent } from './request-change-data-quota-dialog/request-change-data-quota-dialog.component';
 
 @NgModule({
   imports: [
@@ -93,6 +94,7 @@ import { ExportDataDialogComponent } from './exporting-data-dialog/export-data-d
     AnonymizeUserDialogComponent,
     DeleteEntityDialogComponent,
     ExportDataDialogComponent,
+    RequestChangeDataQuotaDialogComponent,
   ],
   exports: [
     ChangeExpirationDialogComponent,
@@ -115,6 +117,7 @@ import { ExportDataDialogComponent } from './exporting-data-dialog/export-data-d
     AnonymizeUserDialogComponent,
     DeleteEntityDialogComponent,
     ExportDataDialogComponent,
+    RequestChangeDataQuotaDialogComponent,
   ],
 })
 export class PerunDialogsModule {}

@@ -344,6 +344,16 @@ export class SideMenuItemService {
           url: [`/myProfile/service-identities/${user.id}/authentication`],
           activatedRegex: '/myProfile/service-identities/\\d+/authentication',
         },
+        {
+          label: 'MENU_ITEMS.USER.MAILING_LISTS',
+          url: [`/myProfile/service-identities/${user.id}/mailing-lists`],
+          activatedRegex: '/myProfile/service-identities/\\d+/mailing-lists',
+        },
+        {
+          label: 'MENU_ITEMS.USER.DATA_QUOTAS',
+          url: [`/myProfile/service-identities/${user.id}/data-quotas`],
+          activatedRegex: '/myProfile/service-identities/\\d+/data-quotas',
+        },
       ],
       colorClass: 'user-bg-color',
       icon: 'perun-service-identity',

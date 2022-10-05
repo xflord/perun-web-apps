@@ -27,6 +27,18 @@ export class ServiceIdentityOverviewComponent implements OnInit {
         label: 'MENU_ITEMS.USER.AUTHENTICATION',
         style: 'user-btn',
       },
+      {
+        cssIcon: 'perun-notification',
+        url: 'mailing-lists',
+        label: 'MENU_ITEMS.USER.MAILING_LISTS',
+        style: 'user-btn',
+      },
+      {
+        cssIcon: 'perun-statistics',
+        url: 'data-quotas',
+        label: 'MENU_ITEMS.USER.DATA_QUOTAS',
+        style: 'user-btn',
+      },
     ];
   }
 }
