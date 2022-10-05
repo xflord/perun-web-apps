@@ -116,8 +116,6 @@ export class AdminGuiConfigService {
         }
       })
       .then((isAuthenticated) => {
-        this.mfaHandlerService.manageNoMfaToken(isAuthenticated);
-
         // if the authentication is successful, continue
         if (isAuthenticated) {
           // if this application is opened just for MFA, then close the window after MFA is successfully done

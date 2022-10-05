@@ -5,7 +5,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ReportIssueDialogComponent } from '../report-issue-dialog/report-issue-dialog.component';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { AuthService, StoreService } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { UtilsService } from '@perun-web-apps/perun/openapi';
@@ -39,7 +39,8 @@ export class PerunFooterComponent implements OnInit {
     private storeService: StoreService,
     private translateService: TranslateService,
     private utilsService: UtilsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -50,10 +51,12 @@ export class PerunFooterComponent implements OnInit {
     this.footerColumns = this.storeService.getProperty('footer').columns;
 
     this.guiVersion = require('../../../../../../package.json').version as string;
-    this.utilsService.getPerunStatus().subscribe((val) => {
-      const versionString = val[0];
-      this.backendVersion = versionString.substring(versionString.indexOf(':') + 2);
-    });
+    if (this.authService.isLoggedIn()) {
+      this.utilsService.getPerunStatus().subscribe((val) => {
+        const versionString = val[0];
+        this.backendVersion = versionString.substring(versionString.indexOf(':') + 2);
+      });
+    }
 
     this.footerColumns = this.storeService.getProperty('footer').columns;
     for (const col of this.footerColumns) {

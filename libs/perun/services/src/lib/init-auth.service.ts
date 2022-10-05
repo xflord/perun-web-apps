@@ -54,9 +54,11 @@ export class InitAuthService {
 
     if (sessionStorage.getItem('baPrincipal')) {
       this.serviceAccess = true;
-      const pathName = location.pathname === '/service-access' ? '' : location.pathname;
-      return this.router.navigate([pathName]);
-    } else if (location.pathname !== '/service-access') {
+      return this.redirectToOriginDestination();
+    } else if (
+      location.pathname !== '/service-access' &&
+      !this.storeService.getProperty('auto_service_access_redirect')
+    ) {
       this.authService.loadOidcConfigData();
 
       const currentPathname = location.pathname;
@@ -134,14 +136,36 @@ export class InitAuthService {
    * made.
    */
   handleAuthStart(): Promise<void> {
-    if (this.storeService.getProperty('auto_service_access_redirect')) {
+    if (
+      this.storeService.getProperty('auto_service_access_redirect') &&
+      location.pathname !== '/service-access'
+    ) {
       this.serviceAccess = true;
       this.serviceAccessLoginScreen = true;
-      return void this.router.navigate(['service-access'], { queryParamsHandling: 'merge' });
-    }
-    if (location.pathname === '/service-access' || sessionStorage.getItem('baPrincipal')) {
+
+      const currentPathname = location.pathname;
+      const queryParams = location.search.substring(1);
+      sessionStorage.setItem('auth:redirect', currentPathname);
+      sessionStorage.setItem('auth:queryParams', queryParams);
+
+      const queryParamsUrl: Params = {};
+      queryParams.split('&').forEach((param) => {
+        const elements = param.split('=');
+        queryParamsUrl[elements[0]] = elements[1];
+      });
+
+      return this.router
+        .navigate(['service-access'], { queryParams: queryParamsUrl, queryParamsHandling: 'merge' })
+        .then();
+    } else if (
+      location.pathname === '/service-access' ||
+      sessionStorage.getItem('baPrincipal') ||
+      this.storeService.getProperty('auto_service_access_redirect')
+    ) {
       this.serviceAccess = true;
       this.serviceAccessLoginScreen = true;
+      const queryParams = location.search.substring(1);
+      sessionStorage.setItem('auth:queryParams', queryParams);
       return Promise.resolve();
     } else if (this.storeService.getProperty('auto_auth_redirect')) {
       if (!sessionStorage.getItem('mfaProcessed')) {

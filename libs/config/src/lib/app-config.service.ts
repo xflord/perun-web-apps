@@ -171,7 +171,11 @@ export class AppConfigService {
   setApiUrl(): Promise<void> {
     return new Promise<void>((resolve) => {
       let apiUrl: string = this.storeService.getProperty('api_url');
-      if (location.pathname === '/service-access' || sessionStorage.getItem('baPrincipal')) {
+      if (
+        location.pathname === '/service-access' ||
+        sessionStorage.getItem('baPrincipal') ||
+        this.storeService.getProperty('auto_service_access_redirect')
+      ) {
         apiUrl = apiUrl.replace('oauth', 'ba');
       }
       this.authzSevice.configuration.basePath = apiUrl;
