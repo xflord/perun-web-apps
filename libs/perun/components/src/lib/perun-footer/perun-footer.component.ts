@@ -28,7 +28,6 @@ export class PerunFooterComponent implements OnInit {
   linksTextColor: string = this.storeService.getProperty('theme').footer_links_text_color;
   githubRepository: string = this.storeService.getProperty('footer').github_releases;
   githubBackendRepository: string = this.storeService.getProperty('footer').github_backend_releases;
-  iconColor: string = this.storeService.getProperty('theme').footer_icon_color;
   bgColor: string = this.storeService.getProperty('theme').footer_bg_color;
   version = '';
   backendVersion = '';

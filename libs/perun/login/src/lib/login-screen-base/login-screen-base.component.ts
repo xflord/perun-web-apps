@@ -28,9 +28,7 @@ export class LoginScreenBaseComponent implements OnInit {
     this.headerBackgroundColor = this.storeService.getProperty('theme').nav_bg_color;
     this.headerTextColor = this.storeService.getProperty('theme').nav_text_color;
     this.logo = this.sanitizer.bypassSecurityTrustHtml(this.storeService.getProperty('logo'));
-    this.textColor = this.headerTitle
-      ? this.storeService.getProperty('theme').header_text_color
-      : '';
+    this.textColor = this.headerTitle ? this.storeService.getProperty('theme').nav_text_color : '';
 
     if (this.application === 'user-profile') {
       const prefLang = this.preferredLangService.getPreferredLanguage(null);

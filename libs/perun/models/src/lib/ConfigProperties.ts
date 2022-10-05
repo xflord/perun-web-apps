@@ -17,12 +17,10 @@ interface PerunTheme {
   nav_bg_color?: string;
   nav_text_color?: string;
   nav_icon_color?: string;
-  header_text_color?: string;
   footer_bg_color?: string;
   footer_headers_text_color?: string;
   footer_links_text_color?: string;
   footer_copyright_text_color?: string;
-  footer_icon_color?: string;
   sidemenu_divider_color?: string;
   sidemenu_bg_color?: string;
   sidemenu_border_color?: string;

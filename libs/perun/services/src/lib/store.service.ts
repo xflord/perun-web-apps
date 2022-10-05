@@ -62,12 +62,16 @@ export class StoreService {
   }
 
   getProperty<T extends keyof PerunConfig>(key: T): PerunConfig[T] {
+    if (!this.instanceConfig || !this.defaultConfig) {
+      return null;
+    }
+
     const configs: PerunConfig[] = [
       this.instanceConfig?.brandings?.[this.branding],
       this.instanceConfig,
-      this.defaultConfig,
     ];
 
+    const defaultValue: PerunConfig[T] = this.defaultConfig[key];
     let currentValue: PerunConfig[T] = null;
     for (const config of configs) {
       if (config && (currentValue === null || currentValue === undefined)) {
@@ -75,60 +79,27 @@ export class StoreService {
       }
     }
 
-    return currentValue;
+    if (!currentValue) {
+      return defaultValue;
+    }
+
+    return this.addMissingValuesToProperty(currentValue, defaultValue);
   }
 
-  /**
-   * @deprecated - Use method `getProperty` instead.
-   */
-  /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment */
-  get(...keys: string[]): any {
-    let currentValue: string;
-
-    if (this.branding !== '') {
-      const brandingConfig: PerunConfig = this.instanceConfig.brandings[this.branding];
-      for (let i = 0; i < keys.length; ++i) {
-        if (i === 0) {
-          currentValue = brandingConfig[keys[i]];
-        } else {
-          if (currentValue === undefined) {
-            break;
-          }
-          currentValue = currentValue[keys[i]];
-        }
+  addMissingValuesToProperty<T extends object, K extends keyof T>(
+    value: T[K],
+    defaultValue: T[K]
+  ): T[K] {
+    if (typeof value === 'object' && !Array.isArray(value) && value) {
+      for (const key of Object.keys(defaultValue)) {
+        defaultValue[key] = this.addMissingValuesToProperty(
+          value[key] as T[K],
+          defaultValue[key] as T[K]
+        );
       }
+    } else if (value) {
+      return value;
     }
-
-    if (this.instanceConfig !== undefined && currentValue === undefined) {
-      for (let i = 0; i < keys.length; ++i) {
-        if (i === 0) {
-          currentValue = this.instanceConfig[keys[i]];
-        } else {
-          if (currentValue === undefined) {
-            break;
-          }
-          currentValue = currentValue[keys[i]];
-        }
-      }
-    }
-
-    if (this.defaultConfig === undefined) {
-      return undefined;
-    }
-    if (currentValue === undefined) {
-      for (let i = 0; i < keys.length; ++i) {
-        if (i === 0) {
-          currentValue = this.defaultConfig[keys[i]];
-        } else {
-          if (currentValue === undefined) {
-            // console.error('Missing value in default config: ' + keys);
-            break;
-          }
-          currentValue = currentValue[keys[i]];
-        }
-      }
-    }
-
-    return currentValue;
+    return defaultValue;
   }
 }
