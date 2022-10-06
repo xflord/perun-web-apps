@@ -2192,6 +2192,12 @@
     },
     "SHOW_SSH": {
       "CLOSE": "Cancel"
+    },
+    "ADD_ROLE": {
+      "TITLE": "Add role",
+      "ADD": "Add",
+      "CANCEL": "Cancel",
+      "SUCCESS": "Role {{role}} was successfully added"
     }
   },
   "MEMBERS_LIST": {
@@ -2588,6 +2594,11 @@
   },
   "ROLES": {
     "TITLE": "Roles",
+    "ADD": "Add role",
+    "REMOVE": "Remove role",
+    "REMOVE_DESC": "Following role will be removed",
+    "REMOVE_SUCCESS": "Role {{ role}} was successfully removed",
+    "REMOVE_DISABLED_TOOLTIP": "You don't have permission to remove selected role",
     "NO_ROLES": "No roles found",
     "VOADMIN": "Organization admin",
     "VOADMIN_VOS_SELF": "Organizations you are manager of",
@@ -2620,6 +2631,9 @@
     "FACILITYADMIN_FACILITIES_GROUP": "Facilities where group members are managers",
     "FACILITYOBSERVER": "Facility observer",
     "FACILITYOBSERVER_FACILITIES": "Facilities you are observer of",
+    "FACILITYOBSERVER_FACILITIES_SELF": "Facilities you are observer of",
+    "FACILITYOBSERVER_FACILITIES_USER": "Facilities user is observer of",
+    "FACILITYOBSERVER_FACILITIES_GROUP": "Facilities where group members are observers",
     "TRUSTEDFACILITYADMIN": "Trusted facility admin",
     "TRUSTEDFACILITYADMIN_VOS_SELF": "Virtual organizations you are trusted facility admin in",
     "TRUSTEDFACILITYADMIN_VOS_USER": "Virtual organizations user is trusted facility admin in",
@@ -2659,7 +2673,9 @@
     "SERVICEUSER": "Service user",
     "CABINETADMIN": "Cabinet admin",
     "MEMBERSHIP": "Membership",
-    "AUDITCONSUMERADMIN": "Audit consumer admin"
+    "AUDITCONSUMERADMIN": "Audit consumer admin",
+    "PERUNADMIN": "Perun admin",
+    "PERUNOBSERVER": "Perun observer"
   },
   "SHARED_LIB": {
     "PERUN": {
@@ -3069,6 +3085,11 @@
           "REMOVE_KEY": "Remove selected key",
           "REMOVE_DIALOG_TITLE": "Remove ssh key",
           "REMOVE_DIALOG_DESCRIPTION": "Selected ssh key will be removed."
+        },
+        "ROLE_SEARCH_SELECT": {
+          "SELECT_ROLE": "Select role",
+          "FIND_ROLE": "Find role...",
+          "NO_ROLE_FOUND": "No matching role found"
         }
       },
       "ORGANIZATIONS": {

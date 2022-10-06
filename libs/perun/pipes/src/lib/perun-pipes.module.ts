@@ -48,6 +48,8 @@ import { GroupCheckboxTooltipPipe } from './group-checkbox-tooltip.pipe';
 import { ConsentStatusIconPipe } from './consent-status-icon.pipe';
 import { CheckboxLabelPipe } from './checkbox-label.pipe';
 import { MasterCheckboxLabelPipe } from './master-checkbox-label.pipe';
+import { ManageableEntitiesPipe } from './manageable-entities.pipe';
+import { UnassignedRolePipe } from './unassigned-role.pipe';
 
 @NgModule({
   declarations: [
@@ -100,6 +102,8 @@ import { MasterCheckboxLabelPipe } from './master-checkbox-label.pipe';
     CheckboxLabelPipe,
     MasterCheckboxLabelPipe,
     ConsentStatusIconPipe,
+    ManageableEntitiesPipe,
+    UnassignedRolePipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -151,6 +155,8 @@ import { MasterCheckboxLabelPipe } from './master-checkbox-label.pipe';
     CheckboxLabelPipe,
     MasterCheckboxLabelPipe,
     ConsentStatusIconPipe,
+    ManageableEntitiesPipe,
+    UnassignedRolePipe,
   ],
   imports: [CommonModule],
 })

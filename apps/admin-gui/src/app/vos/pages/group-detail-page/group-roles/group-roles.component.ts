@@ -41,7 +41,12 @@ export class GroupRolesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getData();
+  }
+
+  getData(): void {
     this.outerLoading = true;
+    this.roles.clear();
     this.groupId = this.entityStorageService.getEntity().id;
     this.authzResolverService.getGroupRoles(this.groupId).subscribe((roles) => {
       this.roleNames = Object.keys(roles).map((role) => role.toUpperCase());

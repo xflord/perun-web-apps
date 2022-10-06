@@ -30,3 +30,6 @@ export * from './lib/disable-group-select.pipe';
 export * from './lib/consent-status-icon.pipe';
 export * from './lib/checkbox-label.pipe';
 export * from './lib/master-checkbox-label.pipe';
+export * from './lib/displayed-role.pipe';
+export * from './lib/manageable-entities.pipe';
+export * from './lib/unassigned-role.pipe';

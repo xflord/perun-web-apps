@@ -1,5 +1,6 @@
 <perun-web-apps-entity-search-select
   [entities]="facilities"
+  [disableAutoSelect]="disableAutoSelect"
   (entitySelected)="this.facilitySelected.emit($event)"
   [searchFunction]="nameFunction"
   [mainTextFunction]="nameFunction"

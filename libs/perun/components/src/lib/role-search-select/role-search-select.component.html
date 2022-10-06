@@ -1,0 +1,12 @@
+<perun-web-apps-entity-search-select
+  [entity]="role"
+  [entities]="roles"
+  [disableAutoSelect]="disableAutoSelect"
+  (entitySelected)="this.roleSelected.emit($event)"
+  [mainTextFunction]="nameFunction"
+  [searchFunction]="nameFunction"
+  [secondaryTextFunction]="secondaryTextFunction"
+  [selectPlaceholder]="'SHARED_LIB.PERUN.COMPONENTS.ROLE_SEARCH_SELECT.SELECT_ROLE' | translate"
+  [findPlaceholder]="'SHARED_LIB.PERUN.COMPONENTS.ROLE_SEARCH_SELECT.FIND_ROLE' | translate"
+  [noEntriesText]="'SHARED_LIB.PERUN.COMPONENTS.ROLE_SEARCH_SELECT.NO_ROLE_FOUND' | translate">
+</perun-web-apps-entity-search-select>

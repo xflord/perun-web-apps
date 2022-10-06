@@ -18,6 +18,7 @@
         *ngIf="{all: dataSource | isAllSelected: selection.selected.length :canBeSelected} as selected">
         <th *matHeaderCellDef mat-header-cell class="align-checkbox">
           <mat-checkbox
+            *ngIf="selection.isMultipleSelection()"
             (change)="$event ? masterToggle() : null"
             [aria-label]="selected.all | masterCheckboxLabel | translate"
             [checked]="selection.hasValue() && selected.all"

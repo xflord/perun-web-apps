@@ -1,6 +1,7 @@
 <perun-web-apps-entity-search-select
   [entity]="vo"
   [entities]="vos"
+  [disableAutoSelect]="disableAutoSelect"
   (entitySelected)="this.voSelected.emit($event)"
   [searchFunction]="searchFunction"
   [mainTextFunction]="nameFunction"

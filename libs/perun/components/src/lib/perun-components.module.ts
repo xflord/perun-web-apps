@@ -106,6 +106,7 @@ import { SettingsSSHKeysComponent } from './settings-ssh-keys/settings-ssh-keys.
 import { AddSshDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { RemoveStringValueDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { ShowSshDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { RoleSearchSelectComponent } from './role-search-select/role-search-select.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -244,6 +245,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     AddSshDialogComponent,
     RemoveStringValueDialogComponent,
     ShowSshDialogComponent,
+    RoleSearchSelectComponent,
   ],
   exports: [
     VosListComponent,
@@ -310,6 +312,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     AddSshDialogComponent,
     RemoveStringValueDialogComponent,
     ShowSshDialogComponent,
+    RoleSearchSelectComponent,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

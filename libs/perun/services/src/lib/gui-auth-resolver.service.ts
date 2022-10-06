@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   AuthzResolverService,
+  Facility,
   Group,
   Member,
   PerunBean,
@@ -13,7 +14,7 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { AuthPrivilege, Role } from '@perun-web-apps/perun/models';
 
-type Entity = Vo & Group & Resource & Member & User;
+type Entity = Vo & Group & Resource & Member & User & Facility;
 
 @Injectable({
   providedIn: 'root',
@@ -267,6 +268,73 @@ export class GuiAuthResolver {
       }
     }
     return '';
+  }
+
+  /**
+   * Returns all Role Management Rules that principal can potentially assign.
+   * Rules are sorted by the roleName ascending.
+   *
+   * @param mode which entity will the role be tied to
+   */
+  getAssignableRoleRules(mode: 'USER' | 'GROUP'): RoleManagementRules[] {
+    const rules: RoleManagementRules[] = [];
+    const ignoredRoles = [
+      'UNKNOWN',
+      'RPC',
+      'NOTIFICATIONS',
+      'ENGINE',
+      'MFA',
+      'REGISTRAR',
+      'CABINETADMIN',
+      'AUDITCONSUMERADMIN',
+      'SPONSORSHIP',
+      'MEMBERSHIP',
+      'SERVICEUSER',
+      'SELF',
+      'SECURITYADMIN', // SECURITYADMIN might be valid option later on
+    ];
+
+    this.allRolesManagementRules.forEach((rule) => {
+      if (
+        !ignoredRoles.includes(rule.roleName) &&
+        this.canManage(rule) &&
+        this.ruleHasMode(rule, mode)
+      ) {
+        rules.push(rule);
+      }
+    });
+
+    return rules.sort((a, b) => {
+      if (a.roleName > b.roleName) return 1;
+      if (a.roleName < b.roleName) return -1;
+      return 0;
+    });
+  }
+
+  /**
+   * Returns true if rule supports assigment to this entity type.
+   *
+   * @param rule
+   * @param mode which entity will the role be tied to
+   * @private
+   */
+  private ruleHasMode(rule: RoleManagementRules, mode: 'USER' | 'GROUP'): boolean {
+    return Object.keys(rule.entitiesToManage)
+      .map((entity) => entity.toUpperCase())
+      .includes(mode);
+  }
+
+  /**
+   * Returns true if principal has at least one role with privileges to manage given rule.
+   * In this case the specific entity (if any) connected to role is not important.
+   *
+   * @param rule
+   * @private
+   */
+  private canManage(rule: RoleManagementRules): boolean {
+    return rule.privilegedRolesToManage.some((manager) =>
+      this.principalRoles.has(Object.keys(manager)[0] as Role)
+    );
   }
 
   private resolveAuthorization(

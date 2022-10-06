@@ -46,8 +46,13 @@ export class UserRolesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getData();
+  }
+
+  getData(): void {
     this.outerLoading = true;
     this.showDescription = true;
+    this.roles.clear();
     this.route.parent.params.subscribe((params) => {
       if (params['userId']) {
         this.userId = Number(params['userId']);

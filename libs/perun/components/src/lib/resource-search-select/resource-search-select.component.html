@@ -1,6 +1,7 @@
 <perun-web-apps-entity-search-select
   [entity]="resource"
   [entities]="resources"
+  [disableAutoSelect]="disableAutoSelect"
   (entitySelected)="this.resourceSelected.emit($event)"
   [displayStatus]="displayStatus"
   [searchFunction]="nameFunction"

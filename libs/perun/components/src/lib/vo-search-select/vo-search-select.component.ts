@@ -10,6 +10,7 @@ import { compareFnName } from '@perun-web-apps/perun/utils';
 export class VoSearchSelectComponent implements OnChanges {
   @Input() vo: Vo;
   @Input() vos: Vo[];
+  @Input() disableAutoSelect = false;
   @Output() voSelected = new EventEmitter<Vo>();
 
   nameFunction = (vo: Vo): string => vo.name;
@@ -18,7 +19,7 @@ export class VoSearchSelectComponent implements OnChanges {
 
   ngOnChanges(): void {
     this.vos.sort(compareFnName);
-    if (!this.vo) {
+    if (!this.vo && !this.disableAutoSelect) {
       this.vo = this.vos[0];
     }
   }

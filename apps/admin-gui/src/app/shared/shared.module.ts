@@ -178,6 +178,9 @@ import { SetLoginDialogComponent } from './components/set-login-dialog/set-login
 import { LoginPasswordFormWithGenerateOptionComponent } from './components/login-password-form-with-generate-option/login-password-form-with-generate-option.component';
 import { RolesPageComponent } from './components/roles-list/roles-page.component';
 import { ChooseSponsorComponent } from './components/choose-sponsor/choose-sponsor.component';
+import { AddRoleDialogComponent } from './components/dialogs/add-role-dialog/add-role-dialog.component';
+import { AddUserRoleDialogComponent } from './components/dialogs/add-role-dialog/add-user-role-dialog/add-user-role-dialog.component';
+import { AddGroupRoleDialogComponent } from './components/dialogs/add-role-dialog/add-group-role-dialog/add-group-role-dialog.component';
 
 @NgModule({
   imports: [
@@ -450,6 +453,9 @@ import { ChooseSponsorComponent } from './components/choose-sponsor/choose-spons
     LoginPasswordFormWithGenerateOptionComponent,
     RolesPageComponent,
     ChooseSponsorComponent,
+    AddRoleDialogComponent,
+    AddUserRoleDialogComponent,
+    AddGroupRoleDialogComponent,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe, ConsentRelatedAttributePipe],
 })
