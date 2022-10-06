@@ -1,7 +1,7 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.SPONSOR_EXISTING_MEMBER.TITLE' | translate}}</h1>
   <div mat-dialog-content>
-    <mat-form-field class="mr-2 search-field adjust-width">
+    <mat-form-field class="mr-2 search-field adjust-width" *ngIf="!serviceMemberId">
       <label>
         <input
           data-cy="sponsor-search-input"
@@ -17,6 +17,7 @@
     </mat-form-field>
 
     <button
+      *ngIf="!serviceMemberId"
       data-cy="sponsor-search-button"
       (click)="onSearchByString()"
       class="ml-auto"
@@ -35,13 +36,20 @@
       [disableStatusChange]="true"
       [members]="members"
       [selection]="selection"
-      [displayedColumns]="['checkbox', 'id', 'fullName', 'status', 'sponsored', 'email']"
+      [displayedColumns]="displayedColumns"
       [tableId]="tableId">
     </perun-web-apps-members-list>
 
     <perun-web-apps-alert *ngIf="!firstSearchDone" alert_type="info">
       {{'DIALOGS.SPONSOR_EXISTING_MEMBER.BEGIN_SEARCH' | translate}}
     </perun-web-apps-alert>
+
+    <app-choose-sponsor
+      [voId]="data.voId"
+      [voSponsors]="data.voSponsors"
+      (sponsorTypeSelected)="sponsorType = $event"
+      (sponsorSelected)="selectedSponsor = $event">
+    </app-choose-sponsor>
 
     <div>
       <br />
@@ -60,7 +68,7 @@
       (click)="onSubmit()"
       class="ml-2"
       color="accent"
-      [disabled]="loading || selection.selected.length === 0"
+      [disabled]="loading || selection.selected.length === 0 || (sponsorType === 'other' && !selectedSponsor)"
       mat-flat-button>
       {{'DIALOGS.SPONSOR_EXISTING_MEMBER.SPONSOR' | translate}}
     </button>

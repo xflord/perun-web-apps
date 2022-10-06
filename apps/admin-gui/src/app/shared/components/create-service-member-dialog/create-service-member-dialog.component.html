@@ -1,4 +1,4 @@
-<div class="vo-theme">
+<div class="{{theme}}">
   <h1 class="mat-dialog-title">{{'DIALOGS.CREATE_SERVICE_MEMBER.TITLE' | translate}}</h1>
   <div *ngIf="!processing" class="dialog-container" mat-dialog-content>
     <mat-stepper #stepper [linear]="true">
@@ -134,6 +134,14 @@
           </perun-web-apps-alert>
         </div>
       </mat-step>
+      <mat-step *ngIf="findSponsorsAuth && voSponsors.length !== 0 && setSponsorshipAuth">
+        <ng-template matStepLabel>
+          {{'DIALOGS.CREATE_SERVICE_MEMBER.SPONSOR' | translate}}
+        </ng-template>
+        <perun-web-apps-alert alert_type="info">
+          {{'DIALOGS.CREATE_SERVICE_MEMBER.MANAGE_LIFECYCLE_INFO' | translate}}
+        </perun-web-apps-alert>
+      </mat-step>
     </mat-stepper>
   </div>
   <mat-spinner *ngIf="processing" class="ml-auto mr-auto"></mat-spinner>
@@ -148,24 +156,37 @@
       mat-flat-button>
       {{'DIALOGS.CREATE_SERVICE_MEMBER.BACK' | translate}}
     </button>
+    <span
+      [matTooltipDisabled]="selection.selected.length === 0"
+      [matTooltip]="'DIALOGS.CREATE_SERVICE_MEMBER.NEXT_BUTTON_DISABLED_TOOLTIP' | translate">
+      <button
+        (click)="stepperNext()"
+        *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
+        [class.ml-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+        [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+        [disabled]="getStepperNextConditions()"
+        color="accent"
+        mat-flat-button>
+        {{'DIALOGS.CREATE_SERVICE_MEMBER.NEXT' | translate}}
+      </button>
+    </span>
     <button
-      (click)="stepperNext()"
-      *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
-      [class.ml-2]="stepper !== undefined && stepper.selectedIndex !== 0"
-      [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
-      [disabled]="getStepperNextConditions()"
-      color="accent"
-      mat-flat-button>
-      {{'DIALOGS.CREATE_SERVICE_MEMBER.NEXT' | translate}}
-    </button>
-    <button
-      (click)="onCreate()"
+      (click)="onCreate(false)"
       *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
       [disabled]="firstFormGroup.invalid || (secondFormGroup.get('namespaceCtrl').value !== 'Not selected' && secondFormGroup.invalid)"
       class="ml-2"
       color="accent"
       mat-flat-button>
       {{"DIALOGS.CREATE_SERVICE_MEMBER.CREATE" | translate}}
+    </button>
+    <button
+      (click)="onCreate(true)"
+      *ngIf="(findSponsorsAuth && voSponsors.length !== 0 && setSponsorshipAuth) && stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
+      [disabled]="firstFormGroup.invalid || (secondFormGroup.get('namespaceCtrl').value !== 'Not selected' && secondFormGroup.invalid)"
+      class="ml-2"
+      color="accent"
+      mat-flat-button>
+      {{"DIALOGS.CREATE_SERVICE_MEMBER.CREATE_AND_SPONSOR" | translate}}
     </button>
   </div>
 </div>

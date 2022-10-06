@@ -18,7 +18,6 @@ import {
 import { UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
-import { Role } from '@perun-web-apps/perun/models';
 import { CustomValidators, emailRegexString, enableFormControl } from '@perun-web-apps/perun/utils';
 import { loginAsyncValidator } from '@perun-web-apps/perun/namespace-password-form';
 import { MatStepper } from '@angular/material/stepper';
@@ -49,11 +48,8 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
   selectedNamespace: string = null;
   userControl: UntypedFormGroup = null;
   namespaceControl: UntypedFormGroup = null;
-  voSponsors: RichUser[] = [];
   selectedSponsor: User = null;
   sponsorType = 'self';
-  isSponsor = false;
-  isPerunAdmin = false;
   private namespaceRules: NamespaceRules[] = [];
   private parsedRules: Map<string, { login: string; password: string }> = new Map<
     string,
@@ -63,7 +59,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<CreateSponsoredMemberDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: CreateSponsoredMemberDialogData,
+    @Inject(MAT_DIALOG_DATA) public data: CreateSponsoredMemberDialogData,
     private membersService: MembersManagerService,
     private apiRequestConfiguration: ApiRequestConfigurationService,
     private usersService: UsersManagerService,
@@ -241,10 +237,6 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.theme = this.data.theme;
-    this.voSponsors = this.data.sponsors;
-    this.isSponsor = this.guiAuthResolver.principalHasRole(Role.SPONSOR, 'Vo', this.data.voId);
-    this.isPerunAdmin = this.guiAuthResolver.isPerunAdmin();
-    this.sponsorType = this.isSponsor ? 'self' : 'other';
     this.userControl = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],

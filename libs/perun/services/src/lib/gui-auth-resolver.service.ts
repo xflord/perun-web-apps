@@ -11,13 +11,7 @@ import {
   User,
   Vo,
 } from '@perun-web-apps/perun/openapi';
-import { Role } from '@perun-web-apps/perun/models';
-
-interface Privilege {
-  readAuth: boolean;
-  manageAuth: boolean;
-  modes: string[];
-}
+import { AuthPrivilege, Role } from '@perun-web-apps/perun/models';
 
 type Entity = Vo & Group & Resource & Member & User;
 
@@ -207,7 +201,7 @@ export class GuiAuthResolver {
     }
 
     this.assignAvailableRoles(availableRoles, beanName);
-    const rolesPrivileges = new Map<string, Privilege>();
+    const rolesPrivileges = new Map<string, AuthPrivilege>();
     this.setRolesAuthorization(availableRoles, primaryObject, rolesPrivileges);
     for (const privilege of rolesPrivileges.values()) {
       if (privilege.readAuth || privilege.manageAuth) {
@@ -221,7 +215,7 @@ export class GuiAuthResolver {
   setRolesAuthorization(
     availableRoles: string[],
     primaryObject: PerunBean,
-    availableRolesPrivileges: Map<string, Privilege>
+    availableRolesPrivileges: Map<string, AuthPrivilege>
   ): void {
     for (const role of availableRoles) {
       let privilegedReadRoles: Array<{ [key: string]: string }> = [];
@@ -247,7 +241,7 @@ export class GuiAuthResolver {
       const mapOfBeans: { [key: string]: number[] } = this.fetchAllRelatedObjects([primaryObject]);
       const readAuth = this.resolveAuthorization(privilegedReadRoles, mapOfBeans);
       const manageAuth = this.resolveAuthorization(privilegedManageRoles, mapOfBeans);
-      const privilege: Privilege = {
+      const privilege: AuthPrivilege = {
         readAuth: readAuth,
         manageAuth: manageAuth,
         modes: modes,

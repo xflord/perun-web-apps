@@ -13,11 +13,15 @@ import {
   Member,
   MembersManagerService,
   RichMember,
+  RichUser,
   UserExtSource,
   UsersManagerService,
+  Vo,
 } from '@perun-web-apps/perun/openapi';
 import {
   ApiRequestConfigurationService,
+  FindSponsorsService,
+  GuiAuthResolver,
   NotificatorService,
   StoreService,
 } from '@perun-web-apps/perun/services';
@@ -36,7 +40,16 @@ import { loginAsyncValidator } from '@perun-web-apps/perun/namespace-password-fo
 import { MatStepper } from '@angular/material/stepper';
 
 export interface CreateServiceMemberDialogData {
-  voId: number;
+  vo: Vo;
+  theme: string;
+}
+
+export interface CreateServiceMemberDialogResult {
+  result: boolean;
+  sponsor: boolean;
+  voSponsors?: RichUser[];
+  findSponsorsAuth?: boolean;
+  serviceMemberId?: number;
 }
 
 @Component({
@@ -52,6 +65,7 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
   parsedRules: Map<string, { login: string }> = new Map<string, { login: string }>();
 
   loading: boolean;
+  theme: string;
   firstSearchDone = false;
   searchCtrl = new UntypedFormControl('');
   members: RichMember[] = [];
@@ -62,6 +76,9 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
   successMessageMember = '';
   successMessagePwd = '';
   processing = false;
+  setSponsorshipAuth: boolean;
+  findSponsorsAuth: boolean;
+  voSponsors: RichUser[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<CreateServiceMemberDialogComponent>,
@@ -73,7 +90,9 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
     private store: StoreService,
     private apiRequestConfiguration: ApiRequestConfigurationService,
     private _formBuilder: UntypedFormBuilder,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private authResolver: GuiAuthResolver,
+    private findSponsors: FindSponsorsService
   ) {
     translate
       .get('DIALOGS.CREATE_SERVICE_MEMBER.SUCCESS_MEMBER')
@@ -88,6 +107,7 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
   }
 
   ngOnInit(): void {
+    this.theme = this.data.theme;
     this.firstFormGroup = this._formBuilder.group({
       nameCtrl: ['', Validators.required],
       emailCtrl: [
@@ -125,16 +145,28 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
     this.membersManagerService.getMembersByUser(user.id).subscribe((members) => {
       let tempMember: RichMember = {} as RichMember;
       for (const member of members) {
-        if (member.voId === this.data.voId) {
+        if (member.voId === this.data.vo.id) {
           tempMember = member as RichMember;
         }
       }
       tempMember['user'] = user;
       this.assignedMembers.push(tempMember);
     });
+
+    this.setSponsorshipAuth = this.authResolver.isAuthorized(
+      'setSponsorshipForMember_Member_User_LocalDate_policy',
+      [this.data.vo, this.store.getPerunPrincipal().user]
+    );
+
+    this.findSponsorsAuth = this.findSponsors.findSponsorsAuth(this.data.vo);
+    if (this.findSponsorsAuth) {
+      this.findSponsors.getSponsors(this.data.vo.id).subscribe((sponsors) => {
+        this.voSponsors = sponsors;
+      });
+    }
   }
 
-  onCreate(): void {
+  onCreate(sponsor: boolean): void {
     this.processing = true;
     this.candidate['firstName'] = '';
     this.candidate['lastName'] = this.firstFormGroup.get('nameCtrl').value as string;
@@ -165,7 +197,7 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
         .subscribe(
           (params) => {
             this.candidate['attributes'][namespaceUrn] = params[namespaceUrn];
-            this.createSpecificMember();
+            this.createSpecificMember(sponsor);
           },
           () => (this.processing = false)
         );
@@ -174,14 +206,14 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
         this.candidate['attributes'][namespaceUrn] = this.secondFormGroup.get('loginCtrl')
           .value as string;
       }
-      this.createSpecificMember();
+      this.createSpecificMember(sponsor);
     }
   }
 
-  createSpecificMember(): void {
+  createSpecificMember(sponsor: boolean): void {
     this.membersManagerService
       .createSpecificMember({
-        vo: this.data.voId,
+        vo: this.data.vo.id,
         specificUserType: 'SERVICE',
         specificUserOwners: this.assignedMembers.map((m) => m.user),
         candidate: this.candidate,
@@ -194,10 +226,17 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
               if (this.secondFormGroup.get('namespaceCtrl').value !== 'Not selected') {
                 this.setPassword(
                   mem,
-                  this.secondFormGroup.get('generatePasswordCtrl').value as boolean
+                  this.secondFormGroup.get('generatePasswordCtrl').value as boolean,
+                  sponsor
                 );
               } else {
-                this.dialogRef.close(true);
+                this.dialogRef.close({
+                  result: true,
+                  sponsor: sponsor,
+                  voSponsors: this.voSponsors,
+                  findSponsorsAuth: this.findSponsorsAuth,
+                  serviceMemberId: member.id,
+                });
               }
             },
             () => (this.processing = false)
@@ -207,21 +246,21 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
       );
   }
 
-  setPassword(member: Member, generateRandom: boolean): void {
+  setPassword(member: Member, generateRandom: boolean, sponsor: boolean): void {
     const namespace: string = (
       this.secondFormGroup.get('namespaceCtrl').value as string
     ).toLowerCase();
     const password: string = this.secondFormGroup.get('passwordCtrl').value as string;
     if (generateRandom) {
       if (this.parsedRules.get(namespace).login === 'disabled') {
-        this.validateMember(member.id);
+        this.validateMember(member.id, sponsor);
         return; // password already set when account was generated
       }
       this.usersManagerService.reserveRandomPassword(member.userId, namespace).subscribe(
         () => {
           this.usersManagerService.validatePasswordForUser(member.userId, namespace).subscribe(
             () => {
-              this.validateMember(member.id, false);
+              this.validateMember(member.id, sponsor, false);
             },
             () => {
               this.processing = false;
@@ -239,29 +278,47 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
           () => {
             this.usersManagerService.validatePasswordForUser(member.userId, namespace).subscribe(
               () => {
-                this.validateMember(member.id);
+                this.validateMember(member.id, sponsor);
               },
               () => {
                 this.processing = false;
-                this.dialogRef.close(true);
+                this.dialogRef.close({
+                  result: true,
+                  sponsor: sponsor,
+                  voSponsors: this.voSponsors,
+                  findSponsorsAuth: this.findSponsorsAuth,
+                  serviceMemberId: member.id,
+                });
               }
             );
           },
           () => {
             this.processing = false;
-            this.dialogRef.close(true);
+            this.dialogRef.close({
+              result: true,
+              sponsor: sponsor,
+              voSponsors: this.voSponsors,
+              findSponsorsAuth: this.findSponsorsAuth,
+              serviceMemberId: member.id,
+            });
           }
         );
     }
   }
 
-  validateMember(memberId: number, showNotification = true): void {
+  validateMember(memberId: number, sponsor: boolean, showNotification = true): void {
     this.membersManagerService.validateMemberAsync(memberId).subscribe(
       () => {
         if (showNotification) {
           this.notificator.showSuccess(this.successMessagePwd);
         }
-        this.dialogRef.close(true);
+        this.dialogRef.close({
+          result: true,
+          sponsor: sponsor,
+          voSponsors: this.voSponsors,
+          findSponsorsAuth: this.findSponsorsAuth,
+          serviceMemberId: memberId,
+        });
       },
       () => {
         this.processing = false;
@@ -270,13 +327,13 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
   }
 
   onCancel(): void {
-    this.dialogRef.close(false);
+    this.dialogRef.close({ result: false, sponsor: false });
   }
 
   onSearchByString(): void {
     this.loading = true;
     this.membersManagerService
-      .findCompleteRichMembersForVo(this.data.voId, [''], this.searchCtrl.value as string)
+      .findCompleteRichMembersForVo(this.data.vo.id, [''], this.searchCtrl.value as string)
       .subscribe((members) => {
         this.members = members.filter((m) => !m.user.specificUser);
         this.firstSearchDone = true;
@@ -304,6 +361,8 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
         return this.firstFormGroup.invalid || this.firstFormGroup.pending;
       case 1:
         return this.secondFormGroup.invalid || this.secondFormGroup.pending;
+      case 2:
+        return this.selection.selected.length > 0;
       default:
         return false;
     }

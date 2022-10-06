@@ -2104,6 +2104,7 @@
       "SUCCESS_MEMBER": "The service account has been created successfully",
       "SUCCESS_PWD": "Password has been set successfully",
       "NEXT": "Next",
+      "NEXT_BUTTON_DISABLED_TOOLTIP": "Add selected members or unselect these members",
       "BACK": "Back",
       "PASSWORD_NOT_SUPPORTED": "The selected namespace does not support setting of the password.",
       "EMAIL_INVALID": "Enter a valid email address",
@@ -2111,7 +2112,10 @@
       "MINIMAL_USERS": "At least 1 user has to be assigned.",
       "SET_CREDENTIALS": "Set credentials",
       "PASSWORD_RANDOM": "Set password later",
-      "ENTER_PASSWORD": "Set password now"
+      "ENTER_PASSWORD": "Set password now",
+      "SPONSOR": "Sponsor",
+      "MANAGE_LIFECYCLE_INFO": "Service account has by default the same lifecycle as a standard user account. You can manage this lifecycle by sponsoring this service account.",
+      "CREATE_AND_SPONSOR": "Create & sponsor"
     },
     "SET_LOGIN": {
       "TITLE": "Add login and password",

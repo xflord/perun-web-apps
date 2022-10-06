@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
-import { MembersManagerService, RichMember } from '@perun-web-apps/perun/openapi';
+import { MembersManagerService, RichMember, RichUser, User } from '@perun-web-apps/perun/openapi';
 import { TranslateService } from '@ngx-translate/core';
 import { formatDate } from '@angular/common';
 import { UntypedFormControl, Validators } from '@angular/forms';
@@ -12,6 +12,9 @@ import { TABLE_ADD_SPONSORED_MEMBERS } from '@perun-web-apps/config/table-config
 export interface SponsorExistingMemberDialogData {
   voId: number;
   theme: string;
+  voSponsors: RichUser[];
+  findSponsorsAuth: boolean;
+  serviceMemberId?: number;
 }
 
 @Component({
@@ -23,15 +26,19 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
   loading = false;
   theme: string;
   tableId = TABLE_ADD_SPONSORED_MEMBERS;
+  displayedColumns: string[];
   expiration = 'never';
   searchCtrl: UntypedFormControl = new UntypedFormControl('', [Validators.required]);
   firstSearchDone = false;
   members: RichMember[] = [];
   selection: SelectionModel<RichMember> = new SelectionModel<RichMember>(true, []);
+  serviceMemberId: number;
+  selectedSponsor: User = null;
+  sponsorType = 'self';
 
   constructor(
     private dialogRef: MatDialogRef<SponsorExistingMemberDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: SponsorExistingMemberDialogData,
+    @Inject(MAT_DIALOG_DATA) public data: SponsorExistingMemberDialogData,
     private store: StoreService,
     private membersService: MembersManagerService,
     private notificator: NotificatorService,
@@ -40,6 +47,14 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.theme = this.data.theme;
+    this.serviceMemberId = this.data.serviceMemberId;
+    this.displayedColumns = this.serviceMemberId
+      ? ['checkbox', 'id', 'fullName', 'sponsored', 'email']
+      : ['checkbox', 'id', 'fullName', 'status', 'sponsored', 'email'];
+    if (this.serviceMemberId) {
+      this.searchCtrl.setValue(this.serviceMemberId);
+      this.onSearchByString();
+    }
   }
 
   onCancel(): void {
@@ -58,25 +73,25 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
     }
 
     const member = members.pop();
+    const sponsor =
+      this.sponsorType === 'self' ? this.store.getPerunPrincipal().user : this.selectedSponsor;
 
     if (member.sponsored) {
-      this.membersService
-        .sponsorMember(member.id, this.store.getPerunPrincipal().user.id, this.expiration)
-        .subscribe(
-          () => {
-            this.sponsor(members);
-          },
-          () => (this.loading = false)
-        );
+      this.membersService.sponsorMember(member.id, sponsor.id, this.expiration).subscribe({
+        next: () => {
+          this.sponsor(members);
+        },
+        error: () => (this.loading = false),
+      });
     } else {
       this.membersService
-        .setSponsorshipForMember(member.id, this.store.getPerunPrincipal().user.id, this.expiration)
-        .subscribe(
-          () => {
+        .setSponsorshipForMember(member.id, sponsor.id, this.expiration)
+        .subscribe({
+          next: () => {
             this.sponsor(members);
           },
-          () => (this.loading = false)
-        );
+          error: () => (this.loading = false),
+        });
     }
   }
 
@@ -109,12 +124,15 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
     const attrNames = [Urns.MEMBER_DEF_EXPIRATION, Urns.USER_DEF_PREFERRED_MAIL];
     this.membersService
       .findCompleteRichMembersForVo(this.data.voId, attrNames, this.searchCtrl.value as string)
-      .subscribe(
-        (members) => {
+      .subscribe({
+        next: (members) => {
           this.members = members;
+          if (this.serviceMemberId) {
+            this.selection.toggle(members[0]);
+          }
           this.loading = false;
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
   }
 }

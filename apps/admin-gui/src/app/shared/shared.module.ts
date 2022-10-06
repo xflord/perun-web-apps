@@ -177,6 +177,7 @@ import { LoginForNamespaceComponent } from './components/login-for-namespace/log
 import { SetLoginDialogComponent } from './components/set-login-dialog/set-login-dialog.component';
 import { LoginPasswordFormWithGenerateOptionComponent } from './components/login-password-form-with-generate-option/login-password-form-with-generate-option.component';
 import { RolesPageComponent } from './components/roles-list/roles-page.component';
+import { ChooseSponsorComponent } from './components/choose-sponsor/choose-sponsor.component';
 
 @NgModule({
   imports: [
@@ -448,6 +449,7 @@ import { RolesPageComponent } from './components/roles-list/roles-page.component
     SetLoginDialogComponent,
     LoginPasswordFormWithGenerateOptionComponent,
     RolesPageComponent,
+    ChooseSponsorComponent,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe, ConsentRelatedAttributePipe],
 })

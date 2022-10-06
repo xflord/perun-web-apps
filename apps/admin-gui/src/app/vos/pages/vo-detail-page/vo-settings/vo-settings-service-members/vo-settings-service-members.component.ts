@@ -5,8 +5,12 @@ import { TABLE_SERVICE_MEMBERS } from '@perun-web-apps/config/table-config';
 import { MatDialog } from '@angular/material/dialog';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { CreateServiceMemberDialogComponent } from '../../../../../shared/components/create-service-member-dialog/create-service-member-dialog.component';
+import {
+  CreateServiceMemberDialogComponent,
+  CreateServiceMemberDialogResult,
+} from '../../../../../shared/components/create-service-member-dialog/create-service-member-dialog.component';
 import { RemoveMembersDialogComponent } from '../../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
+import { SponsorExistingMemberDialogComponent } from '../../../../../shared/components/dialogs/sponsor-existing-member-dialog/sponsor-existing-member-dialog.component';
 
 @Component({
   selector: 'app-vo-settings-service-members',
@@ -41,16 +45,32 @@ export class VoSettingsServiceMembersComponent implements OnInit {
 
   createServiceMember(): void {
     const config = getDefaultDialogConfig();
-    config.width = '750px';
+    config.width = '800px';
     config.data = {
-      voId: this.vo.id,
+      vo: this.vo,
+      theme: 'vo-theme',
     };
 
     const dialogRef = this.dialog.open(CreateServiceMemberDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.refresh();
+    dialogRef.afterClosed().subscribe((result: CreateServiceMemberDialogResult) => {
+      if (result.result) {
+        if (result.sponsor) {
+          config.data = {
+            voId: this.vo.id,
+            theme: 'vo-theme',
+            voSponsors: result.voSponsors,
+            findSponsorsAuth: result.findSponsorsAuth,
+            serviceMemberId: result.serviceMemberId,
+          };
+          const sponsorDialogRef = this.dialog.open(SponsorExistingMemberDialogComponent, config);
+
+          sponsorDialogRef.afterClosed().subscribe(() => {
+            this.refresh();
+          });
+        } else {
+          this.refresh();
+        }
       }
     });
   }

@@ -20,12 +20,7 @@ import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReloadEntityDetailService } from '../../../core/services/common/reload-entity-detail.service';
-
-interface AuthPrivilege {
-  readAuth: boolean;
-  manageAuth: boolean;
-  modes: string[];
-}
+import { AuthPrivilege } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-managers-page',

@@ -14,18 +14,12 @@ import { CreateSponsoredMemberDialogComponent } from '../../../../../shared/comp
 import { GenerateSponsoredMembersDialogComponent } from '../../../../../shared/components/dialogs/generate-sponsored-members-dialog/generate-sponsored-members-dialog.component';
 import {
   EntityStorageService,
+  FindSponsorsService,
   GuiAuthResolver,
   StoreService,
 } from '@perun-web-apps/perun/services';
 import { SponsorExistingMemberDialogComponent } from '../../../../../shared/components/dialogs/sponsor-existing-member-dialog/sponsor-existing-member-dialog.component';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { Role } from '@perun-web-apps/perun/models';
-
-interface AuthPrivilege {
-  readAuth: boolean;
-  manageAuth: boolean;
-  modes: string[];
-}
 
 @Component({
   selector: 'app-vo-settings-sponsored-members',
@@ -55,7 +49,8 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
     private authResolver: GuiAuthResolver,
     private storeService: StoreService,
     private authzResolver: AuthzResolverService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private findSponsors: FindSponsorsService
   ) {}
 
   ngOnInit(): void {
@@ -64,21 +59,12 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
     this.attrNames = this.attrNames.concat(this.storeService.getLoginAttributeNames());
     this.setAuthRights();
 
-    const availableRoles = ['SPONSOR'];
-    const availableRolesPrivileges = new Map<string, AuthPrivilege>();
-
-    this.authResolver.setRolesAuthorization(availableRoles, this.vo, availableRolesPrivileges);
-    this.findSponsorsAuth = availableRolesPrivileges.get(availableRoles[0]).readAuth;
-
+    this.findSponsorsAuth = this.findSponsors.findSponsorsAuth(this.vo);
     if (this.findSponsorsAuth) {
-      const attributes = [Urns.USER_DEF_PREFERRED_MAIL];
-
-      this.authzResolver
-        .getAuthzRichAdmins(Role.SPONSOR, this.vo.id, 'Vo', attributes, false, false)
-        .subscribe((sponsors) => {
-          this.voSponsors = sponsors;
-          this.refresh();
-        });
+      this.findSponsors.getSponsors(this.vo.id).subscribe((sponsors) => {
+        this.voSponsors = sponsors;
+        this.refresh();
+      });
     } else {
       this.refresh();
     }
@@ -155,6 +141,8 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
     config.data = {
       voId: this.vo.id,
       theme: 'vo-theme',
+      voSponsors: this.voSponsors,
+      findSponsorsAuth: this.findSponsorsAuth,
     };
 
     const dialogRef = this.dialog.open(SponsorExistingMemberDialogComponent, config);
