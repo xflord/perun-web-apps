@@ -81,7 +81,7 @@ export class GroupSettingsNotificationsComponent implements OnInit {
                 this.loading = false;
               },
               (error: RPCError) => {
-                if (error.name !== 'HttpErrorResponse') {
+                if (error.name !== 'PrivilegeException') {
                   this.notificator.showRPCError(error);
                 }
                 this.setAuthRights();

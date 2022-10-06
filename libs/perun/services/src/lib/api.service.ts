@@ -33,6 +33,9 @@ export class ApiService implements PerunApiService {
     return headers;
   }
 
+  /**
+   * @deprecated The method should not be used
+   */
   get(path: string, showError = true): Observable<object> {
     const url = `${this.getApiUrl()}${path}`;
     return this.http
@@ -40,6 +43,9 @@ export class ApiService implements PerunApiService {
       .pipe(catchError((err: HttpErrorResponse) => this.formatErrors(err, url, null, showError)));
   }
 
+  /**
+   * @deprecated The method should not be used
+   */
   put(path: string, body = {}, showError = true): Observable<object> {
     const url = `${this.getApiUrl()}${path}`;
     const payload = JSON.stringify(body);
@@ -50,6 +56,9 @@ export class ApiService implements PerunApiService {
       );
   }
 
+  /**
+   * @deprecated The method should not be used
+   */
   post(path: string, body = {}, showError = true): Observable<object> {
     const url = `${this.getApiUrl()}${path}`;
     const payload = JSON.stringify(body);
@@ -62,6 +71,9 @@ export class ApiService implements PerunApiService {
       );
   }
 
+  /**
+   * @deprecated The method should not be used
+   */
   delete(path: string, showError = true): Observable<object> {
     const url = `${this.getApiUrl()}${path}`;
     return this.http

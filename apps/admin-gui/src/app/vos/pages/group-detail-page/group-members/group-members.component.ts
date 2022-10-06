@@ -22,7 +22,6 @@ import { TABLE_GROUP_MEMBERS } from '@perun-web-apps/config/table-config';
 import { getDefaultDialogConfig, isGroupSynchronized } from '@perun-web-apps/perun/utils';
 import { InviteMemberDialogComponent } from '../../../../shared/components/dialogs/invite-member-dialog/invite-member-dialog.component';
 import { UntypedFormControl } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
 import { RPCError } from '@perun-web-apps/perun/models';
 import { GroupAddMemberDialogComponent } from '../../../components/group-add-member-dialog/group-add-member-dialog.component';
 
@@ -216,19 +215,18 @@ export class GroupMembersComponent implements OnInit {
       this.apiRequest.dontHandleErrorForNext();
       this.attributesManager
         .getVoAttributeByName(voId, 'urn:perun:vo:attribute-def:def:blockManualMemberAdding')
-        .subscribe(
-          (attrValue) => {
+        .subscribe({
+          next: (attrValue) => {
             this.blockManualMemberAdding = attrValue.value !== null;
             resolve();
           },
-          (error: HttpErrorResponse) => {
-            const e = error.error as RPCError;
-            if (e.name !== 'PrivilegeException') {
-              this.notificator.showError(e.name);
+          error: (error: RPCError) => {
+            if (error.name !== 'PrivilegeException') {
+              this.notificator.showError(error.name);
             }
             resolve();
-          }
-        );
+          },
+        });
     });
   }
 

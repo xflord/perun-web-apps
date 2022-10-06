@@ -7,7 +7,6 @@ import {
 } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { Attribute, AttributesManagerService, Group } from '@perun-web-apps/perun/openapi';
-import { HttpErrorResponse } from '@angular/common/http';
 import { RPCError } from '@perun-web-apps/perun/models';
 
 @Component({
@@ -48,14 +47,13 @@ export class GroupSettingsExpirationComponent implements OnInit {
 
     this.attributesManager
       .setGroupAttribute({ group: this.group.id, attribute: attribute })
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.loadSettings();
           this.notificator.showSuccess(this.successMessage);
         },
-        (error: HttpErrorResponse) =>
-          this.notificator.showRPCError(error.error as RPCError, this.errorMessage)
-      );
+        error: (error: RPCError) => this.notificator.showRPCError(error, this.errorMessage),
+      });
   }
 
   private loadSettings(): void {

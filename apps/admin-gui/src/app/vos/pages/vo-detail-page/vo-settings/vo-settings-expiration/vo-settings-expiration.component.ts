@@ -8,7 +8,6 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { Attribute, AttributesManagerService, Vo } from '@perun-web-apps/perun/openapi';
-import { HttpErrorResponse } from '@angular/common/http';
 import { RPCError } from '@perun-web-apps/perun/models';
 
 @Component({
@@ -51,15 +50,15 @@ export class VoSettingsExpirationComponent implements OnInit {
     // FIXME this might not work in case of some race condition (other request finishes sooner)
     this.apiRequest.dontHandleErrorForNext();
 
-    this.attributesManager.setVoAttribute({ vo: this.vo.id, attribute: attribute }).subscribe(
-      () => {
+    this.attributesManager.setVoAttribute({ vo: this.vo.id, attribute: attribute }).subscribe({
+      next: () => {
         this.loadSettings();
         this.notificator.showSuccess(this.successMessage);
       },
-      (error: HttpErrorResponse) => {
-        this.notificator.showRPCError(error.error as RPCError, this.errorMessage);
-      }
-    );
+      error: (error: RPCError) => {
+        this.notificator.showRPCError(error, this.errorMessage);
+      },
+    });
   }
 
   private loadSettings(): void {

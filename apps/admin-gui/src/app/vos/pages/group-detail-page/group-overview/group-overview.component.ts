@@ -175,7 +175,7 @@ export class GroupOverviewComponent implements OnInit {
           expirationAuth = true;
         },
         (error: RPCError) => {
-          if (error.name !== 'HttpErrorResponse') {
+          if (error.name !== 'PrivilegeException') {
             this.notificator.showRPCError(error);
           }
         }

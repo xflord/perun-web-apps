@@ -4,7 +4,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Consent, ConsentsManagerService } from '@perun-web-apps/perun/openapi';
 import { RPCError } from '@perun-web-apps/perun/models';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'perun-web-apps-consent-request',
@@ -30,23 +29,22 @@ export class ConsentRequestComponent implements OnInit {
     this.route.params.subscribe((params) => {
       const consentId = Number(params['consentId']);
       this.apiRequest.dontHandleErrorForNext();
-      this.consentService.getConsentById(consentId).subscribe(
-        (consent) => {
+      this.consentService.getConsentById(consentId).subscribe({
+        next: (consent) => {
           this.consent = consent;
           if (this.consent.status !== 'UNSIGNED') {
             void this.router.navigate(['/profile', 'consents'], { queryParamsHandling: 'merge' });
           }
           this.loading = false;
         },
-        (error: HttpErrorResponse) => {
+        error: (error: RPCError) => {
           this.loading = false;
-          const e: RPCError = error.error as RPCError;
-          if (e.name !== 'ConsentNotExistsException') {
-            this.notificator.showRPCError(e);
+          if (error.name !== 'ConsentNotExistsException') {
+            this.notificator.showRPCError(error);
           }
           void this.router.navigate(['/profile', 'consents'], { queryParamsHandling: 'merge' });
-        }
-      );
+        },
+      });
     });
   }
 

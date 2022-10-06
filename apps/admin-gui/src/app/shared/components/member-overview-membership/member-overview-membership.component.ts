@@ -14,7 +14,6 @@ import {
 } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { TranslateService } from '@ngx-translate/core';
-import { HttpErrorResponse } from '@angular/common/http';
 import { RPCError } from '@perun-web-apps/perun/models';
 
 @Component({
@@ -103,10 +102,9 @@ export class MemberOverviewMembershipComponent implements OnChanges {
             : (attr.value as string);
           this.loading = false;
         },
-        (error: HttpErrorResponse) => {
-          const e = error.error as RPCError;
-          if (e.name !== 'PrivilegeException') {
-            this.notificator.showError(e.name);
+        (error: RPCError) => {
+          if (error.name !== 'PrivilegeException') {
+            this.notificator.showError(error.name);
           } else {
             this.voMembershipDataSource = new MatTableDataSource<string>(['Status']);
           }

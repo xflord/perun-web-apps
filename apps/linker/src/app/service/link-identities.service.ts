@@ -3,7 +3,6 @@ import { RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import { Router } from '@angular/router';
 import { parseQueryParams } from '@perun-web-apps/perun/utils';
 import { RPCError } from '@perun-web-apps/perun/models';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -22,8 +21,8 @@ export class LinkIdentitiesService {
             resolve();
           });
         },
-        (error: HttpErrorResponse) => {
-          const exceptionName = (error.error as RPCError).name;
+        (error: RPCError) => {
+          const exceptionName = error.name;
           let linkerResult = 'UNKNOWN_ERROR';
           switch (exceptionName) {
             case 'InvalidTokenException':

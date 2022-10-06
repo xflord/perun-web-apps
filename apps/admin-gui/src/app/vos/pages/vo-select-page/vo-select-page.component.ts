@@ -12,7 +12,6 @@ import { RemoveVoDialogComponent } from '../../../shared/components/dialogs/remo
 import { SelectionModel } from '@angular/cdk/collections';
 import { CreateVoDialogComponent } from '../../../shared/components/dialogs/create-vo-dialog/create-vo-dialog.component';
 import { TABLE_VO_SELECT } from '@perun-web-apps/config/table-config';
-import { HttpErrorResponse } from '@angular/common/http';
 import { RPCError } from '@perun-web-apps/perun/models';
 
 @Component({
@@ -64,22 +63,21 @@ export class VoSelectPageComponent implements OnInit, AfterViewChecked {
     this.loading = true;
     this.selection.clear();
     this.apiRequest.dontHandleErrorForNext();
-    this.voService.getMyEnrichedVos().subscribe(
-      (vos) => {
+    this.voService.getMyEnrichedVos().subscribe({
+      next: (vos) => {
         this.vos = vos;
         this.recentIds = getRecentlyVisitedIds('vos');
         this.loading = false;
       },
-      (error: HttpErrorResponse) => {
-        const e = error.error as RPCError;
-        if (e.name === 'PrivilegeException') {
+      error: (error: RPCError) => {
+        if (error.name === 'PrivilegeException') {
           this.vos = [];
           this.loading = false;
         } else {
-          this.notificator.showRPCError(e);
+          this.notificator.showRPCError(error);
         }
-      }
-    );
+      },
+    });
   }
 
   applyFilter(filterValue: string): void {

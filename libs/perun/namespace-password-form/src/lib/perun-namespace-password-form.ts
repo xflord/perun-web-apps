@@ -4,7 +4,6 @@ import { UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService } from '@perun-web-apps/perun/services';
 import { Observable, of, timer } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
 import { RPCError } from '@perun-web-apps/perun/models';
 
 interface PasswordError {
@@ -42,10 +41,9 @@ export const loginAsyncValidator =
       }),
       map(() => null),
       // catch error and send it as a valid value
-      catchError((err: HttpErrorResponse) => {
-        const innerErr: RPCError = err.error as RPCError;
+      catchError((err: RPCError) => {
         const pwdError: PasswordError = {
-          backendError: innerErr.message.substring(innerErr.message.indexOf(':') + 1),
+          backendError: err.message.substring(err.message.indexOf(':') + 1),
         };
         return of(pwdError);
       })

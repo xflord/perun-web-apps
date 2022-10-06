@@ -20,7 +20,6 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
 import { RPCError } from '@perun-web-apps/perun/models';
 
 interface PerunBeanExtension {
@@ -114,8 +113,8 @@ export class RouteAuthGuardService implements CanActivateChild {
           authPair.entity.voId = member.voId;
           return this.finalizeCanActivateChild(authPair);
         }),
-        catchError((error: HttpErrorResponse) => {
-          return this.errorRedirectUrl(error.error as RPCError);
+        catchError((error: RPCError) => {
+          return this.errorRedirectUrl(error);
         })
       );
     } else if (authPair.key.startsWith('groups')) {
@@ -125,8 +124,8 @@ export class RouteAuthGuardService implements CanActivateChild {
           authPair.entity.voId = group.voId;
           return this.finalizeCanActivateChild(authPair);
         }),
-        catchError((error: HttpErrorResponse) => {
-          return this.errorRedirectUrl(error.error as RPCError);
+        catchError((error: RPCError) => {
+          return this.errorRedirectUrl(error);
         })
       );
     } else if (authPair.key.startsWith('resources')) {
@@ -137,8 +136,8 @@ export class RouteAuthGuardService implements CanActivateChild {
           authPair.entity.voId = resource.voId;
           return this.finalizeCanActivateChild(authPair);
         }),
-        catchError((error: HttpErrorResponse) => {
-          return this.errorRedirectUrl(error.error as RPCError);
+        catchError((error: RPCError) => {
+          return this.errorRedirectUrl(error);
         })
       );
     } else {
