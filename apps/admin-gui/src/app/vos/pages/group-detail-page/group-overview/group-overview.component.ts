@@ -57,12 +57,7 @@ export class GroupOverviewComponent implements OnInit {
           this.groupService.getGroupById(groupId).subscribe(
             (group) => {
               this.group = group;
-              this.entityStorageService.setEntity({
-                id: group.id,
-                voId: vo.id,
-                parentGroupId: group.parentGroupId,
-                beanName: group.beanName,
-              });
+              this.entityStorageService.setEntity(this.group);
               addRecentlyVisited('groups', this.group);
               addRecentlyVisitedObject(this.group, vo.name);
               this.loadParentGroupData(this.group.parentGroupId);
@@ -127,7 +122,10 @@ export class GroupOverviewComponent implements OnInit {
       });
     }
 
-    if (this.routePolicyService.canNavigate('groups-applications', this.group)) {
+    if (
+      this.group.name !== 'members' &&
+      this.routePolicyService.canNavigate('groups-applications', this.group)
+    ) {
       this.navItems.push({
         cssIcon: 'perun-applications',
         url: `/organizations/${this.group.voId}/groups/${this.group.id}/applications`,

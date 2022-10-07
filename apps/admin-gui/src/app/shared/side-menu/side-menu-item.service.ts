@@ -883,7 +883,10 @@ export class SideMenuItemService {
     }
 
     //Applications
-    if (this.routePolicyService.canNavigate('groups-applications', group)) {
+    if (
+      group.name !== 'members' &&
+      this.routePolicyService.canNavigate('groups-applications', group)
+    ) {
       links.push({
         label: 'MENU_ITEMS.GROUP.APPLICATIONS',
         url: [`/organizations/${group.voId}/groups/${group.id}/applications`],
@@ -949,7 +952,10 @@ export class SideMenuItemService {
     }
 
     //SettingsApplicationForm
-    if (this.routePolicyService.canNavigate('groups-settings-applicationForm', group)) {
+    if (
+      group.name !== 'members' &&
+      this.routePolicyService.canNavigate('groups-settings-applicationForm', group)
+    ) {
       settingsChildrenLinks.push({
         label: 'MENU_ITEMS.GROUP.APPLICATION_FORM',
         url: [`/organizations/${group.voId}/groups/${group.id}/settings/applicationForm`],

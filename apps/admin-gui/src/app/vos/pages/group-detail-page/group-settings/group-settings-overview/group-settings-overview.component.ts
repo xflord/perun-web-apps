@@ -79,7 +79,10 @@ export class GroupSettingsOverviewComponent implements OnInit {
       });
     }
 
-    if (this.routePolicyService.canNavigate('groups-settings-applicationForm', this.group)) {
+    if (
+      this.group.name !== 'members' &&
+      this.routePolicyService.canNavigate('groups-settings-applicationForm', this.group)
+    ) {
       this.items.push({
         cssIcon: 'perun-application-form',
         url: `/organizations/${this.group.voId}/groups/${this.group.id}/settings/applicationForm`,
