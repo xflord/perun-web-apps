@@ -147,14 +147,6 @@ export class ServicesListComponent implements AfterViewInit, OnChanges {
     );
   }
 
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: Service): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.child.paginator;
   }

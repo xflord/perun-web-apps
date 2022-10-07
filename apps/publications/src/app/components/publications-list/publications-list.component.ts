@@ -169,14 +169,6 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
     );
   }
 
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: RichResource): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
   itemSelectionToggle(item: RichResource): void {
     this.selection.toggle(item);
   }

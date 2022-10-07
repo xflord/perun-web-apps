@@ -100,13 +100,6 @@ export class ThanksListComponent implements AfterViewInit, OnChanges {
     );
   }
 
-  checkboxLabel(row?: Owner): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
   private setDataSource(): void {
     if (this.dataSource) {
       this.dataSource.filterPredicate = (data: ThanksForGUI, filter: string): boolean =>

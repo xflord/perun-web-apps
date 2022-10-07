@@ -19,18 +19,18 @@
         <th *matHeaderCellDef class="align-checkbox" mat-header-cell>
           <mat-checkbox
             (change)="$event ? masterToggle() : null"
-            [aria-label]="checkboxLabel()"
+            [aria-label]="selected.all | masterCheckboxLabel | translate"
             [checked]="selection.hasValue() && selected.all"
             [indeterminate]="selection.hasValue() && !selected.all"
             color="primary">
           </mat-checkbox>
         </th>
-        <td *matCellDef="let resource" class="static-column-size align-checkbox" mat-cell>
+        <td *matCellDef="let destination" class="static-column-size align-checkbox" mat-cell>
           <mat-checkbox
-            (change)="$event ? selection.toggle(resource) : null"
+            (change)="$event ? selection.toggle(destination) : null"
             (click)="$event.stopPropagation()"
-            [aria-label]="checkboxLabel(resource)"
-            [checked]="selection.isSelected(resource)"
+            [aria-label]="selection.isSelected(destination) | checkboxLabel | translate: {name: destination.destination}"
+            [checked]="selection.isSelected(destination)"
             color="primary">
           </mat-checkbox>
         </td>

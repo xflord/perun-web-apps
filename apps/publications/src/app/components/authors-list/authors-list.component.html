@@ -19,7 +19,7 @@
           <mat-checkbox
             (change)="$event ? selection.toggle(author) : null"
             (click)="$event.stopPropagation()"
-            [aria-label]="checkboxLabel(author)"
+            [aria-label]="selection.isSelected(author) | checkboxLabel | translate: {name: author | userFullName}"
             [checked]="selection.isSelected(author)"
             color="primary">
           </mat-checkbox>

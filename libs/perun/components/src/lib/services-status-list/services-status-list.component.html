@@ -24,7 +24,7 @@
             (change)="$event ? masterToggle() : null; this.selectionChange.emit()"
             [checked]="selection.hasValue() && selected.all"
             [indeterminate]="selection.hasValue() && !selected.all"
-            [aria-label]="checkboxLabel()">
+            [aria-label]="selected.all | masterCheckboxLabel | translate">
           </mat-checkbox>
         </th>
         <td mat-cell *matCellDef="let serviceState" class="static-column-size align-checkbox">
@@ -33,7 +33,7 @@
             (click)="$event.stopPropagation()"
             (change)="$event ? selection.toggle(serviceState) : null; this.selectionChange.emit()"
             [checked]="selection.isSelected(serviceState)"
-            [aria-label]="checkboxLabel(serviceState)">
+            [aria-label]="selection.isSelected(serviceState) | checkboxLabel | translate: {name: serviceState.service.name}">
           </mat-checkbox>
         </td>
       </ng-container>

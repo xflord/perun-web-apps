@@ -199,14 +199,6 @@ export class ResourcesListComponent implements OnInit, OnChanges {
     this.setAuth();
   }
 
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: ResourceWithStatus): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
   setAuth(): void {
     const objects = this.groupToResource ? [this.groupToResource] : [];
     this.removeAuth = this.selection.selected.reduce(

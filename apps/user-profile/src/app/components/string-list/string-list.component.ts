@@ -61,10 +61,6 @@ export class StringListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  checkboxLabel(row?: string): string {
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row`;
-  }
-
   ngAfterViewInit(): void {
     this.setDataSource();
   }

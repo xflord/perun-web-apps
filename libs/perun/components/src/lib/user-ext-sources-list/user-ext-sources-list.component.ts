@@ -127,10 +127,4 @@ export class UserExtSourcesListComponent implements OnInit, OnChanges {
       this.dataSource.filter = this.filterValue;
     }
   }
-
-  checkboxLabel(row?: RichUserExtSource): string {
-    return `${this.selection.isSelected(row.userExtSource) ? 'deselect' : 'select'} row ${
-      row.userExtSource.id + 1
-    }`;
-  }
 }

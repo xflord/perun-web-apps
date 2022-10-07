@@ -116,14 +116,6 @@ export class ConsentHubsListComponent implements OnChanges {
     );
   }
 
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: ConsentHub): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
   setDataSource(): void {
     if (this.dataSource) {
       this.dataSource.filterPredicate = (data: ConsentHub, filter: string): boolean =>

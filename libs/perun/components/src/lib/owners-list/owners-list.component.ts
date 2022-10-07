@@ -123,11 +123,4 @@ export class OwnersListComponent implements OnChanges, AfterViewInit {
       false
     );
   }
-
-  checkboxLabel(row?: Owner): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
 }

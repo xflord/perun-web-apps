@@ -170,13 +170,6 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
     return numSelected === numRows;
   }
 
-  checkboxLabel(row?: RichMember): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
   changeStatus(event: Event, member: RichMember, groupId?: number): void {
     event.stopPropagation();
 

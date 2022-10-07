@@ -21,7 +21,7 @@
         <th *matHeaderCellDef class="align-checkbox" mat-header-cell>
           <mat-checkbox
             (change)="$event ? masterToggle() : null"
-            [aria-label]="checkboxLabel()"
+            [aria-label]="selected.all | masterCheckboxLabel | translate"
             [checked]="selection.hasValue() && selected.all"
             [indeterminate]="selection.hasValue() && !selected.all"
             color="primary">
@@ -32,7 +32,7 @@
             attr.data-cy="{{service.name | lowercase}}-checkbox"
             (change)="$event ? selection.toggle(service) : null"
             (click)="$event.stopPropagation()"
-            [aria-label]="checkboxLabel(service)"
+            [aria-label]="selection.isSelected(service) | checkboxLabel | translate: {name: service.name}"
             [checked]="selection.isSelected(service)"
             color="primary">
           </mat-checkbox>

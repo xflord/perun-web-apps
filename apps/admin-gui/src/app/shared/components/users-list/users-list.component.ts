@@ -172,11 +172,4 @@ export class UsersListComponent implements OnChanges {
       false
     );
   }
-
-  checkboxLabel(row?: RichUser): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
 }

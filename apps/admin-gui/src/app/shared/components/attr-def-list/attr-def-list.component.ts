@@ -184,13 +184,6 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
     );
   }
 
-  checkboxLabel(row?: AttributeDefinition): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
   onRowClick(attDef: AttributeDefinition): void {
     if (!this.disableRouting) {
       const config = getDefaultDialogConfig();

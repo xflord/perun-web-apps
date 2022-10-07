@@ -25,7 +25,7 @@
             <mat-checkbox
               (change)="$event ? selection.toggle(row) : null"
               (click)="$event.stopPropagation()"
-              [aria-label]="checkboxLabel(row)"
+              [aria-label]="selection.isSelected(row) | checkboxLabel | translate: {name: row.userExtSource.extSource.name}"
               [checked]="selection.isSelected(row)"
               [disabled]="row.userExtSource.persistent"
               color="primary">

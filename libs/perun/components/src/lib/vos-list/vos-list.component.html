@@ -15,12 +15,12 @@
       matSortDisableClear>
       <ng-container matColumnDef="checkbox">
         <th *matHeaderCellDef mat-header-cell class="align-checkbox"></th>
-        <td *matCellDef="let member" class="static-column-size align-checkbox" mat-cell>
+        <td *matCellDef="let vo" class="static-column-size align-checkbox" mat-cell>
           <mat-checkbox
-            (change)="$event ? selection.toggle(member) : null"
+            (change)="$event ? selection.toggle(vo) : null"
             (click)="$event.stopPropagation()"
-            [aria-label]="checkboxLabel(member)"
-            [checked]="selection.isSelected(member)"
+            [aria-label]="selection.isSelected(vo) | checkboxLabel | translate: {name: vo.name ?? vo.vo.name}"
+            [checked]="selection.isSelected(vo)"
             color="primary">
           </mat-checkbox>
         </td>

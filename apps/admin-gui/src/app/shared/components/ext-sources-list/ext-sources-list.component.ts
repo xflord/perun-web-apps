@@ -126,11 +126,4 @@ export class ExtSourcesListComponent implements AfterViewInit, OnChanges {
       false
     );
   }
-
-  checkboxLabel(row?: ExtSource): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
 }

@@ -280,11 +280,4 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
       this.canBeSelected
     );
   }
-
-  checkboxLabel(selected?: MemberCandidate): string {
-    if (!selected) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(selected) ? 'deselect' : 'select'}`;
-  }
 }

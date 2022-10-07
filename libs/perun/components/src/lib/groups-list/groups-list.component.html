@@ -20,7 +20,7 @@
           <mat-checkbox
             *ngIf="!disableHeadCheckbox"
             (change)="$event ? masterToggle() : null"
-            [aria-label]="checkboxLabel()"
+            [aria-label]="selected.all | masterCheckboxLabel | translate"
             [checked]="selection.hasValue() && selected.all"
             [indeterminate]="selection.hasValue() && !selected.all"
             color="primary">
@@ -35,6 +35,7 @@
             <mat-checkbox
               (change)="$event ? itemSelectionToggle(group) : null"
               (click)="$event.stopPropagation()"
+              [aria-label]="selection.isSelected(group) | checkboxLabel | translate: {name: group.name}"
               [checked]="selection.isSelected(group)"
               [disabled]="groupStatus.disable"
               attr.data-cy="{{group.name}}-checkbox"

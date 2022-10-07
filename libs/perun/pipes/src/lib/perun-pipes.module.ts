@@ -45,6 +45,8 @@ import { FindAttributePipe } from './find-attribute.pipe';
 import { CanManageGroupPipe } from './can-manage-group.pipe';
 import { DisableGroupSelectPipe } from './disable-group-select.pipe';
 import { GroupCheckboxTooltipPipe } from './group-checkbox-tooltip.pipe';
+import { CheckboxLabelPipe } from './checkbox-label.pipe';
+import { MasterCheckboxLabelPipe } from './master-checkbox-label.pipe';
 
 @NgModule({
   declarations: [
@@ -94,6 +96,8 @@ import { GroupCheckboxTooltipPipe } from './group-checkbox-tooltip.pipe';
     CanManageGroupPipe,
     DisableGroupSelectPipe,
     GroupCheckboxTooltipPipe,
+    CheckboxLabelPipe,
+    MasterCheckboxLabelPipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -142,6 +146,8 @@ import { GroupCheckboxTooltipPipe } from './group-checkbox-tooltip.pipe';
     CanManageGroupPipe,
     DisableGroupSelectPipe,
     GroupCheckboxTooltipPipe,
+    CheckboxLabelPipe,
+    MasterCheckboxLabelPipe,
   ],
   imports: [CommonModule],
 })

@@ -22,7 +22,7 @@
             (change)="$event ? masterToggle() : null"
             [checked]="selection.hasValue() && selected.all"
             [indeterminate]="selection.hasValue() && !selected.all"
-            [aria-label]="checkboxLabel()">
+            [aria-label]="selected.all | masterCheckboxLabel | translate">
           </mat-checkbox>
         </th>
         <td mat-cell *matCellDef="let attribute" class="static-column-size align-checkbox">
@@ -33,7 +33,7 @@
             (change)="$event ? selection.toggle(attribute) : null"
             [checked]="selection.isSelected(attribute)"
             [disabled]="(attribute | isVirtualAttribute) || !attribute.writable"
-            [aria-label]="checkboxLabel(attribute)">
+            [aria-label]="selection.isSelected(attribute) | checkboxLabel | translate: {name: attribute.displayName}">
           </mat-checkbox>
         </td>
       </ng-container>

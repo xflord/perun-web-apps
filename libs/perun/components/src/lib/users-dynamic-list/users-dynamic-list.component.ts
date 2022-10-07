@@ -142,13 +142,6 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
     return numSelected === numRows;
   }
 
-  checkboxLabel(row?: RichUser): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
   loadUsersPage(): void {
     const sortDirection = this.sort.direction === 'asc' ? 'ASCENDING' : 'DESCENDING';
     const sortColumn = this.sort.active === 'name' ? 'NAME' : 'ID';

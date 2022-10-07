@@ -156,11 +156,6 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
     return attribute;
   }
 
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: Author): string {
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
   onAddClick(author: Author): void {
     this.addAuthor.emit(author);
   }

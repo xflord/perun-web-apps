@@ -19,7 +19,7 @@
         <th *matHeaderCellDef class="align-checkbox" mat-header-cell>
           <mat-checkbox
             (change)="$event ? masterToggle() : null"
-            [aria-label]="checkboxLabel()"
+            [aria-label]="selected.all | masterCheckboxLabel | translate"
             [checked]="selection.hasValue() && selected.all"
             [indeterminate]="selection.hasValue() && !selected.all"
             color="primary">
@@ -29,7 +29,7 @@
           <mat-checkbox
             (change)="$event ? selection.toggle(host) : null"
             (click)="$event.stopPropagation()"
-            [aria-label]="checkboxLabel(host)"
+            [aria-label]="selection.isSelected(host) | checkboxLabel | translate: {name: host.hostname}"
             [checked]="selection.isSelected(host)"
             color="primary">
           </mat-checkbox>

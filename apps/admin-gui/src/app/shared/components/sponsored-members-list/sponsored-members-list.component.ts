@@ -182,13 +182,6 @@ export class SponsoredMembersListComponent implements OnChanges {
     );
   }
 
-  checkboxLabel(row?: MemberWithSponsors): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.member.id + 1}`;
-  }
-
   resetPassword(sponsoredMember: MemberWithSponsors): void {
     this.loading = true;
     const attUrns = this.storeService

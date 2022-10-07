@@ -120,10 +120,6 @@ export class MembershipListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  checkboxLabel(row?: Membership): string {
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.entity.id + 1}`;
-  }
-
   extend(membership: Membership): void {
     this.extendMembership.emit(membership);
   }

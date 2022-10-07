@@ -93,13 +93,6 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
     );
   }
 
-  checkboxLabel(row?: ApplicationMail): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
   changeSending(applicationMail: ApplicationMail): void {
     if (applicationMail.send) {
       this.registrarService

@@ -21,6 +21,14 @@ import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { DynamicPaginatingService } from './dynamic-paginating.service';
 import { GuiAuthResolver } from './gui-auth-resolver.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { DynamicDataSource as NewDynamicDataSource } from '@perun-web-apps/perun/models';
+
+export function isPaginatedDataSource<T>(
+  ds: MatTableDataSource<T> | DynamicDataSource<T> | NewDynamicDataSource<T>
+): ds is DynamicDataSource<T> {
+  return 'allObjectCount' in ds;
+}
 
 export class DynamicDataSource<T> implements DataSource<T> {
   loading$: Observable<boolean>;

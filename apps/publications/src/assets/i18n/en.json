@@ -510,6 +510,12 @@
       "SERVICES_CONFIGURATIONS": {
         "ADD": "Add",
         "SAVE": "Save"
+      },
+      "CHECKBOX_LABEL": {
+        "SELECT_ALL": "Select all",
+        "DESELECT_ALL": "Deselect all",
+        "SELECT_ROW": "Select item {{ name }}",
+        "DESELECT_ROW": "Deselect item {{ name }}"
       }
     },
     "UI": {

@@ -135,13 +135,6 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
     );
   }
 
-  checkboxLabel(row?: ResourceTag): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
   save(tag: ResourceTag): void {
     this.resourceManager.updateResourceTag({ resourceTag: tag }).subscribe(() => {
       this.translator

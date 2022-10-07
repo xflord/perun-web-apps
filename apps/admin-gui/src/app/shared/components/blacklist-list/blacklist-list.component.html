@@ -21,7 +21,7 @@
         <th *matHeaderCellDef class="align-checkbox" mat-header-cell>
           <mat-checkbox
             (change)="$event ? masterToggle() : null"
-            [aria-label]="checkboxLabel()"
+            [aria-label]="selected.all | masterCheckboxLabel | translate"
             [checked]="selection.hasValue() && selected.all"
             [indeterminate]="selection.hasValue() && !selected.all"
             color="primary">
@@ -34,7 +34,7 @@
           <mat-checkbox
             (change)="$event ? selection.toggle(banOnFacilityWithUser) : null"
             (click)="$event.stopPropagation()"
-            [aria-label]="checkboxLabel(banOnFacilityWithUser)"
+            [aria-label]="selection.isSelected(banOnFacilityWithUser)| checkboxLabel | translate: {name: banOnFacilityWithUser[1] | userFullName}"
             [checked]="selection.isSelected(banOnFacilityWithUser)"
             color="primary">
           </mat-checkbox>

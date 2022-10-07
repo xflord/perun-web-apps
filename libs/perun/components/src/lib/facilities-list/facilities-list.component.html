@@ -21,7 +21,7 @@
           <mat-checkbox
             (change)="$event ? selection.toggle(facility) : null"
             (click)="$event.stopPropagation()"
-            [aria-label]="checkboxLabel(facility)"
+            [aria-label]="selection.isSelected(facility) | checkboxLabel | translate: {name: facility.facility.name}"
             [checked]="selection.isSelected(facility)"
             attr.data-cy="{{facility.facility.name}}-checkbox"
             color="primary">

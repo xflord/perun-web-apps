@@ -22,7 +22,7 @@
           <mat-checkbox
             (change)="$event ? masterToggle() : null"
             *ngIf="selection.isMultipleSelection()"
-            [aria-label]="checkboxLabel()"
+            [aria-label]="selected.all | masterCheckboxLabel | translate"
             [checked]="selection.hasValue() && selected.all"
             [indeterminate]="selection.hasValue() && !selected.all"
             color="primary">
@@ -32,7 +32,7 @@
           <mat-checkbox
             (change)="$event ? selection.toggle(row) : null"
             (click)="$event.stopPropagation()"
-            [aria-label]="checkboxLabel(row)"
+            [aria-label]="selection.isSelected(row) | checkboxLabel | translate: {name: row | userFullName}"
             [checked]="selection.isSelected(row)"
             [disabled]="disableSelf && row.id === principalId && !authResolver.isPerunAdmin()"
             attr.data-cy="{{row.firstName | lowercase}}-checkbox"

@@ -19,7 +19,7 @@
           <mat-checkbox
             (change)="$event ? selection.toggle(membership) : null"
             (click)="$event.stopPropagation()"
-            [aria-label]="checkboxLabel(membership)"
+            [aria-label]="selection.isSelected(membership) | checkboxLabel | translate: {name: membership.entity.name}"
             [checked]="selection.isSelected(membership)"
             [disabled]="(membership.expirationAttribute | validateExpiration) === 'never'"
             color="primary">

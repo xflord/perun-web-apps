@@ -449,6 +449,12 @@
       "SERVICES_CONFIGURATIONS": {
         "ADD": "Přidat",
         "SAVE": "Uložit"
+      },
+      "CHECKBOX_LABEL": {
+        "SELECT_ALL": "Označit vše",
+        "DESELECT_ALL": "Odebrat vše",
+        "SELECT_ROW": "Označit položku {{ name }}",
+        "DESELECT_ROW": "Odebrat položku {{ name }}"
       }
     },
     "LANGUAGES": {

@@ -155,13 +155,6 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
     );
   }
 
-  checkboxLabel(row?: Attribute): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
   updateMapAttributes(): void {
     for (const item of this.items.toArray()) {
       if (item.attribute.type === 'java.util.LinkedHashMap') {

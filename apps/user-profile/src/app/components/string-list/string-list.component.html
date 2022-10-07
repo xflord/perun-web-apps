@@ -10,7 +10,7 @@
           <mat-checkbox
             (change)="$event ? selection.toggle(row) : null"
             (click)="$event.stopPropagation()"
-            [aria-label]="checkboxLabel(row)"
+            [aria-label]="selection.isSelected(row) | checkboxLabel | translate: {name: row}"
             [checked]="selection.isSelected(row)"
             color="primary">
           </mat-checkbox>

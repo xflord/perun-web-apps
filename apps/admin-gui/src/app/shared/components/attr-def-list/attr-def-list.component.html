@@ -20,7 +20,7 @@
           <th *matHeaderCellDef class="align-checkbox" mat-header-cell>
             <mat-checkbox
               (change)="$event ? masterToggle() : null"
-              [aria-label]="checkboxLabel()"
+              [aria-label]="selected.all | masterCheckboxLabel | translate"
               [checked]="selection.hasValue() && selected.all"
               [indeterminate]="selection.hasValue() && !selected.all"
               color="primary">
@@ -31,7 +31,7 @@
               attr.data-cy="{{row.displayName | multiWordDataCy}}-checkbox"
               (change)="$event ? selection.toggle(row) : null"
               (click)="$event.stopPropagation()"
-              [aria-label]="checkboxLabel(row)"
+              [aria-label]="selection.isSelected(row) | checkboxLabel | translate: {name: row.displayName}"
               [checked]="selection.isSelected(row)"
               [disabled]="row.namespace | consentRelatedAttribute:serviceEnabled:consentRequired"
               [matTooltip]="'ADMIN.ATTRIBUTES.CONSENT_RELATED_DISABLED' | translate"

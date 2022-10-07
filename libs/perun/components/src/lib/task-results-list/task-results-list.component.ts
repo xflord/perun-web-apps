@@ -168,13 +168,6 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
     );
   }
 
-  checkboxLabel(row?: TaskResult): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.child.paginator;
   }

@@ -168,14 +168,6 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit, 
     }
   }
 
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: [string, Attribute]): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row[1].id + 1}`;
-  }
-
   onValueChange(record: [string, Attribute]): void {
     this.selection.select(record);
   }

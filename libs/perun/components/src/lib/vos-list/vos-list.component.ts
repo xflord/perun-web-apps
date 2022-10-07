@@ -120,8 +120,4 @@ export class VosListComponent implements OnChanges {
     this.dataSource.filter = this.filterValue;
     this.dataSource.data = this.vos;
   }
-
-  checkboxLabel(row?: Vo): string {
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
 }

@@ -263,13 +263,6 @@ export class GroupsListComponent {
     });
   }
 
-  checkboxLabel(row?: GroupWithStatus): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
   itemSelectionToggle(item: GroupWithStatus): void {
     this.selection.toggle(item);
   }

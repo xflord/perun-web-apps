@@ -18,14 +18,16 @@
       matSortActive="name"
       matSortDirection="asc"
       matSortDisableClear>
-      <ng-container matColumnDef="select">
-        <th *matHeaderCellDef mat-header-cell class="align-checkbox">
+      <ng-container
+        matColumnDef="select"
+        *ngIf="{all: dataSource | isAllSelected: selection.selected.length} as selected">
+        <th *matHeaderCellDef="let row" mat-header-cell class="align-checkbox">
           <mat-checkbox
             (change)="$event ? masterToggle() : null"
             *ngIf="selection.isMultipleSelection()"
-            [aria-label]="checkboxLabel()"
-            [checked]="selection.hasValue() && isAllSelected()"
-            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            [aria-label]="selected.all | masterCheckboxLabel | translate"
+            [checked]="selection.hasValue() && selected.all"
+            [indeterminate]="selection.hasValue() && !selected.all"
             color="primary">
           </mat-checkbox>
         </th>
@@ -33,7 +35,7 @@
           <mat-checkbox
             (change)="$event ? selection.toggle(row) : null"
             (click)="$event.stopPropagation()"
-            [aria-label]="checkboxLabel(row)"
+            [aria-label]="selection.isSelected(row) | checkboxLabel | translate: {name: row | userFullName}"
             [checked]="selection.isSelected(row)"
             color="primary">
           </mat-checkbox>

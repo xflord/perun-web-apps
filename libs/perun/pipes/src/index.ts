@@ -27,3 +27,5 @@ export * from './lib/delete-dialog-type.pipe';
 export * from './lib/disabled-candidate-tooltip.pipe';
 export * from './lib/disable-unique-attribute.pipe';
 export * from './lib/disable-group-select.pipe';
+export * from './lib/checkbox-label.pipe';
+export * from './lib/master-checkbox-label.pipe';
