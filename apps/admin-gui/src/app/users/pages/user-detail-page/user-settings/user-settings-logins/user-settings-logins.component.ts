@@ -6,11 +6,11 @@ import { EntityStorageService } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-perun-web-apps-user-setting-authentication',
-  templateUrl: './user-setting-authentication.component.html',
-  styleUrls: ['./user-setting-authentication.component.scss'],
+  selector: 'app-perun-web-apps-user-settings-logins',
+  templateUrl: './user-settings-logins.component.html',
+  styleUrls: ['./user-settings-logins.component.scss'],
 })
-export class UserSettingAuthenticationComponent implements OnInit {
+export class UserSettingsLoginsComponent implements OnInit {
   @ViewChild('logins')
   private logins: PasswordResetComponent;
   userId: number;

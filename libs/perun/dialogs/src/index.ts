@@ -23,3 +23,6 @@ export * from './lib/delete-entity-dialog/delete-entity-dialog.component';
 export * from './lib/anonymize-user-dialog/anonymize-user-dialog.component';
 export * from './lib/exporting-data-dialog/export-data-dialog.component';
 export * from './lib/request-change-data-quota-dialog/request-change-data-quota-dialog.component';
+export * from './lib/add-ssh-dialog/add-ssh-dialog.component';
+export * from './lib/remove-string-value-dialog/remove-string-value-dialog.component';
+export * from './lib/show-ssh-dialog/show-ssh-dialog.component';

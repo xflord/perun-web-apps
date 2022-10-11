@@ -1,7 +1,9 @@
-<h1 class="page-title">{{'SSH_KEYS.SSH_KEYS_TITLE'|customTranslate | translate}}</h1>
-<p>{{'SSH_KEYS.SSH_KEYS_DESCRIPTION'|customTranslate | translate}}</p>
+<h1 class="page-title">
+  {{'SHARED_LIB.PERUN.COMPONENTS.SSH_KEYS.SSH_KEYS_TITLE'|customTranslate | translate}}
+</h1>
+<p>{{'SHARED_LIB.PERUN.COMPONENTS.SSH_KEYS.SSH_KEYS_DESCRIPTION'|customTranslate | translate}}</p>
 <button mat-flat-button class="action-button" color="accent" (click)="addKey(false)">
-  {{'SSH_KEYS.NEW_KEY'|customTranslate | translate}}
+  {{'SHARED_LIB.PERUN.COMPONENTS.SSH_KEYS.NEW_KEY'|customTranslate | translate}}
 </button>
 <mat-list>
   <mat-list-item *ngFor="let key of userKeys" class="dark-hover-list-item w-auto" matRipple>
@@ -11,7 +13,7 @@
       class="ml-auto center-content"
       color="accent"
       mat-icon-button
-      matTooltip="{{'SSH_KEYS.COPY_TOOLTIP' | customTranslate | translate}}">
+      matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.SSH_KEYS.COPY_TOOLTIP' | customTranslate | translate}}">
       <mat-icon> file_copy </mat-icon>
     </button>
     <button
@@ -19,16 +21,20 @@
       class="ml-2 center-content"
       color="warn"
       mat-icon-button
-      matTooltip="{{'SSH_KEYS.REMOVE_TOOLTIP' | customTranslate | translate}}">
+      matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.SSH_KEYS.REMOVE_TOOLTIP' | customTranslate | translate}}">
       <mat-icon> delete </mat-icon>
     </button>
   </mat-list-item>
 </mat-list>
 
-<h1 class="page-title mt-5">{{'SSH_KEYS.ADMIN_SSH_KEYS_TITLE'|customTranslate | translate}}</h1>
-<p>{{'SSH_KEYS.ADMIN_SSH_KEYS_DESCRIPTION'|customTranslate | translate}}</p>
+<h1 class="page-title mt-5">
+  {{'SHARED_LIB.PERUN.COMPONENTS.SSH_KEYS.ADMIN_SSH_KEYS_TITLE'|customTranslate | translate}}
+</h1>
+<p>
+  {{'SHARED_LIB.PERUN.COMPONENTS.SSH_KEYS.ADMIN_SSH_KEYS_DESCRIPTION'|customTranslate | translate}}
+</p>
 <button mat-flat-button class="action-button" color="accent" (click)="addKey(true)">
-  {{'SSH_KEYS.NEW_KEY'|customTranslate | translate}}
+  {{'SHARED_LIB.PERUN.COMPONENTS.SSH_KEYS.NEW_KEY'|customTranslate | translate}}
 </button>
 <mat-list>
   <mat-list-item *ngFor="let key of adminKeys" class="dark-hover-list-item w-auto" matRipple>

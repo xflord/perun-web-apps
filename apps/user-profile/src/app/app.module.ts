@@ -15,7 +15,6 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Configuration, ConfigurationParameters } from '@perun-web-apps/perun/openapi';
 import { SettingsOverviewComponent } from './pages/settings-page/settings-overview/settings-overview.component';
-import { SettingsSSHKeysComponent } from './pages/settings-page/settings-ssh-keys/settings-ssh-keys.component';
 import { SettingsPreferredUnixGroupNamesComponent } from './pages/settings-page/settings-preferred-unix-group-names/settings-preferred-unix-group-names.component';
 import { SettingsPreferredShellsComponent } from './pages/settings-page/settings-preferred-shells/settings-preferred-shells.component';
 import { SettingsAlternativePasswordsComponent } from './pages/settings-page/settings-alternative-passwords/settings-alternative-passwords.component';
@@ -34,9 +33,7 @@ import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.componen
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
-import { AddSshDialogComponent } from './components/dialogs/add-ssh-dialog/add-ssh-dialog.component';
 import { AddUnixGroupDialogComponent } from './components/dialogs/add-unix-group-dialog/add-unix-group-dialog.component';
-import { RemoveStringValueDialogComponent } from './components/dialogs/remove-string-value-dialog/remove-string-value-dialog.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -58,7 +55,6 @@ import { MembershipListComponent } from './components/membership-list/membership
 import { ValidateExpirationPipe } from './pipes/validate-expiration.pipe';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatRippleModule } from '@angular/material/core';
-import { ShowSshDialogComponent } from './components/dialogs/show-ssh-dialog/show-ssh-dialog.component';
 import { ApiInterceptor } from '@perun-web-apps/perun/services';
 import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { ApiService } from '@perun-web-apps/perun/services';
@@ -114,7 +110,6 @@ const loadConfigs: (appConfig: UserProfileConfigService) => () => Promise<void> 
     ServicesPageComponent,
     SettingsPageComponent,
     SettingsOverviewComponent,
-    SettingsSSHKeysComponent,
     SettingsPreferredUnixGroupNamesComponent,
     SettingsPreferredShellsComponent,
     SettingsAlternativePasswordsComponent,
@@ -125,16 +120,13 @@ const loadConfigs: (appConfig: UserProfileConfigService) => () => Promise<void> 
     HeaderComponent,
     PrivacyPageComponent,
     HomePageComponent,
-    AddSshDialogComponent,
     AddUnixGroupDialogComponent,
-    RemoveStringValueDialogComponent,
     ShowGeneratedPasswordDialogComponent,
     StringListComponent,
     RemoveAltPasswordDialogComponent,
     MembershipListComponent,
     ValidateExpirationPipe,
     CategoryLabelPipe,
-    ShowSshDialogComponent,
     BreadcrumbsComponent,
     SettingsAuthenticationComponent,
     AddAuthImgDialogComponent,

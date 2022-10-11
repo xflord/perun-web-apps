@@ -22,12 +22,6 @@ export class ServiceIdentityOverviewComponent implements OnInit {
         style: 'user-btn',
       },
       {
-        cssIcon: 'perun-authentication',
-        url: `authentication`,
-        label: 'MENU_ITEMS.USER.AUTHENTICATION',
-        style: 'user-btn',
-      },
-      {
         cssIcon: 'perun-notification',
         url: 'mailing-lists',
         label: 'MENU_ITEMS.USER.MAILING_LISTS',
@@ -37,6 +31,12 @@ export class ServiceIdentityOverviewComponent implements OnInit {
         cssIcon: 'perun-statistics',
         url: 'data-quotas',
         label: 'MENU_ITEMS.USER.DATA_QUOTAS',
+        style: 'user-btn',
+      },
+      {
+        cssIcon: 'perun-authentication',
+        url: `authentication`,
+        label: 'MENU_ITEMS.USER.AUTHENTICATION',
         style: 'user-btn',
       },
     ];

@@ -968,6 +968,9 @@
       "RESOURCES": "Resources",
       "ASSOCIATED_USERS": "Account managers",
       "AUTHENTICATION": "Authentication",
+      "LOGINS": "Logins",
+      "CERTIFICATES": "Certificates",
+      "SSH_KEYS": "SSH Keys",
       "ENTITY": "User",
       "USER_TYPE": "User type",
       "ACCOUNTS": "Accounts",
@@ -2167,6 +2170,21 @@
       "CANCEL_BUTTON": "Cancel",
       "DISABLE_BUTTON": "Stop enforcing",
       "ENFORCE_BUTTON": "Enforce"
+    },
+    "ADD_SSH": {
+      "TITLE": "Add new ssh key",
+      "INPUT_PLACEHOLDER": "Begins with 'ssh-rsa', 'ssh-dss', 'sk-ssh-ed25519', 'sk-ecdsa', 'ssh-ed25519', 'ecdsa-sha2-nistp256', 'ecdsa-sha2-nistp384' or 'ecdsa-sha2-nistp521'.",
+      "INVALID_TYPE": "Invalid value given. Your key should have one of the following types: \n\tssh-ed25519\n\tssh-ed25519-cert-v01@openssh.com\n\tsk-ssh-ed25519@openssh.com\n\tsk-ssh-ed25519-cert-v01@openssh.com\n\tssh-rsa\n\tssh-dss\n\tecdsa-sha2-nistp256\n\tecdsa-sha2-nistp384\n\tecdsa-sha2-nistp521\n\tsk-ecdsa-sha2-nistp256@openssh.com\n\tssh-rsa-cert-v01@openssh.com\n\tssh-dss-cert-v01@openssh.com\n\tecdsa-sha2-nistp256-cert-v01@openssh.com\n\tecdsa-sha2-nistp384-cert-v01@openssh.com\n\tecdsa-sha2-nistp521-cert-v01@openssh.com\n\tsk-ecdsa-sha2-nistp256-cert-v01@openssh.com",
+      "CANCEL": "Cancel",
+      "ADD": "Add"
+    },
+    "REMOVE_STRING_VALUE": {
+      "ASK": "Are you sure you want to continue?",
+      "CANCEL": "Cancel",
+      "REMOVE": "Remove"
+    },
+    "SHOW_SSH": {
+      "CLOSE": "Cancel"
     }
   },
   "MEMBERS_LIST": {
@@ -2411,9 +2429,13 @@
         "REMOVE": "Disconnect",
         "NO_ASSOCIATED_USERS": "No accounts connected."
       },
-      "AUTHENTICATION": {
-        "TITLE": "Authentication",
+      "LOGINS": {
+        "TITLE": "Logins",
         "ADD": "Add"
+      },
+      "CERTIFICATES": {
+        "TITLE": "Certificates",
+        "SAVE": "Save"
       },
       "FACILITY_ATTRIBUTES": {
         "TITLE": "Facility attributes"
@@ -3027,6 +3049,18 @@
           "SEND": "Send",
           "CANCEL": "Cancel",
           "SUCCESS": "Request for changing the data quota has been sent"
+        },
+        "SSH_KEYS": {
+          "SSH_KEYS_TITLE": "SSH keys",
+          "SSH_KEYS_DESCRIPTION": "List of your ssh keys.",
+          "ADMIN_SSH_KEYS_TITLE": "Admin SSH keys",
+          "ADMIN_SSH_KEYS_DESCRIPTION": "List of your ssh keys for root access.",
+          "NEW_KEY": "Add new key",
+          "COPY_TOOLTIP": "Copy to clipboard",
+          "REMOVE_TOOLTIP": "Remove",
+          "REMOVE_KEY": "Remove selected key",
+          "REMOVE_DIALOG_TITLE": "Remove ssh key",
+          "REMOVE_DIALOG_DESCRIPTION": "Selected ssh key will be removed."
         }
       },
       "ORGANIZATIONS": {

@@ -1,0 +1,17 @@
+<h1 class="page-title">{{'USER_DETAIL.SETTINGS.CERTIFICATES.TITLE' | translate}}</h1>
+<perun-web-apps-refresh-button (refresh)="refresh()" class="mt-2"></perun-web-apps-refresh-button>
+<button
+  (click)="save()"
+  class="mr-2 mt-2"
+  color="accent"
+  [disabled]="selection.selected.length === 0"
+  mat-flat-button>
+  {{'USER_DETAIL.SETTINGS.CERTIFICATES.SAVE' | translate}}
+</button>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+<perun-web-apps-attributes-list
+  *ngIf="!loading"
+  #list
+  [attributes]="[certificates]"
+  [selection]="selection">
+</perun-web-apps-attributes-list>

@@ -4,7 +4,7 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AddAuthImgDialogComponent } from '../../../components/dialogs/add-auth-img-dialog/add-auth-img-dialog.component';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
-import { RemoveStringValueDialogComponent } from '../../../components/dialogs/remove-string-value-dialog/remove-string-value-dialog.component';
+import { RemoveStringValueDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 

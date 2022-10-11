@@ -21,3 +21,4 @@ export * from './lib/selection-item-search-select/selection-item-search-select.c
 export * from './lib/not-authorized-page/not-authorized-page.component';
 export * from './lib/settings-data-quotas/data-quotas.component';
 export * from './lib/settings-mailing-lists/mailing-lists.component';
+export * from './lib/settings-ssh-keys/settings-ssh-keys.component';

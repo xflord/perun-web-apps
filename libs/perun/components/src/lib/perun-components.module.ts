@@ -102,6 +102,10 @@ import { AttributeCriticalOperationsTogglesComponent } from './attribute-critica
 import { MailingListsComponent } from './settings-mailing-lists/mailing-lists.component';
 import { DataQuotasComponent } from './settings-data-quotas/data-quotas.component';
 import { LoaderDirective } from '@perun-web-apps/perun/directives';
+import { SettingsSSHKeysComponent } from './settings-ssh-keys/settings-ssh-keys.component';
+import { AddSshDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { RemoveStringValueDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { ShowSshDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -236,6 +240,10 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     LoaderDirective,
     MailingListsComponent,
     DataQuotasComponent,
+    SettingsSSHKeysComponent,
+    AddSshDialogComponent,
+    RemoveStringValueDialogComponent,
+    ShowSshDialogComponent,
   ],
   exports: [
     VosListComponent,
@@ -298,6 +306,10 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     LoaderDirective,
     MailingListsComponent,
     DataQuotasComponent,
+    SettingsSSHKeysComponent,
+    AddSshDialogComponent,
+    RemoveStringValueDialogComponent,
+    ShowSshDialogComponent,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

@@ -18,6 +18,7 @@ export class Urns {
   // User
   static USER_DEF_ORGANIZATION = 'urn:perun:user:attribute-def:def:organization';
   static USER_DEF_PREFERRED_MAIL = 'urn:perun:user:attribute-def:def:preferredMail';
+  static USER_DEF_CERTIFICATES = 'urn:perun:user:attribute-def:def:userCertificates';
 
   // Group
   static GROUP_DEF_EXPIRATION_RULES =

@@ -98,18 +98,6 @@
     "NO_MEMBERSHIPS": "No results match current filter",
     "EXTEND": "Extend"
   },
-  "SSH_KEYS": {
-    "SSH_KEYS_TITLE": "SSH keys",
-    "SSH_KEYS_DESCRIPTION": "List of your ssh keys.",
-    "ADMIN_SSH_KEYS_TITLE": "Admin SSH keys",
-    "ADMIN_SSH_KEYS_DESCRIPTION": "List of your ssh keys for root access.",
-    "NEW_KEY": "Add new key",
-    "COPY_TOOLTIP": "Copy to clipboard",
-    "REMOVE_TOOLTIP": "Remove",
-    "REMOVE_KEY": "Remove selected key",
-    "REMOVE_DIALOG_TITLE": "Remove ssh key",
-    "REMOVE_DIALOG_DESCRIPTION": "Selected ssh key will be removed."
-  },
   "SAMBA_PASSWORD": {
     "TITLE": "SAMBA password",
     "INPUT_PLACEHOLDER": "Enter new password",
@@ -507,6 +495,18 @@
           "SEND": "Send",
           "CANCEL": "Cancel",
           "SUCCESS": "Request for changing the data quota has been sent"
+        },
+        "SSH_KEYS": {
+          "SSH_KEYS_TITLE": "SSH keys",
+          "SSH_KEYS_DESCRIPTION": "List of your ssh keys.",
+          "ADMIN_SSH_KEYS_TITLE": "Admin SSH keys",
+          "ADMIN_SSH_KEYS_DESCRIPTION": "List of your ssh keys for root access.",
+          "NEW_KEY": "Add new key",
+          "COPY_TOOLTIP": "Copy to clipboard",
+          "REMOVE_TOOLTIP": "Remove",
+          "REMOVE_KEY": "Remove selected key",
+          "REMOVE_DIALOG_TITLE": "Remove ssh key",
+          "REMOVE_DIALOG_DESCRIPTION": "Selected ssh key will be removed."
         }
       },
       "ORGANIZATIONS": {

@@ -11,7 +11,7 @@ import { SettingsOverviewComponent } from './pages/settings-page/settings-overvi
 import { SettingsPreferredShellsComponent } from './pages/settings-page/settings-preferred-shells/settings-preferred-shells.component';
 import { SettingsPreferredUnixGroupNamesComponent } from './pages/settings-page/settings-preferred-unix-group-names/settings-preferred-unix-group-names.component';
 import { SettingsSambaPasswordComponent } from './pages/settings-page/settings-samba-password/settings-samba-password.component';
-import { SettingsSSHKeysComponent } from './pages/settings-page/settings-ssh-keys/settings-ssh-keys.component';
+import { SettingsSSHKeysComponent } from '@perun-web-apps/perun/components';
 import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { PasswordResetComponent } from '@perun-web-apps/perun/components';

@@ -4,7 +4,7 @@ import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/opena
 import { MatDialog } from '@angular/material/dialog';
 import { AddUnixGroupDialogComponent } from '../../../components/dialogs/add-unix-group-dialog/add-unix-group-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
-import { RemoveStringValueDialogComponent } from '../../../components/dialogs/remove-string-value-dialog/remove-string-value-dialog.component';
+import { RemoveStringValueDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { SelectionModel } from '@angular/cdk/collections';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 

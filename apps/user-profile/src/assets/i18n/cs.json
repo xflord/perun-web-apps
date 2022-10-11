@@ -98,18 +98,6 @@
     "NO_MEMBERSHIPS": "Žádné výsledky nesplňují zadané vyhledávací parametry.",
     "EXTEND": "Prodloužit členství"
   },
-  "SSH_KEYS": {
-    "SSH_KEYS_TITLE": "SSH klíče",
-    "SSH_KEYS_DESCRIPTION": "Zde je seznam Vašich SSH klíčů.",
-    "ADMIN_SSH_KEYS_TITLE": "Seznam vašich administratorských SSH klíčů",
-    "ADMIN_SSH_KEYS_DESCRIPTION": "Zde je seznam Vašich SSH klíčů, které jsou používány pro přístup na účet root.",
-    "COPY_TOOLTIP": "Zkopírovat klíč",
-    "REMOVE_TOOLTIP": "Odstranit",
-    "NEW_KEY": "Nový klíč",
-    "REMOVE_KEY": "Odstranit",
-    "REMOVE_DIALOG_TITLE": "Odstranit SSH klíč",
-    "REMOVE_DIALOG_DESCRIPTION": "Vámi vybrané SSH klíče budou odstraněny"
-  },
   "SAMBA_PASSWORD": {
     "TITLE": "Heslo pro službu SAMBA",
     "INPUT_PLACEHOLDER": "Zadejte nové heslo",
@@ -431,6 +419,18 @@
           "SEND": "Poslat",
           "CANCEL": "Zrušit",
           "SUCCESS": "Žádost o změnu datové kvóty byla odeslána"
+        },
+        "SSH_KEYS": {
+          "SSH_KEYS_TITLE": "SSH klíče",
+          "SSH_KEYS_DESCRIPTION": "Zde je seznam Vašich SSH klíčů.",
+          "ADMIN_SSH_KEYS_TITLE": "Seznam vašich administratorských SSH klíčů",
+          "ADMIN_SSH_KEYS_DESCRIPTION": "Zde je seznam Vašich SSH klíčů, které jsou používány pro přístup na účet root.",
+          "COPY_TOOLTIP": "Zkopírovat klíč",
+          "REMOVE_TOOLTIP": "Odstranit",
+          "NEW_KEY": "Nový klíč",
+          "REMOVE_KEY": "Odstranit",
+          "REMOVE_DIALOG_TITLE": "Odstranit SSH klíč",
+          "REMOVE_DIALOG_DESCRIPTION": "Vámi vybrané SSH klíče budou odstraněny"
         }
       },
       "ORGANIZATIONS": {

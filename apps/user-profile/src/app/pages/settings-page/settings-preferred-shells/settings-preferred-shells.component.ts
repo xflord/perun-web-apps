@@ -3,7 +3,7 @@ import { StoreService } from '@perun-web-apps/perun/services';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { RemoveStringValueDialogComponent } from '../../../components/dialogs/remove-string-value-dialog/remove-string-value-dialog.component';
+import { RemoveStringValueDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 
 @Component({
