@@ -29,15 +29,15 @@
         <td *matCellDef="let group" class="static-column-size align-checkbox" mat-cell>
           <span
             *ngIf="{disable: group | disableGroupSelect: disableMembers : disableGroups : groupsToDisableCheckbox} as groupStatus"
-            [matTooltip]="group | groupCheckboxTooltip: false | translate"
+            [matTooltip]="group | groupCheckboxTooltip: false: canBeSelected(group) | translate"
             [matTooltipPosition]="'above'"
-            [matTooltipDisabled]="!groupStatus.disable">
+            [matTooltipDisabled]="!groupStatus.disable && canBeSelected(group)">
             <mat-checkbox
               (change)="$event ? itemSelectionToggle(group) : null"
               (click)="$event.stopPropagation()"
               [aria-label]="selection.isSelected(group) | checkboxLabel | translate: {name: group.name}"
               [checked]="selection.isSelected(group)"
-              [disabled]="groupStatus.disable"
+              [disabled]="groupStatus.disable || !canBeSelected(group)"
               attr.data-cy="{{group.name}}-checkbox"
               color="primary">
             </mat-checkbox>

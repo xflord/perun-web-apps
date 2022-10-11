@@ -267,13 +267,19 @@ export class GroupsListComponent {
     this.selection.toggle(item);
   }
 
-  canBeSelected = (group: GroupWithStatus): boolean =>
-    !this.disableGroupSelect.transform(
+  canBeSelected = (group: GroupWithStatus): boolean => {
+    const indirect = group.attributes?.find((obj) => obj.friendlyName === 'groupStatusIndirect');
+    if (indirect?.value) {
+      return !indirect.value;
+    }
+
+    return !this.disableGroupSelect.transform(
       group,
       this.disableMembers,
       this.disableGroups,
       this.groupsToDisableCheckbox
     );
+  };
 
   private dataSourceInit(groups: GroupWithStatus[] | PaginatedRichGroups): void {
     const paginated = this.isPaginated(groups);

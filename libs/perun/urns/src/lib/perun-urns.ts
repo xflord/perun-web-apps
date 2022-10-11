@@ -4,6 +4,8 @@ export class Urns {
   static MEMBER_DEF_GROUP_EXPIRATION =
     'urn:perun:member_group:attribute-def:def:groupMembershipExpiration';
   static MEMBER_GROUP_STATUS = 'urn:perun:member_group:attribute-def:virt:groupStatus';
+  static MEMBER_GROUP_STATUS_INDIRECT =
+    'urn:perun:member_group:attribute-def:virt:groupStatusIndirect';
   static MEMBER_DEF_ORGANIZATION = 'urn:perun:member:attribute-def:def:organization';
   static MEMBER_DEF_MAIL = 'urn:perun:member:attribute-def:def:mail';
   static MEMBER_CORE_ID = 'urn:perun:member:attribute-def:core:id';

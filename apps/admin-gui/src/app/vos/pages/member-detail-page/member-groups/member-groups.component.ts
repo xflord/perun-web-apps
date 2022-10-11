@@ -78,6 +78,7 @@ export class MemberGroupsComponent implements OnInit {
       .getMemberRichGroupsWithAttributesByNames(this.memberId, [
         Urns.MEMBER_DEF_GROUP_EXPIRATION,
         Urns.MEMBER_GROUP_STATUS,
+        Urns.MEMBER_GROUP_STATUS_INDIRECT,
       ])
       .subscribe(
         (groups) => {
