@@ -82,6 +82,7 @@ import { SettingsLocalAccountComponent } from './pages/settings-page/settings-lo
 import { ActivateLocalAccountDialogComponent } from './components/dialogs/activate-local-account-dialog/activate-local-account-dialog.component';
 import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespace-password-form';
 import { MfaSettingsComponent } from './pages/settings-page/settings-authorization/mfa-settings/mfa-settings.component';
+import { CategoryLabelPipe } from './pipes/category-label.pipe';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -134,6 +135,7 @@ const loadConfigs: (appConfig: UserProfileConfigService) => () => Promise<void> 
     RequestChangeDataQuotaDialogComponent,
     MembershipListComponent,
     ValidateExpirationPipe,
+    CategoryLabelPipe,
     ShowSshDialogComponent,
     BreadcrumbsComponent,
     SettingsAuthenticationComponent,
