@@ -36,7 +36,7 @@
           class="ml-4 toggle-ellipsis"
           [checked]="category.value.value"
           (toggleChange)="toggleCategory(category.value)">
-          {{category.value.label[this.translate.currentLang]}}
+          {{category.value.label | categoryLabel}}
         </mat-slide-toggle>
         <button
           class="show-button"
@@ -53,7 +53,7 @@
             [checked]="category?.value['rps_value'][rps.key]"
             (toggleChange)="toggleRps(category, rps.key)"
             class="ml-5">
-            {{rps.value[this.translate.currentLang]}}
+            {{rps.value | categoryLabel}}
           </mat-slide-toggle>
         </div>
       </div>
