@@ -1,7 +1,7 @@
 <perun-web-apps-notificator></perun-web-apps-notificator>
 <div *ngIf="!isLoginScreenShow && !isServiceAccess && !isServiceLogin()">
   <perun-web-apps-header [sideNav]="sidenav" id="nav-menu"></perun-web-apps-header>
-  <mat-sidenav-container>
+  <mat-sidenav-container autosize="true">
     <mat-sidenav
       #sidenav
       [mode]="sidebarMode"
