@@ -145,7 +145,7 @@ export class AdminGuiConfigService {
       };
 
       this.dialog.open(PreventProxyOverloadDialogComponent, config);
-    } else {
+    } else if (err.status !== 401) {
       config.data = {
         title: 'GENERAL.PRINCIPAL_ERROR.TITLE',
         message: err.status === 0 ? 'GENERAL.PRINCIPAL_ERROR.MESSAGE' : err.message,

@@ -19,6 +19,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SessionExpirationDialogComponent } from '@perun-web-apps/perun/session-expiration';
 import { InitAuthService } from './init-auth.service';
 import { MfaHandlerService } from './mfa-handler.service';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
@@ -31,7 +32,8 @@ export class ApiInterceptor implements HttpInterceptor {
     private store: StoreService,
     private dialog: MatDialog,
     private initAuthService: InitAuthService,
-    private mfaHandlerService: MfaHandlerService
+    private mfaHandlerService: MfaHandlerService,
+    private oauthService: OAuthService
   ) {}
 
   intercept<T>(req: HttpRequest<T>, next: HttpHandler): Observable<HttpEvent<T>> {
@@ -60,7 +62,7 @@ export class ApiInterceptor implements HttpInterceptor {
         finalize(() => (this.dialogRefSessionExpiration = undefined));
         sessionStorage.setItem('auth:redirect', location.pathname);
         sessionStorage.setItem('auth:queryParams', location.search.substring(1));
-        void this.initAuthService.handleAuthStart();
+        this.reauthenticate();
       });
     }
     // Apply the headers
@@ -85,6 +87,12 @@ export class ApiInterceptor implements HttpInterceptor {
     }
 
     return this.handleRequest(req, next);
+  }
+
+  private reauthenticate(): void {
+    sessionStorage.setItem('auth:redirect', location.pathname);
+    sessionStorage.setItem('auth:queryParams', location.search.substring(1));
+    void this.initAuthService.handleAuthStart();
   }
 
   private handleRequest<T>(req: HttpRequest<T>, next: HttpHandler): Observable<HttpEvent<T>> {
@@ -117,6 +125,7 @@ export class ApiInterceptor implements HttpInterceptor {
           );
         } else {
           // Handle other errors
+          this.handleInvalidAccessTokenError(err);
           const errRpc: RPCError = this.formatErrors(err, req);
           if (errRpc === undefined) {
             return throwError(() => err);
@@ -165,5 +174,17 @@ export class ApiInterceptor implements HttpInterceptor {
   private isNotConsolidatorOrLinker(): boolean {
     const application = this.store.getProperty('application');
     return !(application === 'Linker' || application === 'Consolidator');
+  }
+
+  private handleInvalidAccessTokenError(err: HttpErrorResponse): void {
+    if (err.status === 401) {
+      const config = getDefaultDialogConfig();
+      this.dialogRefSessionExpiration = this.dialog.open(SessionExpirationDialogComponent, config);
+
+      this.dialogRefSessionExpiration.afterClosed().subscribe(() => {
+        this.oauthService.logOut(true);
+        this.reauthenticate();
+      });
+    }
   }
 }

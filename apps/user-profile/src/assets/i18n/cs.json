@@ -350,6 +350,11 @@
           "CLOSE": "Zrušit",
           "COPY": "Zkopírovat hodnotu"
         },
+        "SESSION_EXPIRATION": {
+          "TITLE": "Relace vypršela",
+          "DESCRIPTION": "Vaše relace vypršela. Prosím znovu se přihlašte.",
+          "SIGN_IN": "Přihlásit se"
+        },
         "MFA_REQUIRED_DIALOG": {
           "TITLE": "Vyžadována step-up authentizace",
           "INFO": "Pro vykonání této akce musíte provést step-up authentizaci.",

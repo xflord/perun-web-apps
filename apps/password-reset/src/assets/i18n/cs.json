@@ -38,6 +38,11 @@
         "USER_DONT_EXIST": {
           "TITLE": "Požadovaný uživatel (dle ID nebo externí identity) neexistuje."
         },
+        "SESSION_EXPIRATION": {
+          "TITLE": "Session expiration",
+          "DESCRIPTION": "Your session has expired. Please sign in to continue.",
+          "SIGN_IN": "Sign in"
+        },
         "PASSWORD_FORM_FIELD": {
           "PASSWORD": "Nové heslo",
           "PASSWORD_AGAIN": "Znovu zadejte nové heslo",
