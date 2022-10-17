@@ -30,12 +30,15 @@ export class MfaHandlerService {
    * opened another window and the user cannot continue in the original application
    * without finishing authentication/closing the second window
    */
-  openMfaWindow(): Observable<boolean> {
+  openMfaWindow(mfaRoleException: boolean): Observable<boolean> {
     let newWindow: Window = null;
     let dialogRef: MatDialogRef<FocusOnMfaWindowComponent, void> = null;
 
     const configVerify = getDefaultDialogConfig();
     configVerify.width = '450px';
+    configVerify.data = {
+      mfaRoleException: mfaRoleException,
+    };
     const dialogVerifyRef = this.dialog.open(MfaRequiredDialogComponent, configVerify);
     let verificationSkipped = false;
 

@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
+export interface MfaRequiredDialogData {
+  mfaRoleException: boolean;
+}
 
 @Component({
   selector: 'perun-web-apps-mfa-required-dialog',
@@ -7,7 +11,10 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./mfa-required-dialog.component.scss'],
 })
 export class MfaRequiredDialogComponent {
-  constructor(private dialogRef: MatDialogRef<MfaRequiredDialogComponent>) {}
+  constructor(
+    private dialogRef: MatDialogRef<MfaRequiredDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: MfaRequiredDialogData
+  ) {}
 
   cancel(): void {
     this.dialogRef.close(false);

@@ -21,6 +21,7 @@
         "MFA_REQUIRED_DIALOG": {
           "TITLE": "Step-up authentication required",
           "INFO": "To perform this action you need to execute step-up authentication.",
+          "INFO_ROLE": "To log in you need to execute step-up authentication.",
           "CANCEL": "Cancel",
           "STEP_UP": "Step-up authentication"
         },

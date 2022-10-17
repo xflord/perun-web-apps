@@ -21,6 +21,7 @@
         "MFA_REQUIRED_DIALOG": {
           "TITLE": "Vyžadována step-up authentizace",
           "INFO": "Pro vykonání této akce musíte provést step-up authentizaci.",
+          "INFO_ROLE": "Pro přihlášení musíte provést step-up authentizaci.",
           "CANCEL": "Zrušit",
           "STEP_UP": "Step-up authentizace"
         },
