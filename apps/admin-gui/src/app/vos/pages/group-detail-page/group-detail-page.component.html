@@ -37,6 +37,7 @@
         <span class="mt-1 entity-info">
           {{'GROUP_DETAIL.ENTITY' | translate}}, {{'GROUP_DETAIL.VO_NAME' | translate}}:
           <a
+            data-cy="vo-link"
             class="group-link"
             [routerLink]="['/organizations', vo.id]"
             queryParamsHandling="merge"

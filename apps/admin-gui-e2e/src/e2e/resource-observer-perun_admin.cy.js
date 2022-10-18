@@ -17,13 +17,19 @@ context('Actions', () => {
   });
 
   beforeEach(() => {
-    cy.visit('organizations')
+    cy.visit('home')
+      .get(`[data-cy=access-item-button]`)
+      .click()
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
       .get(`[data-cy=${dbVoName}]`)
       .click()
-      .get('[data-cy=resources]')
+      .get(`[data-cy=resources]`)
       .click()
-      .get('[data-cy=resource-list]')
+      .get(`[data-cy=resource-list]`)
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbResourceName)
       .get(`[data-cy=${dbResourceName}]`)
       .click();
   });
@@ -35,6 +41,8 @@ context('Actions', () => {
       .click()
 
       // group should be visible
+      .get('[data-cy=filter-input]')
+      .type(dbGroupName)
       .get(`[data-cy=${dbGroupName}]`)
       .should('exist')
   })
@@ -44,6 +52,8 @@ context('Actions', () => {
       .click()
 
       // group should be visible
+      .get('[data-cy=filter-input]')
+      .type(dbGroupName)
       .get(`[data-cy=${dbGroupName}]`)
       .should('exist')
   })

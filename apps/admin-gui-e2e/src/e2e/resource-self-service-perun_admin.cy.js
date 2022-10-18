@@ -20,13 +20,19 @@ context('Actions', () => {
   });
 
   beforeEach(() => {
-    cy.visit('organizations')
+    cy.visit('home')
+      .get(`[data-cy=access-item-button]`)
+      .click()
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
       .get(`[data-cy=${dbVoName}]`)
       .click()
-      .get('[data-cy=resources]')
+      .get(`[data-cy=resources]`)
       .click()
-      .get('[data-cy=resource-list]')
+      .get(`[data-cy=resource-list]`)
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbResourceName)
       .get(`[data-cy=${dbResourceName}]`)
       .click()
       .get('[data-cy=assigned-groups]')
@@ -47,12 +53,16 @@ context('Actions', () => {
       .wait('@getGroupAssignments')
 
       //  assert that group was added
+      .get('[data-cy=filter-input]')
+      .type(dbGroupToAssign)
       .get(`[data-cy=${dbGroupToAssign}-checkbox]`)
       .should('exist');
   });
 
   it('test remove group from resource', () => {
-    cy.get(`[data-cy=${dbGroupToRemove}-checkbox]`)
+    cy.get('[data-cy=filter-input]')
+      .type(dbGroupToRemove)
+      .get(`[data-cy=${dbGroupToRemove}-checkbox]`)
       .click()
       .get('[data-cy=remove-group-button]')
       .click()
@@ -68,7 +78,9 @@ context('Actions', () => {
   });
 
   it('test activate group resource assignment', () => {
-    cy.get(`[data-cy=${dbGroupToActivate}-inactive]`)
+    cy.get('[data-cy=filter-input]')
+      .type(dbGroupToActivate)
+      .get(`[data-cy=${dbGroupToActivate}-inactive]`)
       .click()
       .intercept('**/resourcesManager/activateGroupResourceAssignment**')
       .as('activateGroupResourceAssignment')
@@ -82,7 +94,9 @@ context('Actions', () => {
   });
 
   it('test deactivate group resource assignment', () => {
-    cy.get(`[data-cy=${dbGroupToDeactivate}-active]`)
+    cy.get('[data-cy=filter-input]')
+      .type(dbGroupToDeactivate)
+      .get(`[data-cy=${dbGroupToDeactivate}-active]`)
       .click()
       .intercept('**/resourcesManager/deactivateGroupResourceAssignment**')
       .as('deactivateGroupResourceAssignment')

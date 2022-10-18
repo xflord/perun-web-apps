@@ -24,6 +24,7 @@
     </div>
 
     <app-side-menu-root-item
+      data-cy="facilities-button"
       [id]="'facilities-item-btn'"
       *ngIf="authResolver.canManageFacilities()"
       [item]="facilityItem"
@@ -55,6 +56,7 @@
       </app-side-menu-item>
     </div>
     <app-side-menu-root-item
+      data-cy="admin-button"
       [id]="'admin-item-btn'"
       *ngIf="authResolver.isPerunAdminOrObserver()"
       [item]="adminItem"

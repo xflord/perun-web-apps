@@ -18,12 +18,29 @@ context('Actions', () => {
   });
 
   beforeEach(() => {
-    cy.visit('home').get(`[data-cy=${dbGroupName}]`).click();
+    cy.visit('home')
+      .get(`[data-cy=access-item-button]`)
+      .click()
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
+      .get(`[data-cy=${dbVoName}]`)
+      .click()
+      .get(`[data-cy=groups]`)
+      .click()
+      .get('[data-cy=filter-input]')
+      .type(dbGroupName)
+      .get(`[data-cy=${dbGroupName}]`)
+      .click();
   });
 
   it('test get member', () => {
     cy.get('[data-cy=members]')
       .click()
+      .get('[data-cy=filter-input]')
+      .type(dbGroupMember)
+      .intercept('**/membersManager/getMembersPage')
+      .as('getMembers')
+      .wait('@getMembers')
       .get(`[data-cy=${dbGroupMember}-firstName-td]`)
       .click()
       .get('[data-cy=search-select-input]')
@@ -44,18 +61,22 @@ context('Actions', () => {
       .click()
       .get('[data-cy=external-sources]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbExtsource)
       .get(`[data-cy=${dbExtsource}-name-td]`)
       .should('exist')
   });
 
   it('test list vo members', () => {
-    cy.visit('organizations')
-      .get('[data-cy=auto-focused-filter]')
-      .type(`${dbVoName}`)
-      .get(`[data-cy=${dbVoName}]`)
+    cy.get('[data-cy=vo-link]')
       .click()
       .get('[data-cy=members]')
       .click()
+      .get('[data-cy=filter-input]')
+      .type(dbGroupMember)
+      .intercept('**/membersManager/getMembersPage')
+      .as('getMembers')
+      .wait('@getMembers')
       .get(`[data-cy=${dbGroupMember}-firstName-td]`)
       .should('exist')
   });

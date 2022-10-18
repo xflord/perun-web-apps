@@ -22,9 +22,9 @@ context('Actions', () => {
   });
 
   beforeEach(() => {
-    // save route for correct authorization
-    localStorage.setItem('routeAuthGuard', '/admin');
-    cy.visit('admin');
+    cy.visit('home')
+      .get('[data-cy=admin-button]')
+      .click();
   });
 
   it('test attribute detail', () => {
@@ -41,6 +41,11 @@ context('Actions', () => {
   it('test user detail', () => {
     cy.get('[data-cy=users]')
       .click()
+      .get('[data-cy=filter-input]')
+      .type('perunobservertest1')
+      .intercept('**/usersManager/getUsersPage')
+      .as('getUsers')
+      .wait('@getUsers')
       .get('[data-cy=perunobservertest1-td]')
       .click()
       .get('[data-cy=user-name-link]')
@@ -50,6 +55,8 @@ context('Actions', () => {
   it('test list owners', () => {
     cy.get('[data-cy=owners]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbOwnerName)
       .get(`[data-cy=${dbOwnerName}]`)
       .should('exist');
   });
@@ -57,6 +64,8 @@ context('Actions', () => {
   it('test service detail', () => {
     cy.get('[data-cy=services]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbServiceName)
       .get(`[data-cy=${dbServiceName.toLowerCase()}-name-td]`)
       .click()
       .get(`[data-cy=service-name-link]`)
@@ -66,6 +75,8 @@ context('Actions', () => {
   it('test list ext sources', () => {
     cy.get('[data-cy=external-sources]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbExtSourceName)
       .get(`[data-cy=${dbExtSourceName.toLowerCase()}-name-td]`)
       .should('exist');
   });
@@ -86,6 +97,8 @@ context('Actions', () => {
   it('test list consent hubs', () => {
     cy.get('[data-cy=consent-hubs]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbConsentHubName)
       .get(`[data-cy=${dbConsentHubName.toLowerCase()}-name-td]`)
       .should('exist');
   });
@@ -97,6 +110,8 @@ context('Actions', () => {
       .type(dbSearcherAttrValue)
       .get(`[data-cy=search-select-input]`)
       .click()
+      .get('[data-cy=find-input]')
+      .type(dbSearcherAttrDisplayName)
       .get('mat-option')
       .contains(dbSearcherAttrDisplayName)
       .click()

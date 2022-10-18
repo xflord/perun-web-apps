@@ -12,10 +12,14 @@ context('Actions', () => {
   });
 
   beforeEach(() => {
-    cy.visit('organizations')
+    cy.visit('home')
+      .get(`[data-cy=access-item-button]`)
+      .click()
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
       .get(`[data-cy=${dbVoName}]`)
       .click()
-      .get('[data-cy=groups]')
+      .get(`[data-cy=groups]`)
       .click()
   })
 
@@ -30,7 +34,10 @@ context('Actions', () => {
       .wait('@createGroup')
       .intercept('**/groupsManager/getAllRichGroupsWithAttributesByNames**').as('getRichGroups')
       .wait('@getRichGroups')
+
       // assert that top group was created
+      .get('[data-cy=filter-input]')
+      .type(groupName)
       .get(`[data-cy=${groupName}-checkbox]`)
       .should('exist');
   });

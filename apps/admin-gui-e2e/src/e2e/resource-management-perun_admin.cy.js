@@ -21,13 +21,19 @@ context('Actions', () => {
   });
 
   beforeEach(() => {
-    cy.visit('organizations')
+    cy.visit('home')
+      .get(`[data-cy=access-item-button]`)
+      .click()
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
       .get(`[data-cy=${dbVoName}]`)
       .click()
-      .get('[data-cy=resources]')
+      .get(`[data-cy=resources]`)
       .click()
-      .get('[data-cy=resource-list]')
+      .get(`[data-cy=resource-list]`)
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbResourceName)
       .get(`[data-cy=${dbResourceName}]`)
       .click();
   });
@@ -46,6 +52,8 @@ context('Actions', () => {
       .wait('@getAttributes')
 
       // check that attribute was added
+      .get('[data-cy=unfocused-filter]')
+      .type('user settings name')
       .get(`[data-cy=${dbAttributeToAdd}-value]`)
       .should('exist');
   });
@@ -53,6 +61,8 @@ context('Actions', () => {
   it('test delete attribute', () => {
     cy.get('[data-cy=attributes]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type('user settings description')
       .get(`[data-cy=${dbAttributeToDelete}-checkbox]`)
       .click()
       .get('[data-cy=remove-attributes]')
@@ -128,6 +138,8 @@ context('Actions', () => {
       .wait('@getGroupAssignments')
 
       //  assert that group was added
+      .get('[data-cy=filter-input]')
+      .type(dbGroupToAssign)
       .get(`[data-cy=${dbGroupToAssign}-checkbox]`)
       .should('exist');
   });
@@ -135,6 +147,8 @@ context('Actions', () => {
   it('test remove group from resource', () => {
     cy.get('[data-cy=assigned-groups]')
       .click()
+      .get('[data-cy=filter-input]')
+      .type(dbGroupToRemove)
       .get(`[data-cy=${dbGroupToRemove}-checkbox]`)
       .click()
       .get('[data-cy=remove-group-button]')

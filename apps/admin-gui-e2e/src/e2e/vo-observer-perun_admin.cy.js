@@ -16,7 +16,11 @@ context('Actions', () => {
   });
 
   beforeEach(() => {
-    cy.visit('organizations')
+    cy.visit('home')
+      .get(`[data-cy=access-item-button]`)
+      .click()
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
       .get(`[data-cy=${dbVoName}]`)
       .click()
   });
@@ -52,6 +56,8 @@ context('Actions', () => {
       .get('[data-cy=external-sources]')
       .click()
       .wait('@getVoExtSources')
+      .get('[data-cy=unfocused-filter]')
+      .type('internal')
 
       // the vo external source was set to INTERNAL in the db (id 1)
       .get('[data-cy=internal-name-td]')
@@ -62,6 +68,8 @@ context('Actions', () => {
     cy.intercept('**/groupsManager/getGroupById**').as('getGroupById')
       .get('[data-cy=groups]')
       .click()
+      .get('[data-cy=filter-input]')
+      .type(dbGroupName)
       .get(`[data-cy=${dbGroupName}]`)
       .click()
       .wait('@getGroupById')
@@ -75,6 +83,11 @@ context('Actions', () => {
     cy.intercept('**/membersManager/getRichMemberWithAttributes**').as('getRichMemberWithAttributes')
       .get('[data-cy=members]')
       .click()
+      .get('[data-cy=filter-input]')
+      .type(dbMemberName)
+      .intercept('**/membersManager/getMembersPage')
+      .as('getMembers')
+      .wait('@getMembers')
       .get(`[data-cy=${dbMemberName}-firstName-td]`)
       .click()
       .wait('@getRichMemberWithAttributes')
@@ -96,7 +109,5 @@ context('Actions', () => {
       .get(`[data-cy=${dbAdminName}-firstName-td]`)
       .should('exist')
   })
-
-
 
 })

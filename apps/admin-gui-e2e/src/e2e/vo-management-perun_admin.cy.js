@@ -19,7 +19,9 @@ context('Actions', () => {
   });
 
   beforeEach(() => {
-    cy.visit('organizations');
+    cy.visit('home')
+      .get(`[data-cy=access-item-button]`)
+      .click()
   });
 
   it('test create vo', () => {
@@ -38,16 +40,16 @@ context('Actions', () => {
       .wait('@createVo')
       .wait('@getVoById')
       // assert that the vo was created
-      .get('[data-cy=vo-name-link]')
-      .contains('test-e2e-vo')
-      .invoke('text')
-      .then((text) => text === 'test-e2e-vo')
+      .get('[data-cy=notification-message]')
+      .contains('New organization was successfully created')
       .should('exist');
   });
 
   it('test add attribute', () => {
     cy.intercept('**/attributesManager/setAttributes/vo')
       .as('setAttributes')
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=attributes]')
@@ -64,6 +66,8 @@ context('Actions', () => {
       .wait('@setAttributes')
       .wait('@getAttributes')
       // assert that attribute exists
+      .get('[data-cy=unfocused-filter]')
+      .type('notification default language')
       .get(`[data-cy=${addedAttribute}-value]`)
       .should('exist');
   });
@@ -71,11 +75,15 @@ context('Actions', () => {
   it('test delete attribute', () => {
     cy.intercept('**/attributesManager/removeAttributes/**')
       .as('removeAttributes')
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=attributes]')
       .click()
       // get attribute Link to AUP
+      .get('[data-cy=unfocused-filter]')
+      .type('link to aup')
       .get('[data-cy=link-to-aup-checkbox]')
       .click()
       .get('[data-cy=remove-attributes]')
@@ -94,6 +102,8 @@ context('Actions', () => {
   it('test add vo member', () => {
     cy.intercept('**/membersManager/createMember/u')
       .as('createMember')
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=members]')
@@ -111,6 +121,8 @@ context('Actions', () => {
       .wait('@createMember')
       .wait('@getMembers')
       // assert that member was created
+      .get('[data-cy=filter-input]')
+      .type(dbUser)
       .get(`[data-cy=${dbUser}-checkbox]`)
       .should('exist');
   });
@@ -118,10 +130,14 @@ context('Actions', () => {
   it('test remove vo member', () => {
     cy.intercept('**/membersManager/deleteMembers**')
       .as('deleteMembers')
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=members]')
       .click()
+      .get('[data-cy=filter-input]')
+      .type(dbVoManager)
       .get(`[data-cy=${dbVoManager}-checkbox]`)
       .click()
       .get('[data-cy=remove-members]')
@@ -140,6 +156,8 @@ context('Actions', () => {
   it('test add group', () => {
     cy.intercept('**/groupsManager/createGroup/**')
       .as('createGroup')
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=groups]')
@@ -157,6 +175,8 @@ context('Actions', () => {
       .as('getGroups')
       .wait('@getGroups')
       // assert that group was created
+      .get('[data-cy=filter-input]')
+      .type('test-group')
       .get('[data-cy=test-group-checkbox]')
       .should('exist');
   });
@@ -164,10 +184,14 @@ context('Actions', () => {
   it('test remove group', () => {
     cy.intercept('**/groupsManager/deleteGroups')
       .as('deleteGroups')
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=groups]')
       .click()
+      .get('[data-cy=filter-input]')
+      .type(dbGroupName)
       .get(`[data-cy=${dbGroupName}-checkbox]`)
       .click()
       .get('[data-cy=delete-group-button]')
@@ -186,6 +210,8 @@ context('Actions', () => {
   it('test create vo application form item', () => {
     cy.intercept('**/registrarManager/updateFormItems/**')
       .as('addFormItem')
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=advanced-settings]')
@@ -219,6 +245,8 @@ context('Actions', () => {
       .as('deleteFormItem')
       .intercept('**/registrarManager/getFormItems/vo**')
       .as('getFormItems')
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=advanced-settings]')
@@ -243,6 +271,8 @@ context('Actions', () => {
   it('test add vo manager', () => {
     cy.intercept('**/authzResolver/setRole/**')
       .as('setRole')
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=advanced-settings]')
@@ -271,6 +301,8 @@ context('Actions', () => {
   it('test remove vo manager', () => {
     cy.intercept('**/authzResolver/unsetRole/**')
       .as('unsetRole')
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=advanced-settings]')
@@ -299,6 +331,10 @@ context('Actions', () => {
     sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD'));
     cy.reload();
 
+    cy.visit('home')
+      .get(`[data-cy=access-item-button]`)
+      .click()
+
     cy.intercept('**/vosManager/deleteVo**')
       .as('deleteVo')
       .get('[data-cy=auto-focused-filter]')
@@ -314,11 +350,10 @@ context('Actions', () => {
       .get('[data-cy=force-delete-button]')
       .click()
       .wait('@deleteVo')
-      .visit('organizations')
-      // assert that the deleted vo doesn't exist
-      .get('[data-cy=auto-focused-filter]')
-      .type(`${dbVoName}`)
-      .get(`[data-cy=${dbVoName}]`)
-      .should('not.exist');
+
+      // assert that the delete action was successful
+      .get('[data-cy=notification-message]')
+      .contains('Organization was successfully removed')
+      .should('exist');
   });
 });

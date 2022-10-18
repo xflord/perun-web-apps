@@ -6,7 +6,7 @@
     <div *ngIf="data.icon !== null" class="notification-icon">
       <mat-icon>{{data.icon}}</mat-icon>
     </div>
-    <div class="notification-text clickable">
+    <div class="notification-text clickable" data-cy="notification-message">
       {{data.title | translate}}
     </div>
     <div class="ml-auto mr-5 mt-auto mb-auto" *ngIf="inDialog">

@@ -22,12 +22,20 @@ context('Actions', () => {
   });
 
   beforeEach(() => {
-    cy.visit('home').get(`[data-cy=${dbFacilityName}]`).click();
+    cy.visit('home')
+      .get(`[data-cy=facilities-button]`)
+      .click()
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbFacilityName)
+      .get(`[data-cy=${dbFacilityName}]`)
+      .click();
   });
 
   it('test list resources', () => {
     cy.get('[data-cy=resources]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbResourceName)
       .get(`[data-cy=${dbResourceName}]`)
       .should('exist')
   });
@@ -35,6 +43,11 @@ context('Actions', () => {
   it('test list assigned users', () => {
     cy.get('[data-cy=assigned-users]')
       .click()
+      .get('[data-cy=filter-input]')
+      .type(dbUserFirstName)
+      .intercept('**/usersManager/getUsersPage')
+      .as('getUsers')
+      .wait('@getUsers')
       .get(`[data-cy=${dbUserFirstName}-td]`)
       .should('exist')
   });
@@ -42,6 +55,8 @@ context('Actions', () => {
   it('test list allowed groups', () => {
     cy.get('[data-cy=allowed-groups]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbGroupName)
       .get(`[data-cy=${dbGroupName}]`)
       .should('exist')
   });
@@ -49,8 +64,12 @@ context('Actions', () => {
   it('test get service status detail', () => {
     cy.get('[data-cy=services-status]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbServiceName)
       .get(`[data-cy=${dbServiceName}]`)
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbDestinationName)
       .get(`[data-cy=${dbDestinationName}]`)
       .should('exist')
   });
@@ -58,6 +77,8 @@ context('Actions', () => {
   it('test list destinations', () => {
     cy.get('[data-cy=services-destinations]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type('hostname.cz')
       .get(`[data-cy=${dbDestinationName}]`)
       .should('exist')
   });
@@ -73,6 +94,8 @@ context('Actions', () => {
   it('test list attributes', () => {
     cy.get('[data-cy=attributes]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbAttributeName)
       .get(`[data-cy=${dbAttributeName}-friendlyName]`)
       .should('exist')
   });
@@ -82,6 +105,8 @@ context('Actions', () => {
       .click()
       .get('[data-cy=owners]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbOwnerName)
       .get(`[data-cy=${dbOwnerName}]`)
       .should('exist')
   });

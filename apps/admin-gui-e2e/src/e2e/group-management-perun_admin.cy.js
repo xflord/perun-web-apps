@@ -8,6 +8,7 @@ context('Actions', () => {
   const dbGroupManager = 'group-manager-2';
   const addedAttribute = 'mail-footer';
   const dbGroupAttribute = 'notification-default-language';
+  const dbVoName = 'test-e2e-vo-from-db-2';
 
   before(() => {
     if (Cypress.env('BA_USERNAME_GROUP_MANAGER')) {
@@ -19,7 +20,19 @@ context('Actions', () => {
   });
 
   beforeEach(() => {
-    cy.visit('home').get(`[data-cy=${dbGroupName}]`).click();
+    cy.visit('home')
+      .get(`[data-cy=access-item-button]`)
+      .click()
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
+      .get(`[data-cy=${dbVoName}]`)
+      .click()
+      .get(`[data-cy=groups]`)
+      .click()
+      .get('[data-cy=filter-input]')
+      .type(dbGroupName)
+      .get(`[data-cy=${dbGroupName}]`)
+      .click();
   });
 
   it('test create subgroup', () => {
@@ -40,6 +53,8 @@ context('Actions', () => {
       .wait('@createGroup')
       .wait('@getRichSubGroups')
       // assert that group was created
+      .get('[data-cy=filter-input]')
+      .type('test-group')
       .get('[data-cy=test-group-checkbox]')
       .should('exist');
   });
@@ -49,6 +64,8 @@ context('Actions', () => {
       .as('deleteGroups')
       .get('[data-cy=subgroups]')
       .click()
+      .get('[data-cy=filter-input]')
+      .type(dbGroupName)
       .get(`[data-cy=${dbSubGroupName}-checkbox]`)
       .click()
       .get('[data-cy=delete-group-button]')
@@ -82,6 +99,8 @@ context('Actions', () => {
       .as('getAttributes')
       .wait('@getAttributes')
       // assert that attribute exists
+      .get('[data-cy=unfocused-filter]')
+      .type('footer')
       .get(`[data-cy=${addedAttribute}-value]`)
       .should('exist');
   });
@@ -91,6 +110,8 @@ context('Actions', () => {
       .as('removeAttributes')
       .get('[data-cy=attributes]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type('language')
       .get(`[data-cy=${dbGroupAttribute}-checkbox]`)
       .click()
       .get('[data-cy=remove-attributes]')
@@ -124,6 +145,8 @@ context('Actions', () => {
       .as('getMembers')
       .wait('@getMembers')
       // assert that member was created
+      .get('[data-cy=filter-input]')
+      .type(dbUser)
       .get(`[data-cy=${dbUser}-checkbox]`)
       .should('exist');
   });
@@ -131,8 +154,13 @@ context('Actions', () => {
   it('test remove group member', () => {
     cy.intercept('**/groupsManager/removeMember**')
       .as('removeMember')
+      .intercept('**/membersManager/getMembersPage')
+      .as('getMembers')
       .get('[data-cy=members]')
       .click()
+      .get('[data-cy=filter-input]')
+      .type(dbGroupManager)
+      .wait('@getMembers')
       .get(`[data-cy=${dbGroupManager}-checkbox]`)
       .click()
       .get('[data-cy=remove-members]')
@@ -140,10 +168,10 @@ context('Actions', () => {
       .get('[data-cy=remove-members-dialog]')
       .click()
       .wait('@removeMember')
-      .intercept('**/membersManager/getMembersPage')
-      .as('getMembers')
       .wait('@getMembers')
       // assert that member was removed
+      .get('[data-cy=filter-input]')
+      .type(dbGroupManager)
       .get(`[data-cy=${dbGroupManager}-checkbox]`)
       .should('not.exist');
   });

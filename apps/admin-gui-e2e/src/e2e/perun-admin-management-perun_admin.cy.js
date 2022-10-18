@@ -22,9 +22,9 @@ context('Actions', () => {
   });
 
   beforeEach(() => {
-    // save route for correct authorization
-    localStorage.setItem('routeAuthGuard', '/admin');
-    cy.visit('admin');
+    cy.visit('home')
+      .get('[data-cy=admin-button]')
+      .click();
   });
 
   it('test attribute detail', () => {
@@ -86,6 +86,8 @@ context('Actions', () => {
       .as('getAttributesDefinition')
       .get('[data-cy=attribute-definitions]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type('e2eTestAttrFromDb')
       .get('[data-cy=e2e-test-attr-from-db-checkbox]')
       .click()
       .get('[data-cy=delete-attr-definition-button]')
@@ -108,6 +110,9 @@ context('Actions', () => {
       .click()
       .get('[data-cy=filter-input]')
       .type('test5')
+      .intercept('**/usersManager/getUsersPage')
+      .as('getUsers')
+      .wait('@getUsers')
       .get('[data-cy=test5-td]')
       .click()
       .get('[data-cy=edit-user-button]')
@@ -142,6 +147,8 @@ context('Actions', () => {
       .wait('@createService')
       .wait('@getServices')
       // assert that service exists
+      .get('[data-cy=unfocused-filter]')
+      .type('e2e_test_service')
       .get('[data-cy=e2e_test_service-checkbox]')
       .should('exist');
   });
@@ -153,6 +160,8 @@ context('Actions', () => {
       .as('getServices')
       .get('[data-cy=services]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbServiceName)
       .get(`[data-cy=${dbServiceName.toLowerCase()}-checkbox]`)
       .click()
       .get('[data-cy=service-delete-button]')
@@ -173,6 +182,8 @@ context('Actions', () => {
       .as('getServiceById')
       .get('[data-cy=services]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbServiceName2)
       .get(`[data-cy=${dbServiceName2.toLowerCase()}-name-td]`)
       .click()
       .get('[data-cy=service-edit-button]')
@@ -192,6 +203,8 @@ context('Actions', () => {
   it('test list ext sources', () => {
     cy.get('[data-cy=external-sources]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbExtSourceName)
       .get(`[data-cy=${dbExtSourceName.toLowerCase()}-name-td]`)
       .should('exist');
   });
@@ -212,6 +225,8 @@ context('Actions', () => {
   it('test list consent hubs', () => {
     cy.get('[data-cy=consent-hubs]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbConsentHubName)
       .get(`[data-cy=${dbConsentHubName.toLowerCase()}-name-td]`)
       .should('exist');
   });
@@ -223,6 +238,8 @@ context('Actions', () => {
       .type(dbSearcherAttrValue)
       .get(`[data-cy=search-select-input]`)
       .click()
+      .get('[data-cy=find-input]')
+      .type(dbSearcherAttrDisplayName)
       .get('mat-option')
       .contains(dbSearcherAttrDisplayName)
       .click()
@@ -235,6 +252,8 @@ context('Actions', () => {
   it('test list owners', () => {
     cy.get('[data-cy=owners]')
       .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbOwnerName)
       .get(`[data-cy=${dbOwnerName}]`)
       .should('exist');
   });

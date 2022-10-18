@@ -1,6 +1,7 @@
 context('Actions', () => {
   const dbVoName = 'test-e2e-vo-from-db-5';
   const dbResourceName = 'test-e2e-resource-from-db-3';
+  const dbFacilityName = 'test-e2e-facility-from-db-5';
 
   const dbGroupToAssign = 'test-e2e-group-from-db-3';
   const dbGroupToRemove = 'test-e2e-group-from-db-4';
@@ -19,13 +20,17 @@ context('Actions', () => {
   });
 
   beforeEach(() => {
-    cy.visit('organizations')
-      .get(`[data-cy=${dbVoName}]`)
+    cy.visit('home')
+      .get(`[data-cy=facilities-button]`)
+      .click()
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbFacilityName)
+      .get(`[data-cy=${dbFacilityName}]`)
       .click()
       .get('[data-cy=resources]')
       .click()
-      .get('[data-cy=resource-list]')
-      .click()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbResourceName)
       .get(`[data-cy=${dbResourceName}]`)
       .click()
   })
@@ -48,6 +53,8 @@ context('Actions', () => {
       .wait('@getGroupAssignments')
 
       //  assert that group was added
+      .get('[data-cy=filter-input]')
+      .type(dbGroupToAssign)
       .get(`[data-cy=${dbGroupToAssign}-checkbox]`)
       .should('exist')
 
@@ -57,6 +64,8 @@ context('Actions', () => {
 
     cy.get('[data-cy=assigned-groups]')
       .click()
+      .get('[data-cy=filter-input]')
+      .type(dbGroupToActivate)
       .get(`[data-cy=${dbGroupToActivate}-inactive]`)
       .click()
       .get('[data-cy=change-status-button]')
@@ -70,11 +79,12 @@ context('Actions', () => {
 
   })
 
-
   it( 'test remove group from resource', () => {
 
     cy.get('[data-cy=assigned-groups]')
       .click()
+      .get('[data-cy=filter-input]')
+      .type(dbGroupToRemove)
       .get(`[data-cy=${dbGroupToRemove}-checkbox]`)
       .click()
       .get('[data-cy=remove-group-button]')
@@ -87,12 +97,15 @@ context('Actions', () => {
       //  assert that group was removed
       .get(`[data-cy=${dbGroupToRemove}-checkbox]`)
       .should('not.exist')
+
   })
 
   it('test deactivate group assignment', () => {
 
     cy.get('[data-cy=assigned-groups]')
       .click()
+      .get('[data-cy=filter-input]')
+      .type(dbGroupToDeactivate)
       .get(`[data-cy=${dbGroupToDeactivate}-active]`)
       .click()
       .get('[data-cy=change-status-button]')

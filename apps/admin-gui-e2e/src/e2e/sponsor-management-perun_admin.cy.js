@@ -28,7 +28,11 @@ context('Actions', () => {
 
   beforeEach(() => {
     cy.intercept('**/membersManager/getSponsoredMembersAndTheirSponsors**').as('getSponsoredMembers')
-      .visit('organizations')
+      .visit('home')
+      .get(`[data-cy=access-item-button]`)
+      .click()
+      .get('[data-cy=auto-focused-filter]')
+      .type(dbVoName)
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=sponsored-members]')
@@ -37,7 +41,9 @@ context('Actions', () => {
   })
 
   it ('test list member sponsors', () => {
-      cy.get(`[data-cy=${dbSponsoredMember}-edit-sponsors-button]`)
+      cy.get('[data-cy=unfocused-filter]')
+        .type(dbSponsoredMember)
+        .get(`[data-cy=${dbSponsoredMember}-edit-sponsors-button]`)
         .click()
 
         // assert that sponsor is listed
@@ -60,6 +66,8 @@ context('Actions', () => {
       .wait('@getSponsoredMembers')
 
       // assert that sponsored member exists
+      .get('[data-cy=unfocused-filter]')
+      .type(dbMemberToSponsor)
       .get(`[data-cy=${dbMemberToSponsor}-name]`)
       .should('exist')
   })
@@ -99,6 +107,8 @@ context('Actions', () => {
       .wait('@getSponsoredMembers')
 
       // assert that sponsored member exists
+      .get('[data-cy=unfocused-filter]')
+      .type(newSponsoredMemberFirstName)
       .get(`[data-cy=${newSponsoredMemberFirstName}-name]`)
       .should('exist')
   })
@@ -130,12 +140,16 @@ context('Actions', () => {
       .wait('@getSponsoredMembers')
 
       // assert that sponsored member exists
+      .get('[data-cy=unfocused-filter]')
+      .type(csvMemberFirstName)
       .get(`[data-cy=${csvMemberFirstName}-name]`)
       .should('exist')
   })
 
   it ('test remove sponsor from sponsored member', () => {
-    cy.get(`[data-cy=${dbMemberToUnsponsor}-edit-sponsors-button]`)
+    cy.get('[data-cy=unfocused-filter]')
+      .type(dbMemberToUnsponsor)
+      .get(`[data-cy=${dbMemberToUnsponsor}-edit-sponsors-button]`)
       .click()
       .get(`[data-cy=${dbSponsor}-unsponsor-mark-button]`)
       .click()
@@ -152,6 +166,8 @@ context('Actions', () => {
 
   it ('test send password reset email', () => {
     cy.intercept('**/membersManager/sendPasswordResetLinkEmail**').as('sendPasswordResetLinkEmail')
+      .get('[data-cy=unfocused-filter]')
+      .type(dbSponsoredMember)
       .get(`[data-cy=${dbSponsoredMember}-reset-passwd-button]`)
       .click()
       .get(`[data-cy=reset-passwd-confirm-button]`)
