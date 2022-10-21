@@ -41,6 +41,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     name: [this.attDef.displayName, Validators.required],
     description: [this.attDef.description, Validators.required],
   });
+  urn = `${this.attDef.namespace}:${this.attDef.baseFriendlyName}`;
   collections$ = new BehaviorSubject<AttributePolicyCollection[]>([]);
   services$: Observable<Service[]> = this.serviceService
     .getServicesByAttributeDefinition(this.attDef.id)
@@ -116,6 +117,19 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
       this.dialogRef.updateSize('800px');
     } else {
       this.dialogRef.updateSize('700px');
+    }
+  }
+
+  copyUrn(): void {
+    const success = this.clipboard.copy(this.urn);
+    if (success) {
+      this.notificator.showSuccess(
+        this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPIED') as string
+      );
+    } else {
+      this.notificator.showError(
+        this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPY_FAILED') as string
+      );
     }
   }
 

@@ -2,3 +2,18 @@
   display: flex;
   flex-direction: column;
 }
+
+.urn-name {
+  color: rgba(0, 0, 0, 0.54);
+  margin-bottom: 0px;
+  font-size: small;
+}
+
+.urn-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.copy-urn {
+  cursor: pointer;
+}

@@ -1605,7 +1605,9 @@
       "CANCEL": "Cancel",
       "CONFIRM": "Submit",
       "SHOW_KEYS": "Show keys",
-      "SERVICES": "Dependent services"
+      "SERVICES": "Dependent services",
+      "URN": "Full urn",
+      "URN_TOOLTIP": "Copy full urn"
     },
     "REMOVE_DESTINATIONS": {
       "TITLE": "Remove destination from service",

@@ -30,6 +30,20 @@
         </mat-form-field>
       </form>
 
+      <label class="urn-name">
+        {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.URN' | translate}}
+      </label>
+      <div class="urn-row">
+        {{urn}}
+        <mat-icon
+          class="copy-urn"
+          matSuffix
+          (click)="copyUrn()"
+          matTooltip="{{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.URN_TOOLTIP' | translate}}"
+          >content_copy</mat-icon
+        >
+      </div>
+
       <perun-web-apps-attribute-unique-toggle [attDef]="attDef">
       </perun-web-apps-attribute-unique-toggle>
 
