@@ -125,7 +125,7 @@ export class InitAuthService {
     const previousUrl = localStorage.getItem('routeAuthGuard');
     if (previousUrl) {
       localStorage.removeItem('routeAuthGuard');
-      void this.router.navigate([previousUrl]);
+      void this.router.navigate([previousUrl], { queryParamsHandling: 'merge' });
     }
   }
 
@@ -253,7 +253,7 @@ export class InitAuthService {
   private redirectToOriginDestination(): Promise<boolean> {
     const mfaRoute = sessionStorage.getItem('mfa_route');
     if (mfaRoute) {
-      return this.router.navigate([mfaRoute], { replaceUrl: true });
+      return this.router.navigate([mfaRoute], { replaceUrl: true, queryParamsHandling: 'merge' });
     }
 
     let redirectUrl = sessionStorage.getItem('auth:redirect');
@@ -274,7 +274,11 @@ export class InitAuthService {
     });
     sessionStorage.removeItem('auth:queryParams');
 
-    return this.router.navigate([redirectUrl], { queryParams: queryParams, replaceUrl: true });
+    return this.router.navigate([redirectUrl], {
+      queryParams: queryParams,
+      replaceUrl: true,
+      queryParamsHandling: 'merge',
+    });
   }
 
   private startAuth(): Promise<void> {

@@ -8,9 +8,14 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AttributesManagerService, UsersManagerService } from '@perun-web-apps/perun/openapi';
-import { PreferredLanguageService, StoreService } from '@perun-web-apps/perun/services';
+import {
+  InitAuthService,
+  PreferredLanguageService,
+  StoreService,
+} from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { parseQueryParams } from '@perun-web-apps/perun/utils';
+import { PasswordAction } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'perun-web-apps-root',
@@ -19,7 +24,7 @@ import { parseQueryParams } from '@perun-web-apps/perun/utils';
 })
 export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild('footer') footer: ElementRef<HTMLElement>;
-  mode: string;
+  mode: PasswordAction;
   token: string;
   namespace: string;
   login: string;
@@ -27,6 +32,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   authWithoutToken = false;
   contentHeight = 'calc(100vh - 84px)';
   contentBackgroundColor = this.store.getProperty('theme').content_bg_color;
+  isServiceAccess: boolean;
+  showLoginScreen: boolean;
 
   constructor(
     private dialog: MatDialog,
@@ -35,15 +42,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     private translateService: TranslateService,
     private store: StoreService,
     private attributesManagerService: AttributesManagerService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private initAuth: InitAuthService
   ) {}
 
   ngOnInit(): void {
+    this.isServiceAccess = this.initAuth.isServiceAccessLoginScreenShown();
+    this.showLoginScreen = this.initAuth.isLoginScreenShown();
     const prefLang = this.preferredLangService.getPreferredLanguage(null);
     this.translateService.use(prefLang);
 
     const queryParams = location.search.substr(1);
-    this.mode = queryParams.includes('activation') ? 'activation' : 'reset';
+    this.mode = parseQueryParams('mode', queryParams) === 'activation' ? 'activation' : 'reset';
     this.namespace = parseQueryParams('namespace', queryParams);
 
     if (queryParams.includes('token')) {
@@ -57,7 +67,7 @@ export class AppComponent implements OnInit, AfterViewInit {
           this.validToken = false;
         }
       );
-    } else {
+    } else if (!this.isServiceAccess && !this.showLoginScreen) {
       this.authWithoutToken = true;
       this.attributesManagerService
         .getLogins(this.store.getPerunPrincipal().userId)

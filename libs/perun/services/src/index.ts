@@ -26,3 +26,4 @@ export { MfaApiService } from './lib/mfa-api.service';
 export { MfaHandlerService } from './lib/mfa-handler.service';
 export { GroupUtilsService } from './lib/group-utils.service';
 export { FindSponsorsService } from './lib/find-sponsors.service';
+export { ErrorTranslateService } from './lib/error-translate.service';

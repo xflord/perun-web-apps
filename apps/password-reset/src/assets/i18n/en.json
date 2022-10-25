@@ -44,6 +44,19 @@
           "FIELD_EMPTY": "Empty value is not allowed",
           "PWD_DONT_MATCH": "Passwords do not match"
         }
+      },
+      "LOGIN": {
+        "SIGN_IN": "Sign in",
+        "TEXT": "You must sign in to continue."
+      },
+      "LOGIN_SERVICE_ACCESS": {
+        "LABEL": "Sign in",
+        "USERNAME": "Username:",
+        "USERNAME_ERROR": "Username cannot be empty",
+        "PASSWORD": "Password:",
+        "PASSWORD_ERROR": "Password cannot be empty",
+        "SIGN_IN": "Sign in",
+        "WRONG_LOGIN_OR_PASSWORD": "Wrong username or password. Please try it again."
       }
     }
   }

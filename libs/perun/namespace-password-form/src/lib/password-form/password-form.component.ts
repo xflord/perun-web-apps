@@ -16,14 +16,13 @@ export class PasswordFormComponent implements OnInit, OnChanges {
   @Input() tooltipPwdViaEmail = false;
   @Input() tooltipPwdDisabledForNamespace = false;
   @Input() namespace: string;
-  @Input() multiLanguage = false;
   @Input() language = 'en';
 
   passwordRequirement: string = null;
   showNewPassword = false;
   showPasswordConfirm = false;
   passwordStateMatcher: ImmediateStateMatcher = new ImmediateStateMatcher();
-  private allPasswordRequirements: string[] = this.store.getProperty('password_requirements_help');
+  private allPasswordRequirements = this.store.getProperty('password_help');
 
   constructor(
     private translator: TranslateService,
@@ -43,9 +42,7 @@ export class PasswordFormComponent implements OnInit, OnChanges {
 
           if (this.language !== 'en') {
             this.allPasswordRequirements = this.store.getProperty(
-              this.language === 'en'
-                ? 'password_requirements_help'
-                : 'password_requirements_help_cs'
+              this.language === 'en' ? 'password_help' : 'password_help_cs'
             );
           }
 
@@ -57,13 +54,9 @@ export class PasswordFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    if (this.language !== 'en') {
-      this.allPasswordRequirements = this.store.getProperty(
-        this.language === 'en' ? 'password_requirements_help' : 'password_requirements_help_cs'
-      );
-    } else {
-      this.allPasswordRequirements = this.store.getProperty('password_requirements_help');
-    }
+    this.allPasswordRequirements = this.store.getProperty(
+      this.language === 'en' ? 'password_help' : 'password_help_cs'
+    );
 
     this.changeHelp();
   }
@@ -89,15 +82,9 @@ export class PasswordFormComponent implements OnInit, OnChanges {
   }
 
   changeHelp(): void {
-    this.passwordRequirement = this.allPasswordRequirements.find(
-      (passReq) => passReq.split(':')[0] === this.namespace
-    );
-    if (this.passwordRequirement === undefined) {
-      this.passwordRequirement = this.allPasswordRequirements
-        .find((passReq) => passReq.split(':')[0] === 'default')
-        .split(/:(.+)/)[1];
-    } else {
-      this.passwordRequirement = this.passwordRequirement.split(/:(.+)/)[1];
+    this.passwordRequirement = this.allPasswordRequirements[this.namespace];
+    if (!this.passwordRequirement) {
+      this.passwordRequirement = this.allPasswordRequirements['default'];
     }
   }
 }

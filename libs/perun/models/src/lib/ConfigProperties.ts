@@ -120,6 +120,22 @@ interface ProfileMFA {
   url_cs: string;
 }
 
+export type PasswordAction = 'activation' | 'reset';
+
+export interface PasswordLabel {
+  description?: string;
+  success?: string;
+  passwordDoesntMatchError?: string;
+  passwordChangeFailedError?: string;
+  passwordCreationFailedError?: string;
+  passwordDeletionFailedError?: string;
+  loginNotExistsError?: string;
+  passwordStrengthFailedError?: string;
+  passwordOperationTimeoutError?: string;
+}
+
+export type PasswordLabels = Record<string, Record<PasswordAction, PasswordLabel>>;
+
 export interface PerunConfig {
   // Shared properties
   // Required
@@ -183,8 +199,10 @@ export interface PerunConfig {
 
   // Password reset specific
   // Optional
-  password_requirements_help?: string[];
-  password_requirements_help_cs?: string[];
+  password_help?: Record<string, string>;
+  password_help_cs?: Record<string, string>;
+  password_labels?: PasswordLabels;
+  password_labels_cs?: PasswordLabels;
   password_reset_logo?: string;
 
   //Consolidator + Linker

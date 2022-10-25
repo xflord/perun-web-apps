@@ -12,7 +12,7 @@ export class LoginScreenComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.auth.isLoggedIn()) {
-      void this.router.navigate(['/home']);
+      void this.router.navigate(['/home'], { queryParamsHandling: 'merge' });
     }
   }
   startAuth(): void {

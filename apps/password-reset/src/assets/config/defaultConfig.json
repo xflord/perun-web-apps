@@ -24,16 +24,6 @@
   "password_reset_logo": "",
   "header_label_en": "Password reset",
   "header_label_cs": "Reset hesla",
-  "password_requirements_help": [
-    "default:Password must be at least 8 characters long. Please <b>avoid using accented characters</b>. It might not be supported by all backend components and services.",
-    "einfra:<p>Password must:</p><ul><li>contain only printable (non-accented) characters</li><li>be at least 10 characters long</li><li>consist of at least 3 of 4 character groups:<ul><li>lower-case letters</li><li>upper-case letters</li><li>digits</li><li>special characters</li></ul></li></ul>",
-    "vsup:<p>Password requirements:</p><ul><li>the minimum password length is 8 characters</li><li>must contain characters of at least three sets of characters</li><li>character sets are: [a-z], [A-Z], [0-9], [!#%&()[]*+,./:;<=>?@^_&#96;&#123;&#125;&#124;~-]</li><li>letters must not contain diacritics, the space is allowed</li><li>may not include your name, surname, personal number or username</li></ul>"
-  ],
-  "password_requirements_help_cs": [
-    "default:Heslo musí být alespoň 8 znakú dlouhé. Prosím <b>vyhněte se použití znaků s diakritikou</b>. Jejich použití nemusí být podporováno všemi systémy a službami.",
-    "einfra:<p>Heslo musí:</p><ul><li>obsahovat pouze tisknutelné znaky bez diakritiky</li><li>být alespoň 10 znaků dlouhé</li><li>obsahovat nejméně 3 ze 4 skupin znaků:<ul><li>malá písmena</li><li>velká písmena</li><li>čísla</li><li>speciální znaky</li></ul></li></ul>",
-    "vsup:<p>Pravidla hesla:</p><ul><li>minimální délka hesla je 8 znaků</li><li>musí obsahovat znaky minimálně ze tří sad znaků</li><li>sady znaků jsou: [a-z], [A-Z], [0-9], [!#%&()[]*+,./:;<=>?@^_&#96;&#123;&#125;&#124;~-]</li><li>písmena nesmí obsahovat diakritiku, mezera je povolená</li><li>nesmí obsahovat Vaše jméno, příjmení, osobní číslo nebo uživatelské jméno</li></ul>"
-  ],
   "footer": {
     "columns": [
       {
@@ -112,5 +102,67 @@
     "footer_headers_text_color": "#ffffff",
     "footer_links_text_color": "#e0e0e0",
     "footer_copyright_text_color": "#9e9e9e"
+  },
+  "password_help": {
+    "default": "Password must be at least 8 characters long. Please <b>avoid using accented characters</b>. It might not be supported by all backend components and services.",
+    "einfra": "<p>Password must:</p><ul><li>contain only printable (non-accented) characters</li><li>be at least 10 characters long</li><li>consist of at least 3 of 4 character groups:<ul><li>lower-case letters</li><li>upper-case letters</li><li>digits</li><li>special characters</li></ul></li></ul>",
+    "vsup": "<p>Password requirements:</p><ul><li>the minimum password length is 8 characters</li><li>must contain characters of at least three sets of characters</li><li>character sets are: [a-z], [A-Z], [0-9], [!#%&()[]*+,./:;<=>?@^_&#96;&#123;&#125;&#124;~-]</li><li>letters must not contain diacritics, the space is allowed</li><li>may not include your name, surname, personal number or username</li></ul>"
+  },
+  "password_help_cs": {
+    "default": "Heslo musí být alespoň 8 znaků dlouhé. Prosím <b>vyhněte se použití znaků s diakritikou</b>. Jejich použití nemusí být podporováno všemi systémy a službami.",
+    "einfra": "<p>Heslo musí:</p><ul><li>obsahovat pouze tisknutelné znaky bez diakritiky</li><li>být alespoň 10 znaků dlouhé</li><li>obsahovat nejméně 3 ze 4 skupin znaků:<ul><li>malá písmena</li><li>velká písmena</li><li>čísla</li><li>speciální znaky</li></ul></li></ul>",
+    "vsup": "<p>Pravidla hesla:</p><ul><li>minimální délka hesla je 8 znaků</li><li>musí obsahovat znaky minimálně ze tří sad znaků</li><li>sady znaků jsou: [a-z], [A-Z], [0-9], [!#%&()[]*+,./:;<=>?@^_&#96;&#123;&#125;&#124;~-]</li><li>písmena nesmí obsahovat diakritiku, mezera je povolená</li><li>nesmí obsahovat Vaše jméno, příjmení, osobní číslo nebo uživatelské jméno</li></ul>"
+  },
+  "password_labels": {
+    "default": {
+      "reset": {
+        "description": "",
+        "success": "Password was successfully reset.",
+        "passwordDoesntMatchError": "Can't set new password. Old password doesn't match.",
+        "passwordChangeFailedError": "Changing password failed due to an internal error. Please report it.",
+        "passwordCreationFailedError": "Password creation failed due to an internal error. Please report it.",
+        "passwordDeletionFailedError": "Password deletion failed due to an internal error. Please report it.",
+        "loginNotExistsError": "User doesn't have login set for selected namespace.",
+        "passwordStrengthFailedError": "Used password doesn't match required strength constraints.",
+        "passwordOperationTimeoutError": "Operation with password exceeded expected time limit. Please try again."
+      },
+      "activation": {
+        "description": "",
+        "success": "Account was successfully activated.",
+        "passwordDoesntMatchError": "Can't set new password. Old password doesn't match.",
+        "passwordChangeFailedError": "Changing password failed due to an internal error. Please report it.",
+        "passwordCreationFailedError": "Password creation failed due to an internal error. Please report it.",
+        "passwordDeletionFailedError": "Password deletion failed due to an internal error. Please report it.",
+        "loginNotExistsError": "User doesn't have login set for selected namespace.",
+        "passwordStrengthFailedError": "Used password doesn't match required strength constraints.",
+        "passwordOperationTimeoutError": "Operation with password exceeded expected time limit. Please try again."
+      }
+    }
+  },
+  "password_labels_cs": {
+    "default": {
+      "reset": {
+        "description": "",
+        "success": "Heslo bylo úspěšně resetováno.",
+        "passwordDoesntMatchError": "Nelze nastavit nové heslo. Staré heslo se neshoduje.",
+        "passwordChangeFailedError": "Změna hesla se nezdařila z důvodu systémové chyby. Prosím, nahlaste to.",
+        "passwordCreationFailedError": "Vytvoření hesla se nezdařilo kvůli systémové chybě. Prosím, nahlaste to.",
+        "passwordDeletionFailedError": "Odstranění hesla se nezdařilo kvůli systémové chybě. Prosím, nahlaste to.",
+        "loginNotExistsError": "Uživatel nemá nastavený login pro vybraný jmenný prostor.",
+        "passwordStrengthFailedError": "Použité heslo neodpovídá požadovaným omezením na sílu hesla.",
+        "passwordOperationTimeoutError": "Operace překročila předpokládaný časový limit. Zkuste to prosím znovu."
+      },
+      "activation": {
+        "description": "",
+        "success": "Účet byl úspěšně aktivován.",
+        "passwordDoesntMatchError": "Nelze nastavit nové heslo. Staré heslo se neshoduje.",
+        "passwordChangeFailedError": "Změna hesla se nezdařila z důvodu systémové chyby. Prosím, nahlaste to.",
+        "passwordCreationFailedError": "Vytvoření hesla se nezdařilo kvůli systémové chybě. Prosím, nahlaste to.",
+        "passwordDeletionFailedError": "Odstranění hesla se nezdařilo kvůli systémové chybě. Prosím, nahlaste to.",
+        "loginNotExistsError": "Uživatel nemá nastavený login pro vybraný jmenný prostor.",
+        "passwordStrengthFailedError": "Použité heslo neodpovídá požadovaným omezením na sílu hesla.",
+        "passwordOperationTimeoutError": "Operace překročila předpokládaný časový limit. Zkuste to prosím znovu."
+      }
+    }
   }
 }

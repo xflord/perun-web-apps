@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="!isServiceAccess && !showLoginScreen">
   <perun-web-apps-header id="nav-menu"></perun-web-apps-header>
   <div [ngStyle]="{'background': contentBackgroundColor}" id="content-inner">
     <div [ngStyle]="{'min-height': contentHeight}" id="content-wrap">
@@ -16,3 +16,6 @@
     </div>
   </div>
 </div>
+<ng-template [ngIf]="isServiceAccess || showLoginScreen">
+  <perun-web-apps-login-screen-base [application]="'pwd-reset'"></perun-web-apps-login-screen-base>
+</ng-template>
