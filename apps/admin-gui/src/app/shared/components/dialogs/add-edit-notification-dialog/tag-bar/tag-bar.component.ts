@@ -81,6 +81,7 @@ export class TagBarComponent implements OnInit {
     tags.push(['appDetailUrl-krb', 'APPDETAILURLKRB_DESCRIPTION']);
     tags.push(['appDetailUrl-fed', 'APPDETAILURLFED_DESCRIPTION']);
     tags.push(['appDetailUrl-cert', 'APPDETAILURLCERT_DESCRIPTION']);
+    tags.push(['appDetailUrl-newGUI', 'APPDETAILURLNEWGUI_DESCRIPTION']);
     this.applicationLinksAdministratorsTags = tags;
   }
 
@@ -90,6 +91,7 @@ export class TagBarComponent implements OnInit {
     tags.push(['perunGuiUrl-krb', 'PERUNGUIURLKRB_DESCRIPTION']);
     tags.push(['perunGuiUrl-fed', 'PERUNGUIURLFED_DESCRIPTION']);
     tags.push(['perunGuiUrl-cert', 'PERUNGUIURLCERT_DESCRIPTION']);
+    tags.push(['perunGuiUrl-newGUI', 'PERUNGUINEWGUI_DESCRIPTION']);
     this.perunLinksAdministratorsTags = tags;
   }
 
