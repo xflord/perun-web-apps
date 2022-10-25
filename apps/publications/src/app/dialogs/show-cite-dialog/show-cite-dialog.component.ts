@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PublicationForGUI } from '@perun-web-apps/perun/openapi';
+import { Clipboard } from '@angular/cdk/clipboard';
 @Component({
   selector: 'perun-web-apps-show-cite-dialog',
   templateUrl: './show-cite-dialog.component.html',
@@ -11,7 +12,8 @@ export class ShowCiteDialogComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<ShowCiteDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: PublicationForGUI
+    @Inject(MAT_DIALOG_DATA) public data: PublicationForGUI,
+    public clipboard: Clipboard
   ) {}
 
   ngOnInit(): void {

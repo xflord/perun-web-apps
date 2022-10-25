@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { CabinetManagerService, Category } from '@perun-web-apps/perun/openapi';
 import { TranslateService } from '@ngx-translate/core';
-import { UntypedFormControl, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'perun-web-apps-update-rank-dialog',
@@ -14,7 +14,7 @@ export class UpdateRankDialogComponent implements OnInit {
   successMessage: string;
   loading: boolean;
   categoryName = '';
-  rankCtrl: UntypedFormControl;
+  rankCtrl: FormControl<number>;
 
   constructor(
     private dialogRef: MatDialogRef<UpdateRankDialogComponent>,
@@ -30,7 +30,7 @@ export class UpdateRankDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryName = this.data.name;
-    this.rankCtrl = new UntypedFormControl(this.data.rank, [
+    this.rankCtrl = new FormControl(this.data.rank, [
       Validators.required,
       Validators.pattern('^[0-9]+(\\.[0-9])?$'),
     ]);
@@ -42,14 +42,14 @@ export class UpdateRankDialogComponent implements OnInit {
 
   onSubmit(): void {
     this.loading = true;
-    this.data.rank = this.rankCtrl.value as number;
-    this.cabinetManagerService.updateCategory({ category: this.data }).subscribe(
-      () => {
+    this.data.rank = this.rankCtrl.value;
+    this.cabinetManagerService.updateCategory({ category: this.data }).subscribe({
+      next: () => {
         this.notificator.showSuccess(this.successMessage);
         this.loading = false;
         this.dialogRef.close(true);
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 }

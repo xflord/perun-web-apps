@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import {
   Author,
@@ -16,11 +16,17 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  NotificatorService,
+  PerunTranslateService,
+  StoreService,
+} from '@perun-web-apps/perun/services';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { MatTabGroup } from '@angular/material/tabs';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { MatStepper } from '@angular/material/stepper';
+import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { UniversalConfirmationItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 const moment = _moment;
 
@@ -40,6 +46,7 @@ export const YEAR_MODE_FORMATS = {
   selector: 'perun-web-apps-create-single-publication-page',
   templateUrl: './create-single-publication-page.component.html',
   styleUrls: ['./create-single-publication-page.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   providers: [
     {
       provide: DateAdapter,
@@ -50,6 +57,8 @@ export const YEAR_MODE_FORMATS = {
   ],
 })
 export class CreateSinglePublicationPageComponent implements OnInit {
+  @ViewChild('stepper') stepper: MatStepper;
+
   publicationControl: UntypedFormGroup;
   similarPublications: PublicationForGUI[] = [];
   filteredPublications: PublicationForGUI[] = [];
@@ -58,6 +67,7 @@ export class CreateSinglePublicationPageComponent implements OnInit {
   publication: PublicationForGUI = null;
 
   authorsSelection: SelectionModel<Author> = new SelectionModel<Author>(true, []);
+  yourselfAsAnAuthor = true;
   thanksSelection: SelectionModel<ThanksForGUI> = new SelectionModel<ThanksForGUI>(true, []);
 
   innerLoading = false;
@@ -76,7 +86,7 @@ export class CreateSinglePublicationPageComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private notificator: NotificatorService,
-    private translate: TranslateService,
+    private translate: PerunTranslateService,
     private storeService: StoreService,
     private userService: UsersManagerService
   ) {}
@@ -84,7 +94,7 @@ export class CreateSinglePublicationPageComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.publicationControl = this.formBuilder.group({
-      addAuthor: [false],
+      addAuthor: [true],
       title: ['', Validators.required],
       year: ['', Validators.required],
       category: ['', Validators.required],
@@ -108,9 +118,7 @@ export class CreateSinglePublicationPageComponent implements OnInit {
 
   createTimeout(): void {
     setTimeout(() => {
-      this.notificator.showSuccess(
-        this.translate.instant('CREATE_SINGLE_PUBLICATION.SUCCESS') as string
-      );
+      this.notificator.showSuccess(this.translate.instant('CREATE_SINGLE_PUBLICATION.SUCCESS'));
       this.duplicateCheck = true;
       this.innerLoading = false;
     }, 1000);
@@ -172,9 +180,13 @@ export class CreateSinglePublicationPageComponent implements OnInit {
 
   similarCheck(): void {
     this.innerLoading = true;
-    const title: string = (this.publicationControl.get('title').value as string) ?? null;
-    const doi: string = (this.publicationControl.get('doi').value as string) ?? null;
-    const isbn: string = (this.publicationControl.get('isbn').value as string) ?? null;
+    const title: string = this.publicationControl.get('title').value as string;
+    const doi: string = (this.publicationControl.get('doi').value as string)
+      ? (this.publicationControl.get('doi').value as string)
+      : null;
+    const isbn: string = (this.publicationControl.get('isbn').value as string)
+      ? (this.publicationControl.get('isbn').value as string)
+      : null;
     this.cabinetService.findSimilarPublications(title, doi, isbn).subscribe((similarPubs) => {
       this.similarPublications = similarPubs;
       this.filteredPublications = similarPubs;
@@ -196,6 +208,35 @@ export class CreateSinglePublicationPageComponent implements OnInit {
 
   redirect(commands: string[]): void {
     void this.router.navigate(commands);
+  }
+
+  showDialogAndRedirect(commands: string[], publicationId: number): void {
+    commands.push(String(publicationId));
+
+    if (!this.yourselfAsAnAuthor) {
+      const config = getDefaultDialogConfig();
+      config.width = '500px';
+      config.data = {
+        theme: 'user-theme',
+        title: this.translate.instant('CREATE_SINGLE_PUBLICATION.NOT_AN_AUTHOR_DIALOG_TITLE'),
+        alert: this.translate.instant('CREATE_SINGLE_PUBLICATION.NOT_AN_AUTHOR_DIALOG_ALERT'),
+        items: [],
+        type: 'confirmation',
+        showAsk: false,
+      };
+
+      const dialogRef = this.dialog.open(UniversalConfirmationItemsDialogComponent, config);
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.redirect(commands);
+        } else {
+          return;
+        }
+      });
+    } else {
+      this.redirect(commands);
+    }
   }
 
   loadPublicationDetail(publication: PublicationForGUI, tabGroup: MatTabGroup): void {

@@ -24,16 +24,21 @@
     <h5>{{'PUBLICATION_DETAIL.TITLE' | translate}}</h5>
     <h6>
       {{'PUBLICATION_DETAIL.LOCK_INFO' | translate}}
-      <button class="ml-2" (click)="changeLock()" mat-stroked-button>
-        <span *ngIf="publication.locked" class="font-weight-bold">
-          {{'PUBLICATION_DETAIL.LOCKED' | translate}}
-        </span>
-        <mat-icon *ngIf="publication.locked"> lock </mat-icon>
-        <span *ngIf="!publication.locked" class="font-weight-bold">
-          {{'PUBLICATION_DETAIL.UNLOCKED' | translate}}
-        </span>
-        <mat-icon *ngIf="!publication.locked"> lock_open </mat-icon>
-      </button>
+      <span
+        matTooltip="{{'PUBLICATION_DETAIL.LOCK_DISABLED_TOOLTIP' | translate}}"
+        matTooltipPosition="below"
+        [matTooltipDisabled]="lockAuth">
+        <button class="ml-2" [disabled]="!lockAuth" (click)="changeLock()" mat-stroked-button>
+          <span *ngIf="publication.locked" class="font-weight-bold">
+            {{'PUBLICATION_DETAIL.LOCKED' | translate}}
+          </span>
+          <mat-icon *ngIf="publication.locked"> lock </mat-icon>
+          <span *ngIf="!publication.locked" class="font-weight-bold">
+            {{'PUBLICATION_DETAIL.UNLOCKED' | translate}}
+          </span>
+          <mat-icon *ngIf="!publication.locked"> lock_open </mat-icon>
+        </button>
+      </span>
     </h6>
     <mat-card>
       <mat-card-content>
@@ -42,6 +47,7 @@
           *ngIf="!pubLoading && !loading"
           [publication]="publication"
           [categories]="categories"
+          [similarityCheck]="similarityCheck"
           (edited)="refreshPublication()">
         </perun-web-apps-publication-detail-list>
       </mat-card-content>
@@ -52,7 +58,11 @@
         {{'PUBLICATION_DETAIL.AUTHORS' | translate}}
       </mat-card-title>
       <mat-card-content>
-        <perun-web-apps-add-authors [publication]="publication" [selection]="selectionAuthors">
+        <perun-web-apps-add-authors
+          [publication]="publication"
+          [selection]="selectionAuthors"
+          [disableRouting]="disableRouting"
+          [similarityCheck]="similarityCheck">
         </perun-web-apps-add-authors>
       </mat-card-content>
     </mat-card>
@@ -61,7 +71,10 @@
         {{'PUBLICATION_DETAIL.ACKNOWLEDGEMENT' | translate}}
       </mat-card-title>
       <mat-card-content>
-        <perun-web-apps-add-thanks [publication]="publication" [selection]="selectionThanks">
+        <perun-web-apps-add-thanks
+          [publication]="publication"
+          [selection]="selectionThanks"
+          [similarityCheck]="similarityCheck">
         </perun-web-apps-add-thanks>
       </mat-card-content>
     </mat-card>

@@ -50,6 +50,7 @@
         <td *matCellDef="let publication" class="static-column-size" mat-cell>
           <button
             (click)="lockOrUnlockPublication(publication)"
+            [disabled]="!lockAuth"
             (mouseenter)="buttonPressed = true"
             (mouseleave)="buttonPressed = false"
             *ngIf="publication.locked"
@@ -59,6 +60,7 @@
           </button>
           <button
             (click)="lockOrUnlockPublication(publication)"
+            [disabled]="!lockAuth"
             (mouseenter)="buttonPressed = true"
             (mouseleave)="buttonPressed = false"
             *ngIf="!publication.locked"
@@ -81,7 +83,7 @@
           {{'PUBLICATIONS_LIST.TABLE_REPORTED_BY' | translate}}
         </th>
         <td *matCellDef="let publication" class="static-column-size" mat-cell>
-          <span *ngFor="let author of publication.authors"> {{author | userFullName}}<br /> </span>
+          {{publication.authors | authorsSeparatedByComma}}
         </td>
       </ng-container>
       <ng-container matColumnDef="year">
@@ -127,7 +129,7 @@
         *matRowDef="let publication; columns: displayedColumns;"
         [perunWebAppsMiddleClickRouterLink]="disabledRouting || buttonPressed ? null : [routerPath, publication.id]"
         [routerLink]="disabledRouting || buttonPressed ? null : [routerPath, publication.id]"
-        [class.cursor-pointer]="!disabledRouting"
+        [class.cursor-pointer]="!disabledRouting || openInTab"
         class="dark-hover-list-item"
         mat-row></tr>
     </table>

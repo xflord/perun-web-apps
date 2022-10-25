@@ -50,6 +50,8 @@ import { CheckboxLabelPipe } from './checkbox-label.pipe';
 import { MasterCheckboxLabelPipe } from './master-checkbox-label.pipe';
 import { ManageableEntitiesPipe } from './manageable-entities.pipe';
 import { UnassignedRolePipe } from './unassigned-role.pipe';
+import { PublicationTabLabelPipe } from './publication-tab-label.pipe';
+import { AuthorsSeparatedByCommaPipe } from './authors-separated-by-comma.pipe';
 
 @NgModule({
   declarations: [
@@ -104,6 +106,8 @@ import { UnassignedRolePipe } from './unassigned-role.pipe';
     ConsentStatusIconPipe,
     ManageableEntitiesPipe,
     UnassignedRolePipe,
+    PublicationTabLabelPipe,
+    AuthorsSeparatedByCommaPipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -157,6 +161,8 @@ import { UnassignedRolePipe } from './unassigned-role.pipe';
     ConsentStatusIconPipe,
     ManageableEntitiesPipe,
     UnassignedRolePipe,
+    PublicationTabLabelPipe,
+    AuthorsSeparatedByCommaPipe,
   ],
   imports: [CommonModule],
 })

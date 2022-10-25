@@ -8,7 +8,7 @@
     {{'PUBLICATION_DETAIL.ADD' | translate}}
   </button>
   <button
-    *ngIf="!publication.locked"
+    *ngIf="!publication.locked && !similarityCheck"
     mat-flat-button
     color="warn"
     class="mr-2"
@@ -26,6 +26,7 @@
     [selection]="selection"
     [filterValue]="filterValue"
     [tableId]="tableId"
+    [disableRouting]="disableRouting"
     [displayedColumns]="publication.locked ? ['id', 'name', 'organization', 'email'] : ['select', 'id', 'name', 'organization', 'email']">
   </perun-web-apps-authors-list>
 </div>

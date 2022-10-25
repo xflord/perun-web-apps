@@ -44,7 +44,17 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.isServiceAccess = this.initAuth.isServiceAccessLoginScreenShown();
     sessionStorage.removeItem('baLogout');
     const url = location.pathname;
-    if (!this.authResolver.isCabinetAdmin() && (url === '/' || url.includes('/all-publications'))) {
+    const disabledUrlsForSelfRole = [
+      '/all-publications',
+      '/authors',
+      '/categories',
+      '/publication-systems',
+    ];
+
+    if (
+      !this.authResolver.isCabinetAdmin() &&
+      (url === '/' || disabledUrlsForSelfRole.some((disabledUrl) => url.includes(disabledUrl)))
+    ) {
       void this.router.navigate(['my-publications']);
     }
   }

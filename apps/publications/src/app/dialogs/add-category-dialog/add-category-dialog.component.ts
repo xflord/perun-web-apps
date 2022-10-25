@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { CabinetManagerService } from '@perun-web-apps/perun/openapi';
 import { TranslateService } from '@ngx-translate/core';
-import { UntypedFormControl, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'perun-web-apps-add-category-dialog',
@@ -14,8 +14,8 @@ export class AddCategoryDialogComponent implements OnInit {
   successMessage: string;
   loading: boolean;
 
-  nameCtrl: UntypedFormControl;
-  rankCtrl: UntypedFormControl;
+  nameCtrl: FormControl<string>;
+  rankCtrl: FormControl<number>;
 
   constructor(
     private dialogRef: MatDialogRef<AddCategoryDialogComponent>,
@@ -29,12 +29,12 @@ export class AddCategoryDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.nameCtrl = new UntypedFormControl(null, [
+    this.nameCtrl = new FormControl('', [
       Validators.required,
       Validators.pattern('^[\\w.-]+( [\\w.-]+)*$'),
       Validators.maxLength(128),
     ]);
-    this.rankCtrl = new UntypedFormControl(null, [
+    this.rankCtrl = new FormControl<number>(null, [
       Validators.required,
       Validators.pattern('^[0-9]+(\\.[0-9])?$'),
     ]);
@@ -51,18 +51,18 @@ export class AddCategoryDialogComponent implements OnInit {
         category: {
           id: 0,
           beanName: 'Category',
-          name: this.nameCtrl.value as string,
-          rank: this.rankCtrl.value as number,
+          name: this.nameCtrl.value,
+          rank: this.rankCtrl.value,
         },
       })
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           // this.cabinetManagerService.createCategoryNR({name: this.nameCtrl.value, rank: this.rankCtrl.value}).subscribe(vo => {
           this.notificator.showSuccess(this.successMessage);
           this.loading = false;
           this.dialogRef.close(true);
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
   }
 }

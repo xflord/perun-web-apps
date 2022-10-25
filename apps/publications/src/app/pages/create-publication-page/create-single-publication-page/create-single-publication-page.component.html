@@ -6,8 +6,8 @@
     </span>
   </h1>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <mat-horizontal-stepper *ngIf="!loading" linear="True" (selectionChange)="stepChanged($event)">
-    <mat-step [editable]="!duplicateCheck" [stepControl]="publicationControl">
+  <mat-horizontal-stepper #stepper *ngIf="!loading" (selectionChange)="stepChanged($event)">
+    <mat-step [stepControl]="publicationControl">
       <ng-template
         matStepLabel
         >{{'CREATE_SINGLE_PUBLICATION.PUBLICATION' | translate}}</ng-template
@@ -45,6 +45,7 @@
             <mat-datepicker
               #sdp
               startView="multi-year"
+              panelClass="year-picker"
               (yearSelected)="chosenYearHandler($event, sdp)">
             </mat-datepicker>
             <mat-error *ngIf="publicationControl.hasError('required', 'year')">
@@ -92,18 +93,18 @@
           </mat-form-field>
         </div>
       </form>
-      <div class="mt-1">
+      <div class="actions">
         <button
           [disabled]="publicationControl.invalid"
-          class="ml-auto"
-          mat-stroked-button
-          type="button"
+          class="ml-auto mr-2"
+          mat-flat-button
+          color="accent"
           matStepperNext>
           {{'CREATE_SINGLE_PUBLICATION.NEXT' | translate}}
         </button>
       </div>
     </mat-step>
-    <mat-step [editable]="!duplicateCheck">
+    <mat-step [editable]="!duplicateCheck && !publicationControl.invalid">
       <ng-template matStepLabel>
         {{'CREATE_SINGLE_PUBLICATION.CHECK' | translate}}
       </ng-template>
@@ -158,10 +159,15 @@
           </mat-tab>
 
           <mat-tab *ngIf="selectedPubId !== null">
-            <ng-template matTabLabel>{{selectedPubTitle}}</ng-template>
+            <ng-template matTabLabel>
+              {{selectedPubTitle | publicationTabLabel}}
+            </ng-template>
             <ng-template matTabContent>
               <div class="mt-4">
-                <perun-web-apps-publication-detail [publicationId]="selectedPubId">
+                <perun-web-apps-publication-detail
+                  [publicationId]="selectedPubId"
+                  [disableRouting]="true"
+                  [similarityCheck]="true">
                 </perun-web-apps-publication-detail>
               </div>
             </ng-template>
@@ -176,25 +182,19 @@
         </div>
       </form>
 
-      <div *ngIf="!innerLoading" class="mt-3">
+      <div *ngIf="!innerLoading" class="actions">
         <button
-          *ngIf="!duplicateCheck"
-          class="ml-auto"
-          mat-stroked-button
-          type="button"
-          matStepperPrevious>
+          class="ml-2"
+          mat-flat-button
+          (click)="redirect(['create-publication'])"
+          type="button">
+          {{'CREATE_SINGLE_PUBLICATION.CANCEL' | translate}}
+        </button>
+        <button class="ml-auto" mat-flat-button type="button" matStepperPrevious>
           {{'CREATE_SINGLE_PUBLICATION.PREV' | translate}}
         </button>
         <button class="ml-2" mat-flat-button color="accent" type="button" matStepperNext>
           {{'CREATE_SINGLE_PUBLICATION.CREATE' | translate}}
-        </button>
-        <button
-          *ngIf="!duplicateCheck"
-          class="ml-2"
-          mat-stroked-button
-          (click)="redirect(['create-publication'])"
-          type="button">
-          {{'CREATE_SINGLE_PUBLICATION.RETURN' | translate}}
         </button>
       </div>
     </mat-step>
@@ -216,20 +216,14 @@
         <perun-web-apps-add-authors
           *ngIf="publication !== null"
           [publication]="publication"
-          [selection]="authorsSelection">
+          [selection]="authorsSelection"
+          [disableRouting]="true"
+          (yourselfAsAnAuthor)="yourselfAsAnAuthor = $event">
         </perun-web-apps-add-authors>
       </div>
 
-      <div *ngIf="!innerLoading" class="mt-1">
-        <button
-          *ngIf="!duplicateCheck"
-          class="ml-auto"
-          mat-stroked-button
-          type="button"
-          matStepperPrevious>
-          {{'CREATE_SINGLE_PUBLICATION.PREV' | translate}}
-        </button>
-        <button class="ml-2" mat-stroked-button type="button" matStepperNext>
+      <div *ngIf="!innerLoading" class="actions">
+        <button class="ml-auto" mat-flat-button color="accent" matStepperNext>
           {{'CREATE_SINGLE_PUBLICATION.NEXT' | translate}}
         </button>
       </div>
@@ -250,15 +244,14 @@
       </perun-web-apps-add-thanks>
       <mat-spinner *ngIf="innerLoading" class="ml-auto mr-auto"></mat-spinner>
 
-      <div class="mt-1">
-        <button class="ml-auto" mat-stroked-button type="button" matStepperPrevious>
+      <div class="actions">
+        <button class="ml-auto" mat-flat-button matStepperPrevious>
           {{'CREATE_SINGLE_PUBLICATION.PREV' | translate}}
         </button>
         <button
           class="ml-2"
-          (click)="redirect(['all-publications', this.publication.id])"
+          (click)="showDialogAndRedirect(['all-publications'], this.publication.id)"
           mat-flat-button
-          type="button"
           color="accent">
           {{'CREATE_SINGLE_PUBLICATION.FINISH' | translate}}
         </button>

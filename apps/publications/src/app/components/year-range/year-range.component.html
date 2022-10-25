@@ -12,7 +12,7 @@
     #sdp
     startView="multi-year"
     (yearSelected)="chosenYearHandler(startYear, $event, sdp)"
-    panelClass="example-month-picker">
+    panelClass="year-picker">
   </mat-datepicker>
 </mat-form-field>
 
@@ -23,12 +23,13 @@
     [matDatepicker]="edp"
     [min]="endMinYear"
     [max]="endMaxYear"
-    [formControl]="endYear" />
+    [formControl]="endYear"
+    readonly />
   <mat-datepicker-toggle matSuffix [for]="edp"></mat-datepicker-toggle>
   <mat-datepicker
     #edp
     startView="multi-year"
     (yearSelected)="chosenYearHandler(endYear, $event, edp)"
-    panelClass="example-month-picker">
+    panelClass="year-picker">
   </mat-datepicker>
 </mat-form-field>

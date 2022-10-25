@@ -76,8 +76,8 @@ export class AuthorDetailComponent implements OnInit {
     this.cabinetService
       .findPublicationsByGUIFilter(
         event.title,
-        null,
-        null,
+        event.isbnissn,
+        event.doi,
         null,
         null,
         event.category,

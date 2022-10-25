@@ -33,3 +33,5 @@ export * from './lib/master-checkbox-label.pipe';
 export * from './lib/displayed-role.pipe';
 export * from './lib/manageable-entities.pipe';
 export * from './lib/unassigned-role.pipe';
+export * from './lib/publication-tab-label.pipe';
+export * from './lib/authors-separated-by-comma.pipe';

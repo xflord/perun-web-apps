@@ -13,8 +13,19 @@
       matSortActive="name"
       matSortDirection="asc"
       matSortDisableClear>
-      <ng-container matColumnDef="select">
-        <th *matHeaderCellDef mat-header-cell class="align-checkbox"></th>
+      <ng-container
+        matColumnDef="select"
+        *ngIf="{all: dataSource | isAllSelected: selection.selected.length} as selected">
+        <th *matHeaderCellDef mat-header-cell class="align-checkbox">
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            *ngIf="selection.isMultipleSelection()"
+            [aria-label]="selected.all | masterCheckboxLabel | translate"
+            [checked]="selection.hasValue() && selected.all"
+            [indeterminate]="selection.hasValue() && !selected.all"
+            color="primary">
+          </mat-checkbox>
+        </th>
         <td *matCellDef="let author" class="static-column-size align-checkbox" mat-cell>
           <mat-checkbox
             (change)="$event ? selection.toggle(author) : null"
@@ -52,22 +63,6 @@
           {{'AUTHORS_LIST.NUMBER_OF_PUBLICATIONS' | translate}}
         </th>
         <td *matCellDef="let author" mat-cell>{{author.authorships.length.toString()}}</td>
-      </ng-container>
-      <ng-container matColumnDef="add">
-        <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let author" class="static-column-size" mat-cell>
-          <button (click)="onAddClick(author)" class="ml-2" color="accent" mat-flat-button>
-            {{'AUTHORS_LIST.ADD' | translate}}
-          </button>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="remove">
-        <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let author" class="static-column-size" mat-cell>
-          <button (click)="onRemoveClick(author)" class="ml-2" color="warn" mat-flat-button>
-            {{'AUTHORS_LIST.REMOVE' | translate}}
-          </button>
-        </td>
       </ng-container>
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
       <tr

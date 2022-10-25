@@ -2,7 +2,7 @@
   "MENU_ITEMS": {
     "ALL_PUBLICATIONS": "All publications",
     "MY_PUBLICATIONS": "My publications",
-    "CREATE_PUBLICATION": "Create publications",
+    "CREATE_PUBLICATION": "Create publication",
     "AUTHORS": "Authors",
     "CATEGORIES": "Categories",
     "PUBLICATION_SYSTEMS": "Publication systems"
@@ -33,9 +33,7 @@
     "ORGANIZATION": "Organization",
     "EMAIL": "Email",
     "NUMBER_OF_PUBLICATIONS": "Publications count",
-    "NO_AUTHORS": "No authors were found.",
-    "ADD": "Add",
-    "REMOVE": "Remove"
+    "NO_AUTHORS": "No authors were found."
   },
   "AUTHOR_DETAIL": {
     "TITLE": " publications",
@@ -52,14 +50,14 @@
   "CREATE_PUBLICATION": {
     "TITLE": "Create publication",
     "IMPORT_TITLE": "Import publication",
-    "IMPORT_HINT":  "Are you from MU, ZCU? You can import publications you have already reported in university publication systems.",
+    "IMPORT_HINT":  "Are you from MU, ZCU? You can import publication you have already reported in university publication systems.",
     "IMPORT": "Import",
     "CREATE_TITLE": "Create publication",
     "CREATE_HINT": "Use when you want to add custom publication or report publication created by other user.",
     "CREATE": "Create"
   },
   "IMPORT_PUBLICATIONS": {
-    "TITLE": "Import publications",
+    "TITLE": "Import publication",
     "EXT_PUB_SYSTEM": "External publication system",
     "START_DATE": "Start date",
     "END_DATE": "End date",
@@ -100,15 +98,17 @@
     "PREV": "Back",
     "FINISH": "Finish",
     "CREATE": "Create publication",
-    "RETURN": "Return",
+    "CANCEL": "Cancel",
     "SIMILAR_FOUND": "Similar publication already exists",
     "CHECK_BELOW": "Please check if your publication is listed below",
     "NOT_BELOW": "If NO, continue with Create button below.",
-    "IS_BELOW": "If YES, click on it to see details and add yourself as an author. Afterwards continue with the Return button. If desired publication is locked for changes, notify administrators about your request.",
+    "IS_BELOW": "If YES, click on it to see details and add yourself as an author. Afterwards continue with the Cancel button. If desired publication is locked for changes, notify administrators about your request.",
     "CHECK_PERFORM": "Checking for similar publications",
-    "NO_SIMILAR": "Publication similarity check passed",
+    "NO_SIMILAR": "Check passed - no similar publications were found.",
     "SUCCESS": "Publication was successfully created.",
-    "PUB_CREATED": "Publication was created, however it is not fully set up. You can finish setting up your publication by completing all steps. Additionally you can always edit publications on their detail."
+    "PUB_CREATED": "Publication was created, however it is not fully set up. You can finish setting up your publication by completing all steps. Additionally you can always edit publications on their detail.",
+    "NOT_AN_AUTHOR_DIALOG_TITLE": "Not an author",
+    "NOT_AN_AUTHOR_DIALOG_ALERT": "You are not set as an author of this publication. If you submit it like this, you won't be able to edit it afterwards."
   },
   "PUBLICATIONS_LIST": {
     "TABLE_ID": "Id",
@@ -120,14 +120,15 @@
     "TABLE_THANKEDTO": "Thanks",
     "TABLE_CITE": "Cite",
     "NO_PUBLICATIONS_FOUND": "No publications found",
-    "SHOW_CITE": "Show cite",
+    "SHOW_CITE": "Cite",
     "CHANGE_LOCK_SUCCESS": "Publication was successfully ",
-    "LOCKED": "locked",
-    "UNLOCKED": "unlocked"
+    "LOCKED": "Locked",
+    "UNLOCKED": "Unlocked"
   },
   "PUBLICATION_DETAIL": {
     "TITLE": "Publication detail",
     "LOCK_INFO": "This publication is",
+    "LOCK_DISABLED_TOOLTIP": "You are not authorized to perform this action",
     "ACKNOWLEDGEMENT": "Acknowledgement",
     "AUTHORS": "Authors / Reported by",
     "LOCKED": "Locked",
@@ -213,8 +214,9 @@
       "SUCCESS": "Category successfully updated"
     },
     "SHOW_CITE": {
-      "TITLE": "Publication cite",
-      "OK": "Ok"
+      "TITLE": "Cite publication",
+      "COPY": "Copy",
+      "CANCEL": "Cancel"
     },
     "REMOVE_PUBLICATION": {
       "TITLE": "Confirm removal",
@@ -235,8 +237,6 @@
       "SEARCH_PLACEHOLDER": "Search by name",
       "EMPTY_SEARCH_MESSAGE": "Search field cannot be empty",
       "SEARCH_INFO": "You can search authors by name",
-      "AUTHORS_TO_ADD": "Authors to add",
-      "NO_AUTHORS_TO_ADD": "No authors to add",
       "SUCCESS_MESSAGE": "Authors successfully added",
       "CANCEL": "Cancel",
       "ADD": "Add"
@@ -298,7 +298,7 @@
         "RESOURCES_LIST": {
           "TITLE": "Resources",
           "DELETE": "Remove selected",
-          "TABLE_RESOURCE_ID": "id",
+          "TABLE_RESOURCE_ID": "Id",
           "TABLE_RESOURCE_NAME": "Name",
           "TABLE_VO_NAME": "Organization",
           "TABLE_FACILITY_NAME": "Facility name",
@@ -354,7 +354,10 @@
           "TITLE": "Requested user (by ID or external identity) doesn't exist."
         },
         "TABLE_OPTIONS": {
-          "EXPORT_TO_FILE": "Export to file"
+          "EXPORT_TO_FILE": "Export to file",
+          "ALL_DATA": "All data",
+          "DISPLAYED_DATA": "Displayed data",
+          "EXPORT_LOADING": "Exporting data..."
         },
         "NOTIFICATOR": {
           "NOTIFICATION": {

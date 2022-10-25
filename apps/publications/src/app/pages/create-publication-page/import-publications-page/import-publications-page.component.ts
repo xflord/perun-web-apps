@@ -6,7 +6,7 @@ import {
   PublicationForGUI,
   PublicationSystem,
 } from '@perun-web-apps/perun/openapi';
-import { UntypedFormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import * as _moment from 'moment';
@@ -50,7 +50,7 @@ export const YEAR_MODE_FORMATS = {
 export class ImportPublicationsPageComponent implements OnInit {
   loading = false;
   publicationSystems: PublicationSystem[] = [];
-  pubSystem = new UntypedFormControl();
+  pubSystem: FormControl<PublicationSystem>;
   pubSystemNamespace: string;
   publications: PublicationForGUI[] = [];
 
@@ -59,8 +59,8 @@ export class ImportPublicationsPageComponent implements OnInit {
   displayedColumns = ['select', 'id', 'lock', 'title', 'reportedBy', 'year', 'category'];
   firstSearchDone: boolean;
 
-  startYear: UntypedFormControl;
-  endYear: UntypedFormControl;
+  startYear: FormControl<Moment>;
+  endYear: FormControl<Moment>;
 
   userId: number;
   userAsAuthor = true;
@@ -84,19 +84,19 @@ export class ImportPublicationsPageComponent implements OnInit {
     this.firstSearchDone = false;
     this.userId = this.storeService.getPerunPrincipal().user.id;
 
-    this.startYear = new UntypedFormControl(moment().subtract(1, 'year'));
-    this.endYear = new UntypedFormControl(moment());
+    this.startYear = new FormControl(moment().subtract(1, 'year'));
+    this.endYear = new FormControl(moment());
 
     this.cabinetService.getPublicationSystems().subscribe((publicationSystems) => {
       this.publicationSystems = publicationSystems.filter((ps) => ps.friendlyName !== 'INTERNAL');
-      this.pubSystem.setValue(this.publicationSystems[0]);
-      this.pubSystemNamespace = (this.pubSystem.value as PublicationSystem).loginNamespace;
+      this.pubSystem = new FormControl<PublicationSystem>(this.publicationSystems[0]);
+      this.pubSystemNamespace = this.pubSystem.value.loginNamespace;
       this.loading = false;
     });
   }
 
   selectPubSystem(): void {
-    this.pubSystemNamespace = (this.pubSystem.value as PublicationSystem).loginNamespace;
+    this.pubSystemNamespace = this.pubSystem.value.loginNamespace;
   }
 
   searchPublications(): void {
@@ -106,17 +106,17 @@ export class ImportPublicationsPageComponent implements OnInit {
     this.cabinetService
       .findExternalPublications(
         this.storeService.getPerunPrincipal().user.id,
-        (this.startYear.value as Moment).year(),
-        (this.endYear.value as Moment).year(),
+        this.startYear.value.year(),
+        this.endYear.value.year(),
         this.pubSystemNamespace
       )
-      .subscribe(
-        (publications) => {
+      .subscribe({
+        next: (publications) => {
           this.publications = publications;
           this.loading = false;
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
   }
 
   importPublications(publications: PublicationForGUI[]): void {
@@ -142,8 +142,8 @@ export class ImportPublicationsPageComponent implements OnInit {
       },
     };
 
-    this.cabinetService.createPublication(publicationInput).subscribe(
-      (pub) => {
+    this.cabinetService.createPublication(publicationInput).subscribe({
+      next: (pub) => {
         if (this.userAsAuthor) {
           this.cabinetService
             .createAutorship({
@@ -154,20 +154,20 @@ export class ImportPublicationsPageComponent implements OnInit {
                 userId: this.userId,
               },
             })
-            .subscribe(
-              () => {
+            .subscribe({
+              next: () => {
                 this.importedPublications.push(pub);
                 this.importPublications(publications);
               },
-              () => (this.loading = false)
-            );
+              error: () => (this.loading = false),
+            });
         } else {
           this.importedPublications.push(pub);
           this.importPublications(publications);
         }
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 
   editPublication(index: number): void {

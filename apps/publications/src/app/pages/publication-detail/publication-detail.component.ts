@@ -12,7 +12,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -22,6 +22,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class PublicationDetailComponent implements OnInit {
   @Input() publicationId: number;
+  @Input() disableRouting = false;
+  @Input() similarityCheck = false;
   loading = false;
   pubLoading = false;
   initLoading = false;
@@ -30,9 +32,9 @@ export class PublicationDetailComponent implements OnInit {
   mode: string;
   mainAuthorId: number;
   mainAuthor: Author;
-  disabledColumns: string[];
   selectionAuthors: SelectionModel<Author> = new SelectionModel<Author>(true, []);
   selectionThanks: SelectionModel<ThanksForGUI> = new SelectionModel<ThanksForGUI>(true, []);
+  lockAuth = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,7 +43,8 @@ export class PublicationDetailComponent implements OnInit {
     private domSanitizer: DomSanitizer,
     private dialog: MatDialog,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private authResolver: GuiAuthResolver
   ) {
     this.matIconRegistry.addSvgIcon(
       'publications',
@@ -51,6 +54,8 @@ export class PublicationDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.initLoading = true;
+    this.disableRouting = this.disableRouting || !this.authResolver.isCabinetAdmin();
+    this.lockAuth = this.authResolver.isCabinetAdmin();
     if (this.publicationId) {
       this.setMode();
       this.loadAllData();

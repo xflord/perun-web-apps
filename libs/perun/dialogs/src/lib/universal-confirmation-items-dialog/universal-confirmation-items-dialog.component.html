@@ -10,7 +10,7 @@
       {{'SHARED_LIB.PERUN.COMPONENTS.UNIVERSAL_REMOVE_ITEMS_DIALOG.ASK' | translate}}
     </div>
 
-    <table mat-table [dataSource]="dataSource" class="w-100">
+    <table *ngIf="data.items.length" mat-table [dataSource]="dataSource" class="w-100">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let item">{{item}}</td>

@@ -21,11 +21,10 @@ import {
   downloadData,
   getDataForExport,
   getDefaultDialogConfig,
-  parseFullName,
   TABLE_ITEMS_COUNT_OPTIONS,
   TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
-import { NotificatorService, TableCheckbox } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, NotificatorService, TableCheckbox } from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ShowCiteDialogComponent } from '../../dialogs/show-cite-dialog/show-cite-dialog.component';
@@ -62,6 +61,7 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
   dataSource: MatTableDataSource<PublicationForGUI>;
   buttonPressed = false;
   changeLockMessage: string;
+  lockAuth = false;
   locked: string;
   unlocked: string;
 
@@ -72,7 +72,8 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
     private cabinetService: CabinetManagerService,
     private dialog: MatDialog,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private authResolver: GuiAuthResolver
   ) {
     translate
       .get('PUBLICATIONS_LIST.CHANGE_LOCK_SUCCESS')
@@ -81,6 +82,7 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
     translate
       .get('PUBLICATIONS_LIST.UNLOCKED')
       .subscribe((value: string) => (this.unlocked = value));
+    this.lockAuth = this.authResolver.isCabinetAdmin();
   }
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
@@ -98,7 +100,7 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
         return data.title;
       case 'reportedBy': {
         let result = '';
-        data.authors.forEach((a) => (result += parseFullName(a) + ';'));
+        data.authors.forEach((a) => (result += a.firstName + ' ' + a.lastName + ';'));
         return result.slice(0, -1);
       }
       case 'year':

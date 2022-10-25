@@ -27,33 +27,16 @@
         <perun-web-apps-authors-list
           *ngIf="firstSearchDone"
           [authors]="authors"
-          (addAuthor)="addAuthor($event)"
+          [selection]="selection"
           [disableRouting]="true"
           [tableId]="tableIdAuthors"
-          [displayedColumns]="['id', 'name', 'organization', 'email', 'add']">
+          [displayedColumns]="['select', 'id', 'name', 'organization', 'email']">
         </perun-web-apps-authors-list>
         <perun-web-apps-alert *ngIf="!firstSearchDone" alert_type="info">
           {{'DIALOGS.ADD_AUTHORS.SEARCH_INFO' | translate}}
         </perun-web-apps-alert>
       </div>
       <mat-spinner *ngIf="searchLoading" class="ml-auto mr-auto"></mat-spinner>
-      <h2 mat-dialog-title class="top-margin">
-        {{'DIALOGS.ADD_AUTHORS.AUTHORS_TO_ADD' | translate}}
-      </h2>
-      <div *ngIf="firstSearchDone && authorsToAdd.length !== 0">
-        <perun-web-apps-authors-list
-          *ngIf="firstSearchDone"
-          [reloadTable]="reloadTable"
-          [authors]="authorsToAdd"
-          (removeAuthor)="removeAuthor($event)"
-          [disableRouting]="true"
-          [tableId]="tableIdAuthors"
-          [displayedColumns]="['id', 'name', 'organization', 'email', 'remove']">
-        </perun-web-apps-authors-list>
-      </div>
-      <perun-web-apps-alert *ngIf="authorsToAdd.length === 0" alert_type="warn">
-        {{'DIALOGS.ADD_AUTHORS.NO_AUTHORS_TO_ADD' | translate}}
-      </perun-web-apps-alert>
     </div>
   </div>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
@@ -64,7 +47,7 @@
     </button>
     <button
       (click)="onAdd()"
-      [disabled]="authorsToAdd.length === 0 || loading"
+      [disabled]="selection.selected.length === 0 || loading"
       class="ml-2"
       color="accent"
       mat-flat-button>

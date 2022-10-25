@@ -71,8 +71,8 @@ export class MyPublicationsPageComponent implements OnInit {
     this.cabinetService
       .findPublicationsByGUIFilter(
         this.filter.title,
-        null,
-        null,
+        this.filter.isbnissn,
+        this.filter.doi,
         null,
         null,
         this.filter.category,

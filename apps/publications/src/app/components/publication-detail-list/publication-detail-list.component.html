@@ -6,7 +6,7 @@
       <button
         class="ml-auto"
         (click)="editing = !editing"
-        *ngIf="!editing && !publication.locked"
+        *ngIf="!editing && !publication.locked && !similarityCheck"
         mat-icon-button
         matTooltipPosition="above"
         matTooltip="{{'PUBLICATION_DETAIL.LIST.EDIT' | translate}}">

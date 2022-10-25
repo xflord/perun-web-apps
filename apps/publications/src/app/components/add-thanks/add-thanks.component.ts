@@ -21,6 +21,7 @@ import { UniversalConfirmationItemsDialogComponent } from '@perun-web-apps/perun
 export class AddThanksComponent implements OnInit {
   @Input() publication: PublicationForGUI;
   @Input() selection: SelectionModel<ThanksForGUI> = new SelectionModel<ThanksForGUI>(true, []);
+  @Input() similarityCheck = false;
 
   tableId = TABLE_PUBLICATION_THANKS;
 

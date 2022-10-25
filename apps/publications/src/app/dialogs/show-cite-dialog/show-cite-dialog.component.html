@@ -5,8 +5,12 @@
     {{publication.main}}
   </div>
   <div mat-dialog-actions>
-    <button mat-stroked-button class="ml-auto" (click)="close()">
-      {{'DIALOGS.SHOW_CITE.OK' | translate}}
+    <button mat-flat-button class="ml-auto" (click)="close()">
+      {{'DIALOGS.SHOW_CITE.CANCEL' | translate}}
+    </button>
+    <button (click)="clipboard.copy(publication.main)" mat-button>
+      {{'DIALOGS.SHOW_CITE.COPY' | translate}}
+      <mat-icon>content_copy</mat-icon>
     </button>
   </div>
 </div>

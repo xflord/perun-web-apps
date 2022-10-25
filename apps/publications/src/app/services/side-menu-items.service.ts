@@ -41,21 +41,21 @@ export class SideMenuItemsService {
         activatedRegex: '^/authors',
         tabName: 'authors',
       });
+      items.push({
+        label: 'MENU_ITEMS.CATEGORIES',
+        icon: 'all_inbox',
+        link: '/categories',
+        activatedRegex: '^/categories$',
+        tabName: 'categories',
+      });
+      items.push({
+        label: 'MENU_ITEMS.PUBLICATION_SYSTEMS',
+        icon: 'assignment',
+        link: '/publication-systems',
+        activatedRegex: '^/publication-systems$',
+        tabName: 'publication-systems',
+      });
     }
-    items.push({
-      label: 'MENU_ITEMS.CATEGORIES',
-      icon: 'all_inbox',
-      link: '/categories',
-      activatedRegex: '^/categories$',
-      tabName: 'categories',
-    });
-    items.push({
-      label: 'MENU_ITEMS.PUBLICATION_SYSTEMS',
-      icon: 'assignment',
-      link: '/publication-systems',
-      activatedRegex: '^/publication-systems$',
-      tabName: 'publication-systems',
-    });
     return items;
   }
 }

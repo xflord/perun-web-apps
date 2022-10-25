@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { AddAuthorsDialogComponent } from '../../dialogs/add-authors-dialog/add-authors-dialog.component';
 import { UniversalConfirmationItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { Author, CabinetManagerService, PublicationForGUI } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import { TABLE_PUBLICATION_AUTHORS } from '@perun-web-apps/config/table-config';
 
@@ -17,6 +17,9 @@ import { TABLE_PUBLICATION_AUTHORS } from '@perun-web-apps/config/table-config';
 export class AddAuthorsComponent implements OnInit {
   @Input() publication: PublicationForGUI;
   @Input() selection: SelectionModel<Author> = new SelectionModel<Author>(true, []);
+  @Input() disableRouting = false;
+  @Input() similarityCheck = false;
+  @Output() yourselfAsAnAuthor: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   filterValue = '';
   loading = false;
@@ -27,7 +30,8 @@ export class AddAuthorsComponent implements OnInit {
     private dialog: MatDialog,
     private cabinetService: CabinetManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private storeService: StoreService
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +41,9 @@ export class AddAuthorsComponent implements OnInit {
   refresh(): void {
     this.loading = true;
     this.cabinetService.findAuthorsByPublicationId(this.publication.id).subscribe((authors) => {
+      this.yourselfAsAnAuthor.emit(
+        authors.some((author) => author.id === this.storeService.getPerunPrincipal().userId)
+      );
       this.publication.authors = authors;
       this.selection.clear();
       this.loading = false;

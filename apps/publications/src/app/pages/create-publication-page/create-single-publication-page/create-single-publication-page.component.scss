@@ -19,3 +19,22 @@
   display: flex;
   flex-direction: column;
 }
+
+.year-picker {
+  .mat-calendar-period-button {
+    pointer-events: none;
+  }
+  .mat-calendar-arrow {
+    display: none;
+  }
+}
+
+.actions {
+  background-color: #ffffff;
+  display: flex;
+  margin-top: 20px;
+}
+
+.mat-horizontal-stepper-header {
+  pointer-events: none !important;
+}

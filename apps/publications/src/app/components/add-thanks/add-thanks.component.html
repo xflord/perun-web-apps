@@ -1,6 +1,6 @@
 <div class="'user-theme'">
   <button
-    *ngIf="!publication.locked"
+    *ngIf="!publication.locked && !similarityCheck"
     mat-flat-button
     color="accent"
     class="mr-2 action-button"
@@ -8,7 +8,7 @@
     {{'PUBLICATION_DETAIL.ADD' | translate}}
   </button>
   <button
-    *ngIf="!publication.locked"
+    *ngIf="!publication.locked && !similarityCheck"
     mat-flat-button
     color="warn"
     class="mr-2"
