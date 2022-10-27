@@ -7,6 +7,7 @@ import {
   Host,
   Owner,
   RichDestination,
+  RoleManagementRules,
   Service,
   ServicesManagerService,
   ServicesPackage,
@@ -50,7 +51,7 @@ export class FacilityConfigurationPageComponent implements OnInit, AfterViewInit
   hosts: Host[] = [];
   destinations: RichDestination[] = [];
   destinationServiceMissing = false;
-  availableRoles: string[] = [];
+  availableRoles: RoleManagementRules[] = [];
   filterValue = '';
   ATTRIBUTES_IDX = 3;
   serviceControl: UntypedFormControl = new UntypedFormControl(false, Validators.requiredTrue);
@@ -193,18 +194,18 @@ export class FacilityConfigurationPageComponent implements OnInit, AfterViewInit
           facility: this.facility.id,
           attributes: this.attSelection.selected,
         })
-        .subscribe(
-          () => {
+        .subscribe({
+          next: () => {
             this.notificator.showSuccess(this.saveMsg);
             this.attSelection.clear();
             this.processing = false;
             resolve();
           },
-          () => {
+          error: () => {
             this.processing = false;
             reject();
-          }
-        );
+          },
+        });
     });
   }
 

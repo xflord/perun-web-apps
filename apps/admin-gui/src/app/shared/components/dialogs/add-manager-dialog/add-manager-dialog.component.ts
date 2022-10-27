@@ -9,6 +9,7 @@ import {
   Facility,
   Group,
   RichUser,
+  RoleManagementRules,
   UsersManagerService,
   Vo,
 } from '@perun-web-apps/perun/openapi';
@@ -20,7 +21,7 @@ import { UntypedFormControl, Validators } from '@angular/forms';
 export interface AddManagerDialogData {
   complementaryObject: Vo | Group | Facility;
   theme: string;
-  availableRoles: Role[];
+  availableRoles: RoleManagementRules[];
   selectedRole: Role;
 }
 
@@ -37,7 +38,7 @@ export class AddManagerDialogComponent implements OnInit {
   users: RichUser[] = [];
   selectedRole: Role;
   firstSearchDone = false;
-  availableRoles: Role[];
+  availableRoles: RoleManagementRules[];
   theme: string;
   tableId = TABLE_ADD_MANAGER;
   searchCtrl: UntypedFormControl;
@@ -81,14 +82,14 @@ export class AddManagerDialogComponent implements OnInit {
         users: this.selection.selected.map((u) => u.id),
         complementaryObject: this.data.complementaryObject,
       })
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.notificator.showSuccess(this.successMessage);
           this.loading = false;
           this.dialogRef.close(true);
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
   }
 
   onSearchByString(): string {
@@ -105,13 +106,13 @@ export class AddManagerDialogComponent implements OnInit {
 
     this.usersService
       .findRichUsersWithAttributes(this.searchCtrl.value as string, attributes)
-      .subscribe(
-        (users) => {
+      .subscribe({
+        next: (users) => {
           this.users = users;
           this.loading = false;
           this.firstSearchDone = true;
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
   }
 }

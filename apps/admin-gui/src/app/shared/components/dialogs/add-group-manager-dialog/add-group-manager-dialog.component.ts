@@ -12,6 +12,7 @@ import {
   Facility,
   Group,
   GroupsManagerService,
+  RoleManagementRules,
   Vo,
   VosManagerService,
 } from '@perun-web-apps/perun/openapi';
@@ -21,7 +22,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 export interface AddGroupManagerDialogData {
   complementaryObject: Vo | Group | Facility;
-  availableRoles: Role[];
+  availableRoles: RoleManagementRules[];
   theme: string;
   selectedRole: Role;
 }
@@ -48,7 +49,7 @@ export class AddGroupManagerDialogComponent implements OnInit {
   myControl = new UntypedFormControl();
   firstSearchDone = false;
 
-  availableRoles: Role[];
+  availableRoles: RoleManagementRules[];
   theme: string;
 
   tableId = TABLE_SELECT_GROUP_MANAGER_DIALOG;
@@ -86,14 +87,14 @@ export class AddGroupManagerDialogComponent implements OnInit {
         authorizedGroups: this.selection.selected.map((group) => group.id),
         complementaryObject: this.data.complementaryObject,
       })
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.notificator.showSuccess(this.successMessage);
           this.loading = false;
           this.dialogRef.close(true);
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
   }
 
   ngOnInit(): void {
@@ -101,8 +102,8 @@ export class AddGroupManagerDialogComponent implements OnInit {
     this.availableRoles = this.data.availableRoles;
     this.selectedRole = this.data.selectedRole;
     this.theme = this.data.theme;
-    this.voService.getMyVos().subscribe(
-      (vos) => {
+    this.voService.getMyVos().subscribe({
+      next: (vos) => {
         this.filteredOptions = this.myControl.valueChanges.pipe(
           startWith(''),
           map((value: string) => this._filter(value))
@@ -111,20 +112,20 @@ export class AddGroupManagerDialogComponent implements OnInit {
         this.vos = vos;
         this.loading = false;
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 
   showVoGroups(event: MatAutocompleteSelectedEvent): void {
     this.loading = true;
-    this.groupService.getAllGroups((event.option.value as Vo).id).subscribe(
-      (groups) => {
+    this.groupService.getAllGroups((event.option.value as Vo).id).subscribe({
+      next: (groups) => {
         this.groups = groups;
         this.loading = false;
         this.firstSearchDone = true;
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 
   applyFilter(filterValue: string): void {

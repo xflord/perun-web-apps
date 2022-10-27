@@ -8,25 +8,25 @@
     </perun-web-apps-role-search-select>
     <perun-web-apps-vo-search-select
       *ngIf="selectedRule?.primaryObject === 'Vo'"
-      [vos]="vos | manageableEntities: selectedRule.roleName | unassignedRole: roles : selectedRule"
+      [vos]="vos | manageableEntities: selectedRule | unassignedRole: roles : selectedRule"
       [disableAutoSelect]="true"
       (voSelected)="selectedEntity = $event">
     </perun-web-apps-vo-search-select>
     <perun-web-apps-group-search-select
       *ngIf="selectedRule?.primaryObject === 'Group'"
-      [groups]="groups | manageableEntities: selectedRule.roleName | unassignedRole: roles : selectedRule"
+      [groups]="groups | manageableEntities: selectedRule | unassignedRole: roles : selectedRule"
       [disableAutoSelect]="true"
       (groupSelected)="selectedEntity = $event">
     </perun-web-apps-group-search-select>
     <perun-web-apps-facility-search-select
       *ngIf="selectedRule?.primaryObject === 'Facility'"
-      [facilities]="facilities | manageableEntities: selectedRule.roleName | unassignedRole: roles : selectedRule"
+      [facilities]="facilities | manageableEntities: selectedRule| unassignedRole: roles : selectedRule"
       [disableAutoSelect]="true"
       (facilitySelected)="selectedEntity = $event">
     </perun-web-apps-facility-search-select>
     <perun-web-apps-resource-search-select
       *ngIf="selectedRule?.primaryObject === 'Resource'"
-      [resources]="resources | manageableEntities: selectedRule.roleName | unassignedRole: roles : selectedRule"
+      [resources]="resources | manageableEntities: selectedRule | unassignedRole: roles : selectedRule"
       [disableAutoSelect]="true"
       (resourceSelected)="selectedEntity = $event">
     </perun-web-apps-resource-search-select>

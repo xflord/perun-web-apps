@@ -1,7 +1,9 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 import { ActivatedRoute } from '@angular/router';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { StoreService, RoleService } from '@perun-web-apps/perun/services';
+import { iif, of } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-roles',
@@ -13,76 +15,50 @@ export class UserRolesComponent implements OnInit {
 
   userId: number;
 
-  roles: Map<string, Map<string, Array<number>>> = new Map<string, Map<string, Array<number>>>();
-  roleNames: string[] = [];
+  roles = new Map<string, Map<string, number[]>>();
   outerLoading: boolean;
-  showDescription: boolean;
+  showDescription = true;
   entityType: 'SELF' | 'USER';
-  roleFilter = [
-    'SELF',
-    'GROUPADMIN',
-    'VOADMIN',
-    'RESOURCEADMIN',
-    'FACILITYADMIN',
-    'TOPGROUPCREATOR',
-    'SPONSORSHIP',
-    'SPONSOR',
-    'RESOURCESELFSERVICE',
-    'VOOBSERVER',
-    'RESOURCEOBSERVER',
-    'GROUPOBSERVER',
-    'TRUSTEDFACILITYADMIN',
-    'FACILITYOBSERVER',
-    'PERUNADMIN',
-    'PERUNOBSERVER',
-    'MEMBERSHIP',
-    'GROUPMEMBERSHIPMANAGER',
-  ];
 
   constructor(
     private authzResolverService: AuthzResolverService,
     private route: ActivatedRoute,
-    private store: StoreService
+    private store: StoreService,
+    private roleService: RoleService
   ) {}
 
   ngOnInit(): void {
-    this.getData();
+    this.outerLoading = true;
+    this.route.parent.params.subscribe((params) => {
+      if (params['userId']) {
+        this.entityType = 'USER';
+        this.userId = Number(params['userId']);
+      } else {
+        this.userId = this.store.getPerunPrincipal().userId;
+        this.entityType = 'SELF';
+      }
+
+      this.getData();
+    });
   }
 
   getData(): void {
     this.outerLoading = true;
-    this.showDescription = true;
     this.roles.clear();
-    this.route.parent.params.subscribe((params) => {
-      if (params['userId']) {
-        this.userId = Number(params['userId']);
-        this.authzResolverService.getUserRoles(this.userId).subscribe((roles) => {
-          this.roleNames = Object.keys(roles).map((role) => role.toUpperCase());
-          this.entityType = 'USER';
-          this.prepareRoles(roles);
-        });
-      } else {
-        const principal = this.store.getPerunPrincipal();
-        this.userId = principal.userId;
-        this.roleNames = Object.keys(principal.roles);
-        this.entityType = 'SELF';
-        this.prepareRoles(principal.roles);
-      }
-    });
-  }
-
-  private prepareRoles(roles: { [p: string]: { [p: string]: Array<number> } }): void {
-    this.roleNames.forEach((roleName) => {
-      const innerMap = new Map<string, Array<number>>();
-      const innerRoles = Object.keys(roles[roleName]);
-
-      innerRoles.forEach((innerRole) => {
-        innerMap.set(innerRole, roles[roleName][innerRole]);
+    of(this.entityType)
+      .pipe(
+        mergeMap((type) =>
+          iif(
+            () => type === 'SELF',
+            of(this.store.getPerunPrincipal().roles),
+            this.authzResolverService.getUserRoles(this.userId)
+          )
+        )
+      )
+      .subscribe((roles) => {
+        const roleNames = Object.keys(roles).map((role) => role.toUpperCase());
+        this.roles = this.roleService.prepareRoles(roles, roleNames);
+        this.outerLoading = false;
       });
-
-      this.roles.set(roleName, innerMap);
-    });
-    this.roleNames = this.roleNames.filter((role) => !this.roleFilter.includes(role));
-    this.outerLoading = false;
   }
 }

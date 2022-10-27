@@ -184,18 +184,18 @@ export class GuiAuthResolver {
     });
   }
 
-  assignAvailableRoles(availableRoles: string[], primaryObject: string): void {
+  assignAvailableRoles(availableRoles: RoleManagementRules[], primaryObject: string): void {
     this.allRolesManagementRules.forEach((rule) => {
       if (rule.primaryObject === primaryObject) {
-        availableRoles.push(rule.roleName);
+        availableRoles.push(rule);
       }
     });
-    availableRoles.sort();
+    availableRoles.sort(this.sortRoles);
     if (primaryObject === 'Vo') this.voCustomSort(availableRoles);
   }
 
   isManagerPagePrivileged(primaryObject: PerunBean): boolean {
-    const availableRoles: string[] = [];
+    const availableRoles: RoleManagementRules[] = [];
     let beanName: string = primaryObject.beanName;
     if (beanName.startsWith('Rich')) {
       beanName = beanName.substring(4);
@@ -214,7 +214,7 @@ export class GuiAuthResolver {
   }
 
   setRolesAuthorization(
-    availableRoles: string[],
+    availableRoles: RoleManagementRules[],
     primaryObject: PerunBean,
     availableRolesPrivileges: Map<string, AuthPrivilege>
   ): void {
@@ -223,7 +223,7 @@ export class GuiAuthResolver {
       let privilegedManageRoles: Array<{ [key: string]: string }> = [];
       let modes: string[] = [];
       for (const rule of this.allRolesManagementRules) {
-        if (rule.roleName === role) {
+        if (rule.roleName === role.roleName) {
           privilegedReadRoles = privilegedReadRoles.concat(rule.privilegedRolesToRead);
           privilegedManageRoles = privilegedManageRoles.concat(rule.privilegedRolesToManage);
 
@@ -247,7 +247,7 @@ export class GuiAuthResolver {
         manageAuth: manageAuth,
         modes: modes,
       };
-      availableRolesPrivileges.set(role, privilege);
+      availableRolesPrivileges.set(role.roleName, privilege);
     }
   }
 
@@ -270,6 +270,14 @@ export class GuiAuthResolver {
     return '';
   }
 
+  getAllRules(): RoleManagementRules[] {
+    return this.allRolesManagementRules.sort(this.sortRoles);
+  }
+
+  getRuleForRole(role: string): RoleManagementRules {
+    return this.allRolesManagementRules.find((rule) => rule.roleName === role);
+  }
+
   /**
    * Returns all Role Management Rules that principal can potentially assign.
    * Rules are sorted by the roleName ascending.
@@ -285,7 +293,6 @@ export class GuiAuthResolver {
       'ENGINE',
       'MFA',
       'REGISTRAR',
-      'CABINETADMIN',
       'AUDITCONSUMERADMIN',
       'SPONSORSHIP',
       'MEMBERSHIP',
@@ -304,11 +311,7 @@ export class GuiAuthResolver {
       }
     });
 
-    return rules.sort((a, b) => {
-      if (a.roleName > b.roleName) return 1;
-      if (a.roleName < b.roleName) return -1;
-      return 0;
-    });
+    return rules.sort(this.sortRoles);
   }
 
   /**
@@ -336,6 +339,18 @@ export class GuiAuthResolver {
       this.principalRoles.has(Object.keys(manager)[0] as Role)
     );
   }
+
+  /**
+   * Sort role management rules by roleName ascending
+   * @param a
+   * @param b
+   * @private
+   */
+  private sortRoles = (a: RoleManagementRules, b: RoleManagementRules): number => {
+    if (a.roleName > b.roleName) return 1;
+    if (a.roleName < b.roleName) return -1;
+    return 0;
+  };
 
   private resolveAuthorization(
     policyRoles: Array<{ [key: string]: string }>,
@@ -472,12 +487,12 @@ export class GuiAuthResolver {
    *
    * @param availableRoles is array of available roles for VO
    */
-  private voCustomSort(availableRoles: string[]): void {
+  private voCustomSort(availableRoles: RoleManagementRules[]): void {
     for (let i = 0; i < availableRoles.length; i++) {
-      if (availableRoles[i] === 'VOADMIN') {
+      if (availableRoles[i].roleName === 'VOADMIN') {
         availableRoles.unshift(availableRoles[i]);
         availableRoles.splice(i + 1, 1);
-      } else if (availableRoles[i] === 'VOOBSERVER') {
+      } else if (availableRoles[i].roleName === 'VOOBSERVER') {
         availableRoles.splice(1, 0, availableRoles[i]);
         availableRoles.splice(i + 1, 1);
       }

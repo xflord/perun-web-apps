@@ -19,7 +19,7 @@ export interface AddRoleDialogData {
 }
 
 export interface AddRoleForm {
-  role: string;
+  role: RoleManagementRules;
   entity: PerunBean;
 }
 
@@ -74,6 +74,6 @@ export class AddRoleDialogComponent implements OnInit {
   }
 
   addRole(): void {
-    this.submitForm.emit({ role: this.selectedRule.roleName, entity: this.selectedEntity });
+    this.submitForm.emit({ role: this.selectedRule, entity: this.selectedEntity });
   }
 }

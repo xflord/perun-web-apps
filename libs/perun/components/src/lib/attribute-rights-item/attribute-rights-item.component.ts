@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Role } from '@perun-web-apps/perun/models';
-import { AttributePolicy, RoleObject } from '@perun-web-apps/perun/openapi';
+import { AttributePolicy, RoleManagementRules, RoleObject } from '@perun-web-apps/perun/openapi';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AttributeRightsService } from '@perun-web-apps/perun/services';
 import { switchMap } from 'rxjs/operators';
@@ -15,7 +15,7 @@ export class AttributeRightsItemComponent implements OnInit {
   @Input() policy: AttributePolicy;
   @Output() policyRemoved = new EventEmitter<void>();
   selectedRole: BehaviorSubject<Role>;
-  roles: Observable<Role[]> = this.attrRightsService.getRoles();
+  roles: Observable<RoleManagementRules[]> = this.attrRightsService.getRoles();
   objects: Observable<RoleObject[]>;
 
   constructor(private attrRightsService: AttributeRightsService) {}

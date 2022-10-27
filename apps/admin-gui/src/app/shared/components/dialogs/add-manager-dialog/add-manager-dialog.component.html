@@ -6,11 +6,9 @@
       <mat-form-field class="mr-2">
         <mat-label>{{'SHARED.COMPONENTS.MANAGERS_PAGE.SELECT_ROLE' | translate}}</mat-label>
         <mat-select [(value)]="selectedRole">
-          <mat-option
-            *ngFor="let role of availableRoles"
-            [value]="role"
-            >{{role | displayedRole}}</mat-option
-          >
+          <mat-option *ngFor="let role of availableRoles" [value]="role.roleName">
+            {{role | displayedRole}}
+          </mat-option>
         </mat-select>
       </mat-form-field>
 

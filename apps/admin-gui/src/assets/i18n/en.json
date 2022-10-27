@@ -2619,8 +2619,8 @@
     "PERUN_ADMIN": "Perun admin",
     "PERUN_OBSERVER": "Perun observer",
     "SELF": "Self",
-    "SELF_IDENTITIES_SELF": "Identities linked to your Perun account",
-    "SELF_IDENTITIES_USER": "User's identities",
+    "SELF_USERS_SELF": "Identities linked to your Perun account",
+    "SELF_USERS_USER": "User's identities",
     "MEMBERSHIP_VOS_SELF": "Organizations you are member of",
     "MEMBERSHIP_VOS_USER": "Organizations where user is member",
     "MEMBERSHIP_GROUPS_SELF": "Groups you are member of",
@@ -2679,7 +2679,9 @@
     "MEMBERSHIP": "Membership",
     "AUDITCONSUMERADMIN": "Audit consumer admin",
     "PERUNADMIN": "Perun admin",
-    "PERUNOBSERVER": "Perun observer"
+    "PERUNADMIN_SELF": "You have the role of perun admin",
+    "PERUNOBSERVER": "Perun observer",
+    "PERUNOBSERVER_SELF": "You have the role of perun observer"
   },
   "SHARED_LIB": {
     "PERUN": {

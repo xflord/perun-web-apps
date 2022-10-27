@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Resource } from '@perun-web-apps/perun/openapi';
+import { Resource, RoleManagementRules } from '@perun-web-apps/perun/openapi';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
@@ -9,7 +9,7 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 })
 export class ResourceSettingsManagersComponent implements OnInit {
   resource: Resource;
-  availableRoles: string[] = [];
+  availableRoles: RoleManagementRules[] = [];
   type = 'Resource';
   theme = 'resource-theme';
 

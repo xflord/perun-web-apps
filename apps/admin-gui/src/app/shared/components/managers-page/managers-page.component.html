@@ -36,11 +36,11 @@
         <mat-label>{{'SHARED.COMPONENTS.MANAGERS_PAGE.SELECT_ROLE' | translate}}</mat-label>
         <mat-select (selectionChange)="refreshUsers()" [(value)]="selectedRole">
           <mat-option
-            attr.data-cy="{{role | lowercase}}"
+            attr.data-cy="{{role.roleName | lowercase}}"
             *ngFor="let role of availableRoles"
-            [value]="role"
-            >{{role | displayedRole}}</mat-option
-          >
+            [value]="role.roleName">
+            {{role | displayedRole}}
+          </mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -90,7 +90,7 @@
         <mat-select (selectionChange)="refreshGroups()" [(value)]="selectedRole">
           <mat-option
             *ngFor="let role of availableRoles"
-            [value]="role"
+            [value]="role.roleName"
             >{{role | displayedRole}}</mat-option
           >
         </mat-select>

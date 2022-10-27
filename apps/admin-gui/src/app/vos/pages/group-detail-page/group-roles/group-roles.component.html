@@ -1,9 +1,9 @@
 <app-perun-web-apps-roles-page
   [outerLoading]="this.outerLoading"
   [roles]="this.roles"
-  [roleNames]="this.roleNames"
   [entityId]="this.groupId"
   [entityType]="'GROUP'"
   [showDescription]="true"
-  (reload)="getData()">
+  (reload)="getData()"
+  (startLoading)="outerLoading = true">
 </app-perun-web-apps-roles-page>

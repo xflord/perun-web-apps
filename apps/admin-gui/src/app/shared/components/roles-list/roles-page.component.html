@@ -1,6 +1,6 @@
 <h1 class="page-subtitle d-flex">{{'ROLES.TITLE'| translate}}</h1>
 <button
-  *ngIf="rules.length !== 0"
+  *ngIf="assignableRules.length !== 0"
   mat-flat-button
   color="accent"
   class="mb-3 mr-2"
@@ -10,344 +10,111 @@
 <mat-spinner *ngIf="outerLoading" class="ml-auto mr-auto"></mat-spinner>
 <mat-accordion *ngIf="!outerLoading && roles.size > 0">
   <mat-expansion-panel
-    (opened)="getSelfData(roles.get('SELF').get('User'))"
-    *ngIf="roles.get('SELF')">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-user-dark"></mat-icon>
-        <p class="mt-auto mb-auto">{{'ROLES.SELF' | translate}}</p>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-    <div *ngIf="!loading">
-      <div *ngIf="users.length">
-        <div *ngIf="showDescription">
-          {{'ROLES.SELF_IDENTITIES_' + entityType | translate}}
-        </div>
-
-        <app-users-list
-          [displayedColumns]="['user', 'id', 'name']"
-          [disableRouting]="true"
-          [users]="users">
-        </app-users-list>
-      </div>
-    </div>
-  </mat-expansion-panel>
-
-  <mat-expansion-panel
-    (opened)="getMembershipData(roles.get('MEMBERSHIP').get('Group'), roles.get('MEMBERSHIP').get('Vo'), roles.get('MEMBERSHIP').get('Resource'), roles.get('MEMBERSHIP').get('Facility'))"
-    *ngIf="roles.get('MEMBERSHIP')">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-user-dark"></mat-icon>
-        <p class="mt-auto mb-auto">{{'ROLES.MEMBERSHIP' | translate}}</p>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-    <div *ngIf="!loading">
-      <div *ngIf="vos.length">
-        <div *ngIf="showDescription">
-          {{'ROLES.MEMBERSHIP_VOS_' + entityType | translate}}
-        </div>
-
-        <perun-web-apps-vos-list
-          [displayedColumns]="['id', 'name', 'shortName']"
-          [vos]="vos"
-          [disableRouting]="true">
-        </perun-web-apps-vos-list>
-      </div>
-
-      <div *ngIf="groups.length" class="mt-5">
-        <div *ngIf="showDescription">
-          {{'ROLES.MEMBERSHIP_GROUPS_' + entityType | translate}}
-        </div>
-
-        <perun-web-apps-groups-list
-          [displayedColumns]="['id', 'vo', 'name', 'description']"
-          [groups]="groups"
-          [disableRouting]="true"></perun-web-apps-groups-list>
-      </div>
-
-      <div *ngIf="resources.length" class="mt-5">
-        <div *ngIf="showDescription">
-          {{'ROLES.MEMBERSHIP_RESOURCES_' + entityType | translate}}
-        </div>
-
-        <perun-web-apps-resources-list
-          [resources]="resources"
-          [displayedColumns]="['id', 'name', 'vo', 'facility', 'description']"
-          [disableRouting]="true">
-        </perun-web-apps-resources-list>
-      </div>
-
-      <div *ngIf="facilities.length" class="mt-5">
-        <div *ngIf="showDescription">
-          {{'ROLES.MEMBERSHIP_FACILITIES_' + entityType | translate}}
-        </div>
-
-        <perun-web-apps-facilities-list
-          [displayedColumns]="['id', 'name', 'description']"
-          [facilities]="facilities"
-          [disableRouting]="true">
-        </perun-web-apps-facilities-list>
-      </div>
-    </div>
-  </mat-expansion-panel>
-
-  <div *ngFor="let role of ['GROUPADMIN', 'GROUPOBSERVER', 'GROUPMEMBERSHIPMANAGER']">
-    <mat-expansion-panel
-      (opened)="getGroups(roles.get(role).get('Group')); selectedRole = role"
-      (closed)="selection.clear()"
-      *ngIf="roles.has(role)">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-group-black"></mat-icon>
-          <p class="mt-auto mb-auto">{{'ROLES.'.concat(role) | translate}}</p>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-      <div *ngIf="!loading">
-        <div *ngIf="showDescription">
-          {{('ROLES.' + role + '_GROUPS_' + entityType) | translate}}
-        </div>
-        <span
-          matTooltip="{{'ROLES.REMOVE_DISABLED_TOOLTIP'| translate}}"
-          matTooltipPosition="left"
-          [matTooltipDisabled]="selection.selected.length === 0 || !disableRemove">
-          <button
-            (click)="openConfirmDialog(role)"
-            [disabled]="selection.selected.length === 0 || disableRemove"
-            mat-flat-button
-            color="warn"
-            class="mt-2">
-            {{'ROLES.REMOVE'| translate}}
-          </button>
-        </span>
-        <perun-web-apps-groups-list
-          [displayedColumns]="['select', 'id', 'vo', 'name', 'description']"
-          [groups]="groups"
-          [selection]="selection">
-        </perun-web-apps-groups-list>
-      </div>
-    </mat-expansion-panel>
-  </div>
-
-  <div *ngFor="let role of ['VOADMIN', 'VOOBSERVER', 'TOPGROUPCREATOR', 'TRUSTEDFACILITYADMIN']">
-    <mat-expansion-panel
-      (opened)="getVos(roles.get(role).get('Vo')); selectedRole = role"
-      (closed)="selection.clear()"
-      *ngIf="roles.has(role)">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-vo-black"></mat-icon>
-          <p class="mt-auto mb-auto">{{'ROLES.'.concat(role) | translate}}</p>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-      <div *ngIf="!loading">
-        <div *ngIf="showDescription">
-          {{('ROLES.' + role + '_VOS_' + entityType) | translate}}
-        </div>
-        <span
-          matTooltip="{{'ROLES.REMOVE_DISABLED_TOOLTIP'| translate}}"
-          matTooltipPosition="left"
-          [matTooltipDisabled]="selection.selected.length === 0 || !disableRemove">
-          <button
-            (click)="openConfirmDialog(role)"
-            [disabled]="selection.selected.length === 0 || disableRemove"
-            mat-flat-button
-            color="warn"
-            class="mt-2">
-            {{'ROLES.REMOVE'| translate}}
-          </button>
-        </span>
-        <perun-web-apps-vos-list
-          [displayedColumns]="['checkbox', 'id', 'name', 'shortName']"
-          [vos]="vos"
-          [selection]="selection">
-        </perun-web-apps-vos-list>
-      </div>
-    </mat-expansion-panel>
-  </div>
-
-  <div *ngFor="let role of ['RESOURCEADMIN', 'RESOURCEOBSERVER', 'RESOURCESELFSERVICE']">
-    <mat-expansion-panel
-      (opened)="getResources(roles.get(role).get('Resource')); selectedRole = role"
-      (closed)="selection.clear()"
-      *ngIf="roles.has(role)">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-resource-black"></mat-icon>
-          <p class="mt-auto mb-auto">{{'ROLES.'.concat(role) | translate}}</p>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-      <div *ngIf="!loading">
-        <div *ngIf="showDescription">
-          {{('ROLES.' + role + '_RESOURCES_' + entityType) | translate}}
-        </div>
-        <span
-          matTooltip="{{'ROLES.REMOVE_DISABLED_TOOLTIP'| translate}}"
-          matTooltipPosition="left"
-          [matTooltipDisabled]="selection.selected.length === 0 || !disableRemove">
-          <button
-            (click)="openConfirmDialog(role)"
-            [disabled]="selection.selected.length === 0 || disableRemove"
-            mat-flat-button
-            color="warn"
-            class="mt-2">
-            {{'ROLES.REMOVE'| translate}}
-          </button>
-        </span>
-        <perun-web-apps-resources-list
-          [resources]="resources"
-          [displayedColumns]="['select', 'id', 'name', 'vo', 'facility', 'description']"
-          [routingVo]="true"
-          [selection]="selection">
-        </perun-web-apps-resources-list>
-      </div>
-    </mat-expansion-panel>
-  </div>
-
-  <div *ngFor="let role of ['FACILITYADMIN', 'FACILITYOBSERVER']">
-    <mat-expansion-panel
-      (opened)="getFacilities(roles.get(role).get('Facility')); selectedRole = role"
-      (closed)="selection.clear()"
-      *ngIf="roles.has(role)">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-facility-black"></mat-icon>
-          <p class="mt-auto mb-auto">{{'ROLES.'.concat(role) | translate}}</p>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-      <div *ngIf="!loading">
-        <div *ngIf="showDescription">
-          {{('ROLES.' + role + '_FACILITIES_' + entityType) | translate}}
-        </div>
-        <span
-          matTooltip="{{'ROLES.REMOVE_DISABLED_TOOLTIP'| translate}}"
-          matTooltipPosition="left"
-          [matTooltipDisabled]="selection.selected.length === 0 || !disableRemove">
-          <button
-            (click)="openConfirmDialog(role)"
-            [disabled]="selection.selected.length === 0 || disableRemove"
-            mat-flat-button
-            color="warn"
-            class="mt-2">
-            {{'ROLES.REMOVE'| translate}}
-          </button>
-        </span>
-        <perun-web-apps-facilities-list
-          [displayedColumns]="['select', 'id', 'name', 'description']"
-          [facilities]="facilities"
-          [selection]="selection">
-        </perun-web-apps-facilities-list>
-      </div>
-    </mat-expansion-panel>
-  </div>
-
-  <mat-expansion-panel
-    (opened)="getMembers(roles.get('SPONSORSHIP').get('Member'))"
-    *ngIf="roles.has('SPONSORSHIP')">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-user-dark"></mat-icon>
-        <p class="mt-auto mb-auto">{{'ROLES.SPONSORSHIP' | translate}}</p>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-    <div *ngIf="!loading">
-      <div *ngIf="showDescription">
-        {{'ROLES.SPONSORSHIP_MEMBERS_' + entityType | translate}}
-      </div>
-
-      <perun-web-apps-members-list
-        [displayedColumns]="['id', 'fullName', 'sponsored']"
-        [members]="members"></perun-web-apps-members-list>
-    </div>
-  </mat-expansion-panel>
-
-  <mat-expansion-panel
-    (opened)="getVos(roles.get('SPONSOR').get('Vo')); selectedRole = 'SPONSOR'"
+    *ngFor="let role of allRules"
+    (opened)="selectedRole.next(role)"
     (closed)="selection.clear()"
-    *ngIf="roles.has('SPONSOR')">
+    #panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
         <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-user-dark"></mat-icon>
-        <p class="mt-auto mb-auto">{{'ROLES.SPONSOR' | translate}}</p>
+        <p class="mt-auto mb-auto">{{role | displayedRole}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-    <div *ngIf="!loading">
-      <div *ngIf="showDescription">
-        {{'ROLES.SPONSOR_VOS_' + entityType | translate}}
-      </div>
+    <ng-template matExpansionPanelContent>
       <span
+        *ngIf="role.roleName !== 'SELF' && role.roleName !== 'MEMBERSHIP' && role.roleName !== 'SPONSORSHIP'"
         matTooltip="{{'ROLES.REMOVE_DISABLED_TOOLTIP'| translate}}"
         matTooltipPosition="left"
         [matTooltipDisabled]="selection.selected.length === 0 || !disableRemove">
         <button
-          (click)="openConfirmDialog('SPONSOR')"
-          [disabled]="selection.selected.length === 0 || disableRemove"
+          (click)="openConfirmDialog(role)"
+          [disabled]="role.primaryObject && (selection.selected.length === 0 || disableRemove)"
           mat-flat-button
           color="warn"
           class="mt-2">
           {{'ROLES.REMOVE'| translate}}
         </button>
       </span>
-      <perun-web-apps-vos-list
-        [displayedColumns]="['checkbox', 'id', 'name', 'shortName']"
-        [vos]="vos"
-        [selection]="selection">
-      </perun-web-apps-vos-list>
-    </div>
-  </mat-expansion-panel>
-
-  <mat-expansion-panel *ngIf="roles.has('PERUNADMIN')">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-user-dark"></mat-icon>
-        <p class="mt-auto mb-auto">{{'ROLES.PERUN_ADMIN' | translate}}</p>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <button
-      (click)="openConfirmDialog('PERUNADMIN', false)"
-      mat-flat-button
-      color="warn"
-      class="mt-2">
-      {{'ROLES.REMOVE'| translate}}
-    </button>
-  </mat-expansion-panel>
-
-  <mat-expansion-panel *ngIf="roles.has('PERUNOBSERVER')">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-user-dark"></mat-icon>
-        <p class="mt-auto mb-auto">{{'ROLES.PERUN_OBSERVER' | translate}}</p>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <button
-      (click)="openConfirmDialog('PERUNOBSERVER', false)"
-      mat-flat-button
-      color="warn"
-      class="mt-2">
-      {{'ROLES.REMOVE'| translate}}
-    </button>
-  </mat-expansion-panel>
-
-  <mat-expansion-panel (opened)="getInnerKeys(role)" *ngFor="let role of roleNames">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-user-dark"></mat-icon>
-        <p class="mt-auto mb-auto">{{role | translate}}</p>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-
-    <p *ngFor="let key of currentIds" class="role-content">{{key[0]}} ids: {{key[1]}}</p>
+      <div *ngIf="panel.expanded" class="position-relative">
+        <div *perunWebAppsLoader="loading; indicator: spinner">
+          <div *ngIf="role.primaryObject === 'Vo' || role.roleName === 'MEMBERSHIP'" class="mb-3">
+            <div *ngIf="showDescription">
+              {{('ROLES.' + role.roleName + '_VOS_' + entityType) | translate}}
+            </div>
+            <perun-web-apps-vos-list
+              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'name', 'shortName'] : ['checkbox', 'id', 'name', 'shortName']"
+              [vos]="vos | async"
+              [selection]="selection">
+            </perun-web-apps-vos-list>
+          </div>
+          <div
+            *ngIf="role.primaryObject === 'Group' || role.roleName === 'MEMBERSHIP' "
+            class="mb-3">
+            <div *ngIf="showDescription">
+              {{('ROLES.' + role.roleName + '_GROUPS_' + entityType) | translate}}
+            </div>
+            <perun-web-apps-groups-list
+              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'vo', 'name', 'description'] : ['select', 'id', 'vo', 'name', 'description']"
+              [groups]="groups | async"
+              [selection]="selection">
+            </perun-web-apps-groups-list>
+          </div>
+          <div
+            *ngIf="role.primaryObject === 'Resource' || role.roleName === 'MEMBERSHIP'"
+            class="mb-3">
+            <div *ngIf="showDescription">
+              {{('ROLES.' + role.roleName + '_RESOURCES_' + entityType) | translate}}
+            </div>
+            <perun-web-apps-resources-list
+              [resources]="resources | async"
+              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'name', 'vo', 'facility', 'description'] : ['select', 'id', 'name', 'vo', 'facility', 'description']"
+              [routingVo]="true"
+              [selection]="selection">
+            </perun-web-apps-resources-list>
+          </div>
+          <div
+            *ngIf="role.primaryObject === 'Facility' || role.roleName === 'MEMBERSHIP'"
+            class="mb-3">
+            <div *ngIf="showDescription">
+              {{('ROLES.' + role.roleName + '_FACILITIES_' + entityType) | translate}}
+            </div>
+            <perun-web-apps-facilities-list
+              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'name', 'description'] : ['select', 'id', 'name', 'description']"
+              [facilities]="facilities | async"
+              [selection]="selection">
+            </perun-web-apps-facilities-list>
+          </div>
+          <div *ngIf="role.roleName === 'SPONSORSHIP'" class="mb-3">
+            <div *ngIf="showDescription">
+              {{('ROLES.' + role.roleName + '_MEMBERS_' + entityType) | translate}}
+            </div>
+            <perun-web-apps-members-list
+              [displayedColumns]="['id', 'fullName', 'sponsored']"
+              [members]="members | async">
+            </perun-web-apps-members-list>
+          </div>
+          <div *ngIf="role.roleName === 'SELF'" class="mb-3">
+            <div *ngIf="showDescription">
+              {{('ROLES.' + role.roleName + '_USERS_' + entityType) | translate}}
+            </div>
+            <app-users-list
+              [displayedColumns]="['user', 'id', 'name']"
+              [disableRouting]="true"
+              [users]="users | async">
+            </app-users-list>
+          </div>
+        </div>
+      </div>
+    </ng-template>
   </mat-expansion-panel>
 </mat-accordion>
 
 <perun-web-apps-alert *ngIf="!outerLoading && roles.size === 0" alert_type="warn">
   {{'ROLES.NO_ROLES' | translate}}
 </perun-web-apps-alert>
+
+<ng-template #spinner>
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

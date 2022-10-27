@@ -18,4 +18,5 @@ export interface RoleManagementRules {
   entitiesToManage: { [key: string]: string };
   assignedObjects: { [key: string]: string };
   assignableToAttributes: boolean;
+  displayName: string;
 }

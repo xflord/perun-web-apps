@@ -11,6 +11,7 @@ import {
   Group,
   Resource,
   RichUser,
+  RoleManagementRules,
   Vo,
 } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
@@ -29,24 +30,15 @@ import { AuthPrivilege } from '@perun-web-apps/perun/models';
 })
 export class ManagersPageComponent implements OnInit {
   @HostBinding('class.router-component') true;
-  @Input()
-  complementaryObject: Group | Vo | Facility | Resource;
-  @Input()
-  availableRoles: string[];
-  @Input()
-  complementaryObjectType: string;
-  @Input()
-  theme: string;
-  @Input()
-  configMode = false;
-  @Input()
-  disableRouting = false;
-  @Input()
-  disableSelf = false;
-  @Input()
-  displayedUserColumns = ['select', 'id', 'name', 'email', 'logins', 'organization'];
-  @Input()
-  displayedGroupColumns = ['select', 'id', 'vo', 'name', 'description'];
+  @Input() complementaryObject: Group | Vo | Facility | Resource;
+  @Input() availableRoles: RoleManagementRules[];
+  @Input() complementaryObjectType: string;
+  @Input() theme: string;
+  @Input() configMode = false;
+  @Input() disableRouting = false;
+  @Input() disableSelf = false;
+  @Input() displayedUserColumns = ['select', 'id', 'name', 'email', 'logins', 'organization'];
+  @Input() displayedGroupColumns = ['select', 'id', 'vo', 'name', 'description'];
 
   groups: Group[] = [];
   managers: RichUser[] = null;
@@ -59,7 +51,7 @@ export class ManagersPageComponent implements OnInit {
   routeAuth: boolean;
   manageAuth: boolean;
   roleModes: string[];
-  availableRolesPrivileges: Map<string, AuthPrivilege> = new Map<string, AuthPrivilege>();
+  availableRolesPrivileges = new Map<string, AuthPrivilege>();
 
   constructor(
     private dialog: MatDialog,
@@ -81,11 +73,11 @@ export class ManagersPageComponent implements OnInit {
       this.availableRolesPrivileges
     );
     this.availableRoles = this.availableRoles.filter(
-      (role) => this.availableRolesPrivileges.get(role).readAuth
+      (role) => this.availableRolesPrivileges.get(role.roleName).readAuth
     );
 
     if (this.availableRoles.length !== 0) {
-      this.selectedRole = this.availableRoles[0];
+      this.selectedRole = this.availableRoles[0].roleName;
     }
     this.refreshUsers();
   }
@@ -97,7 +89,7 @@ export class ManagersPageComponent implements OnInit {
       this.availableRolesPrivileges
     );
     this.availableRoles = this.availableRoles.filter(
-      (role) => this.availableRolesPrivileges.get(role).readAuth
+      (role) => this.availableRolesPrivileges.get(role.roleName).readAuth
     );
 
     this.manageAuth = this.availableRolesPrivileges.get(this.selectedRole).manageAuth;
@@ -147,16 +139,16 @@ export class ManagersPageComponent implements OnInit {
         false,
         true
       )
-      .subscribe(
-        (managers) => {
+      .subscribe({
+        next: (managers) => {
           this.managers = managers;
           this.selectionUsers.clear();
           this.loading = false;
         },
-        () => {
+        error: () => {
           this.loading = false;
-        }
-      );
+        },
+      });
   }
 
   refreshGroups(): void {
@@ -169,16 +161,16 @@ export class ManagersPageComponent implements OnInit {
         this.complementaryObject.id,
         this.complementaryObjectType
       )
-      .subscribe(
-        (groups) => {
+      .subscribe({
+        next: (groups) => {
           this.groups = groups;
           this.selectionGroups.clear();
           this.loading = false;
         },
-        () => {
+        error: () => {
           this.loading = false;
-        }
-      );
+        },
+      });
   }
 
   addManager(): void {

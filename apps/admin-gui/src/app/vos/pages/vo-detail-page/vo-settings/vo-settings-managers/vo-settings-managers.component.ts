@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
+import { RoleManagementRules, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
@@ -12,11 +12,8 @@ export class VoSettingsManagersComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
   vo: Vo;
-
-  availableRoles: string[] = [];
-
+  availableRoles: RoleManagementRules[] = [];
   type = 'Vo';
-
   theme = 'vo-theme';
 
   constructor(

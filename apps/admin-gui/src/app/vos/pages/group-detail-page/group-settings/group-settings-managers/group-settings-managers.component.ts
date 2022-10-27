@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Group } from '@perun-web-apps/perun/openapi';
+import { Group, RoleManagementRules } from '@perun-web-apps/perun/openapi';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
@@ -10,7 +10,7 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 export class GroupSettingsManagersComponent implements OnInit {
   @HostBinding('class.router-component') true;
   group: Group;
-  availableRoles: string[] = [];
+  availableRoles: RoleManagementRules[] = [];
   selected = 'user';
   type = 'Group';
   theme = 'group-theme';

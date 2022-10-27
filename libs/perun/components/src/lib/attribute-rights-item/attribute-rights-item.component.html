@@ -4,11 +4,9 @@
       [(ngModel)]="policy.role"
       (selectionChange)="changeRole($event)"
       placeholder="{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_RIGHTS.ROLE' | translate}}">
-      <mat-option
-        *ngFor="let role of roles | async"
-        [value]="role"
-        >{{role | displayedRole}}</mat-option
-      >
+      <mat-option *ngFor="let role of roles | async" [value]="role.roleName">
+        {{role | displayedRole}}
+      </mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>

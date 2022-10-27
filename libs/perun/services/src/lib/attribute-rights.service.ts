@@ -3,13 +3,13 @@ import {
   AttributeAction,
   AttributePolicyCollection,
   AttributesManagerService,
-  AuthzResolverService,
   RoleManagementRules,
   RoleObject,
 } from '@perun-web-apps/perun/openapi';
 import { map, switchMap } from 'rxjs/operators';
 import { Role } from '@perun-web-apps/perun/models';
 import { Observable, of, ReplaySubject } from 'rxjs';
+import { GuiAuthResolver } from './gui-auth-resolver.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,11 +18,10 @@ export class AttributeRightsService {
   private roleWithObjects$ = new ReplaySubject<Map<Role, RoleObject[]>>(1);
 
   constructor(
-    private authService: AuthzResolverService,
-    private attributesManager: AttributesManagerService
+    private attributesManager: AttributesManagerService,
+    private authResolver: GuiAuthResolver
   ) {
-    this.authService
-      .getAllRolesManagementRules()
+    of(this.authResolver.getAllRules())
       .pipe(
         map((rules) => rules.filter((rule) => rule.assignableToAttributes)),
         switchMap((rules: RoleManagementRules[]) => {
@@ -40,12 +39,8 @@ export class AttributeRightsService {
       .subscribe(this.roleWithObjects$);
   }
 
-  getRoles(): Observable<Role[]> {
-    return this.roleWithObjects$.pipe(
-      switchMap((rwo) => {
-        return of(Array.from(rwo.keys()));
-      })
-    );
+  getRoles(): Observable<RoleManagementRules[]> {
+    return of(this.authResolver.getAllRules().filter((rule) => rule.assignableToAttributes));
   }
 
   getObjects(role: Role): Observable<RoleObject[]> {

@@ -30,10 +30,10 @@ export class AddUserRoleDialogComponent {
     this.loading = true;
     if (!formValue.entity) {
       this.authzService
-        .setRoleForUser({ role: formValue.role, user: this.data.entityId })
+        .setRoleForUser({ role: formValue.role.roleName, user: this.data.entityId })
         .subscribe({
           next: () => {
-            this.showSuccess(formValue.role);
+            this.showSuccess(formValue.role.displayName);
             this.dialogRef.close(true);
           },
           error: () => {
@@ -43,13 +43,13 @@ export class AddUserRoleDialogComponent {
     } else {
       this.authzService
         .setRoleWithUserComplementaryObject({
-          role: formValue.role,
+          role: formValue.role.roleName,
           users: [this.data.entityId],
           complementaryObject: formValue.entity,
         })
         .subscribe({
           next: () => {
-            this.showSuccess(formValue.role);
+            this.showSuccess(formValue.role.displayName);
             this.dialogRef.close(true);
           },
           error: () => {
@@ -62,7 +62,7 @@ export class AddUserRoleDialogComponent {
   private showSuccess(role: string): void {
     this.notificator.showSuccess(
       this.translate.instant('DIALOGS.ADD_ROLE.SUCCESS', {
-        role: this.displayedRole.transform(role),
+        role: role,
       })
     );
   }

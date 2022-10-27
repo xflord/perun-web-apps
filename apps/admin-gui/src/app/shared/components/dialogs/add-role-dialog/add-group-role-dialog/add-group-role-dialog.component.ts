@@ -7,13 +7,11 @@ import {
 } from '@perun-web-apps/perun/services';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 import { AddRoleDialogData, AddRoleForm } from '../add-role-dialog.component';
-import { DisplayedRolePipe } from '@perun-web-apps/perun/pipes';
 
 @Component({
   selector: 'app-add-group-role-dialog',
   templateUrl: './add-group-role-dialog.component.html',
   styleUrls: ['./add-group-role-dialog.component.scss'],
-  providers: [DisplayedRolePipe],
 })
 export class AddGroupRoleDialogComponent {
   loading = false;
@@ -25,18 +23,17 @@ export class AddGroupRoleDialogComponent {
     private authResolver: GuiAuthResolver,
     private authzService: AuthzResolverService,
     private notificator: NotificatorService,
-    private translate: PerunTranslateService,
-    private displayedRole: DisplayedRolePipe
+    private translate: PerunTranslateService
   ) {}
 
   addRole(formValue: AddRoleForm): void {
     this.loading = true;
     if (!formValue.entity) {
       this.authzService
-        .setRoleForGroup({ role: formValue.role, authorizedGroup: this.data.entityId })
+        .setRoleForGroup({ role: formValue.role.roleName, authorizedGroup: this.data.entityId })
         .subscribe({
           next: () => {
-            this.showSuccess(formValue.role);
+            this.showSuccess(formValue.role.displayName);
             this.dialogRef.close(true);
           },
           error: () => {
@@ -46,13 +43,13 @@ export class AddGroupRoleDialogComponent {
     } else {
       this.authzService
         .setRoleWithGroupComplementaryObject({
-          role: formValue.role,
+          role: formValue.role.roleName,
           authorizedGroups: [this.data.entityId],
           complementaryObject: formValue.entity,
         })
         .subscribe({
           next: () => {
-            this.showSuccess(formValue.role);
+            this.showSuccess(formValue.role.displayName);
             this.dialogRef.close(true);
           },
           error: () => {
@@ -65,7 +62,7 @@ export class AddGroupRoleDialogComponent {
   private showSuccess(role: string): void {
     this.notificator.showSuccess(
       this.translate.instant('DIALOGS.ADD_ROLE.SUCCESS', {
-        role: this.displayedRole.transform(role),
+        role: role,
       })
     );
   }

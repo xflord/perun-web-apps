@@ -15,11 +15,11 @@ export class FindSponsorsService {
   ) {}
 
   findSponsorsAuth(vo: Vo): boolean {
-    const availableRoles = ['SPONSOR'];
+    const availableRoles = [this.guiAuthResolver.getRuleForRole('SPONSOR')];
     const availableRolesPrivileges = new Map<string, AuthPrivilege>();
 
     this.guiAuthResolver.setRolesAuthorization(availableRoles, vo, availableRolesPrivileges);
-    return availableRolesPrivileges.get(availableRoles[0]).readAuth;
+    return availableRolesPrivileges.get(availableRoles[0].roleName).readAuth;
   }
 
   getSponsors(voId: number): Observable<RichUser[]> {

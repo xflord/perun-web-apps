@@ -1,5 +1,9 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { FacilitiesManagerService, Facility } from '@perun-web-apps/perun/openapi';
+import {
+  FacilitiesManagerService,
+  Facility,
+  RoleManagementRules,
+} from '@perun-web-apps/perun/openapi';
 import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
@@ -10,19 +14,13 @@ import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/ser
 export class FacilitySettingsManagersComponent implements OnInit {
   @HostBinding('class.router-component') true;
 
-  @Input()
-  disableRouting = false;
-  @Input()
-  disableSelf = false;
+  @Input() disableRouting = false;
+  @Input() disableSelf = false;
 
   facility: Facility;
-
-  availableRoles: string[] = [];
-
+  availableRoles: RoleManagementRules[] = [];
   selected = 'user';
-
   type = 'Facility';
-
   theme = 'facility-theme';
 
   constructor(

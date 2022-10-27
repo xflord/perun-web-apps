@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   AuthzResolverService,
   EnrichedFacility,
@@ -30,43 +37,117 @@ import {
   PerunTranslateService,
 } from '@perun-web-apps/perun/services';
 import { DisplayedRolePipe, ManageableEntitiesPipe } from '@perun-web-apps/perun/pipes';
+import { BehaviorSubject, iif, mergeMap, Observable, of } from 'rxjs';
+import { map, startWith, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-perun-web-apps-roles-page',
   templateUrl: './roles-page.component.html',
   styleUrls: ['./roles-page.component.scss'],
   providers: [DisplayedRolePipe, ManageableEntitiesPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RolesPageComponent implements OnInit {
-  @Input() roles = new Map<string, Map<string, Array<number>>>();
   @Input() outerLoading: boolean;
   @Input() showDescription: boolean;
-  @Input() roleNames: string[];
   @Input() entityId: number;
   @Input() entityType: 'SELF' | 'USER' | 'GROUP';
   @Output() reload = new EventEmitter<void>();
+  @Output() startLoading = new EventEmitter<void>();
 
-  groups: Group[] = [];
-  vos: Vo[] = [];
-  facilities: EnrichedFacility[] = [];
-  resources: RichResource[] = [];
-  members: RichMember[] = [];
-  users: RichUser[] = [];
   selection = new SelectionModel<PerunBean | EnrichedFacility>(false, []);
-  currentIds: number[] = [];
   loading: boolean;
-  selectedRole: string;
-  rules: RoleManagementRules[] = [];
+  assignableRules: RoleManagementRules[] = [];
+  allRules: RoleManagementRules[] = [];
   disableRemove = false;
+
+  selectedRole = new BehaviorSubject<RoleManagementRules>(null);
+
+  groups: Observable<Group[]> = this.selectedRole.pipe(
+    switchMap((role) => {
+      this.loading = true;
+      const ids = this.roles.get(role.roleName).get('Group');
+      if (ids?.length) {
+        return this.groupsService.getGroupsByIds(ids);
+      } else {
+        return of([] as Group[]);
+      }
+    }),
+    tap(() => (this.loading = false)),
+    startWith([])
+  );
+
+  vos: Observable<Vo[]> = this.selectedRole.pipe(
+    switchMap((role) => {
+      this.loading = true;
+      const ids = this.roles.get(role.roleName).get('Vo');
+      if (ids?.length) {
+        return this.vosService.getVosByIds(ids);
+      } else {
+        return of([] as Vo[]);
+      }
+    }),
+    tap(() => (this.loading = false)),
+    startWith([])
+  );
+
+  facilities: Observable<EnrichedFacility[]> = this.selectedRole.pipe(
+    switchMap((role) => {
+      this.loading = true;
+      const ids = this.roles.get(role.roleName).get('Facility');
+      if (ids?.length) {
+        return this.facilitiesService.getFacilitiesByIds(ids);
+      } else {
+        return of([] as Facility[]);
+      }
+    }),
+    map((facilities) => facilities.map((f) => ({ facility: f }))),
+    tap(() => (this.loading = false)),
+    startWith([])
+  );
+
+  resources: Observable<RichResource[]> = this.selectedRole.pipe(
+    switchMap((role) => {
+      this.loading = true;
+      const ids = this.roles.get(role.roleName).get('Resource');
+      if (ids?.length) {
+        return this.resourcesService.getRichResourcesByIds(ids);
+      } else {
+        return of([] as RichResource[]);
+      }
+    }),
+    tap(() => (this.loading = false)),
+    startWith([])
+  );
+
+  members: Observable<RichMember[]> = this.selectedRole.pipe(
+    switchMap((role) =>
+      this.membersService.getRichMembersByIds(this.roles.get(role.roleName).get('Member'))
+    ),
+    tap(() => (this.loading = false)),
+    startWith([])
+  );
+
+  users: Observable<RichUser[]> = this.selectedRole.pipe(
+    switchMap((role) =>
+      this.usersService.getRichUsersByIds(
+        [this.entityId].concat(this.roles.get(role.roleName).get('User'))
+      )
+    ),
+    tap(() => (this.loading = false)),
+    startWith([])
+  );
+
+  private _roles = new Map<string, Map<string, number[]>>();
 
   constructor(
     private authzResolverService: AuthzResolverService,
-    private usersManagerService: UsersManagerService,
-    private vosManagerService: VosManagerService,
-    private facilitiesManagerService: FacilitiesManagerService,
-    private resourcesManagerService: ResourcesManagerService,
-    private groupsManagerService: GroupsManagerService,
-    private membersManagerService: MembersManagerService,
+    private usersService: UsersManagerService,
+    private vosService: VosManagerService,
+    private facilitiesService: FacilitiesManagerService,
+    private resourcesService: ResourcesManagerService,
+    private groupsService: GroupsManagerService,
+    private membersService: MembersManagerService,
     private dialog: MatDialog,
     private notification: NotificatorService,
     private translate: PerunTranslateService,
@@ -75,8 +156,20 @@ export class RolesPageComponent implements OnInit {
     private manageableEntities: ManageableEntitiesPipe
   ) {}
 
+  get roles(): Map<string, Map<string, number[]>> {
+    return this._roles;
+  }
+
+  @Input() set roles(roles: Map<string, Map<string, number[]>>) {
+    this._roles = roles;
+    // Update assigned rules with each change
+    this.allRules = this.guiAuthResolver
+      .getAllRules()
+      .filter((rule) => this._roles.has(rule.roleName));
+  }
+
   ngOnInit(): void {
-    this.rules = this.guiAuthResolver.getAssignableRoleRules(
+    this.assignableRules = this.guiAuthResolver.getAssignableRoleRules(
       this.entityType === 'GROUP' ? 'GROUP' : 'USER'
     );
 
@@ -85,163 +178,12 @@ export class RolesPageComponent implements OnInit {
         if ('beanName' in item) return item;
         else if ('facility' in item) return item.facility;
       });
-      const manageableNum = this.manageableEntities.transform(entities, this.selectedRole).length;
+      const manageableNum = this.manageableEntities.transform(
+        entities,
+        this.selectedRole.getValue()
+      ).length;
       this.disableRemove = change.source.selected.length !== manageableNum;
     });
-  }
-
-  getGroups(groupIds: number[]): void {
-    this.loading = true;
-    this.groups = [];
-    this.groupsManagerService.getGroupsByIds(groupIds).subscribe((groups) => {
-      this.groups = groups;
-      this.loading = false;
-    });
-  }
-
-  getVos(voIds: number[]): void {
-    this.loading = true;
-    this.vos = [];
-    this.vosManagerService.getVosByIds(voIds).subscribe((vos) => {
-      this.vos = vos;
-      this.loading = false;
-    });
-  }
-
-  getFacilities(facilityIds: number[]): void {
-    this.loading = true;
-    this.facilities = [];
-    this.facilitiesManagerService.getFacilitiesByIds(facilityIds).subscribe((facilities) => {
-      this.facilities = facilities.map((f) => ({ facility: f }));
-      this.loading = false;
-    });
-  }
-
-  getResources(resourceIds: number[]): void {
-    this.loading = true;
-    this.resources = [];
-    this.resourcesManagerService.getRichResourcesByIds(resourceIds).subscribe((resources) => {
-      this.resources = resources;
-      this.loading = false;
-    });
-  }
-
-  getMembers(memberIds: number[]): void {
-    this.loading = true;
-    this.members = [];
-    this.membersManagerService.getRichMembersByIds(memberIds).subscribe((members) => {
-      this.members = members;
-      this.loading = false;
-    });
-  }
-
-  getSelfData(userIds: number[]): void {
-    this.loading = true;
-    this.vos = [];
-    this.users = [];
-    this.usersManagerService.getVosWhereUserIsMember(this.entityId).subscribe((vos) => {
-      this.vos = vos;
-      const ids = [this.entityId].concat(userIds);
-      this.usersManagerService.getRichUsersByIds(ids).subscribe((users) => {
-        this.users = users;
-        this.loading = false;
-      });
-    });
-  }
-
-  getMembershipData(
-    groupIds: number[],
-    voIds: number[],
-    resourceIds: number[],
-    facilityIds: number[]
-  ): void {
-    this.loading = true;
-    this.vos = [];
-    this.resources = [];
-    this.groups = [];
-    this.facilities = [];
-    this.getResourcesIfArrayNotEmpty(resourceIds)
-      .then(() =>
-        this.getFacilitiesIfArrayNotEmpty(facilityIds)
-          .then(() =>
-            this.getVosIfArrayNotEmpty(voIds)
-              .then(() =>
-                this.getGroupsIfArrayNotEmpty(groupIds)
-                  .then(() => (this.loading = false))
-                  .catch((error) => console.error(error))
-              )
-              .catch((error) => console.error(error))
-          )
-          .catch((error) => console.error(error))
-      )
-      .catch((error) => console.error(error));
-  }
-
-  getResourcesIfArrayNotEmpty(resourceIds: number[]): Promise<void> {
-    return new Promise((resolve) => {
-      if (resourceIds && resourceIds.length !== 0) {
-        this.resourcesManagerService.getRichResourcesByIds(resourceIds).subscribe((resources) => {
-          this.resources = resources;
-          resolve();
-        });
-      } else {
-        resolve();
-      }
-    });
-  }
-
-  getFacilitiesIfArrayNotEmpty(facilityIds: number[]): Promise<void> {
-    return new Promise((resolve) => {
-      if (facilityIds && facilityIds.length !== 0) {
-        this.facilitiesManagerService.getFacilitiesByIds(facilityIds).subscribe((facilities) => {
-          this.facilities = facilities.map((f) => ({ facility: f }));
-          resolve();
-        });
-      } else {
-        resolve();
-      }
-    });
-  }
-
-  getVosIfArrayNotEmpty(voIds: number[]): Promise<void> {
-    return new Promise((resolve) => {
-      if (voIds && voIds.length !== 0) {
-        this.vosManagerService.getVosByIds(voIds).subscribe((vos) => {
-          this.vos = vos;
-          resolve();
-        });
-      } else {
-        resolve();
-      }
-    });
-  }
-
-  getGroupsIfArrayNotEmpty(groupIds: number[]): Promise<void> {
-    return new Promise((resolve) => {
-      if (groupIds && groupIds.length !== 0) {
-        this.groupsManagerService.getGroupsByIds(groupIds).subscribe((groups) => {
-          this.groups = groups;
-          resolve();
-        });
-      } else {
-        resolve();
-      }
-    });
-  }
-
-  getInnerKeys(role: string): void {
-    if (this.roles.get(role)) {
-      const it = this.roles.get(role).entries();
-      const result: number[] = [];
-      let val: number = it.next().value as number;
-      while (val) {
-        result.push(val);
-        val = it.next().value as number;
-      }
-      this.currentIds = result;
-    } else {
-      this.currentIds = [];
-    }
   }
 
   addRole(): void {
@@ -258,14 +200,14 @@ export class RolesPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe({
       next: (result: boolean) => {
         if (result) {
-          this.outerLoading = true;
+          this.startLoading.emit();
           this.refresh();
         }
       },
     });
   }
 
-  openConfirmDialog(role: string, hasCompObj = true): void {
+  openConfirmDialog(role: RoleManagementRules): void {
     const config = getDefaultDialogConfig();
     config.width = '550px';
     config.data = {
@@ -282,30 +224,29 @@ export class RolesPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe({
       next: (result) => {
         if (result) {
-          if (hasCompObj) this.removeRoleWithComplementaryObject(role);
+          this.startLoading.emit();
+          if (role.primaryObject) this.removeRoleWithComplementaryObject(role);
           else this.removeRole(role);
         }
       },
     });
   }
 
-  private removeRole(role: string): void {
-    this.outerLoading = true;
-    if (this.entityType === 'GROUP') {
-      this.authzResolverService
-        .unsetRoleForGroup({ role: role, authorizedGroup: this.entityId })
-        .subscribe({
-          next: () => {
-            this.showSuccess(role);
-            this.refresh();
-          },
-          error: () => {
-            this.selection.clear();
-            this.outerLoading = false;
-          },
-        });
-    } else {
-      this.authzResolverService.unsetRoleForUser({ role: role, user: this.entityId }).subscribe({
+  private removeRole(role: RoleManagementRules): void {
+    of(this.entityType)
+      .pipe(
+        mergeMap((type) =>
+          iif(
+            () => type === 'GROUP',
+            this.authzResolverService.unsetRoleForGroup({
+              role: role.roleName,
+              authorizedGroup: this.entityId,
+            }),
+            this.authzResolverService.unsetRoleForUser({ role: role.roleName, user: this.entityId })
+          )
+        )
+      )
+      .subscribe({
         next: () => {
           this.showSuccess(role);
           this.refresh();
@@ -315,11 +256,9 @@ export class RolesPageComponent implements OnInit {
           this.outerLoading = false;
         },
       });
-    }
   }
 
-  private removeRoleWithComplementaryObject(role: string): void {
-    this.outerLoading = true;
+  private removeRoleWithComplementaryObject(role: RoleManagementRules): void {
     let assignedObject: PerunBean;
     if ('beanName' in this.selection.selected[0]) {
       assignedObject = this.selection.selected[0];
@@ -331,44 +270,37 @@ export class RolesPageComponent implements OnInit {
       assignedObject = this.parseFacility(this.selection.selected[0]);
     }
 
-    if (this.entityType === 'GROUP') {
-      this.authzResolverService
-        .unsetRoleWithGroupComplementaryObject({
-          role: role,
-          complementaryObject: assignedObject,
-          authorizedGroups: [this.entityId],
-        })
-        .subscribe({
-          next: () => {
-            this.showSuccess(role);
-            this.refresh();
-          },
-          error: () => {
-            this.selection.clear();
-            this.outerLoading = false;
-          },
-        });
-    } else {
-      this.authzResolverService
-        .unsetRoleWithUserComplementaryObject({
-          role: role,
-          complementaryObject: assignedObject,
-          users: [this.entityId],
-        })
-        .subscribe({
-          next: () => {
-            this.showSuccess(role);
-            this.refresh();
-          },
-          error: () => {
-            this.selection.clear();
-            this.outerLoading = false;
-          },
-        });
-    }
+    of(this.entityType)
+      .pipe(
+        mergeMap((type) =>
+          iif(
+            () => type === 'GROUP',
+            this.authzResolverService.unsetRoleWithGroupComplementaryObject({
+              role: role.roleName,
+              complementaryObject: assignedObject,
+              authorizedGroups: [this.entityId],
+            }),
+            this.authzResolverService.unsetRoleWithUserComplementaryObject({
+              role: role.roleName,
+              complementaryObject: assignedObject,
+              users: [this.entityId],
+            })
+          )
+        )
+      )
+      .subscribe({
+        next: () => {
+          this.showSuccess(role);
+          this.refresh();
+        },
+        error: () => {
+          this.selection.clear();
+          this.outerLoading = false;
+        },
+      });
   }
 
-  private showSuccess(role: string): void {
+  private showSuccess(role: RoleManagementRules): void {
     this.notification.showSuccess(
       this.translate.instant('ROLES.REMOVE_SUCCESS', { role: this.rolePipe.transform(role) })
     );
