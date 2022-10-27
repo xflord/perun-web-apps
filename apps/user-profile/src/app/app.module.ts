@@ -78,6 +78,7 @@ import { MfaSettingsComponent } from './pages/settings-page/settings-authorizati
 import { CategoryLabelPipe } from './pipes/category-label.pipe';
 import { SettingsMailingListsComponent } from './pages/settings-page/settings-mailing-lists/settings-mailing-lists.component';
 import { SettingsDataQuotasComponent } from './pages/settings-page/settings-data-quotas/settings-data-quotas.component';
+import { AddAuthTextDialogComponent } from './components/dialogs/add-auth-text-dialog/add-auth-text-dialog.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -136,6 +137,7 @@ const loadConfigs: (appConfig: UserProfileConfigService) => () => Promise<void> 
     SettingsLocalAccountComponent,
     ActivateLocalAccountDialogComponent,
     MfaSettingsComponent,
+    AddAuthTextDialogComponent,
   ],
   imports: [
     BrowserModule,

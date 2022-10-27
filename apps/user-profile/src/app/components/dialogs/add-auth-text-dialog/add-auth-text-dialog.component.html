@@ -1,0 +1,23 @@
+<div class="{{theme}}">
+  <h1 mat-dialog-title>{{'DIALOGS.ADD_AUTH_TEXT.TITLE' | translate}}</h1>
+  <div mat-dialog-content>
+    <mat-form-field class="w-100">
+      <input [(ngModel)]="securityText" matInput autofocus />
+    </mat-form-field>
+    <perun-web-apps-alert alert_type="info">
+      {{'DIALOGS.ADD_AUTH_TEXT.DELAY_INFO' | customTranslate | translate}}
+    </perun-web-apps-alert>
+  </div>
+  <div matDialogActions>
+    <button (click)="onCancel()" class="ml-auto mr-2" mat-flat-button>
+      {{'DIALOGS.ADD_AUTH_TEXT.CANCEL' | translate}}
+    </button>
+    <button
+      [disabled]="securityText.trim() === ''"
+      (click)="onAdd()"
+      color="accent"
+      mat-flat-button>
+      {{'DIALOGS.ADD_AUTH_TEXT.ADD' | translate}}
+    </button>
+  </div>
+</div>

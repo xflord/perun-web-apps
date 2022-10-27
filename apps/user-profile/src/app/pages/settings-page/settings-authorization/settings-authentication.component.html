@@ -1,19 +1,43 @@
-<div [hidden]="loadingImg">
+<div [hidden]="loading">
   <div class="mb-5" *ngIf="displayImageBlock">
     <h1 class="page-subtitle">{{'AUTHENTICATION.TITLE' | customTranslate | translate}}</h1>
     <p>{{'AUTHENTICATION.ANTI_PHISHING_INFO' | customTranslate | translate}}</p>
     <div *ngIf="imageSrc && imageSrc.length">
       <img [src]="imageSrc" alt="" />
     </div>
-    <button (click)="onAddImg()" class="mr-2 mt-1 action-button" color="accent" mat-flat-button>
+    <button
+      (click)="onAddAttribute('image')"
+      class="mr-2 mt-1 action-button"
+      color="accent"
+      mat-flat-button>
       {{'AUTHENTICATION.NEW_IMG' | customTranslate | translate}}
     </button>
     <button
-      (click)="onDeleteImg()"
+      (click)="onDeleteAttribute('image')"
       color="warn"
       [disabled]="!imgAtt || !imgAtt.value"
       mat-flat-button>
       {{'AUTHENTICATION.DELETE_IMG' | customTranslate | translate}}
+    </button>
+  </div>
+
+  <div class="mb-5" *ngIf="displayTextBlock">
+    <h1 class="page-subtitle">{{'AUTHENTICATION.TITLE_TEXT' | customTranslate | translate}}</h1>
+    <p>{{'AUTHENTICATION.ANTI_PHISHING_INFO_TEXT' | customTranslate | translate}}</p>
+    <h4 *ngIf="textAtt" class="security-text">{{textAtt.value}}</h4>
+    <button
+      (click)="onAddAttribute('text')"
+      class="mr-2 mt-1 action-button"
+      color="accent"
+      mat-flat-button>
+      {{'AUTHENTICATION.NEW_TEXT' | customTranslate | translate}}
+    </button>
+    <button
+      (click)="onDeleteAttribute('text')"
+      color="warn"
+      [disabled]="!textAtt || !textAtt.value"
+      mat-flat-button>
+      {{'AUTHENTICATION.DELETE_TEXT' | customTranslate | translate}}
     </button>
   </div>
 
@@ -25,4 +49,4 @@
   <br />
   <perun-web-apps-mfa-settings></perun-web-apps-mfa-settings>
 </div>
-<mat-spinner class="ml-auto mr-auto" *ngIf="loadingImg"></mat-spinner>
+<mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>

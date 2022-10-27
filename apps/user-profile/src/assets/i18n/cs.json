@@ -135,6 +135,7 @@
   },
   "AUTHENTICATION": {
     "TITLE": "Bezpečnostní obrázek",
+    "TITLE_TEXT": "Bezpečnostní text",
     "MFA": "Vícefázové ověření",
     "MFA_TOGGLE": "Zapnout vícefázové ověření pro všechny služby",
     "MFA_DISABLED": "Potřebujete mít alespoň jeden aktivní MFA token.",
@@ -144,9 +145,16 @@
     "ANTI_PHISHING_INFO": "Tento bezpečnostní obrázek se vám ukáže před tím, než zadáte heslo, ujistíte se tak, že se nepřihlašujete na podvrženou stránku",
     "DELETE_IMG_DIALOG_TITLE": "Vymazat bezpečnostní obrázek",
     "DELETE_IMG_DIALOG_DESC": "Váš bezpečnostní obrázek bude odstraněn a nebude použit během autentizace.",
+    "NEW_TEXT": "Nový text",
+    "DELETE_TEXT": "Vymazat text",
+    "ANTI_PHISHING_INFO_TEXT": "Tento bezpečnostní text se vám ukáže před tím, než zadáte heslo, ujistíte se tak, že se nepřihlašujete na podvrženou stránku",
+    "DELETE_TEXT_DIALOG_TITLE": "Vymazat bezpečnostní text",
+    "DELETE_TEXT_DIALOG_DESC": "Váš bezpečnostní text bude odstraněn a nebude použit během autentizace.",
     "MFA_INFO": "Spravovat moje prostředky vícefázového ověření (MFA)",
     "SAVE_IMG_SUCCESS": "Bezpečnostní obrázek byl změněn.",
-    "REMOVE_IMG_SUCCESS": "Bezpečnostní obrázek byl odebrán."
+    "REMOVE_IMG_SUCCESS": "Bezpečnostní obrázek byl odebrán.",
+    "SAVE_TEXT_SUCCESS": "Bezpečnostní text byl změněn.",
+    "REMOVE_TEXT_SUCCESS": "Bezpečnostní text byl odebrán."
   },
   "LOCAL_ACCOUNT": {
     "TITLE": "Lokální účet",
@@ -207,6 +215,12 @@
       "ADD": "Uložit obrázek",
       "IMG_TOO_LONG": "Zvolený obrázek se nepodařilo zmenšit na cílovou velikost. Prosím zvolte jiný obrázek.",
       "DELAY_INFO": "Změna bezpečnostního obrázku se projeví většinou do 5 minut, v ojedinělých případech může propagace změny trvat několik hodin."
+    },
+    "ADD_AUTH_TEXT": {
+      "TITLE": "Změna bezpečnostního textu",
+      "CANCEL": "Zrušit",
+      "ADD": "Uložit text",
+      "DELAY_INFO": "Změna bezpečnostního textu se projeví většinou do 5 minut, v ojedinělých případech může propagace změny trvat několik hodin."
     },
     "ACTIVATE_LOCAL_ACCOUNT": {
       "TITLE": "Aktivovat účet",

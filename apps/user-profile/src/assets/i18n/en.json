@@ -135,6 +135,7 @@
   },
   "AUTHENTICATION": {
     "TITLE": "Security image",
+    "TITLE_TEXT": "Security text",
     "MFA": "Multi-factor authentication",
     "MFA_TOGGLE": "Turn on multi-factor authentication for all services",
     "MFA_DISABLED": "You need to have at least one active MFA token.",
@@ -144,9 +145,16 @@
     "ANTI_PHISHING_INFO": "You will be shown this security image before you enter your password so you will know that you are visiting the right site",
     "DELETE_IMG_DIALOG_TITLE": "Delete security image",
     "DELETE_IMG_DIALOG_DESC": "Your security image will be deleted and will not be used during authentication process.",
+    "NEW_TEXT": "New text",
+    "DELETE_TEXT": "Delete text",
+    "ANTI_PHISHING_INFO_TEXT": "You will be shown this security text before you enter your password so you will know that you are visiting the right site",
+    "DELETE_TEXT_DIALOG_TITLE": "Delete security text",
+    "DELETE_TEXT_DIALOG_DESC": "Your security text will be deleted and will not be used during authentication process.",
     "MFA_INFO": "Manage my MFA tokens",
     "SAVE_IMG_SUCCESS": "Security image has been saved.",
-    "REMOVE_IMG_SUCCESS": "Security image has been removed."
+    "REMOVE_IMG_SUCCESS": "Security image has been removed.",
+    "SAVE_TEXT_SUCCESS": "Security text has been saved.",
+    "REMOVE_TEXT_SUCCESS": "Security text has been removed."
   },
   "LOCAL_ACCOUNT": {
     "TITLE": "Local account",
@@ -207,6 +215,12 @@
       "ADD": "Save image",
       "IMG_TOO_LONG": "Your image could not be resized to fit. Please try a different one.",
       "DELAY_INFO": "New security image usually becomes effective in 5 minutes, in rare cases it might take a couple of hours."
+    },
+    "ADD_AUTH_TEXT": {
+      "TITLE": "Change security text",
+      "CANCEL": "Cancel",
+      "ADD": "Save text",
+      "DELAY_INFO": "New security text usually becomes effective in 5 minutes, in rare cases it might take a couple of hours."
     },
     "ACTIVATE_LOCAL_ACCOUNT": {
       "TITLE": "Activate account",
