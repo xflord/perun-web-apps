@@ -60,7 +60,7 @@ export class ApiInterceptor implements HttpInterceptor {
         finalize(() => (this.dialogRefSessionExpiration = undefined));
         sessionStorage.setItem('auth:redirect', location.pathname);
         sessionStorage.setItem('auth:queryParams', location.search.substring(1));
-        this.authService.startAuthentication();
+        void this.initAuthService.handleAuthStart();
       });
     }
     // Apply the headers
