@@ -11,6 +11,8 @@ import {
 import { RemoveStringValueDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { AddAuthTextDialogComponent } from '../../../components/dialogs/add-auth-text-dialog/add-auth-text-dialog.component';
+import { ComponentType } from '@angular/cdk/overlay';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'perun-web-apps-settings-authentication',
@@ -21,8 +23,13 @@ export class SettingsAuthenticationComponent implements OnInit {
   @ViewChild('toggle') toggle: MatSlideToggle;
 
   imgAtt: Attribute;
-  textAtt: Attribute;
+  imgAttrName: string;
   imageSrc = '';
+  textAtt: Attribute;
+  textAttrName: string;
+  componentMapper: {
+    [key: string]: ComponentType<AddAuthImgDialogComponent | AddAuthTextDialogComponent>;
+  };
   mfaUrl = '';
   displayImageBlock: boolean;
   displayTextBlock: boolean;
@@ -38,6 +45,13 @@ export class SettingsAuthenticationComponent implements OnInit {
 
   ngOnInit(): void {
     const mfa = this.store.getProperty('mfa');
+    this.imgAttrName = this.store.getProperty('mfa').security_image_attribute;
+    this.textAttrName = this.store.getProperty('mfa').security_text_attribute;
+
+    this.componentMapper = {
+      AddAuthImgDialogComponent: AddAuthImgDialogComponent,
+      AddAuthTextDialogComponent: AddAuthTextDialogComponent,
+    };
 
     this.translate.onLangChange.subscribe(() => {
       this.mfaUrl = this.translate.currentLang === 'en' ? mfa.url_en : mfa.url_cs;
@@ -46,20 +60,21 @@ export class SettingsAuthenticationComponent implements OnInit {
     this.mfaUrl = this.translate.currentLang === 'en' ? mfa.url_en : mfa.url_cs;
     this.displayImageBlock = this.store.getProperty('mfa').enable_security_image;
     if (this.displayImageBlock) {
-      this.loadSecurityAttribute('image');
+      this.loadSecurityAttribute(this.imgAttrName, true).subscribe((attr) => {
+        this.imgAtt = attr;
+      });
     }
     this.displayTextBlock = this.store.getProperty('mfa').enable_security_text;
     if (this.displayTextBlock) {
-      this.loadSecurityAttribute('text');
+      this.loadSecurityAttribute(this.textAttrName).subscribe((attr) => {
+        this.textAtt = attr;
+      });
     }
   }
 
-  loadSecurityAttribute(mode: 'image' | 'text'): void {
+  loadSecurityAttribute(attributeName: string, saveImageSrc = false): Observable<Attribute> {
     this.loading = true;
-    const attributeName =
-      mode === 'image'
-        ? this.store.getProperty('mfa').security_image_attribute
-        : this.store.getProperty('mfa').security_text_attribute;
+    const subject = new Subject<Attribute>();
     this.attributesManagerService
       .getUserAttributeByName(this.store.getPerunPrincipal().userId, attributeName)
       .subscribe({
@@ -68,19 +83,11 @@ export class SettingsAuthenticationComponent implements OnInit {
             this.attributesManagerService
               .getAttributeDefinitionByName(attributeName)
               .subscribe((att) => {
-                if (mode === 'image') {
-                  this.imgAtt = att as Attribute;
-                } else {
-                  this.textAtt = att as Attribute;
-                }
+                subject.next(att as Attribute);
               });
           } else {
-            if (mode === 'image') {
-              this.imgAtt = attr;
-              this.imageSrc = this.imgAtt.value as string;
-            } else {
-              this.textAtt = attr;
-            }
+            if (saveImageSrc) this.imageSrc = attr.value as string;
+            subject.next(attr);
           }
           this.loading = false;
         },
@@ -89,42 +96,47 @@ export class SettingsAuthenticationComponent implements OnInit {
           this.loading = false;
         },
       });
+    return subject.asObservable();
   }
 
-  onAddAttribute(mode: 'image' | 'text'): void {
+  onAddAttribute(
+    attribute: Attribute,
+    attributeName: string,
+    dialogComponentName: 'AddAuthImgDialogComponent' | 'AddAuthTextDialogComponent',
+    translation: string
+  ): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
-    config.data = { theme: 'user-theme', attribute: mode === 'image' ? this.imgAtt : this.textAtt };
+    config.data = { theme: 'user-theme', attribute: attribute };
 
     const dialogRef: MatDialogRef<AddAuthImgDialogComponent | AddAuthTextDialogComponent> =
-      mode === 'image'
-        ? this.dialog.open(AddAuthImgDialogComponent, config)
-        : this.dialog.open(AddAuthTextDialogComponent, config);
+      this.dialog.open(this.componentMapper[dialogComponentName], config);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.notificatorService.showSuccess(
-          this.translate.instant(`AUTHENTICATION.SAVE_${mode === 'image' ? 'IMG' : 'TEXT'}_SUCCESS`)
+          this.translate.instant(`AUTHENTICATION.SAVE_${translation}_SUCCESS`)
         );
-        this.loadSecurityAttribute(mode);
+        this.loadSecurityAttribute(attributeName, translation === 'IMG').subscribe((attr) => {
+          attribute = attr;
+        });
       }
     });
   }
 
-  onDeleteAttribute(mode: 'image' | 'text'): void {
+  onDeleteAttribute(attribute: Attribute, attributeName: string, translation: string): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
 
-    const attr: Attribute = mode === 'image' ? this.imgAtt : this.textAtt;
     const removeDialogTitle = this.translate.instant(
-      `AUTHENTICATION.DELETE_${mode === 'image' ? 'IMG' : 'TEXT'}_DIALOG_TITLE`
+      `AUTHENTICATION.DELETE_${translation}_DIALOG_TITLE`
     );
     const removeDialogDescription = this.translate.instant(
-      `AUTHENTICATION.DELETE_${mode === 'image' ? 'IMG' : 'TEXT'}_DIALOG_DESC`
+      `AUTHENTICATION.DELETE_${translation}_DIALOG_DESC`
     );
     config.data = {
       doNotShowValues: true,
-      attribute: attr,
+      attribute: attribute,
       userId: this.store.getPerunPrincipal().userId,
       title: removeDialogTitle,
       description: removeDialogDescription,
@@ -135,11 +147,11 @@ export class SettingsAuthenticationComponent implements OnInit {
     dialogRef.afterClosed().subscribe((attrRemoved) => {
       if (attrRemoved) {
         this.notificatorService.showSuccess(
-          this.translate.instant(
-            `AUTHENTICATION.REMOVE_${mode === 'image' ? 'IMG' : 'TEXT'}_SUCCESS`
-          )
+          this.translate.instant(`AUTHENTICATION.REMOVE_${translation}_SUCCESS`)
         );
-        this.loadSecurityAttribute('image');
+        this.loadSecurityAttribute(attributeName, translation === 'IMG').subscribe((attr) => {
+          attribute = attr;
+        });
       }
     });
   }

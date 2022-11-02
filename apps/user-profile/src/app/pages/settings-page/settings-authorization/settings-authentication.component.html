@@ -6,14 +6,14 @@
       <img [src]="imageSrc" alt="" />
     </div>
     <button
-      (click)="onAddAttribute('image')"
+      (click)="onAddAttribute(this.imgAtt, this.imgAttrName, 'AddAuthImgDialogComponent', 'IMG')"
       class="mr-2 mt-1 action-button"
       color="accent"
       mat-flat-button>
       {{'AUTHENTICATION.NEW_IMG' | customTranslate | translate}}
     </button>
     <button
-      (click)="onDeleteAttribute('image')"
+      (click)="onDeleteAttribute(this.imgAtt, this.imgAttrName, 'IMG')"
       color="warn"
       [disabled]="!imgAtt || !imgAtt.value"
       mat-flat-button>
@@ -26,14 +26,14 @@
     <p>{{'AUTHENTICATION.ANTI_PHISHING_INFO_TEXT' | customTranslate | translate}}</p>
     <h4 *ngIf="textAtt" class="security-text">{{textAtt.value}}</h4>
     <button
-      (click)="onAddAttribute('text')"
+      (click)="onAddAttribute(this.textAtt, this.textAttrName, 'AddAuthTextDialogComponent', 'TEXT')"
       class="mr-2 mt-1 action-button"
       color="accent"
       mat-flat-button>
       {{'AUTHENTICATION.NEW_TEXT' | customTranslate | translate}}
     </button>
     <button
-      (click)="onDeleteAttribute('text')"
+      (click)="onDeleteAttribute(this.textAtt, this.textAttrName, 'TEXT')"
       color="warn"
       [disabled]="!textAtt || !textAtt.value"
       mat-flat-button>
