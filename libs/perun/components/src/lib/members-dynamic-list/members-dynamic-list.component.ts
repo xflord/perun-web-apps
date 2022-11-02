@@ -19,6 +19,7 @@ import {
   DynamicPaginatingService,
   GuiAuthResolver,
   TableCheckbox,
+  EntityStorageService,
 } from '@perun-web-apps/perun/services';
 import {
   Member,
@@ -78,6 +79,9 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
   @Input() updateTable: boolean;
   @Input() isMembersGroup: boolean;
 
+  expireGroupAuth: boolean;
+  expireVoAuth: boolean;
+
   dataSource: DynamicDataSource<RichMember>;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
@@ -86,7 +90,8 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
     private authResolver: GuiAuthResolver,
     private tableCheckbox: TableCheckbox,
     private tableConfigService: TableConfigService,
-    private dynamicPaginatingService: DynamicPaginatingService
+    private dynamicPaginatingService: DynamicPaginatingService,
+    private entityStorage: EntityStorageService
   ) {}
 
   static getExportDataForColumn(data: RichMember, column: string): string {
@@ -122,6 +127,13 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
   }
 
   ngOnInit(): void {
+    this.expireGroupAuth = this.authResolver.isAuthorized(
+      'setMemberGroupStatus_Member_Group_MemberGroupStatus_policy',
+      [this.entityStorage.getEntity()]
+    );
+    this.expireVoAuth = this.authResolver.isAuthorized('setStatus_Member_Status_policy', [
+      this.entityStorage.getEntity(),
+    ]);
     if (!this.authResolver.isPerunAdminOrObserver()) {
       this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
@@ -172,6 +184,11 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
 
   changeStatus(event: Event, member: RichMember, groupId?: number): void {
     event.stopPropagation();
+
+    // Do not open expiration dialog, if caller doesn't have sufficient rights
+    if (!groupId) {
+      if (!this.expireVoAuth) return;
+    } else if (!this.expireGroupAuth) return;
 
     // Skip crating the status dialog, if the current group is 'members'
     if (this.isMembersGroup && groupId) return;
