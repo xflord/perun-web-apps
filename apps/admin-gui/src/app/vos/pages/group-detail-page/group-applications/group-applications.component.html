@@ -20,14 +20,14 @@
     <mat-label>{{'APPLICATIONS_LIST.STATE' | translate}}</mat-label>
     <mat-select (selectionChange)="select()" [(value)]="state" disableOptionCentering>
       <mat-option value="all">{{'VO_DETAIL.APPLICATION.SELECTION_ALL' | translate}}</mat-option>
+      <mat-option
+        value="pending"
+        >{{'VO_DETAIL.APPLICATION.SELECTION_PENDING' | translate}}</mat-option
+      >
       <mat-option value="wfmv">{{'VO_DETAIL.APPLICATION.SELECTION_WFMV' | translate}}</mat-option>
       <mat-option
         value="submited"
         >{{'VO_DETAIL.APPLICATION.SELECTION_SUBMITTED' | translate}}</mat-option
-      >
-      <mat-option
-        value="pending"
-        >{{'VO_DETAIL.APPLICATION.SELECTION_PENDING' | translate}}</mat-option
       >
       <mat-option
         value="approved"
