@@ -41,7 +41,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     name: [this.attDef.displayName, Validators.required],
     description: [this.attDef.description, Validators.required],
   });
-  urn = `${this.attDef.namespace}:${this.attDef.baseFriendlyName}`;
+  urn = `${this.attDef.namespace}:${this.attDef.friendlyName}`;
   collections$ = new BehaviorSubject<AttributePolicyCollection[]>([]);
   services$: Observable<Service[]> = this.serviceService
     .getServicesByAttributeDefinition(this.attDef.id)
