@@ -25,7 +25,11 @@ export class UserProfileConfigService {
       cssVariable: '--side-hover',
     },
     {
-      configValue: 'sidemenu-link-active',
+      configValue: 'sidemenu_hover_text_color',
+      cssVariable: '--side-text-hover',
+    },
+    {
+      configValue: 'sidemenu_active_color',
       cssVariable: '--side-active',
     },
     {

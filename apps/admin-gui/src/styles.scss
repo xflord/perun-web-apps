@@ -527,6 +527,7 @@ button:focus {
   //border-left: 5px solid #ffffff;
   //font-weight: 600;
   background: var(--side-link-active) !important;
+  color: var(--side-link-text-active) !important;
 
   &:hover {
     //background-color: rgba(255, 255, 255, 0.15) !important;

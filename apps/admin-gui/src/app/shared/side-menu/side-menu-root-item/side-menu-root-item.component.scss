@@ -12,10 +12,12 @@
 
 .side-entity-menu a:hover {
   background: var(--side-link-hover) !important;
+  color: var(--side-link-text-hover) !important;
 }
 
 .root-header-activated {
   background: var(--side-root-item-active) !important;
+  color: var(--side-root-item-text-active) !important;
 }
 
 //.side-entity-menu a:hover {
@@ -37,6 +39,7 @@
 
 .entity-menu-item-header:hover {
   background: var(--side-root-item-hover) !important;
+  color: var(--side-root-item-text-hover) !important;
 }
 
 .entity-menu-item-label {

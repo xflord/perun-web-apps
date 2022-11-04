@@ -69,16 +69,32 @@ export class AdminGuiConfigService {
       cssVariable: '--side-root-item-hover',
     },
     {
-      configValue: 'sidemenu_root_active_color',
+      configValue: 'sidemenu_active_color',
       cssVariable: '--side-root-item-active',
     },
     {
-      configValue: 'sidemenu-link-active',
+      configValue: 'sidemenu_submenu_active_color',
       cssVariable: '--side-link-active',
     },
     {
-      configValue: 'sidemenu-link-hover',
+      configValue: 'sidemenu_submenu_hover_color',
       cssVariable: '--side-link-hover',
+    },
+    {
+      configValue: 'sidemenu_hover_text_color',
+      cssVariable: '--side-root-item-text-hover',
+    },
+    {
+      configValue: 'sidemenu_active_text_color',
+      cssVariable: '--side-root-item-text-active',
+    },
+    {
+      configValue: 'sidemenu_submenu_active_text_color',
+      cssVariable: '--side-link-text-active',
+    },
+    {
+      configValue: 'sidemenu_submenu_hover_text_color',
+      cssVariable: '--side-link-text-hover',
     },
   ];
 
