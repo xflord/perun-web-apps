@@ -80,7 +80,9 @@ export class VoSettingsNotificationsComponent implements OnInit {
       'vo-deleteMailById_ApplicationForm_Integer_policy',
       [this.vo]
     );
-    this.copyAuth = this.authResolver.isAuthorized('copyMailsFromVoToVo_Vo_Vo_policy', [this.vo]);
+    this.copyAuth = this.authResolver.isAuthorized('destination-copyMailsFromVoToVo_Vo_Vo_policy', [
+      this.vo,
+    ]);
 
     this.displayedColumns = this.removeAuth
       ? ['select', 'id', 'mailType', 'appType', 'send']

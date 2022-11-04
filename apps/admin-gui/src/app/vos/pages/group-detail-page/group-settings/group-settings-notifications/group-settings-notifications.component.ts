@@ -116,7 +116,7 @@ export class GroupSettingsNotificationsComponent implements OnInit {
       [this.group]
     );
     this.copyAuth = this.guiAuthResolver.isAuthorized(
-      'copyMailsFromVoToGroup_Vo_Group_boolean_policy',
+      'destination-copyMailsFromVoToGroup_Vo_Group_boolean_policy',
       [this.group]
     );
     this.displayedColumns = this.removeAuth
