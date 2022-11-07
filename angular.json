@@ -1619,5 +1619,8 @@
       },
       "tags": []
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

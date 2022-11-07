@@ -22,3 +22,4 @@ export * from './lib/not-authorized-page/not-authorized-page.component';
 export * from './lib/settings-data-quotas/data-quotas.component';
 export * from './lib/settings-mailing-lists/mailing-lists.component';
 export * from './lib/settings-ssh-keys/settings-ssh-keys.component';
+export * from './lib/perun-header/perun-header.component';

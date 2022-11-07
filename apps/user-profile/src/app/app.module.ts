@@ -20,7 +20,6 @@ import { SettingsPreferredShellsComponent } from './pages/settings-page/settings
 import { SettingsAlternativePasswordsComponent } from './pages/settings-page/settings-alternative-passwords/settings-alternative-passwords.component';
 import { SettingsSambaPasswordComponent } from './pages/settings-page/settings-samba-password/settings-samba-password.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
-import { HeaderComponent } from './components/header/header.component';
 import { CustomIconService, StoreService } from '@perun-web-apps/perun/services';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -118,7 +117,6 @@ const loadConfigs: (appConfig: UserProfileConfigService) => () => Promise<void> 
     SettingsMailingListsComponent,
     SettingsDataQuotasComponent,
     SideMenuComponent,
-    HeaderComponent,
     PrivacyPageComponent,
     HomePageComponent,
     AddUnixGroupDialogComponent,

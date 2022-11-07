@@ -4,7 +4,7 @@ import { NotificationData } from '@perun-web-apps/perun/models';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-show-notification-history-dialog',
+  selector: 'perun-web-apps-show-notification-history-dialog',
   templateUrl: './show-notification-history-dialog.component.html',
   styleUrls: ['./show-notification-history-dialog.component.scss'],
 })

@@ -531,5 +531,8 @@
         "NO_USERS": "No users found."
       }
     }
+  },
+  "NAV": {
+    "LOGOUT": "Log out"
   }
 }

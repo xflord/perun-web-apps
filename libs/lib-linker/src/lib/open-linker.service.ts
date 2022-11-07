@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FocusOnLinkerDialogComponent } from './focus-on-linker-dialog/focus-on-linker-dialog.component';
 import { LinkerResult } from './models/LinkerResult';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { AppType } from '@perun-web-apps/perun/models';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class OpenLinkerService {
   ) {}
 
   openLinkerWindow(processTheResult: (result: LinkerResult) => void, idpFilter?: string[]): void {
-    let linkerUrl = this.otherApplicationsService.getUrlForOtherApplication('linker');
+    let linkerUrl = this.otherApplicationsService.getUrlForOtherApplication(AppType.Linker);
     //next 'if' is there for testing purposes, when you want to use localhost url of linker
     if (this.storeService.getProperty('use_localhost_linker_url')) {
       linkerUrl = 'http://localhost:4201/';

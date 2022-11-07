@@ -1,5 +1,8 @@
 <div *ngIf="!isLoginScreenShow">
-  <perun-web-apps-header id="nav-menu"></perun-web-apps-header>
+  <perun-web-apps-header
+    [showToggle]="false"
+    [otherApp]="otherApp"
+    id="nav-menu"></perun-web-apps-header>
   <div
     id="content-inner"
     [ngStyle]="{

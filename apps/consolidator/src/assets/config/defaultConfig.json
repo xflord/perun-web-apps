@@ -18,6 +18,7 @@
   },
   "application": "Consolidator",
   "document_title": "Consolidator",
+  "header_label_en": "Account linking",
   "use_localhost_linker_url": false,
   "path_to_idp_provider_userinfo": ["target_backend", "display_name", "text"],
   "path_to_idp_logo_userinfo": ["target_backend", "logo", "text"],
@@ -25,7 +26,6 @@
   "path_to_idp_logo_height_userinfo": ["target_backend", "logo", "height"],
   "instance_favicon": false,
   "auto_auth_redirect": true,
-  "is_devel": false,
   "footer": {
     "columns": [
       {

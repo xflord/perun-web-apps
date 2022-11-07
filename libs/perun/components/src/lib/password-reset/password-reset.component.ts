@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ChangePasswordDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppType } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'perun-web-apps-password-reset',
@@ -70,7 +71,7 @@ export class PasswordResetComponent implements OnInit {
 
   resetPassword(login: string): void {
     window.open(
-      this.otherApplicationService.getUrlForOtherApplication('pwdReset', login),
+      this.otherApplicationService.getUrlForOtherApplication(AppType.PwdReset, login),
       '_blank'
     );
   }

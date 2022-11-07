@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PerunNavComponent } from './perun-nav/perun-nav.component';
 import { RouterModule } from '@angular/router';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -87,7 +86,6 @@ import { EntitylessAttributeKeysListComponent } from './components/entityless-at
 import { ServicesListComponent } from './components/services-list/services-list.component';
 import { RemoveVoDialogComponent } from './components/dialogs/remove-vo-dialog/remove-vo-dialog.component';
 import { CreateVoDialogComponent } from './components/dialogs/create-vo-dialog/create-vo-dialog.component';
-import { ShowNotificationHistoryDialogComponent } from './components/dialogs/show-notification-history-dialog/show-notification-history-dialog.component';
 import { ExtSourcesListComponent } from './components/ext-sources-list/ext-sources-list.component';
 import { AddExtSourceDialogComponent } from './components/dialogs/add-ext-source-dialog/add-ext-source-dialog.component';
 import { CreateRelationDialogComponent } from './components/dialogs/create-relation-dialog/create-relation-dialog.component';
@@ -235,7 +233,6 @@ import { AddGroupRoleDialogComponent } from './components/dialogs/add-role-dialo
   ],
   exports: [
     NgxMatSelectSearchModule,
-    PerunNavComponent,
     MatAutocompleteModule,
     MatInputModule,
     RouterModule,
@@ -318,7 +315,6 @@ import { AddGroupRoleDialogComponent } from './components/dialogs/add-role-dialo
     RolesPageComponent,
   ],
   declarations: [
-    PerunNavComponent,
     SideMenuComponent,
     SideMenuItemComponent,
     CreateGroupDialogComponent,
@@ -368,7 +364,6 @@ import { AddGroupRoleDialogComponent } from './components/dialogs/add-role-dialo
     ServicesListComponent,
     RemoveVoDialogComponent,
     CreateVoDialogComponent,
-    ShowNotificationHistoryDialogComponent,
     CreateRelationDialogComponent,
     RemoveRelationDialogComponent,
     RemoveGroupFromResourceDialogComponent,

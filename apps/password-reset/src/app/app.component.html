@@ -1,5 +1,9 @@
 <div *ngIf="!isServiceAccess && !showLoginScreen">
-  <perun-web-apps-header id="nav-menu"></perun-web-apps-header>
+  <perun-web-apps-header
+    [showToggle]="false"
+    [showHeaderMenu]="false"
+    [showLanguageMenu]="true"
+    id="nav-menu"></perun-web-apps-header>
   <div [ngStyle]="{'background': contentBackgroundColor}" id="content-inner">
     <div [ngStyle]="{'min-height': contentHeight}" id="content-wrap">
       <perun-web-apps-password-reset-page

@@ -107,6 +107,9 @@ import { AddSshDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { RemoveStringValueDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { ShowSshDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { RoleSearchSelectComponent } from './role-search-select/role-search-select.component';
+import { PerunHeaderComponent } from './perun-header/perun-header.component';
+import { MatBadgeModule } from '@angular/material/badge';
+import { ShowNotificationHistoryDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -173,6 +176,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     MatDialogModule,
     PerunUtilsModule,
     UiMaterialModule,
+    MatBadgeModule,
   ],
   declarations: [
     VosListComponent,
@@ -246,6 +250,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     RemoveStringValueDialogComponent,
     ShowSshDialogComponent,
     RoleSearchSelectComponent,
+    PerunHeaderComponent,
+    ShowNotificationHistoryDialogComponent,
   ],
   exports: [
     VosListComponent,
@@ -313,6 +319,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     RemoveStringValueDialogComponent,
     ShowSshDialogComponent,
     RoleSearchSelectComponent,
+    PerunHeaderComponent,
+    ShowNotificationHistoryDialogComponent,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

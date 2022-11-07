@@ -26,3 +26,4 @@ export * from './lib/request-change-data-quota-dialog/request-change-data-quota-
 export * from './lib/add-ssh-dialog/add-ssh-dialog.component';
 export * from './lib/remove-string-value-dialog/remove-string-value-dialog.component';
 export * from './lib/show-ssh-dialog/show-ssh-dialog.component';
+export * from './lib/show-notification-history-dialog/show-notification-history-dialog.component';

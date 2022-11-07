@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivateLocalAccountDialogComponent } from '../../../components/dialogs/activate-local-account-dialog/activate-local-account-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { Router } from '@angular/router';
+import { AppType } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'perun-web-apps-settings-local-account',
@@ -26,7 +27,7 @@ export class SettingsLocalAccountComponent {
   ) {}
 
   openPwdReset(): void {
-    let url = this.appUrlService.getUrlForOtherApplication('pwdReset', this.namespace);
+    let url = this.appUrlService.getUrlForOtherApplication(AppType.PwdReset, this.namespace);
     const mode = 'reset';
     url += '&' + mode + '=true';
     window.open(url, '_blank');

@@ -4,13 +4,13 @@
 </div>
 <perun-web-apps-notificator [displayWarning]="displayWarning"></perun-web-apps-notificator>
 <ng-template [ngIf]="!isLoginScreenShow && !isServiceAccess && !isServiceLogin()">
-  <app-perun-nav-menu
-    [principal]="principal"
+  <perun-web-apps-header
+    (sidenavToggle)="sidenav.toggle()"
     [ngStyle]="{'top': getNavMenuTop(), 'background': navBackgroundColor}"
-    class="mat-elevation-z3"
-    [sideNav]="sidenav"
-    id="nav-menu">
-  </app-perun-nav-menu>
+    [otherApp]="otherApp"
+    [showNotifications]="true"
+    id="nav-menu"
+    class="mat-elevation-z3"></perun-web-apps-header>
   <mat-sidenav-container
     autosize="true"
     [ngStyle]="{'margin-top': getSideNavMarginTop(),'min-height': getSideNavMinHeight()}">

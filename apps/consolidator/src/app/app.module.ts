@@ -19,7 +19,6 @@ import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { UiMaterialModule } from '@perun-web-apps/ui/material';
 import { ConsolidatorConfigService } from './services/consolidator-config.service';
-import { HeaderComponent } from './components/header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MainWindowComponent } from './components/main-window/main-window.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -54,7 +53,6 @@ const loadConfigs = (appConfig: ConsolidatorConfigService) => (): Promise<void> 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     MainWindowComponent,
     ListOfIdentitiesComponent,
     ShowResultPageComponent,

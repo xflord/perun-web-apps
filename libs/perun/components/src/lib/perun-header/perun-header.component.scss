@@ -2,21 +2,8 @@
   height: 64px !important;
   display: flex;
   justify-content: space-between;
-  margin-left: 8px;
-  padding: 0;
-}
-
-.display-flex {
-  display: flex;
-  flex-direction: row;
-}
-
-#nav-devel-info {
-  font-weight: 500;
-  font-size: 1.4rem;
-  display: flex;
-  align-items: center;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  padding: 0 0 0 8px;
+  z-index: 999;
 }
 
 #nav-menu-user-info {
@@ -24,20 +11,42 @@
   flex-direction: row;
   align-items: center;
   padding-right: 16px;
+  margin-left: auto;
+  margin-right: 0;
 }
 
-.router-icon {
-  height: 2.5rem;
-  width: 2.5rem;
-  cursor: pointer;
-  outline: 0;
+@media (max-width: 570px) {
+  .hide-label {
+    display: none;
+  }
+}
+
+#nav-devel-info {
+  margin-left: auto;
+  font-weight: 500;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+#nav-menu-icons {
+  display: flex;
+  flex-direction: row;
 }
 
 .logo-container {
-  padding: 0 8px 0 8px;
+  padding: 0 20px 0 8px;
 }
 
 .logo-container ::ng-deep img,
 .logo-container ::ng-deep svg {
   max-height: 50px;
+}
+
+#nav-menu-language {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-right: 16px;
 }

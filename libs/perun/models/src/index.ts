@@ -15,3 +15,4 @@ export * from './lib/ConfigProperties';
 export * from './lib/DynamicDataSource';
 export * from './lib/UserWithConsentStatus';
 export * from './lib/AuthPrivilege';
+export * from './lib/AppType';

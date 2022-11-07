@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StoreService } from './store.service';
 import { Brand } from '@perun-web-apps/perun/openapi';
+import { AppType } from '@perun-web-apps/perun/models';
 
 @Injectable({
   providedIn: 'root',
@@ -47,10 +48,7 @@ export class OtherApplicationsService {
    * @param appType type of requested app (admin | profile | pwdReset)
    * @param login login namespace for pwd reset app
    */
-  getUrlForOtherApplication(
-    appType: 'admin' | 'profile' | 'pwdReset' | 'consolidator' | 'linker',
-    login?: string
-  ): string {
+  getUrlForOtherApplication(appType: AppType, login?: string): string {
     const currentUrl = window.location.href;
     const splittedUrl = currentUrl.split('/');
     const domain = splittedUrl[0] + '//' + splittedUrl[2]; // protocol with domain

@@ -19,6 +19,7 @@
   "supported_languages": [
     "en"
   ],
+  "header_label_en": "Publications",
   "auto_auth_redirect": true,
   "footer": {
     "columns": [
@@ -98,5 +99,6 @@
     "sidemenu_active_color": "#465258",
     "sidemenu_active_text_color": "#ffffff",
     "user_color": "#00796b"
-  }
+  },
+  "log_out_enabled": true
 }

@@ -24,7 +24,6 @@ import { AuthorsPageComponent } from './pages/authors-page/authors-page.componen
 import { CategoriesPageComponent } from './pages/categories-page/categories-page.component';
 import { PublicationSystemsPageComponent } from './pages/publication-systems-page/publication-systems-page.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
-import { HeaderComponent } from './components/header/header.component';
 import { CategoriesListComponent } from './components/categories-list/categories-list.component';
 import { AddCategoryDialogComponent } from './dialogs/add-category-dialog/add-category-dialog.component';
 import { RemoveCategoryDialogComponent } from './dialogs/remove-category-dialog/remove-category-dialog.component';
@@ -85,7 +84,6 @@ const loadConfigs: (appConfig: PublicationsConfigService) => () => Promise<void>
     CategoriesPageComponent,
     PublicationSystemsPageComponent,
     SideMenuComponent,
-    HeaderComponent,
     CategoriesListComponent,
     AddCategoryDialogComponent,
     RemoveCategoryDialogComponent,

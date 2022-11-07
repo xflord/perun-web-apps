@@ -17,6 +17,7 @@ import { NewVersionDialogComponent } from './shared/components/dialogs/new-versi
 import { MatDialog } from '@angular/material/dialog';
 import { NavigationStart, Params, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { AppType } from '@perun-web-apps/perun/models';
 
 // eslint-disable-next-line
 declare let require: any;
@@ -30,6 +31,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   static minWidth = 992;
 
   @ViewChild('footer') footer: ElementRef<HTMLDivElement>;
+
+  otherApp = AppType.Profile;
 
   sidebarMode: 'over' | 'push' | 'side' = 'side';
   lastScreenWidth: number;

@@ -12,6 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MailChangeFailedDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { MatDialog } from '@angular/material/dialog';
+import { AppType } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-perun-web-apps-user-dashboard',
@@ -139,7 +140,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   private getUserProfile(): void {
-    this.userProfileUrl = this.otherApplicationService.getUrlForOtherApplication('profile');
+    this.userProfileUrl = this.otherApplicationService.getUrlForOtherApplication(AppType.Profile);
     this.userProfileName = this.storeService.getProperty('profile_label_en');
   }
 }
