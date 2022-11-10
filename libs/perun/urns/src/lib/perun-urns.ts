@@ -37,6 +37,7 @@ export class Urns {
     'urn:perun:group:attribute-def:def:lastGroupStructureSynchronizationState';
   static GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP =
     'urn:perun:group:attribute-def:def:lastGroupStructureSynchronizationTimestamp';
+  static GROUP_SYNC_INTERVAL = 'urn:perun:group:attribute-def:def:synchronizationInterval';
   static GROUP_BLOCK_MANUAL_MEMBER_ADDING =
     'urn:perun:group:attribute-def:def:blockManualMemberAdding';
 

@@ -4,6 +4,7 @@ import { GroupsManagerService, RichGroup } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { getAttribute } from '@perun-web-apps/perun/utils';
 import { NotificatorService } from '@perun-web-apps/perun/services';
+import { formatDate } from '@angular/common';
 
 export type SyncType = 'BASIC' | 'STRUCTURED';
 
@@ -21,13 +22,11 @@ export class GroupSyncDetailDialogComponent implements OnInit {
   theme: string;
   loading = true;
   group: RichGroup;
-  private syncEnabled: string;
-  private lastSyncState: string;
-  private lastSyncTime: string;
-  private structSyncEnabled: boolean;
-  private lastStructSyncState: string;
-  private lastStructSyncTime: string;
-  private type: SyncType;
+  syncInterval = '';
+  syncState = '';
+  syncTime = '';
+  syncType = '';
+  type: SyncType;
 
   constructor(
     public dialogRef: MatDialogRef<GroupSyncDetailDialogComponent>,
@@ -41,79 +40,29 @@ export class GroupSyncDetailDialogComponent implements OnInit {
     this.loadGroup();
   }
 
-  onForceStructure(): void {
-    this.loading = true;
-    this.groupService.forceGroupStructureSynchronization(this.data.groupId).subscribe(
-      () => {
-        this.notificator.showSuccess('DIALOGS.GROUP_SYNC_DETAIL.STRUCT_FORCE_SUCCESS');
-        this.loading = false;
-      },
-      () => (this.loading = false)
-    );
-  }
-
   onCancel(): void {
     this.dialogRef.close(null);
   }
 
   onForce(): void {
     this.loading = true;
-    if (this.isBasic()) {
-      this.groupService.forceGroupSynchronization(this.group.id).subscribe(
-        () => {
+    if (this.type === 'BASIC') {
+      this.groupService.forceGroupSynchronization(this.group.id).subscribe({
+        next: () => {
           this.notificator.showSuccess('DIALOGS.GROUP_SYNC_DETAIL.FORCE_SUCCESS');
           this.refresh();
         },
-        () => (this.loading = false)
-      );
-    }
-    if (this.isStructured()) {
-      this.groupService.forceGroupStructureSynchronization(this.group.id).subscribe(
-        () => {
+        error: () => (this.loading = false),
+      });
+    } else {
+      this.groupService.forceGroupStructureSynchronization(this.group.id).subscribe({
+        next: () => {
           this.notificator.showSuccess('DIALOGS.GROUP_SYNC_DETAIL.FORCE_SUCCESS');
           this.refresh();
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
     }
-  }
-
-  getSynchronizationType(): string {
-    if (this.isBasic()) {
-      return 'DIALOGS.GROUP_SYNC_DETAIL.NORMAL_SYNC';
-    }
-    if (this.isStructured()) {
-      return 'DIALOGS.GROUP_SYNC_DETAIL.STRUCT_SYNC';
-    }
-    return 'N/A';
-  }
-
-  isBasic(): boolean {
-    return this.type === 'BASIC';
-  }
-
-  isStructured(): boolean {
-    return this.type === 'STRUCTURED';
-  }
-
-  getLastSyncState(): string {
-    if (this.isBasic()) {
-      return this.lastSyncState !== '' ? this.lastSyncState : 'OK';
-    }
-    if (this.isStructured()) {
-      return this.lastStructSyncState !== '' ? this.lastStructSyncState : 'OK';
-    }
-    return 'N/A';
-  }
-
-  getLastSyncTime(): string {
-    if (this.isBasic()) {
-      return this.lastSyncTime;
-    }
-    if (this.isStructured()) {
-      return this.lastStructSyncTime;
-    }
-    return 'N/A';
   }
 
   refresh(): void {
@@ -130,33 +79,45 @@ export class GroupSyncDetailDialogComponent implements OnInit {
         Urns.GROUP_STRUCTURE_SYNC_ENABLED,
         Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
         Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP,
+        Urns.GROUP_SYNC_INTERVAL,
       ])
       .subscribe((richGroup) => {
         this.group = richGroup;
 
-        this.syncEnabled = getAttribute(this.group.attributes, Urns.GROUP_SYNC_ENABLED)
+        const syncEnabled = getAttribute(this.group.attributes, Urns.GROUP_SYNC_ENABLED)
           .value as string;
-        this.lastSyncState = getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_STATE)
+        const lastSyncState = getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_STATE)
           .value as string;
-        this.lastSyncTime = getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_TIMESTAMP)
+        const lastSyncTime = getAttribute(this.group.attributes, Urns.GROUP_LAST_SYNC_TIMESTAMP)
           .value as string;
-        this.structSyncEnabled = getAttribute(
+        const structSyncEnabled = getAttribute(
           this.group.attributes,
           Urns.GROUP_STRUCTURE_SYNC_ENABLED
         ).value as boolean;
-        this.lastStructSyncState = getAttribute(
+        const lastStructSyncState = getAttribute(
           this.group.attributes,
           Urns.GROUP_LAST_STRUCTURE_SYNC_STATE
         ).value as string;
-        this.lastStructSyncTime = getAttribute(
+        const lastStructSyncTime = getAttribute(
           this.group.attributes,
           Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
         ).value as string;
-        if (this.syncEnabled !== null && this.syncEnabled === 'true') {
+        const syncInterval = getAttribute(this.group.attributes, Urns.GROUP_SYNC_INTERVAL)
+          .value as string;
+        // value is in chunks of 5 minutes
+        this.syncInterval = syncInterval === null ? 'N/A' : (+syncInterval * 5).toString();
+
+        if (syncEnabled !== null && syncEnabled === 'true') {
           this.type = 'BASIC';
+          this.syncType = 'DIALOGS.GROUP_SYNC_DETAIL.NORMAL_SYNC';
+          this.syncState = lastSyncState !== '' ? lastSyncState : 'OK';
+          this.syncTime = formatDate(lastSyncTime, 'YYYY-MM-dd H:mm:ss', 'en');
         }
-        if (this.structSyncEnabled !== null && this.structSyncEnabled) {
+        if (structSyncEnabled !== null && structSyncEnabled) {
           this.type = 'STRUCTURED';
+          this.syncType = 'DIALOGS.GROUP_SYNC_DETAIL.STRUCT_SYNC';
+          this.syncState = lastStructSyncState !== '' ? lastStructSyncState : 'OK';
+          this.syncTime = formatDate(lastStructSyncTime, 'YYYY-MM-dd H:mm:ss', 'en');
         }
         this.loading = false;
       });

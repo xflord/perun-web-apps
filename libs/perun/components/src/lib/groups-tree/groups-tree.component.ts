@@ -106,6 +106,7 @@ export class GroupsTreeComponent implements OnChanges {
 
   onSyncDetail(rg: RichGroup): void {
     const config = getDefaultDialogConfig();
+    config.width = '450px';
     config.data = {
       groupId: rg.id,
       theme: this.theme,
