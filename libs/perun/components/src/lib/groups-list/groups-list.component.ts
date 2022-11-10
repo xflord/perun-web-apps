@@ -219,6 +219,7 @@ export class GroupsListComponent {
 
   openSyncDetail(group: GroupWithStatus): void {
     const config = getDefaultDialogConfig();
+    config.width = '450px';
     config.data = {
       groupId: group.id,
       theme: this.theme,

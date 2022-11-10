@@ -1000,10 +1000,12 @@
       "CANCEL": "Close",
       "NORMAL_SYNC": "Basic synchronization",
       "STRUCT_SYNC": "Structured synchronization",
-      "GROUP_NAME": "Group name: ",
-      "SYNCHRONIZATION": "Synchronization: ",
-      "LAST_SYNC_STATE": "Last synchronization state: ",
-      "LAST_SYNC_TIME": "Last synchronization time: "
+      "GROUP_NAME": "Group name",
+      "SYNCHRONIZATION": "Synchronization",
+      "LAST_SYNC_STATE": "Last synchronization state",
+      "LAST_SYNC_TIME": "Last synchronization time",
+      "SYNC_INTERVAL": "Group synchronization happens every",
+      "SYNC_INTERVAL_MINUTES": "{{interval}} minutes"
     },
     "IMPORT_ATTRIBUTE": {
       "INFO": "To import an attribute, you have to paste the content, which you copied on the attribute definitions detail dialog.",

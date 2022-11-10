@@ -75,6 +75,7 @@ export class GroupDetailPageComponent extends destroyDetailMixin() implements On
 
   onSyncDetail(): void {
     const config = getDefaultDialogConfig();
+    config.width = '450px';
     config.data = {
       groupId: this.group.id,
       theme: 'group-theme',
