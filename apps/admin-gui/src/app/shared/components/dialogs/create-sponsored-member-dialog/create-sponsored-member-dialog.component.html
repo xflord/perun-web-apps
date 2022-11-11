@@ -151,6 +151,17 @@
           </perun-web-apps-expiration-select>
         </div>
       </mat-step>
+      <mat-step>
+        <ng-template
+          matStepLabel
+          >{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.GROUPS_LABEL' | translate}}</ng-template
+        >
+        <app-assign-groups-sponsored-members-component
+          (groupsToAdd)="createMember($event)"
+          (submitAllowed)="submitAllowed = $event"
+          [voId]="data.voId"
+          [submit]="groupsToAssign.asObservable()"></app-assign-groups-sponsored-members-component>
+      </mat-step>
     </mat-stepper>
   </div>
 
@@ -169,6 +180,11 @@
     <perun-web-apps-alert
       alert_type="warn"
       >{{'DIALOGS.CREATE_SPONSORED_MEMBER.COPY_INFORMATION' | translate}}</perun-web-apps-alert
+    >
+    <perun-web-apps-alert
+      *ngIf="finishedWithErrors"
+      alert_type="error"
+      >{{'DIALOGS.CREATE_SPONSORED_MEMBER.WITH_ERRORS' | translate}}</perun-web-apps-alert
     >
   </div>
 
@@ -205,7 +221,7 @@
       data-cy="confirm-button"
       (click)="onConfirm()"
       *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
-      [disabled]="sponsorType === null || (sponsorType === 'other' && selectedSponsor === null)"
+      [disabled]="!submitAllowed"
       class="ml-2"
       color="accent"
       mat-flat-button

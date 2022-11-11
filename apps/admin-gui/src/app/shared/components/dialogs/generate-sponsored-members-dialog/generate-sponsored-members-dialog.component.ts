@@ -2,12 +2,10 @@ import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angula
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   AttributesManagerService,
-  Group,
   GroupsManagerService,
   InputCreateSponsoredMemberFromCSV,
   MembersManagerService,
   NamespaceRules,
-  RichGroup,
 } from '@perun-web-apps/perun/openapi';
 import {
   GuiAuthResolver,
@@ -24,16 +22,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { formatDate } from '@angular/common';
-import { SelectionModel } from '@angular/cdk/collections';
-import { Urns } from '@perun-web-apps/perun/urns';
-import { TABLE_VO_GROUPS } from '@perun-web-apps/config/table-config';
-import {
-  downloadData,
-  emailRegexString,
-  hasBooleanAttributeEnabled,
-  isGroupSynchronized,
-} from '@perun-web-apps/perun/utils';
+import { downloadData, emailRegexString } from '@perun-web-apps/perun/utils';
 import { MatStepper } from '@angular/material/stepper';
+import { Subject } from 'rxjs';
 
 interface MemberData {
   name: string;
@@ -71,25 +62,15 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   usersInfoFormGroup: UntypedFormGroup;
   state: 'user-input' | 'results' = 'user-input';
   passwordReset = 'generate';
-  groupAssignment: string = null;
   expiration = 'never';
-  createGroupAuth: boolean;
-  assignableGroups: Group[] = [];
-  allVoGroups: Group[] = [];
-  selection = new SelectionModel<Group>(true, []);
-  manualMemberAddingBlocked = false;
-  name = '';
-  description = '';
-  asSubGroup = false;
-  parentGroup: Group = null;
-  groupIds: number[] = [];
-  filterValue = '';
-  tableId = TABLE_VO_GROUPS;
   finishedWithErrors = false;
+
+  submitAllowed = false;
+
+  groupsToAssign: Subject<void> = new Subject<void>();
+
   private namespaceRules: NamespaceRules[] = [];
   private resultData: MemberData[] = [];
-
-  private groupAttrNames = [Urns.GROUP_SYNC_ENABLED, Urns.GROUP_BLOCK_MANUAL_MEMBER_ADDING];
 
   constructor(
     private dialogRef: MatDialogRef<GenerateSponsoredMembersDialogComponent>,
@@ -118,9 +99,6 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.theme = this.data.theme;
-    this.createGroupAuth = this.guiAuthResolver.isAuthorized('createGroup_Vo_Group_policy', [
-      { id: this.data.voId, beanName: 'Vo' },
-    ]);
     this.usersInfoFormGroup = this.formBuilder.group({
       namespace: ['', Validators.required],
       sponsoredMembers: ['', [Validators.required, this.userInputValidator()]],
@@ -131,55 +109,29 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
       },
     });
 
-    this.attributesService.getVoAttributes(this.data.voId).subscribe(
-      (attributes) => {
-        this.manualMemberAddingBlocked = hasBooleanAttributeEnabled(
-          attributes,
-          Urns.VO_BLOCK_MANUAL_MEMBER_ADDING
-        );
-        if (!this.manualMemberAddingBlocked) {
-          this.groupsService
-            .getAllRichGroupsWithAttributesByNames(this.data.voId, this.groupAttrNames)
-            .subscribe(
-              (grps) => {
-                this.allVoGroups = grps.filter((grp) => grp.name !== 'members');
-                this.assignableGroups = this.filterAssignableGroups(grps);
-                this.membersService.getAllNamespacesRules().subscribe((rules) => {
-                  if (this.store.getProperty('allow_empty_sponsor_namespace')) {
-                    this.namespaceRules.push({
-                      namespaceName: 'No namespace',
-                      csvGenHeader:
-                        'firstname;lastname;urn:perun:user:attribute-def:def:preferredMail',
-                      csvGenPlaceholder: 'John;Doe;john@mail.cz',
-                      csvGenHeaderDescription: 'First name;Last name;Email',
-                    });
-                  }
+    this.membersService.getAllNamespacesRules().subscribe((rules) => {
+      if (this.store.getProperty('allow_empty_sponsor_namespace')) {
+        this.namespaceRules.push({
+          namespaceName: 'No namespace',
+          csvGenHeader: 'firstname;lastname;urn:perun:user:attribute-def:def:preferredMail',
+          csvGenPlaceholder: 'John;Doe;john@mail.cz',
+          csvGenHeaderDescription: 'First name;Last name;Email',
+        });
+      }
 
-                  this.namespaceRules = this.namespaceRules.concat(rules);
-                  this.namespaceRules.forEach((item) =>
-                    this.namespaceOptions.push(item.namespaceName)
-                  );
-                  if (this.namespaceOptions.length === 0) {
-                    this.functionalityNotSupported = true;
-                  } else {
-                    this.usersInfoFormGroup.setValue({
-                      namespace: this.namespaceOptions[0],
-                      sponsoredMembers: '',
-                    });
-                  }
-                  this.loading = false;
-                  this.cd.detectChanges();
-                });
-              },
-              () => (this.loading = false)
-            );
-        } else {
-          this.loading = false;
-          this.cd.detectChanges();
-        }
-      },
-      () => (this.loading = false)
-    );
+      this.namespaceRules = this.namespaceRules.concat(rules);
+      this.namespaceRules.forEach((item) => this.namespaceOptions.push(item.namespaceName));
+      if (this.namespaceOptions.length === 0) {
+        this.functionalityNotSupported = true;
+      } else {
+        this.usersInfoFormGroup.setValue({
+          namespace: this.namespaceOptions[0],
+          sponsoredMembers: '',
+        });
+      }
+      this.loading = false;
+      this.cd.detectChanges();
+    });
   }
 
   onCancel(): void {
@@ -198,53 +150,8 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
     }
   }
 
-  applyFilter(filterValue: string): void {
-    this.filterValue = filterValue;
-  }
-
-  groupAssigmentChanged(): void {
-    this.selection.clear();
-
-    this.name = '';
-    this.description = '';
-    this.asSubGroup = false;
-    this.parentGroup = null;
-  }
-
   onSubmit(): void {
-    this.loading = true;
-    if (this.groupAssignment === 'new') {
-      if (this.asSubGroup) {
-        this.groupsService
-          .createGroupWithParentGroupNameDescription(
-            this.parentGroup.id,
-            this.name,
-            this.description
-          )
-          .subscribe(
-            (group) => {
-              this.groupIds.push(group.id);
-              this.onGenerate();
-            },
-            () => (this.loading = false)
-          );
-      } else {
-        this.groupsService
-          .createGroupWithVoNameDescription(this.data.voId, this.name, this.description)
-          .subscribe(
-            (group) => {
-              this.groupIds.push(group.id);
-              this.onGenerate();
-            },
-            () => (this.loading = false)
-          );
-      }
-    } else {
-      if (this.groupAssignment === 'existing') {
-        this.groupIds = this.selection.selected.map((grp) => grp.id);
-      }
-      this.onGenerate();
-    }
+    this.groupsToAssign.next();
   }
 
   getSelectedNamespaceRules(): NamespaceRules {
@@ -291,49 +198,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   stepperNext(): void {
     this.stepper.next();
   }
-
-  private filterAssignableGroups(groups: RichGroup[]): RichGroup[] {
-    const assignableGroups: RichGroup[] = [];
-    for (const grp of groups) {
-      if (
-        !(
-          isGroupSynchronized(grp) ||
-          hasBooleanAttributeEnabled(grp.attributes, Urns.GROUP_BLOCK_MANUAL_MEMBER_ADDING)
-        ) &&
-        this.guiAuthResolver.isAuthorized('addMembers_Group_List<Member>_policy', [grp])
-      ) {
-        assignableGroups.push(grp);
-      }
-    }
-    return assignableGroups;
-  }
-
-  private createOutputObjects(data: MemberData[]): OutputSponsoredMember[] {
-    let name = '';
-    let status = '';
-    let login = '';
-    let password = '';
-    const output: OutputSponsoredMember[] = [];
-
-    data.forEach((memberData: MemberData) => {
-      name = memberData['name'].replace(';', ' ').split(';')[0];
-      status = memberData['status'];
-      login = memberData['login'] ? memberData['login'] : login;
-      password = memberData['password'] ? memberData['password'] : password;
-
-      const line = { name: name, status: status, login: login, password: password };
-
-      if (memberData['note']) {
-        line['note'] = memberData['note'];
-      }
-
-      output.push(line);
-    });
-
-    return output;
-  }
-
-  private onGenerate(): void {
+  onGenerate(groupIds: number[]): void {
     this.loading = true;
     const listOfMembers: string[] = (
       this.usersInfoFormGroup.get('sponsoredMembers').value as string
@@ -361,8 +226,8 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
       sendActivationLinks: this.passwordReset === 'reset',
     };
 
-    if (this.groupAssignment !== 'none') {
-      inputSponsoredMembersFromCSV.groups = this.groupIds;
+    if (groupIds.length > 0) {
+      inputSponsoredMembersFromCSV.groups = groupIds;
     }
 
     if (this.expiration !== 'never') {
@@ -384,6 +249,31 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
       },
       () => (this.loading = false)
     );
+  }
+
+  private createOutputObjects(data: MemberData[]): OutputSponsoredMember[] {
+    let name = '';
+    let status = '';
+    let login = '';
+    let password = '';
+    const output: OutputSponsoredMember[] = [];
+
+    data.forEach((memberData: MemberData) => {
+      name = memberData['name'].replace(';', ' ').split(';')[0];
+      status = memberData['status'];
+      login = memberData['login'] ? memberData['login'] : login;
+      password = memberData['password'] ? memberData['password'] : password;
+
+      const line = { name: name, status: status, login: login, password: password };
+
+      if (memberData['note']) {
+        line['note'] = memberData['note'];
+      }
+
+      output.push(line);
+    });
+
+    return output;
   }
 
   private parseMemberLine(line: string): string {
