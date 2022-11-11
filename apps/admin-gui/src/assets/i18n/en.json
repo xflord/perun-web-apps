@@ -1943,6 +1943,7 @@
       "USER": "User",
       "WAS_CREATED": "was successfully created",
       "COPY_INFORMATION": "Please save this information. It will not be possible to access this information later.",
+      "WITH_ERRORS": "There was an error adding member to some of the groups.",
       "PASSWORD_RESET": "Let the created user change his password via a given email address",
       "PASSWORD_VIA_EMAIL": "User will choose his password via an email sent to the entered e-mail address",
       "EXPIRATION": "Sponsorship expiration",

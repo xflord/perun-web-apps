@@ -181,6 +181,7 @@ import { ChooseSponsorComponent } from './components/choose-sponsor/choose-spons
 import { AddRoleDialogComponent } from './components/dialogs/add-role-dialog/add-role-dialog.component';
 import { AddUserRoleDialogComponent } from './components/dialogs/add-role-dialog/add-user-role-dialog/add-user-role-dialog.component';
 import { AddGroupRoleDialogComponent } from './components/dialogs/add-role-dialog/add-group-role-dialog/add-group-role-dialog.component';
+import { AssignGroupsSponsoredMembersComponent } from './components/assign-groups-sponsored-members/assign-groups-sponsored-members-component';
 
 @NgModule({
   imports: [
@@ -417,6 +418,7 @@ import { AddGroupRoleDialogComponent } from './components/dialogs/add-role-dialo
     EditUserDialogComponent,
     CreateSponsoredMemberDialogComponent,
     GenerateSponsoredMembersDialogComponent,
+    AssignGroupsSponsoredMembersComponent,
     SponsoredMembersListComponent,
     EditMemberSponsorsDialogComponent,
     CreateAttributeDialogComponent,

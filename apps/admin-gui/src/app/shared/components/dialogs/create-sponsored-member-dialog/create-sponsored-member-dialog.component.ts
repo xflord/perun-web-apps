@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angula
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   AuthzResolverService,
+  GroupsManagerService,
   InputCreateSponsoredMember,
   MembersManagerService,
   NamespaceRules,
@@ -21,6 +22,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CustomValidators, emailRegexString, enableFormControl } from '@perun-web-apps/perun/utils';
 import { loginAsyncValidator } from '@perun-web-apps/perun/namespace-password-form';
 import { MatStepper } from '@angular/material/stepper';
+import { Subject } from 'rxjs';
 
 export interface CreateSponsoredMemberDialogData {
   entityId?: number;
@@ -50,6 +52,11 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
   namespaceControl: UntypedFormGroup = null;
   selectedSponsor: User = null;
   sponsorType = 'self';
+
+  finishedWithErrors = false;
+  submitAllowed = false;
+  groupsToAssign: Subject<void> = new Subject<void>();
+
   private namespaceRules: NamespaceRules[] = [];
   private parsedRules: Map<string, { login: string; password: string }> = new Map<
     string,
@@ -68,7 +75,8 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     private authzService: AuthzResolverService,
     private guiAuthResolver: GuiAuthResolver,
     private formBuilder: UntypedFormBuilder,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private groupsService: GroupsManagerService
   ) {}
 
   private static parseAttributes(
@@ -93,6 +101,10 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
   }
 
   onConfirm(): void {
+    this.groupsToAssign.next();
+  }
+
+  createMember(groupIds: number[]): void {
     this.loading = true;
 
     const sponsoredMember: InputCreateSponsoredMember = {
@@ -143,6 +155,15 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
             .forEach((attr) => {
               this.loginThatWasSet = attr.value as string;
             });
+        }
+        if (groupIds.length > 0) {
+          this.groupsService.addMember(groupIds, richMember.id).subscribe({
+            next: () => (this.loading = false),
+            error: () => {
+              this.finishedWithErrors = true;
+              this.loading = false;
+            },
+          });
         }
         this.loading = false;
       },
@@ -221,6 +242,11 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
         return this.userControl.invalid;
       case 1:
         return this.namespaceControl.invalid || this.namespaceControl.get('passwordCtrl').pending;
+      case 2:
+        return (
+          this.sponsorType === null ||
+          (this.sponsorType === 'other' && this.selectedSponsor === null)
+        );
       default:
         return false;
     }

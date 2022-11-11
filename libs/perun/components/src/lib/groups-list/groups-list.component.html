@@ -167,9 +167,9 @@
       <tr
         *matRowDef="let group; columns: columns;"
         [class.cursor-pointer]="!disableRouting && !groupsToDisableRouting.has(group.id)"
-        [class.disable-outline]="disabledRouting || groupsToDisableRouting.has(group.id)"
-        [perunWebAppsMiddleClickRouterLink]="(disabledRouting || groupsToDisableRouting.has(group.id)) ? null : ['/organizations', group.voId, 'groups', group.id]"
-        [perunWebAppsForceRouterLink]="(disabledRouting || groupsToDisableRouting.has(group.id)) ? null : ['/organizations', group.voId, 'groups', group.id]"
+        [class.disable-outline]="disableRouting || disabledRouting || groupsToDisableRouting.has(group.id)"
+        [perunWebAppsMiddleClickRouterLink]="(disableRouting || disabledRouting || groupsToDisableRouting.has(group.id)) ? null : ['/organizations', group.voId, 'groups', group.id]"
+        [perunWebAppsForceRouterLink]="(disableRouting || disabledRouting || groupsToDisableRouting.has(group.id)) ? null : ['/organizations', group.voId, 'groups', group.id]"
         class="dark-hover-list-item"
         mat-row></tr>
     </table>

@@ -93,7 +93,7 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
 
   onCreate(): void {
     const config = getDefaultDialogConfig();
-    config.width = '620px';
+    config.width = '750px';
     config.data = {
       entityId: this.vo.id,
       voId: this.vo.id,
