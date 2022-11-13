@@ -53,6 +53,7 @@ import { UnassignedRolePipe } from './unassigned-role.pipe';
 import { PublicationTabLabelPipe } from './publication-tab-label.pipe';
 import { AuthorsSeparatedByCommaPipe } from './authors-separated-by-comma.pipe';
 import { SelectApplicationLinkPipe } from './select-application-link.pipe';
+import { IsAuthorizedPipe } from './is-authorized.pipe';
 
 @NgModule({
   declarations: [
@@ -110,6 +111,7 @@ import { SelectApplicationLinkPipe } from './select-application-link.pipe';
     PublicationTabLabelPipe,
     AuthorsSeparatedByCommaPipe,
     SelectApplicationLinkPipe,
+    IsAuthorizedPipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -166,6 +168,7 @@ import { SelectApplicationLinkPipe } from './select-application-link.pipe';
     PublicationTabLabelPipe,
     AuthorsSeparatedByCommaPipe,
     SelectApplicationLinkPipe,
+    IsAuthorizedPipe,
   ],
   imports: [CommonModule],
 })

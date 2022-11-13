@@ -68,7 +68,9 @@ model/consentStatus.ts
 model/destination.ts
 model/destinationPropagationType.ts
 model/destinationType.ts
+model/enrichedBanOnFacility.ts
 model/enrichedBanOnResource.ts
+model/enrichedBanOnVo.ts
 model/enrichedExtSource.ts
 model/enrichedFacility.ts
 model/enrichedGroup.ts
@@ -193,6 +195,7 @@ model/inputSpecificMember.ts
 model/inputSubmitApplication.ts
 model/inputUpdateApplicationMail.ts
 model/inputUpdateBan.ts
+model/inputUpdateBan1.ts
 model/inputUpdateBanForFacility.ts
 model/inputUpdateCategory.ts
 model/inputUpdateConsentHub.ts

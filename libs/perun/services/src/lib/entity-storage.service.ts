@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Facility, Group, Resource, Service, User, Vo } from '@perun-web-apps/perun/openapi';
+import {
+  Facility,
+  Group,
+  Member,
+  Resource,
+  Service,
+  User,
+  Vo,
+} from '@perun-web-apps/perun/openapi';
 
-type Entity = Vo | Group | Facility | Resource | Service | User;
+type Entity = Vo | Group | Facility | Resource | Service | User | Member;
 
 @Injectable({
   providedIn: 'root',

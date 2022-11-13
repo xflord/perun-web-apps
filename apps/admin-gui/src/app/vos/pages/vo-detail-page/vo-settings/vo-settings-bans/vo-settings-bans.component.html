@@ -1,0 +1,38 @@
+<h1 class="page-subtitle">
+  {{'VO_DETAIL.SETTINGS.BANS.TITLE' | translate}}
+</h1>
+
+<perun-web-apps-refresh-button (click)="refresh()"></perun-web-apps-refresh-button>
+<button (click)="add()" *ngIf="addAuth" class="mr-2 action-button" color="accent" mat-flat-button>
+  {{'VO_DETAIL.SETTINGS.BANS.ADD' | translate}}
+</button>
+<button
+  *ngIf="removeAuth"
+  (click)="remove()"
+  color="warn"
+  [disabled]="selection.selected.length === 0"
+  class="mr-2"
+  mat-flat-button>
+  {{'VO_DETAIL.SETTINGS.BANS.REMOVE' | translate}}
+</button>
+<perun-web-apps-debounce-filter
+  (filter)="filter = $event"
+  [placeholder]="'VO_DETAIL.SETTINGS.BANS.FILTER'"
+  class="mt-2 search-field">
+</perun-web-apps-debounce-filter>
+<div class="position-relative">
+  <perun-web-apps-ban-on-entity-list
+    *perunWebAppsLoader="loading; indicator: spinner"
+    [bans]="bans"
+    [selection]="selection"
+    [updatePolicy]="'updateBan_BanOnVo_policy'"
+    [displayedColumns]="displayedColumns"
+    [filter]="filter"
+    (updateBan)="update($event)">
+  </perun-web-apps-ban-on-entity-list>
+</div>
+<ng-template #spinner>
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

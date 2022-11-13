@@ -20,6 +20,7 @@ import { ServiceIdentityAuthenticationOverviewComponent } from './pages/user-det
 import { UserSettingsLoginsComponent } from './pages/user-detail-page/user-settings/user-settings-logins/user-settings-logins.component';
 import { ServiceIdentityAuthenticationComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-authentication/service-identity-authentication.component';
 import { ServiceIdentityCertificatesComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-authentication/service-identity-certificates/service-identity-certificates.component';
+import { UserBansComponent } from './pages/user-detail-page/user-bans/user-bans.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,11 @@ const routes: Routes = [
         path: 'service-identities',
         component: UserSettingsServiceIdentitiesComponent,
         data: { animation: 'UserServiceIdentities' },
+      },
+      {
+        path: 'bans',
+        component: UserBansComponent,
+        data: { animation: 'UserBansPage' },
       },
       {
         path: 'settings',

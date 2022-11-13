@@ -129,6 +129,11 @@ export class SideMenuItemService {
           activatedRegex: `^/myProfile/service-identities`,
         },
         {
+          label: 'MENU_ITEMS.USER.BANS',
+          url: [`/myProfile/bans`],
+          activatedRegex: `^/myProfile/bans`,
+        },
+        {
           label: 'MENU_ITEMS.USER.SETTINGS',
           url: [`/myProfile/settings`],
           activatedRegex: `^/myProfile/settings$`,
@@ -592,6 +597,14 @@ export class SideMenuItemService {
         });
       }
 
+      if (this.routePolicyService.canNavigate('organizations-settings-bans', vo)) {
+        children.push({
+          label: 'MENU_ITEMS.VO.BANS',
+          url: [`/organizations/${vo.id}/settings/bans`],
+          activatedRegex: '/organizations/\\d+/settings/bans',
+        });
+      }
+
       links.push({
         label: 'MENU_ITEMS.VO.SETTINGS',
         url: [`/organizations/${vo.id}/settings`],
@@ -686,6 +699,13 @@ export class SideMenuItemService {
       });
     }
 
+    // Bans
+    links.push({
+      label: 'MENU_ITEMS.USER.BANS',
+      url: [`${path}/bans`],
+      activatedRegex: `^${path}/bans`,
+    });
+
     // Settings
     // links.push({
     //   label: 'MENU_ITEMS.ADMIN.SETTINGS',
@@ -738,6 +758,15 @@ export class SideMenuItemService {
         label: 'MENU_ITEMS.MEMBER.ATTRIBUTES',
         url: [`/organizations/${member.voId}/members/${member.id}/attributes`],
         activatedRegex: '/organizations/\\d+/members/\\d+/attributes$',
+      });
+    }
+
+    // Bans
+    if (this.routePolicyService.canNavigate('members-bans', member)) {
+      links.push({
+        label: 'MENU_ITEMS.MEMBER.BANS',
+        url: [`/organizations/${member.voId}/members/${member.id}/bans`],
+        activatedRegex: '/organizations/\\d+/members/\\d+/bans',
       });
     }
 
@@ -855,6 +884,15 @@ export class SideMenuItemService {
           label: 'MENU_ITEMS.FACILITY.BLACKLIST',
           url: ['facilities', facility.id.toString(), 'settings', 'blacklist'],
           activatedRegex: '/facilities/\\d+/settings/blacklist',
+        });
+      }
+
+      // Bans
+      if (this.routePolicyService.canNavigate('facilities-settings-bans', facility)) {
+        children.push({
+          label: 'MENU_ITEMS.FACILITY.BANS',
+          url: [`/facilities/${facility.id}/settings/bans`],
+          activatedRegex: '/facilities/\\d+/settings/bans',
         });
       }
 
@@ -1081,18 +1119,32 @@ export class SideMenuItemService {
       });
     }
 
+    // Settings
     if (this.routePolicyService.canNavigate('resources-settings', resource)) {
+      const children: EntityMenuLink[] = [];
+
+      // Managers
+      if (this.routePolicyService.canNavigate('resources-settings-managers', resource)) {
+        children.push({
+          label: 'MENU_ITEMS.RESOURCE.MANAGERS',
+          url: [baseUrl, `settings`, `managers`],
+          activatedRegex: `${regexStart}/\\d+/resources/\\d+/settings/managers$`,
+        });
+      }
+      //Bans
+      if (this.routePolicyService.canNavigate('resources-settings-bans', resource)) {
+        children.push({
+          label: 'MENU_ITEMS.RESOURCE.BANS',
+          url: [baseUrl, `settings`, `bans`],
+          activatedRegex: `${regexStart}/\\d+/resources/\\d+/settings/bans`,
+        });
+      }
+
       links.push({
         label: 'MENU_ITEMS.RESOURCE.SETTINGS',
         url: [baseUrl, `settings`],
         activatedRegex: `${regexStart}/\\d+/resources/\\d+/settings$`,
-        children: [
-          {
-            label: 'MENU_ITEMS.RESOURCE.MANAGERS',
-            url: [baseUrl, `settings`, `managers`],
-            activatedRegex: `${regexStart}/\\d+/resources/\\d+/settings/managers$`,
-          },
-        ],
+        children: children,
         showChildrenRegex: `${regexStart}/\\d+/resources/\\d+/settings`,
       });
     }

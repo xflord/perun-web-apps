@@ -178,6 +178,12 @@
         "ADD": "Add",
         "DELETE": "Delete",
         "NO_OWNERS": "This facility does not have any owners"
+      },
+      "BANS": {
+        "TITLE": "Bans",
+        "ADD": "Add",
+        "REMOVE": "Remove",
+        "FILTER": "Filter by id, name or description"
       }
     },
     "HOSTS": {
@@ -272,6 +278,12 @@
         "CANCEL": "Cancel",
         "SUCCESS_DELETE": "Attributes deleted successfully",
         "SUCCESS_SAVE": "Attributes saved successfully"
+      },
+      "BANS": {
+        "TITLE": "Bans",
+        "ADD": "Add",
+        "REMOVE": "Remove",
+        "FILTER": "Filter by id, name or description"
       }
     }
   },
@@ -561,6 +573,12 @@
         "ADD": "Add",
         "REMOVE": "Remove",
         "NO_GROUPS_ALLOWED_ALERT": "No groups are allowed for hierarchical include"
+      },
+      "BANS": {
+        "TITLE": "Bans",
+        "ADD": "Add",
+        "REMOVE": "Remove",
+        "FILTER": "Filter by id, name or description"
       }
     },
     "APPLICATION": {
@@ -802,6 +820,9 @@
       "FILTER": "Filter",
       "ADD": "Add"
     },
+    "BANS": {
+      "TITLE": "Bans"
+    },
     "SETTINGS": {
       "ATTRIBUTES": {
         "TITLE": "Attributes",
@@ -885,7 +906,8 @@
       "SERVICE_MEMBERS": "Service accounts",
       "STATISTICS": "Statistics",
       "MEMBER_ORGANIZATIONS": "Member organizations",
-      "HIERARCHICAL_INCLUSION": "Hierarchical inclusion"
+      "HIERARCHICAL_INCLUSION": "Hierarchical inclusion",
+      "BANS": "Bans"
     },
     "FACILITY": {
       "OVERVIEW": "Overview",
@@ -901,7 +923,8 @@
       "BLACKLIST": "Blacklist",
       "SECURITY_TEAMS": "Security teams",
       "SERVICES_STATUS": "Services status",
-      "ALLOWED_USERS": "Assigned users"
+      "ALLOWED_USERS": "Assigned users",
+      "BANS": "Bans"
     },
     "RESOURCE": {
       "OVERVIEW": "Overview",
@@ -911,7 +934,8 @@
       "MANAGERS": "Managers",
       "ASSIGNED_SERVICES": "Assigned services",
       "ASSIGNED_MEMBERS": "Assigned members",
-      "RESOURCE_TAGS": "Assigned tags"
+      "RESOURCE_TAGS": "Assigned tags",
+      "BANS": "Bans"
     },
     "GROUP": {
       "OVERVIEW": "Overview",
@@ -939,7 +963,8 @@
       "RESOURCE_ATTRIBUTES": "Resource attributes",
       "GROUP_ATTRIBUTES": "Group attributes",
       "APPLICATIONS": "Applications",
-      "RESOURCES": "Resources"
+      "RESOURCES": "Resources",
+      "BANS": "Bans"
     },
     "ADMIN": {
       "TITLE": "Perun admin",
@@ -986,7 +1011,8 @@
       "USER_TYPE": "User type",
       "ACCOUNTS": "Accounts",
       "MAILING_LISTS": "Mailing lists opt-out",
-      "DATA_QUOTAS": "Data quotas"
+      "DATA_QUOTAS": "Data quotas",
+      "BANS": "Bans"
     },
     "SERVICE": {
       "OVERVIEW": "Overview",
@@ -2229,6 +2255,31 @@
       "ADD": "Add",
       "CANCEL": "Cancel",
       "SUCCESS": "Role {{role}} was successfully added"
+    },
+    "ADD_BAN": {
+      "TITLE": "Add ban",
+      "ADD": "Add",
+      "UPDATE": "Update",
+      "FILTER" : "Search by name",
+      "SUCCESS_MEMBER": "Member was successfully banned",
+      "SUCCESS_USER": "User was successfully banned",
+      "CANCEL": "Cancel",
+      "NEXT": "Next",
+      "BACK": "Back",
+      "SELECTION": "Select",
+      "SPECIFICATION": "Specify",
+      "ALREADY_BANNED": "Ban already exists. Do you wish to update it?"
+    },
+    "REMOVE_BAN": {
+      "TITLE": "Remove ban",
+      "DESCRIPTION": "By removing the ban members will be unbanned",
+      "SUCCESS": "Ban was successfully removed"
+    },
+    "UPDATE_BAN": {
+      "TITLE": "Update ban",
+      "UPDATE": "Update",
+      "CANCEL": "Cancel",
+      "SUCCESS": "Ban was successfully updated"
     }
   },
   "MEMBERS_LIST": {
@@ -2485,6 +2536,13 @@
       "FACILITY_ATTRIBUTES": {
         "TITLE": "Facility attributes"
       }
+    },
+    "BANS": {
+      "TITLE": "Bans",
+      "VO": "Organizations",
+      "RESOURCE": "Resources",
+      "FACILITY": "Facilities",
+      "FILTER": "Filter by name, id or description"
     }
   },
   "SHARED": {
@@ -3124,6 +3182,21 @@
           "SELECT_ROLE": "Select role",
           "FIND_ROLE": "Find role...",
           "NO_ROLE_FOUND": "No matching role found"
+        },
+        "BAN_SPECIFICATION": {
+          "VALIDITY": "Expire to a date",
+          "NEVER": "Never expire",
+          "DESCRIPTION": "Reason for the ban"
+        },
+        "BAN_ON_ENTITY_LIST": {
+          "BAN_ID_HEADER": "Ban Id",
+          "TARGET_NAME_HEADER": "{{ target }}",
+          "TARGET_ID_HEADER": "{{ target }} Id",
+          "SUBJECT_NAME_HEADER": "{{ subject }}",
+          "SUBJECT_ID_HEADER": "{{ subject }} Id",
+          "DESCRIPTION_HEADER": "Description",
+          "EXPIRATION_HEADER": "Expiration",
+          "NO_BANS": "No bans found."
         }
       },
       "ORGANIZATIONS": {

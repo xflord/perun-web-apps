@@ -1,0 +1,19 @@
+<h1 class="page-subtitle">
+  {{'MEMBER_DETAIL.BANS.TITLE' | translate}}
+</h1>
+
+<perun-web-apps-refresh-button (click)="refresh()"></perun-web-apps-refresh-button>
+<div class="position-relative">
+  <perun-web-apps-ban-on-entity-list
+    *perunWebAppsLoader="loading; indicator: spinner"
+    [bans]="bans"
+    [updatePolicy]="'updateBan_BanOnVo_policy'"
+    [displayedColumns]="displayedColumns"
+    (updateBan)="update($event)">
+  </perun-web-apps-ban-on-entity-list>
+</div>
+<ng-template #spinner>
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

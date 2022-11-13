@@ -67,6 +67,7 @@ import { UserSettingsLoginsComponent } from './pages/user-detail-page/user-setti
 import { ServiceIdentityAuthenticationComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-authentication/service-identity-authentication.component';
 import { ServiceIdentityAuthenticationOverviewComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-authentication/service-identity-authentication-overview/service-identity-authentication-overview.component';
 import { ServiceIdentityCertificatesComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-authentication/service-identity-certificates/service-identity-certificates.component';
+import { UserBansComponent } from './pages/user-detail-page/user-bans/user-bans.component';
 @NgModule({
   declarations: [
     UserDetailPageComponent,
@@ -96,6 +97,7 @@ import { ServiceIdentityCertificatesComponent } from './pages/user-detail-page/u
     ServiceIdentityAuthenticationComponent,
     ServiceIdentityAuthenticationOverviewComponent,
     ServiceIdentityCertificatesComponent,
+    UserBansComponent,
   ],
   exports: [UserDetailPageComponent],
   imports: [

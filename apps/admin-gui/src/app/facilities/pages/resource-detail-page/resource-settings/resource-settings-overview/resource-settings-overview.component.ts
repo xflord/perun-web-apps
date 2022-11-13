@@ -51,5 +51,16 @@ export class ResourceSettingsOverviewComponent implements OnInit {
         style: 'resource-btn',
       });
     }
+
+    if (this.routePolicyService.canNavigate('resources-settings-bans', this.resource)) {
+      this.items.push({
+        cssIcon: 'perun-ban',
+        url: `${
+          inVo ? `/organizations/${this.resource.voId}` : `/facilities/${this.resource.facilityId}`
+        }/resources/${this.resource.id}/settings/bans`,
+        label: 'MENU_ITEMS.RESOURCE.BANS',
+        style: 'resource-btn',
+      });
+    }
   }
 }

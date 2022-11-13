@@ -1,0 +1,50 @@
+<div class="{{theme}}">
+  <h1 mat-dialog-title>{{'DIALOGS.ADD_BAN.TITLE' | translate}}</h1>
+  <div mat-dialog-content>
+    <mat-stepper [linear]="true" #stepper>
+      <mat-step [completed]="!disabled" [label]="'DIALOGS.ADD_BAN.SELECTION' | translate">
+        <ng-content></ng-content>
+      </mat-step>
+      <mat-step [label]="'DIALOGS.ADD_BAN.SPECIFICATION' | translate">
+        <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+        <div *ngIf="!loading">
+          <perun-web-apps-alert *ngIf="ban" [alert_type]="'info'">
+            {{'DIALOGS.ADD_BAN.ALREADY_BANNED' | translate}}
+          </perun-web-apps-alert>
+          <perun-web-apps-ban-specification
+            [description]="ban?.description"
+            [validity]="ban?.validityTo">
+          </perun-web-apps-ban-specification>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-flat-button class="ml-auto mr-2" (click)="cancel.emit()">
+      {{'DIALOGS.ADD_BAN.CANCEL' | translate}}
+    </button>
+    <button
+      *ngIf="stepper.selectedIndex !== stepper?._steps?.length - 1"
+      mat-flat-button
+      class="mr-2"
+      color="accent"
+      (click)="stepper.next()"
+      [disabled]="disabled">
+      {{'DIALOGS.ADD_BAN.NEXT' | translate}}
+    </button>
+    <button
+      *ngIf="stepper.selectedIndex === stepper?._steps?.length - 1"
+      mat-flat-button
+      class="mr-2"
+      (click)="stepper.previous()">
+      {{'DIALOGS.ADD_BAN.BACK' | translate}}
+    </button>
+    <button
+      *ngIf="stepper.selectedIndex === stepper?._steps?.length - 1"
+      mat-flat-button
+      color="accent"
+      (click)="addBan()">
+      {{(!ban ? 'DIALOGS.ADD_BAN.ADD' : 'DIALOGS.ADD_BAN.UPDATE') | translate}}
+    </button>
+  </div>
+</div>

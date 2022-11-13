@@ -23,3 +23,5 @@ export * from './lib/settings-data-quotas/data-quotas.component';
 export * from './lib/settings-mailing-lists/mailing-lists.component';
 export * from './lib/settings-ssh-keys/settings-ssh-keys.component';
 export * from './lib/perun-header/perun-header.component';
+export * from './lib/ban-specification/ban-specification.component';
+export * from './lib/ban-on-entity-list/ban-on-entity-list.component';

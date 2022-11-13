@@ -23,6 +23,7 @@
         *ngIf="{all: dataSource | isAllSelected: selection.selected.length :canBeSelected} as selected">
         <th *matHeaderCellDef mat-header-cell class="align-checkbox">
           <mat-checkbox
+            *ngIf="selection.isMultipleSelection()"
             (change)="$event ? masterToggle() : null"
             [aria-label]="selected.all | masterCheckboxLabel | translate"
             [checked]="selection.hasValue() && selected.all"
@@ -118,9 +119,9 @@
         *matRowDef="let member; columns: displayedColumns;"
         [class.cursor-pointer]="this.dataSource.routeAuth"
         [class.italic_font]="member.membershipType === 'INDIRECT'"
-        [class.disable-outline]="!this.dataSource.routeAuth"
-        [perunWebAppsMiddleClickRouterLink]="!this.dataSource.routeAuth ? null : ['/organizations', member.voId, 'members', member.id]"
-        [routerLink]="!this.dataSource.routeAuth ? null : ['/organizations', member.voId, 'members', member.id]"
+        [class.disable-outline]="disableRouting || !this.dataSource.routeAuth"
+        [perunWebAppsMiddleClickRouterLink]="disableRouting || !this.dataSource.routeAuth ? null : ['/organizations', member.voId, 'members', member.id]"
+        [routerLink]="disableRouting || !this.dataSource.routeAuth ? null : ['/organizations', member.voId, 'members', member.id]"
         class="dark-hover-list-item"
         mat-row></tr>
     </table>

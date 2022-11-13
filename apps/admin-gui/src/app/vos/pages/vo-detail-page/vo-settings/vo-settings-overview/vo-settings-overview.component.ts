@@ -108,5 +108,14 @@ export class VoSettingsOverviewComponent implements OnInit {
         style: 'vo-btn',
       });
     }
+    // Bans
+    if (this.routePolicyService.canNavigate('organizations-settings-bans', this.vo)) {
+      this.items.push({
+        cssIcon: 'perun-ban',
+        url: `/organizations/${this.vo.id}/settings/bans`,
+        label: 'MENU_ITEMS.VO.BANS',
+        style: 'vo-btn',
+      });
+    }
   }
 }

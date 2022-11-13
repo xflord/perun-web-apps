@@ -59,6 +59,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
   ];
   @Input() disableStatusChange = false;
   @Input() disableExpirationChange = false;
+  @Input() allowCheckboxDisabled = true;
   @Input() tableId: string;
   @Input() disableRouting = false;
   @Input() filter = '';

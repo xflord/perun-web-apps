@@ -72,5 +72,14 @@ export class FacilitySettingsOverviewComponent implements OnInit {
         style: 'facility-btn',
       });
     }
+    // Bans
+    if (this.routePolicyService.canNavigate('facilities-settings-bans', this.facility)) {
+      this.items.push({
+        cssIcon: 'perun-ban',
+        url: `/facilities/${this.facility.id}/settings/bans`,
+        label: 'MENU_ITEMS.FACILITY.BANS',
+        style: 'facility-btn',
+      });
+    }
   }
 }

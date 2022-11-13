@@ -16,5 +16,5 @@ import { BanOnResource } from './banOnResource';
 export interface EnrichedBanOnResource {
   resource?: Resource;
   member?: RichMember;
-  banOnResource?: BanOnResource;
+  ban?: BanOnResource;
 }

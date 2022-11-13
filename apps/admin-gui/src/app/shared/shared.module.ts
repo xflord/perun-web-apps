@@ -181,6 +181,14 @@ import { AddUserRoleDialogComponent } from './components/dialogs/add-role-dialog
 import { AddGroupRoleDialogComponent } from './components/dialogs/add-role-dialog/add-group-role-dialog/add-group-role-dialog.component';
 import { AssignGroupsSponsoredMembersComponent } from './components/assign-groups-sponsored-members/assign-groups-sponsored-members-component';
 import { BulkInviteMembersDialogComponent } from './components/dialogs/bulk-invite-members-dialog/bulk-invite-members-dialog.component';
+import { AddVoBanDialogComponent } from './components/dialogs/add-vo-ban-dialog/add-vo-ban-dialog.component';
+import { AddBanDialogComponent } from './components/dialogs/add-ban-dialog/add-ban-dialog.component';
+import { AddResourceBanDialogComponent } from './components/dialogs/add-resource-ban-dialog/add-resource-ban-dialog.component';
+import { AddFacilityBanDialogComponent } from './components/dialogs/add-facility-ban-dialog/add-facility-ban-dialog.component';
+import { UpdateBanDialogComponent } from './components/dialogs/update-ban-dialog/update-ban-dialog.component';
+import { UpdateVoBanDialogComponent } from './components/dialogs/update-vo-ban-dialog/update-vo-ban-dialog.component';
+import { UpdateResourceBanDialogComponent } from './components/dialogs/update-resource-ban-dialog/update-resource-ban-dialog.component';
+import { UpdateFacilityBanDialogComponent } from './components/dialogs/update-facility-ban-dialog/update-facility-ban-dialog.component';
 
 @NgModule({
   imports: [
@@ -315,6 +323,7 @@ import { BulkInviteMembersDialogComponent } from './components/dialogs/bulk-invi
     AuditMessagesListComponent,
     ConsentHubsListComponent,
     RolesPageComponent,
+    AddVoBanDialogComponent,
   ],
   declarations: [
     SideMenuComponent,
@@ -455,6 +464,14 @@ import { BulkInviteMembersDialogComponent } from './components/dialogs/bulk-invi
     AddUserRoleDialogComponent,
     AddGroupRoleDialogComponent,
     BulkInviteMembersDialogComponent,
+    AddVoBanDialogComponent,
+    AddBanDialogComponent,
+    AddResourceBanDialogComponent,
+    AddFacilityBanDialogComponent,
+    UpdateBanDialogComponent,
+    UpdateVoBanDialogComponent,
+    UpdateResourceBanDialogComponent,
+    UpdateFacilityBanDialogComponent,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe, ConsentRelatedAttributePipe],
 })

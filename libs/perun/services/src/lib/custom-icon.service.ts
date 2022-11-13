@@ -234,6 +234,10 @@ export class CustomIconService {
       url: 'assets/img/PerunWebImages/authentication.svg',
       name: 'perun-authentication',
     },
+    {
+      url: 'assets/img/PerunWebImages/ban.svg',
+      name: 'perun-ban',
+    },
   ];
 
   constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {}

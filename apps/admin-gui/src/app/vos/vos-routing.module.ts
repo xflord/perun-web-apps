@@ -63,6 +63,9 @@ import { RouteAuthGuardService } from '../shared/route-auth-guard.service';
 import { VoSettingsMemberOrganizationsComponent } from './pages/vo-detail-page/vo-settings/vo-settings-member-organizations/vo-settings-member-organizations.component';
 import { VoSettingsHierarchicalInclusionComponent } from './pages/vo-detail-page/vo-settings/vo-settings-hierarchical-inclusion/vo-settings-hierarchical-inclusion.component';
 import { GroupRolesComponent } from './pages/group-detail-page/group-roles/group-roles.component';
+import { VoSettingsBansComponent } from './pages/vo-detail-page/vo-settings/vo-settings-bans/vo-settings-bans.component';
+import { MemberBansComponent } from './pages/member-detail-page/member-bans/member-bans.component';
+import { ResourceSettingsBansComponent } from '../facilities/pages/resource-detail-page/resource-settings/resource-settings-bans/resource-settings-bans.component';
 
 const routes: Routes = [
   {
@@ -198,6 +201,11 @@ const routes: Routes = [
             component: VoSettingsHierarchicalInclusionComponent,
             data: { animation: 'VoSettingsHierarchicalInclusionComponent' },
           },
+          {
+            path: 'bans',
+            component: VoSettingsBansComponent,
+            data: { animation: 'VoSettingsBansComponent' },
+          },
         ],
       },
     ],
@@ -236,6 +244,11 @@ const routes: Routes = [
         path: 'resources',
         component: MemberResourcesComponent,
         data: { animation: 'MemberResourcesPage' },
+      },
+      {
+        path: 'bans',
+        component: MemberBansComponent,
+        data: { animation: 'MemberBansPage' },
       },
     ],
   },
@@ -384,6 +397,11 @@ const routes: Routes = [
             path: 'managers',
             component: ResourceSettingsManagersComponent,
             data: { animation: 'ResourceSettingsManagersPage' },
+          },
+          {
+            path: 'bans',
+            component: ResourceSettingsBansComponent,
+            data: { animation: 'ResourceSettingsBansPage' },
           },
         ],
       },

@@ -78,6 +78,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
   @Input() tableId: string;
   @Input() updateTable: boolean;
   @Input() isMembersGroup: boolean;
+  @Input() disableRouting = false;
 
   expireGroupAuth: boolean;
   expireVoAuth: boolean;

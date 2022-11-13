@@ -41,6 +41,8 @@ import { AdminModule } from '../admin/admin.module';
 import { NoServiceDialogComponent } from './components/no-service-dialog/no-service-dialog.component';
 import { ConfigUnsavedDialogComponent } from './components/config-unsaved-dialog/config-unsaved-dialog.component';
 import { CancelConfigurationDialogComponent } from './components/cancel-configuration-dialog/cancel-configuration-dialog.component';
+import { FacilitySettingsBansComponent } from './pages/facility-detail-page/facility-settings/facility-settings-bans/facility-settings-bans.component';
+import { ResourceSettingsBansComponent } from './pages/resource-detail-page/resource-settings/resource-settings-bans/resource-settings-bans.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +79,8 @@ import { CancelConfigurationDialogComponent } from './components/cancel-configur
     NoServiceDialogComponent,
     ConfigUnsavedDialogComponent,
     CancelConfigurationDialogComponent,
+    FacilitySettingsBansComponent,
+    ResourceSettingsBansComponent,
   ],
   imports: [
     CommonModule,

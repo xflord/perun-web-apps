@@ -27,13 +27,11 @@ import { VoSettingsManagersComponent } from './pages/vo-detail-page/vo-settings/
 import { ApplicationDetailComponent } from './components/application-detail/application-detail.component';
 import { GroupMembersComponent } from './pages/group-detail-page/group-members/group-members.component';
 import { GroupResourcesComponent } from './pages/group-detail-page/group-resources/group-resources.component';
-// eslint-disable-next-line max-len
 import { GroupSettingsComponent } from './pages/group-detail-page/group-settings/group-settings.component';
 import { GroupAttributesComponent } from './pages/group-detail-page/group-attributes/group-attributes.component';
 import { GroupSettingsOverviewComponent } from './pages/group-detail-page/group-settings/group-settings-overview/group-settings-overview.component';
 import { VoSettingsApplicationFormComponent } from './pages/vo-detail-page/vo-settings/vo-settings-application-form/vo-settings-application-form.component';
 import { ApplicationFormListComponent } from './components/application-form-list/application-form-list.component';
-// eslint-disable-next-line max-len
 import { ApplicationFormPreviewComponent } from './components/application-form-preview/application-form-preview.component';
 import { MemberAttributesComponent } from './pages/member-detail-page/member-attributes/member-attributes.component';
 import { VoResourcesPreviewComponent } from './pages/vo-detail-page/vo-resources/vo-resources-preview/vo-resources-preview.component';
@@ -70,6 +68,8 @@ import { VoSettingsHierarchicalInclusionComponent } from './pages/vo-detail-page
 import { VoAddMemberDialogComponent } from './components/vo-add-member-dialog/vo-add-member-dialog.component';
 import { GroupAddMemberDialogComponent } from './components/group-add-member-dialog/group-add-member-dialog.component';
 import { GroupRolesComponent } from './pages/group-detail-page/group-roles/group-roles.component';
+import { VoSettingsBansComponent } from './pages/vo-detail-page/vo-settings/vo-settings-bans/vo-settings-bans.component';
+import { MemberBansComponent } from './pages/member-detail-page/member-bans/member-bans.component';
 
 @NgModule({
   imports: [
@@ -150,6 +150,8 @@ import { GroupRolesComponent } from './pages/group-detail-page/group-roles/group
     VoSettingsHierarchicalInclusionComponent,
     VoAddMemberDialogComponent,
     GroupAddMemberDialogComponent,
+    VoSettingsBansComponent,
+    MemberBansComponent,
   ],
 })
 export class VosModule {}

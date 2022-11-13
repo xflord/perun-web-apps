@@ -1,0 +1,20 @@
+<app-add-ban-dialog
+  [loading]="loading"
+  [disabled]="selection.selected.length === 0"
+  [theme]="data.theme"
+  [ban]="ban"
+  (add)="submitBan($event)"
+  (cancel)="cancel()">
+  <perun-web-apps-debounce-filter
+    (filter)="setFilter($event)"
+    [placeholder]="'DIALOGS.ADD_BAN.FILTER'"></perun-web-apps-debounce-filter>
+  <perun-web-apps-members-dynamic-list
+    [attrNames]="attrNames"
+    [selection]="selection"
+    [tableId]="tableId"
+    [disableRouting]="true"
+    [displayedColumns]="displayedColumns"
+    [searchString]="filter"
+    [voId]="data.entityId">
+  </perun-web-apps-members-dynamic-list>
+</app-add-ban-dialog>

@@ -4,7 +4,7 @@ import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.se
 import { SideMenuService } from '../../../core/services/common/side-menu.service';
 import { TranslateService } from '@ngx-translate/core';
 import { fadeIn } from '@perun-web-apps/perun/animations';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
+import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
 import {
   MembersManagerService,
   RichMember,
@@ -32,7 +32,8 @@ export class MemberDetailPageComponent implements OnInit {
     private membersService: MembersManagerService,
     private voService: VosManagerService,
     private route: ActivatedRoute,
-    private authResolver: GuiAuthResolver
+    private authResolver: GuiAuthResolver,
+    private entityService: EntityStorageService
   ) {}
 
   ngOnInit(): void {
@@ -48,6 +49,12 @@ export class MemberDetailPageComponent implements OnInit {
           this.membersService.getRichMemberWithAttributes(memberId).subscribe(
             (member) => {
               this.member = member;
+              this.entityService.setEntity({
+                id: member.id,
+                beanName: member.beanName,
+                voId: member.voId,
+                userId: member.userId,
+              });
               const voSideMenuItem = this.sideMenuItemService.parseVo(this.vo);
               const memberSideMenuItem = this.sideMenuItemService.parseMember(this.member);
               this.fullName = memberSideMenuItem.label;

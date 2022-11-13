@@ -1,0 +1,106 @@
+<div [hidden]="dataSource.filteredData.length === 0" class="card mt-3">
+  <perun-web-apps-table-wrapper
+    (exportDisplayedData)="exportDisplayedData($event)"
+    (exportAllData)="exportAllData($event)"
+    [dataLength]="dataSource.filteredData.length"
+    [tableId]="tableId"
+    [pageSizeOptions]="pageSizeOptions">
+    <table
+      [dataSource]="dataSource"
+      class="w-100"
+      mat-table
+      matSort
+      matSortActive="recent"
+      matSortDirection="asc"
+      matSortDisableClear>
+      <ng-container
+        matColumnDef="select"
+        *ngIf="{all: dataSource | isAllSelected: selection.selected.length} as selected">
+        <th *matHeaderCellDef mat-header-cell class="align-checkbox">
+          <mat-checkbox
+            *ngIf="selection.isMultipleSelection()"
+            (change)="$event ? masterToggle(selected.all) : null"
+            [aria-label]="selected.all | masterCheckboxLabel | translate"
+            [checked]="selection.hasValue() && selected.all"
+            [indeterminate]="selection.hasValue() && !selected.all"
+            color="primary">
+          </mat-checkbox>
+        </th>
+        <td *matCellDef="let ban" class="static-column-size align-checkbox" mat-cell>
+          <mat-checkbox
+            (change)="toggle(ban)"
+            (click)="$event.stopPropagation()"
+            [aria-label]="selection.isSelected(ban) | checkboxLabel | translate: {name: ban.name}"
+            [checked]="selection.isSelected(ban)"
+            color="primary">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="banId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.BAN_ON_ENTITY_LIST.BAN_ID_HEADER' | translate}}
+        </th>
+        <td mat-cell class="static-column-size" *matCellDef="let ban">{{ban.ban.id}}</td>
+      </ng-container>
+      <ng-container matColumnDef="targetId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.BAN_ON_ENTITY_LIST.TARGET_ID_HEADER' | translate: {target: target} }}
+        </th>
+        <td mat-cell class="static-column-size" *matCellDef="let ban">{{ban.ban.targetId}}</td>
+      </ng-container>
+      <ng-container matColumnDef="targetName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.BAN_ON_ENTITY_LIST.TARGET_NAME_HEADER' | translate: {target: target} }}
+        </th>
+        <td mat-cell *matCellDef="let ban">
+          {{ban?.vo?.name ??  ban?.facility?.name ?? ban?.resource?.name}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="subjectId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.BAN_ON_ENTITY_LIST.SUBJECT_ID_HEADER' | translate: {subject: subject} }}
+        </th>
+        <td mat-cell class="static-column-size" *matCellDef="let ban">{{ban.ban.subjectId}}</td>
+      </ng-container>
+      <ng-container matColumnDef="subjectName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.BAN_ON_ENTITY_LIST.SUBJECT_NAME_HEADER' | translate: {subject: subject} }}
+        </th>
+        <td mat-cell *matCellDef="let ban">
+          {{(ban.user ?? ban.member.user) | userFullName}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.BAN_ON_ENTITY_LIST.DESCRIPTION_HEADER' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let ban">{{ban.ban.description}}</td>
+      </ng-container>
+      <ng-container matColumnDef="expiration">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.BAN_ON_ENTITY_LIST.EXPIRATION_HEADER' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let ban">
+          {{ban.ban.validityTo === EXPIRE_NEVER ? 'never' : ban.ban.validityTo | date: 'dd-MM-yyyy'}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let ban">
+          <button
+            *ngIf="(ban.vo ?? ban.resource ?? ban.facility) | isAuthorized : updatePolicy"
+            mat-icon-button
+            (click)="updateBan.emit(ban)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr *matHeaderRowDef="columns" mat-header-row></tr>
+      <tr *matRowDef="let ban; columns: columns;" class="dark-hover-list-item" mat-row></tr>
+    </table>
+  </perun-web-apps-table-wrapper>
+</div>
+
+<perun-web-apps-alert *ngIf="dataSource.filteredData.length === 0" alert_type="warn">
+  {{'SHARED_LIB.PERUN.COMPONENTS.BAN_ON_ENTITY_LIST.NO_BANS' | translate}}
+</perun-web-apps-alert>

@@ -166,6 +166,12 @@ export class UserOverviewComponent implements OnInit {
         style: 'user-btn',
       });
     }
+    this.navItems.push({
+      cssIcon: 'perun-ban',
+      url: `bans`,
+      label: 'MENU_ITEMS.USER.BANS',
+      style: 'user-btn',
+    });
     if (!window.location.pathname.startsWith('/admin')) {
       this.navItems.push({
         cssIcon: 'perun-settings2',

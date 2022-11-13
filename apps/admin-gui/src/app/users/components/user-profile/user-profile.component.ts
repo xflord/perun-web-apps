@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SideMenuService } from '../../../core/services/common/side-menu.service';
 import { PerunPrincipal, User } from '@perun-web-apps/perun/openapi';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { EntityStorageService, StoreService } from '@perun-web-apps/perun/services';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,6 +17,7 @@ export class UserProfileComponent implements OnInit {
   constructor(
     private sideMenuService: SideMenuService,
     private store: StoreService,
+    private entityStore: EntityStorageService,
     private router: Router
   ) {}
 
@@ -27,6 +28,7 @@ export class UserProfileComponent implements OnInit {
     });
     this.principal = this.store.getPerunPrincipal();
     this.user = this.principal.user;
+    this.entityStore.setEntity(this.user);
     this.sideMenuService.setUserItems([]);
   }
 

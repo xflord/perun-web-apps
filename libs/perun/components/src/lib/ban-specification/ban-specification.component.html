@@ -1,0 +1,32 @@
+<div>
+  <mat-radio-group [(ngModel)]="newValidity" class="d-flex flex-column">
+    <mat-radio-button value="{{validityControl.value}}">
+      <mat-form-field color="primary" class="cursor-pointer mt-2" (click)="picker.open()">
+        <mat-label>
+          {{'SHARED_LIB.PERUN.COMPONENTS.BAN_SPECIFICATION.VALIDITY' | translate}}
+        </mat-label>
+        <input
+          [formControl]="validityControl"
+          [min]="minDate"
+          [matDatepicker]="picker"
+          class="disabl"
+          readonly
+          matInput />
+        <mat-datepicker-toggle [for]="picker" [disabled]="false" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #picker [disabled]="false"></mat-datepicker>
+      </mat-form-field>
+    </mat-radio-button>
+    <mat-radio-button value="never">
+      {{'SHARED_LIB.PERUN.COMPONENTS.BAN_SPECIFICATION.NEVER' | translate}}
+    </mat-radio-button>
+  </mat-radio-group>
+</div>
+<div class="mt-3">
+  <mat-form-field class="w-100 mt-2">
+    <textarea
+      [formControl]="descriptionControl"
+      matInput
+      placeholder="{{'SHARED_LIB.PERUN.COMPONENTS.BAN_SPECIFICATION.DESCRIPTION' | translate}}"
+      rows="5"></textarea>
+  </mat-form-field>
+</div>

@@ -125,6 +125,10 @@ export class RoutePolicyService {
       'organizations-settings-hierarchicalInclusion',
       (): boolean => this.authResolver.isPerunAdmin(),
     ],
+    [
+      'organizations-settings-bans',
+      (vo): boolean => this.authResolver.isAuthorized('getBansForVo_int_policy', [vo]),
+    ],
     // Members
     [
       'members', // route for /members/:memberId
@@ -150,6 +154,11 @@ export class RoutePolicyService {
       'members-attributes',
       (member): boolean =>
         this.authResolver.isAuthorized('getRichMemberWithAttributes_Member_policy', [member]),
+    ],
+    [
+      'members-bans',
+      (member): boolean =>
+        this.authResolver.isAuthorized('vo-getBanForMember_member_policy', [member]),
     ],
     // Groups
     [
@@ -300,6 +309,11 @@ export class RoutePolicyService {
       'resources-settings-managers',
       (resource): boolean => this.authResolver.isManagerPagePrivileged(resource),
     ],
+    [
+      'resources-settings-bans',
+      (resource): boolean =>
+        this.authResolver.isAuthorized('getBansForResource_int_policy', [resource]),
+    ],
     // Facilities
     [
       'facilities', // route for /facilities/:facilityId
@@ -369,6 +383,11 @@ export class RoutePolicyService {
       'facilities-settings-blacklist',
       (facility): boolean =>
         this.authResolver.isAuthorized('getBansForFacility_int_policy', [facility]),
+    ],
+    [
+      'facilities-settings-bans',
+      (facility): boolean =>
+        this.authResolver.isAuthorized('getBansForUser_int_policy', [facility]),
     ],
   ]);
 

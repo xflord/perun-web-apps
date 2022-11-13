@@ -1,0 +1,21 @@
+<app-add-ban-dialog
+  [loading]="loading"
+  [disabled]="selection.selected.length === 0"
+  [theme]="data.theme"
+  [ban]="ban"
+  (add)="submitBan($event)"
+  (cancel)="cancel()">
+  <perun-web-apps-debounce-filter
+    (filter)="filter = $event"
+    [placeholder]="'DIALOGS.ADD_BAN.FILTER'">
+  </perun-web-apps-debounce-filter>
+  <perun-web-apps-members-list
+    [displayedColumns]="['checkbox', 'id', 'fullName']"
+    [selection]="selection"
+    [disableRouting]="true"
+    [allowCheckboxDisabled]="false"
+    [filter]="filter"
+    [members]="members"
+    [tableId]="tableId">
+  </perun-web-apps-members-list>
+</app-add-ban-dialog>

@@ -33,6 +33,7 @@ import { AdminAuditLogComponent } from './pages/admin-page/admin-audit-log/admin
 import { AdminConsentHubsComponent } from './pages/admin-page/admin-consent-hubs/admin-consent-hubs.component';
 import { AdminSearcherComponent } from './pages/admin-page/admin-searcher/admin-searcher.component';
 import { RouteAuthGuardService } from '../shared/route-auth-guard.service';
+import { UserBansComponent } from '../users/pages/user-detail-page/user-bans/user-bans.component';
 
 const routes: Routes = [
   {
@@ -177,6 +178,11 @@ const routes: Routes = [
         path: 'associated-users',
         component: UserSettingsAssociatedUsersComponent,
         data: { animation: 'AssociatedUsersPage' },
+      },
+      {
+        path: 'bans',
+        component: UserBansComponent,
+        data: { animation: 'UserBansPage' },
       },
       // {
       //   path: 'settings',

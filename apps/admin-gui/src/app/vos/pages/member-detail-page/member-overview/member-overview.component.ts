@@ -204,6 +204,14 @@ export class MemberOverviewComponent implements OnInit {
         style: 'member-btn',
       });
     }
+    if (this.routePolicyService.canNavigate('members-bans', this.member)) {
+      this.navItems.push({
+        cssIcon: 'perun-ban',
+        url: `/organizations/${this.vo.id}/members/${this.member.id}/bans`,
+        label: 'MENU_ITEMS.MEMBER.BANS',
+        style: 'member-btn',
+      });
+    }
   }
 
   private refreshData(): void {

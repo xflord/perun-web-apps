@@ -32,6 +32,8 @@ import { ResourceTagsComponent } from './pages/resource-detail-page/resource-tag
 import { FacilityConfigurationPageComponent } from './pages/facility-configuration-page/facility-configuration-page.component';
 import { ConfigureFacilityGuardService } from './services/configure-facility-guard.service';
 import { RouteAuthGuardService } from '../shared/route-auth-guard.service';
+import { FacilitySettingsBansComponent } from './pages/facility-detail-page/facility-settings/facility-settings-bans/facility-settings-bans.component';
+import { ResourceSettingsBansComponent } from './pages/resource-detail-page/resource-settings/resource-settings-bans/resource-settings-bans.component';
 
 const routes: Routes = [
   {
@@ -135,6 +137,11 @@ const routes: Routes = [
             component: FacilitySettingsBlacklistComponent,
             data: { animation: 'FacilitySettingsBlackListPage' },
           },
+          {
+            path: 'bans',
+            component: FacilitySettingsBansComponent,
+            data: { animation: 'FacilitySettingsBansPage' },
+          },
         ],
       },
       {
@@ -193,6 +200,11 @@ const routes: Routes = [
             path: 'managers',
             component: ResourceSettingsManagersComponent,
             data: { animation: 'ResourceSettingsManagersPage' },
+          },
+          {
+            path: 'bans',
+            component: ResourceSettingsBansComponent,
+            data: { animation: 'ResourceSettingsBansPage' },
           },
         ],
       },
