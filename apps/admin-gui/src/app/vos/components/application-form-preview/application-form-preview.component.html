@@ -129,10 +129,13 @@
         </div>
 
         <div
-          *ngIf="(applicationFormItem.type ==='HEADING' ||
-                    applicationFormItem.type === 'HTML_COMMENT') &&
-                    applicationFormItem.hidden !== 'ALWAYS'">
+          *ngIf="applicationFormItem.type ==='HEADING' && applicationFormItem.hidden !== 'ALWAYS'">
           <span [innerHTML]="getLocalizedLabel(applicationFormItem)"></span>
+        </div>
+
+        <div
+          *ngIf="applicationFormItem.type === 'HTML_COMMENT' && applicationFormItem.hidden !== 'ALWAYS'">
+          <span [innerHTML]="getLocalizedLabel(applicationFormItem) | sanitizeHtml"></span>
         </div>
 
         <div

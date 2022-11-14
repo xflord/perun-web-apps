@@ -96,10 +96,11 @@
                   value="{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.CLEAR_SELECTION' | translate}}" />
               </form>
             </div>
-            <div
-              *ngIf="applicationFormItem.type ==='HEADING' ||
-                      applicationFormItem.type === 'HTML_COMMENT'">
+            <div *ngIf="applicationFormItem.type ==='HEADING'">
               <span [innerHTML]="getLocalizedLabel(applicationFormItem)"></span>
+            </div>
+            <div *ngIf="applicationFormItem.type === 'HTML_COMMENT'">
+              <span [innerHTML]="getLocalizedLabel(applicationFormItem) | sanitizeHtml"></span>
             </div>
             <div *ngIf="applicationFormItem.type === 'SELECTIONBOX'">
               <select>
