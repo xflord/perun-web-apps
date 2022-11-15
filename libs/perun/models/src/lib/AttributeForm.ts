@@ -19,7 +19,7 @@ export type AttributeValueType =
   | 'java.lang.String'
   | 'java.lang.Integer'
   | 'java.lang.Boolean'
-  | 'java.util.Array'
+  | 'java.util.ArrayList'
   | 'java.util.LinkedHashMap';
 
 export interface AttributeForm {

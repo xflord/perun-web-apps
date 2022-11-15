@@ -55,7 +55,7 @@ export class CreateAttributeDefinitionDialogComponent {
     'java.lang.String',
     'java.lang.Integer',
     'java.lang.Boolean',
-    'java.util.Array',
+    'java.util.ArrayList',
     'java.util.LinkedHashMap',
   ];
   attDef = new BehaviorSubject<AttributeDefinition>({
