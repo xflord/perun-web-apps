@@ -4,6 +4,8 @@
     {{'GROUP_DETAIL.SUBGROUP_INFO' | translate}}
     <a
       class="group-link"
+      [perunWebAppsMiddleClickRouterLink]="['/organizations', parentGroup.voId.toString(), 'groups', parentGroup.id.toString()]"
+      (auxclick)="$event.preventDefault()"
       [routerLink]="['/organizations', parentGroup.voId, 'groups', parentGroup.id]"
       queryParamsHandling="merge">
       {{parentGroup.name}}

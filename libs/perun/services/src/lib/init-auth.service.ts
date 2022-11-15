@@ -54,7 +54,11 @@ export class InitAuthService {
 
     if (sessionStorage.getItem('baPrincipal')) {
       this.serviceAccess = true;
-      return this.redirectToOriginDestination();
+      if (sessionStorage.getItem('auth:redirect')) {
+        return this.redirectToOriginDestination();
+      } else {
+        return Promise.resolve(true);
+      }
     } else if (
       location.pathname !== '/service-access' &&
       !this.storeService.getProperty('auto_service_access_redirect')

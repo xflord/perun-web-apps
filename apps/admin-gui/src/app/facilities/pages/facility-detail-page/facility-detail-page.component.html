@@ -13,6 +13,8 @@
         <div class="page-title-headline d-flex align-items-center">
           <a
             class="facility-link"
+            [perunWebAppsMiddleClickRouterLink]="['/facilities', facility.id.toString()]"
+            (auxclick)="$event.preventDefault()"
             [routerLink]="['/facilities', facility.id]"
             queryParamsHandling="merge"
             >{{facility.name}}</a

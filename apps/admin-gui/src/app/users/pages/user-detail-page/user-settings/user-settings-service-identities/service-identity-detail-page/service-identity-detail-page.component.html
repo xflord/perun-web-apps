@@ -11,6 +11,8 @@
     <div class="page-title-block">
       <div class="page-title-headline d-flex align-items-center">
         <a
+          [perunWebAppsMiddleClickRouterLink]="['/myProfile/service-identities', user.id.toString()]"
+          (auxclick)="$event.preventDefault()"
           [routerLink]="['/myProfile/service-identities', user.id]"
           class="user-link"
           queryParamsHandling="merge">

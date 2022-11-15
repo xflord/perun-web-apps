@@ -14,6 +14,8 @@
           <div class="page-title-headline d-flex align-items-center">
             <a
               data-cy="service-name-link"
+              [perunWebAppsMiddleClickRouterLink]="['/admin/services', service.id.toString()]"
+              (auxclick)="$event.preventDefault()"
               [routerLink]="['/admin/services', service.id]"
               class="service-link"
               queryParamsHandling="merge">

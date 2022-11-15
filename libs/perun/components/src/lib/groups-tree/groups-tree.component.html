@@ -21,6 +21,8 @@
           (change)="itemSelectionToggle(group)"></mat-checkbox>
         <a
           class="group-item-content text-format"
+          [perunWebAppsMiddleClickRouterLink]="disableRouting ? null :['/organizations', group.voId.toString(), 'groups', group.id.toString()]"
+          (auxclick)="$event.preventDefault()"
           [routerLink]="disableRouting ? null :['/organizations', group.voId, 'groups', group.id]"
           queryParamsHandling="merge">
           <button

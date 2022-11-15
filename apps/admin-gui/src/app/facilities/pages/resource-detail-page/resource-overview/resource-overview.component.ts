@@ -56,7 +56,7 @@ export class ResourceOverviewComponent implements OnInit {
     if (this.routePolicyService.canNavigate('resources-services', this.resource)) {
       this.navItems.push({
         cssIcon: 'perun-service',
-        url: `/${urlStart}/resources/${this.resource.id}/services`,
+        url: `${urlStart}/resources/${this.resource.id}/services`,
         label: 'MENU_ITEMS.RESOURCE.ASSIGNED_SERVICES',
         style: 'resource-btn',
       });

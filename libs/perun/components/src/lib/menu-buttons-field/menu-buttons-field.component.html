@@ -2,6 +2,8 @@
   <div *ngFor="let item of items" class="item-itself-container" mat-ripple>
     <a
       class="{{item.style}} item-itself"
+      [perunWebAppsMiddleClickRouterLink]="[item.url]"
+      (auxclick)="$event.preventDefault()"
       [routerLink]="item.url"
       queryParamsHandling="merge"
       attr.data-cy="{{item.label | translate | multiWordDataCy}}">

@@ -44,13 +44,13 @@ export class UserSettingsOverviewComponent implements OnInit {
       this.navItems.push(
         {
           cssIcon: 'perun-settings2',
-          url: 'passwordReset',
+          url: '/myProfile/settings/passwordReset',
           label: 'MENU_ITEMS.USER.PASSWORD_RESET',
           style: 'user-btn',
         },
         {
           cssIcon: 'perun-settings1',
-          url: 'guiConfig',
+          url: '/myProfile/settings/guiConfig',
           label: 'MENU_ITEMS.USER.GUI_CONFIG',
           style: 'user-btn',
         }

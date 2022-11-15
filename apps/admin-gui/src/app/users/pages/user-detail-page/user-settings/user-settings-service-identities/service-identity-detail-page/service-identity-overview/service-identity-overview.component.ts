@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from '@perun-web-apps/perun/models';
+import { EntityStorageService } from '@perun-web-apps/perun/services';
+import { User } from '@perun-web-apps/perun/openapi';
 
 @Component({
   selector: 'app-service-identity-overview',
@@ -8,8 +10,12 @@ import { MenuItem } from '@perun-web-apps/perun/models';
 })
 export class ServiceIdentityOverviewComponent implements OnInit {
   navItems: MenuItem[] = [];
+  serviceAccount: User;
+
+  constructor(private entityStorageService: EntityStorageService) {}
 
   ngOnInit(): void {
+    this.serviceAccount = this.entityStorageService.getEntity();
     this.initNavItems();
   }
 
@@ -17,25 +23,25 @@ export class ServiceIdentityOverviewComponent implements OnInit {
     this.navItems = [
       {
         cssIcon: 'perun-manager',
-        url: `associated-users`,
+        url: `/myProfile/service-identities/${this.serviceAccount.id}/associated-users`,
         label: 'MENU_ITEMS.USER.ASSOCIATED_USERS',
         style: 'user-btn',
       },
       {
         cssIcon: 'perun-notification',
-        url: 'mailing-lists',
+        url: `/myProfile/service-identities/${this.serviceAccount.id}/mailing-lists`,
         label: 'MENU_ITEMS.USER.MAILING_LISTS',
         style: 'user-btn',
       },
       {
         cssIcon: 'perun-statistics',
-        url: 'data-quotas',
+        url: `/myProfile/service-identities/${this.serviceAccount.id}/data-quotas`,
         label: 'MENU_ITEMS.USER.DATA_QUOTAS',
         style: 'user-btn',
       },
       {
         cssIcon: 'perun-authentication',
-        url: `authentication`,
+        url: `/myProfile/service-identities/${this.serviceAccount.id}/authentication`,
         label: 'MENU_ITEMS.USER.AUTHENTICATION',
         style: 'user-btn',
       },

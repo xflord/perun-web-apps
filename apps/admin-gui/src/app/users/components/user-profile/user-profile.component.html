@@ -9,7 +9,12 @@
     </mat-icon>
     <div class="page-title-block">
       <div class="page-title-headline d-flex align-items-center">
-        <a [routerLink]="['/myProfile']" class="user-link" queryParamsHandling="merge">
+        <a
+          [perunWebAppsMiddleClickRouterLink]="['/myProfile']"
+          (auxclick)="$event.preventDefault()"
+          [routerLink]="['/myProfile']"
+          class="user-link"
+          queryParamsHandling="merge">
           {{user | userFullName}}
         </a>
         <span class="text-muted"> &nbsp;#{{user.id}} </span>

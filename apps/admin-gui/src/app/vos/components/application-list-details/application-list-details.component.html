@@ -96,8 +96,8 @@
       <tr
         *matRowDef="let application; columns: displayedColumns;"
         [class.cursor-pointer]="!disableRouting"
-        [perunWebAppsMiddleClickRouterLink]="selectApplication(application)"
-        [routerLink]="selectApplication(application)"
+        [perunWebAppsMiddleClickRouterLink]="application | selectApplicationLink: disableRouting : group : member"
+        [routerLink]="application | selectApplicationLink: disableRouting : group : member"
         class="dark-hover-list-item"
         mat-row></tr>
     </table>

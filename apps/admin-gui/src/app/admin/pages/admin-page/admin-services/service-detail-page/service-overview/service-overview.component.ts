@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from '@perun-web-apps/perun/models';
+import { Service } from '@perun-web-apps/perun/openapi';
+import { EntityStorageService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-service-overview',
@@ -8,8 +10,12 @@ import { MenuItem } from '@perun-web-apps/perun/models';
 })
 export class ServiceOverviewComponent implements OnInit {
   navItems: MenuItem[] = [];
+  service: Service;
+
+  constructor(private entityStorageService: EntityStorageService) {}
 
   ngOnInit(): void {
+    this.service = this.entityStorageService.getEntity();
     this.initNavItems();
   }
 
@@ -17,13 +23,13 @@ export class ServiceOverviewComponent implements OnInit {
     this.navItems = [
       {
         cssIcon: 'perun-attributes',
-        url: 'required-attributes',
+        url: `/admin/services/${this.service.id}/required-attributes`,
         label: 'MENU_ITEMS.SERVICE.REQUIRED_ATTRIBUTES',
         style: 'service-btn',
       },
       {
         cssIcon: 'perun-service_destination',
-        url: 'destinations',
+        url: `/admin/services/${this.service.id}/destinations`,
         label: 'MENU_ITEMS.SERVICE.DESTINATIONS',
         style: 'service-btn',
       },

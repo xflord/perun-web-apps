@@ -193,31 +193,4 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
     }
     return modifiedBy;
   }
-
-  selectApplication(application: Application): (string | number)[] {
-    if (!this.disableRouting) {
-      if (this.group) {
-        return [
-          '/organizations',
-          application.vo.id,
-          'groups',
-          this.group.id,
-          'applications',
-          application.id,
-        ];
-      } else if (this.member) {
-        return [
-          '/organizations',
-          application.vo.id,
-          'members',
-          this.member.id,
-          'applications',
-          application.id,
-        ];
-      } else {
-        return ['/organizations', application.vo.id, 'applications', application.id];
-      }
-    }
-    return null;
-  }
 }

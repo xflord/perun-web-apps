@@ -45,7 +45,7 @@ export class UserOverviewComponent implements OnInit {
         this.userService.getUserById(Number(params['userId'])).subscribe((user) => {
           this.user = user;
           this.isServiceUser = user.serviceUser;
-          this.initNavItems();
+          this.initNavItems(`/admin/users/${this.user.id}`);
         });
       } else {
         this.inMyProfile = true;
@@ -58,7 +58,7 @@ export class UserOverviewComponent implements OnInit {
             this.handleMailNotDefined();
 
             this.mailDataSource = new MatTableDataSource<Attribute>([this.preferredMail]);
-            this.initNavItems();
+            this.initNavItems('/myProfile');
           });
       }
     });
@@ -96,17 +96,17 @@ export class UserOverviewComponent implements OnInit {
     }
   }
 
-  private initNavItems(): void {
+  private initNavItems(urlStart: string): void {
     this.navItems = [
       {
         cssIcon: 'perun-vo',
-        url: `organizations`,
+        url: `${urlStart}/organizations`,
         label: 'MENU_ITEMS.ADMIN.ORGANIZATIONS',
         style: 'user-btn',
       },
       {
         cssIcon: 'perun-group',
-        url: `groups`,
+        url: `${urlStart}/groups`,
         label: 'MENU_ITEMS.ADMIN.GROUPS',
         style: 'user-btn',
       },
@@ -115,25 +115,25 @@ export class UserOverviewComponent implements OnInit {
       this.navItems.push(
         {
           cssIcon: 'perun-user',
-          url: `accounts`,
+          url: `${urlStart}/accounts`,
           label: 'MENU_ITEMS.USER.ACCOUNTS',
           style: 'user-btn',
         },
         {
           cssIcon: 'perun-identity',
-          url: `identities`,
+          url: `${urlStart}/identities`,
           label: 'MENU_ITEMS.USER.IDENTITIES',
           style: 'user-btn',
         },
         {
           cssIcon: 'perun-facility-white',
-          url: `facilities`,
+          url: `${urlStart}/facilities`,
           label: 'MENU_ITEMS.USER.FACILITIES',
           style: 'user-btn',
         },
         {
           cssIcon: 'perun-resource',
-          url: `resources`,
+          url: `${urlStart}/resources`,
           label: 'MENU_ITEMS.USER.RESOURCES',
           style: 'user-btn',
         }
@@ -141,27 +141,27 @@ export class UserOverviewComponent implements OnInit {
     }
     this.navItems.push({
       cssIcon: 'perun-attributes',
-      url: `attributes`,
+      url: `${urlStart}/attributes`,
       label: 'MENU_ITEMS.USER.ATTRIBUTES',
       style: 'user-btn',
     });
     this.navItems.push({
       cssIcon: 'perun-roles',
-      url: `roles`,
+      url: `${urlStart}/roles`,
       label: 'MENU_ITEMS.USER.ROLES',
       style: 'user-btn',
     });
     if (this.isServiceUser) {
       this.navItems.push({
         cssIcon: 'perun-manager',
-        url: `associated-users`,
+        url: `${urlStart}/associated-users`,
         label: 'MENU_ITEMS.USER.ASSOCIATED_USERS',
         style: 'user-btn',
       });
     } else {
       this.navItems.push({
         cssIcon: 'perun-service-identity',
-        url: `service-identities`,
+        url: `${urlStart}/service-identities`,
         label: 'MENU_ITEMS.USER.SERVICE_IDENTITIES',
         style: 'user-btn',
       });
@@ -169,7 +169,7 @@ export class UserOverviewComponent implements OnInit {
     if (!window.location.pathname.startsWith('/admin')) {
       this.navItems.push({
         cssIcon: 'perun-settings2',
-        url: `settings`,
+        url: `${urlStart}/settings`,
         label: 'MENU_ITEMS.ADMIN.SETTINGS',
         style: 'user-btn',
       });
