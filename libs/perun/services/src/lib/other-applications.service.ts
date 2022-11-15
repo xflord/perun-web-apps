@@ -26,7 +26,14 @@ export class OtherApplicationsService {
         return brand;
       }
     }
-    return brands[0];
+    // return the default brand if NO brand domain is the same as the current domain
+    const defaultBrand = brands.filter((brand) => brand.name === 'default')[0];
+    if (defaultBrand) {
+      return defaultBrand;
+    } else {
+      // if the default brand doesn't exist, return the first brand in the list
+      return brands[0];
+    }
   }
 
   /**
