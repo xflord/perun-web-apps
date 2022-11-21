@@ -19,7 +19,7 @@ export class SelectApplicationLinkPipe implements PipeTransform {
     group: Group,
     member: Member
   ): string[] {
-    if (!disableRouting) return null;
+    if (disableRouting) return null;
     if (group) {
       return [
         '/organizations',
