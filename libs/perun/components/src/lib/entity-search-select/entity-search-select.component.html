@@ -1,48 +1,58 @@
-<mat-form-field class="w-100">
-  <mat-select
-    data-cy="search-select-input"
-    (openedChange)="openChange()"
-    placeholder="{{selectPlaceholder}}"
-    [formControl]="entitiesCtrl"
-    [multiple]="multiple">
-    <mat-select-trigger *ngIf="multiple">
-      {{multipleSelectedText()}}
-    </mat-select-trigger>
-    <mat-option>
-      <ngx-mat-select-search
-        data-cy="find-input"
-        placeholderLabel="{{findPlaceholder}}"
-        noEntriesFoundLabel="{{noEntriesText}}"
-        [clearSearchInput]="false"
-        [formControl]="entityFilterCtrl">
-      </ngx-mat-select-search>
-    </mat-option>
-    <mat-option
-      class="selected-options-bottom"
-      *ngIf="entitiesCtrl?.value"
-      [value]="entitiesCtrl?.value">
-      {{mainTextFunction(entitiesCtrl?.value)}}
-      <span class="text-muted">{{secondaryTextFunction(entitiesCtrl?.value)}}</span>
-      <span *ngIf="displayStatus" class="{{colorByStatus(entitiesCtrl?.value)}}">
-        {{statusTextFunction(entitiesCtrl?.value) ? '('+statusTextFunction(entitiesCtrl?.value)+')' : ''}}
-      </span>
-    </mat-option>
-    <cdk-virtual-scroll-viewport
-      itemSize="48"
-      [style.height.px]="getViewportHeight()"
-      #scrollViewport
-      [minBufferPx]="5 * 48"
-      [maxBufferPx]="10 * 48">
+<div class="d-flex flex-row align-items-center gap-4">
+  <mat-form-field class="w-100 pb-0">
+    <mat-select
+      data-cy="search-select-input"
+      (openedChange)="openChange()"
+      (closed)="closeChange()"
+      placeholder="{{selectPlaceholder}}"
+      [formControl]="entitiesCtrl"
+      [multiple]="multiple">
+      <mat-select-trigger *ngIf="multiple">
+        {{multipleSelectedText()}}
+      </mat-select-trigger>
+      <mat-option>
+        <ngx-mat-select-search
+          data-cy="find-input"
+          placeholderLabel="{{findPlaceholder}}"
+          noEntriesFoundLabel="{{noEntriesText}}"
+          [clearSearchInput]="false"
+          [formControl]="entityFilterCtrl">
+        </ngx-mat-select-search>
+      </mat-option>
       <mat-option
-        class="{{theme}}"
-        *cdkVirtualFor="let entity of filteredEntities | async"
-        [value]="entity">
-        {{mainTextFunction(entity)}}
-        <span class="text-muted">{{secondaryTextFunction(entity)}}</span>
-        <span *ngIf="displayStatus" class="{{colorByStatus(entity)}}">
-          {{statusTextFunction(entity) ? '('+statusTextFunction(entity)+')' : ''}}
+        class="selected-options-bottom"
+        *ngIf="entitiesCtrl?.value"
+        [value]="entitiesCtrl?.value"
+        (onSelectionChange)="onChange($event)">
+        {{mainTextFunction(entitiesCtrl?.value)}}
+        <span class="text-muted">{{secondaryTextFunction(entitiesCtrl?.value)}}</span>
+        <span *ngIf="displayStatus" class="{{colorByStatus(entitiesCtrl?.value)}}">
+          {{statusTextFunction(entitiesCtrl?.value) ? '('+statusTextFunction(entitiesCtrl?.value)+')' : ''}}
         </span>
       </mat-option>
-    </cdk-virtual-scroll-viewport>
-  </mat-select>
-</mat-form-field>
+      <cdk-virtual-scroll-viewport
+        itemSize="48"
+        [style.height.px]="getViewportHeight()"
+        #scrollViewport
+        [minBufferPx]="5 * 48"
+        [maxBufferPx]="10 * 48">
+        <mat-option
+          class="{{theme}}"
+          *cdkVirtualFor="let entity of filteredEntities | async"
+          [value]="entity"
+          (onSelectionChange)="onChange($event)">
+          {{mainTextFunction(entity)}}
+          <span class="text-muted">{{secondaryTextFunction(entity)}}</span>
+          <span *ngIf="displayStatus" class="{{colorByStatus(entity)}}">
+            {{statusTextFunction(entity) ? '('+statusTextFunction(entity)+')' : ''}}
+          </span>
+        </mat-option>
+      </cdk-virtual-scroll-viewport>
+    </mat-select>
+  </mat-form-field>
+
+  <perun-web-apps-deselect-button
+    class="ml-2"
+    *ngIf="visibleDeselectButton"
+    (deselect)="deselectEvent()"></perun-web-apps-deselect-button>
+</div>

@@ -40,7 +40,7 @@ export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewI
   @Input()
   displayedColumns: string[] = ['id', 'timestamp', 'name', 'actor', 'event.message', 'detail'];
   @Input()
-  searchString: string;
+  selectedEvents: string[];
 
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
   @ViewChild(MatSort) sort: MatSort;
@@ -84,7 +84,8 @@ export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewI
     this.dataSource.loadAuditMessages(
       this.tableConfigService.getTablePageSize(this.tableId),
       0,
-      'DESCENDING'
+      'DESCENDING',
+      this.selectedEvents
     );
   }
 
@@ -100,7 +101,8 @@ export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewI
     this.dataSource.loadAuditMessages(
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      sortDirection
+      sortDirection,
+      this.selectedEvents
     );
   }
 

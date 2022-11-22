@@ -13,9 +13,10 @@ import {
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { UntypedFormControl } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { GroupResourceStatus, PerunBean } from '@perun-web-apps/perun/openapi';
 import { GroupWithStatus, ResourceWithStatus } from '@perun-web-apps/perun/models';
+import { MatOptionSelectionChange } from '@angular/material/core';
 
 @Component({
   selector: 'perun-web-apps-entity-search-select',
@@ -34,10 +35,14 @@ export class EntitySearchSelectComponent<T extends PerunBean>
   @Input() displayStatus = false;
   @Input() multiple = false;
   @Input() theme = '';
-  @Output() entitySelected = new EventEmitter<T>();
+  @Input() shouldRefresh = false;
+  @Output() entitySelected = new EventEmitter<T | T[]>();
+  @Output() selectClosed = new EventEmitter<boolean>();
   @ViewChild('scrollViewport', { static: false }) scrollViewport: CdkVirtualScrollViewport;
   @Input() searchFunction: (entity: T) => string;
 
+  visibleDeselectButton = false;
+  selectedEntities: T[] = [];
   entitiesCtrl: UntypedFormControl = new UntypedFormControl();
   entityFilterCtrl: UntypedFormControl = new UntypedFormControl();
   filteredEntities = new ReplaySubject<T[]>(1);
@@ -58,10 +63,6 @@ export class EntitySearchSelectComponent<T extends PerunBean>
   ) => entity.status;
 
   ngOnInit(): void {
-    this.entitiesCtrl.valueChanges
-      .pipe(distinctUntilChanged())
-      .subscribe((entity: T) => this.entitySelected.emit(entity));
-
     if (!this.disableAutoSelect && this.entity === null) {
       this.entitiesCtrl.setValue(this.entities[0]);
     }
@@ -117,9 +118,35 @@ export class EntitySearchSelectComponent<T extends PerunBean>
       .toLowerCase();
   }
 
+  onChange(event: MatOptionSelectionChange<T>): void {
+    if (event.isUserInput) {
+      const value = event.source.value;
+
+      // remember selected options if multiple values are possible
+      if (this.multiple) {
+        if (this.selectedEntities.includes(value)) {
+          const index = this.selectedEntities.indexOf(value);
+          this.selectedEntities.splice(index, 1);
+        } else {
+          this.selectedEntities.push(value);
+        }
+        this.entitiesCtrl.setValue(this.selectedEntities);
+        this.entitySelected.emit(this.selectedEntities);
+      } else {
+        this.entitySelected.emit(value);
+      }
+    }
+
+    this.visibleDeselectButton = this.selectedEntities.length !== 0;
+  }
+
   openChange(): void {
     this.scrollViewport.scrollToIndex(0);
     this.scrollViewport.checkViewportSize();
+  }
+
+  closeChange(): void {
+    this.selectClosed.emit(true);
   }
 
   getViewportHeight(): number {
@@ -138,7 +165,6 @@ export class EntitySearchSelectComponent<T extends PerunBean>
     if (!entities || entities.length === 0) {
       return;
     }
-
     if (entities.length === this.entities.length) {
       return 'ALL';
     } else if (entities.length > 1) {
@@ -148,7 +174,7 @@ export class EntitySearchSelectComponent<T extends PerunBean>
     }
   }
 
-  private filterEntites(): void {
+  filterEntites(): void {
     if (!this.entities) {
       return;
     }
@@ -166,5 +192,14 @@ export class EntitySearchSelectComponent<T extends PerunBean>
       this.entities.filter((entity) => this.normalize(this.searchFunction(entity)).includes(search))
     );
     this.cd.detectChanges();
+  }
+
+  deselectEvent(): void {
+    this.visibleDeselectButton = false;
+    this.selectedEntities = [];
+    this.entitiesCtrl.setValue([]);
+
+    this.entitySelected.emit([]);
+    this.selectClosed.emit(true);
   }
 }

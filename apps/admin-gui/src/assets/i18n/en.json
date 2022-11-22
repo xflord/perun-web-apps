@@ -2415,7 +2415,8 @@
       "FILTER": "Filter"
     },
     "AUDIT_LOG": {
-      "TITLE": "Audit log"
+      "TITLE": "Audit log",
+      "SEARCH_DESCRIPTION": "Search by event name"
     },
     "CONSENT_HUBS": {
       "TITLE": "Consent hubs",

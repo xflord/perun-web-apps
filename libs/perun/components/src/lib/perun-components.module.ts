@@ -116,6 +116,8 @@ import { BanOnEntityListComponent } from './ban-on-entity-list/ban-on-entity-lis
 import { MemberOverviewMembershipComponent } from './member-overview-membership/member-overview-membership.component';
 import { ChangeMemberStatusOrExpirationDialogComponent } from './change-member-status-or-expiration-dialog/change-member-status-or-expiration-dialog.component';
 import { MemberOverviewGroupsComponent } from './member-overview-groups/member-overview-groups.component';
+import { DeselectButtonComponent } from './deselect-button/deselect-button.component';
+import { AuditLogSearchSelectComponent } from './audit-log-search-select/audit-log-search-select.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -264,6 +266,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     ChangeMemberStatusOrExpirationDialogComponent,
     MemberOverviewMembershipComponent,
     MemberOverviewGroupsComponent,
+    DeselectButtonComponent,
+    AuditLogSearchSelectComponent,
   ],
   exports: [
     VosListComponent,
@@ -339,6 +343,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     ChangeMemberStatusOrExpirationDialogComponent,
     MemberOverviewMembershipComponent,
     MemberOverviewGroupsComponent,
+    DeselectButtonComponent,
+    AuditLogSearchSelectComponent,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

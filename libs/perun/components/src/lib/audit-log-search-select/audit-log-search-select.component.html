@@ -1,0 +1,14 @@
+<div class="w-450">
+  <perun-web-apps-entity-search-select
+    [entities]="auditLogs"
+    [searchFunction]="searchFunction"
+    (entitySelected)="this.auditLogsSelected.emit($event)"
+    (selectClosed)="this.selectClosed.emit($event)"
+    [shouldRefresh]="true"
+    [mainTextFunction]="mainTextFunction"
+    [secondaryTextFunction]="secondaryTextFunction"
+    [multiple]="true"
+    [disableAutoSelect]="true"
+    [selectPlaceholder]="'ADMIN.AUDIT_LOG.SEARCH_DESCRIPTION'|translate">
+  </perun-web-apps-entity-search-select>
+</div>

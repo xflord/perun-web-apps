@@ -95,13 +95,15 @@ export class DynamicPaginatingService {
   getAuditMessages(
     order: SortingOrder,
     pageNumber: number,
-    pageSize: number
+    pageSize: number,
+    selectedEvents: string[]
   ): Observable<PaginatedAuditMessages> {
     return this.auditMessagesManagerService.getMessagesPage({
       query: {
         offset: pageSize * pageNumber,
         pageSize: pageSize,
         order: order,
+        selectedEvents: selectedEvents,
       },
     });
   }

@@ -233,13 +233,18 @@ export class DynamicDataSource<T> implements DataSource<T> {
     });
   }
 
-  loadAuditMessages(pageSize: number, pageIndex: number, sortOrder: SortingOrder): void {
+  loadAuditMessages(
+    pageSize: number,
+    pageIndex: number,
+    sortOrder: SortingOrder,
+    selectedEvents: string[]
+  ): void {
     this.loadingSubject.next(true);
     this.latestQueryTime = Date.now();
     const thisQueryTime = this.latestQueryTime;
 
     this.dynamicPaginatingService
-      .getAuditMessages(sortOrder, pageIndex, pageSize)
+      .getAuditMessages(sortOrder, pageIndex, pageSize, selectedEvents)
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject.next(false))
@@ -253,12 +258,21 @@ export class DynamicDataSource<T> implements DataSource<T> {
       });
   }
 
-  getAllAuditMessages(totalCount: number, sortOrder: SortingOrder): Observable<AuditMessage[]> {
+  getAllAuditMessages(
+    totalCount: number,
+    sortOrder: SortingOrder,
+    selectedEvents: string[]
+  ): Observable<AuditMessage[]> {
     return new Observable((subscriber) => {
       const requests = [];
       for (let pageNumber = 0; pageNumber < Math.ceil(totalCount / this.step); pageNumber++) {
         requests.push(
-          this.dynamicPaginatingService.getAuditMessages(sortOrder, pageNumber, this.step)
+          this.dynamicPaginatingService.getAuditMessages(
+            sortOrder,
+            pageNumber,
+            this.step,
+            selectedEvents
+          )
         );
       }
       forkJoin(requests).subscribe({
