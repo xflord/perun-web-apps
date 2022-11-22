@@ -207,7 +207,7 @@ export class CreateSinglePublicationPageComponent implements OnInit {
   }
 
   redirect(commands: string[]): void {
-    void this.router.navigate(commands);
+    void this.router.navigate(commands, { queryParamsHandling: 'preserve' });
   }
 
   showDialogAndRedirect(commands: string[], publicationId: number): void {

@@ -11,7 +11,6 @@
       [perunWebAppsMiddleClickRouterLink]="[item.url]"
       (auxclick)="$event.preventDefault()"
       [routerLink]="item.url"
-      queryParamsHandling="merge"
       matTooltip="{{item.tooltip}}">
       <span class="item-type">{{item.type}}</span>
       <mat-icon [svgIcon]="item.cssIcon" class="item-pic perun-icon"></mat-icon>

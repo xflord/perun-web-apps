@@ -5,7 +5,6 @@
       [perunWebAppsMiddleClickRouterLink]="[item.url]"
       (auxclick)="$event.preventDefault()"
       [routerLink]="item.url"
-      queryParamsHandling="merge"
       attr.data-cy="{{item.label | translate | multiWordDataCy}}">
       <mat-icon [svgIcon]="item.cssIcon" class="item-pic perun-icon"></mat-icon>
       <!--    <img src="assets/img/PerunWebImages/{{item.icon}}" alt="{{item.label}}">-->

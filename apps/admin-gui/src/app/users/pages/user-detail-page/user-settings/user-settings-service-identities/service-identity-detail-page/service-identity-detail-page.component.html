@@ -14,8 +14,7 @@
           [perunWebAppsMiddleClickRouterLink]="['/myProfile/service-identities', user.id.toString()]"
           (auxclick)="$event.preventDefault()"
           [routerLink]="['/myProfile/service-identities', user.id]"
-          class="user-link"
-          queryParamsHandling="merge">
+          class="user-link">
           {{user | userFullName}}
         </a>
         <span class="text-muted"> &nbsp;#{{user.id}} </span>

@@ -10,11 +10,7 @@
     </mat-icon>
     <div class="page-title-block">
       <div class="page-title-headline d-flex align-items-center">
-        <a
-          [routerLink]="['/admin/users', user.id]"
-          class="user-link"
-          queryParamsHandling="merge"
-          data-cy="user-name-link">
+        <a [routerLink]="['/admin/users', user.id]" class="user-link" data-cy="user-name-link">
           {{user | userFullName}}
         </a>
         <span class="text-muted"> &nbsp;#{{user.id}} </span>

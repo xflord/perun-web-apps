@@ -155,7 +155,10 @@ export class ResourceDetailPageComponent extends destroyDetailMixin() implements
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        void this.router.navigate(['../'], { relativeTo: this.route });
+        void this.router.navigate(['../'], {
+          relativeTo: this.route,
+          queryParamsHandling: 'preserve',
+        });
       }
     });
   }

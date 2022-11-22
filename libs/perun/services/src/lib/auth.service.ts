@@ -44,7 +44,7 @@ export class AuthService {
       sessionStorage.removeItem('basicUsername');
       sessionStorage.removeItem('basicPassword');
       sessionStorage.setItem('baLogout', 'true');
-      void this.router.navigate(['/service-access']);
+      void this.router.navigate(['/service-access'], { queryParamsHandling: 'preserve' });
     } else {
       this.oauthService.logOut();
     }

@@ -110,6 +110,7 @@ import { RoleSearchSelectComponent } from './role-search-select/role-search-sele
 import { PerunHeaderComponent } from './perun-header/perun-header.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ShowNotificationHistoryDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { QueryParamsHandlingDirective } from '@perun-web-apps/perun/directives';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -252,6 +253,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     RoleSearchSelectComponent,
     PerunHeaderComponent,
     ShowNotificationHistoryDialogComponent,
+    QueryParamsHandlingDirective,
   ],
   exports: [
     VosListComponent,
@@ -321,6 +323,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     RoleSearchSelectComponent,
     PerunHeaderComponent,
     ShowNotificationHistoryDialogComponent,
+    QueryParamsHandlingDirective,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

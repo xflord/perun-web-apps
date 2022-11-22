@@ -10,10 +10,14 @@ export class CreatePublicationPageComponent {
   constructor(private router: Router) {}
 
   importPublications(): void {
-    void this.router.navigate(['create-publication', 'import']);
+    void this.router.navigate(['create-publication', 'import'], {
+      queryParamsHandling: 'preserve',
+    });
   }
 
   createPublication(): void {
-    void this.router.navigate(['create-publication', 'create']);
+    void this.router.navigate(['create-publication', 'create'], {
+      queryParamsHandling: 'preserve',
+    });
   }
 }

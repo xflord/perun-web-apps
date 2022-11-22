@@ -94,7 +94,9 @@ export class CreateFacilityDialogComponent implements OnInit {
       this.translate.instant('DIALOGS.CREATE_FACILITY.SUCCESS') as string
     );
     if (this.configure) {
-      void this.router.navigate(['facilities', facilityId.toString(), 'configuration']);
+      void this.router.navigate(['facilities', facilityId.toString(), 'configuration'], {
+        queryParamsHandling: 'preserve',
+      });
     }
     this.dialogRef.close(true);
   }

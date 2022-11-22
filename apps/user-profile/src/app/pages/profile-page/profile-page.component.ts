@@ -89,13 +89,13 @@ export class ProfilePageComponent implements OnInit {
       this.apiRequestConfiguration.dontHandleErrorForNext();
       this.usersManagerService
         .validatePreferredEmailChangeWithToken(token, Number.parseInt(u, 10))
-        .subscribe(
-          () => {
+        .subscribe({
+          next: () => {
             this.notificator.showSuccess(this.successMessage);
-            void this.router.navigate([], { replaceUrl: true });
+            void this.router.navigate([], { replaceUrl: true, queryParamsHandling: 'preserve' });
             this.getData();
           },
-          () => {
+          error: () => {
             const config = getDefaultDialogConfig();
             config.width = '600px';
 
@@ -103,8 +103,8 @@ export class ProfilePageComponent implements OnInit {
             dialogRef.afterClosed().subscribe(() => {
               this.getData();
             });
-          }
-        );
+          },
+        });
     } else {
       this.getData();
     }

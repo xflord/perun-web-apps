@@ -14,7 +14,7 @@ export class MailChangeFailedDialogComponent {
   ) {}
 
   onClose(): void {
-    void this.router.navigate([]);
+    void this.router.navigate([], { queryParamsHandling: 'preserve' });
     this.dialogRef.close();
   }
 }

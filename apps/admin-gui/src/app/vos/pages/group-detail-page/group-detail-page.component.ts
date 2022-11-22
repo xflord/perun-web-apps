@@ -27,6 +27,7 @@ import { DeleteGroupDialogComponent } from '../../../shared/components/dialogs/d
 import { ReloadEntityDetailService } from '../../../core/services/common/reload-entity-detail.service';
 import { destroyDetailMixin } from '../../../shared/destroy-entity-detail';
 import { takeUntil } from 'rxjs/operators';
+import { QueryParamsRouterService } from '../../../shared/query-params-router.service';
 
 @Component({
   selector: 'app-group-detail-page',
@@ -54,14 +55,15 @@ export class GroupDetailPageComponent extends destroyDetailMixin() implements On
   constructor(
     private sideMenuService: SideMenuService,
     private voService: VosManagerService,
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     private sideMenuItemService: SideMenuItemService,
     private groupService: GroupsManagerService,
     private dialog: MatDialog,
     private guiAuthResolver: GuiAuthResolver,
     private router: Router,
     private entityStorageService: EntityStorageService,
-    private reloadEntityDetail: ReloadEntityDetailService
+    private reloadEntityDetail: ReloadEntityDetailService,
+    private queryParamsRouter: QueryParamsRouterService
   ) {
     super();
   }
@@ -179,7 +181,7 @@ export class GroupDetailPageComponent extends destroyDetailMixin() implements On
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        void this.router.navigate(['../'], { relativeTo: this.route });
+        this.queryParamsRouter.navigate(['../'], this.route);
       }
     });
   }

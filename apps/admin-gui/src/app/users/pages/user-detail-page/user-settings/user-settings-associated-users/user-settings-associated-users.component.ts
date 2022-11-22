@@ -105,7 +105,7 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (!this.authResolver.isAuthorized('getUsersBySpecificUser_User_policy', [this.user])) {
-          void this.router.navigate(['/myProfile']);
+          void this.router.navigate(['/myProfile'], { queryParamsHandling: 'preserve' });
         } else {
           this.refreshTable();
         }

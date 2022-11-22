@@ -57,14 +57,14 @@ export class CreateVoDialogComponent implements OnInit {
     this.loading = true;
     this.voService
       .createVoWithName(this.fullNameCtrl.value as string, this.shortNameCtrl.value as string)
-      .subscribe(
-        (vo) => {
+      .subscribe({
+        next: (vo) => {
           this.notificator.showSuccess(this.successMessage);
           this.loading = false;
-          void this.router.navigate(['/organizations', vo.id]);
+          void this.router.navigate(['/organizations', vo.id], { queryParamsHandling: 'preserve' });
           this.dialogRef.close(true);
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
   }
 }

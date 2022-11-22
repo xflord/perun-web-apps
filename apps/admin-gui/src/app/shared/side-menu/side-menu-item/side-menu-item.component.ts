@@ -4,6 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { openClose, rollInOut } from '@perun-web-apps/perun/animations';
 import { MatSidenav } from '@angular/material/sidenav';
 import { StoreService } from '@perun-web-apps/perun/services';
+import { QueryParamsRouterService } from '../../query-params-router.service';
 
 @Component({
   selector: 'app-side-menu-item',
@@ -27,7 +28,11 @@ export class SideMenuItemComponent {
   linkTextColor = this.store.getProperty('theme').sidemenu_submenu_text_color;
   dividerStyle = '1px solid ' + this.store.getProperty('theme').sidemenu_divider_color;
 
-  constructor(private router: Router, private store: StoreService) {
+  constructor(
+    private router: Router,
+    private store: StoreService,
+    private queryParamsRouter: QueryParamsRouterService
+  ) {
     this.currentUrl = router.url;
 
     router.events.subscribe((_: NavigationEnd) => {
@@ -50,14 +55,14 @@ export class SideMenuItemComponent {
   isActive(currentUrl: string, regexValue: string): boolean {
     const regexp = new RegExp(regexValue);
 
-    return regexp.test(currentUrl);
+    return regexp.test(currentUrl.split('?')[0]);
   }
 
   navigate(url: string[]): void {
     if (this.sideNav.mode === 'over') {
-      void this.sideNav.close().then(() => this.router.navigate(url));
+      void this.sideNav.close().then(() => this.queryParamsRouter.navigate(url));
     } else {
-      void this.router.navigate(url);
+      this.queryParamsRouter.navigate(url);
     }
   }
 }

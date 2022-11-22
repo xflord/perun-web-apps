@@ -6,8 +6,7 @@
       class="group-link"
       [perunWebAppsMiddleClickRouterLink]="['/organizations', parentGroup.voId.toString(), 'groups', parentGroup.id.toString()]"
       (auxclick)="$event.preventDefault()"
-      [routerLink]="['/organizations', parentGroup.voId, 'groups', parentGroup.id]"
-      queryParamsHandling="merge">
+      [routerLink]="['/organizations', parentGroup.voId, 'groups', parentGroup.id]">
       {{parentGroup.name}}
     </a>
   </p>

@@ -16,7 +16,6 @@
             [perunWebAppsMiddleClickRouterLink]="['/facilities', facility.id.toString()]"
             (auxclick)="$event.preventDefault()"
             [routerLink]="['/facilities', facility.id]"
-            queryParamsHandling="merge"
             >{{facility.name}}</a
           >
           <span class="text-muted"> &nbsp;#{{facility.id}} </span>

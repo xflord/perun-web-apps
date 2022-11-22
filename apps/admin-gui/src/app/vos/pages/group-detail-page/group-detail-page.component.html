@@ -17,7 +17,7 @@
             [perunWebAppsMiddleClickRouterLink]="['/organizations', vo.id.toString(), 'groups', group.id.toString()]"
             (auxclick)="$event.preventDefault()"
             [routerLink]="['/organizations', vo.id, 'groups', group.id]"
-            queryParamsHandling="merge">
+            [queryParams]="route.snapshot.queryParams">
             {{group.shortName}}
           </a>
           <span class="text-muted"> &nbsp;#{{group.id}} </span>
@@ -44,7 +44,7 @@
             [perunWebAppsMiddleClickRouterLink]="['/organizations', vo.id.toString()]"
             (auxclick)="$event.preventDefault()"
             [routerLink]="['/organizations', vo.id]"
-            queryParamsHandling="merge"
+            [queryParams]="route.snapshot.queryParams"
             >{{vo.name}}</a
           >, {{'GROUP_DETAIL.DESCRIPTION' | translate}}: {{group.description}}
           <span *ngIf="syncEnabled">

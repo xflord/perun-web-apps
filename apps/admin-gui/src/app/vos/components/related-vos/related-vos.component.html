@@ -4,8 +4,7 @@
     class="vo-link pointer"
     [perunWebAppsMiddleClickRouterLink]="['/organizations', vo.id.toString()]"
     (auxclick)="$event.preventDefault()"
-    [perunWebAppsForceRouterLink]="['/organizations/', vo.id.toString()]"
-    queryParamsHandling="merge">
+    [perunWebAppsForceRouterLink]="['/organizations/', vo.id.toString()]">
     {{vo.name}}
   </a>
   <span *ngIf="vos.length > i+1">, </span>

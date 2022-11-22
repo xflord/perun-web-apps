@@ -215,6 +215,6 @@ export class ImportPublicationsPageComponent implements OnInit {
     this.notificator.showSuccess(
       this.translate.instant('IMPORT_PUBLICATIONS.SHOW_FINISH') as string
     );
-    void this.router.navigate(['/my-publications']);
+    void this.router.navigate(['/my-publications'], { queryParamsHandling: 'preserve' });
   }
 }

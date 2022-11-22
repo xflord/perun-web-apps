@@ -19,6 +19,7 @@ import { RemoveVoDialogComponent } from '../../../shared/components/dialogs/remo
 import { ReloadEntityDetailService } from '../../../core/services/common/reload-entity-detail.service';
 import { destroyDetailMixin } from '../../../shared/destroy-entity-detail';
 import { takeUntil } from 'rxjs/operators';
+import { QueryParamsRouterService } from '../../../shared/query-params-router.service';
 
 @Component({
   selector: 'app-vo-detail-page',
@@ -36,13 +37,14 @@ export class VoDetailPageComponent extends destroyDetailMixin() implements OnIni
   constructor(
     private sideMenuService: SideMenuService,
     private voService: VosManagerService,
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     private router: Router,
     private sideMenuItemService: SideMenuItemService,
     private dialog: MatDialog,
     private authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService,
-    private reloadEntityDetail: ReloadEntityDetailService
+    private reloadEntityDetail: ReloadEntityDetailService,
+    private queryParamsRouter: QueryParamsRouterService
   ) {
     super();
   }
@@ -117,7 +119,7 @@ export class VoDetailPageComponent extends destroyDetailMixin() implements OnIni
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        void this.router.navigate(['']);
+        this.queryParamsRouter.navigate(['']);
       }
     });
   }

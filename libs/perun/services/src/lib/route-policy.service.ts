@@ -247,15 +247,15 @@ export class RoutePolicyService {
         this.apiRequest.dontHandleErrorForNext();
         this.attributesManager
           .getGroupAttributeByName(group.id, Urns.GROUP_DEF_EXPIRATION_RULES)
-          .subscribe(
-            () => {
+          .subscribe({
+            next: () => {
               // do nothing - routing will be successfull
             },
-            () => {
+            error: () => {
               this.notificator.showRouteError();
-              void this.router.navigate(['/notAuthorized']);
-            }
-          );
+              void this.router.navigate(['/notAuthorized'], { queryParamsHandling: 'preserve' });
+            },
+          });
         return true;
       },
     ],

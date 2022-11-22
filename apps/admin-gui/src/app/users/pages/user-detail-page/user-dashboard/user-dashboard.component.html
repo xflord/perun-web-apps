@@ -52,7 +52,11 @@
             >
           </div>
           <div class="mx-auto pt-3">
-            <button [routerLink]="['/myProfile']" class="text-bigger" mat-stroked-button>
+            <button
+              [routerLink]="['/myProfile']"
+              queryParamsHandling="merge"
+              class="text-bigger"
+              mat-stroked-button>
               <mat-icon class="mr-1 user-icon perun-icon" svgIcon="perun-user-dark"></mat-icon>
               {{'USER_DETAIL.DASHBOARD.GO_TO_MY_PROFILE' | translate}}
             </button>

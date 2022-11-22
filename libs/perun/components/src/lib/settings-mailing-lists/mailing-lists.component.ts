@@ -52,6 +52,7 @@ export class MailingListsComponent implements OnInit, OnDestroy {
         relativeTo: this.route,
         queryParams: { vo: null, resource: null },
         replaceUrl: true,
+        queryParamsHandling: 'merge',
       });
     }
   }

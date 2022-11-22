@@ -17,7 +17,7 @@ export class LinkIdentitiesService {
       this.registrarService.consolidate({ accessToken: accessToken }).subscribe(
         () => {
           void this.consolidatePreviousLogins(1, queryParams).then(() => {
-            void this.router.navigate(['/result', 'OK']);
+            void this.router.navigate(['/result', 'OK'], { queryParamsHandling: 'preserve' });
             resolve();
           });
         },

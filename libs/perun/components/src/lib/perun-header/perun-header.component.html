@@ -14,6 +14,7 @@
     <a
       [innerHTML]="logo"
       [routerLink]="disableLogo ? [] : ['/']"
+      [queryParams]="route.snapshot.queryParams"
       class="logo-container mt-auto mb-auto"
       queryParamsHandling="merge"></a>
 

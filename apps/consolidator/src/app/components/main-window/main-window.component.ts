@@ -64,7 +64,7 @@ export class MainWindowComponent implements OnInit {
         this.reloadData++;
         this.initData();
       } else if (result === 'MESSAGE_SENT_TO_SUPPORT') {
-        void this.router.navigate(['/result', result]);
+        void this.router.navigate(['/result', result], { queryParamsHandling: 'preserve' });
       }
     }, idpFilter);
   }

@@ -113,12 +113,12 @@ export class UserDashboardComponent implements OnInit {
       this.apiRequestConfiguration.dontHandleErrorForNext();
       this.userManager
         .validatePreferredEmailChangeWithToken(token, Number.parseInt(u, 10))
-        .subscribe(
-          () => {
+        .subscribe({
+          next: () => {
             this.notificator.showSuccess(this.mailSuccessMessage);
-            void this.router.navigate([], { replaceUrl: true });
+            void this.router.navigate([], { replaceUrl: true, queryParamsHandling: 'preserve' });
           },
-          () => {
+          error: () => {
             const config = getDefaultDialogConfig();
             config.width = '600px';
 
@@ -126,8 +126,8 @@ export class UserDashboardComponent implements OnInit {
             dialogRef.afterClosed().subscribe(() => {
               this.getDashboardSettings();
             });
-          }
-        );
+          },
+        });
     }
   }
 

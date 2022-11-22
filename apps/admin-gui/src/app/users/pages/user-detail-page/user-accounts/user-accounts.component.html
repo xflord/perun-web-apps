@@ -23,7 +23,6 @@
             [perunWebAppsMiddleClickRouterLink]="['/organizations', selectedVo.id.toString(), 'members', member.id.toString()]"
             (auxclick)="$event.preventDefault()"
             [routerLink]="['/organizations', selectedVo.id, 'members', member.id]"
-            queryParamsHandling="merge"
             >{{member.id}}
           </a>
         </div>

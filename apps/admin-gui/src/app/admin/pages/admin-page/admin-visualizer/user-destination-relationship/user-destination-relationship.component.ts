@@ -141,6 +141,7 @@ export class UserDestinationRelationshipComponent implements OnInit {
           destination: this.destination,
           service: 'noService',
         },
+        queryParamsHandling: 'merge',
       });
     } else {
       void this.router.navigate(['admin/visualizer/userDestinationRelationship/graph'], {
@@ -149,6 +150,7 @@ export class UserDestinationRelationshipComponent implements OnInit {
           destination: this.destination,
           service: this.chosenService,
         },
+        queryParamsHandling: 'merge',
       });
     }
   }

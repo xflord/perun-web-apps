@@ -51,6 +51,7 @@ export class ForceRouterService {
       extras = {};
     }
     extras.queryParams = { redirectTo: fullUrl };
+    extras.queryParamsHandling = 'merge';
 
     void this.router.navigate(['redirect'], extras);
   }

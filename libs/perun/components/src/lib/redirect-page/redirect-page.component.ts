@@ -23,7 +23,15 @@ export class RedirectPageComponent implements OnInit {
     }
 
     this.route.queryParams.subscribe((params) => {
-      void this.router.navigate([params.redirectTo]);
+      const newParams = Object.assign({}, params);
+      // preserve all previous params excluding temporary params redirectTo and applicationFormItems (application preview)
+      delete newParams.redirectTo;
+      delete newParams.applicationFormItems;
+      void this.router.navigate([params.redirectTo], {
+        queryParams: newParams,
+        // we don't want to merge or preserve old queryParams here!
+        queryParamsHandling: '',
+      });
     });
   }
 }

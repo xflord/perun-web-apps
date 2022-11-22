@@ -194,7 +194,10 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
         'applicationForm',
         'preview',
       ],
-      { queryParams: { applicationFormItems: JSON.stringify(this.applicationFormItems) } }
+      {
+        queryParams: { applicationFormItems: JSON.stringify(this.applicationFormItems) },
+        queryParamsHandling: 'merge',
+      }
     );
   }
 

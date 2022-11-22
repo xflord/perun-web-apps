@@ -16,8 +16,7 @@
             class="member-link"
             [perunWebAppsMiddleClickRouterLink]="['/organizations', vo.id.toString(), 'members', member.id.toString()]"
             (auxclick)="$event.preventDefault()"
-            [routerLink]="['/organizations', vo.id, 'members', member.id]"
-            queryParamsHandling="merge">
+            [routerLink]="['/organizations', vo.id, 'members', member.id]">
             {{fullName}}
           </a>
           <span class="text-muted"> &nbsp;#{{member.id}} </span>
@@ -29,8 +28,7 @@
             *ngIf="isAuthorized"
             [perunWebAppsMiddleClickRouterLink]="['/admin', 'users', member.userId.toString()]"
             (auxclick)="$event.preventDefault()"
-            [routerLink]="['/admin', 'users', member.userId]"
-            queryParamsHandling="merge">
+            [routerLink]="['/admin', 'users', member.userId]">
             {{member.userId}}
           </a>
           <span *ngIf="!isAuthorized">{{member.userId}}</span>

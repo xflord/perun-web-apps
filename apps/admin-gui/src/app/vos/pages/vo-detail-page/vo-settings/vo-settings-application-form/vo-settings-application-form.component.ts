@@ -136,6 +136,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
       ['/organizations', this.vo.id, 'settings', 'applicationForm', 'preview'],
       {
         queryParams: { applicationFormItems: JSON.stringify(this.applicationFormItems) },
+        queryParamsHandling: 'merge',
       }
     );
   }

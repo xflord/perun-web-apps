@@ -118,7 +118,7 @@ export class FacilityDetailPageComponent extends destroyDetailMixin() implements
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        void this.router.navigate(['']);
+        void this.router.navigate([''], { queryParamsHandling: 'preserve' });
       }
     });
   }

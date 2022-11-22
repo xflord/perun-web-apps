@@ -79,7 +79,7 @@
         *matRowDef="let richUserExtSource; columns: displayedColumns;"
         [class.cursor-pointer]="!disableRouting"
         [class.disable-outline]="disableRouting"
-        [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/admin', 'users', userId, 'identities', richUserExtSource.userExtSource.id]"
+        [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/admin', 'users', userId.toString(), 'identities', richUserExtSource.userExtSource.id.toString()]"
         [routerLink]="disableRouting ? null : ['/admin', 'users', userId, 'identities', richUserExtSource.userExtSource.id]"
         class="dark-hover-list-item"
         mat-row></tr>

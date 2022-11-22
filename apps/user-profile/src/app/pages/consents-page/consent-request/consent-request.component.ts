@@ -64,15 +64,15 @@ export class ConsentRequestComponent implements OnInit {
 
   rejectConsent(): void {
     this.loading = true;
-    this.consentService.changeConsentStatus(this.consent.id, 'REVOKED').subscribe(
-      () => {
+    this.consentService.changeConsentStatus(this.consent.id, 'REVOKED').subscribe({
+      next: () => {
         this.notificator.showSuccess(
           (this.translate.instant('CONSENTS.CONSENT_REJECTED') as string) +
             this.consent.consentHub.name
         );
         void this.router.navigate(['/profile', 'consents'], { queryParamsHandling: 'merge' });
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 }

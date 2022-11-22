@@ -82,7 +82,7 @@ export class ServiceDetailPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        void this.router.navigate(['/admin/services']);
+        void this.router.navigate(['/admin/services'], { queryParamsHandling: 'preserve' });
       }
     });
   }

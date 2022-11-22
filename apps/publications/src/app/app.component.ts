@@ -55,7 +55,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       !this.authResolver.isCabinetAdmin() &&
       (url === '/' || disabledUrlsForSelfRole.some((disabledUrl) => url.includes(disabledUrl)))
     ) {
-      void this.router.navigate(['my-publications']);
+      void this.router.navigate(['my-publications'], { queryParamsHandling: 'preserve' });
     }
   }
 
