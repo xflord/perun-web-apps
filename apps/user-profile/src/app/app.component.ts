@@ -65,14 +65,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.isLoginScreenShown = this.initAuth.isLoginScreenShown();
     this.isServiceAccess = this.initAuth.isServiceAccessLoginScreenShown();
     sessionStorage.removeItem('baLogout');
-    if (this.isLoginScreenShown) {
+    if (this.isLoginScreenShown || this.isServiceAccess) {
       const preferredLanguage = this.preferredLangService.getPreferredLanguage(null);
       this.headerLabel = this.store.getProperty(
         preferredLanguage === 'en' ? 'header_label_en' : 'header_label_cs'
       );
-      return;
-    }
-    if (this.isServiceAccess) {
       return;
     }
     this.attributesManagerService
