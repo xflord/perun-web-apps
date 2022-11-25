@@ -22,6 +22,7 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { InviteMemberDialogComponent } from '../../../../shared/components/dialogs/invite-member-dialog/invite-member-dialog.component';
 import { RPCError } from '@perun-web-apps/perun/models';
 import { VoAddMemberDialogComponent } from '../../../components/vo-add-member-dialog/vo-add-member-dialog.component';
+import { BulkInviteMembersDialogComponent } from '../../../../shared/components/dialogs/bulk-invite-members-dialog/bulk-invite-members-dialog.component';
 
 @Component({
   selector: 'app-vo-members',
@@ -150,6 +151,14 @@ export class VoMembersComponent implements OnInit {
     config.data = { voId: this.vo.id, theme: 'vo-theme' };
 
     this.dialog.open(InviteMemberDialogComponent, config);
+  }
+
+  onBulkInvite(): void {
+    const config = getDefaultDialogConfig();
+    config.width = '650px';
+    config.data = { voId: this.vo.id, theme: 'vo-theme' };
+
+    this.dialog.open(BulkInviteMembersDialogComponent, config);
   }
 
   displaySelectedStatuses(): string {

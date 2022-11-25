@@ -9,12 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { NewApps } from './newApps';
+import { Resource } from './resource';
+import { RichMember } from './richMember';
+import { BanOnResource } from './banOnResource';
 
-export interface Brand {
-  name?: string;
-  oldGuiDomain?: string;
-  newApps?: NewApps;
-  vos?: Array<string>;
-  oldGuiAlert?: string;
+export interface EnrichedBanOnResource {
+  resource?: Resource;
+  member?: RichMember;
+  banOnResource?: BanOnResource;
 }

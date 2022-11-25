@@ -341,7 +341,9 @@
       "REMOVE_MEMBERS": "Remove",
       "SEARCH_DESCRIPTION": "Search by name, login, email or UUID",
       "FILTER_STATUS": "Filter by Status",
-      "INVITE": "Invite"
+      "INVITE": "Invite",
+      "INVITE_ONE": "Invite member",
+      "INVITE_BULK": "Invite multiple members"
     },
     "OVERVIEW": {
       "INVITE_MEMBER": "Invite member",
@@ -646,7 +648,9 @@
       "REMOVE_MEMBERS": "Remove",
       "SEARCH_DESCRIPTION": "Search by name, login, email or UUID",
       "LIST_ALL": "List all members",
-      "INVITE_MEMBER": "Invite",
+      "INVITE": "Invite",
+      "INVITE_ONE": "Invite member",
+      "INVITE_BULK": "Invite multiple members",
       "SYNCHRONIZED": "Action is disabled on this group, group is filled with members from external source.",
       "FILTER_STATUS": "Filter by organizations status",
       "FILTER_GROUP_STATUS": "Filter by group status",
@@ -1972,7 +1976,7 @@
       "NAMESPACE": "Namespace",
       "NAMESPACE_ERROR": "Selection of namespace is required",
       "NAMES_ERROR": "This field cannot be empty",
-      "HINT": "Please insert to the field below a correctly formatted text. List and order of valid attributes are:",
+      "HINT": "Please insert a correctly formatted text to the field below. List and order of valid attributes is:",
       "INSERT_HERE": "Here insert correctly formatted text",
       "ERROR_FORMAT": "This line is not filled with all mandatory attributes",
       "ERROR_EMAIL": "Email on this line is not valid",
@@ -2018,6 +2022,26 @@
       "SUBMIT": "Submit",
       "REMOVE_SPONSOR_DISABLED": "You are not authorized to remove sponsor",
       "SUCCESS": "Sponsors successfully edited"
+    },
+    "BULK_INVITE_MEMBERS": {
+      "TITLE": "Invite multiple members",
+      "INSERT_HERE": "Here insert correctly formatted text",
+      "DESCRIPTION_VO": "The people you are inviting will receive an email with a link to organization's application form. You can set up an email template in: (Organization) Settings -> Notifications.",
+      "DESCRIPTION_GROUP": "The people you are inviting will receive an email with a link to the group's application form. You can set up an email template in: (Group) Settings -> Notifications.",
+      "LANGUAGE": "Language",
+      "LANGUAGE_ENGLISH": "English",
+      "LANGUAGE_CZECH": "Czech",
+      "PLACEHOLDER": "'john@mail.cz;John' or 'john@mail.cz'",
+      "ERROR_FORMAT": "This line is not in the correct format",
+      "ERROR_EMAIL": "Email on this line is not valid",
+      "ERROR_NAME": "Name on this line must be filled",
+      "NAMES_ERROR": "This line cannot be empty",
+      "HINT": "Please insert a correctly formatted text to the field below. The format is following: <br> <b> email;name </b> or <b> email </b>",
+      "SUCCESS": "Members successfully invited.",
+      "FINISHED_WITH_ERRORS": "Invites to some of the members couldn't be sent. See the results for more information.",
+      "DOWNLOAD_CSV": "Download results.",
+      "CANCEL": "Cancel",
+      "INVITE": "Invite"
     },
     "PASSWORD_RESET_REQUEST": {
       "TITLE": "Password reset request",

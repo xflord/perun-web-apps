@@ -18,12 +18,21 @@
     </div>
     <button
       *ngIf="inviteAuth"
-      (click)="onInviteMember()"
+      [disabled]="blockManualMemberAdding"
+      [matMenuTriggerFor]="menu"
+      class="mr-2 dropdown-toggle"
       color="accent"
-      class="mr-2 action-button"
       mat-flat-button>
       {{'VO_DETAIL.MEMBERS.INVITE' | translate}}
     </button>
+    <mat-menu #menu="matMenu">
+      <button *ngIf="inviteAuth" (click)="onInviteMember()" class="action-button" mat-menu-item>
+        {{'VO_DETAIL.MEMBERS.INVITE_ONE' | translate}}
+      </button>
+      <button *ngIf="inviteAuth" (click)="onBulkInvite()" class="action-button" mat-menu-item>
+        {{'VO_DETAIL.MEMBERS.INVITE_BULK' | translate}}
+      </button>
+    </mat-menu>
     <button
       *ngIf="removeAuth"
       (click)="onRemoveMembers()"
