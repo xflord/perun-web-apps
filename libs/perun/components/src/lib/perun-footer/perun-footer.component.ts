@@ -5,7 +5,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ReportIssueDialogComponent } from '../report-issue-dialog/report-issue-dialog.component';
-import { AuthService, StoreService } from '@perun-web-apps/perun/services';
+import { AuthService, InitAuthService, StoreService } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { UtilsService } from '@perun-web-apps/perun/openapi';
@@ -40,7 +40,8 @@ export class PerunFooterComponent implements OnInit {
     private translateService: TranslateService,
     private utilsService: UtilsService,
     private dialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private initAuthService: InitAuthService
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +52,7 @@ export class PerunFooterComponent implements OnInit {
     this.footerColumns = this.storeService.getProperty('footer').columns;
 
     this.guiVersion = require('../../../../../../package.json').version as string;
-    if (this.authService.isLoggedIn()) {
+    if (this.authService.isLoggedIn() || this.initAuthService.isServiceAccess()) {
       this.utilsService.getPerunStatus().subscribe((val) => {
         const versionString = val[0];
         this.backendVersion = versionString.substring(versionString.indexOf(':') + 2);
@@ -66,7 +67,7 @@ export class PerunFooterComponent implements OnInit {
         this.columnContentHeight = col.elements.length * 25;
       }
     }
-    this.copyrightItems = this.storeService.getProperty('footer').copyrightItems;
+    this.copyrightItems = this.storeService.getProperty('footer').copyright_items;
   }
 
   openDialog(name: string): void {

@@ -83,7 +83,7 @@ export interface FooterColumn {
 
 interface Footer {
   columns: FooterColumn[];
-  copyrightItems: CopyrightItem[];
+  copyright_items: CopyrightItem[];
   github_releases?: string;
   github_backend_releases?: string;
 }
