@@ -180,6 +180,7 @@ import { AddRoleDialogComponent } from './components/dialogs/add-role-dialog/add
 import { AddUserRoleDialogComponent } from './components/dialogs/add-role-dialog/add-user-role-dialog/add-user-role-dialog.component';
 import { AddGroupRoleDialogComponent } from './components/dialogs/add-role-dialog/add-group-role-dialog/add-group-role-dialog.component';
 import { AssignGroupsSponsoredMembersComponent } from './components/assign-groups-sponsored-members/assign-groups-sponsored-members-component';
+import { BulkInviteMembersDialogComponent } from './components/dialogs/bulk-invite-members-dialog/bulk-invite-members-dialog.component';
 
 @NgModule({
   imports: [
@@ -453,6 +454,7 @@ import { AssignGroupsSponsoredMembersComponent } from './components/assign-group
     AddRoleDialogComponent,
     AddUserRoleDialogComponent,
     AddGroupRoleDialogComponent,
+    BulkInviteMembersDialogComponent,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe, ConsentRelatedAttributePipe],
 })

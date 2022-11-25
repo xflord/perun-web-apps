@@ -24,14 +24,32 @@
     [matTooltipPosition]="'above'"
     matTooltip="{{group | groupMembersActionButtonDisabledTooltip | translate}}">
     <button
-      (click)="onInviteMember()"
       *ngIf="inviteAuth"
       [disabled]="(group | groupMembersActionButtonDisabled)"
-      class="mr-2 action-button"
+      [matMenuTriggerFor]="menu"
+      class="mr-2 dropdown-toggle"
       color="accent"
       mat-flat-button>
-      {{'GROUP_DETAIL.MEMBERS.INVITE_MEMBER' | translate}}
+      {{'GROUP_DETAIL.MEMBERS.INVITE' | translate}}
     </button>
+    <mat-menu #menu="matMenu">
+      <button
+        (click)="onInviteMember()"
+        *ngIf="inviteAuth"
+        [disabled]="(group | groupMembersActionButtonDisabled)"
+        class="action-button"
+        mat-menu-item>
+        {{'GROUP_DETAIL.MEMBERS.INVITE_ONE' | translate}}
+      </button>
+      <button
+        *ngIf="inviteAuth"
+        (click)="onBulkInvite()"
+        [disabled]="(group | groupMembersActionButtonDisabled)"
+        class="action-button"
+        mat-menu-item>
+        {{'GROUP_DETAIL.MEMBERS.INVITE_BULK' | translate}}
+      </button>
+    </mat-menu>
   </span>
   <span
     [matTooltipDisabled]="!(group | groupMembersActionButtonDisabled)"

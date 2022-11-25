@@ -33,6 +33,8 @@ import { AssignedResource } from '../model/assignedResource';
 // @ts-ignore
 import { BanOnResource } from '../model/banOnResource';
 // @ts-ignore
+import { EnrichedBanOnResource } from '../model/enrichedBanOnResource';
+// @ts-ignore
 import { EnrichedResource } from '../model/enrichedResource';
 // @ts-ignore
 import { Facility } from '../model/facility';
@@ -5022,6 +5024,230 @@ export class ResourcesManagerService {
 
     return this.httpClient.get<Array<BanOnResource>>(
       `${this.configuration.basePath}/json/resourcesManager/getBansForResource`,
+      {
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
+        withCredentials: this.configuration.withCredentials,
+        headers: localVarHeaders,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Get all enriched bans for members on the resource.
+   * @param resource id of Resource
+   * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getEnrichedBansForResource(
+    resource: number,
+    attrNames?: Array<string>,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<Array<EnrichedBanOnResource>>;
+  public getEnrichedBansForResource(
+    resource: number,
+    attrNames?: Array<string>,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<Array<EnrichedBanOnResource>>>;
+  public getEnrichedBansForResource(
+    resource: number,
+    attrNames?: Array<string>,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<Array<EnrichedBanOnResource>>>;
+  public getEnrichedBansForResource(
+    resource: number,
+    attrNames?: Array<string>,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (resource === null || resource === undefined) {
+      throw new Error(
+        'Required parameter resource was null or undefined when calling getEnrichedBansForResource.'
+      );
+    }
+
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
+    if (resource !== undefined && resource !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>resource,
+        'resource'
+      );
+    }
+    if (attrNames) {
+      attrNames.forEach((element) => {
+        localVarQueryParameters = this.addToHttpParams(
+          localVarQueryParameters,
+          <any>element,
+          'attrNames[]'
+        );
+      });
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    return this.httpClient.get<Array<EnrichedBanOnResource>>(
+      `${this.configuration.basePath}/json/resourcesManager/getEnrichedBansForResource`,
+      {
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
+        withCredentials: this.configuration.withCredentials,
+        headers: localVarHeaders,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * Get all enriched bans for user\&#39;s members on resources.
+   * @param user id of User
+   * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getEnrichedBansForUser(
+    user: number,
+    attrNames?: Array<string>,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<Array<EnrichedBanOnResource>>;
+  public getEnrichedBansForUser(
+    user: number,
+    attrNames?: Array<string>,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<Array<EnrichedBanOnResource>>>;
+  public getEnrichedBansForUser(
+    user: number,
+    attrNames?: Array<string>,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<Array<EnrichedBanOnResource>>>;
+  public getEnrichedBansForUser(
+    user: number,
+    attrNames?: Array<string>,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (user === null || user === undefined) {
+      throw new Error(
+        'Required parameter user was null or undefined when calling getEnrichedBansForUser.'
+      );
+    }
+
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
+    if (user !== undefined && user !== null) {
+      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>user, 'user');
+    }
+    if (attrNames) {
+      attrNames.forEach((element) => {
+        localVarQueryParameters = this.addToHttpParams(
+          localVarQueryParameters,
+          <any>element,
+          'attrNames[]'
+        );
+      });
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    return this.httpClient.get<Array<EnrichedBanOnResource>>(
+      `${this.configuration.basePath}/json/resourcesManager/getEnrichedBansForUser`,
       {
         context: localVarHttpContext,
         params: localVarQueryParameters,

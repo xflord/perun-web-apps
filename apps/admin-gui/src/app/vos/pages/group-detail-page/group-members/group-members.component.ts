@@ -24,6 +24,7 @@ import { InviteMemberDialogComponent } from '../../../../shared/components/dialo
 import { UntypedFormControl } from '@angular/forms';
 import { RPCError } from '@perun-web-apps/perun/models';
 import { GroupAddMemberDialogComponent } from '../../../components/group-add-member-dialog/group-add-member-dialog.component';
+import { BulkInviteMembersDialogComponent } from '../../../../shared/components/dialogs/bulk-invite-members-dialog/bulk-invite-members-dialog.component';
 
 @Component({
   selector: 'app-group-members',
@@ -182,6 +183,14 @@ export class GroupMembersComponent implements OnInit {
     };
 
     this.dialog.open(InviteMemberDialogComponent, config);
+  }
+
+  onBulkInvite(): void {
+    const config = getDefaultDialogConfig();
+    config.width = '650px';
+    config.data = { voId: this.group.voId, groupId: this.group.id, theme: 'group-theme' };
+
+    this.dialog.open(BulkInviteMembersDialogComponent, config);
   }
 
   displaySelectedStatuses(): string {

@@ -68,6 +68,7 @@ model/consentStatus.ts
 model/destination.ts
 model/destinationPropagationType.ts
 model/destinationType.ts
+model/enrichedBanOnResource.ts
 model/enrichedExtSource.ts
 model/enrichedFacility.ts
 model/enrichedGroup.ts
@@ -145,6 +146,7 @@ model/inputGetPaginatedSubgroups.ts
 model/inputGetPaginatedUsers.ts
 model/inputGetResources.ts
 model/inputGetUsers.ts
+model/inputInvitationsFromCsv.ts
 model/inputLockPublications.ts
 model/inputRemoveResourceTagFromResource.ts
 model/inputReservePasswordForLogin.ts
