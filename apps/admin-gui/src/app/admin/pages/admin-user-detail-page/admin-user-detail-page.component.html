@@ -15,12 +15,22 @@
         </a>
         <span class="text-muted"> &nbsp;#{{user.id}} </span>
         <span *ngIf="authResolver.isPerunAdmin()">
-          <button (click)="editUser()" mat-icon-button data-cy="edit-user-button">
+          <button
+            *ngIf="!anonymized"
+            (click)="editUser()"
+            mat-icon-button
+            data-cy="edit-user-button">
             <mat-icon>edit</mat-icon>
           </button>
-          <button (click)="anonymizeUser()" mat-icon-button>
+          <button *ngIf="!anonymized" (click)="anonymizeUser()" mat-icon-button>
             <mat-icon>no_accounts</mat-icon>
           </button>
+          <mat-icon
+            *ngIf="anonymized"
+            matTooltip="{{'USER_DETAIL.DASHBOARD.ANONYMIZED' | translate}}"
+            class="mat-icon-war ml-2">
+            blur_off
+          </mat-icon>
         </span>
       </div>
       <div>{{'ADMIN_USER.UUID' | translate}}: {{user.uuid}}</div>

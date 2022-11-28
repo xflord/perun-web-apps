@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SideMenuService } from '../../../core/services/common/side-menu.service';
 import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.service';
-import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
+import { AttributesManagerService, User, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { EditUserDialogComponent } from '../../../shared/components/dialogs/edit-user-dialog/edit-user-dialog.component';
@@ -18,11 +18,13 @@ export class AdminUserDetailPageComponent implements OnInit {
   user: User;
   loading = false;
   svgIcon = 'perun-user-dark';
+  anonymized: boolean;
   private path: string;
   private regex: string;
 
   constructor(
     private route: ActivatedRoute,
+    private attributesService: AttributesManagerService,
     private usersService: UsersManagerService,
     private sideMenuService: SideMenuService,
     private sideMenuItemService: SideMenuItemService,
@@ -54,6 +56,13 @@ export class AdminUserDetailPageComponent implements OnInit {
         },
         () => (this.loading = false)
       );
+
+      const anonymizedAttrName = 'urn:perun:user:attribute-def:virt:anonymized';
+      this.attributesService
+        .getAttribute(anonymizedAttrName, undefined, undefined, userId)
+        .subscribe((attr) => {
+          this.anonymized = Boolean(attr.value);
+        });
     });
   }
 
