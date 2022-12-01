@@ -49,7 +49,7 @@ export class UserBansComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.user = this.entityService.getEntity();
-    this.refreshResourceBans();
+    this.refreshVoBans();
   }
 
   refreshVoBans(): void {
@@ -117,9 +117,9 @@ export class UserBansComponent implements OnInit {
   }
 
   refresh(change: MatTabChangeEvent): void {
-    if (change.index === -1) {
+    if (change.index === 0) {
       this.refreshVoBans();
-    } else if (change.index === 0) {
+    } else if (change.index === 1) {
       this.refreshResourceBans();
     } else {
       this.refreshFacilityBans();
