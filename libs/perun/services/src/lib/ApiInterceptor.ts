@@ -9,7 +9,7 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { finalize, tap, switchMap, catchError } from 'rxjs/operators';
-import { RPCError } from '@perun-web-apps/perun/models';
+import { HttpResponseError, RPCError } from '@perun-web-apps/perun/models';
 import { AuthService } from './auth.service';
 import { StoreService } from './store.service';
 import { NotificatorService } from './notificator.service';
@@ -50,20 +50,26 @@ export class ApiInterceptor implements HttpInterceptor {
     if (
       apiUrl !== undefined &&
       this.isCallToPerunApi(req.url) &&
-      !this.authService.isLoggedIn() &&
-      !this.initAuthService.isServiceAccess() &&
+      !this.isLoggedIn() &&
       !this.dialogRefSessionExpiration
     ) {
       const config = getDefaultDialogConfig();
       config.width = '450px';
 
-      this.dialogRefSessionExpiration = this.dialog.open(SessionExpirationDialogComponent, config);
-      this.dialogRefSessionExpiration.afterClosed().subscribe(() => {
-        finalize(() => (this.dialogRefSessionExpiration = undefined));
-        sessionStorage.setItem('auth:redirect', location.pathname);
-        sessionStorage.setItem('auth:queryParams', location.search.substring(1));
-        this.reauthenticate();
-      });
+      // Skip if the dialog is already open
+      if (this.dialogRefSessionExpiration == null) {
+        this.dialogRefSessionExpiration = this.dialog.open(
+          SessionExpirationDialogComponent,
+          config
+        );
+        this.dialogRefSessionExpiration.afterClosed().subscribe(() => {
+          finalize(() => (this.dialogRefSessionExpiration = undefined));
+          sessionStorage.setItem('auth:redirect', location.pathname);
+          sessionStorage.setItem('auth:queryParams', location.search.substring(1));
+          this.oauthService.logOut(true);
+          this.reauthenticate();
+        });
+      }
     }
     // Apply the headers
     if (this.initAuthService.isServiceAccess()) {
@@ -87,6 +93,13 @@ export class ApiInterceptor implements HttpInterceptor {
     }
 
     return this.handleRequest(req, next);
+  }
+
+  private isLoggedIn(): boolean {
+    return (
+      (this.authService.isLoggedIn() || this.initAuthService.isServiceAccess()) &&
+      !this.initAuthService.isServiceAccessLoginScreenShown()
+    );
   }
 
   private reauthenticate(): void {
@@ -178,6 +191,19 @@ export class ApiInterceptor implements HttpInterceptor {
 
   private handleInvalidAccessTokenError(err: HttpErrorResponse): void {
     if (err.status === 401) {
+      // We skip unnecessary login dialog
+      if (!this.isLoggedIn()) {
+        return;
+      }
+      // Skip 'invalid_token'
+      if ((err.error as HttpResponseError).error === 'invalid_token') {
+        return;
+      }
+      // Skip if the dialog is already open
+      if (this.dialogRefSessionExpiration != null) {
+        return;
+      }
+
       const config = getDefaultDialogConfig();
       this.dialogRefSessionExpiration = this.dialog.open(SessionExpirationDialogComponent, config);
 

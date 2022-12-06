@@ -360,9 +360,9 @@
           "COPY": "Zkopírovat hodnotu"
         },
         "SESSION_EXPIRATION": {
-          "TITLE": "Relace vypršela",
-          "DESCRIPTION": "Vaše relace vypršela. Prosím znovu se přihlašte.",
-          "SIGN_IN": "Přihlásit se"
+          "TITLE": "Platnost přihlášení vypršela",
+          "DESCRIPTION": "Byli jste automaticky odhlášeni. Pro pokračování se znovu přihlaste.",
+          "SIGN_IN": "Pokračovat"
         },
         "MFA_REQUIRED_DIALOG": {
           "TITLE": "Vyžadována step-up authentizace",

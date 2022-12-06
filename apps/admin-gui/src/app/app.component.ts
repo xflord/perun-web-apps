@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { CacheHelperService } from './core/services/common/cache-helper.service';
-import { InitAuthService, StoreService } from '@perun-web-apps/perun/services';
+import { AuthService, InitAuthService, StoreService } from '@perun-web-apps/perun/services';
 import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
 import { interval } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -63,6 +63,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private dialog: MatDialog,
     private router: Router,
     private initAuth: InitAuthService,
+    private authService: AuthService,
     private cd: ChangeDetectorRef
   ) {
     this.cache.init();
@@ -76,8 +77,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.lastScreenWidth = window.innerWidth;
   }
 
-  isServiceLogin(): boolean {
-    return !!sessionStorage.getItem('baLogout');
+  isLoggedIn(): boolean {
+    return !this.authService.isLoggedIn() && !this.initAuth.isServiceAccess();
   }
 
   isMobile(): boolean {

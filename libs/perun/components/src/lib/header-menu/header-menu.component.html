@@ -6,7 +6,7 @@
   <mat-icon [ngStyle]="{'color': iconColor}"> apps </mat-icon>
 </button>
 <mat-menu #appsMenu="matMenu">
-  <button mat-menu-item (click)="redirectToUrl()">
+  <button mat-menu-item (click)="redirectToUrl()" (auxclick)="redirectToUrl()">
     <span>{{label}}</span>
   </button>
 </mat-menu>
