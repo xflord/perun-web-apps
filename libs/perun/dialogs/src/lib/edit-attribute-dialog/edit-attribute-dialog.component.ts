@@ -127,14 +127,27 @@ export class EditAttributeDialogComponent implements OnInit {
         }
         break;
       case 'facility':
-        this.attributesManager
-          .setFacilityAttributes({
-            facility: this.data.entityId,
-            attributes: this.data.attributes,
-          })
-          .subscribe(() => {
-            this.onSuccess();
-          });
+        switch (this.data.secondEntity) {
+          case 'user':
+            this.attributesManager
+              .setFacilityUserAttributes({
+                facility: this.data.entityId,
+                user: this.data.secondEntityId,
+                attributes: this.data.attributes,
+              })
+              .subscribe(() => this.onSuccess());
+            break;
+          default:
+            this.attributesManager
+              .setFacilityAttributes({
+                facility: this.data.entityId,
+                attributes: this.data.attributes,
+              })
+              .subscribe(() => {
+                this.onSuccess();
+              });
+            break;
+        }
         break;
       case 'host':
         this.attributesManager
@@ -157,12 +170,34 @@ export class EditAttributeDialogComponent implements OnInit {
           });
         break;
       case 'resource':
-        this.attributesManager
-          .setResourceAttributes({
-            resource: this.data.entityId,
-            attributes: this.data.attributes,
-          })
-          .subscribe(() => this.onSuccess());
+        switch (this.data.secondEntity) {
+          case 'member':
+            this.attributesManager
+              .setMemberResourceAttributes({
+                resource: this.data.entityId,
+                member: this.data.secondEntityId,
+                attributes: this.data.attributes,
+              })
+              .subscribe(() => this.onSuccess());
+            break;
+          case 'group':
+            this.attributesManager
+              .setResourceGroupAttributes({
+                resource: this.data.entityId,
+                group: this.data.secondEntityId,
+                attributes: this.data.attributes,
+              })
+              .subscribe(() => this.onSuccess());
+            break;
+          default:
+            this.attributesManager
+              .setResourceAttributes({
+                resource: this.data.entityId,
+                attributes: this.data.attributes,
+              })
+              .subscribe(() => this.onSuccess());
+            break;
+        }
         break;
     }
   }

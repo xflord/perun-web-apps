@@ -61,32 +61,32 @@ export class DeleteAttributeDialogComponent implements OnInit {
     this.loading = true;
     switch (this.data.entity) {
       case 'vo':
-        this.attributesManager.removeVoAttributes(this.data.entityId, ids).subscribe(
-          () => {
+        this.attributesManager.removeVoAttributes(this.data.entityId, ids).subscribe({
+          next: () => {
             this.onSuccess();
           },
-          () => (this.loading = false)
-        );
+          error: () => (this.loading = false),
+        });
         break;
       case 'group':
         switch (this.data.secondEntity) {
           case 'resource':
             this.attributesManager
               .removeGroupResourceAttributes(this.data.entityId, this.data.secondEntityId, ids)
-              .subscribe(
-                () => {
+              .subscribe({
+                next: () => {
                   this.onSuccess();
                 },
-                () => (this.loading = false)
-              );
+                error: () => (this.loading = false),
+              });
             break;
           default:
-            this.attributesManager.removeGroupAttributes(this.data.entityId, ids).subscribe(
-              () => {
+            this.attributesManager.removeGroupAttributes(this.data.entityId, ids).subscribe({
+              next: () => {
                 this.onSuccess();
               },
-              () => (this.loading = false)
-            );
+              error: () => (this.loading = false),
+            });
         }
         break;
       case 'user':
@@ -94,20 +94,20 @@ export class DeleteAttributeDialogComponent implements OnInit {
           case 'facility':
             this.attributesManager
               .removeUserFacilityAttributes(this.data.entityId, this.data.secondEntityId, ids)
-              .subscribe(
-                () => {
+              .subscribe({
+                next: () => {
                   this.onSuccess();
                 },
-                () => (this.loading = false)
-              );
+                error: () => (this.loading = false),
+              });
             break;
           default:
-            this.attributesManager.removeUserAttributes(this.data.entityId, ids).subscribe(
-              () => {
+            this.attributesManager.removeUserAttributes(this.data.entityId, ids).subscribe({
+              next: () => {
                 this.onSuccess();
               },
-              () => (this.loading = false)
-            );
+              error: () => (this.loading = false),
+            });
         }
         break;
       case 'member':
@@ -115,47 +115,60 @@ export class DeleteAttributeDialogComponent implements OnInit {
           case 'resource':
             this.attributesManager
               .removeMemberResourceAttributes(this.data.entityId, this.data.secondEntityId, ids)
-              .subscribe(
-                () => {
+              .subscribe({
+                next: () => {
                   this.onSuccess();
                 },
-                () => (this.loading = false)
-              );
+                error: () => (this.loading = false),
+              });
             break;
           case 'group':
             this.attributesManager
               .removeMemberGroupAttributes(this.data.entityId, this.data.secondEntityId, ids)
-              .subscribe(
-                () => {
+              .subscribe({
+                next: () => {
                   this.onSuccess();
                 },
-                () => (this.loading = false)
-              );
+                error: () => (this.loading = false),
+              });
             break;
           default:
-            this.attributesManager.removeMemberAttributes(this.data.entityId, ids).subscribe(
-              () => {
+            this.attributesManager.removeMemberAttributes(this.data.entityId, ids).subscribe({
+              next: () => {
                 this.onSuccess();
               },
-              () => (this.loading = false)
-            );
+              error: () => (this.loading = false),
+            });
         }
         break;
       case 'facility':
-        this.attributesManager.removeFacilityAttributes(this.data.entityId, ids).subscribe(
-          () => {
-            this.onSuccess();
-          },
-          () => (this.loading = false)
-        );
+        switch (this.data.secondEntity) {
+          case 'user':
+            this.attributesManager
+              .removeUserFacilityAttributes(this.data.secondEntityId, this.data.entityId, ids)
+              .subscribe({
+                next: () => {
+                  this.onSuccess();
+                },
+                error: () => (this.loading = false),
+              });
+            break;
+          default:
+            this.attributesManager.removeFacilityAttributes(this.data.entityId, ids).subscribe({
+              next: () => {
+                this.onSuccess();
+              },
+              error: () => (this.loading = false),
+            });
+        }
         break;
       case 'host':
-        this.attributesManager.removeHostAttributes(this.data.entityId, ids).subscribe(
-          () => {
+        this.attributesManager.removeHostAttributes(this.data.entityId, ids).subscribe({
+          next: () => {
             this.onSuccess();
           },
-          () => (this.loading = false)
-        );
+          error: () => (this.loading = false),
+        });
         break;
       case 'ues':
         this.attributesManager.removeUesAttributes(this.data.entityId, ids).subscribe({
@@ -166,9 +179,35 @@ export class DeleteAttributeDialogComponent implements OnInit {
         });
         break;
       case 'resource':
-        this.attributesManager
-          .removeResourceAttributes(this.data.entityId, ids)
-          .subscribe({ next: () => this.onSuccess(), error: () => (this.loading = false) });
+        switch (this.data.secondEntity) {
+          case 'member':
+            this.attributesManager
+              .removeMemberResourceAttributes(this.data.secondEntityId, this.data.entityId, ids)
+              .subscribe({
+                next: () => {
+                  this.onSuccess();
+                },
+                error: () => (this.loading = false),
+              });
+            break;
+          case 'group':
+            this.attributesManager
+              .removeGroupResourceAttributes(this.data.secondEntityId, this.data.entityId, ids)
+              .subscribe({
+                next: () => {
+                  this.onSuccess();
+                },
+                error: () => (this.loading = false),
+              });
+            break;
+          default:
+            this.attributesManager.removeResourceAttributes(this.data.entityId, ids).subscribe({
+              next: () => {
+                this.onSuccess();
+              },
+              error: () => (this.loading = false),
+            });
+        }
         break;
     }
   }

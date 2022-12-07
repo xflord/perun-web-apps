@@ -163,14 +163,29 @@ export class CreateAttributeDialogComponent implements OnInit {
 
     switch (this.data.entity) {
       case 'facility':
-        this.attributesManager
-          .setFacilityAttributes({
-            facility: this.data.entityId,
-            attributes: this.selected.selected,
-          })
-          .subscribe(() => {
-            this.handleSuccess();
-          });
+        switch (this.data.secondEntity) {
+          case 'user':
+            this.attributesManager
+              .setUserFacilityAttributes({
+                facility: this.data.entityId,
+                user: this.data.secondEntityId,
+                attributes: this.selected.selected,
+              })
+              .subscribe(() => {
+                this.handleSuccess();
+              });
+            break;
+          default:
+            this.attributesManager
+              .setFacilityAttributes({
+                facility: this.data.entityId,
+                attributes: this.selected.selected,
+              })
+              .subscribe(() => {
+                this.handleSuccess();
+              });
+            break;
+        }
         break;
       case 'group':
         switch (this.data.secondEntity) {
@@ -232,14 +247,39 @@ export class CreateAttributeDialogComponent implements OnInit {
         }
         break;
       case 'resource':
-        this.attributesManager
-          .setResourceAttributes({
-            resource: this.data.entityId,
-            attributes: this.selected.selected,
-          })
-          .subscribe(() => {
-            this.handleSuccess();
-          });
+        switch (this.data.secondEntity) {
+          case 'member':
+            this.attributesManager
+              .setMemberResourceAttributes({
+                resource: this.data.entityId,
+                member: this.data.secondEntityId,
+                attributes: this.selected.selected,
+              })
+              .subscribe(() => {
+                this.handleSuccess();
+              });
+            break;
+          case 'group':
+            this.attributesManager
+              .setGroupResourceAttributes({
+                resource: this.data.entityId,
+                group: this.data.secondEntityId,
+                attributes: this.selected.selected,
+              })
+              .subscribe(() => {
+                this.handleSuccess();
+              });
+            break;
+          default:
+            this.attributesManager
+              .setResourceAttributes({
+                resource: this.data.entityId,
+                attributes: this.selected.selected,
+              })
+              .subscribe(() => {
+                this.handleSuccess();
+              });
+        }
         break;
       case 'user':
         switch (this.data.secondEntity) {
@@ -312,6 +352,9 @@ export class CreateAttributeDialogComponent implements OnInit {
     if (!this.data.secondEntity) {
       return true;
     }
-    return attribute.entity === `${this.data.entity}_${this.data.secondEntity}`;
+    return (
+      attribute.entity === `${this.data.entity}_${this.data.secondEntity}` ||
+      attribute.entity === `${this.data.secondEntity}_${this.data.entity}`
+    );
   }
 }
