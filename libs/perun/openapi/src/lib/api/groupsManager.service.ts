@@ -570,6 +570,140 @@ export class GroupsManagerService {
   }
 
   /**
+   * Copies direct members from one group to other groups within the same VO. The members are copied without their member-group attributes. Empty or null members list will copy all of the group\&#39;s direct members
+   * @param sourceGroup id of the group to copy from
+   * @param destinationGroups ids of groups to copy to
+   * @param members ids of members to copy
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public copyMembers(
+    sourceGroup: number,
+    destinationGroups: Array<number>,
+    members?: Array<number>,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any>;
+  public copyMembers(
+    sourceGroup: number,
+    destinationGroups: Array<number>,
+    members?: Array<number>,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<any>>;
+  public copyMembers(
+    sourceGroup: number,
+    destinationGroups: Array<number>,
+    members?: Array<number>,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<any>>;
+  public copyMembers(
+    sourceGroup: number,
+    destinationGroups: Array<number>,
+    members?: Array<number>,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (sourceGroup === null || sourceGroup === undefined) {
+      throw new Error(
+        'Required parameter sourceGroup was null or undefined when calling copyMembers.'
+      );
+    }
+    if (destinationGroups === null || destinationGroups === undefined) {
+      throw new Error(
+        'Required parameter destinationGroups was null or undefined when calling copyMembers.'
+      );
+    }
+
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
+    if (sourceGroup !== undefined && sourceGroup !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>sourceGroup,
+        'sourceGroup'
+      );
+    }
+    if (destinationGroups) {
+      destinationGroups.forEach((element) => {
+        localVarQueryParameters = this.addToHttpParams(
+          localVarQueryParameters,
+          <any>element,
+          'destinationGroups'
+        );
+      });
+    }
+    if (members) {
+      members.forEach((element) => {
+        localVarQueryParameters = this.addToHttpParams(
+          localVarQueryParameters,
+          <any>element,
+          'members'
+        );
+      });
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    return this.httpClient.post<any>(
+      `${this.configuration.basePath}/urlinjsonout/groupsManager/copyMembers`,
+      null,
+      {
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
+        withCredentials: this.configuration.withCredentials,
+        headers: localVarHeaders,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
    * Create union of two groups, where \&quot;operandGroup\&quot; is technically set as subgroup of \&quot;resultGroup\&quot;. Members from \&quot;operandGroup\&quot; are added to \&quot;resultGroup\&quot; as INDIRECT members. Union is honored also in all group member changing operations.
    * @param resultGroup id of Group to have removed \&#39;operandGroup\&#39; from subgroups
    * @param operandGroup id of Group to have removed \&#39;resultGroup\&#39; from subgroups

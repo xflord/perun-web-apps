@@ -664,6 +664,7 @@
       "ADD_MEMBER": "Add",
       "ADD_MEMBER_DISABLED": "Manual adding of members is blocked for this group.",
       "REMOVE_MEMBERS": "Remove",
+      "COPY_MEMBERS": "Copy",
       "SEARCH_DESCRIPTION": "Search by name, login, email or UUID",
       "LIST_ALL": "List all members",
       "INVITE": "Invite",
@@ -1174,6 +1175,19 @@
       "FAILED_DESC": "Following users couldn't be added due to an error",
       "NAME_COLUMN": "Name",
       "ERROR_COLUMN": "Error"
+    },
+    "COPY_MEMBERS": {
+      "TITLE": "Copy members",
+      "DISABLED_COPY_SELECTION": "No members selected",
+      "COPY_SELECTION": "Copy selected members of this group",
+      "COPY_ALL": "Copy all direct members of this group",
+      "SELECT_GROUPS": "Select groups to which members will be copied",
+      "ATTRIBUTES_WARN": "Member-group attributes of the members will not be copied!",
+      "CANCEL": "Cancel",
+      "COPY": "Copy",
+      "SUCCESS": "Members were successfully copied.",
+      "ERROR": "There was an error copying members, the operation was cancelled and none of the members were copied."
+
     },
     "ADD_GROUPS": {
       "TITLE": "Add group",
@@ -2298,7 +2312,7 @@
     "NO_MEMBERS_ALERT": "No members present",
     "NO_FILTER_RESULTS_ALERT": "No members are matching your query",
     "INDIRECT_MEMBER": "Indirect member",
-    "CHECKBOX_TOOLTIP_INDIRECT": "Indirect members cannot be removed",
+    "CHECKBOX_TOOLTIP_INDIRECT": "Indirect members cannot be removed or copied",
     "CHECKBOX_TOOLTIP_UNALTERABLE": "Members from member organizations cannot be directly removed",
     "STATUS_TOOLTIP_INDIRECT": "Member status from member organization cannot be directly changed",
     "STATUS_TOOLTIP_GROUP_INDIRECT": "Indirect member status cannot be changed",
