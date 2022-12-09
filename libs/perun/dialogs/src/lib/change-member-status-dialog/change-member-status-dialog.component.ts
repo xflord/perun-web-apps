@@ -5,14 +5,14 @@ import {
   MembersManagerService,
   RichMember,
 } from '@perun-web-apps/perun/openapi';
-import { NotificatorService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
+import { NotificatorService, PerunTranslateService } from '@perun-web-apps/perun/services';
 import { MatSelectChange } from '@angular/material/select';
 
 export interface ChangeMemberStatusDialogData {
   member: RichMember;
   voId?: number;
   groupId?: number;
+  backButton?: boolean;
   disableChangeExpiration?: boolean;
 }
 
@@ -31,6 +31,7 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
   description: string;
   changeMessage: string;
   submitButtonText: string;
+  cancelOrBackButton: string;
   private changeStatusButton: string;
   private changeStatusWithExpButton: string;
 
@@ -40,7 +41,7 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
     private memberManager: MembersManagerService,
     private groupsManager: GroupsManagerService,
     private notificatorService: NotificatorService,
-    private translate: TranslateService
+    private translate: PerunTranslateService
   ) {}
 
   ngOnInit(): void {
@@ -52,13 +53,14 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
       this.actualStatus = this.data.member.status;
     }
 
-    this.changeStatusButton = this.translate.instant(
-      'DIALOGS.CHANGE_STATUS.CHANGE_STATUS'
-    ) as string;
+    this.changeStatusButton = this.translate.instant('DIALOGS.CHANGE_STATUS.CHANGE_STATUS');
     this.changeStatusWithExpButton = this.translate.instant(
       'DIALOGS.CHANGE_STATUS.CHANGE_STATUS_WITH_EXPIRATION'
-    ) as string;
+    );
     this.submitButtonText = this.changeStatusButton;
+    this.cancelOrBackButton = this.data.backButton
+      ? this.translate.instant('DIALOGS.CHANGE_STATUS.BACK')
+      : this.translate.instant('DIALOGS.CHANGE_STATUS.CANCEL');
 
     if (this.data.groupId) {
       if (this.actualStatus === 'VALID') {
@@ -80,24 +82,16 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
 
     switch (this.actualStatus) {
       case 'VALID':
-        this.description = this.translate.instant(
-          'DIALOGS.CHANGE_STATUS.VALID_DESCRIPTION'
-        ) as string;
+        this.description = this.translate.instant('DIALOGS.CHANGE_STATUS.VALID_DESCRIPTION');
         break;
       case 'INVALID':
-        this.description = this.translate.instant(
-          'DIALOGS.CHANGE_STATUS.INVALID_DESCRIPTION'
-        ) as string;
+        this.description = this.translate.instant('DIALOGS.CHANGE_STATUS.INVALID_DESCRIPTION');
         break;
       case 'EXPIRED':
-        this.description = this.translate.instant(
-          'DIALOGS.CHANGE_STATUS.EXPIRED_DESCRIPTION'
-        ) as string;
+        this.description = this.translate.instant('DIALOGS.CHANGE_STATUS.EXPIRED_DESCRIPTION');
         break;
       case 'DISABLED':
-        this.description = this.translate.instant(
-          'DIALOGS.CHANGE_STATUS.DISABLED_DESCRIPTION'
-        ) as string;
+        this.description = this.translate.instant('DIALOGS.CHANGE_STATUS.DISABLED_DESCRIPTION');
         break;
       default:
         this.description = '';
@@ -126,27 +120,27 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
   submit(): void {
     this.loading = true;
     if (!this.data.groupId) {
-      this.memberManager.setStatus(this.data.member.id, this.selectedStatus).subscribe(
-        (member) => {
+      this.memberManager.setStatus(this.data.member.id, this.selectedStatus).subscribe({
+        next: (member) => {
           this.translate.get('DIALOGS.CHANGE_STATUS.SUCCESS').subscribe((success: string) => {
             this.notificatorService.showSuccess(success);
             this.dialogRef.close(member);
           });
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
     } else {
       this.groupsManager
         .setGroupsMemberStatus(this.data.member.id, this.data.groupId, this.selectedStatus)
-        .subscribe(
-          (member) => {
+        .subscribe({
+          next: (member) => {
             this.translate.get('DIALOGS.CHANGE_STATUS.SUCCESS').subscribe((success: string) => {
               this.notificatorService.showSuccess(success);
               this.dialogRef.close(member);
             });
           },
-          () => (this.loading = false)
-        );
+          error: () => (this.loading = false),
+        });
     }
   }
 
@@ -156,17 +150,17 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
         case 'INVALID':
           this.changeMessage = this.translate.instant(
             'DIALOGS.CHANGE_STATUS.CHANGE_VALID_TO_INVALID'
-          ) as string;
+          );
           break;
         case 'EXPIRED':
           this.changeMessage = this.translate.instant(
             'DIALOGS.CHANGE_STATUS.CHANGE_VALID_TO_EXPIRED'
-          ) as string;
+          );
           break;
         case 'DISABLED':
           this.changeMessage = this.translate.instant(
             'DIALOGS.CHANGE_STATUS.CHANGE_VALID_TO_DISABLED'
-          ) as string;
+          );
           break;
         default:
           this.changeMessage = '';
@@ -176,22 +170,22 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
         case 'VALID':
           this.changeMessage = this.translate.instant(
             'DIALOGS.CHANGE_STATUS.CHANGE_NO_VALID_TO_VALID'
-          ) as string;
+          );
           break;
         case 'INVALID':
           this.changeMessage = this.translate.instant(
             'DIALOGS.CHANGE_STATUS.CHANGE_NO_VALID_TO_INVALID'
-          ) as string;
+          );
           break;
         case 'EXPIRED':
           this.changeMessage = this.translate.instant(
             'DIALOGS.CHANGE_STATUS.CHANGE_NO_VALID_TO_EXPIRED'
-          ) as string;
+          );
           break;
         case 'DISABLED':
           this.changeMessage = this.translate.instant(
             'DIALOGS.CHANGE_STATUS.CHANGE_NO_VALID_TO_DISABLED'
-          ) as string;
+          );
           break;
         default:
           this.changeMessage = '';

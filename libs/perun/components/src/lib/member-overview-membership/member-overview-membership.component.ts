@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { Attribute, AttributesManagerService, RichMember, Vo } from '@perun-web-apps/perun/openapi';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Attribute, AttributesManagerService, RichMember } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import {
   ChangeMemberStatusDialogComponent,
@@ -17,15 +17,15 @@ import { TranslateService } from '@ngx-translate/core';
 import { RPCError } from '@perun-web-apps/perun/models';
 
 @Component({
-  selector: 'app-member-overview-membership',
+  selector: 'perun-web-apps-member-overview-membership',
   templateUrl: './member-overview-membership.component.html',
   styleUrls: ['./member-overview-membership.component.css'],
 })
 export class MemberOverviewMembershipComponent implements OnChanges {
-  @Input()
-  member: RichMember;
-  @Input()
-  vo: Vo;
+  @Input() member: RichMember;
+  @Input() voId: number;
+  @Input() openedInDialog = false;
+  @Output() statusChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   voMembershipDataSource = new MatTableDataSource<string>();
   voExpiration = '';
   voExpirationAtt: Attribute;
@@ -49,7 +49,7 @@ export class MemberOverviewMembershipComponent implements OnChanges {
   changeStatus(): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
-    config.data = { member: this.member, voId: this.vo.id };
+    config.data = { member: this.member, voId: this.voId, backButton: this.openedInDialog };
     const oldStatus = this.member.status;
 
     const dialogRef = this.dialog.open(ChangeMemberStatusDialogComponent, config);
@@ -62,6 +62,8 @@ export class MemberOverviewMembershipComponent implements OnChanges {
           member.status === 'VALID'
         ) {
           this.changeVoExpiration(true);
+        } else {
+          this.dialog.closeAll();
         }
       }
     });
@@ -71,11 +73,12 @@ export class MemberOverviewMembershipComponent implements OnChanges {
     const config = getDefaultDialogConfig();
     config.width = '400px';
     config.data = {
-      voId: this.vo.id,
+      voId: this.voId,
       memberId: this.member.id,
       expirationAttr: this.voExpirationAtt,
       status: this.member.status,
       statusChanged: statusChanged,
+      backButton: this.openedInDialog,
     };
 
     const dialogRef = this.dialog.open(ChangeVoExpirationDialogComponent, config);
@@ -85,6 +88,9 @@ export class MemberOverviewMembershipComponent implements OnChanges {
           this.member = result.member;
         }
         this.refreshVoExpiration();
+        this.dialog.closeAll();
+      } else if (statusChanged) {
+        this.statusChanged.emit(statusChanged);
       }
     });
   }
@@ -94,22 +100,22 @@ export class MemberOverviewMembershipComponent implements OnChanges {
     this.apiRequest.dontHandleErrorForNext();
     this.attributesManager
       .getMemberAttributeByName(this.member.id, Urns.MEMBER_DEF_EXPIRATION)
-      .subscribe(
-        (attr) => {
+      .subscribe({
+        next: (attr) => {
           this.voExpirationAtt = attr;
           this.voExpiration = !attr.value
             ? (this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES') as string)
             : (attr.value as string);
           this.loading = false;
         },
-        (error: RPCError) => {
+        error: (error: RPCError) => {
           if (error.name !== 'PrivilegeException') {
             this.notificator.showError(error.name);
           } else {
             this.voMembershipDataSource = new MatTableDataSource<string>(['Status']);
           }
           this.loading = false;
-        }
-      );
+        },
+      });
   }
 }

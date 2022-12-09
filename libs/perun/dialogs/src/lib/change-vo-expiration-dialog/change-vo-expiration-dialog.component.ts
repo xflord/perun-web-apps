@@ -16,6 +16,7 @@ export interface ChangeVoExpirationDialogData {
   expirationAttr: Attribute;
   status: string;
   statusChanged?: boolean;
+  backButton?: boolean;
 }
 
 @Component({
@@ -32,6 +33,7 @@ export class ChangeVoExpirationDialogComponent implements OnInit {
   status: string;
   canExtendMembership = false;
   changeStatus: boolean;
+  backButton: boolean;
   successMessage: string;
   private expirationAttr: Attribute = null;
 
@@ -50,6 +52,7 @@ export class ChangeVoExpirationDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.status = this.data.status;
+    this.backButton = this.data.backButton;
     this.loading = true;
     const currentDate = new Date();
     if (this.data.status !== 'VALID') {
@@ -81,22 +84,22 @@ export class ChangeVoExpirationDialogComponent implements OnInit {
     if (this.data.status === 'VALID') {
       this.attributesManagerService
         .getVoAttributeByName(this.data.voId, Urns.VO_DEF_EXPIRATION_RULES)
-        .subscribe(
-          (attr) => {
+        .subscribe({
+          next: (attr) => {
             if (attr.value !== null) {
-              this.memberManager.canExtendMembership(this.data.memberId).subscribe(
-                (canExtend) => {
+              this.memberManager.canExtendMembership(this.data.memberId).subscribe({
+                next: (canExtend) => {
                   this.canExtendMembership = !!canExtend;
                   this.loading = false;
                 },
-                () => (this.loading = false)
-              );
+                error: () => (this.loading = false),
+              });
             } else {
               this.loading = false;
             }
           },
-          () => (this.loading = false)
-        );
+          error: () => (this.loading = false),
+        });
     } else {
       this.loading = false;
     }
@@ -105,14 +108,14 @@ export class ChangeVoExpirationDialogComponent implements OnInit {
   onExpirationChanged(newExp: string): void {
     this.loading = true;
     if (newExp === 'voRules') {
-      this.memberManager.extendMembership(this.data.memberId).subscribe(
-        () => {
+      this.memberManager.extendMembership(this.data.memberId).subscribe({
+        next: () => {
           this.loading = false;
           this.notificator.showSuccess(this.successMessage);
           this.dialogRef.close({ success: true });
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
     } else {
       this.expirationAttr.value = newExp === 'never' ? null : newExp;
 
@@ -121,11 +124,11 @@ export class ChangeVoExpirationDialogComponent implements OnInit {
           member: this.data.memberId,
           attribute: this.expirationAttr,
         })
-        .subscribe(
-          () => {
+        .subscribe({
+          next: () => {
             if (this.changeStatus && this.status === 'EXPIRED') {
-              this.memberManager.setStatus(this.data.memberId, 'VALID').subscribe(
-                (member) => {
+              this.memberManager.setStatus(this.data.memberId, 'VALID').subscribe({
+                next: (member) => {
                   this.translate
                     .get('DIALOGS.CHANGE_STATUS.SUCCESS')
                     .subscribe((success: string) => {
@@ -135,16 +138,16 @@ export class ChangeVoExpirationDialogComponent implements OnInit {
                       this.dialogRef.close({ success: true, member: member });
                     });
                 },
-                () => (this.loading = false)
-              );
+                error: () => (this.loading = false),
+              });
             } else {
               this.loading = false;
               this.notificator.showSuccess(this.successMessage);
               this.dialogRef.close({ success: true });
             }
           },
-          () => (this.loading = false)
-        );
+          error: () => (this.loading = false),
+        });
     }
   }
 }

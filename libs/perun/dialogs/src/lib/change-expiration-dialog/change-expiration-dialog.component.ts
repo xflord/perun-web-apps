@@ -9,24 +9,16 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./change-expiration-dialog.component.scss'],
 })
 export class ChangeExpirationDialogComponent implements OnInit {
-  @Input()
-  currentExpiration: string;
-  @Input()
-  newExpiration: string;
-  @Input()
-  canExtendMembership = false;
-  @Input()
-  minDate: Date;
-  @Input()
-  maxDate: Date;
-  @Input()
-  mode: 'group' | 'vo' | 'sponsor';
-  @Input()
-  status: string;
-  @Output()
-  expirationChanged: EventEmitter<string> = new EventEmitter<string>();
-  @Output()
-  statusChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() currentExpiration: string;
+  @Input() newExpiration: string;
+  @Input() canExtendMembership = false;
+  @Input() minDate: Date;
+  @Input() maxDate: Date;
+  @Input() mode: 'group' | 'vo' | 'sponsor';
+  @Input() status: string;
+  @Input() backButton: boolean;
+  @Output() expirationChanged: EventEmitter<string> = new EventEmitter<string>();
+  @Output() statusChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   successMessage: string;
   expirationControl: UntypedFormControl = new UntypedFormControl(null);

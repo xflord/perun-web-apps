@@ -26,8 +26,10 @@
             >{{member.id}}
           </a>
         </div>
-        <app-member-overview-membership [member]="member" [vo]="selectedVo">
-        </app-member-overview-membership>
+        <mat-card class="mat-elevation-z3 membership-card">
+          <perun-web-apps-member-overview-membership [member]="member" [voId]="selectedVo.id">
+          </perun-web-apps-member-overview-membership>
+        </mat-card>
         <p class="mt-4 subtitle">{{'USER_DETAIL.ACCOUNTS.GROUPS' | translate}}</p>
         <perun-web-apps-groups-list
           *ngIf="!loading"

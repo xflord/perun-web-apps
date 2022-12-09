@@ -74,7 +74,7 @@
         <th *matHeaderCellDef mat-header-cell>{{'MEMBERS_LIST.STATUS' | translate}}</th>
         <td *matCellDef="let member" mat-cell>
           <i
-            (click)="changeStatus($event, member)"
+            (click)="openMembershipDialog($event, member)"
             [class.cursor-default]="!expireVoAuth"
             class="material-icons {{(member | memberStatusIconColor)}}"
             matTooltip="{{member | memberStatusTooltip: false}}"
@@ -90,7 +90,7 @@
         <th *matHeaderCellDef mat-header-cell>{{'MEMBERS_LIST.GROUP_STATUS' | translate}}</th>
         <td *matCellDef="let member" mat-cell>
           <i
-            (click)="changeStatus($event, member, groupId)"
+            (click)="openMembershipDialog($event, member, groupId)"
             [class.cursor-default]="!expireGroupAuth"
             class="material-icons {{member.groupStatus | groupStatusIconColor: member.membershipType === 'INDIRECT' : isMembersGroup}}"
             matTooltip="{{member | memberStatusTooltip: true: isMembersGroup}}"

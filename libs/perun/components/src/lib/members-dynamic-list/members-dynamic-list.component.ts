@@ -8,9 +8,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  ChangeGroupExpirationDialogComponent,
-  ChangeMemberStatusDialogComponent,
-  ChangeVoExpirationDialogComponent,
   MemberTreeViewDialogComponent,
   ExportDataDialogComponent,
 } from '@perun-web-apps/perun/dialogs';
@@ -21,13 +18,8 @@ import {
   TableCheckbox,
   EntityStorageService,
 } from '@perun-web-apps/perun/services';
-import {
-  Member,
-  MemberGroupStatus,
-  RichMember,
-  VoMemberStatuses,
-} from '@perun-web-apps/perun/openapi';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MemberGroupStatus, RichMember, VoMemberStatuses } from '@perun-web-apps/perun/openapi';
+import { MatDialog } from '@angular/material/dialog';
 import {
   TABLE_ITEMS_COUNT_OPTIONS,
   downloadData,
@@ -47,6 +39,7 @@ import { TableConfigService } from '@perun-web-apps/config/table-config';
 import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
 import { merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { ChangeMemberStatusOrExpirationDialogComponent } from '../change-member-status-or-expiration-dialog/change-member-status-or-expiration-dialog.component';
 
 @Component({
   selector: 'perun-web-apps-members-dynamic-list',
@@ -183,72 +176,29 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
     return numSelected === numRows;
   }
 
-  changeStatus(event: Event, member: RichMember, groupId?: number): void {
+  openMembershipDialog(event: Event, member: RichMember, groupId?: number): void {
     event.stopPropagation();
 
-    // Do not open expiration dialog, if caller doesn't have sufficient rights
-    if (!groupId) {
-      if (!this.expireVoAuth) return;
-    } else if (!this.expireGroupAuth) return;
-
-    // Skip crating the status dialog, if the current group is 'members'
-    if (this.isMembersGroup && groupId) return;
-    // Skip crating the status dialog, if the member is indirect or unalterable
+    // Do NOT open this dialog if the:
+    // 1) caller doesn't have sufficient rights (for Vo or Group)
+    // 2) vo member is unalterable (member from member Vo)
+    // 3) current group is 'members'
+    // 4) group member is indirect
     const indirect = isMemberIndirectString(member);
-    if ((indirect === 'INDIRECT' && groupId) || (!groupId && indirect === 'UNALTERABLE')) return;
+    if (!groupId) {
+      if (!this.expireVoAuth || indirect === 'UNALTERABLE') return;
+    } else if (!this.expireGroupAuth || this.isMembersGroup || indirect === 'INDIRECT') return;
 
     const config = getDefaultDialogConfig();
-    config.width = '500px';
+    config.minWidth = '280px';
     config.data = { member: member, voId: this.voId, groupId: groupId };
-    const oldStatus = groupId ? member.groupStatus : member.status;
 
-    const dialogRef = this.dialog.open(ChangeMemberStatusDialogComponent, config);
-    dialogRef.afterClosed().subscribe((changedMember: Member) => {
-      if (changedMember) {
-        const changedStatus: string = groupId ? changedMember.groupStatus : changedMember.status;
-        if (
-          (oldStatus === 'VALID' &&
-            (changedStatus === 'EXPIRED' || changedStatus === 'DISABLED')) ||
-          changedStatus === 'VALID'
-        ) {
-          if (groupId) {
-            member.groupStatus = changedStatus;
-          } else {
-            member.status = changedStatus;
-          }
-          this.changeExpiration(member, groupId);
-        } else {
-          this.loadMembersPage();
-        }
+    const dialogRef = this.dialog.open(ChangeMemberStatusOrExpirationDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) {
+        this.loadMembersPage();
       }
-    });
-  }
-
-  changeExpiration(member: RichMember, groupId?: number): void {
-    const expirationAttr = groupId
-      ? member.memberAttributes.find((att) => att.friendlyName === 'groupMembershipExpiration')
-      : member.memberAttributes.find((att) => att.friendlyName === 'membershipExpiration');
-    const config = getDefaultDialogConfig();
-    config.width = '400px';
-    config.data = {
-      voId: this.voId,
-      groupId: groupId,
-      memberId: member.id,
-      expirationAttr: expirationAttr,
-      status: groupId ? member.groupStatus : member.status,
-      statusChanged: true,
-    };
-    let dialogRef: MatDialogRef<
-      ChangeGroupExpirationDialogComponent | ChangeVoExpirationDialogComponent
-    >;
-    if (groupId) {
-      dialogRef = this.dialog.open(ChangeGroupExpirationDialogComponent, config);
-    } else {
-      dialogRef = this.dialog.open(ChangeVoExpirationDialogComponent, config);
-    }
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.loadMembersPage();
     });
   }
 

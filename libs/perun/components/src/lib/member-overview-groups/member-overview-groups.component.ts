@@ -1,11 +1,10 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import {
   Attribute,
   Group,
   GroupsManagerService,
   RichGroup,
   RichMember,
-  Vo,
 } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
 import { Urns } from '@perun-web-apps/perun/urns';
@@ -19,15 +18,15 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-member-overview-groups',
+  selector: 'perun-web-apps-member-overview-groups',
   templateUrl: './member-overview-groups.component.html',
   styleUrls: ['./member-overview-groups.component.css'],
 })
 export class MemberOverviewGroupsComponent implements OnChanges {
-  @Input()
-  vo: Vo;
-  @Input()
-  member: RichMember;
+  @Input() voId: number;
+  @Input() member: RichMember;
+  @Input() openedInDialog = false;
+  @Output() statusChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   loading: boolean;
   initLoading: boolean;
   groups: Group[];
@@ -110,12 +109,16 @@ export class MemberOverviewGroupsComponent implements OnChanges {
       expirationAttr: this.expirationAtt,
       status: this.selectedMember.groupStatus,
       statusChanged: statusChanged,
+      backButton: this.openedInDialog,
     };
 
     const dialogRef = this.dialog.open(ChangeGroupExpirationDialogComponent, config);
-    dialogRef.afterClosed().subscribe((success) => {
-      if (success) {
+    dialogRef.afterClosed().subscribe((result: { success: boolean; member: RichMember }) => {
+      if (result.success) {
         this.groupIsSelected(this.selectedGroup);
+        this.dialog.closeAll();
+      } else if (statusChanged) {
+        this.statusChanged.emit(statusChanged);
       }
     });
   }
@@ -123,7 +126,12 @@ export class MemberOverviewGroupsComponent implements OnChanges {
   changeStatus(): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
-    config.data = { member: this.selectedMember, voId: this.vo.id, groupId: this.selectedGroup.id };
+    config.data = {
+      member: this.selectedMember,
+      voId: this.voId,
+      groupId: this.selectedGroup.id,
+      backButton: this.openedInDialog,
+    };
 
     const dialogRef = this.dialog.open(ChangeMemberStatusDialogComponent, config);
     dialogRef.afterClosed().subscribe((member: RichMember) => {

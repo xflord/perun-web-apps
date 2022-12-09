@@ -54,6 +54,7 @@ import { PublicationTabLabelPipe } from './publication-tab-label.pipe';
 import { AuthorsSeparatedByCommaPipe } from './authors-separated-by-comma.pipe';
 import { SelectApplicationLinkPipe } from './select-application-link.pipe';
 import { IsAuthorizedPipe } from './is-authorized.pipe';
+import { TransformMemberStatusPipe } from './transform-member-status.pipe';
 
 @NgModule({
   declarations: [
@@ -112,6 +113,7 @@ import { IsAuthorizedPipe } from './is-authorized.pipe';
     AuthorsSeparatedByCommaPipe,
     SelectApplicationLinkPipe,
     IsAuthorizedPipe,
+    TransformMemberStatusPipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -169,6 +171,7 @@ import { IsAuthorizedPipe } from './is-authorized.pipe';
     AuthorsSeparatedByCommaPipe,
     SelectApplicationLinkPipe,
     IsAuthorizedPipe,
+    TransformMemberStatusPipe,
   ],
   imports: [CommonModule],
 })

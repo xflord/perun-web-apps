@@ -242,6 +242,11 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     );
   }
 
+  //FIXME: the correct change of status or expiration is implemented in members-dynamic-list
+  // now if the status is column between displayedColumns, the "disableStatusChange" attribute is also presented
+  // so the status change through the icon on this list isn't used anywhere. If this change should be possible
+  // in the future, the same logic as in members-dynamic-list should be used (but for this purpose some additional
+  // member attributes have to be presented in RichMember object - at least "isLifecycleAlterable" attribute)
   changeStatus(event: Event, member: RichMember): void {
     event.stopPropagation();
     if (!this.disableStatusChange) {

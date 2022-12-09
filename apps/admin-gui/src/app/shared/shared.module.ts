@@ -126,7 +126,6 @@ import { RemoveMemberGroupDialogComponent } from './components/dialogs/remove-me
 import { AddRequiredAttributesDialogComponent } from './components/dialogs/add-required-attributes-dialog/add-required-attributes-dialog.component';
 import { RemoveRequiredAttributesDialogComponent } from './components/dialogs/remove-required-attributes-dialog/remove-required-attributes-dialog.component';
 import { AttrDefListComponent } from './components/attr-def-list/attr-def-list.component';
-import { TransformMemberStatusPipe } from './pipes/transform-member-status.pipe';
 import { ConnectIdentityDialogComponent } from './components/dialogs/connect-identity-dialog/connect-identity-dialog.component';
 import { DisconnectIdentityDialogComponent } from './components/dialogs/disconnect-identity-dialog/disconnect-identity-dialog.component';
 import { EditUserDialogComponent } from './components/dialogs/edit-user-dialog/edit-user-dialog.component';
@@ -158,8 +157,6 @@ import { OneEntityAttributePageComponent } from './components/one-entity-attribu
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
 import { AddResourceTagToResourceDialogComponent } from './components/dialogs/add-resource-tag-to-resource-dialog/add-resource-tag-to-resource-dialog.component';
 import { CreateServiceMemberDialogComponent } from './components/create-service-member-dialog/create-service-member-dialog.component';
-import { MemberOverviewMembershipComponent } from './components/member-overview-membership/member-overview-membership.component';
-import { MemberOverviewGroupsComponent } from './components/member-overview-groups/member-overview-groups.component';
 import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespace-password-form';
 import { AuditMessagesListComponent } from './components/audit-messages-list/audit-messages-list.component';
 import { AuditMessageDetailDialogComponent } from './components/dialogs/audit-message-detail-dialog/audit-message-detail-dialog.component';
@@ -309,7 +306,6 @@ import { UpdateFacilityBanDialogComponent } from './components/dialogs/update-fa
     SecurityTeamsListComponent,
     ServicesListComponent,
     AttrDefListComponent,
-    TransformMemberStatusPipe,
     MemberStatusTooltipPipe,
     UsersListComponent,
     SponsoredMembersListComponent,
@@ -318,8 +314,6 @@ import { UpdateFacilityBanDialogComponent } from './components/dialogs/update-fa
     AttributeFriendlyNamePipe,
     StatisticsCardComponent,
     OneEntityAttributePageComponent,
-    MemberOverviewMembershipComponent,
-    MemberOverviewGroupsComponent,
     AuditMessagesListComponent,
     ConsentHubsListComponent,
     RolesPageComponent,
@@ -412,7 +406,6 @@ import { UpdateFacilityBanDialogComponent } from './components/dialogs/update-fa
     AddRequiredAttributesDialogComponent,
     RemoveRequiredAttributesDialogComponent,
     AttrDefListComponent,
-    TransformMemberStatusPipe,
     IdentityDetailComponent,
     ConnectIdentityDialogComponent,
     DisconnectIdentityDialogComponent,
@@ -444,8 +437,6 @@ import { UpdateFacilityBanDialogComponent } from './components/dialogs/update-fa
     OneEntityAttributePageComponent,
     AddResourceTagToResourceDialogComponent,
     CreateServiceMemberDialogComponent,
-    MemberOverviewMembershipComponent,
-    MemberOverviewGroupsComponent,
     AuditMessagesListComponent,
     AuditMessageDetailDialogComponent,
     ParseEventNamePipe,

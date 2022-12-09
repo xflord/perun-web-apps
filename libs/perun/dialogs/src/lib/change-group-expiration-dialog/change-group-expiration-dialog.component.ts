@@ -17,6 +17,7 @@ export interface ChangeGroupExpirationDialogData {
   expirationAttr: Attribute;
   status: string;
   statusChanged?: boolean;
+  backButton?: boolean;
 }
 
 @Component({
@@ -33,6 +34,7 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
   status: string;
   canExtendMembership = false;
   changeStatus: boolean;
+  backButton: boolean;
   private successMessage: string;
   private expirationAttr: Attribute = null;
 
@@ -52,6 +54,7 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.status = this.data.status;
+    this.backButton = this.data.backButton;
     this.loading = true;
     const currentDate = new Date();
     if (this.data.status !== 'VALID') {
@@ -83,24 +86,24 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
     if (this.data.status === 'VALID') {
       this.attributesManagerService
         .getGroupAttributeByName(this.data.groupId, Urns.GROUP_DEF_EXPIRATION_RULES)
-        .subscribe(
-          (attr) => {
+        .subscribe({
+          next: (attr) => {
             if (attr.value !== null) {
               this.groupManager
                 .canExtendMembershipInGroup(this.data.memberId, this.data.groupId)
-                .subscribe(
-                  (canExtend) => {
+                .subscribe({
+                  next: (canExtend) => {
                     this.canExtendMembership = !!canExtend;
                     this.loading = false;
                   },
-                  () => (this.loading = false)
-                );
+                  error: () => (this.loading = false),
+                });
             } else {
               this.loading = false;
             }
           },
-          () => (this.loading = false)
-        );
+          error: () => (this.loading = false),
+        });
     } else {
       this.loading = false;
     }
@@ -109,14 +112,14 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
   onExpirationChanged(newExp: string): void {
     this.loading = true;
     if (newExp === 'groupRules') {
-      this.groupManager.extendMembershipInGroup(this.data.memberId, this.data.groupId).subscribe(
-        () => {
+      this.groupManager.extendMembershipInGroup(this.data.memberId, this.data.groupId).subscribe({
+        next: () => {
           this.loading = false;
           this.notificator.showSuccess(this.successMessage);
           this.dialogRef.close({ success: true });
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
     } else {
       this.expirationAttr.value = newExp === 'never' ? null : newExp;
 
@@ -126,13 +129,13 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
           group: this.data.groupId,
           attributes: [this.expirationAttr],
         })
-        .subscribe(
-          () => {
+        .subscribe({
+          next: () => {
             if (this.changeStatus && this.status === 'EXPIRED') {
               this.groupManager
                 .setGroupsMemberStatus(this.data.memberId, this.data.groupId, 'VALID')
-                .subscribe(
-                  (member) => {
+                .subscribe({
+                  next: (member) => {
                     this.translate
                       .get('DIALOGS.CHANGE_STATUS.SUCCESS')
                       .subscribe((success: string) => {
@@ -142,16 +145,16 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
                         this.dialogRef.close({ success: true, member: member });
                       });
                   },
-                  () => (this.loading = false)
-                );
+                  error: () => (this.loading = false),
+                });
             } else {
               this.loading = false;
               this.notificator.showSuccess(this.successMessage);
               this.dialogRef.close({ success: true });
             }
           },
-          () => (this.loading = false)
-        );
+          error: () => (this.loading = false),
+        });
     }
   }
 }

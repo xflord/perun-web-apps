@@ -33,8 +33,15 @@
       </mat-card>
     </div>
     <div class="align-cards">
-      <app-member-overview-membership [member]="member" [vo]="vo"> </app-member-overview-membership>
-      <app-member-overview-groups [member]="member" [vo]="vo"></app-member-overview-groups>
+      <mat-card class="mat-elevation-z3 membership-card">
+        <perun-web-apps-member-overview-membership [member]="member" [voId]="vo.id">
+        </perun-web-apps-member-overview-membership>
+      </mat-card>
+      <mat-card class="mat-elevation-z3 membership-card mt-4">
+        <perun-web-apps-member-overview-groups
+          [member]="member"
+          [voId]="vo.id"></perun-web-apps-member-overview-groups>
+      </mat-card>
     </div>
     <div class="align-cards">
       <mat-card *ngIf="pwdResetAuth" class="mat-elevation-z3">

@@ -115,7 +115,8 @@
         <td *matCellDef="let group" mat-cell>
           <i
             *ngIf="{status: group.attributes | findAttribute: 'groupStatus'} as groupStatus"
-            class="material-icons {{groupStatus.status | groupStatusIconColor}}"
+            (click)="$event.stopPropagation()"
+            class="material-icons {{groupStatus.status | groupStatusIconColor}} cursor-default"
             matTooltip="{{groupStatus.status}}"
             matTooltipClass="status-tooltip"
             matTooltipPosition="left">

@@ -42,6 +42,7 @@
         *ngIf="!loadingEntityData"
         [tableId]="tableId"
         [displayedColumns]="['id', 'voId', 'userId', 'status']"
+        [disableStatusChange]="true"
         [disableExpirationChange]="true"
         (updateTable)="searchEntities(searchInput, 'member')"
         [members]="entities">

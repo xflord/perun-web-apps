@@ -1,0 +1,55 @@
+<mat-card-header *ngIf="!openedInDialog">
+  <mat-card-title>
+    <h1 class="page-subtitle">
+      {{'MEMBER_DETAIL.OVERVIEW.ORGANIZATION_MEMBERSHIP' | translate}}
+    </h1>
+  </mat-card-title>
+</mat-card-header>
+<h1 *ngIf="openedInDialog" class="mat-dialog-title">
+  {{'MEMBER_DETAIL.OVERVIEW.ORGANIZATION_MEMBERSHIP' | translate}}
+</h1>
+<mat-card-content>
+  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <div *ngIf="!loading">
+    <table
+      [dataSource]="voMembershipDataSource"
+      [class]="openedInDialog ? 'mr-auto' : 'ml-auto mr-auto'"
+      mat-table>
+      <ng-container matColumnDef="attName">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let attribute" class="font-weight-bold" mat-cell>{{attribute}}:</td>
+      </ng-container>
+      <ng-container matColumnDef="attValue">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let attribute" class="column-center" mat-cell>
+          <div *ngIf="attribute === 'Status'">
+            <i class="material-icons vert-center mr-1 {{(member | memberStatusIconColor)}}">
+              {{member.status | memberStatusIcon}}
+            </i>
+            <b class="vert-top">
+              {{member.status | transformMemberStatus}}
+            </b>
+            <button
+              *ngIf="authResolver.isThisVoAdmin(voId) && !(member | memberStatusDisabled)"
+              (click)="changeStatus()"
+              mat-icon-button>
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+          <div *ngIf="attribute === 'Expiration'">
+            <i class="column-center">
+              {{voExpiration | parseDate}}
+            </i>
+            <button
+              *ngIf="authResolver.isThisVoAdmin(voId) && !(member | memberStatusDisabled)"
+              (click)="changeVoExpiration(false)"
+              mat-icon-button>
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+      <tr *matRowDef="let attribute; columns: displayedColumns;" mat-row></tr>
+    </table>
+  </div>
+</mat-card-content>

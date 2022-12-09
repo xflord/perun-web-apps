@@ -113,6 +113,9 @@ import { ShowNotificationHistoryDialogComponent } from '@perun-web-apps/perun/di
 import { QueryParamsHandlingDirective } from '@perun-web-apps/perun/directives';
 import { BanSpecificationComponent } from './ban-specification/ban-specification.component';
 import { BanOnEntityListComponent } from './ban-on-entity-list/ban-on-entity-list.component';
+import { MemberOverviewMembershipComponent } from './member-overview-membership/member-overview-membership.component';
+import { ChangeMemberStatusOrExpirationDialogComponent } from './change-member-status-or-expiration-dialog/change-member-status-or-expiration-dialog.component';
+import { MemberOverviewGroupsComponent } from './member-overview-groups/member-overview-groups.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -258,6 +261,9 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     QueryParamsHandlingDirective,
     BanSpecificationComponent,
     BanOnEntityListComponent,
+    ChangeMemberStatusOrExpirationDialogComponent,
+    MemberOverviewMembershipComponent,
+    MemberOverviewGroupsComponent,
   ],
   exports: [
     VosListComponent,
@@ -330,6 +336,9 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     QueryParamsHandlingDirective,
     BanSpecificationComponent,
     BanOnEntityListComponent,
+    ChangeMemberStatusOrExpirationDialogComponent,
+    MemberOverviewMembershipComponent,
+    MemberOverviewGroupsComponent,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },
