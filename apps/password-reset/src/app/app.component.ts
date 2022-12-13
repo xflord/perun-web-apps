@@ -59,7 +59,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (queryParams.includes('token')) {
       this.token = parseQueryParams('token', queryParams);
 
-      this.usersService.checkPasswordResetRequestByTokenIsValid(this.token).subscribe(
+      this.usersService.checkPasswordResetRequestByTokenIsValid(this.token, true).subscribe(
         () => {
           this.validToken = true;
         },

@@ -106,21 +106,25 @@ export class DatabaseManagerService {
    * @param reportProgress flag to report request and response progress.
    */
   public getCurrentDatabaseVersion(
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<string>;
   public getCurrentDatabaseVersion(
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<string>>;
   public getCurrentDatabaseVersion(
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<string>>;
   public getCurrentDatabaseVersion(
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -166,17 +170,24 @@ export class DatabaseManagerService {
       }
     }
 
-    return this.httpClient.get<string>(
-      `${this.configuration.basePath}/json/databaseManager/getCurrentDatabaseVersion`,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/databaseManager/getCurrentDatabaseVersion`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<string>(requestUrl, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -185,21 +196,25 @@ export class DatabaseManagerService {
    * @param reportProgress flag to report request and response progress.
    */
   public getDatabaseDriverInformation(
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<string>;
   public getDatabaseDriverInformation(
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<string>>;
   public getDatabaseDriverInformation(
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<string>>;
   public getDatabaseDriverInformation(
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -245,17 +260,24 @@ export class DatabaseManagerService {
       }
     }
 
-    return this.httpClient.get<string>(
-      `${this.configuration.basePath}/json/databaseManager/getDatabaseDriverInformation`,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/databaseManager/getDatabaseDriverInformation`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<string>(requestUrl, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -264,21 +286,25 @@ export class DatabaseManagerService {
    * @param reportProgress flag to report request and response progress.
    */
   public getDatabaseInformation(
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<string>;
   public getDatabaseInformation(
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<string>>;
   public getDatabaseInformation(
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<string>>;
   public getDatabaseInformation(
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -324,17 +350,24 @@ export class DatabaseManagerService {
       }
     }
 
-    return this.httpClient.get<string>(
-      `${this.configuration.basePath}/json/databaseManager/getDatabaseInformation`,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/databaseManager/getDatabaseInformation`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<string>(requestUrl, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -343,21 +376,25 @@ export class DatabaseManagerService {
    * @param reportProgress flag to report request and response progress.
    */
   public getTimeOfQueryPerformance(
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<number>;
   public getTimeOfQueryPerformance(
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<number>>;
   public getTimeOfQueryPerformance(
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<number>>;
   public getTimeOfQueryPerformance(
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -403,16 +440,23 @@ export class DatabaseManagerService {
       }
     }
 
-    return this.httpClient.get<number>(
-      `${this.configuration.basePath}/json/databaseManager/getTimeOfQueryPerformance`,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/databaseManager/getTimeOfQueryPerformance`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<number>(requestUrl, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 }

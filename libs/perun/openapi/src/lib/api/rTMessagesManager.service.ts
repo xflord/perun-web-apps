@@ -116,6 +116,7 @@ export class RTMessagesManagerService {
     queue: string,
     subject: string,
     text: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -125,6 +126,7 @@ export class RTMessagesManagerService {
     queue: string,
     subject: string,
     text: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -134,6 +136,7 @@ export class RTMessagesManagerService {
     queue: string,
     subject: string,
     text: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -143,6 +146,7 @@ export class RTMessagesManagerService {
     queue: string,
     subject: string,
     text: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -231,19 +235,25 @@ export class RTMessagesManagerService {
       }
     }
 
-    return this.httpClient.post<RTMessage>(
-      `${this.configuration.basePath}/urlinjsonout/rtMessagesManager/sentMessageToRT/m-q`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/rtMessagesManager/sentMessageToRT/m-q`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<RTMessage>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -258,6 +268,7 @@ export class RTMessagesManagerService {
     queue: string,
     subject: string,
     text: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -266,6 +277,7 @@ export class RTMessagesManagerService {
     queue: string,
     subject: string,
     text: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -274,6 +286,7 @@ export class RTMessagesManagerService {
     queue: string,
     subject: string,
     text: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -282,6 +295,7 @@ export class RTMessagesManagerService {
     queue: string,
     subject: string,
     text: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -358,19 +372,25 @@ export class RTMessagesManagerService {
       }
     }
 
-    return this.httpClient.post<RTMessage>(
-      `${this.configuration.basePath}/urlinjsonout/rtMessagesManager/sentMessageToRT/q`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/rtMessagesManager/sentMessageToRT/q`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<RTMessage>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -385,6 +405,7 @@ export class RTMessagesManagerService {
     voId: number,
     subject: string,
     text: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -393,6 +414,7 @@ export class RTMessagesManagerService {
     voId: number,
     subject: string,
     text: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -401,6 +423,7 @@ export class RTMessagesManagerService {
     voId: number,
     subject: string,
     text: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -409,6 +432,7 @@ export class RTMessagesManagerService {
     voId: number,
     subject: string,
     text: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -485,19 +509,25 @@ export class RTMessagesManagerService {
       }
     }
 
-    return this.httpClient.post<RTMessage>(
-      `${this.configuration.basePath}/urlinjsonout/rtMessagesManager/sentMessageToRT/v`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/rtMessagesManager/sentMessageToRT/v`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<RTMessage>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -514,6 +544,7 @@ export class RTMessagesManagerService {
     queue: string,
     subject: string,
     text: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -523,6 +554,7 @@ export class RTMessagesManagerService {
     queue: string,
     subject: string,
     text: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -532,6 +564,7 @@ export class RTMessagesManagerService {
     queue: string,
     subject: string,
     text: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -541,6 +574,7 @@ export class RTMessagesManagerService {
     queue: string,
     subject: string,
     text: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -625,18 +659,24 @@ export class RTMessagesManagerService {
       }
     }
 
-    return this.httpClient.post<RTMessage>(
-      `${this.configuration.basePath}/urlinjsonout/rtMessagesManager/sentMessageToRT/v-q`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/rtMessagesManager/sentMessageToRT/v-q`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<RTMessage>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 }

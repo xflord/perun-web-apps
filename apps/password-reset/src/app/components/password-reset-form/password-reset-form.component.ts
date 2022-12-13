@@ -89,10 +89,13 @@ export class PasswordResetFormComponent implements OnInit {
               namespace: this.namespace,
               newPassword: this.newPasswdForm.value.passwordCtrl,
             }),
-            this.usersService.changeNonAuthzPasswordByToken({
-              token: this.token,
-              password: this.newPasswdForm.value.passwordCtrl,
-            })
+            this.usersService.changeNonAuthzPasswordByToken(
+              {
+                token: this.token,
+                password: this.newPasswdForm.value.passwordCtrl,
+              },
+              true
+            )
           )
         )
       )
