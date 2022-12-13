@@ -138,6 +138,7 @@ export class VosManagerService {
   public addMemberVo(
     vo: number,
     memberVo: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -145,6 +146,7 @@ export class VosManagerService {
   public addMemberVo(
     vo: number,
     memberVo: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -152,6 +154,7 @@ export class VosManagerService {
   public addMemberVo(
     vo: number,
     memberVo: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -159,6 +162,7 @@ export class VosManagerService {
   public addMemberVo(
     vo: number,
     memberVo: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -225,19 +229,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/vosManager/addMemberVo`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/vosManager/addMemberVo`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -250,6 +260,7 @@ export class VosManagerService {
   public addSponsorRoleToGroup(
     vo: number,
     authorizedGroup: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -257,6 +268,7 @@ export class VosManagerService {
   public addSponsorRoleToGroup(
     vo: number,
     authorizedGroup: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -264,6 +276,7 @@ export class VosManagerService {
   public addSponsorRoleToGroup(
     vo: number,
     authorizedGroup: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -271,6 +284,7 @@ export class VosManagerService {
   public addSponsorRoleToGroup(
     vo: number,
     authorizedGroup: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -339,19 +353,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/vosManager/addSponsorRole/group`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/vosManager/addSponsorRole/group`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -364,6 +384,7 @@ export class VosManagerService {
   public addSponsorRoleToUser(
     vo: number,
     user: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -371,6 +392,7 @@ export class VosManagerService {
   public addSponsorRoleToUser(
     vo: number,
     user: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -378,6 +400,7 @@ export class VosManagerService {
   public addSponsorRoleToUser(
     vo: number,
     user: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -385,6 +408,7 @@ export class VosManagerService {
   public addSponsorRoleToUser(
     vo: number,
     user: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -449,19 +473,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/vosManager/addSponsorRole/user`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/vosManager/addSponsorRole/user`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -474,6 +504,7 @@ export class VosManagerService {
   public addVoAdminGroup(
     vo: number,
     authorizedGroup: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -481,6 +512,7 @@ export class VosManagerService {
   public addVoAdminGroup(
     vo: number,
     authorizedGroup: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -488,6 +520,7 @@ export class VosManagerService {
   public addVoAdminGroup(
     vo: number,
     authorizedGroup: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -495,6 +528,7 @@ export class VosManagerService {
   public addVoAdminGroup(
     vo: number,
     authorizedGroup: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -561,19 +595,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/vosManager/addAdmin/group`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/vosManager/addAdmin/group`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -586,6 +626,7 @@ export class VosManagerService {
   public addVoAdminUser(
     vo: number,
     user: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -593,6 +634,7 @@ export class VosManagerService {
   public addVoAdminUser(
     vo: number,
     user: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -600,6 +642,7 @@ export class VosManagerService {
   public addVoAdminUser(
     vo: number,
     user: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -607,6 +650,7 @@ export class VosManagerService {
   public addVoAdminUser(
     vo: number,
     user: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -667,19 +711,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/vosManager/addAdmin/user`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/vosManager/addAdmin/user`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -692,6 +742,7 @@ export class VosManagerService {
   public createVoWithName(
     name: string,
     shortName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -699,6 +750,7 @@ export class VosManagerService {
   public createVoWithName(
     name: string,
     shortName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -706,6 +758,7 @@ export class VosManagerService {
   public createVoWithName(
     name: string,
     shortName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -713,6 +766,7 @@ export class VosManagerService {
   public createVoWithName(
     name: string,
     shortName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -781,19 +835,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<Vo>(
-      `${this.configuration.basePath}/urlinjsonout/vosManager/createVo/withName`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/vosManager/createVo/withName`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<Vo>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -804,24 +864,28 @@ export class VosManagerService {
    */
   public createVoWithVo(
     InputCreateVoWithVo: InputCreateVoWithVo,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Vo>;
   public createVoWithVo(
     InputCreateVoWithVo: InputCreateVoWithVo,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Vo>>;
   public createVoWithVo(
     InputCreateVoWithVo: InputCreateVoWithVo,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Vo>>;
   public createVoWithVo(
     InputCreateVoWithVo: InputCreateVoWithVo,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -881,18 +945,24 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<Vo>(
-      `${this.configuration.basePath}/json/vosManager/createVo/withVo`,
-      InputCreateVoWithVo,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/createVo/withVo`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<Vo>(requestUrl, InputCreateVoWithVo, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -905,6 +975,7 @@ export class VosManagerService {
   public deleteVo(
     vo: number,
     force?: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -912,6 +983,7 @@ export class VosManagerService {
   public deleteVo(
     vo: number,
     force?: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -919,6 +991,7 @@ export class VosManagerService {
   public deleteVo(
     vo: number,
     force?: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -926,6 +999,7 @@ export class VosManagerService {
   public deleteVo(
     vo: number,
     force?: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -983,19 +1057,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/vosManager/deleteVo`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/vosManager/deleteVo`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1010,6 +1090,7 @@ export class VosManagerService {
     id: number,
     searchString: string,
     maxNumOfResults?: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1018,6 +1099,7 @@ export class VosManagerService {
     id: number,
     searchString: string,
     maxNumOfResults?: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1026,6 +1108,7 @@ export class VosManagerService {
     id: number,
     searchString: string,
     maxNumOfResults?: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1034,6 +1117,7 @@ export class VosManagerService {
     id: number,
     searchString: string,
     maxNumOfResults?: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1107,18 +1191,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Candidate>>(
-      `${this.configuration.basePath}/json/vosManager/findCandidates`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/findCandidates`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Candidate>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1131,6 +1222,7 @@ export class VosManagerService {
   public findCandidatesForGroup(
     group: number,
     searchString: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1138,6 +1230,7 @@ export class VosManagerService {
   public findCandidatesForGroup(
     group: number,
     searchString: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1145,6 +1238,7 @@ export class VosManagerService {
   public findCandidatesForGroup(
     group: number,
     searchString: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1152,6 +1246,7 @@ export class VosManagerService {
   public findCandidatesForGroup(
     group: number,
     searchString: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1220,18 +1315,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Candidate>>(
-      `${this.configuration.basePath}/json/vosManager/findCandidates/forGroup`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/findCandidates/forGroup`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Candidate>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1240,21 +1342,25 @@ export class VosManagerService {
    * @param reportProgress flag to report request and response progress.
    */
   public getAllVos(
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Vo>>;
   public getAllVos(
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Vo>>>;
   public getAllVos(
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Vo>>>;
   public getAllVos(
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1300,17 +1406,24 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Vo>>(
-      `${this.configuration.basePath}/json/vosManager/getAllVos`,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getAllVos`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Vo>>(requestUrl, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1325,6 +1438,7 @@ export class VosManagerService {
     group: number,
     attrNames: Array<string>,
     searchString: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1333,6 +1447,7 @@ export class VosManagerService {
     group: number,
     attrNames: Array<string>,
     searchString: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1341,6 +1456,7 @@ export class VosManagerService {
     group: number,
     attrNames: Array<string>,
     searchString: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1349,6 +1465,7 @@ export class VosManagerService {
     group: number,
     attrNames: Array<string>,
     searchString: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1431,18 +1548,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Array<MemberCandidate>>(
-      `${this.configuration.basePath}/json/vosManager/getCompleteCandidates/forGroup`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getCompleteCandidates/forGroup`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<MemberCandidate>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1457,6 +1581,7 @@ export class VosManagerService {
     vo: number,
     attrNames: Array<string>,
     searchString: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1465,6 +1590,7 @@ export class VosManagerService {
     vo: number,
     attrNames: Array<string>,
     searchString: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1473,6 +1599,7 @@ export class VosManagerService {
     vo: number,
     attrNames: Array<string>,
     searchString: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1481,6 +1608,7 @@ export class VosManagerService {
     vo: number,
     attrNames: Array<string>,
     searchString: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1563,18 +1691,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Array<MemberCandidate>>(
-      `${this.configuration.basePath}/json/vosManager/getCompleteCandidates/forVo`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getCompleteCandidates/forVo`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<MemberCandidate>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1587,6 +1722,7 @@ export class VosManagerService {
   public getEnrichedBansForVo(
     vo: number,
     attrNames?: Array<string>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1594,6 +1730,7 @@ export class VosManagerService {
   public getEnrichedBansForVo(
     vo: number,
     attrNames?: Array<string>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1601,6 +1738,7 @@ export class VosManagerService {
   public getEnrichedBansForVo(
     vo: number,
     attrNames?: Array<string>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1608,6 +1746,7 @@ export class VosManagerService {
   public getEnrichedBansForVo(
     vo: number,
     attrNames?: Array<string>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1673,18 +1812,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Array<EnrichedBanOnVo>>(
-      `${this.configuration.basePath}/json/vosManager/getEnrichedBansForVo`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getEnrichedBansForVo`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<EnrichedBanOnVo>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1697,6 +1843,7 @@ export class VosManagerService {
   public getEnrichedVoBansForUser(
     user: number,
     attrNames?: Array<string>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1704,6 +1851,7 @@ export class VosManagerService {
   public getEnrichedVoBansForUser(
     user: number,
     attrNames?: Array<string>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1711,6 +1859,7 @@ export class VosManagerService {
   public getEnrichedVoBansForUser(
     user: number,
     attrNames?: Array<string>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1718,6 +1867,7 @@ export class VosManagerService {
   public getEnrichedVoBansForUser(
     user: number,
     attrNames?: Array<string>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1783,18 +1933,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Array<EnrichedBanOnVo>>(
-      `${this.configuration.basePath}/json/vosManager/getEnrichedBansForUser`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getEnrichedBansForUser`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<EnrichedBanOnVo>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1805,24 +1962,28 @@ export class VosManagerService {
    */
   public getEnrichedVoById(
     id: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<EnrichedVo>;
   public getEnrichedVoById(
     id: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<EnrichedVo>>;
   public getEnrichedVoById(
     id: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<EnrichedVo>>;
   public getEnrichedVoById(
     id: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1879,18 +2040,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<EnrichedVo>(
-      `${this.configuration.basePath}/json/vosManager/getEnrichedVoById`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getEnrichedVoById`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<EnrichedVo>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1901,24 +2069,28 @@ export class VosManagerService {
    */
   public getMemberVos(
     vo: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Vo>>;
   public getMemberVos(
     vo: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Vo>>>;
   public getMemberVos(
     vo: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Vo>>>;
   public getMemberVos(
     vo: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1973,18 +2145,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Vo>>(
-      `${this.configuration.basePath}/json/vosManager/getMemberVos`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getMemberVos`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Vo>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1993,21 +2172,25 @@ export class VosManagerService {
    * @param reportProgress flag to report request and response progress.
    */
   public getMyEnrichedVos(
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<EnrichedVo>>;
   public getMyEnrichedVos(
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<EnrichedVo>>>;
   public getMyEnrichedVos(
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<EnrichedVo>>>;
   public getMyEnrichedVos(
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2053,17 +2236,24 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Array<EnrichedVo>>(
-      `${this.configuration.basePath}/json/vosManager/getEnrichedVos`,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getEnrichedVos`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<EnrichedVo>>(requestUrl, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -2072,21 +2262,25 @@ export class VosManagerService {
    * @param reportProgress flag to report request and response progress.
    */
   public getMyVos(
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Vo>>;
   public getMyVos(
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Vo>>>;
   public getMyVos(
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Vo>>>;
   public getMyVos(
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2132,7 +2326,17 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Vo>>(`${this.configuration.basePath}/json/vosManager/getVos`, {
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getVos`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Vo>>(requestUrl, {
       context: localVarHttpContext,
       responseType: <any>responseType_,
       withCredentials: this.configuration.withCredentials,
@@ -2150,24 +2354,28 @@ export class VosManagerService {
    */
   public getParentVos(
     vo: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Vo>>;
   public getParentVos(
     vo: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Vo>>>;
   public getParentVos(
     vo: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Vo>>>;
   public getParentVos(
     vo: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2222,18 +2430,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Vo>>(
-      `${this.configuration.basePath}/json/vosManager/getParentVos`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getParentVos`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Vo>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -2252,6 +2467,7 @@ export class VosManagerService {
     specificAttributes: Array<string>,
     allUserAttributes: boolean,
     onlyDirectAdmins: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2262,6 +2478,7 @@ export class VosManagerService {
     specificAttributes: Array<string>,
     allUserAttributes: boolean,
     onlyDirectAdmins: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2272,6 +2489,7 @@ export class VosManagerService {
     specificAttributes: Array<string>,
     allUserAttributes: boolean,
     onlyDirectAdmins: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2282,6 +2500,7 @@ export class VosManagerService {
     specificAttributes: Array<string>,
     allUserAttributes: boolean,
     onlyDirectAdmins: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2384,18 +2603,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Array<RichUser>>(
-      `${this.configuration.basePath}/json/vosManager/getRichAdmins`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getRichAdmins`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<RichUser>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -2408,6 +2634,7 @@ export class VosManagerService {
   public getVoAdminGroups(
     vo: number,
     role: VoAdminRoles,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2415,6 +2642,7 @@ export class VosManagerService {
   public getVoAdminGroups(
     vo: number,
     role: VoAdminRoles,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2422,6 +2650,7 @@ export class VosManagerService {
   public getVoAdminGroups(
     vo: number,
     role: VoAdminRoles,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2429,6 +2658,7 @@ export class VosManagerService {
   public getVoAdminGroups(
     vo: number,
     role: VoAdminRoles,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2491,18 +2721,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Group>>(
-      `${this.configuration.basePath}/json/vosManager/getAdminGroups`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getAdminGroups`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Group>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -2517,6 +2754,7 @@ export class VosManagerService {
     vo: number,
     role: VoAdminRoles,
     onlyDirectAdmins: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2525,6 +2763,7 @@ export class VosManagerService {
     vo: number,
     role: VoAdminRoles,
     onlyDirectAdmins: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2533,6 +2772,7 @@ export class VosManagerService {
     vo: number,
     role: VoAdminRoles,
     onlyDirectAdmins: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2541,6 +2781,7 @@ export class VosManagerService {
     vo: number,
     role: VoAdminRoles,
     onlyDirectAdmins: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2615,18 +2856,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Array<User>>(
-      `${this.configuration.basePath}/json/vosManager/getAdmins`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getAdmins`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<User>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -2637,24 +2885,28 @@ export class VosManagerService {
    */
   public getVoBanById(
     banId: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<BanOnVo>;
   public getVoBanById(
     banId: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<BanOnVo>>;
   public getVoBanById(
     banId: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<BanOnVo>>;
   public getVoBanById(
     banId: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2709,18 +2961,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<BanOnVo>(
-      `${this.configuration.basePath}/json/vosManager/getBanById`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getBanById`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<BanOnVo>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -2731,24 +2990,28 @@ export class VosManagerService {
    */
   public getVoBanForMember(
     member: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<BanOnVo>;
   public getVoBanForMember(
     member: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<BanOnVo>>;
   public getVoBanForMember(
     member: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<BanOnVo>>;
   public getVoBanForMember(
     member: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2809,18 +3072,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<BanOnVo>(
-      `${this.configuration.basePath}/json/vosManager/getBanForMember`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getBanForMember`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<BanOnVo>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -2831,24 +3101,28 @@ export class VosManagerService {
    */
   public getVoBansForVo(
     vo: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<BanOnVo>>;
   public getVoBansForVo(
     vo: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<BanOnVo>>>;
   public getVoBansForVo(
     vo: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<BanOnVo>>>;
   public getVoBansForVo(
     vo: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2903,18 +3177,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Array<BanOnVo>>(
-      `${this.configuration.basePath}/json/vosManager/getBansForVo`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getBansForVo`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<BanOnVo>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -2925,24 +3206,28 @@ export class VosManagerService {
    */
   public getVoById(
     id: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Vo>;
   public getVoById(
     id: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Vo>>;
   public getVoById(
     id: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Vo>>;
   public getVoById(
     id: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2997,7 +3282,17 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Vo>(`${this.configuration.basePath}/json/vosManager/getVoById`, {
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getVoById`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Vo>(requestUrl, {
       context: localVarHttpContext,
       params: localVarQueryParameters,
       responseType: <any>responseType_,
@@ -3016,24 +3311,28 @@ export class VosManagerService {
    */
   public getVoByShortName(
     shortName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Vo>;
   public getVoByShortName(
     shortName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Vo>>;
   public getVoByShortName(
     shortName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Vo>>;
   public getVoByShortName(
     shortName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3094,18 +3393,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Vo>(
-      `${this.configuration.basePath}/json/vosManager/getVoByShortName`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getVoByShortName`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Vo>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -3116,24 +3422,28 @@ export class VosManagerService {
    */
   public getVoMembersCountsByStatus(
     vo: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<{ [key: string]: number }>;
   public getVoMembersCountsByStatus(
     vo: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<{ [key: string]: number }>>;
   public getVoMembersCountsByStatus(
     vo: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<{ [key: string]: number }>>;
   public getVoMembersCountsByStatus(
     vo: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3190,18 +3500,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<{ [key: string]: number }>(
-      `${this.configuration.basePath}/json/vosManager/getVoMembersCountsByStatus`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getVoMembersCountsByStatus`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<{ [key: string]: number }>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -3212,24 +3529,28 @@ export class VosManagerService {
    */
   public getVosByIds(
     ids: Array<number>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Vo>>;
   public getVosByIds(
     ids: Array<number>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Vo>>>;
   public getVosByIds(
     ids: Array<number>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Vo>>>;
   public getVosByIds(
     ids: Array<number>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3290,18 +3611,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Vo>>(
-      `${this.configuration.basePath}/json/vosManager/getVosByIds`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getVosByIds`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Vo>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -3310,21 +3638,25 @@ export class VosManagerService {
    * @param reportProgress flag to report request and response progress.
    */
   public getVosCount(
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<number>;
   public getVosCount(
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<number>>;
   public getVosCount(
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<number>>;
   public getVosCount(
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3370,17 +3702,24 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.get<number>(
-      `${this.configuration.basePath}/json/vosManager/getVosCount`,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/getVosCount`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<number>(requestUrl, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -3393,6 +3732,7 @@ export class VosManagerService {
   public removeMemberVo(
     vo: number,
     memberVo: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3400,6 +3740,7 @@ export class VosManagerService {
   public removeMemberVo(
     vo: number,
     memberVo: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3407,6 +3748,7 @@ export class VosManagerService {
   public removeMemberVo(
     vo: number,
     memberVo: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3414,6 +3756,7 @@ export class VosManagerService {
   public removeMemberVo(
     vo: number,
     memberVo: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3480,19 +3823,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/vosManager/removeMemberVo`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/vosManager/removeMemberVo`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -3505,6 +3854,7 @@ export class VosManagerService {
   public removeSponsorRoleFromGroup(
     vo: number,
     authorizedGroup: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3512,6 +3862,7 @@ export class VosManagerService {
   public removeSponsorRoleFromGroup(
     vo: number,
     authorizedGroup: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3519,6 +3870,7 @@ export class VosManagerService {
   public removeSponsorRoleFromGroup(
     vo: number,
     authorizedGroup: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3526,6 +3878,7 @@ export class VosManagerService {
   public removeSponsorRoleFromGroup(
     vo: number,
     authorizedGroup: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3594,19 +3947,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/vosManager/removeSponsorRole/group`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/vosManager/removeSponsorRole/group`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -3619,6 +3978,7 @@ export class VosManagerService {
   public removeSponsorRoleFromUser(
     vo: number,
     user: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3626,6 +3986,7 @@ export class VosManagerService {
   public removeSponsorRoleFromUser(
     vo: number,
     user: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3633,6 +3994,7 @@ export class VosManagerService {
   public removeSponsorRoleFromUser(
     vo: number,
     user: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3640,6 +4002,7 @@ export class VosManagerService {
   public removeSponsorRoleFromUser(
     vo: number,
     user: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3704,19 +4067,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/vosManager/removeSponsorRole/user`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/vosManager/removeSponsorRole/user`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -3729,6 +4098,7 @@ export class VosManagerService {
   public removeVoAdminGroup(
     vo: number,
     authorizedGroup: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3736,6 +4106,7 @@ export class VosManagerService {
   public removeVoAdminGroup(
     vo: number,
     authorizedGroup: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3743,6 +4114,7 @@ export class VosManagerService {
   public removeVoAdminGroup(
     vo: number,
     authorizedGroup: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3750,6 +4122,7 @@ export class VosManagerService {
   public removeVoAdminGroup(
     vo: number,
     authorizedGroup: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3818,19 +4191,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/vosManager/removeAdmin/group`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/vosManager/removeAdmin/group`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -3843,6 +4222,7 @@ export class VosManagerService {
   public removeVoAdminUser(
     vo: number,
     user: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3850,6 +4230,7 @@ export class VosManagerService {
   public removeVoAdminUser(
     vo: number,
     user: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3857,6 +4238,7 @@ export class VosManagerService {
   public removeVoAdminUser(
     vo: number,
     user: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3864,6 +4246,7 @@ export class VosManagerService {
   public removeVoAdminUser(
     vo: number,
     user: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3928,19 +4311,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/vosManager/removeAdmin/user`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/vosManager/removeAdmin/user`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -3951,24 +4340,28 @@ export class VosManagerService {
    */
   public removeVoBan(
     banId: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public removeVoBan(
     banId: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public removeVoBan(
     banId: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public removeVoBan(
     banId: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4023,19 +4416,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/vosManager/removeBan`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/vosManager/removeBan`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -4046,24 +4445,28 @@ export class VosManagerService {
    */
   public removeVoBanForMember(
     member: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public removeVoBanForMember(
     member: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public removeVoBanForMember(
     member: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public removeVoBanForMember(
     member: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4124,19 +4527,25 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/vosManager/removeBanForMember`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/vosManager/removeBanForMember`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -4147,24 +4556,28 @@ export class VosManagerService {
    */
   public setVoBan(
     InputSetVoBan: InputSetVoBan,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<BanOnVo>;
   public setVoBan(
     InputSetVoBan: InputSetVoBan,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<BanOnVo>>;
   public setVoBan(
     InputSetVoBan: InputSetVoBan,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<BanOnVo>>;
   public setVoBan(
     InputSetVoBan: InputSetVoBan,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4224,18 +4637,24 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<BanOnVo>(
-      `${this.configuration.basePath}/json/vosManager/setBan`,
-      InputSetVoBan,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/setBan`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<BanOnVo>(requestUrl, InputSetVoBan, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -4246,24 +4665,28 @@ export class VosManagerService {
    */
   public updateVo(
     InputUpdateVo: InputUpdateVo,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Vo>;
   public updateVo(
     InputUpdateVo: InputUpdateVo,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Vo>>;
   public updateVo(
     InputUpdateVo: InputUpdateVo,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Vo>>;
   public updateVo(
     InputUpdateVo: InputUpdateVo,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4323,18 +4746,24 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<Vo>(
-      `${this.configuration.basePath}/json/vosManager/updateVo`,
-      InputUpdateVo,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/updateVo`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<Vo>(requestUrl, InputUpdateVo, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -4345,24 +4774,28 @@ export class VosManagerService {
    */
   public updateVoBan(
     InputUpdateBan1: InputUpdateBan1,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<BanOnVo>;
   public updateVoBan(
     InputUpdateBan1: InputUpdateBan1,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<BanOnVo>>;
   public updateVoBan(
     InputUpdateBan1: InputUpdateBan1,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<BanOnVo>>;
   public updateVoBan(
     InputUpdateBan1: InputUpdateBan1,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4422,17 +4855,23 @@ export class VosManagerService {
       }
     }
 
-    return this.httpClient.post<BanOnVo>(
-      `${this.configuration.basePath}/json/vosManager/updateBan`,
-      InputUpdateBan1,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/vosManager/updateBan`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<BanOnVo>(requestUrl, InputUpdateBan1, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 }

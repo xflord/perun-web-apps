@@ -198,24 +198,28 @@ export class AttributesManagerService {
    */
   public convertAttributeToNonunique(
     attributeDefinition: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public convertAttributeToNonunique(
     attributeDefinition: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public convertAttributeToNonunique(
     attributeDefinition: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public convertAttributeToNonunique(
     attributeDefinition: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -276,19 +280,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/convertAttributeToNonunique`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/convertAttributeToNonunique`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -299,24 +309,28 @@ export class AttributesManagerService {
    */
   public convertAttributeToUnique(
     attributeDefinition: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public convertAttributeToUnique(
     attributeDefinition: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public convertAttributeToUnique(
     attributeDefinition: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public convertAttributeToUnique(
     attributeDefinition: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -377,19 +391,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/convertAttributeToUnique`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/convertAttributeToUnique`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -400,24 +420,28 @@ export class AttributesManagerService {
    */
   public createAttributeDefinition(
     InputCreateAttributeDefinition: InputCreateAttributeDefinition,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<AttributeDefinition>;
   public createAttributeDefinition(
     InputCreateAttributeDefinition: InputCreateAttributeDefinition,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<AttributeDefinition>>;
   public createAttributeDefinition(
     InputCreateAttributeDefinition: InputCreateAttributeDefinition,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<AttributeDefinition>>;
   public createAttributeDefinition(
     InputCreateAttributeDefinition: InputCreateAttributeDefinition,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -477,18 +501,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<AttributeDefinition>(
-      `${this.configuration.basePath}/json/attributesManager/createAttribute`,
-      InputCreateAttributeDefinition,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/createAttribute`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<AttributeDefinition>(requestUrl, InputCreateAttributeDefinition, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -499,24 +529,28 @@ export class AttributesManagerService {
    */
   public deleteAttributeDefinition(
     attribute: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public deleteAttributeDefinition(
     attribute: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public deleteAttributeDefinition(
     attribute: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public deleteAttributeDefinition(
     attribute: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -577,19 +611,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/deleteAttribute`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/deleteAttribute`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -600,24 +640,28 @@ export class AttributesManagerService {
    */
   public deleteAttributeDefinitions(
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public deleteAttributeDefinitions(
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public deleteAttributeDefinitions(
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public deleteAttributeDefinitions(
     attributes: Array<number>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -680,19 +724,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/deleteAttributes`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/deleteAttributes`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -701,21 +751,25 @@ export class AttributesManagerService {
    * @param reportProgress flag to report request and response progress.
    */
   public getAllAttributeDefinitions(
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<AttributeDefinition>>;
   public getAllAttributeDefinitions(
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<AttributeDefinition>>>;
   public getAllAttributeDefinitions(
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<AttributeDefinition>>>;
   public getAllAttributeDefinitions(
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -761,17 +815,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<AttributeDefinition>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributesDefinition`,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributesDefinition`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<AttributeDefinition>>(requestUrl, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -803,6 +864,7 @@ export class AttributesManagerService {
     host?: number,
     userExtSource?: number,
     key?: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -819,6 +881,7 @@ export class AttributesManagerService {
     host?: number,
     userExtSource?: number,
     key?: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -835,6 +898,7 @@ export class AttributesManagerService {
     host?: number,
     userExtSource?: number,
     key?: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -851,6 +915,7 @@ export class AttributesManagerService {
     host?: number,
     userExtSource?: number,
     key?: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -955,18 +1020,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/any`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/any`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -977,24 +1049,28 @@ export class AttributesManagerService {
    */
   public getAttributeDefinitionById(
     id: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<AttributeDefinition>;
   public getAttributeDefinitionById(
     id: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<AttributeDefinition>>;
   public getAttributeDefinitionById(
     id: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<AttributeDefinition>>;
   public getAttributeDefinitionById(
     id: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1051,18 +1127,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<AttributeDefinition>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributeDefinitionById`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributeDefinitionById`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<AttributeDefinition>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1073,24 +1156,28 @@ export class AttributesManagerService {
    */
   public getAttributeDefinitionByName(
     attributeName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<AttributeDefinition>;
   public getAttributeDefinitionByName(
     attributeName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<AttributeDefinition>>;
   public getAttributeDefinitionByName(
     attributeName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<AttributeDefinition>>;
   public getAttributeDefinitionByName(
     attributeName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1151,18 +1238,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<AttributeDefinition>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributeDefinition`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributeDefinition`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<AttributeDefinition>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1173,24 +1267,28 @@ export class AttributesManagerService {
    */
   public getAttributeDefinitionsByNamespace(
     namespace: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<AttributeDefinition>>;
   public getAttributeDefinitionsByNamespace(
     namespace: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<AttributeDefinition>>>;
   public getAttributeDefinitionsByNamespace(
     namespace: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<AttributeDefinition>>>;
   public getAttributeDefinitionsByNamespace(
     namespace: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1251,18 +1349,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<AttributeDefinition>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributesDefinitionByNamespace`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributesDefinitionByNamespace`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<AttributeDefinition>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1275,6 +1380,7 @@ export class AttributesManagerService {
   public getAttributeModulesDependenciesForAttributeGraphText(
     format: GraphFileFormat,
     attrName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1282,6 +1388,7 @@ export class AttributesManagerService {
   public getAttributeModulesDependenciesForAttributeGraphText(
     format: GraphFileFormat,
     attrName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1289,6 +1396,7 @@ export class AttributesManagerService {
   public getAttributeModulesDependenciesForAttributeGraphText(
     format: GraphFileFormat,
     attrName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1296,6 +1404,7 @@ export class AttributesManagerService {
   public getAttributeModulesDependenciesForAttributeGraphText(
     format: GraphFileFormat,
     attrName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1368,18 +1477,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<GraphDTO>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributeModulesDependenciesGraphText/for-attribute`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributeModulesDependenciesGraphText/for-attribute`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<GraphDTO>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1390,24 +1506,28 @@ export class AttributesManagerService {
    */
   public getAttributeModulesDependenciesGraphText(
     format: GraphFileFormat,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<GraphDTO>;
   public getAttributeModulesDependenciesGraphText(
     format: GraphFileFormat,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<GraphDTO>>;
   public getAttributeModulesDependenciesGraphText(
     format: GraphFileFormat,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<GraphDTO>>;
   public getAttributeModulesDependenciesGraphText(
     format: GraphFileFormat,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1468,18 +1588,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<GraphDTO>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributeModulesDependenciesGraphText`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributeModulesDependenciesGraphText`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<GraphDTO>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1490,24 +1617,28 @@ export class AttributesManagerService {
    */
   public getAttributePolicyCollections(
     attributeId: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<AttributePolicyCollection>>;
   public getAttributePolicyCollections(
     attributeId: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<AttributePolicyCollection>>>;
   public getAttributePolicyCollections(
     attributeId: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<AttributePolicyCollection>>>;
   public getAttributePolicyCollections(
     attributeId: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1568,18 +1699,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<AttributePolicyCollection>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributePolicyCollections`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributePolicyCollections`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<AttributePolicyCollection>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1590,24 +1728,28 @@ export class AttributesManagerService {
    */
   public getAttributeRights(
     attributeId: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<AttributeRights>>;
   public getAttributeRights(
     attributeId: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<AttributeRights>>>;
   public getAttributeRights(
     attributeId: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<AttributeRights>>>;
   public getAttributeRights(
     attributeId: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1668,18 +1810,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<AttributeRights>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributeRights`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributeRights`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<AttributeRights>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1690,24 +1839,28 @@ export class AttributesManagerService {
    */
   public getAttributeRules(
     attributeDefinition: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<AttributeRules>;
   public getAttributeRules(
     attributeDefinition: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<AttributeRules>>;
   public getAttributeRules(
     attributeDefinition: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<AttributeRules>>;
   public getAttributeRules(
     attributeDefinition: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1768,18 +1921,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<AttributeRules>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributeRules`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributeRules`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<AttributeRules>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1804,6 +1964,7 @@ export class AttributesManagerService {
     facility?: number,
     host?: number,
     userExtSource?: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1817,6 +1978,7 @@ export class AttributesManagerService {
     facility?: number,
     host?: number,
     userExtSource?: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1830,6 +1992,7 @@ export class AttributesManagerService {
     facility?: number,
     host?: number,
     userExtSource?: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1843,6 +2006,7 @@ export class AttributesManagerService {
     facility?: number,
     host?: number,
     userExtSource?: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1930,18 +2094,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<AttributeDefinition>>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/getAttributesDefinitionWithRights`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/getAttributesDefinitionWithRights`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<AttributeDefinition>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1955,6 +2126,7 @@ export class AttributesManagerService {
   public getEntitylessAttributeByName(
     key: string,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1962,6 +2134,7 @@ export class AttributesManagerService {
   public getEntitylessAttributeByName(
     key: string,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1969,6 +2142,7 @@ export class AttributesManagerService {
   public getEntitylessAttributeByName(
     key: string,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1976,6 +2150,7 @@ export class AttributesManagerService {
   public getEntitylessAttributeByName(
     key: string,
     attributeName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2044,18 +2219,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/name-entityless`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/name-entityless`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -2066,24 +2248,28 @@ export class AttributesManagerService {
    */
   public getEntitylessAttributesByKey(
     key: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Attribute>>;
   public getEntitylessAttributesByKey(
     key: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getEntitylessAttributesByKey(
     key: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getEntitylessAttributesByKey(
     key: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2140,18 +2326,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/key`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/key`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -2162,24 +2355,28 @@ export class AttributesManagerService {
    */
   public getEntitylessAttributesByName(
     attrName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Attribute>>;
   public getEntitylessAttributesByName(
     attrName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getEntitylessAttributesByName(
     attrName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getEntitylessAttributesByName(
     attrName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2240,18 +2437,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getEntitylessAttributes`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getEntitylessAttributes`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -2264,6 +2468,7 @@ export class AttributesManagerService {
   public getEntitylessAttributesWithKeys(
     attrName: string,
     keys?: Array<string>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2271,6 +2476,7 @@ export class AttributesManagerService {
   public getEntitylessAttributesWithKeys(
     attrName: string,
     keys?: Array<string>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2278,6 +2484,7 @@ export class AttributesManagerService {
   public getEntitylessAttributesWithKeys(
     attrName: string,
     keys?: Array<string>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2285,6 +2492,7 @@ export class AttributesManagerService {
   public getEntitylessAttributesWithKeys(
     attrName: string,
     keys?: Array<string>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2354,18 +2562,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<{ [key: string]: Attribute }>(
-      `${this.configuration.basePath}/json/attributesManager/getEntitylessAttributesWithKeys`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getEntitylessAttributesWithKeys`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<{ [key: string]: Attribute }>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -2376,24 +2591,28 @@ export class AttributesManagerService {
    */
   public getEntitylessKeys(
     attributeDefinition: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<string>>;
   public getEntitylessKeys(
     attributeDefinition: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<string>>>;
   public getEntitylessKeys(
     attributeDefinition: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<string>>>;
   public getEntitylessKeys(
     attributeDefinition: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2454,18 +2673,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<string>>(
-      `${this.configuration.basePath}/json/attributesManager/getEntitylessKeys`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getEntitylessKeys`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<string>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -2479,6 +2705,7 @@ export class AttributesManagerService {
   public getFacilityAttributeById(
     facility: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2486,6 +2713,7 @@ export class AttributesManagerService {
   public getFacilityAttributeById(
     facility: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2493,6 +2721,7 @@ export class AttributesManagerService {
   public getFacilityAttributeById(
     facility: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2500,6 +2729,7 @@ export class AttributesManagerService {
   public getFacilityAttributeById(
     facility: number,
     attributeId: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2572,18 +2802,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/id-facility`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/id-facility`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -2597,6 +2834,7 @@ export class AttributesManagerService {
   public getFacilityAttributeByName(
     facility: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2604,6 +2842,7 @@ export class AttributesManagerService {
   public getFacilityAttributeByName(
     facility: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2611,6 +2850,7 @@ export class AttributesManagerService {
   public getFacilityAttributeByName(
     facility: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2618,6 +2858,7 @@ export class AttributesManagerService {
   public getFacilityAttributeByName(
     facility: number,
     attributeName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2690,18 +2931,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/name-facility`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/name-facility`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -2712,24 +2960,28 @@ export class AttributesManagerService {
    */
   public getFacilityAttributes(
     facility: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Attribute>>;
   public getFacilityAttributes(
     facility: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getFacilityAttributes(
     facility: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getFacilityAttributes(
     facility: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2790,18 +3042,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/f`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/f`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -2814,6 +3073,7 @@ export class AttributesManagerService {
   public getFacilityAttributesByNames(
     facility: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2821,6 +3081,7 @@ export class AttributesManagerService {
   public getFacilityAttributesByNames(
     facility: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2828,6 +3089,7 @@ export class AttributesManagerService {
   public getFacilityAttributesByNames(
     facility: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2835,6 +3097,7 @@ export class AttributesManagerService {
   public getFacilityAttributesByNames(
     facility: number,
     attrNames: Array<string>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2909,18 +3172,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/f-names`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/f-names`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -2937,6 +3207,7 @@ export class AttributesManagerService {
     resource: number,
     user: number,
     member: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2946,6 +3217,7 @@ export class AttributesManagerService {
     resource: number,
     user: number,
     member: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2955,6 +3227,7 @@ export class AttributesManagerService {
     resource: number,
     user: number,
     member: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -2964,6 +3237,7 @@ export class AttributesManagerService {
     resource: number,
     user: number,
     member: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3056,18 +3330,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/f-r-u-m`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/f-r-u-m`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -3080,6 +3361,7 @@ export class AttributesManagerService {
   public getFacilityUserAttributes(
     facility: number,
     user: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3087,6 +3369,7 @@ export class AttributesManagerService {
   public getFacilityUserAttributes(
     facility: number,
     user: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3094,6 +3377,7 @@ export class AttributesManagerService {
   public getFacilityUserAttributes(
     facility: number,
     user: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3101,6 +3385,7 @@ export class AttributesManagerService {
   public getFacilityUserAttributes(
     facility: number,
     user: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3169,18 +3454,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/f-u`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/f-u`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -3194,6 +3486,7 @@ export class AttributesManagerService {
   public getGroupAttributeById(
     group: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3201,6 +3494,7 @@ export class AttributesManagerService {
   public getGroupAttributeById(
     group: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3208,6 +3502,7 @@ export class AttributesManagerService {
   public getGroupAttributeById(
     group: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3215,6 +3510,7 @@ export class AttributesManagerService {
   public getGroupAttributeById(
     group: number,
     attributeId: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3283,18 +3579,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/id-group`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/id-group`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -3308,6 +3611,7 @@ export class AttributesManagerService {
   public getGroupAttributeByName(
     group: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3315,6 +3619,7 @@ export class AttributesManagerService {
   public getGroupAttributeByName(
     group: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3322,6 +3627,7 @@ export class AttributesManagerService {
   public getGroupAttributeByName(
     group: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3329,6 +3635,7 @@ export class AttributesManagerService {
   public getGroupAttributeByName(
     group: number,
     attributeName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3397,18 +3704,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/name-group`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/name-group`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -3419,24 +3733,28 @@ export class AttributesManagerService {
    */
   public getGroupAttributes(
     group: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Attribute>>;
   public getGroupAttributes(
     group: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getGroupAttributes(
     group: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getGroupAttributes(
     group: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3493,18 +3811,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/g`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/g`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -3517,6 +3842,7 @@ export class AttributesManagerService {
   public getGroupAttributesByNames(
     group: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3524,6 +3850,7 @@ export class AttributesManagerService {
   public getGroupAttributesByNames(
     group: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3531,6 +3858,7 @@ export class AttributesManagerService {
   public getGroupAttributesByNames(
     group: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3538,6 +3866,7 @@ export class AttributesManagerService {
   public getGroupAttributesByNames(
     group: number,
     attrNames: Array<string>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3608,18 +3937,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/g-names`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/g-names`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -3635,6 +3971,7 @@ export class AttributesManagerService {
     group: number,
     resource: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3643,6 +3980,7 @@ export class AttributesManagerService {
     group: number,
     resource: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3651,6 +3989,7 @@ export class AttributesManagerService {
     group: number,
     resource: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3659,6 +3998,7 @@ export class AttributesManagerService {
     group: number,
     resource: number,
     attributeId: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3739,18 +4079,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/id-group-resource`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/id-group-resource`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -3766,6 +4113,7 @@ export class AttributesManagerService {
     group: number,
     resource: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3774,6 +4122,7 @@ export class AttributesManagerService {
     group: number,
     resource: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3782,6 +4131,7 @@ export class AttributesManagerService {
     group: number,
     resource: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3790,6 +4140,7 @@ export class AttributesManagerService {
     group: number,
     resource: number,
     attributeName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3870,18 +4221,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/name-group-resource`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/name-group-resource`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -3894,6 +4252,7 @@ export class AttributesManagerService {
   public getGroupResourceAttributes(
     group: number,
     resource: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3901,6 +4260,7 @@ export class AttributesManagerService {
   public getGroupResourceAttributes(
     group: number,
     resource: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3908,6 +4268,7 @@ export class AttributesManagerService {
   public getGroupResourceAttributes(
     group: number,
     resource: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3915,6 +4276,7 @@ export class AttributesManagerService {
   public getGroupResourceAttributes(
     group: number,
     resource: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -3983,18 +4345,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/group-resource`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/group-resource`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -4008,6 +4377,7 @@ export class AttributesManagerService {
   public getHostAttributeById(
     host: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4015,6 +4385,7 @@ export class AttributesManagerService {
   public getHostAttributeById(
     host: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4022,6 +4393,7 @@ export class AttributesManagerService {
   public getHostAttributeById(
     host: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4029,6 +4401,7 @@ export class AttributesManagerService {
   public getHostAttributeById(
     host: number,
     attributeId: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4097,18 +4470,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/id-host`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/id-host`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -4122,6 +4502,7 @@ export class AttributesManagerService {
   public getHostAttributeByName(
     host: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4129,6 +4510,7 @@ export class AttributesManagerService {
   public getHostAttributeByName(
     host: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4136,6 +4518,7 @@ export class AttributesManagerService {
   public getHostAttributeByName(
     host: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4143,6 +4526,7 @@ export class AttributesManagerService {
   public getHostAttributeByName(
     host: number,
     attributeName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4211,18 +4595,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/name-host`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/name-host`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -4233,24 +4624,28 @@ export class AttributesManagerService {
    */
   public getHostAttributes(
     host: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Attribute>>;
   public getHostAttributes(
     host: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getHostAttributes(
     host: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getHostAttributes(
     host: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4307,18 +4702,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/h`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/h`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -4331,6 +4733,7 @@ export class AttributesManagerService {
   public getHostAttributesByNames(
     host: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4338,6 +4741,7 @@ export class AttributesManagerService {
   public getHostAttributesByNames(
     host: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4345,6 +4749,7 @@ export class AttributesManagerService {
   public getHostAttributesByNames(
     host: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4352,6 +4757,7 @@ export class AttributesManagerService {
   public getHostAttributesByNames(
     host: number,
     attrNames: Array<string>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4422,18 +4828,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/h-names`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/h-names`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -4444,24 +4857,28 @@ export class AttributesManagerService {
    */
   public getLogins(
     user: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Attribute>>;
   public getLogins(
     user: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getLogins(
     user: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getLogins(
     user: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4516,18 +4933,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getLogins`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getLogins`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -4540,6 +4964,7 @@ export class AttributesManagerService {
   public getMemberAndUserAttributes(
     member: number,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4547,6 +4972,7 @@ export class AttributesManagerService {
   public getMemberAndUserAttributes(
     member: number,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4554,6 +4980,7 @@ export class AttributesManagerService {
   public getMemberAndUserAttributes(
     member: number,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4561,6 +4988,7 @@ export class AttributesManagerService {
   public getMemberAndUserAttributes(
     member: number,
     workWithUserAttributes: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4633,18 +5061,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/m-wu`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/m-wu`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -4659,6 +5094,7 @@ export class AttributesManagerService {
     member: number,
     attrNames: Array<string>,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4667,6 +5103,7 @@ export class AttributesManagerService {
     member: number,
     attrNames: Array<string>,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4675,6 +5112,7 @@ export class AttributesManagerService {
     member: number,
     attrNames: Array<string>,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4683,6 +5121,7 @@ export class AttributesManagerService {
     member: number,
     attrNames: Array<string>,
     workWithUserAttributes: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4769,18 +5208,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/m-names-wu`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/m-names-wu`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -4794,6 +5240,7 @@ export class AttributesManagerService {
   public getMemberAttributeById(
     member: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4801,6 +5248,7 @@ export class AttributesManagerService {
   public getMemberAttributeById(
     member: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4808,6 +5256,7 @@ export class AttributesManagerService {
   public getMemberAttributeById(
     member: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4815,6 +5264,7 @@ export class AttributesManagerService {
   public getMemberAttributeById(
     member: number,
     attributeId: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4887,18 +5337,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/id-member`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/id-member`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -4912,6 +5369,7 @@ export class AttributesManagerService {
   public getMemberAttributeByName(
     member: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4919,6 +5377,7 @@ export class AttributesManagerService {
   public getMemberAttributeByName(
     member: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4926,6 +5385,7 @@ export class AttributesManagerService {
   public getMemberAttributeByName(
     member: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -4933,6 +5393,7 @@ export class AttributesManagerService {
   public getMemberAttributeByName(
     member: number,
     attributeName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5005,18 +5466,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/name-member`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/name-member`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -5027,24 +5495,28 @@ export class AttributesManagerService {
    */
   public getMemberAttributes(
     member: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Attribute>>;
   public getMemberAttributes(
     member: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getMemberAttributes(
     member: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getMemberAttributes(
     member: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5105,18 +5577,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/m`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/m`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -5129,6 +5608,7 @@ export class AttributesManagerService {
   public getMemberAttributesByNames(
     member: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5136,6 +5616,7 @@ export class AttributesManagerService {
   public getMemberAttributesByNames(
     member: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5143,6 +5624,7 @@ export class AttributesManagerService {
   public getMemberAttributesByNames(
     member: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5150,6 +5632,7 @@ export class AttributesManagerService {
   public getMemberAttributesByNames(
     member: number,
     attrNames: Array<string>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5224,18 +5707,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/m-names`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/m-names`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -5252,6 +5742,7 @@ export class AttributesManagerService {
     group: number,
     attrNames: Array<string>,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5261,6 +5752,7 @@ export class AttributesManagerService {
     group: number,
     attrNames: Array<string>,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5270,6 +5762,7 @@ export class AttributesManagerService {
     group: number,
     attrNames: Array<string>,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5279,6 +5772,7 @@ export class AttributesManagerService {
     group: number,
     attrNames: Array<string>,
     workWithUserAttributes: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5373,18 +5867,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/m-g-names-wu`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/m-g-names-wu`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -5400,6 +5901,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5408,6 +5910,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5416,6 +5919,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5424,6 +5928,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attributeId: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5504,18 +6009,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/id-member-group`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/id-member-group`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -5531,6 +6043,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5539,6 +6052,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5547,6 +6061,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5555,6 +6070,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attributeName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5635,18 +6151,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/name-member-group`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/name-member-group`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -5659,6 +6182,7 @@ export class AttributesManagerService {
   public getMemberGroupAttributes(
     member: number,
     group: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5666,6 +6190,7 @@ export class AttributesManagerService {
   public getMemberGroupAttributes(
     member: number,
     group: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5673,6 +6198,7 @@ export class AttributesManagerService {
   public getMemberGroupAttributes(
     member: number,
     group: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5680,6 +6206,7 @@ export class AttributesManagerService {
   public getMemberGroupAttributes(
     member: number,
     group: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5748,18 +6275,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/m-g`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/m-g`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -5774,6 +6308,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5782,6 +6317,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5790,6 +6326,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5798,6 +6335,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attrNames: Array<string>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5880,18 +6418,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/m-g-names`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/m-g-names`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -5906,6 +6451,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5914,6 +6460,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5922,6 +6469,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -5930,6 +6478,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     workWithUserAttributes: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6014,18 +6563,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/m-r-wu`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/m-r-wu`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -6042,6 +6598,7 @@ export class AttributesManagerService {
     resource: number,
     attrNames: Array<string>,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6051,6 +6608,7 @@ export class AttributesManagerService {
     resource: number,
     attrNames: Array<string>,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6060,6 +6618,7 @@ export class AttributesManagerService {
     resource: number,
     attrNames: Array<string>,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6069,6 +6628,7 @@ export class AttributesManagerService {
     resource: number,
     attrNames: Array<string>,
     workWithUserAttributes: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6167,18 +6727,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/m-r-names-wu`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/m-r-names-wu`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -6194,6 +6761,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6202,6 +6770,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6210,6 +6779,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6218,6 +6788,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     attributeId: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6302,18 +6873,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/id-member-resource`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/id-member-resource`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -6329,6 +6907,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6337,6 +6916,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6345,6 +6925,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6353,6 +6934,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     attributeName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6437,18 +7019,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/name-member-resource`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/name-member-resource`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -6461,6 +7050,7 @@ export class AttributesManagerService {
   public getMemberResourceAttributes(
     member: number,
     resource: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6468,6 +7058,7 @@ export class AttributesManagerService {
   public getMemberResourceAttributes(
     member: number,
     resource: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6475,6 +7066,7 @@ export class AttributesManagerService {
   public getMemberResourceAttributes(
     member: number,
     resource: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6482,6 +7074,7 @@ export class AttributesManagerService {
   public getMemberResourceAttributes(
     member: number,
     resource: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6554,18 +7147,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/m-r`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/m-r`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -6576,24 +7176,28 @@ export class AttributesManagerService {
    */
   public getRequiredAttributesDefinition(
     service: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<AttributeDefinition>>;
   public getRequiredAttributesDefinition(
     service: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<AttributeDefinition>>>;
   public getRequiredAttributesDefinition(
     service: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<AttributeDefinition>>>;
   public getRequiredAttributesDefinition(
     service: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6654,18 +7258,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<AttributeDefinition>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributesDefinition`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributesDefinition`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<AttributeDefinition>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -6676,24 +7287,28 @@ export class AttributesManagerService {
    */
   public getRequiredAttributesFacility(
     facility: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesFacility(
     facility: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesFacility(
     facility: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesFacility(
     facility: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6754,18 +7369,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/f`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/f`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -6778,6 +7400,7 @@ export class AttributesManagerService {
   public getRequiredAttributesFacilityService(
     service: number,
     facility: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6785,6 +7408,7 @@ export class AttributesManagerService {
   public getRequiredAttributesFacilityService(
     service: number,
     facility: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6792,6 +7416,7 @@ export class AttributesManagerService {
   public getRequiredAttributesFacilityService(
     service: number,
     facility: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6799,6 +7424,7 @@ export class AttributesManagerService {
   public getRequiredAttributesFacilityService(
     service: number,
     facility: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6871,18 +7497,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-f`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-f`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -6895,6 +7528,7 @@ export class AttributesManagerService {
   public getRequiredAttributesFacilityServices(
     services: Array<number>,
     facility: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6902,6 +7536,7 @@ export class AttributesManagerService {
   public getRequiredAttributesFacilityServices(
     services: Array<number>,
     facility: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6909,6 +7544,7 @@ export class AttributesManagerService {
   public getRequiredAttributesFacilityServices(
     services: Array<number>,
     facility: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6916,6 +7552,7 @@ export class AttributesManagerService {
   public getRequiredAttributesFacilityServices(
     services: Array<number>,
     facility: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -6990,18 +7627,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/ss-f`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/ss-f`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -7016,6 +7660,7 @@ export class AttributesManagerService {
     service: number,
     resource: number,
     group: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7024,6 +7669,7 @@ export class AttributesManagerService {
     service: number,
     resource: number,
     group: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7032,6 +7678,7 @@ export class AttributesManagerService {
     service: number,
     resource: number,
     group: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7040,6 +7687,7 @@ export class AttributesManagerService {
     service: number,
     resource: number,
     group: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7120,18 +7768,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-r-g`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-r-g`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -7144,6 +7799,7 @@ export class AttributesManagerService {
   public getRequiredAttributesHostService(
     service: number,
     host: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7151,6 +7807,7 @@ export class AttributesManagerService {
   public getRequiredAttributesHostService(
     service: number,
     host: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7158,6 +7815,7 @@ export class AttributesManagerService {
   public getRequiredAttributesHostService(
     service: number,
     host: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7165,6 +7823,7 @@ export class AttributesManagerService {
   public getRequiredAttributesHostService(
     service: number,
     host: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7233,18 +7892,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-h`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-h`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -7257,6 +7923,7 @@ export class AttributesManagerService {
   public getRequiredAttributesMember(
     member: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7264,6 +7931,7 @@ export class AttributesManagerService {
   public getRequiredAttributesMember(
     member: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7271,6 +7939,7 @@ export class AttributesManagerService {
   public getRequiredAttributesMember(
     member: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7278,6 +7947,7 @@ export class AttributesManagerService {
   public getRequiredAttributesMember(
     member: number,
     workWithUserAttributes?: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7345,18 +8015,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/m`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/m`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -7371,6 +8048,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7379,6 +8057,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7387,6 +8066,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7395,6 +8075,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     workWithUserAttributes?: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7470,18 +8151,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/m-g`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/m-g`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -7500,6 +8188,7 @@ export class AttributesManagerService {
     group: number,
     member: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7510,6 +8199,7 @@ export class AttributesManagerService {
     group: number,
     member: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7520,6 +8210,7 @@ export class AttributesManagerService {
     group: number,
     member: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7530,6 +8221,7 @@ export class AttributesManagerService {
     group: number,
     member: number,
     workWithUserAttributes?: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7629,18 +8321,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-r-g-m`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-r-g-m`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -7657,6 +8356,7 @@ export class AttributesManagerService {
     group: number,
     member: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7666,6 +8366,7 @@ export class AttributesManagerService {
     group: number,
     member: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7675,6 +8376,7 @@ export class AttributesManagerService {
     group: number,
     member: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7684,6 +8386,7 @@ export class AttributesManagerService {
     group: number,
     member: number,
     workWithUserAttributes?: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7771,18 +8474,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-g-m`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-g-m`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -7797,6 +8507,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7805,6 +8516,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7813,6 +8525,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7821,6 +8534,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     workWithUserAttributes?: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7900,18 +8614,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/m-r`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/m-r`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -7928,6 +8649,7 @@ export class AttributesManagerService {
     resource: number,
     member: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7937,6 +8659,7 @@ export class AttributesManagerService {
     resource: number,
     member: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7946,6 +8669,7 @@ export class AttributesManagerService {
     resource: number,
     member: number,
     workWithUserAttributes?: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -7955,6 +8679,7 @@ export class AttributesManagerService {
     resource: number,
     member: number,
     workWithUserAttributes?: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8046,18 +8771,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-r-m`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-r-m`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -8068,24 +8800,28 @@ export class AttributesManagerService {
    */
   public getRequiredAttributesResource(
     resource: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesResource(
     resource: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesResource(
     resource: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesResource(
     resource: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8146,18 +8882,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/r`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/r`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -8170,6 +8913,7 @@ export class AttributesManagerService {
   public getRequiredAttributesResourceService(
     service: number,
     resource: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8177,6 +8921,7 @@ export class AttributesManagerService {
   public getRequiredAttributesResourceService(
     service: number,
     resource: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8184,6 +8929,7 @@ export class AttributesManagerService {
   public getRequiredAttributesResourceService(
     service: number,
     resource: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8191,6 +8937,7 @@ export class AttributesManagerService {
   public getRequiredAttributesResourceService(
     service: number,
     resource: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8263,18 +9010,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-r`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-r`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -8287,6 +9041,7 @@ export class AttributesManagerService {
   public getRequiredAttributesResourceServices(
     services: Array<number>,
     resource: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8294,6 +9049,7 @@ export class AttributesManagerService {
   public getRequiredAttributesResourceServices(
     services: Array<number>,
     resource: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8301,6 +9057,7 @@ export class AttributesManagerService {
   public getRequiredAttributesResourceServices(
     services: Array<number>,
     resource: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8308,6 +9065,7 @@ export class AttributesManagerService {
   public getRequiredAttributesResourceServices(
     services: Array<number>,
     resource: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8382,18 +9140,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/ss-r`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/ss-r`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -8404,24 +9169,28 @@ export class AttributesManagerService {
    */
   public getRequiredAttributesUser(
     user: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesUser(
     user: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesUser(
     user: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesUser(
     user: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8478,18 +9247,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/u`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/u`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -8502,6 +9278,7 @@ export class AttributesManagerService {
   public getRequiredAttributesUserFacility(
     user: number,
     facility: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8509,6 +9286,7 @@ export class AttributesManagerService {
   public getRequiredAttributesUserFacility(
     user: number,
     facility: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8516,6 +9294,7 @@ export class AttributesManagerService {
   public getRequiredAttributesUserFacility(
     user: number,
     facility: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8523,6 +9302,7 @@ export class AttributesManagerService {
   public getRequiredAttributesUserFacility(
     user: number,
     facility: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8591,18 +9371,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/u-f`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/u-f`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -8615,6 +9402,7 @@ export class AttributesManagerService {
   public getRequiredAttributesVoService(
     service: number,
     vo: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8622,6 +9410,7 @@ export class AttributesManagerService {
   public getRequiredAttributesVoService(
     service: number,
     vo: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8629,6 +9418,7 @@ export class AttributesManagerService {
   public getRequiredAttributesVoService(
     service: number,
     vo: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8636,6 +9426,7 @@ export class AttributesManagerService {
   public getRequiredAttributesVoService(
     service: number,
     vo: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8704,18 +9495,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-v`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getRequiredAttributes/s-v`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -8729,6 +9527,7 @@ export class AttributesManagerService {
   public getResourceAttributeById(
     resource: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8736,6 +9535,7 @@ export class AttributesManagerService {
   public getResourceAttributeById(
     resource: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8743,6 +9543,7 @@ export class AttributesManagerService {
   public getResourceAttributeById(
     resource: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8750,6 +9551,7 @@ export class AttributesManagerService {
   public getResourceAttributeById(
     resource: number,
     attributeId: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8822,18 +9624,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/id-resource`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/id-resource`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -8847,6 +9656,7 @@ export class AttributesManagerService {
   public getResourceAttributeByName(
     resource: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8854,6 +9664,7 @@ export class AttributesManagerService {
   public getResourceAttributeByName(
     resource: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8861,6 +9672,7 @@ export class AttributesManagerService {
   public getResourceAttributeByName(
     resource: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8868,6 +9680,7 @@ export class AttributesManagerService {
   public getResourceAttributeByName(
     resource: number,
     attributeName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -8940,18 +9753,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/name-resource`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/name-resource`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -8962,24 +9782,28 @@ export class AttributesManagerService {
    */
   public getResourceAttributes(
     resource: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Attribute>>;
   public getResourceAttributes(
     resource: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getResourceAttributes(
     resource: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getResourceAttributes(
     resource: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9040,18 +9864,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/r`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/r`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -9064,6 +9895,7 @@ export class AttributesManagerService {
   public getResourceAttributesByNames(
     resource: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9071,6 +9903,7 @@ export class AttributesManagerService {
   public getResourceAttributesByNames(
     resource: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9078,6 +9911,7 @@ export class AttributesManagerService {
   public getResourceAttributesByNames(
     resource: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9085,6 +9919,7 @@ export class AttributesManagerService {
   public getResourceAttributesByNames(
     resource: number,
     attrNames: Array<string>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9159,18 +9994,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/r-names`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/r-names`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -9185,6 +10027,7 @@ export class AttributesManagerService {
     resource: number,
     group: number,
     workWithGroupAttributes: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9193,6 +10036,7 @@ export class AttributesManagerService {
     resource: number,
     group: number,
     workWithGroupAttributes: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9201,6 +10045,7 @@ export class AttributesManagerService {
     resource: number,
     group: number,
     workWithGroupAttributes: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9209,6 +10054,7 @@ export class AttributesManagerService {
     resource: number,
     group: number,
     workWithGroupAttributes: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9289,18 +10135,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/r-g-wg`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/r-g-wg`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -9317,6 +10170,7 @@ export class AttributesManagerService {
     group: number,
     attrNames: Array<string>,
     workWithGroupAttributes: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9326,6 +10180,7 @@ export class AttributesManagerService {
     group: number,
     attrNames: Array<string>,
     workWithGroupAttributes: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9335,6 +10190,7 @@ export class AttributesManagerService {
     group: number,
     attrNames: Array<string>,
     workWithGroupAttributes: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9344,6 +10200,7 @@ export class AttributesManagerService {
     group: number,
     attrNames: Array<string>,
     workWithGroupAttributes: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9438,18 +10295,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/r-g-names-wg`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/r-g-names-wg`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -9462,6 +10326,7 @@ export class AttributesManagerService {
   public getResourceGroupAttributes(
     resource: number,
     group: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9469,6 +10334,7 @@ export class AttributesManagerService {
   public getResourceGroupAttributes(
     resource: number,
     group: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9476,6 +10342,7 @@ export class AttributesManagerService {
   public getResourceGroupAttributes(
     resource: number,
     group: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9483,6 +10350,7 @@ export class AttributesManagerService {
   public getResourceGroupAttributes(
     resource: number,
     group: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9551,18 +10419,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/r-g`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/r-g`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -9579,6 +10454,7 @@ export class AttributesManagerService {
     group: number,
     member: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9588,6 +10464,7 @@ export class AttributesManagerService {
     group: number,
     member: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9597,6 +10474,7 @@ export class AttributesManagerService {
     group: number,
     member: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9606,6 +10484,7 @@ export class AttributesManagerService {
     group: number,
     member: number,
     attrNames: Array<string>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9700,18 +10579,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/r-g-m-names`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/r-g-m-names`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -9725,6 +10611,7 @@ export class AttributesManagerService {
   public getUserAttributeById(
     user: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9732,6 +10619,7 @@ export class AttributesManagerService {
   public getUserAttributeById(
     user: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9739,6 +10627,7 @@ export class AttributesManagerService {
   public getUserAttributeById(
     user: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9746,6 +10635,7 @@ export class AttributesManagerService {
   public getUserAttributeById(
     user: number,
     attributeId: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9814,18 +10704,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/id-user`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/id-user`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -9839,6 +10736,7 @@ export class AttributesManagerService {
   public getUserAttributeByName(
     user: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9846,6 +10744,7 @@ export class AttributesManagerService {
   public getUserAttributeByName(
     user: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9853,6 +10752,7 @@ export class AttributesManagerService {
   public getUserAttributeByName(
     user: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9860,6 +10760,7 @@ export class AttributesManagerService {
   public getUserAttributeByName(
     user: number,
     attributeName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -9928,18 +10829,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/name-user`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/name-user`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -9950,24 +10858,28 @@ export class AttributesManagerService {
    */
   public getUserAttributes(
     user: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Attribute>>;
   public getUserAttributes(
     user: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getUserAttributes(
     user: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getUserAttributes(
     user: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10024,18 +10936,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/u`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/u`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -10048,6 +10967,7 @@ export class AttributesManagerService {
   public getUserAttributesByNames(
     user: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10055,6 +10975,7 @@ export class AttributesManagerService {
   public getUserAttributesByNames(
     user: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10062,6 +10983,7 @@ export class AttributesManagerService {
   public getUserAttributesByNames(
     user: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10069,6 +10991,7 @@ export class AttributesManagerService {
   public getUserAttributesByNames(
     user: number,
     attrNames: Array<string>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10139,18 +11062,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/u-names`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/u-names`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -10164,6 +11094,7 @@ export class AttributesManagerService {
   public getUserExtSourceAttributeById(
     userExtSource: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10171,6 +11102,7 @@ export class AttributesManagerService {
   public getUserExtSourceAttributeById(
     userExtSource: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10178,6 +11110,7 @@ export class AttributesManagerService {
   public getUserExtSourceAttributeById(
     userExtSource: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10185,6 +11118,7 @@ export class AttributesManagerService {
   public getUserExtSourceAttributeById(
     userExtSource: number,
     attributeId: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10257,18 +11191,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/id-ues`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/id-ues`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -10282,6 +11223,7 @@ export class AttributesManagerService {
   public getUserExtSourceAttributeByName(
     userExtSource: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10289,6 +11231,7 @@ export class AttributesManagerService {
   public getUserExtSourceAttributeByName(
     userExtSource: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10296,6 +11239,7 @@ export class AttributesManagerService {
   public getUserExtSourceAttributeByName(
     userExtSource: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10303,6 +11247,7 @@ export class AttributesManagerService {
   public getUserExtSourceAttributeByName(
     userExtSource: number,
     attributeName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10375,18 +11320,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/name-ues`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/name-ues`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -10397,24 +11349,28 @@ export class AttributesManagerService {
    */
   public getUserExtSourceAttributes(
     userExtSource: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Attribute>>;
   public getUserExtSourceAttributes(
     userExtSource: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getUserExtSourceAttributes(
     userExtSource: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getUserExtSourceAttributes(
     userExtSource: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10475,18 +11431,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/ues`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/ues`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -10499,6 +11462,7 @@ export class AttributesManagerService {
   public getUserExtSourceAttributesByNames(
     userExtSource: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10506,6 +11470,7 @@ export class AttributesManagerService {
   public getUserExtSourceAttributesByNames(
     userExtSource: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10513,6 +11478,7 @@ export class AttributesManagerService {
   public getUserExtSourceAttributesByNames(
     userExtSource: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10520,6 +11486,7 @@ export class AttributesManagerService {
   public getUserExtSourceAttributesByNames(
     userExtSource: number,
     attrNames: Array<string>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10594,18 +11561,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/ues-names`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/ues-names`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -10621,6 +11595,7 @@ export class AttributesManagerService {
     user: number,
     facility: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10629,6 +11604,7 @@ export class AttributesManagerService {
     user: number,
     facility: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10637,6 +11613,7 @@ export class AttributesManagerService {
     user: number,
     facility: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10645,6 +11622,7 @@ export class AttributesManagerService {
     user: number,
     facility: number,
     attributeId: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10725,18 +11703,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/id-user_facility`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/id-user_facility`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -10752,6 +11737,7 @@ export class AttributesManagerService {
     user: number,
     facility: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10760,6 +11746,7 @@ export class AttributesManagerService {
     user: number,
     facility: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10768,6 +11755,7 @@ export class AttributesManagerService {
     user: number,
     facility: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10776,6 +11764,7 @@ export class AttributesManagerService {
     user: number,
     facility: number,
     attributeName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10856,18 +11845,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/name-user_facility`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/name-user_facility`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -10880,6 +11876,7 @@ export class AttributesManagerService {
   public getUserFacilityAttributes(
     user: number,
     facility: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10887,6 +11884,7 @@ export class AttributesManagerService {
   public getUserFacilityAttributes(
     user: number,
     facility: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10894,6 +11892,7 @@ export class AttributesManagerService {
   public getUserFacilityAttributes(
     user: number,
     facility: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10901,6 +11900,7 @@ export class AttributesManagerService {
   public getUserFacilityAttributes(
     user: number,
     facility: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -10969,18 +11969,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/user-facility`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/user-facility`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -10994,6 +12001,7 @@ export class AttributesManagerService {
   public getVoAttributeById(
     vo: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11001,6 +12009,7 @@ export class AttributesManagerService {
   public getVoAttributeById(
     vo: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11008,6 +12017,7 @@ export class AttributesManagerService {
   public getVoAttributeById(
     vo: number,
     attributeId: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11015,6 +12025,7 @@ export class AttributesManagerService {
   public getVoAttributeById(
     vo: number,
     attributeId: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11083,18 +12094,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/id-vo`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/id-vo`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -11108,6 +12126,7 @@ export class AttributesManagerService {
   public getVoAttributeByName(
     vo: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11115,6 +12134,7 @@ export class AttributesManagerService {
   public getVoAttributeByName(
     vo: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11122,6 +12142,7 @@ export class AttributesManagerService {
   public getVoAttributeByName(
     vo: number,
     attributeName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11129,6 +12150,7 @@ export class AttributesManagerService {
   public getVoAttributeByName(
     vo: number,
     attributeName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11197,18 +12219,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Attribute>(
-      `${this.configuration.basePath}/json/attributesManager/getAttribute/name-vo`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttribute/name-vo`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Attribute>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -11219,24 +12248,28 @@ export class AttributesManagerService {
    */
   public getVoAttributes(
     vo: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Attribute>>;
   public getVoAttributes(
     vo: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getVoAttributes(
     vo: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getVoAttributes(
     vo: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11291,18 +12324,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/vo`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/vo`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -11315,6 +12355,7 @@ export class AttributesManagerService {
   public getVoAttributesByNames(
     vo: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11322,6 +12363,7 @@ export class AttributesManagerService {
   public getVoAttributesByNames(
     vo: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11329,6 +12371,7 @@ export class AttributesManagerService {
   public getVoAttributesByNames(
     vo: number,
     attrNames: Array<string>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11336,6 +12379,7 @@ export class AttributesManagerService {
   public getVoAttributesByNames(
     vo: number,
     attrNames: Array<string>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11406,18 +12450,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Attribute>>(
-      `${this.configuration.basePath}/json/attributesManager/getAttributes/vo-names`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getAttributes/vo-names`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Attribute>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -11438,6 +12489,7 @@ export class AttributesManagerService {
     user: number,
     member: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11449,6 +12501,7 @@ export class AttributesManagerService {
     user: number,
     member: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11460,6 +12513,7 @@ export class AttributesManagerService {
     user: number,
     member: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11471,6 +12525,7 @@ export class AttributesManagerService {
     user: number,
     member: number,
     attributes: Array<number>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11585,19 +12640,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/f-r-g-u-m`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/f-r-g-u-m`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -11616,6 +12677,7 @@ export class AttributesManagerService {
     user: number,
     member: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11626,6 +12688,7 @@ export class AttributesManagerService {
     user: number,
     member: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11636,6 +12699,7 @@ export class AttributesManagerService {
     user: number,
     member: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11646,6 +12710,7 @@ export class AttributesManagerService {
     user: number,
     member: number,
     attributes: Array<number>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11752,19 +12817,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/f-r-u-m`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/f-r-u-m`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -11777,6 +12848,7 @@ export class AttributesManagerService {
   public removeEntitylessAttribute(
     key: string,
     attribute: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11784,6 +12856,7 @@ export class AttributesManagerService {
   public removeEntitylessAttribute(
     key: string,
     attribute: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11791,6 +12864,7 @@ export class AttributesManagerService {
   public removeEntitylessAttribute(
     key: string,
     attribute: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11798,6 +12872,7 @@ export class AttributesManagerService {
   public removeEntitylessAttribute(
     key: string,
     attribute: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11866,19 +12941,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/e`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/e`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -11891,6 +12972,7 @@ export class AttributesManagerService {
   public removeFacilityAttribute(
     facility: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11898,6 +12980,7 @@ export class AttributesManagerService {
   public removeFacilityAttribute(
     facility: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11905,6 +12988,7 @@ export class AttributesManagerService {
   public removeFacilityAttribute(
     facility: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11912,6 +12996,7 @@ export class AttributesManagerService {
   public removeFacilityAttribute(
     facility: number,
     attribute: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -11984,19 +13069,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/f`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/f`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -12009,6 +13100,7 @@ export class AttributesManagerService {
   public removeFacilityAttributes(
     facility: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12016,6 +13108,7 @@ export class AttributesManagerService {
   public removeFacilityAttributes(
     facility: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12023,6 +13116,7 @@ export class AttributesManagerService {
   public removeFacilityAttributes(
     facility: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12030,6 +13124,7 @@ export class AttributesManagerService {
   public removeFacilityAttributes(
     facility: number,
     attributes: Array<number>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12104,19 +13199,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/f`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/f`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -12129,6 +13230,7 @@ export class AttributesManagerService {
   public removeGroupAttribute(
     group: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12136,6 +13238,7 @@ export class AttributesManagerService {
   public removeGroupAttribute(
     group: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12143,6 +13246,7 @@ export class AttributesManagerService {
   public removeGroupAttribute(
     group: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12150,6 +13254,7 @@ export class AttributesManagerService {
   public removeGroupAttribute(
     group: number,
     attribute: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12218,19 +13323,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/g`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/g`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -12243,6 +13354,7 @@ export class AttributesManagerService {
   public removeGroupAttributes(
     group: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12250,6 +13362,7 @@ export class AttributesManagerService {
   public removeGroupAttributes(
     group: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12257,6 +13370,7 @@ export class AttributesManagerService {
   public removeGroupAttributes(
     group: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12264,6 +13378,7 @@ export class AttributesManagerService {
   public removeGroupAttributes(
     group: number,
     attributes: Array<number>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12334,19 +13449,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/g`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/g`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -12361,6 +13482,7 @@ export class AttributesManagerService {
     group: number,
     resource: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12369,6 +13491,7 @@ export class AttributesManagerService {
     group: number,
     resource: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12377,6 +13500,7 @@ export class AttributesManagerService {
     group: number,
     resource: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12385,6 +13509,7 @@ export class AttributesManagerService {
     group: number,
     resource: number,
     attribute: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12465,19 +13590,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/g-r`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/g-r`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -12492,6 +13623,7 @@ export class AttributesManagerService {
     group: number,
     resource: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12500,6 +13632,7 @@ export class AttributesManagerService {
     group: number,
     resource: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12508,6 +13641,7 @@ export class AttributesManagerService {
     group: number,
     resource: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12516,6 +13650,7 @@ export class AttributesManagerService {
     group: number,
     resource: number,
     attributes: Array<number>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12598,19 +13733,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/g-r`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/g-r`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -12627,6 +13768,7 @@ export class AttributesManagerService {
     resource: number,
     attributes: Array<number>,
     workWithGroupAttributes: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12636,6 +13778,7 @@ export class AttributesManagerService {
     resource: number,
     attributes: Array<number>,
     workWithGroupAttributes: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12645,6 +13788,7 @@ export class AttributesManagerService {
     resource: number,
     attributes: Array<number>,
     workWithGroupAttributes: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12654,6 +13798,7 @@ export class AttributesManagerService {
     resource: number,
     attributes: Array<number>,
     workWithGroupAttributes: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12748,19 +13893,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/g-r-workWithGroupAttributes`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/g-r-workWithGroupAttributes`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -12773,6 +13924,7 @@ export class AttributesManagerService {
   public removeHostAttribute(
     host: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12780,6 +13932,7 @@ export class AttributesManagerService {
   public removeHostAttribute(
     host: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12787,6 +13940,7 @@ export class AttributesManagerService {
   public removeHostAttribute(
     host: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12794,6 +13948,7 @@ export class AttributesManagerService {
   public removeHostAttribute(
     host: number,
     attribute: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12862,19 +14017,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/h`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/h`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -12887,6 +14048,7 @@ export class AttributesManagerService {
   public removeHostAttributes(
     host: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12894,6 +14056,7 @@ export class AttributesManagerService {
   public removeHostAttributes(
     host: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12901,6 +14064,7 @@ export class AttributesManagerService {
   public removeHostAttributes(
     host: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12908,6 +14072,7 @@ export class AttributesManagerService {
   public removeHostAttributes(
     host: number,
     attributes: Array<number>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -12978,19 +14143,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/h`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/h`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -13003,6 +14174,7 @@ export class AttributesManagerService {
   public removeMemberAttribute(
     member: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13010,6 +14182,7 @@ export class AttributesManagerService {
   public removeMemberAttribute(
     member: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13017,6 +14190,7 @@ export class AttributesManagerService {
   public removeMemberAttribute(
     member: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13024,6 +14198,7 @@ export class AttributesManagerService {
   public removeMemberAttribute(
     member: number,
     attribute: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13096,19 +14271,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/m`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/m`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -13121,6 +14302,7 @@ export class AttributesManagerService {
   public removeMemberAttributes(
     member: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13128,6 +14310,7 @@ export class AttributesManagerService {
   public removeMemberAttributes(
     member: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13135,6 +14318,7 @@ export class AttributesManagerService {
   public removeMemberAttributes(
     member: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13142,6 +14326,7 @@ export class AttributesManagerService {
   public removeMemberAttributes(
     member: number,
     attributes: Array<number>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13216,19 +14401,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/m`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/m`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -13243,6 +14434,7 @@ export class AttributesManagerService {
     member: number,
     attributes: Array<number>,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13251,6 +14443,7 @@ export class AttributesManagerService {
     member: number,
     attributes: Array<number>,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13259,6 +14452,7 @@ export class AttributesManagerService {
     member: number,
     attributes: Array<number>,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13267,6 +14461,7 @@ export class AttributesManagerService {
     member: number,
     attributes: Array<number>,
     workWithUserAttributes: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13353,19 +14548,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/m-workWithUserAttributes`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/m-workWithUserAttributes`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -13380,6 +14581,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13388,6 +14590,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13396,6 +14599,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13404,6 +14608,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attribute: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13484,19 +14689,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/m-g`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/m-g`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -13511,6 +14722,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13519,6 +14731,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13527,6 +14740,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13535,6 +14749,7 @@ export class AttributesManagerService {
     member: number,
     group: number,
     attributes: Array<number>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13617,19 +14832,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/m-g`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/m-g`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -13646,6 +14867,7 @@ export class AttributesManagerService {
     group: number,
     attributes: Array<number>,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13655,6 +14877,7 @@ export class AttributesManagerService {
     group: number,
     attributes: Array<number>,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13664,6 +14887,7 @@ export class AttributesManagerService {
     group: number,
     attributes: Array<number>,
     workWithUserAttributes: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13673,6 +14897,7 @@ export class AttributesManagerService {
     group: number,
     attributes: Array<number>,
     workWithUserAttributes: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13767,19 +14992,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/m-g-workWithUserAttributes`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/m-g-workWithUserAttributes`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -13794,6 +15025,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13802,6 +15034,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13810,6 +15043,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13818,6 +15052,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     attribute: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13902,19 +15137,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/m-r`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/m-r`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -13929,6 +15170,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13937,6 +15179,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13945,6 +15188,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -13953,6 +15197,7 @@ export class AttributesManagerService {
     member: number,
     resource: number,
     attributes: Array<number>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14039,19 +15284,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/m-r`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/m-r`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -14064,6 +15315,7 @@ export class AttributesManagerService {
   public removeResourceAttribute(
     resource: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14071,6 +15323,7 @@ export class AttributesManagerService {
   public removeResourceAttribute(
     resource: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14078,6 +15331,7 @@ export class AttributesManagerService {
   public removeResourceAttribute(
     resource: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14085,6 +15339,7 @@ export class AttributesManagerService {
   public removeResourceAttribute(
     resource: number,
     attribute: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14157,19 +15412,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/r`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/r`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -14182,6 +15443,7 @@ export class AttributesManagerService {
   public removeResourceAttributes(
     resource: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14189,6 +15451,7 @@ export class AttributesManagerService {
   public removeResourceAttributes(
     resource: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14196,6 +15459,7 @@ export class AttributesManagerService {
   public removeResourceAttributes(
     resource: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14203,6 +15467,7 @@ export class AttributesManagerService {
   public removeResourceAttributes(
     resource: number,
     attributes: Array<number>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14277,19 +15542,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/r`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/r`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -14302,6 +15573,7 @@ export class AttributesManagerService {
   public removeUesAttributes(
     userExtSource: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14309,6 +15581,7 @@ export class AttributesManagerService {
   public removeUesAttributes(
     userExtSource: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14316,6 +15589,7 @@ export class AttributesManagerService {
   public removeUesAttributes(
     userExtSource: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14323,6 +15597,7 @@ export class AttributesManagerService {
   public removeUesAttributes(
     userExtSource: number,
     attributes: Array<number>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14397,19 +15672,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/ues`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/ues`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -14422,6 +15703,7 @@ export class AttributesManagerService {
   public removeUserAttribute(
     user: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14429,6 +15711,7 @@ export class AttributesManagerService {
   public removeUserAttribute(
     user: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14436,6 +15719,7 @@ export class AttributesManagerService {
   public removeUserAttribute(
     user: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14443,6 +15727,7 @@ export class AttributesManagerService {
   public removeUserAttribute(
     user: number,
     attribute: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14511,19 +15796,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/u`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/u`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -14536,6 +15827,7 @@ export class AttributesManagerService {
   public removeUserAttributes(
     user: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14543,6 +15835,7 @@ export class AttributesManagerService {
   public removeUserAttributes(
     user: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14550,6 +15843,7 @@ export class AttributesManagerService {
   public removeUserAttributes(
     user: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14557,6 +15851,7 @@ export class AttributesManagerService {
   public removeUserAttributes(
     user: number,
     attributes: Array<number>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14627,19 +15922,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/u`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/u`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -14652,6 +15953,7 @@ export class AttributesManagerService {
   public removeUserExtSourceAttribute(
     userExtSource: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14659,6 +15961,7 @@ export class AttributesManagerService {
   public removeUserExtSourceAttribute(
     userExtSource: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14666,6 +15969,7 @@ export class AttributesManagerService {
   public removeUserExtSourceAttribute(
     userExtSource: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14673,6 +15977,7 @@ export class AttributesManagerService {
   public removeUserExtSourceAttribute(
     userExtSource: number,
     attribute: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14745,19 +16050,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/ues`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/ues`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -14772,6 +16083,7 @@ export class AttributesManagerService {
     user: number,
     facility: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14780,6 +16092,7 @@ export class AttributesManagerService {
     user: number,
     facility: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14788,6 +16101,7 @@ export class AttributesManagerService {
     user: number,
     facility: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14796,6 +16110,7 @@ export class AttributesManagerService {
     user: number,
     facility: number,
     attribute: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14876,19 +16191,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/u-f`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/u-f`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -14903,6 +16224,7 @@ export class AttributesManagerService {
     user: number,
     facility: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14911,6 +16233,7 @@ export class AttributesManagerService {
     user: number,
     facility: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14919,6 +16242,7 @@ export class AttributesManagerService {
     user: number,
     facility: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -14927,6 +16251,7 @@ export class AttributesManagerService {
     user: number,
     facility: number,
     attributes: Array<number>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15009,19 +16334,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/u-f`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/u-f`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -15034,6 +16365,7 @@ export class AttributesManagerService {
   public removeVoAttribute(
     vo: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15041,6 +16373,7 @@ export class AttributesManagerService {
   public removeVoAttribute(
     vo: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15048,6 +16381,7 @@ export class AttributesManagerService {
   public removeVoAttribute(
     vo: number,
     attribute: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15055,6 +16389,7 @@ export class AttributesManagerService {
   public removeVoAttribute(
     vo: number,
     attribute: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15123,19 +16458,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/v`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttribute/v`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -15148,6 +16489,7 @@ export class AttributesManagerService {
   public removeVoAttributes(
     vo: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15155,6 +16497,7 @@ export class AttributesManagerService {
   public removeVoAttributes(
     vo: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15162,6 +16505,7 @@ export class AttributesManagerService {
   public removeVoAttributes(
     vo: number,
     attributes: Array<number>,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15169,6 +16513,7 @@ export class AttributesManagerService {
   public removeVoAttributes(
     vo: number,
     attributes: Array<number>,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15239,19 +16584,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/v`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/removeAttributes/v`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -15266,6 +16617,7 @@ export class AttributesManagerService {
     attributeDefinition: number,
     action: AttributeAction,
     critical: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15274,6 +16626,7 @@ export class AttributesManagerService {
     attributeDefinition: number,
     action: AttributeAction,
     critical: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15282,6 +16635,7 @@ export class AttributesManagerService {
     attributeDefinition: number,
     action: AttributeAction,
     critical: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15290,6 +16644,7 @@ export class AttributesManagerService {
     attributeDefinition: number,
     action: AttributeAction,
     critical: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15374,19 +16729,25 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/attributesManager/setAttributeActionCriticality`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/attributesManager/setAttributeActionCriticality`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -15397,24 +16758,28 @@ export class AttributesManagerService {
    */
   public setAttributePolicyCollections(
     InputAttributePolicyCollections: InputAttributePolicyCollections,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setAttributePolicyCollections(
     InputAttributePolicyCollections: InputAttributePolicyCollections,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setAttributePolicyCollections(
     InputAttributePolicyCollections: InputAttributePolicyCollections,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setAttributePolicyCollections(
     InputAttributePolicyCollections: InputAttributePolicyCollections,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15474,18 +16839,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributePolicyCollections`,
-      InputAttributePolicyCollections,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributePolicyCollections`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputAttributePolicyCollections, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -15496,24 +16867,28 @@ export class AttributesManagerService {
    */
   public setAttributeRights(
     InputAttributeRights: InputAttributeRights,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setAttributeRights(
     InputAttributeRights: InputAttributeRights,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setAttributeRights(
     InputAttributeRights: InputAttributeRights,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setAttributeRights(
     InputAttributeRights: InputAttributeRights,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15573,18 +16948,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributeRights`,
-      InputAttributeRights,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributeRights`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputAttributeRights, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -15595,24 +16976,28 @@ export class AttributesManagerService {
    */
   public setEntitylessAttribute(
     InputEntitylessAttribute: InputEntitylessAttribute,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setEntitylessAttribute(
     InputEntitylessAttribute: InputEntitylessAttribute,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setEntitylessAttribute(
     InputEntitylessAttribute: InputEntitylessAttribute,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setEntitylessAttribute(
     InputEntitylessAttribute: InputEntitylessAttribute,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15672,18 +17057,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttribute/entityless`,
-      InputEntitylessAttribute,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttribute/entityless`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputEntitylessAttribute, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -15694,24 +17085,28 @@ export class AttributesManagerService {
    */
   public setFacilityAttribute(
     InputSetFacilityAttribute: InputSetFacilityAttribute,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setFacilityAttribute(
     InputSetFacilityAttribute: InputSetFacilityAttribute,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setFacilityAttribute(
     InputSetFacilityAttribute: InputSetFacilityAttribute,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setFacilityAttribute(
     InputSetFacilityAttribute: InputSetFacilityAttribute,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15771,18 +17166,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttribute/facility`,
-      InputSetFacilityAttribute,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttribute/facility`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetFacilityAttribute, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -15793,24 +17194,28 @@ export class AttributesManagerService {
    */
   public setFacilityAttributes(
     InputSetFacilityAttributes: InputSetFacilityAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setFacilityAttributes(
     InputSetFacilityAttributes: InputSetFacilityAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setFacilityAttributes(
     InputSetFacilityAttributes: InputSetFacilityAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setFacilityAttributes(
     InputSetFacilityAttributes: InputSetFacilityAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15870,18 +17275,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/f`,
-      InputSetFacilityAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/f`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetFacilityAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -15892,24 +17303,28 @@ export class AttributesManagerService {
    */
   public setFacilityResourceGroupUserMemberAttributes(
     InputSetFacilityResourceGroupUserMemberAttributes: InputSetFacilityResourceGroupUserMemberAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setFacilityResourceGroupUserMemberAttributes(
     InputSetFacilityResourceGroupUserMemberAttributes: InputSetFacilityResourceGroupUserMemberAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setFacilityResourceGroupUserMemberAttributes(
     InputSetFacilityResourceGroupUserMemberAttributes: InputSetFacilityResourceGroupUserMemberAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setFacilityResourceGroupUserMemberAttributes(
     InputSetFacilityResourceGroupUserMemberAttributes: InputSetFacilityResourceGroupUserMemberAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -15972,8 +17387,18 @@ export class AttributesManagerService {
       }
     }
 
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/f-r-g-u-m`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
     return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/f-r-g-u-m`,
+      requestUrl,
       InputSetFacilityResourceGroupUserMemberAttributes,
       {
         context: localVarHttpContext,
@@ -15994,24 +17419,28 @@ export class AttributesManagerService {
    */
   public setFacilityResourceUserMemberAttributes(
     InputSetFacilityResourceUserMemberAttributes: InputSetFacilityResourceUserMemberAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setFacilityResourceUserMemberAttributes(
     InputSetFacilityResourceUserMemberAttributes: InputSetFacilityResourceUserMemberAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setFacilityResourceUserMemberAttributes(
     InputSetFacilityResourceUserMemberAttributes: InputSetFacilityResourceUserMemberAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setFacilityResourceUserMemberAttributes(
     InputSetFacilityResourceUserMemberAttributes: InputSetFacilityResourceUserMemberAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -16074,18 +17503,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/f-r-u-m`,
-      InputSetFacilityResourceUserMemberAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/f-r-u-m`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetFacilityResourceUserMemberAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -16096,24 +17531,28 @@ export class AttributesManagerService {
    */
   public setFacilityUserAttributes(
     InputSetFacilityUserAttributes: InputSetFacilityUserAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setFacilityUserAttributes(
     InputSetFacilityUserAttributes: InputSetFacilityUserAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setFacilityUserAttributes(
     InputSetFacilityUserAttributes: InputSetFacilityUserAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setFacilityUserAttributes(
     InputSetFacilityUserAttributes: InputSetFacilityUserAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -16173,18 +17612,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/f-u`,
-      InputSetFacilityUserAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/f-u`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetFacilityUserAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -16195,24 +17640,28 @@ export class AttributesManagerService {
    */
   public setGroupAttribute(
     InputSetGroupAttribute: InputSetGroupAttribute,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setGroupAttribute(
     InputSetGroupAttribute: InputSetGroupAttribute,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setGroupAttribute(
     InputSetGroupAttribute: InputSetGroupAttribute,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setGroupAttribute(
     InputSetGroupAttribute: InputSetGroupAttribute,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -16272,18 +17721,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttribute/group`,
-      InputSetGroupAttribute,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttribute/group`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetGroupAttribute, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -16294,24 +17749,28 @@ export class AttributesManagerService {
    */
   public setGroupAttributes(
     InputSetGroupAttributes: InputSetGroupAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setGroupAttributes(
     InputSetGroupAttributes: InputSetGroupAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setGroupAttributes(
     InputSetGroupAttributes: InputSetGroupAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setGroupAttributes(
     InputSetGroupAttributes: InputSetGroupAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -16371,18 +17830,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/g`,
-      InputSetGroupAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/g`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetGroupAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -16393,24 +17858,28 @@ export class AttributesManagerService {
    */
   public setGroupResourceAttribute(
     InputSetGroupResourceAttribute: InputSetGroupResourceAttribute,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setGroupResourceAttribute(
     InputSetGroupResourceAttribute: InputSetGroupResourceAttribute,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setGroupResourceAttribute(
     InputSetGroupResourceAttribute: InputSetGroupResourceAttribute,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setGroupResourceAttribute(
     InputSetGroupResourceAttribute: InputSetGroupResourceAttribute,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -16470,18 +17939,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttribute/group-resource`,
-      InputSetGroupResourceAttribute,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttribute/group-resource`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetGroupResourceAttribute, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -16492,24 +17967,28 @@ export class AttributesManagerService {
    */
   public setGroupResourceAttributes(
     InputSetGroupResourceAttributes: InputSetGroupResourceAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setGroupResourceAttributes(
     InputSetGroupResourceAttributes: InputSetGroupResourceAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setGroupResourceAttributes(
     InputSetGroupResourceAttributes: InputSetGroupResourceAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setGroupResourceAttributes(
     InputSetGroupResourceAttributes: InputSetGroupResourceAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -16569,18 +18048,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/group-resource`,
-      InputSetGroupResourceAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/group-resource`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetGroupResourceAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -16591,24 +18076,28 @@ export class AttributesManagerService {
    */
   public setHostAttribute(
     InputSetHostAttribute: InputSetHostAttribute,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setHostAttribute(
     InputSetHostAttribute: InputSetHostAttribute,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setHostAttribute(
     InputSetHostAttribute: InputSetHostAttribute,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setHostAttribute(
     InputSetHostAttribute: InputSetHostAttribute,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -16668,18 +18157,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttribute/host`,
-      InputSetHostAttribute,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttribute/host`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetHostAttribute, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -16690,24 +18185,28 @@ export class AttributesManagerService {
    */
   public setHostAttributes(
     InputSetHostAttributes: InputSetHostAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setHostAttributes(
     InputSetHostAttributes: InputSetHostAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setHostAttributes(
     InputSetHostAttributes: InputSetHostAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setHostAttributes(
     InputSetHostAttributes: InputSetHostAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -16767,18 +18266,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/h`,
-      InputSetHostAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/h`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetHostAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -16789,24 +18294,28 @@ export class AttributesManagerService {
    */
   public setMemberAttribute(
     InputSetMemberAttribute: InputSetMemberAttribute,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setMemberAttribute(
     InputSetMemberAttribute: InputSetMemberAttribute,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setMemberAttribute(
     InputSetMemberAttribute: InputSetMemberAttribute,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setMemberAttribute(
     InputSetMemberAttribute: InputSetMemberAttribute,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -16866,18 +18375,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttribute/member`,
-      InputSetMemberAttribute,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttribute/member`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetMemberAttribute, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -16888,24 +18403,28 @@ export class AttributesManagerService {
    */
   public setMemberAttributes(
     InputSetMemberAttributes: InputSetMemberAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setMemberAttributes(
     InputSetMemberAttributes: InputSetMemberAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setMemberAttributes(
     InputSetMemberAttributes: InputSetMemberAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setMemberAttributes(
     InputSetMemberAttributes: InputSetMemberAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -16965,18 +18484,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/m`,
-      InputSetMemberAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/m`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetMemberAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -16987,24 +18512,28 @@ export class AttributesManagerService {
    */
   public setMemberGroupAttribute(
     InputSetMemberGroupAttribute: InputSetMemberGroupAttribute,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setMemberGroupAttribute(
     InputSetMemberGroupAttribute: InputSetMemberGroupAttribute,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setMemberGroupAttribute(
     InputSetMemberGroupAttribute: InputSetMemberGroupAttribute,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setMemberGroupAttribute(
     InputSetMemberGroupAttribute: InputSetMemberGroupAttribute,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -17064,18 +18593,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttribute/member-group`,
-      InputSetMemberGroupAttribute,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttribute/member-group`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetMemberGroupAttribute, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -17086,24 +18621,28 @@ export class AttributesManagerService {
    */
   public setMemberGroupAttributes(
     InputSetMemberGroupAttributes: InputSetMemberGroupAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setMemberGroupAttributes(
     InputSetMemberGroupAttributes: InputSetMemberGroupAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setMemberGroupAttributes(
     InputSetMemberGroupAttributes: InputSetMemberGroupAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setMemberGroupAttributes(
     InputSetMemberGroupAttributes: InputSetMemberGroupAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -17163,18 +18702,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/m-g`,
-      InputSetMemberGroupAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/m-g`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetMemberGroupAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -17185,24 +18730,28 @@ export class AttributesManagerService {
    */
   public setMemberGroupWithUserAttributes(
     InputSetMemberGroupWithUserAttributes: InputSetMemberGroupWithUserAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setMemberGroupWithUserAttributes(
     InputSetMemberGroupWithUserAttributes: InputSetMemberGroupWithUserAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setMemberGroupWithUserAttributes(
     InputSetMemberGroupWithUserAttributes: InputSetMemberGroupWithUserAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setMemberGroupWithUserAttributes(
     InputSetMemberGroupWithUserAttributes: InputSetMemberGroupWithUserAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -17265,18 +18814,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/m-g-wu`,
-      InputSetMemberGroupWithUserAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/m-g-wu`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetMemberGroupWithUserAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -17287,24 +18842,28 @@ export class AttributesManagerService {
    */
   public setMemberResourceAndUserAttributes(
     InputSetMemberResourceAndUserAttributes: InputSetMemberResourceAndUserAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setMemberResourceAndUserAttributes(
     InputSetMemberResourceAndUserAttributes: InputSetMemberResourceAndUserAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setMemberResourceAndUserAttributes(
     InputSetMemberResourceAndUserAttributes: InputSetMemberResourceAndUserAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setMemberResourceAndUserAttributes(
     InputSetMemberResourceAndUserAttributes: InputSetMemberResourceAndUserAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -17367,18 +18926,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/m-r-wu`,
-      InputSetMemberResourceAndUserAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/m-r-wu`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetMemberResourceAndUserAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -17389,24 +18954,28 @@ export class AttributesManagerService {
    */
   public setMemberResourceAttribute(
     InputSetMemberResourceAttribute: InputSetMemberResourceAttribute,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setMemberResourceAttribute(
     InputSetMemberResourceAttribute: InputSetMemberResourceAttribute,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setMemberResourceAttribute(
     InputSetMemberResourceAttribute: InputSetMemberResourceAttribute,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setMemberResourceAttribute(
     InputSetMemberResourceAttribute: InputSetMemberResourceAttribute,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -17466,18 +19035,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttribute/member-resource`,
-      InputSetMemberResourceAttribute,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttribute/member-resource`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetMemberResourceAttribute, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -17488,24 +19063,28 @@ export class AttributesManagerService {
    */
   public setMemberResourceAttributes(
     InputSetMemberResourceAttributes: InputSetMemberResourceAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setMemberResourceAttributes(
     InputSetMemberResourceAttributes: InputSetMemberResourceAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setMemberResourceAttributes(
     InputSetMemberResourceAttributes: InputSetMemberResourceAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setMemberResourceAttributes(
     InputSetMemberResourceAttributes: InputSetMemberResourceAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -17568,18 +19147,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/m-r`,
-      InputSetMemberResourceAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/m-r`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetMemberResourceAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -17590,24 +19175,28 @@ export class AttributesManagerService {
    */
   public setMemberWithUserAttributes(
     InputSetMemberWithUserAttributes: InputSetMemberWithUserAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setMemberWithUserAttributes(
     InputSetMemberWithUserAttributes: InputSetMemberWithUserAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setMemberWithUserAttributes(
     InputSetMemberWithUserAttributes: InputSetMemberWithUserAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setMemberWithUserAttributes(
     InputSetMemberWithUserAttributes: InputSetMemberWithUserAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -17670,18 +19259,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/m-wu`,
-      InputSetMemberWithUserAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/m-wu`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetMemberWithUserAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -17692,24 +19287,28 @@ export class AttributesManagerService {
    */
   public setResourceAttribute(
     InputSetResourceAttribute: InputSetResourceAttribute,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setResourceAttribute(
     InputSetResourceAttribute: InputSetResourceAttribute,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setResourceAttribute(
     InputSetResourceAttribute: InputSetResourceAttribute,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setResourceAttribute(
     InputSetResourceAttribute: InputSetResourceAttribute,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -17769,18 +19368,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttribute/resource`,
-      InputSetResourceAttribute,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttribute/resource`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetResourceAttribute, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -17791,24 +19396,28 @@ export class AttributesManagerService {
    */
   public setResourceAttributes(
     InputSetResourceAttributes: InputSetResourceAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setResourceAttributes(
     InputSetResourceAttributes: InputSetResourceAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setResourceAttributes(
     InputSetResourceAttributes: InputSetResourceAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setResourceAttributes(
     InputSetResourceAttributes: InputSetResourceAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -17868,18 +19477,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/r`,
-      InputSetResourceAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/r`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetResourceAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -17890,24 +19505,28 @@ export class AttributesManagerService {
    */
   public setResourceGroupAttributes(
     InputSetResourceGroupAttributes: InputSetResourceGroupAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setResourceGroupAttributes(
     InputSetResourceGroupAttributes: InputSetResourceGroupAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setResourceGroupAttributes(
     InputSetResourceGroupAttributes: InputSetResourceGroupAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setResourceGroupAttributes(
     InputSetResourceGroupAttributes: InputSetResourceGroupAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -17967,18 +19586,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/r-g`,
-      InputSetResourceGroupAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/r-g`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetResourceGroupAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -17989,24 +19614,28 @@ export class AttributesManagerService {
    */
   public setResourceGroupWithGroupAttributes(
     InputSetResourceGroupWithGroupAttributes: InputSetResourceGroupWithGroupAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setResourceGroupWithGroupAttributes(
     InputSetResourceGroupWithGroupAttributes: InputSetResourceGroupWithGroupAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setResourceGroupWithGroupAttributes(
     InputSetResourceGroupWithGroupAttributes: InputSetResourceGroupWithGroupAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setResourceGroupWithGroupAttributes(
     InputSetResourceGroupWithGroupAttributes: InputSetResourceGroupWithGroupAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -18069,18 +19698,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/r-g-wg`,
-      InputSetResourceGroupWithGroupAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/r-g-wg`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetResourceGroupWithGroupAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -18091,24 +19726,28 @@ export class AttributesManagerService {
    */
   public setUserAttribute(
     InputSetUserAttribute: InputSetUserAttribute,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setUserAttribute(
     InputSetUserAttribute: InputSetUserAttribute,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setUserAttribute(
     InputSetUserAttribute: InputSetUserAttribute,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setUserAttribute(
     InputSetUserAttribute: InputSetUserAttribute,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -18168,18 +19807,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttribute/user`,
-      InputSetUserAttribute,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttribute/user`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetUserAttribute, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -18190,24 +19835,28 @@ export class AttributesManagerService {
    */
   public setUserAttributes(
     InputSetUserAttributes: InputSetUserAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setUserAttributes(
     InputSetUserAttributes: InputSetUserAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setUserAttributes(
     InputSetUserAttributes: InputSetUserAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setUserAttributes(
     InputSetUserAttributes: InputSetUserAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -18267,18 +19916,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/u`,
-      InputSetUserAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/u`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetUserAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -18289,24 +19944,28 @@ export class AttributesManagerService {
    */
   public setUserExtSourceAttribute(
     InputSetUserExtSourceAttribute: InputSetUserExtSourceAttribute,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setUserExtSourceAttribute(
     InputSetUserExtSourceAttribute: InputSetUserExtSourceAttribute,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setUserExtSourceAttribute(
     InputSetUserExtSourceAttribute: InputSetUserExtSourceAttribute,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setUserExtSourceAttribute(
     InputSetUserExtSourceAttribute: InputSetUserExtSourceAttribute,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -18366,18 +20025,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttribute/userExtSource`,
-      InputSetUserExtSourceAttribute,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttribute/userExtSource`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetUserExtSourceAttribute, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -18388,24 +20053,28 @@ export class AttributesManagerService {
    */
   public setUserExtSourceAttributes(
     InputSetUserExtSourceAttributes: InputSetUserExtSourceAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setUserExtSourceAttributes(
     InputSetUserExtSourceAttributes: InputSetUserExtSourceAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setUserExtSourceAttributes(
     InputSetUserExtSourceAttributes: InputSetUserExtSourceAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setUserExtSourceAttributes(
     InputSetUserExtSourceAttributes: InputSetUserExtSourceAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -18465,18 +20134,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/ues`,
-      InputSetUserExtSourceAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/ues`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetUserExtSourceAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -18487,24 +20162,28 @@ export class AttributesManagerService {
    */
   public setUserFacilityAttribute(
     InputSetUserFacilityAttribute: InputSetUserFacilityAttribute,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setUserFacilityAttribute(
     InputSetUserFacilityAttribute: InputSetUserFacilityAttribute,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setUserFacilityAttribute(
     InputSetUserFacilityAttribute: InputSetUserFacilityAttribute,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setUserFacilityAttribute(
     InputSetUserFacilityAttribute: InputSetUserFacilityAttribute,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -18564,18 +20243,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttribute/facility-user`,
-      InputSetUserFacilityAttribute,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttribute/facility-user`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetUserFacilityAttribute, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -18586,24 +20271,28 @@ export class AttributesManagerService {
    */
   public setUserFacilityAttributes(
     InputSetUserFacilityAttributes: InputSetUserFacilityAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setUserFacilityAttributes(
     InputSetUserFacilityAttributes: InputSetUserFacilityAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setUserFacilityAttributes(
     InputSetUserFacilityAttributes: InputSetUserFacilityAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setUserFacilityAttributes(
     InputSetUserFacilityAttributes: InputSetUserFacilityAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -18663,18 +20352,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/facility-user`,
-      InputSetUserFacilityAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/facility-user`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetUserFacilityAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -18685,24 +20380,28 @@ export class AttributesManagerService {
    */
   public setVoAttribute(
     InputSetVoAttribute: InputSetVoAttribute,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setVoAttribute(
     InputSetVoAttribute: InputSetVoAttribute,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setVoAttribute(
     InputSetVoAttribute: InputSetVoAttribute,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setVoAttribute(
     InputSetVoAttribute: InputSetVoAttribute,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -18762,18 +20461,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttribute/vo`,
-      InputSetVoAttribute,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttribute/vo`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetVoAttribute, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -18784,24 +20489,28 @@ export class AttributesManagerService {
    */
   public setVoAttributes(
     InputSetVoAttributes: InputSetVoAttributes,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public setVoAttributes(
     InputSetVoAttributes: InputSetVoAttributes,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public setVoAttributes(
     InputSetVoAttributes: InputSetVoAttributes,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public setVoAttributes(
     InputSetVoAttributes: InputSetVoAttributes,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -18861,18 +20570,24 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/json/attributesManager/setAttributes/vo`,
-      InputSetVoAttributes,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/setAttributes/vo`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, InputSetVoAttributes, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -18883,24 +20598,28 @@ export class AttributesManagerService {
    */
   public updateAttributeDefinition(
     InputAttributeDefinition: InputAttributeDefinition,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<AttributeDefinition>;
   public updateAttributeDefinition(
     InputAttributeDefinition: InputAttributeDefinition,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<AttributeDefinition>>;
   public updateAttributeDefinition(
     InputAttributeDefinition: InputAttributeDefinition,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<AttributeDefinition>>;
   public updateAttributeDefinition(
     InputAttributeDefinition: InputAttributeDefinition,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -18960,17 +20679,23 @@ export class AttributesManagerService {
       }
     }
 
-    return this.httpClient.post<AttributeDefinition>(
-      `${this.configuration.basePath}/json/attributesManager/updateAttributeDefinition`,
-      InputAttributeDefinition,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/updateAttributeDefinition`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<AttributeDefinition>(requestUrl, InputAttributeDefinition, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 }

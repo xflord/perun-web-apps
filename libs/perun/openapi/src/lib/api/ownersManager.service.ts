@@ -112,24 +112,28 @@ export class OwnersManagerService {
    */
   public createOwner(
     InputCreateOwner: InputCreateOwner,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Owner>;
   public createOwner(
     InputCreateOwner: InputCreateOwner,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Owner>>;
   public createOwner(
     InputCreateOwner: InputCreateOwner,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Owner>>;
   public createOwner(
     InputCreateOwner: InputCreateOwner,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -189,18 +193,24 @@ export class OwnersManagerService {
       }
     }
 
-    return this.httpClient.post<Owner>(
-      `${this.configuration.basePath}/json/ownersManager/createOwner`,
-      InputCreateOwner,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/ownersManager/createOwner`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<Owner>(requestUrl, InputCreateOwner, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -213,6 +223,7 @@ export class OwnersManagerService {
   public deleteOwner(
     owner: number,
     force?: boolean,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -220,6 +231,7 @@ export class OwnersManagerService {
   public deleteOwner(
     owner: number,
     force?: boolean,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -227,6 +239,7 @@ export class OwnersManagerService {
   public deleteOwner(
     owner: number,
     force?: boolean,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -234,6 +247,7 @@ export class OwnersManagerService {
   public deleteOwner(
     owner: number,
     force?: boolean,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -291,19 +305,25 @@ export class OwnersManagerService {
       }
     }
 
-    return this.httpClient.post<Owner>(
-      `${this.configuration.basePath}/urlinjsonout/ownersManager/deleteOwner`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/ownersManager/deleteOwner`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<Owner>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -312,21 +332,25 @@ export class OwnersManagerService {
    * @param reportProgress flag to report request and response progress.
    */
   public getAllOwners(
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<Owner>>;
   public getAllOwners(
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<Owner>>>;
   public getAllOwners(
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<Owner>>>;
   public getAllOwners(
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -372,17 +396,24 @@ export class OwnersManagerService {
       }
     }
 
-    return this.httpClient.get<Array<Owner>>(
-      `${this.configuration.basePath}/json/ownersManager/getOwners`,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/ownersManager/getOwners`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<Owner>>(requestUrl, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -393,24 +424,28 @@ export class OwnersManagerService {
    */
   public getOwnerById(
     id: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Owner>;
   public getOwnerById(
     id: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Owner>>;
   public getOwnerById(
     id: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Owner>>;
   public getOwnerById(
     id: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -465,18 +500,25 @@ export class OwnersManagerService {
       }
     }
 
-    return this.httpClient.get<Owner>(
-      `${this.configuration.basePath}/json/ownersManager/getOwnerById`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/ownersManager/getOwnerById`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Owner>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -487,24 +529,28 @@ export class OwnersManagerService {
    */
   public getOwnerByName(
     owner: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Owner>;
   public getOwnerByName(
     owner: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Owner>>;
   public getOwnerByName(
     owner: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Owner>>;
   public getOwnerByName(
     owner: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -561,17 +607,24 @@ export class OwnersManagerService {
       }
     }
 
-    return this.httpClient.get<Owner>(
-      `${this.configuration.basePath}/json/ownersManager/getOwnerByName`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/ownersManager/getOwnerByName`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Owner>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 }

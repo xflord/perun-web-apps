@@ -114,24 +114,28 @@ export class AuditMessagesManagerService {
    */
   public auditMessagesManagerLog(
     msg: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public auditMessagesManagerLog(
     msg: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public auditMessagesManagerLog(
     msg: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public auditMessagesManagerLog(
     msg: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -188,19 +192,25 @@ export class AuditMessagesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/auditMessagesManager/log`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/auditMessagesManager/log`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -211,24 +221,28 @@ export class AuditMessagesManagerService {
    */
   public createAuditerConsumer(
     consumerName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<any>;
   public createAuditerConsumer(
     consumerName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<any>>;
   public createAuditerConsumer(
     consumerName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<any>>;
   public createAuditerConsumer(
     consumerName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -289,19 +303,25 @@ export class AuditMessagesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/auditMessagesManager/createAuditerConsumer`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/auditMessagesManager/createAuditerConsumer`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -310,21 +330,25 @@ export class AuditMessagesManagerService {
    * @param reportProgress flag to report request and response progress.
    */
   public getAllAuditerConsumers(
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<{ [key: string]: number }>;
   public getAllAuditerConsumers(
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<{ [key: string]: number }>>;
   public getAllAuditerConsumers(
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<{ [key: string]: number }>>;
   public getAllAuditerConsumers(
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -370,17 +394,24 @@ export class AuditMessagesManagerService {
       }
     }
 
-    return this.httpClient.get<{ [key: string]: number }>(
-      `${this.configuration.basePath}/json/auditMessagesManager/getAllAuditerConsumers`,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/auditMessagesManager/getAllAuditerConsumers`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<{ [key: string]: number }>(requestUrl, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -389,21 +420,25 @@ export class AuditMessagesManagerService {
    * @param reportProgress flag to report request and response progress.
    */
   public getAuditerMessagesCount(
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<number>;
   public getAuditerMessagesCount(
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<number>>;
   public getAuditerMessagesCount(
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<number>>;
   public getAuditerMessagesCount(
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -449,17 +484,24 @@ export class AuditMessagesManagerService {
       }
     }
 
-    return this.httpClient.get<number>(
-      `${this.configuration.basePath}/json/auditMessagesManager/getAuditerMessagesCount`,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/auditMessagesManager/getAuditerMessagesCount`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<number>(requestUrl, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -468,21 +510,25 @@ export class AuditMessagesManagerService {
    * @param reportProgress flag to report request and response progress.
    */
   public getLastMessageId(
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<number>;
   public getLastMessageId(
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<number>>;
   public getLastMessageId(
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<number>>;
   public getLastMessageId(
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -528,17 +574,24 @@ export class AuditMessagesManagerService {
       }
     }
 
-    return this.httpClient.get<number>(
-      `${this.configuration.basePath}/json/auditMessagesManager/getLastMessageId`,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/auditMessagesManager/getLastMessageId`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<number>(requestUrl, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -549,24 +602,28 @@ export class AuditMessagesManagerService {
    */
   public getMessages(
     count?: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<AuditMessage>>;
   public getMessages(
     count?: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<AuditMessage>>>;
   public getMessages(
     count?: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<AuditMessage>>>;
   public getMessages(
     count?: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -617,18 +674,25 @@ export class AuditMessagesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<AuditMessage>>(
-      `${this.configuration.basePath}/json/auditMessagesManager/getMessages`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/auditMessagesManager/getMessages`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<AuditMessage>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -639,24 +703,28 @@ export class AuditMessagesManagerService {
    */
   public getMessagesByCount(
     count: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<AuditMessage>>;
   public getMessagesByCount(
     count: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<AuditMessage>>>;
   public getMessagesByCount(
     count: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<AuditMessage>>>;
   public getMessagesByCount(
     count: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -713,18 +781,25 @@ export class AuditMessagesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<AuditMessage>>(
-      `${this.configuration.basePath}/json/auditMessagesManager/getMessagesByCount`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/auditMessagesManager/getMessagesByCount`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<AuditMessage>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -737,6 +812,7 @@ export class AuditMessagesManagerService {
   public getMessagesByIdAndCount(
     id: number,
     count: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -744,6 +820,7 @@ export class AuditMessagesManagerService {
   public getMessagesByIdAndCount(
     id: number,
     count: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -751,6 +828,7 @@ export class AuditMessagesManagerService {
   public getMessagesByIdAndCount(
     id: number,
     count: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -758,6 +836,7 @@ export class AuditMessagesManagerService {
   public getMessagesByIdAndCount(
     id: number,
     count: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -822,18 +901,25 @@ export class AuditMessagesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<AuditMessage>>(
-      `${this.configuration.basePath}/json/auditMessagesManager/getMessagesByIdAndCount`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/auditMessagesManager/getMessagesByIdAndCount`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<AuditMessage>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -851,24 +937,28 @@ export class AuditMessagesManagerService {
         selectedEvents: string[];
       };
     },
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<PaginatedAuditMessages>;
   public getMessagesPage(
     InputGetMessagesPage: InputGetMessagesPage,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<PaginatedAuditMessages>>;
   public getMessagesPage(
     InputGetMessagesPage: InputGetMessagesPage,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<PaginatedAuditMessages>>;
   public getMessagesPage(
     InputGetMessagesPage: InputGetMessagesPage,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -928,18 +1018,24 @@ export class AuditMessagesManagerService {
       }
     }
 
-    return this.httpClient.post<PaginatedAuditMessages>(
-      `${this.configuration.basePath}/json/auditMessagesManager/getMessagesPage`,
-      InputGetMessagesPage,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/auditMessagesManager/getMessagesPage`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<PaginatedAuditMessages>(requestUrl, InputGetMessagesPage, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -950,24 +1046,28 @@ export class AuditMessagesManagerService {
    */
   public pollConsumerMessages(
     consumerName: string,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<Array<AuditMessage>>;
   public pollConsumerMessages(
     consumerName: string,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpResponse<Array<AuditMessage>>>;
   public pollConsumerMessages(
     consumerName: string,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
   ): Observable<HttpEvent<Array<AuditMessage>>>;
   public pollConsumerMessages(
     consumerName: string,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1028,18 +1128,25 @@ export class AuditMessagesManagerService {
       }
     }
 
-    return this.httpClient.get<Array<AuditMessage>>(
-      `${this.configuration.basePath}/json/auditMessagesManager/pollConsumerMessages`,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/json/auditMessagesManager/pollConsumerMessages`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.get<Array<AuditMessage>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -1052,6 +1159,7 @@ export class AuditMessagesManagerService {
   public setLastProcessedId(
     consumerName: string,
     lastProcessedId: number,
+    useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1059,6 +1167,7 @@ export class AuditMessagesManagerService {
   public setLastProcessedId(
     consumerName: string,
     lastProcessedId: number,
+    useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1066,6 +1175,7 @@ export class AuditMessagesManagerService {
   public setLastProcessedId(
     consumerName: string,
     lastProcessedId: number,
+    useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1073,6 +1183,7 @@ export class AuditMessagesManagerService {
   public setLastProcessedId(
     consumerName: string,
     lastProcessedId: number,
+    useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
@@ -1145,19 +1256,25 @@ export class AuditMessagesManagerService {
       }
     }
 
-    return this.httpClient.post<any>(
-      `${this.configuration.basePath}/urlinjsonout/auditMessagesManager/setLastProcessedId`,
-      null,
-      {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/auditMessagesManager/setLastProcessedId`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**

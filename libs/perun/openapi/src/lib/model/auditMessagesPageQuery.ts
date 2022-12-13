@@ -15,4 +15,5 @@ export interface AuditMessagesPageQuery {
   pageSize: number;
   offset: number;
   order: SortingOrder;
+  selectedEvents: Array<string>;
 }
