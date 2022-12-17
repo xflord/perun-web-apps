@@ -233,7 +233,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Authorship>(requestUrl, InputCreateAuthorship, {
       context: localVarHttpContext,
@@ -342,7 +341,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Category>(requestUrl, InputCreateCategory, {
       context: localVarHttpContext,
@@ -451,7 +449,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Category>(requestUrl, InputCreateCategoryNR, {
       context: localVarHttpContext,
@@ -560,7 +557,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Publication>(requestUrl, InputCreatePublication, {
       context: localVarHttpContext,
@@ -669,7 +665,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<PublicationSystem>(requestUrl, InputCreatePublicationSystem, {
       context: localVarHttpContext,
@@ -778,7 +773,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Thanks>(requestUrl, InputCreateThanks, {
       context: localVarHttpContext,
@@ -905,7 +899,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1010,7 +1003,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1117,7 +1109,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1224,7 +1215,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1329,7 +1319,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1420,7 +1409,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Author>>(requestUrl, {
       context: localVarHttpContext,
@@ -1526,7 +1514,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Author>>(requestUrl, {
       context: localVarHttpContext,
@@ -1684,7 +1671,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Publication>>(requestUrl, {
       context: localVarHttpContext,
@@ -1795,7 +1781,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Author>>(requestUrl, {
       context: localVarHttpContext,
@@ -1902,7 +1887,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<PublicationForGUI>(requestUrl, {
       context: localVarHttpContext,
@@ -2037,7 +2021,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Publication>>(requestUrl, {
       context: localVarHttpContext,
@@ -2218,7 +2201,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<PublicationForGUI>>(requestUrl, {
       context: localVarHttpContext,
@@ -2335,7 +2317,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<PublicationForGUI>>(requestUrl, {
       context: localVarHttpContext,
@@ -2426,7 +2407,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Category>>(requestUrl, {
       context: localVarHttpContext,
@@ -2516,7 +2496,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<PublicationSystem>>(requestUrl, {
       context: localVarHttpContext,
@@ -2620,7 +2599,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<number>(requestUrl, {
       context: localVarHttpContext,
@@ -2727,7 +2705,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<ThanksForGUI>>(requestUrl, {
       context: localVarHttpContext,
@@ -2837,7 +2814,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, InputLockPublications, {
       context: localVarHttpContext,
@@ -2946,7 +2922,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Category>(requestUrl, InputUpdateCategory, {
       context: localVarHttpContext,
@@ -3055,7 +3030,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Publication>(requestUrl, InputUpdatePublication, {
       context: localVarHttpContext,
@@ -3164,7 +3138,6 @@ export class CabinetManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<PublicationSystem>(requestUrl, InputUpdatePublicationSystem, {
       context: localVarHttpContext,

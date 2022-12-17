@@ -7,8 +7,11 @@ import {
   Vo,
 } from '@perun-web-apps/perun/openapi';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  GuiAuthResolver,
+  NotificatorService,
+  PerunTranslateService,
+} from '@perun-web-apps/perun/services';
 import { MatTableDataSource } from '@angular/material/table';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ChangeSponsorshipExpirationDialogComponent } from '@perun-web-apps/perun/dialogs';
@@ -42,7 +45,7 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
     private userService: UsersManagerService,
     private notificator: NotificatorService,
     private authResolver: GuiAuthResolver,
-    private translate: TranslateService,
+    private translate: PerunTranslateService,
     private dialog: MatDialog
   ) {}
 
@@ -121,21 +124,15 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
   }
 
   private removeSponsors(sponsorIds: number[]): void {
-    if (sponsorIds.length === 0) {
-      this.notificator.showSuccess(
-        this.translate.instant('DIALOGS.EDIT_MEMBER_SPONSORS.SUCCESS') as string
-      );
-      this.loading = false;
-      this.dialogRef.close(true);
-      return;
-    }
-
-    const sponsorId = sponsorIds.pop();
-    this.memberService.removeSponsor(this.data.member.id, sponsorId).subscribe(
-      () => {
-        this.removeSponsors(sponsorIds);
+    this.memberService.removeSponsors(this.data.member.id, sponsorIds).subscribe({
+      next: () => {
+        this.notificator.showSuccess(
+          this.translate.instant('DIALOGS.EDIT_MEMBER_SPONSORS.SUCCESS')
+        );
+        this.loading = false;
+        this.dialogRef.close(true);
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 }

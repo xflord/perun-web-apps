@@ -57,22 +57,20 @@ export class FacilityAllowedGroupsComponent implements OnInit {
   refreshTable(): void {
     this.loading = true;
     this.groups = [];
-    this.vos.forEach((vo) => {
-      this.facilityManager.getAllowedGroups(this.facility.id, vo.id).subscribe((group) => {
-        this.groups = this.groups.concat(group);
-        this.groupsToShow = this.groups;
-        this.setAuthRights(vo, group);
-        this.loading = false;
-      });
+    this.facilityManager.getAllowedGroups(this.facility.id).subscribe((group) => {
+      this.groups = this.groups.concat(group);
+      this.groupsToShow = this.groups;
+      this.setAuthRights(group);
+      this.loading = false;
     });
     if (this.vos.length === 0) {
       this.loading = false;
     }
   }
 
-  setAuthRights(vo: Vo, groups: Group[]): void {
+  setAuthRights(groups: Group[]): void {
     groups.forEach((grp) => {
-      if (!this.authResolver.isAuthorized('getGroupById_int_policy', [vo, grp])) {
+      if (!this.authResolver.isAuthorized('getGroupById_int_policy', [grp])) {
         this.groupsWithoutRouteAuth.add(grp.id);
       }
     });

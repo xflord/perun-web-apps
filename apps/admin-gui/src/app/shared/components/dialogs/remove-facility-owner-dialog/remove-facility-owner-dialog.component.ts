@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { NotificatorService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
+import { NotificatorService, PerunTranslateService } from '@perun-web-apps/perun/services';
 import { FacilitiesManagerService, Owner } from '@perun-web-apps/perun/openapi';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -27,13 +26,9 @@ export class RemoveFacilityOwnerDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<RemoveFacilityOwnerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: RemoveFacilityOwnerDialogData,
     private notificator: NotificatorService,
-    private translate: TranslateService,
+    private translate: PerunTranslateService,
     private facilitiesManagerService: FacilitiesManagerService
-  ) {
-    translate
-      .get('DIALOGS.REMOVE_OWNERS.SUCCESS')
-      .subscribe((res: string) => (this.successMessage = res));
-  }
+  ) {}
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<Owner>(this.data.owners);
@@ -46,17 +41,16 @@ export class RemoveFacilityOwnerDialogComponent implements OnInit {
 
   onSubmit(): void {
     this.loading = true;
-    if (this.data.owners.length !== 0) {
-      this.facilitiesManagerService
-        .removeFacilityOwner(this.data.facilityId, this.data.owners.pop().id)
-        .subscribe(
-          () => this.onSubmit(),
-          () => (this.loading = false)
-        );
-    } else {
-      this.loading = false;
-      this.notificator.showSuccess(this.successMessage);
-      this.dialogRef.close(true);
-    }
+
+    const ownerIds = this.data.owners.map((owner) => owner.id);
+
+    this.facilitiesManagerService.removeFacilityOwners(this.data.facilityId, ownerIds).subscribe({
+      next: () => {
+        this.loading = false;
+        this.notificator.showSuccess(this.translate.instant('DIALOGS.REMOVE_OWNERS.SUCCESS'));
+        this.dialogRef.close(true);
+      },
+      error: () => (this.loading = false),
+    });
   }
 }

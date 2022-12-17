@@ -2,8 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Group, GroupsManagerService, Vo } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { NotificatorService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
+import { NotificatorService, PerunTranslateService } from '@perun-web-apps/perun/services';
 import { TABLE_ADD_HIERARCHICAL_INCLUSION } from '@perun-web-apps/config/table-config';
 
 export interface AddGroupHierarchicalIncludeDialogData {
@@ -33,7 +32,7 @@ export class AddGroupHierarchicalIncludeDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: AddGroupHierarchicalIncludeDialogData,
     private groupService: GroupsManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: PerunTranslateService
   ) {}
 
   ngOnInit(): void {
@@ -56,22 +55,17 @@ export class AddGroupHierarchicalIncludeDialogComponent implements OnInit {
   }
 
   confirm(): void {
-    if (this.selected.selected.length === 0) {
-      this.dialogRef.close(true);
-      this.notificator.showSuccess(
-        this.translate.instant('DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.SUCCESS') as string
-      );
-      return;
-    }
     this.loading = true;
-    this.groupService
-      .allowGroupToHierarchicalVo(this.selected.selected.pop().id, this.parentVo.id)
-      .subscribe(
-        () => {
-          this.confirm();
-          this.loading = false;
-        },
-        () => (this.loading = false)
-      );
+    const groupIds = this.selected.selected.map((group) => group.id);
+    this.groupService.allowGroupsToHierarchicalVo(groupIds, this.parentVo.id).subscribe({
+      next: () => {
+        this.dialogRef.close(true);
+        this.notificator.showSuccess(
+          this.translate.instant('DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.SUCCESS')
+        );
+        this.loading = false;
+      },
+      error: () => (this.loading = false),
+    });
   }
 }

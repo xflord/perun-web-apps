@@ -7,8 +7,8 @@ import {
   EntityStorageService,
   GuiAuthResolver,
   NotificatorService,
+  PerunTranslateService,
 } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { RemoveDestinationDialogComponent } from '../../../../../../shared/components/dialogs/remove-destination-dialog/remove-destination-dialog.component';
 
@@ -28,7 +28,7 @@ export class ServiceDestinationsComponent implements OnInit {
   constructor(
     private serviceManager: ServicesManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService,
+    private translate: PerunTranslateService,
     private dialog: MatDialog,
     public authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService
@@ -84,38 +84,28 @@ export class ServiceDestinationsComponent implements OnInit {
   }
 
   private blockServiceOnDestinations(destinations: RichDestination[]): void {
-    if (destinations.length === 0) {
-      this.notificator.showSuccess(
-        this.translate.instant('SERVICE_DETAIL.DESTINATIONS.BLOCK_SUCCESS') as string
-      );
-      this.refreshTable();
-      return;
-    }
-
-    const destination = destinations.pop();
-    this.serviceManager.blockServiceOnDestination(this.service.id, destination.id).subscribe(
-      () => {
-        this.blockServiceOnDestinations(destinations);
+    this.serviceManager.blockServicesOnDestinations({ richDestinations: destinations }).subscribe({
+      next: () => {
+        this.notificator.showSuccess(
+          this.translate.instant('SERVICE_DETAIL.DESTINATIONS.BLOCK_SUCCESS')
+        );
+        this.refreshTable();
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 
   private allowServiceOnDestinations(destinations: RichDestination[]): void {
-    if (destinations.length === 0) {
-      this.notificator.showSuccess(
-        this.translate.instant('SERVICE_DETAIL.DESTINATIONS.ALLOW_SUCCESS') as string
-      );
-      this.refreshTable();
-      return;
-    }
-
-    const destination = destinations.pop();
-    this.serviceManager.unblockServiceOnDestinationById(this.service.id, destination.id).subscribe(
-      () => {
-        this.allowServiceOnDestinations(destinations);
-      },
-      () => (this.loading = false)
-    );
+    this.serviceManager
+      .unblockServicesOnDestinations({ richDestinations: destinations })
+      .subscribe({
+        next: () => {
+          this.notificator.showSuccess(
+            this.translate.instant('SERVICE_DETAIL.DESTINATIONS.ALLOW_SUCCESS')
+          );
+          this.refreshTable();
+        },
+        error: () => (this.loading = false),
+      });
   }
 }

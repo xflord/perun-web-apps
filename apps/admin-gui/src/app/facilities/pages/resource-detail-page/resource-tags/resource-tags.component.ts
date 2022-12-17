@@ -7,10 +7,10 @@ import {
   EntityStorageService,
   GuiAuthResolver,
   NotificatorService,
+  PerunTranslateService,
 } from '@perun-web-apps/perun/services';
 import { UniversalConfirmationItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { MatDialog } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
 import { AddResourceTagToResourceDialogComponent } from '../../../../shared/components/dialogs/add-resource-tag-to-resource-dialog/add-resource-tag-to-resource-dialog.component';
 import { CreateResourceTagDialogComponent } from '../../../../shared/components/dialogs/create-resource-tag-dialog/create-resource-tag-dialog.component';
 
@@ -36,7 +36,7 @@ export class ResourceTagsComponent implements OnInit {
     private resourcesManager: ResourcesManagerService,
     private dialog: MatDialog,
     private notificator: NotificatorService,
-    private translate: TranslateService,
+    private translate: PerunTranslateService,
     private entityStorageService: EntityStorageService
   ) {}
 
@@ -63,27 +63,19 @@ export class ResourceTagsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.removeTag(this.selection.selected);
+        this.resourcesManager
+          .removeResourceTagsFromResource({
+            resource: this.resource.id,
+            resourceTags: this.selection.selected,
+          })
+          .subscribe(() => {
+            this.notificator.showSuccess(
+              this.translate.instant('RESOURCE_DETAIL.TAGS.REMOVED_SUCCESSFULLY')
+            );
+            return this.updateData();
+          });
       }
     });
-  }
-
-  removeTag(tags: ResourceTag[]): void {
-    if (tags.length === 0) {
-      this.notificator.showSuccess(
-        this.translate.instant('RESOURCE_DETAIL.TAGS.REMOVED_SUCCESSFULLY') as string
-      );
-      return this.updateData();
-    }
-    const tag = tags.pop();
-    this.resourcesManager
-      .removeResourceTagFromResource({
-        resource: this.resource.id,
-        resourceTag: tag,
-      })
-      .subscribe(() => {
-        this.removeTag(tags);
-      });
   }
 
   addTag(): void {
@@ -101,7 +93,7 @@ export class ResourceTagsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((success) => {
       if (success) {
         this.notificator.showSuccess(
-          this.translate.instant('RESOURCE_DETAIL.TAGS.ADDED_SUCCESSFULLY') as string
+          this.translate.instant('RESOURCE_DETAIL.TAGS.ADDED_SUCCESSFULLY')
         );
         this.updateData();
       }
@@ -117,9 +109,9 @@ export class ResourceTagsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((success: string) => {
       if (success) {
-        this.translate.get('VO_DETAIL.RESOURCES.TAGS.CREATE_SUCCESS').subscribe((text: string) => {
-          this.notificator.showSuccess(text);
-        });
+        this.notificator.showSuccess(
+          this.translate.instant('VO_DETAIL.RESOURCES.TAGS.CREATE_SUCCESS')
+        );
         this.updateData();
       }
     });

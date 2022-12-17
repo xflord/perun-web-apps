@@ -2,8 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { RichDestination, ServicesManagerService } from '@perun-web-apps/perun/openapi';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { NotificatorService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
+import { NotificatorService, PerunTranslateService } from '@perun-web-apps/perun/services';
 
 export interface RemoveDestinationDialogData {
   destinations: RichDestination[];
@@ -26,7 +25,7 @@ export class RemoveDestinationDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<RemoveDestinationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: RemoveDestinationDialogData,
     private notificator: NotificatorService,
-    private translate: TranslateService,
+    private translate: PerunTranslateService,
     private serviceManager: ServicesManagerService
   ) {}
 
@@ -45,27 +44,17 @@ export class RemoveDestinationDialogComponent implements OnInit {
   }
 
   deleteDestinations(): void {
-    if (this.destinations.length === 0) {
-      this.notificator.showSuccess(
-        this.translate.instant('DIALOGS.REMOVE_DESTINATIONS.SUCCESS') as string
-      );
-      this.dialogRef.close(true);
-      return;
-    }
-    const destination = this.destinations.pop();
     this.serviceManager
-      .removeDestination(
-        destination.service.id,
-        destination.facility.id,
-        destination.destination,
-        destination.type
-      )
-      .subscribe(
-        () => {
-          this.deleteDestinations();
+      .removeDestinationsByRichDestinations({ richDestinations: this.destinations })
+      .subscribe({
+        next: () => {
+          this.notificator.showSuccess(
+            this.translate.instant('DIALOGS.REMOVE_DESTINATIONS.SUCCESS')
+          );
+          this.dialogRef.close(true);
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
   }
 
   onConfirm(): void {

@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ConsentHub, ConsentsManagerService } from '@perun-web-apps/perun/openapi';
 import { TABLE_CONSENT_HUBS } from '@perun-web-apps/config/table-config';
 import { SelectionModel } from '@angular/cdk/collections';
-import { GuiAuthResolver, NotificatorService, StoreService } from '@perun-web-apps/perun/services';
+import {
+  GuiAuthResolver,
+  NotificatorService,
+  PerunTranslateService,
+  StoreService,
+} from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { UniversalConfirmationItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
-import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -25,7 +29,7 @@ export class AdminConsentHubsComponent implements OnInit {
     private consentsManager: ConsentsManagerService,
     public authResolver: GuiAuthResolver,
     private notificator: NotificatorService,
-    private translate: TranslateService,
+    private translate: PerunTranslateService,
     private store: StoreService,
     private dialog: MatDialog
   ) {}
@@ -52,11 +56,9 @@ export class AdminConsentHubsComponent implements OnInit {
     const config = getDefaultDialogConfig();
     config.width = '500px';
     config.data = {
-      title: this.translate.instant('ADMIN.CONSENT_HUBS.CONFIRM_DIALOG_TITLE') as string,
+      title: this.translate.instant('ADMIN.CONSENT_HUBS.CONFIRM_DIALOG_TITLE'),
       theme: 'admin-theme',
-      description: this.translate.instant(
-        'ADMIN.CONSENT_HUBS.CONFIRM_DIALOG_DESCRIPTION'
-      ) as string,
+      description: this.translate.instant('ADMIN.CONSENT_HUBS.CONFIRM_DIALOG_DESCRIPTION'),
       items: this.selection.selected.map((hub) => hub.name),
       type: 'confirmation',
       showAsk: false,
@@ -65,24 +67,24 @@ export class AdminConsentHubsComponent implements OnInit {
     const dialogRef = this.dialog.open(UniversalConfirmationItemsDialogComponent, config);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.evaluateConsentsForConsentHub(0);
+        this.evaluateConsentsForConsentHubs();
       }
     });
   }
 
-  evaluateConsentsForConsentHub(index: number): void {
-    if (index === this.selection.selected.length) {
-      this.notificator.showSuccess(
-        this.translate.instant('ADMIN.CONSENT_HUBS.EVALUATION_FINISH') as string
-      );
-      this.selection.clear();
-      return;
-    }
+  evaluateConsentsForConsentHubs(): void {
+    this.loading = true;
 
-    this.consentsManager
-      .evaluateConsentsForConsentHub(this.selection.selected[index].id)
-      .subscribe(() => {
-        this.evaluateConsentsForConsentHub(++index);
-      });
+    const consentHubIds = this.selection.selected.map((consentHub) => consentHub.id);
+    this.consentsManager.evaluateConsentsForConsentHubs(consentHubIds).subscribe({
+      next: () => {
+        this.notificator.showSuccess(
+          this.translate.instant('ADMIN.CONSENT_HUBS.EVALUATION_FINISH')
+        );
+        this.selection.clear();
+        this.loading = false;
+      },
+      error: () => (this.loading = false),
+    });
   }
 }

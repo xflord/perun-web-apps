@@ -6,9 +6,8 @@ import {
   Owner,
   OwnersManagerService,
 } from '@perun-web-apps/perun/openapi';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { NotificatorService, PerunTranslateService } from '@perun-web-apps/perun/services';
 import { TABLE_ADD_EXTSOURCE_DIALOG } from '@perun-web-apps/config/table-config';
-import { TranslateService } from '@ngx-translate/core';
 import { SelectionModel } from '@angular/cdk/collections';
 
 interface AddFacilityOwnerDialogData {
@@ -28,7 +27,6 @@ export class AddFacilityOwnerDialogComponent implements OnInit {
   selection = new SelectionModel<Owner>(true, []);
   loading: boolean;
   filterValue = '';
-  successMessage: string;
   tableId = TABLE_ADD_EXTSOURCE_DIALOG;
   owners: Owner[] = [];
 
@@ -36,14 +34,10 @@ export class AddFacilityOwnerDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<AddFacilityOwnerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: AddFacilityOwnerDialogData,
     private notificator: NotificatorService,
-    private translate: TranslateService,
+    private translate: PerunTranslateService,
     private ownersManagerService: OwnersManagerService,
     private facilitiesManagerService: FacilitiesManagerService
-  ) {
-    this.translate
-      .get('DIALOGS.ADD_OWNERS.SUCCESS')
-      .subscribe((result: string) => (this.successMessage = result));
-  }
+  ) {}
 
   ngOnInit(): void {
     this.theme = this.data.theme;
@@ -63,18 +57,15 @@ export class AddFacilityOwnerDialogComponent implements OnInit {
 
   onAdd(): void {
     this.loading = true;
-    if (this.selection.selected.length !== 0) {
-      this.facilitiesManagerService
-        .addFacilityOwner(this.data.facilityId, this.selection.selected.pop().id)
-        .subscribe(
-          () => this.onAdd(),
-          () => (this.loading = false)
-        );
-    } else {
-      this.loading = false;
-      this.notificator.showSuccess(this.successMessage);
-      this.dialogRef.close(true);
-    }
+    const ownerIds = this.selection.selected.map((owner) => owner.id);
+    this.facilitiesManagerService.addFacilityOwners(this.data.facilityId, ownerIds).subscribe({
+      next: () => {
+        this.loading = false;
+        this.notificator.showSuccess(this.translate.instant('DIALOGS.ADD_OWNERS.SUCCESS'));
+        this.dialogRef.close(true);
+      },
+      error: () => (this.loading = false),
+    });
   }
 
   onCancel(): void {

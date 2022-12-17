@@ -9,8 +9,7 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TABLE_RESOURCE_DELETE_SERVICE } from '@perun-web-apps/config/table-config';
-import { TranslateService } from '@ngx-translate/core';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { NotificatorService, PerunTranslateService } from '@perun-web-apps/perun/services';
 
 export interface DeleteServiceFromFacilityData {
   theme: string;
@@ -47,7 +46,7 @@ export class DeleteServiceFromFacilityComponent implements OnInit {
     private resourcesManager: ResourcesManagerService,
     private tasksManager: TasksManagerService,
     private serviceManager: ServicesManagerService,
-    private translate: TranslateService,
+    private translate: PerunTranslateService,
     private notificator: NotificatorService,
     private cd: ChangeDetectorRef
   ) {}
@@ -66,9 +65,9 @@ export class DeleteServiceFromFacilityComponent implements OnInit {
     // delete task results
     if (this.taskResultsChecked && !this.taskChecked && this.taskId !== null) {
       this.tasksManager.getTaskResultsForGUIByTask(this.taskId).subscribe((taskResults) => {
-        taskResults.forEach((result) => {
-          this.tasksManager.deleteTaskResultById({ taskResultId: result.id }).subscribe();
-        });
+        this.tasksManager
+          .deleteTaskResultsByIds(taskResults.map((result) => result.id))
+          .subscribe();
       });
     }
 
@@ -80,35 +79,29 @@ export class DeleteServiceFromFacilityComponent implements OnInit {
     // delete destination
     if (this.destinationChecked) {
       this.serviceManager
-        .getDestinations(this.serviceId, this.facilityId)
+        .getRichDestinations(this.serviceId, this.facilityId)
         .subscribe((destinations) => {
-          destinations.forEach((destination) => {
-            this.serviceManager
-              .removeDestination(
-                this.serviceId,
-                this.facilityId,
-                destination.destination,
-                destination.type
-              )
-              .subscribe();
-          });
+          this.serviceManager
+            .removeDestinationsByRichDestinations({ richDestinations: destinations })
+            .subscribe();
         });
     }
 
     // delete service from resources/facility
-    this.selected.selected.forEach((resource) => {
-      this.resourcesManager.removeService(resource.id, this.serviceId).subscribe(
-        () => {
-          this.translate
-            .get('DIALOGS.REMOVE_SERVICE_FROM_FACILITY.SUCCESS')
-            .subscribe((successMessage: string) => {
-              this.notificator.showSuccess(successMessage);
-              this.dialogRef.close(true);
-            });
+    this.resourcesManager
+      .removeServiceForResources(
+        this.selected.selected.map((resource) => resource.id),
+        this.serviceId
+      )
+      .subscribe({
+        next: () => {
+          this.notificator.showSuccess(
+            this.translate.instant('DIALOGS.REMOVE_SERVICE_FROM_FACILITY.SUCCESS')
+          );
+          this.dialogRef.close(true);
         },
-        () => (this.loading = false)
-      );
-    });
+        error: () => (this.loading = false),
+      });
   }
 
   cancel(): void {

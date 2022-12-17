@@ -1,8 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
+import {
+  NotificatorService,
+  PerunTranslateService,
+  StoreService,
+} from '@perun-web-apps/perun/services';
 import { MembersManagerService, RichMember, RichUser, User } from '@perun-web-apps/perun/openapi';
-import { TranslateService } from '@ngx-translate/core';
 import { formatDate } from '@angular/common';
 import { UntypedFormControl, Validators } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -42,7 +45,7 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
     private store: StoreService,
     private membersService: MembersManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: PerunTranslateService
   ) {}
 
   ngOnInit(): void {
@@ -63,36 +66,22 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
 
   sponsor(members: RichMember[]): void {
     this.loading = true;
-    if (members.length === 0) {
-      this.notificator.showSuccess(
-        this.translate.instant('DIALOGS.SPONSOR_EXISTING_MEMBER.SUCCESS') as string
-      );
-      this.loading = false;
-      this.dialogRef.close(true);
-      return;
-    }
 
-    const member = members.pop();
     const sponsor =
       this.sponsorType === 'self' ? this.store.getPerunPrincipal().user : this.selectedSponsor;
 
-    if (member.sponsored) {
-      this.membersService.sponsorMember(member.id, sponsor.id, this.expiration).subscribe({
-        next: () => {
-          this.sponsor(members);
-        },
-        error: () => (this.loading = false),
-      });
-    } else {
-      this.membersService
-        .setSponsorshipForMember(member.id, sponsor.id, this.expiration)
-        .subscribe({
-          next: () => {
-            this.sponsor(members);
-          },
-          error: () => (this.loading = false),
-        });
-    }
+    const memberIds = members.map((member) => member.id);
+
+    this.membersService.sponsorMembers(memberIds, sponsor.id, this.expiration).subscribe({
+      next: () => {
+        this.notificator.showSuccess(
+          this.translate.instant('DIALOGS.SPONSOR_EXISTING_MEMBER.SUCCESS')
+        );
+        this.loading = false;
+        this.dialogRef.close(true);
+      },
+      error: () => (this.loading = false),
+    });
   }
 
   onSubmit(): void {
