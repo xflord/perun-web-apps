@@ -1,12 +1,15 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Group, GroupsManagerService, Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
-import { EntityStorageService, NotificatorService } from '@perun-web-apps/perun/services';
+import {
+  EntityStorageService,
+  NotificatorService,
+  PerunTranslateService,
+} from '@perun-web-apps/perun/services';
 import { SelectionModel } from '@angular/cdk/collections';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { AddGroupHierarchicalIncludeDialogComponent } from '../../../../../shared/components/dialogs/add-group-hierarchical-include-dialog/add-group-hierarchical-include-dialog.component';
 import { UniversalConfirmationItemsDialogComponent } from '@perun-web-apps/perun/dialogs';
-import { TranslateService } from '@ngx-translate/core';
 import { TABLE_HIERARCHICAL_INCLUSION } from '@perun-web-apps/config/table-config';
 
 @Component({
@@ -29,7 +32,7 @@ export class VoSettingsHierarchicalInclusionComponent implements OnInit {
     private voService: VosManagerService,
     private groupService: GroupsManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService,
+    private translate: PerunTranslateService,
     private changeDetector: ChangeDetectorRef
   ) {}
 
@@ -92,7 +95,7 @@ export class VoSettingsHierarchicalInclusionComponent implements OnInit {
       items: this.selected.selected.map((group) => group.name),
       alert: this.translate.instant('DIALOGS.REMOVE_GROUPS_HIERARCHICAL_INCLUSION.ALERT', {
         parentVo: this.selectedParentVo.name,
-      }) as string,
+      }),
       type: 'remove',
       showAsk: true,
     };
@@ -102,28 +105,22 @@ export class VoSettingsHierarchicalInclusionComponent implements OnInit {
       .afterClosed()
       .subscribe((result) => {
         if (result) {
-          this.disallowGroup();
+          this.disallowGroups();
         }
       });
   }
 
-  disallowGroup(): void {
-    if (this.selected.selected.length === 0) {
-      this.notificator.showSuccess(
-        this.translate.instant('DIALOGS.REMOVE_GROUPS_HIERARCHICAL_INCLUSION.SUCCESS') as string
-      );
-      this.loadAllowedGroups();
-      return;
-    }
+  disallowGroups(): void {
     this.loading = true;
-    this.groupService
-      .disallowGroupToHierarchicalVo(this.selected.selected.pop().id, this.selectedParentVo.id)
-      .subscribe(
-        () => {
-          this.disallowGroup();
-          this.loading = false;
-        },
-        () => (this.loading = false)
-      );
+    const groupIds = this.selected.selected.map((group) => group.id);
+    this.groupService.disallowGroupsToHierarchicalVo(groupIds, this.selectedParentVo.id).subscribe({
+      next: () => {
+        this.notificator.showSuccess(
+          this.translate.instant('DIALOGS.REMOVE_GROUPS_HIERARCHICAL_INCLUSION.SUCCESS')
+        );
+        this.loadAllowedGroups();
+      },
+      error: () => (this.loading = false),
+    });
   }
 }

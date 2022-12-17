@@ -54,17 +54,13 @@ export class AddResourceTagToResourceDialogComponent implements OnInit {
   }
 
   onSubmit(resourceTags: ResourceTag[]): void {
-    if (resourceTags.length === 0) {
-      return this.dialogRef.close(true);
-    }
-    const tag = resourceTags.pop();
     this.resourcesManager
-      .assignResourceTagToResource({
+      .assignResourceTagsToResource({
         resource: this.resourceId,
-        resourceTag: tag,
+        resourceTags: resourceTags,
       })
       .subscribe(() => {
-        this.onSubmit(resourceTags);
+        this.dialogRef.close(true);
       });
   }
 

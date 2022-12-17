@@ -1,8 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Service, ServicesManagerService } from '@perun-web-apps/perun/openapi';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { NotificatorService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
+import { NotificatorService, PerunTranslateService } from '@perun-web-apps/perun/services';
 import { MatTableDataSource } from '@angular/material/table';
 import { DeleteDialogResult } from '@perun-web-apps/perun/dialogs';
 
@@ -30,36 +29,27 @@ export class DeleteServiceDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: DeleteServiceDialogData,
     private serviceManager: ServicesManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: PerunTranslateService
   ) {}
 
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.services = this.data.services;
-    this.relations.push(
-      this.translate.instant('DIALOGS.DELETE_SERVICE.DESTINATION_RELATION') as string
-    );
-    this.anotherMessage = this.translate.instant(
-      'DIALOGS.DELETE_SERVICE.MORE_INFORMATION'
-    ) as string;
+    this.relations.push(this.translate.instant('DIALOGS.DELETE_SERVICE.DESTINATION_RELATION'));
+    this.anotherMessage = this.translate.instant('DIALOGS.DELETE_SERVICE.MORE_INFORMATION');
   }
 
   onConfirm(): void {
-    if (this.services.length === 0) {
-      this.dialogRef.close(true);
-      this.notificator.showSuccess(
-        this.translate.instant('DIALOGS.DELETE_SERVICE.SUCCESS') as string
-      );
-      return;
-    }
     this.loading = true;
-    this.serviceManager.deleteService(this.services.pop().id, this.force).subscribe(
-      () => {
-        this.onConfirm();
+    const servicesIds = this.services.map((service) => service.id);
+    this.serviceManager.deleteServices(servicesIds, this.force).subscribe({
+      next: () => {
+        this.dialogRef.close(true);
+        this.notificator.showSuccess(this.translate.instant('DIALOGS.DELETE_SERVICE.SUCCESS'));
         this.loading = false;
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 
   onCancel(): void {

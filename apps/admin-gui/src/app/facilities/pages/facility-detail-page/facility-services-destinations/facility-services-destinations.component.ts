@@ -10,11 +10,11 @@ import {
 import { TABLE_FACILITY_SERVICES_DESTINATION_LIST } from '@perun-web-apps/config/table-config';
 import { SelectionModel } from '@angular/cdk/collections';
 import { RemoveDestinationDialogComponent } from '../../../../shared/components/dialogs/remove-destination-dialog/remove-destination-dialog.component';
-import { TranslateService } from '@ngx-translate/core';
 import {
   EntityStorageService,
   GuiAuthResolver,
   NotificatorService,
+  PerunTranslateService,
 } from '@perun-web-apps/perun/services';
 import { AddServicesDestinationDialogComponent } from '../../../../shared/components/dialogs/add-services-destination-dialog/add-services-destination-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -66,7 +66,7 @@ export class FacilityServicesDestinationsComponent implements OnInit {
     private dialog: MatDialog,
     private facilitiesManager: FacilitiesManagerService,
     private servicesManager: ServicesManagerService,
-    private translate: TranslateService,
+    private translate: PerunTranslateService,
     private notificator: NotificatorService,
     private authResolver: GuiAuthResolver,
     private serviceManager: ServicesManagerService,
@@ -129,12 +129,10 @@ export class FacilityServicesDestinationsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.translate
-          .get('FACILITY_DETAIL.SERVICES_DESTINATIONS.ADD_SUCCESS')
-          .subscribe((successMessage: string) => {
-            this.refreshTable();
-            this.notificator.showSuccess(successMessage);
-          });
+        this.refreshTable();
+        this.notificator.showSuccess(
+          this.translate.instant('FACILITY_DETAIL.SERVICES_DESTINATIONS.ADD_SUCCESS')
+        );
       }
     });
   }
@@ -153,52 +151,40 @@ export class FacilityServicesDestinationsComponent implements OnInit {
     });
   }
 
-  blockServiceOnDestinations(destinations: RichDestination[]): void {
-    if (destinations.length === 0) {
-      this.notificator.showSuccess(
-        this.translate.instant('FACILITY_DETAIL.SERVICES_DESTINATIONS.BLOCK_SUCCESS') as string
-      );
-      this.refreshTable();
-      return;
-    }
-
-    const destination = destinations.pop();
-    this.serviceManager.blockServiceOnDestination(destination.service.id, destination.id).subscribe(
-      () => {
-        this.blockServiceOnDestinations(destinations);
+  blockServicesOnDestinations(destinations: RichDestination[]): void {
+    this.serviceManager.blockServicesOnDestinations({ richDestinations: destinations }).subscribe({
+      next: () => {
+        this.notificator.showSuccess(
+          this.translate.instant('FACILITY_DETAIL.SERVICES_DESTINATIONS.BLOCK_SUCCESS')
+        );
+        this.refreshTable();
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 
   onBlock(): void {
     this.loading = true;
-    this.blockServiceOnDestinations(this.selected.selected);
+    this.blockServicesOnDestinations(this.selected.selected);
   }
 
-  allowServiceOnDestinations(destinations: RichDestination[]): void {
-    if (destinations.length === 0) {
-      this.notificator.showSuccess(
-        this.translate.instant('FACILITY_DETAIL.SERVICES_DESTINATIONS.ALLOW_SUCCESS') as string
-      );
-      this.refreshTable();
-      return;
-    }
-
-    const destination = destinations.pop();
+  allowServicesOnDestinations(destinations: RichDestination[]): void {
     this.serviceManager
-      .unblockServiceOnDestinationById(destination.service.id, destination.id)
-      .subscribe(
-        () => {
-          this.allowServiceOnDestinations(destinations);
+      .unblockServicesOnDestinations({ richDestinations: destinations })
+      .subscribe({
+        next: () => {
+          this.notificator.showSuccess(
+            this.translate.instant('FACILITY_DETAIL.SERVICES_DESTINATIONS.ALLOW_SUCCESS')
+          );
+          this.refreshTable();
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
   }
 
   onAllow(): void {
     this.loading = true;
-    this.allowServiceOnDestinations(this.selected.selected);
+    this.allowServicesOnDestinations(this.selected.selected);
   }
 
   applyFilter(filterValue: string): void {

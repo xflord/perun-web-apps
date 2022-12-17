@@ -2,8 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RichUserExtSource, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { MatTableDataSource } from '@angular/material/table';
-import { TranslateService } from '@ngx-translate/core';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { NotificatorService, PerunTranslateService } from '@perun-web-apps/perun/services';
 
 export interface RemoveUserExtSourceDialogData {
   showSuccess: boolean;
@@ -29,13 +28,9 @@ export class RemoveUserExtSourceDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<RemoveUserExtSourceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: RemoveUserExtSourceDialogData,
     private usersManagerService: UsersManagerService,
-    private translate: TranslateService,
+    private translate: PerunTranslateService,
     private notificator: NotificatorService
-  ) {
-    translate
-      .get('SHARED_LIB.PERUN.COMPONENTS.REMOVE_USER_EXT_SOURCE.SUCCESS')
-      .subscribe((res: string) => (this.successMessage = res));
-  }
+  ) {}
 
   ngOnInit(): void {
     this.theme = this.data.theme;
@@ -48,25 +43,21 @@ export class RemoveUserExtSourceDialogComponent implements OnInit {
 
   onSubmit(): void {
     this.loading = true;
-    if (this.data.extSources.length) {
-      this.usersManagerService
-        .removeUserExtSource(
-          this.data.userId,
-          this.data.extSources.pop().userExtSource.id,
-          this.force
-        )
-        .subscribe(
-          () => {
-            this.onSubmit();
-          },
-          () => (this.loading = false)
-        );
-    } else {
-      this.loading = false;
-      if (this.data.showSuccess) {
-        this.notificator.showSuccess(this.successMessage);
-      }
-      this.dialogRef.close(true);
-    }
+
+    const extSourcesIds = this.data.extSources.map((src) => src.userExtSource.id);
+    this.usersManagerService
+      .removeUserExtSources(this.data.userId, extSourcesIds, this.force)
+      .subscribe({
+        next: () => {
+          this.loading = false;
+          if (this.data.showSuccess) {
+            this.notificator.showSuccess(
+              this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.REMOVE_USER_EXT_SOURCE.SUCCESS')
+            );
+          }
+          this.dialogRef.close(true);
+        },
+        error: () => (this.loading = false),
+      });
   }
 }

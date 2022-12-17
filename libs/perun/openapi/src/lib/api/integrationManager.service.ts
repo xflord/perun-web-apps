@@ -180,7 +180,6 @@ export class IntegrationManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<GroupMemberData>(requestUrl, {
       context: localVarHttpContext,

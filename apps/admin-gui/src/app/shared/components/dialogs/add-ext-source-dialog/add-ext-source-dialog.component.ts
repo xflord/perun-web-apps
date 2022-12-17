@@ -2,8 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ExtSource, ExtSourcesManagerService } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { NotificatorService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
+import { NotificatorService, PerunTranslateService } from '@perun-web-apps/perun/services';
 import { TABLE_ADD_EXTSOURCE_DIALOG } from '@perun-web-apps/config/table-config';
 
 export interface AddExtSourceDialogData {
@@ -32,7 +31,7 @@ export class AddExtSourceDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: AddExtSourceDialogData,
     private extSourceService: ExtSourcesManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: PerunTranslateService
   ) {}
 
   ngOnInit(): void {
@@ -66,52 +65,39 @@ export class AddExtSourceDialogComponent implements OnInit {
     this.filterValue = filterValue;
   }
 
-  addVoExtSource(extSources: ExtSource[]): void {
-    if (extSources.length === 0) {
-      this.translate
-        .get('DIALOGS.ADD_EXT_SOURCES.SUCCESS_ADDED')
-        .subscribe((successMessage: string) => {
-          this.notificator.showSuccess(successMessage);
-          this.dialogRef.close(true);
-        });
-      return;
-    }
-
-    const extSource = extSources.pop();
-    this.extSourceService.addExtSourceWithVoSource(this.data.voId, extSource.id).subscribe(
-      () => {
-        this.addVoExtSource(extSources);
+  addVoExtSources(extSources: ExtSource[]): void {
+    const extSourceIds = extSources.map((src) => src.id);
+    this.extSourceService.addExtSourcesWithVoSource(this.data.voId, extSourceIds).subscribe({
+      next: () => {
+        this.notificator.showSuccess(
+          this.translate.instant('DIALOGS.ADD_EXT_SOURCES.SUCCESS_ADDED')
+        );
+        this.dialogRef.close(true);
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 
-  addGroupExtSource(extSources: ExtSource[]): void {
-    if (extSources.length === 0) {
-      this.translate
-        .get('DIALOGS.ADD_EXT_SOURCES.SUCCESS_ADDED')
-        .subscribe((successMessage: string) => {
-          this.notificator.showSuccess(successMessage);
-          this.dialogRef.close(true);
-        });
-      return;
-    }
+  addGroupExtSources(extSources: ExtSource[]): void {
+    const extSourceIds = extSources.map((src) => src.id);
 
-    const extSource = extSources.pop();
-    this.extSourceService.addExtSourceWithGroupSource(this.data.groupId, extSource.id).subscribe(
-      () => {
-        this.addGroupExtSource(extSources);
+    this.extSourceService.addExtSourcesWithGroupSource(this.data.groupId, extSourceIds).subscribe({
+      next: () => {
+        this.notificator.showSuccess(
+          this.translate.instant('DIALOGS.ADD_EXT_SOURCES.SUCCESS_ADDED')
+        );
+        this.dialogRef.close(true);
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 
   onAdd(): void {
     this.loading = true;
     if (this.data.groupId) {
-      this.addGroupExtSource(this.selection.selected);
+      this.addGroupExtSources(this.selection.selected);
     } else {
-      this.addVoExtSource(this.selection.selected);
+      this.addVoExtSources(this.selection.selected);
     }
   }
 

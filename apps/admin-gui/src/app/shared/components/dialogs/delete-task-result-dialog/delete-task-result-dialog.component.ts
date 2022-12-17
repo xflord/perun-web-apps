@@ -1,8 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { TaskResult, TasksManagerService } from '@perun-web-apps/perun/openapi';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { NotificatorService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
+import { NotificatorService, PerunTranslateService } from '@perun-web-apps/perun/services';
 import { MatTableDataSource } from '@angular/material/table';
 
 export interface DeleteTaskResultDialogData {
@@ -27,7 +26,7 @@ export class DeleteTaskResultDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: DeleteTaskResultDialogData,
     private taskManager: TasksManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: PerunTranslateService
   ) {}
 
   ngOnInit(): void {
@@ -37,20 +36,16 @@ export class DeleteTaskResultDialogComponent implements OnInit {
 
   onDelete(): void {
     this.loading = true;
-    if (this.taskResults.length === 0) {
-      this.dialogRef.close(true);
-      this.loading = false;
-      this.notificator.showSuccess(
-        this.translate.instant('DIALOGS.DELETE_TASK_RESULT.SUCCESS') as string
-      );
-      return;
-    }
-    this.taskManager.deleteTaskResultById({ taskResultId: this.taskResults.pop().id }).subscribe(
-      () => {
-        this.onDelete();
+
+    const taskResultsIds = this.taskResults.map((result) => result.id);
+    this.taskManager.deleteTaskResultsByIds(taskResultsIds).subscribe({
+      next: () => {
+        this.dialogRef.close(true);
+        this.loading = false;
+        this.notificator.showSuccess(this.translate.instant('DIALOGS.DELETE_TASK_RESULT.SUCCESS'));
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 
   onCancel(): void {

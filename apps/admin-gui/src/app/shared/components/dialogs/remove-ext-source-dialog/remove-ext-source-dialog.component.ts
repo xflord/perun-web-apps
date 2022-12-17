@@ -37,52 +37,46 @@ export class RemoveExtSourceDialogComponent implements OnInit {
     this.extSources = this.data.extSources;
   }
 
-  removeVoExtSource(): void {
-    if (this.extSources.length === 0) {
-      this.translate
-        .get('DIALOGS.REMOVE_EXT_SOURCES.SUCCESS_REMOVED')
-        .subscribe((successMessage: string) => {
-          this.notificator.showSuccess(successMessage);
-          this.dialogRef.close(true);
-        });
-      return;
-    }
+  removeVoExtSources(): void {
+    const extSourceIds = this.extSources.map((src) => src.id);
 
-    const extSource = this.extSources.pop();
-    this.extSourceService.removeExtSourceWithVoSource(this.data.voId, extSource.id).subscribe(
-      () => {
-        this.onRemove();
+    this.extSourceService.removeExtSourcesWithVoSource(this.data.voId, extSourceIds).subscribe({
+      next: () => {
+        this.translate
+          .get('DIALOGS.REMOVE_EXT_SOURCES.SUCCESS_REMOVED')
+          .subscribe((successMessage: string) => {
+            this.notificator.showSuccess(successMessage);
+            this.dialogRef.close(true);
+          });
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 
-  removeGroupExtSource(): void {
-    if (this.extSources.length === 0) {
-      this.translate
-        .get('DIALOGS.REMOVE_EXT_SOURCES.SUCCESS_REMOVED')
-        .subscribe((successMessage: string) => {
-          this.notificator.showSuccess(successMessage);
-          this.dialogRef.close(true);
-        });
-      return;
-    }
+  removeGroupExtSources(): void {
+    const extSourceIds = this.extSources.map((src) => src.id);
 
-    const extSource = this.extSources.pop();
-    this.extSourceService.removeExtSourceWithGroupSource(this.data.groupId, extSource.id).subscribe(
-      () => {
-        this.onRemove();
-      },
-      () => (this.loading = false)
-    );
+    this.extSourceService
+      .removeExtSourcesWithGroupSource(this.data.groupId, extSourceIds)
+      .subscribe({
+        next: () => {
+          this.translate
+            .get('DIALOGS.REMOVE_EXT_SOURCES.SUCCESS_REMOVED')
+            .subscribe((successMessage: string) => {
+              this.notificator.showSuccess(successMessage);
+              this.dialogRef.close(true);
+            });
+        },
+        error: () => (this.loading = false),
+      });
   }
 
   onRemove(): void {
     this.loading = true;
     if (this.data.groupId) {
-      this.removeGroupExtSource();
+      this.removeGroupExtSources();
     } else {
-      this.removeVoExtSource();
+      this.removeVoExtSources();
     }
   }
 

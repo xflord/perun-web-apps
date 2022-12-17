@@ -178,7 +178,6 @@ export class DatabaseManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<string>(requestUrl, {
       context: localVarHttpContext,
@@ -268,7 +267,6 @@ export class DatabaseManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<string>(requestUrl, {
       context: localVarHttpContext,
@@ -358,7 +356,6 @@ export class DatabaseManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<string>(requestUrl, {
       context: localVarHttpContext,
@@ -448,7 +445,6 @@ export class DatabaseManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<number>(requestUrl, {
       context: localVarHttpContext,
