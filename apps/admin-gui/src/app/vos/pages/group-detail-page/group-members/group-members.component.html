@@ -51,8 +51,17 @@
       </button>
     </mat-menu>
   </span>
-  <span>
-    <button (click)="onCopyMembers()" *ngIf="copyAuth" class="mr-2" color="accent" mat-flat-button>
+  <span
+    [matTooltipDisabled]="!copyDisabled"
+    [matTooltipPosition]="'above'"
+    matTooltip="{{'GROUP_DETAIL.MEMBERS.COPY_MEMBERS_DISABLED' | translate}}">
+    <button
+      (click)="onCopyMembers()"
+      *ngIf="copyAuth"
+      [disabled]="copyDisabled"
+      class="mr-2"
+      color="accent"
+      mat-flat-button>
       {{'GROUP_DETAIL.MEMBERS.COPY_MEMBERS' | translate}}
     </button>
   </span>

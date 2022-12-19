@@ -200,7 +200,6 @@ export class FacilitiesManagerByFacilityNameService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Group>>(requestUrl, {
       context: localVarHttpContext,

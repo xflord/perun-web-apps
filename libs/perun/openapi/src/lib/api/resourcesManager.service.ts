@@ -43,6 +43,8 @@ import { Group } from '../model/group';
 // @ts-ignore
 import { InputAssignResourceTagToResource } from '../model/inputAssignResourceTagToResource';
 // @ts-ignore
+import { InputAssignResourceTagsToResource } from '../model/inputAssignResourceTagsToResource';
+// @ts-ignore
 import { InputCopyResource } from '../model/inputCopyResource';
 // @ts-ignore
 import { InputCreateResourceTagWithResourceTag } from '../model/inputCreateResourceTagWithResourceTag';
@@ -52,6 +54,8 @@ import { InputDeleteResourceTag } from '../model/inputDeleteResourceTag';
 import { InputGetAllResourcesByResourceTag } from '../model/inputGetAllResourcesByResourceTag';
 // @ts-ignore
 import { InputRemoveResourceTagFromResource } from '../model/inputRemoveResourceTagFromResource';
+// @ts-ignore
+import { InputRemoveResourceTagsFromResource } from '../model/inputRemoveResourceTagsFromResource';
 // @ts-ignore
 import { InputSetBan } from '../model/inputSetBan';
 // @ts-ignore
@@ -273,7 +277,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -401,7 +404,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -523,7 +525,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -647,7 +648,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -771,7 +771,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -911,7 +910,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1067,7 +1065,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1225,7 +1222,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1387,7 +1383,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1401,7 +1396,7 @@ export class ResourcesManagerService {
   }
 
   /**
-   * Assigns ResourceRag to resource. The ResourceTag must contain its id, voId and tagName.
+   * Assigns ResourceTag to resource. The ResourceTag must contain its id, voId and tagName.
    * @param InputAssignResourceTagToResource
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -1500,9 +1495,119 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, InputAssignResourceTagToResource, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
+  }
+
+  /**
+   * Assigns ResourceTags to resource. The ResourceTags must contain its id, voId and tagName.
+   * @param InputAssignResourceTagsToResource
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public assignResourceTagsToResource(
+    InputAssignResourceTagsToResource: InputAssignResourceTagsToResource,
+    useNon?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any>;
+  public assignResourceTagsToResource(
+    InputAssignResourceTagsToResource: InputAssignResourceTagsToResource,
+    useNon?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<any>>;
+  public assignResourceTagsToResource(
+    InputAssignResourceTagsToResource: InputAssignResourceTagsToResource,
+    useNon?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<any>>;
+  public assignResourceTagsToResource(
+    InputAssignResourceTagsToResource: InputAssignResourceTagsToResource,
+    useNon: boolean = false,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (
+      InputAssignResourceTagsToResource === null ||
+      InputAssignResourceTagsToResource === undefined
+    ) {
+      throw new Error(
+        'Required parameter InputAssignResourceTagsToResource was null or undefined when calling assignResourceTagsToResource.'
+      );
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let requestUrl = `${this.configuration.basePath}/json/resourcesManager/assignResourceTagsToResource`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+    }
+    return this.httpClient.post<any>(requestUrl, InputAssignResourceTagsToResource, {
       context: localVarHttpContext,
       responseType: <any>responseType_,
       withCredentials: this.configuration.withCredentials,
@@ -1627,7 +1732,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1757,7 +1861,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1885,7 +1988,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1995,7 +2097,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Resource>(requestUrl, InputCopyResource, {
       context: localVarHttpContext,
@@ -2139,7 +2240,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Resource>(requestUrl, null, {
       context: localVarHttpContext,
@@ -2252,7 +2352,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<ResourceTag>(requestUrl, InputCreateResourceTagWithResourceTag, {
       context: localVarHttpContext,
@@ -2375,7 +2474,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<ResourceTag>(requestUrl, null, {
       context: localVarHttpContext,
@@ -2499,7 +2597,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -2606,7 +2703,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -2713,7 +2809,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -2824,7 +2919,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -2934,7 +3028,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, InputDeleteResourceTag, {
       context: localVarHttpContext,
@@ -3044,7 +3137,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Group>>(requestUrl, {
       context: localVarHttpContext,
@@ -3171,7 +3263,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<User>>(requestUrl, {
       context: localVarHttpContext,
@@ -3262,7 +3353,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Resource>>(requestUrl, {
       context: localVarHttpContext,
@@ -3374,7 +3464,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Array<Resource>>(requestUrl, InputGetAllResourcesByResourceTag, {
       context: localVarHttpContext,
@@ -3484,7 +3573,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<ResourceTag>>(requestUrl, {
       context: localVarHttpContext,
@@ -3591,7 +3679,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<ResourceTag>>(requestUrl, {
       context: localVarHttpContext,
@@ -3698,7 +3785,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Resource>>(requestUrl, {
       context: localVarHttpContext,
@@ -3809,7 +3895,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Member>>(requestUrl, {
       context: localVarHttpContext,
@@ -3920,7 +4005,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Resource>>(requestUrl, {
       context: localVarHttpContext,
@@ -4031,7 +4115,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<User>>(requestUrl, {
       context: localVarHttpContext,
@@ -4154,7 +4237,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Group>>(requestUrl, {
       context: localVarHttpContext,
@@ -4265,7 +4347,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Member>>(requestUrl, {
       context: localVarHttpContext,
@@ -4376,7 +4457,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<AssignedMember>>(requestUrl, {
       context: localVarHttpContext,
@@ -4483,7 +4563,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Resource>>(requestUrl, {
       context: localVarHttpContext,
@@ -4594,7 +4673,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Resource>>(requestUrl, {
       context: localVarHttpContext,
@@ -4705,7 +4783,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<AssignedResource>>(requestUrl, {
       context: localVarHttpContext,
@@ -4816,7 +4893,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<RichMember>>(requestUrl, {
       context: localVarHttpContext,
@@ -4923,7 +4999,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<RichResource>>(requestUrl, {
       context: localVarHttpContext,
@@ -5034,7 +5109,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<RichResource>>(requestUrl, {
       context: localVarHttpContext,
@@ -5162,7 +5236,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<RichResource>>(requestUrl, {
       context: localVarHttpContext,
@@ -5273,7 +5346,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Service>>(requestUrl, {
       context: localVarHttpContext,
@@ -5384,7 +5456,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<BanOnResource>>(requestUrl, {
       context: localVarHttpContext,
@@ -5495,7 +5566,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<BanOnResource>>(requestUrl, {
       context: localVarHttpContext,
@@ -5620,7 +5690,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<EnrichedBanOnResource>>(requestUrl, {
       context: localVarHttpContext,
@@ -5741,7 +5810,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<EnrichedBanOnResource>>(requestUrl, {
       context: localVarHttpContext,
@@ -5862,7 +5930,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<EnrichedResource>(requestUrl, {
       context: localVarHttpContext,
@@ -5987,7 +6054,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<EnrichedResource>>(requestUrl, {
       context: localVarHttpContext,
@@ -6108,7 +6174,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<EnrichedResource>>(requestUrl, {
       context: localVarHttpContext,
@@ -6219,7 +6284,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Facility>(requestUrl, {
       context: localVarHttpContext,
@@ -6344,7 +6408,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<AssignedGroup>>(requestUrl, {
       context: localVarHttpContext,
@@ -6455,7 +6518,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<RichResource>>(requestUrl, {
       context: localVarHttpContext,
@@ -6576,7 +6638,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<AssignedResource>>(requestUrl, {
       context: localVarHttpContext,
@@ -6704,7 +6765,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<BanOnResource>(requestUrl, {
       context: localVarHttpContext,
@@ -6811,7 +6871,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<BanOnResource>(requestUrl, {
       context: localVarHttpContext,
@@ -6916,7 +6975,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Resource>(requestUrl, {
       context: localVarHttpContext,
@@ -7053,7 +7111,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Resource>(requestUrl, {
       context: localVarHttpContext,
@@ -7158,7 +7215,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Resource>>(requestUrl, {
       context: localVarHttpContext,
@@ -7271,7 +7327,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Resource>>(requestUrl, {
       context: localVarHttpContext,
@@ -7362,7 +7417,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<number>(requestUrl, {
       context: localVarHttpContext,
@@ -7468,7 +7522,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<number>(requestUrl, {
       context: localVarHttpContext,
@@ -7588,7 +7641,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Resource>>(requestUrl, {
       context: localVarHttpContext,
@@ -7725,7 +7777,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Resource>>(requestUrl, {
       context: localVarHttpContext,
@@ -7862,7 +7913,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Resource>>(requestUrl, {
       context: localVarHttpContext,
@@ -8026,7 +8076,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<RichUser>>(requestUrl, {
       context: localVarHttpContext,
@@ -8133,7 +8182,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<RichResource>(requestUrl, {
       context: localVarHttpContext,
@@ -8238,7 +8286,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<RichResource>>(requestUrl, {
       context: localVarHttpContext,
@@ -8351,7 +8398,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<RichResource>>(requestUrl, {
       context: localVarHttpContext,
@@ -8460,7 +8506,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Vo>(requestUrl, {
       context: localVarHttpContext,
@@ -8571,7 +8616,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -8699,7 +8743,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -8827,7 +8870,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -8951,7 +8993,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -9077,7 +9118,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -9207,7 +9247,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -9314,7 +9353,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -9438,7 +9476,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -9562,7 +9599,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -9576,7 +9612,7 @@ export class ResourcesManagerService {
   }
 
   /**
-   * Removes ResourceRag from a resource. The ResourceTag must contain its id, voId and tagName.
+   * Removes ResourceTag from a resource. The ResourceTag must contain its id, voId and tagName.
    * @param InputRemoveResourceTagFromResource
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -9675,9 +9711,119 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, InputRemoveResourceTagFromResource, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
+  }
+
+  /**
+   * Removes ResourceTags from a resource. The ResourceTags must contain its id, voId and tagName.
+   * @param InputRemoveResourceTagsFromResource
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public removeResourceTagsFromResource(
+    InputRemoveResourceTagsFromResource: InputRemoveResourceTagsFromResource,
+    useNon?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any>;
+  public removeResourceTagsFromResource(
+    InputRemoveResourceTagsFromResource: InputRemoveResourceTagsFromResource,
+    useNon?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<any>>;
+  public removeResourceTagsFromResource(
+    InputRemoveResourceTagsFromResource: InputRemoveResourceTagsFromResource,
+    useNon?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<any>>;
+  public removeResourceTagsFromResource(
+    InputRemoveResourceTagsFromResource: InputRemoveResourceTagsFromResource,
+    useNon: boolean = false,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (
+      InputRemoveResourceTagsFromResource === null ||
+      InputRemoveResourceTagsFromResource === undefined
+    ) {
+      throw new Error(
+        'Required parameter InputRemoveResourceTagsFromResource was null or undefined when calling removeResourceTagsFromResource.'
+      );
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let requestUrl = `${this.configuration.basePath}/json/resourcesManager/removeResourceTagsFromResource`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+    }
+    return this.httpClient.post<any>(requestUrl, InputRemoveResourceTagsFromResource, {
       context: localVarHttpContext,
       responseType: <any>responseType_,
       withCredentials: this.configuration.withCredentials,
@@ -9802,7 +9948,135 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
+  }
+
+  /**
+   * Remove service from multiple resources in the same facility.
+   * @param resources list of Resource ids List&lt;Integer&gt;
+   * @param service id of Service
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public removeServiceForResources(
+    resources: Array<number>,
+    service: number,
+    useNon?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any>;
+  public removeServiceForResources(
+    resources: Array<number>,
+    service: number,
+    useNon?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<any>>;
+  public removeServiceForResources(
+    resources: Array<number>,
+    service: number,
+    useNon?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<any>>;
+  public removeServiceForResources(
+    resources: Array<number>,
+    service: number,
+    useNon: boolean = false,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (resources === null || resources === undefined) {
+      throw new Error(
+        'Required parameter resources was null or undefined when calling removeServiceForResources.'
+      );
+    }
+    if (service === null || service === undefined) {
+      throw new Error(
+        'Required parameter service was null or undefined when calling removeServiceForResources.'
+      );
+    }
+
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
+    if (resources) {
+      resources.forEach((element) => {
+        localVarQueryParameters = this.addToHttpParams(
+          localVarQueryParameters,
+          <any>element,
+          'resources[]'
+        );
+      });
+    }
+    if (service !== undefined && service !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>service,
+        'service'
+      );
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/resourcesManager/removeService/forResources`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -9932,7 +10206,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -10060,7 +10333,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -10184,7 +10456,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -10294,7 +10565,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<BanOnResource>(requestUrl, InputSetBan, {
       context: localVarHttpContext,
@@ -10425,7 +10695,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -10535,7 +10804,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, InputUpdateResource, {
       context: localVarHttpContext,
@@ -10644,7 +10912,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<BanOnResource>(requestUrl, InputUpdateBan, {
       context: localVarHttpContext,
@@ -10753,7 +11020,6 @@ export class ResourcesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<ResourceTag>(requestUrl, InputUpdateResourceTag, {
       context: localVarHttpContext,

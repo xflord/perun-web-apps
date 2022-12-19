@@ -215,7 +215,6 @@ export class SearcherService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Array<Resource>>(requestUrl, InputGetMatchResources, {
       context: localVarHttpContext,
@@ -324,7 +323,6 @@ export class SearcherService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Array<Resource>>(requestUrl, InputGetResources, {
       context: localVarHttpContext,
@@ -433,7 +431,6 @@ export class SearcherService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Array<Facility>>(requestUrl, InputGetFacilities, {
       context: localVarHttpContext,
@@ -542,7 +539,6 @@ export class SearcherService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Array<Member>>(requestUrl, InputGetMembersByUserAttributes, {
       context: localVarHttpContext,
@@ -651,7 +647,6 @@ export class SearcherService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Array<User>>(requestUrl, InputGetUsers, {
       context: localVarHttpContext,

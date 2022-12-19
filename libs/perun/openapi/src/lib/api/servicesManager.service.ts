@@ -37,9 +37,15 @@ import { InputAddDestinationToMultipleServices } from '../model/inputAddDestinat
 // @ts-ignore
 import { InputAddDestinationsDefinedByHostsOnFacility } from '../model/inputAddDestinationsDefinedByHostsOnFacility';
 // @ts-ignore
+import { InputBlockServicesOnDestinations } from '../model/inputBlockServicesOnDestinations';
+// @ts-ignore
 import { InputCreateService } from '../model/inputCreateService';
 // @ts-ignore
 import { InputCreateServicesPackage } from '../model/inputCreateServicesPackage';
+// @ts-ignore
+import { InputRemoveRichDestinations } from '../model/inputRemoveRichDestinations';
+// @ts-ignore
+import { InputUnlockServicesOnDestinations } from '../model/inputUnlockServicesOnDestinations';
 // @ts-ignore
 import { InputUpdateService } from '../model/inputUpdateService';
 // @ts-ignore
@@ -288,7 +294,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Destination>(requestUrl, null, {
       context: localVarHttpContext,
@@ -401,7 +406,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Destination>(requestUrl, InputAddDestinationToMultipleServices, {
       context: localVarHttpContext,
@@ -511,7 +515,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Array<Destination>>(requestUrl, null, {
       context: localVarHttpContext,
@@ -624,7 +627,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Array<Destination>>(
       requestUrl,
@@ -755,7 +757,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Array<Destination>>(requestUrl, null, {
       context: localVarHttpContext,
@@ -909,7 +910,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Array<Destination>>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1037,7 +1037,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1167,7 +1166,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1295,7 +1293,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1406,7 +1403,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1534,7 +1530,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1645,7 +1640,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1773,7 +1767,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -1918,7 +1911,135 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
+  }
+
+  /**
+   * Bans Service on given destinations.
+   * @param service id of Service
+   * @param destinations list of Destination ids List&lt;Integer&gt;
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public blockServiceOnDestinations(
+    service: number,
+    destinations: Array<number>,
+    useNon?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any>;
+  public blockServiceOnDestinations(
+    service: number,
+    destinations: Array<number>,
+    useNon?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<any>>;
+  public blockServiceOnDestinations(
+    service: number,
+    destinations: Array<number>,
+    useNon?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<any>>;
+  public blockServiceOnDestinations(
+    service: number,
+    destinations: Array<number>,
+    useNon: boolean = false,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (service === null || service === undefined) {
+      throw new Error(
+        'Required parameter service was null or undefined when calling blockServiceOnDestinations.'
+      );
+    }
+    if (destinations === null || destinations === undefined) {
+      throw new Error(
+        'Required parameter destinations was null or undefined when calling blockServiceOnDestinations.'
+      );
+    }
+
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
+    if (service !== undefined && service !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>service,
+        'service'
+      );
+    }
+    if (destinations) {
+      destinations.forEach((element) => {
+        localVarQueryParameters = this.addToHttpParams(
+          localVarQueryParameters,
+          <any>element,
+          'destinations[]'
+        );
+      });
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/servicesManager/blockServiceOnDestinations`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -2046,11 +2167,121 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
       params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
+  }
+
+  /**
+   * Bans the Service on the destination - each pair defined by the rich destination.
+   * @param InputBlockServicesOnDestinations
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public blockServicesOnDestinations(
+    InputBlockServicesOnDestinations: InputBlockServicesOnDestinations,
+    useNon?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any>;
+  public blockServicesOnDestinations(
+    InputBlockServicesOnDestinations: InputBlockServicesOnDestinations,
+    useNon?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<any>>;
+  public blockServicesOnDestinations(
+    InputBlockServicesOnDestinations: InputBlockServicesOnDestinations,
+    useNon?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<any>>;
+  public blockServicesOnDestinations(
+    InputBlockServicesOnDestinations: InputBlockServicesOnDestinations,
+    useNon: boolean = false,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (
+      InputBlockServicesOnDestinations === null ||
+      InputBlockServicesOnDestinations === undefined
+    ) {
+      throw new Error(
+        'Required parameter InputBlockServicesOnDestinations was null or undefined when calling blockServicesOnDestinations.'
+      );
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let requestUrl = `${this.configuration.basePath}/json/servicesManager/blockServicesOnDestinations`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+    }
+    return this.httpClient.post<any>(requestUrl, InputBlockServicesOnDestinations, {
+      context: localVarHttpContext,
       responseType: <any>responseType_,
       withCredentials: this.configuration.withCredentials,
       headers: localVarHeaders,
@@ -2185,7 +2416,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Service>(requestUrl, null, {
       context: localVarHttpContext,
@@ -2295,7 +2525,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<Service>(requestUrl, InputCreateService, {
       context: localVarHttpContext,
@@ -2404,7 +2633,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<ServicesPackage>(requestUrl, InputCreateServicesPackage, {
       context: localVarHttpContext,
@@ -2527,7 +2755,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<ServicesPackage>(requestUrl, null, {
       context: localVarHttpContext,
@@ -2646,7 +2873,126 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
+  }
+
+  /**
+   * Deletes given services.
+   * @param services list of Service ids List&lt;Integer&gt;
+   * @param force If true, delete entity forcefully.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public deleteServices(
+    services: Array<number>,
+    force?: boolean,
+    useNon?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any>;
+  public deleteServices(
+    services: Array<number>,
+    force?: boolean,
+    useNon?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<any>>;
+  public deleteServices(
+    services: Array<number>,
+    force?: boolean,
+    useNon?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<any>>;
+  public deleteServices(
+    services: Array<number>,
+    force?: boolean,
+    useNon: boolean = false,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (services === null || services === undefined) {
+      throw new Error(
+        'Required parameter services was null or undefined when calling deleteServices.'
+      );
+    }
+
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
+    if (services) {
+      services.forEach((element) => {
+        localVarQueryParameters = this.addToHttpParams(
+          localVarQueryParameters,
+          <any>element,
+          'services[]'
+        );
+      });
+    }
+    if (force !== undefined && force !== null) {
+      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>force, 'force');
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/servicesManager/deleteServices`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -2757,7 +3103,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -2880,7 +3225,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<number>(requestUrl, null, {
       context: localVarHttpContext,
@@ -2971,7 +3315,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Destination>>(requestUrl, {
       context: localVarHttpContext,
@@ -3081,7 +3424,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<RichDestination>>(requestUrl, {
       context: localVarHttpContext,
@@ -3192,7 +3534,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<RichDestination>>(requestUrl, {
       context: localVarHttpContext,
@@ -3303,7 +3644,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Resource>>(requestUrl, {
       context: localVarHttpContext,
@@ -3414,7 +3754,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Service>>(requestUrl, {
       context: localVarHttpContext,
@@ -3538,7 +3877,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Service>>(requestUrl, {
       context: localVarHttpContext,
@@ -3666,7 +4004,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<ServiceAttributes>(requestUrl, {
       context: localVarHttpContext,
@@ -3794,7 +4131,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<ServiceAttributes>(requestUrl, {
       context: localVarHttpContext,
@@ -3901,7 +4237,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Destination>(requestUrl, {
       context: localVarHttpContext,
@@ -4029,7 +4364,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Destination>>(requestUrl, {
       context: localVarHttpContext,
@@ -4120,7 +4454,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<number>(requestUrl, {
       context: localVarHttpContext,
@@ -4226,7 +4559,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Destination>>(requestUrl, {
       context: localVarHttpContext,
@@ -4337,7 +4669,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<ServiceForGUI>>(requestUrl, {
       context: localVarHttpContext,
@@ -4463,7 +4794,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<ServiceAttributes>(requestUrl, {
       context: localVarHttpContext,
@@ -4603,7 +4933,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<HashedGenData>(requestUrl, {
       context: localVarHttpContext,
@@ -4743,7 +5072,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<HashedGenData>(requestUrl, {
       context: localVarHttpContext,
@@ -4871,7 +5199,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<ServiceAttributes>(requestUrl, {
       context: localVarHttpContext,
@@ -4999,7 +5326,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<RichDestination>>(requestUrl, {
       context: localVarHttpContext,
@@ -5104,7 +5430,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Service>(requestUrl, {
       context: localVarHttpContext,
@@ -5211,7 +5536,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Service>(requestUrl, {
       context: localVarHttpContext,
@@ -5302,7 +5626,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Service>>(requestUrl, {
       context: localVarHttpContext,
@@ -5412,7 +5735,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Service>>(requestUrl, {
       context: localVarHttpContext,
@@ -5523,7 +5845,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Service>>(requestUrl, {
       context: localVarHttpContext,
@@ -5634,7 +5955,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Service>>(requestUrl, {
       context: localVarHttpContext,
@@ -5745,7 +6065,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<Service>>(requestUrl, {
       context: localVarHttpContext,
@@ -5856,7 +6175,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<ServicesPackage>(requestUrl, {
       context: localVarHttpContext,
@@ -5963,7 +6281,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<ServicesPackage>(requestUrl, {
       context: localVarHttpContext,
@@ -6054,7 +6371,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<ServicesPackage>>(requestUrl, {
       context: localVarHttpContext,
@@ -6181,7 +6497,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<number>(requestUrl, {
       context: localVarHttpContext,
@@ -6309,7 +6624,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<number>(requestUrl, {
       context: localVarHttpContext,
@@ -6432,7 +6746,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<number>(requestUrl, null, {
       context: localVarHttpContext,
@@ -6560,7 +6873,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -6671,7 +6983,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -6829,11 +7140,264 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
       params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
+  }
+
+  /**
+   * Removes the specified destinations from the facility and service.
+   * @param service id of Service
+   * @param facility id of Facility
+   * @param destinations list of Destination ids List&lt;Integer&gt;
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public removeDestinations(
+    service: number,
+    facility: number,
+    destinations: Array<number>,
+    useNon?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any>;
+  public removeDestinations(
+    service: number,
+    facility: number,
+    destinations: Array<number>,
+    useNon?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<any>>;
+  public removeDestinations(
+    service: number,
+    facility: number,
+    destinations: Array<number>,
+    useNon?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<any>>;
+  public removeDestinations(
+    service: number,
+    facility: number,
+    destinations: Array<number>,
+    useNon: boolean = false,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (service === null || service === undefined) {
+      throw new Error(
+        'Required parameter service was null or undefined when calling removeDestinations.'
+      );
+    }
+    if (facility === null || facility === undefined) {
+      throw new Error(
+        'Required parameter facility was null or undefined when calling removeDestinations.'
+      );
+    }
+    if (destinations === null || destinations === undefined) {
+      throw new Error(
+        'Required parameter destinations was null or undefined when calling removeDestinations.'
+      );
+    }
+
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
+    if (service !== undefined && service !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>service,
+        'service'
+      );
+    }
+    if (facility !== undefined && facility !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>facility,
+        'facility'
+      );
+    }
+    if (destinations) {
+      destinations.forEach((element) => {
+        localVarQueryParameters = this.addToHttpParams(
+          localVarQueryParameters,
+          <any>element,
+          'destinations[]'
+        );
+      });
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/servicesManager/removeDestinations`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
+  }
+
+  /**
+   * Removes destinations defined by list of rich destinations. Each destination is removed from the rich destination\&#39;s facility and service.
+   * @param InputRemoveRichDestinations
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public removeDestinationsByRichDestinations(
+    InputRemoveRichDestinations: InputRemoveRichDestinations,
+    useNon?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any>;
+  public removeDestinationsByRichDestinations(
+    InputRemoveRichDestinations: InputRemoveRichDestinations,
+    useNon?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<any>>;
+  public removeDestinationsByRichDestinations(
+    InputRemoveRichDestinations: InputRemoveRichDestinations,
+    useNon?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<any>>;
+  public removeDestinationsByRichDestinations(
+    InputRemoveRichDestinations: InputRemoveRichDestinations,
+    useNon: boolean = false,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (InputRemoveRichDestinations === null || InputRemoveRichDestinations === undefined) {
+      throw new Error(
+        'Required parameter InputRemoveRichDestinations was null or undefined when calling removeDestinationsByRichDestinations.'
+      );
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let requestUrl = `${this.configuration.basePath}/json/servicesManager/removeDestinationsByRichDestinations`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+    }
+    return this.httpClient.post<any>(requestUrl, InputRemoveRichDestinations, {
+      context: localVarHttpContext,
       responseType: <any>responseType_,
       withCredentials: this.configuration.withCredentials,
       headers: localVarHeaders,
@@ -6957,7 +7521,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -7087,7 +7650,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -7215,7 +7777,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -7326,7 +7887,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -7454,7 +8014,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -7565,7 +8124,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -7693,7 +8251,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -7838,7 +8395,135 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
+  }
+
+  /**
+   * Free the denial of the Service on these destinations. If the Service was banned on these destinations, it will be freed. In case the Service was not banned on these destinations, nothing will happen.
+   * @param service id of Service
+   * @param destinations list of Destination ids List&lt;Integer&gt;
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public unblockServiceOnDestinations(
+    service: number,
+    destinations: Array<number>,
+    useNon?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any>;
+  public unblockServiceOnDestinations(
+    service: number,
+    destinations: Array<number>,
+    useNon?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<any>>;
+  public unblockServiceOnDestinations(
+    service: number,
+    destinations: Array<number>,
+    useNon?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<any>>;
+  public unblockServiceOnDestinations(
+    service: number,
+    destinations: Array<number>,
+    useNon: boolean = false,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (service === null || service === undefined) {
+      throw new Error(
+        'Required parameter service was null or undefined when calling unblockServiceOnDestinations.'
+      );
+    }
+    if (destinations === null || destinations === undefined) {
+      throw new Error(
+        'Required parameter destinations was null or undefined when calling unblockServiceOnDestinations.'
+      );
+    }
+
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
+    if (service !== undefined && service !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>service,
+        'service'
+      );
+    }
+    if (destinations) {
+      destinations.forEach((element) => {
+        localVarQueryParameters = this.addToHttpParams(
+          localVarQueryParameters,
+          <any>element,
+          'destinations[]'
+        );
+      });
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/servicesManager/unblockServiceOnDestinations`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
@@ -7966,11 +8651,121 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, null, {
       context: localVarHttpContext,
       params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
+  }
+
+  /**
+   * Free the denial of the Service on the destination - each pair defined by the rich destination.
+   * @param InputUnlockServicesOnDestinations
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public unblockServicesOnDestinations(
+    InputUnlockServicesOnDestinations: InputUnlockServicesOnDestinations,
+    useNon?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any>;
+  public unblockServicesOnDestinations(
+    InputUnlockServicesOnDestinations: InputUnlockServicesOnDestinations,
+    useNon?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<any>>;
+  public unblockServicesOnDestinations(
+    InputUnlockServicesOnDestinations: InputUnlockServicesOnDestinations,
+    useNon?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<any>>;
+  public unblockServicesOnDestinations(
+    InputUnlockServicesOnDestinations: InputUnlockServicesOnDestinations,
+    useNon: boolean = false,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (
+      InputUnlockServicesOnDestinations === null ||
+      InputUnlockServicesOnDestinations === undefined
+    ) {
+      throw new Error(
+        'Required parameter InputUnlockServicesOnDestinations was null or undefined when calling unblockServicesOnDestinations.'
+      );
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let requestUrl = `${this.configuration.basePath}/json/servicesManager/unblockServicesOnDestinations`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+    }
+    return this.httpClient.post<any>(requestUrl, InputUnlockServicesOnDestinations, {
+      context: localVarHttpContext,
       responseType: <any>responseType_,
       withCredentials: this.configuration.withCredentials,
       headers: localVarHeaders,
@@ -8076,7 +8871,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, InputUpdateService, {
       context: localVarHttpContext,
@@ -8185,7 +8979,6 @@ export class ServicesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<any>(requestUrl, InputUpdateServicesPackage, {
       context: localVarHttpContext,

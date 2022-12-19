@@ -181,7 +181,6 @@ export class UtilsService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<PerunAppsConfig>(requestUrl, {
       context: localVarHttpContext,
@@ -271,7 +270,6 @@ export class UtilsService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<{ [key: string]: string }>(requestUrl, {
       context: localVarHttpContext,
@@ -362,7 +360,6 @@ export class UtilsService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<string>(requestUrl, {
       context: localVarHttpContext,
@@ -452,7 +449,6 @@ export class UtilsService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<string>(requestUrl, {
       context: localVarHttpContext,
@@ -543,7 +539,6 @@ export class UtilsService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<string>>(requestUrl, {
       context: localVarHttpContext,
@@ -634,7 +629,6 @@ export class UtilsService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<Array<string>>(requestUrl, {
       context: localVarHttpContext,
@@ -724,7 +718,6 @@ export class UtilsService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.get<number>(requestUrl, {
       context: localVarHttpContext,

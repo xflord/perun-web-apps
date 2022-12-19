@@ -243,7 +243,6 @@ export class RTMessagesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<RTMessage>(requestUrl, null, {
       context: localVarHttpContext,
@@ -380,7 +379,6 @@ export class RTMessagesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<RTMessage>(requestUrl, null, {
       context: localVarHttpContext,
@@ -517,7 +515,6 @@ export class RTMessagesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<RTMessage>(requestUrl, null, {
       context: localVarHttpContext,
@@ -667,7 +664,6 @@ export class RTMessagesManagerService {
       path[1] = 'non';
       helperUrl.pathname = path.join('/');
       requestUrl = helperUrl.toString();
-      console.log(requestUrl);
     }
     return this.httpClient.post<RTMessage>(requestUrl, null, {
       context: localVarHttpContext,
