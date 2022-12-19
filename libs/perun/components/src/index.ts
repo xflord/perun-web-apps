@@ -26,3 +26,4 @@ export * from './lib/ban-specification/ban-specification.component';
 export * from './lib/ban-on-entity-list/ban-on-entity-list.component';
 export * from './lib/change-member-status-or-expiration-dialog/change-member-status-or-expiration-dialog.component';
 export * from './lib/member-overview-membership/member-overview-membership.component';
+export * from './lib/immediate-filter/immediate-filter.component';

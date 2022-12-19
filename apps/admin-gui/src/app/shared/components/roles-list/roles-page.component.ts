@@ -55,7 +55,8 @@ export class RolesPageComponent implements OnInit {
   @Output() reload = new EventEmitter<void>();
   @Output() startLoading = new EventEmitter<void>();
 
-  selection = new SelectionModel<PerunBean | EnrichedFacility>(false, []);
+  selection = new SelectionModel<PerunBean>(true, []);
+  selectedFacilities = new SelectionModel<EnrichedFacility>(true, []);
   loading: boolean;
   assignableRules: RoleManagementRules[] = [];
   allRules: RoleManagementRules[] = [];
@@ -176,7 +177,17 @@ export class RolesPageComponent implements OnInit {
     this.selection.changed.subscribe((change) => {
       const entities = change.source.selected.map((item) => {
         if ('beanName' in item) return item;
-        else if ('facility' in item) return item.facility;
+      });
+      const manageableNum = this.manageableEntities.transform(
+        entities,
+        this.selectedRole.getValue()
+      ).length;
+      this.disableRemove = change.source.selected.length !== manageableNum;
+    });
+
+    this.selectedFacilities.changed.subscribe((change) => {
+      const entities = change.source.selected.map((item) => {
+        if ('facility' in item) return item.facility;
       });
       const manageableNum = this.manageableEntities.transform(
         entities,
@@ -209,12 +220,19 @@ export class RolesPageComponent implements OnInit {
 
   openConfirmDialog(role: RoleManagementRules): void {
     const config = getDefaultDialogConfig();
+    const displayItems = this.getItems();
+
     config.width = '550px';
     config.data = {
       theme: this.entityType === 'GROUP' ? 'group-theme' : 'user-theme',
       title: 'ROLES.REMOVE',
-      description: 'ROLES.REMOVE_DESC',
-      items: [this.rolePipe.transform(role)],
+      description: this.selectedRole.getValue().primaryObject
+        ? this.translate.instant('ROLES.REMOVE_DESC_WITH_OBJECTS', {
+            role: this.rolePipe.transform(role),
+            count: displayItems.length,
+          })
+        : this.translate.instant('ROLES.REMOVE_DESC', { role: this.rolePipe.transform(role) }),
+      items: displayItems,
       alert: false,
       type: 'remove',
       showAsk: true,
@@ -230,6 +248,16 @@ export class RolesPageComponent implements OnInit {
         }
       },
     });
+  }
+
+  private getItems(): string[] {
+    if (!this.selectedRole.getValue().primaryObject) {
+      return [];
+    }
+    if (this.selectedRole.getValue().primaryObject === 'Facility') {
+      return this.selectedFacilities.selected.map((ef) => ef.facility.name);
+    }
+    return this.selection.selected.map((bean) => (bean as Group | RichResource | Vo).name);
   }
 
   private removeRole(role: RoleManagementRules): void {
@@ -259,15 +287,20 @@ export class RolesPageComponent implements OnInit {
   }
 
   private removeRoleWithComplementaryObject(role: RoleManagementRules): void {
-    let assignedObject: PerunBean;
-    if ('beanName' in this.selection.selected[0]) {
-      assignedObject = this.selection.selected[0];
-      if (assignedObject.beanName === 'RichResource') {
-        assignedObject = this.parseResource(this.selection.selected[0]);
+    let assignedObjects: PerunBean[];
+    if (this.selection.selected.length !== 0 && 'beanName' in this.selection.selected[0]) {
+      assignedObjects = this.selection.selected;
+      if (assignedObjects[0].beanName === 'RichResource') {
+        assignedObjects = assignedObjects.map((resource) => this.parseResource(resource));
       }
-    } else if ('facility' in this.selection.selected[0]) {
+    } else if (
+      this.selectedFacilities.selected.length !== 0 &&
+      'facility' in this.selectedFacilities.selected[0]
+    ) {
       // Facility list works with Enriched facilities we need just basic facility
-      assignedObject = this.parseFacility(this.selection.selected[0]);
+      assignedObjects = this.selectedFacilities.selected.map((facility) =>
+        this.parseFacility(facility)
+      );
     }
 
     of(this.entityType)
@@ -275,15 +308,15 @@ export class RolesPageComponent implements OnInit {
         mergeMap((type) =>
           iif(
             () => type === 'GROUP',
-            this.authzResolverService.unsetRoleWithGroupComplementaryObject({
+            this.authzResolverService.unsetRoleWithGroupComplementaryObjects({
               role: role.roleName,
-              complementaryObject: assignedObject,
-              authorizedGroups: [this.entityId],
+              complementaryObjects: assignedObjects,
+              authorizedGroup: this.entityId,
             }),
-            this.authzResolverService.unsetRoleWithUserComplementaryObject({
+            this.authzResolverService.unsetRoleWithUserComplementaryObjects({
               role: role.roleName,
-              complementaryObject: assignedObject,
-              users: [this.entityId],
+              complementaryObjects: assignedObjects,
+              user: this.entityId,
             })
           )
         )

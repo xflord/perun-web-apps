@@ -2705,7 +2705,8 @@
     "TITLE": "Roles",
     "ADD": "Add role",
     "REMOVE": "Remove role",
-    "REMOVE_DESC": "Following role will be removed",
+    "REMOVE_DESC": "{{role}} role will be removed.",
+    "REMOVE_DESC_WITH_OBJECTS": "{{role}} role will be removed from {{count}} following objects:",
     "REMOVE_SUCCESS": "Role {{ role}} was successfully removed",
     "REMOVE_DISABLED_TOOLTIP": "You don't have permission to remove selected role",
     "NO_ROLES": "No roles found",
@@ -3216,6 +3217,9 @@
           "DESCRIPTION_HEADER": "Description",
           "EXPIRATION_HEADER": "Expiration",
           "NO_BANS": "No bans found."
+        },
+        "UNIVERSAL_OBJECTS_LIST": {
+          "FILTER": "Filter objects by their properties"
         }
       },
       "ORGANIZATIONS": {

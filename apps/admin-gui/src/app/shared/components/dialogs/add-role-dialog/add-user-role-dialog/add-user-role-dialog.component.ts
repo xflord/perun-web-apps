@@ -28,7 +28,7 @@ export class AddUserRoleDialogComponent {
 
   addRole(formValue: AddRoleForm): void {
     this.loading = true;
-    if (!formValue.entity) {
+    if (!formValue.entities || formValue.entities.length === 0) {
       this.authzService
         .setRoleForUser({ role: formValue.role.roleName, user: this.data.entityId })
         .subscribe({
@@ -42,10 +42,10 @@ export class AddUserRoleDialogComponent {
         });
     } else {
       this.authzService
-        .setRoleWithUserComplementaryObject({
+        .setRoleWithUserComplementaryObjects({
           role: formValue.role.roleName,
-          users: [this.data.entityId],
-          complementaryObject: formValue.entity,
+          user: this.data.entityId,
+          complementaryObjects: formValue.entities,
         })
         .subscribe({
           next: () => {

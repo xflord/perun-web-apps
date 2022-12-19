@@ -1,35 +1,49 @@
 <div class="{{theme}}">
-  <h1 mat-dialog-title>{{'DIALOGS.ADD_ROLE.TITLE' | translate}}</h1>
+  <div mat-dialog-title>
+    <h1 mat-dialog-title>{{'DIALOGS.ADD_ROLE.TITLE' | translate}}</h1>
+  </div>
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content class="dialog-container">
-    <perun-web-apps-role-search-select
-      [roles]="rules"
-      (roleSelected)="selectedRule = $event; selectedEntity = null">
+    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+    <perun-web-apps-role-search-select [roles]="rules" (roleSelected)="resetSelection($event)">
     </perun-web-apps-role-search-select>
-    <perun-web-apps-vo-search-select
-      *ngIf="selectedRule?.primaryObject === 'Vo'"
+    <perun-web-apps-immediate-filter
+      *ngIf="selectedRule?.primaryObject"
+      (filter)="filterValue = $event"
+      [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.UNIVERSAL_OBJECTS_LIST.FILTER'"
+      class="font-size-1rem"></perun-web-apps-immediate-filter>
+    <perun-web-apps-vos-list
+      [filterValue]="filterValue"
+      *ngIf="!loading && selectedRule?.primaryObject === 'Vo'"
       [vos]="vos | manageableEntities: selectedRule | unassignedRole: roles : selectedRule"
-      [disableAutoSelect]="true"
-      (voSelected)="selectedEntity = $event">
-    </perun-web-apps-vo-search-select>
-    <perun-web-apps-group-search-select
-      *ngIf="selectedRule?.primaryObject === 'Group'"
+      [displayedColumns]="['checkbox', 'id', 'shortName', 'name']"
+      [selection]="selected"
+      [disableRouting]="true">
+    </perun-web-apps-vos-list>
+    <perun-web-apps-groups-list
+      [filterValue]="filterValue"
+      *ngIf="!loading && selectedRule?.primaryObject === 'Group'"
       [groups]="groups | manageableEntities: selectedRule | unassignedRole: roles : selectedRule"
-      [disableAutoSelect]="true"
-      (groupSelected)="selectedEntity = $event">
-    </perun-web-apps-group-search-select>
-    <perun-web-apps-facility-search-select
-      *ngIf="selectedRule?.primaryObject === 'Facility'"
-      [facilities]="facilities | manageableEntities: selectedRule| unassignedRole: roles : selectedRule"
-      [disableAutoSelect]="true"
-      (facilitySelected)="selectedEntity = $event">
-    </perun-web-apps-facility-search-select>
-    <perun-web-apps-resource-search-select
-      *ngIf="selectedRule?.primaryObject === 'Resource'"
+      [displayedColumns]="['select', 'id', 'vo', 'name', 'description']"
+      [selection]="selected"
+      [disableRouting]="true">
+    </perun-web-apps-groups-list>
+    <perun-web-apps-facilities-list
+      [filterValue]="filterValue"
+      *ngIf="!loading && selectedRule?.primaryObject === 'Facility'"
+      [facilities]="facilities | extractFacility | manageableEntities: selectedRule | unassignedRole: roles : selectedRule | toEnrichedFacility"
+      [displayedColumns]="['select', 'id', 'name', 'description']"
+      [selection]="selectedFacilities"
+      [disableRouting]="true">
+    </perun-web-apps-facilities-list>
+    <perun-web-apps-resources-list
+      [filterValue]="filterValue"
+      *ngIf="!loading && selectedRule?.primaryObject === 'Resource'"
       [resources]="resources | manageableEntities: selectedRule | unassignedRole: roles : selectedRule"
-      [disableAutoSelect]="true"
-      (resourceSelected)="selectedEntity = $event">
-    </perun-web-apps-resource-search-select>
+      [displayedColumns]="['select', 'id', 'name']"
+      [selection]="selected"
+      [disableRouting]="true">
+    </perun-web-apps-resources-list>
   </div>
   <div *ngIf="!loading" mat-dialog-actions>
     <button (click)="cancel()" class="ml-auto" mat-flat-button>
@@ -37,7 +51,8 @@
     </button>
     <button
       (click)="addRole()"
-      [disabled]="selectedRule === null || (selectedRule.primaryObject !== null && !selectedEntity)"
+      [disabled]="selectedRule === null || ((selectedRule.primaryObject === 'Facility' && selectedFacilities.isEmpty())
+        || (selectedRule.primaryObject && selectedRule.primaryObject !== 'Facility' && selected.isEmpty()))"
       class="ml-2"
       color="accent"
       mat-flat-button>
@@ -45,3 +60,8 @@
     </button>
   </div>
 </div>
+<ng-template #spinner>
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

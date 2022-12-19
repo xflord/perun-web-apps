@@ -28,7 +28,7 @@ export class AddGroupRoleDialogComponent {
 
   addRole(formValue: AddRoleForm): void {
     this.loading = true;
-    if (!formValue.entity) {
+    if (!formValue.entities || formValue.entities.length === 0) {
       this.authzService
         .setRoleForGroup({ role: formValue.role.roleName, authorizedGroup: this.data.entityId })
         .subscribe({
@@ -42,10 +42,10 @@ export class AddGroupRoleDialogComponent {
         });
     } else {
       this.authzService
-        .setRoleWithGroupComplementaryObject({
+        .setRoleWithGroupComplementaryObjects({
           role: formValue.role.roleName,
-          authorizedGroups: [this.data.entityId],
-          complementaryObject: formValue.entity,
+          authorizedGroup: this.data.entityId,
+          complementaryObjects: formValue.entities,
         })
         .subscribe({
           next: () => {

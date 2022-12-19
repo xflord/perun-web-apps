@@ -54,6 +54,8 @@ import { PublicationTabLabelPipe } from './publication-tab-label.pipe';
 import { AuthorsSeparatedByCommaPipe } from './authors-separated-by-comma.pipe';
 import { SelectApplicationLinkPipe } from './select-application-link.pipe';
 import { IsAuthorizedPipe } from './is-authorized.pipe';
+import { ExtractFacilityPipe } from './extract-facility.pipe';
+import { ToEnrichedFacilityPipe } from './to-enriched-facility.pipe';
 import { TransformMemberStatusPipe } from './transform-member-status.pipe';
 
 @NgModule({
@@ -113,6 +115,8 @@ import { TransformMemberStatusPipe } from './transform-member-status.pipe';
     AuthorsSeparatedByCommaPipe,
     SelectApplicationLinkPipe,
     IsAuthorizedPipe,
+    ExtractFacilityPipe,
+    ToEnrichedFacilityPipe,
     TransformMemberStatusPipe,
   ],
   exports: [
@@ -171,6 +175,8 @@ import { TransformMemberStatusPipe } from './transform-member-status.pipe';
     AuthorsSeparatedByCommaPipe,
     SelectApplicationLinkPipe,
     IsAuthorizedPipe,
+    ExtractFacilityPipe,
+    ToEnrichedFacilityPipe,
     TransformMemberStatusPipe,
   ],
   imports: [CommonModule],

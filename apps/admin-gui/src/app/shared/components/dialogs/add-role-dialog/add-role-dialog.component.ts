@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import {
+  EnrichedFacility,
   FacilitiesManagerService,
-  Facility,
   Group,
   GroupsManagerService,
   PerunBean,
@@ -12,6 +12,10 @@ import {
   Vo,
   VosManagerService,
 } from '@perun-web-apps/perun/openapi';
+import { SelectionModel } from '@angular/cdk/collections';
+import { ToEnrichedFacilityPipe } from '@perun-web-apps/perun/pipes';
+import { UntypedFormControl } from '@angular/forms';
+import { ImmediateFilterComponent } from '@perun-web-apps/perun/components';
 
 export interface AddRoleDialogData {
   entityId: number;
@@ -20,7 +24,7 @@ export interface AddRoleDialogData {
 
 export interface AddRoleForm {
   role: RoleManagementRules;
-  entity: PerunBean;
+  entities: PerunBean[];
 }
 
 @Component({
@@ -35,11 +39,16 @@ export class AddRoleDialogComponent implements OnInit {
   @Input() theme: string;
   @Output() submitForm = new EventEmitter<AddRoleForm>();
 
+  @ViewChild(ImmediateFilterComponent)
+  filterComponent: ImmediateFilterComponent;
+
   selectedRule: RoleManagementRules;
-  selectedEntity: PerunBean = null;
+  selected = new SelectionModel<PerunBean>(true, []);
+  selectedFacilities = new SelectionModel<EnrichedFacility>(true, []);
+  filterValue = '';
   vos: Vo[] = [];
   groups: Group[] = [];
-  facilities: Facility[] = [];
+  facilities: EnrichedFacility[] = [];
   resources: Resource[] = [];
 
   constructor(
@@ -52,11 +61,16 @@ export class AddRoleDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedRule = this.rules[0];
+    this.loadObjects();
+  }
+
+  loadObjects(): void {
     if (this.rules.some((rule) => rule.primaryObject === 'Facility')) {
       // Not callable by SELF, need to check privilege
-      this.facilityService
-        .getAllFacilities()
-        .subscribe({ next: (facilities) => (this.facilities = facilities) });
+      this.facilityService.getAllFacilities().subscribe({
+        next: (facilities) =>
+          (this.facilities = new ToEnrichedFacilityPipe().transform(facilities)),
+      });
     }
     if (this.rules.some((rule) => rule.primaryObject === 'Vo')) {
       this.voService.getMyVos().subscribe({ next: (vos) => (this.vos = vos) });
@@ -74,6 +88,24 @@ export class AddRoleDialogComponent implements OnInit {
   }
 
   addRole(): void {
-    this.submitForm.emit({ role: this.selectedRule, entity: this.selectedEntity });
+    if (this.selectedRule.primaryObject === 'Facility') {
+      this.submitForm.emit({
+        role: this.selectedRule,
+        entities: this.selectedFacilities.selected.map((ef) => ef.facility),
+      });
+    } else {
+      this.submitForm.emit({ role: this.selectedRule, entities: this.selected.selected });
+    }
+  }
+
+  resetSelection(selectedRule: RoleManagementRules): void {
+    this.selectedRule = selectedRule;
+    this.selected.clear();
+    this.selectedFacilities.clear();
+    this.filterValue = '';
+    this.loadObjects();
+    if (this.filterComponent) {
+      this.filterComponent.formControl.setValue('');
+    }
   }
 }

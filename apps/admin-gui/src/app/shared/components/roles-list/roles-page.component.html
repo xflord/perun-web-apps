@@ -25,10 +25,11 @@
         *ngIf="role.roleName !== 'SELF' && role.roleName !== 'MEMBERSHIP' && role.roleName !== 'SPONSORSHIP'"
         matTooltip="{{'ROLES.REMOVE_DISABLED_TOOLTIP'| translate}}"
         matTooltipPosition="left"
-        [matTooltipDisabled]="selection.selected.length === 0 || !disableRemove">
+        [matTooltipDisabled]="(selection.selected.length === 0 && selectedFacilities.selected.length === 0) || !disableRemove">
         <button
           (click)="openConfirmDialog(role)"
-          [disabled]="role.primaryObject && (selection.selected.length === 0 || disableRemove)"
+          [disabled]="(role.primaryObject === 'Facility' && (selectedFacilities.selected.length === 0 || disableRemove))
+           ||  ( ['Vo', 'Group', 'Resource'].includes(role.primaryObject) && (selection.selected.length === 0 || disableRemove))"
           mat-flat-button
           color="warn"
           class="mt-2">
@@ -81,7 +82,7 @@
             <perun-web-apps-facilities-list
               [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'name', 'description'] : ['select', 'id', 'name', 'description']"
               [facilities]="facilities | async"
-              [selection]="selection">
+              [selection]="selectedFacilities">
             </perun-web-apps-facilities-list>
           </div>
           <div *ngIf="role.roleName === 'SPONSORSHIP'" class="mb-3">
