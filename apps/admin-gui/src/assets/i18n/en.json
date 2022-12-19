@@ -665,6 +665,7 @@
       "ADD_MEMBER_DISABLED": "Manual adding of members is blocked for this group.",
       "REMOVE_MEMBERS": "Remove",
       "COPY_MEMBERS": "Copy",
+      "COPY_MEMBERS_DISABLED": "There aren't any direct members available to copy.",
       "SEARCH_DESCRIPTION": "Search by name, login, email or UUID",
       "LIST_ALL": "List all members",
       "INVITE": "Invite",

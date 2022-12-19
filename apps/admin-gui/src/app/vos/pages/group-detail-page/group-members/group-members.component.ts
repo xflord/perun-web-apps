@@ -57,6 +57,7 @@ export class GroupMembersComponent implements OnInit {
   removeAuth: boolean;
   inviteAuth: boolean;
   copyAuth: boolean;
+  copyDisabled = false;
   blockManualMemberAdding: boolean;
   displayedColumns = [
     'checkbox',
@@ -105,6 +106,7 @@ export class GroupMembersComponent implements OnInit {
     this.group = this.entityStorageService.getEntity();
     this.setAuthRights();
     void this.isManualAddingBlocked(this.group.voId).then(() => this.loadPage(this.group.id));
+    this.isCopyMembersDisabled();
   }
 
   loadPage(groupId: number): void {
@@ -156,6 +158,7 @@ export class GroupMembersComponent implements OnInit {
       if (wereMembersAdded) {
         this.selection.clear();
         this.updateTable = !this.updateTable;
+        this.isCopyMembersDisabled();
       }
     });
   }
@@ -175,6 +178,7 @@ export class GroupMembersComponent implements OnInit {
       if (wereMembersDeleted) {
         this.selection.clear();
         this.updateTable = !this.updateTable;
+        this.isCopyMembersDisabled();
       }
     });
   }
@@ -264,6 +268,18 @@ export class GroupMembersComponent implements OnInit {
     });
   }
 
+  isCopyMembersDisabled(): void {
+    this.copyDisabled = false;
+    this.groupService.getGroupDirectMembersCount(this.group.id).subscribe({
+      next: (count) => {
+        this.copyDisabled = count === 0;
+      },
+      error: () => {
+        this.copyDisabled = true;
+      },
+    });
+  }
+
   changeVoStatuses(): void {
     this.selection.clear();
     this.selectedStatuses = this.statuses.value as VoMemberStatuses[];
@@ -277,5 +293,6 @@ export class GroupMembersComponent implements OnInit {
   refreshTable(): void {
     this.selection.clear();
     this.updateTable = !this.updateTable;
+    this.isCopyMembersDisabled();
   }
 }
