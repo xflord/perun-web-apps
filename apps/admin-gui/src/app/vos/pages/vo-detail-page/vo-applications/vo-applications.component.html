@@ -44,9 +44,15 @@
       (change)="showGroupApplications($event)">
       {{'VO_DETAIL.APPLICATION.SHOW_GROUP_APPLICATIONS' | translate}}
     </mat-checkbox>
+    <button
+      (click)="configureView()"
+      class="ml-auto text-bigger"
+      mat-stroked-button>
+      <mat-icon matTooltip="{{'APPLICATIONS_LIST.CONFIGURE' | translate}}">settings</mat-icon>
+    </button>
   </div>
 </div>
-<div>
+<div *ngIf="!loading">
   <app-applications-dynamic-list
     [tableId]="showAllDetails ? detailTableId : tableId"
     [searchString]="filterValue"

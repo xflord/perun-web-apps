@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>{{'DIALOGS.CONFIGURE_APP_VIEW.TITLE' | translate}}</h1>
+<div class="{{theme}}">
+  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content>
+    <div class="font-weight-bold">
+      {{'DIALOGS.CONFIGURE_APP_VIEW.DESCRIPTION' | translate}}
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button (click)="cancel()" class="ml-auto" mat-flat-button>
+      {{'DIALOGS.CONFIGURE_APP_VIEW.CANCEL' | translate}}
+    </button>
+    <button (click)="cancel()" class="ml-auto" mat-flat-button>
+      {{'DIALOGS.CONFIGURE_APP_VIEW.RESET' | translate}}
+    </button>
+    <button (click)="cancel()" class="ml-auto" mat-flat-button>
+      {{'DIALOGS.CONFIGURE_APP_VIEW.SAVE' | translate}}
+    </button>
+  </div>
+</div>

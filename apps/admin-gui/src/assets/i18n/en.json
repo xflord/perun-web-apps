@@ -781,7 +781,8 @@
     "MODIFIED_AT": "Modified at",
     "USER": "User",
     "CREATED_BY": "Created by",
-    "VO_NAME": "Organization name"
+    "VO_NAME": "Organization name",
+    "CONFIGURE": "Configure applications view"
   },
   "MEMBER_DETAIL": {
     "ENTITY": "Member",
@@ -1965,6 +1966,14 @@
       "CANCEL": "Cancel",
       "SUBMIT": "Submit",
       "SUCCESS": "Application form item data edited successfully"
+    },
+    "CONFIGURE_APP_VIEW": {
+      "TITLE": "Configure applications view: ",
+      "DESCRIPTION": "You can configure which basic information will be shown in the application view. The settings can be reset later.",
+      "SAVE": "Save",
+      "CANCEL": "Cancel",
+      "RESET": "Reset",
+      "SAVED": "Configuration successfully updated"
     },
     "CREATE_SPONSORED_MEMBER": {
       "TITLE": "Create sponsored member",

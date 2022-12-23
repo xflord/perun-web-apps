@@ -187,6 +187,9 @@ import { UpdateVoBanDialogComponent } from './components/dialogs/update-vo-ban-d
 import { UpdateResourceBanDialogComponent } from './components/dialogs/update-resource-ban-dialog/update-resource-ban-dialog.component';
 import { UpdateFacilityBanDialogComponent } from './components/dialogs/update-facility-ban-dialog/update-facility-ban-dialog.component';
 import { CopyMembersDialogComponent } from './components/dialogs/copy-members-dialog/copy-members-dialog-component';
+import {
+  EditApplicationViewConfigurationDialogComponent
+} from "./components/dialogs/edit-application-view-configuration-dialog/edit-application-view-configuration-dialog.component";
 
 @NgModule({
   imports: [
@@ -319,6 +322,7 @@ import { CopyMembersDialogComponent } from './components/dialogs/copy-members-di
     ConsentHubsListComponent,
     RolesPageComponent,
     AddVoBanDialogComponent,
+    EditApplicationViewConfigurationDialogComponent
   ],
   declarations: [
     SideMenuComponent,
@@ -465,6 +469,7 @@ import { CopyMembersDialogComponent } from './components/dialogs/copy-members-di
     UpdateResourceBanDialogComponent,
     UpdateFacilityBanDialogComponent,
     CopyMembersDialogComponent,
+    EditApplicationViewConfigurationDialogComponent
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe, ConsentRelatedAttributePipe],
 })

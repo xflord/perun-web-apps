@@ -3,12 +3,12 @@ import {
   Application,
   ApplicationFormItemData,
   ApplicationsOrderColumn,
-  AppState,
+  AppState, AttributeDefinition, AttributesManagerService,
   Group,
   Member,
   RichApplication,
-  Vo,
-} from '@perun-web-apps/perun/openapi';
+  Vo
+} from "@perun-web-apps/perun/openapi";
 import {
   downloadData,
   getDataForExport,
@@ -77,19 +77,22 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
   refreshTable = false;
 
   parsedColumns: string[] = [];
-
   dataSource: DynamicDataSource<Application>;
-
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  idpAttributes: AttributeDefinition[] = [];
+  fedAttrNames: string[] = [];
+  displayedFedAttrNames: string[] = [];
 
   constructor(
     private authResolver: GuiAuthResolver,
     private tableConfigService: TableConfigService,
     private dynamicPaginatingService: DynamicPaginatingService,
+    private attributesManagerService: AttributesManagerService,
     private dialog: MatDialog
   ) {}
 
   ngAfterViewInit(): void {
+
     this.sort.sortChange.subscribe(() => (this.child.paginator.pageIndex = 0));
 
     merge(this.sort.sortChange, this.child.paginator.page)
@@ -106,6 +109,17 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       this.dynamicPaginatingService,
       this.authResolver
     );
+
+    this.attributesManagerService
+      .getIdpAttributeDefinitions()
+      .subscribe((attrDefs: AttributeDefinition[]) => {
+        this.idpAttributes = attrDefs;
+        this.idpAttributes.forEach((attr) => {
+          if (!this.fedAttrNames.includes(attr.friendlyName)) {
+            this.fedAttrNames.push(attr.friendlyName);
+          }
+        })
+      });
 
     this.dataSource.loadApplications(
       this.tableConfigService.getTablePageSize(this.tableId),
@@ -344,5 +358,32 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       return '';
     }
     return filter[0].value ?? filter[0].prefilledValue;
+  }
+
+  getFedValue(fedInfo: string, colName: string): string {
+    // looking for values between {,FED_INFO_ATTR_NAME:}
+    const regexOtherValues = new RegExp(this.fedAttrNames.map(v => "," + v + ":").join("|"));
+    if (fedInfo === null || fedInfo.length === 0) {
+      return '';
+    }
+
+    let values: string[] = [];
+    if (fedInfo.startsWith(colName + ":")) {
+      values = fedInfo.split(colName + ":");
+    } else {
+      values = fedInfo.split("," + colName + ":");
+    }
+    if (values.length < 2) {
+      return '';
+    }
+    values = values[1].split(regexOtherValues);
+    return values[0].endsWith(",") ? values[0].slice(0,-1) : values[0];
+  }
+
+  getDisplayedFedAttributeNames(): string[] {
+    if (this.displayedColumns.includes('fedInfo')) {
+      return [];
+    }
+    return this.fedAttrNames.filter((n) => this.displayedColumns.includes(n));
   }
 }
