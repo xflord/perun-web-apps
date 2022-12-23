@@ -10,7 +10,9 @@
  * Do not edit the class manually.
  */
 
-export interface RTMessage {
-  memberPreferredEmail?: string;
-  ticketNumber?: number;
+
+export interface RTMessage { 
+    memberPreferredEmail?: string;
+    ticketNumber?: number;
 }
+

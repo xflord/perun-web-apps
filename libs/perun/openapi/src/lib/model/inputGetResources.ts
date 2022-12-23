@@ -10,12 +10,14 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * Input to getResources
  */
-export interface InputGetResources {
-  /**
-   * Map of attribute names with searching values Map<sting,string>
-   */
-  attributesWithSearchingValues: { [key: string]: string };
+export interface InputGetResources { 
+    /**
+     * Map of attribute names with searching values Map<sting,string>
+     */
+    attributesWithSearchingValues: { [key: string]: string; };
 }
+

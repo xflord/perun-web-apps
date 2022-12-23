@@ -11,7 +11,12 @@
  */
 import { Auditable } from './auditable';
 
-export interface ExtSource extends Auditable {
-  name?: string;
-  type?: string;
+
+/**
+ * represents external source of data for users such as an IdP or an HR database
+ */
+export interface ExtSource extends Auditable { 
+    name?: string;
+    type?: string;
 }
+

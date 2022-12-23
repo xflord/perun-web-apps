@@ -10,11 +10,13 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * input for reservePasswordForLogin
  */
-export interface InputReservePasswordForLogin {
-  login: string;
-  namespace: string;
-  password: string;
+export interface InputReservePasswordForLogin { 
+    login: string;
+    namespace: string;
+    password: string;
 }
+

@@ -13,17 +13,19 @@ import { UsersOrderColumn } from './usersOrderColumn';
 import { ConsentStatus } from './consentStatus';
 import { SortingOrder } from './sortingOrder';
 
-export interface UsersPageQuery {
-  pageSize: number;
-  offset: number;
-  order: SortingOrder;
-  sortColumn: UsersOrderColumn;
-  searchString?: string;
-  withoutVo?: boolean;
-  facilityId?: number;
-  voId?: number;
-  serviceId?: number;
-  resourceId?: number;
-  onlyAllowed?: boolean;
-  consentStatuses?: Array<ConsentStatus>;
+
+export interface UsersPageQuery { 
+    pageSize: number;
+    offset: number;
+    order: SortingOrder;
+    sortColumn: UsersOrderColumn;
+    searchString?: string;
+    withoutVo?: boolean;
+    facilityId?: number;
+    voId?: number;
+    serviceId?: number;
+    resourceId?: number;
+    onlyAllowed?: boolean;
+    consentStatuses?: Array<ConsentStatus>;
 }
+

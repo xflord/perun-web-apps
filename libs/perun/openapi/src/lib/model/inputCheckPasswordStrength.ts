@@ -10,11 +10,13 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * input for checkPasswordStrength
  */
-export interface InputCheckPasswordStrength {
-  password: string;
-  namespace: string;
-  login?: string;
+export interface InputCheckPasswordStrength { 
+    password: string;
+    namespace: string;
+    login?: string;
 }
+

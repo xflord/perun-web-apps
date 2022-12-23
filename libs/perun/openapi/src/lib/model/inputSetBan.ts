@@ -11,9 +11,11 @@
  */
 import { BanOnResource } from './banOnResource';
 
+
 /**
  * input to setBan
  */
-export interface InputSetBan {
-  banOnResource: BanOnResource;
+export interface InputSetBan { 
+    banOnResource: BanOnResource;
 }
+

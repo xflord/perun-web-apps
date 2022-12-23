@@ -10,12 +10,14 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * input for createAlternativePassword
  */
-export interface InputCreateAlternativePassword {
-  user: number;
-  description: string;
-  loginNamespace: string;
-  password: string;
+export interface InputCreateAlternativePassword { 
+    user: number;
+    description: string;
+    loginNamespace: string;
+    password: string;
 }
+

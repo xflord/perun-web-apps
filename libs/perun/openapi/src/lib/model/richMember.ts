@@ -14,9 +14,14 @@ import { Attribute } from './attribute';
 import { UserExtSource } from './userExtSource';
 import { Member } from './member';
 
-export interface RichMember extends Member {
-  user: User;
-  userExtSources: Array<UserExtSource> | null;
-  userAttributes?: Array<Attribute> | null;
-  memberAttributes?: Array<Attribute> | null;
+
+/**
+ * Member data packed with member and user attributes, User and UserExtSources
+ */
+export interface RichMember extends Member { 
+    user: User;
+    userExtSources: Array<UserExtSource> | null;
+    userAttributes?: Array<Attribute> | null;
+    memberAttributes?: Array<Attribute> | null;
 }
+

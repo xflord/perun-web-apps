@@ -11,9 +11,11 @@
  */
 import { BanOnVo } from './banOnVo';
 
+
 /**
  * input to updateBan
  */
-export interface InputUpdateBan1 {
-  banOnVo: BanOnVo;
+export interface InputUpdateBan1 { 
+    banOnVo: BanOnVo;
 }
+

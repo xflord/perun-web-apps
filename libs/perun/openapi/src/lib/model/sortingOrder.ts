@@ -10,9 +10,11 @@
  * Do not edit the class manually.
  */
 
+
 export type SortingOrder = 'ASCENDING' | 'DESCENDING';
 
 export const SortingOrder = {
-  ASCENDING: 'ASCENDING' as SortingOrder,
-  DESCENDING: 'DESCENDING' as SortingOrder,
+    ASCENDING: 'ASCENDING' as SortingOrder,
+    DESCENDING: 'DESCENDING' as SortingOrder
 };
+

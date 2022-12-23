@@ -12,6 +12,8 @@
 import { Owner } from './owner';
 import { Facility } from './facility';
 
-export interface RichFacility extends Facility {
-  facilityOwners: Array<Owner>;
+
+export interface RichFacility extends Facility { 
+    facilityOwners: Array<Owner>;
 }
+

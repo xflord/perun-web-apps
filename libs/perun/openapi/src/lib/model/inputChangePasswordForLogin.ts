@@ -10,16 +10,18 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * input for changePasswordForLogin
  */
-export interface InputChangePasswordForLogin {
-  login: string;
-  namespace: string;
-  newPassword: string;
-  oldPassword?: string;
-  /**
-   * True if the oldPassword has to be checked. When omitted it defaults to false.
-   */
-  checkOldPassword?: boolean;
+export interface InputChangePasswordForLogin { 
+    login: string;
+    namespace: string;
+    newPassword: string;
+    oldPassword?: string;
+    /**
+     * True if the oldPassword has to be checked. When omitted it defaults to false.
+     */
+    checkOldPassword?: boolean;
 }
+

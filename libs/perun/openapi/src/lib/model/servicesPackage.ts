@@ -11,7 +11,9 @@
  */
 import { Auditable } from './auditable';
 
-export interface ServicesPackage extends Auditable {
-  description?: string;
-  name?: string;
+
+export interface ServicesPackage extends Auditable { 
+    description?: string;
+    name?: string;
 }
+

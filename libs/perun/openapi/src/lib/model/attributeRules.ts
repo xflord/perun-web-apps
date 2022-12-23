@@ -12,7 +12,9 @@
 import { AttributeAction } from './attributeAction';
 import { AttributePolicyCollection } from './attributePolicyCollection';
 
-export interface AttributeRules {
-  attributePolicyCollections?: Array<AttributePolicyCollection>;
-  criticalActions?: Array<AttributeAction>;
+
+export interface AttributeRules { 
+    attributePolicyCollections?: Array<AttributePolicyCollection>;
+    criticalActions?: Array<AttributeAction>;
 }
+

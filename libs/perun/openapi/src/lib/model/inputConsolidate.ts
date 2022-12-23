@@ -10,12 +10,14 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * input to consolidate
  */
-export interface InputConsolidate {
-  /**
-   * second access token
-   */
-  accessToken: string;
+export interface InputConsolidate { 
+    /**
+     * second access token
+     */
+    accessToken: string;
 }
+

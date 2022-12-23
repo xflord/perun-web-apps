@@ -10,17 +10,19 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * input for changeNonAuthzPasswordByToken
  */
-export interface InputChangeNonAuthzPasswordByToken {
-  /**
-   * token for the password reset request
-   */
-  token: string;
-  password: string;
-  /**
-   * language to get notifications in (optional)
-   */
-  lang?: string;
+export interface InputChangeNonAuthzPasswordByToken { 
+    /**
+     * token for the password reset request
+     */
+    token: string;
+    password: string;
+    /**
+     * language to get notifications in (optional)
+     */
+    lang?: string;
 }
+

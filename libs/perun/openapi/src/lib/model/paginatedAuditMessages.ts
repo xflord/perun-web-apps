@@ -11,9 +11,11 @@
  */
 import { AuditMessage } from './auditMessage';
 
-export interface PaginatedAuditMessages {
-  offset: number;
-  pageSize: number;
-  totalCount: number;
-  data: Array<AuditMessage>;
+
+export interface PaginatedAuditMessages { 
+    offset: number;
+    pageSize: number;
+    totalCount: number;
+    data: Array<AuditMessage>;
 }
+

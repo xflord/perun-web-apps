@@ -11,7 +11,9 @@
  */
 import { Ban } from './ban';
 
-export interface BanOnVo extends Ban {
-  memberId?: number;
-  voId?: number;
+
+export interface BanOnVo extends Ban { 
+    memberId?: number;
+    voId?: number;
 }
+

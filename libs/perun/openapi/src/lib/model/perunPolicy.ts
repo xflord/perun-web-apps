@@ -10,8 +10,10 @@
  * Do not edit the class manually.
  */
 
-export interface PerunPolicy {
-  policyName: string;
-  includePolicies: Array<string>;
-  perunRoles: Array<{ [key: string]: string }>;
+
+export interface PerunPolicy { 
+    policyName: string;
+    includePolicies: Array<string>;
+    perunRoles: Array<{ [key: string]: string; }>;
 }
+

@@ -11,7 +11,9 @@
  */
 import { Attribute } from './attribute';
 
-export interface ServiceAttributes {
-  attributes?: Array<Attribute>;
-  childElements?: Array<ServiceAttributes>;
+
+export interface ServiceAttributes { 
+    attributes?: Array<Attribute>;
+    childElements?: Array<ServiceAttributes>;
 }
+

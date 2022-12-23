@@ -10,13 +10,15 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * statuses of consents
  */
 export type ConsentStatus = 'UNSIGNED' | 'GRANTED' | 'REVOKED';
 
 export const ConsentStatus = {
-  UNSIGNED: 'UNSIGNED' as ConsentStatus,
-  GRANTED: 'GRANTED' as ConsentStatus,
-  REVOKED: 'REVOKED' as ConsentStatus,
+    UNSIGNED: 'UNSIGNED' as ConsentStatus,
+    GRANTED: 'GRANTED' as ConsentStatus,
+    REVOKED: 'REVOKED' as ConsentStatus
 };
+

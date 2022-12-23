@@ -10,16 +10,18 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * input to createCategory
  */
-export interface InputCreateCategoryNR {
-  /**
-   * name of the category
-   */
-  name: string;
-  /**
-   * the rank of the category
-   */
-  rank: number;
+export interface InputCreateCategoryNR { 
+    /**
+     * name of the category
+     */
+    name: string;
+    /**
+     * the rank of the category
+     */
+    rank: number;
 }
+

@@ -11,11 +11,13 @@
  */
 import { ApplicationFormItem } from './applicationFormItem';
 
-export interface ApplicationFormItemData {
-  id?: number;
-  formItem?: ApplicationFormItem;
-  shortname?: string;
-  value?: string;
-  assuranceLevel?: string;
-  prefilledValue?: string;
+
+export interface ApplicationFormItemData { 
+    id?: number;
+    formItem?: ApplicationFormItem;
+    shortname?: string;
+    value?: string;
+    assuranceLevel?: string;
+    prefilledValue?: string;
 }
+

@@ -10,12 +10,14 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * enumeration of types of Owners
  */
 export type OwnerType = 'technical' | 'administrative';
 
 export const OwnerType = {
-  technical: 'technical' as OwnerType,
-  administrative: 'administrative' as OwnerType,
+    technical: 'technical' as OwnerType,
+    administrative: 'administrative' as OwnerType
 };
+

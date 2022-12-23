@@ -11,11 +11,13 @@
  */
 import { Group } from './group';
 
+
 /**
  * input to create member for user
  */
-export interface InputCreateMemberForUser {
-  vo: number;
-  user: number;
-  groups?: Array<Group>;
+export interface InputCreateMemberForUser { 
+    vo: number;
+    user: number;
+    groups?: Array<Group>;
 }
+

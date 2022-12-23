@@ -11,11 +11,13 @@
  */
 import { MembersPageQuery } from './membersPageQuery';
 
+
 /**
  * input to getPaginatedMembers
  */
-export interface InputGetPaginatedMembers {
-  vo: number;
-  attrNames: Array<string>;
-  query: MembersPageQuery;
+export interface InputGetPaginatedMembers { 
+    vo: number;
+    attrNames: Array<string>;
+    query: MembersPageQuery;
 }
+

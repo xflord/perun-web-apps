@@ -11,12 +11,14 @@
  */
 import { Auditable } from './auditable';
 
-export interface Service extends Auditable {
-  name?: string;
-  description?: string;
-  delay?: number;
-  recurrence?: number;
-  enabled?: boolean;
-  script?: string;
-  useExpiredMembers?: boolean;
+
+export interface Service extends Auditable { 
+    name?: string;
+    description?: string;
+    delay?: number;
+    recurrence?: number;
+    enabled?: boolean;
+    script?: string;
+    useExpiredMembers?: boolean;
 }
+

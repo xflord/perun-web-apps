@@ -11,9 +11,11 @@
  */
 import { RichMember } from './richMember';
 
-export interface PaginatedRichMembers {
-  offset: number;
-  pageSize: number;
-  totalCount: number;
-  data: Array<RichMember>;
+
+export interface PaginatedRichMembers { 
+    offset: number;
+    pageSize: number;
+    totalCount: number;
+    data: Array<RichMember>;
 }
+

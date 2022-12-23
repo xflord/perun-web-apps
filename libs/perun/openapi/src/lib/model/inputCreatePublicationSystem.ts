@@ -11,9 +11,11 @@
  */
 import { PublicationSystem } from './publicationSystem';
 
+
 /**
  * input to createPublicationSystem
  */
-export interface InputCreatePublicationSystem {
-  pubsys: PublicationSystem;
+export interface InputCreatePublicationSystem { 
+    pubsys: PublicationSystem;
 }
+

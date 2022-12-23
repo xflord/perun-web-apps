@@ -10,21 +10,23 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * input for sending invitations from csv
  */
-export interface InputInvitationsFromCsv {
-  /**
-   * values separated with semicolons
-   */
-  invitationData: Array<string>;
-  /**
-   * id of VO to send invitation into
-   */
-  voId: number;
-  /**
-   * id of Group to send invitation into
-   */
-  groupId?: number;
-  language?: string;
+export interface InputInvitationsFromCsv { 
+    /**
+     * values separated with semicolons
+     */
+    invitationData: Array<string>;
+    /**
+     * id of VO to send invitation into
+     */
+    voId: number;
+    /**
+     * id of Group to send invitation into
+     */
+    groupId?: number;
+    language?: string;
 }
+

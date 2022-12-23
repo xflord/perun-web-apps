@@ -11,9 +11,11 @@
  */
 import { RichGroup } from './richGroup';
 
-export interface PaginatedRichGroups {
-  offset: number;
-  pageSize: number;
-  totalCount: number;
-  data: Array<RichGroup>;
+
+export interface PaginatedRichGroups { 
+    offset: number;
+    pageSize: number;
+    totalCount: number;
+    data: Array<RichGroup>;
 }
+

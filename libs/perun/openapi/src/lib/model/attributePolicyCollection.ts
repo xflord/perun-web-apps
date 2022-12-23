@@ -12,9 +12,11 @@
 import { AttributeAction } from './attributeAction';
 import { AttributePolicy } from './attributePolicy';
 
-export interface AttributePolicyCollection {
-  id: number;
-  attributeId: number;
-  action: AttributeAction;
-  policies: Array<AttributePolicy>;
+
+export interface AttributePolicyCollection { 
+    id: number;
+    attributeId: number;
+    action: AttributeAction;
+    policies: Array<AttributePolicy>;
 }
+

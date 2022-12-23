@@ -10,10 +10,12 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * input to unsetRoleForUser
  */
-export interface UnsetRoleForUser {
-  role: string;
-  user: number;
+export interface UnsetRoleForUser { 
+    role: string;
+    user: number;
 }
+

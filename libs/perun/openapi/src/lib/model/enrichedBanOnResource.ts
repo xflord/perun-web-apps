@@ -13,8 +13,10 @@ import { Resource } from './resource';
 import { RichMember } from './richMember';
 import { BanOnResource } from './banOnResource';
 
-export interface EnrichedBanOnResource {
-  resource?: Resource;
-  member?: RichMember;
-  ban?: BanOnResource;
+
+export interface EnrichedBanOnResource { 
+    resource?: Resource;
+    member?: RichMember;
+    ban?: BanOnResource;
 }
+

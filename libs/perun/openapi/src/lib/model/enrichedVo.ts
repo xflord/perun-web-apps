@@ -11,8 +11,10 @@
  */
 import { Vo } from './vo';
 
-export interface EnrichedVo {
-  vo?: Vo;
-  memberVos?: Array<Vo>;
-  parentVos?: Array<Vo>;
+
+export interface EnrichedVo { 
+    vo?: Vo;
+    memberVos?: Array<Vo>;
+    parentVos?: Array<Vo>;
 }
+

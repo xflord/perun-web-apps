@@ -11,13 +11,15 @@
  */
 import { ResourceTag } from './resourceTag';
 
+
 /**
  * input to removeResourceTagFromResource
  */
-export interface InputRemoveResourceTagFromResource {
-  /**
-   * resource id
-   */
-  resource: number;
-  resourceTag: ResourceTag;
+export interface InputRemoveResourceTagFromResource { 
+    /**
+     * resource id
+     */
+    resource: number;
+    resourceTag: ResourceTag;
 }
+

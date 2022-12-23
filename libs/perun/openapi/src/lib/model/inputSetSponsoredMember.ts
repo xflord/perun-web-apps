@@ -10,14 +10,16 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * input for setSponsoredMember
  */
-export interface InputSetSponsoredMember {
-  userToBeSponsored: number;
-  password: string;
-  vo: number;
-  sponsor?: number;
-  namespace: string;
-  validityTo?: string;
+export interface InputSetSponsoredMember { 
+    userToBeSponsored: number;
+    password: string;
+    vo: number;
+    sponsor?: number;
+    namespace: string;
+    validityTo?: string;
 }
+

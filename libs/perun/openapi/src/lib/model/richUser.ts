@@ -13,7 +13,12 @@ import { User } from './user';
 import { Attribute } from './attribute';
 import { UserExtSource } from './userExtSource';
 
-export interface RichUser extends User {
-  userExtSources: Array<UserExtSource> | null;
-  userAttributes: Array<Attribute> | null;
+
+/**
+ * user data packed together with all user attributes and UserExtSources
+ */
+export interface RichUser extends User { 
+    userExtSources: Array<UserExtSource> | null;
+    userAttributes: Array<Attribute> | null;
 }
+

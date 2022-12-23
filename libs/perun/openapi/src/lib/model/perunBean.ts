@@ -10,7 +10,12 @@
  * Do not edit the class manually.
  */
 
-export interface PerunBean {
-  id: number;
-  beanName: string;
+
+/**
+ * identifiable entity in Perun, common ancestor of all entity classes
+ */
+export interface PerunBean { 
+    id: number;
+    beanName: string;
 }
+

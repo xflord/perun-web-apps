@@ -11,13 +11,15 @@
  */
 import { ApplicationFormItemData } from './applicationFormItemData';
 
+
 /**
  * input to updateFormItemsData
  */
-export interface InputFormItemsData {
-  /**
-   * application id
-   */
-  appId: number;
-  data: Array<ApplicationFormItemData>;
+export interface InputFormItemsData { 
+    /**
+     * application id
+     */
+    appId: number;
+    data: Array<ApplicationFormItemData>;
 }
+

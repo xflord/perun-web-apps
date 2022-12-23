@@ -11,10 +11,12 @@
  */
 import { Auditable } from './auditable';
 
-export interface Resource extends Auditable {
-  name?: string;
-  description?: string;
-  voId?: number;
-  facilityId?: number;
-  uuid?: string;
+
+export interface Resource extends Auditable { 
+    name?: string;
+    description?: string;
+    voId?: number;
+    facilityId?: number;
+    uuid?: string;
 }
+

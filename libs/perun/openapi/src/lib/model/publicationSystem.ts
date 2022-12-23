@@ -11,11 +11,13 @@
  */
 import { PerunBean } from './perunBean';
 
-export interface PublicationSystem extends PerunBean {
-  friendlyName?: string;
-  url?: string;
-  username?: string;
-  password?: string;
-  loginNamespace?: string;
-  type?: string;
+
+export interface PublicationSystem extends PerunBean { 
+    friendlyName?: string;
+    url?: string;
+    username?: string;
+    password?: string;
+    loginNamespace?: string;
+    type?: string;
 }
+

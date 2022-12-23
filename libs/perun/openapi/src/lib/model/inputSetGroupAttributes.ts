@@ -11,13 +11,15 @@
  */
 import { Attribute } from './attribute';
 
+
 /**
  * input to setGroupAttributes
  */
-export interface InputSetGroupAttributes {
-  /**
-   * group id
-   */
-  group: number;
-  attributes: Array<Attribute>;
+export interface InputSetGroupAttributes { 
+    /**
+     * group id
+     */
+    group: number;
+    attributes: Array<Attribute>;
 }
+

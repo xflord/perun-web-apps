@@ -11,13 +11,18 @@
  */
 import { Auditable } from './auditable';
 
-export interface Member extends Auditable {
-  userId?: number;
-  voId?: number;
-  status?: string;
-  membershipType?: string;
-  sourceGroupId?: number | null;
-  sponsored?: boolean;
-  groupStatus?: string;
-  groupStatuses?: { [key: string]: string };
+
+/**
+ * represents Member of a Virtual Organization
+ */
+export interface Member extends Auditable { 
+    userId?: number;
+    voId?: number;
+    status?: string;
+    membershipType?: string;
+    sourceGroupId?: number | null;
+    sponsored?: boolean;
+    groupStatus?: string;
+    groupStatuses?: { [key: string]: string; };
 }
+

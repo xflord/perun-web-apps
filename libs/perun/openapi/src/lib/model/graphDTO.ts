@@ -11,7 +11,9 @@
  */
 import { GraphFileFormat } from './graphFileFormat';
 
-export interface GraphDTO {
-  graph?: string;
-  format?: GraphFileFormat;
+
+export interface GraphDTO { 
+    graph?: string;
+    format?: GraphFileFormat;
 }
+

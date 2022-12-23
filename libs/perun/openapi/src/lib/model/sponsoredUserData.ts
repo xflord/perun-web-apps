@@ -10,14 +10,16 @@
  * Do not edit the class manually.
  */
 
-export interface SponsoredUserData {
-  guestName?: string;
-  firstName?: string;
-  lastName?: string;
-  titleBefore?: string;
-  titleAfter?: string;
-  namespace?: string;
-  email?: string;
-  password?: string;
-  login?: string;
+
+export interface SponsoredUserData { 
+    guestName?: string;
+    firstName?: string;
+    lastName?: string;
+    titleBefore?: string;
+    titleAfter?: string;
+    namespace?: string;
+    email?: string;
+    password?: string;
+    login?: string;
 }
+

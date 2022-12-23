@@ -10,16 +10,18 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * Input to getMembersByUserAttributes
  */
-export interface InputGetMembersByUserAttributes {
-  /**
-   * vo id
-   */
-  vo: number;
-  /**
-   * Map of attribute names with searching values Map<sting,string>
-   */
-  userAttributesWithSearchingValues: { [key: string]: string };
+export interface InputGetMembersByUserAttributes { 
+    /**
+     * vo id
+     */
+    vo: number;
+    /**
+     * Map of attribute names with searching values Map<sting,string>
+     */
+    userAttributesWithSearchingValues: { [key: string]: string; };
 }
+

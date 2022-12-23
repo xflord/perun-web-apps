@@ -10,28 +10,21 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * type of destination, i.e. way of delivery of service settings
  */
-export type DestinationType =
-  | 'host'
-  | 'email'
-  | 'semail'
-  | 'url'
-  | 'user@host'
-  | 'user@host:port'
-  | 'service-specific'
-  | 'user@host-windows'
-  | 'host-windows-proxy';
+export type DestinationType = 'host' | 'email' | 'semail' | 'url' | 'user@host' | 'user@host:port' | 'service-specific' | 'user@host-windows' | 'host-windows-proxy';
 
 export const DestinationType = {
-  host: 'host' as DestinationType,
-  email: 'email' as DestinationType,
-  semail: 'semail' as DestinationType,
-  url: 'url' as DestinationType,
-  userhost: 'user@host' as DestinationType,
-  userhostport: 'user@host:port' as DestinationType,
-  service_specific: 'service-specific' as DestinationType,
-  userhost_windows: 'user@host-windows' as DestinationType,
-  host_windows_proxy: 'host-windows-proxy' as DestinationType,
+    host: 'host' as DestinationType,
+    email: 'email' as DestinationType,
+    semail: 'semail' as DestinationType,
+    url: 'url' as DestinationType,
+    userhost: 'user@host' as DestinationType,
+    userhostport: 'user@host:port' as DestinationType,
+    service_specific: 'service-specific' as DestinationType,
+    userhost_windows: 'user@host-windows' as DestinationType,
+    host_windows_proxy: 'host-windows-proxy' as DestinationType
 };
+

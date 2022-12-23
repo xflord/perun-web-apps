@@ -11,9 +11,11 @@
  */
 import { BanOnFacility } from './banOnFacility';
 
+
 /**
  * input to setBanForUserOnFacility
  */
-export interface InputSetBanForUserOnFacility {
-  banOnFacility: BanOnFacility;
+export interface InputSetBanForUserOnFacility { 
+    banOnFacility: BanOnFacility;
 }
+

@@ -12,10 +12,12 @@
 import { ApplicationFormItemData } from './applicationFormItemData';
 import { Application } from './application';
 
+
 /**
  * input to submitApplication
  */
-export interface InputSubmitApplication {
-  app: Application;
-  data: Array<ApplicationFormItemData>;
+export interface InputSubmitApplication { 
+    app: Application;
+    data: Array<ApplicationFormItemData>;
 }
+

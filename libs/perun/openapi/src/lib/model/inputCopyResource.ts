@@ -11,14 +11,16 @@
  */
 import { Resource } from './resource';
 
+
 /**
  * input to copyResource
  */
-export interface InputCopyResource {
-  templateResource: Resource;
-  destinationResource: Resource;
-  /**
-   * if copy the resource with group
-   */
-  withGroups: boolean;
+export interface InputCopyResource { 
+    templateResource: Resource;
+    destinationResource: Resource;
+    /**
+     * if copy the resource with group
+     */
+    withGroups: boolean;
 }
+

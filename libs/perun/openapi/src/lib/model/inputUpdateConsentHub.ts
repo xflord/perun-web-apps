@@ -11,9 +11,11 @@
  */
 import { ConsentHub } from './consentHub';
 
+
 /**
  * input to updateConsentHub
  */
-export interface InputUpdateConsentHub {
-  consentHub: ConsentHub;
+export interface InputUpdateConsentHub { 
+    consentHub: ConsentHub;
 }
+

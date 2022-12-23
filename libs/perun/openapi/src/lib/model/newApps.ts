@@ -10,12 +10,14 @@
  * Do not edit the class manually.
  */
 
-export interface NewApps {
-  api?: string;
-  admin?: string;
-  consolidator?: string;
-  linker?: string;
-  profile?: string;
-  pwdReset?: string;
-  publications?: string;
+
+export interface NewApps { 
+    api?: string;
+    admin?: string;
+    consolidator?: string;
+    linker?: string;
+    profile?: string;
+    pwdReset?: string;
+    publications?: string;
 }
+

@@ -12,8 +12,10 @@
 import { GenMemberDataNode } from './genMemberDataNode';
 import { HashedGenData } from './hashedGenData';
 
-export interface GenDataNode {
-  h?: Array<string>;
-  c?: Array<HashedGenData>;
-  m?: Array<GenMemberDataNode>;
+
+export interface GenDataNode { 
+    h?: Array<string>;
+    c?: Array<HashedGenData>;
+    m?: Array<GenMemberDataNode>;
 }
+

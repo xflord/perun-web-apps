@@ -11,10 +11,12 @@
  */
 import { ExtSource } from './extSource';
 
-export interface Identity {
-  id?: number;
-  name?: string;
-  organization?: string;
-  email?: string;
-  identities?: Array<ExtSource>;
+
+export interface Identity { 
+    id?: number;
+    name?: string;
+    organization?: string;
+    email?: string;
+    identities?: Array<ExtSource>;
 }
+

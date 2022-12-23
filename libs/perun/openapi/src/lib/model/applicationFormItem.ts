@@ -13,38 +13,41 @@ import { ItemTexts } from './itemTexts';
 import { Type } from './type';
 import { AppType } from './appType';
 
-export interface ApplicationFormItem {
-  id?: number;
-  shortname?: string;
-  required?: boolean;
-  updatable?: boolean;
-  type?: Type;
-  federationAttribute?: string;
-  perunSourceAttribute?: string;
-  perunDestinationAttribute?: string;
-  regex?: string;
-  applicationTypes?: Array<AppType>;
-  ordnum?: number;
-  i18n?: { [key: string]: ItemTexts };
-  hiddenDependencyItemId?: number;
-  disabledDependencyItemId?: number;
-  hidden?: ApplicationFormItem.HiddenEnum;
-  disabled?: ApplicationFormItem.DisabledEnum;
-  forDelete?: boolean;
+
+export interface ApplicationFormItem { 
+    id?: number;
+    shortname?: string;
+    required?: boolean;
+    updatable?: boolean;
+    type?: Type;
+    federationAttribute?: string;
+    perunSourceAttribute?: string;
+    perunDestinationAttribute?: string;
+    regex?: string;
+    applicationTypes?: Array<AppType>;
+    ordnum?: number;
+    i18n?: { [key: string]: ItemTexts; };
+    hiddenDependencyItemId?: number;
+    disabledDependencyItemId?: number;
+    hidden?: ApplicationFormItem.HiddenEnum;
+    disabled?: ApplicationFormItem.DisabledEnum;
+    forDelete?: boolean;
 }
 export namespace ApplicationFormItem {
-  export type HiddenEnum = 'NEVER' | 'ALWAYS' | 'IF_PREFILLED' | 'IF_EMPTY';
-  export const HiddenEnum = {
-    NEVER: 'NEVER' as HiddenEnum,
-    ALWAYS: 'ALWAYS' as HiddenEnum,
-    IF_PREFILLED: 'IF_PREFILLED' as HiddenEnum,
-    IF_EMPTY: 'IF_EMPTY' as HiddenEnum,
-  };
-  export type DisabledEnum = 'NEVER' | 'ALWAYS' | 'IF_PREFILLED' | 'IF_EMPTY';
-  export const DisabledEnum = {
-    NEVER: 'NEVER' as DisabledEnum,
-    ALWAYS: 'ALWAYS' as DisabledEnum,
-    IF_PREFILLED: 'IF_PREFILLED' as DisabledEnum,
-    IF_EMPTY: 'IF_EMPTY' as DisabledEnum,
-  };
+    export type HiddenEnum = 'NEVER' | 'ALWAYS' | 'IF_PREFILLED' | 'IF_EMPTY';
+    export const HiddenEnum = {
+        NEVER: 'NEVER' as HiddenEnum,
+        ALWAYS: 'ALWAYS' as HiddenEnum,
+        IF_PREFILLED: 'IF_PREFILLED' as HiddenEnum,
+        IF_EMPTY: 'IF_EMPTY' as HiddenEnum
+    };
+    export type DisabledEnum = 'NEVER' | 'ALWAYS' | 'IF_PREFILLED' | 'IF_EMPTY';
+    export const DisabledEnum = {
+        NEVER: 'NEVER' as DisabledEnum,
+        ALWAYS: 'ALWAYS' as DisabledEnum,
+        IF_PREFILLED: 'IF_PREFILLED' as DisabledEnum,
+        IF_EMPTY: 'IF_EMPTY' as DisabledEnum
+    };
 }
+
+

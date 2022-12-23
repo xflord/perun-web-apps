@@ -12,10 +12,12 @@
 import { Candidate } from './candidate';
 import { User } from './user';
 
+
 /**
  * input to createServiceUser
  */
-export interface InputCreateServiceUser {
-  candidate: Candidate;
-  specificUserOwners: Array<User>;
+export interface InputCreateServiceUser { 
+    candidate: Candidate;
+    specificUserOwners: Array<User>;
 }
+

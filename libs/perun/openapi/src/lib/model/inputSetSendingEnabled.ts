@@ -11,10 +11,12 @@
  */
 import { ApplicationMail } from './applicationMail';
 
+
 /**
  * input to setSendingEnabled
  */
-export interface InputSetSendingEnabled {
-  mails: Array<ApplicationMail>;
-  enabled: boolean;
+export interface InputSetSendingEnabled { 
+    mails: Array<ApplicationMail>;
+    enabled: boolean;
 }
+

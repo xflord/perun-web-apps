@@ -10,10 +10,12 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * input to setRoleForUser
  */
-export interface SetRoleForUser {
-  role: string;
-  user: number;
+export interface SetRoleForUser { 
+    role: string;
+    user: number;
 }
+

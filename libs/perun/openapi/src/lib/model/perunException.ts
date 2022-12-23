@@ -10,8 +10,13 @@
  * Do not edit the class manually.
  */
 
-export interface PerunException {
-  errorId?: string;
-  name?: string;
-  message?: string;
+
+/**
+ * exception thrown from inside of Perun
+ */
+export interface PerunException { 
+    errorId?: string;
+    name?: string;
+    message?: string;
 }
+

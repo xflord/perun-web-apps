@@ -14,9 +14,11 @@ import { ConsentStatus } from './consentStatus';
 import { AttributeDefinition } from './attributeDefinition';
 import { ConsentHub } from './consentHub';
 
-export interface Consent extends Auditable {
-  userId?: number;
-  status?: ConsentStatus;
-  consentHub?: ConsentHub;
-  attributes?: Array<AttributeDefinition>;
+
+export interface Consent extends Auditable { 
+    userId?: number;
+    status?: ConsentStatus;
+    consentHub?: ConsentHub;
+    attributes?: Array<AttributeDefinition>;
 }
+

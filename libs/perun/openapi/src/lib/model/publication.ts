@@ -12,19 +12,21 @@
 import { PerunBean } from './perunBean';
 import { Author } from './author';
 
-export interface Publication extends PerunBean {
-  authors?: Array<Author>;
-  externalId?: number;
-  publicationSystemId?: number;
-  title?: string;
-  year?: number;
-  main?: string;
-  isbn?: string;
-  doi?: string;
-  categoryId?: number;
-  rank?: number;
-  locked?: boolean;
-  createdBy?: string;
-  createdByUid?: number;
-  createdDate?: string;
+
+export interface Publication extends PerunBean { 
+    authors?: Array<Author>;
+    externalId?: number;
+    publicationSystemId?: number;
+    title?: string;
+    year?: number;
+    main?: string;
+    isbn?: string;
+    doi?: string;
+    categoryId?: number;
+    rank?: number;
+    locked?: boolean;
+    createdBy?: string;
+    createdByUid?: number;
+    createdDate?: string;
 }
+

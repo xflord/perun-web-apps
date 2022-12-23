@@ -12,8 +12,10 @@
 import { Auditable } from './auditable';
 import { Facility } from './facility';
 
-export interface ConsentHub extends Auditable {
-  name: string;
-  enforceConsents: boolean;
-  facilities: Array<Facility> | null;
+
+export interface ConsentHub extends Auditable { 
+    name: string;
+    enforceConsents: boolean;
+    facilities: Array<Facility> | null;
 }
+

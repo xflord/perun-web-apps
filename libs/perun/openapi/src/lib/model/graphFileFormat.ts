@@ -10,12 +10,14 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * currently supported formats are DOT and TGF
  */
 export type GraphFileFormat = 'DOT' | 'TGF';
 
 export const GraphFileFormat = {
-  DOT: 'DOT' as GraphFileFormat,
-  TGF: 'TGF' as GraphFileFormat,
+    DOT: 'DOT' as GraphFileFormat,
+    TGF: 'TGF' as GraphFileFormat
 };
+

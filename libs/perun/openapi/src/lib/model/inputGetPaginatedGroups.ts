@@ -11,11 +11,13 @@
  */
 import { GroupsPageQuery } from './groupsPageQuery';
 
+
 /**
  * input to getPaginatedGroups
  */
-export interface InputGetPaginatedGroups {
-  vo: number;
-  attrNames: Array<string>;
-  query: GroupsPageQuery;
+export interface InputGetPaginatedGroups { 
+    vo: number;
+    attrNames: Array<string>;
+    query: GroupsPageQuery;
 }
+

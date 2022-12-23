@@ -10,10 +10,12 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * input to setRoleForGroup
  */
-export interface SetRoleForGroup {
-  role: string;
-  authorizedGroup: number;
+export interface SetRoleForGroup { 
+    role: string;
+    authorizedGroup: number;
 }
+

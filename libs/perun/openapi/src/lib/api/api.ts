@@ -14,8 +14,6 @@ export * from './extSourcesManager.service';
 import { ExtSourcesManagerService } from './extSourcesManager.service';
 export * from './facilitiesManager.service';
 import { FacilitiesManagerService } from './facilitiesManager.service';
-export * from './facilitiesManagerByFacilityName.service';
-import { FacilitiesManagerByFacilityNameService } from './facilitiesManagerByFacilityName.service';
 export * from './groupsManager.service';
 import { GroupsManagerService } from './groupsManager.service';
 export * from './integrationManager.service';
@@ -42,27 +40,4 @@ export * from './utils.service';
 import { UtilsService } from './utils.service';
 export * from './vosManager.service';
 import { VosManagerService } from './vosManager.service';
-export const APIS = [
-  AttributesManagerService,
-  AuditMessagesManagerService,
-  AuthzResolverService,
-  CabinetManagerService,
-  ConsentsManagerService,
-  DatabaseManagerService,
-  ExtSourcesManagerService,
-  FacilitiesManagerService,
-  FacilitiesManagerByFacilityNameService,
-  GroupsManagerService,
-  IntegrationManagerService,
-  MembersManagerService,
-  OwnersManagerService,
-  RTMessagesManagerService,
-  RegistrarManagerService,
-  ResourcesManagerService,
-  SearcherService,
-  ServicesManagerService,
-  TasksManagerService,
-  UsersManagerService,
-  UtilsService,
-  VosManagerService,
-];
+export const APIS = [AttributesManagerService, AuditMessagesManagerService, AuthzResolverService, CabinetManagerService, ConsentsManagerService, DatabaseManagerService, ExtSourcesManagerService, FacilitiesManagerService, GroupsManagerService, IntegrationManagerService, MembersManagerService, OwnersManagerService, RTMessagesManagerService, RegistrarManagerService, ResourcesManagerService, SearcherService, ServicesManagerService, TasksManagerService, UsersManagerService, UtilsService, VosManagerService];

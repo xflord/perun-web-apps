@@ -11,9 +11,11 @@
  */
 import { SortingOrder } from './sortingOrder';
 
-export interface AuditMessagesPageQuery {
-  pageSize: number;
-  offset: number;
-  order: SortingOrder;
-  selectedEvents: Array<string>;
+
+export interface AuditMessagesPageQuery { 
+    pageSize: number;
+    offset: number;
+    order: SortingOrder;
+    selectedEvents: Array<string>;
 }
+

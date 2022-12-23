@@ -11,6 +11,8 @@
  */
 import { Brand } from './brand';
 
-export interface PerunAppsConfig {
-  brands?: Array<Brand>;
+
+export interface PerunAppsConfig { 
+    brands?: Array<Brand>;
 }
+

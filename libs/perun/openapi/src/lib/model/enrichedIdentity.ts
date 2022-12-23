@@ -11,10 +11,12 @@
  */
 import { EnrichedExtSource } from './enrichedExtSource';
 
-export interface EnrichedIdentity {
-  id?: number;
-  name?: string;
-  organization?: string;
-  email?: string;
-  identities?: Array<EnrichedExtSource>;
+
+export interface EnrichedIdentity { 
+    id?: number;
+    name?: string;
+    organization?: string;
+    email?: string;
+    identities?: Array<EnrichedExtSource>;
 }
+

@@ -13,8 +13,10 @@ import { BanOnVo } from './banOnVo';
 import { Vo } from './vo';
 import { RichMember } from './richMember';
 
-export interface EnrichedBanOnVo {
-  vo?: Vo;
-  member?: RichMember;
-  ban?: BanOnVo;
+
+export interface EnrichedBanOnVo { 
+    vo?: Vo;
+    member?: RichMember;
+    ban?: BanOnVo;
 }
+

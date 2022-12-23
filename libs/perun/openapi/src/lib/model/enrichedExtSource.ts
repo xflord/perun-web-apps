@@ -11,7 +11,9 @@
  */
 import { ExtSource } from './extSource';
 
-export interface EnrichedExtSource {
-  extSource?: ExtSource;
-  attributes?: { [key: string]: string };
+
+export interface EnrichedExtSource { 
+    extSource?: ExtSource;
+    attributes?: { [key: string]: string; };
 }
+

@@ -10,16 +10,18 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * Input to getResources
  */
-export interface InputGetMatchResources {
-  /**
-   * True if partial match is allowed
-   */
-  allowPartialMatchForString: boolean;
-  /**
-   * Map of attribute names with searching values Map<sting,string>
-   */
-  attributesWithSearchingValues: { [key: string]: string };
+export interface InputGetMatchResources { 
+    /**
+     * True if partial match is allowed
+     */
+    allowPartialMatchForString: boolean;
+    /**
+     * Map of attribute names with searching values Map<sting,string>
+     */
+    attributesWithSearchingValues: { [key: string]: string; };
 }
+

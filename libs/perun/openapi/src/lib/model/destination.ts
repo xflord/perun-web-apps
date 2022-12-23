@@ -13,8 +13,10 @@ import { Auditable } from './auditable';
 import { DestinationPropagationType } from './destinationPropagationType';
 import { DestinationType } from './destinationType';
 
-export interface Destination extends Auditable {
-  destination?: string;
-  type?: DestinationType;
-  propagationType?: DestinationPropagationType;
+
+export interface Destination extends Auditable { 
+    destination?: string;
+    type?: DestinationType;
+    propagationType?: DestinationPropagationType;
 }
+

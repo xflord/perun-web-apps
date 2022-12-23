@@ -11,7 +11,9 @@
  */
 import { PerunBean } from './perunBean';
 
-export interface Category extends PerunBean {
-  name?: string;
-  rank?: number;
+
+export interface Category extends PerunBean { 
+    name?: string;
+    rank?: number;
 }
+

@@ -13,8 +13,10 @@ import { BanOnFacility } from './banOnFacility';
 import { RichUser } from './richUser';
 import { Facility } from './facility';
 
-export interface EnrichedBanOnFacility {
-  facility?: Facility;
-  user?: RichUser;
-  ban?: BanOnFacility;
+
+export interface EnrichedBanOnFacility { 
+    facility?: Facility;
+    user?: RichUser;
+    ban?: BanOnFacility;
 }
+

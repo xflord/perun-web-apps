@@ -10,13 +10,15 @@
  * Do not edit the class manually.
  */
 
-export interface RoleManagementRules {
-  roleName: string;
-  primaryObject: string | null;
-  privilegedRolesToManage: Array<{ [key: string]: string }>;
-  privilegedRolesToRead: Array<{ [key: string]: string }>;
-  entitiesToManage: { [key: string]: string };
-  assignedObjects: { [key: string]: string };
-  assignableToAttributes: boolean;
-  displayName: string;
+
+export interface RoleManagementRules { 
+    roleName: string;
+    primaryObject: string | null;
+    privilegedRolesToManage: Array<{ [key: string]: string; }>;
+    privilegedRolesToRead: Array<{ [key: string]: string; }>;
+    entitiesToManage: { [key: string]: string; };
+    assignedObjects: { [key: string]: string; };
+    assignableToAttributes: boolean;
+    displayName: string;
 }
+

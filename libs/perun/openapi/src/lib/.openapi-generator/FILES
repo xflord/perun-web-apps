@@ -10,7 +10,6 @@ api/consentsManager.service.ts
 api/databaseManager.service.ts
 api/extSourcesManager.service.ts
 api/facilitiesManager.service.ts
-api/facilitiesManagerByFacilityName.service.ts
 api/groupsManager.service.ts
 api/integrationManager.service.ts
 api/membersManager.service.ts
@@ -102,9 +101,11 @@ model/inputAddApplicationMailForVo.ts
 model/inputAddDestinationToMultipleServices.ts
 model/inputAddDestinationsDefinedByHostsOnFacility.ts
 model/inputAssignResourceTagToResource.ts
+model/inputAssignResourceTagsToResource.ts
 model/inputAttributeDefinition.ts
 model/inputAttributePolicyCollections.ts
 model/inputAttributeRights.ts
+model/inputBlockServicesOnDestinations.ts
 model/inputChangeNonAuthzPasswordByToken.ts
 model/inputChangePasswordForLogin.ts
 model/inputChangePasswordForUser.ts
@@ -151,6 +152,8 @@ model/inputGetUsers.ts
 model/inputInvitationsFromCsv.ts
 model/inputLockPublications.ts
 model/inputRemoveResourceTagFromResource.ts
+model/inputRemoveResourceTagsFromResource.ts
+model/inputRemoveRichDestinations.ts
 model/inputReservePasswordForLogin.ts
 model/inputReservePasswordForUser.ts
 model/inputSendMessage.ts
@@ -193,6 +196,7 @@ model/inputSetVoAttributes.ts
 model/inputSetVoBan.ts
 model/inputSpecificMember.ts
 model/inputSubmitApplication.ts
+model/inputUnlockServicesOnDestinations.ts
 model/inputUpdateApplicationMail.ts
 model/inputUpdateBan.ts
 model/inputUpdateBan1.ts
@@ -262,7 +266,9 @@ model/servicesPackage.ts
 model/setRoleForGroup.ts
 model/setRoleForUser.ts
 model/setRoleWithGroupComplementaryObject.ts
+model/setRoleWithGroupComplementaryObjects.ts
 model/setRoleWithUserComplementaryObject.ts
+model/setRoleWithUserComplementaryObjects.ts
 model/simpleAttribute.ts
 model/sortingOrder.ts
 model/sponsor.ts
@@ -281,7 +287,9 @@ model/type.ts
 model/unsetRoleForGroup.ts
 model/unsetRoleForUser.ts
 model/unsetRoleWithGroupComplementaryObject.ts
+model/unsetRoleWithGroupComplementaryObjects.ts
 model/unsetRoleWithUserComplementaryObject.ts
+model/unsetRoleWithUserComplementaryObjects.ts
 model/user.ts
 model/userExtSource.ts
 model/usersOrderColumn.ts

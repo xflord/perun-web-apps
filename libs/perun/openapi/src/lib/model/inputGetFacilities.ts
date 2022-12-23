@@ -10,12 +10,14 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * Input to getFacilities
  */
-export interface InputGetFacilities {
-  /**
-   * Map of attribute names with searching values Map<sting,string>
-   */
-  attributesWithSearchingValues: { [key: string]: string };
+export interface InputGetFacilities { 
+    /**
+     * Map of attribute names with searching values Map<sting,string>
+     */
+    attributesWithSearchingValues: { [key: string]: string; };
 }
+

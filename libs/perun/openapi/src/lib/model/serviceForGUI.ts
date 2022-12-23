@@ -11,6 +11,8 @@
  */
 import { Service } from './service';
 
-export interface ServiceForGUI extends Service {
-  allowedOnFacility?: boolean;
+
+export interface ServiceForGUI extends Service { 
+    allowedOnFacility?: boolean;
 }
+

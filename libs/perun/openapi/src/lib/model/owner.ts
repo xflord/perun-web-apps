@@ -12,8 +12,10 @@
 import { Auditable } from './auditable';
 import { OwnerType } from './ownerType';
 
-export interface Owner extends Auditable {
-  name?: string;
-  contact?: string;
-  type?: OwnerType;
+
+export interface Owner extends Auditable { 
+    name?: string;
+    contact?: string;
+    type?: OwnerType;
 }
+
