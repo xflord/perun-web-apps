@@ -5,7 +5,11 @@ import { GUIConfigService, LS_TABLE_PREFIX, PREF_PAGE_SIZE } from './guiconfig.s
   providedIn: 'root',
 })
 export class TableConfigService {
-  constructor(private guiConfigService: GUIConfigService) {}
+  defaultTableSizes = new Map<string, number>();
+  constructor(private guiConfigService: GUIConfigService) {
+    this.defaultTableSizes.set(TABLE_ATTRIBUTES_SETTINGS, 25);
+    this.defaultTableSizes.set(TABLE_ADMIN_ATTRIBUTES, 25);
+  }
 
   getTablePageSize(tableId: string): number {
     const tablePref = this.guiConfigService.getNumber(LS_TABLE_PREFIX + tableId);
@@ -17,7 +21,7 @@ export class TableConfigService {
       return pref;
     }
 
-    return 10;
+    return this.defaultTableSizes.get(tableId) ?? 10;
   }
 
   setTablePageSize(tableId: string, value: number): void {
