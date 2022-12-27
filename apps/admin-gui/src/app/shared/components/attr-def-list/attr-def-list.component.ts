@@ -40,6 +40,7 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
     'select',
     'id',
     'friendlyName',
+    'displayName',
     'entity',
     'namespace',
     'type',
@@ -79,6 +80,8 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
         return data.id.toString();
       case 'friendlyName':
         return data.friendlyName;
+      case 'displayName':
+        return data.displayName;
       case 'entity':
         return data.entity;
       case 'namespace':

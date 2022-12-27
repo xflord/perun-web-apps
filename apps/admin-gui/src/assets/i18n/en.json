@@ -2356,6 +2356,7 @@
       "TITLE": "Attribute definitions",
       "TABLE_ATTR_ID": "Id",
       "TABLE_ATTR_FRIENDLY_NAME": "Friendly name",
+      "TABLE_ATTR_DISPLAY_NAME": "Display name",
       "TABLE_ATTR_ENTITY": "Entity",
       "TABLE_ATTR_DEF": "Def",
       "TABLE_ATTR_TYPE": "Type",
