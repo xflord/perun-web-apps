@@ -186,6 +186,7 @@ import { UpdateVoBanDialogComponent } from './components/dialogs/update-vo-ban-d
 import { UpdateResourceBanDialogComponent } from './components/dialogs/update-resource-ban-dialog/update-resource-ban-dialog.component';
 import { UpdateFacilityBanDialogComponent } from './components/dialogs/update-facility-ban-dialog/update-facility-ban-dialog.component';
 import { CopyMembersDialogComponent } from './components/dialogs/copy-members-dialog/copy-members-dialog-component';
+import { ApplicationsListColumnsChangeDialogComponent } from './components/dialogs/applications-list-columns-change-dialog/applications-list-columns-change-dialog.component';
 
 @NgModule({
   imports: [
@@ -462,6 +463,7 @@ import { CopyMembersDialogComponent } from './components/dialogs/copy-members-di
     UpdateResourceBanDialogComponent,
     UpdateFacilityBanDialogComponent,
     CopyMembersDialogComponent,
+    ApplicationsListColumnsChangeDialogComponent,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe, ConsentRelatedAttributePipe],
 })

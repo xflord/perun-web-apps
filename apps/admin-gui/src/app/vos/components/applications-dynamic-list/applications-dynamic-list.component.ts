@@ -4,6 +4,7 @@ import {
   ApplicationFormItemData,
   ApplicationsOrderColumn,
   AppState,
+  AttributesManagerService,
   Group,
   Member,
   RichApplication,
@@ -42,6 +43,8 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
 
   @Input()
   displayedColumns: string[] = [];
+  @Input()
+  fedColumns: string[] = [];
 
   @Input()
   tableId: string;
@@ -72,20 +75,20 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
 
   @Input()
   dateFrom: Date = this.yearAgo();
+  @Input()
+  fedAttrNames: string[] = [];
 
   @Input()
   refreshTable = false;
-
   parsedColumns: string[] = [];
-
   dataSource: DynamicDataSource<Application>;
-
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
 
   constructor(
     private authResolver: GuiAuthResolver,
     private tableConfigService: TableConfigService,
     private dynamicPaginatingService: DynamicPaginatingService,
+    private attributesManagerService: AttributesManagerService,
     private dialog: MatDialog
   ) {}
 
@@ -344,5 +347,25 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       return '';
     }
     return filter[0].value ?? filter[0].prefilledValue;
+  }
+
+  getFedValue(fedInfo: string, colName: string): string {
+    // looking for values between {,FED_INFO_ATTR_NAME:}
+    const regexOtherValues = new RegExp(this.fedAttrNames.map((v) => ',' + v + ':').join('|'));
+    if (fedInfo === null || fedInfo.length === 0) {
+      return '';
+    }
+
+    let values: string[] = [];
+    if (fedInfo.startsWith(colName + ':')) {
+      values = fedInfo.split(colName + ':');
+    } else {
+      values = fedInfo.split(',' + colName + ':');
+    }
+    if (values.length < 2) {
+      return '';
+    }
+    values = values[1].split(regexOtherValues);
+    return values[0].endsWith(',') ? values[0].slice(0, -1) : values[0];
   }
 }

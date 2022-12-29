@@ -584,6 +584,7 @@
     "APPLICATION": {
       "TITLE": "Application",
       "FILTER": "Filter",
+      "SET_COLUMN_SETTINGS": "Configure column settings",
       "SELECTION_ALL": "All",
       "SELECTION_WFMV": "Waiting for mail verification",
       "SELECTION_SUBMITTED": "Submitted",
@@ -591,6 +592,7 @@
       "SELECTION_APPROVED": "Approved",
       "SELECTION_REJECTED": "Rejected",
       "SHOW_GROUP_APPLICATIONS": "Show group applications",
+      "COLUMNS_TOOLTIP": "Detailed application view cannot be customized.",
       "NO_APPLICATION_FOUND": "No applications matching search criteria found.",
       "SHOW_ALL_DETAILS": "Show more details",
       "SHOW_LESS_DETAILS": "Show less details",
@@ -782,7 +784,8 @@
     "MODIFIED_AT": "Modified at",
     "USER": "User",
     "CREATED_BY": "Created by",
-    "VO_NAME": "Organization name"
+    "VO_NAME": "Organization name",
+    "CONFIGURE": "Configure applications view"
   },
   "MEMBER_DETAIL": {
     "ENTITY": "Member",
@@ -1255,6 +1258,16 @@
       "SUBMIT": "Reject",
       "CANCEL": "Cancel",
       "SUCCESS": "Application was rejected"
+    },
+    "APPLICATIONS_LIST_COLUMNS_CHANGE":  {
+      "TITLE": "Change applications view preferences",
+      "DEFAULT_TEXT": "The default setting of the columns is: 'createdAt', 'type', 'state', 'createdBy', 'modifiedBy' ",
+      "FILTER_COLUMNS": "Displayed columns",
+      "WARN": "Changes to displayed columns will be saved for everyone that views applications in this organization/group!",
+      "CANCEL": "Cancel",
+      "CONFIRM": "Confirm",
+      "DEFAULT": "Reset default settings",
+      "SUCCESS": "Displayed columns were successfully updated"
     },
     "UPDATE_APPLICATION_FORM": {
       "TITLE": "Change application form settings",
@@ -1966,6 +1979,14 @@
       "CANCEL": "Cancel",
       "SUBMIT": "Submit",
       "SUCCESS": "Application form item data edited successfully"
+    },
+    "CONFIGURE_APP_VIEW": {
+      "TITLE": "Configure applications view: ",
+      "DESCRIPTION": "You can configure which basic information will be shown in the application view. The settings can be reset later.",
+      "SAVE": "Save",
+      "CANCEL": "Cancel",
+      "RESET": "Reset",
+      "SAVED": "Configuration successfully updated"
     },
     "CREATE_SPONSORED_MEMBER": {
       "TITLE": "Create sponsored member",

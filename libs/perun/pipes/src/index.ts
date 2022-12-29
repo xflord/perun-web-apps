@@ -39,3 +39,4 @@ export * from './lib/select-application-link.pipe';
 export * from './lib/extract-facility.pipe';
 export * from './lib/to-enriched-facility.pipe';
 export * from './lib/transform-member-status.pipe';
+export * from './lib/application-column-select-label.pipe';

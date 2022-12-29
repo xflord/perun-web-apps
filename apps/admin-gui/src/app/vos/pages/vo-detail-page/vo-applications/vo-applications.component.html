@@ -44,13 +44,29 @@
       (change)="showGroupApplications($event)">
       {{'VO_DETAIL.APPLICATION.SHOW_GROUP_APPLICATIONS' | translate}}
     </mat-checkbox>
+    <span
+      [matTooltipDisabled]="!showAllDetails"
+      matTooltip="{{'VO_DETAIL.APPLICATION.COLUMNS_TOOLTIP' | translate}}"
+      matTooltipPosition="above">
+      <button
+        mat-stroked-button
+        *ngIf="columnsAuth"
+        class="ml-2"
+        [disabled]="showAllDetails"
+        (click)="this.setColumns()">
+        {{'VO_DETAIL.APPLICATION.SET_COLUMN_SETTINGS' | translate}}
+      </button>
+    </span>
   </div>
 </div>
-<div>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+<div *ngIf="!loading">
   <app-applications-dynamic-list
     [tableId]="showAllDetails ? detailTableId : tableId"
     [searchString]="filterValue"
     [displayedColumns]="currentColumns"
+    [fedColumns]="configuredFedColumns"
+    [fedAttrNames]="fedAttrNames"
     [states]="currentStates"
     [dateFrom]="startDate.value"
     [dateTo]="endDate.value"

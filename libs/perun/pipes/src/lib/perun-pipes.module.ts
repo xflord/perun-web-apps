@@ -57,6 +57,7 @@ import { IsAuthorizedPipe } from './is-authorized.pipe';
 import { ExtractFacilityPipe } from './extract-facility.pipe';
 import { ToEnrichedFacilityPipe } from './to-enriched-facility.pipe';
 import { TransformMemberStatusPipe } from './transform-member-status.pipe';
+import { ApplicationColumnSelectLabelPipe } from './application-column-select-label.pipe';
 
 @NgModule({
   declarations: [
@@ -118,6 +119,7 @@ import { TransformMemberStatusPipe } from './transform-member-status.pipe';
     ExtractFacilityPipe,
     ToEnrichedFacilityPipe,
     TransformMemberStatusPipe,
+    ApplicationColumnSelectLabelPipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -178,6 +180,7 @@ import { TransformMemberStatusPipe } from './transform-member-status.pipe';
     ExtractFacilityPipe,
     ToEnrichedFacilityPipe,
     TransformMemberStatusPipe,
+    ApplicationColumnSelectLabelPipe,
   ],
   imports: [CommonModule],
 })
