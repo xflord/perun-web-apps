@@ -63,7 +63,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class VosManagerService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -132,6 +132,7 @@ export class VosManagerService {
    * Add member vo to vo.
    * @param vo id of Vo
    * @param memberVo id of member Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -253,6 +254,7 @@ export class VosManagerService {
    * Add group as a sponsor of guest members of VO. All members of group will become sponsors.
    * @param vo id of Vo
    * @param authorizedGroup Group id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -376,6 +378,7 @@ export class VosManagerService {
    * Add user as a sponsor for guest members of VO.
    * @param vo id of Vo
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -495,6 +498,7 @@ export class VosManagerService {
    * Adds a group as a Vo admin.
    * @param vo id of Vo
    * @param authorizedGroup Group id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -616,6 +620,7 @@ export class VosManagerService {
    * Adds a user as a Vo admin.
    * @param vo id of Vo
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -731,6 +736,7 @@ export class VosManagerService {
    * Creates new VO. Caller is automatically set as VO manager.
    * @param name name - length can be no more than 128 characters
    * @param shortName shortName - can contain only a-z, A-Z, 0-9, \&#39;.\&#39;, \&#39;-\&#39;, \&#39;_\&#39; and cannot be longer than 32 characters
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -853,6 +859,7 @@ export class VosManagerService {
   /**
    * Creates new VO. Caller is automatically set as VO manager. Vo Object must contain: name - lenght can be no more than 128 characters shortName - can contain only a-z, A-Z, 0-9, \&#39;.\&#39;, \&#39;-\&#39;, \&#39;_\&#39; and cannot be longer than 32 characters. Other parameters are ignored. @exampleParam vo { \&quot;name\&quot; : \&quot;My testing VO\&quot; , \&quot;shortName\&quot; : \&quot;test_vo\&quot; }
    * @param InputCreateVoWithVo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -962,6 +969,7 @@ export class VosManagerService {
    * Deletes a VO. If force &#x3D;&#x3D; true then VO is deleted including members, groups and resources. If force &#x3D;&#x3D; false or null only empty VO is deleted or exception is thrown.
    * @param vo id of Vo
    * @param force If true, delete entity forcefully.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1075,6 +1083,7 @@ export class VosManagerService {
    * @param id numeric id
    * @param searchString Text to search by
    * @param maxNumOfResults Number of maximum results
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1207,6 +1216,7 @@ export class VosManagerService {
    * Find candidates for Group. Candidates can be used to create new VO and Group members. Candidates are searched in Groups external sources (if available). Candidates, which are already members of VO are never returned even if they match searchString.
    * @param group id of Group
    * @param searchString Text to search by
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1328,6 +1338,7 @@ export class VosManagerService {
 
   /**
    * Return list of all VOs in Perun.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1420,6 +1431,7 @@ export class VosManagerService {
    * @param group id of Group
    * @param attrNames list of attribute names List&lt;String&gt;
    * @param searchString Text to search by
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1562,6 +1574,7 @@ export class VosManagerService {
    * @param vo id of Vo
    * @param attrNames list of attribute names List&lt;String&gt;
    * @param searchString Text to search by
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1703,6 +1716,7 @@ export class VosManagerService {
    * Get list of all enriched bans for vo.
    * @param vo id of Vo
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1823,6 +1837,7 @@ export class VosManagerService {
    * Get list of all enriched bans for user.
    * @param user id of User
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1942,6 +1957,7 @@ export class VosManagerService {
   /**
    * Returns an enriched virtual organization by id.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2048,6 +2064,7 @@ export class VosManagerService {
   /**
    * Get list of all members organizations of a vo.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2151,6 +2168,7 @@ export class VosManagerService {
 
   /**
    * Return list of all EnrichedVos the caller is associated with.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2240,6 +2258,7 @@ export class VosManagerService {
 
   /**
    * Return list of all VOs the caller is associated with.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2330,6 +2349,7 @@ export class VosManagerService {
   /**
    * Get list of all parent organizations of a vo.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2438,6 +2458,7 @@ export class VosManagerService {
    * @param specificAttributes list of specified attributes which are needed in object richUser
    * @param allUserAttributes if &#x3D;&#x3D; true, get all possible user attributes and ignore list of specificAttributes (if false, get only specific attributes)
    * @param onlyDirectAdmins if &#x3D;&#x3D; true, get only direct vo administrators (if false, get both direct and indirect)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2607,6 +2628,7 @@ export class VosManagerService {
    * Get list of administrator groups of the given VO. Supported roles: VOOBSERVER, TOPGROUPCREATOR, VOADMIN
    * @param vo id of Vo
    * @param role supported role name
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2725,6 +2747,7 @@ export class VosManagerService {
    * @param vo id of Vo
    * @param role supported role name
    * @param onlyDirectAdmins get only direct administrators (if false, get both direct and indirect)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2857,6 +2880,7 @@ export class VosManagerService {
   /**
    * Get vo ban with given id.
    * @param banId id of a ban
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2961,6 +2985,7 @@ export class VosManagerService {
   /**
    * Get ban for given member, or null if he is not banned.
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3071,6 +3096,7 @@ export class VosManagerService {
   /**
    * Get list of all bans for vo with given id.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3175,6 +3201,7 @@ export class VosManagerService {
   /**
    * Returns a virtual organization by id.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3279,6 +3306,7 @@ export class VosManagerService {
   /**
    * Returns a VO by its short name.
    * @param shortName short name of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3389,6 +3417,7 @@ export class VosManagerService {
   /**
    * Returns number of vo members by their status.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3495,6 +3524,7 @@ export class VosManagerService {
   /**
    * Return list of VOs by their ids.
    * @param ids list of ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3604,6 +3634,7 @@ export class VosManagerService {
 
   /**
    * Gets count of all vos.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3695,6 +3726,7 @@ export class VosManagerService {
    * Remove member vo from vo.
    * @param vo id of Vo
    * @param memberVo id of member Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3816,6 +3848,7 @@ export class VosManagerService {
    * Removes group as a sponsor. All group members will cease to be sponsors, and their sponsored members will be set as expired if the group member was their last sponsor.
    * @param vo id of Vo
    * @param authorizedGroup Group id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3939,6 +3972,7 @@ export class VosManagerService {
    * Removes user as a sponsor. His or her sponsored members will be set as expired if the user was their last sponsor.
    * @param vo id of Vo
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4058,6 +4092,7 @@ export class VosManagerService {
    * Removes a group as a Vo admin.
    * @param vo id of Vo
    * @param authorizedGroup Group id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4181,6 +4216,7 @@ export class VosManagerService {
    * Removes a user as a Vo admin.
    * @param vo id of Vo
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4299,6 +4335,7 @@ export class VosManagerService {
   /**
    * Remove vo ban with given id.
    * @param banId id of a ban
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4403,6 +4440,7 @@ export class VosManagerService {
   /**
    * Remove vo ban for member with given id.
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4513,6 +4551,7 @@ export class VosManagerService {
   /**
    * Set ban for member on his vo. The member id is required, validityTo and description are optional. voId is ignored.
    * @param InputSetVoBan
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4621,6 +4660,7 @@ export class VosManagerService {
   /**
    * Updates a VO. Only name parameter is updated. VO to updated is determined by id parameter of passed VO object.
    * @param InputUpdateVo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4729,6 +4769,7 @@ export class VosManagerService {
   /**
    * Update existing ban (description, validation timestamp)
    * @param InputUpdateBan1
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

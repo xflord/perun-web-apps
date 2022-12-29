@@ -35,7 +35,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class DatabaseManagerService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -102,6 +102,7 @@ export class DatabaseManagerService {
 
   /**
    * Returns current database version, e.g. \&quot;3.1.55\&quot;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -191,6 +192,7 @@ export class DatabaseManagerService {
 
   /**
    * Returns current database driver info, e.g. \&quot;PostgreSQL JDBC Driver-42.2.8\&quot;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -280,6 +282,7 @@ export class DatabaseManagerService {
 
   /**
    * Returns current database info, e.g. \&quot;PostgreSQL-12.0 (Debian 12.0-2.pgdg100+1)\&quot;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -369,6 +372,7 @@ export class DatabaseManagerService {
 
   /**
    * Get time in ns \&quot;nanoseconds\&quot; of calling 1 simple update query to DB
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

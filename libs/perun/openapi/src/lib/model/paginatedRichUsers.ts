@@ -11,6 +11,9 @@
  */
 import { RichUser } from './richUser';
 
+/**
+ * represents Paginated&lt;RichUser>
+ */
 export interface PaginatedRichUsers {
   offset: number;
   pageSize: number;

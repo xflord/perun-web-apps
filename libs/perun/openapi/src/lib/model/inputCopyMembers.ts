@@ -9,12 +9,21 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Auditable } from './auditable';
+import { Group } from './group';
+import { Member } from './member';
 
 /**
- * represents external source of data for users such as an IdP or an HR database
+ * input to copyMembers
  */
-export interface ExtSource extends Auditable {
-  name?: string;
-  type?: string;
+export interface InputCopyMembers {
+  /**
+   * sourceGroup id
+   */
+  sourceGroup: number;
+  destinationGroups?: Array<Group>;
+  members?: Array<Member> | null;
+  /**
+   * whether to include attributes
+   */
+  withAttributes?: boolean | null;
 }

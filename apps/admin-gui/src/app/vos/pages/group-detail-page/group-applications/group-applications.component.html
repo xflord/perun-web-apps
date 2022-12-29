@@ -2,18 +2,10 @@
 <div>
   <perun-web-apps-refresh-button
     (refresh)="this.refresh=!this.refresh"></perun-web-apps-refresh-button>
-  <button
-    (click)="this.showAllDetails = true"
-    *ngIf="!showAllDetails"
-    class="mr-2"
-    mat-stroked-button>
+  <button (click)="this.showDetails(true)" *ngIf="!showAllDetails" class="mr-2" mat-stroked-button>
     {{'VO_DETAIL.APPLICATION.SHOW_ALL_DETAILS' | translate}}
   </button>
-  <button
-    (click)="this.showAllDetails = false"
-    *ngIf="showAllDetails"
-    class="mr-2"
-    mat-stroked-button>
+  <button (click)="this.showDetails(false)" *ngIf="showAllDetails" class="mr-2" mat-stroked-button>
     {{'VO_DETAIL.APPLICATION.SHOW_LESS_DETAILS' | translate}}
   </button>
   <mat-form-field class="w-25 mr-2">
@@ -44,12 +36,27 @@
     [placeholder]="'VO_DETAIL.APPLICATION.FILTER'"></perun-web-apps-debounce-filter>
   <perun-web-apps-date-range (datePicker)="select()" [endDate]="endDate" [startDate]="startDate">
   </perun-web-apps-date-range>
+  <span
+    [matTooltipDisabled]="!showAllDetails"
+    matTooltip="{{'VO_DETAIL.APPLICATION.COLUMNS_TOOLTIP' | translate}}"
+    matTooltipPosition="above">
+    <button
+      mat-stroked-button
+      *ngIf="columnsAuth"
+      [disabled]="showAllDetails"
+      (click)="this.setColumns()">
+      {{'VO_DETAIL.APPLICATION.SET_COLUMN_SETTINGS' | translate}}
+    </button>
+  </span>
 </div>
-<div>
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+<div *ngIf="!loading">
   <app-applications-dynamic-list
     [tableId]="showAllDetails ? detailTableId : tableId"
     [searchString]="filterValue"
-    [displayedColumns]="showAllDetails ? detailedDisplayedColumns : displayedColumns"
+    [displayedColumns]="currentColumns"
+    [fedColumns]="configuredFedColumns"
+    [fedAttrNames]="fedAttrNames"
     [states]="currentStates"
     [dateFrom]="startDate.value"
     [dateTo]="endDate.value"

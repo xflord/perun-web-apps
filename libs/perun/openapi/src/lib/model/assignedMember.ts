@@ -12,6 +12,9 @@
 import { RichMember } from './richMember';
 import { GroupResourceStatus } from './groupResourceStatus';
 
+/**
+ * represents a member of a group assigned to a resource
+ */
 export interface AssignedMember {
   richMember?: RichMember;
   status?: GroupResourceStatus;

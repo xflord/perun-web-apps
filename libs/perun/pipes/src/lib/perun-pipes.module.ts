@@ -55,6 +55,7 @@ import { AuthorsSeparatedByCommaPipe } from './authors-separated-by-comma.pipe';
 import { SelectApplicationLinkPipe } from './select-application-link.pipe';
 import { IsAuthorizedPipe } from './is-authorized.pipe';
 import { TransformMemberStatusPipe } from './transform-member-status.pipe';
+import { ApplicationColumnSelectLabelPipe } from './application-column-select-label.pipe';
 
 @NgModule({
   declarations: [
@@ -114,6 +115,7 @@ import { TransformMemberStatusPipe } from './transform-member-status.pipe';
     SelectApplicationLinkPipe,
     IsAuthorizedPipe,
     TransformMemberStatusPipe,
+    ApplicationColumnSelectLabelPipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -172,6 +174,7 @@ import { TransformMemberStatusPipe } from './transform-member-status.pipe';
     SelectApplicationLinkPipe,
     IsAuthorizedPipe,
     TransformMemberStatusPipe,
+    ApplicationColumnSelectLabelPipe,
   ],
   imports: [CommonModule],
 })

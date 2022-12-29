@@ -125,7 +125,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class AttributesManagerService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -193,6 +193,7 @@ export class AttributesManagerService {
   /**
    * Converts attribute to nonunique - unmarks unique flag from attribute definition, and deletes all values from a special table with unique constraint that ensures that all values remain unique.
    * @param attributeDefinition id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -303,6 +304,7 @@ export class AttributesManagerService {
   /**
    * Converts attribute to unique - marks its definition as unique and ensures that all its values are unique. Entityless attributes cannot be converted to unique, only attributes attached to PerunBeans or pairs of PerunBeans.
    * @param attributeDefinition id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -413,6 +415,7 @@ export class AttributesManagerService {
   /**
    * Creates AttributeDefinition.
    * @param InputCreateAttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -521,6 +524,7 @@ export class AttributesManagerService {
   /**
    * Deletes attribute definition from Perun including all values set for any entity.
    * @param attribute id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -631,6 +635,7 @@ export class AttributesManagerService {
   /**
    * Deletes attribute definitions from Perun including all values set for any entity.
    * @param attributes list of attribute ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -742,6 +747,7 @@ export class AttributesManagerService {
 
   /**
    * Returns all AttributeDefinitions.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -843,6 +849,7 @@ export class AttributesManagerService {
    * @param host id of Host
    * @param userExtSource id of UserExtSource
    * @param key key for entityless attribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1037,6 +1044,7 @@ export class AttributesManagerService {
   /**
    * Returns an AttributeDefinition by its id.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1143,6 +1151,7 @@ export class AttributesManagerService {
   /**
    * Returns an AttributeDefinition by its name.
    * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1253,6 +1262,7 @@ export class AttributesManagerService {
   /**
    * Returns all AttributeDefinitions in a namespace.
    * @param namespace name of namespace to obtain attribute definitions from
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1364,6 +1374,7 @@ export class AttributesManagerService {
    * Generates text file describing dependencies between attribute modules. The format of text file can be specified by parameter. Modules that has no dependency relations are omitted.
    * @param format
    * @param attrName Attribute name which dependencies will be found.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1490,6 +1501,7 @@ export class AttributesManagerService {
   /**
    * Generates text file describing dependencies between attribute modules. The format of text file can be specified by parameter. Modules that has no dependency relations are omitted.
    * @param format
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1600,6 +1612,7 @@ export class AttributesManagerService {
   /**
    * Gets attribute policy collections for an attribute definition with given id.
    * @param attributeId id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1710,6 +1723,7 @@ export class AttributesManagerService {
   /**
    * Gets AttributeRights for specified Attribute. Rights specify which Role can do particular actions (read / write) with Attribute. Method always return rights for following roles: VOADMIN, GROUPADMIN, FACILITYADMIN, SELF.
    * @param attributeId id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1820,6 +1834,7 @@ export class AttributesManagerService {
   /**
    * Gets attribute rules containing policy collections and critical actions for an attribute definition with given id
    * @param attributeDefinition id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1937,6 +1952,7 @@ export class AttributesManagerService {
    * @param facility id of Facility
    * @param host id of Host
    * @param userExtSource id of UserExtSource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2104,6 +2120,7 @@ export class AttributesManagerService {
    * This is an overloaded method getAttribute, specialized for entityless key and attribute name.
    * @param key key for entityless attribute
    * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2226,6 +2243,7 @@ export class AttributesManagerService {
   /**
    * Get all entityless attributes with subject equaled String key.
    * @param key key for entityless attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2332,6 +2350,7 @@ export class AttributesManagerService {
   /**
    * Returns all entityless attributes with attrName.
    * @param attrName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2443,6 +2462,7 @@ export class AttributesManagerService {
    * Get entityless attributes mapped by their keys.
    * @param attrName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
    * @param keys key for entityless attribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2566,6 +2586,7 @@ export class AttributesManagerService {
   /**
    * Returns list of Keys which fits the attributeDefinition.
    * @param attributeDefinition id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2678,6 +2699,7 @@ export class AttributesManagerService {
    * This is an overloaded method getAttribute, specialized for facility and attribute id.
    * @param facility id of Facility
    * @param attributeId id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2806,6 +2828,7 @@ export class AttributesManagerService {
    * This is an overloaded method getAttribute, specialized for facility and attribute name.
    * @param facility id of Facility
    * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2932,6 +2955,7 @@ export class AttributesManagerService {
   /**
    * Returns all non-empty Facility attributes for selected Facility.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3043,6 +3067,7 @@ export class AttributesManagerService {
    * Returns all specified Facility attributes for selected Facility.
    * @param facility id of Facility
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3174,6 +3199,7 @@ export class AttributesManagerService {
    * @param resource id of Resource
    * @param user id of User
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3329,6 +3355,7 @@ export class AttributesManagerService {
    * Get all non-empty attributes associated with the user on the facility.
    * @param facility id of Facility
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3453,6 +3480,7 @@ export class AttributesManagerService {
    * This is an overloaded method getAttribute, specialized for group and attribute id.
    * @param group id of Group
    * @param attributeId id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3577,6 +3605,7 @@ export class AttributesManagerService {
    * This is an overloaded method getAttribute, specialized for group and attribute name.
    * @param group id of Group
    * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3699,6 +3728,7 @@ export class AttributesManagerService {
   /**
    * Get all non-empty attributes associated with the group.
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3806,6 +3836,7 @@ export class AttributesManagerService {
    * Get all attributes associated with the group which have name in list attrNames (empty too). Virtual attribute too.
    * @param group id of Group
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3933,6 +3964,7 @@ export class AttributesManagerService {
    * @param group id of Group
    * @param resource id of Resource
    * @param attributeId id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4074,6 +4106,7 @@ export class AttributesManagerService {
    * @param group id of Group
    * @param resource id of Resource
    * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4213,6 +4246,7 @@ export class AttributesManagerService {
    * Returns all non-empty Group-Resource attributes for selected Group and Resource.
    * @param group id of Group
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4337,6 +4371,7 @@ export class AttributesManagerService {
    * This is an overloaded method getAttribute, specialized for host and attribute id.
    * @param host id of Host
    * @param attributeId id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4461,6 +4496,7 @@ export class AttributesManagerService {
    * This is an overloaded method getAttribute, specialized for host and attribute name.
    * @param host id of Host
    * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4583,6 +4619,7 @@ export class AttributesManagerService {
   /**
    * Get all non-empty attributes associated with the host.
    * @param host id of Host
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4690,6 +4727,7 @@ export class AttributesManagerService {
    * Get all non-empty attributes associated with the host which have name in list attrNames (empty too). Empty list attrNames will return no attributes.
    * @param host id of Host
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4812,8 +4850,99 @@ export class AttributesManagerService {
   }
 
   /**
+   * Returns list of definitions of IdP attributes that are filled to fedInfo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getIdpAttributeDefinitions(
+    useNon?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<Array<AttributeDefinition>>;
+  public getIdpAttributeDefinitions(
+    useNon?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<Array<AttributeDefinition>>>;
+  public getIdpAttributeDefinitions(
+    useNon?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<Array<AttributeDefinition>>>;
+  public getIdpAttributeDefinitions(
+    useNon: boolean = false,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let requestUrl = `${this.configuration.basePath}/json/attributesManager/getIdpAttributeDefinitions`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+    }
+    return this.httpClient.get<Array<AttributeDefinition>>(requestUrl, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
+  }
+
+  /**
    * Get all users logins as Attributes. Meaning it returns all non-empty User attributes with URN starting with: \&quot;urn:perun:user:attribute-def:def:login-namespace:\&quot;.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4919,6 +5048,7 @@ export class AttributesManagerService {
    * Get all non-empty attributes associated with the member and if workWithUserAttributes is true, get all non-empty attributes associated with user, who is this member.
    * @param member id of Member
    * @param workWithUserAttributes flag to work with user attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5047,6 +5177,7 @@ export class AttributesManagerService {
    * @param member id of Member
    * @param attrNames list of attribute names List&lt;String&gt;
    * @param workWithUserAttributes flag to work with user attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5193,6 +5324,7 @@ export class AttributesManagerService {
    * This is an overloaded method getAttribute, specialized for member and attribute id.
    * @param member id of Member
    * @param attributeId id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5321,6 +5453,7 @@ export class AttributesManagerService {
    * This is an overloaded method getAttribute, specialized for member and attribute name.
    * @param member id of Member
    * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5447,6 +5580,7 @@ export class AttributesManagerService {
   /**
    * Get all non-empty attributes associated with the member.
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5558,6 +5692,7 @@ export class AttributesManagerService {
    * Get all attributes associated with the member which have name in list attrNames (empty too). Virtual attribute too.
    * @param member id of Member
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5689,6 +5824,7 @@ export class AttributesManagerService {
    * @param group id of Group
    * @param attrNames list of attribute names List&lt;String&gt;
    * @param workWithUserAttributes flag to work with user attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5848,6 +5984,7 @@ export class AttributesManagerService {
    * @param member id of Member
    * @param group id of Group
    * @param attributeId id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5989,6 +6126,7 @@ export class AttributesManagerService {
    * @param member id of Member
    * @param group id of Group
    * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6128,6 +6266,7 @@ export class AttributesManagerService {
    * Get all non-empty attributes associated with the member in the group.
    * @param member id of Member
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6252,6 +6391,7 @@ export class AttributesManagerService {
    * @param member id of Member
    * @param group id of Group
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6394,6 +6534,7 @@ export class AttributesManagerService {
    * @param member id of Member
    * @param resource id of Resource
    * @param workWithUserAttributes flag to work with user attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6539,6 +6680,7 @@ export class AttributesManagerService {
    * @param resource id of Resource
    * @param attrNames list of attribute names List&lt;String&gt;
    * @param workWithUserAttributes flag to work with user attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6702,6 +6844,7 @@ export class AttributesManagerService {
    * @param member id of Member
    * @param resource id of Resource
    * @param attributeId id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6847,6 +6990,7 @@ export class AttributesManagerService {
    * @param member id of Member
    * @param resource id of Resource
    * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6990,6 +7134,7 @@ export class AttributesManagerService {
    * Get all non-empty attributes associated with the member on the resource.
    * @param member id of Member
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7116,6 +7261,7 @@ export class AttributesManagerService {
   /**
    * Returns required attributes definition for a Service.
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7226,6 +7372,7 @@ export class AttributesManagerService {
   /**
    * Returns required facility attributes.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7337,6 +7484,7 @@ export class AttributesManagerService {
    * Returns facility attributes required by specified service.
    * @param service id of Service
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7464,6 +7612,7 @@ export class AttributesManagerService {
    * Returns facility attributes required by specified list of services.
    * @param services list of Service ids List&lt;Integer&gt;
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7594,6 +7743,7 @@ export class AttributesManagerService {
    * @param service id of Service
    * @param resource id of Resource
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7733,6 +7883,7 @@ export class AttributesManagerService {
    * Returns required host attributes.
    * @param service id of Service
    * @param host id of Host
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7856,6 +8007,7 @@ export class AttributesManagerService {
    * Returns required member attributes.
    * @param member id of Member
    * @param workWithUserAttributes flag to work with user attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7979,6 +8131,7 @@ export class AttributesManagerService {
    * @param member id of Member
    * @param group id of Group
    * @param workWithUserAttributes flag to work with user attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8116,6 +8269,7 @@ export class AttributesManagerService {
    * @param group id of Group
    * @param member id of Member
    * @param workWithUserAttributes flag to work with user attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8284,6 +8438,7 @@ export class AttributesManagerService {
    * @param group id of Group
    * @param member id of Member
    * @param workWithUserAttributes flag to work with user attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8435,6 +8590,7 @@ export class AttributesManagerService {
    * @param member id of Member
    * @param resource id of Resource
    * @param workWithUserAttributes flag to work with user attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8575,6 +8731,7 @@ export class AttributesManagerService {
    * @param resource id of Resource
    * @param member id of Member
    * @param workWithUserAttributes flag to work with user attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8728,6 +8885,7 @@ export class AttributesManagerService {
   /**
    * Returns required resource attributes.
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8839,6 +8997,7 @@ export class AttributesManagerService {
    * Returns resource attributes required by specified service.
    * @param service id of Service
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8966,6 +9125,7 @@ export class AttributesManagerService {
    * Returns resource attributes required by specified list of services.
    * @param services list of Service ids List&lt;Integer&gt;
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9094,6 +9254,7 @@ export class AttributesManagerService {
   /**
    * Returns required user attributes.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9201,6 +9362,7 @@ export class AttributesManagerService {
    * Returns required user-facility attributes.
    * @param user id of User
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9324,6 +9486,7 @@ export class AttributesManagerService {
    * Returns required vo attributes.
    * @param service id of Service
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9448,6 +9611,7 @@ export class AttributesManagerService {
    * This is an overloaded method getAttribute, specialized for resource and attribute id.
    * @param resource id of Resource
    * @param attributeId id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9576,6 +9740,7 @@ export class AttributesManagerService {
    * This is an overloaded method getAttribute, specialized for resource and attribute name.
    * @param resource id of Resource
    * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9702,6 +9867,7 @@ export class AttributesManagerService {
   /**
    * Get all non-empty attributes associated with the resource.
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9813,6 +9979,7 @@ export class AttributesManagerService {
    * Get all attributes associated with the resource which have name in list attrNames (empty too). Virtual attributes too.
    * @param resource id of Resource
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9943,6 +10110,7 @@ export class AttributesManagerService {
    * @param resource id of Resource
    * @param group id of Group
    * @param workWithGroupAttributes flag to work with group attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10084,6 +10252,7 @@ export class AttributesManagerService {
    * @param group id of Group
    * @param attrNames list of attribute names List&lt;String&gt;
    * @param workWithGroupAttributes flag to work with group attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10241,6 +10410,7 @@ export class AttributesManagerService {
    * Get all non-empty attributes associated with the group on resource.
    * @param resource id of Resource
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10366,6 +10536,7 @@ export class AttributesManagerService {
    * @param group id of Group
    * @param member id of Member
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10524,6 +10695,7 @@ export class AttributesManagerService {
    * This is an overloaded method getAttribute, specialized for user and attribute id.
    * @param user id of User
    * @param attributeId id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10648,6 +10820,7 @@ export class AttributesManagerService {
    * This is an overloaded method getAttribute, specialized for user and attribute name.
    * @param user id of User
    * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10770,6 +10943,7 @@ export class AttributesManagerService {
   /**
    * Get all non-empty attributes associated with the user.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10877,6 +11051,7 @@ export class AttributesManagerService {
    * Get all attributes associated with the user which have name in list attrNames (empty too).
    * @param user id of User
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -11003,6 +11178,7 @@ export class AttributesManagerService {
    * This is an overloaded method getAttribute, specialized for UserExtSource and attribute id.
    * @param userExtSource id of UserExtSource
    * @param attributeId id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -11131,6 +11307,7 @@ export class AttributesManagerService {
    * This is an overloaded method getAttribute, specialized for UserExtSource and attribute name.
    * @param userExtSource id of UserExtSource
    * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -11257,6 +11434,7 @@ export class AttributesManagerService {
   /**
    * Get all non-empty attributes associated with the UserExtSource.
    * @param userExtSource id of UserExtSource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -11368,6 +11546,7 @@ export class AttributesManagerService {
    * Get all attributes associated with the userExtSource which have name in list attrNames (empty too).
    * @param userExtSource id of UserExtSource
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -11499,6 +11678,7 @@ export class AttributesManagerService {
    * @param user id of User
    * @param facility id of Facility
    * @param attributeId id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -11640,6 +11820,7 @@ export class AttributesManagerService {
    * @param user id of User
    * @param facility id of Facility
    * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -11779,6 +11960,7 @@ export class AttributesManagerService {
    * Returns all non-empty User-Facility attributes for selected User and Facility.
    * @param user id of User
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -11903,6 +12085,7 @@ export class AttributesManagerService {
    * This is an overloaded method getAttribute, specialized for virtual organization and attribute id.
    * @param vo id of Vo
    * @param attributeId id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -12027,6 +12210,7 @@ export class AttributesManagerService {
    * This is an overloaded method getAttribute, specialized for virtual organization and attribute name.
    * @param vo id of Vo
    * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -12149,6 +12333,7 @@ export class AttributesManagerService {
   /**
    * Get all attributes associated with the vo.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -12254,6 +12439,7 @@ export class AttributesManagerService {
    * Get all attributes associated with the vo which have name in list attrNames (empty too).
    * @param vo id of Vo
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -12383,6 +12569,7 @@ export class AttributesManagerService {
    * @param user id of User
    * @param member id of Member
    * @param attributes list of attribute ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -12571,6 +12758,7 @@ export class AttributesManagerService {
    * @param user id of User
    * @param member id of Member
    * @param attributes list of attribute ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -12744,6 +12932,7 @@ export class AttributesManagerService {
    * Remove entityless attribute
    * @param key key of an entityless attribute
    * @param attribute id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -12867,6 +13056,7 @@ export class AttributesManagerService {
    * Remove facility attribute
    * @param facility id of Facility
    * @param attribute id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -12994,6 +13184,7 @@ export class AttributesManagerService {
    * Remove attributes of namespace facility
    * @param facility id of Facility
    * @param attributes list of attribute ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -13123,6 +13314,7 @@ export class AttributesManagerService {
    * Remove group attribute
    * @param group id of Group
    * @param attribute id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -13246,6 +13438,7 @@ export class AttributesManagerService {
    * Remove attributes of namespace group
    * @param group id of Group
    * @param attributes list of attribute ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -13372,6 +13565,7 @@ export class AttributesManagerService {
    * @param group id of Group
    * @param resource id of Resource
    * @param attribute id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -13512,6 +13706,7 @@ export class AttributesManagerService {
    * @param group id of Group
    * @param resource id of Resource
    * @param attributes list of attribute ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -13655,6 +13850,7 @@ export class AttributesManagerService {
    * @param resource id of Resource
    * @param attributes list of attribute ids List&lt;Integer&gt;
    * @param workWithGroupAttributes flag to work with group attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -13812,6 +14008,7 @@ export class AttributesManagerService {
    * Remove host attribute
    * @param host id of Host
    * @param attribute id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -13935,6 +14132,7 @@ export class AttributesManagerService {
    * Remove attributes of namespace host
    * @param host id of Host
    * @param attributes list of attribute ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -14060,6 +14258,7 @@ export class AttributesManagerService {
    * Remove member attribute
    * @param member id of Member
    * @param attribute id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -14187,6 +14386,7 @@ export class AttributesManagerService {
    * Remove attributes of namespace member
    * @param member id of Member
    * @param attributes list of attribute ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -14317,6 +14517,7 @@ export class AttributesManagerService {
    * @param member id of Member
    * @param attributes list of attribute ids List&lt;Integer&gt;
    * @param workWithUserAttributes flag to work with user attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -14463,6 +14664,7 @@ export class AttributesManagerService {
    * @param member id of Member
    * @param group id of Group
    * @param attribute id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -14603,6 +14805,7 @@ export class AttributesManagerService {
    * @param member id of Member
    * @param group id of Group
    * @param attributes list of attribute ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -14746,6 +14949,7 @@ export class AttributesManagerService {
    * @param group id of Group
    * @param attributes list of attribute ids List&lt;Integer&gt;
    * @param workWithUserAttributes flag to work with user attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -14904,6 +15108,7 @@ export class AttributesManagerService {
    * @param member id of Member
    * @param resource id of Resource
    * @param attribute id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -15048,6 +15253,7 @@ export class AttributesManagerService {
    * @param member id of Member
    * @param resource id of Resource
    * @param attributes list of attribute ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -15193,6 +15399,7 @@ export class AttributesManagerService {
    * Remove resource attribute
    * @param resource id of Resource
    * @param attribute id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -15320,6 +15527,7 @@ export class AttributesManagerService {
    * Remove attributes of namespace resource
    * @param resource id of Resource
    * @param attributes list of attribute ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -15449,6 +15657,7 @@ export class AttributesManagerService {
    * Remove attributes of namespace userExtSource
    * @param userExtSource id of UserExtSource
    * @param attributes list of attribute ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -15578,6 +15787,7 @@ export class AttributesManagerService {
    * Remove user attribute
    * @param user id of User
    * @param attribute id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -15701,6 +15911,7 @@ export class AttributesManagerService {
    * Remove attributes of namespace user
    * @param user id of User
    * @param attributes list of attribute ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -15826,6 +16037,7 @@ export class AttributesManagerService {
    * Remove userExtSource attribute
    * @param userExtSource id of UserExtSource
    * @param attribute id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -15954,6 +16166,7 @@ export class AttributesManagerService {
    * @param user id of User
    * @param facility id of Facility
    * @param attribute id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -16094,6 +16307,7 @@ export class AttributesManagerService {
    * @param user id of User
    * @param facility id of Facility
    * @param attributes list of attribute ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -16235,6 +16449,7 @@ export class AttributesManagerService {
    * Remove vo attribute
    * @param vo id of Vo
    * @param attribute id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -16358,6 +16573,7 @@ export class AttributesManagerService {
    * Remove attributes of namespace vo
    * @param vo id of Vo
    * @param attributes list of attribute ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -16484,6 +16700,7 @@ export class AttributesManagerService {
    * @param attributeDefinition id of AttributeDefinition
    * @param action
    * @param critical if action should be marked as critical
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -16626,6 +16843,7 @@ export class AttributesManagerService {
   /**
    * Deletes old attribute policy collections and sets attribute policy collections for an attribute definition provided in given policy collections.
    * @param InputAttributePolicyCollections
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -16734,6 +16952,7 @@ export class AttributesManagerService {
   /**
    * Sets all AttributeRights in the list given as a parameter. Allowed Roles to set rights for are: VOADMIN, GROUPADMIN, FACILITYADMIN, SELF.
    * @param InputAttributeRights
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -16842,6 +17061,7 @@ export class AttributesManagerService {
   /**
    * Sets entityless Attribute.
    * @param InputEntitylessAttribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -16950,6 +17170,7 @@ export class AttributesManagerService {
   /**
    * Sets Attribute for Facility.
    * @param InputSetFacilityAttribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -17058,6 +17279,7 @@ export class AttributesManagerService {
   /**
    * Store the attributes associated with the facility. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
    * @param InputSetFacilityAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -17166,6 +17388,7 @@ export class AttributesManagerService {
   /**
    * Store the member, user, member-group, member-resource and user-facility attributes. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). Group and group-resource attributes are not supported in this context.
    * @param InputSetFacilityResourceGroupUserMemberAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -17281,6 +17504,7 @@ export class AttributesManagerService {
   /**
    * Store the member, user, member-resource and user-facility attributes. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
    * @param InputSetFacilityResourceUserMemberAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -17392,6 +17616,7 @@ export class AttributesManagerService {
   /**
    * Store the attributes associated with the facility and user combination. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
    * @param InputSetFacilityUserAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -17500,6 +17725,7 @@ export class AttributesManagerService {
   /**
    * Sets Attribute for Group.
    * @param InputSetGroupAttribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -17608,6 +17834,7 @@ export class AttributesManagerService {
   /**
    * Store the attributes associated with the group. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
    * @param InputSetGroupAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -17716,6 +17943,7 @@ export class AttributesManagerService {
   /**
    * Sets Attribute for Group and Resource.
    * @param InputSetGroupResourceAttribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -17824,6 +18052,7 @@ export class AttributesManagerService {
   /**
    * Sets Attributes for Group and Resource.
    * @param InputSetGroupResourceAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -17932,6 +18161,7 @@ export class AttributesManagerService {
   /**
    * Sets Attribute for Host.
    * @param InputSetHostAttribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -18040,6 +18270,7 @@ export class AttributesManagerService {
   /**
    * Store the attributes associated with the host. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
    * @param InputSetHostAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -18148,6 +18379,7 @@ export class AttributesManagerService {
   /**
    * Sets Attribute for Member.
    * @param InputSetMemberAttribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -18256,6 +18488,7 @@ export class AttributesManagerService {
   /**
    * Store the attributes associated with the member. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
    * @param InputSetMemberAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -18364,6 +18597,7 @@ export class AttributesManagerService {
   /**
    * Sets Attribute for Member and Group.
    * @param InputSetMemberGroupAttribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -18472,6 +18706,7 @@ export class AttributesManagerService {
   /**
    * Store the attributes associated with the member and group combination. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
    * @param InputSetMemberGroupAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -18580,6 +18815,7 @@ export class AttributesManagerService {
   /**
    * Store the attributes associated with the member and group combination. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). If workWithUserAttributes is true, the method stores also the attributes associated with user and member.
    * @param InputSetMemberGroupWithUserAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -18691,6 +18927,7 @@ export class AttributesManagerService {
   /**
    * Store the attributes associated with the resource and member combination. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification). If workWithUserAttributes is true, the method stores also the attributes associated with user, user-facility and member.
    * @param InputSetMemberResourceAndUserAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -18802,6 +19039,7 @@ export class AttributesManagerService {
   /**
    * Sets Attribute for Member and Resource.
    * @param InputSetMemberResourceAttribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -18910,6 +19148,7 @@ export class AttributesManagerService {
   /**
    * Store the attributes associated with the resource and member combination. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
    * @param InputSetMemberResourceAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -19021,6 +19260,7 @@ export class AttributesManagerService {
   /**
    * Store the attributes associated with member and user (which we get from this member) if workWithUserAttributes is true.
    * @param InputSetMemberWithUserAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -19132,6 +19372,7 @@ export class AttributesManagerService {
   /**
    * Sets Attribute for Resource.
    * @param InputSetResourceAttribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -19240,6 +19481,7 @@ export class AttributesManagerService {
   /**
    * Store the attributes associated with the resource.
    * @param InputSetResourceAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -19348,6 +19590,7 @@ export class AttributesManagerService {
   /**
    * Store the attributes associated with the group on resource.
    * @param InputSetResourceGroupAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -19456,6 +19699,7 @@ export class AttributesManagerService {
   /**
    * Store the attributes associated with group and resource, if workWithUserAttributes is true then also from group itself. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
    * @param InputSetResourceGroupWithGroupAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -19567,6 +19811,7 @@ export class AttributesManagerService {
   /**
    * Sets Attribute for User.
    * @param InputSetUserAttribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -19675,6 +19920,7 @@ export class AttributesManagerService {
   /**
    * Store the attributes associated with the user. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
    * @param InputSetUserAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -19783,6 +20029,7 @@ export class AttributesManagerService {
   /**
    * Sets Attribute for UserExtSource.
    * @param InputSetUserExtSourceAttribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -19891,6 +20138,7 @@ export class AttributesManagerService {
   /**
    * Store the attributes associated with the UserExtSource. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
    * @param InputSetUserExtSourceAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -19999,6 +20247,7 @@ export class AttributesManagerService {
   /**
    * Sets Attribute for User and Facility.
    * @param InputSetUserFacilityAttribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -20107,6 +20356,7 @@ export class AttributesManagerService {
   /**
    * Sets Attributes for User and Facility.
    * @param InputSetUserFacilityAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -20215,6 +20465,7 @@ export class AttributesManagerService {
   /**
    * Sets Attribute for Vo.
    * @param InputSetVoAttribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -20323,6 +20574,7 @@ export class AttributesManagerService {
   /**
    * Store the attributes associated with the vo. If an attribute is core attribute then the attribute isn\&#39;t stored (It\&#39;s skipped without any notification).
    * @param InputSetVoAttributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -20431,6 +20683,7 @@ export class AttributesManagerService {
   /**
    * Updates AttributeDefinition in Perun based on provided object. Update is done on AttributeDefinition selected by its &lt;code&gt;id&lt;/code&gt;.
    * @param InputAttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

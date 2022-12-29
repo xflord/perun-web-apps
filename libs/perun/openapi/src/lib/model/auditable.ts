@@ -11,6 +11,9 @@
  */
 import { PerunBean } from './perunBean';
 
+/**
+ * represents audit information
+ */
 export interface Auditable extends PerunBean {
   createdAt?: string | null;
   createdBy?: string | null;
