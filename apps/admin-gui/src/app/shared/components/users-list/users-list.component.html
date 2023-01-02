@@ -99,7 +99,7 @@
       <tr
         *matRowDef="let user; columns: displayedColumns;"
         [class.cursor-pointer]="!disableRouting"
-        [perunWebAppsForceRouterLink]="disableRouting ? null : (routeToAdmin ? ['/admin/users', user.id] : ['/myProfile/service-identities', user.id])"
+        [routerLink]="disableRouting ? null : (routeToAdmin ? ['/admin/users', user.id] : ['/myProfile/service-identities', user.id])"
         [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : (routeToAdmin ? ['/admin/users', user.id] : ['/myProfile/service-identities', user.id])"
         class="dark-hover-list-item"
         mat-row></tr>

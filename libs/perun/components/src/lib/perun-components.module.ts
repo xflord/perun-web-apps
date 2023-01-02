@@ -51,8 +51,6 @@ import { MatTreeModule } from '@angular/material/tree';
 import { ServicesStatusListComponent } from './services-status-list/services-status-list.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
-import { ForceRouterLinkDirective } from '@perun-web-apps/perun/directives';
-import { RedirectPageComponent } from './redirect-page/redirect-page.component';
 import { VoSearchSelectComponent } from './vo-search-select/vo-search-select.component';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
@@ -208,8 +206,6 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     PasswordResetComponent,
     GroupsTreeComponent,
     ServicesStatusListComponent,
-    ForceRouterLinkDirective,
-    RedirectPageComponent,
     VoSearchSelectComponent,
     MembersListComponent,
     TaskResultsListComponent,
@@ -290,8 +286,6 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     PasswordResetComponent,
     GroupsTreeComponent,
     ServicesStatusListComponent,
-    ForceRouterLinkDirective,
-    RedirectPageComponent,
     VoSearchSelectComponent,
     MembersListComponent,
     TaskResultsListComponent,

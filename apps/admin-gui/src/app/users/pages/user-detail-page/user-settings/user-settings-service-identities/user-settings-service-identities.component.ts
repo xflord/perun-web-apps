@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { User, UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,13 +8,14 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ConnectIdentityDialogComponent } from '../../../../../shared/components/dialogs/connect-identity-dialog/connect-identity-dialog.component';
 import { DisconnectIdentityDialogComponent } from '../../../../../shared/components/dialogs/disconnect-identity-dialog/disconnect-identity-dialog.component';
 import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-settings-service-identities',
   templateUrl: './user-settings-service-identities.component.html',
   styleUrls: ['./user-settings-service-identities.component.scss'],
 })
-export class UserSettingsServiceIdentitiesComponent implements OnInit {
+export class UserSettingsServiceIdentitiesComponent implements OnInit, OnDestroy {
   loading = false;
   selection = new SelectionModel<User>(false, []);
   identities: User[] = [];
@@ -26,6 +27,7 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
   routeToAdminSection = true;
   targetTitle = 'SERVICE';
   targetDescription = 'SERVICE';
+  subscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,10 +38,14 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit {
     private store: StoreService
   ) {}
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   ngOnInit(): void {
     this.loading = true;
 
-    this.route.parent.params.subscribe((params) => {
+    this.subscription = this.route.parent.params.subscribe((params) => {
       this.userId = Number(params['userId']);
       if (!this.userId) {
         this.targetTitle = 'SERVICE';

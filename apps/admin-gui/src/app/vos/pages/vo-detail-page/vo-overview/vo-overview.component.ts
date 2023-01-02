@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { MenuItem } from '@perun-web-apps/perun/models';
 import { SideMenuService } from '../../../../core/services/common/side-menu.service';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { Vo, VosManagerService } from '@perun-web-apps/perun/openapi';
   templateUrl: './vo-overview.component.html',
   styleUrls: ['./vo-overview.component.scss'],
 })
-export class VoOverviewComponent implements OnInit {
+export class VoOverviewComponent implements OnInit, DoCheck {
   // @HostBinding('class.router-component') true;
 
   vo: Vo;
@@ -31,6 +31,14 @@ export class VoOverviewComponent implements OnInit {
     private routePolicyService: RoutePolicyService
   ) {}
 
+  ngDoCheck(): void {
+    const currentVoId = this.vo.id;
+    this.vo = this.entityStorageService.getEntity();
+    if (currentVoId !== this.vo.id) {
+      this.initNavItems();
+    }
+  }
+
   ngOnInit(): void {
     this.loading = true;
     this.vo = this.entityStorageService.getEntity();
@@ -39,6 +47,8 @@ export class VoOverviewComponent implements OnInit {
   }
 
   private initNavItems(): void {
+    this.navItems = [];
+
     // Members
     if (this.routePolicyService.canNavigate('organizations-members', this.vo)) {
       this.navItems.push({

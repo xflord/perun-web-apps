@@ -38,6 +38,9 @@ export class UserAccountsComponent implements OnInit {
       this.usersService.getVosWhereUserIsMember(this.userId).subscribe(
         (vos) => {
           this.vos = vos;
+          if (this.vos.length) {
+            this.loadMember(this.vos[0]);
+          }
           this.initLoading = false;
         },
         () => (this.initLoading = false)

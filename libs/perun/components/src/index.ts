@@ -9,7 +9,6 @@ export * from './lib/resources-list/resources-list.component';
 export * from './lib/notification/notification.component';
 export * from './lib/user-ext-sources-list/user-ext-sources-list.component';
 export * from './lib/password-reset/password-reset.component';
-export * from './lib/redirect-page/redirect-page.component';
 export * from './lib/groups-list/groups-list.component';
 export * from './lib/groups-tree/groups-tree.component';
 export * from './lib/expiration-select/expiration-select.component';
