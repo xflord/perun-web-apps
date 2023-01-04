@@ -52,12 +52,10 @@ export class PerunFooterComponent implements OnInit {
     this.footerColumns = this.storeService.getProperty('footer').columns;
 
     this.guiVersion = require('../../../../../../package.json').version as string;
-    if (this.authService.isLoggedIn() || this.initAuthService.isServiceAccess()) {
-      this.utilsService.getPerunStatus().subscribe((val) => {
-        const versionString = val[0];
-        this.backendVersion = versionString.substring(versionString.indexOf(':') + 2);
-      });
-    }
+
+    this.utilsService.getPerunRPCVersion(true).subscribe((val) => {
+      this.backendVersion = val.match('\\bVersion:\\s*([^,\\s]+)')[1];
+    });
 
     this.footerColumns = this.storeService.getProperty('footer').columns;
     for (const col of this.footerColumns) {
