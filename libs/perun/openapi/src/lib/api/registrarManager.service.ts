@@ -83,7 +83,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class RegistrarManagerService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -151,6 +151,7 @@ export class RegistrarManagerService {
   /**
    * Add new mail notification.
    * @param InputAddApplicationMailForGroup
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -259,6 +260,7 @@ export class RegistrarManagerService {
   /**
    * Add new mail notification.
    * @param InputAddApplicationMailForVo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -367,6 +369,7 @@ export class RegistrarManagerService {
   /**
    * Adds groups to a list of groups which can be registered into during vo registration.
    * @param groups list of Group ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -480,6 +483,7 @@ export class RegistrarManagerService {
    * Manually approves an application.
    * Expected to be called as a result of direct VO administrator action in the web UI.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -585,6 +589,7 @@ export class RegistrarManagerService {
 
   /**
    * Check for similar users by name and email in session (authz) information
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -674,6 +679,7 @@ export class RegistrarManagerService {
 
   /**
    * Check for similar users by name and email in session (authz) information
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -765,6 +771,7 @@ export class RegistrarManagerService {
    * Join user identities by access tokens.
    * Join user identities by access tokens.
    * @param InputConsolidate
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -873,6 +880,7 @@ export class RegistrarManagerService {
   /**
    * Joins current user identity with the one previously provided and referenced by the token.
    * @param token token to be used for joining identities
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -980,6 +988,7 @@ export class RegistrarManagerService {
    * Copy all form items from selected Group into another.
    * @param fromGroup source group
    * @param toGroup destination group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1096,6 +1105,7 @@ export class RegistrarManagerService {
    * Copy all form items from selected Group into VO.
    * @param fromGroup source group
    * @param toVo destination VO
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1208,6 +1218,7 @@ export class RegistrarManagerService {
    * Copy all form items from selected VO into Group.
    * @param fromVo source VO
    * @param toGroup destination group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1324,6 +1335,7 @@ export class RegistrarManagerService {
    * Copy all form items from selected VO into another.
    * @param fromVo source VO
    * @param toVo destination VO
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1436,6 +1448,7 @@ export class RegistrarManagerService {
    * Copy all e-mail notifications from selected Group into another.
    * @param fromGroup source group
    * @param toGroup destination group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1552,6 +1565,7 @@ export class RegistrarManagerService {
    * Copy all e-mail notifications from selected Group into VO.
    * @param fromGroup source group
    * @param toVo destination VO
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1664,6 +1678,7 @@ export class RegistrarManagerService {
    * Copy all e-mail notifications from selected VO into Group.
    * @param fromVo source VO
    * @param toGroup destination group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1780,6 +1795,7 @@ export class RegistrarManagerService {
    * Copy all e-mail notifications from selected VO into another.
    * @param fromVo source VO
    * @param toVo destination VO
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1891,6 +1907,7 @@ export class RegistrarManagerService {
   /**
    * Create application form for a group.
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1997,6 +2014,7 @@ export class RegistrarManagerService {
   /**
    * Create application form for a VO.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2103,6 +2121,7 @@ export class RegistrarManagerService {
   /**
    * Deletes an application.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2210,6 +2229,7 @@ export class RegistrarManagerService {
    * Deletes an e-mail notification from DB based on id property.
    * @param group id of Group
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2329,6 +2349,7 @@ export class RegistrarManagerService {
    * Deletes an e-mail notification from DB based on id property.
    * @param vo id of Vo
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2447,6 +2468,7 @@ export class RegistrarManagerService {
   /**
    * Deletes groups from a list of groups which can be registered into during vo registration.
    * @param groups list of Group ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2559,6 +2581,7 @@ export class RegistrarManagerService {
   /**
    * Returns application object by its id.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2665,6 +2688,7 @@ export class RegistrarManagerService {
   /**
    * Returns data submitted by user in given application (by id).
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2771,6 +2795,7 @@ export class RegistrarManagerService {
   /**
    * Returns all mail notifications related to specific app form.
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2877,6 +2902,7 @@ export class RegistrarManagerService {
   /**
    * Returns all mail notifications related to specific app form.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2986,6 +3012,7 @@ export class RegistrarManagerService {
    * @param state list of states: NEW, VERIFIED, APPROVED, REJECTED
    * @param dateFrom return with the same date or applications newer than this date
    * @param dateTo return applications with the same date or older than this date
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3128,6 +3155,7 @@ export class RegistrarManagerService {
    * Gets all aplications for a given Member.
    * @param member id of Member
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3248,6 +3276,7 @@ export class RegistrarManagerService {
    * @param state list of states: NEW, VERIFIED, APPROVED, REJECTED
    * @param dateFrom return applications with the same date or newer than this date
    * @param dateTo return applications with the same date or older than this date
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3389,6 +3418,7 @@ export class RegistrarManagerService {
   /**
    * Get page of applications from the given vo, based on the query attributes.
    * @param InputGetPaginatedApplications
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3501,6 +3531,7 @@ export class RegistrarManagerService {
   /**
    * Get time-limited token proving user identity in external source (for now 3 minutes).
    * It can be used to join user identity with another by calling consolidateIdentityUsingToken() method and passing the token. Please note, that different authz (identity) must be used to perform both calls.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3591,6 +3622,7 @@ export class RegistrarManagerService {
   /**
    * Gets all items in Group application form.
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3698,6 +3730,7 @@ export class RegistrarManagerService {
    * Gets items of specified type in Group application form, for initital registration or extension of account.
    * @param group id of Group
    * @param type application type: INITIAL, EXTENSION or EMBEDDED
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3811,6 +3844,7 @@ export class RegistrarManagerService {
   /**
    * Gets all items in VO application form.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3918,6 +3952,7 @@ export class RegistrarManagerService {
    * Gets items of specified type in VO application form, for initital registration or extension of account.
    * @param vo id of Vo
    * @param type application type: INITIAL or EXTENSION
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4032,6 +4067,7 @@ export class RegistrarManagerService {
    * Gets an application form for a given Group.
    * There is exactly one form for membership per Group, one form is used for both initial registration and annual account expansion, just the form items are marked whether the should be present in one, the other, or both types of application.
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4138,6 +4174,7 @@ export class RegistrarManagerService {
   /**
    * Returns all groups which can be registered into during vo registration.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4245,6 +4282,7 @@ export class RegistrarManagerService {
    * Gets an application form for a given VO.
    * There is exactly one form for membership per VO, one form is used for both initial registration and annual account expansion, just the form items are marked whether the should be present in one, the other, or both types of application.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4353,6 +4391,7 @@ export class RegistrarManagerService {
    * Expected to be called as a result of direct VO administrator action in the web UI.
    * @param id numeric id
    * @param reason description of reason
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4473,6 +4512,7 @@ export class RegistrarManagerService {
    * @param language preferred language to use
    * @param voId id of VO to send invitation into
    * @param name name of person used in invitation email (optional)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4614,6 +4654,7 @@ export class RegistrarManagerService {
    * @param voId id of VO to send invitation into
    * @param groupId id of Group to send invitation into
    * @param name name of person used in invitation email (optional)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4763,6 +4804,7 @@ export class RegistrarManagerService {
    * @param userId id of user to send invitation to
    * @param voId id of VO to send invitation into
    * @param groupId id of Group to send invitation into
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4886,6 +4928,7 @@ export class RegistrarManagerService {
    * Sends invitation email to user which is not member of VO
    * @param userId id of user to send invitation to
    * @param voId id of VO to send invitation into
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4997,6 +5040,7 @@ export class RegistrarManagerService {
   /**
    * Send invitations with link to VO / Group application form from provided csv data If VO or Group have non-empty attribute urn:perun:[vo/group]:attribute-def:def:applicationURL content is used as link to application form. Otherwise link is automatically generated based on required AUTHZ in template and registrar url set in /etc/perun/perun-registrar.properties. General errors result in exception being thrown, single failures are skipped and added to result
    * @param InputInvitationsFromCsv
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5106,6 +5150,7 @@ export class RegistrarManagerService {
    * Re-send mail notification for existing application.
    * Message of specified type is sent only, when application is in expected state related to the notification. Note, that some data related to processing application are not available (e.g. list of exceptions during approval), since this method doesn\&#39;t perform any action with Application itself. Perun admin can send any notification except USER_INVITE type, see #sendInvitation() for this.
    * @param InputSendMessage
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5214,6 +5259,7 @@ export class RegistrarManagerService {
   /**
    * Enable or disable sending for list of mail definitions.
    * @param InputSetSendingEnabled
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5322,6 +5368,7 @@ export class RegistrarManagerService {
   /**
    * Creates a new application and if succeeds, trigger validation and approval. The method triggers approval for VOs with auto-approved applications.
    * @param InputSubmitApplication
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5430,6 +5477,7 @@ export class RegistrarManagerService {
   /**
    * Updates an e-mail notification.
    * @param InputUpdateApplicationMail
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5538,6 +5586,7 @@ export class RegistrarManagerService {
   /**
    * Updates the form attributes, not the form items.
    * @param InputUpdateForm
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5646,6 +5695,7 @@ export class RegistrarManagerService {
   /**
    * Update application form item data value, which was originally submitted by the User.
    * @param InputFormItemData
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5754,6 +5804,7 @@ export class RegistrarManagerService {
   /**
    * Update application form items data, which was originally submitted by the User.
    * @param InputFormItemsData
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5862,6 +5913,7 @@ export class RegistrarManagerService {
   /**
    * Updates form items sent in list.
    * @param InputUpdateFormItemsForGroup
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5970,6 +6022,7 @@ export class RegistrarManagerService {
   /**
    * Updates form items sent in list.
    * @param InputUpdateFormItemsForVo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6078,6 +6131,7 @@ export class RegistrarManagerService {
   /**
    * Forcefully marks application as verified (only when application was in NEW state).
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

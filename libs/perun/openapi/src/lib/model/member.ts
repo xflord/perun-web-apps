@@ -11,6 +11,9 @@
  */
 import { Auditable } from './auditable';
 
+/**
+ * represents Member of a Virtual Organization
+ */
 export interface Member extends Auditable {
   userId?: number;
   voId?: number;

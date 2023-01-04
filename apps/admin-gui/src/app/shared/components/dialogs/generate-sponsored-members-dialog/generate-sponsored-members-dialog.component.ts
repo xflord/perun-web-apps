@@ -68,6 +68,8 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   submitAllowed = false;
 
   groupsToAssign: Subject<void> = new Subject<void>();
+  languages = ['en'];
+  currentLanguage = 'en';
 
   private namespaceRules: NamespaceRules[] = [];
   private resultData: MemberData[] = [];
@@ -99,6 +101,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.theme = this.data.theme;
+    this.languages = this.store.getProperty('supported_languages');
     this.usersInfoFormGroup = this.formBuilder.group({
       namespace: ['', Validators.required],
       sponsoredMembers: ['', [Validators.required, this.userInputValidator()]],
@@ -224,6 +227,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
       sponsor: this.store.getPerunPrincipal().userId,
       vo: this.data.voId,
       sendActivationLinks: this.passwordReset === 'reset',
+      language: this.currentLanguage,
     };
 
     if (groupIds.length > 0) {

@@ -37,7 +37,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class UtilsService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -105,6 +105,7 @@ export class UtilsService {
   /**
    * Gets configuration of perun apps brandings and apps\&#39; domains
    * Returns object of type PerunAppsConfig
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -194,6 +195,7 @@ export class UtilsService {
 
   /**
    * Gets perun-web-gui.properties as Map&lt;String,String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -284,6 +286,7 @@ export class UtilsService {
   /**
    * Gets new GUI alert (banner html content) for the brand of incoming request.
    * Returns new GUI alert
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -373,6 +376,7 @@ export class UtilsService {
 
   /**
    * Gets Perun runtime status
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -463,6 +467,7 @@ export class UtilsService {
   /**
    * Gets Perun runtime statistics
    * Returns list of strings which looks like this \&quot;Timestamp: \&#39;2019-11-14 10:46:39.613\&#39;\&quot;, \&quot;USERS: \&#39;39927\&#39;\&quot;, \&quot;FACILITIES: \&#39;552\&#39;\&quot;, \&quot;DESTINATIONS: \&#39;2568\&#39;\&quot;, \&quot;VOS: \&#39;341\&#39;\&quot;, \&quot;RESOURCES: \&#39;2560\&#39;\&quot;, \&quot;GROUPS: \&#39;2300\&#39;\&quot;, \&quot;AUDITMESSAGES: \&#39;7333237\&#39;\&quot;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -553,6 +558,7 @@ export class UtilsService {
   /**
    * Gets Perun runtime status
    * Returns list of strings which looks like this \&quot;Version of Perun: 3.8.6\&quot;, \&quot;Version of PerunDB: 3.1.55\&quot;, \&quot;Version of Servlet: Apache Tomcat/9.0.16 (Debian)\&quot;, \&quot;Version of DB-driver: PostgreSQL JDBC Driver-42.2.8\&quot;, \&quot;Version of DB: PostgreSQL-12.0 (Debian 12.0-2.pgdg100+1)\&quot;, \&quot;Version of Java platform: 11.0.5\&quot;, \&quot;AuditerConsumer: \&#39;127.0.0.1:6071\&#39; with last processed id&#x3D;\&#39;23463958\&#39;\&quot;, \&quot;AuditerConsumer: \&#39;ldapcConsumer\&#39; with last processed id&#x3D;\&#39;23463958\&#39;\&quot;, \&quot;AuditerConsumer: \&#39;notifications\&#39; with last processed id&#x3D;\&#39;23463952\&#39;\&quot;, \&quot;LastMessageId: 23463958\&quot;, \&quot;Timestamp: 2019-11-14 10:12:30.99\&quot;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -642,6 +648,7 @@ export class UtilsService {
 
   /**
    * Gets Perun system time in milliseconds since the epoch
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

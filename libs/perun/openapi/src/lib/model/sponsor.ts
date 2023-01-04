@@ -13,6 +13,9 @@ import { User } from './user';
 import { Attribute } from './attribute';
 import { UserExtSource } from './userExtSource';
 
+/**
+ * represents a Sponsor for some specific member
+ */
 export interface Sponsor {
   user: User;
   userExtSources: Array<UserExtSource>;

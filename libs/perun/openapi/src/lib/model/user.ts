@@ -11,6 +11,9 @@
  */
 import { Auditable } from './auditable';
 
+/**
+ * represents user as a physical person
+ */
 export interface User extends Auditable {
   firstName?: string | null;
   lastName?: string | null;

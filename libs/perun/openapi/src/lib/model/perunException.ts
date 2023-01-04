@@ -10,6 +10,9 @@
  * Do not edit the class manually.
  */
 
+/**
+ * exception thrown from inside of Perun
+ */
 export interface PerunException {
   errorId?: string;
   name?: string;
