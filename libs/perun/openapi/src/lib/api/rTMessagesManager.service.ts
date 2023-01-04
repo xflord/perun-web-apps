@@ -37,7 +37,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class RTMessagesManagerService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -108,6 +108,7 @@ export class RTMessagesManagerService {
    * @param queue RT queue
    * @param subject Message subject
    * @param text Message text
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -260,6 +261,7 @@ export class RTMessagesManagerService {
    * @param queue RT queue
    * @param subject Message subject
    * @param text Message text
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -396,6 +398,7 @@ export class RTMessagesManagerService {
    * @param voId VO id
    * @param subject Message subject
    * @param text Message text
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -533,6 +536,7 @@ export class RTMessagesManagerService {
    * @param queue RT queue
    * @param subject Message subject
    * @param text Message text
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

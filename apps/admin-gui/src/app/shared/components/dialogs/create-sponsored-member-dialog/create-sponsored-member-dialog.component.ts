@@ -52,6 +52,8 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
   namespaceControl: UntypedFormGroup = null;
   selectedSponsor: User = null;
   sponsorType = 'self';
+  languages = ['en'];
+  currentLanguage = 'en';
 
   finishedWithErrors = false;
   submitAllowed = false;
@@ -135,6 +137,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
     if (rules.password !== 'disabled') {
       sponsoredMember.sendActivationLink = this.namespaceControl.get('passwordReset')
         .value as boolean;
+      sponsoredMember.language = this.currentLanguage;
       sponsoredMember.userData.password = this.namespaceControl.get('passwordCtrl').value as string;
     }
 
@@ -269,6 +272,8 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
       titleBefore: [''],
       titleAfter: [''],
     });
+
+    this.languages = this.store.getProperty('supported_languages');
 
     this.namespaceControl = this.formBuilder.group(
       {

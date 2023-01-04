@@ -27,6 +27,7 @@ export interface InputCreateSponsoredMemberFromCSV {
   namespace: string;
   validityTo?: string;
   sendActivationLinks?: boolean;
+  language?: string;
   /**
    * groups to which should be the created users assigned
    */

@@ -71,7 +71,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class CabinetManagerService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -139,6 +139,7 @@ export class CabinetManagerService {
   /**
    * Creates Authorship. Everything except current date must be already set in Authorship object. Authorship is checked for existence before creation, if exists, existing object is returned. When authorship is successfully created, users priority coefficient is updated.
    * @param InputCreateAuthorship
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -247,6 +248,7 @@ export class CabinetManagerService {
   /**
    * Creates new Category for Publications with specified name and rank. Category object\&#39;s parameter name must be non-empty, max 128 chars long and rank must be double with single digit after decimal point. Other parameters are ignored.
    * @param InputCreateCategory
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -355,6 +357,7 @@ export class CabinetManagerService {
   /**
    * Creates new Category for Publications with specified name and rank.
    * @param InputCreateCategoryNR
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -463,6 +466,7 @@ export class CabinetManagerService {
   /**
    * Create Publication. If exists by its ID or EXT_ID,PUB_SYS_ID then existing publication is returned.
    * @param InputCreatePublication
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -571,6 +575,7 @@ export class CabinetManagerService {
   /**
    * Creates new PublicationSystem.
    * @param InputCreatePublicationSystem
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -679,6 +684,7 @@ export class CabinetManagerService {
   /**
    * Creates new Thanks for Publication
    * @param InputCreateThanks
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -788,6 +794,7 @@ export class CabinetManagerService {
    * Delete Authorship by its userId and publicationId.
    * @param publicationId id of publication
    * @param userId id of user
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -914,6 +921,7 @@ export class CabinetManagerService {
   /**
    * Delete category by its ID. If category contains any publications, it can\&#39;t be deleted.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1018,6 +1026,7 @@ export class CabinetManagerService {
   /**
    * Delete publication by its ID. Only Author of the record or PerunAdmin can do this. - Author deletes Authorships and Thanks from publication. - PerunAdmin also delete publication record.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1124,6 +1133,7 @@ export class CabinetManagerService {
   /**
    * Deletes PublicationSystem by its ID.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1230,6 +1240,7 @@ export class CabinetManagerService {
   /**
    * Delete Thanks by its ID.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1333,6 +1344,7 @@ export class CabinetManagerService {
 
   /**
    * Return all Authors of Publications. Empty list of none found.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1423,6 +1435,7 @@ export class CabinetManagerService {
   /**
    * Return all Authors of Publication specified by its ID. Empty list of none found.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1532,6 +1545,7 @@ export class CabinetManagerService {
    * @param yearSince Year since
    * @param yearTill Year till
    * @param pubSysNamespace (MU or ZCU)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1686,6 +1700,7 @@ export class CabinetManagerService {
   /**
    * Find new Authors for Publication. Empty list of none found. Used by users to search for colleagues to add them as co-authors.
    * @param searchString Text to search by
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1796,6 +1811,7 @@ export class CabinetManagerService {
   /**
    * Return Publication by its ID.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1904,6 +1920,7 @@ export class CabinetManagerService {
    * @param userId User id
    * @param yearSince Year since
    * @param yearTill Year till
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2044,6 +2061,7 @@ export class CabinetManagerService {
    * @param yearSince Year since
    * @param yearTill Year till
    * @param userId User id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2218,6 +2236,7 @@ export class CabinetManagerService {
    * @param title Title
    * @param doi DOI
    * @param isbn ISBN
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2331,6 +2350,7 @@ export class CabinetManagerService {
 
   /**
    * Return list of all Categories in Perun or empty list of none present.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2420,6 +2440,7 @@ export class CabinetManagerService {
 
   /**
    * Get all PublicationSystems in Perun. If none, return empty list.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2510,6 +2531,7 @@ export class CabinetManagerService {
   /**
    * Gets overall rank of given user as sum of all his publications Authorships.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2614,6 +2636,7 @@ export class CabinetManagerService {
   /**
    * Get ThanksForGUI of Publication specified by its ID or empty list.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2720,6 +2743,7 @@ export class CabinetManagerService {
   /**
    * (Un)Lock passed Publications for changes.
    * @param InputLockPublications
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2828,6 +2852,7 @@ export class CabinetManagerService {
   /**
    * Updates publications category in Perun. Category to update is found by ID. When category rank is changed, priorityCoefficient for all authors of books from this category, is recalculated.
    * @param InputUpdateCategory
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2936,6 +2961,7 @@ export class CabinetManagerService {
   /**
    * Update existing publication by its ID.
    * @param InputUpdatePublication
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3044,6 +3070,7 @@ export class CabinetManagerService {
   /**
    * Updates PublicationSystem by its ID.
    * @param InputUpdatePublicationSystem
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

@@ -19,5 +19,6 @@ export interface InputCreateSponsoredMember {
   validityTo?: string;
   sponsor: number;
   sendActivationLink?: boolean;
+  language?: string;
   userData: SponsoredUserData;
 }

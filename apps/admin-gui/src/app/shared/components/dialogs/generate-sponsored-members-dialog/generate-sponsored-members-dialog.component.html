@@ -89,6 +89,14 @@
               {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.PASSWORD_RESET' | translate}}
             </mat-radio-button>
           </mat-radio-group>
+          <mat-form-field class="w-100" *ngIf="passwordReset === 'reset'">
+            <mat-label>{{'DIALOGS.INVITE_MEMBER.LANGUAGE' | translate}}</mat-label>
+            <mat-select [(value)]="currentLanguage">
+              <mat-option *ngFor="let lang of languages" value="{{lang}}">
+                {{'SHARED_LIB.LANGUAGES.'+lang | uppercase | translate}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </mat-step>
       <mat-step>

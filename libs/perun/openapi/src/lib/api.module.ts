@@ -10,7 +10,6 @@ import { ConsentsManagerService } from './api/consentsManager.service';
 import { DatabaseManagerService } from './api/databaseManager.service';
 import { ExtSourcesManagerService } from './api/extSourcesManager.service';
 import { FacilitiesManagerService } from './api/facilitiesManager.service';
-import { FacilitiesManagerByFacilityNameService } from './api/facilitiesManagerByFacilityName.service';
 import { GroupsManagerService } from './api/groupsManager.service';
 import { IntegrationManagerService } from './api/integrationManager.service';
 import { MembersManagerService } from './api/membersManager.service';

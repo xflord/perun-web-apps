@@ -12,6 +12,9 @@
 import { Auditable } from './auditable';
 import { ExtSource } from './extSource';
 
+/**
+ * represents specific user authentication or identification in external source of data
+ */
 export interface UserExtSource extends Auditable {
   login: string;
   userId?: number;

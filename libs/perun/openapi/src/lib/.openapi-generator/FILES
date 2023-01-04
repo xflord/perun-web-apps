@@ -10,7 +10,6 @@ api/consentsManager.service.ts
 api/databaseManager.service.ts
 api/extSourcesManager.service.ts
 api/facilitiesManager.service.ts
-api/facilitiesManagerByFacilityName.service.ts
 api/groupsManager.service.ts
 api/integrationManager.service.ts
 api/membersManager.service.ts

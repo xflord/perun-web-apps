@@ -14,8 +14,6 @@ export * from './extSourcesManager.service';
 import { ExtSourcesManagerService } from './extSourcesManager.service';
 export * from './facilitiesManager.service';
 import { FacilitiesManagerService } from './facilitiesManager.service';
-export * from './facilitiesManagerByFacilityName.service';
-import { FacilitiesManagerByFacilityNameService } from './facilitiesManagerByFacilityName.service';
 export * from './groupsManager.service';
 import { GroupsManagerService } from './groupsManager.service';
 export * from './integrationManager.service';
@@ -51,7 +49,6 @@ export const APIS = [
   DatabaseManagerService,
   ExtSourcesManagerService,
   FacilitiesManagerService,
-  FacilitiesManagerByFacilityNameService,
   GroupsManagerService,
   IntegrationManagerService,
   MembersManagerService,
