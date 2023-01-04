@@ -1,18 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'perun-web-apps-login-screen-service-access',
   templateUrl: './login-screen-service-access.component.html',
   styleUrls: ['./login-screen-service-access.component.css'],
 })
-export class LoginScreenServiceAccessComponent {
+export class LoginScreenServiceAccessComponent implements OnInit {
   usernameCtrl = new FormControl<string>(null, [Validators.required]);
   passwordCtrl = new FormControl<string>(null, [Validators.required]);
   wrongUsernameOrPassword = false;
 
-  constructor(private authzService: AuthzResolverService) {}
+  constructor(
+    private authzService: AuthzResolverService,
+    private auth: AuthService,
+    private router: Router
+  ) {}
 
   startAuth(): void {
     if (this.usernameCtrl.invalid || this.passwordCtrl.invalid) return;
@@ -28,5 +34,11 @@ export class LoginScreenServiceAccessComponent {
         this.wrongUsernameOrPassword = true;
       },
     });
+  }
+
+  ngOnInit(): void {
+    if (this.auth.isLoggedIn() || sessionStorage.getItem('baPrincipal')) {
+      void this.router.navigate([''], { queryParamsHandling: 'merge' });
+    }
   }
 }

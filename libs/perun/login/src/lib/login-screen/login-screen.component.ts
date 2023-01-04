@@ -11,7 +11,7 @@ export class LoginScreenComponent implements OnInit {
   constructor(private auth: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    if (this.auth.isLoggedIn()) {
+    if (this.auth.isLoggedIn() || sessionStorage.getItem('baPrincipal')) {
       void this.router.navigate([''], { queryParamsHandling: 'merge' });
     }
   }
