@@ -401,7 +401,7 @@
         "CLEAR": "Clear form",
         "CLEAR_TOOLTIP": "Removes all form items",
         "TYPES": {
-          "HEADER": "Header",
+          "HEADING": "Header",
           "SUBMIT_BUTTON": "Submit button",
           "HTML_COMMENT": "Custom HTML text",
           "TEXTFIELD": "Input text field",
@@ -432,7 +432,7 @@
           "IF_EMPTY": "If empty (self or other item)"
         },
         "WIDGET_DESCRIPTION": {
-          "HEADER": "Item is used to display customizable heading of the form. Can have any HTML content.",
+          "HEADING": "Item is used to display customizable heading of the form. Can have any HTML content.",
           "SUBMIT_BUTTON": "Button used to submit the form with a custom label. All other form items are checked on valid input before submission. If it fails, form is not sent.",
           "HTML_COMMENT": "Item is used to display custom HTML content anywhere on the form. Useful for explanation descriptions, dividing parts of form, etc.",
           "TEXTFIELD": "Editable text field useful to gather short text input, e.g. name, phone.",

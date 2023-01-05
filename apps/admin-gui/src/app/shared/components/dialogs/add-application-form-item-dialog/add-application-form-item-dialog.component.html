@@ -1,23 +1,26 @@
 <h1 mat-dialog-title>{{'DIALOGS.APPLICATION_FORM_ADD_ITEM.TITLE' | translate}}</h1>
 <div class="dialog-container" mat-dialog-content>
-  {{'DIALOGS.APPLICATION_FORM_ADD_ITEM.SHORT_NAME' | translate}}:
   <mat-form-field>
+    <mat-label>{{'DIALOGS.APPLICATION_FORM_ADD_ITEM.SHORT_NAME' | translate}}:</mat-label>
     <input [formControl]="nameCtrl" data-cy="item-short-name" matInput required />
     <mat-error>
       {{'DIALOGS.APPLICATION_FORM_ADD_ITEM.FILL_NAME' | translate}}
     </mat-error>
   </mat-form-field>
-  {{'DIALOGS.APPLICATION_FORM_ADD_ITEM.INPUT_WIDGET' | translate}}:
-  <mat-form-field class="mb-4">
+  <mat-form-field
+    [ngStyle]="{'height.rem': setInputWidgetHeight(('VO_DETAIL.SETTINGS.APPLICATION_FORM.WIDGET_DESCRIPTION.'+selectedWidget | translate).length)}">
+    <mat-label>{{'DIALOGS.APPLICATION_FORM_ADD_ITEM.INPUT_WIDGET' | translate}}:</mat-label>
     <mat-select [(ngModel)]="selectedWidget" disableOptionCentering>
       <mat-option *ngFor="let widget of widgets" [value]="widget">
         {{widget | applicationFormItemType}}
       </mat-option>
     </mat-select>
-    <mat-hint>{{selectedWidget | applicationFormWidgetDescription}} </mat-hint>
+    <mat-hint
+      >{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.WIDGET_DESCRIPTION.'+selectedWidget | translate}}
+    </mat-hint>
   </mat-form-field>
-  {{'DIALOGS.APPLICATION_FORM_ADD_ITEM.INSERT_AFTER' | translate}}:
   <mat-form-field>
+    <mat-label>{{'DIALOGS.APPLICATION_FORM_ADD_ITEM.INSERT_AFTER' | translate}}:</mat-label>
     <mat-select [(ngModel)]="selectedItem" disableOptionCentering>
       <mat-option *ngFor="let item of items" [value]="item">
         {{item}}

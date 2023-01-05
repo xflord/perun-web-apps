@@ -71,6 +71,10 @@ export class AddApplicationFormItemDialogComponent implements OnInit {
       });
   }
 
+  setInputWidgetHeight(textLength: number): number {
+    return Math.ceil(textLength / 80) + 2.5;
+  }
+
   cancel(): void {
     this.dialogRef.close(undefined);
   }

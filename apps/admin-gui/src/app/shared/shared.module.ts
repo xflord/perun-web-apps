@@ -60,7 +60,6 @@ import { DeleteApplicationFormItemDialogComponent } from './components/dialogs/d
 import { ApplicationFormCopyItemsDialogComponent } from './components/dialogs/application-form-copy-items-dialog/application-form-copy-items-dialog.component';
 import { AddApplicationFormItemDialogComponent } from './components/dialogs/add-application-form-item-dialog/add-application-form-item-dialog.component';
 import { EditApplicationFormItemDialogComponent } from './components/dialogs/edit-application-form-item-dialog/edit-application-form-item-dialog.component';
-import { ApplicationFormWidgetDescriptionPipe } from './pipes/application-form-widget-description.pipe';
 import { AddMemberDialogComponent } from './components/dialogs/add-member-dialog/add-member-dialog.component';
 import { MembersCandidatesListComponent } from './components/members-candidates-list/members-candidates-list.component';
 import { CreateResourceTagDialogComponent } from './components/dialogs/create-resource-tag-dialog/create-resource-tag-dialog.component';
@@ -277,7 +276,6 @@ import { CopyMembersDialogComponent } from './components/dialogs/copy-members-di
     NameSpaceToDefPipe,
     ApplicationFormItemTypePipe,
     DragDropModule,
-    ApplicationFormWidgetDescriptionPipe,
     RemoveManagerDialogComponent,
     AddManagerDialogComponent,
     AddGroupManagerDialogComponent,
@@ -345,7 +343,6 @@ import { CopyMembersDialogComponent } from './components/dialogs/copy-members-di
     ApplicationFormCopyItemsDialogComponent,
     AddApplicationFormItemDialogComponent,
     EditApplicationFormItemDialogComponent,
-    ApplicationFormWidgetDescriptionPipe,
     SideMenuRootItemComponent,
     AnyToStringPipe,
     DeleteAttributeDialogComponent,
