@@ -27,7 +27,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { UserProfileConfigService } from './services/user-profile-config.service';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
@@ -154,7 +153,6 @@ const loadConfigs: (appConfig: UserProfileConfigService) => () => Promise<void> 
     MatListModule,
     RouterModule,
     MatButtonModule,
-    FlexLayoutModule,
     MatToolbarModule,
     PerunSharedComponentsModule,
     UiAlertsModule,

@@ -14,11 +14,11 @@ tr.consent-detail-row {
 }
 
 th,
-td.mat-cell {
+td.mat-mdc-cell {
   padding: 0 !important;
 }
 
-.mat-cell,
-.mat-footer-cell {
+.mat-mdc-cell,
+.mat-mdc-footer-cell {
   font-size: 1rem !important;
 }

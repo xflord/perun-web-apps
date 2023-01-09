@@ -52,6 +52,7 @@ export class UserDestinationGraphComponent implements OnInit {
   isConnected = false;
   loading = true;
   hierarchialGraph: HierarchicalGraph = { nodes: [], links: [] };
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
   curve = shape.curveBundle;
   zoomToFit$: Subject<boolean> = new Subject();
   innerWidth: number;

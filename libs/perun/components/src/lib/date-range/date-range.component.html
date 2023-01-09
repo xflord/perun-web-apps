@@ -1,4 +1,4 @@
-<mat-form-field (click)="datePickerStart.open()" appearance="standard" class="mr-2">
+<mat-form-field (click)="datePickerStart.open()" class="mr-2">
   <mat-label>{{'VO_DETAIL.APPLICATION.DATE.START' | translate}}</mat-label>
   <input
     matInput
@@ -11,7 +11,7 @@
   <mat-datepicker-toggle [for]="datePickerStart" matSuffix></mat-datepicker-toggle>
   <mat-datepicker #datePickerStart></mat-datepicker>
 </mat-form-field>
-<mat-form-field appearance="standard" (click)="datePickerEnd.open()">
+<mat-form-field (click)="datePickerEnd.open()">
   <mat-label>{{'VO_DETAIL.APPLICATION.DATE.END' | translate}}</mat-label>
   <input
     matInput

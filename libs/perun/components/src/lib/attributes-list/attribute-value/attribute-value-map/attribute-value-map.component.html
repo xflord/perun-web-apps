@@ -7,7 +7,7 @@
             *ngFor="let value of values.slice(0, itemsShown); let i = index; trackBy: customTrackBy"
             class="d-flex mb-1">
             <mat-form-field
-              appearance="{{readonly ? 'none' : 'standard'}}"
+              appearance="{{readonly ? 'outline' : 'fill'}}"
               class="w-100 mr-2 input-margin">
               <label for="{{attribute.id}}-key-{{i}}"></label>
               <input
@@ -23,7 +23,7 @@
                 name="key-{{i}}" />
             </mat-form-field>
             <mat-form-field
-              appearance="{{readonly ? 'none' : 'standard'}}"
+              appearance="{{readonly ? 'outline' : 'fill'}}"
               class="w-100 mr-2 input-margin">
               <label for="{{attribute.id}}-value-{{i}}"></label>
               <input

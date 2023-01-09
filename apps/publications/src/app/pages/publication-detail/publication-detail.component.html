@@ -40,7 +40,7 @@
         </button>
       </span>
     </h6>
-    <mat-card>
+    <mat-card appearance="outlined">
       <mat-card-content>
         <mat-spinner class="ml-auto mr-auto" *ngIf="loading || pubLoading"></mat-spinner>
         <perun-web-apps-publication-detail-list
@@ -53,7 +53,7 @@
       </mat-card-content>
     </mat-card>
 
-    <mat-card class="mt-4">
+    <mat-card appearance="outlined" class="mt-4">
       <mat-card-title>
         {{'PUBLICATION_DETAIL.AUTHORS' | translate}}
       </mat-card-title>
@@ -66,7 +66,7 @@
         </perun-web-apps-add-authors>
       </mat-card-content>
     </mat-card>
-    <mat-card class="mt-4">
+    <mat-card appearance="outlined" class="mt-4">
       <mat-card-title>
         {{'PUBLICATION_DETAIL.ACKNOWLEDGEMENT' | translate}}
       </mat-card-title>

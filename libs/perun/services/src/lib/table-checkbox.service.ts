@@ -23,9 +23,10 @@ export class TableCheckbox {
     dataSource: MatTableDataSource<T>,
     canBeSelected: (item: T) => boolean = (): boolean => true
   ): boolean {
-    const pageSize = dataSource.paginator.pageSize ?? 0;
-    const pageIndex = dataSource.paginator.pageIndex ?? 0;
-    const nextPage = dataSource.paginator.hasNextPage();
+    const pg = dataSource.paginator;
+    const pageSize = pg.pageSize ?? 0;
+    const pageIndex = pg.pageIndex ?? 0;
+    const nextPage = (pg.pageIndex + 1) * pg.pageSize < pg.length;
     const hasFilter = dataSource.data.length === dataSource.filteredData.length;
 
     this.numCanBeSelected = 0;
