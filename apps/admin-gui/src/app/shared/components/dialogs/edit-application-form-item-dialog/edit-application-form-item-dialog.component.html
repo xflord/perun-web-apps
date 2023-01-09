@@ -175,11 +175,16 @@
             <app-edit-application-form-item-line
               [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.CONTENT_DESCRIPTION' | translate"
               [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.CONTENT' | translate">
-              <mat-form-field class="w-100">
+              <mat-form-field class="w-100" subscriptSizing="dynamic">
                 <textarea
                   [cdkTextareaAutosize]="true"
+                  [formControl]="htmlInput"
                   [(ngModel)]="applicationFormItem.i18n[lang].label"
                   matInput></textarea>
+                <mat-error
+                  *ngIf="htmlInput.invalid && (htmlInput.dirty || htmlInput.touched)"
+                  >{{htmlInput.errors.invalidHtmlContent}}</mat-error
+                >
               </mat-form-field>
             </app-edit-application-form-item-line>
           </div>
@@ -275,18 +280,23 @@
           applicationFormItem.federationAttribute !== '' ||
           (applicationFormItem.disabled !== 'ALWAYS' && applicationFormItem.hidden !== 'ALWAYS')"
         matTooltip="{{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SUBMIT_BUTTON_DISABLED_TOOLTIP' | translate}}">
-        <button
-          mat-flat-button
-          class="ms-2 mt-auto"
-          color="accent"
-          data-cy="edit-form-item-button-dialog"
-          [disabled]="loading || (applicationFormItem.required &&
-            applicationFormItem.perunSourceAttribute === '' &&
-            applicationFormItem.federationAttribute === '' &&
-            (applicationFormItem.disabled === 'ALWAYS' || applicationFormItem.hidden === 'ALWAYS'))"
-          (click)="submit()">
-          {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SUBMIT_BUTTON' | translate}}
-        </button>
+        <div
+          [matTooltipDisabled]="!htmlInput.invalid"
+          [matTooltipPosition]="'above'"
+          matTooltip="{{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.HTML_INVALID_TAGS' | translate}}">
+          <button
+            mat-flat-button
+            class="ms-2 mt-auto"
+            color="accent"
+            data-cy="edit-form-item-button-dialog"
+            [disabled]="htmlInput.invalid || loading || (applicationFormItem.required &&
+                    applicationFormItem.perunSourceAttribute === '' &&
+                    applicationFormItem.federationAttribute === '' &&
+                    (applicationFormItem.disabled === 'ALWAYS' || applicationFormItem.hidden === 'ALWAYS'))"
+            (click)="submit()">
+            {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SUBMIT_BUTTON' | translate}}
+          </button>
+        </div>
       </div>
     </div>
   </div>

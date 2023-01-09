@@ -15,18 +15,23 @@
               {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.FORMAT_' + format | uppercase | translate}}
             </span>
           </ng-template>
-          <mat-form-field class="w-100">
+          <mat-form-field class="w-100" subscriptSizing="dynamic">
             <textarea *ngIf="format === 'plain_text'" [(ngModel)]="mailFooter" matInput rows="5">
             </textarea>
-            <textarea *ngIf="format === 'html'" [(ngModel)]="htmlMailFooter" matInput rows="5">
+            <textarea *ngIf="format === 'html'" [formControl]="htmlInput" matInput rows="5">
             </textarea>
+            <mat-error *ngIf="htmlInput.invalid && format==='html'">
+              {{htmlInput.errors.invalidHtmlContent}}
+            </mat-error>
           </mat-form-field>
+          <div class="mt-2 font-italic text-muted" *ngIf="format === 'plain_text'">
+            {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.DESCRIPTION' | translate}}
+          </div>
+          <div class="mt-2 font-italic text-muted" *ngIf="format === 'html'">
+            {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.DESCRIPTION_HTML' | translate}}
+          </div>
         </mat-tab>
       </mat-tab-group>
-
-      <div class="mt-2 font-italic text-muted">
-        {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.DESCRIPTION' | translate}}
-      </div>
     </div>
 
     <div mat-dialog-actions>
@@ -37,14 +42,19 @@
         [matTooltipDisabled]="plainEdithAuth"
         [matTooltipPosition]="'above'"
         matTooltip="{{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.HINT' | translate}}">
-        <button
-          (click)="submit()"
-          [disabled]="loading || !plainEdithAuth"
-          class="ms-2"
-          color="accent"
-          mat-flat-button>
-          {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.SUBMIT_BUTTON' | translate}}
-        </button>
+        <div
+          [matTooltipDisabled]="!htmlInput.invalid"
+          [matTooltipPosition]="'above'"
+          matTooltip="{{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.INVALID_TAGS' | translate}}">
+          <button
+            (click)="submit()"
+            [disabled]="loading || !plainEdithAuth || htmlInput.invalid"
+            class="ms-2"
+            color="accent"
+            mat-flat-button>
+            {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.SUBMIT_BUTTON' | translate}}
+          </button>
+        </div>
       </div>
     </div>
   </div>

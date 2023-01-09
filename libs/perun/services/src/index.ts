@@ -27,3 +27,4 @@ export { GroupUtilsService } from './lib/group-utils.service';
 export { FindSponsorsService } from './lib/find-sponsors.service';
 export { ErrorTranslateService } from './lib/error-translate.service';
 export { RoleService } from './lib/role.service';
+export { HtmlEscapeService } from './lib/html-escape.service';

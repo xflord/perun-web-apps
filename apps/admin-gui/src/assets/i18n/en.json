@@ -1371,7 +1371,8 @@
       "DISABLED": "Disabled",
       "DISABLED_DESCRIPTION": "When the item should be disabled during the submission.",
       "DISABLED_DEPENDENCY": "Disabled dependency",
-      "DISABLED_DEPENDENCY_DESCRIPTION": "Other form item, which is used to decide, if this one should be disabled."
+      "DISABLED_DEPENDENCY_DESCRIPTION": "Other form item, which is used to decide, if this one should be disabled.",
+      "HTML_INVALID_TAGS":"The HTML part of this form item contains invalid tags. Please remove them and try again."
     },
     "APPLICATION_FORM_DELETE_MAIL": {
       "TITLE": "Confirm delete action",
@@ -1406,11 +1407,13 @@
       "FORMAT_HTML_NOT_AUTHORIZED": "You are not authorized to create HTML footer, so you can create just plain text footer.",
       "FORMAT_HTML": "HTML",
       "FORMAT_PLAIN_TEXT": "Plain text",
-      "DESCRIPTION": "This text will be added as a footer for all email notifications (plain text footer replacing {mailFooter} tag and HTML footer replacing {htmlMailFooter} tag in mail definition).",
+      "DESCRIPTION": "This text will be added as a footer for all email notifications. Plain text footer replaces {mailFooter} tag in mail definition.",
+      "DESCRIPTION_HTML": "This text will be added as a footer for all email notifications. HTML footer replaces {htmlMailFooter} tag in mail definition.",
       "SUBMIT_BUTTON": "Save",
       "CANCEL_BUTTON": "Cancel",
       "SUCCESS": "Email footer was successfully edited.",
-      "HINT": "You don't have permission to edit email footer."
+      "HINT": "You don't have permission to edit email footer.",
+      "INVALID_TAGS": "The HTML footer contains invalid tags. Please remove them and try again."
     },
     "NOTIFICATIONS_ADD_EDIT_MAIL": {
       "TITLE_CREATE": "Add email notification",
@@ -1419,6 +1422,7 @@
       "CREATE_BUTTON": "Create",
       "SAVE_BUTTON": "Save",
       "EDIT_HINT": "You don't have permission to edit notifications.",
+      "INVALID_HTML_TAGS": "The HTML part of notification contains invalid tags. Please remove them and try again.",
       "BASIC_SETTINGS": "Basic settings",
       "EMAIL_TYPE": "Email type",
       "EMAIL_TYPE_DESCRIPTION_CREATE": "Selected type of notification (action which triggers sending and who is notified).",

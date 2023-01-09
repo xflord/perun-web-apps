@@ -13,7 +13,8 @@ import { createNewApplicationFormItem } from '@perun-web-apps/perun/utils';
 import DisabledEnum = ApplicationFormItem.DisabledEnum;
 import HiddenEnum = ApplicationFormItem.HiddenEnum;
 import { ItemType, NO_FORM_ITEM, SelectionItem } from '@perun-web-apps/perun/components';
-import { StoreService } from '@perun-web-apps/perun/services';
+import { HtmlEscapeService, StoreService } from '@perun-web-apps/perun/services';
+import { FormControl } from '@angular/forms';
 
 export interface EditApplicationFormItemDialogComponentData {
   theme: string;
@@ -40,6 +41,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
   hiddenValues: HiddenEnum[] = ['NEVER', 'ALWAYS', 'IF_EMPTY', 'IF_PREFILLED'];
   disabledValues: DisabledEnum[] = ['NEVER', 'ALWAYS', 'IF_EMPTY', 'IF_PREFILLED'];
   possibleDependencyItems: ApplicationFormItem[] = [];
+  htmlInput = new FormControl('', [this.escapeService.htmlContentValidator()]);
 
   typesWithUpdatable: Type[] = [
     'VALIDATED_EMAIL',
@@ -86,7 +88,8 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     private attributesManager: AttributesManagerService,
     private translateService: TranslateService,
     private store: StoreService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private escapeService: HtmlEscapeService
   ) {}
 
   ngOnInit(): void {
@@ -131,6 +134,9 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
       this.applicationFormItem.perunSourceAttribute = '';
     }
     this.getOptions();
+
+    this.htmlInput.markAsTouched();
+    this.htmlInput.setValue(this.applicationFormItem.i18n['en'].label);
   }
 
   cancel(): void {
@@ -142,6 +148,20 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
       this.hiddenDependencyItem === NO_FORM_ITEM ? null : this.hiddenDependencyItem.id;
     this.applicationFormItem.disabledDependencyItemId =
       this.disabledDependencyItem === NO_FORM_ITEM ? null : this.disabledDependencyItem.id;
+
+    // Escape forbidden strings
+    if (
+      this.applicationFormItem.type === 'HTML_COMMENT' ||
+      this.applicationFormItem.type === 'HEADING'
+    ) {
+      for (const lang in this.applicationFormItem.i18n) {
+        const o = this.applicationFormItem.i18n[lang];
+        this.applicationFormItem.i18n[lang].label = this.escapeService.escapeDangerousHtml(
+          o.label
+        ).escapedHtml;
+      }
+    }
+
     this.updateOptions();
     this.copy(this.applicationFormItem, this.data.applicationFormItem);
     this.dialogRef.close(true);

@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { HtmlEscapeService, NotificatorService } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import { FormControl } from '@angular/forms';
 
 export interface ApplicationFormEmailFooterDialogData {
   theme: string;
@@ -18,9 +19,9 @@ export interface ApplicationFormEmailFooterDialogData {
 })
 export class EditEmailFooterDialogComponent implements OnInit {
   mailFooter = '';
-  htmlMailFooter = '';
   theme: string;
   loading = false;
+  htmlInput = new FormControl('', [this.escapeInput.htmlContentValidator()]);
   plainEdithAuth: boolean;
   htmlEditAuth: boolean;
   formats = ['plain_text', 'html'];
@@ -32,6 +33,7 @@ export class EditEmailFooterDialogComponent implements OnInit {
     private attributesManager: AttributesManagerService,
     private translateService: TranslateService,
     private notificator: NotificatorService,
+    private escapeInput: HtmlEscapeService,
     @Inject(MAT_DIALOG_DATA) public data: ApplicationFormEmailFooterDialogData
   ) {}
 
@@ -43,12 +45,14 @@ export class EditEmailFooterDialogComponent implements OnInit {
     } else {
       this.getFooterForVo();
     }
+    this.loading = false;
+    this.htmlInput.markAsTouched();
   }
 
   submit(): void {
     this.loading = true;
     this.mailAttribute.value = this.mailFooter;
-    this.htmlMailAttribute.value = this.htmlMailFooter;
+    this.htmlMailAttribute.value = this.htmlInput.value;
     if (this.data.groupId) {
       this.attributesManager
         .setGroupAttribute({ group: this.data.groupId, attribute: this.mailAttribute })
@@ -100,7 +104,7 @@ export class EditEmailFooterDialogComponent implements OnInit {
         this.mailAttribute = footer;
         this.plainEdithAuth = this.mailAttribute.writable;
         if (footer.value) {
-          this.mailFooter = footer.value as string;
+          this.mailFooter = String(footer.value);
         } else {
           this.mailFooter = '';
         }
@@ -115,9 +119,9 @@ export class EditEmailFooterDialogComponent implements OnInit {
           this.htmlMailAttribute = footer;
           this.htmlEditAuth = this.htmlMailAttribute.writable;
           if (footer.value) {
-            this.htmlMailFooter = footer.value as string;
+            this.htmlInput.setValue(String(footer.value));
           } else {
-            this.htmlMailFooter = '';
+            this.htmlInput.setValue('');
           }
           this.loading = false;
         },
@@ -133,7 +137,7 @@ export class EditEmailFooterDialogComponent implements OnInit {
           this.mailAttribute = footer;
           this.plainEdithAuth = this.mailAttribute.writable;
           if (footer.value) {
-            this.mailFooter = footer.value as string;
+            this.mailFooter = String(footer.value);
           } else {
             this.mailFooter = '';
           }
@@ -148,9 +152,9 @@ export class EditEmailFooterDialogComponent implements OnInit {
           this.htmlMailAttribute = footer;
           this.htmlEditAuth = this.htmlMailAttribute.writable;
           if (footer.value) {
-            this.htmlMailFooter = footer.value as string;
+            this.htmlInput.setValue(String(footer.value));
           } else {
-            this.htmlMailFooter = '';
+            this.htmlInput.setValue('');
           }
           this.loading = false;
         },

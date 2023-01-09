@@ -1,3 +1,4 @@
+import { FormGroup, FormControl } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { openClose, tagsOpenClose } from '@perun-web-apps/perun/animations';
@@ -6,7 +7,7 @@ import {
   GroupsManagerService,
   RegistrarManagerService,
 } from '@perun-web-apps/perun/openapi';
-import { GuiAuthResolver, StoreService } from '@perun-web-apps/perun/services';
+import { GuiAuthResolver, StoreService, HtmlEscapeService } from '@perun-web-apps/perun/services';
 
 export interface ApplicationFormAddEditMailDialogData {
   theme: string;
@@ -34,6 +35,7 @@ export class AddEditNotificationDialogComponent implements OnInit {
   languages = ['en'];
   formats = ['plain_text', 'html'];
   htmlAuth: boolean;
+  inputFormGroup: FormGroup = null;
 
   constructor(
     private dialogRef: MatDialogRef<AddEditNotificationDialogComponent>,
@@ -41,7 +43,8 @@ export class AddEditNotificationDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: ApplicationFormAddEditMailDialogData,
     private authResolver: GuiAuthResolver,
     private groupsService: GroupsManagerService,
-    private store: StoreService
+    private store: StoreService,
+    private inputEscape: HtmlEscapeService
   ) {}
 
   ngOnInit(): void {
@@ -68,6 +71,31 @@ export class AddEditNotificationDialogComponent implements OnInit {
         'vo-addMail_ApplicationForm_ApplicationMail_policy',
         [vo]
       );
+
+      const formGroupFields: { [key: string]: FormControl } = {};
+      for (const lang of this.languages) {
+        // Plain
+        formGroupFields[`${lang}-plain-subject`] = new FormControl(
+          this.applicationMail.message[lang].subject,
+          []
+        );
+        formGroupFields[`${lang}-plain-text`] = new FormControl(
+          this.applicationMail.message[lang].text,
+          []
+        );
+        // Html
+        formGroupFields[`${lang}-html-subject`] = new FormControl(
+          this.applicationMail.htmlMessage[lang].subject,
+          [this.inputEscape.htmlContentValidator()]
+        );
+        formGroupFields[`${lang}-html-text`] = new FormControl(
+          this.applicationMail.htmlMessage[lang].text,
+          [this.inputEscape.htmlContentValidator()]
+        );
+        formGroupFields[`${lang}-html-subject`].markAsTouched();
+        formGroupFields[`${lang}-html-text`].markAsTouched();
+      }
+      this.inputFormGroup = new FormGroup(formGroupFields);
     }
   }
 
@@ -110,6 +138,26 @@ export class AddEditNotificationDialogComponent implements OnInit {
 
   save(): void {
     this.loading = true;
+    // Validate notification
+    for (const lang of this.languages) {
+      let escaped = this.inputEscape.escapeDangerousHtml(
+        String(this.inputFormGroup.get(`${lang}-html-subject`).value)
+      );
+      this.applicationMail.htmlMessage[lang].subject = escaped.escapedHtml;
+      escaped = this.inputEscape.escapeDangerousHtml(
+        String(this.inputFormGroup.get(`${lang}-html-text`).value)
+      );
+      this.applicationMail.htmlMessage[lang].text = escaped.escapedHtml;
+
+      // Update application with content from FormControl
+      this.applicationMail.message[lang].subject = String(
+        this.inputFormGroup.get(`${lang}-plain-subject`).value
+      );
+      this.applicationMail.message[lang].text = String(
+        this.inputFormGroup.get(`${lang}-plain-text`).value
+      );
+    }
+
     this.registrarService.updateApplicationMail({ mail: this.applicationMail }).subscribe(
       () => {
         this.dialogRef.close(true);

@@ -114,7 +114,8 @@
         </mat-tab>
         <mat-tab
           *ngFor="let lang of languages"
-          label="{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.LANG_' + lang | uppercase | translate}}">
+          label="{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.LANG_' + lang | uppercase | translate}}"
+          [formGroup]="inputFormGroup">
           <ng-template matTabContent>
             <perun-web-apps-alert alert_type="info" *ngIf="htmlAuth">
               <i [innerHTML]="'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.FORMAT_INFO' | translate"></i>
@@ -142,42 +143,48 @@
                       <span class="fw-bold pe-2">
                         {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SUBJECT' | translate}}:
                       </span>
-                      <mat-form-field class="w-100">
+                      <mat-form-field class="w-100" subscriptSizing="dynamic">
                         <div #Input>
                           <input
                             *ngIf="format === 'plain_text'"
-                            [(ngModel)]="this.applicationMail.message[lang].subject"
+                            formControlName="{{lang}}-plain-subject"
                             (focus)="isTextFocused = false"
                             matInput />
                           <input
                             *ngIf="format === 'html'"
-                            [(ngModel)]="this.applicationMail.htmlMessage[lang].subject"
+                            formControlName="{{lang}}-html-subject"
                             (focus)="isTextFocused = false"
                             matInput />
                         </div>
+                        <mat-error *ngIf="inputFormGroup.controls[lang + '-html-subject']?.invalid">
+                          {{inputFormGroup.controls[lang + '-html-subject'].errors?.invalidHtmlContent}}
+                        </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="fw-bold">
                       {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.TEXT' | translate}}:
                     </div>
 
-                    <mat-form-field class="w-100">
+                    <mat-form-field class="w-100" subscriptSizing="dynamic">
                       <div #Textarea>
                         <textarea
                           *ngIf="format === 'plain_text'"
-                          [(ngModel)]="this.applicationMail.message[lang].text"
                           matInput
+                          formControlName="{{lang}}-plain-text"
                           (focus)="isTextFocused = true"
                           rows="17">
                         </textarea>
                         <textarea
                           *ngIf="format === 'html'"
-                          [(ngModel)]="this.applicationMail.htmlMessage[lang].text"
+                          formControlName="{{lang}}-html-text"
                           matInput
                           (focus)="isTextFocused = true"
                           rows="17">
                         </textarea>
                       </div>
+                      <mat-error *ngIf="inputFormGroup.controls[lang + '-html-text']?.invalid">
+                        {{inputFormGroup.controls[lang + '-html-text'].errors?.invalidHtmlContent}}
+                      </mat-error>
                     </mat-form-field>
                   </div>
 
@@ -194,7 +201,6 @@
         </mat-tab>
       </mat-tab-group>
     </div>
-
     <div class="d-flex mt-auto" mat-dialog-actions>
       <button (click)="cancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.CANCEL_BUTTON' | translate}}
@@ -204,7 +210,7 @@
         *ngIf="data.createMailNotification"
         class="ms-2"
         color="accent"
-        [disabled]="invalidNotification"
+        [disabled]="invalidNotification || inputFormGroup.invalid"
         mat-flat-button>
         {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.CREATE_BUTTON' | translate}}
       </button>
@@ -212,15 +218,20 @@
         [matTooltipDisabled]="editAuth"
         [matTooltipPosition]="'above'"
         matTooltip="{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.EDIT_HINT' | translate}}">
-        <button
-          (click)="save()"
-          *ngIf="!data.createMailNotification"
-          class="ms-2"
-          color="accent"
-          [disabled]="!editAuth"
-          mat-flat-button>
-          {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SAVE_BUTTON' | translate}}
-        </button>
+        <div
+          [matTooltipDisabled]="!inputFormGroup.invalid"
+          [matTooltipPosition]="'above'"
+          matTooltip="{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.INVALID_HTML_TAGS' | translate}}">
+          <button
+            (click)="save()"
+            *ngIf="!data.createMailNotification"
+            class="ms-2"
+            color="accent"
+            [disabled]="!editAuth || inputFormGroup.invalid"
+            mat-flat-button>
+            {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SAVE_BUTTON' | translate}}
+          </button>
+        </div>
       </div>
     </div>
   </div>
