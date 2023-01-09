@@ -96,7 +96,7 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit, 
   }
 
   setDataSource(): void {
-    if (!this.child || !this.child.paginator) {
+    if (!this.child?.paginator) {
       return;
     }
     if (this.dataSource) {

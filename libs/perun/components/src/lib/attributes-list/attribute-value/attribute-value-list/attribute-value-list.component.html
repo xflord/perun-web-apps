@@ -1,12 +1,12 @@
 <div>
-  <mat-chip-list
+  <mat-chip-grid
     #chipList
     class="mat-chip-list-stacked"
     cdkDropList
     cdkDropListOrientation="vertical"
     [cdkDropListDisabled]="dragDisabled"
     (cdkDropListDropped)="drop($event); _sendEventToParent()">
-    <mat-chip
+    <mat-chip-row
       class="chip-word-break"
       *ngFor="let chip of values.slice(0, itemsShown)"
       [selectable]="selectable"
@@ -25,7 +25,7 @@
       </div>
       <mat-icon *ngIf="removable" (click)="edit(chip)" class="edit-delete-icon ml-2">edit</mat-icon>
       <mat-icon *ngIf="removable" (click)="remove(chip)" class="edit-delete-icon">cancel</mat-icon>
-    </mat-chip>
+    </mat-chip-row>
     <div class="w-100" *ngIf="values.length > defaultItemsShown">
       <span [matTooltip]="showMore ? 'Show less' : 'Show more'" [matTooltipPosition]="'above'">
         <button class="ml-auto" mat-icon-button (click)="onShowChange()">
@@ -45,5 +45,5 @@
         (matChipInputTokenEnd)="add($event)"
         (change)="_sendEventToParent()" />
     </mat-form-field>
-  </mat-chip-list>
+  </mat-chip-grid>
 </div>

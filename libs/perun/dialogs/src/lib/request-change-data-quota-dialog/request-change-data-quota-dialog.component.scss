@@ -17,11 +17,24 @@
 }
 
 /* To remove the default underline */
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 .mat-input-underline.mat-form-field-underline {
   display: none;
 }
 
 /* To remove the underline ripple */
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 .mat-input-ripple.mat-form-field-ripple {
   display: none;
+}
+
+// fxLayout="row"
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+// fxFlexAlign="center center"
+.flex-self-center {
+  align-self: center;
 }

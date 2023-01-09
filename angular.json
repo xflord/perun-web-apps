@@ -19,7 +19,7 @@
             "outputPath": "dist/apps/admin-gui",
             "index": "apps/admin-gui/src/index.html",
             "main": "apps/admin-gui/src/main.ts",
-            "polyfills": "apps/admin-gui/src/polyfills.ts",
+            "polyfills": [ "zone.js" ],
             "tsConfig": "apps/admin-gui/tsconfig.app.json",
             "aot": true,
             "assets": [
@@ -136,7 +136,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/apps/admin-gui"
+            "{workspaceRoot}/coverage/apps/admin-gui"
           ]
         }
       },
@@ -205,7 +205,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/config"
+            "{workspaceRoot}/coverage/libs/config"
           ]
         }
       },
@@ -242,7 +242,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/config/table-config"
+            "{workspaceRoot}/coverage/libs/config/table-config"
           ]
         }
       },
@@ -274,7 +274,7 @@
             "outputPath": "dist/apps/consolidator",
             "index": "apps/consolidator/src/index.html",
             "main": "apps/consolidator/src/main.ts",
-            "polyfills": "apps/consolidator/src/polyfills.ts",
+            "polyfills": [ "zone.js" ],
             "tsConfig": "apps/consolidator/tsconfig.app.json",
             "aot": true,
             "assets": [
@@ -380,7 +380,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": [
-            "coverage/apps/consolidator"
+            "{workspaceRoot}/coverage/apps/consolidator"
           ],
           "options": {
             "jestConfig": "apps/consolidator/jest.config.ts",
@@ -445,7 +445,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/general"
+            "{workspaceRoot}/coverage/libs/general"
           ]
         }
       },
@@ -466,7 +466,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": [
-            "coverage/libs/lib-linker"
+            "{workspaceRoot}/coverage/libs/lib-linker"
           ],
           "options": {
             "jestConfig": "libs/lib-linker/jest.config.ts",
@@ -500,7 +500,7 @@
             "outputPath": "dist/apps/linker",
             "index": "apps/linker/src/index.html",
             "main": "apps/linker/src/main.ts",
-            "polyfills": "apps/linker/src/polyfills.ts",
+            "polyfills": [ "zone.js" ],
             "tsConfig": "apps/linker/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -604,7 +604,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": [
-            "coverage/apps/linker"
+            "{workspaceRoot}/coverage/apps/linker"
           ],
           "options": {
             "jestConfig": "apps/linker/jest.config.ts",
@@ -661,7 +661,7 @@
             "outputPath": "dist/apps/password-reset",
             "index": "apps/password-reset/src/index.html",
             "main": "apps/password-reset/src/main.ts",
-            "polyfills": "apps/password-reset/src/polyfills.ts",
+            "polyfills": [ "zone.js" ],
             "tsConfig": "apps/password-reset/tsconfig.app.json",
             "aot": true,
             "assets": [
@@ -774,7 +774,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/apps/password-reset"
+            "{workspaceRoot}/coverage/apps/password-reset"
           ]
         }
       },
@@ -843,7 +843,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/perun/animations"
+            "{workspaceRoot}/coverage/libs/perun/animations"
           ]
         }
       },
@@ -880,7 +880,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/perun/components"
+            "{workspaceRoot}/coverage/libs/perun/components"
           ]
         }
       },
@@ -915,7 +915,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/perun/dialogs"
+            "{workspaceRoot}/coverage/libs/perun/dialogs"
           ]
         }
       },
@@ -952,7 +952,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/perun/directives"
+            "{workspaceRoot}/coverage/libs/perun/directives"
           ]
         }
       },
@@ -989,7 +989,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/perun/facility-services-config"
+            "{workspaceRoot}/coverage/libs/perun/facility-services-config"
           ]
         }
       },
@@ -1026,7 +1026,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/perun/login"
+            "{workspaceRoot}/coverage/libs/perun/login"
           ]
         }
       },
@@ -1063,7 +1063,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/perun/models"
+            "{workspaceRoot}/coverage/libs/perun/models"
           ]
         }
       },
@@ -1078,7 +1078,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": [
-            "coverage/libs/perun/multi-factor-authentication"
+            "{workspaceRoot}/coverage/libs/perun/multi-factor-authentication"
           ],
           "options": {
             "jestConfig": "libs/perun/multi-factor-authentication/jest.config.ts",
@@ -1107,7 +1107,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": [
-            "coverage/libs/perun/namespace-password-form"
+            "{workspaceRoot}/coverage/libs/perun/namespace-password-form"
           ],
           "options": {
             "jestConfig": "libs/perun/namespace-password-form/jest.config.ts",
@@ -1155,7 +1155,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/perun/openapi"
+            "{workspaceRoot}/coverage/libs/perun/openapi"
           ]
         }
       },
@@ -1188,7 +1188,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/perun/pipes"
+            "{workspaceRoot}/coverage/libs/perun/pipes"
           ]
         }
       },
@@ -1225,7 +1225,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/perun/services"
+            "{workspaceRoot}/coverage/libs/perun/services"
           ]
         }
       },
@@ -1257,7 +1257,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/perun/session-expiration"
+            "{workspaceRoot}/coverage/libs/perun/session-expiration"
           ]
         }
       },
@@ -1294,7 +1294,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/perun/tokens"
+            "{workspaceRoot}/coverage/libs/perun/tokens"
           ]
         }
       },
@@ -1326,7 +1326,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/perun/urns"
+            "{workspaceRoot}/coverage/libs/perun/urns"
           ]
         }
       },
@@ -1358,7 +1358,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/perun/utils"
+            "{workspaceRoot}/coverage/libs/perun/utils"
           ]
         }
       },
@@ -1404,7 +1404,7 @@
             "outputPath": "dist/apps/publications",
             "index": "apps/publications/src/index.html",
             "main": "apps/publications/src/main.ts",
-            "polyfills": "apps/publications/src/polyfills.ts",
+            "polyfills": [ "zone.js" ],
             "tsConfig": "apps/publications/tsconfig.app.json",
             "aot": true,
             "assets": [
@@ -1519,7 +1519,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/apps/publications"
+            "{workspaceRoot}/coverage/apps/publications"
           ]
         }
       },
@@ -1588,7 +1588,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/ui"
+            "{workspaceRoot}/coverage/libs/ui"
           ]
         }
       },
@@ -1625,7 +1625,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/ui/alerts"
+            "{workspaceRoot}/coverage/libs/ui/alerts"
           ]
         }
       },
@@ -1657,7 +1657,7 @@
             "passWithNoTests": true
           },
           "outputs": [
-            "coverage/libs/ui/material"
+            "{workspaceRoot}/coverage/libs/ui/material"
           ]
         }
       },
@@ -1686,7 +1686,7 @@
             "outputPath": "dist/apps/user-profile",
             "index": "apps/user-profile/src/index.html",
             "main": "apps/user-profile/src/main.ts",
-            "polyfills": "apps/user-profile/src/polyfills.ts",
+            "polyfills": [ "zone.js" ],
             "tsConfig": "apps/user-profile/tsconfig.app.json",
             "aot": true,
             "assets": [
@@ -1801,7 +1801,7 @@
             "jestConfig": "apps/user-profile/jest.config.ts"
           },
           "outputs": [
-            "coverage/apps/user-profile"
+            "{workspaceRoot}/coverage/apps/user-profile"
           ]
         }
       },
