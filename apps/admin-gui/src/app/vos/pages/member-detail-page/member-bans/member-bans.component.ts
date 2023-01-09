@@ -34,7 +34,7 @@ export class MemberBansComponent implements OnInit {
     this.loading = true;
     this.voService.getVoBanForMember(this.member.id).subscribe({
       next: (ban) => {
-        this.bans = [{ ban: ban, member: null, vo: null }];
+        this.bans = ban === null ? [] : [{ ban: ban, member: null, vo: null }];
         this.loading = false;
       },
       error: () => (this.loading = false),
