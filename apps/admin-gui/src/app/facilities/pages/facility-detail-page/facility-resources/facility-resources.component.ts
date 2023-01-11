@@ -53,11 +53,13 @@ export class FacilityResourcesComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
+    this.loading = true;
     this.facility = this.entityStorageService.getEntity();
     this.setAuthRights();
     this.servicesManager.getAssignedServices(this.facility.id).subscribe((services) => {
       this.services = [this.emptyService].concat(services);
     });
+    this.loadResourcesForFacility();
   }
 
   ngAfterViewInit(): void {
@@ -81,14 +83,7 @@ export class FacilityResourcesComponent implements OnInit, AfterViewInit {
   refreshTable(): void {
     this.loading = true;
     if (this.selectedService.id === -1) {
-      this.facilitiesManager
-        .getAssignedRichResourcesForFacility(this.facility.id)
-        .subscribe((resources) => {
-          this.resources = resources;
-          this.selected.clear();
-          this.setAuthRights();
-          this.loading = false;
-        });
+      this.loadResourcesForFacility();
     } else {
       this.facilitiesManager
         .getAssignedRichResourcesForFacilityAndService(this.facility.id, this.selectedService.id)
@@ -142,5 +137,16 @@ export class FacilityResourcesComponent implements OnInit, AfterViewInit {
   serviceSelected(service: Service): void {
     this.selectedService = service;
     this.refreshTable();
+  }
+
+  private loadResourcesForFacility(): void {
+    this.facilitiesManager
+      .getAssignedRichResourcesForFacility(this.facility.id)
+      .subscribe((resources) => {
+        this.resources = resources;
+        this.selected.clear();
+        this.setAuthRights();
+        this.loading = false;
+      });
   }
 }
