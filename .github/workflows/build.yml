@@ -12,16 +12,29 @@ jobs:
         with:
           node-version: 16
       - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Cache Eslint
         uses: actions/cache@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ./.eslintcache
+          key: eslintcache-${{github.sha}}
           restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Install dependencies and build
-        run: |
-          npm ci
-          npm run build
+            eslintcache-
+      - name: Install Dependencies
+        if: steps.cache-npm.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Build
+        run: npm run build
       - name: Run Prettier
         run: npm run format:check
       - name: Run ESLint
