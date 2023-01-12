@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   MemberCandidate,
@@ -6,9 +6,12 @@ import {
   RegistrarManagerService,
   VosManagerService,
 } from '@perun-web-apps/perun/openapi';
-import { ApiRequestConfigurationService, StoreService } from '@perun-web-apps/perun/services';
+import {
+  ApiRequestConfigurationService,
+  NotificatorService,
+  StoreService,
+} from '@perun-web-apps/perun/services';
 import { SelectionModel } from '@angular/cdk/collections';
-import { getCandidateEmail } from '@perun-web-apps/perun/utils';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { AddMemberService, FailedCandidate } from '../add-member.service';
 import { merge, Observable, of, Subject } from 'rxjs';
@@ -24,8 +27,9 @@ export interface VoAddMemberData {
   templateUrl: './vo-add-member-dialog.component.html',
   styleUrls: ['./vo-add-member-dialog.component.scss'],
 })
-export class VoAddMemberDialogComponent {
+export class VoAddMemberDialogComponent implements OnInit {
   loading = false;
+  showInvite = false;
   searcher: Subject<string> = new Subject<string>();
   members: Observable<MemberCandidate[]> = this.searcher.pipe(
     // the cast is for the compiler to recognize correct overload
@@ -53,120 +57,59 @@ export class VoAddMemberDialogComponent {
     private registrarManager: RegistrarManagerService,
     private store: StoreService,
     private requestService: ApiRequestConfigurationService,
-    private addMemberService: AddMemberService
+    private addMemberService: AddMemberService,
+    private notificator: NotificatorService
   ) {
     this.addMemberService.setDialogRef(this.dialogRef);
     this.addMemberService.setType('vo');
   }
 
+  ngOnInit(): void {
+    this.registrarManager.invitationFormExists(this.data.voId).subscribe((res) => {
+      this.showInvite = res;
+    });
+  }
+
   add(): void {
     this.loading = true;
-    if (this.selection.selected.length === 0) {
-      if (this.failed.length !== 0) {
-        this.failed = this.failed.filter((failed) => failed !== null);
-        this.selection.clear();
-        this.loading = false;
-      } else {
-        this.addMemberService.success('DIALOGS.ADD_MEMBERS.SUCCESS_ADD');
-      }
-      return;
-    }
 
-    this.requestService.dontHandleErrorForNext();
-    const candidate = this.selection.selected.pop();
-
-    if (candidate.richUser) {
-      this.addUser(candidate);
-    } else {
-      this.addCandidate(candidate);
-    }
+    this.membersManagerService
+      .addMemberCandidates({
+        candidates: this.addMemberService.convertToMemberCandidates(this.selection.selected),
+        vo: this.data.voId,
+      })
+      .subscribe({
+        next: () => {
+          this.addMemberService.success('DIALOGS.ADD_MEMBERS.SUCCESS_ADD');
+        },
+        error: (error: RPCError) => {
+          this.loading = false;
+          this.notificator.showRPCError(error);
+        },
+      });
   }
 
   invite(lang: string): void {
     this.loading = true;
-    if (this.selection.selected.length === 0) {
-      if (this.failed.length !== 0) {
-        this.failed = this.failed.filter((failed) => failed !== null);
-        this.selection.clear();
-        this.loading = false;
-      } else {
-        this.addMemberService.success('DIALOGS.ADD_MEMBERS.SUCCESS_INVITE');
-      }
-      return;
-    }
 
-    this.requestService.dontHandleErrorForNext();
-    const candidate = this.selection.selected.pop();
-
-    if (candidate.richUser) {
-      this.inviteUser(candidate, lang);
-    } else {
-      this.inviteCandidate(candidate, lang);
-    }
+    this.registrarManager
+      .inviteMemberCandidates({
+        candidates: this.addMemberService.convertToMemberCandidates(this.selection.selected),
+        vo: this.data.voId,
+        lang: lang,
+      })
+      .subscribe({
+        next: () => {
+          this.addMemberService.success('DIALOGS.ADD_MEMBERS.SUCCESS_INVITE');
+        },
+        error: (error: RPCError) => {
+          this.loading = false;
+          this.notificator.showRPCError(error);
+        },
+      });
   }
 
   cancel(result: boolean): void {
     this.dialogRef.close(result);
-  }
-
-  private addCandidate(candidate: MemberCandidate): void {
-    this.membersManagerService
-      .createMemberForCandidate({
-        vo: this.data.voId,
-        candidate: this.addMemberService.createCandidate(candidate.candidate),
-      })
-      .subscribe({
-        next: (member) => {
-          this.membersManagerService.validateMemberAsync(member.id).subscribe();
-          this.add();
-        },
-        error: (error: RPCError) => {
-          this.failed.push(this.addMemberService.getCandidateWithError(candidate, error));
-          this.add();
-        },
-      });
-  }
-
-  private addUser(candidate: MemberCandidate): void {
-    this.membersManagerService
-      .createMemberForUser({ vo: this.data.voId, user: candidate.richUser.id })
-      .subscribe({
-        next: (member) => {
-          this.membersManagerService.validateMemberAsync(member.id).subscribe();
-          this.add();
-        },
-        error: (error: RPCError) => {
-          this.failed.push(this.addMemberService.getCandidateWithError(candidate, error));
-          this.add();
-        },
-      });
-  }
-
-  private inviteCandidate(candidate: MemberCandidate, lang: string): void {
-    this.registrarManager
-      .sendInvitation(getCandidateEmail(candidate.candidate), lang, this.data.voId)
-      .subscribe({
-        next: () => {
-          this.invite(lang);
-        },
-        error: (error: RPCError) => {
-          this.failed.push(this.addMemberService.getCandidateWithError(candidate, error));
-          this.invite(lang);
-        },
-      });
-  }
-
-  private inviteUser(candidate: MemberCandidate, lang: string): void {
-    this.registrarManager
-      .sendInvitationToExistingUser(candidate.richUser.id, this.data.voId)
-      .subscribe({
-        next: () => {
-          this.invite(lang);
-        },
-        error: (error: RPCError) => {
-          this.failed.push(this.addMemberService.getCandidateWithError(candidate, error));
-          this.invite(lang);
-        },
-      });
   }
 }

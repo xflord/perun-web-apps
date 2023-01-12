@@ -1178,7 +1178,8 @@
       "EMPTY_SEARCH_MESSAGE": "The search field cannot be empty",
       "FAILED_DESC": "Following users couldn't be added due to an error",
       "NAME_COLUMN": "Name",
-      "ERROR_COLUMN": "Error"
+      "ERROR_COLUMN": "Error",
+      "INVITE_MEMBER_DISABLED": "Invitation form does not exist"
     },
     "COPY_MEMBERS": {
       "TITLE": "Copy members",

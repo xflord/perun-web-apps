@@ -72,4 +72,12 @@ export class AddMemberService {
       return { candidate: candidate, errorName: error.name, errorMsg: msg };
     }
   }
+
+  convertToMemberCandidates(pseudoCandidates: MemberCandidate[]): MemberCandidate[] {
+    return pseudoCandidates.map((elem) => ({
+      member: elem.member,
+      candidate: elem.candidate,
+      richUser: elem.richUser,
+    }));
+  }
 }

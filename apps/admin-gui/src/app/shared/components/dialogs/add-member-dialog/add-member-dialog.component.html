@@ -28,12 +28,12 @@
         {{'DIALOGS.ADD_MEMBERS.CANCEL' | translate}}
       </button>
       <span
-        matTooltip="{{'DIALOGS.ADD_MEMBERS.ADD_MEMBER_PERMISSION_TOOLTIP' | translate}}"
-        matTooltipPosition="above"
-        [matTooltipDisabled]="selection.selected.length === 0 || inviteAuth">
+        matTooltip="{{(!showInvite ? 'DIALOGS.ADD_MEMBERS.INVITE_MEMBER_DISABLED' : 'DIALOGS.ADD_MEMBERS.ADD_MEMBER_PERMISSION_TOOLTIP') | translate}}"
+        [matTooltipPosition]="'below'"
+        [matTooltipDisabled]="selection.selected.length <= 0 || (showInvite && inviteAuth)">
         <button
           *ngIf="inviteAuth"
-          [disabled]="selection.selected.length === 0 || !inviteAuth"
+          [disabled]="selection.selected.length === 0 || !inviteAuth || !showInvite"
           [matMenuTriggerFor]="menu"
           class="ml-2 dropdown-toggle"
           color="accent"

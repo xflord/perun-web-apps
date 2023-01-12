@@ -3,8 +3,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MemberCandidate } from '@perun-web-apps/perun/openapi';
 import { TABLE_ADD_MEMBER_CANDIDATES_DIALOG } from '@perun-web-apps/config/table-config';
 import { UntypedFormControl, Validators } from '@angular/forms';
-import { FailedCandidate } from '../../../../vos/components/add-member.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { FailedCandidate } from '../../../../vos/components/add-member.service';
 
 @Component({
   selector: 'app-add-member-dialog',
@@ -18,6 +18,7 @@ export class AddMemberDialogComponent implements OnInit {
   @Input() manualAddingBlocked = false;
   @Input() inviteAuth = true;
   @Input() addAuth = true;
+  @Input() showInvite = false;
   @Input() members: MemberCandidate[] = [];
   @Input() failed: FailedCandidate[];
   @Input() selection = new SelectionModel<MemberCandidate>(true, []);
