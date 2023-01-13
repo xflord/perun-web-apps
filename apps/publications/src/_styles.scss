@@ -2,6 +2,11 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 
+// IMPORTANT
+// Changes to the styles should be made in the _styles.scss file.
+// Changes to the styles.scss would result in the styles being overwritten
+// during the build process and the changes would be lost.
+
 @function mat-color-from-palette($palette, $hue: default, $opacity: null) {
   @if type-of($hue) == number and $hue >= 0 and $hue <= 1 {
     @return mat-color-from-palette($palette, default, $hue);
@@ -39,7 +44,17 @@ $perun-accent: mat.define-palette(mat.$green-palette, 600);
 $perun-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn);
+$perun-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $perun-primary,
+      accent: $perun-accent,
+      warn: $perun-warn,
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -83,9 +98,16 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
   $user-primary: mat.define-palette($user-dynamic-colors, 500);
   $user-accent: mat.define-palette(mat.$green-palette, 600);
 
-  $user-theme: mat.define-light-theme($user-primary, $user-accent);
+  $user-theme: mat.define-light-theme(
+    (
+      color: (
+        primary: $user-primary,
+        accent: $user-accent,
+      ),
+    )
+  );
 
-  @include mat.all-component-themes($user-theme);
+  @include mat.all-component-colors($user-theme);
 }
 
 button {

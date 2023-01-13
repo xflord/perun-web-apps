@@ -2,6 +2,11 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 
+// IMPORTANT
+// Changes to the styles should be made in the _styles.scss file.
+// Changes to the styles.scss would result in the styles being overwritten
+// during the build process and the changes would be lost.
+
 @function mat-color-from-palette($palette, $hue: default, $opacity: null) {
   @if type-of($hue) == number and $hue >= 0 and $hue <= 1 {
     @return mat-color-from-palette($palette, default, $hue);
@@ -39,7 +44,17 @@ $perun-accent: mat.define-palette(mat.$green-palette, 600);
 $perun-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn);
+$perun-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $perun-primary,
+      accent: $perun-accent,
+      warn: $perun-warn,
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -53,9 +68,7 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
     200: rgba(var(--user-theme-primary-200), 1),
     300: rgba(var(--user-theme-primary-300), 1),
     400: rgba(var(--user-theme-primary-400), 1),
-    //FIXME(theme-error): we want ot load color from the config
-    // 500: rgba(var(--user-theme-primary-500), 1),
-    500: rgba(#00796b, 1),
+    500: rgba(var(--user-theme-primary-500), 1),
     600: rgba(var(--user-theme-primary-600), 1),
     700: rgba(var(--user-theme-primary-700), 1),
     800: rgba(var(--user-theme-primary-800), 1),
@@ -85,9 +98,16 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
   $user-primary: mat.define-palette($user-dynamic-colors, 500);
   $user-accent: mat.define-palette(mat.$green-palette, 600);
 
-  $user-theme: mat.define-light-theme($user-primary, $user-accent);
+  $user-theme: mat.define-light-theme(
+    (
+      color: (
+        primary: $user-primary,
+        accent: $user-accent,
+      ),
+    )
+  );
 
-  @include mat.all-component-themes($user-theme);
+  @include mat.all-component-colors($user-theme);
 }
 
 button {
@@ -99,19 +119,8 @@ button:focus {
 }
 
 .page-subtitle {
-  margin-bottom: 1.5rem;
-  font-size: 1.25rem;
-}
-
-.page-title {
-  margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-size: 1.5rem;
-}
-
-.page-subtitle {
-  margin-bottom: 0.5rem;
-  font-size: 1.2rem;
 }
 
 .dark-hover-list-item {
@@ -120,18 +129,13 @@ button:focus {
   }
 }
 
-th,
-td.mat-mdc-cell {
-  padding: 0.25rem !important;
+.dialog-container {
+  display: flex;
+  flex-direction: column;
 }
 
-.app-min-width {
-  min-width: 400px;
-}
-
-.mat-mdc-tooltip {
-  font-size: 14px !important;
-  word-wrap: break-word !important;
+.dialog-container > * {
+  width: 100%;
 }
 
 .spinner-container {
@@ -210,6 +214,7 @@ mat-dialog-container:has(#loading-dialog-spinner) {
   -webkit-animation: spin 1.5s linear infinite;
   animation: spin 1.5s linear infinite;
 }
+
 @-webkit-keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
@@ -235,58 +240,34 @@ mat-dialog-container:has(#loading-dialog-spinner) {
   }
 }
 
-.action-button::after {
-  content: '\2026';
+.perun-icon {
+  path {
+    fill: currentColor;
+  }
+  rect {
+    fill: currentColor;
+  }
+  polygon {
+    fill: currentColor;
+  }
+}
+
+.perun-icon-detail {
+  transform: scale(2.7);
+  margin-left: 1.4rem;
+  margin-top: 1.4rem;
 }
 
 .noBorderDialog .mat-mdc-dialog-container {
   background-color: black;
 }
 
+mat-mdc-chip-grid {
+  pointer-events: none;
+}
+
 mat-icon {
   overflow: inherit !important;
-}
-
-/*************************************
-******** Customization of MDC ********
-*************************************/
-
-// Custom MDC form field
-.mdc-text-field {
-  background-color: transparent !important;
-  margin-top: 5px !important;
-}
-label:not(.mdc-floating-label--float-above) {
-  padding-top: 16px !important;
-  width: 100%;
-}
-.mat-form-field-appearance-outline {
-  label:not(.mdc-floating-label--float-above) {
-    padding-top: 0 !important;
-  }
-}
-.mdc-floating-label--float-above {
-  width: 133.33% !important;
-}
-mat-form-field mat-icon {
-  padding: 0 !important;
-}
-
-// Custom MDC outlined form field in table - for attributes
-table .mdc-notched-outline__leading,
-table .mdc-notched-outline__trailing {
-  border: 0 !important;
-}
-table .mdc-text-field--outlined {
-  padding-left: 0 !important;
-}
-
-// Custom MDC form filed in mat-list
-mat-list-item .mat-mdc-text-field-wrapper {
-  height: 40px !important;
-}
-mat-list-item .mat-mdc-form-field-subscript-wrapper {
-  height: 0 !important;
 }
 
 // angular 15 button fixes
@@ -295,21 +276,4 @@ mat-list-item .mat-mdc-form-field-subscript-wrapper {
   border-radius: 0 !important;
   white-space: nowrap !important;
   letter-spacing: normal;
-}
-
-.align-elements {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-// extra spinner padding in dialog
-.mat-mdc-dialog-container .mat-mdc-progress-spinner {
-  margin: 24px;
-}
-
-.mat-mdc-checkbox label,
-.mat-mdc-radio-button label,
-.mat-mdc-slide-toggle label {
-  padding-top: 0 !important;
 }

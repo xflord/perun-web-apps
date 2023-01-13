@@ -3,6 +3,11 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 
+// IMPORTANT
+// Changes to the styles should be made in the _styles.scss file.
+// Changes to the styles.scss would result in the styles being overwritten
+// during the build process and the changes would be lost.
+
 @function mat-color-from-palette($palette, $hue: default, $opacity: null) {
   @if type-of($hue) == number and $hue >= 0 and $hue <= 1 {
     @return mat-color-from-palette($palette, default, $hue);
@@ -40,8 +45,6 @@ $perun-accent: mat.define-palette(mat.$green-palette, 600);
 $perun-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object (a Sass map containing all of the palettes).
-//FIXME(theme-error): old definition of theme - will be able to be removed if the new definition is correct
-// $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn);
 $perun-theme: mat.define-light-theme(
   (
     color: (
@@ -49,12 +52,15 @@ $perun-theme: mat.define-light-theme(
       accent: $perun-accent,
       warn: $perun-warn,
     ),
+    typography: mat.define-typography-config(),
+    density: 0,
   )
 );
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
+mat.$theme-ignore-duplication-warnings: true;
 @include mat.all-component-themes($perun-theme);
 
 :root {
@@ -119,9 +125,7 @@ $perun-theme: mat.define-light-theme(
     200: rgba(var(--vo-theme-primary-200), 1),
     300: rgba(var(--vo-theme-primary-300), 1),
     400: rgba(var(--vo-theme-primary-400), 1),
-    //FIXME(theme-error): we want ot load color from the config
-    //500: rgba(var(--vo-theme-primary-500), 1),
-    500: rgba(#283593, 1),
+    500: rgba(var(--vo-theme-primary-500), 1),
     600: rgba(var(--vo-theme-primary-600), 1),
     700: rgba(var(--vo-theme-primary-700), 1),
     800: rgba(var(--vo-theme-primary-800), 1),
@@ -151,9 +155,6 @@ $perun-theme: mat.define-light-theme(
   $vo-primary: mat.define-palette($vo-dynamic-colors, 500);
   $vo-accent: mat.define-palette(mat.$green-palette, 600);
 
-  //FIXME(theme-error): old definition of theme - will be able to be removed if the new definition is correct
-  // $vo-theme: mat.define-light-theme($vo-primary, $vo-accent);
-  // @include mat.all-component-themes($vo-theme);
   $vo-theme: mat.define-light-theme(
     (
       color: (
@@ -181,9 +182,7 @@ $perun-theme: mat.define-light-theme(
     200: rgba(var(--facility-theme-primary-200), 1),
     300: rgba(var(--facility-theme-primary-300), 1),
     400: rgba(var(--facility-theme-primary-400), 1),
-    //FIXME(theme-error): we want ot load color from the config
-    // 500: rgba(var(--facility-theme-primary-500), 1),
-    500: rgba(#d84315, 1),
+    500: rgba(var(--facility-theme-primary-500), 1),
     600: rgba(var(--facility-theme-primary-600), 1),
     700: rgba(var(--facility-theme-primary-700), 1),
     800: rgba(var(--facility-theme-primary-800), 1),
@@ -212,10 +211,6 @@ $perun-theme: mat.define-light-theme(
 
   $facility-primary: mat.define-palette($facility-dynamic-colors, 500);
   $facility-accent: mat.define-palette(mat.$green-palette, 600);
-
-  //FIXME(theme-error): old definition of theme - will be able to be removed if the new definition is correct
-  // $facility-theme: mat.define-light-theme($facility-primary, $facility-accent);
-  // @include mat.all-component-themes($facility-theme);
   $facility-theme: mat.define-light-theme(
     (
       color: (
@@ -243,9 +238,7 @@ $perun-theme: mat.define-light-theme(
     200: rgba(var(--resource-theme-primary-200), 1),
     300: rgba(var(--resource-theme-primary-300), 1),
     400: rgba(var(--resource-theme-primary-400), 1),
-    //FIXME(theme-error): we want ot load color from the config
-    // 500: rgba(var(--resource-theme-primary-500), 1),
-    500: rgba(#6a1b9a, 1),
+    500: rgba(var(--resource-theme-primary-500), 1),
     600: rgba(var(--resource-theme-primary-600), 1),
     700: rgba(var(--resource-theme-primary-700), 1),
     800: rgba(var(--resource-theme-primary-800), 1),
@@ -274,10 +267,6 @@ $perun-theme: mat.define-light-theme(
 
   $resource-primary: mat.define-palette($resource-dynamic-colors, 500);
   $resource-accent: mat.define-palette(mat.$green-palette, 600);
-
-  //FIXME(theme-error): old definition of theme - will be able to be removed if the new definition is correct
-  // $resource-theme: mat.define-light-theme($resource-primary, $resource-accent);
-  // @include mat.all-component-themes($resource-theme);
   $resource-theme: mat.define-light-theme(
     (
       color: (
@@ -305,9 +294,7 @@ $perun-theme: mat.define-light-theme(
     200: rgba(var(--group-theme-primary-200), 1),
     300: rgba(var(--group-theme-primary-300), 1),
     400: rgba(var(--group-theme-primary-400), 1),
-    //FIXME(theme-error): we want ot load color from the config
-    // 500: rgba(var(--group-theme-primary-500), 1),
-    500: rgba(#33691e, 1),
+    500: rgba(var(--group-theme-primary-500), 1),
     600: rgba(var(--group-theme-primary-600), 1),
     700: rgba(var(--group-theme-primary-700), 1),
     800: rgba(var(--group-theme-primary-800), 1),
@@ -336,10 +323,6 @@ $perun-theme: mat.define-light-theme(
 
   $group-primary: mat.define-palette($group-dynamic-colors, 500);
   $group-accent: mat.define-palette(mat.$green-palette, 600);
-
-  //FIXME(theme-error): old definition of theme - will be able to be removed if the new definition is correct
-  // $group-theme: mat.define-light-theme($group-primary, $group-accent);
-  // @include mat.all-component-themes($group-theme);
   $group-theme: mat.define-light-theme(
     (
       color: (
@@ -367,9 +350,7 @@ $perun-theme: mat.define-light-theme(
     200: rgba(var(--member-theme-primary-200), 1),
     300: rgba(var(--member-theme-primary-300), 1),
     400: rgba(var(--member-theme-primary-400), 1),
-    //FIXME(theme-error): we want ot load color from the config
-    // 500: rgba(var(--member-theme-primary-500), 1),
-    500: rgba(#ad1457, 1),
+    500: rgba(var(--member-theme-primary-500), 1),
     600: rgba(var(--member-theme-primary-600), 1),
     700: rgba(var(--member-theme-primary-700), 1),
     800: rgba(var(--member-theme-primary-800), 1),
@@ -398,10 +379,6 @@ $perun-theme: mat.define-light-theme(
 
   $member-primary: mat.define-palette($member-dynamic-colors, 500);
   $member-accent: mat.define-palette(mat.$green-palette, 600);
-
-  //FIXME(theme-error): old definition of theme - will be able to be removed if the new definition is correct
-  // $member-theme: mat.define-light-theme($member-primary, $member-accent);
-  // @include mat.all-component-themes($member-theme);
   $member-theme: mat.define-light-theme(
     (
       color: (
@@ -429,9 +406,7 @@ $perun-theme: mat.define-light-theme(
     200: rgba(var(--admin-theme-primary-200), 1),
     300: rgba(var(--admin-theme-primary-300), 1),
     400: rgba(var(--admin-theme-primary-400), 1),
-    //FIXME(theme-error): we want ot load color from the config
-    // 500: rgba(var(--admin-theme-primary-500), 1),
-    500: rgba(#c62828, 1),
+    500: rgba(var(--admin-theme-primary-500), 1),
     600: rgba(var(--admin-theme-primary-600), 1),
     700: rgba(var(--admin-theme-primary-700), 1),
     800: rgba(var(--admin-theme-primary-800), 1),
@@ -460,10 +435,6 @@ $perun-theme: mat.define-light-theme(
 
   $admin-primary: mat.define-palette($admin-dynamic-colors, 500);
   $admin-accent: mat.define-palette(mat.$green-palette, 600);
-
-  //FIXME(theme-error): old definition of theme - will be able to be removed if the new definition is correct
-  // $admin-theme: mat.define-light-theme($admin-primary, $admin-accent);
-  // @include mat.all-component-themes($admin-theme);
   $admin-theme: mat.define-light-theme(
     (
       color: (
@@ -491,9 +462,7 @@ $perun-theme: mat.define-light-theme(
     200: rgba(var(--user-theme-primary-200), 1),
     300: rgba(var(--user-theme-primary-300), 1),
     400: rgba(var(--user-theme-primary-400), 1),
-    //FIXME(theme-error): we want ot load color from the config
-    // 500: rgba(var(--user-theme-primary-500), 1),
-    500: rgba(#00796b, 1),
+    500: rgba(var(--user-theme-primary-500), 1),
     600: rgba(var(--user-theme-primary-600), 1),
     700: rgba(var(--user-theme-primary-700), 1),
     800: rgba(var(--user-theme-primary-800), 1),
@@ -522,10 +491,6 @@ $perun-theme: mat.define-light-theme(
 
   $user-primary: mat.define-palette($user-dynamic-colors, 500);
   $user-accent: mat.define-palette(mat.$green-palette, 600);
-
-  //FIXME(theme-error): old definition of theme - will be able to be removed if the new definition is correct
-  // $user-theme: mat.define-light-theme($user-primary, $user-accent);
-  // @include mat.all-component-themes($user-theme);
   $user-theme: mat.define-light-theme(
     (
       color: (
@@ -545,9 +510,7 @@ $perun-theme: mat.define-light-theme(
     200: rgba(var(--service-theme-primary-200), 1),
     300: rgba(var(--service-theme-primary-300), 1),
     400: rgba(var(--service-theme-primary-400), 1),
-    //FIXME(theme-error): we want ot load color from the config
-    // 500: rgba(var(--service-theme-primary-500), 1),
-    500: rgba(#561335, 1),
+    500: rgba(var(--service-theme-primary-500), 1),
     600: rgba(var(--service-theme-primary-600), 1),
     700: rgba(var(--service-theme-primary-700), 1),
     800: rgba(var(--service-theme-primary-800), 1),
@@ -576,10 +539,6 @@ $perun-theme: mat.define-light-theme(
 
   $service-primary: mat.define-palette($service-dynamic-colors, 500);
   $service-accent: mat.define-palette(mat.$green-palette, 600);
-
-  //FIXME(theme-error): old definition of theme - will be able to be removed if the new definition is correct
-  // $service-theme: mat.define-light-theme($service-primary, $service-accent);
-  // @include mat.all-component-themes($service-theme);
   $service-theme: mat.define-light-theme(
     (
       color: (
