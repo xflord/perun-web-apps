@@ -35,7 +35,7 @@
     "start-publications": "ng serve publications --public-host=http://localhost:4200 --disable-host-check",
     "start-password-reset": "ng serve password-reset --public-host=http://localhost:4200 --disable-host-check",
     "start-dev-admin-gui-with-external-database": "sudo ng serve admin-gui --port=80 --public-host=http://localhost:80 --disable-host-check",
-    "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
+    "postinstall": "node ./decorate-angular-cli.js && node ./color-migration.js && ngcc --properties es2020 browser module main",
     "workspace-generator": "nx workspace-generator",
     "semantic-release": "semantic-release"
   },

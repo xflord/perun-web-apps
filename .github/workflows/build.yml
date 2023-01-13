@@ -21,6 +21,7 @@ jobs:
       - name: Install dependencies and build
         run: |
           npm ci --legacy-peer-deps
+          node ./color-migration.js
           npm run build
       - name: Run Prettier
         run: npm run format:check

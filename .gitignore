@@ -58,3 +58,11 @@ apps/linker/src/assets/config/instanceFavicon.ico
 apps/admin-gui-e2e/dist
 
 .angular
+
+# Remove dynamically generated style.css files
+apps/admin-gui/src/styles.scss
+apps/consolidator/src/styles.scss
+apps/linker/src/styles.scss
+apps/password-reset/src/styles.scss
+apps/publications/src/styles.scss
+apps/user-profile/src/styles.scss
