@@ -14,7 +14,6 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ToEnrichedFacilityPipe } from '@perun-web-apps/perun/pipes';
-import { UntypedFormControl } from '@angular/forms';
 import { ImmediateFilterComponent } from '@perun-web-apps/perun/components';
 
 export interface AddRoleDialogData {
