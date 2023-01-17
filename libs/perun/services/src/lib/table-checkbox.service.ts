@@ -41,7 +41,10 @@ export class TableCheckbox {
     }
     this.pageIterator = 0;
 
-    dataSource.sortData(dataSource.filteredData, sort).forEach((row: T) => {
+    const data = sort
+      ? dataSource.sortData(dataSource.filteredData, sort)
+      : dataSource.filteredData;
+    data.forEach((row: T) => {
       if (
         this.pageStart <= this.pageIterator &&
         this.pageIterator < this.pageEnd &&

@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Inject,
@@ -62,7 +63,8 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit, 
     @Inject(MAT_DIALOG_DATA) public data: EntitylessAttributeKeysListData,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private attributesManager: AttributesManagerService
+    private attributesManager: AttributesManagerService,
+    private cd: ChangeDetectorRef
   ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
@@ -119,6 +121,7 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit, 
     }
     this.selection.clear();
     this.isAddButtonDisabled = false;
+    this.cd.detectChanges();
   }
 
   onRemove(): void {
@@ -135,6 +138,7 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit, 
     this.ngOnInit();
     this.selection.clear();
     this.isAddButtonDisabled = false;
+    this.cd.detectChanges();
   }
 
   onAdd(): void {
@@ -146,6 +150,7 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit, 
     this.selection.clear();
     this.selection.select(rec);
     this.isAddButtonDisabled = true;
+    this.cd.detectChanges();
   }
 
   onCancel(): void {
@@ -185,5 +190,6 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit, 
       this.child = children.first;
       this.dataSource.paginator = this.child.paginator;
     });
+    this.setDataSource();
   }
 }
