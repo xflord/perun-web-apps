@@ -1,12 +1,17 @@
 <mat-form-field appearance="{{readonly ? 'none' : 'standard'}}" class="w-100">
-  <input
-    matInput
-    (click)="readonly && value !== undefined && showValue(value, attribute.displayName)"
-    [class.cursor-pointer]="readonly && value !== undefined"
-    [readonly]="readonly"
-    class="overflow-ellipsis"
-    [(ngModel)]="attribute.value"
-    type="text"
-    attr.data-cy="{{attribute.displayName | multiWordDataCy}}-value"
-    (keydown)="_sendEventToParent()" />
+  <div class="inline">
+    <input
+      matInput
+      matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_VALUE_STRING.TOOLTIP' | translate}}"
+      [matTooltipDisabled]="readonly || !multiline"
+      (click)="(readonly || multiline) && value !== undefined && showValue(attribute.value, attribute.displayName)"
+      [class.cursor-pointer]="(readonly || multiline) && value !== undefined"
+      [readonly]="readonly || multiline"
+      class="overflow-ellipsis"
+      [(ngModel)]="value"
+      type="text"
+      attr.data-cy="{{attribute.displayName | multiWordDataCy}}-value"
+      (keyup)="_sendEventToParent()" />
+    <mat-icon *ngIf="!readonly" (click)="edit()" class="edit-delete-icon">edit</mat-icon>
+  </div>
 </mat-form-field>

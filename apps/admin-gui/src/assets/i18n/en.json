@@ -2934,12 +2934,18 @@
             "SUBMIT_BUTTON": "Submit",
             "CANCEL_BUTTON": "Cancel"
           },
+
           "DELETE_DIALOG": {
             "TITLE": "Delete attribute value",
             "DESCRIPTION": "Do you really want to delete this attribute list value from list?",
             "SUBMIT_BUTTON": "Delete",
             "CANCEL_BUTTON": "Cancel"
           }
+        },
+        "ATTRIBUTE_VALUE_STRING": {
+          "TOOLTIP": "Please use the edit button to edit multi-line string attributes",
+          "EXTRA_LINES_SINGLE": "more line",
+          "EXTRA_LINES_PLURAL": "more lines"
         },
         "ATTRIBUTES_LIST": {
           "FILTER": "Filter attributes by Id, name, value or description",

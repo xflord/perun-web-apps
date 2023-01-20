@@ -5,3 +5,16 @@
 .overflow-ellipsis {
   text-overflow: ellipsis;
 }
+
+.edit-delete-icon {
+  font-size: 18px;
+  justify-content: center;
+  align-items: normal;
+  display: flex;
+  cursor: pointer;
+}
+
+.inline {
+  display: flex;
+  flex-direction: row;
+}

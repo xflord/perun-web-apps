@@ -21,7 +21,11 @@ export class AttributeValueListEditDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.attributeValue = (this.data.attribute.value as string[])[this.data.index];
+    if (this.data.index === undefined) {
+      this.attributeValue = this.data.attribute.value as string;
+    } else {
+      this.attributeValue = (this.data.attribute.value as string[])[this.data.index];
+    }
   }
 
   cancel(): void {
@@ -29,7 +33,11 @@ export class AttributeValueListEditDialogComponent implements OnInit {
   }
 
   submit(): void {
-    (this.data.attribute.value as string[])[this.data.index] = this.attributeValue;
+    if (this.data.index === undefined) {
+      this.data.attribute.value = this.attributeValue;
+    } else {
+      (this.data.attribute.value as string[])[this.data.index] = this.attributeValue;
+    }
     this.dialogRef.close(true);
   }
 }
