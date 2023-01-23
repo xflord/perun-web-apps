@@ -5,7 +5,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ReportIssueDialogComponent } from '../report-issue-dialog/report-issue-dialog.component';
-import { AuthService, InitAuthService, StoreService } from '@perun-web-apps/perun/services';
+import { StoreService } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { UtilsService } from '@perun-web-apps/perun/openapi';
@@ -30,7 +30,7 @@ export class PerunFooterComponent implements OnInit {
   githubBackendRepository: string = this.storeService.getProperty('footer').github_backend_releases;
   bgColor: string = this.storeService.getProperty('theme').footer_bg_color;
   version = '';
-  backendVersion = '';
+  backendVersion = 'N/A';
   guiVersion = '';
   language = 'en';
   columnContentHeight = 0;
@@ -39,9 +39,7 @@ export class PerunFooterComponent implements OnInit {
     private storeService: StoreService,
     private translateService: TranslateService,
     private utilsService: UtilsService,
-    private dialog: MatDialog,
-    private authService: AuthService,
-    private initAuthService: InitAuthService
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -54,7 +52,10 @@ export class PerunFooterComponent implements OnInit {
     this.guiVersion = require('../../../../../../package.json').version as string;
 
     this.utilsService.getPerunRPCVersion(true).subscribe((val) => {
-      this.backendVersion = val.match('\\bVersion:\\s*([^,\\s]+)')[1];
+      const match = val.match('\\bVersion:\\s*([^,\\s]+)');
+      if (match !== null) {
+        this.backendVersion = match[1];
+      }
     });
 
     this.footerColumns = this.storeService.getProperty('footer').columns;
