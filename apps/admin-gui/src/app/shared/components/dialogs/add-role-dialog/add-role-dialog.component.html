@@ -21,11 +21,11 @@
       [disableRouting]="true">
     </perun-web-apps-vos-list>
     <perun-web-apps-groups-list
-      [filterValue]="filterValue"
       *ngIf="!loading && selectedRule?.primaryObject === 'Group'"
       [groups]="groups | manageableEntities: selectedRule | unassignedRole: roles : selectedRule"
       [displayedColumns]="['select', 'id', 'vo', 'name', 'description']"
       [selection]="selected"
+      [filter]="filterValue"
       [disableRouting]="true">
     </perun-web-apps-groups-list>
     <perun-web-apps-facilities-list

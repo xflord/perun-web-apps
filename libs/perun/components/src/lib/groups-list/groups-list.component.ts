@@ -1,12 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  HostListener,
-  Input,
-  OnChanges,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
 import {
   ChangeGroupExpirationDialogComponent,
   EditFacilityResourceGroupVoDialogComponent,
@@ -17,7 +9,6 @@ import {
   Group,
   Member,
   PaginatedRichGroups,
-  Vo,
   VosManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
@@ -51,10 +42,9 @@ import { GroupUtilsService } from '@perun-web-apps/perun/services';
   styleUrls: ['./groups-list.component.scss'],
   providers: [DisableGroupSelectPipe],
 })
-export class GroupsListComponent implements OnChanges {
+export class GroupsListComponent {
   @Input() theme = 'group-theme';
   @Input() selection = new SelectionModel<GroupWithStatus>(true, []);
-  @Input() filterValue: string;
   @Input() disableMembers: boolean;
   @Input() disableGroups: boolean;
   @Input() groupsToDisableCheckbox: Set<number> = new Set<number>();
@@ -150,13 +140,6 @@ export class GroupsListComponent implements OnChanges {
   getSortDataForColumnFun = (data: GroupWithStatus, column: string): string => {
     return this.groupUtils.getSortDataForColumn(data, column, this.voNames, this.recentIds);
   };
-
-  ngOnChanges(): void {
-    if (!this.authResolver.isPerunAdminOrObserver()) {
-      this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
-    }
-    this.setDataSource();
-  }
 
   exportAllData(format: string): void {
     if (isDynamicDataSource(this.dataSource)) {
@@ -298,39 +281,6 @@ export class GroupsListComponent implements OnChanges {
       this.groupsToDisableCheckbox
     );
   };
-
-  setDataSource(): void {
-    if (!this.dataSource) {
-      this.dataSource = new MatTableDataSource<GroupWithStatus>();
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.tableWrapper.paginator;
-      this.dataSource.filterPredicate = (data: Vo, filter: string): boolean =>
-        customDataSourceFilterPredicate(
-          data,
-          filter,
-          this.displayedColumns,
-          this.getDataForColumnFun
-        );
-      this.dataSource.sortData = (data: GroupWithStatus[], sort: MatSort): GroupWithStatus[] =>
-        customDataSourceSort(data, sort, this.getDataForColumnFun);
-    }
-    this.dataSource.filter = this.filterValue;
-
-    // if groups not loaded yet, skip
-    if (!this.groups) {
-      return;
-    }
-
-    const paginated = this.isPaginated(this.groups);
-    if (isDynamicDataSource(this.dataSource) || paginated) {
-      this.dataSource.data = (this.groups as PaginatedRichGroups).data;
-      (this.dataSource as DynamicDataSource<GroupWithStatus>).count = (
-        this.groups as PaginatedRichGroups
-      ).totalCount;
-    } else if (!isDynamicDataSource(this.dataSource) && !paginated) {
-      this.dataSource.data = this.groups as GroupWithStatus[];
-    }
-  }
 
   private dataSourceInit(groups: GroupWithStatus[] | PaginatedRichGroups): void {
     const paginated = this.isPaginated(groups);
