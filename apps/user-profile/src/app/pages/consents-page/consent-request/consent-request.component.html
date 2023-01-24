@@ -1,6 +1,6 @@
 <div class="d-flex">
-  <div class="card p-4 mat-elevation-z3 ml-auto mr-auto">
-    <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <div class="card p-4 mat-elevation-z3 ms-auto me-auto">
+    <mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>
     <div *ngIf="!loading">
       <h1 class="page-title">
         {{ 'CONSENTS.REQUEST.TITLE' | customTranslate | translate }}
@@ -17,7 +17,7 @@
       </div>
       <!--    <mat-checkbox class="minimize-checkbox mb-n2">{{ 'CONSENTS.REQUEST.CHECKBOX' | customTranslate | translate }}</mat-checkbox>-->
       <div class="d-flex">
-        <button mat-flat-button color="warn" class="mr-2 ml-auto" (click)="rejectConsent()">
+        <button mat-flat-button color="warn" class="me-2 ms-auto" (click)="rejectConsent()">
           {{ 'CONSENTS.REQUEST.REJECT_CONSENT_BUTTON' | customTranslate | translate }}
         </button>
         <button mat-flat-button color="accent" (click)="grantConsent()">

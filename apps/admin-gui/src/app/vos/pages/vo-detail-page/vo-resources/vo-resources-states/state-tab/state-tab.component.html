@@ -1,11 +1,11 @@
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+<mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
 <div *ngIf="!loading" class="p-2">
   <mat-accordion class="headers-align" multi="true" togglePosition="before">
     <mat-expansion-panel *ngFor="let resourceStatus of propagation">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <img height="28" src="assets/img/PerunWebImages/resource-black.svg" width="28" />
-          <div class="ml-2">
+          <div class="ms-2">
             {{resourceStatus.resource.name}}
           </div>
         </mat-panel-title>

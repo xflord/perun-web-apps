@@ -21,7 +21,7 @@
       </mat-label>
       <input matInput required type="number" [formControl]="newValueControl" />
     </mat-form-field>
-    <mat-select [(value)]="selectedUnit" class="select-width mt-auto mb-auto ml-2">
+    <mat-select [(value)]="selectedUnit" class="select-width mt-auto mb-auto ms-2">
       <mat-option *ngFor="let unit of units" [value]="selectedUnit">
         {{unit}}
       </mat-option>
@@ -37,11 +37,11 @@
   </div>
 
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+    <button mat-flat-button class="ms-auto" (click)="onCancel()">
       {{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.CANCEL'|customTranslate | translate}}
     </button>
     <button
-      class="ml-2"
+      class="ms-2"
       mat-flat-button
       color="accent"
       [disabled]="reasonControl.invalid"

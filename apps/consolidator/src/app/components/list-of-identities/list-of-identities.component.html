@@ -1,5 +1,5 @@
 <div>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
   <div *ngIf="!loading">
     <span *ngIf="unknownIdentity" class="mt-n3">{{
       'LIST_OF_IDENTITIES.SIGN_NOT_KNOW' | translate
@@ -33,13 +33,11 @@
         <table [dataSource]="dataSource" mat-table class="w-100">
           <ng-container matColumnDef="name">
             <th *matHeaderCellDef mat-header-cell></th>
-            <td *matCellDef="let attribute" class="font-weight-bold px-3" mat-cell>
-              {{attribute.name}}:
-            </td>
+            <td *matCellDef="let attribute" class="fw-bold px-3" mat-cell>{{attribute.name}}:</td>
           </ng-container>
           <ng-container matColumnDef="value">
             <th *matHeaderCellDef mat-header-cell></th>
-            <td *matCellDef="let attribute" class="pr-3" mat-cell>
+            <td *matCellDef="let attribute" class="pe-3" mat-cell>
               <span *ngIf="attribute.name !== 'Linked accounts'">{{attribute.value}}</span>
               <span *ngIf="attribute.name === 'Linked accounts'">
                 <span *ngFor="let account of attribute.value">

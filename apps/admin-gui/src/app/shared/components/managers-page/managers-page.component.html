@@ -15,7 +15,7 @@
         *ngIf="manageAuth && !configMode"
         (click)="addManager()"
         color="accent"
-        class="mr-2 action-button"
+        class="me-2 action-button"
         data-cy="add-manager-button"
         mat-flat-button>
         {{'SHARED.COMPONENTS.MANAGERS_PAGE.ADD' | translate}}
@@ -27,12 +27,12 @@
         color="warn"
         [disabled]="selectionUsers.selected.length === 0"
         data-cy="remove-manager-button"
-        class="mr-2"
+        class="me-2"
         mat-flat-button>
         {{'SHARED.COMPONENTS.MANAGERS_PAGE.REMOVE' | translate}}
       </button>
 
-      <mat-form-field data-cy="role-filter" class="mr-2 mt-2">
+      <mat-form-field data-cy="role-filter" class="me-2 mt-2">
         <mat-label>{{'SHARED.COMPONENTS.MANAGERS_PAGE.SELECT_ROLE' | translate}}</mat-label>
         <mat-select (selectionChange)="refreshUsers()" [(value)]="selectedRole">
           <mat-option
@@ -44,7 +44,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+      <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
 
       <ng-template #spinner>
         <perun-web-apps-loading-table></perun-web-apps-loading-table>
@@ -75,7 +75,7 @@
         *ngIf="manageAuth && !configMode"
         (click)="addGroup()"
         color="accent"
-        class="mr-2 action-button"
+        class="me-2 action-button"
         mat-flat-button>
         {{'SHARED.COMPONENTS.MANAGERS_PAGE.ADD' | translate}}
       </button>
@@ -84,13 +84,13 @@
         *ngIf="manageAuth && !configMode"
         (click)="removeGroup()"
         [disabled]="selectionGroups.selected.length === 0"
-        class="mr-2"
+        class="me-2"
         color="warn"
         mat-flat-button>
         {{'SHARED.COMPONENTS.MANAGERS_PAGE.REMOVE' | translate}}
       </button>
 
-      <mat-form-field class="mr-2 mt-2">
+      <mat-form-field class="me-2 mt-2">
         <mat-label>{{'SHARED.COMPONENTS.MANAGERS_PAGE.SELECT_ROLE' | translate}}</mat-label>
         <mat-select (selectionChange)="refreshGroups()" [(value)]="selectedRole">
           <mat-option
@@ -101,7 +101,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+      <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
 
       <ng-template #spinner>
         <perun-web-apps-loading-table></perun-web-apps-loading-table>

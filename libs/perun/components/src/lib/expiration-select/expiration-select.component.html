@@ -3,7 +3,7 @@
     {{'DIALOGS.CHANGE_EXPIRATION.EXPIRATION_NEVER'|translate}}
   </mat-radio-button>
   <mat-radio-button value="{{expirationControl.value}}">
-    <mat-form-field color="primary" class="cursor-pointer mr-3" (click)="picker.open()">
+    <mat-form-field color="primary" class="cursor-pointer me-3" (click)="picker.open()">
       <mat-label>{{'DIALOGS.CHANGE_EXPIRATION.DATE_LABEL'|translate}}</mat-label>
       <input
         (dateChange)="setExpiration()"

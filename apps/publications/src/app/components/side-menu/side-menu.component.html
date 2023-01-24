@@ -10,7 +10,7 @@
     <div [ngStyle]="{'color': textColor}" class="d-flex flex-row">
       <mat-icon *ngIf="item.isSVG" [svgIcon]="item.icon" class="perun-icon"></mat-icon>
       <mat-icon *ngIf="!item.isSVG">{{item.icon}}</mat-icon>
-      <span class="ml-3">{{item.label | translate}}</span>
+      <span class="ms-3">{{item.label | translate}}</span>
     </div>
   </mat-list-item>
 </mat-nav-list>

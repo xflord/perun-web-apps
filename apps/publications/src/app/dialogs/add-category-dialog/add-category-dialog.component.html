@@ -22,7 +22,7 @@
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button mat-flat-button class="ml-auto" (click)="onCancel()">
+      <button mat-flat-button class="ms-auto" (click)="onCancel()">
         {{'DIALOGS.ADD_CATEGORY.CANCEL' | translate}}
       </button>
       <div
@@ -31,7 +31,7 @@
         [matTooltipDisabled]="nameCtrl.valid && rankCtrl.valid">
         <button
           mat-flat-button
-          class="ml-2"
+          class="ms-2"
           color="accent"
           [disabled]="nameCtrl.invalid || rankCtrl.invalid"
           (click)="onSubmit()">

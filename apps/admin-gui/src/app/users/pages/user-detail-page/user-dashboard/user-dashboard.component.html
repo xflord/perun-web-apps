@@ -21,7 +21,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <div *ngIf="user !== undefined" class="container-fluid pl-xl-5 pr-xl-5 user-theme">
+    <div *ngIf="user !== undefined" class="container-fluid ps-xl-5 pe-xl-5 user-theme">
       <h1 class="page-title d-flex">
         <mat-icon class="home-image perun-icon" svgIcon="perun-home-white"></mat-icon>
         <span class="pt-1" data-cy="dashboard-welcome"
@@ -30,7 +30,7 @@
         <button
           (click)="this.rightSettingOpened = true"
           *ngIf="!isOnlySelfRole"
-          class="ml-auto text-bigger"
+          class="ms-auto text-bigger"
           mat-stroked-button>
           <mat-icon>settings</mat-icon>
         </button>
@@ -57,16 +57,16 @@
               queryParamsHandling="merge"
               class="text-bigger"
               mat-stroked-button>
-              <mat-icon class="mr-1 user-icon perun-icon" svgIcon="perun-user-dark"></mat-icon>
+              <mat-icon class="me-1 user-icon perun-icon" svgIcon="perun-user-dark"></mat-icon>
               {{'USER_DETAIL.DASHBOARD.GO_TO_MY_PROFILE' | translate}}
             </button>
 
             <button
               (click)="goToUserProfile()"
-              class="text-bigger ml-2 mt-2"
+              class="text-bigger ms-2 mt-2"
               *ngIf="userProfileUrl"
               mat-stroked-button>
-              <mat-icon class="mr-1">exit_to_app</mat-icon
+              <mat-icon class="me-1">exit_to_app</mat-icon
               >{{'USER_DETAIL.DASHBOARD.GO_TO_USER_PROFILE' | translate}} {{this.userProfileName}}
             </button>
           </div>

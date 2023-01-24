@@ -1,13 +1,13 @@
 <div class="user-theme">
   <h1 class="page-subtitle d-flex">
     <span>
-      <mat-icon class="add-icon mr-1">add_box</mat-icon>
+      <mat-icon class="add-icon me-1">add_box</mat-icon>
       {{'IMPORT_PUBLICATIONS.TITLE' | translate}}
     </span>
   </h1>
   <div *ngIf="!importDone">
     <div>
-      <mat-form-field class="input-width-300 mr-2">
+      <mat-form-field class="input-width-300 me-2">
         <mat-label>{{'IMPORT_PUBLICATIONS.EXT_PUB_SYSTEM' | translate}}</mat-label>
         <mat-select [formControl]="pubSystem" (closed)="selectPubSystem()">
           <mat-option
@@ -51,7 +51,7 @@
       [allowAlert]="firstSearchDone">
     </perun-web-apps-publications-list>
   </div>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
 
   <div *ngIf="importDone">
     <perun-web-apps-alert alert_type="info">
@@ -112,7 +112,7 @@
       matTooltip="{{'IMPORT_PUBLICATIONS.SUBMIT_TOOLTIP' | translate}}"
       [matTooltipPosition]="'above'"
       [matTooltipDisabled]="this.completePublications.length === this.importedPublications.length">
-      <button mat-flat-button class="ml-2" color="accent" (click)="onSubmit()">
+      <button mat-flat-button class="ms-2" color="accent" (click)="onSubmit()">
         {{'IMPORT_PUBLICATIONS.FINISH' | translate}}
       </button>
     </div>

@@ -4,14 +4,14 @@
 </h2>
 <mat-divider class="mb-4"></mat-divider>
 
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
+<mat-spinner *ngIf="loading" class="ms-auto me-auto"> </mat-spinner>
 
 <div *ngIf="!loading">
   <button
     (click)="verifyApplication()"
     color="accent"
     *ngIf="this.application.state === 'NEW' && verifyAuth"
-    class="mr-2"
+    class="me-2"
     mat-flat-button>
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.VERIFY' | translate}}
   </button>
@@ -19,7 +19,7 @@
     (click)="approveApplication()"
     color="accent"
     *ngIf="(this.application.state === 'VERIFIED' || this.application.state === 'NEW') && approveAuth"
-    class="mr-2"
+    class="me-2"
     mat-flat-button>
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.APPROVE' | translate}}
   </button>
@@ -27,7 +27,7 @@
     (click)="rejectApplication()"
     color="warn"
     *ngIf="(this.application.state === 'VERIFIED' || this.application.state === 'NEW') && rejectAuth"
-    class="mr-2"
+    class="me-2"
     mat-flat-button>
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.REJECT' | translate}}
   </button>
@@ -35,43 +35,39 @@
     (click)="deleteApplication()"
     color="warn"
     *ngIf="(this.application.state === 'REJECTED' || this.application.state === 'NEW') && deleteAuth"
-    class="mr-2"
+    class="me-2"
     mat-flat-button>
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DELETE' | translate}}
   </button>
-  <button (click)="resendNotification()" *ngIf="resendAuth" class="mr-2 mb-2" mat-stroked-button>
+  <button (click)="resendNotification()" *ngIf="resendAuth" class="me-2 mb-2" mat-stroked-button>
     <i class="material-icons"> mail_outline </i>
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.SEND_NOTIFICATION' | translate}}
   </button>
 
   <div *ngIf="!application.group">
     <span
-      class="font-weight-bold"
+      class="fw-bold"
       >{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.APPLICATION_FOR_VO' | translate}}</span
     >: {{this.application.vo.name}}
   </div>
   <div *ngIf="application.group">
     <span
-      class="font-weight-bold"
+      class="fw-bold"
       >{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.APPLICATION_FOR_GROUP' | translate}}</span
     >: {{this.application.group.name}}
 
     <span
-      class="font-weight-bold"
+      class="fw-bold"
       >{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.APPLICATION_IN_VO' | translate}}</span
     >: {{this.application.vo.name}}
   </div>
 
   <div>
-    <span
-      class="font-weight-bold"
-      >{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.STATE' | translate}}</span
+    <span class="fw-bold">{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.STATE' | translate}}</span
     >: <span [outerHTML]="this.application.state | applicationState"></span>
   </div>
   <div>
-    <span
-      class="font-weight-bold"
-      >{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.TYPE' | translate}}</span
+    <span class="fw-bold">{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.TYPE' | translate}}</span
     >:
     <span *ngIf="application.type === 'INITIAL'">
       <mat-icon class="align-bottom">arrow_right_alt</mat-icon>
@@ -94,9 +90,7 @@
       {{getModifiedAtName(application.modifiedBy)}}</mat-card-title
     >
     <div>
-      <span
-        class="font-weight-bold"
-        >{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DATE' | translate}}</span
+      <span class="fw-bold">{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DATE' | translate}}</span
       >: {{this.application.modifiedAt | date:'d.M.y H:mm:ss'}}
     </div>
   </div>
@@ -108,9 +102,7 @@
       {{getModifiedAtName(application.modifiedBy)}}</mat-card-title
     >
     <div>
-      <span
-        class="font-weight-bold"
-        >{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DATE' | translate}}</span
+      <span class="fw-bold">{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DATE' | translate}}</span
       >: {{this.application.modifiedAt | date:'d.M.y H:mm:ss'}}
     </div>
   </div>
@@ -133,35 +125,29 @@
     >
 
     <div *ngIf="userMail">
-      <span
-        class="font-weight-bold"
-        >{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.MAIL' | translate}}</span
+      <span class="fw-bold">{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.MAIL' | translate}}</span
       >: {{this.userMail}}
     </div>
     <div>
       <span
-        class="font-weight-bold"
+        class="fw-bold"
         attr.data-cy="{{this.application.extSourceName | lowercase}}-application-extsource"
         >{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.EXT_SRC' | translate}}</span
       >: {{this.application.extSourceName}}
     </div>
     <div>
-      <span
-        class="font-weight-bold"
-        >{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.LOA' | translate}}</span
+      <span class="fw-bold">{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.LOA' | translate}}</span
       >: {{this.application.extSourceLoa}}
     </div>
     <div>
-      <span
-        class="font-weight-bold"
-        >{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DATE' | translate}}</span
+      <span class="fw-bold">{{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DATE' | translate}}</span
       >: {{this.application.createdAt | date:'d.M.y H:mm:ss'}}
     </div>
 
     <table *ngIf="userData.length !== 0" [dataSource]="dataSource" class="w-100" mat-table>
       <ng-container matColumnDef="label">
         <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let userData" class="font-weight-bold" mat-cell>
+        <td *matCellDef="let userData" class="fw-bold" mat-cell>
           {{getLabel(userData.formItem)}}
         </td>
       </ng-container>

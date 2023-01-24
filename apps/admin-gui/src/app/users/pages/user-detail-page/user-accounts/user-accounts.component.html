@@ -1,5 +1,5 @@
 <h1 class="page-title">{{'USER_DETAIL.ACCOUNTS.TITLE' | translate}}</h1>
-<mat-spinner class="ml-auto mr-auto" *ngIf="initLoading"></mat-spinner>
+<mat-spinner class="ms-auto me-auto" *ngIf="initLoading"></mat-spinner>
 <div class="d-flex">
   <perun-web-apps-vo-search-select
     *ngIf="!(initLoading || vos.length === 0)"
@@ -14,10 +14,10 @@
       {{'USER_DETAIL.ACCOUNTS.STATUS' | translate}}
     </ng-template>
     <ng-template matTabContent>
-      <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+      <mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>
       <div *ngIf="!loading">
         <div class="mt-4 mb-4">
-          <span class="subtitle mr-2">{{'USER_DETAIL.ACCOUNTS.MEMBER' | translate}}:</span>
+          <span class="subtitle me-2">{{'USER_DETAIL.ACCOUNTS.MEMBER' | translate}}:</span>
           <a
             class="member-link"
             [perunWebAppsMiddleClickRouterLink]="['/organizations', selectedVo.id.toString(), 'members', member.id.toString()]"

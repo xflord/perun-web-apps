@@ -1,18 +1,18 @@
 <h1 mat-dialog-title>{{'DIALOGS.DELETE_APPLICATION_FORM_ITEM.TITLE' | translate}}</h1>
 <div class="dialog-container" mat-dialog-content>
-  <div class="pb-2 font-weight-bold">
+  <div class="pb-2 fw-bold">
     {{'DIALOGS.DELETE_APPLICATION_FORM_ITEM.INFO_1' | translate}}
   </div>
   <div>{{'DIALOGS.DELETE_APPLICATION_FORM_ITEM.INFO_2' | translate}}</div>
   <div class="pb-4 pt-2">{{'DIALOGS.DELETE_APPLICATION_FORM_ITEM.INFO_3' | translate}}</div>
 </div>
 <div mat-dialog-actions>
-  <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+  <button (click)="onCancel()" class="ms-auto" mat-flat-button>
     {{'DIALOGS.DELETE_APPLICATION_FORM_ITEM.CANCEL_BUTTON' | translate}}
   </button>
   <button
     (click)="submit()"
-    class="ml-2"
+    class="ms-2"
     color="warn"
     data-cy="delete-application-form-item-dialog"
     mat-flat-button>

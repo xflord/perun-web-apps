@@ -3,10 +3,10 @@
   <textarea cdkTextareaAutosize class="w-100 display-fix" matInput readonly>{{value}}</textarea>
 </div>
 <div mat-dialog-actions>
-  <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+  <button (click)="onCancel()" class="ms-auto" mat-flat-button>
     {{'SHARED_LIB.PERUN.COMPONENTS.SHOW_VALUE.CLOSE' | translate}}
   </button>
-  <button [cdkCopyToClipboard]="value" class="ml-2" color="accent" mat-flat-button>
+  <button [cdkCopyToClipboard]="value" class="ms-2" color="accent" mat-flat-button>
     {{'SHARED_LIB.PERUN.COMPONENTS.SHOW_VALUE.COPY' | translate}}
   </button>
 </div>

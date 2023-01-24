@@ -1,5 +1,5 @@
 <div class="d-flex">
-  <div class="d-inline-block ml-auto mr-auto">
+  <div class="d-inline-block ms-auto me-auto">
     <perun-web-apps-alert *ngIf="unknownIdentity" alert_type="warn">{{
       'MAIN_WINDOW.IS_NOT_KNOWN_IDENTITY' | translate
     }}</perun-web-apps-alert>
@@ -22,9 +22,9 @@
             <div class="d-flex flex-row">
               <mat-icon svgIcon="perun-verify-grey" class="perun-icon perun-icon-similar">
               </mat-icon>
-              <div class="ml-3 mt-1">
+              <div class="ms-3 mt-1">
                 <div>{{ similarIdentity.email }}</div>
-                <div class="pl-1">
+                <div class="ps-1">
                   {{ 'MAIN_WINDOW.LINKED_ACCOUNTS' | translate }}:
                   {{ similarIdentity.identities | similarIdentityFriendlyNamesString }}
                 </div>
@@ -32,7 +32,7 @@
             </div>
             <button
               mat-flat-button
-              class="ml-auto mr-2 mb-2 mt-3"
+              class="ms-auto me-2 mb-2 mt-3"
               color="accent"
               (click)="openPopUp(similarIdentity.identities)">
               {{ 'MAIN_WINDOW.CONNECT_THIS_ACCOUNT' | translate }}
@@ -43,7 +43,7 @@
             {{ 'MAIN_WINDOW.CONNECT_OTHER_ACCOUNT' | translate }}
           </button>
         </div>
-        <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+        <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
       </div>
     </div>
   </div>

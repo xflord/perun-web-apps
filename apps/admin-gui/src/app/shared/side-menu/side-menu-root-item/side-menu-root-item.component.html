@@ -15,7 +15,7 @@
             [svgIcon]="item.icon"
             class="perun-icon"></mat-icon>
         </div>
-        <div class="ml-3">{{item.label | translate}}</div>
+        <div class="ms-3">{{item.label | translate}}</div>
       </a>
     </div>
   </div>
@@ -33,7 +33,7 @@
           [ngStyle]="{'color': linkTextColor, 'border-color': linkTextColor}"
           matRipple>
           {{link.label | translate}}
-          <span *ngIf="link.children" class="ml-auto">
+          <span *ngIf="link.children" class="ms-auto">
             <mat-icon
               *ngIf="!isActive(currentUrl, link.showChildrenRegex)"
               [ngStyle]="{'color': 'linkTextColor'}"
@@ -55,7 +55,7 @@
             [class.activated]="isActive(currentUrl, child.activatedRegex) && item.activatedClass === undefined"
             [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
             [ngStyle]="{'color': linkTextColor, 'border-color': linkTextColor}"
-            class="pl-5 clickable"
+            class="ps-5 clickable"
             [ngClass]="isActive(currentUrl, child.activatedRegex) && item.activatedClass !== undefined ? item.activatedClass : ''"
             [perunWebAppsMiddleClickRouterLink]="child.url"
             matRipple>

@@ -1,5 +1,5 @@
 <div class="card-body pt-0">
-  <div class="row justify-content-end align-items-center" #topNav>
+  <div class="d-flex justify-content-end align-items-center" #topNav>
     <mat-paginator
       (page)="pageChangedTop($event)"
       [length]="dataLength"
@@ -16,7 +16,7 @@
     <ng-content></ng-content>
   </div>
 
-  <div class="row justify-content-end align-items-center">
+  <div class="d-flex justify-content-end align-items-center">
     <mat-paginator
       (page)="pageChangedBottom($event)"
       [length]="paginator.length"

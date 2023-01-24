@@ -16,7 +16,7 @@
             [svgIcon]="item.icon"
             class="perun-icon"></mat-icon>
         </div>
-        <div class="ml-3">{{item.label | translate}}</div>
+        <div class="ms-3">{{item.label | translate}}</div>
       </a>
     </div>
   </div>
@@ -35,7 +35,7 @@
             class="clickable d-flex"
             matRipple>
             {{link.label | translate}}
-            <span *ngIf="link.children" class="ml-auto">
+            <span *ngIf="link.children" class="ms-auto">
               <mat-icon
                 *ngIf="!isActive(currentUrl, link.showChildrenRegex)"
                 [ngStyle]="{'color': 'linkTextColor'}"

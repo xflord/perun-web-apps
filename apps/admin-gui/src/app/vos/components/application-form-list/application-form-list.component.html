@@ -237,12 +237,12 @@
             <button
               (click)="edit(applicationFormItem)"
               *ngIf="!applicationFormItem.forDelete"
-              class="ml-auto"
+              class="ms-auto"
               mat-icon-button
               matTooltip="{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.EDIT' | translate}}">
               <mat-icon>edit</mat-icon>
             </button>
-            <div *ngIf="applicationFormItem.forDelete" class="font-weight-bold">
+            <div *ngIf="applicationFormItem.forDelete" class="fw-bold">
               {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MARK_DELETE' | translate}}
             </div>
           </td>

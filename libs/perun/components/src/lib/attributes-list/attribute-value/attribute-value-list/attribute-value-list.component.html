@@ -23,12 +23,12 @@
         class="chip-text overflow-ellipsis">
         {{chip}}
       </div>
-      <mat-icon *ngIf="removable" (click)="edit(chip)" class="edit-delete-icon ml-2">edit</mat-icon>
+      <mat-icon *ngIf="removable" (click)="edit(chip)" class="edit-delete-icon ms-2">edit</mat-icon>
       <mat-icon *ngIf="removable" (click)="remove(chip)" class="edit-delete-icon">cancel</mat-icon>
     </mat-chip-row>
     <div class="w-100" *ngIf="values.length > defaultItemsShown">
       <span [matTooltip]="showMore ? 'Show less' : 'Show more'" [matTooltipPosition]="'above'">
-        <button class="ml-auto" mat-icon-button (click)="onShowChange()">
+        <button class="ms-auto" mat-icon-button (click)="onShowChange()">
           <mat-icon *ngIf="!showMore">more_horiz</mat-icon>
           <mat-icon *ngIf="showMore">keyboard_arrow_up</mat-icon>
         </button>

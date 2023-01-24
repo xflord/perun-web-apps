@@ -1,13 +1,13 @@
 <div class="user-theme">
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   <table *ngIf="!loading" class="mt-3 word-break-all">
     <tbody>
       <tr>
-        <td class="font-weight-bold">{{'PROFILE_PAGE.NAME'|customTranslate | translate}}</td>
+        <td class="fw-bold">{{'PROFILE_PAGE.NAME'|customTranslate | translate}}</td>
         <td>{{fullName}}</td>
       </tr>
       <tr *ngFor="let attribute of additionalAttributes">
-        <td class="font-weight-bold att-name-width">
+        <td class="fw-bold att-name-width">
           <div [matTooltip]="attribute['tooltip_' + currentLang]" matTooltipPosition="above">
             {{attribute['displayName_' + currentLang]}}
           </div>
@@ -26,7 +26,7 @@
 
           <div *ngSwitchCase="'preferredMail'">
             <a class="center-self" href="mailto:{{email}}">{{email}}</a>
-            <button (click)="changeEmail()" class="ml-2" mat-icon-button>
+            <button (click)="changeEmail()" class="ms-2" mat-icon-button>
               <mat-icon> edit </mat-icon>
             </button>
           </div>

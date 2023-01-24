@@ -3,7 +3,7 @@
     *ngIf="!publication.locked"
     mat-flat-button
     color="accent"
-    class="mr-2 action-button"
+    class="me-2 action-button"
     (click)="onAddAuthors()">
     {{'PUBLICATION_DETAIL.ADD' | translate}}
   </button>
@@ -11,7 +11,7 @@
     *ngIf="!publication.locked && !similarityCheck"
     mat-flat-button
     color="warn"
-    class="mr-2"
+    class="me-2"
     [disabled]="selection.selected.length === 0 || publication.locked"
     (click)="onRemoveAuthors()">
     {{'PUBLICATION_DETAIL.REMOVE' | translate}}

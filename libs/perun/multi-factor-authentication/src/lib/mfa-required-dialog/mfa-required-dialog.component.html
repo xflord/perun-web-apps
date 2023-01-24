@@ -7,12 +7,12 @@
   </perun-web-apps-alert>
 </div>
 <div mat-dialog-actions>
-  <button [hidden]="data.mfaRoleException" (click)="cancel()" class="ml-auto" mat-flat-button>
+  <button [hidden]="data.mfaRoleException" (click)="cancel()" class="ms-auto" mat-flat-button>
     {{'SHARED_LIB.PERUN.COMPONENTS.MFA_REQUIRED_DIALOG.CANCEL' | translate}}
   </button>
   <button
     (click)="submit()"
-    [class]="data.mfaRoleException ? 'ml-auto' : 'ml-2'"
+    [class]="data.mfaRoleException ? 'ms-auto' : 'ms-2'"
     color="accent"
     mat-flat-button>
     {{'SHARED_LIB.PERUN.COMPONENTS.MFA_REQUIRED_DIALOG.STEP_UP' | translate}}

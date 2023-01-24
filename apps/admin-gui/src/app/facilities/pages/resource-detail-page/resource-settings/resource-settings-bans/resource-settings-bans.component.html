@@ -3,7 +3,7 @@
 </h1>
 
 <perun-web-apps-refresh-button (click)="refresh()"></perun-web-apps-refresh-button>
-<button (click)="add()" *ngIf="addAuth" class="mr-2 action-button" color="accent" mat-flat-button>
+<button (click)="add()" *ngIf="addAuth" class="me-2 action-button" color="accent" mat-flat-button>
   {{'RESOURCE_DETAIL.SETTINGS.BANS.ADD' | translate}}
 </button>
 <button
@@ -11,7 +11,7 @@
   (click)="remove()"
   color="warn"
   [disabled]="selection.selected.length === 0"
-  class="mr-2"
+  class="me-2"
   mat-flat-button>
   {{'RESOURCE_DETAIL.SETTINGS.BANS.REMOVE' | translate}}
 </button>

@@ -33,13 +33,13 @@
     >
   </div>
   <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+    <button (click)="onCancel()" class="ms-auto" mat-flat-button>
       {{'DIALOGS.ADD_AUTH_IMG.CANCEL'| customTranslate | translate}}
     </button>
     <button
       (click)="onAdd()"
       [disabled]="!newImage || imgTooLong"
-      class="ml-2"
+      class="ms-2"
       color="accent"
       mat-flat-button>
       {{'DIALOGS.ADD_AUTH_IMG.ADD'| customTranslate | translate}}

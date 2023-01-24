@@ -8,7 +8,7 @@
     </h1>
     <mat-slide-toggle
       #mainToggle
-      class="ml-4"
+      class="ms-4"
       [(ngModel)]="currentConfiguration.enabled"
       color="primary">
     </mat-slide-toggle>
@@ -19,9 +19,9 @@
       class="setting-item pt-2"
       >{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.PERIOD_LABEL' | translate}}</label
     >
-    <div class="ml-1">
+    <div class="ms-1">
       <mat-radio-group [(ngModel)]="currentConfiguration.periodType">
-        <mat-radio-button #staticPeriod class="mr-3" color="primary" value="static">
+        <mat-radio-button #staticPeriod class="me-3" color="primary" value="static">
           {{'VO_MANAGEMENT.SETTINGS.EXPIRATION.PERIOD_TYPE_STATIC' | translate}}
         </mat-radio-button>
         <mat-radio-button #dynamicPeriod color="primary" value="dynamic">
@@ -41,7 +41,7 @@
         </mat-form-field>
       </div>
       <div *ngIf="dynamicPeriod.checked" class="d-flex flex-row">
-        <mat-form-field class="mr-2 amount-field">
+        <mat-form-field class="me-2 amount-field">
           <mat-label>
             {{'VO_MANAGEMENT.SETTINGS.EXPIRATION.AMOUNT_VALUE' | translate}}
           </mat-label>
@@ -105,7 +105,7 @@
       [modelValue]="currentConfiguration.gracePeriodEnabled"
       [title]="'VO_MANAGEMENT.SETTINGS.EXPIRATION.GRACE_PERIOD_LABEL' | translate">
       <div class="d-flex flex-row">
-        <mat-form-field class="mr-2 amount-field">
+        <mat-form-field class="me-2 amount-field">
           <mat-label>
             {{'VO_MANAGEMENT.SETTINGS.EXPIRATION.GRACE_AMOUNT_VALUE' | translate}}
           </mat-label>
@@ -136,7 +136,7 @@
       [(ngModel)]="currentConfiguration.specialLoaPeriodEnabled"
       [modelValue]="currentConfiguration.specialLoaPeriodEnabled"
       [title]="'VO_MANAGEMENT.SETTINGS.EXPIRATION.LOA_PERIOD_LABEL' | translate">
-      <div class="ml-1">
+      <div class="ms-1">
         <div>
           <mat-form-field>
             <mat-label
@@ -151,7 +151,7 @@
 
           <div *ngIf="currentConfiguration.specialLoa !== null" class="mt-2">
             <mat-radio-group [(ngModel)]="currentConfiguration.specialLoaPeriodType">
-              <mat-radio-button #loaStaticRadioButton class="mr-3" color="primary" value="static">
+              <mat-radio-button #loaStaticRadioButton class="me-3" color="primary" value="static">
                 {{'VO_MANAGEMENT.SETTINGS.EXPIRATION.PERIOD_TYPE_STATIC' | translate}}
               </mat-radio-button>
               <mat-radio-button #loaDynamicRadioButton color="primary" value="dynamic">
@@ -171,7 +171,7 @@
               </mat-form-field>
             </div>
             <div *ngIf="loaDynamicRadioButton.checked" class="d-flex flex-row">
-              <mat-form-field class="mr-2 amount-field">
+              <mat-form-field class="me-2 amount-field">
                 <mat-label>
                   {{'VO_MANAGEMENT.SETTINGS.EXPIRATION.AMOUNT_VALUE' | translate}}
                 </mat-label>
@@ -207,7 +207,7 @@
   </div>
 
   <div
-    class="ml-auto"
+    class="ms-auto"
     [matTooltipDisabled]="expirationAttribute.writable"
     [matTooltipPosition]="'above'"
     matTooltip="{{'VO_MANAGEMENT.SETTINGS.EXPIRATION.PERMISSION_DENIED_HINT' | translate}}">
@@ -215,7 +215,7 @@
       [disabled]="!areChangesMade() || !expirationAttribute.writable"
       (click)="saveChanges()"
       color="primary"
-      class="ml-auto"
+      class="ms-auto"
       mat-flat-button>
       {{'VO_MANAGEMENT.SETTINGS.EXPIRATION.SAVE' | translate}}
     </button>

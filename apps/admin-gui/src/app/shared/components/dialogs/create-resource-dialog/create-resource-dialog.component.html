@@ -12,20 +12,14 @@
 
       <mat-form-field>
         <mat-label>{{'DIALOGS.CREATE_RESOURCE.NAME' | translate}}</mat-label>
-        <input
-          matInput
-          [formControl]="nameCtrl"
-          data-cy="create-resource-name-input"
-          required />
+        <input matInput [formControl]="nameCtrl" data-cy="create-resource-name-input" required />
         <mat-error>
           {{'DIALOGS.CREATE_RESOURCE.INCORRECT_NAME' | translate}}
         </mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>{{'DIALOGS.CREATE_RESOURCE.DESCRIPTION' | translate}}</mat-label>
-        <input
-          matInput
-          [formControl]="descriptionCtrl" />
+        <input matInput [formControl]="descriptionCtrl" />
         <mat-error>
           {{'DIALOGS.CREATE_RESOURCE.FILL_DESCRIPTION' | translate}}
         </mat-error>

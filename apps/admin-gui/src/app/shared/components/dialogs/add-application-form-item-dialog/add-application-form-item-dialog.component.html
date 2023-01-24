@@ -29,13 +29,13 @@
 </div>
 
 <div mat-dialog-actions>
-  <button (click)="cancel()" class="ml-auto" mat-flat-button>
+  <button (click)="cancel()" class="ms-auto" mat-flat-button>
     {{'DIALOGS.APPLICATION_FORM_ADD_ITEM.CANCEL' | translate}}
   </button>
   <button
     [disabled]="nameCtrl.invalid"
     (click)="submit()"
-    class="ml-2"
+    class="ms-2"
     color="accent"
     data-cy="add-form-item-button-dialog"
     mat-flat-button>

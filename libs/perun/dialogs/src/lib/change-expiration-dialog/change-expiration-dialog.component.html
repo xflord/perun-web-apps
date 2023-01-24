@@ -52,7 +52,7 @@
     >
   </div>
   <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+    <button (click)="onCancel()" class="ms-auto" mat-flat-button>
       {{backButton ?
       ('DIALOGS.CHANGE_EXPIRATION.BACK' | translate) :
       ('DIALOGS.CHANGE_EXPIRATION.CANCEL' | translate)}}
@@ -60,7 +60,7 @@
     <button
       (click)="onChange()"
       [disabled]="expirationControl.invalid"
-      class="ml-2"
+      class="ms-2"
       color="accent"
       mat-flat-button>
       {{'DIALOGS.CHANGE_EXPIRATION.SAVE' | translate}}
