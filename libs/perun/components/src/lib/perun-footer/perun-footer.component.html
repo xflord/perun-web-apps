@@ -4,7 +4,7 @@
       *ngFor="let column of footerColumns"
       [class.my-auto]="containsLogos"
       class="footer-col mx-auto">
-      <h6 [ngStyle]="{'color': headersTextColor}" class="font-weight-bold">
+      <h6 [ngStyle]="{'color': headersTextColor}" class="fw-bold">
         {{column | localisedText: language:'title'}}
       </h6>
       <div *ngIf="column.logos" [ngStyle]="{'min-height': columnContentHeight+'px'}">
@@ -24,7 +24,7 @@
           <i
             *ngIf="elem.icon"
             [ngStyle]="{'color': linksTextColor}"
-            class="material-icons align-bottom mr-1">
+            class="material-icons align-bottom me-1">
             {{elem.icon}}
           </i>
           <span

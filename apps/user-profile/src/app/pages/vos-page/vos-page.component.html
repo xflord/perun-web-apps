@@ -4,7 +4,7 @@
     [placeholder]="'ORGANIZATIONS.FILTER'"
     (filter)="applyFilter($event)"
     *ngIf="!loading"></perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
 
   <div *ngIf="!loading" class="mt-5">
     <h1 class="page-subtitle">{{'ORGANIZATIONS.IS_MEMBER' | customTranslate | translate}}</h1>

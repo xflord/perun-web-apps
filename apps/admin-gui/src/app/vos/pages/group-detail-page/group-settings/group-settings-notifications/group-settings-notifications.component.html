@@ -8,7 +8,7 @@
       *ngIf="addAuth"
       (click)="add()"
       color="accent"
-      class="mr-2 action-button"
+      class="me-2 action-button"
       mat-flat-button>
       {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.ADD' | translate}}
     </button>
@@ -18,12 +18,12 @@
       (click)="remove()"
       color="warn"
       [disabled]="selection.selected.length === 0"
-      class="mr-2"
+      class="me-2"
       mat-flat-button>
       {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.REMOVE' | translate}}
     </button>
 
-    <button (click)="changeEmailFooter()" class="mr-2 action-button" mat-stroked-button>
+    <button (click)="changeEmailFooter()" class="me-2 action-button" mat-stroked-button>
       <i class="material-icons">email</i>
       {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.EMAIL_FOOTER' | translate}}
     </button>
@@ -33,7 +33,7 @@
       {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.COPY_FROM_VO' | translate}}
     </button>
   </div>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"> </mat-spinner>
 
   <app-notification-list
     *ngIf="!loading"

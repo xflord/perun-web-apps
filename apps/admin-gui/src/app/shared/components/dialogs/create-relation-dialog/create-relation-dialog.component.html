@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{"DIALOGS.CREATE_RELATION.TITLE" | translate}}</h1>
 <div class="{{theme}}">
-  <mat-spinner *ngIf="initLoading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="initLoading" class="ms-auto me-auto"></mat-spinner>
 </div>
 <div *ngIf="!initLoading" class="{{theme}}">
   <perun-web-apps-vo-search-select
@@ -26,14 +26,14 @@
       [relation]="true">
     </perun-web-apps-groups-list>
   </div>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+    <button (click)="onCancel()" class="ms-auto" mat-flat-button>
       {{'DIALOGS.CREATE_RELATION.CANCEL' | translate}}
     </button>
     <button
       (click)="onSubmit()"
-      class="ml-2"
+      class="ms-2"
       color="accent"
       [disabled]="loading || initLoading || selection.selected.length === 0"
       mat-flat-button>

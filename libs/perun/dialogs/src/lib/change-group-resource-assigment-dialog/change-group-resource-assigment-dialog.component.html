@@ -2,14 +2,14 @@
   <h1 mat-dialog-title>
     {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.TITLE' | translate}}
   </h1>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   <div mat-dialog-content *ngIf="!loading">
     <p class="mb-4">
       {{group.name}} <span class="text-muted id-font">#{{group.id}}</span> - {{resource.name}}
       <span class="text-muted id-font">#{{resource.id}}</span>
     </p>
     <p>
-      <strong class="mr-2">
+      <strong class="me-2">
         {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.CURRENT' | translate}}
         :
       </strong>
@@ -17,7 +17,7 @@
     </p>
 
     <p>
-      <strong class="mr-2">
+      <strong class="me-2">
         {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.NEW' | translate}}
         :
       </strong>
@@ -35,7 +35,7 @@
       class="d-flex flex-column mt-3"
       *ngIf="status === 'INACTIVE' || status ==='FAILED'"
       [(ngModel)]="asyncValidation">
-      <span class="font-weight-bold">
+      <span class="fw-bold">
         {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.VALIDATE' | translate}}
         :
       </span>
@@ -59,7 +59,7 @@
     </span>
   </div>
   <div mat-dialog-actions *ngIf="!loading">
-    <button class="ml-auto mr-2" mat-flat-button (click)="onCancel()">
+    <button class="ms-auto me-2" mat-flat-button (click)="onCancel()">
       {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.CANCEL' | translate}}
     </button>
     <button

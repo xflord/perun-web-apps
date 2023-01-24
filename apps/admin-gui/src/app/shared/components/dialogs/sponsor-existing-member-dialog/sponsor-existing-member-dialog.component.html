@@ -1,7 +1,7 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.SPONSOR_EXISTING_MEMBER.TITLE' | translate}}</h1>
   <div mat-dialog-content>
-    <mat-form-field class="mr-2 search-field adjust-width" *ngIf="!serviceMemberId">
+    <mat-form-field class="me-2 search-field adjust-width" *ngIf="!serviceMemberId">
       <mat-label>{{'DIALOGS.SPONSOR_EXISTING_MEMBER.DESCRIPTION' | translate}}</mat-label>
       <input
         data-cy="sponsor-search-input"
@@ -18,14 +18,14 @@
       *ngIf="!serviceMemberId"
       data-cy="sponsor-search-button"
       (click)="onSearchByString()"
-      class="ml-auto"
+      class="ms-auto"
       color="accent"
       [disabled]="loading"
       mat-flat-button>
       {{'DIALOGS.SPONSOR_EXISTING_MEMBER.SEARCH' | translate}}
     </button>
 
-    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+    <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
 
     <perun-web-apps-members-list
       [disableRouting]="true"
@@ -58,13 +58,13 @@
   </div>
 
   <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+    <button (click)="onCancel()" class="ms-auto" mat-flat-button>
       {{'DIALOGS.SPONSOR_EXISTING_MEMBER.CANCEL' | translate}}
     </button>
     <button
       data-cy="sponsor-member-button"
       (click)="onSubmit()"
-      class="ml-2"
+      class="ms-2"
       color="accent"
       [disabled]="loading || selection.selected.length === 0 || (sponsorType === 'other' && !selectedSponsor)"
       mat-flat-button>

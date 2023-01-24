@@ -21,10 +21,10 @@
       [noGroupsAlert]="'DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.NO_GROUPS_FOUND_ALERT'"
       theme="vo-theme">
     </perun-web-apps-groups-list>
-    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+    <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   </div>
   <div *ngIf="!loading" mat-dialog-actions>
-    <button (click)="close()" mat-flat-button class="ml-auto">
+    <button (click)="close()" mat-flat-button class="ms-auto">
       {{'DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.CANCEL' | translate}}
     </button>
     <button

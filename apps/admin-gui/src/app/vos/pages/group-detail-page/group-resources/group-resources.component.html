@@ -5,7 +5,7 @@
     *ngIf="addAuth"
     (click)="addResource()"
     color="accent"
-    class="mr-2 action-button"
+    class="me-2 action-button"
     mat-flat-button>
     {{'GROUP_DETAIL.RESOURCES.ADD' | translate}}
   </button>
@@ -16,7 +16,7 @@
       (click)="removeResource()"
       color="warn"
       [disabled]="selected.selected.length === 0 || (list !== undefined && !list.removeAuth)"
-      class="mr-2"
+      class="me-2"
       mat-flat-button>
       {{'GROUP_DETAIL.RESOURCES.DELETE' | translate}}
     </button>
@@ -24,7 +24,7 @@
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'"></perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   <perun-web-apps-resources-list
     #list
     *ngIf="resources && !loading"

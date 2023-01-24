@@ -1,6 +1,6 @@
-<div class="container-fluid pl-xl-5 pr-xl-5 user-theme">
+<div class="container-fluid ps-xl-5 pe-xl-5 user-theme">
   <perun-web-apps-back-button> </perun-web-apps-back-button>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
   <div *ngIf="!loading && user !== undefined" class="d-flex page-title-headtitle">
     <mat-icon
       class="perun-icon perun-icon-detail"
@@ -28,7 +28,7 @@
           <mat-icon
             *ngIf="anonymized"
             matTooltip="{{'USER_DETAIL.DASHBOARD.ANONYMIZED' | translate}}"
-            class="mat-icon-war ml-2">
+            class="mat-icon-war ms-2">
             blur_off
           </mat-icon>
         </span>

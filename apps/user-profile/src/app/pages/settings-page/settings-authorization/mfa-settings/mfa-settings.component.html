@@ -1,4 +1,4 @@
-<mat-spinner class="ml-auto mr-auto mt-2" *ngIf="loadingMfa"></mat-spinner>
+<mat-spinner class="ms-auto me-auto mt-2" *ngIf="loadingMfa"></mat-spinner>
 <div [hidden]="loadingMfa">
   <span
     class="toggle-and-button"
@@ -24,7 +24,7 @@
   <button
     mat-flat-button
     color="accent"
-    class="ml-3"
+    class="ms-3"
     (click)="saveSettings()"
     [disabled]="unchangedSettings && unchangedEnforce">
     {{'AUTHENTICATION.MFA_SAVE'|translate}}
@@ -33,7 +33,7 @@
     <div *ngFor="let category of categories | keyvalue">
       <span class="toggle-and-button">
         <mat-slide-toggle
-          class="ml-4 toggle-ellipsis"
+          class="ms-4 toggle-ellipsis"
           [checked]="category.value.value"
           (toggleChange)="toggleCategory(category.value)">
           {{category.value.label | categoryLabel}}
@@ -52,12 +52,12 @@
           <mat-slide-toggle
             [checked]="category?.value['rps_value'][rps.key]"
             (toggleChange)="toggleRps(category, rps.key)"
-            class="ml-5">
+            class="ms-5">
             {{rps.value | categoryLabel}}
           </mat-slide-toggle>
         </div>
       </div>
     </div>
   </div>
-  <mat-spinner class="ml-auto mr-auto mt-2" *ngIf="loadingCategories"></mat-spinner>
+  <mat-spinner class="ms-auto me-auto mt-2" *ngIf="loadingCategories"></mat-spinner>
 </div>

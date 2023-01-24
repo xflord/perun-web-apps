@@ -12,7 +12,7 @@
     {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_GROUP' | translate}}
   </h1>
   <div mat-dialog-content>
-    <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+    <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
     <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
       <mat-form-field *ngIf="dialogType === 2">
         <mat-label>{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.SHORT_NAME' | translate}}:</mat-label>
@@ -39,13 +39,13 @@
   </div>
 
   <div mat-dialog-actions>
-    <button (click)="cancel()" class="ml-auto" mat-flat-button>
+    <button (click)="cancel()" class="ms-auto" mat-flat-button>
       {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.CANCEL_BUTTON' | translate}}
     </button>
     <button
       (click)="submit()"
       [disabled]="loading || nameCtrl.invalid || descriptionCtrl.invalid"
-      class="ml-2"
+      class="ms-2"
       color="accent"
       mat-flat-button>
       {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.SUBMIT_BUTTON' | translate}}

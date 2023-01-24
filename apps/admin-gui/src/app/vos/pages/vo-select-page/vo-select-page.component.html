@@ -1,4 +1,4 @@
-<div class="container-fluid pl-xl-5 pr-xl-5 vo-theme">
+<div class="container-fluid ps-xl-5 pe-xl-5 vo-theme">
   <perun-web-apps-back-button> </perun-web-apps-back-button>
 
   <h1 class="page-title d-flex">
@@ -11,7 +11,7 @@
   <button
     (click)="onCreateVo()"
     *ngIf="createAuth"
-    class="mr-2 action-button"
+    class="me-2 action-button"
     data-cy="new-vo-button"
     color="accent"
     mat-flat-button>
@@ -21,7 +21,7 @@
     (click)="onRemoveVo()"
     *ngIf="deleteAuth"
     [disabled]="selection.selected.length === 0"
-    class="mr-2"
+    class="me-2"
     color="warn"
     mat-flat-button>
     {{'VO_MANAGEMENT.REMOVE_VO' | translate}}
@@ -31,7 +31,7 @@
     (filter)="applyFilter($event)"
     [placeholder]="'VO_MANAGEMENT.FILTER_PLACEHOLDER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   <perun-web-apps-vos-list
     *ngIf="!loading"
     [tableId]="tableId"

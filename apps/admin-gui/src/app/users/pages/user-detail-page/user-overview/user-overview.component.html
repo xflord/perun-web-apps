@@ -9,15 +9,13 @@
       <table [dataSource]="mailDataSource" class="w-100" mat-table>
         <ng-container matColumnDef="name">
           <th *matHeaderCellDef mat-header-cell></th>
-          <td *matCellDef="let attribute" class="font-weight-bold" mat-cell>
-            {{attribute.displayName}}:
-          </td>
+          <td *matCellDef="let attribute" class="fw-bold" mat-cell>{{attribute.displayName}}:</td>
         </ng-container>
         <ng-container matColumnDef="value">
           <th *matHeaderCellDef mat-header-cell></th>
           <td *matCellDef="let attribute" mat-cell>
             {{attribute.value}}
-            <button (click)="changeEmail()" class="ml-3" mat-icon-button>
+            <button (click)="changeEmail()" class="ms-3" mat-icon-button>
               <mat-icon>edit</mat-icon>
             </button>
           </td>

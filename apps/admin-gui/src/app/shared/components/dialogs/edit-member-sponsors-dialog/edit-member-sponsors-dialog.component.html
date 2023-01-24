@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{'DIALOGS.EDIT_MEMBER_SPONSORS.TITLE' | translate}}</h1>
 <div class="{{theme}}">
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content>
     <table [dataSource]="dataSource" class="w-100" mat-table>
       <ng-container matColumnDef="id">
@@ -55,7 +55,7 @@
           </div>
         </td>
       </ng-container>
-      <tr *matHeaderRowDef="displayedColumns" class="font-weight-bolder" mat-header-row></tr>
+      <tr *matHeaderRowDef="displayedColumns" class="fw-bolder" mat-header-row></tr>
       <tr
         [class.make-red]="sponsorsToRemove.has(sponsor.user.id)"
         *matRowDef="let sponsor; columns: displayedColumns;"
@@ -63,13 +63,13 @@
     </table>
   </div>
   <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+    <button (click)="onCancel()" class="ms-auto" mat-flat-button>
       {{'DIALOGS.EDIT_MEMBER_SPONSORS.CANCEL' | translate}}
     </button>
     <button
       data-cy="unsponsor-confirm-button"
       (click)="onSubmit()"
-      class="ml-2"
+      class="ms-2"
       color="warn"
       [disabled]="loading || sponsorsToRemove.size === 0"
       mat-flat-button>

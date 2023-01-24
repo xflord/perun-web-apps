@@ -1,17 +1,17 @@
 <h1 class="page-subtitle">
   {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.TITLE' | translate}}
 </h1>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
+<mat-spinner *ngIf="loading" class="ms-auto me-auto"> </mat-spinner>
 <div *ngIf="!noApplicationForm">
   <div *ngIf="!loading" class="d-flex w-50">
     <div [ngClass]="autoRegistrationEnabled ? 'w-75' : 'w-50'">
-      <div class="font-weight-bold">
+      <div class="fw-bold">
         {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.MODULE_NAME' | translate}}:
         {{applicationForm.moduleClassName}}
       </div>
       <div>
         <span
-          class="font-weight-bold"
+          class="fw-bold"
           >{{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.APPLICATION_TYPE' | translate}}</span
         >:
 
@@ -45,7 +45,7 @@
       <button
         *ngIf="editAuth"
         (click)="settings()"
-        class="ml-auto action-button"
+        class="ms-auto action-button"
         mat-stroked-button>
         <i class="material-icons">edit</i>
         {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.SETTINGS_BUTTON' | translate}}
@@ -63,7 +63,7 @@
       *ngIf="editAuth"
       (click)="add()"
       color="accent"
-      class="mr-2 action-button"
+      class="me-2 action-button"
       data-cy="add-form-item"
       mat-flat-button>
       {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.ADD_BUTTON' | translate}}
@@ -74,14 +74,14 @@
       (click)="save()"
       color="accent"
       [disabled]="!itemsChanged"
-      class="mr-2"
+      class="me-2"
       data-cy="save-application-form"
       mat-flat-button>
       <i class="material-icons">save</i>
       {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.SAVE_BUTTON' | translate}}
     </button>
 
-    <button (click)="copy()" *ngIf="editAuth" class="mr-2 action-button" mat-stroked-button>
+    <button (click)="copy()" *ngIf="editAuth" class="me-2 action-button" mat-stroked-button>
       <i class="material-icons">file_copy</i>
       {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.COPY_GROUP_BUTTON' | translate}}
     </button>
@@ -94,7 +94,7 @@
     <!--    <button-->
     <!--      *ngIf="editAuth"-->
     <!--      (click)="clear()"-->
-    <!--      class="ml-2"-->
+    <!--      class="ms-2"-->
     <!--      mat-stroked-button-->
     <!--      matTooltip="{{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.CLEAR_TOOLTIP' | translate}}"-->
     <!--      matTooltipPosition="above">-->

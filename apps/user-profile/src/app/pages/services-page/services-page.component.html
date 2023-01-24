@@ -12,7 +12,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+        <mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>
         <perun-web-apps-resources-list
           *ngIf="!loading"
           [resources]="resources"

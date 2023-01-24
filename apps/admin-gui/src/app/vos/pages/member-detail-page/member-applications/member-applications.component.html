@@ -5,14 +5,14 @@
   <button
     (click)="this.showAllDetails = true"
     *ngIf="!showAllDetails"
-    class="mr-2"
+    class="me-2"
     mat-stroked-button>
     {{'MEMBER_DETAIL.APPLICATIONS.SHOW_ALL_DETAILS' | translate}}
   </button>
   <button
     (click)="this.showAllDetails = false"
     *ngIf="showAllDetails"
-    class="mr-2"
+    class="me-2"
     mat-stroked-button>
     {{'MEMBER_DETAIL.APPLICATIONS.SHOW_LESS_DETAILS' | translate}}
   </button>
@@ -21,7 +21,7 @@
     (filter)="applyFilter($event)">
   </perun-web-apps-debounce-filter>
 </div>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+<mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
 <div *ngIf="!loading">
   <app-applications-dynamic-list
     [tableId]="showAllDetails ? detailTableId : tableId"

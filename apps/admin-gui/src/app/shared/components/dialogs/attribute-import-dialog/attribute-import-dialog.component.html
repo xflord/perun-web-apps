@@ -2,7 +2,7 @@
   <h1 mat-dialog-title>
     {{'DIALOGS.IMPORT_ATTRIBUTE.TITLE' | translate}}
   </h1>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content>
     <perun-web-apps-alert alert_type="info">
       {{'DIALOGS.IMPORT_ATTRIBUTE.INFO' | translate}}
@@ -13,13 +13,13 @@
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
-    <button (click)="dialogRef.close()" class="ml-auto" mat-flat-button>
+    <button (click)="dialogRef.close()" class="ms-auto" mat-flat-button>
       {{'DIALOGS.IMPORT_ATTRIBUTE.CANCEL' | translate}}
     </button>
     <button
       (click)="create()"
       [disabled]="value.trim().length === 0 || loading"
-      class="ml-2"
+      class="ms-2"
       color="accent"
       mat-flat-button>
       {{'DIALOGS.IMPORT_ATTRIBUTE.CREATE' | translate}}

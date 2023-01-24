@@ -3,14 +3,14 @@
 <button
   (click)="addService()"
   *ngIf="assignServiceAuth"
-  class="action-button mr-2"
+  class="action-button me-2"
   color="accent"
   mat-flat-button>
   {{'RESOURCE_DETAIL.ASSIGNED_SERVICES.ADD_SERVICE' | translate}}
 </button>
 <button
   [disabled]="selected.selected.length === 0"
-  class="mr-2"
+  class="me-2"
   color="warn"
   (click)="removeServices()"
   *ngIf="removeServiceAuth"
@@ -21,7 +21,7 @@
   (filter)="applyFilter($event)"
   [placeholder]="'RESOURCE_DETAIL.ASSIGNED_SERVICES.FILTER_SERVICES'">
 </perun-web-apps-immediate-filter>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+<mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
 <app-services-list
   *ngIf="!loading"
   [disableRouting]="!serviceRoutingAuth"

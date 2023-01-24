@@ -9,7 +9,7 @@
   (filter)="applyMemberFilter($event)"
   [placeholder]="'SHARED_LIB.PERUN.ORGANIZATIONS.FILTER'">
 </perun-web-apps-immediate-filter>
-<mat-spinner *ngIf="memberRefresh" class="mr-auto ml-auto"></mat-spinner>
+<mat-spinner *ngIf="memberRefresh" class="me-auto ms-auto"></mat-spinner>
 <perun-web-apps-vos-list
   *ngIf="!memberRefresh"
   [displayedColumns]="displayedColumns"
@@ -25,7 +25,7 @@
     (filter)="applyAdminFilter($event)"
     [placeholder]="'SHARED_LIB.PERUN.ORGANIZATIONS.FILTER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="adminRefresh" class="mr-auto ml-auto"></mat-spinner>
+  <mat-spinner *ngIf="adminRefresh" class="me-auto ms-auto"></mat-spinner>
   <perun-web-apps-vos-list
     *ngIf="!adminRefresh"
     [displayedColumns]="displayedColumns"

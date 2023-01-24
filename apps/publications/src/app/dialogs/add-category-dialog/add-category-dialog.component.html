@@ -1,6 +1,6 @@
 <div class="user-theme">
   <h1 mat-dialog-title>{{"DIALOGS.ADD_CATEGORY.TITLE" | translate}}</h1>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>
   <div *ngIf="!loading">
     <div mat-dialog-content class="dialog-container">
       <mat-form-field>
@@ -20,7 +20,7 @@
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button mat-flat-button class="ml-auto" (click)="onCancel()">
+      <button mat-flat-button class="ms-auto" (click)="onCancel()">
         {{'DIALOGS.ADD_CATEGORY.CANCEL' | translate}}
       </button>
       <div
@@ -29,7 +29,7 @@
         [matTooltipDisabled]="nameCtrl.valid && rankCtrl.valid">
         <button
           mat-flat-button
-          class="ml-2"
+          class="ms-2"
           color="accent"
           [disabled]="nameCtrl.invalid || rankCtrl.invalid"
           (click)="onSubmit()">

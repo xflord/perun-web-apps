@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{'DIALOGS.ADD_OWNERS.TITLE' | translate}}</h1>
 <div class="{{theme}}">
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
 
   <div *ngIf="!loading">
     <div mat-dialog-content>
@@ -19,14 +19,14 @@
     </div>
 
     <div mat-dialog-actions>
-      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.ADD_OWNERS.CANCEL' | translate}}
       </button>
 
       <button
         (click)="onAdd()"
         [disabled]="selection.selected.length === 0 || loading"
-        class="ml-2"
+        class="ms-2"
         color="accent"
         mat-flat-button>
         {{'DIALOGS.ADD_OWNERS.ADD' | translate}}

@@ -1,6 +1,6 @@
 <div class="{{data.theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.ADD_SERVICE_DESTINATION.TITLE' | translate}}</h1>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
   <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
     <div class="font-italic">{{'DIALOGS.ADD_SERVICE_DESTINATION.DESCRIPTION' | translate}}</div>
     <mat-form-field>
@@ -69,13 +69,13 @@
     </div>
   </div>
   <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+    <button (click)="onCancel()" class="ms-auto" mat-flat-button>
       {{'DIALOGS.ADD_SERVICE_DESTINATION.CANCEL' | translate}}
     </button>
     <button
       (click)="onSubmit()"
       [disabled]="loading || invalidDestination() || serviceControl.invalid || serviceControl.value === 'noService'"
-      class="ml-2"
+      class="ms-2"
       color="accent"
       mat-flat-button>
       {{'DIALOGS.ADD_SERVICE_DESTINATION.ADD' | translate}}

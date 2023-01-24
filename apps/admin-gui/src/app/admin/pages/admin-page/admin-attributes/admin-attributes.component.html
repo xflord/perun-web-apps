@@ -4,7 +4,7 @@
   <button
     *ngIf="authResolver.isPerunAdmin()"
     (click)="onCreate()"
-    class="mr-2 action-button"
+    class="me-2 action-button"
     color="accent"
     data-cy="new-attr-definition-button"
     mat-flat-button>
@@ -13,7 +13,7 @@
   <button
     *ngIf="authResolver.isPerunAdmin()"
     (click)="onImport()"
-    class="mr-2 action-button"
+    class="me-2 action-button"
     color="accent"
     mat-flat-button>
     {{'ADMIN.ATTRIBUTES.IMPORT' | translate}}
@@ -23,7 +23,7 @@
     (click)="onDelete()"
     color="warn"
     [disabled]="selected.selected.length === 0"
-    class="mr-2"
+    class="me-2"
     data-cy="delete-attr-definition-button"
     mat-flat-button>
     {{'ADMIN.ATTRIBUTES.DELETE' | translate}}
@@ -31,7 +31,7 @@
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'ADMIN.ATTRIBUTES.SEARCH'"></perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   <app-attr-def-list
     *ngIf="!loading"
     (refreshEvent)="refreshTable()"

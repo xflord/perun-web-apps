@@ -3,7 +3,7 @@
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
     (click)="onCreate()"
-    class="mr-2 action-button"
+    class="me-2 action-button"
     color="accent"
     [disabled]="reverse"
     mat-flat-button>
@@ -15,7 +15,7 @@
     [matTooltipDisabled]="selection.selected.length === 0 || auth.removeAuth">
     <button
       [disabled]="selection.selected.length === 0 || !auth.removeAuth || reverse"
-      class="mr-2"
+      class="me-2"
       color="warn"
       (click)="onDelete()"
       mat-flat-button>
@@ -29,7 +29,7 @@
     (change)="showReverseUnions()"
     >{{'GROUP_DETAIL.SETTINGS.RELATIONS.REVERSE_UNIONS' | translate}}</mat-checkbox
   >
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
 
   <perun-web-apps-groups-list
     *ngIf="!loading"

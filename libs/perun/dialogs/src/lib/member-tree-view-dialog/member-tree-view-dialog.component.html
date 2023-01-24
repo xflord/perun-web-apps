@@ -2,11 +2,11 @@
   <h1 mat-dialog-title>
     {{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.TITLE' | translate:{ 'name': userName} }}
   </h1>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <div *ngIf="!loading" mat-dialog-content class="mr-0">
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
+  <div *ngIf="!loading" mat-dialog-content class="me-0">
     <p>{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.INFO' | translate}}</p>
 
-    <mat-form-field class="filter-field ml-2">
+    <mat-form-field class="filter-field ms-2">
       <mat-label>
         {{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.FILTER' | translate}}
       </mat-label>
@@ -34,16 +34,16 @@
               <span>{{node.name | parseGroupName}}</span>
               <span
                 *ngIf="node.direct"
-                class="text-muted ml-2"
+                class="text-muted ms-2"
                 >{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.DIRECT' | translate}}</span
               >
               <span
                 *ngIf="node.include"
-                class="text-muted ml-2"
+                class="text-muted ms-2"
                 >{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.INCLUDE' | translate}}</span
               >
             </div>
-            <span class="text-muted ml-3">{{node.description}}</span>
+            <span class="text-muted ms-3">{{node.description}}</span>
           </div>
         </li>
       </mat-tree-node>
@@ -52,7 +52,7 @@
         <li>
           <div class="mat-tree-node">
             <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-              <mat-icon class="mr-3">
+              <mat-icon class="me-3">
                 {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
               </mat-icon>
             </button>
@@ -65,16 +65,16 @@
                 <span>{{node.name | parseGroupName}}</span>
                 <span
                   *ngIf="node.direct"
-                  class="text-muted ml-2"
+                  class="text-muted ms-2"
                   >{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.DIRECT' | translate}}</span
                 >
                 <span
                   *ngIf="node.include"
-                  class="text-muted ml-2"
+                  class="text-muted ms-2"
                   >{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.INCLUDE' | translate}}</span
                 >
               </div>
-              <span class="text-muted ml-3">{{node.description}}</span>
+              <span class="text-muted ms-3">{{node.description}}</span>
             </div>
           </div>
           <ul [class.example-tree-invisible]="!treeControl.isExpanded(node)">
@@ -85,7 +85,7 @@
     </mat-tree>
   </div>
   <div mat-dialog-actions>
-    <div class="ml-auto">
+    <div class="ms-auto">
       <button (click)="onCancel()" mat-flat-button>
         {{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.CLOSE' | translate}}
       </button>

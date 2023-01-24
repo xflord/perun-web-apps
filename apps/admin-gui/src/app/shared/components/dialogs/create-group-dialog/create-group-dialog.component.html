@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{title}}</h1>
 <div class="{{theme}}">
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   <div *ngIf="!loading">
     <div class="dialog-container" mat-dialog-content>
       <mat-form-field>
@@ -31,13 +31,13 @@
       </perun-web-apps-group-search-select>
     </div>
     <div mat-dialog-actions>
-      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.CREATE_GROUP.CANCEL' | translate}}
       </button>
       <button
         (click)="onSubmit()"
         [disabled]="nameControl.invalid || descriptionControl.invalid || (asSubgroup && selectedParent === null) || loading"
-        class="ml-2"
+        class="ms-2"
         color="accent"
         data-cy="create-group-button-dialog"
         mat-flat-button>

@@ -1,6 +1,6 @@
 <h1 class="page-title pt-2">{{'GROUPS.TITLE' | customTranslate | translate}}</h1>
 <div class="user-theme">
-  <mat-form-field class="mr-2 w-75" *ngIf="!loading">
+  <mat-form-field class="me-2 w-75" *ngIf="!loading">
     <mat-label>{{'GROUPS.SELECT_VO' | translate}}</mat-label>
     <input
       type="text"
@@ -20,7 +20,7 @@
     </mat-autocomplete>
   </mat-form-field>
 
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
 
   <perun-web-apps-alert
     alert_type="warn"

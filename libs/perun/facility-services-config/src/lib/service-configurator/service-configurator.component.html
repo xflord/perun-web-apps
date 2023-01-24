@@ -2,13 +2,13 @@
 <div class="min-height">
   <mat-tab-group [dynamicHeight]="true" [(selectedIndex)]="showTab">
     <mat-tab [label]="facility.name + ' (facility)'">
-      <button mat-flat-button class="mr-2 mt-3" color="accent" (click)="onAddAttFacility()">
+      <button mat-flat-button class="me-2 mt-3" color="accent" (click)="onAddAttFacility()">
         {{'SHARED_LIB.PERUN.SERVICES_CONFIGURATIONS.ADD' | translate}}
       </button>
 
       <button
         mat-flat-button
-        class="mr-2 mt-3"
+        class="me-2 mt-3"
         color="accent"
         (click)="onSaveFacility()"
         [disabled]="selectionFacility.selected.length === 0">
@@ -24,13 +24,13 @@
       </perun-web-apps-attributes-list>
     </mat-tab>
     <mat-tab [label]="resource.name + ' (resource)'" *ngIf="!!resource">
-      <button mat-flat-button class="mr-2 mt-3" color="accent" (click)="onAddAttResource()">
+      <button mat-flat-button class="me-2 mt-3" color="accent" (click)="onAddAttResource()">
         {{'SHARED_LIB.PERUN.SERVICES_CONFIGURATIONS.ADD' | translate}}
       </button>
 
       <button
         mat-flat-button
-        class="mr-2 mt-3"
+        class="me-2 mt-3"
         color="accent"
         (click)="onSaveResource()"
         [disabled]="selectionResource.selected.length === 0">
@@ -46,13 +46,13 @@
       </perun-web-apps-attributes-list>
     </mat-tab>
     <mat-tab [label]="group.name + ' (group)'" *ngIf="!!group">
-      <button mat-flat-button class="mr-2 mt-3" color="accent" (click)="onAddAttGroup()">
+      <button mat-flat-button class="me-2 mt-3" color="accent" (click)="onAddAttGroup()">
         {{'SHARED_LIB.PERUN.SERVICES_CONFIGURATIONS.ADD' | translate}}
       </button>
 
       <button
         mat-flat-button
-        class="mr-2 mt-3"
+        class="me-2 mt-3"
         color="accent"
         (click)="onSaveGroup()"
         [disabled]="selectionGroup.selected.length === 0">
@@ -70,13 +70,13 @@
     <mat-tab
       [label]="member.user.firstName + ' ' + member.user.lastName + ' (member)'"
       *ngIf="!!member">
-      <button mat-flat-button class="mr-2 mt-3" color="accent" (click)="onAddAttMember()">
+      <button mat-flat-button class="me-2 mt-3" color="accent" (click)="onAddAttMember()">
         {{'SHARED_LIB.PERUN.SERVICES_CONFIGURATIONS.ADD' | translate}}
       </button>
 
       <button
         mat-flat-button
-        class="mr-2 mt-3"
+        class="me-2 mt-3"
         color="accent"
         (click)="onSaveMember()"
         [disabled]="selectionMember.selected.length === 0">

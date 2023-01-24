@@ -9,7 +9,7 @@
   (filter)="memberFilter($event)"
   [placeholder]="'SHARED_LIB.PERUN.ORGANIZATIONS.FILTER'">
 </perun-web-apps-immediate-filter>
-<mat-spinner *ngIf="memberRefresh" class="ml-auto mr-auto"></mat-spinner>
+<mat-spinner *ngIf="memberRefresh" class="ms-auto me-auto"></mat-spinner>
 <perun-web-apps-groups-list
   *ngIf="!memberRefresh"
   [disableMembers]="false"
@@ -28,7 +28,7 @@
     (filter)="adminFilter($event)"
     [placeholder]="'SHARED_LIB.PERUN.ORGANIZATIONS.FILTER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="adminRefresh" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="adminRefresh" class="ms-auto me-auto"></mat-spinner>
   <perun-web-apps-groups-list
     *ngIf="!adminRefresh"
     [disableMembers]="false"

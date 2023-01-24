@@ -12,7 +12,7 @@
 <button
   (click)="removeGroups()"
   [disabled]="selected.selected.length === 0 || !canRemoveGroups()"
-  class="ml-2 mr-2"
+  class="ms-2 me-2"
   color="warn"
   mat-flat-button
   data-cy="remove-group-button">
@@ -26,7 +26,7 @@
   (filter)="applyFilter($event)"
   [placeholder]="'RESOURCE_DETAIL.ASSIGNED_GROUPS.FILTER_GROUPS'">
 </perun-web-apps-debounce-filter>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+<mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
 <perun-web-apps-groups-list
   *ngIf="!loading"
   [disableGroups]="true"

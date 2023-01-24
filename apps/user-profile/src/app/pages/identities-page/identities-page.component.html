@@ -1,6 +1,6 @@
 <div class="user-theme">
   <h1 class="page-title">{{'IDENTITIES.IDP' | customTranslate | translate}}</h1>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>
   <div *ngIf="!loading">
     <button mat-flat-button color="accent" (click)="addIdentity()">
       {{'IDENTITIES.ADD' | customTranslate | translate}}
@@ -8,7 +8,7 @@
     <button
       (click)="removeIdentity(idpSelection)"
       [disabled]="idpSelection.selected.length === 0"
-      class="ml-2"
+      class="ms-2"
       color="warn"
       mat-flat-button>
       {{'IDENTITIES.REMOVE' | customTranslate | translate}}
@@ -28,7 +28,7 @@
       <button
         (click)="removeIdentity(certSelection)"
         [disabled]="certSelection.selected.length === 0"
-        class="ml-2"
+        class="ms-2"
         color="warn"
         mat-flat-button>
         {{'IDENTITIES.REMOVE' | customTranslate | translate}}

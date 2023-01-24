@@ -3,7 +3,7 @@
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
     *ngIf="removeAuth"
-    class="mr-2"
+    class="me-2"
     color="warn"
     (click)="deleteSelectedResources()"
     [disabled]="selected.selected.length === 0"
@@ -14,7 +14,7 @@
     (filter)="applyFilter($event)"
     [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'"></perun-web-apps-immediate-filter>
 
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   <perun-web-apps-resources-list
     *ngIf="!loading"
     [disableRouting]="!routeAuth"

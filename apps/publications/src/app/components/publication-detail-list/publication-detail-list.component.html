@@ -1,10 +1,10 @@
 <div>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   <div *ngIf="!loading">
     <div class="d-flex">
-      <h3 *ngIf="!editing" class="bigger-font w-75 mr-2">{{publication.title}}</h3>
+      <h3 *ngIf="!editing" class="bigger-font w-75 me-2">{{publication.title}}</h3>
       <button
-        class="ml-auto"
+        class="ms-auto"
         (click)="editing = !editing"
         *ngIf="!editing && !publication.locked && !similarityCheck"
         mat-icon-button
@@ -19,7 +19,7 @@
         </mat-error>
       </mat-form-field>
       <button
-        class="ml-auto"
+        class="ms-auto"
         (click)="save()"
         *ngIf="editing"
         [disabled]="titleControl.invalid"
@@ -32,7 +32,7 @@
     <table class="w-100 layout" mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="key">
         <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let item" class="font-weight-bold" mat-cell>{{item.key}}:</td>
+        <td *matCellDef="let item" class="fw-bold" mat-cell>{{item.key}}:</td>
       </ng-container>
       <ng-container matColumnDef="value">
         <th *matHeaderCellDef mat-header-cell></th>
@@ -60,7 +60,7 @@
             <span *ngIf="item.value === null || item.value === ''"> - </span>
           </div>
           <div *ngIf="editing">
-            <mat-form-field *ngIf="item.key === 'Year'" class="mr-2" (click)="sdp.open()">
+            <mat-form-field *ngIf="item.key === 'Year'" class="me-2" (click)="sdp.open()">
               <mat-label>{{'PUBLICATION_DETAIL.LIST.YEAR' | translate}}</mat-label>
               <input
                 matInput

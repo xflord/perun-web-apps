@@ -29,10 +29,8 @@
   flex-direction: column;
   align-items: center;
   font-size: 1.25rem;
+  text-decoration: none;
 
-  &:hover {
-    text-decoration: none;
-  }
   & img {
     height: 120px;
     margin-bottom: 10px;

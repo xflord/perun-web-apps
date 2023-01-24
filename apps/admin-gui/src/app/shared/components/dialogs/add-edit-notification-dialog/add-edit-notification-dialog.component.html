@@ -7,7 +7,7 @@
       <h1 mat-dialog-title>{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.TITLE_EDIT' | translate}}</h1>
     </ng-template>
 
-    <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+    <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
     <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
       <div [@openClose]="invalidNotification ? 'open' : 'closed'">
         <perun-web-apps-alert
@@ -18,7 +18,7 @@
       <mat-tab-group color="primary">
         <mat-tab label="{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.BASIC_SETTINGS' | translate}}">
           <div class="mt-3 d-flex">
-            <span class="w-25 m-auto font-weight-bold"
+            <span class="w-25 m-auto fw-bold"
               >{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.EMAIL_TYPE' | translate}} :</span
             >
             <div class="w-75">
@@ -66,7 +66,7 @@
             </div>
           </div>
           <div class="d-flex">
-            <span class="w-25 font-weight-bold"
+            <span class="w-25 fw-bold"
               >{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.APPLICATION_TYPE' | translate}} :</span
             >
             <div class="w-75">
@@ -96,7 +96,7 @@
             </div>
           </div>
           <div class="d-flex">
-            <span class="w-25 font-weight-bold"
+            <span class="w-25 fw-bold"
               >{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SENDING_ENABLED' | translate}} :</span
             >
             <div class="w-75">
@@ -128,7 +128,7 @@
                   </span>
                 </ng-template>
                 <div class="d-flex w-100">
-                  <div class="pr-2 w-100">
+                  <div class="pe-2 w-100">
                     <div class="pt-2">
                       <button
                         class="right-button"
@@ -137,7 +137,7 @@
                         {{showTags ? ('DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.HIDE_TAGS' | translate) :
                         ('DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SHOW_TAGS' | translate)}}
                       </button>
-                      <span class="font-weight-bold pr-2">
+                      <span class="fw-bold pe-2">
                         {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SUBJECT' | translate}}:
                       </span>
                       <mat-form-field class="w-100">
@@ -155,7 +155,7 @@
                         </div>
                       </mat-form-field>
                     </div>
-                    <div class="font-weight-bold">
+                    <div class="fw-bold">
                       {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.TEXT' | translate}}:
                     </div>
 
@@ -179,7 +179,7 @@
                     </mat-form-field>
                   </div>
 
-                  <mat-divider *ngIf="showTags" class="ml-3 mr-3" vertical="true"></mat-divider>
+                  <mat-divider *ngIf="showTags" class="ms-3 me-3" vertical="true"></mat-divider>
 
                   <div [@tagsOpenClose]="showTags ? 'open' : 'closed'">
                     <app-tag-bar (addedTag)="addTag(Input, Textarea, lang, $event, format)">
@@ -194,13 +194,13 @@
     </div>
 
     <div class="d-flex mt-auto" mat-dialog-actions>
-      <button (click)="cancel()" class="ml-auto" mat-flat-button>
+      <button (click)="cancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.CANCEL_BUTTON' | translate}}
       </button>
       <button
         (click)="create()"
         *ngIf="data.createMailNotification"
-        class="ml-2"
+        class="ms-2"
         color="accent"
         [disabled]="invalidNotification || loading"
         mat-flat-button>
@@ -213,7 +213,7 @@
         <button
           (click)="save()"
           *ngIf="!data.createMailNotification"
-          class="ml-2"
+          class="ms-2"
           color="accent"
           [disabled]="loading || !editAuth"
           mat-flat-button>

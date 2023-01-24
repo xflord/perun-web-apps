@@ -4,7 +4,7 @@
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'FACILITY_DETAIL.SETTINGS.BLACKLIST.FILTER' | translate"></perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   <app-perun-web-apps-blacklist-list
     [bansOnFacilitiesWithUsers]="bansOnFacilitiesWithUsers"
     *ngIf="!loading"

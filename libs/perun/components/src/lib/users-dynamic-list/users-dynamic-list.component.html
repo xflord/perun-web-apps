@@ -8,7 +8,7 @@
     [dataLength]="dataSource.allObjectCount"
     [pageSizeOptions]="pageSizeOptions">
     <div class="spinner-container" *ngIf="dataSource.loading$ | async">
-      <mat-spinner class="ml-auto mr-auto"></mat-spinner>
+      <mat-spinner class="ms-auto me-auto"></mat-spinner>
     </div>
     <table
       [dataSource]="dataSource"

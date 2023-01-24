@@ -6,14 +6,14 @@
     mat-flat-button
     color="accent"
     (click)="addCategory()"
-    class="mr-2 action-button">
+    class="me-2 action-button">
     {{'CATEGORIES_PAGE.CREATE' | translate}}
   </button>
 
   <button
     mat-flat-button
     color="warn"
-    class="mr-2"
+    class="me-2"
     *ngIf="removeAuth"
     [disabled]="!selected.selected.length"
     (click)="removeCategory()">
@@ -23,7 +23,7 @@
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'CATEGORIES_PAGE.FILTER'"></perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>
   <perun-web-apps-categories-list
     *ngIf="categories && !loading"
     [categories]="categories"

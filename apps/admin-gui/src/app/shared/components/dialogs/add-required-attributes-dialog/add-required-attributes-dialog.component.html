@@ -1,6 +1,6 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.ADD_REQUIRED_ATTRIBUTES.TITLE' | translate}}</h1>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content class="dialog-container">
     <perun-web-apps-alert
       *ngIf="serviceEnabled$ | async"
@@ -21,12 +21,12 @@
     </app-attr-def-list>
   </div>
   <div *ngIf="!loading" mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+    <button (click)="onCancel()" class="ms-auto" mat-flat-button>
       {{'DIALOGS.ADD_REQUIRED_ATTRIBUTES.CANCEL' | translate}}
     </button>
     <button
       (click)="onAdd()"
-      class="ml-2"
+      class="ms-2"
       color="accent"
       [disabled]="selection.selected.length === 0"
       mat-flat-button>

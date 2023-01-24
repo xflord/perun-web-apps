@@ -3,7 +3,7 @@
 <button
   *ngIf="authResolver.isPerunAdmin()"
   (click)="addIdentity()"
-  class="mr-2 action-button"
+  class="me-2 action-button"
   color="accent"
   mat-flat-button>
   {{'USER_DETAIL.IDENTITIES.ADD'|translate}}
@@ -12,7 +12,7 @@
   *ngIf="authResolver.isPerunAdmin()"
   (click)="removeIdentity()"
   [disabled]="selection.selected.length === 0"
-  class="mr-2"
+  class="me-2"
   color="warn"
   mat-flat-button>
   {{'USER_DETAIL.IDENTITIES.REMOVE'|translate}}
@@ -22,7 +22,7 @@
   [placeholder]="'USER_DETAIL.IDENTITIES.FILTER_PLACEHOLDER'">
 </perun-web-apps-immediate-filter>
 <div class="admin-theme">
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
 </div>
 
 <div *ngIf="!loading">

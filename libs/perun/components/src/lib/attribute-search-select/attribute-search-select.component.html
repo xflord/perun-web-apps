@@ -1,4 +1,4 @@
-<div *ngIf="options !== undefined" class="container ml-0 mr-0 pl-0 pr-0 mt-3">
+<div *ngIf="options !== undefined" class="container ms-0 me-0 ps-0 pe-0 mt-3">
   <div *ngFor="let option of options" class="row">
     <div class="col-7">
       <perun-web-apps-entity-search-select
@@ -12,7 +12,7 @@
         [noEntriesText]="'SHARED_LIB.PERUN.COMPONENTS.ATTR_DEF_SEARCH_SELECT.NO_ATTR_DEF_FOUND' | translate">
       </perun-web-apps-entity-search-select>
     </div>
-    <div class="col-4 pr-0">
+    <div class="col-4 pe-0">
       <perun-web-apps-debounce-filter
         [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.ATTR_DEF_SEARCH_SELECT.SEARCH_PLACEHOLDER'"
         (filter)="option[1] = $event">
@@ -30,7 +30,7 @@
       </button>
     </div>
   </div>
-  <button mat-flat-button color="accent" class="mr-2" (click)="addOption()">
+  <button mat-flat-button color="accent" class="me-2" (click)="addOption()">
     {{'SHARED_LIB.PERUN.COMPONENTS.ATTR_DEF_SEARCH_SELECT.ADD_PARAMETER' | translate}}
   </button>
   <span
@@ -40,7 +40,7 @@
     <button
       data-cy="searcher-search-button"
       mat-stroked-button
-      class="mr-2"
+      class="me-2"
       (click)="searchEntities()"
       [disabled]="emptySearchString()">
       <mat-icon>search</mat-icon>

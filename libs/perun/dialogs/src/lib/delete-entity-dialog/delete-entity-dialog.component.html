@@ -1,4 +1,4 @@
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+<mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
 <div *ngIf="!force && !loading">
   <h1 mat-dialog-title>
     {{'DIALOGS.DELETE_ENTITY.DELETE' | translate: {action: this.anonymize | deleteDialogType | titlecase} }}
@@ -9,7 +9,7 @@
       {{'DIALOGS.DELETE_ENTITY.BASIC' | translate: {action: this.anonymize | deleteDialogType} }}
       {{'DIALOGS.DELETE_ENTITY.ONLY' | translate}}
       {{entityType}}
-      <span class="font-weight-bold">{{'DIALOGS.DELETE_ENTITY.OR' | translate}}</span>
+      <span class="fw-bold">{{'DIALOGS.DELETE_ENTITY.OR' | translate}}</span>
       {{entityType}}
       {{'DIALOGS.DELETE_ENTITY.RELATIONS' | translate}}?
     </div>
@@ -26,17 +26,17 @@
         </td>
       </ng-container>
 
-      <tr *matHeaderRowDef="['name']" class="font-weight-bolder" mat-header-row></tr>
+      <tr *matHeaderRowDef="['name']" class="fw-bolder" mat-header-row></tr>
       <tr *matRowDef="let entity; columns: ['name'];" mat-row></tr>
     </table>
   </div>
   <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+    <button (click)="onCancel()" class="ms-auto" mat-flat-button>
       {{'DIALOGS.DELETE_ENTITY.CANCEL' | translate}}
     </button>
     <button
       (click)="onDelete()"
-      class="ml-2"
+      class="ms-2"
       data-cy="delete-button-dialog"
       color="warn"
       mat-flat-button>
@@ -45,7 +45,7 @@
     <button
       *ngIf="!disableForce"
       (click)="force = true"
-      class="ml-2"
+      class="ms-2"
       data-cy="force-delete"
       color="warn"
       mat-flat-button>
@@ -87,7 +87,7 @@
           </td>
         </ng-container>
 
-        <tr *matHeaderRowDef="['name']" class="font-weight-bolder" mat-header-row></tr>
+        <tr *matHeaderRowDef="['name']" class="fw-bolder" mat-header-row></tr>
         <tr *matRowDef="let entity; columns: ['name'];" mat-row></tr>
       </table>
     </div>
@@ -99,13 +99,13 @@
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+    <button (click)="onCancel()" class="ms-auto" mat-flat-button>
       {{'DIALOGS.DELETE_ENTITY.CANCEL' | translate}}
     </button>
     <button
       (click)="onDelete()"
       [disabled]="deleteControl.invalid"
-      class="ml-2"
+      class="ms-2"
       data-cy="force-delete-button"
       color="warn"
       mat-flat-button>

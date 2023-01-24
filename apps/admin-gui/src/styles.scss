@@ -1720,3 +1720,12 @@ table .mdc-notched-outline__trailing {
 table .mdc-text-field--outlined {
   padding-left: 0 !important;
 }
+
+// Proper mat icon inside button
+.mat-mdc-outlined-button > .mat-icon {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+  font-size: 1.5rem !important;
+}

@@ -7,7 +7,7 @@
           matStepLabel
           >{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.SELECT_RESOURCE' | translate}}</ng-template
         >
-        <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+        <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
         <div *ngIf="!loading">
           <div>
             <mat-form-field class="input-style">
@@ -41,17 +41,14 @@
           </div>
           <div>
             <span
-              class="font-weight-bold"
+              class="fw-bold"
               >{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.DESCRIPTION' | translate}}</span
             >
-            <div class="ml-5">{{description}}</div>
+            <div class="ms-5">{{description}}</div>
           </div>
           <div>
-            <span
-              class="font-weight-bold"
-              >{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.SERVICES' | translate}}</span
-            >
-            <div *ngFor="let service of services" class="ml-5">{{service.name}}</div>
+            <span class="fw-bold">{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.SERVICES' | translate}}</span>
+            <div *ngFor="let service of services" class="ms-5">{{service.name}}</div>
           </div>
         </div>
       </mat-step>
@@ -60,7 +57,7 @@
           matStepLabel
           >{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.ADD_GROUP' | translate}}</ng-template
         >
-        <mat-spinner *ngIf="processing" class="mr-auto ml-auto"></mat-spinner>
+        <mat-spinner *ngIf="processing" class="me-auto ms-auto"></mat-spinner>
         <div *ngIf="groups.length !== 0 && !processing">
           <perun-web-apps-groups-list
             [disableGroups]="true"
@@ -85,15 +82,15 @@
     <button
       (click)="stepperPrevious()"
       *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
-      class="ml-auto"
+      class="ms-auto"
       mat-flat-button>
       {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.BACK' | translate}}
     </button>
     <button
       (click)="stepperNext(); loadGroups()"
       *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
-      [class.ml-2]="stepper !== undefined && stepper.selectedIndex !== 0"
-      [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+      [class.ms-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+      [class.ms-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
       [disabled]="selectedResource === null || processing || loading"
       color="accent"
       mat-flat-button>
@@ -103,7 +100,7 @@
       (click)="onFinish()"
       *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
       [disabled]="selectedGroups.selected.length === 0 || processing"
-      class="ml-2"
+      class="ms-2"
       color="accent"
       mat-flat-button>
       {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.SUBMIT' | translate}}

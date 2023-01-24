@@ -3,7 +3,7 @@
   <perun-web-apps-immediate-filter
     [placeholder]="'SERVICES.FILTER' | customTranslate | translate"
     (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="outerLoading"></mat-spinner>
+  <mat-spinner class="ms-auto me-auto" *ngIf="outerLoading"></mat-spinner>
   <mat-accordion *ngIf="!outerLoading">
     <mat-expansion-panel (opened)="getUserData()">
       <mat-expansion-panel-header>
@@ -12,7 +12,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <mat-spinner class="ml-auto mr-auto" *ngIf="innerLoading"></mat-spinner>
+        <mat-spinner class="ms-auto me-auto" *ngIf="innerLoading"></mat-spinner>
         <perun-web-apps-attributes-list
           *ngIf="!innerLoading"
           [attributes]="attributes"
@@ -28,7 +28,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <mat-spinner class="ml-auto mr-auto" *ngIf="innerLoading"></mat-spinner>
+        <mat-spinner class="ms-auto me-auto" *ngIf="innerLoading"></mat-spinner>
         <perun-web-apps-attributes-list
           *ngIf="!innerLoading"
           [attributes]="attributes"

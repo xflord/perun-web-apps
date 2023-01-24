@@ -13,7 +13,7 @@
         <mat-checkbox
           color="primary"
           *ngIf="!hideCheckbox"
-          class="no-label-margin-bottom ml-4"
+          class="no-label-margin-bottom ms-4"
           attr.data-cy="{{group.name}}-checkbox"
           [disabled]="group.fullName === 'members'"
           [checked]="selection.isSelected(group)"
@@ -36,7 +36,7 @@
             </mat-icon>
           </button>
           <div class="w-50">
-            <span attr.data-cy="{{group.name}}" class="mr-2">
+            <span attr.data-cy="{{group.name}}" class="me-2">
               {{group.name}}
             </span>
             <span *ngIf="authResolver.isPerunAdminOrObserver()" class="text-muted">

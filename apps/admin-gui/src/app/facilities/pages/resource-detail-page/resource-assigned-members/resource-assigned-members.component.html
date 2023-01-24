@@ -4,7 +4,7 @@
   (filter)="applyFilter($event)"
   [placeholder]="'RESOURCE_DETAIL.ASSIGNED_MEMBERS.FILTER'">
 </perun-web-apps-debounce-filter>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
+<mat-spinner *ngIf="loading" class="ms-auto me-auto"> </mat-spinner>
 <perun-web-apps-members-list
   [displayedColumns]="['id', 'fullName']"
   (updateTable)="refreshTable()"

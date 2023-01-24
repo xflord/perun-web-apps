@@ -2,14 +2,14 @@
   {{'SHARED_LIB.PERUN.COMPONENTS.REMOVE_USER_EXT_SOURCE.TITLE' | customTranslate | translate}}
 </h1>
 <div class="{{theme}}">
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
 
   <div *ngIf="!loading">
     <div mat-dialog-content>
       <p>
         {{'SHARED_LIB.PERUN.COMPONENTS.REMOVE_USER_EXT_SOURCE.DESCRIPTION' | customTranslate | translate}}
       </p>
-      <div class="font-weight-bold">
+      <div class="fw-bold">
         {{'SHARED_LIB.PERUN.COMPONENTS.REMOVE_USER_EXT_SOURCE.ASK' | customTranslate | translate}}
       </div>
       <table [dataSource]="dataSource" class="w-100" mat-table>
@@ -20,16 +20,16 @@
           </td>
         </ng-container>
 
-        <tr *matHeaderRowDef="displayedColumns" class="font-weight-bolder" mat-header-row></tr>
+        <tr *matHeaderRowDef="displayedColumns" class="fw-bolder" mat-header-row></tr>
         <tr *matRowDef="let richUserExtSource; columns: displayedColumns;" mat-row></tr>
       </table>
     </div>
 
     <div mat-dialog-actions>
-      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
         {{'SHARED_LIB.PERUN.COMPONENTS.REMOVE_USER_EXT_SOURCE.CANCEL' | customTranslate | translate}}
       </button>
-      <button (click)="onSubmit()" class="ml-2" color="warn" mat-flat-button>
+      <button (click)="onSubmit()" class="ms-2" color="warn" mat-flat-button>
         {{'SHARED_LIB.PERUN.COMPONENTS.REMOVE_USER_EXT_SOURCE.REMOVE' | customTranslate | translate}}
       </button>
     </div>

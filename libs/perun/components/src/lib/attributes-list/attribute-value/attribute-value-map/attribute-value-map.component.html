@@ -1,14 +1,14 @@
 <div class="col-sm-12 d-flex mt-3 px-0">
   <form class="d-flex w-100">
     <div class="w-100">
-      <div class="mr-5">
+      <div class="me-5">
         <div
           *ngFor="let value of values.slice(0, itemsShown); let i = index; trackBy: customTrackBy"
           class="d-flex mb-1 fixed-height">
           <mat-form-field
             appearance="{{readonly ? 'outline' : 'fill'}}"
             subscriptSizing="dynamic"
-            class="w-100 mr-2">
+            class="w-100 me-2">
             <input
               matInput
               required
@@ -24,7 +24,7 @@
           <mat-form-field
             appearance="{{readonly ? 'outline' : 'fill'}}"
             subscriptSizing="dynamic"
-            class="w-100 mr-2">
+            class="w-100 me-2">
             <input
               (click)="readonly && attribute.displayName !== undefined && showValue(value,attribute.displayName)"
               [class.cursor-pointer]="readonly && attribute.displayName !== undefined"

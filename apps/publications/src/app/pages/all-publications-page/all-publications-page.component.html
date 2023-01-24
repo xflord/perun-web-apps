@@ -1,14 +1,14 @@
 <div class="user-theme">
   <h1 class="page-subtitle d-flex">
     <mat-icon class="publications-icon" svgIcon="publications"></mat-icon>
-    <span class="ml-3 mt-1">{{'ALL_PUBLICATIONS.TITLE' | translate}}</span>
+    <span class="ms-3 mt-1">{{'ALL_PUBLICATIONS.TITLE' | translate}}</span>
   </h1>
   <div class="mt-4">
     <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
     <button
       mat-flat-button
       color="warn"
-      class="mr-2"
+      class="me-2"
       [disabled]="selected.selected.length === 0"
       (click)="removePublication()">
       {{'ALL_PUBLICATIONS.REMOVE' | translate}}
@@ -24,5 +24,5 @@
     [routerPath]="'/all-publications'"
     [tableId]="tableId">
   </perun-web-apps-publications-list>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>
 </div>

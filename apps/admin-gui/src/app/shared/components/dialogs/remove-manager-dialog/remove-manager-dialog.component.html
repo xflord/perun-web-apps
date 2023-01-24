@@ -5,7 +5,7 @@
       {{'DIALOGS.REMOVE_MANAGERS.DESCRIPTION' | translate}}
     </p>
 
-    <div class="font-weight-bold">
+    <div class="fw-bold">
       {{'DIALOGS.REMOVE_MANAGERS.ASK' | translate}}
     </div>
 
@@ -15,21 +15,21 @@
         <td *matCellDef="let manager" mat-cell>{{manager.firstName}} {{manager.lastName}}</td>
       </ng-container>
 
-      <tr *matHeaderRowDef="displayedColumns" class="font-weight-bolder" mat-header-row></tr>
+      <tr *matHeaderRowDef="displayedColumns" class="fw-bolder" mat-header-row></tr>
       <tr *matRowDef="let manager; columns: displayedColumns;" mat-row></tr>
     </table>
     <perun-web-apps-alert *ngIf="removeSelf" alert_type="warn">
       {{'DIALOGS.REMOVE_MANAGERS.WARNING_REMOVE_YOURSELF' | translate: {role: this.data.role | displayedRole} }}
     </perun-web-apps-alert>
   </div>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
   <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+    <button (click)="onCancel()" class="ms-auto" mat-flat-button>
       {{'DIALOGS.REMOVE_MANAGERS.CANCEL' | translate}}
     </button>
     <button
       (click)="onSubmit()"
-      class="ml-2"
+      class="ms-2"
       color="warn"
       data-cy="remove-manager-button-dialog"
       [disabled]="loading"

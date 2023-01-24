@@ -5,7 +5,7 @@
     *ngIf="createAuth"
     (click)="onCreateGroup()"
     color="accent"
-    class="mr-2 action-button"
+    class="me-2 action-button"
     data-cy="create-group-button"
     mat-flat-button>
     {{'VO_DETAIL.GROUPS.CREATE_GROUP' | translate}}
@@ -19,7 +19,7 @@
       color="warn"
       [disabled]="selected.selected.length === 0 || !auth.removeAuth"
       data-cy="delete-group-button"
-      class="mr-2"
+      class="me-2"
       mat-flat-button>
       {{'VO_DETAIL.GROUPS.DELETE_GROUP' | translate}}
     </button>
@@ -32,7 +32,7 @@
     #toggle
     (change)="removeAllGroups()"
     [(ngModel)]="showGroupList"
-    class="mr-1"
+    class="me-1"
     color="primary"
     labelPosition="before">
     {{'VO_DETAIL.GROUPS.TREE_VIEW' | translate}}</mat-slide-toggle

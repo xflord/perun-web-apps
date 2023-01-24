@@ -1,7 +1,7 @@
 <h1 class="page-subtitle">{{'VO_DETAIL.SETTINGS.HIERARCHICAL_INCLUSION.TITLE' | translate}}</h1>
 <div class="display-flex">
   <perun-web-apps-refresh-button (click)="loadAllowedGroups()"></perun-web-apps-refresh-button>
-  <button (click)="addGroupsInclusion()" mat-flat-button class="mr-2 action-button" color="accent">
+  <button (click)="addGroupsInclusion()" mat-flat-button class="me-2 action-button" color="accent">
     {{'VO_DETAIL.SETTINGS.HIERARCHICAL_INCLUSION.ADD' | translate}}
   </button>
   <button
@@ -9,7 +9,7 @@
     (click)="removeGroupsInclusion()"
     mat-flat-button
     color="warn"
-    class="mr-2">
+    class="me-2">
     {{'VO_DETAIL.SETTINGS.HIERARCHICAL_INCLUSION.REMOVE' | translate}}
   </button>
   <div class="vo-search-select">
@@ -29,4 +29,4 @@
   [noGroupsAlert]="'VO_DETAIL.SETTINGS.HIERARCHICAL_INCLUSION.NO_GROUPS_ALLOWED_ALERT'"
   theme="vo-theme">
 </perun-web-apps-groups-list>
-<mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+<mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>

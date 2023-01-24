@@ -5,7 +5,7 @@
     *ngIf="authResolver.isPerunAdmin()"
     (click)="createService()"
     color="accent"
-    class="action-button mr-2"
+    class="action-button me-2"
     data-cy="service-create-button"
     mat-flat-button>
     {{'ADMIN.SERVICES.CREATE' | translate}}
@@ -14,7 +14,7 @@
     *ngIf="authResolver.isPerunAdmin()"
     (click)="deleteService()"
     [disabled]="selection.selected.length === 0"
-    class="mr-2"
+    class="me-2"
     color="warn"
     data-cy="service-delete-button"
     mat-flat-button>
@@ -24,7 +24,7 @@
     (filter)="applyFilter($event)"
     [placeholder]="'ADMIN.SERVICES.FILTER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
   <app-services-list
     *ngIf="!loading"
     [filterValue]="filterValue"

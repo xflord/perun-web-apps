@@ -10,7 +10,7 @@
     queryParamsHandling="merge">
     <div [ngStyle]="{'color': textColor}" class="d-flex flex-row">
       <mat-icon>{{item.icon}}</mat-icon>
-      <span class="ml-4">
+      <span class="ms-4">
         {{item.external ? (item | localisedText: lang:'label') : item.label | customTranslate: lang | translate}}
       </span>
     </div>

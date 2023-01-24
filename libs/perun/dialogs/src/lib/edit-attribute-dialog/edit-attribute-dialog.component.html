@@ -4,7 +4,7 @@
     {{'DIALOGS.EDIT_ATTRIBUTES.DESCRIPTION' | translate}}
   </div>
 
-  <div class="font-weight-bold">
+  <div class="fw-bold">
     {{'DIALOGS.EDIT_ATTRIBUTES.ASK' | translate}}
   </div>
 
@@ -14,15 +14,15 @@
       <td *matCellDef="let attribute" mat-cell>{{attribute.displayName}}</td>
     </ng-container>
 
-    <tr *matHeaderRowDef="displayedColumns" class="font-weight-bolder" mat-header-row></tr>
+    <tr *matHeaderRowDef="displayedColumns" class="fw-bolder" mat-header-row></tr>
     <tr *matRowDef="let group; columns: displayedColumns;" mat-row></tr>
   </table>
 </div>
 <div mat-dialog-actions>
-  <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+  <button (click)="onCancel()" class="ms-auto" mat-flat-button>
     {{'DIALOGS.EDIT_ATTRIBUTES.CANCEL' | translate}}
   </button>
-  <button (click)="onSubmit()" class="ml-2" color="accent" mat-flat-button>
+  <button (click)="onSubmit()" class="ms-2" color="accent" mat-flat-button>
     {{'DIALOGS.EDIT_ATTRIBUTES.SAVE' | translate}}
   </button>
 </div>

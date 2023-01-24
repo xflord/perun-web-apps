@@ -4,7 +4,7 @@
   *ngIf="addIdentity"
   (click)="onAdd()"
   color="accent"
-  class="mr-2 action-button"
+  class="me-2 action-button"
   mat-flat-button>
   {{'USER_DETAIL.SETTINGS.SERVICE_IDENTITIES.CREATE' | translate}}
 </button>
@@ -13,12 +13,12 @@
   (click)="onRemove()"
   [disabled]="selection.selected.length === 0"
   color="warn"
-  class="mr-2"
+  class="me-2"
   mat-flat-button>
   {{'USER_DETAIL.SETTINGS.SERVICE_IDENTITIES.DELETE' | translate}}
 </button>
 
-<mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+<mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
 
 <app-users-list
   *ngIf="!loading"

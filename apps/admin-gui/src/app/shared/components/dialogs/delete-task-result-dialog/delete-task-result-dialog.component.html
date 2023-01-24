@@ -1,9 +1,9 @@
 <h1 mat-dialog-title>{{'DIALOGS.DELETE_TASK_RESULT.TITLE' | translate}}</h1>
 <div class="{{theme}}">
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content>
     <p>{{'DIALOGS.DELETE_TASK_RESULT.DESCRIPTION' | translate}}</p>
-    <div class="font-weight-bold">
+    <div class="fw-bold">
       {{'DIALOGS.DELETE_TASK_RESULT.ASK' | translate}}
     </div>
     <table [dataSource]="dataSource" class="w-100" mat-table>
@@ -25,15 +25,15 @@
           {{taskResult.timestamp | date: 'd.M.y H:mm:ss'}}
         </td>
       </ng-container>
-      <tr *matHeaderRowDef="displayedColumns" class="font-weight-bolder" mat-header-row></tr>
+      <tr *matHeaderRowDef="displayedColumns" class="fw-bolder" mat-header-row></tr>
       <tr *matRowDef="let taskResult; columns: displayedColumns;" mat-row></tr>
     </table>
   </div>
   <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+    <button (click)="onCancel()" class="ms-auto" mat-flat-button>
       {{'DIALOGS.DELETE_TASK_RESULT.CANCEL' | translate}}
     </button>
-    <button (click)="onDelete()" [disabled]="loading" class="ml-2" color="warn" mat-flat-button>
+    <button (click)="onDelete()" [disabled]="loading" class="ms-2" color="warn" mat-flat-button>
       {{'DIALOGS.DELETE_TASK_RESULT.REMOVE' | translate}}
     </button>
   </div>

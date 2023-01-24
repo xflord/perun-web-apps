@@ -81,7 +81,7 @@
                 <button
                   *ngIf="consent.status !== 'REVOKED'"
                   mat-flat-button
-                  class="mr-2"
+                  class="me-2"
                   color="warn"
                   (click)="rejectConsent.emit(consent.id)">
                   {{(consent.status === 'UNSIGNED' ? 'SHARED_LIB.PERUN.COMPONENTS.CONSENTS_LIST.REJECT_CONSENT_BUTTON' :

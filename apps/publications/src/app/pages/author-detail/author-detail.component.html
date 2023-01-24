@@ -1,7 +1,7 @@
 <div class="user-theme">
   <h1 class="page-subtitle d-flex">
     <mat-icon class="title-icon">assignment_ind</mat-icon>
-    <span class="ml-3 mt-1">{{'AUTHORS_PAGE.TITLE' | translate}}</span>
+    <span class="ms-3 mt-1">{{'AUTHORS_PAGE.TITLE' | translate}}</span>
   </h1>
   <div *ngIf="!initLoading">
     <h5>{{ author | userFullName }}{{'AUTHOR_DETAIL.TITLE' | translate}}</h5>
@@ -10,7 +10,7 @@
       <button
         mat-flat-button
         color="warn"
-        class="mr-2"
+        class="me-2"
         [disabled]="selected.selected.length === 0"
         (click)="removePublication()">
         {{'AUTHOR_DETAIL.REMOVE' | translate}}
@@ -26,5 +26,5 @@
       [tableId]="tableId"
       [routerPath]="'/authors/'+author.id+'/publication'"></perun-web-apps-publications-list>
   </div>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading || initLoading"></mat-spinner>
+  <mat-spinner class="ms-auto me-auto" *ngIf="loading || initLoading"></mat-spinner>
 </div>

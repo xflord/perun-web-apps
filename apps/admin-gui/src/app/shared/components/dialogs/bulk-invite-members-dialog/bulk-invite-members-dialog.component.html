@@ -1,6 +1,6 @@
 <div class="{{data.theme}}">
   <h1 mat-dialog-title>{{'DIALOGS.BULK_INVITE_MEMBERS.TITLE' | translate}}</h1>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
     <div *ngIf="state === 'input'">
       <div *ngIf="!data.groupId" class="font-italic">
@@ -52,13 +52,13 @@
     </perun-web-apps-alert>
   </div>
   <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+    <button (click)="onCancel()" class="ms-auto" mat-flat-button>
       {{'DIALOGS.BULK_INVITE_MEMBERS.CANCEL' | translate}}
     </button>
     <button
       *ngIf="state === 'input'"
       (click)="onSubmit()"
-      class="ml-2"
+      class="ms-2"
       color="accent"
       [disabled]="loading || invitedMembers.invalid"
       mat-flat-button>
@@ -68,7 +68,7 @@
       *ngIf="state === 'results'"
       [disabled]="!resultData"
       (click)="downloadCsv()"
-      class="ml-2"
+      class="ms-2"
       color="accent"
       mat-flat-button>
       {{'DIALOGS.BULK_INVITE_MEMBERS.DOWNLOAD_CSV' | translate}}

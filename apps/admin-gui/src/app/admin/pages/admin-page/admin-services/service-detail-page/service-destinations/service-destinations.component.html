@@ -6,7 +6,7 @@
     (click)="onRemove()"
     color="warn"
     [disabled]="selection.selected.length === 0"
-    class="mr-2"
+    class="me-2"
     mat-flat-button>
     {{ 'SERVICE_DETAIL.DESTINATIONS.REMOVE' | translate}}
   </button>
@@ -14,7 +14,7 @@
     *ngIf="authResolver.isPerunAdmin()"
     (click)="onAllow()"
     [disabled]="selection.selected.length === 0"
-    class="mr-2"
+    class="me-2"
     color="accent"
     mat-flat-button>
     {{ 'SERVICE_DETAIL.DESTINATIONS.ALLOW' | translate}}
@@ -23,7 +23,7 @@
     *ngIf="authResolver.isPerunAdmin()"
     (click)="onBlock()"
     [disabled]="selection.selected.length === 0"
-    class="mr-2"
+    class="me-2"
     color="warn"
     mat-flat-button>
     {{ 'SERVICE_DETAIL.DESTINATIONS.BLOCK' | translate}}
@@ -32,7 +32,7 @@
     (filter)="applyFilter($event)"
     [placeholder]="'SERVICE_DETAIL.DESTINATIONS.FILTER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   <app-perun-web-apps-destination-list
     *ngIf="!loading"
     [destinations]="destinations"

@@ -6,7 +6,7 @@
         <ng-content></ng-content>
       </mat-step>
       <mat-step [label]="'DIALOGS.ADD_BAN.SPECIFICATION' | translate">
-        <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+        <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
         <div *ngIf="!loading">
           <perun-web-apps-alert *ngIf="ban" [alert_type]="'info'">
             {{'DIALOGS.ADD_BAN.ALREADY_BANNED' | translate}}
@@ -20,13 +20,13 @@
     </mat-stepper>
   </div>
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto mr-2" (click)="cancel.emit()">
+    <button mat-flat-button class="ms-auto me-2" (click)="cancel.emit()">
       {{'DIALOGS.ADD_BAN.CANCEL' | translate}}
     </button>
     <button
       *ngIf="stepper.selectedIndex !== stepper?._steps?.length - 1"
       mat-flat-button
-      class="mr-2"
+      class="me-2"
       color="accent"
       (click)="stepper.next()"
       [disabled]="disabled">
@@ -35,7 +35,7 @@
     <button
       *ngIf="stepper.selectedIndex === stepper?._steps?.length - 1"
       mat-flat-button
-      class="mr-2"
+      class="me-2"
       (click)="stepper.previous()">
       {{'DIALOGS.ADD_BAN.BACK' | translate}}
     </button>

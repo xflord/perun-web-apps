@@ -4,7 +4,7 @@
       {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.TITLE' | translate}} :
       {{this.applicationFormItem.shortname}}
     </h1>
-    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+    <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
     <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
       <mat-tab-group color="primary">
         <mat-tab label="{{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.BASIC_SETTINGS' | translate}}">
@@ -27,7 +27,7 @@
               <mat-checkbox
                 [ngModel]="this.applicationFormItem.applicationTypes.includes('INITIAL')"
                 (change)="onChangingType('INITIAL')"
-                class="mr-2">
+                class="me-2">
                 {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.INITIAL' | translate}}
               </mat-checkbox>
               <mat-checkbox
@@ -219,20 +219,18 @@
 
           <div
             *ngIf="isApplicationFormItemOfType(['RADIO', 'COMBOBOX', 'CHECKBOX', 'SELECTIONBOX'])">
-            <div class="font-weight-bold">
-              {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.OPTIONS' | translate}}:
-            </div>
+            <div class="fw-bold">{{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.OPTIONS' | translate}}:</div>
             <div class="text-muted font-italic">
               {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.OPTIONS_DESCRIPTION' | translate}}
             </div>
 
             <div class="d-flex mt-2 mb-2">
-              <button (click)="sortOptionsAZ(lang)" class="ml-auto mr-2" mat-flat-button>
+              <button (click)="sortOptionsAZ(lang)" class="ms-auto me-2" mat-flat-button>
                 <i class="material-icons">arrow_downward</i>
                 {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SORT_BY_LABEL_AZ' | translate}}
               </button>
 
-              <button (click)="sortOptionsZA(lang)" class="mr-auto" mat-flat-button>
+              <button (click)="sortOptionsZA(lang)" class="me-auto" mat-flat-button>
                 <i class="material-icons">arrow_upward</i>
                 {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SORT_BY_LABEL_ZA' | translate}}
               </button>
@@ -256,7 +254,7 @@
               </button>
             </div>
 
-            <button (click)="addOption(lang)" class="mr-2" color="accent" mat-flat-button>
+            <button (click)="addOption(lang)" class="me-2" color="accent" mat-flat-button>
               {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.ADD_OPTION' | translate}}
             </button>
           </div>
@@ -264,7 +262,7 @@
       </mat-tab-group>
     </div>
     <div class="d-flex mt-auto" mat-dialog-actions>
-      <button (click)="cancel()" class="ml-auto mt-auto" mat-flat-button>
+      <button (click)="cancel()" class="ms-auto mt-auto" mat-flat-button>
         {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.CANCEL_BUTTON' | translate}}
       </button>
       <div
@@ -275,7 +273,7 @@
         matTooltip="{{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SUBMIT_BUTTON_DISABLED_TOOLTIP' | translate}}">
         <button
           mat-flat-button
-          class="ml-2 mt-auto"
+          class="ms-2 mt-auto"
           color="accent"
           data-cy="edit-form-item-button-dialog"
           [disabled]="loading || (applicationFormItem.required &&

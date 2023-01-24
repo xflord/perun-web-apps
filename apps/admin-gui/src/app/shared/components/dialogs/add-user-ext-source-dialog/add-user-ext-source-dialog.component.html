@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{'DIALOGS.ADD_USER_EXT_SOURCE.TITLE'|translate}}</h1>
 <div class="dialog-container user-theme" mat-dialog-content>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   <div *ngIf="!loading">
     <mat-form-field class="center-self w-100">
       <mat-label>{{'DIALOGS.ADD_USER_EXT_SOURCE.LOGIN' | translate}}</mat-label>
@@ -29,13 +29,13 @@
   </div>
 </div>
 <div mat-dialog-actions>
-  <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+  <button (click)="onCancel()" class="ms-auto" mat-flat-button>
     {{'DIALOGS.ADD_USER_EXT_SOURCE.CANCEL'|translate}}
   </button>
   <button
     (click)="onAdd()"
     [disabled]="loginControl.invalid || extSourcesControl.invalid || loading"
-    class="ml-2"
+    class="ms-2"
     color="accent"
     mat-flat-button>
     {{'DIALOGS.ADD_USER_EXT_SOURCE.ADD'|translate}}

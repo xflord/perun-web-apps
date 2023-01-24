@@ -5,7 +5,7 @@
     *ngIf="authResolver.isPerunAdmin()"
     (click)="onAdd()"
     color="accent"
-    class="mr-2 action-button"
+    class="me-2 action-button"
     mat-flat-button>
     {{ 'SERVICE_DETAIL.REQUIRED_ATTRIBUTES.ADD' | translate}}
   </button>
@@ -13,7 +13,7 @@
     *ngIf="authResolver.isPerunAdmin()"
     (click)="onRemove()"
     [disabled]="selection.selected.length === 0"
-    class="mr-2"
+    class="me-2"
     color="warn"
     mat-flat-button>
     {{ 'SERVICE_DETAIL.REQUIRED_ATTRIBUTES.REMOVE' | translate}}
@@ -22,7 +22,7 @@
     (filter)="applyFilter($event)"
     [placeholder]="'SERVICE_DETAIL.REQUIRED_ATTRIBUTES.FILTER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   <app-attr-def-list
     *ngIf="!loading"
     (refreshEvent)="refreshTable()"

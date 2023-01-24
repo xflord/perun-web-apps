@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>{{'SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.TITLE' | translate}}</h1>
-<mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+<mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>
 <div class="dialog-container" mat-dialog-content *ngIf="!loading">
   <mat-form-field>
     <mat-label>{{'SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUBJECT' | translate}}</mat-label>
@@ -26,14 +26,14 @@
 </div>
 
 <div mat-dialog-actions>
-  <div class="ml-auto">
+  <div class="ms-auto">
     <button (click)="dialogRef.close()" mat-button>
       {{'SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.CANCEL' | translate}}
     </button>
     <button
       (click)="sendBugReport()"
       [disabled]="message === '' || subject === '' || loading"
-      class="ml-2"
+      class="ms-2"
       color="accent"
       mat-flat-button>
       {{'SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SEND' | translate}}

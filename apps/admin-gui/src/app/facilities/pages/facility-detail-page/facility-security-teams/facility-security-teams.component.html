@@ -5,7 +5,7 @@
   <!--    *ngIf="!loading && addAuth"-->
   <!--    mat-flat-button -->
   <!--    color="accent" -->
-  <!--    class="mr-2"-->
+  <!--    class="me-2"-->
   <!--    (click)="addSecurityTeam()">-->
   <!--    {{'FACILITY_DETAIL.SECURITY_TEAMS.ADD'| translate}}-->
   <!--  </button>-->
@@ -13,14 +13,14 @@
   <!--    *ngIf="!loading && removeAuth"-->
   <!--    mat-flat-button -->
   <!--    color="warn" -->
-  <!--    class="mr-2"  -->
+  <!--    class="me-2"  -->
   <!--    [disabled]="selected.selected.length === 0" (click)="removeSecurityTeam()">-->
   <!--    {{'FACILITY_DETAIL.SECURITY_TEAMS.REMOVE'| translate}}-->
   <!--  </button>-->
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'FACILITY_DETAIL.SECURITY_TEAMS.FILTER'"></perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   <app-security-teams-list
     [displayedColumns]="displayedColumns"
     *ngIf="!loading"

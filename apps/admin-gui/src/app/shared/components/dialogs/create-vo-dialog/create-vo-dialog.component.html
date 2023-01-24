@@ -1,6 +1,6 @@
 <div class="{{theme}}">
   <h1 mat-dialog-title>{{"DIALOGS.CREATE_VO.TITLE" | translate}}</h1>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
   <div *ngIf="!loading">
     <div class="dialog-container" mat-dialog-content>
       <mat-form-field>
@@ -19,7 +19,7 @@
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.CREATE_VO.CANCEL' | translate}}
       </button>
       <div
@@ -28,7 +28,7 @@
         matTooltipPosition="above">
         <button
           (click)="onSubmit()"
-          class="ml-2"
+          class="ms-2"
           color="accent"
           data-cy="create-vo-button"
           [disabled]="shortNameCtrl.invalid || fullNameCtrl.invalid"

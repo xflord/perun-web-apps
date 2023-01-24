@@ -5,18 +5,18 @@
   <button
     (click)="this.showAllDetails = true"
     *ngIf="!showAllDetails"
-    class="mr-2"
+    class="me-2"
     mat-stroked-button>
     {{'VO_DETAIL.APPLICATION.SHOW_ALL_DETAILS' | translate}}
   </button>
   <button
     (click)="this.showAllDetails = false"
     *ngIf="showAllDetails"
-    class="mr-2"
+    class="me-2"
     mat-stroked-button>
     {{'VO_DETAIL.APPLICATION.SHOW_LESS_DETAILS' | translate}}
   </button>
-  <mat-form-field class="w-25 mr-2">
+  <mat-form-field class="w-25 me-2">
     <mat-label>{{'APPLICATIONS_LIST.STATE' | translate}}</mat-label>
     <mat-select (selectionChange)="select()" [(value)]="state" disableOptionCentering>
       <mat-option value="all">{{'VO_DETAIL.APPLICATION.SELECTION_ALL' | translate}}</mat-option>

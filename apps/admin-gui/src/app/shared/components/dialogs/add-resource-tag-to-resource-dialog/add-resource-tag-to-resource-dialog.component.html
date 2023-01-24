@@ -3,7 +3,7 @@
 
   <div mat-dialog-content>
     <div class="overflow-hidden">
-      <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+      <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
     </div>
     <app-resources-tags-list
       *ngIf="!loading"
@@ -17,12 +17,12 @@
   </div>
 
   <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+    <button (click)="onCancel()" class="ms-auto" mat-flat-button>
       {{'RESOURCE_DETAIL.TAGS.CANCEL' | translate}}
     </button>
     <button
       (click)="onSubmit(selection.selected)"
-      class="ml-2"
+      class="ms-2"
       color="accent"
       [disabled]="loading || resourceTags.length === 0"
       mat-flat-button>

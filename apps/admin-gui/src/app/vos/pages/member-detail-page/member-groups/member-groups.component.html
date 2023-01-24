@@ -4,7 +4,7 @@
   *ngIf="addAuth"
   (click)="addGroup()"
   color="accent"
-  class="mr-2 action-button"
+  class="me-2 action-button"
   mat-flat-button>
   {{'MEMBER_DETAIL.GROUPS.ADD' | translate}}
 </button>
@@ -13,7 +13,7 @@
   [matTooltipDisabled]="auth.removeAuth"
   matTooltip="{{'MEMBER_DETAIL.GROUPS.REMOVE_PERMISSION_HINT' | translate}}">
   <button
-    class="mr-2"
+    class="me-2"
     color="warn"
     (click)="removeGroup()"
     [disabled]="selection.selected.length === 0 || !auth.removeAuth"
@@ -25,7 +25,7 @@
   (filter)="applyFilter($event)"
   [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'">
 </perun-web-apps-immediate-filter>
-<mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+<mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
 <perun-web-apps-groups-list
   *ngIf="!loading"
   (refreshTable)="refreshTable()"

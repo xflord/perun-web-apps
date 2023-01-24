@@ -2,7 +2,7 @@
 <div class="{{theme}}">
   <div mat-dialog-content>
     <p>{{'DIALOGS.DISCONNECT_IDENTITY.DESCRIPTION_'+targetDescription | translate}}</p>
-    <div class="font-weight-bold">
+    <div class="fw-bold">
       {{'DIALOGS.DISCONNECT_IDENTITY.ASK' | translate}}
     </div>
     <table [dataSource]="dataSource" class="w-100" mat-table>
@@ -10,7 +10,7 @@
         <th *matHeaderCellDef mat-header-cell></th>
         <td *matCellDef="let identity" mat-cell>{{identity | userFullName}}</td>
       </ng-container>
-      <tr *matHeaderRowDef="displayedColumns" class="font-weight-bolder" mat-header-row></tr>
+      <tr *matHeaderRowDef="displayedColumns" class="fw-bolder" mat-header-row></tr>
       <tr *matRowDef="let identity; columns: displayedColumns;" mat-row></tr>
     </table>
     <perun-web-apps-alert *ngIf="disconnectingSelf" alert_type="warn">
@@ -21,10 +21,10 @@
     </perun-web-apps-alert>
   </div>
   <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+    <button (click)="onCancel()" class="ms-auto" mat-flat-button>
       {{'DIALOGS.DISCONNECT_IDENTITY.CANCEL' | translate}}
     </button>
-    <button (click)="onConfirm()" class="ml-2" color="warn" mat-flat-button>
+    <button (click)="onConfirm()" class="ms-2" color="warn" mat-flat-button>
       {{'DIALOGS.DISCONNECT_IDENTITY.REMOVE' | translate}}
     </button>
   </div>

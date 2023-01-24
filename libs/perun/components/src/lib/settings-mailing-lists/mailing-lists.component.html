@@ -16,7 +16,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
-      <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+      <mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>
       <perun-web-apps-alert
         *ngIf="resources.length === 0 && !loading"
         alert_type="warn"
@@ -35,7 +35,7 @@
           </mat-expansion-panel-header>
           <div class="row">
             <mat-checkbox
-              class="ml-3 mr-2"
+              class="ms-3 me-2"
               [checked]="optOutAttribute && optOutAttribute.value !== null"
               (change)="setOptOut()"></mat-checkbox>
             <p>

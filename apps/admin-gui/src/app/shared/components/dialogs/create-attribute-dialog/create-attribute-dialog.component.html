@@ -6,12 +6,12 @@
       [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.FILTER'"
       data-cy="filter-attributes"
       class="font-size-1rem"></perun-web-apps-immediate-filter>
-    <perun-web-apps-alert *ngIf="showError" class="ml-3 font-size-1rem" alert_type="error">
+    <perun-web-apps-alert *ngIf="showError" class="ms-3 font-size-1rem" alert_type="error">
       {{'DIALOGS.CREATE_ATTRIBUTE.ERROR_EMPTY_VALUE' | translate}}
     </perun-web-apps-alert>
   </div>
   <div mat-dialog-content>
-    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+    <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
     <perun-web-apps-attributes-list
       #list
       [emptyListText]="'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.EMPTY_ATTRIBUTES'"
@@ -24,14 +24,14 @@
     </perun-web-apps-attributes-list>
   </div>
   <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+    <button (click)="onCancel()" class="ms-auto" mat-flat-button>
       {{'DIALOGS.CREATE_ATTRIBUTE.CANCEL' | translate}}
     </button>
 
     <button
       (click)="onSave()"
       [disabled]="selected.selected.length === 0"
-      class="ml-2"
+      class="ms-2"
       color="accent"
       data-cy="save-selected-attributes"
       mat-flat-button>

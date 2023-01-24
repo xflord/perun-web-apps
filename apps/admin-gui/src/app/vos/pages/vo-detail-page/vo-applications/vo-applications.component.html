@@ -2,13 +2,13 @@
 <div>
   <perun-web-apps-refresh-button
     (refresh)="this.refresh = !this.refresh"></perun-web-apps-refresh-button>
-  <button mat-stroked-button *ngIf="!showAllDetails" class="mr-2" (click)="this.showDetails(true)">
+  <button mat-stroked-button *ngIf="!showAllDetails" class="me-2" (click)="this.showDetails(true)">
     {{'VO_DETAIL.APPLICATION.SHOW_ALL_DETAILS' | translate}}
   </button>
-  <button mat-stroked-button *ngIf="showAllDetails" class="mr-2" (click)="this.showDetails(false)">
+  <button mat-stroked-button *ngIf="showAllDetails" class="me-2" (click)="this.showDetails(false)">
     {{'VO_DETAIL.APPLICATION.SHOW_LESS_DETAILS' | translate}}
   </button>
-  <mat-form-field class="input-width-250 mr-2">
+  <mat-form-field class="input-width-250 me-2">
     <mat-label>{{'APPLICATIONS_LIST.STATE' | translate}}</mat-label>
     <mat-select (selectionChange)="select()" [(value)]="state" disableOptionCentering>
       <mat-option value="all">{{'VO_DETAIL.APPLICATION.SELECTION_ALL' | translate}}</mat-option>

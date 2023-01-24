@@ -32,10 +32,8 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
+  text-decoration: none;
 
-  &:hover {
-    text-decoration: none;
-  }
   & img {
     height: 120px;
     margin-bottom: 10px;

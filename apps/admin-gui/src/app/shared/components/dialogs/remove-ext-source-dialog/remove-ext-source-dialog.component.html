@@ -2,12 +2,12 @@
   <div mat-dialog-title>
     <h1 class="page-subtitle">{{'DIALOGS.REMOVE_EXT_SOURCES.TITLE' | translate}}</h1>
   </div>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
   <div *ngIf="!loading" mat-dialog-content>
     <p>
       {{'DIALOGS.REMOVE_EXT_SOURCES.DESCRIPTION' | translate}}
     </p>
-    <div class="font-weight-bold">
+    <div class="fw-bold">
       {{'DIALOGS.REMOVE_EXT_SOURCES.ASK' | translate}}
     </div>
 
@@ -20,17 +20,17 @@
         <th *matHeaderCellDef mat-header-cell>name</th>
         <td *matCellDef="let extSource" mat-cell>{{extSource.name}}</td>
       </ng-container>
-      <tr *matHeaderRowDef="displayedColumns" class="font-weight-bolder" mat-header-row></tr>
+      <tr *matHeaderRowDef="displayedColumns" class="fw-bolder" mat-header-row></tr>
       <tr *matRowDef="let extSource; columns: displayedColumns;" mat-row></tr>
     </table>
   </div>
 
   <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+    <button (click)="onCancel()" class="ms-auto" mat-flat-button>
       {{'DIALOGS.REMOVE_EXT_SOURCES.CANCEL' | translate}}
     </button>
 
-    <button (click)="onRemove()" class="ml-2" color="warn" mat-flat-button>
+    <button (click)="onRemove()" class="ms-2" color="warn" mat-flat-button>
       {{'DIALOGS.REMOVE_EXT_SOURCES.REMOVE' | translate}}
     </button>
   </div>
