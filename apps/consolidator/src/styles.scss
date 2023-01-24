@@ -250,8 +250,7 @@ mat-dialog-container:has(#loading-dialog-spinner) {
   background-color: black;
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version.*/
-mat-chip-list {
+mat-mdc-chip-grid {
   pointer-events: none;
 }
 

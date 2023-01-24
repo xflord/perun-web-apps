@@ -866,31 +866,6 @@ textarea.cdk-textarea-autosize-measuring {
   background-color: #62727b;
 }
 
-.white-color-input {
-  color: #ffffff !important;
-  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-  .mat-form-field-label {
-    color: #ffffff !important;
-  }
-
-  .mat-focused {
-    color: #ffffff !important;
-    background-color: #ffffff !important;
-  }
-
-  input {
-    caret-color: #ffffff !important;
-  }
-  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-  .mat-form-field-underline {
-    background-color: #ffffff !important;
-  }
-  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-  .mat-form-field-ripple {
-    background-color: #ffffff !important;
-  }
-}
-
 .dialog-container {
   display: flex;
   flex-direction: column;
@@ -1389,8 +1364,7 @@ textarea.cdk-textarea-autosize-measuring {
 // HACKS
 
 // Dont show horizontal scroll at menu items
-/* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version.*/
-.mat-tab-body-content {
+.mat-mdc-tab-body-content {
   overflow: hidden !important;
 }
 
@@ -1659,15 +1633,13 @@ mat-dialog-container:has(#loading-dialog-spinner) {
   word-wrap: break-word !important;
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version.*/
-.mat-tab-label {
+.mdc-tab__text-label {
   font-size: 16px !important;
   color: black !important;
   opacity: 1 !important;
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version.*/
-.mat-tab-icon {
+.mdc-tab__icon {
   font-size: 16px !important;
 }
 
