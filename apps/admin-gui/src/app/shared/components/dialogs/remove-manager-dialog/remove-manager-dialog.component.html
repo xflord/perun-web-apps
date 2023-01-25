@@ -19,7 +19,7 @@
       <tr *matRowDef="let manager; columns: displayedColumns;" mat-row></tr>
     </table>
     <perun-web-apps-alert *ngIf="removeSelf" alert_type="warn">
-      {{'DIALOGS.REMOVE_MANAGERS.WARNING_REMOVE_YOURSELF' | translate: {role: this.data.role | displayedRole} }}
+      {{'DIALOGS.REMOVE_MANAGERS.WARNING_REMOVE_YOURSELF' | translate: {role: 'ROLES.' + this.data.role | translate} }}
     </perun-web-apps-alert>
   </div>
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
