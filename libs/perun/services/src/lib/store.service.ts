@@ -89,21 +89,14 @@ export class StoreService {
     value: T[K],
     defaultValue: T[K]
   ): T[K] {
-    if (
-      typeof value === 'object' &&
-      !Array.isArray(value) &&
-      value !== null &&
-      value !== undefined
-    ) {
-      for (const key of Object.keys(defaultValue)) {
-        defaultValue[key] = this.addMissingValuesToProperty(
-          value[key] as T[K],
-          defaultValue[key] as T[K]
-        );
-      }
-    } else if (value !== null && value !== undefined) {
-      return value;
+    if (value === null || value === undefined) {
+      return defaultValue;
     }
-    return defaultValue;
+    if (typeof value === 'object' && !Array.isArray(value)) {
+      for (const key of Object.keys(defaultValue)) {
+        value[key] = this.addMissingValuesToProperty(value[key] as T[K], defaultValue[key] as T[K]);
+      }
+    }
+    return value;
   }
 }
