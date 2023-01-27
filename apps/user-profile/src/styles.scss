@@ -288,3 +288,28 @@ mat-list-item .mat-mdc-text-field-wrapper {
 mat-list-item .mat-mdc-form-field-subscript-wrapper {
   height: 0 !important;
 }
+
+// angular 15 button fixes
+
+.mdc-button {
+  border-radius: 0 !important;
+  white-space: nowrap !important;
+  letter-spacing: normal;
+}
+
+.align-elements {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+// extra spinner padding in dialog
+.mat-mdc-dialog-container .mat-mdc-progress-spinner {
+  margin: 24px;
+}
+
+.mat-mdc-checkbox label,
+.mat-mdc-radio-button label,
+.mat-mdc-slide-toggle label {
+  padding-top: 0 !important;
+}

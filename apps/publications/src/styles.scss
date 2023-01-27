@@ -395,3 +395,31 @@ label:not(.mdc-floating-label--float-above) {
 mat-form-field mat-icon {
   padding: 0 !important;
 }
+
+// Proper mat icon inside button
+.mat-mdc-outlined-button > .mat-icon {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+  font-size: 1.5rem !important;
+}
+
+// angular 15 button fixes
+
+.mdc-button {
+  border-radius: 0 !important;
+  white-space: nowrap !important;
+  letter-spacing: normal;
+}
+
+// extra spinner padding in dialog
+.mat-mdc-dialog-container .mat-mdc-progress-spinner {
+  margin: 24px;
+}
+
+.mat-mdc-checkbox label,
+.mat-mdc-radio-button label,
+.mat-mdc-slide-toggle label {
+  padding-top: 0 !important;
+}

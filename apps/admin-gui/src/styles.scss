@@ -1647,9 +1647,9 @@ mat-dialog-container:has(#loading-dialog-spinner) {
   vertical-align: middle !important;
 }
 
-.align-checkbox mat-checkbox {
-  margin-top: 7px !important;
-}
+//.align-checkbox mat-checkbox {
+//  margin-top: 7px !important;
+//}
 
 mat-icon {
   overflow: inherit !important;
@@ -1706,4 +1706,29 @@ table .mdc-text-field--outlined {
   height: 1.5rem !important;
   width: 1.5rem !important;
   font-size: 1.5rem !important;
+}
+
+// angular 15 button fixes
+
+.mdc-button {
+  border-radius: 0 !important;
+  white-space: nowrap !important;
+  letter-spacing: normal;
+}
+
+.align-elements {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+// extra spinner padding in dialog
+.mat-mdc-dialog-container .mat-mdc-progress-spinner {
+  margin: 24px;
+}
+
+.mat-mdc-checkbox label,
+.mat-mdc-radio-button label,
+.mat-mdc-slide-toggle label {
+  padding-top: 0 !important;
 }

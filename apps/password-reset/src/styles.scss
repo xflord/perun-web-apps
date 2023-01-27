@@ -147,3 +147,11 @@ label:not(.mdc-floating-label--float-above) {
 mat-form-field mat-icon {
   padding: 0 !important;
 }
+
+// angular 15 button fixes
+
+.mdc-button {
+  border-radius: 0 !important;
+  white-space: nowrap !important;
+  letter-spacing: normal;
+}

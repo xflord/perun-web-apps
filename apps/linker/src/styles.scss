@@ -218,3 +218,11 @@ mat-icon {
   margin-bottom: 1rem;
   font-size: 1.5rem;
 }
+
+// angular 15 button fixes
+
+.mdc-button {
+  border-radius: 0 !important;
+  white-space: nowrap !important;
+  letter-spacing: normal;
+}

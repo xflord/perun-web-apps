@@ -5,7 +5,7 @@
   <div *perunWebAppsLoader="loading; indicator: spinner">
     <h1 mat-dialog-title>{{'DIALOGS.ADD_AUTHORS.TITLE' | translate}}</h1>
     <div mat-dialog-content>
-      <mat-form-field class="mr-2 adjust-width">
+      <mat-form-field class="me-2 adjust-width">
         <mat-label>{{'DIALOGS.ADD_AUTHORS.SEARCH_PLACEHOLDER' | translate}}</mat-label>
         <input
           matInput
@@ -22,7 +22,7 @@
         class="mr-2"
         [disabled]="searchLoading || searchControl.value.trim() === ''"
         (click)="onSearchByString()">
-        <mat-icon>search</mat-icon>
+        <mat-icon iconPositionEnd>search</mat-icon>
       </button>
       <ng-template #searchSpinner>
         <perun-web-apps-loading-table></perun-web-apps-loading-table>

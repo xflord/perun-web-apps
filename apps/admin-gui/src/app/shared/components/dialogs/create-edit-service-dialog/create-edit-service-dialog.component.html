@@ -52,31 +52,31 @@
         <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.REQUIRE_PATH' | translate}}</mat-error>
       </mat-form-field>
 
-      <span class="d-flex"
-        >{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS' | translate}}
-        <mat-checkbox
-          class="ml-3"
-          [(ngModel)]="status"
-          >{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS_HINT' | translate}}</mat-checkbox
-        >
-      </span>
+    <div>
+      {{'DIALOGS.CREATE_EDIT_SERVICE.STATUS' | translate}}
+      <mat-checkbox
+        class="ms-3"
+        [(ngModel)]="status"
+        >{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS_HINT' | translate}}</mat-checkbox
+      >
+    </div>
 
-      <span class="d-flex"
+      <span class="d-flex align-elements"
         >{{'DIALOGS.CREATE_EDIT_SERVICE.EXPIRED_MEMBERS' | translate}}
         <mat-checkbox
-          class="ml-3"
+          class="ms-3"
           [(ngModel)]="propagateExpiredMembers"
           >{{'DIALOGS.CREATE_EDIT_SERVICE.EXPIRED_MEMBERS_HINT' | translate}}</mat-checkbox
         >
       </span>
     </div>
     <div mat-dialog-actions>
-      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.CREATE_EDIT_SERVICE.CANCEL' | translate}}
       </button>
       <button
         [disabled]="nameControl.invalid || delayControl.invalid || recurrenceControl.invalid || pathControl.invalid || loading"
-        class="ml-2"
+        class="ms-2"
         color="accent"
         (click)="asEdit ? onEdit() : onCreate()"
         data-cy="service-create-edit-dialog-button"

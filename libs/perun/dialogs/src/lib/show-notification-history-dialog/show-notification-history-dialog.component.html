@@ -1,17 +1,18 @@
 <h1 mat-dialog-title>{{'DIALOGS.NOTIFICATION_LIST.TITLE' | customTranslate | translate}}</h1>
-<div *ngIf="notifications.length !== 0" class="hide-horizontal-scrollbar">
-  <cdk-virtual-scroll-viewport class="viewport" itemSize="50">
-    <div *cdkVirtualFor="let data of notifications" class="mb-1">
-      <perun-web-apps-notification [data]="data" [inDialog]="true"> </perun-web-apps-notification>
-    </div>
-  </cdk-virtual-scroll-viewport>
+<div mat-dialog-content>
+  <div *ngIf="notifications.length !== 0" class="hide-horizontal-scrollbar">
+    <cdk-virtual-scroll-viewport class="viewport" itemSize="50">
+      <div *cdkVirtualFor="let data of notifications" class="mb-1">
+        <perun-web-apps-notification [data]="data" [inDialog]="true"> </perun-web-apps-notification>
+      </div>
+    </cdk-virtual-scroll-viewport>
+  </div>
+  <perun-web-apps-alert
+    alert_type="warn"
+    *ngIf="notifications.length === 0"
+    >{{'DIALOGS.NOTIFICATION_LIST.NO_NOTIFICATIONS_ALERT'| customTranslate | translate}}</perun-web-apps-alert
+  >
 </div>
-<perun-web-apps-alert
-  alert_type="warn"
-  *ngIf="notifications.length === 0"
-  >{{'DIALOGS.NOTIFICATION_LIST.NO_NOTIFICATIONS_ALERT'| customTranslate | translate}}</perun-web-apps-alert
->
-
 <div mat-dialog-actions>
   <button (click)="onClear()" class="ms-auto" mat-flat-button>
     {{'DIALOGS.NOTIFICATION_LIST.CLEAR' | customTranslate | translate}}

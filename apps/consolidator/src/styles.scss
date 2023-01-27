@@ -247,3 +247,11 @@ mat-mdc-chip-grid {
 mat-icon {
   overflow: inherit !important;
 }
+
+// angular 15 button fixes
+
+.mdc-button {
+  border-radius: 0 !important;
+  white-space: nowrap !important;
+  letter-spacing: normal;
+}
