@@ -46,6 +46,7 @@ export class PasswordResetConfigService {
           if (!queryParams.includes('token')) {
             return this.initAuthService
               .loadPrincipal()
+              .then(() => this.appConfigService.loadAppsConfig())
               .then(() => this.initAuthService.checkRouteGuard());
           }
           return;
