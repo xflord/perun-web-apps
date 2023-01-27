@@ -1,24 +1,28 @@
-<button
-  mat-icon-button
-  [matMenuTriggerFor]="appsMenu"
-  *ngIf="url"
-  [matTooltip]="'NAV.OTHER_APPLICATIONS' | translate">
-  <mat-icon [ngStyle]="{'color': iconColor}"> apps </mat-icon>
-</button>
-<mat-menu #appsMenu="matMenu">
-  <button mat-menu-item (click)="redirectToUrl()" (auxclick)="redirectToUrl()">
-    <span>{{label}}</span>
+<div class="align-elements">
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="appsMenu"
+    *ngIf="url"
+    [matTooltip]="'NAV.OTHER_APPLICATIONS' | translate">
+    <mat-icon [ngStyle]="{'color': iconColor}"> apps </mat-icon>
   </button>
-</mat-menu>
+  <mat-menu #appsMenu="matMenu">
+    <button mat-menu-item (click)="redirectToUrl()" (auxclick)="redirectToUrl()">
+      <span>{{label}}</span>
+    </button>
+  </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="menu">
-  <mat-icon [ngStyle]="{'color': iconColor}"> person </mat-icon>
-  <span *ngIf="user !== null" [ngStyle]="{'color': textColor}">
-    {{user | userFullName}}
-  </span>
-</button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item *ngIf="logoutEnabled" (click)="onLogOut()">
-    {{'NAV.LOGOUT' | translate}}
+  <button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon class="mb-1 me-3" [ngStyle]="{'color': iconColor, 'font-size': '24px'}">
+      person
+    </mat-icon>
+    <span *ngIf="user !== null" [ngStyle]="{'color': textColor}" class="d-none d-lg-inline">
+      {{user | userFullName}}
+    </span>
   </button>
-</mat-menu>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item *ngIf="logoutEnabled" (click)="onLogOut()">
+      {{'NAV.LOGOUT' | translate}}
+    </button>
+  </mat-menu>
+</div>

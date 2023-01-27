@@ -1,5 +1,5 @@
 <div class="vo-theme">
-  <h1 class="mat-dialog-title">{{'DIALOGS.SET_LOGIN.TITLE' | translate}}</h1>
+  <h1 mat-dialog-title>{{'DIALOGS.SET_LOGIN.TITLE' | translate}}</h1>
   <div *ngIf="!processing" class="dialog-container" mat-dialog-content>
     <app-login-password-form-with-generate-option
       [formGroup]="formGroup"

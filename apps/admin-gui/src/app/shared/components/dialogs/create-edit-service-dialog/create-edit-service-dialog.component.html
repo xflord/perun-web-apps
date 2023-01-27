@@ -38,16 +38,16 @@
       <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.REQUIRE_PATH' | translate}}</mat-error>
     </mat-form-field>
 
-    <span class="d-flex"
-      >{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS' | translate}}
+    <div>
+      {{'DIALOGS.CREATE_EDIT_SERVICE.STATUS' | translate}}
       <mat-checkbox
         class="ms-3"
         [(ngModel)]="status"
         >{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS_HINT' | translate}}</mat-checkbox
       >
-    </span>
+    </div>
 
-    <span class="d-flex"
+    <span class="d-flex align-elements"
       >{{'DIALOGS.CREATE_EDIT_SERVICE.EXPIRED_MEMBERS' | translate}}
       <mat-checkbox
         class="ms-3"

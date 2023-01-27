@@ -5,7 +5,7 @@
   <mat-icon>filter_list</mat-icon>
   {{'SHARED_LIB.PERUN.COMPONENTS.ADVANCED_FILTER.FILTERS' | translate}}
   {{filtersCount ? "(" + filtersCount + ")" : null}}
-  <mat-icon>{{advancedFilter ? "arrow_drop_up" : "arrow_drop_down"}}</mat-icon>
+  <mat-icon iconPositionEnd>{{advancedFilter ? "arrow_drop_up" : "arrow_drop_down"}}</mat-icon>
 </button>
 <button mat-stroked-button (click)="clearFilters.emit()">
   <mat-icon>filter_list_off</mat-icon>

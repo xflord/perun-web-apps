@@ -18,7 +18,7 @@
       class="me-2"
       [disabled]="searchLoading || searchControl.value.trim() === ''"
       (click)="onSearchByString()">
-      <mat-icon>search</mat-icon>
+      <mat-icon iconPositionEnd>search</mat-icon>
     </button>
     <div *ngIf="!loading">
       <div *ngIf="!searchLoading">

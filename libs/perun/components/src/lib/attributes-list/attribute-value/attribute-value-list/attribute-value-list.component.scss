@@ -1,14 +1,12 @@
 .chip-word-break {
   word-break: break-all;
 }
-.chip-text {
-  display: -webkit-box !important;
-  -webkit-line-clamp: 1 !important;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+.chip-body {
+  align-items: center;
+  display: flex;
 }
 
-.mat-mdc-chip-list .mat-chip {
+.mat-mdc-chip-grid .mat-mdc-chip {
   width: auto;
   min-width: 0;
 }
@@ -38,10 +36,8 @@
 
 .handle-icon {
   font-size: 22px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
   margin-right: 4px;
+  margin-left: -4px;
 }
 
 .mat-mdc-standard-chip {
@@ -55,6 +51,9 @@
   cursor: pointer;
 }
 
-.overflow-ellipsis {
+.chip-text {
+  overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 400px;
+  cursor: default;
 }
