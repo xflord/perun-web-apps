@@ -1,11 +1,11 @@
-<h2>
+<h2 mat-dialog-title>
   {{data.title | translate}}
 </h2>
-<p>
+<p mat-dialog-content>
   {{data.message | translate}}
 </p>
-<div>
-  <button (click)="refresh()">
+<div mat-dialog-actions>
+  <button mat-flat-button (click)="refresh()">
     {{data.action | translate}}
   </button>
 </div>

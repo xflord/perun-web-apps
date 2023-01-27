@@ -1,5 +1,5 @@
 <div class="{{theme}}">
-  <h1 class="mat-dialog-title">{{'DIALOGS.CREATE_SERVICE_MEMBER.TITLE' | translate}}</h1>
+  <h1 mat-dialog-title>{{'DIALOGS.CREATE_SERVICE_MEMBER.TITLE' | translate}}</h1>
   <div *ngIf="!processing" class="dialog-container" mat-dialog-content>
     <mat-stepper #stepper [linear]="true">
       <mat-step [stepControl]="firstFormGroup">

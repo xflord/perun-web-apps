@@ -2,38 +2,40 @@
   {{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.TITLE'|customTranslate | translate}}
 </h1>
 <div class="user-theme">
-  <div>
-    <p class="column-size">
-      {{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.RESOURCE'|customTranslate | translate}}
-    </p>
-    <p>{{resource}}</p>
-  </div>
-  <div>
-    <p class="column-size">
-      {{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.CURRENT_QUOTA'|customTranslate | translate}}
-    </p>
-    <p>{{currentQuota}}</p>
-  </div>
-  <div class="flex-row flex-self-center">
-    <mat-form-field>
-      <mat-label>
-        {{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.REQUESTED_QUOTA'|customTranslate | translate}}
-      </mat-label>
-      <input matInput required type="number" [formControl]="newValueControl" />
-    </mat-form-field>
-    <mat-select [(value)]="selectedUnit" class="select-width mt-auto mb-auto ms-2">
-      <mat-option *ngFor="let unit of units" [value]="selectedUnit">
-        {{unit}}
-      </mat-option>
-    </mat-select>
-  </div>
-  <div>
-    <mat-form-field class="form-width">
-      <mat-label>
-        {{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.REASON'| customTranslate | translate}}
-      </mat-label>
-      <textarea matInput required rows="4" [formControl]="reasonControl"></textarea>
-    </mat-form-field>
+  <div mat-dialog-content>
+    <div>
+      <p class="column-size">
+        {{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.RESOURCE'|customTranslate | translate}}
+      </p>
+      <p>{{resource}}</p>
+    </div>
+    <div>
+      <p class="column-size">
+        {{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.CURRENT_QUOTA'|customTranslate | translate}}
+      </p>
+      <p>{{currentQuota}}</p>
+    </div>
+    <div class="flex-row flex-self-center">
+      <mat-form-field>
+        <mat-label>
+          {{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.REQUESTED_QUOTA'|customTranslate | translate}}
+        </mat-label>
+        <input matInput required type="number" [formControl]="newValueControl" />
+      </mat-form-field>
+      <mat-select [(value)]="selectedUnit" class="select-width mt-auto mb-auto ms-2">
+        <mat-option *ngFor="let unit of units" [value]="selectedUnit">
+          {{unit}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div>
+      <mat-form-field class="form-width">
+        <mat-label>
+          {{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.REASON'| customTranslate | translate}}
+        </mat-label>
+        <textarea matInput required rows="4" [formControl]="reasonControl"></textarea>
+      </mat-form-field>
+    </div>
   </div>
 
   <div mat-dialog-actions>
