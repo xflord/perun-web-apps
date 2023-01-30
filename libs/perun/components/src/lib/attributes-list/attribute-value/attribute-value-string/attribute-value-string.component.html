@@ -3,13 +3,28 @@
   subscriptSizing="dynamic"
   class="w-100">
   <input
+    *ngIf="readonly"
     matInput
-    (click)="readonly && value !== undefined && showValue(value, attribute.displayName)"
-    [class.cursor-pointer]="readonly && value !== undefined"
-    [readonly]="readonly"
+    (click)="value !== undefined && showValue(value, attribute.displayName)"
+    [class.cursor-pointer]="value !== undefined"
+    [readonly]="true"
     class="overflow-ellipsis"
     [(ngModel)]="attribute.value"
     type="text"
     attr.data-cy="{{attribute.displayName | multiWordDataCy}}-value"
     (keydown)="_sendEventToParent()" />
+  <textarea
+    *ngIf="!readonly"
+    matInput
+    rows="3"
+    wrap="off"
+    class="overflow-ellipsis"
+    [(ngModel)]="attribute.value"
+    type="text"
+    attr.data-cy="{{attribute.displayName | multiWordDataCy}}-value"
+    (keydown)="_sendEventToParent()">
+  </textarea>
+  <mat-hint class="hint-color" *ngIf="!readonly && attribute.value?.includes('\n')"
+    ><b>{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_VALUE_STRING.HINT' | translate}}</b></mat-hint
+  >
 </mat-form-field>
