@@ -2,6 +2,19 @@
   cursor: pointer;
 }
 
+.hint-color {
+  color: darkorange;
+}
+
 .overflow-ellipsis {
   text-overflow: ellipsis;
+}
+
+// hide hint when field not in focus
+.mat-mdc-form-field:not(.mat-focused) mat-hint {
+  display: none;
+}
+
+:host ::ng-deep .mdc-text-field {
+  padding-right: 0 !important;
 }

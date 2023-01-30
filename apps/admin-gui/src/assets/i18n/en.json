@@ -3019,6 +3019,9 @@
             "CANCEL_BUTTON": "Cancel"
           }
         },
+        "ATTRIBUTE_VALUE_STRING": {
+          "HINT": "This attribute value includes newlines. Please make sure this is intended!"
+        },
         "ATTRIBUTES_LIST": {
           "FILTER": "Filter attributes by Id, name, value or description",
           "ID": "Id",
