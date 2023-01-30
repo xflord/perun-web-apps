@@ -25,6 +25,7 @@ export const loginAsyncValidator =
     namespace: string,
     usersManager: UsersManagerService,
     apiRequestConfiguration: ApiRequestConfigurationService,
+    useNon = false,
     time = 500
   ) =>
   (input: UntypedFormControl): Observable<PasswordError | null> =>
@@ -39,7 +40,7 @@ export const loginAsyncValidator =
             password: input.value as string,
             namespace: namespace,
           },
-          true
+          useNon
         ) as Observable<PasswordError>;
       }),
       map(() => null),

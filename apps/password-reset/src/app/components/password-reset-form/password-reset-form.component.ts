@@ -57,7 +57,14 @@ export class PasswordResetFormComponent implements OnInit {
         passwordCtrl: [
           '',
           Validators.required,
-          [loginAsyncValidator(this.namespace, this.usersService, this.apiRequestConfiguration)],
+          [
+            loginAsyncValidator(
+              this.namespace,
+              this.usersService,
+              this.apiRequestConfiguration,
+              !this.authWithoutToken
+            ),
+          ],
         ],
         passwordAgainCtrl: ['', Validators.required],
       },
