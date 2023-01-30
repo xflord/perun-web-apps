@@ -628,7 +628,8 @@
         "DELETE_APPLICATION_DESCRIPTION": "Application with following Id will be deleted.",
         "DELETE_MESSAGE": "Application was deleted",
         "APPROVE_MESSAGE": "Application was approved",
-        "VERIFY_MESSAGE": "Application was verified"
+        "VERIFY_MESSAGE": "Application was verified",
+        "AUTO_APPROVE_FAILURE": "Automatic approval of application failed"
       }
     },
     "STATISTICS": {
@@ -1455,6 +1456,7 @@
       "HTMLMAILFOOTER_DESCRIPTION": "common mail HTML footer defined by organization",
       "ERRORS_DESCRIPTION": "errors description, what happened while processing new application. Useful for organization administrators",
       "CUSTOMMESSAGE_DESCRIPTION": "optional message passed by administrators when rejecting an application",
+      "AUTOAPPROVEERROR_DESCRIPTION": "error due to which automatic approval of application failed",
       "FROMAPPITEMNAME_DESCRIPTION": "value of a form item in user's application. You MUST specify the itemName, e.g. {fromApp-mail} will print value of item with short name 'mail' from user's application.",
       "FIRSTNAME_DESCRIPTION": "users first name taken from application form or Perun",
       "LASTNAME_DESCRIPTION": "users last name taken from application form or Perun",

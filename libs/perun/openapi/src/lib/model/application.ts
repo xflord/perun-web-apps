@@ -30,4 +30,5 @@ export interface Application {
   createdAt?: string;
   modifiedBy?: string;
   modifiedAt?: string;
+  autoApproveError?: string;
 }

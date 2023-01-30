@@ -33,4 +33,5 @@ export interface RichApplication {
   createdAt?: string;
   modifiedBy?: string;
   modifiedAt?: string;
+  autoApproveError?: string;
 }
