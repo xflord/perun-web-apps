@@ -1,9 +1,39 @@
-<app-perun-web-apps-roles-page
-  [outerLoading]="this.outerLoading"
-  [roles]="this.roles"
-  [entityId]="this.userId"
-  [showDescription]="this.showDescription"
-  [entityType]="this.entityType"
-  (reload)="getData()"
-  (startLoading)="outerLoading = true;">
-</app-perun-web-apps-roles-page>
+<h1 class="page-subtitle d-flex">{{'ROLES.TITLE'| translate}}</h1>
+<mat-tab-group>
+  <mat-tab>
+    <ng-template matTabLabel>
+      {{'USER_DETAIL.DASHBOARD.DIRECT_ROLES' | translate}}
+    </ng-template>
+    <ng-template matTabContent>
+      <app-perun-web-apps-roles-page
+        [outerLoading]="this.outerLoading"
+        [roles]="this.roles"
+        [entityId]="this.userId"
+        [showDescription]="this.showDescription"
+        [entityType]="this.entityType"
+        [editable]="true"
+        (reload)="getData()"
+        (startLoading)="outerLoading = true;">
+      </app-perun-web-apps-roles-page>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template matTabLabel>
+      {{'USER_DETAIL.DASHBOARD.AUTHORIZED_GROUP_BASED_ROLES' | translate}}
+    </ng-template>
+    <ng-template matTabContent>
+      <app-perun-web-apps-roles-page
+        [outerLoading]="this.outerLoading"
+        [roles]="this.indirectRoles"
+        [entityId]="this.userId"
+        [showDescription]="this.showDescription"
+        [entityType]="this.entityType"
+        [editable]="false"
+        [complementaryObjectsWithAuthzGroups]="this.rolesComplementaryObjectsWithAuthzGroups"
+        (reload)="getData()"
+        (startLoading)="outerLoading = true;">
+      </app-perun-web-apps-roles-page>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

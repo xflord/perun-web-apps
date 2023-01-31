@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { EnrichedFacility } from '@perun-web-apps/perun/openapi';
+import { EnrichedFacility, Group } from '@perun-web-apps/perun/openapi';
 import {
   customDataSourceFilterPredicate,
   customDataSourceSort,
@@ -21,6 +21,8 @@ import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
 })
 export class FacilitiesListComponent implements OnChanges {
   @Input() facilities: EnrichedFacility[];
+  @Input() facilityWithAuthzGroupPairs: Map<number, Group[]>;
+  @Input() authzVoNames: Map<number, string>;
   @Input() recentIds: number[];
   @Input() filterValue: string;
   @Input() tableId: string;

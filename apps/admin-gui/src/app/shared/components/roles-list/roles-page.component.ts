@@ -52,6 +52,7 @@ export class RolesPageComponent implements OnInit {
   @Input() showDescription: boolean;
   @Input() entityId: number;
   @Input() entityType: 'SELF' | 'USER' | 'GROUP';
+  @Input() editable = true;
   @Output() reload = new EventEmitter<void>();
   @Output() startLoading = new EventEmitter<void>();
 
@@ -61,6 +62,8 @@ export class RolesPageComponent implements OnInit {
   assignableRules: RoleManagementRules[] = [];
   allRules: RoleManagementRules[] = [];
   disableRemove = false;
+
+  voNames: Map<number, string> = new Map<number, string>();
 
   selectedRole = new BehaviorSubject<RoleManagementRules>(null);
 
@@ -139,6 +142,7 @@ export class RolesPageComponent implements OnInit {
     startWith([])
   );
 
+  _complementaryObjectsWithAuthzGroups = new Map<string, Map<string, Map<number, Group[]>>>();
   private _roles = new Map<string, Map<string, number[]>>();
 
   constructor(
@@ -167,6 +171,13 @@ export class RolesPageComponent implements OnInit {
     this.allRules = this.guiAuthResolver
       .getAllRules()
       .filter((rule) => this._roles.has(rule.roleName));
+  }
+
+  @Input() set complementaryObjectsWithAuthzGroups(
+    compObjects: Map<string, Map<string, Map<number, Group[]>>>
+  ) {
+    this._complementaryObjectsWithAuthzGroups = compObjects;
+    this.updateVoNames();
   }
 
   ngOnInit(): void {
@@ -368,5 +379,28 @@ export class RolesPageComponent implements OnInit {
       voId: resource.voId,
       modifiedByUid: resource.modifiedByUid,
     };
+  }
+
+  private updateVoNames(): void {
+    const voIds = new Set<number>();
+    this._complementaryObjectsWithAuthzGroups.forEach((beanNamesMap) => {
+      beanNamesMap.forEach((beanIdsToGroupsMap) => {
+        beanIdsToGroupsMap.forEach((groups) => {
+          groups.forEach((group) => {
+            if (!voIds.has(group.voId) && !this.voNames.has(group.voId)) {
+              voIds.add(group.voId);
+            }
+          });
+        });
+      });
+    });
+
+    if (voIds.size > 0) {
+      this.vosService.getVosByIds([...voIds]).subscribe((vos) => {
+        vos.forEach((vo) => {
+          this.voNames.set(vo.id, vo.name);
+        });
+      });
+    }
   }
 }

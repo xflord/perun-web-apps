@@ -45,6 +45,8 @@ import { GroupUtilsService } from '@perun-web-apps/perun/services';
 export class GroupsListComponent {
   @Input() theme = 'group-theme';
   @Input() selection = new SelectionModel<GroupWithStatus>(true, []);
+  @Input() groupWithAuthzGroupPairs: Map<number, Group[]>;
+  @Input() authzVoNames: Map<number, string>;
   @Input() disableMembers: boolean;
   @Input() disableGroups: boolean;
   @Input() groupsToDisableCheckbox: Set<number> = new Set<number>();

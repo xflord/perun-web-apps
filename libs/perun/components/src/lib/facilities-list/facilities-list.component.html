@@ -51,6 +51,16 @@
           {{facility.facility.name}}
         </td>
       </ng-container>
+      <ng-container matColumnDef="authzGroup">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED.COMPONENTS.FACILITIES_LIST.AUTHZ_GROUP' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let facility">
+          {{ facilityWithAuthzGroupPairs.has(facility.facility.id)
+              ? authzVoNames.get(facilityWithAuthzGroupPairs.get(facility.facility.id)[0].voId) + ":" + facilityWithAuthzGroupPairs.get(facility.facility.id)[0].name
+              : "" }}
+        </td>
+      </ng-container>
       <ng-container matColumnDef="description">
         <th *matHeaderCellDef mat-header-cell>
           {{'SHARED.COMPONENTS.FACILITIES_LIST.DESCRIPTION' | translate}}

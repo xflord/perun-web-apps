@@ -60,6 +60,16 @@
         </th>
         <td *matCellDef="let vo" mat-cell>{{vo.name ?? vo.vo.name}}</td>
       </ng-container>
+      <ng-container matColumnDef="authzGroup">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.VOS_LIST.AUTHZ_GROUP' | translate}}
+        </th>
+        <td *matCellDef="let vo" mat-cell>
+          {{ voWithAuthzGroupPairs.has(vo.id ?? vo.vo.id)
+              ? authzVoNames.get(voWithAuthzGroupPairs.get(vo.id ?? vo.vo.id)[0].voId) + ":" + voWithAuthzGroupPairs.get(vo.id ?? vo.vo.id)[0].name
+              : ""}}
+        </td>
+      </ng-container>
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
       <tr
         *matRowDef="let vo; columns: displayedColumns;"

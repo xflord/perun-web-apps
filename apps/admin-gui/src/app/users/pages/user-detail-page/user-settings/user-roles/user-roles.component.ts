@@ -1,9 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
+import { AuthzResolverService, Group } from '@perun-web-apps/perun/openapi';
 import { ActivatedRoute } from '@angular/router';
 import { StoreService, RoleService } from '@perun-web-apps/perun/services';
-import { iif, of } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-roles',
@@ -16,6 +14,8 @@ export class UserRolesComponent implements OnInit {
   userId: number;
 
   roles = new Map<string, Map<string, number[]>>();
+  indirectRoles = new Map<string, Map<string, number[]>>();
+  rolesComplementaryObjectsWithAuthzGroups = new Map<string, Map<string, Map<number, Group[]>>>();
   outerLoading: boolean;
   showDescription = true;
   entityType: 'SELF' | 'USER';
@@ -44,21 +44,51 @@ export class UserRolesComponent implements OnInit {
 
   getData(): void {
     this.outerLoading = true;
+
+    // get user based roles
     this.roles.clear();
-    of(this.entityType)
-      .pipe(
-        mergeMap((type) =>
-          iif(
-            () => type === 'SELF',
-            of(this.store.getPerunPrincipal().roles),
-            this.authzResolverService.getUserRoles(this.userId)
-          )
-        )
-      )
-      .subscribe((roles) => {
+    this.authzResolverService.getUserDirectRoles(this.userId).subscribe({
+      next: (roles) => {
+        // prepare direct roles
         const roleNames = Object.keys(roles).map((role) => role.toUpperCase());
         this.roles = this.roleService.prepareRoles(roles, roleNames);
-        this.outerLoading = false;
-      });
+
+        // get group based roles
+        this.indirectRoles.clear();
+        this.authzResolverService
+          .getUserRolesObtainedFromAuthorizedGroupMemberships(this.userId)
+          .subscribe({
+            next: (groupBasedRoles) => {
+              // prepare group based roles
+              const groupBasedRoleNames = Object.keys(groupBasedRoles).map((role) =>
+                role.toUpperCase()
+              );
+              this.indirectRoles = this.roleService.prepareRoles(
+                groupBasedRoles,
+                groupBasedRoleNames
+              );
+
+              // get map of roles and complementary objects with authorized groups
+              this.rolesComplementaryObjectsWithAuthzGroups.clear();
+              this.authzResolverService
+                .getRoleComplementaryObjectsWithAuthorizedGroups(this.userId)
+                .subscribe({
+                  next: (obtainedComplementaryObjects) => {
+                    // prepare map
+                    this.rolesComplementaryObjectsWithAuthzGroups =
+                      this.roleService.prepareComplementaryObjects(
+                        Object.keys(obtainedComplementaryObjects),
+                        obtainedComplementaryObjects
+                      );
+                    this.outerLoading = false;
+                  },
+                  error: () => (this.outerLoading = false),
+                });
+            },
+            error: () => (this.outerLoading = false),
+          });
+      },
+      error: () => (this.outerLoading = false),
+    });
   }
 }

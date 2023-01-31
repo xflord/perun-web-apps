@@ -2512,7 +2512,9 @@
       "SHOW_RECENTLY_VIEWED": "Show Recently viewed",
       "SHOW_ROLES": "Show roles",
       "MAIL_CHANGE_SUCCESS": "Preferred mail has been changed",
-      "ANONYMIZED": "User anonymized"
+      "ANONYMIZED": "User anonymized",
+      "DIRECT_ROLES": "User based",
+      "AUTHORIZED_GROUP_BASED_ROLES": "Group based"
     },
     "OVERVIEW": {
       "GENERAL_SETTINGS": "General settings"
@@ -2691,7 +2693,8 @@
         "TECHNICAL_OWNERS": "Technical owners",
         "DESTINATIONS": "Destinations",
         "HOSTS": "Hosts",
-        "NO_FACILITIES_WARNING": "No facilities found"
+        "NO_FACILITIES_WARNING": "No facilities found",
+        "AUTHZ_GROUP": "Authorized group"
       },
       "CONSENT_HUBS_LIST": {
         "ID": "Id",
@@ -2845,7 +2848,8 @@
           "CREATE_RELATION_AUTH_TOOLTIP": "You don't have permission to create relation with this group.",
           "SYNCHRONIZED_GROUP": "Group is filled with members from an external source",
           "INDIRECT_GROUP": "This group is assigned as a part of a groups tree.",
-          "MULTIPLE_ASSIGNMENTS": "This group is assigned manually and also as a part of a groups tree. You can remove only manual assignment."
+          "MULTIPLE_ASSIGNMENTS": "This group is assigned manually and also as a part of a groups tree. You can remove only manual assignment.",
+          "AUTHZ_GROUP": "Authorized group"
         },
         "GROUP_MENU": {
           "MOVE": "Move group",
@@ -2860,7 +2864,8 @@
         "VOS_LIST": {
           "ID": "Id",
           "NAME": "Name",
-          "SHORTNAME": "Short name"
+          "SHORTNAME": "Short name",
+          "AUTHZ_GROUP": "Authorized group"
         },
         "VO_SEARCH_SELECT": {
           "SELECT_VO": "Select organization",
@@ -2891,7 +2896,8 @@
           "TABLE_RESOURCE_DESCRIPTION": "Description",
           "TABLE_GROUP_RESOURCE_STATUS": "Status",
           "NO_RESOURCES_WARNING": "No resources assigned.",
-          "INDIRECT_RESOURCE": "This resource is assigned indirectly."
+          "INDIRECT_RESOURCE": "This resource is assigned indirectly.",
+          "AUTHZ_GROUP": "Authorized group"
         },
         "RESOURCE_SEARCH_SELECT": {
           "SELECT_RESOURCE": "Select resource",

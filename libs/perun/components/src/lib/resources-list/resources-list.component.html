@@ -76,6 +76,16 @@
           {{resource.name}}
         </td>
       </ng-container>
+      <ng-container matColumnDef="authzGroup">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.AUTHZ_GROUP' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let resource">
+          {{resourceWithAuthzGroupPairs.has(resource.id)
+              ? authzVoNames.get(resourceWithAuthzGroupPairs.get(resource.id)[0].voId) + ":" + resourceWithAuthzGroupPairs.get(resource.id)[0].name
+              : ""}}
+        </td>
+      </ng-container>
       <ng-container matColumnDef="vo">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           {{'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_VO_NAME' | translate}}

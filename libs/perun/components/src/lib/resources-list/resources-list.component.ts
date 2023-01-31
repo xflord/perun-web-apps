@@ -30,6 +30,8 @@ import { ResourceWithStatus } from '@perun-web-apps/perun/models';
 export class ResourcesListComponent implements OnInit, OnChanges {
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
   @Input() resources: ResourceWithStatus[] = [];
+  @Input() resourceWithAuthzGroupPairs: Map<number, Group[]>;
+  @Input() authzVoNames: Map<number, string>;
   @Input() selection = new SelectionModel<ResourceWithStatus>(true, []);
   @Input() filterValue: string;
   @Input() disableRouting = false;

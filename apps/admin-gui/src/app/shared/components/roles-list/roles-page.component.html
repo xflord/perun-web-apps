@@ -1,9 +1,8 @@
-<h1 class="page-subtitle d-flex">{{'ROLES.TITLE'| translate}}</h1>
 <button
-  *ngIf="assignableRules.length !== 0"
+  *ngIf="assignableRules.length !== 0 && editable"
   mat-flat-button
   color="accent"
-  class="mb-3 mr-2"
+  class="mb-3 mr-2 mt-2"
   (click)="addRole()">
   {{'ROLES.ADD'| translate}}
 </button>
@@ -22,7 +21,7 @@
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
       <span
-        *ngIf="role.roleName !== 'SELF' && role.roleName !== 'MEMBERSHIP' && role.roleName !== 'SPONSORSHIP'"
+        *ngIf="editable && role.roleName !== 'SELF' && role.roleName !== 'MEMBERSHIP' && role.roleName !== 'SPONSORSHIP'"
         matTooltip="{{'ROLES.REMOVE_DISABLED_TOOLTIP'| translate}}"
         matTooltipPosition="left"
         [matTooltipDisabled]="(selection.selected.length === 0 && selectedFacilities.selected.length === 0) || !disableRemove">
@@ -43,9 +42,11 @@
               {{('ROLES.' + role.roleName + '_VOS_' + entityType) | translate}}
             </div>
             <perun-web-apps-vos-list
-              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'name', 'shortName'] : ['checkbox', 'id', 'name', 'shortName']"
+              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'name', 'shortName'] : (editable ? ['checkbox', 'id', 'name', 'shortName'] : ['id', 'name', 'authzGroup', 'shortName'])"
               [vos]="vos | async"
-              [selection]="selection">
+              [selection]="selection"
+              [authzVoNames]="voNames"
+              [voWithAuthzGroupPairs]="_complementaryObjectsWithAuthzGroups?.get(role.roleName)?.get('vo')">
             </perun-web-apps-vos-list>
           </div>
           <div
@@ -55,9 +56,11 @@
               {{('ROLES.' + role.roleName + '_GROUPS_' + entityType) | translate}}
             </div>
             <perun-web-apps-groups-list
-              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'vo', 'name', 'description'] : ['select', 'id', 'vo', 'name', 'description']"
+              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'vo', 'name', 'description'] : (editable ? ['select', 'id', 'vo', 'name', 'description'] : ['id', 'vo', 'name', 'authzGroup', 'description'])"
               [groups]="groups | async"
-              [selection]="selection">
+              [selection]="selection"
+              [authzVoNames]="voNames"
+              [groupWithAuthzGroupPairs]="_complementaryObjectsWithAuthzGroups?.get(role.roleName)?.get('group')">
             </perun-web-apps-groups-list>
           </div>
           <div
@@ -68,9 +71,11 @@
             </div>
             <perun-web-apps-resources-list
               [resources]="resources | async"
-              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'name', 'vo', 'facility', 'description'] : ['select', 'id', 'name', 'vo', 'facility', 'description']"
+              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'name', 'vo', 'facility', 'description'] : (editable ? ['select', 'id', 'name', 'vo', 'facility', 'description'] : ['id', 'name', 'authzGroup', 'vo', 'facility', 'description'])"
               [routingVo]="true"
-              [selection]="selection">
+              [selection]="selection"
+              [authzVoNames]="voNames"
+              [resourceWithAuthzGroupPairs]="_complementaryObjectsWithAuthzGroups?.get(role.roleName)?.get('resource')">
             </perun-web-apps-resources-list>
           </div>
           <div
@@ -80,9 +85,11 @@
               {{('ROLES.' + role.roleName + '_FACILITIES_' + entityType) | translate}}
             </div>
             <perun-web-apps-facilities-list
-              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'name', 'description'] : ['select', 'id', 'name', 'description']"
+              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'name', 'description'] : (editable ? ['select', 'id', 'name', 'description'] : ['id', 'name', 'authzGroup', 'description'])"
               [facilities]="facilities | async"
-              [selection]="selectedFacilities">
+              [selection]="selectedFacilities"
+              [authzVoNames]="voNames"
+              [facilityWithAuthzGroupPairs]="_complementaryObjectsWithAuthzGroups?.get(role.roleName)?.get('facility')">
             </perun-web-apps-facilities-list>
           </div>
           <div *ngIf="role.roleName === 'SPONSORSHIP'" class="mb-3">
