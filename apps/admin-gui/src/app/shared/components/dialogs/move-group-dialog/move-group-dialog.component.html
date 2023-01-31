@@ -27,9 +27,9 @@
         *ngIf="!toGroupOptionDisabled"
         [@openClose]="moveOption === 'toGroup' ? 'open' : 'closed'"
         class="w-100 mt-2">
+        <mat-label>{{'DIALOGS.MOVE_GROUP.GROUP_SELECT' | translate}}</mat-label>
         <input
           matInput
-          placeholder="{{'DIALOGS.MOVE_GROUP.GROUP_SELECT' | translate}}"
           (change)="selectedGroup = null"
           [formControl]="otherGroupsCtrl"
           [matAutocomplete]="groupSelectAutocomplete"

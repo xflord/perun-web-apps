@@ -6,23 +6,15 @@
     <h1 mat-dialog-title>{{"DIALOGS.CREATE_VO.TITLE" | translate}}</h1>
     <div class="dialog-container" mat-dialog-content>
       <mat-form-field>
-        <input
-          matInput
-          [formControl]="fullNameCtrl"
-          placeholder="{{'DIALOGS.CREATE_VO.FULL_NAME' | translate}}"
-          data-cy="vo-name-input"
-          required />
+        <mat-label>{{'DIALOGS.CREATE_VO.FULL_NAME' | translate}}</mat-label>
+        <input matInput [formControl]="fullNameCtrl" data-cy="vo-name-input" required />
         <mat-error>
           {{'DIALOGS.CREATE_VO.FILL_FULL_NAME' | translate}}
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input
-          matInput
-          [formControl]="shortNameCtrl"
-          placeholder="{{'DIALOGS.CREATE_VO.SHORT_NAME' | translate}}"
-          data-cy="vo-shortname-input"
-          required />
+        <mat-label>{{'DIALOGS.CREATE_VO.SHORT_NAME' | translate}}</mat-label>
+        <input matInput [formControl]="shortNameCtrl" data-cy="vo-shortname-input" required />
         <mat-error>
           {{'DIALOGS.CREATE_VO.FILL_SHORT_NAME' | translate}}
         </mat-error>

@@ -322,6 +322,7 @@
         "ATTRIBUTE_VALUE_LIST": {
           "EDIT_DIALOG": {
             "TITLE": "Edit attribute value",
+            "VALUE_LABEL": "Attribute value",
             "SUBMIT_BUTTON": "Submit",
             "CANCEL_BUTTON": "Cancel"
           },

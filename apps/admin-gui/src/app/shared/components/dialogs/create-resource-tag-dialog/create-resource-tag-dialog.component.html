@@ -6,9 +6,9 @@
     <h1 mat-dialog-title>{{'DIALOGS.CREATE_RESOURCE_TAG.TITLE' | translate}}</h1>
     <div class="dialog-container" mat-dialog-content>
       <mat-form-field>
+        <mat-label>{{'DIALOGS.CREATE_RESOURCE_TAG.NAME' | translate}}</mat-label>
         <input
           matInput
-          placeholder="{{'DIALOGS.CREATE_RESOURCE_TAG.NAME' | translate}}"
           [(ngModel)]="name"
           required />
         <mat-error>{{'DIALOGS.CREATE_RESOURCE_TAG.EMPTY_NAME' | translate}}</mat-error>

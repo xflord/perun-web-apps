@@ -102,12 +102,12 @@
 
           <h6 class="mt-3">{{'DIALOGS.CREATE_SERVICE_MEMBER.SEARCH_INFO' | translate}}</h6>
           <mat-form-field class="mr-2 w-50">
+            <mat-label>{{'DIALOGS.CREATE_SERVICE_MEMBER.SEARCH_PLACEHOLDER' | translate}}</mat-label>
             <input
               [formControl]="searchCtrl"
               autocomplete="false"
               matInput
-              (keyup.enter)="searchCtrl.value.length !== 0 && onSearchByString()"
-              placeholder="{{'DIALOGS.CREATE_SERVICE_MEMBER.SEARCH_PLACEHOLDER' | translate}}" />
+              (keyup.enter)="searchCtrl.value.length !== 0 && onSearchByString()" />
           </mat-form-field>
           <button
             (click)="onSearchByString()"

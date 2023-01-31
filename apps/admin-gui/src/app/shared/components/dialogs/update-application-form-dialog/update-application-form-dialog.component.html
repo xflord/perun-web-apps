@@ -6,17 +6,13 @@
     <h1 mat-dialog-title>{{'DIALOGS.UPDATE_APPLICATION_FORM.TITLE' | translate}}</h1>
     <div class="dialog-container" mat-dialog-content>
       <mat-form-field>
-        <input
-          matInput
-          [(ngModel)]="moduleName"
-          placeholder="{{'DIALOGS.UPDATE_APPLICATION_FORM.MODULE_NAME' | translate}}" />
+        <mat-label>{{'DIALOGS.UPDATE_APPLICATION_FORM.MODULE_NAME' | translate}}</mat-label>
+        <input matInput [(ngModel)]="moduleName" />
       </mat-form-field>
 
       <mat-form-field class="w-100">
-        <mat-select
-          [(value)]="initialState"
-          disableOptionCentering
-          placeholder="{{'DIALOGS.UPDATE_APPLICATION_FORM.INITIAL' | translate}}:">
+        <mat-label>{{'DIALOGS.UPDATE_APPLICATION_FORM.INITIAL' | translate}}:</mat-label>
+        <mat-select [(value)]="initialState" disableOptionCentering>
           <mat-option
             value="auto"
             >{{'DIALOGS.UPDATE_APPLICATION_FORM.AUTOMATIC' | translate}}</mat-option
@@ -29,10 +25,8 @@
       </mat-form-field>
 
       <mat-form-field class="w-100">
-        <mat-select
-          [(value)]="extensionState"
-          disableOptionCentering
-          placeholder="{{'DIALOGS.UPDATE_APPLICATION_FORM.EXTENSION' | translate}}:">
+        <mat-label>{{'DIALOGS.UPDATE_APPLICATION_FORM.EXTENSION' | translate}}:</mat-label>
+        <mat-select [(value)]="extensionState" disableOptionCentering>
           <mat-option
             value="auto"
             >{{'DIALOGS.UPDATE_APPLICATION_FORM.AUTOMATIC' | translate}}</mat-option
@@ -46,10 +40,8 @@
 
       <div *ngIf="entity === 'group' && autoRegistrationEnabled">
         <mat-form-field class="w-100">
-          <mat-select
-            [(value)]="embeddedState"
-            disableOptionCentering
-            placeholder="{{'DIALOGS.UPDATE_APPLICATION_FORM.EMBEDDED' | translate}}:">
+          <mat-label>{{'DIALOGS.UPDATE_APPLICATION_FORM.EMBEDDED' | translate}}:</mat-label>
+          <mat-select [(value)]="embeddedState" disableOptionCentering>
             <mat-option
               value="auto"
               >{{'DIALOGS.UPDATE_APPLICATION_FORM.AUTOMATIC' | translate}}</mat-option

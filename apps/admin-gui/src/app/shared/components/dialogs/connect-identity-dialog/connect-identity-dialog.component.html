@@ -7,10 +7,10 @@
       <h1 mat-dialog-title>{{'DIALOGS.CONNECT_IDENTITY.TITLE_'+target | translate}}</h1>
       <div class="dialog-container" mat-dialog-content>
         <mat-form-field class="mr-2 search-field no-border-mat-input">
+          <mat-label>{{'DIALOGS.CONNECT_IDENTITY.SEARCH' | translate}}</mat-label>
           <input
             matInput
             autocomplete="false"
-            placeholder="{{'DIALOGS.CONNECT_IDENTITY.SEARCH' | translate}}"
             [formControl]="searchCtrl" />
           <mat-error>
             {{'DIALOGS.CONNECT_IDENTITY.EMPTY_SEARCH_MESSAGE' | translate}}

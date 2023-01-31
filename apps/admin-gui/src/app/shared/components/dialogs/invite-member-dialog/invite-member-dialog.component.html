@@ -23,15 +23,11 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field class="w-100">
-        <textarea
-          matInput
-          placeholder="{{'DIALOGS.INVITE_MEMBER.EMAIL' | translate}}"
-          [formControl]="emailForm"
-          required></textarea>
-        <mat-error
-          *ngIf="emailForm.invalid"
-          >{{'DIALOGS.INVITE_MEMBER.EMAIL_ERROR' | translate}}</mat-error
-        >
+        <mat-label>{{'DIALOGS.INVITE_MEMBER.EMAIL' | translate}}</mat-label>
+        <textarea matInput [formControl]="emailForm" required></textarea>
+        <mat-error *ngIf="emailForm.invalid">
+          {{'DIALOGS.INVITE_MEMBER.EMAIL_ERROR' | translate}}
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="w-100">
         <mat-label>{{'DIALOGS.INVITE_MEMBER.LANGUAGE' | translate}}</mat-label>

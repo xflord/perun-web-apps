@@ -6,25 +6,25 @@
     <h1 class="mat-dialog-title">{{'DIALOGS.CREATE_FACILITY.TITLE' | translate}}</h1>
     <div class="dialog-container" mat-dialog-content>
       <mat-form-field>
+        <mat-label>{{'DIALOGS.CREATE_FACILITY.NAME' | translate}}</mat-label>
         <input
           matInput
           required
           data-cy="facility-name-input"
-          [formControl]="nameControl"
-          placeholder="{{'DIALOGS.CREATE_FACILITY.NAME' | translate}}" />
+          [formControl]="nameControl" />
         <mat-error>{{"DIALOGS.CREATE_FACILITY.REQUIRE_NAME" | translate}}</mat-error>
       </mat-form-field>
       <mat-form-field>
+        <mat-label>{{'DIALOGS.CREATE_FACILITY.DESCRIPTION' | translate}}</mat-label>
         <input
           matInput
           data-cy="facility-description-input"
-          [formControl]="descControl"
-          placeholder="{{'DIALOGS.CREATE_FACILITY.DESCRIPTION' | translate}}" />
+          [formControl]="descControl" />
       </mat-form-field>
       <mat-form-field>
+        <mat-label>{{'DIALOGS.CREATE_FACILITY.AS_COPY' | translate}}</mat-label>
         <mat-select
-          disableOptionCentering="true"
-          placeholder="{{ 'DIALOGS.CREATE_FACILITY.AS_COPY' | translate}}">
+          disableOptionCentering="true">
           <mat-option (click)="srcFacility = null">
             {{'DIALOGS.CREATE_FACILITY.NO_COPY' | translate}}
           </mat-option>

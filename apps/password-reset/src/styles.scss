@@ -132,3 +132,28 @@ mat-dialog-container:has(#loading-dialog-spinner) {
     padding-bottom: 16px;
   }
 }
+
+/*************************************
+******** Customization of MDC ********
+*************************************/
+
+// Custom MDC form field
+.mdc-text-field {
+  background-color: transparent !important;
+  margin-top: 5px !important;
+}
+label:not(.mdc-floating-label--float-above) {
+  padding-top: 16px !important;
+  width: 100%;
+}
+.mat-form-field-appearance-outline {
+  label:not(.mdc-floating-label--float-above) {
+    padding-top: 0 !important;
+  }
+}
+.mdc-floating-label--float-above {
+  width: 133.33% !important;
+}
+mat-form-field mat-icon {
+  padding: 0 !important;
+}

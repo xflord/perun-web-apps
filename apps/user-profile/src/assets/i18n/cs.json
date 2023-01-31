@@ -286,6 +286,7 @@
         "ATTRIBUTE_VALUE_LIST": {
           "EDIT_DIALOG": {
             "TITLE": "Změnit hodnotu atributu",
+            "VALUE_LABEL": "Hodnota atributu",
             "SUBMIT_BUTTON": "Potvrdit",
             "CANCEL_BUTTON": "Zrušit"
           },

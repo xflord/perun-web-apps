@@ -21,11 +21,8 @@
             {{'CREATE_SINGLE_PUBLICATION.ADD_MYSELF' | translate}}
           </mat-checkbox>
           <mat-form-field>
-            <input
-              matInput
-              formControlName="title"
-              required
-              placeholder="{{'CREATE_SINGLE_PUBLICATION.SET_TITLE' | translate}}" />
+            <mat-label>{{'CREATE_SINGLE_PUBLICATION.SET_TITLE' | translate}}</mat-label>
+            <input matInput formControlName="title" required />
             <mat-error *ngIf="publicationControl.hasError('required', 'title')">
               {{'CREATE_SINGLE_PUBLICATION.REQUIRED_ERROR' | translate}}
             </mat-error>
@@ -54,10 +51,8 @@
           </mat-form-field>
 
           <mat-form-field>
-            <mat-select
-              placeholder="{{'CREATE_SINGLE_PUBLICATION.CATEGORY' | translate}}"
-              required
-              formControlName="category">
+            <mat-label>{{'CREATE_SINGLE_PUBLICATION.CATEGORY' | translate}}</mat-label>
+            <mat-select required formControlName="category">
               <mat-option *ngFor="let cat of categories" [value]="cat">
                 {{cat.name}}
               </mat-option>
@@ -68,25 +63,17 @@
           </mat-form-field>
 
           <mat-form-field>
-            <input
-              matInput
-              formControlName="isbn"
-              placeholder="{{'CREATE_SINGLE_PUBLICATION.ISBN' | translate}}" />
+            <mat-label>{{'CREATE_SINGLE_PUBLICATION.ISBN' | translate}}</mat-label>
+            <input matInput formControlName="isbn" />
           </mat-form-field>
           <mat-form-field>
-            <input
-              matInput
-              formControlName="doi"
-              placeholder="{{'CREATE_SINGLE_PUBLICATION.DOI' | translate}}" />
+            <mat-label>{{'CREATE_SINGLE_PUBLICATION.DOI' | translate}}</mat-label>
+            <input matInput formControlName="doi" />
           </mat-form-field>
 
           <mat-form-field>
-            <textarea
-              matInput
-              formControlName="cite"
-              required
-              placeholder="{{'CREATE_SINGLE_PUBLICATION.CITE' | translate}}">
-            </textarea>
+            <mat-label>{{'CREATE_SINGLE_PUBLICATION.CITE' | translate}}</mat-label>
+            <textarea matInput formControlName="cite" required> </textarea>
             <mat-error *ngIf="publicationControl.hasError('required', 'cite')">
               {{'CREATE_SINGLE_PUBLICATION.REQUIRED_ERROR' | translate}}
             </mat-error>

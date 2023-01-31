@@ -16,14 +16,10 @@
   </div>
   <div class="flex-row flex-self-center">
     <mat-form-field>
-      <label class="label-width">
-        <input
-          matInput
-          required
-          type="number"
-          placeholder="{{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.REQUESTED_QUOTA'|customTranslate | translate}}"
-          [formControl]="newValueControl" />
-      </label>
+      <mat-label>
+        {{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.REQUESTED_QUOTA'|customTranslate | translate}}
+      </mat-label>
+      <input matInput required type="number" [formControl]="newValueControl" />
     </mat-form-field>
     <mat-select [(value)]="selectedUnit" class="select-width mt-auto mb-auto ml-2">
       <mat-option *ngFor="let unit of units" [value]="selectedUnit">
@@ -33,14 +29,10 @@
   </div>
   <div>
     <mat-form-field class="form-width">
-      <label class="label-width">
-        <textarea
-          matInput
-          required
-          placeholder="{{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.REASON'| customTranslate | translate}}"
-          rows="4"
-          [formControl]="reasonControl"></textarea>
-      </label>
+      <mat-label>
+        {{'SHARED_LIB.PERUN.COMPONENTS.REQUEST_DATA_QUOTA_CHANGE.REASON'| customTranslate | translate}}
+      </mat-label>
+      <textarea matInput required rows="4" [formControl]="reasonControl"></textarea>
     </mat-form-field>
   </div>
 

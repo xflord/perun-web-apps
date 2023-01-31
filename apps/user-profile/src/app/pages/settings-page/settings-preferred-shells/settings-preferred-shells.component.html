@@ -14,20 +14,22 @@
   >{{'PREFERRED_SHELLS.NO_SHELLS' | customTranslate | translate}}</perun-web-apps-alert
 >
 <mat-list *ngIf="!loading">
-  <mat-list-item *ngFor="let shell of shells; let i = index">
-    <mat-form-field class="w-100">
-      <mat-select [(value)]="shells[i]">
-        <mat-option
-          *ngFor="let defShell of defaultShells"
-          (click)="changeValue()"
-          [value]="defShell"
-          >{{defShell}}</mat-option
-        >
-      </mat-select>
-    </mat-form-field>
+  <mat-list-item *ngFor="let shell of shells; let i = index" class="mb-2">
+    <div class="d-flex flex-row">
+      <mat-form-field>
+        <mat-select [(value)]="shells[i]">
+          <mat-option
+            *ngFor="let defShell of defaultShells"
+            (click)="changeValue()"
+            [value]="defShell"
+            >{{defShell}}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
 
-    <button mat-flat-button color="warn" class="ml-2" (click)="removeShell(i)">
-      {{'PREFERRED_SHELLS.REMOVE_BUTTON' | customTranslate | translate}}
-    </button>
+      <button mat-flat-button color="warn" class="ml-2 my-auto" (click)="removeShell(i)">
+        {{'PREFERRED_SHELLS.REMOVE_BUTTON' | customTranslate | translate}}
+      </button>
+    </div>
   </mat-list-item>
 </mat-list>

@@ -7,16 +7,15 @@
       {{'DIALOGS.APPLICATION_FORM_ADD_ITEM.FILL_NAME' | translate}}
     </mat-error>
   </mat-form-field>
-  <mat-form-field
-    [ngStyle]="{'height.rem': setInputWidgetHeight(('VO_DETAIL.SETTINGS.APPLICATION_FORM.WIDGET_DESCRIPTION.'+selectedWidget | translate).length)}">
+  <mat-form-field class="mb-4" subscriptSizing="dynamic">
     <mat-label>{{'DIALOGS.APPLICATION_FORM_ADD_ITEM.INPUT_WIDGET' | translate}}:</mat-label>
     <mat-select [(ngModel)]="selectedWidget" disableOptionCentering>
       <mat-option *ngFor="let widget of widgets" [value]="widget">
         {{widget | applicationFormItemType}}
       </mat-option>
     </mat-select>
-    <mat-hint
-      >{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.WIDGET_DESCRIPTION.'+selectedWidget | translate}}
+    <mat-hint>
+      {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.WIDGET_DESCRIPTION.'+selectedWidget | translate}}
     </mat-hint>
   </mat-form-field>
   <mat-form-field>

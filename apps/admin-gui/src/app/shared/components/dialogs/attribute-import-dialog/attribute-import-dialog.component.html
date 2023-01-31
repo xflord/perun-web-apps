@@ -11,11 +11,8 @@
         {{'DIALOGS.IMPORT_ATTRIBUTE.INFO' | translate}}
       </perun-web-apps-alert>
       <mat-form-field class="w-100">
-        <input
-          matInput
-          [(ngModel)]="value"
-          [placeholder]="'DIALOGS.IMPORT_ATTRIBUTE.HINT' | translate"
-          required />
+        <mat-label>{{'DIALOGS.IMPORT_ATTRIBUTE.HINT' | translate}}</mat-label>
+        <input matInput [(ngModel)]="value" required />
       </mat-form-field>
     </div>
     <div mat-dialog-actions>

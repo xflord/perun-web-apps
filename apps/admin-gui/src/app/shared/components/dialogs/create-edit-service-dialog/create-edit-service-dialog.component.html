@@ -7,9 +7,9 @@
 
     <div class="dialog-container" mat-dialog-content>
       <mat-form-field>
+        <mat-label>{{'DIALOGS.CREATE_EDIT_SERVICE.NAME' | translate}}</mat-label>
         <input
           matInput
-          placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.NAME' | translate}}"
           (change)="makePath()"
           [formControl]="nameControl"
           data-cy="service-name-input"
@@ -18,36 +18,36 @@
       </mat-form-field>
 
       <mat-form-field>
+        <mat-label>{{'DIALOGS.CREATE_EDIT_SERVICE.DESCRIPTION' | translate}}</mat-label>
         <input
           [(ngModel)]="description"
           matInput
-          data-cy="service-description-input"
-          placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.DESCRIPTION' | translate}}" />
+          data-cy="service-description-input"/>
       </mat-form-field>
 
       <mat-form-field>
+        <mat-label>{{'DIALOGS.CREATE_EDIT_SERVICE.DELAY' | translate}}</mat-label>
         <input
           matInput
           [formControl]="delayControl"
-          placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.DELAY' | translate}}"
           required />
         <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.INVALID_DELAY' | translate}}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
+        <mat-label>{{'DIALOGS.CREATE_EDIT_SERVICE.RECURRENCE' | translate}}</mat-label>
         <input
           matInput
-          placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.RECURRENCE' | translate}}"
           [formControl]="recurrenceControl"
           required />
         <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.INVALID_RECURRENCE' | translate}}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
+        <mat-label>{{'DIALOGS.CREATE_EDIT_SERVICE.PATH' | translate}}</mat-label>
         <input
           matInput
           [formControl]="pathControl"
-          placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.PATH' | translate}}"
           required />
         <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.REQUIRE_PATH' | translate}}</mat-error>
       </mat-form-field>

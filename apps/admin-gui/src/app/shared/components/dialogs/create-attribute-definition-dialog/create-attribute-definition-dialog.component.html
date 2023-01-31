@@ -7,10 +7,10 @@
     <div mat-dialog-content>
       <form [formGroup]="attributeControl" class="dialog-container">
         <mat-form-field>
+          <mat-label>{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.FRIENDLY_NAME' | translate}}</mat-label>
           <input
             matInput
             formControlName="friendlyName"
-            placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.FRIENDLY_NAME' | translate}}"
             data-cy="attribute-friendly-name-input"
             required />
           <mat-error *ngIf="attributeControl.hasError('required', 'friendlyName')">
@@ -18,10 +18,10 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field>
+          <mat-label>{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.DISPLAY_NAME' | translate}}</mat-label>
           <input
             matInput
             formControlName="displayName"
-            placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.DISPLAY_NAME' | translate}}"
             data-cy="attribute-display-name-input"
             required />
           <mat-error *ngIf="attributeControl.hasError('required', 'displayName')">
@@ -29,11 +29,11 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field>
+          <mat-label>{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.DESCRIPTION' | translate}}</mat-label>
           <textarea
             matInput
             formControlName="description"
             cdkTextareaAutosize
-            placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.DESCRIPTION' | translate}}"
             data-cy="attribute-description-input"
             required>
           </textarea>
@@ -42,8 +42,8 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field>
+          <mat-label>{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ENTITY' | translate}}</mat-label>
           <mat-select
-            placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ENTITY' | translate}}"
             formControlName="entity"
             data-cy="attribute-entity-input"
             required>
@@ -54,8 +54,8 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field>
+          <mat-label>{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.DEFINITION' | translate}}</mat-label>
           <mat-select
-            placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.DEFINITION' | translate}}"
             formControlName="definitionType"
             data-cy="attribute-definition-type-input"
             required>
@@ -68,8 +68,8 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field>
+          <mat-label>{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.VALUE_TYPE' | translate}}</mat-label>
           <mat-select
-            placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.VALUE_TYPE' | translate}}"
             formControlName="valueType"
             data-cy="attribute-value-type-input"
             required>

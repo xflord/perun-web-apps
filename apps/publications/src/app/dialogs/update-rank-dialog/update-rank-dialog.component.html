@@ -6,16 +6,13 @@
     <h1 mat-dialog-title>{{"DIALOGS.UPDATE_RANK.TITLE" | translate}}{{categoryName}}</h1>
     <div mat-dialog-content class="dialog-container">
       <mat-form-field>
-        <input
-          matInput
-          required
-          placeholder="{{'DIALOGS.UPDATE_RANK.RANK' | translate}}"
-          [formControl]="rankCtrl" />
+        <mat-label>{{'DIALOGS.UPDATE_RANK.RANK' | translate}}</mat-label>
+        <input matInput required [formControl]="rankCtrl" />
         <mat-error>
           {{'DIALOGS.UPDATE_RANK.FILL_RANK' | translate}}
         </mat-error>
+        <mat-hint>{{'DIALOGS.UPDATE_RANK.RANK_HINT' | translate}}</mat-hint>
       </mat-form-field>
-      <p class="mt-2">{{'DIALOGS.UPDATE_RANK.RANK_HINT' | translate}}</p>
     </div>
     <div mat-dialog-actions>
       <button mat-flat-button class="ml-auto" (click)="onCancel()">

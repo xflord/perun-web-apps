@@ -15,7 +15,7 @@
         *ngIf="manageAuth && !configMode"
         (click)="addManager()"
         color="accent"
-        class="mr-2 mt-2 action-button"
+        class="mr-2 action-button"
         data-cy="add-manager-button"
         mat-flat-button>
         {{'SHARED.COMPONENTS.MANAGERS_PAGE.ADD' | translate}}
@@ -27,7 +27,7 @@
         color="warn"
         [disabled]="selectionUsers.selected.length === 0"
         data-cy="remove-manager-button"
-        class="mr-2 mt-2"
+        class="mr-2"
         mat-flat-button>
         {{'SHARED.COMPONENTS.MANAGERS_PAGE.REMOVE' | translate}}
       </button>
@@ -75,7 +75,7 @@
         *ngIf="manageAuth && !configMode"
         (click)="addGroup()"
         color="accent"
-        class="mr-2 mt-2 action-button"
+        class="mr-2 action-button"
         mat-flat-button>
         {{'SHARED.COMPONENTS.MANAGERS_PAGE.ADD' | translate}}
       </button>
@@ -84,7 +84,7 @@
         *ngIf="manageAuth && !configMode"
         (click)="removeGroup()"
         [disabled]="selectionGroups.selected.length === 0"
-        class="mr-2 mt-2"
+        class="mr-2"
         color="warn"
         mat-flat-button>
         {{'SHARED.COMPONENTS.MANAGERS_PAGE.REMOVE' | translate}}

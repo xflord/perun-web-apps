@@ -6,39 +6,27 @@
     <h1 mat-dialog-title>{{'DIALOGS.GROUP_SYNC_DETAIL.TITLE' | translate}}</h1>
     <div *ngIf="group" class="dialog-container" mat-dialog-content>
       <mat-form-field>
-        <input
-          matInput
-          [value]="group.name"
-          readonly
-          placeholder="{{'DIALOGS.GROUP_SYNC_DETAIL.GROUP_NAME' | translate}}" />
+        <mat-label>{{'DIALOGS.GROUP_SYNC_DETAIL.GROUP_NAME' | translate}}</mat-label>
+        <input matInput [value]="group.name" readonly />
       </mat-form-field>
       <mat-form-field>
-        <input
-          matInput
-          [value]="syncType | translate"
-          readonly
-          placeholder="{{'DIALOGS.GROUP_SYNC_DETAIL.SYNCHRONIZATION' | translate}}" />
+        <mat-label>{{'DIALOGS.GROUP_SYNC_DETAIL.SYNCHRONIZATION' | translate}}</mat-label>
+        <input matInput [value]="syncType | translate" readonly />
       </mat-form-field>
       <mat-form-field>
-        <input
-          matInput
-          [value]="syncState"
-          readonly
-          placeholder="{{'DIALOGS.GROUP_SYNC_DETAIL.LAST_SYNC_STATE' | translate}}" />
+        <mat-label>{{'DIALOGS.GROUP_SYNC_DETAIL.LAST_SYNC_STATE' | translate}}</mat-label>
+        <input matInput [value]="syncState" readonly />
       </mat-form-field>
       <mat-form-field>
-        <input
-          matInput
-          [value]="syncTime | translate"
-          readonly
-          placeholder="{{'DIALOGS.GROUP_SYNC_DETAIL.LAST_SYNC_TIME' | translate}}" />
+        <mat-label>{{'DIALOGS.GROUP_SYNC_DETAIL.LAST_SYNC_TIME' | translate}}</mat-label>
+        <input matInput [value]="syncTime | translate" readonly />
       </mat-form-field>
       <mat-form-field>
+        <mat-label>{{'DIALOGS.GROUP_SYNC_DETAIL.SYNC_INTERVAL' | translate}}</mat-label>
         <input
           matInput
           [value]="'DIALOGS.GROUP_SYNC_DETAIL.SYNC_INTERVAL_MINUTES' | translate : {interval: syncInterval}"
-          readonly
-          placeholder="{{'DIALOGS.GROUP_SYNC_DETAIL.SYNC_INTERVAL' | translate}}" />
+          readonly />
       </mat-form-field>
     </div>
     <div mat-dialog-actions>

@@ -23,10 +23,9 @@
 </div>
 <div class="mt-3">
   <mat-form-field class="w-100 mt-2">
-    <textarea
-      [formControl]="descriptionControl"
-      matInput
-      placeholder="{{'SHARED_LIB.PERUN.COMPONENTS.BAN_SPECIFICATION.DESCRIPTION' | translate}}"
-      rows="5"></textarea>
+    <mat-label>
+      {{'SHARED_LIB.PERUN.COMPONENTS.BAN_SPECIFICATION.DESCRIPTION' | translate}}
+    </mat-label>
+    <textarea [formControl]="descriptionControl" matInput rows="5"></textarea>
   </mat-form-field>
 </div>

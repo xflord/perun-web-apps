@@ -6,21 +6,21 @@
     <h1 mat-dialog-title>{{'DIALOGS.ADD_USER_EXT_SOURCE.TITLE'|translate}}</h1>
     <div class="dialog-container user-theme" mat-dialog-content>
       <mat-form-field class="center-self w-100">
+        <mat-label>{{'DIALOGS.ADD_USER_EXT_SOURCE.LOGIN' | translate}}</mat-label>
         <input
           [formControl]="loginControl"
           matInput
-          placeholder="{{'DIALOGS.ADD_USER_EXT_SOURCE.LOGIN' | translate}}"
           required />
         <mat-error>
           {{'DIALOGS.ADD_USER_EXT_SOURCE.EMPTY_LOGIN' | translate}}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="center-self w-100">
+        <mat-label>{{'DIALOGS.ADD_USER_EXT_SOURCE.EXT_SOURCE' | translate}}</mat-label>
         <input
           [formControl]="extSourcesControl"
           [matAutocomplete]="auto"
           matInput
-          placeholder="{{'DIALOGS.ADD_USER_EXT_SOURCE.EXT_SOURCE' | translate}}"
           required
           type="text" />
         <mat-error>

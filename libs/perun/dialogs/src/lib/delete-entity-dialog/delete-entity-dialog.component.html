@@ -96,11 +96,10 @@
           </table>
         </div>
         <mat-form-field>
-          <input
-            [formControl]="deleteControl"
-            data-cy="force-delete-control"
-            matInput
-            placeholder="{{'DIALOGS.DELETE_ENTITY.CONTROL' | translate: {action: this.anonymize | deleteDialogType | uppercase} }}" />
+          <mat-label>
+            {{'DIALOGS.DELETE_ENTITY.CONTROL' | translate: {action: this.anonymize | deleteDialogType | uppercase} }}
+          </mat-label>
+          <input [formControl]="deleteControl" data-cy="force-delete-control" matInput />
         </mat-form-field>
       </div>
       <div mat-dialog-actions>

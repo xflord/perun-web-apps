@@ -10,10 +10,10 @@
       <p>{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.INFO' | translate}}</p>
 
       <mat-form-field class="filter-field ml-2">
-        <input
-          matInput
-          [formControl]="formControl"
-          placeholder="{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.FILTER' | translate}}" />
+        <mat-label>
+          {{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.FILTER' | translate}}
+        </mat-label>
+        <input matInput [formControl]="formControl" />
       </mat-form-field>
       <perun-web-apps-alert
         *ngIf="!dataSource.data.length"

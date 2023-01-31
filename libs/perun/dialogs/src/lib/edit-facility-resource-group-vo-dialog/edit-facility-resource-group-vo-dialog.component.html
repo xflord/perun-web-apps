@@ -17,30 +17,25 @@
     </h1>
     <div class="dialog-container" mat-dialog-content>
       <mat-form-field *ngIf="dialogType === 2">
-        <input
-          [value]="shortName"
-          disabled
-          matInput
-          placeholder="{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.SHORT_NAME' | translate}}:"
-          required />
+        <mat-label>{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.SHORT_NAME' | translate}}:</mat-label>
+        <input [value]="shortName" disabled matInput required />
       </mat-form-field>
       <mat-form-field>
-        <input
-          [formControl]="nameCtrl"
-          matInput
-          placeholder="{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.NAME' | translate}}:"
-          required />
+        <mat-label>{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.NAME' | translate}}:</mat-label>
+        <input [formControl]="nameCtrl" matInput required />
         <mat-error>
           {{invalidNameMessage.length ? invalidNameMessage : ('DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.FILL_NAME' | translate)}}
         </mat-error>
       </mat-form-field>
       <mat-form-field *ngIf="dialogType !== 2" class="mt-3">
+        <mat-label>
+          {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.DESCRIPTION' | translate}}:
+        </mat-label>
         <textarea
           [formControl]="descriptionCtrl"
           class="overflow-hidden"
-          mat-autosize
-          matInput
-          placeholder="{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.DESCRIPTION' | translate}}:"></textarea>
+          cdkTextareaAutosize
+          matInput></textarea>
       </mat-form-field>
     </div>
 

@@ -20,11 +20,8 @@
           <h5 class="mt-2">{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.USERS_INFO' | translate}}</h5>
           <form [formGroup]="usersInfoFormGroup" class="flex-container mt-2">
             <mat-form-field>
-              <mat-select
-                data-cy="namespace-filter"
-                placeholder="{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NAMESPACE' | translate}}"
-                formControlName="namespace"
-                required>
+              <mat-label>{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NAMESPACE' | translate}}</mat-label>
+              <mat-select data-cy="namespace-filter" formControlName="namespace" required>
                 <mat-option
                   *ngFor="let namespc of namespaceOptions"
                   [value]="namespc"

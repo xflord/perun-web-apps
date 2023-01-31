@@ -2,10 +2,10 @@
   <h1 class="page-subtitle">{{'FACILITY_DETAIL.SERVICE_CONFIG.TITLE' | translate}}</h1>
   <div *ngIf="!!facility" class="col-12 col-lg-6 mb-2">
     <mat-form-field *ngIf="(services !== undefined)" class="w-100">
+      <mat-label>{{'FACILITY_DETAIL.SERVICE_CONFIG.SERVICE_SELECT' | translate}}</mat-label>
       <input
         (keyup)="updatedSerVal($event)"
         matInput
-        placeholder="{{'FACILITY_DETAIL.SERVICE_CONFIG.SERVICE_SELECT' | translate}}"
         [formControl]="serviceField"
         [matAutocomplete]="auto"
         type="text" />
@@ -33,12 +33,12 @@
       {{'FACILITY_DETAIL.SERVICE_CONFIG.ALL_SERVICES' | translate}}
     </mat-checkbox>
     <mat-form-field *ngIf="(resources !== undefined) && (resources.length !== 0)" class="w-100">
+      <mat-label>{{'FACILITY_DETAIL.SERVICE_CONFIG.RES_SELECT' | translate}}</mat-label>
       <input
         (keyup)="updatedResVal($event)"
         [formControl]="resourceField"
         matInput
         [matAutocomplete]="auto"
-        placeholder="{{'FACILITY_DETAIL.SERVICE_CONFIG.RES_SELECT' | translate}}"
         type="text" />
       <mat-autocomplete
         [displayWith]="resourceDisplayFn.bind(this)"
@@ -55,12 +55,12 @@
     <mat-form-field
       *ngIf="(selectedResource !== undefined) && (groups !== undefined) && (groups.length !== 0)"
       class="w-100">
+      <mat-label>{{'FACILITY_DETAIL.SERVICE_CONFIG.GROUP_SELECT' | translate}}</mat-label>
       <input
         (keyup)="updatedGroupVal($event)"
         [formControl]="groupField"
         matInput
         [matAutocomplete]="auto"
-        placeholder="{{'FACILITY_DETAIL.SERVICE_CONFIG.GROUP_SELECT' | translate}}"
         type="text" />
       <mat-autocomplete
         [displayWith]="groupDisplayFn.bind(this)"
@@ -86,12 +86,8 @@
     <mat-form-field
       *ngIf="(selectedGroup !== undefined) && (members !== undefined) && (members.length !== 0)"
       class="w-100">
-      <input
-        [matAutocomplete]="auto"
-        matInput
-        placeholder="{{'FACILITY_DETAIL.SERVICE_CONFIG.MEMBER_SELECT' | translate}}"
-        [formControl]="memberField"
-        type="text" />
+      <mat-label>{{'FACILITY_DETAIL.SERVICE_CONFIG.MEMBER_SELECT' | translate}}</mat-label>
+      <input [matAutocomplete]="auto" matInput [formControl]="memberField" type="text" />
       <mat-autocomplete
         [displayWith]="memberDisplayFn.bind(this)"
         #auto="matAutocomplete"

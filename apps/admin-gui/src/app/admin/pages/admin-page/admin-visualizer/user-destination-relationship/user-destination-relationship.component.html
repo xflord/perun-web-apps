@@ -10,10 +10,10 @@
         >{{'ADMIN.VISUALIZER.USER_DESTINATION.SELECT_USER' | translate}}</ng-template
       >
       <mat-form-field class="w-100">
+        <mat-label>{{'ADMIN.VISUALIZER.USER_DESTINATION.USER_EXAMPLE' | translate}}</mat-label>
         <input
           matInput
           (keydown.enter)="validateName(stepper)"
-          placeholder="{{'ADMIN.VISUALIZER.USER_DESTINATION.USER_EXAMPLE' | translate}}"
           (ngModelChange)="notCompleted(stepper)"
           [formControl]="searchField"
           [matAutocomplete]="auto"
@@ -44,10 +44,12 @@
         >{{'ADMIN.VISUALIZER.USER_DESTINATION.SELECT_DESTINATION' | translate}}</ng-template
       >
       <mat-form-field class="w-100">
+        <mat-label>
+          {{'ADMIN.VISUALIZER.USER_DESTINATION.DESTINATION_EXAMPLE' | translate}}
+        </mat-label>
         <input
           matInput
           (keydown.enter)="validateDestination(stepper)"
-          placeholder="{{'ADMIN.VISUALIZER.USER_DESTINATION.DESTINATION_EXAMPLE' | translate}}"
           (ngModelChange)="notCompleted(stepper)"
           [(ngModel)]="destination"
           type="text" />

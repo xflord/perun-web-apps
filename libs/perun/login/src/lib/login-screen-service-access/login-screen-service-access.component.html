@@ -5,14 +5,14 @@
       <perun-web-apps-alert *ngIf="wrongUsernameOrPassword" alert_type="error">
         {{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.WRONG_LOGIN_OR_PASSWORD' | translate}}
       </perun-web-apps-alert>
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
         <mat-label>{{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.USERNAME' | translate}}</mat-label>
         <input matInput required (keyup.enter)="startAuth()" [formControl]="usernameCtrl" />
         <mat-error>
           {{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.USERNAME_ERROR' | translate}}
         </mat-error>
       </mat-form-field>
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="my-3">
         <mat-label>{{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.PASSWORD' | translate}}</mat-label>
         <input
           matInput

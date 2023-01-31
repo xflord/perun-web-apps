@@ -321,6 +321,7 @@
         "TITLE": "Resource tags",
         "TAG_ID": "Id",
         "TAG_NAME": "Tag name",
+        "CHANGE_TAG_NAME": "Change tag name",
         "CREATE_BUTTON": "Create",
         "DELETE_BUTTON": "Delete",
         "EDIT_BUTTON": "Edit",
@@ -1641,8 +1642,7 @@
       "CANCEL": "Cancel",
       "CREATE": "Create",
       "SUCCESS": "Resource successfully created",
-      "INCORRECT_NAME": "Name cannot be empty and can contain only characters a-z, A-Z, numbers, spaces, dots, '_' and '-'",
-      "FILL_DESCRIPTION": "Description cannot be empty"
+      "INCORRECT_NAME": "Name cannot be empty and can contain only characters a-z, A-Z, numbers, spaces, dots, '_' and '-'"
     },
     "ADD_EXT_SOURCES": {
       "TITLE": "Add external sources",
@@ -2155,6 +2155,7 @@
       "CONTACT": "Contact",
       "FILL_CONTACT": "Contact cannot be empty",
       "CONTACT_FORMAT": "Invalid format, e.g. mail@domain.com",
+      "TYPE_LABEL": "Type",
       "TYPE1": "Administrative",
       "TYPE2": "Technical",
       "CANCEL": "Cancel",
@@ -2941,6 +2942,7 @@
         "ATTRIBUTE_VALUE_LIST": {
           "EDIT_DIALOG": {
             "TITLE": "Edit attribute value",
+            "VALUE_LABEL": "Attribute value",
             "SUBMIT_BUTTON": "Submit",
             "CANCEL_BUTTON": "Cancel"
           },

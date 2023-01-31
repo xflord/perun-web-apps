@@ -7,23 +7,25 @@
 </button>
 <mat-list>
   <mat-list-item *ngFor="let key of userKeys" class="dark-hover-list-item w-auto" matRipple>
-    <p (click)="showWholeKey(key)" class="truncate center-content cursor-pointer">{{key}}</p>
-    <button
-      [cdkCopyToClipboard]="key"
-      class="ml-auto center-content"
-      color="accent"
-      mat-icon-button
-      matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.SSH_KEYS.COPY_TOOLTIP' | customTranslate | translate}}">
-      <mat-icon> file_copy </mat-icon>
-    </button>
-    <button
-      (click)="removeKey(key, false)"
-      class="ml-2 center-content"
-      color="warn"
-      mat-icon-button
-      matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.SSH_KEYS.REMOVE_TOOLTIP' | customTranslate | translate}}">
-      <mat-icon> delete </mat-icon>
-    </button>
+    <div class="d-flex flex-row">
+      <p (click)="showWholeKey(key)" class="truncate center-content cursor-pointer">{{key}}</p>
+      <button
+        [cdkCopyToClipboard]="key"
+        class="ml-auto center-content"
+        color="accent"
+        mat-icon-button
+        matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.SSH_KEYS.COPY_TOOLTIP' | customTranslate | translate}}">
+        <mat-icon> file_copy </mat-icon>
+      </button>
+      <button
+        (click)="removeKey(key, false)"
+        class="ml-2 center-content"
+        color="warn"
+        mat-icon-button
+        matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.SSH_KEYS.REMOVE_TOOLTIP' | customTranslate | translate}}">
+        <mat-icon> delete </mat-icon>
+      </button>
+    </div>
   </mat-list-item>
 </mat-list>
 
@@ -38,16 +40,22 @@
 </button>
 <mat-list>
   <mat-list-item *ngFor="let key of adminKeys" class="dark-hover-list-item w-auto" matRipple>
-    <label class="truncate center-content" (click)="showWholeKey(key)">{{key}}</label>
-    <button
-      mat-icon-button
-      color="accent"
-      class="ml-auto center-content"
-      [cdkCopyToClipboard]="key">
-      <mat-icon> file_copy </mat-icon>
-    </button>
-    <button mat-icon-button color="warn" class="ml-2 center-content" (click)="removeKey(key, true)">
-      <mat-icon> delete </mat-icon>
-    </button>
+    <div class="d-flex flex-row">
+      <p class="truncate center-content" (click)="showWholeKey(key)">{{key}}</p>
+      <button
+        mat-icon-button
+        color="accent"
+        class="ml-auto center-content"
+        [cdkCopyToClipboard]="key">
+        <mat-icon> file_copy </mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="warn"
+        class="ml-2 center-content"
+        (click)="removeKey(key, true)">
+        <mat-icon> delete </mat-icon>
+      </button>
+    </div>
   </mat-list-item>
 </mat-list>
