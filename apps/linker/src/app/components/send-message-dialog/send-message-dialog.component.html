@@ -10,11 +10,10 @@
       {{'SHARED_LIB.CONSOLIDATOR.SEND_MESSAGE_TO_SUPPORT_DIALOG.SUBTITLE' | translate}}
     </perun-web-apps-alert>
     <mat-form-field class="w-100">
-      <textarea
-        [(ngModel)]="message"
-        matInput
-        cdkTextareaAutosize
-        placeholder="{{'SHARED_LIB.CONSOLIDATOR.SEND_MESSAGE_TO_SUPPORT_DIALOG.PLACEHOLDER' | translate}}"></textarea>
+      <mat-label>
+        {{'SHARED_LIB.CONSOLIDATOR.SEND_MESSAGE_TO_SUPPORT_DIALOG.PLACEHOLDER' | translate}}
+      </mat-label>
+      <textarea [(ngModel)]="message" matInput cdkTextareaAutosize> </textarea>
     </mat-form-field>
   </div>
 

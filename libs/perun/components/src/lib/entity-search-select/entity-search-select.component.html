@@ -1,10 +1,10 @@
 <div class="d-flex flex-row align-items-center gap-4">
   <mat-form-field class="w-100 pb-0">
+    <mat-label>{{selectPlaceholder}}</mat-label>
     <mat-select
       data-cy="search-select-input"
       (openedChange)="openChange()"
       (closed)="closeChange()"
-      placeholder="{{selectPlaceholder}}"
       [formControl]="entitiesCtrl"
       [multiple]="multiple">
       <mat-select-trigger *ngIf="multiple">

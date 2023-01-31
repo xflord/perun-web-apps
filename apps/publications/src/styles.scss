@@ -63,7 +63,9 @@ $perun-theme: mat.define-light-theme($perun-primary, $perun-accent, $perun-warn)
     200: rgba(var(--user-theme-primary-200), 1),
     300: rgba(var(--user-theme-primary-300), 1),
     400: rgba(var(--user-theme-primary-400), 1),
-    500: rgba(var(--user-theme-primary-500), 1),
+    //FIXME(theme-error): we want ot load color from the config
+    // 500: rgba(var(--user-theme-primary-500), 1),
+    500: rgba(#00796b, 1),
     600: rgba(var(--user-theme-primary-600), 1),
     700: rgba(var(--user-theme-primary-700), 1),
     800: rgba(var(--user-theme-primary-800), 1),
@@ -350,4 +352,29 @@ mat-icon {
 .mat-mdc-tooltip {
   font-size: 14px !important;
   word-wrap: break-word !important;
+}
+
+/*************************************
+******** Customization of MDC ********
+*************************************/
+
+// Custom MDC form field
+.mdc-text-field {
+  background-color: transparent !important;
+  margin-top: 5px !important;
+}
+label:not(.mdc-floating-label--float-above) {
+  padding-top: 16px !important;
+  width: 100%;
+}
+.mat-form-field-appearance-outline {
+  label:not(.mdc-floating-label--float-above) {
+    padding-top: 0 !important;
+  }
+}
+.mdc-floating-label--float-above {
+  width: 133.33% !important;
+}
+mat-form-field mat-icon {
+  padding: 0 !important;
 }

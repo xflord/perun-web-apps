@@ -7,7 +7,11 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import {
+  MAT_PAGINATOR_DEFAULT_OPTIONS,
+  MatPaginator,
+  PageEvent,
+} from '@angular/material/paginator';
 import { TABLE_ITEMS_COUNT_OPTIONS } from '../perun-utils';
 import { TableConfigService } from '@perun-web-apps/config/table-config';
 
@@ -15,6 +19,9 @@ import { TableConfigService } from '@perun-web-apps/config/table-config';
   selector: 'perun-web-apps-table-wrapper',
   templateUrl: './table-wrapper.component.html',
   styleUrls: ['./table-wrapper.component.css'],
+  providers: [
+    { provide: MAT_PAGINATOR_DEFAULT_OPTIONS, useValue: { formFieldAppearance: 'fill' } },
+  ],
 })
 export class TableWrapperComponent implements OnInit {
   @Input() hideExport = false;

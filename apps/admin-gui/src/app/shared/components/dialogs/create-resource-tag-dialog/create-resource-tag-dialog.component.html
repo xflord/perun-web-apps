@@ -3,11 +3,8 @@
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
     <mat-form-field>
-      <input
-        matInput
-        placeholder="{{'DIALOGS.CREATE_RESOURCE_TAG.NAME' | translate}}"
-        [(ngModel)]="name"
-        required />
+      <mat-label>{{'DIALOGS.CREATE_RESOURCE_TAG.NAME' | translate}}</mat-label>
+      <input matInput [(ngModel)]="name" required />
       <mat-error>{{'DIALOGS.CREATE_RESOURCE_TAG.EMPTY_NAME' | translate}}</mat-error>
     </mat-form-field>
   </div>

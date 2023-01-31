@@ -1,15 +1,10 @@
 <mat-form-field class="filter-field mr-2">
+  <mat-label>{{placeholder | translate}}</mat-label>
   <input
     matInput
     [formControl]="formControl"
     *ngIf="autoFocus"
     perunWebAppsAutoFocus
-    data-cy="auto-focused-filter"
-    placeholder="{{placeholder | translate}}" />
-  <input
-    matInput
-    [formControl]="formControl"
-    *ngIf="!autoFocus"
-    data-cy="unfocused-filter"
-    placeholder="{{placeholder | translate}}" />
+    data-cy="auto-focused-filter" />
+  <input matInput [formControl]="formControl" *ngIf="!autoFocus" data-cy="unfocused-filter" />
 </mat-form-field>

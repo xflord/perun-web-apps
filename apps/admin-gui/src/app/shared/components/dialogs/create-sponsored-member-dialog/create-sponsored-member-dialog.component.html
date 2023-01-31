@@ -21,41 +21,29 @@
             {{'DIALOGS.CREATE_SPONSORED_MEMBER.USER_TITLE' | translate}}
           </h5>
           <mat-form-field class="mt-4">
-            <input
-              data-cy="first-name-input"
-              matInput
-              formControlName="firstName"
-              placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.FIRST_NAME' | translate}}"
-              required />
+            <mat-label>{{'DIALOGS.CREATE_SPONSORED_MEMBER.FIRST_NAME' | translate}}</mat-label>
+            <input data-cy="first-name-input" matInput formControlName="firstName" required />
             <mat-error *ngIf="userControl.hasError('required', 'firstName')">
               {{'DIALOGS.CREATE_SPONSORED_MEMBER.LENGTH_ERROR' | translate}}
             </mat-error>
           </mat-form-field>
 
           <mat-form-field>
-            <input
-              data-cy="last-name-input"
-              matInput
-              formControlName="lastName"
-              placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.LAST_NAME' | translate}}"
-              required />
+            <mat-label>{{'DIALOGS.CREATE_SPONSORED_MEMBER.LAST_NAME' | translate}}</mat-label>
+            <input data-cy="last-name-input" matInput formControlName="lastName" required />
             <mat-error *ngIf="userControl.hasError('required', 'lastName')">
               {{'DIALOGS.CREATE_SPONSORED_MEMBER.LENGTH_ERROR' | translate}}
             </mat-error>
           </mat-form-field>
 
           <mat-form-field>
-            <input
-              matInput
-              formControlName="titleBefore"
-              placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.TITLE_BEFORE' | translate}}" />
+            <mat-label>{{'DIALOGS.CREATE_SPONSORED_MEMBER.TITLE_BEFORE' | translate}}</mat-label>
+            <input matInput formControlName="titleBefore" />
           </mat-form-field>
 
           <mat-form-field>
-            <input
-              matInput
-              formControlName="titleAfter"
-              placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.TITLE_AFTER' | translate}}" />
+            <mat-label>{{'DIALOGS.CREATE_SPONSORED_MEMBER.TITLE_AFTER' | translate}}</mat-label>
+            <input matInput formControlName="titleAfter" />
           </mat-form-field>
         </form>
       </mat-step>
@@ -67,9 +55,9 @@
         <h5 class="mt-2">{{'DIALOGS.CREATE_SPONSORED_MEMBER.NAMESPACE_TITLE' | translate}}</h5>
         <form [formGroup]="namespaceControl" class="dialog-container mt-4">
           <mat-form-field data-cy="namespace-filter">
+            <mat-label>{{'DIALOGS.CREATE_SPONSORED_MEMBER.NAMESPACE' | translate}}</mat-label>
             <mat-select
               formControlName="namespace"
-              placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.NAMESPACE' | translate}}"
               (valueChange)="onNamespaceChanged($event)"
               required>
               <mat-option
@@ -88,24 +76,16 @@
             matTooltip="{{'DIALOGS.CREATE_SPONSORED_MEMBER.LOGIN_DISABLED' | translate}}"
             [matTooltipDisabled]="namespaceControl.get('login').enabled"
             matTooltipPosition="left">
-            <input
-              data-cy="login-input"
-              matInput
-              formControlName="login"
-              placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.LOGIN' | translate}}"
-              required />
+            <mat-label>{{'DIALOGS.CREATE_SPONSORED_MEMBER.LOGIN' | translate}}</mat-label>
+            <input data-cy="login-input" matInput formControlName="login" required />
             <mat-error *ngIf="namespaceControl.hasError('required', 'login')">
               {{'DIALOGS.CREATE_SPONSORED_MEMBER.LENGTH_ERROR' | translate}}
             </mat-error>
           </mat-form-field>
 
           <mat-form-field>
-            <input
-              data-cy="email-input"
-              matInput
-              placeholder="{{'DIALOGS.CREATE_SPONSORED_MEMBER.EMAIL' | translate}}"
-              formControlName="email"
-              required />
+            <mat-label>{{'DIALOGS.CREATE_SPONSORED_MEMBER.EMAIL' | translate}}</mat-label>
+            <input data-cy="email-input" matInput formControlName="email" required />
             <mat-error
               *ngIf="namespaceControl.hasError('required', 'email') ||
             namespaceControl.hasError('pattern', 'email')">

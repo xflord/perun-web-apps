@@ -1,9 +1,7 @@
 <div class="mt-2">
   <mat-form-field class="filter-field mr-2">
-    <input
-      matInput
-      [formControl]="title"
-      placeholder="{{'PUBLICATION_FILTER.TITLE_PLACEHOLDER' | translate}}" />
+    <mat-label>{{'PUBLICATION_FILTER.TITLE_PLACEHOLDER' | translate}}</mat-label>
+    <input matInput [formControl]="title" />
   </mat-form-field>
   <mat-form-field class="filter-field mr-2">
     <mat-label>{{'PUBLICATION_FILTER.SELECT_MODE' | translate}}</mat-label>
@@ -13,10 +11,8 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field class="year-field mr-2">
-    <input
-      matInput
-      [formControl]="code"
-      placeholder="{{'PUBLICATION_FILTER.CODE_PLACEHOLDER' | translate}}" />
+    <mat-label>{{'PUBLICATION_FILTER.CODE_PLACEHOLDER' | translate}}</mat-label>
+    <input matInput [formControl]="code" />
   </mat-form-field>
   <mat-form-field class="filter-field mr-2">
     <mat-label>{{'PUBLICATION_FILTER.SELECT_CATEGORY' | translate}}</mat-label>

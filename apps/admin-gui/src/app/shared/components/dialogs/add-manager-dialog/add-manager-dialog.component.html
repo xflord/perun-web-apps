@@ -13,10 +13,10 @@
       </mat-form-field>
 
       <mat-form-field class="mr-2 w-100">
+        <mat-label>{{'DIALOGS.ADD_MANAGERS.DESCRIPTION' | translate}}</mat-label>
         <input
           matInput
           autocomplete="false"
-          placeholder="{{'DIALOGS.ADD_MANAGERS.DESCRIPTION' | translate}}"
           data-cy="search-manager-input"
           perunWebAppsAutoFocus
           (keyup.enter)="onSearchByString()"

@@ -4,28 +4,16 @@
   <div *ngIf="!loading">
     <div class="dialog-container" mat-dialog-content>
       <mat-form-field>
-        <label class="w-100">
-          <input
-            [formControl]="nameControl"
-            matInput
-            placeholder="{{'DIALOGS.CREATE_GROUP.NAME' | translate}}"
-            data-cy="group-name"
-            required />
-        </label>
+        <mat-label>{{'DIALOGS.CREATE_GROUP.NAME' | translate}}</mat-label>
+        <input [formControl]="nameControl" matInput data-cy="group-name" required />
         <mat-error>
           {{invalidNameMessage.length ? invalidNameMessage : ('DIALOGS.CREATE_GROUP.FILL_VALUE' | translate)}}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="mt-4">
-        <label class="w-100">
-          <textarea
-            [formControl]="descriptionControl"
-            mat-autosize
-            matInput
-            data-cy="group-description"
-            placeholder="{{'DIALOGS.CREATE_GROUP.DESCRIPTION' | translate}}">
-          </textarea>
-        </label>
+        <mat-label>{{'DIALOGS.CREATE_GROUP.DESCRIPTION' | translate}}</mat-label>
+        <textarea [formControl]="descriptionControl" matInput data-cy="group-description">
+        </textarea>
       </mat-form-field>
       <mat-checkbox
         *ngIf="isNotSubGroup"

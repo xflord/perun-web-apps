@@ -2,15 +2,13 @@
   <h1 mat-dialog-title>{{'DIALOGS.SPONSOR_EXISTING_MEMBER.TITLE' | translate}}</h1>
   <div mat-dialog-content>
     <mat-form-field class="mr-2 search-field adjust-width" *ngIf="!serviceMemberId">
-      <label>
-        <input
-          data-cy="sponsor-search-input"
-          [formControl]="searchCtrl"
-          autocomplete="false"
-          matInput
-          (keyup.enter)="onSearchByString()"
-          placeholder="{{'DIALOGS.SPONSOR_EXISTING_MEMBER.DESCRIPTION' | translate}}" />
-      </label>
+      <mat-label>{{'DIALOGS.SPONSOR_EXISTING_MEMBER.DESCRIPTION' | translate}}</mat-label>
+      <input
+        data-cy="sponsor-search-input"
+        [formControl]="searchCtrl"
+        autocomplete="false"
+        matInput
+        (keyup.enter)="onSearchByString()" />
       <mat-error>
         {{'DIALOGS.SPONSOR_EXISTING_MEMBER.EMPTY_SEARCH_MESSAGE' | translate}}
       </mat-error>

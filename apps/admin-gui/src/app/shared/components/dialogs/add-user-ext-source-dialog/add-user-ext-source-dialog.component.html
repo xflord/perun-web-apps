@@ -3,21 +3,18 @@
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div *ngIf="!loading">
     <mat-form-field class="center-self w-100">
-      <input
-        [formControl]="loginControl"
-        matInput
-        placeholder="{{'DIALOGS.ADD_USER_EXT_SOURCE.LOGIN' | translate}}"
-        required />
+      <mat-label>{{'DIALOGS.ADD_USER_EXT_SOURCE.LOGIN' | translate}}</mat-label>
+      <input [formControl]="loginControl" matInput required />
       <mat-error>
         {{'DIALOGS.ADD_USER_EXT_SOURCE.EMPTY_LOGIN' | translate}}
       </mat-error>
     </mat-form-field>
     <mat-form-field class="center-self w-100">
+      <mat-label>{{'DIALOGS.ADD_USER_EXT_SOURCE.EXT_SOURCE' | translate}}</mat-label>
       <input
         [formControl]="extSourcesControl"
         [matAutocomplete]="auto"
         matInput
-        placeholder="{{'DIALOGS.ADD_USER_EXT_SOURCE.EXT_SOURCE' | translate}}"
         required
         type="text" />
       <mat-error>

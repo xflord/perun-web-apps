@@ -1,4 +1,7 @@
-<mat-form-field appearance="{{readonly ? 'outline' : 'fill'}}" class="w-100">
+<mat-form-field
+  appearance="{{readonly ? 'outline' : 'fill'}}"
+  subscriptSizing="dynamic"
+  class="w-100">
   <input
     matInput
     (click)="readonly && value !== undefined && showValue(value, attribute.displayName)"

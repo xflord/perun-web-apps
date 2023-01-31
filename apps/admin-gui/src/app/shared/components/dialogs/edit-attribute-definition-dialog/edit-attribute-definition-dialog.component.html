@@ -5,25 +5,16 @@
     <div *ngIf="!loading" mat-dialog-content>
       <form [formGroup]="attributeControl" class="fields-container">
         <mat-form-field>
-          <input
-            matInput
-            data-cy="display-name-input"
-            formControlName="name"
-            placeholder="{{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.DISPLAY_NAME' | translate}}"
-            required />
+          <mat-label>{{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.DISPLAY_NAME' | translate}}</mat-label>
+          <input matInput data-cy="display-name-input" formControlName="name" required />
           <mat-error *ngIf="attributeControl.hasError('required', 'name')">
             {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
           </mat-error>
         </mat-form-field>
 
         <mat-form-field>
-          <textarea
-            matInput
-            formControlName="description"
-            cdkTextareaAutosize
-            placeholder="{{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.DESCRIPTION' | translate}}"
-            required>
-          </textarea>
+          <mat-label>{{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.DESCRIPTION' | translate}}</mat-label>
+          <textarea matInput formControlName="description" cdkTextareaAutosize required> </textarea>
           <mat-error *ngIf="attributeControl.hasError('required', 'description')">
             {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
           </mat-error>

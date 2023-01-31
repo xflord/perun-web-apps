@@ -5,21 +5,19 @@
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
     <mat-form-field *ngIf="emailControl !== null">
-      <label>
-        <input [formControl]="emailControl" matInput required />
-      </label>
-      <mat-error
-        *ngIf="emailControl.invalid"
-        >{{'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.INVALID_EMAIL' | translate}}</mat-error
-      >
+      <mat-label>{{itemName}}</mat-label>
+      <input [formControl]="emailControl" matInput required />
+      <mat-error *ngIf="emailControl.invalid">
+        {{'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.INVALID_EMAIL' | translate}}
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field *ngIf="inputControl !== null">
+      <mat-label>{{itemName}}</mat-label>
       <input [formControl]="inputControl" matInput required type="text" />
-      <mat-error
-        *ngIf="inputControl.invalid"
-        >{{'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.EMPTY_INPUT' | translate}}</mat-error
-      >
+      <mat-error *ngIf="inputControl.invalid">
+        {{'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.EMPTY_INPUT' | translate}}
+      </mat-error>
     </mat-form-field>
   </div>
 

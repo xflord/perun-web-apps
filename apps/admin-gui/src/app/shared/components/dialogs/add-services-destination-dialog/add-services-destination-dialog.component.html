@@ -4,10 +4,8 @@
   <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
     <div class="font-italic">{{'DIALOGS.ADD_SERVICE_DESTINATION.DESCRIPTION' | translate}}</div>
     <mat-form-field>
-      <mat-select
-        [formControl]="serviceControl"
-        placeholder="{{'DIALOGS.ADD_SERVICE_DESTINATION.SERVICE' | translate}}"
-        required>
+      <mat-label>{{'DIALOGS.ADD_SERVICE_DESTINATION.SERVICE' | translate}}</mat-label>
+      <mat-select [formControl]="serviceControl" required>
         <mat-option
           *ngIf="services.length !== 0"
           value="all"
@@ -32,10 +30,10 @@
       >{{'DIALOGS.ADD_SERVICE_DESTINATION.IS_SERVICES_ONLY_ON_FACILITY' | translate}}</mat-checkbox
     >
     <mat-form-field>
+      <mat-label>{{'DIALOGS.ADD_SERVICE_DESTINATION.TYPE' | translate}}</mat-label>
       <mat-select
         [(ngModel)]="selectedType"
-        (selectionChange)="this.destinationControl.updateValueAndValidity()"
-        placeholder="{{'DIALOGS.ADD_SERVICE_DESTINATION.TYPE' | translate}}">
+        (selectionChange)="this.destinationControl.updateValueAndValidity()">
         <mat-option *ngFor="let type of types" [value]="type">
           {{getTypeForView(type)}}
         </mat-option>
@@ -43,11 +41,8 @@
     </mat-form-field>
 
     <mat-form-field *ngIf="!(selectedType === 'host' && useFacilityHost)" class="w-100">
-      <input
-        [formControl]="destinationControl"
-        matInput
-        placeholder="{{getTypeForView(selectedType)}}"
-        required />
+      <mat-label>{{getTypeForView(selectedType)}}</mat-label>
+      <input [formControl]="destinationControl" matInput required />
       <mat-error
         *ngIf="selectedType === 'host' && !useFacilityHost && destinationControl.hasError('required')">
         {{'DIALOGS.ADD_SERVICE_DESTINATION.REQUIRED_FIELD' | translate}}
@@ -62,9 +57,8 @@
     </mat-checkbox>
 
     <mat-form-field>
-      <mat-select
-        [(ngModel)]="selectedPropagation"
-        placeholder="{{'DIALOGS.ADD_SERVICE_DESTINATION.PROPAGATION' | translate}}">
+      <mat-label>{{'DIALOGS.ADD_SERVICE_DESTINATION.PROPAGATION' | translate}}</mat-label>
+      <mat-select [(ngModel)]="selectedPropagation">
         <mat-option *ngFor="let propagation of propagations" [value]="propagation">
           {{propagation}}
         </mat-option>

@@ -8,24 +8,15 @@
     </perun-web-apps-vo-search-select>
 
     <mat-form-field>
-      <input
-        matInput
-        [formControl]="nameCtrl"
-        placeholder="{{'DIALOGS.CREATE_RESOURCE.NAME' | translate}}"
-        data-cy="create-resource-name-input"
-        required />
+      <mat-label>{{'DIALOGS.CREATE_RESOURCE.NAME' | translate}}</mat-label>
+      <input matInput [formControl]="nameCtrl" data-cy="create-resource-name-input" required />
       <mat-error>
         {{'DIALOGS.CREATE_RESOURCE.INCORRECT_NAME' | translate}}
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input
-        matInput
-        [formControl]="descriptionCtrl"
-        placeholder="{{'DIALOGS.CREATE_RESOURCE.DESCRIPTION' | translate}}" />
-      <mat-error>
-        {{'DIALOGS.CREATE_RESOURCE.FILL_DESCRIPTION' | translate}}
-      </mat-error>
+      <mat-label>{{'DIALOGS.CREATE_RESOURCE.DESCRIPTION' | translate}}</mat-label>
+      <input matInput [formControl]="descriptionCtrl" />
     </mat-form-field>
   </div>
 

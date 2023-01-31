@@ -10,19 +10,13 @@
     </div>
 
     <mat-form-field class="w-100">
-      <input
-        matInput
-        placeholder="{{'DIALOGS.INVITE_MEMBER.NAME' | translate}}"
-        [formControl]="name"
-        required />
+      <mat-label>{{'DIALOGS.INVITE_MEMBER.NAME' | translate}}</mat-label>
+      <input matInput [formControl]="name" required />
       <mat-error *ngIf="name.invalid">{{'DIALOGS.INVITE_MEMBER.NAME_ERROR' | translate}}</mat-error>
     </mat-form-field>
     <mat-form-field class="w-100">
-      <textarea
-        matInput
-        placeholder="{{'DIALOGS.INVITE_MEMBER.EMAIL' | translate}}"
-        [formControl]="emailForm"
-        required></textarea>
+      <mat-label>{{'DIALOGS.INVITE_MEMBER.EMAIL' | translate}}</mat-label>
+      <textarea matInput [formControl]="emailForm" required></textarea>
       <mat-error
         *ngIf="emailForm.invalid"
         >{{'DIALOGS.INVITE_MEMBER.EMAIL_ERROR' | translate}}</mat-error

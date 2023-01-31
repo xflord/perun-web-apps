@@ -2,14 +2,12 @@
   <h1 mat-dialog-title>{{'DIALOGS.ADD_AUTHORS.TITLE' | translate}}</h1>
   <div mat-dialog-content>
     <mat-form-field class="mr-2 adjust-width">
-      <label>
-        <input
-          matInput
-          autocomplete="false"
-          placeholder="{{'DIALOGS.ADD_AUTHORS.SEARCH_PLACEHOLDER' | translate}}"
-          (keyup.enter)="onSearchByString()"
-          [formControl]="searchControl" />
-      </label>
+      <mat-label>{{'DIALOGS.ADD_AUTHORS.SEARCH_PLACEHOLDER' | translate}}</mat-label>
+      <input
+        matInput
+        autocomplete="false"
+        (keyup.enter)="onSearchByString()"
+        [formControl]="searchControl" />
       <mat-error>
         {{'DIALOGS.ADD_AUTHORS.EMPTY_SEARCH_MESSAGE' | translate }}
       </mat-error>

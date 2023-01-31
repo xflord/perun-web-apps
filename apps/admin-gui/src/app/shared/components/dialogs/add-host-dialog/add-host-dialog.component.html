@@ -2,14 +2,12 @@
   <h1 mat-dialog-title>{{'DIALOGS.ADD_HOST.TITLE' | translate}}</h1>
   <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
   <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
-    <mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>{{'DIALOGS.ADD_HOST.SUBTITLE' | translate}}</mat-label>
       <textarea
-        class="md-textarea form-control"
         id="facilityAddHost"
         name="facilityAddHost"
         [formControl]="hostsCtrl"
-        [placeholder]="'DIALOGS.ADD_HOST.SUBTITLE' | translate"
-        cols="50"
         required
         matInput
         perunWebAppsAutoFocus

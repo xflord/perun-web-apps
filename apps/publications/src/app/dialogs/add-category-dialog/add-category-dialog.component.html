@@ -4,26 +4,20 @@
   <div *ngIf="!loading">
     <div mat-dialog-content class="dialog-container">
       <mat-form-field>
-        <input
-          matInput
-          required
-          placeholder="{{'DIALOGS.ADD_CATEGORY.NAME' | translate}}"
-          [formControl]="nameCtrl" />
+        <mat-label>{{'DIALOGS.ADD_CATEGORY.NAME' | translate}}</mat-label>
+        <input matInput required [formControl]="nameCtrl" />
         <mat-error>
           {{'DIALOGS.ADD_CATEGORY.FILL_NAME' | translate}}
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input
-          matInput
-          required
-          placeholder="{{'DIALOGS.ADD_CATEGORY.RANK' | translate}}"
-          [formControl]="rankCtrl" />
+        <mat-label>{{'DIALOGS.ADD_CATEGORY.RANK' | translate}}</mat-label>
+        <input matInput required [formControl]="rankCtrl" />
         <mat-error>
           {{'DIALOGS.ADD_CATEGORY.FILL_RANK' | translate}}
         </mat-error>
+        <mat-hint>{{'DIALOGS.ADD_CATEGORY.RANK_HINT' | translate}}</mat-hint>
       </mat-form-field>
-      <p class="mt-2">{{'DIALOGS.ADD_CATEGORY.RANK_HINT' | translate}}</p>
     </div>
     <div mat-dialog-actions>
       <button mat-flat-button class="ml-auto" (click)="onCancel()">

@@ -3,12 +3,13 @@
   <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
 
   <div *ngIf="!loading">
-    <perun-web-apps-immediate-filter
-      (filter)="applyFilter($event)"
-      [placeholder]="'DIALOGS.ADD_OWNERS.FILTER'"
-      class="font-size-1rem"></perun-web-apps-immediate-filter>
-
     <div mat-dialog-content>
+      <perun-web-apps-immediate-filter
+        (filter)="applyFilter($event)"
+        [placeholder]="'DIALOGS.ADD_OWNERS.FILTER'"
+        class="font-size-1rem">
+      </perun-web-apps-immediate-filter>
+
       <perun-web-apps-owners-list
         [filterValue]="filterValue"
         [selection]="selection"

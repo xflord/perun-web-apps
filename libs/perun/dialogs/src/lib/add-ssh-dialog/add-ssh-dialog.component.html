@@ -1,15 +1,13 @@
 <h1 mat-dialog-title>{{'DIALOGS.ADD_SSH.TITLE'|customTranslate | translate}}</h1>
 <div mat-dialog-content class="dialog-container user-theme">
-  <mat-form-field class="input-width">
-    <label class="input-width">
-      <textarea
-        matInput
-        required
-        cdkTextareaAutosize
-        cdkAutosizeMinRows="4"
-        placeholder="{{'DIALOGS.ADD_SSH.INPUT_PLACEHOLDER'|customTranslate | translate}}"
-        [formControl]="sshControl"></textarea>
-    </label>
+  <mat-form-field class="input-width" subscriptSizing="dynamic">
+    <mat-label>{{'DIALOGS.ADD_SSH.INPUT_PLACEHOLDER'|customTranslate | translate}}</mat-label>
+    <textarea
+      matInput
+      required
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="4"
+      [formControl]="sshControl"></textarea>
     <mat-error
       *ngIf="sshControl.invalid && sshControl.dirty"
       class="white-space-pre"

@@ -11,12 +11,12 @@
         <div *ngIf="!loading">
           <div>
             <mat-form-field class="input-style">
+              <mat-label>{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.FILTER' | translate}}</mat-label>
               <input
                 [formControl]="facilityCtrl"
                 [matAutocomplete]="autoFacility"
                 aria-label="Number"
                 matInput
-                placeholder="{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.FILTER' | translate}}"
                 type="text" />
               <mat-autocomplete #autoFacility="matAutocomplete" autoActiveFirstOption>
                 <mat-option *ngFor="let facility of filteredFacilities | async" [value]="facility">
@@ -27,10 +27,8 @@
           </div>
           <div>
             <mat-form-field class="input-style">
-              <mat-select
-                disableOptionCentering="true"
-                placeholder="{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.SELECTED' | translate}}"
-                required>
+              <mat-label>{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.SELECTED' | translate}}</mat-label>
+              <mat-select disableOptionCentering="true" required>
                 <mat-option
                   (click)="setResource(resource);
                            stepper.selected.completed = true"
