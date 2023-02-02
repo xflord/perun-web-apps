@@ -75,7 +75,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class UsersManagerService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -144,6 +144,7 @@ export class UsersManagerService {
    * Add specific user owner.
    * @param user id of User
    * @param specificUser id of specific User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -266,6 +267,7 @@ export class UsersManagerService {
   /**
    * Adds user\&#39;s external sources.
    * @param AddUserExtSourceInput
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -375,6 +377,7 @@ export class UsersManagerService {
    * Anonymizes user - according to configuration, each of user\&#39;s attributes is either anonymized, kept untouched or deleted. Also deletes other user\&#39;s related data, e.g. authorships of users publications, mail change and password reset requests, bans...
    * @param user id of User
    * @param force if true the user is removed from all groups and vos
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -487,6 +490,7 @@ export class UsersManagerService {
    * Changes user password in defined login-namespace based on token parameter.
    * This method throws PasswordResetLinkExpiredException when the password reset request expired. This method throws PasswordResetLinkNotValidException when the password reset request was already used or has never existed.
    * @param InputChangeNonAuthzPasswordByToken
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -598,6 +602,7 @@ export class UsersManagerService {
   /**
    * Changes password for a user in specified login-namespace.
    * @param InputChangePasswordForLogin
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -706,6 +711,7 @@ export class UsersManagerService {
   /**
    * Changes password for a user in specified login-namespace.
    * @param InputChangePasswordForUser
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -815,6 +821,7 @@ export class UsersManagerService {
    * Checks if the password reset request is valid.
    * This method throws PasswordResetLinkExpiredException when the password reset request expired. This method throws PasswordResetLinkNotValidException when the password reset request was already used or has never existed.
    * @param token token for the password reset request
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -922,6 +929,7 @@ export class UsersManagerService {
    * Check password strength for the given namespace. Some namespaces may require passing also login for complete password strength check.
    * If the check fails, the PasswordStrengthException error is returned.
    * @param InputCheckPasswordStrength
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1030,6 +1038,7 @@ export class UsersManagerService {
   /**
    * Creates alternative password in external system.
    * @param InputCreateAlternativePassword
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1139,6 +1148,7 @@ export class UsersManagerService {
    * From given candidate, creates a service user and assign given owners to him.
    * This method also checks if some of given userExtSources do exist. If so, this method throws a UserExtSourceExistsException. This method can also set only user-def and user-opt attributes for the given candidate.
    * @param InputCreateServiceUser
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1249,6 +1259,7 @@ export class UsersManagerService {
    * @param user id of User
    * @param loginNamespace
    * @param passwordId
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1388,6 +1399,7 @@ export class UsersManagerService {
    * Delete password for a user in specified login-namespace.
    * @param login login
    * @param namespace namespace
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1511,6 +1523,7 @@ export class UsersManagerService {
    * Delete password for a user in specified login-namespace.
    * @param user id of User
    * @param namespace namespace
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1634,6 +1647,7 @@ export class UsersManagerService {
    * Deletes a user.
    * @param user id of User
    * @param force If true, delete entity forcefully.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1745,6 +1759,7 @@ export class UsersManagerService {
   /**
    * Returns list of RichUsers with attributes who matches the searchString, searching name, email, logins.
    * @param searchString Text to search by
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1856,6 +1871,7 @@ export class UsersManagerService {
    * Returns list of RichUsers with attributes who matches the searchString.
    * @param searchString Text to search by
    * @param attrsNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1979,6 +1995,7 @@ export class UsersManagerService {
   /**
    * Returns list of Users with attributes who matches the searchString, searching name, email, logins.
    * @param searchString Text to search by
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2090,6 +2107,7 @@ export class UsersManagerService {
    * Generates user account in a backend system associated with login-namespace in Perun. Parameters are implementation-dependent for each login-namespace. Returns map with 1) key&#x3D;login-namespace attribute urn, value&#x3D;generated login 2) rest of opt response attributes.
    * @param namespace namespace
    * @param name
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2208,6 +2226,7 @@ export class UsersManagerService {
    * Returns users with attributes
    * Returns list of objects representing the User with attributes
    * @param includedSpecificUsers if you want to or don\&#39;t want to get specificUsers too
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2318,6 +2337,7 @@ export class UsersManagerService {
   /**
    * Get all rich resources which have the user assigned.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2426,6 +2446,7 @@ export class UsersManagerService {
    * That means User is a VALID in the VO and the Group and groups are assigned to the facility.
    * @param user id of User
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2550,6 +2571,7 @@ export class UsersManagerService {
    * That means User is a VALID in the VO and the Group and groups are assigned to the resource.
    * @param user id of User
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2673,6 +2695,7 @@ export class UsersManagerService {
    * Returns list of Groups in selected Vo, where the User is a direct Administrator or he is a VALID member of any group which is Administrator of some of these Groups.
    * @param user id of User
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2791,6 +2814,7 @@ export class UsersManagerService {
   /**
    * Returns list of Groups in Perun, where the User is a direct Administrator or he is a VALID member of any group which is Administrator of some of these Groups.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2897,6 +2921,7 @@ export class UsersManagerService {
   /**
    * Return list of email addresses of user, which are awaiting validation and are inside time window for validation. If there is no preferred email change request pending or requests are outside time window for validation, returns empty list.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3003,6 +3028,7 @@ export class UsersManagerService {
   /**
    * Gets list of all user\&#39;s external sources with attributes.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3110,6 +3136,7 @@ export class UsersManagerService {
    * Returns user with attributes
    * Returns object representing the User with attributes
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3216,6 +3243,7 @@ export class UsersManagerService {
   /**
    * Returns rich users without attributes by their IDs.
    * @param ids list of ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3328,6 +3356,7 @@ export class UsersManagerService {
   /**
    * Returns rich users with attributes by their IDs.
    * @param ids list of ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3440,6 +3469,7 @@ export class UsersManagerService {
   /**
    * Returns list of RichUsers which are not members of any VO with attributes.
    * @param attrsNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3546,6 +3576,7 @@ export class UsersManagerService {
   /**
    * Get all specific users who are owned by the user.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3653,6 +3684,7 @@ export class UsersManagerService {
    * Gets sponsors for given member with optional attribute names.
    * @param member id of Member
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3779,6 +3811,7 @@ export class UsersManagerService {
    * @param extSourceName external source name, e.g. IdP entityId
    * @param extLogin external login of user, e.g. john
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3932,6 +3965,7 @@ export class UsersManagerService {
    * Returns User found by its authentication data
    * @param extLogin external login of user, e.g. john
    * @param extSourceName external source name, e.g. IdP entityId
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4059,6 +4093,7 @@ export class UsersManagerService {
    * Returns user by its id
    * Returns object representing the User
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4164,6 +4199,7 @@ export class UsersManagerService {
    * Returns user\&#39;s external source by the user\&#39;s external login and external source name.
    * @param extSourceName external source name, e.g. IdP entityId
    * @param extSourceLogin external source login
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4290,6 +4326,7 @@ export class UsersManagerService {
   /**
    * Returns user ext source by its id.
    * @param userExtSource id of UserExtSource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4401,6 +4438,7 @@ export class UsersManagerService {
    * Return userExtSource for specific attribute definition (specified by id) and unique value.
    * @param attributeId id of AttributeDefinition
    * @param attributeValue string value of Attribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4528,6 +4566,7 @@ export class UsersManagerService {
    * Return userExtSource for specific attribute definition (specified by name) and unique value.
    * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
    * @param attributeValue string value of Attribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4654,6 +4693,7 @@ export class UsersManagerService {
   /**
    * Gets list of all user\&#39;s external sources.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4760,6 +4800,7 @@ export class UsersManagerService {
   /**
    * Returns list of user ext sources by their ids.
    * @param ids list of ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4872,6 +4913,7 @@ export class UsersManagerService {
   /**
    * Returns all users
    * Returns list of objects representing the User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4962,6 +5004,7 @@ export class UsersManagerService {
   /**
    * Returns list of Users by their ids.
    * @param ids list of ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5072,6 +5115,7 @@ export class UsersManagerService {
   /**
    * Return all users who owns the specific user.
    * @param specificUser id of specific User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5182,6 +5226,7 @@ export class UsersManagerService {
   /**
    * Get page of users with the given attributes.
    * @param InputGetPaginatedUsers
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5290,6 +5335,7 @@ export class UsersManagerService {
   /**
    * Returns list of VOs, where the user is an Administrator. If a group, of which the user is a valid member, is an administrator of a VO, include that VO as well.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5396,6 +5442,7 @@ export class UsersManagerService {
   /**
    * Returns list of VOs, where the user is a Member.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5503,6 +5550,7 @@ export class UsersManagerService {
    * Checks if the login is available in the namespace. Return 1 if yes, 0 if no.
    * @param loginNamespace
    * @param login login
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5626,6 +5674,7 @@ export class UsersManagerService {
    * Check wheter login exists in specified login-namespace. Only available for some namespaces.
    * @param user id of User
    * @param namespace namespace
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5747,6 +5796,7 @@ export class UsersManagerService {
    * Remove specific user owner.
    * @param user id of User
    * @param specificUser id of specific User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5871,6 +5921,7 @@ export class UsersManagerService {
    * @param user id of User
    * @param userExtSource id of UserExtSource
    * @param force If true, delete entity forcefully.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6002,6 +6053,7 @@ export class UsersManagerService {
    * @param user id of User
    * @param userExtSources list of userExtSource ids
    * @param force If true, delete entity forcefully.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6138,6 +6190,7 @@ export class UsersManagerService {
    * @param linkPath path that is appended to the referer and creates the verification link (optional)
    * @param customUrl url to verification link containing path (optional)
    * @param idpFilter authentication method appended to query parameters of verification link (optional)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6296,6 +6349,7 @@ export class UsersManagerService {
   /**
    * Reserves password for a user in specified login-namespace.
    * @param InputReservePasswordForLogin
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6404,6 +6458,7 @@ export class UsersManagerService {
   /**
    * Reserves password for a user in specified login-namespace.
    * @param InputReservePasswordForUser
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6513,6 +6568,7 @@ export class UsersManagerService {
    * Reserves a random password in external authz system. User shouldn\&#39;t be able to log-in (account disabled, password unknown to him). This is usefull when manager create account for others and later send them password reset request.
    * @param user id of User
    * @param namespace namespace
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6637,6 +6693,7 @@ export class UsersManagerService {
    * @param user id of User
    * @param login login
    * @param namespace namespace
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6765,6 +6822,7 @@ export class UsersManagerService {
   /**
    * Updates user
    * @param InputUpdateUser
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6873,6 +6931,7 @@ export class UsersManagerService {
   /**
    * Updates user\&#39;s userExtSource last access time in DB. We can get information which userExtSource has been used as a last one.
    * @param userExtSource id of UserExtSource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6984,6 +7043,7 @@ export class UsersManagerService {
    * Validate password for a user in specified login-namespace.
    * @param login login
    * @param namespace namespace
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7107,6 +7167,7 @@ export class UsersManagerService {
    * Validate password for a user in specified login-namespace.
    * @param user id of User
    * @param namespace namespace
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7230,6 +7291,7 @@ export class UsersManagerService {
    * Validate new preferred email address. Request to validate is determined based on token parameter sent in email notice by requestPreferredEmailChange() method.
    * @param token token for the email change request
    * @param u id of user you want to validate preferred email request
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

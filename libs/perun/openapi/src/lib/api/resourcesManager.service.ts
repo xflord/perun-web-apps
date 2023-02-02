@@ -93,7 +93,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class ResourcesManagerService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -163,6 +163,7 @@ export class ResourcesManagerService {
    * @param group id of Group
    * @param resource id of Resource
    * @param async asynchronous flag, if set to true, some operation will be performed asynchronously
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -293,6 +294,7 @@ export class ResourcesManagerService {
    * Adds a group administrator to the Resource.
    * @param resource id of Resource
    * @param authorizedGroup Group id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -420,6 +422,7 @@ export class ResourcesManagerService {
    * Adds a Resource admin.
    * @param resource id of Resource
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -541,6 +544,7 @@ export class ResourcesManagerService {
    * Sets ResourceSelfService role to given group for given resource.
    * @param resource id of Resource
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -664,6 +668,7 @@ export class ResourcesManagerService {
    * Sets ResourceSelfService role to given user for given resource.
    * @param resource id of Resource
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -788,6 +793,7 @@ export class ResourcesManagerService {
    * @param groups list of Group ids List&lt;Integer&gt;
    * @param resources list of Resource ids List&lt;Integer&gt;
    * @param async asynchronous flag, if set to true, some operation will be performed asynchronously
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -929,6 +935,7 @@ export class ResourcesManagerService {
    * @param async asynchronous flag, if set to true, some operation will be performed asynchronously
    * @param assignInactive flag, if set to true, group-resource assignment will have status INACTIVE
    * @param autoAssignSubgroups flag, if set to true, subgroups are assigned to resource as well
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1084,6 +1091,7 @@ export class ResourcesManagerService {
    * @param async asynchronous flag, if set to true, some operation will be performed asynchronously
    * @param assignInactive flag, if set to true, group-resource assignment will have status INACTIVE
    * @param autoAssignSubgroups flag, if set to true, subgroups are assigned to resource as well
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1241,6 +1249,7 @@ export class ResourcesManagerService {
    * @param async asynchronous flag, if set to true, some operation will be performed asynchronously
    * @param assignInactive flag, if set to true, group-resource assignment will have status INACTIVE
    * @param autoAssignSubgroups flag, if set to true, subgroups are assigned to resource as well
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1398,6 +1407,7 @@ export class ResourcesManagerService {
   /**
    * Assigns ResourceTag to resource. The ResourceTag must contain its id, voId and tagName.
    * @param InputAssignResourceTagToResource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1509,6 +1519,7 @@ export class ResourcesManagerService {
   /**
    * Assigns ResourceTags to resource. The ResourceTags must contain its id, voId and tagName.
    * @param InputAssignResourceTagsToResource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1621,6 +1632,7 @@ export class ResourcesManagerService {
    * Assigns service to resource.
    * @param resource id of Resource
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1748,6 +1760,7 @@ export class ResourcesManagerService {
    * Assigns services to resource.
    * @param resource id of Resource
    * @param services list of Service ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1877,6 +1890,7 @@ export class ResourcesManagerService {
    * Assign all services from a services package to a resource.
    * @param resource id of Resource
    * @param servicesPackage id of ServicesPackage
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2003,6 +2017,7 @@ export class ResourcesManagerService {
   /**
    * Copy \&quot;template\&quot; settings from user\&#39;s another existing resource and create new resource with this template. The settings are attributes, services, tags (if exists), groups and their members (if the resources are from the same VO and withGroups is true) Template Resource can be from any of user\&#39;s facilities.
    * @param InputCopyResource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2114,6 +2129,7 @@ export class ResourcesManagerService {
    * @param facility id of Facility
    * @param name name of entity
    * @param description optional resource description
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2255,6 +2271,7 @@ export class ResourcesManagerService {
   /**
    * Create new resource tag in VO
    * @param InputCreateResourceTagWithResourceTag
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2367,6 +2384,7 @@ export class ResourcesManagerService {
    * Create new resource tag defined by tag name in VO
    * @param tagName tagName
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2490,6 +2508,7 @@ export class ResourcesManagerService {
    * Deactivates the group-resource assignment. The assignment will become INACTIVE and will not be used to allow users from the given group to the resource.
    * @param group id of Group
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2612,6 +2631,7 @@ export class ResourcesManagerService {
   /**
    * Deletes all VO resources
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2718,6 +2738,7 @@ export class ResourcesManagerService {
   /**
    * Delete all resources tags of VO
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2824,6 +2845,7 @@ export class ResourcesManagerService {
   /**
    * Deletes a resource.
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2934,6 +2956,7 @@ export class ResourcesManagerService {
   /**
    * Delete resource tag by it\&#39;s id and VO_ID
    * @param InputDeleteResourceTag
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3042,6 +3065,7 @@ export class ResourcesManagerService {
   /**
    * Get all Resource group admins.
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3154,6 +3178,7 @@ export class ResourcesManagerService {
    * If onlyDirectAdmins is &#x3D;&#x3D; true, return only direct admins of the group for supported role. Otherwise include users who are VALID members of administrator groups. Supported roles are ResourceAdmin, VOAdmin.
    * @param resource id of Resource
    * @param onlyDirectAdmins boolean if true, get only direct resource administrators (if false, get both direct and indirect)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3277,6 +3302,7 @@ export class ResourcesManagerService {
 
   /**
    * Returns all resources.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3367,6 +3393,7 @@ export class ResourcesManagerService {
   /**
    * Get all resources with the specific tag assigned.
    * @param InputGetAllResourcesByResourceTag
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3478,6 +3505,7 @@ export class ResourcesManagerService {
   /**
    * Gets all resource tags of Resource.
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3588,6 +3616,7 @@ export class ResourcesManagerService {
   /**
    * Gets all resource tags of VO.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3694,6 +3723,7 @@ export class ResourcesManagerService {
   /**
    * Returns list of Resources, where the user is an Administrator.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3800,6 +3830,7 @@ export class ResourcesManagerService {
   /**
    * Returns all members assigned to the resource.
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3910,6 +3941,7 @@ export class ResourcesManagerService {
   /**
    * Get all resources which have the member access on.
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4020,6 +4052,7 @@ export class ResourcesManagerService {
   /**
    * Returns all users assigned to the resource.
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4131,6 +4164,7 @@ export class ResourcesManagerService {
    * List all groups associated with the resource and optionally a member.
    * @param resource id of Resource
    * @param member optional member id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4252,6 +4286,7 @@ export class ResourcesManagerService {
   /**
    * Returns all members assigned to the resource.
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4362,6 +4397,7 @@ export class ResourcesManagerService {
   /**
    * Returns members of groups assigned to resource with status of group-resource assignment.
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4472,6 +4508,7 @@ export class ResourcesManagerService {
   /**
    * List all resources to which the group is assigned.
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4578,6 +4615,7 @@ export class ResourcesManagerService {
   /**
    * List all resources associated with a member\&#39;s group.
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4688,6 +4726,7 @@ export class ResourcesManagerService {
   /**
    * Returns all assigned resources with statuses where member is assigned through the groups.
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4798,6 +4837,7 @@ export class ResourcesManagerService {
   /**
    * Returns all members assigned to the resource as RichMembers.
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4908,6 +4948,7 @@ export class ResourcesManagerService {
   /**
    * List all rich resources associated with a group.
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5014,6 +5055,7 @@ export class ResourcesManagerService {
   /**
    * List all rich resources associated with a member\&#39;s group.
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5125,6 +5167,7 @@ export class ResourcesManagerService {
    * Get all rich resources where the service and the member are assigned with facility property filled.
    * @param member id of Member
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5251,6 +5294,7 @@ export class ResourcesManagerService {
   /**
    * List all services associated with the resource.
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5361,6 +5405,7 @@ export class ResourcesManagerService {
   /**
    * Get all bans for member on any resource.
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5471,6 +5516,7 @@ export class ResourcesManagerService {
   /**
    * Get all bans for members on the resource.
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5582,6 +5628,7 @@ export class ResourcesManagerService {
    * Get all enriched bans for members on the resource.
    * @param resource id of Resource
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5706,6 +5753,7 @@ export class ResourcesManagerService {
    * Get all enriched bans for user\&#39;s members on resources.
    * @param user id of User
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5826,6 +5874,7 @@ export class ResourcesManagerService {
    * Find resource for given id and returns it with given attributes. If attrNames are null or empty, all resource attributes are returned.
    * @param id numeric id
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5946,6 +5995,7 @@ export class ResourcesManagerService {
    * Find resources for given facility and attributes for given names. If the attrNames are empty or null, return all attributes.
    * @param facility id of Facility
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6070,6 +6120,7 @@ export class ResourcesManagerService {
    * Find resources for given vo and attributes for given names. If the attrNames are empty or null, return all attributes.
    * @param vo id of Vo
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6189,6 +6240,7 @@ export class ResourcesManagerService {
   /**
    * Get facility which belongs to a specific resource.
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6300,6 +6352,7 @@ export class ResourcesManagerService {
    * Lists all of the assigned groups for the given resource. Also, returns specified attributes for the groups.
    * @param resource id of Resource
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6423,6 +6476,7 @@ export class ResourcesManagerService {
   /**
    * Return all rich resources with mailing service(s) where given member is assigned.
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6534,6 +6588,7 @@ export class ResourcesManagerService {
    * Lists all of the resource assignments for the given group. Also, returns specified attributes for the resources and resource tags.
    * @param group id of Group
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6654,6 +6709,7 @@ export class ResourcesManagerService {
    * Get ban by memberId and resource id.
    * @param member id of Member
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6780,6 +6836,7 @@ export class ResourcesManagerService {
   /**
    * Get Ban for member on resource by it\&#39;s id.
    * @param banId BanOnResource id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6886,6 +6943,7 @@ export class ResourcesManagerService {
   /**
    * Returns a resource by id.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6992,6 +7050,7 @@ export class ResourcesManagerService {
    * @param vo id of Vo
    * @param facility id of Facility
    * @param name name of entity
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7126,6 +7185,7 @@ export class ResourcesManagerService {
   /**
    * Get all VO resources.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7230,6 +7290,7 @@ export class ResourcesManagerService {
   /**
    * Returns list of Resources by their ids.
    * @param ids list of ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7341,6 +7402,7 @@ export class ResourcesManagerService {
 
   /**
    * Gets count of all users.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7431,6 +7493,7 @@ export class ResourcesManagerService {
   /**
    * Returns number of VO resources
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7538,6 +7601,7 @@ export class ResourcesManagerService {
    * Returns list of Resources for specified VO, where the user is an Administrator.
    * @param vo id of Vo
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7658,6 +7722,7 @@ export class ResourcesManagerService {
    * @param facility id of Facility
    * @param vo id of Vo
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7794,6 +7859,7 @@ export class ResourcesManagerService {
    * @param facility id of Facility
    * @param vo id of Vo
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7931,6 +7997,7 @@ export class ResourcesManagerService {
    * @param specificAttributes list of specified attributes which are needed in object richUser
    * @param allUserAttributes if &#x3D;&#x3D; true, get all possible user attributes and ignore list of specificAttributes (if false, get only specific attributes)
    * @param onlyDirectAdmins if &#x3D;&#x3D; true, get only direct resource administrators (if false, get both direct and indirect)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8091,6 +8158,7 @@ export class ResourcesManagerService {
   /**
    * Returns RichResource by id (also containing facility and VO inside).
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8197,6 +8265,7 @@ export class ResourcesManagerService {
   /**
    * Get all VO rich resources.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8301,6 +8370,7 @@ export class ResourcesManagerService {
   /**
    * Returns list of RichResources by their ids.
    * @param ids list of ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8413,6 +8483,7 @@ export class ResourcesManagerService {
   /**
    * Returns Vo which is tied to a specific resource.
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8521,6 +8592,7 @@ export class ResourcesManagerService {
   /**
    * Removes all resources tags from a resource.
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8632,6 +8704,7 @@ export class ResourcesManagerService {
    * Remove specific ban by memberId and resourceId.
    * @param member id of Member
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8759,6 +8832,7 @@ export class ResourcesManagerService {
    * Removes a group administrator of the Resource.
    * @param resource id of Resource
    * @param authorizedGroup Group id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8886,6 +8960,7 @@ export class ResourcesManagerService {
    * Remove a group from a resource. After removing, check attributes and fix them if it is needed.
    * @param group id of Group
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9009,6 +9084,7 @@ export class ResourcesManagerService {
    * Remove a group from resource. After removing, check attributes and fix them if it is needed.
    * @param group id of Group
    * @param resources list of Resource ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9134,6 +9210,7 @@ export class ResourcesManagerService {
    * Remove groups from a resource. After removing, check attributes and fix them if it is needed.
    * @param groups list of Group ids List&lt;Integer&gt;
    * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9262,6 +9339,7 @@ export class ResourcesManagerService {
   /**
    * Remove specific ban by it\&#39;s id.
    * @param banId BanOnResource id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9369,6 +9447,7 @@ export class ResourcesManagerService {
    * Unset ResourceSelfService role to given group for given resource.
    * @param resource id of Resource
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9492,6 +9571,7 @@ export class ResourcesManagerService {
    * Unset ResourceSelfService role to given user for given resource.
    * @param resource id of Resource
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9614,6 +9694,7 @@ export class ResourcesManagerService {
   /**
    * Removes ResourceTag from a resource. The ResourceTag must contain its id, voId and tagName.
    * @param InputRemoveResourceTagFromResource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9725,6 +9806,7 @@ export class ResourcesManagerService {
   /**
    * Removes ResourceTags from a resource. The ResourceTags must contain its id, voId and tagName.
    * @param InputRemoveResourceTagsFromResource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9837,6 +9919,7 @@ export class ResourcesManagerService {
    * Removes a service from a resource.
    * @param resource id of Resource
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9964,6 +10047,7 @@ export class ResourcesManagerService {
    * Remove service from multiple resources in the same facility.
    * @param resources list of Resource ids List&lt;Integer&gt;
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10093,6 +10177,7 @@ export class ResourcesManagerService {
    * Removes services from a resource.
    * @param resource id of Resource
    * @param services list of Service ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10222,6 +10307,7 @@ export class ResourcesManagerService {
    * Remove from resource all services from services package.
    * @param resource id of Resource
    * @param servicesPackage id of ServicesPackage
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10349,6 +10435,7 @@ export class ResourcesManagerService {
    * Removes a Resource admin.
    * @param resource id of Resource
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10471,6 +10558,7 @@ export class ResourcesManagerService {
   /**
    * Set ban for member on resource.
    * @param InputSetBan
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10580,6 +10668,7 @@ export class ResourcesManagerService {
    * Unassigns given groups from the given resources.
    * @param groups list of Group ids List&lt;Integer&gt;
    * @param resources list of Resource ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10710,6 +10799,7 @@ export class ResourcesManagerService {
   /**
    * Updates a resource.
    * @param InputUpdateResource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10818,6 +10908,7 @@ export class ResourcesManagerService {
   /**
    * Update existing ban (description, validation timestamp)
    * @param InputUpdateBan
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10926,6 +11017,7 @@ export class ResourcesManagerService {
   /**
    * Update resource tag name by it\&#39;s id and VO_ID
    * @param InputUpdateResourceTag
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

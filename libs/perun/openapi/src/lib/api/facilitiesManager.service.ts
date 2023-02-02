@@ -73,7 +73,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class FacilitiesManagerService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -142,6 +142,7 @@ export class FacilitiesManagerService {
    * Adds a group as a Facility admin.
    * @param facility id of Facility
    * @param authorizedGroup Group id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -269,6 +270,7 @@ export class FacilitiesManagerService {
    * Adds a group as a Facility admin.
    * @param facility name of Facility
    * @param authorizedGroup Group id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -396,6 +398,7 @@ export class FacilitiesManagerService {
    * Adds a user as a Facility admin.
    * @param facility id of Facility
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -519,6 +522,7 @@ export class FacilitiesManagerService {
    * Adds a user as a Facility admin.
    * @param facility name of Facility
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -642,6 +646,7 @@ export class FacilitiesManagerService {
    * Adds owner of a facility.
    * @param facility id of Facility
    * @param owner id of Owner
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -765,6 +770,7 @@ export class FacilitiesManagerService {
    * Adds owner of a facility.
    * @param facility name of Facility
    * @param owner id of Owner
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -888,6 +894,7 @@ export class FacilitiesManagerService {
    * Adds owner of a facility.
    * @param facility name of Facility
    * @param owner name of Owner
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1011,6 +1018,7 @@ export class FacilitiesManagerService {
    * Adds owner of a facility.
    * @param facility id of Facility
    * @param owner name of Owner
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1134,6 +1142,7 @@ export class FacilitiesManagerService {
    * Adds owners of a facility.
    * @param facility id of Facility
    * @param owners list of owner ids
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1263,6 +1272,7 @@ export class FacilitiesManagerService {
    * Adds owners of a facility.
    * @param facility name of Facility
    * @param owners list of owner ids
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1392,6 +1402,7 @@ export class FacilitiesManagerService {
    * Adds owners of a facility.
    * @param facility name of Facility
    * @param ownerNames list of owner names
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1521,6 +1532,7 @@ export class FacilitiesManagerService {
    * Adds owners of a facility.
    * @param facility id of Facility
    * @param ownerNames list of owner names
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1651,6 +1663,7 @@ export class FacilitiesManagerService {
    * InvalidHostnameException is thrown when host has invalid hostname.
    * @param facility id of Facility
    * @param hostname DNS name of host
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1775,6 +1788,7 @@ export class FacilitiesManagerService {
    * InvalidHostnameException is thrown when host has invalid hostname.
    * @param facility name of Facility
    * @param hostname DNS name of host
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1903,6 +1917,7 @@ export class FacilitiesManagerService {
    * InvalidHostnameException is thrown when any host has invalid hostname.
    * @param facility id of Facility
    * @param hostnames list of host names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2029,6 +2044,7 @@ export class FacilitiesManagerService {
    * InvalidHostnameException is thrown when any host has invalid hostname.
    * @param facility name of Facility
    * @param hostnames list of host names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2158,6 +2174,7 @@ export class FacilitiesManagerService {
    * Assign given security team to given facility (means the facility trusts the security team)
    * @param facility id of Facility
    * @param securityTeam SecurityTeam id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2285,6 +2302,7 @@ export class FacilitiesManagerService {
    * Assign given security team to given facility (means the facility trusts the security team)
    * @param facility name of Facility
    * @param securityTeam SecurityTeam id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2412,6 +2430,7 @@ export class FacilitiesManagerService {
    * Copy attributes (settings) from source facility to destination facility. You must be facility manager of both.
    * @param srcFacility source facility id
    * @param destFacility destination facility id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2539,6 +2558,7 @@ export class FacilitiesManagerService {
    * Copy attributes (settings) from source facility to destination facility. You must be facility manager of both.
    * @param srcFacility source facility id
    * @param destFacilityName destination facility name
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2666,6 +2686,7 @@ export class FacilitiesManagerService {
    * Copy attributes (settings) from source facility to destination facility. You must be facility manager of both.
    * @param srcFacilityName source facility name
    * @param destFacilityName destination facility name
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2793,6 +2814,7 @@ export class FacilitiesManagerService {
    * Copy attributes (settings) from source facility to destination facility. You must be facility manager of both.
    * @param srcFacilityName source facility name
    * @param destFacility destination facility id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2920,6 +2942,7 @@ export class FacilitiesManagerService {
    * Copy managers from source facility to destination facility. You must be facility manager of both.
    * @param srcFacility source facility id
    * @param destFacility destination facility id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3047,6 +3070,7 @@ export class FacilitiesManagerService {
    * Copy managers from source facility to destination facility. You must be facility manager of both.
    * @param srcFacility source facility id
    * @param destFacilityName destination facility name
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3174,6 +3198,7 @@ export class FacilitiesManagerService {
    * Copy managers from source facility to destination facility. You must be facility manager of both.
    * @param srcFacilityName source facility name
    * @param destFacilityName destination facility name
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3301,6 +3326,7 @@ export class FacilitiesManagerService {
    * Copy managers from source facility to destination facility. You must be facility manager of both.
    * @param srcFacilityName source facility name
    * @param destFacility destination facility id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3428,6 +3454,7 @@ export class FacilitiesManagerService {
    * Copy owners from source facility to destination facility. You must be facility manager of both.
    * @param srcFacility source facility id
    * @param destFacility destination facility id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3555,6 +3582,7 @@ export class FacilitiesManagerService {
    * Copy owners from source facility to destination facility. You must be facility manager of both.
    * @param srcFacility source facility id
    * @param destFacilityName destination facility name
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3682,6 +3710,7 @@ export class FacilitiesManagerService {
    * Copy owners from source facility to destination facility. You must be facility manager of both.
    * @param srcFacilityName source facility name
    * @param destFacilityName destination facility name
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3809,6 +3838,7 @@ export class FacilitiesManagerService {
    * Copy owners from source facility to destination facility. You must be facility manager of both.
    * @param srcFacilityName source facility name
    * @param destFacility destination facility id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3936,6 +3966,7 @@ export class FacilitiesManagerService {
    * Creates a facility. Caller is automatically set as facility manager.
    * @param name name of entity
    * @param description optional description of a facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4052,6 +4083,7 @@ export class FacilitiesManagerService {
    * Deletes a facility.
    * @param facility id of Facility
    * @param force If true, delete entity forcefully.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4169,6 +4201,7 @@ export class FacilitiesManagerService {
   /**
    * Deletes a facility.
    * @param facility name of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4278,6 +4311,7 @@ export class FacilitiesManagerService {
 
   /**
    * Get all facilities.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4370,6 +4404,7 @@ export class FacilitiesManagerService {
    * @param facility id of Facility
    * @param vo id of Vo
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4500,6 +4535,7 @@ export class FacilitiesManagerService {
    * @param facility name of Facility
    * @param vo id of Vo
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4631,6 +4667,7 @@ export class FacilitiesManagerService {
    * @param attrNames list of attribute names List&lt;String&gt;
    * @param vo id of Vo
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4780,6 +4817,7 @@ export class FacilitiesManagerService {
    * @param attrNames list of attribute names List&lt;String&gt;
    * @param vo id of Vo
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4928,6 +4966,7 @@ export class FacilitiesManagerService {
    * @param facility id of Facility
    * @param vo VO id, if provided, filter out users who aren\&#39;t in specific VO
    * @param service Service id, if provided, filter out users who aren\&#39;t allowed to use the service on the facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5058,6 +5097,7 @@ export class FacilitiesManagerService {
    * @param facility name of Facility
    * @param vo VO id, if provided, filter out users who aren\&#39;t in specific VO
    * @param service Service id, if provided, filter out users who aren\&#39;t allowed to use the service on the facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5186,6 +5226,7 @@ export class FacilitiesManagerService {
   /**
    * Return all VO which can use a facility. (VO must have the resource which belongs to this facility.)
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5296,6 +5337,7 @@ export class FacilitiesManagerService {
   /**
    * Return all VO which can use a facility. (VO must have the resource which belongs to this facility.)
    * @param facility name of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5406,6 +5448,7 @@ export class FacilitiesManagerService {
   /**
    * Get facilities which are assigned to a Group (via resource).
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5512,6 +5555,7 @@ export class FacilitiesManagerService {
   /**
    * Get facilities which have the member access on.
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5622,6 +5666,7 @@ export class FacilitiesManagerService {
   /**
    * Get facilities where the service is defined..
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5732,6 +5777,7 @@ export class FacilitiesManagerService {
   /**
    * et facilities which have the user access on.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5839,6 +5885,7 @@ export class FacilitiesManagerService {
    * Returns resources with specific service assigned to the facility.
    * @param facility id of Facility
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5965,6 +6012,7 @@ export class FacilitiesManagerService {
   /**
    * Returns all resources assigned to a facility.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6075,6 +6123,7 @@ export class FacilitiesManagerService {
   /**
    * Returns all resources assigned to a facility.
    * @param facility name of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6185,6 +6234,7 @@ export class FacilitiesManagerService {
   /**
    * Returns all rich resources assigned to a facility with VO property filled.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6296,6 +6346,7 @@ export class FacilitiesManagerService {
    * Returns all rich resources assigned to a facility and service with VO property filled.
    * @param facility id of Facility
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6422,6 +6473,7 @@ export class FacilitiesManagerService {
   /**
    * Returns all rich resources assigned to a facility with VO property filled.
    * @param facility name of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6532,6 +6584,7 @@ export class FacilitiesManagerService {
   /**
    * Return assigned security teams for specific facility
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6642,6 +6695,7 @@ export class FacilitiesManagerService {
   /**
    * Return assigned security teams for specific facility
    * @param facility name of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6753,6 +6807,7 @@ export class FacilitiesManagerService {
    * Lists all users assigned to facility containing resources where service is assigned.
    * @param facility id of Facility
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6875,6 +6930,7 @@ export class FacilitiesManagerService {
    * Lists all users assigned to facility containing resources where service is assigned.
    * @param facility name of Facility
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6996,6 +7052,7 @@ export class FacilitiesManagerService {
   /**
    * Get all bans for user on the facility.
    * @param facilityId id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7106,6 +7163,7 @@ export class FacilitiesManagerService {
   /**
    * Get all bans for user on any facility.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7211,6 +7269,7 @@ export class FacilitiesManagerService {
    * Get all user\&#39;s enriched bans on assigned facilities.
    * @param user id of User
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7331,6 +7390,7 @@ export class FacilitiesManagerService {
    * Get all enriched bans on the facility.
    * @param facility id of Facility
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7453,6 +7513,7 @@ export class FacilitiesManagerService {
 
   /**
    * Gets all enriched facilities user has access rights to.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7544,6 +7605,7 @@ export class FacilitiesManagerService {
    * Return all enriched hosts of given facility. That is host with all its attributes.
    * @param facility id of Facility
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7674,6 +7736,7 @@ export class FacilitiesManagerService {
    * Searching only def and opt attributes. Large attributes are not supported.
    * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
    * @param attributeValue string value of Attribute
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7802,6 +7865,7 @@ export class FacilitiesManagerService {
    * @param attributeName full name of attribute definition (namespace + \&#39;:\&#39; + friendlyName)
    * @param attributeValue string value of Attribute
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7946,6 +8010,7 @@ export class FacilitiesManagerService {
   /**
    * Searches for the Facilities by theirs destination.
    * @param destination string name of destination
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8056,6 +8121,7 @@ export class FacilitiesManagerService {
   /**
    * Return all facilities where exists host with the specific hostname
    * @param hostname specific hostname
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8166,6 +8232,7 @@ export class FacilitiesManagerService {
   /**
    * Returns list of Facilities by their ids.
    * @param ids list of ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8277,6 +8344,7 @@ export class FacilitiesManagerService {
 
   /**
    * Gets count of all facilities.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8367,6 +8435,7 @@ export class FacilitiesManagerService {
   /**
    * Returns list of Facilities, where the user is a direct Administrator or a VALID member of an administrator group.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8473,6 +8542,7 @@ export class FacilitiesManagerService {
   /**
    * Get all Facility group admins.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8581,9 +8651,121 @@ export class FacilitiesManagerService {
   }
 
   /**
+   * Get all Facility group admins.
+   * @param facility name of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getFacilityAdminGroupsByFacilityName(
+    facility: string,
+    useNon?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<Array<Group>>;
+  public getFacilityAdminGroupsByFacilityName(
+    facility: string,
+    useNon?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<Array<Group>>>;
+  public getFacilityAdminGroupsByFacilityName(
+    facility: string,
+    useNon?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<Array<Group>>>;
+  public getFacilityAdminGroupsByFacilityName(
+    facility: string,
+    useNon: boolean = false,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (facility === null || facility === undefined) {
+      throw new Error(
+        'Required parameter facility was null or undefined when calling getFacilityAdminGroupsByFacilityName.'
+      );
+    }
+
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
+    if (facility !== undefined && facility !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>facility,
+        'facility'
+      );
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let requestUrl = `${this.configuration.basePath}/json/facilitiesManager/getAdminGroups/f-name`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+    }
+    return this.httpClient.get<Array<Group>>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
+  }
+
+  /**
    * Get list of all facility administrators for supported role and given facility. If onlyDirectAdmins is true, return only direct admins of the group for supported role. Includes users who are VALID members of administrator groups. Supported roles: FacilityAdmin
    * @param facility id of Facility
    * @param onlyDirectAdmins if true, get only direct facility administrators (if false, get both direct and indirect)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8711,6 +8893,7 @@ export class FacilitiesManagerService {
    * Get list of all facility administrators for supported role and given facility. If onlyDirectAdmins is true, return only direct admins of the group for supported role. Includes users who are VALID members of administrator groups. Supported roles: FacilityAdmin
    * @param facility name of Facility
    * @param onlyDirectAdmins if true, get only direct facility administrators (if false, get both direct and indirect)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8838,6 +9021,7 @@ export class FacilitiesManagerService {
    * Get ban by userId and facilityId.
    * @param user id of User
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8958,6 +9142,7 @@ export class FacilitiesManagerService {
   /**
    * Get Ban for user on facility by it\&#39;s id.
    * @param banId BanOnFacility id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9064,6 +9249,7 @@ export class FacilitiesManagerService {
   /**
    * Returns Facility with specified id.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9168,6 +9354,7 @@ export class FacilitiesManagerService {
   /**
    * Returns Facility with specified name.
    * @param name name of entity
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9274,6 +9461,7 @@ export class FacilitiesManagerService {
   /**
    * Return facility which has the host.
    * @param host id of Host
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9380,6 +9568,7 @@ export class FacilitiesManagerService {
   /**
    * Returns owners of a facility.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9490,6 +9679,7 @@ export class FacilitiesManagerService {
   /**
    * Returns owners of a facility.
    * @param facility name of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9600,6 +9790,7 @@ export class FacilitiesManagerService {
   /**
    * Returns a host by its id.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9704,6 +9895,7 @@ export class FacilitiesManagerService {
   /**
    * Returns Hosts of a Facility.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9812,6 +10004,7 @@ export class FacilitiesManagerService {
   /**
    * Returns Hosts of a Facility.
    * @param facility name of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -9922,6 +10115,7 @@ export class FacilitiesManagerService {
   /**
    * Returns hosts by hostname. (from all facilities)
    * @param hostname name of a host
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10032,6 +10226,7 @@ export class FacilitiesManagerService {
   /**
    * Count hosts of Facility.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10142,6 +10337,7 @@ export class FacilitiesManagerService {
   /**
    * Count hosts of Facility.
    * @param facility name of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10252,6 +10448,7 @@ export class FacilitiesManagerService {
   /**
    * Returns list of all facilities owned by the owner.
    * @param owner id of Owner
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10357,6 +10554,7 @@ export class FacilitiesManagerService {
 
   /**
    * Gets all possible rich facilities with all their owners.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10448,6 +10646,7 @@ export class FacilitiesManagerService {
    * Remove specific ban by userId and facilityId.
    * @param user id of User
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10571,6 +10770,7 @@ export class FacilitiesManagerService {
    * Removes a group as a Facility admin.
    * @param facility id of Facility
    * @param authorizedGroup Group id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10698,6 +10898,7 @@ export class FacilitiesManagerService {
    * Removes a group as a Facility admin.
    * @param facility name of Facility
    * @param authorizedGroup Group id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10825,6 +11026,7 @@ export class FacilitiesManagerService {
    * Removes a user as a Facility admin.
    * @param facility id of Facility
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -10948,6 +11150,7 @@ export class FacilitiesManagerService {
    * Removes a user as a Facility admin.
    * @param facility name of Facility
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -11070,6 +11273,7 @@ export class FacilitiesManagerService {
   /**
    * Remove specific ban by it\&#39;s id.
    * @param banId BanOnFacility id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -11177,6 +11381,7 @@ export class FacilitiesManagerService {
    * Removes owner from a facility.
    * @param facility id of Facility
    * @param owner id of Owner
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -11300,6 +11505,7 @@ export class FacilitiesManagerService {
    * Removes owner from a facility.
    * @param facility name of Facility
    * @param owner id of Owner
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -11423,6 +11629,7 @@ export class FacilitiesManagerService {
    * Removes owner from a facility.
    * @param facility name of Facility
    * @param owner name of Owner
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -11546,6 +11753,7 @@ export class FacilitiesManagerService {
    * Removes owner from a facility.
    * @param facility id of Facility
    * @param owner name of Owner
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -11669,6 +11877,7 @@ export class FacilitiesManagerService {
    * Removes owners from a facility.
    * @param facility id of Facility
    * @param owners list of owner ids
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -11798,6 +12007,7 @@ export class FacilitiesManagerService {
    * Removes owners from a facility.
    * @param facility name of Facility
    * @param owners list of owner ids
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -11927,6 +12137,7 @@ export class FacilitiesManagerService {
    * Removes owners from a facility.
    * @param facility name of Facility
    * @param ownerNames list of owner names
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -12056,6 +12267,7 @@ export class FacilitiesManagerService {
    * Removes owners from a facility.
    * @param facility id of Facility
    * @param ownerNames list of owner names
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -12184,6 +12396,7 @@ export class FacilitiesManagerService {
   /**
    * Removes a host.
    * @param host id of Host
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -12288,6 +12501,7 @@ export class FacilitiesManagerService {
   /**
    * Remove host from the Facility based on hostname. If there is ambiguity, method throws exception and no host is removed.
    * @param hostname specific hostname
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -12399,6 +12613,7 @@ export class FacilitiesManagerService {
    * Remove hosts from a Facility.
    * @param facility id of Facility
    * @param hosts list of host ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -12526,6 +12741,7 @@ export class FacilitiesManagerService {
    * Remove hosts from a Facility.
    * @param facility name of Facility
    * @param hosts list of host ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -12655,6 +12871,7 @@ export class FacilitiesManagerService {
    * Remove (Unassign) given security team from given facility
    * @param facility id of Facility
    * @param securityTeam SecurityTeam id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -12782,6 +12999,7 @@ export class FacilitiesManagerService {
    * Remove (Unassign) given security team from given facility
    * @param facility name of Facility
    * @param securityTeam SecurityTeam id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -12908,6 +13126,7 @@ export class FacilitiesManagerService {
   /**
    * Set ban for user on facility.
    * @param InputSetBanForUserOnFacility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -13016,6 +13235,7 @@ export class FacilitiesManagerService {
   /**
    * Updates a facility.
    * @param InputUpdateFacility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -13124,6 +13344,7 @@ export class FacilitiesManagerService {
   /**
    * Update existing ban (description, validation timestamp)
    * @param InputUpdateBanForFacility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

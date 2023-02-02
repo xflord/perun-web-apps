@@ -71,7 +71,9 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="status">
-        <th *matHeaderCellDef mat-header-cell>{{'MEMBERS_LIST.STATUS' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MEMBERS_LIST.STATUS' | translate}}
+        </th>
         <td *matCellDef="let member" mat-cell>
           <i
             (click)="openMembershipDialog($event, member)"
@@ -87,7 +89,9 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="groupStatus">
-        <th *matHeaderCellDef mat-header-cell>{{'MEMBERS_LIST.GROUP_STATUS' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MEMBERS_LIST.GROUP_STATUS' | translate}}
+        </th>
         <td *matCellDef="let member" mat-cell>
           <i
             (click)="openMembershipDialog($event, member, groupId)"
@@ -103,11 +107,15 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="organization">
-        <th *matHeaderCellDef mat-header-cell>{{'MEMBERS_LIST.ORGANIZATION' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MEMBERS_LIST.ORGANIZATION' | translate}}
+        </th>
         <td *matCellDef="let member" mat-cell>{{member | memberOrganization}}</td>
       </ng-container>
       <ng-container matColumnDef="email">
-        <th *matHeaderCellDef mat-header-cell>{{'MEMBERS_LIST.EMAIL' | translate}}</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MEMBERS_LIST.EMAIL' | translate}}
+        </th>
         <td *matCellDef="let member" mat-cell>{{member | memberEmail}}</td>
       </ng-container>
       <ng-container matColumnDef="logins">

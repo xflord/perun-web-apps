@@ -39,7 +39,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class ExtSourcesManagerService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -108,6 +108,7 @@ export class ExtSourcesManagerService {
    * Associate an external source definition with a GROUP.
    * @param group id of Group
    * @param source external source id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -231,6 +232,7 @@ export class ExtSourcesManagerService {
    * Associate an external source definition with a VO.
    * @param vo id of Vo
    * @param source external source id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -354,6 +356,7 @@ export class ExtSourcesManagerService {
    * Associate external source definitions with a GROUP.
    * @param group id of Group
    * @param extSources list of extSource ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -479,6 +482,7 @@ export class ExtSourcesManagerService {
    * Associate external source definitions with a VO.
    * @param vo id of Vo
    * @param extSources list of extSource ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -603,6 +607,7 @@ export class ExtSourcesManagerService {
   /**
    * Creates an external source. ExtSource object must contain: name, type. Other parameters are ignored.
    * @param ExtSourceObject
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -712,6 +717,7 @@ export class ExtSourcesManagerService {
    * Creates an external source.
    * @param name name of entity
    * @param type type of ExtSource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -830,6 +836,7 @@ export class ExtSourcesManagerService {
   /**
    * Delete an external source.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -934,6 +941,7 @@ export class ExtSourcesManagerService {
   /**
    * Returns an external source by its id.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1038,6 +1046,7 @@ export class ExtSourcesManagerService {
   /**
    * Returns an external source by its name.
    * @param name name of entity
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1143,6 +1152,7 @@ export class ExtSourcesManagerService {
 
   /**
    * Returns the list of all external sources.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1233,6 +1243,7 @@ export class ExtSourcesManagerService {
   /**
    * Returns the list of external sources associated with a GROUP.
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1339,6 +1350,7 @@ export class ExtSourcesManagerService {
   /**
    * Returns the list of external sources associated with a VO.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1442,6 +1454,7 @@ export class ExtSourcesManagerService {
 
   /**
    * Loads ext source definitions from the configuration file and updates entries stored in the DB.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1533,6 +1546,7 @@ export class ExtSourcesManagerService {
    * Remove an association of an external source from a GROUP.
    * @param group id of Group
    * @param source external source id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1656,6 +1670,7 @@ export class ExtSourcesManagerService {
    * Remove an association of an external source from a VO.
    * @param vo id of Vo
    * @param source external source id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1779,6 +1794,7 @@ export class ExtSourcesManagerService {
    * Remove associations of external source definitions with a GROUP.
    * @param group id of Group
    * @param extSources list of extSource ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1904,6 +1920,7 @@ export class ExtSourcesManagerService {
    * remove associations of external source definitions with a VO.
    * @param vo id of Vo
    * @param extSources list of extSource ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

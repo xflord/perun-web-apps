@@ -39,7 +39,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class OwnersManagerService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -107,6 +107,7 @@ export class OwnersManagerService {
   /**
    * Creates a new owner.
    * @param InputCreateOwner
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -216,6 +217,7 @@ export class OwnersManagerService {
    * Deletes Owner specified by id. Returns null.
    * @param owner id of Owner
    * @param force If true, delete entity forcefully.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -328,6 +330,7 @@ export class OwnersManagerService {
    * Deletes owners by ids. Returns null.
    * @param owners list of owner ids
    * @param force If true, delete entity forcefully.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -444,6 +447,7 @@ export class OwnersManagerService {
 
   /**
    * Returns all owners.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -534,6 +538,7 @@ export class OwnersManagerService {
   /**
    * Returns Owner by its id.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -638,6 +643,7 @@ export class OwnersManagerService {
   /**
    * Returns Owner by its name.
    * @param owner name of Owner
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

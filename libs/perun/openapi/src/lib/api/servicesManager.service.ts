@@ -73,7 +73,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class ServicesManagerService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -146,6 +146,7 @@ export class ServicesManagerService {
    * @param destination Destination\&#39;s destination, usually a DNS name
    * @param type Destination\&#39;s type
    * @param propagationType Destination\&#39;s propagationType
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -309,6 +310,7 @@ export class ServicesManagerService {
   /**
    * Adds an destination for a facility and list of services. If destination doesn\&#39;t exist it will be created. InvalidDestinationException is thrown when destination value is invalid in given destination type.
    * @param InputAddDestinationToMultipleServices
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -420,6 +422,7 @@ export class ServicesManagerService {
   /**
    * Add services destinations for one service. Destinations names are taken from all facility\&#39;s host hostnames.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -530,6 +533,7 @@ export class ServicesManagerService {
   /**
    * Add services destinations for list of services. Destinations names are taken from all facility\&#39;s host hostnames.
    * @param InputAddDestinationsDefinedByHostsOnFacility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -646,6 +650,7 @@ export class ServicesManagerService {
    * Add services destinations for all services currently available on facility (assigned to all facility\&#39;s resources). Destinations names are taken from all facility\&#39;s host hostnames.
    * @param service id of Service
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -776,6 +781,7 @@ export class ServicesManagerService {
    * @param destination string name of destination
    * @param type Destination type (host,user@host,user@host:port,url,mail,service-specific)
    * @param propagationType propagation type (PARALLEL, DUMMY - doesn\&#39;t send data)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -926,6 +932,7 @@ export class ServicesManagerService {
    * Mark the attribute as required for the service. Required attributes are requisite for Service to run. If you add attribute which has a default attribute then this default attribute will be automatically add too.
    * @param service id of Service
    * @param attributeId id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1053,6 +1060,7 @@ export class ServicesManagerService {
    * Batch version of addRequiredAttribute.
    * @param service id of Service
    * @param attributes list of attribute ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1182,6 +1190,7 @@ export class ServicesManagerService {
    * Adds a Service to a Services Package.
    * @param servicesPackage id of ServicesPackage
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1308,6 +1317,7 @@ export class ServicesManagerService {
   /**
    * Block all services currently assigned on this destination. Newly assigned services are still allowed for propagation.
    * @param destination id of Destination
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1419,6 +1429,7 @@ export class ServicesManagerService {
    * Block all services currently assigned on this destination. Newly assigned services are still allowed for propagation.
    * @param destination string name of destination
    * @param destinationType Destination type (like host, user@host, user@host:port, email, service-specific, ...)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1545,6 +1556,7 @@ export class ServicesManagerService {
   /**
    * Block all services currently assigned on this facility. Newly assigned services are still allowed for propagation.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1656,6 +1668,7 @@ export class ServicesManagerService {
    * Bans Service on a destination.
    * @param service id of Service
    * @param destination id of Destination
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1784,6 +1797,7 @@ export class ServicesManagerService {
    * @param service id of Service
    * @param destination string name of destination
    * @param destinationType Destination type (like host, user@host, user@host:port, email, service-specific, ...)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1927,6 +1941,7 @@ export class ServicesManagerService {
    * Bans Service on given destinations.
    * @param service id of Service
    * @param destinations list of Destination ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2056,6 +2071,7 @@ export class ServicesManagerService {
    * Bans service on a facility.
    * @param service id of Service
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2182,6 +2198,7 @@ export class ServicesManagerService {
   /**
    * Bans the Service on the destination - each pair defined by the rich destination.
    * @param InputBlockServicesOnDestinations
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2295,6 +2312,7 @@ export class ServicesManagerService {
    * @param name name
    * @param description description
    * @param script script which should be constructed like ./service_name (where anything else than [a-z,A-Z] is converted to _)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2431,6 +2449,7 @@ export class ServicesManagerService {
   /**
    * Creates a new service. Service object must contain name. Parameters desctiption, script, delay, recurrence, enabled are optional. Other parameters ignored.
    * @param InputCreateService
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2539,6 +2558,7 @@ export class ServicesManagerService {
   /**
    * Creates a new services package.
    * @param InputCreateServicesPackage
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2648,6 +2668,7 @@ export class ServicesManagerService {
    * Creates a new services package.
    * @param name name
    * @param description description
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2771,6 +2792,7 @@ export class ServicesManagerService {
    * Deletes a service.
    * @param service id of Service
    * @param force If true, delete entity forcefully.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2889,6 +2911,7 @@ export class ServicesManagerService {
    * Deletes given services.
    * @param services list of Service ids List&lt;Integer&gt;
    * @param force If true, delete entity forcefully.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3008,6 +3031,7 @@ export class ServicesManagerService {
   /**
    * Deletes a services package.
    * @param servicesPackage id of ServicesPackage
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3119,6 +3143,7 @@ export class ServicesManagerService {
    * Forces service propagation on defined facility. Return int 1 &#x3D; true if it is possible, 0 &#x3D; false if not
    * @param service id of Service
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3239,6 +3264,7 @@ export class ServicesManagerService {
 
   /**
    * Get list of all destinations.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3329,6 +3355,7 @@ export class ServicesManagerService {
   /**
    * Returns list of all rich destinations defined for the facility.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3439,6 +3466,7 @@ export class ServicesManagerService {
   /**
    * Returns list of all rich destinations defined for the service.
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3549,6 +3577,7 @@ export class ServicesManagerService {
   /**
    * Lists resources assigned to service.
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3659,6 +3688,7 @@ export class ServicesManagerService {
   /**
    * List all services associated with the facility (via resource).
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3770,6 +3800,7 @@ export class ServicesManagerService {
    * List all services associated with the facility and vo (via resource).
    * @param facility id of Facility
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3893,6 +3924,7 @@ export class ServicesManagerService {
    * Generates the list of attributes per each member associated with the resources and groups.
    * @param service id of Service
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4020,6 +4052,7 @@ export class ServicesManagerService {
    * Generates the list of attributes per each member associated with the resources and groups in vos.
    * @param service id of Service
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4146,6 +4179,7 @@ export class ServicesManagerService {
   /**
    * Returns a destination by its id.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4253,6 +4287,7 @@ export class ServicesManagerService {
    * Returns list of all destinations defined for the service and facility.
    * @param service id of Service
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4378,6 +4413,7 @@ export class ServicesManagerService {
 
   /**
    * Gets count of all destinations.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4468,6 +4504,7 @@ export class ServicesManagerService {
   /**
    * List all destinations for all facilities which are joined by resources to the VO.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4574,6 +4611,7 @@ export class ServicesManagerService {
   /**
    * Return list of ServiceForGUI assigned on facility, (Service with \&quot;allowedOnFacility\&quot; property filled). 1 - allowed / 0 - service is service is denied.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4685,6 +4723,7 @@ export class ServicesManagerService {
    * Generates the list of attributes per each user and per each resource. Never return member or member-resource attribute.
    * @param service id of Service
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4811,6 +4850,7 @@ export class ServicesManagerService {
    * @param service id of Service
    * @param facility id of Facility
    * @param consentEval if true the method will run consent eval
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4950,6 +4990,7 @@ export class ServicesManagerService {
    * @param service id of Service
    * @param facility id of Facility
    * @param consentEval if true the method will run consent eval
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5088,6 +5129,7 @@ export class ServicesManagerService {
    * Generates the list of attributes per each member associated with the resource.
    * @param service id of Service
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5215,6 +5257,7 @@ export class ServicesManagerService {
    * Returns list of all rich destinations defined for the service and facility.
    * @param service id of Service
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5341,6 +5384,7 @@ export class ServicesManagerService {
   /**
    * Returns a service by its id.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5445,6 +5489,7 @@ export class ServicesManagerService {
   /**
    * Returns a service by its name.
    * @param name name of entity
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5550,6 +5595,7 @@ export class ServicesManagerService {
 
   /**
    * Returns all services.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5640,6 +5686,7 @@ export class ServicesManagerService {
   /**
    * Returns list of denials for a destination.
    * @param destination id of Destination
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5750,6 +5797,7 @@ export class ServicesManagerService {
   /**
    * Returns list of denials for a facility.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5860,6 +5908,7 @@ export class ServicesManagerService {
   /**
    * Get all services with given attribute.
    * @param attributeDefinition id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5970,6 +6019,7 @@ export class ServicesManagerService {
   /**
    * Lists services stored in a package.
    * @param servicesPackage id of ServicesPackage
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6080,6 +6130,7 @@ export class ServicesManagerService {
   /**
    * Gets package by id.
    * @param servicesPackage id of ServicesPackage
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6190,6 +6241,7 @@ export class ServicesManagerService {
   /**
    * Gets package by name.
    * @param name ServicesPackage name
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6295,6 +6347,7 @@ export class ServicesManagerService {
 
   /**
    * Returns packages.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6386,6 +6439,7 @@ export class ServicesManagerService {
    * Is this Service denied on the destination? Return int 1 &#x3D; true - the Service is denied on the destination, 0 &#x3D; false - the Service is NOT denied on the destination
    * @param service id of Service
    * @param destination id of Destination
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6513,6 +6567,7 @@ export class ServicesManagerService {
    * Is this Service denied on the facility? Return int 1 &#x3D; true - the Service is denied on the facility, 0 &#x3D; false - the Service is NOT denied on the facility
    * @param service id of Service
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6640,6 +6695,7 @@ export class ServicesManagerService {
    * Plans service propagation on defined facility. Return int 1 &#x3D; true if it is possible, 0 &#x3D; false if not
    * @param service id of Service
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6762,6 +6818,7 @@ export class ServicesManagerService {
    * Removes all destinations from a facility and service.
    * @param service id of Service
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6888,6 +6945,7 @@ export class ServicesManagerService {
   /**
    * Remove all required attributes from service.
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7001,6 +7059,7 @@ export class ServicesManagerService {
    * @param facility id of Facility
    * @param destination Destination\&#39;s destination
    * @param type Destination\&#39;s type
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7157,6 +7216,7 @@ export class ServicesManagerService {
    * @param service id of Service
    * @param facility id of Facility
    * @param destinations list of Destination ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7301,6 +7361,7 @@ export class ServicesManagerService {
   /**
    * Removes destinations defined by list of rich destinations. Each destination is removed from the rich destination\&#39;s facility and service.
    * @param InputRemoveRichDestinations
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7410,6 +7471,7 @@ export class ServicesManagerService {
    * Remove required attribute from service.
    * @param service id of Service
    * @param attributeId id of AttributeDefinition
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7537,6 +7599,7 @@ export class ServicesManagerService {
    * Remove required attributes from service.
    * @param service id of Service
    * @param attributes list of attribute ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7666,6 +7729,7 @@ export class ServicesManagerService {
    * Removes a Service from a Services Package.
    * @param servicesPackage id of ServicesPackage
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7792,6 +7856,7 @@ export class ServicesManagerService {
   /**
    * Erase all the possible denials on this destination.
    * @param destination id of Destination
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -7903,6 +7968,7 @@ export class ServicesManagerService {
    * Erase all the possible denials on this destination.
    * @param destination string name of destination
    * @param destinationType Destination type (like host, user@host, user@host:port, email, service-specific, ...)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8029,6 +8095,7 @@ export class ServicesManagerService {
   /**
    * Erase all the possible denials on this facility.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8140,6 +8207,7 @@ export class ServicesManagerService {
    * Free the denial of the Service on this destination. If the Service was banned on this destination, it will be freed. In case the Service was not banned on this destination, nothing will happen.
    * @param service id of Service
    * @param destination id of Destination
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8268,6 +8336,7 @@ export class ServicesManagerService {
    * @param service id of Service
    * @param destination string name of destination
    * @param destinationType Destination type (like host, user@host, user@host:port, email, service-specific, ...)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8411,6 +8480,7 @@ export class ServicesManagerService {
    * Free the denial of the Service on these destinations. If the Service was banned on these destinations, it will be freed. In case the Service was not banned on these destinations, nothing will happen.
    * @param service id of Service
    * @param destinations list of Destination ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8540,6 +8610,7 @@ export class ServicesManagerService {
    * Free the denial of the Service on this facility. If the Service was banned on this facility, it will be freed. In case the Service was not banned on this facility, nothing will happen.
    * @param service id of Service
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8666,6 +8737,7 @@ export class ServicesManagerService {
   /**
    * Free the denial of the Service on the destination - each pair defined by the rich destination.
    * @param InputUnlockServicesOnDestinations
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8777,6 +8849,7 @@ export class ServicesManagerService {
   /**
    * Updates a service.
    * @param InputUpdateService
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -8885,6 +8958,7 @@ export class ServicesManagerService {
   /**
    * Updates a service package.
    * @param InputUpdateServicesPackage
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

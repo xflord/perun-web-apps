@@ -81,7 +81,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class AuthzResolverService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -148,6 +148,7 @@ export class AuthzResolverService {
 
   /**
    * Return all loaded perun policies.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -237,6 +238,7 @@ export class AuthzResolverService {
 
   /**
    * Return all loaded roles management rules.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -329,6 +331,7 @@ export class AuthzResolverService {
    * @param role
    * @param complementaryObjectId Property id of complementaryObject to get managers for
    * @param complementaryObjectName Property beanName of complementaryObject, meaning object type (Vo | Group | Facility | ... )
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -473,6 +476,7 @@ export class AuthzResolverService {
    * @param specificAttributes list of specified attributes which are needed in object richUser
    * @param allUserAttributes When true, do not specify attributes through list and return them all in objects richUser. Ignoring list of specific attributes
    * @param onlyDirectAdmins When true, return only direct users of the complementary object for role with specific attributes
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -652,6 +656,7 @@ export class AuthzResolverService {
    * Get all Facilities where the given user (principal if user not sent) has set one of the given roles or the given user is a member of an authorized group with such roles.
    * @param roles list of role names List&lt;String&gt;
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -771,6 +776,7 @@ export class AuthzResolverService {
   /**
    * Returns list of group\&#39;s role names. Perun system uses role names in the upper case format. However, for now, they are converted to the lower case format because of the compatibility with external systems.
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -877,6 +883,7 @@ export class AuthzResolverService {
   /**
    * Returns all roles as an AuthzRoles object for a given group.
    * @param groupId id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -988,6 +995,7 @@ export class AuthzResolverService {
    * Get all Groups where the given user (principal if user not sent) has set one of the given roles or the given user is a member of an authorized group with such roles.
    * @param roles list of role names List&lt;String&gt;
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1106,6 +1114,7 @@ export class AuthzResolverService {
 
   /**
    * Returns User which is associated with credentials used to log-in to Perun.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1197,6 +1206,7 @@ export class AuthzResolverService {
    * Get all Members where the given user (principal if user not sent) has set one of the given roles or the given user is a member of an authorized group with such roles.
    * @param roles list of role names List&lt;String&gt;
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1316,6 +1326,7 @@ export class AuthzResolverService {
   /**
    * Gets current user
    * Returns object representing the currently authenticated user.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1405,6 +1416,7 @@ export class AuthzResolverService {
 
   /**
    * Returns list of caller\&#39;s role names. Perun system uses role names in the upper case format. However, for now, they are converted to the lower case format because of the compatibility with external systems.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1496,6 +1508,7 @@ export class AuthzResolverService {
    * Get all Resources where the given user (principal if user not sent) has set one of the given roles or the given user is a member of an authorized group with such roles.
    * @param roles list of role names List&lt;String&gt;
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1616,6 +1629,7 @@ export class AuthzResolverService {
    * Get all SecurityTeams where the given user (principal if user not sent) has set one of the given roles or the given user is a member of an authorized group with such roles.
    * @param roles list of role names List&lt;String&gt;
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1735,6 +1749,7 @@ export class AuthzResolverService {
   /**
    * Returns list of user\&#39;s role names. Perun system uses role names in the upper case format. However, for now, they are converted to the lower case format because of the compatibility with external systems.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1841,6 +1856,7 @@ export class AuthzResolverService {
   /**
    * Returns all roles as an AuthzRoles object for a given user.
    * @param userId id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1950,6 +1966,7 @@ export class AuthzResolverService {
    * Get all Vos where the given user (principal if user not sent) has set one of the given roles or the given user is a member of an authorized group with such roles.
    * @param roles list of role names List&lt;String&gt;
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2069,6 +2086,7 @@ export class AuthzResolverService {
   /**
    * Returns 1 if User has Facility manager role (FACILITYADMIN) or for specific Facility defined by id
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2173,6 +2191,7 @@ export class AuthzResolverService {
   /**
    * Returns 1 if User has Group manager role (GROUPADMIN) or for specific Group defined by id
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2272,6 +2291,7 @@ export class AuthzResolverService {
 
   /**
    * Returns 1 if User has Perun admin role (perunadmin).
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2362,6 +2382,7 @@ export class AuthzResolverService {
   /**
    * Returns 1 if User has VO manager role (VOADMIN) or for specific VO defined by id
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2461,6 +2482,7 @@ export class AuthzResolverService {
 
   /**
    * Returns \&quot;OK\&quot; string. Helper method for GUI check if connection is alive.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2550,6 +2572,7 @@ export class AuthzResolverService {
 
   /**
    * Load perun roles and policies from the configuration file perun-roles.yml. Roles are loaded to the database and policies are loaded to the PerunPoliciesContainer.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2639,6 +2662,7 @@ export class AuthzResolverService {
 
   /**
    * Refreshes MFA-related data for principal.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2729,6 +2753,7 @@ export class AuthzResolverService {
   /**
    * Set role for authorizedGroup
    * @param SetRoleForGroup
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2837,6 +2862,7 @@ export class AuthzResolverService {
   /**
    * Set role for user
    * @param SetRoleForUser
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2945,6 +2971,7 @@ export class AuthzResolverService {
   /**
    * Set role for authorizedGroup and complementaryObject
    * @param SetRoleWithGroupComplementaryObject
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3056,6 +3083,7 @@ export class AuthzResolverService {
   /**
    * Set role for authorizedGroup and complementaryObjects
    * @param SetRoleWithGroupComplementaryObjects
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3167,6 +3195,7 @@ export class AuthzResolverService {
   /**
    * Set role for user and complementaryObject
    * @param SetRoleWithUserComplementaryObject
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3278,6 +3307,7 @@ export class AuthzResolverService {
   /**
    * Set role for user and complementaryObjects
    * @param SetRoleWithUserComplementaryObjects
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3389,6 +3419,7 @@ export class AuthzResolverService {
   /**
    * Unset role for authorizedGroup
    * @param UnsetRoleForGroup
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3497,6 +3528,7 @@ export class AuthzResolverService {
   /**
    * Unset role for user
    * @param UnsetRoleForUser
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3605,6 +3637,7 @@ export class AuthzResolverService {
   /**
    * Unset role for authorizedGroup and complementaryObject
    * @param UnsetRoleWithGroupComplementaryObject
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3716,6 +3749,7 @@ export class AuthzResolverService {
   /**
    * Unset role for authorizedGroup and complementaryObjects
    * @param UnsetRoleWithGroupComplementaryObjects
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3827,6 +3861,7 @@ export class AuthzResolverService {
   /**
    * Unset role for user and complementaryObject
    * @param UnsetRoleWithUserComplementaryObject
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3938,6 +3973,7 @@ export class AuthzResolverService {
   /**
    * Unset role for user and complementaryObjects
    * @param UnsetRoleWithUserComplementaryObjects
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

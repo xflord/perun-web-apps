@@ -100,6 +100,7 @@ model/inputAddApplicationMailForGroup.ts
 model/inputAddApplicationMailForVo.ts
 model/inputAddDestinationToMultipleServices.ts
 model/inputAddDestinationsDefinedByHostsOnFacility.ts
+model/inputAddMemberCandidates.ts
 model/inputAssignResourceTagToResource.ts
 model/inputAssignResourceTagsToResource.ts
 model/inputAttributeDefinition.ts
@@ -150,6 +151,7 @@ model/inputGetPaginatedUsers.ts
 model/inputGetResources.ts
 model/inputGetUsers.ts
 model/inputInvitationsFromCsv.ts
+model/inputInviteMemberCandidates.ts
 model/inputLockPublications.ts
 model/inputRemoveResourceTagFromResource.ts
 model/inputRemoveResourceTagsFromResource.ts

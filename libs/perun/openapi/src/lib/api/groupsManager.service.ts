@@ -53,7 +53,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class GroupsManagerService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -122,6 +122,7 @@ export class GroupsManagerService {
    * Add member to groups. If already a member of a group, the group will be skipped.
    * @param groups list of Group ids List&lt;Integer&gt;
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -247,6 +248,7 @@ export class GroupsManagerService {
    * Adds members to a group. If already a member of the group, the member will be skipped. Non-empty list of members expected, if empty, no member will be added.
    * @param group id of Group
    * @param members id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -368,6 +370,7 @@ export class GroupsManagerService {
    * Sets flag required for including group to parent vo in a vo hierarchy.
    * @param group id of Group
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -487,6 +490,7 @@ export class GroupsManagerService {
    * Sets flag required for including groups to parent vo in a vo hierarchy.
    * @param groups list of Group ids List&lt;Integer&gt;
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -612,6 +616,7 @@ export class GroupsManagerService {
    * Returns true if member in given group can extend membership or if no rules were set for the membershipExpiration, otherwise false.
    * @param member id of Member
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -736,6 +741,7 @@ export class GroupsManagerService {
    * @param sourceGroup id of the group to copy from
    * @param destinationGroups ids of groups to copy to
    * @param members ids of members to copy
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -878,6 +884,7 @@ export class GroupsManagerService {
    * Create union of two groups, where \&quot;operandGroup\&quot; is technically set as subgroup of \&quot;resultGroup\&quot;. Members from \&quot;operandGroup\&quot; are added to \&quot;resultGroup\&quot; as INDIRECT members. Union is honored also in all group member changing operations.
    * @param resultGroup id of Group to have removed \&#39;operandGroup\&#39; from subgroups
    * @param operandGroup id of Group to have removed \&#39;resultGroup\&#39; from subgroups
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1006,6 +1013,7 @@ export class GroupsManagerService {
    * @param parentGroup Parent Group id
    * @param name name of Group
    * @param description description of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1146,6 +1154,7 @@ export class GroupsManagerService {
    * @param vo id of Vo
    * @param name name of Group
    * @param description description of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1281,6 +1290,7 @@ export class GroupsManagerService {
    * Deletes group with given id if it contains no members and group is not assigned to any resources. If force param is true, removes group forcefully.
    * @param group id of Group
    * @param force If true, delete entity forcefully.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1392,6 +1402,7 @@ export class GroupsManagerService {
   /**
    * Forcefully deletes a list of groups (remove all group members, remove group from resources).
    * @param InputDeleteGroups
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1501,6 +1512,7 @@ export class GroupsManagerService {
    * Unsets flag required for including group to parent vo in a vo hierarchy.
    * @param group id of Group
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1620,6 +1632,7 @@ export class GroupsManagerService {
    * Unsets flag required for including groups to parent vo in a vo hierarchy.
    * @param groups list of Group ids List&lt;Integer&gt;
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1745,6 +1758,7 @@ export class GroupsManagerService {
    * Extend member membership in given group using membershipExpirationRules attribute defined in Group.
    * @param member id of Member
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1867,6 +1881,7 @@ export class GroupsManagerService {
   /**
    * Force synchronization for all subgroups (recursively - whole tree) of the group (useful for group structure).
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1973,6 +1988,7 @@ export class GroupsManagerService {
   /**
    * Forces group structure synchronization.
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2079,6 +2095,7 @@ export class GroupsManagerService {
   /**
    * Forces group synchronization.
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2185,6 +2202,7 @@ export class GroupsManagerService {
   /**
    * Returns all groups which can be included to VO.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2291,6 +2309,7 @@ export class GroupsManagerService {
   /**
    * Returns all groups in a VO.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2394,6 +2413,7 @@ export class GroupsManagerService {
 
   /**
    * Get all groups from all vos. Returned groups are filtered based on the principal rights.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2484,6 +2504,7 @@ export class GroupsManagerService {
   /**
    * Returns all groups for a member including group \&#39;members\&#39;
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2594,6 +2615,7 @@ export class GroupsManagerService {
   /**
    * Get all groups with their specified attributes. If the attrNames are null or empty, all group attributes are returned.
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2707,6 +2729,7 @@ export class GroupsManagerService {
    * Returns full list of all RichGroups containing selected attributes.
    * @param vo id of Vo
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2832,6 +2855,7 @@ export class GroupsManagerService {
    * Returns all AllRichSubGroups from parent group containing selected attributes (all level subgroups).
    * @param group id of Group
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2952,6 +2976,7 @@ export class GroupsManagerService {
    * Returns a group by id.
    * Throws GroupNotExistsException when the group doesn\&#39;t exist.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3057,6 +3082,7 @@ export class GroupsManagerService {
    * Returns a group by VO and Group name. IMPORTANT: need to use full name of group (ex. \&#39;toplevel:a:b\&#39;, not the shortname which is in this example \&#39;b\&#39;) Throws GroupNotExistsException when the group doesn\&#39;t exist.
    * @param vo id of Vo
    * @param name name of entity
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3171,6 +3197,7 @@ export class GroupsManagerService {
   /**
    * Returns count of direct group members.
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3278,6 +3305,7 @@ export class GroupsManagerService {
    * Get member in context of group.
    * @param group id of Group
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3400,6 +3428,7 @@ export class GroupsManagerService {
   /**
    * Returns list of members of a group.
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3506,6 +3535,7 @@ export class GroupsManagerService {
   /**
    * Returns count of group members.
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3612,6 +3642,7 @@ export class GroupsManagerService {
   /**
    * Returns counts of group members by their group status.
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3718,6 +3749,7 @@ export class GroupsManagerService {
   /**
    * Returns counts of group members by their status in VO.
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3826,6 +3858,7 @@ export class GroupsManagerService {
    * @param group id of Group
    * @param members id of Member
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3969,6 +4002,7 @@ export class GroupsManagerService {
    * Return all operand groups for specified result groups (all INCLUDED groups). If \&quot;reverseDirection\&quot; is TRUE than return all result groups for specified operand group (where group is INCLUDED).
    * @param group id of Group
    * @param reverseDirection FALSE (default) return INCLUDED groups / TRUE &#x3D; return groups where INCLUDED
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4091,6 +4125,7 @@ export class GroupsManagerService {
   /**
    * Returns list of groups by their ids.
    * @param ids list of ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4201,6 +4236,7 @@ export class GroupsManagerService {
   /**
    * Get page of groups from the given vo.
    * @param InputGetPaginatedGroups
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4309,6 +4345,7 @@ export class GroupsManagerService {
   /**
    * Returns list of groups where member is in active state.
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4420,6 +4457,7 @@ export class GroupsManagerService {
    * Returns unique paths of groups as list of lists of groups [CURRENT GROUP -&gt; SUBGROUP -&gt; ... -&gt; MEMBER\&#39;S SOURCE GROUP] via which member is indirectly included to the group. Cuts off after first included group.
    * @param member id of Member
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4542,6 +4580,7 @@ export class GroupsManagerService {
   /**
    * Returns groups for a member.
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4653,6 +4692,7 @@ export class GroupsManagerService {
    * Returns full list of member\&#39;s RichGroups containing selected attributes. \&#39;members\&#39; group is not included! Supported are attributes from these namespaces: - group - member-group
    * @param member id of Member
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4781,6 +4821,7 @@ export class GroupsManagerService {
   /**
    * Returns a parent group of a group.
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4889,6 +4930,7 @@ export class GroupsManagerService {
    * Throws GroupNotExistsException when the group doesn\&#39;t exist.
    * @param groupId id of Group
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5012,6 +5054,7 @@ export class GroupsManagerService {
   /**
    * Get page of subgroups from the given parent group.
    * @param InputGetPaginatedSubgroups
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5121,6 +5164,7 @@ export class GroupsManagerService {
    * Returns all groups which can be included to VO from specific member VO.
    * @param vo id of Vo
    * @param memberVo id of member Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5244,6 +5288,7 @@ export class GroupsManagerService {
    * Returns flag representing if the group can be included in the (parent) vo\&#39;s groups
    * @param group id of Group
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5363,6 +5408,7 @@ export class GroupsManagerService {
    * Return true if Member is member of the Group.
    * @param member id of Member
    * @param group id of Group
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5484,6 +5530,7 @@ export class GroupsManagerService {
    * Moves \&quot;movingGroup\&quot; (including subGroups) under \&quot;destinationGroup\&quot; as subGroup within same Vo. Indirect group members are also processed during move operation.
    * @param movingGroup id of Group to be moved under \&#39;destinationGroup\&#39;
    * @param destinationGroup id of Group to have \&#39;movingGroup\&#39; as subGroup
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5606,6 +5653,7 @@ export class GroupsManagerService {
    * Removes union of two groups, when \&quot;operandGroup\&quot; is technically removed from subgroups of \&quot;resultGroup\&quot;. Members from \&quot;operandGroup\&quot; are removed from \&quot;resultGroup\&quot; if they were INDIRECT members sourcing from this group only.
    * @param resultGroup id of Group to have removed \&#39;operandGroup\&#39; from subgroups
    * @param operandGroup id of Group to have removed \&#39;resultGroup\&#39; from subgroups
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5733,6 +5781,7 @@ export class GroupsManagerService {
    * Removes member from a groups. If a member is not in the group or is indirect, it is skipped without a warning, but the rest of groups are processed.
    * @param groups list of Group ids List&lt;Integer&gt;
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5858,6 +5907,7 @@ export class GroupsManagerService {
    * Removes members from a group. Non-empty list of members expected. In case of empty list, no member is removed from the group. If member is not in the group or the membership is indirect, it is skipped without a warning but the rest of the members are processed.
    * @param group id of Group
    * @param members id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5982,6 +6032,7 @@ export class GroupsManagerService {
    * @param member id of Member
    * @param group id of Group
    * @param status status (VALID | EXPIRED)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6120,6 +6171,7 @@ export class GroupsManagerService {
   /**
    * Updates a group.
    * @param InputUpdateGroup
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

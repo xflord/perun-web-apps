@@ -43,7 +43,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class ConsentsManagerService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -112,6 +112,7 @@ export class ConsentsManagerService {
    * Changes value of consent status.
    * @param consent id of Consent
    * @param status consent status
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -238,6 +239,7 @@ export class ConsentsManagerService {
   /**
    * Evaluates consents for given consent hub.
    * @param consentHub id of ConsentHub
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -348,6 +350,7 @@ export class ConsentsManagerService {
   /**
    * Evaluates consents for given list of consent hubs.
    * @param consentHubs list of ConsentHub ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -460,6 +463,7 @@ export class ConsentsManagerService {
   /**
    * Evaluates consents ONLY for given service on consent hubs containing it. If new consent is created, attributes from ALL services under given consent hub are gathered for it.
    * @param service id of Service
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -569,6 +573,7 @@ export class ConsentsManagerService {
 
   /**
    * Return list of all Consent Hubs
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -658,6 +663,7 @@ export class ConsentsManagerService {
 
   /**
    * Return list of all existing Consents
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -748,6 +754,7 @@ export class ConsentsManagerService {
   /**
    * Return Consent object with corresponding id
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -854,6 +861,7 @@ export class ConsentsManagerService {
    * @param user id of User
    * @param consentHub id of ConsentHub
    * @param status consent status
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -992,6 +1000,7 @@ export class ConsentsManagerService {
   /**
    * Returns a Consent Hub by facility id.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1102,6 +1111,7 @@ export class ConsentsManagerService {
   /**
    * Returns a Consent Hub by id.
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1208,6 +1218,7 @@ export class ConsentsManagerService {
   /**
    * Returns a Consent Hub by name.
    * @param name name of entity
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1314,6 +1325,7 @@ export class ConsentsManagerService {
   /**
    * Return Consents for ConsentHub with corresponding id
    * @param consentHub id of ConsentHub
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1425,6 +1437,7 @@ export class ConsentsManagerService {
    * Return Consents of certain status for ConsentHub with corresponding id
    * @param consentHub id of ConsentHub
    * @param status consent status
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1551,6 +1564,7 @@ export class ConsentsManagerService {
   /**
    * Return Consents for user with corresponding id
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1658,6 +1672,7 @@ export class ConsentsManagerService {
    * Return Consents for specified user in specified consent hub
    * @param user id of User
    * @param consentHub id of ConsentHub
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1781,6 +1796,7 @@ export class ConsentsManagerService {
    * Return Consents of certain status for user with corresponding id
    * @param user id of User
    * @param status consent status
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1903,6 +1919,7 @@ export class ConsentsManagerService {
   /**
    * Updates a consent hub. Ignores related facilities.
    * @param InputUpdateConsentHub
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

@@ -53,7 +53,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class TasksManagerService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -120,6 +120,7 @@ export class TasksManagerService {
 
   /**
    * Returns the count of all tasks.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -210,6 +211,7 @@ export class TasksManagerService {
   /**
    * Delete Task and TaskResults.
    * @param TaskIdObject
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -318,6 +320,7 @@ export class TasksManagerService {
   /**
    * Delete TaskResult by its ID.
    * @param TaskResultIdObject
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -426,6 +429,7 @@ export class TasksManagerService {
   /**
    * Delete TaskResults by their IDs. TaskResults are expected to be from the same facility.
    * @param taskResultIds list of TaskResult ids
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -538,6 +542,7 @@ export class TasksManagerService {
   /**
    * Delete all TaskResults for specified Task and Destination.
    * @param TaskAndDestinationIdObject
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -646,6 +651,7 @@ export class TasksManagerService {
   /**
    * Delete all TaskResults for specified Task and Destination.
    * @param TaskAndDestinationNameObject
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -754,6 +760,7 @@ export class TasksManagerService {
   /**
    * Return propagation status of all facilities in Perun/Vo.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -854,6 +861,7 @@ export class TasksManagerService {
   /**
    * Return propagation status of all resources related to VO.
    * @param voId VO id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -960,6 +968,7 @@ export class TasksManagerService {
   /**
    * Returns service states for defined facility.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1070,6 +1079,7 @@ export class TasksManagerService {
   /**
    * Return propagation status of facility.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1181,6 +1191,7 @@ export class TasksManagerService {
    * Returns a task.
    * @param service id of Service
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1303,6 +1314,7 @@ export class TasksManagerService {
   /**
    * Returns Task by its id
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1407,6 +1419,7 @@ export class TasksManagerService {
   /**
    * Returns TaskResult by its id.
    * @param taskResult TaskResult id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1516,6 +1529,7 @@ export class TasksManagerService {
 
   /**
    * Returns all task results.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1606,6 +1620,7 @@ export class TasksManagerService {
   /**
    * Return list of TaskResults by a Task.
    * @param task Task id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1712,6 +1727,7 @@ export class TasksManagerService {
   /**
    * Returns task results for defined destinations.
    * @param destinations List&lt;String&gt; Destinations
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1824,6 +1840,7 @@ export class TasksManagerService {
   /**
    * Return list of TaskResults by a Task for GUI.
    * @param task Task id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1931,6 +1948,7 @@ export class TasksManagerService {
    * Return list of TaskResults by a Task and destination for GUI.
    * @param task Task id
    * @param destination id of Destination
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2053,6 +2071,7 @@ export class TasksManagerService {
   /**
    * Return list of only newest TaskResults by a Task for GUI.
    * @param task Task id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2160,6 +2179,7 @@ export class TasksManagerService {
    * Whether task exists.
    * @param service id of Service
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2285,6 +2305,7 @@ export class TasksManagerService {
 
   /**
    * Returns all tasks.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2375,6 +2396,7 @@ export class TasksManagerService {
   /**
    * Returns all tasks associated with selected facility.
    * @param facility id of Facility
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2485,6 +2507,7 @@ export class TasksManagerService {
   /**
    * Suspends waiting tasks propagation to the engine. Does not affect already propagated tasks.
    * @param suspend if true stops propagating waiting tasks to the engine, if false resumes propagation
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

@@ -41,7 +41,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class AuditMessagesManagerService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -109,6 +109,7 @@ export class AuditMessagesManagerService {
   /**
    * Log arbitrary auditer message/event to the audit log.
    * @param msg Message to be logged
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -215,6 +216,7 @@ export class AuditMessagesManagerService {
   /**
    * Creates new auditer consumer with last processed id which equals current auditer log max id.
    * @param consumerName
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -324,6 +326,7 @@ export class AuditMessagesManagerService {
 
   /**
    * Get list of names of all possible events.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -413,6 +416,7 @@ export class AuditMessagesManagerService {
 
   /**
    * Get all auditer consumers as a map with key&#x3D;value pairs like String(name)&#x3D;Integer(lastProcessedId).
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -502,6 +506,7 @@ export class AuditMessagesManagerService {
 
   /**
    * Get count of all messages stored in auditer logs.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -591,6 +596,7 @@ export class AuditMessagesManagerService {
 
   /**
    * Get ID of last (newest) message in auditer logs.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -681,6 +687,7 @@ export class AuditMessagesManagerService {
   /**
    * Returns 100 newest audit messages from audit log. If there is a less messages than 100, then all of them are returned OR Returns exact number of newest audit messages defined by \&#39;count\&#39; param (disregarding message IDs). If there is less messages present, then all of them are returned..
    * @param count Messages limit
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -781,6 +788,7 @@ export class AuditMessagesManagerService {
   /**
    * Returns all messages with IDs within the range from max(ID) to (max(ID)-count), where number of returned messages is equal or less than \&#39;count\&#39; param, because some IDs could be skipped in the sequence.
    * @param count Number of IDs to subtract from max_id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -888,6 +896,7 @@ export class AuditMessagesManagerService {
    * Returns \&quot;count\&quot; number of messages that are more or equal than the given ID (ascending order), i.e. the method returns newer messages by provided ID.
    * @param id Starting id from which the messages will be taken
    * @param count Number of messages that will be returned
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1006,6 +1015,7 @@ export class AuditMessagesManagerService {
   /**
    * Get page of audit messages. Total count is only estimated.
    * @param InputGetMessagesPage
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1114,6 +1124,7 @@ export class AuditMessagesManagerService {
   /**
    * Returns list of AuditMessages from audit log with IDs &gt; lastProcessedId for registered auditer consumer specified by consumerName param.
    * @param consumerName
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1225,6 +1236,7 @@ export class AuditMessagesManagerService {
    * Set ID of last processed message for specified consumer.
    * @param consumerName
    * @param lastProcessedId id of message to what consumer will be set
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */

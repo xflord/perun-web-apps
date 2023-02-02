@@ -18,7 +18,12 @@ import {
   TableCheckbox,
   EntityStorageService,
 } from '@perun-web-apps/perun/services';
-import { MemberGroupStatus, RichMember, VoMemberStatuses } from '@perun-web-apps/perun/openapi';
+import {
+  MemberGroupStatus,
+  MembersOrderColumn,
+  RichMember,
+  VoMemberStatuses,
+} from '@perun-web-apps/perun/openapi';
 import { MatDialog } from '@angular/material/dialog';
 import {
   TABLE_ITEMS_COUNT_OPTIONS,
@@ -204,7 +209,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
 
   loadMembersPage(): void {
     const sortDirection = this.sort.direction === 'asc' ? 'ASCENDING' : 'DESCENDING';
-    const sortColumn = this.sort.active === 'fullName' ? 'NAME' : 'ID';
+    const sortColumn = this.getSortColumn(this.sort.active);
     this.dataSource.loadMembers(
       this.voId,
       this.attrNames,
@@ -232,7 +237,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
 
   exportAllData(format: string): void {
     const sortDirection = this.sort.direction === 'asc' ? 'ASCENDING' : 'DESCENDING';
-    const sortColumn = this.sort.active === 'fullName' ? 'NAME' : 'ID';
+    const sortColumn = this.getSortColumn(this.sort.active);
 
     const config = getDefaultDialogConfig();
     config.width = '300px';
@@ -270,5 +275,22 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
     config.data = { member: member, groupId: this.groupId };
 
     this.dialog.open(MemberTreeViewDialogComponent, config);
+  }
+
+  getSortColumn(value: string): MembersOrderColumn {
+    switch (value) {
+      case 'fullName':
+        return 'NAME';
+      case 'organization':
+        return 'ORGANIZATION';
+      case 'email':
+        return 'EMAIL';
+      case 'status':
+        return 'STATUS';
+      case 'groupStatus':
+        return 'GROUP_STATUS';
+      default:
+        return 'ID';
+    }
   }
 }

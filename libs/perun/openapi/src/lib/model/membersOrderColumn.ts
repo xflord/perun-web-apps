@@ -10,9 +10,19 @@
  * Do not edit the class manually.
  */
 
-export type MembersOrderColumn = 'ID' | 'NAME';
+export type MembersOrderColumn =
+  | 'ID'
+  | 'NAME'
+  | 'EMAIL'
+  | 'GROUP_STATUS'
+  | 'STATUS'
+  | 'ORGANIZATION';
 
 export const MembersOrderColumn = {
   ID: 'ID' as MembersOrderColumn,
   NAME: 'NAME' as MembersOrderColumn,
+  EMAIL: 'EMAIL' as MembersOrderColumn,
+  GROUP_STATUS: 'GROUP_STATUS' as MembersOrderColumn,
+  STATUS: 'STATUS' as MembersOrderColumn,
+  ORGANIZATION: 'ORGANIZATION' as MembersOrderColumn,
 };

@@ -25,6 +25,8 @@ import { CustomHttpParameterCodec } from '../encoder';
 import { Observable } from 'rxjs';
 
 // @ts-ignore
+import { InputAddMemberCandidates } from '../model/inputAddMemberCandidates';
+// @ts-ignore
 import { InputCreateMemberForCandidate } from '../model/inputCreateMemberForCandidate';
 // @ts-ignore
 import { InputCreateMemberForUser } from '../model/inputCreateMemberForUser';
@@ -42,8 +44,6 @@ import { InputGetPaginatedMembers } from '../model/inputGetPaginatedMembers';
 import { InputSetSponsoredMember } from '../model/inputSetSponsoredMember';
 // @ts-ignore
 import { InputSpecificMember } from '../model/inputSpecificMember';
-// @ts-ignore
-import { InputAddMemberCandidates } from '../model/inputAddMemberCandidates';
 // @ts-ignore
 import { Member } from '../model/member';
 // @ts-ignore
@@ -69,7 +69,7 @@ import { Configuration } from '../configuration';
   providedIn: 'root',
 })
 export class MembersManagerService {
-  protected basePath = 'https://perun.cesnet.cz/krb/rpc';
+  protected basePath = 'https://api-dev.perun-aai.org/ba/rpc';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -135,8 +135,118 @@ export class MembersManagerService {
   }
 
   /**
+   * Adds member candidates.
+   * @param InputAddMemberCandidates
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public addMemberCandidates(
+    InputAddMemberCandidates: InputAddMemberCandidates,
+    useNon?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any>;
+  public addMemberCandidates(
+    InputAddMemberCandidates: InputAddMemberCandidates,
+    useNon?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<any>>;
+  public addMemberCandidates(
+    InputAddMemberCandidates: InputAddMemberCandidates,
+    useNon?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<any>>;
+  public addMemberCandidates(
+    InputAddMemberCandidates: InputAddMemberCandidates,
+    useNon: boolean = false,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (InputAddMemberCandidates === null || InputAddMemberCandidates === undefined) {
+      throw new Error(
+        'Required parameter InputAddMemberCandidates was null or undefined when calling addMemberCandidates.'
+      );
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let requestUrl = `${this.configuration.basePath}/json/membersManager/addMemberCandidates`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+    }
+    return this.httpClient.post<any>(requestUrl, InputAddMemberCandidates, {
+      context: localVarHttpContext,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
+  }
+
+  /**
    * Return true if the membership can be extended or if no rules were set for the membershipExpiration, otherwise false.
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -247,6 +357,7 @@ export class MembersManagerService {
   /**
    * Creates a new member from candidate returned by the method VosManager.findCandidates which fills Candidate.userExtSource. This method also add user to all groups in list. Empty list of groups is ok, the behavior is then same like in the method without list of groups. This method runs asynchronously
    * @param InputCreateMemberForCandidate
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -355,6 +466,7 @@ export class MembersManagerService {
   /**
    * Creates a new member from user. This method also add user to all groups in list. Empty list of groups is ok, the behavior is then same like in the method without list of groups.
    * @param InputCreateMemberForUser
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -463,6 +575,7 @@ export class MembersManagerService {
   /**
    * Creates a new member and sets all member\&#39;s attributes from the candidate. Also stores the associated user if doesn\&#39;t exist. This method is used by the registrar. This method also add user to all groups in list. Empty list of groups is ok, the behavior is then same like in the method without list of groups.
    * @param InputCreateMemberFromExtSource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -571,6 +684,7 @@ export class MembersManagerService {
   /**
    * Creates a new member from candidate which is prepared for creating specificUser.
    * @param InputSpecificMember
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -679,6 +793,7 @@ export class MembersManagerService {
   /**
    * Creates a new sponsored member in a given VO and namespace.
    * @param InputCreateSponsoredMember
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -787,6 +902,7 @@ export class MembersManagerService {
   /**
    * Creates new sponsored members in a given VO and namespace.
    * @param InputCreateSponsoredMembers
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -899,6 +1015,7 @@ export class MembersManagerService {
   /**
    * Creates new sponsored members in a given VO and namespace.
    * @param InputCreateSponsoredMemberFromCSV
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1014,6 +1131,7 @@ export class MembersManagerService {
   /**
    * Deletes only member data appropriated by member id.
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1122,6 +1240,7 @@ export class MembersManagerService {
   /**
    * Delete members with given ids. It is possible to delete members from multiple vos.
    * @param members id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1232,108 +1351,9 @@ export class MembersManagerService {
   }
 
   /**
-   * Add member candidates.
-   *
-   * @param InputAddMemberCandidates
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public addMemberCandidates(
-    InputAddMemberCandidates: InputAddMemberCandidates,
-    useNon?: boolean,
-    observe?: 'body',
-    reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
-  ): Observable<any>;
-  public addMemberCandidates(
-    InputAddMemberCandidates: InputAddMemberCandidates,
-    useNon?: boolean,
-    observe?: 'response',
-    reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
-  ): Observable<HttpResponse<any>>;
-  public addMemberCandidates(
-    InputAddMemberCandidates: InputAddMemberCandidates,
-    useNon?: boolean,
-    observe?: 'events',
-    reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
-  ): Observable<HttpEvent<any>>;
-  public addMemberCandidates(
-    InputAddMemberCandidates: InputAddMemberCandidates,
-    useNon: boolean = false,
-    observe: any = 'body',
-    reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
-  ): Observable<any> {
-    if (InputAddMemberCandidates === null || InputAddMemberCandidates === undefined) {
-      throw new Error(
-        'Required parameter InputAddMemberCandidates was null or undefined when calling addMemberCandidates.'
-      );
-    }
-
-    let localVarHeaders = this.defaultHeaders;
-
-    let localVarCredential: string | undefined;
-    // authentication (BasicAuth) required
-    localVarCredential = this.configuration.lookupCredential('BasicAuth');
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
-    }
-    // authentication (BearerAuth) required
-    localVarCredential = this.configuration.lookupCredential('BearerAuth');
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
-    }
-
-    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
-      // to determine the Accept header
-      const httpHeaderAccepts: string[] = ['application/json'];
-      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-    }
-
-    let localVarHttpContext: HttpContext | undefined = options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
-    }
-
-    let responseType_: 'text' | 'json' | 'blob' = 'json';
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-        responseType_ = 'text';
-      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
-        responseType_ = 'json';
-      } else {
-        responseType_ = 'blob';
-      }
-    }
-
-    let requestUrl = `${this.configuration.basePath}/json/membersManager/addMemberCandidates`;
-    if (useNon) {
-      // replace the authentication part of url with 'non' authentication
-      let helperUrl = new URL(requestUrl);
-      let path = helperUrl.pathname.split('/');
-      path[1] = 'non';
-      helperUrl.pathname = path.join('/');
-      requestUrl = helperUrl.toString();
-    }
-    return this.httpClient.post<any>(requestUrl, InputAddMemberCandidates, {
-      context: localVarHttpContext,
-      responseType: <any>responseType_,
-      withCredentials: this.configuration.withCredentials,
-      headers: localVarHeaders,
-      observe: observe,
-      reportProgress: reportProgress,
-    });
-  }
-
-  /**
    * Extend member membership using membershipExpirationRules attribute defined at VO.
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1446,6 +1466,7 @@ export class MembersManagerService {
    * @param attrsNames list of attribute names List&lt;String&gt;
    * @param searchString Text to search by
    * @param allowedStatuses list of allowed statuses List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1592,6 +1613,7 @@ export class MembersManagerService {
    * @param lookingInParentGroup If true, look up in a parent group
    * @param allowedStatuses list of allowed statuses List&lt;String&gt;
    * @param allowedGroupStatuses list of allowed group statuses List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1777,6 +1799,7 @@ export class MembersManagerService {
    * @param attrsNames list of attribute names List&lt;String&gt;
    * @param searchString Text to search by
    * @param allowedStatuses list of allowed statuses List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1931,6 +1954,7 @@ export class MembersManagerService {
    * Searches for members in a VO.
    * @param vo id of Vo
    * @param searchString Text to search by
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2054,6 +2078,7 @@ export class MembersManagerService {
    * @param attrsNames list of attribute names List&lt;String&gt;
    * @param searchString Text to search by
    * @param onlySponsored Boolean specifying if only sponsored members should be returned
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2209,6 +2234,7 @@ export class MembersManagerService {
 
   /**
    * Get all members from all vos.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2298,6 +2324,7 @@ export class MembersManagerService {
 
   /**
    * Return all loaded namespaces rules.
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2388,6 +2415,7 @@ export class MembersManagerService {
   /**
    * Gets all sponsored members from VO.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2495,6 +2523,7 @@ export class MembersManagerService {
    * Gets list of VO\&#39;s all sponsored members with sponsors.
    * @param vo id of Vo
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2623,6 +2652,7 @@ export class MembersManagerService {
    * @param allowedStatuses list of allowed statuses List&lt;String&gt;
    * @param allowedGroupStatuses list of allowed group statuses List&lt;String&gt;
    * @param attrsNames list of attributes names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2787,6 +2817,7 @@ export class MembersManagerService {
    * @param resource id of Resource
    * @param attrsNames list of attribute names List&lt;String&gt;
    * @param allowedStatuses list of allowed statuses List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -2947,6 +2978,7 @@ export class MembersManagerService {
    * @param vo id of Vo
    * @param allowedStatuses list of allowed statuses List&lt;String&gt;
    * @param attrsNames list of attributes names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3081,6 +3113,7 @@ export class MembersManagerService {
    * @param vo id of Vo
    * @param extLogin external login of user, e.g. john
    * @param extSourceName external source name, e.g. IdP entityId
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3220,6 +3253,7 @@ export class MembersManagerService {
    * Returns Member by its id.
    * Gets Member
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3325,6 +3359,7 @@ export class MembersManagerService {
    * Returns a Member specified by VO id and User id.
    * @param vo id of Vo
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3442,6 +3477,7 @@ export class MembersManagerService {
    * Returns members of a VO.
    * @param vo id of Vo
    * @param status optional status
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3557,6 +3593,7 @@ export class MembersManagerService {
   /**
    * Returns list of Members by their ids.
    * @param ids list of ids List&lt;Integer&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3667,6 +3704,7 @@ export class MembersManagerService {
   /**
    * Returns members for a user.
    * @param user id of User
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3773,6 +3811,7 @@ export class MembersManagerService {
   /**
    * Returns count of all VO members.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3877,6 +3916,7 @@ export class MembersManagerService {
   /**
    * Get page of members from the given vo, with the given attributes.
    * @param InputGetPaginatedMembers
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -3986,6 +4026,7 @@ export class MembersManagerService {
    * Returns count of VO members with specified status.
    * @param vo id of Vo
    * @param status status (VALID | INVALID | EXPIRED | DISABLED)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4109,6 +4150,7 @@ export class MembersManagerService {
    * Returns RichMember by member id.
    * Get RichMember without attributes
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4214,6 +4256,7 @@ export class MembersManagerService {
    * Returns Member by its id.
    * Get richMember with member/user attributes
    * @param id numeric id
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4321,6 +4364,7 @@ export class MembersManagerService {
    * Returns rich members by their IDs with specific attributes. When the list of attribute names is null or empty then rich members will be returned without attributes.
    * @param ids list of ids List&lt;Integer&gt;
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4447,6 +4491,7 @@ export class MembersManagerService {
    * Returns list of all RichMembers for specified VO. User attributes aren\&#39;t included in the returned objects
    * Get richMembers for VO with member attributes (without user attributes).
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4553,6 +4598,7 @@ export class MembersManagerService {
   /**
    * Gets members from VO who are sponsored.
    * @param vo id of Vo
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4660,6 +4706,7 @@ export class MembersManagerService {
    * Gets list of members with sponsors.
    * @param vo id of Vo
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4785,6 +4832,7 @@ export class MembersManagerService {
    * Gets sponsors for given member with optional attribute names.
    * @param member id of Member
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -4911,6 +4959,7 @@ export class MembersManagerService {
    * @param extSourceName external source name, e.g. IdP entityId
    * @param extLogin external login of user, e.g. john
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5062,6 +5111,7 @@ export class MembersManagerService {
    * @param vo id of Vo
    * @param sourceUser id of source user
    * @param targetUser id of target user
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5199,6 +5249,7 @@ export class MembersManagerService {
    * Removes sponsor of existing member.
    * @param member id of Member
    * @param sponsor id of sponsor
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5326,6 +5377,7 @@ export class MembersManagerService {
    * Removes sponsors of existing member.
    * @param member id of Member
    * @param sponsorIds list of ids of sponsors
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5457,6 +5509,7 @@ export class MembersManagerService {
    * @param namespace namespace
    * @param emailAttributeURN urn of the attribute with stored mail
    * @param language language of the message
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5619,6 +5672,7 @@ export class MembersManagerService {
    * @param emailAttributeURN urn of the attribute with stored mail
    * @param language language of the message
    * @param baseUrl base url of Perun instance (optional)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5788,6 +5842,7 @@ export class MembersManagerService {
   /**
    * Creates a sponsored membership for the given user.
    * @param InputSetSponsoredMember
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -5898,6 +5953,7 @@ export class MembersManagerService {
    * @param sponsoredMember id of member to be sponsored
    * @param sponsor id of sponsor
    * @param validityTo date in format yyyy-mm-dd
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6036,6 +6092,7 @@ export class MembersManagerService {
    * Set membership status of a member.
    * @param member id of Member
    * @param status status (VALID | INVALID | EXPIRED | DISABLED)
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6160,6 +6217,7 @@ export class MembersManagerService {
    * @param member id of Member
    * @param sponsor id of sponsor
    * @param validityTo date in format yyyy-mm-dd
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6299,6 +6357,7 @@ export class MembersManagerService {
    * @param members id of Member
    * @param sponsor id of sponsor
    * @param validityTo date in format yyyy-mm-dd
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6440,6 +6499,7 @@ export class MembersManagerService {
    * @param member id of Member
    * @param sponsor id of sponsor
    * @param validityTo date in format yyyy-mm-dd
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -6577,6 +6637,7 @@ export class MembersManagerService {
   /**
    * Validate all attributes for member and set member\&#39;s status to VALID. This method runs asynchronously. It immediately return member with original status and after asynchronous validation successfully finishes it switch member\&#39;s status to VALID. If validation ends with error, member keeps his status.
    * @param member id of Member
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
