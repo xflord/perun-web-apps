@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { UntypedFormControl, ValidatorFn, Validators } from '@angular/forms';
+import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { RegistrarManagerService } from '@perun-web-apps/perun/openapi';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
@@ -17,10 +17,10 @@ export interface InviteMemberDialogData {
   styleUrls: ['./invite-member-dialog.component.scss'],
 })
 export class InviteMemberDialogComponent implements OnInit {
-  emailForm = new UntypedFormControl('', [Validators.required, Validators.email.bind(this)]);
+  emailForm = new FormControl('', [Validators.required, Validators.email.bind(this)]);
   languages = ['en'];
   currentLanguage = 'en';
-  name = new UntypedFormControl('', Validators.required as ValidatorFn);
+  name = new FormControl('', Validators.required as ValidatorFn);
   loading = false;
   theme: string;
 
@@ -49,9 +49,9 @@ export class InviteMemberDialogComponent implements OnInit {
     if (this.data.voId && !this.data.groupId) {
       this.loading = true;
       this.registrarManager
-        .sendInvitation(this.emailForm.value as string, this.currentLanguage, this.data.voId)
-        .subscribe(
-          () => {
+        .sendInvitation(this.emailForm.value, this.currentLanguage, this.data.voId, this.name.value)
+        .subscribe({
+          next: () => {
             this.translate
               .get('DIALOGS.INVITE_MEMBER.SUCCESS')
               .subscribe((successMessage: string) => {
@@ -59,19 +59,20 @@ export class InviteMemberDialogComponent implements OnInit {
                 this.dialogRef.close(true);
               });
           },
-          () => (this.loading = false)
-        );
+          error: () => (this.loading = false),
+        });
     } else {
       this.loading = true;
       this.registrarManager
         .sendInvitationForGroup(
-          this.emailForm.value as string,
+          this.emailForm.value,
           this.currentLanguage,
           this.data.voId,
-          this.data.groupId
+          this.data.groupId,
+          this.name.value
         )
-        .subscribe(
-          () => {
+        .subscribe({
+          next: () => {
             this.translate
               .get('DIALOGS.INVITE_MEMBER.SUCCESS')
               .subscribe((successMessage: string) => {
@@ -79,8 +80,8 @@ export class InviteMemberDialogComponent implements OnInit {
                 this.dialogRef.close(true);
               });
           },
-          () => (this.loading = false)
-        );
+          error: () => (this.loading = false),
+        });
     }
   }
 }
