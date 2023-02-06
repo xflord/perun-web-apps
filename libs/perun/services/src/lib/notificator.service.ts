@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { NotificationData } from '@perun-web-apps/perun/models';
-import { TranslateService } from '@ngx-translate/core';
 import { RPCError } from '@perun-web-apps/perun/models';
+import { PerunTranslateService } from './perun-translate.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,13 +12,13 @@ export class NotificatorService {
   defaultRpcMessage: string;
   defaultErrorDelayMs = 5_000;
   defaultSuccessDelayMs = 3_000;
-  constructor(private translate: TranslateService) {}
+  constructor(private translate: PerunTranslateService) {}
 
   getDefaultActionMessage(): string {
     if (this.defaultAction === undefined) {
       return (this.defaultAction = this.translate.instant(
         'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.DEFAULT_ACTION'
-      ) as string);
+      ));
     } else {
       return this.defaultAction;
     }
@@ -28,7 +28,7 @@ export class NotificatorService {
     if (this.defaultRpcMessage === undefined) {
       return (this.defaultRpcMessage = this.translate.instant(
         'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.DEFAULT_RPC_ERROR_MESSAGE'
-      ) as string);
+      ));
     } else {
       return this.defaultRpcMessage;
     }
@@ -45,7 +45,7 @@ export class NotificatorService {
       this.showError(
         this.translate.instant(
           'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.PRIVILEGE_EXCEPTION'
-        ) as string,
+        ),
         rpcError,
         rpcError.message
       );
@@ -57,13 +57,11 @@ export class NotificatorService {
   }
 
   showRouteError(): void {
-    const title: string = this.translate.instant(
-      'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.ROUTE_DENIED_ERROR'
-    ) as string;
-    const desc: string = this.translate.instant(
+    this.showInstantError(
+      'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.ROUTE_DENIED_ERROR',
+      null,
       'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.ROUTE_DENIED_DESC'
-    ) as string;
-    this.showError(title, null, desc);
+    );
   }
 
   /**
@@ -99,6 +97,37 @@ export class NotificatorService {
   }
 
   /**
+   * Shows error notification
+   *
+   * @param title - text that is shown on the notification
+   * @param error - RPC error
+   * @param description - text shown in the body of dialog which is displayed after clicking the action
+   * @param actionText - clickable text shown on the notification which starts specified or default action
+   * @param action - action which will be executed after clicking the actionText
+   */
+  showInstantError(
+    title: string,
+    error?: RPCError,
+    description?: string,
+    actionText?: string,
+    action?: () => void
+  ): void {
+    const translatedDescription = description ? this.translate.instant(description) : null;
+    const translatedActionText = actionText ? this.translate.instant(actionText) : null;
+    if (translatedActionText) {
+      this.showError(
+        this.translate.instant(title),
+        error,
+        translatedDescription,
+        translatedActionText,
+        action
+      );
+    } else {
+      this.showError(this.translate.instant(title), error, translatedDescription);
+    }
+  }
+
+  /**
    * Shows success notification
    *
    * @param title - text that is shown on the notification
@@ -120,5 +149,33 @@ export class NotificatorService {
       action: action,
       timeStamp: `${new Date().getHours()}:${new Date().getMinutes()}`,
     });
+  }
+
+  /**
+   * Translates instantly and shows success notification
+   *
+   * @param title - text to be translated that is shown on the notification
+   * @param description - text  to be translated that is shown in the body of dialog which is displayed after clicking the action
+   * @param actionText - clickable text  to be translated that is shown on the notification which starts specified or default action
+   * @param action - action which will be executed after clicking the actionText
+   */
+  showInstantSuccess(
+    title: string,
+    description?: string,
+    actionText?: string,
+    action?: () => void
+  ): void {
+    const translatedDescription = description ? this.translate.instant(description) : null;
+    const translatedActionText = actionText ? this.translate.instant(actionText) : null;
+    if (translatedActionText) {
+      this.showSuccess(
+        this.translate.instant(title),
+        translatedDescription,
+        translatedActionText,
+        action
+      );
+    } else {
+      this.showSuccess(this.translate.instant(title), translatedDescription);
+    }
   }
 }
