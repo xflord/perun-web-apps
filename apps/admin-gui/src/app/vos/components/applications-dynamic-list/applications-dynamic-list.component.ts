@@ -110,6 +110,8 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       this.authResolver
     );
 
+    const dateTo = this.dateTo ?? new Date();
+
     this.dataSource.loadApplications(
       this.tableConfigService.getTablePageSize(this.tableId),
       0,
@@ -119,7 +121,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       this.includeGroupApps,
       this.states,
       this.dateToString(this.dateFrom),
-      this.dateToString(this.dateTo),
+      this.dateToString(dateTo),
       this.member?.userId ?? null,
       this.group?.id ?? null,
       this.getVoId()
@@ -148,6 +150,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
 
   loadApplicationsPage(): void {
     const sortDirection = this.sort.direction === 'asc' ? 'ASCENDING' : 'DESCENDING';
+    const dateTo = this.dateTo ?? new Date();
     this.dataSource.loadApplications(
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
@@ -157,7 +160,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       this.includeGroupApps,
       this.states,
       this.dateToString(this.dateFrom),
-      this.dateToString(this.dateTo),
+      this.dateToString(dateTo),
       this.member?.userId ?? null,
       this.group?.id ?? null,
       this.getVoId(),
@@ -183,6 +186,8 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     config.width = '300px';
     const exportLoading = this.dialog.open(ExportDataDialogComponent, config);
 
+    const dateTo = this.dateTo ?? new Date();
+
     this.dataSource
       .getAllApplications(
         this.child.paginator.length,
@@ -192,7 +197,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
         this.includeGroupApps,
         this.states,
         this.dateToString(this.dateFrom),
-        this.dateToString(this.dateTo),
+        this.dateToString(dateTo),
         this.member?.userId ?? null,
         this.group?.id ?? null,
         this.getVoId(),

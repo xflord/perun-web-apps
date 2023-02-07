@@ -603,8 +603,7 @@
         "VERIFIED": "Submitted"
       },
       "DATE": {
-        "START": "Start date",
-        "END": "End date"
+        "LABEL": "Enter a date range"
       },
       "APPLICATION_DETAIL": {
         "TITLE": "Application detail",

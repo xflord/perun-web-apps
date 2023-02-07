@@ -1,26 +1,9 @@
-<mat-form-field (click)="datePickerStart.open()" appearance="standard" class="mr-2">
-  <mat-label>{{'VO_DETAIL.APPLICATION.DATE.START' | translate}}</mat-label>
-  <input
-    matInput
-    [matDatepicker]="datePickerStart"
-    [min]="startMinDate"
-    [max]="startMaxDate"
-    [formControl]="startDate"
-    (dateChange)="dateChange()"
-    readonly />
-  <mat-datepicker-toggle [for]="datePickerStart" matSuffix></mat-datepicker-toggle>
-  <mat-datepicker #datePickerStart></mat-datepicker>
-</mat-form-field>
-<mat-form-field appearance="standard" (click)="datePickerEnd.open()">
-  <mat-label>{{'VO_DETAIL.APPLICATION.DATE.END' | translate}}</mat-label>
-  <input
-    matInput
-    [matDatepicker]="datePickerEnd"
-    [min]="endMinDate"
-    [max]="endMaxDate"
-    [formControl]="endDate"
-    (dateChange)="dateChange()"
-    readonly />
-  <mat-datepicker-toggle [for]="datePickerEnd" matSuffix></mat-datepicker-toggle>
-  <mat-datepicker #datePickerEnd></mat-datepicker>
+<mat-form-field (click)="picker.open()" appearance="standard">
+  <mat-label>{{'VO_DETAIL.APPLICATION.DATE.LABEL' | translate}}</mat-label>
+  <mat-date-range-input [max]="endMaxDate" [min]="startMinDate" [rangePicker]="picker">
+    <input [formControl]="startDate" matStartDate readonly />
+    <input [formControl]="endDate" matEndDate readonly />
+  </mat-date-range-input>
+  <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
 </mat-form-field>
