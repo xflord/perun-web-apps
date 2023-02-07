@@ -12,6 +12,7 @@ export class ResourceSearchSelectComponent implements OnInit {
   @Input() resources: Resource[];
   @Input() displayStatus = true;
   @Input() disableAutoSelect = false;
+  @Input() required = false;
   @Output() resourceSelected = new EventEmitter<Resource>();
 
   nameFunction = (resource: Resource): string => resource.name;

@@ -10,6 +10,7 @@ import { compareFnName } from '@perun-web-apps/perun/utils';
 export class FacilitySearchSelectComponent implements OnInit {
   @Input() facilities: Facility[];
   @Input() disableAutoSelect = false;
+  @Input() selectPlaceholder = 'SHARED_LIB.PERUN.COMPONENTS.FACILITY_SEARCH_SELECT.SELECT_FACILITY';
   @Output() facilitySelected = new EventEmitter<Facility>();
   nameFunction = (facility: Facility): string => facility.name;
 

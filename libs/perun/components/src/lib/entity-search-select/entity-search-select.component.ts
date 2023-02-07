@@ -35,7 +35,7 @@ export class EntitySearchSelectComponent<T extends PerunBean>
   @Input() displayStatus = false;
   @Input() multiple = false;
   @Input() theme = '';
-  @Input() shouldRefresh = false;
+  @Input() required = false;
   @Output() entitySelected = new EventEmitter<T | T[]>();
   @Output() selectClosed = new EventEmitter<boolean>();
   @ViewChild('scrollViewport', { static: false }) scrollViewport: CdkVirtualScrollViewport;

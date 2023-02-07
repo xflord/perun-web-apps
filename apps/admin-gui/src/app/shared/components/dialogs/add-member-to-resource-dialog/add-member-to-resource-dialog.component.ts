@@ -10,15 +10,13 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
 import { TranslateService } from '@ngx-translate/core';
 import {
+  Facility,
   Group,
   GroupsManagerService,
   ResourcesManagerService,
   RichResource,
   Service,
 } from '@perun-web-apps/perun/openapi';
-import { UntypedFormControl } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatStepper } from '@angular/material/stepper';
 
@@ -40,13 +38,8 @@ export class AddMemberToResourceDialogComponent implements OnInit, AfterViewInit
   loading = false;
   processing = false;
   membersGroupsId: Set<number> = new Set<number>();
-
-  facilityCtrl: UntypedFormControl = new UntypedFormControl();
-
-  filteredFacilities: Observable<string[]>;
-  facilitiesNames: string[] = [];
-
-  filteredResources: Observable<RichResource[]>;
+  facilities: Facility[] = [];
+  filteredResources: RichResource[] = [];
   resources: RichResource[] = [];
   selectedResource: RichResource = null;
 
@@ -81,6 +74,7 @@ export class AddMemberToResourceDialogComponent implements OnInit, AfterViewInit
     this.resourceManager.getRichResources(this.data.voId).subscribe(
       (resources) => {
         this.resources = resources;
+        this.filteredResources = resources;
         this.getResourceFacilities();
         this.loading = false;
       },
@@ -150,42 +144,28 @@ export class AddMemberToResourceDialogComponent implements OnInit, AfterViewInit
     this.stepper.next();
   }
 
-  private getResourceFacilities(): void {
-    const distinctFacilities = new Set<string>();
-    for (const resource of this.resources) {
-      distinctFacilities.add(resource.facility.name);
-    }
-
-    this.facilitiesNames = Array.from(distinctFacilities);
-
-    this.filteredFacilities = this.facilityCtrl.valueChanges.pipe(
-      startWith(''),
-      map((value: string) => this.filterFacilities(value))
-    );
-
-    this.filteredResources = this.facilityCtrl.valueChanges.pipe(
-      startWith(''),
-      map((value: string) => this.filterResources(value))
-    );
-  }
-
-  private filterFacilities(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    const filtered = this.facilitiesNames.filter((option) =>
-      option.toLowerCase().includes(filterValue)
-    );
-    return filtered.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
-  }
-
-  private filterResources(value: string): RichResource[] {
+  filterResources(value: string): void {
     if (value == null) {
-      return this.resources;
+      return;
     }
 
     const filterValue = value.toLowerCase();
     const filtered = this.resources.filter((option) =>
       option.facility.name.toLowerCase().startsWith(filterValue)
     );
-    return filtered.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+    this.filteredResources = filtered.sort((a, b) =>
+      a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+    );
+    this.setResource(this.filteredResources[0]);
+  }
+
+  private getResourceFacilities(): void {
+    const distinctFacilities = new Set<string>();
+    for (const resource of this.resources) {
+      distinctFacilities.add(resource.facility.name);
+      if (this.facilities.length !== distinctFacilities.size) {
+        this.facilities.push(resource.facility);
+      }
+    }
   }
 }

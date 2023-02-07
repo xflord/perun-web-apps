@@ -9,37 +9,27 @@
         >
         <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
         <div *ngIf="!loading">
-          <div>
-            <mat-form-field class="input-style">
-              <input
-                [formControl]="facilityCtrl"
-                [matAutocomplete]="autoFacility"
-                aria-label="Number"
-                matInput
-                placeholder="{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.FILTER' | translate}}"
-                type="text" />
-              <mat-autocomplete #autoFacility="matAutocomplete" autoActiveFirstOption>
-                <mat-option *ngFor="let facility of filteredFacilities | async" [value]="facility">
-                  {{facility}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
+          <div class="input-style">
+            <perun-web-apps-facility-search-select
+              (facilitySelected)="filterResources($event.name); stepper.selected.completed = true"
+              [disableAutoSelect]="true"
+              [facilities]="facilities"
+              [selectPlaceholder]="'DIALOGS.ADD_MEMBER_TO_RESOURCE.FILTER'">
+            </perun-web-apps-facility-search-select>
           </div>
-          <div>
-            <mat-form-field class="input-style">
-              <mat-select
-                disableOptionCentering="true"
-                placeholder="{{ 'DIALOGS.ADD_MEMBER_TO_RESOURCE.SELECTED' | translate}}"
-                required>
-                <mat-option
-                  (click)="setResource(resource);
-                           stepper.selected.completed = true"
-                  *ngFor="let resource of filteredResources | async"
-                  [value]="resource">
-                  {{resource.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+          <div class="input-style">
+            <perun-web-apps-resource-search-select
+              (resourceSelected)="setResource($event);
+                         stepper.selected.completed = true"
+              *ngIf="!processing"
+              [disableAutoSelect]="true"
+              [required]="true"
+              [resource]="selectedResource"
+              [resources]="filteredResources">
+            </perun-web-apps-resource-search-select>
+            <perun-web-apps-resource-search-select
+              *ngIf="processing"
+              [resources]="[]"></perun-web-apps-resource-search-select>
           </div>
           <div>
             <span
