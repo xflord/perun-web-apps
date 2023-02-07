@@ -43,19 +43,17 @@ export class AdminUserDetailPageComponent implements OnInit {
       this.path = `/admin/users/${userId}`;
       this.regex = `/admin/users/\\d+`;
 
-      this.usersService.getUserById(userId).subscribe(
-        (user) => {
+      this.usersService.getUserById(userId).subscribe({
+        next: (user) => {
           this.user = user;
-          if (this.user.serviceUser) {
-            this.svgIcon = 'perun-service-identity';
-          }
+          this.svgIcon = this.user.serviceUser ? 'perun-service-identity' : 'perun-user-dark';
 
           const userItem = this.sideMenuItemService.parseUser(user, this.path, this.regex);
           this.sideMenuService.setAdminItems([userItem]);
           this.loading = false;
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
 
       const anonymizedAttrName = 'urn:perun:user:attribute-def:virt:anonymized';
       this.attributesService
