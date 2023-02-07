@@ -9,6 +9,7 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { ActivatedRoute } from '@angular/router';
 import { Urns } from '@perun-web-apps/perun/urns';
+import { compareFnName } from '@perun-web-apps/perun/utils';
 
 @Component({
   selector: 'app-perun-web-apps-user-accounts',
@@ -35,44 +36,44 @@ export class UserAccountsComponent implements OnInit {
     this.initLoading = true;
     this.route.parent.params.subscribe((params) => {
       this.userId = Number(params['userId']);
-      this.usersService.getVosWhereUserIsMember(this.userId).subscribe(
-        (vos) => {
+      this.usersService.getVosWhereUserIsMember(this.userId).subscribe({
+        next: (vos) => {
           this.vos = vos;
           if (this.vos.length) {
-            this.loadMember(this.vos[0]);
+            this.loadMember(this.vos.sort(compareFnName)[0]);
           }
           this.initLoading = false;
         },
-        () => (this.initLoading = false)
-      );
+        error: () => (this.initLoading = false),
+      });
     });
   }
 
   loadMember(vo: Vo): void {
     this.loading = true;
     this.selectedVo = vo;
-    this.membersService.getMemberByUser(this.selectedVo.id, this.userId).subscribe(
-      (member) => {
-        this.membersService.getRichMemberWithAttributes(member.id).subscribe(
-          (m) => {
+    this.membersService.getMemberByUser(this.selectedVo.id, this.userId).subscribe({
+      next: (member) => {
+        this.membersService.getRichMemberWithAttributes(member.id).subscribe({
+          next: (m) => {
             this.member = m;
             this.groupService
               .getMemberRichGroupsWithAttributesByNames(this.member.id, [
                 Urns.MEMBER_DEF_GROUP_EXPIRATION,
                 Urns.MEMBER_GROUP_STATUS,
               ])
-              .subscribe(
-                (groups) => {
+              .subscribe({
+                next: (groups) => {
                   this.groups = groups;
                   this.loading = false;
                 },
-                () => (this.loading = false)
-              );
+                error: () => (this.loading = false),
+              });
           },
-          () => (this.loading = false)
-        );
+          error: () => (this.loading = false),
+        });
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 }
