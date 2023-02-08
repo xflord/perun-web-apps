@@ -1,6 +1,6 @@
 <!--The min-height is a hack to prevent page scrolling on tab switching-->
 <div class="min-height">
-  <mat-tab-group [dynamicHeight]="true" [(selectedIndex)]="showTab">
+  <mat-tab-group [dynamicHeight]="true" [(selectedIndex)]="showTab" mat-stretch-tabs="false">
     <mat-tab [label]="facility.name + ' (facility)'">
       <button mat-flat-button class="me-2 mt-3" color="accent" (click)="onAddAttFacility()">
         {{'SHARED_LIB.PERUN.SERVICES_CONFIGURATIONS.ADD' | translate}}

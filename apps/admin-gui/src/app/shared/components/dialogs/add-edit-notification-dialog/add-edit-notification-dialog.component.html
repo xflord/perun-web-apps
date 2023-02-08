@@ -17,7 +17,7 @@
           >{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.INVALID_NOTIFICATION' | translate}}</perun-web-apps-alert
         >
       </div>
-      <mat-tab-group color="primary">
+      <mat-tab-group color="primary" mat-stretch-tabs="false">
         <mat-tab label="{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.BASIC_SETTINGS' | translate}}">
           <div class="mt-3 d-flex">
             <span class="w-25 m-auto font-weight-bold"
@@ -122,7 +122,7 @@
             <perun-web-apps-alert alert_type="info" *ngIf="!htmlAuth">
               {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.FORMAT_INFO_NOT_AUTHORIZED' | translate}}
             </perun-web-apps-alert>
-            <mat-tab-group color="primary">
+            <mat-tab-group color="primary" mat-stretch-tabs="false">
               <mat-tab *ngFor="let format of formats" [disabled]="format === 'html' && !htmlAuth">
                 <ng-template mat-tab-label>
                   <span [ngClass]="{'disabled-label': format === 'html' && !htmlAuth}">

@@ -3,7 +3,8 @@
 <mat-tab-group
   (selectedIndexChange)="selectedIndex = $event"
   [selectedIndex]="selectedIndex"
-  animationDuration="0ms">
+  animationDuration="0ms"
+  mat-stretch-tabs="false">
   <mat-tab>
     <ng-template mat-tab-label>
       {{'VO_DETAIL.RESOURCES.STATES.ERROR_RESOURCES' | translate}}

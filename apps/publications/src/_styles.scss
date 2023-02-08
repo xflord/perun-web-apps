@@ -445,3 +445,11 @@ mat-form-field mat-icon {
 .mat-mdc-slide-toggle label {
   padding-top: 0 !important;
 }
+
+.mat-mdc-tab-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+.mdc-data-table__cell {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+}

@@ -7,7 +7,7 @@
       {{'DIALOGS.AUDIT_MESSAGE_DETAIL.ACTOR' | translate}}: {{actor}},
       {{'DIALOGS.AUDIT_MESSAGE_DETAIL.CREATED_AT' | translate}}: {{createdAt}}
     </div>
-    <mat-tab-group (selectedTabChange)="tabChanged($event)">
+    <mat-tab-group (selectedTabChange)="tabChanged($event)" mat-stretch-tabs="false">
       <mat-tab>
         <ng-template matTabLabel>
           {{'DIALOGS.AUDIT_MESSAGE_DETAIL.OBJECTS' | translate}}

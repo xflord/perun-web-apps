@@ -5,7 +5,7 @@
   <div *perunWebAppsLoader="loading; indicator: spinner">
     <h1 mat-dialog-title>{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.TITLE' | translate}}</h1>
     <div mat-dialog-content>
-      <mat-tab-group (selectedTabChange)="tabChanged()">
+      <mat-tab-group (selectedTabChange)="tabChanged()" mat-stretch-tabs="false">
         <mat-tab
           [disabled]="loading"
           label="{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.SELECT_SERVICE' | translate}}">
