@@ -5,7 +5,7 @@
     <perun-web-apps-alert alert_type="info" *ngIf="plainEdithAuth && !htmlEditAuth">
       {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.FORMAT_HTML_NOT_AUTHORIZED' | translate}}
     </perun-web-apps-alert>
-    <mat-tab-group color="primary">
+    <mat-tab-group color="primary" mat-stretch-tabs="false">
       <mat-tab *ngFor="let format of formats" [disabled]="format === 'html' && !htmlEditAuth">
         <ng-template mat-tab-label>
           <span [ngClass]="{'disabled-label': format === 'html' && !htmlEditAuth}">

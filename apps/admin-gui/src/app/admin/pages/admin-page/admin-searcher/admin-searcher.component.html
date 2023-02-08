@@ -1,5 +1,5 @@
 <h1 class="page-subtitle">{{'ADMIN.SEARCHER.TITLE' | translate}}</h1>
-<mat-tab-group (selectedIndexChange)="tabChanged($event)">
+<mat-tab-group mat-stretch-tabs="false" (selectedIndexChange)="tabChanged($event)">
   <mat-tab class="mb-2">
     <ng-template matTabLabel>
       {{'ADMIN.SEARCHER.TAB_USERS' | translate}}

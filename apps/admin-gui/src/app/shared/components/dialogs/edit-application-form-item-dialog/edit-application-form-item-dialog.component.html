@@ -6,7 +6,7 @@
     </h1>
     <mat-spinner *ngIf="loading" class="ms-auto me-auto"></mat-spinner>
     <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
-      <mat-tab-group color="primary">
+      <mat-tab-group color="primary" mat-stretch-tabs="false">
         <mat-tab label="{{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.BASIC_SETTINGS' | translate}}">
           <app-edit-application-form-item-line
             [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SHORT_NAME_DESCRIPTION' | translate"

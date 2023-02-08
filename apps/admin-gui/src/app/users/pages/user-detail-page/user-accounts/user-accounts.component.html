@@ -8,7 +8,7 @@
     (voSelected)="loadMember($event)">
   </perun-web-apps-vo-search-select>
 </div>
-<mat-tab-group *ngIf="!(initLoading || vos.length === 0)">
+<mat-tab-group *ngIf="!(initLoading || vos.length === 0)" mat-stretch-tabs="false">
   <mat-tab>
     <ng-template matTabLabel>
       {{'USER_DETAIL.ACCOUNTS.STATUS' | translate}}

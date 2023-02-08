@@ -306,3 +306,20 @@ mat-list-item .mat-mdc-form-field-subscript-wrapper {
 .mat-mdc-slide-toggle label {
   padding-top: 0 !important;
 }
+
+// Proper mat icon inside button
+.mat-mdc-outlined-button > .mat-icon {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+  font-size: 1.5rem !important;
+}
+
+.mat-mdc-tab-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+.mdc-data-table__cell {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+}

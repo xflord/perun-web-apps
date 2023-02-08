@@ -127,7 +127,10 @@
           </div>
         </perun-web-apps-alert>
 
-        <mat-tab-group *ngIf="!innerLoading && !duplicateCheck" #similarPublicationTabs>
+        <mat-tab-group
+          *ngIf="!innerLoading && !duplicateCheck"
+          #similarPublicationTabs
+          mat-stretch-tabs="false">
           <mat-tab>
             <ng-template matTabLabel>{{'CREATE_SINGLE_PUBLICATION.CHECK' | translate}}</ng-template>
             <ng-template matTabContent>

@@ -67,7 +67,7 @@
     "file-saver": "^2.0.5",
     "moment-timezone": "^0.5.35",
     "ng2-charts": "^4.1.1",
-    "ngx-mat-select-search": "^4.2.1",
+    "ngx-mat-select-search": "7.0.0",
     "ngx-scrollbar": "^10.0.1",
     "npm": "^8.17.0",
     "pdfmake": "^0.2.7",
