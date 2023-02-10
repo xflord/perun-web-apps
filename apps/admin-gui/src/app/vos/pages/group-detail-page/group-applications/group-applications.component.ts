@@ -27,7 +27,6 @@ export class GroupApplicationsComponent implements OnInit {
 
   // used for router animation
   @HostBinding('class.router-component') true;
-  state = 'pending';
   currentStates: AppState[] = ['NEW', 'VERIFIED'];
   group: Group;
 
@@ -80,38 +79,6 @@ export class GroupApplicationsComponent implements OnInit {
         });
       });
     this.loadViewConfiguration();
-  }
-
-  select(): void {
-    switch (this.state) {
-      case 'approved': {
-        this.currentStates = ['APPROVED'];
-        break;
-      }
-      case 'rejected': {
-        this.currentStates = ['REJECTED'];
-        break;
-      }
-      case 'wfmv': {
-        this.currentStates = ['NEW'];
-        break;
-      }
-      case 'submited': {
-        this.currentStates = ['VERIFIED'];
-        break;
-      }
-      case 'pending': {
-        this.currentStates = ['NEW', 'VERIFIED'];
-        break;
-      }
-      case 'all': {
-        this.currentStates = null;
-        break;
-      }
-      default: {
-        break;
-      }
-    }
   }
 
   yearAgo(): Date {

@@ -27,7 +27,6 @@ export class VoApplicationsComponent implements OnInit {
   static id = 'VoApplicationsComponent';
 
   @HostBinding('class.router-component') true;
-  state = 'pending';
   currentStates: AppState[] = ['NEW', 'VERIFIED'];
   vo: Vo;
   simplePrependColumns = ['id'];
@@ -84,38 +83,6 @@ export class VoApplicationsComponent implements OnInit {
         });
       });
     this.loadViewConfiguration();
-  }
-
-  select(): void {
-    switch (this.state) {
-      case 'approved': {
-        this.currentStates = ['APPROVED'];
-        break;
-      }
-      case 'rejected': {
-        this.currentStates = ['REJECTED'];
-        break;
-      }
-      case 'wfmv': {
-        this.currentStates = ['NEW'];
-        break;
-      }
-      case 'submited': {
-        this.currentStates = ['VERIFIED'];
-        break;
-      }
-      case 'pending': {
-        this.currentStates = ['NEW', 'VERIFIED'];
-        break;
-      }
-      case 'all': {
-        this.currentStates = null;
-        break;
-      }
-      default: {
-        break;
-      }
-    }
   }
 
   yearAgo(): Date {
