@@ -11,7 +11,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Member, RichMember } from '@perun-web-apps/perun/openapi';
+import { Member } from '@perun-web-apps/perun/openapi';
 import {
   customDataSourceFilterPredicate,
   customDataSourceSort,
@@ -28,9 +28,14 @@ import {
   ChangeMemberStatusDialogComponent,
   MemberTreeViewDialogComponent,
 } from '@perun-web-apps/perun/dialogs';
-import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
+import {
+  GuiAuthResolver,
+  PerunTranslateService,
+  TableCheckbox,
+} from '@perun-web-apps/perun/services';
 import { ActivatedRoute } from '@angular/router';
 import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
+import { MemberWithConsentStatus } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'perun-web-apps-members-list',
@@ -40,9 +45,10 @@ import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
 export class MembersListComponent implements OnChanges, AfterViewInit {
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
   @Input() showGroupStatuses: boolean;
-  @Input() members: RichMember[];
+  @Input() members: MemberWithConsentStatus[] = [];
   @Input() searchString: string;
-  @Input() selection: SelectionModel<RichMember> = new SelectionModel<RichMember>();
+  @Input() selection: SelectionModel<MemberWithConsentStatus> =
+    new SelectionModel<MemberWithConsentStatus>();
   @Input() displayedColumns: string[] = [
     'checkbox',
     'id',
@@ -65,7 +71,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
   @Input() filter = '';
   @Output() updateTable = new EventEmitter<boolean>();
 
-  dataSource: MatTableDataSource<RichMember>;
+  dataSource: MatTableDataSource<MemberWithConsentStatus>;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   disabledRouting: boolean;
   groupId: number;
@@ -76,46 +82,21 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     private dialog: MatDialog,
     private authResolver: GuiAuthResolver,
     private tableCheckbox: TableCheckbox,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private translateService: PerunTranslateService
   ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
   }
 
-  static getFilterDataForColumn(data: RichMember, column: string): string {
+  static getFilterDataForColumn(data: MemberWithConsentStatus, column: string): string {
     switch (column) {
       case 'fullName':
         if (data.user) {
           return parseFullName(data.user);
         }
         return '';
-      case 'email':
-        return parseEmail(data);
-      case 'logins':
-        return parseLogins(data);
-      default:
-        return '';
-    }
-  }
-
-  static getExportDataForColumn(
-    data: RichMember,
-    column: string,
-    showGroupStatuses: boolean
-  ): string {
-    switch (column) {
-      case 'id':
-        return data.id.toString();
-      case 'fullName':
-        if (data.user) {
-          return parseFullName(data.user);
-        }
-        return '';
-      case 'status':
-        return showGroupStatuses ? data.groupStatus : data.status;
-      case 'organization':
-        return parseOrganization(data);
       case 'email':
         return parseEmail(data);
       case 'logins':
@@ -126,7 +107,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
   }
 
   static getSortDataForColumn(
-    data: RichMember,
+    data: MemberWithConsentStatus,
     column: string,
     showGroupStatuses: boolean
   ): string {
@@ -144,16 +125,46 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
         return parseOrganization(data);
       case 'email':
         return parseEmail(data);
+      case 'consentStatus':
+        return data.consent;
       default:
         return '';
     }
   }
 
-  getExportDataForColumnFun = (data: RichMember, column: string): string => {
-    return MembersListComponent.getExportDataForColumn(data, column, this.showGroupStatuses);
+  getExportDataForColumn(
+    data: MemberWithConsentStatus,
+    column: string,
+    showGroupStatuses: boolean
+  ): string {
+    switch (column) {
+      case 'id':
+        return data.id.toString();
+      case 'fullName':
+        if (data.user) {
+          return parseFullName(data.user);
+        }
+        return '';
+      case 'status':
+        return showGroupStatuses ? data.groupStatus : data.status;
+      case 'organization':
+        return parseOrganization(data);
+      case 'email':
+        return parseEmail(data);
+      case 'logins':
+        return parseLogins(data);
+      case 'consentStatus':
+        return this.translateService.instant(`CONSENTS.STATUS_${data.consent}`);
+      default:
+        return '';
+    }
+  }
+
+  getExportDataForColumnFun = (data: MemberWithConsentStatus, column: string): string => {
+    return this.getExportDataForColumn(data, column, this.showGroupStatuses);
   };
 
-  getSortDataForColumnFun = (data: RichMember, column: string): string => {
+  getSortDataForColumnFun = (data: MemberWithConsentStatus, column: string): string => {
     return MembersListComponent.getSortDataForColumn(data, column, this.showGroupStatuses);
   };
 
@@ -185,17 +196,20 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
 
   setDataSource(): void {
     if (!this.dataSource) {
-      this.dataSource = new MatTableDataSource<RichMember>();
+      this.dataSource = new MatTableDataSource<MemberWithConsentStatus>();
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
-      this.dataSource.filterPredicate = (data: RichMember, filter: string): boolean =>
+      this.dataSource.filterPredicate = (data: MemberWithConsentStatus, filter: string): boolean =>
         customDataSourceFilterPredicate(
           data,
           filter,
           this.displayedColumns,
           MembersListComponent.getFilterDataForColumn
         );
-      this.dataSource.sortData = (data: RichMember[], sort: MatSort): RichMember[] =>
+      this.dataSource.sortData = (
+        data: MemberWithConsentStatus[],
+        sort: MatSort
+      ): MemberWithConsentStatus[] =>
         customDataSourceSort(data, sort, this.getSortDataForColumnFun);
     }
     this.dataSource.filter = this.filter;
@@ -218,10 +232,10 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     });
   }
 
-  canBeSelected = (member: RichMember): boolean => member.membershipType === 'DIRECT';
+  canBeSelected = (member: MemberWithConsentStatus): boolean => member.membershipType === 'DIRECT';
 
   isAllSelected(): boolean {
-    return this.tableCheckbox.isAllSelected<RichMember>(
+    return this.tableCheckbox.isAllSelected<MemberWithConsentStatus>(
       this.selection.selected.length,
       this.dataSource,
       this.canBeSelected
@@ -246,8 +260,8 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
   // now if the status is column between displayedColumns, the "disableStatusChange" attribute is also presented
   // so the status change through the icon on this list isn't used anywhere. If this change should be possible
   // in the future, the same logic as in members-dynamic-list should be used (but for this purpose some additional
-  // member attributes have to be presented in RichMember object - at least "isLifecycleAlterable" attribute)
-  changeStatus(event: Event, member: RichMember): void {
+  // member attributes have to be presented in MemberWithConsentStatus object - at least "isLifecycleAlterable" attribute)
+  changeStatus(event: Event, member: MemberWithConsentStatus): void {
     event.stopPropagation();
     if (!this.disableStatusChange) {
       const config = getDefaultDialogConfig();
@@ -263,7 +277,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  viewMemberGroupTree(member: RichMember): void {
+  viewMemberGroupTree(member: MemberWithConsentStatus): void {
     const config = getDefaultDialogConfig();
     config.width = '800px';
     config.data = { member: member, groupId: this.groupId };

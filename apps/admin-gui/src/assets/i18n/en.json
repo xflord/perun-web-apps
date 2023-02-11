@@ -253,7 +253,8 @@
     },
     "ASSIGNED_MEMBERS": {
       "TITLE": "Assigned members",
-      "FILTER": "Filter members"
+      "FILTER": "Filter members",
+      "FILTER_CONSENT_STATUS": "Filter by consent"
     },
     "TAGS": {
       "TITLE": "Assigned tags",

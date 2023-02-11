@@ -1,5 +1,21 @@
 <h1 class="page-subtitle">{{'RESOURCE_DETAIL.ASSIGNED_MEMBERS.TITLE' | translate}}</h1>
 <perun-web-apps-refresh-button (refresh)="refreshTable()"> </perun-web-apps-refresh-button>
+
+<mat-form-field class="mr-2 fix-select" *ngIf="includeConsents">
+  <mat-label>{{'RESOURCE_DETAIL.ASSIGNED_MEMBERS.FILTER_CONSENT_STATUS' | translate}}</mat-label>
+  <mat-select (closed)="changeConsentStatuses()" [formControl]="consentStatuses" multiple>
+    <mat-select-trigger>
+      {{selectedConsentStatuses | selectedConsentStatuses: consentStatusList : consentStatuses.value}}
+    </mat-select-trigger>
+    <mat-option
+      class="resource-theme"
+      *ngFor="let consentStatus of consentStatusList"
+      [value]="consentStatus">
+      {{'CONSENTS.STATUS_' + consentStatus | translate }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
 <perun-web-apps-debounce-filter
   (filter)="applyFilter($event)"
   [placeholder]="'RESOURCE_DETAIL.ASSIGNED_MEMBERS.FILTER'">
@@ -9,7 +25,7 @@
 </ng-template>
 <div class="position-relative">
   <perun-web-apps-members-list
-    [displayedColumns]="['id', 'fullName']"
+    [displayedColumns]="columns"
     (updateTable)="refreshTable()"
     *perunWebAppsLoader="loading; indicator: spinner"
     [disableRouting]="!routeAuth"

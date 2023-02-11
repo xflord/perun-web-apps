@@ -260,7 +260,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
       users.forEach((user) => {
         const uwc: UserWithConsentStatus = user;
         uwc.consent = this.translate.instant(
-          'CONSENTS.STATUS_' + this.consentPipe.transform(user, this.consents)
+          'CONSENTS.STATUS_' + this.consentPipe.transform(user.id, this.consents)
         ) as string;
         result.push(uwc);
       });

@@ -46,6 +46,7 @@ import { CanManageGroupPipe } from './can-manage-group.pipe';
 import { DisableGroupSelectPipe } from './disable-group-select.pipe';
 import { GroupCheckboxTooltipPipe } from './group-checkbox-tooltip.pipe';
 import { ConsentStatusIconPipe } from './consent-status-icon.pipe';
+import { SelectedConsentStatusesPipe } from './selected-consent-statuses.pipe';
 import { CheckboxLabelPipe } from './checkbox-label.pipe';
 import { MasterCheckboxLabelPipe } from './master-checkbox-label.pipe';
 import { ManageableEntitiesPipe } from './manageable-entities.pipe';
@@ -110,6 +111,7 @@ import { ApplicationColumnSelectLabelPipe } from './application-column-select-la
     CheckboxLabelPipe,
     MasterCheckboxLabelPipe,
     ConsentStatusIconPipe,
+    SelectedConsentStatusesPipe,
     ManageableEntitiesPipe,
     UnassignedRolePipe,
     PublicationTabLabelPipe,
@@ -171,6 +173,7 @@ import { ApplicationColumnSelectLabelPipe } from './application-column-select-la
     CheckboxLabelPipe,
     MasterCheckboxLabelPipe,
     ConsentStatusIconPipe,
+    SelectedConsentStatusesPipe,
     ManageableEntitiesPipe,
     UnassignedRolePipe,
     PublicationTabLabelPipe,

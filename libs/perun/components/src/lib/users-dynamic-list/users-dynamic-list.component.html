@@ -87,7 +87,7 @@
         </th>
         <td mat-cell *matCellDef="let user">
           <perun-web-apps-consent-status
-            [consentStatus]="user | consentStatusIcon: consents"></perun-web-apps-consent-status>
+            [consentStatus]="user.id | consentStatusIcon: consents"></perun-web-apps-consent-status>
         </td>
       </ng-container>
 
