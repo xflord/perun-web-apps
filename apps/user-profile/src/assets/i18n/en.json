@@ -218,6 +218,8 @@
     },
     "ADD_AUTH_TEXT": {
       "TITLE": "Change security text",
+      "GENERATE_TEXT": "Generate text",
+      "GENERATE_EMOJIS": "Generate emojis",
       "CANCEL": "Cancel",
       "ADD": "Save text",
       "DELAY_INFO": "New security text usually becomes effective in 5 minutes, in rare cases it might take a couple of hours."

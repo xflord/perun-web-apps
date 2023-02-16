@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { StoreService } from '@perun-web-apps/perun/services';
+import words from './words.json';
 
 export interface AddAuthTextDialogData {
   theme: string;
@@ -17,7 +18,6 @@ export class AddAuthTextDialogComponent implements OnInit {
   theme: string;
   attribute: Attribute;
   securityText = '';
-
   constructor(
     private dialogRef: MatDialogRef<AddAuthTextDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: AddAuthTextDialogData,
@@ -31,7 +31,7 @@ export class AddAuthTextDialogComponent implements OnInit {
     if (this.attribute.value) this.securityText = String(this.attribute.value);
   }
 
-  onAdd(): void {
+  add(): void {
     this.attribute.value = this.securityText;
     this.attributesManagerService
       .setUserAttribute({
@@ -43,7 +43,17 @@ export class AddAuthTextDialogComponent implements OnInit {
       });
   }
 
-  onCancel(): void {
+  cancel(): void {
     this.dialogRef.close(false);
+  }
+
+  generateText(locale = 'en'): void {
+    const elements: string[] = words[locale] as string[];
+    let result = elements[Math.floor(Math.random() * elements.length)];
+    for (let i = 0; i < 3; i++) {
+      result +=
+        (locale !== 'emojis' ? '-' : ' ') + elements[Math.floor(Math.random() * elements.length)];
+    }
+    this.securityText = result;
   }
 }
