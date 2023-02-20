@@ -11,17 +11,21 @@
     </perun-web-apps-alert>
   </div>
   <div mat-dialog-content>
-    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-    <perun-web-apps-attributes-list
-      #list
-      [emptyListText]="'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.EMPTY_ATTRIBUTES'"
-      *ngIf="!loading"
-      [attributes]="attributes"
-      [filterValue]="filterValue"
-      [inDialog]="true"
-      [selection]="selected"
-      [tableId]="tableId">
-    </perun-web-apps-attributes-list>
+    <ng-template #spinner>
+      <perun-web-apps-loading-table></perun-web-apps-loading-table>
+    </ng-template>
+    <div class="position-relative">
+      <perun-web-apps-attributes-list
+        *perunWebAppsLoader="loading; indicator: spinner"
+        #list
+        [emptyListText]="'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.EMPTY_ATTRIBUTES'"
+        [attributes]="attributes"
+        [filterValue]="filterValue"
+        [inDialog]="true"
+        [selection]="selected"
+        [tableId]="tableId">
+      </perun-web-apps-attributes-list>
+    </div>
   </div>
   <div mat-dialog-actions>
     <button (click)="onCancel()" class="ml-auto" mat-flat-button>

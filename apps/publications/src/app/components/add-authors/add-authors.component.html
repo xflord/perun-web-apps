@@ -19,14 +19,18 @@
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'PUBLICATION_DETAIL.FILTER'"></perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <perun-web-apps-authors-list
-    *ngIf="!loading"
-    [authors]="publication.authors"
-    [selection]="selection"
-    [filterValue]="filterValue"
-    [tableId]="tableId"
-    [disableRouting]="disableRouting"
-    [displayedColumns]="publication.locked ? ['id', 'name', 'organization', 'email'] : ['select', 'id', 'name', 'organization', 'email']">
-  </perun-web-apps-authors-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-authors-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [authors]="publication.authors"
+      [selection]="selection"
+      [filterValue]="filterValue"
+      [tableId]="tableId"
+      [disableRouting]="disableRouting"
+      [displayedColumns]="publication.locked ? ['id', 'name', 'organization', 'email'] : ['select', 'id', 'name', 'organization', 'email']">
+    </perun-web-apps-authors-list>
+  </div>
 </div>

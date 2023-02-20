@@ -60,20 +60,26 @@
       </mat-form-field>
     </div>
   </div>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <perun-web-apps-users-dynamic-list
-    *ngIf="!loading"
-    [attrNames]="attributes"
-    [disableRouting]="!routeAuth"
-    [displayedColumns]="['id', 'name', 'email', 'logins', 'organization']"
-    [onlyAllowed]="allowed"
-    [facilityId]="facility.id"
-    [searchString]="filterValue"
-    [resourceId]="selectedResource.id === -1 ? null : selectedResource.id"
-    [serviceId]="selectedService.id === -1 ? null : selectedService.id"
-    [tableId]="tableId"
-    [voId]="selectedVo.id === -1 ? null : selectedVo.id"
-    [consentStatuses]="selectedConsentStatuses"
-    [includeConsents]="globalForceConsents && facilityForceConsents">
-  </perun-web-apps-users-dynamic-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-users-dynamic-list
+      *perunWebAppsLoader="loading$ | async; indicator: spinner"
+      (loading$)="loading$ = $event"
+      [attrNames]="attributes"
+      [disableRouting]="!routeAuth"
+      [displayedColumns]="['id', 'name', 'email', 'logins', 'organization']"
+      [onlyAllowed]="allowed"
+      [facilityId]="facility.id"
+      [searchString]="filterValue"
+      [resourceId]="selectedResource.id === -1 ? null : selectedResource.id"
+      [serviceId]="selectedService.id === -1 ? null : selectedService.id"
+      [tableId]="tableId"
+      [voId]="selectedVo.id === -1 ? null : selectedVo.id"
+      [consentStatuses]="selectedConsentStatuses"
+      [includeConsents]="globalForceConsents && facilityForceConsents"
+      [updateTable]="update">
+    </perun-web-apps-users-dynamic-list>
+  </div>
 </div>

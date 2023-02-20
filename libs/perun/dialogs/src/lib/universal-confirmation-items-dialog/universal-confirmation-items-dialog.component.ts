@@ -21,7 +21,6 @@ export class UniversalConfirmationItemsDialogComponent implements OnInit {
   displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<string>;
   theme: string;
-  loading = false;
 
   constructor(
     public dialogRef: MatDialogRef<UniversalConfirmationItemsDialogComponent>,

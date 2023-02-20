@@ -19,13 +19,17 @@
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'PUBLICATION_DETAIL.FILTER'"></perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <perun-web-apps-thanks-list
-    *ngIf="!loading"
-    [thanks]="publication.thanks"
-    [filterValue]="filterValue"
-    [tableId]="tableId"
-    [displayedColumns]="publication.locked ? ['id', 'name', 'createdBy'] : ['select', 'id', 'name', 'createdBy']"
-    [selection]="selection">
-  </perun-web-apps-thanks-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-thanks-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [thanks]="publication.thanks"
+      [filterValue]="filterValue"
+      [tableId]="tableId"
+      [displayedColumns]="publication.locked ? ['id', 'name', 'createdBy'] : ['select', 'id', 'name', 'createdBy']"
+      [selection]="selection">
+    </perun-web-apps-thanks-list>
+  </div>
 </div>

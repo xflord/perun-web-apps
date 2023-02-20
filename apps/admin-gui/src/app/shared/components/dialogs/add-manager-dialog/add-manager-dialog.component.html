@@ -36,15 +36,12 @@
       {{'DIALOGS.ADD_MANAGERS.SEARCH' | translate}}
     </button>
 
-    <div class="overflow-hidden">
-      <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-    </div>
-    <div class="mt-3" *ngIf="users !== null && !loading">
-      <perun-web-apps-alert *ngIf="users.length === 0 && firstSearchDone" alert_type="warn">
-        {{'DIALOGS.ADD_MANAGERS.NO_USERS_FOUND' | translate}}
-      </perun-web-apps-alert>
+    <ng-template #spinner>
+      <perun-web-apps-loading-table></perun-web-apps-loading-table>
+    </ng-template>
+    <div class="position-relative mt-3" *ngIf="firstSearchDone">
       <app-users-list
-        *ngIf="users.length !== 0"
+        *perunWebAppsLoader="loading; indicator: spinner"
         [disableRouting]="true"
         [selection]="selection"
         [displayedColumns]="['select', 'id', 'name', 'email', 'logins', 'organization']"

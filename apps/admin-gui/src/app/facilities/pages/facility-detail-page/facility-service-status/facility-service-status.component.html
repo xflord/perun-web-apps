@@ -4,7 +4,7 @@
   <button
     *ngIf="propagationAuth"
     (click)="forcePropagation()"
-    [disabled]="selected.selected.length === 0"
+    [disabled]="selected.selected.length === 0 || loading"
     class="mr-2"
     color="accent"
     mat-flat-button>
@@ -13,7 +13,7 @@
   <button
     *ngIf="allowAuth"
     (click)="allow()"
-    [disabled]="selected.selected.length === 0 || this.disableAllowButton"
+    [disabled]="selected.selected.length === 0 || this.disableAllowButton || loading"
     class="mr-2"
     color="accent"
     mat-flat-button>
@@ -24,14 +24,14 @@
     (click)="block()"
     class="mr-2"
     color="warn"
-    [disabled]="selected.selected.length === 0 || this.disableBlockButton"
+    [disabled]="selected.selected.length === 0 || this.disableBlockButton || loading"
     mat-flat-button>
     {{'FACILITY_DETAIL.SERVICES_STATUS.BLOCK' | translate}}
   </button>
   <button
     *ngIf="deleteAuth"
     mat-flat-button
-    [disabled]="disableRemoveButton"
+    [disabled]="disableRemoveButton || loading"
     [matMenuTriggerFor]="menu"
     [matTooltipDisabled]="!disableRemoveButton"
     class="mr-2 dropdown-toggle"
@@ -50,14 +50,18 @@
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.TABLE_SEARCH'"></perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <perun-web-apps-services-status-list
-    [disableRouting]="!routeAuth"
-    (selectionChange)="selectionChanged()"
-    *ngIf="!loading"
-    [filterValue]="filterValue"
-    [servicesStatus]="servicesStates"
-    [selection]="selected"
-    [tableId]="tableId">
-  </perun-web-apps-services-status-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-services-status-list
+      [disableRouting]="!routeAuth"
+      (selectionChange)="selectionChanged()"
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [filterValue]="filterValue"
+      [servicesStatus]="servicesStates"
+      [selection]="selected"
+      [tableId]="tableId">
+    </perun-web-apps-services-status-list>
+  </div>
 </div>

@@ -118,11 +118,11 @@ export class AddGroupManagerDialogComponent implements OnInit {
 
   showVoGroups(event: MatAutocompleteSelectedEvent): void {
     this.loading = true;
+    this.firstSearchDone = true;
     this.groupService.getAllGroups((event.option.value as Vo).id).subscribe({
       next: (groups) => {
         this.groups = groups;
         this.loading = false;
-        this.firstSearchDone = true;
       },
       error: () => (this.loading = false),
     });

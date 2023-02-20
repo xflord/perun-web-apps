@@ -20,12 +20,16 @@
 <perun-web-apps-immediate-filter
   (filter)="filterValue = $event"
   [placeholder]="'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.FILTER'"></perun-web-apps-immediate-filter>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-<perun-web-apps-vos-list
-  *ngIf="!loading"
-  [vos]="memberVos"
-  [selection]="voSelection"
-  [filterValue]="filterValue"
-  [disableRouting]="!auth"
-  [displayedColumns]="displayedColumns">
-</perun-web-apps-vos-list>
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div class="position-relative">
+  <perun-web-apps-vos-list
+    *perunWebAppsLoader="loading; indicator: spinner"
+    [vos]="memberVos"
+    [selection]="voSelection"
+    [filterValue]="filterValue"
+    [disableRouting]="!auth"
+    [displayedColumns]="displayedColumns">
+  </perun-web-apps-vos-list>
+</div>

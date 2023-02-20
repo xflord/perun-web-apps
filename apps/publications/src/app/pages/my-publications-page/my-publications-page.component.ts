@@ -20,8 +20,7 @@ import { Filter } from '../Filter';
 })
 export class MyPublicationsPageComponent implements OnInit {
   loading: boolean;
-  initLoading: boolean;
-  publications: PublicationForGUI[];
+  publications: PublicationForGUI[] = [];
   selected = new SelectionModel<PublicationForGUI>(true, []);
   tableId = TABLE_PUBLICATION_AUTHOR_DETAIL_PUBLICATIONS;
   authorId: number;
@@ -42,11 +41,10 @@ export class MyPublicationsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.initLoading = true;
+    this.loading = true;
 
     this.authResolver.getPerunPrincipal().subscribe((perunPrincipal) => {
       this.authorId = perunPrincipal.userId;
-      this.initLoading = false;
       this.refreshTable();
     });
   }

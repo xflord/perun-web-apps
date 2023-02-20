@@ -1,14 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  Member,
-  MembersManagerService,
-  RegistrarManagerService,
-} from '@perun-web-apps/perun/openapi';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Member } from '@perun-web-apps/perun/openapi';
 import {
   TABLE_MEMBER_APPLICATIONS_DETAILED,
   TABLE_MEMBER_APPLICATIONS_NORMAL,
 } from '@perun-web-apps/config/table-config';
-import { ActivatedRoute } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { EntityStorageService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-member-applications',
@@ -16,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./member-applications.component.scss'],
 })
 export class MemberApplicationsComponent implements OnInit {
-  loading = false;
+  loading$: Observable<boolean>;
   memberId: number;
   member: Member;
   displayedColumns: string[] = [
@@ -52,25 +49,24 @@ export class MemberApplicationsComponent implements OnInit {
   dateFrom: Date = new Date('1970-01-01');
   refresh: boolean;
 
-  constructor(
-    private registrarManager: RegistrarManagerService,
-    private memberManager: MembersManagerService,
-    protected route: ActivatedRoute
-  ) {}
+  constructor(private entityStorageService: EntityStorageService, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.loading = true;
-    this.route.parent.params.subscribe((parentParams) => {
-      this.memberId = Number(parentParams['memberId']);
-
-      this.memberManager.getMemberById(this.memberId).subscribe((member) => {
-        this.member = member;
-        this.loading = false;
-      });
-    });
+    this.loading$ = of(true);
+    this.member = this.entityStorageService.getEntity();
   }
 
   applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
+  }
+
+  showDetails(): void {
+    this.showAllDetails = !this.showAllDetails;
+    this.cd.detectChanges();
+  }
+
+  refreshTable(): void {
+    this.refresh = !this.refresh;
+    this.cd.detectChanges();
   }
 }

@@ -21,13 +21,17 @@
   (filter)="applyFilter($event)"
   [placeholder]="'RESOURCE_DETAIL.ASSIGNED_SERVICES.FILTER_SERVICES'">
 </perun-web-apps-immediate-filter>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-<app-services-list
-  *ngIf="!loading"
-  [disableRouting]="!serviceRoutingAuth"
-  [selection]="selected"
-  [displayedColumns]="displayedColumns"
-  [filterValue]="filterValue"
-  [services]="assignedServices"
-  [tableId]="tableId">
-</app-services-list>
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div class="position-relative">
+  <app-services-list
+    *perunWebAppsLoader="loading; indicator: spinner"
+    [disableRouting]="!serviceRoutingAuth"
+    [selection]="selected"
+    [displayedColumns]="displayedColumns"
+    [filterValue]="filterValue"
+    [services]="assignedServices"
+    [tableId]="tableId">
+  </app-services-list>
+</div>

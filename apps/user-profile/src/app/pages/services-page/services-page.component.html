@@ -12,12 +12,16 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-        <perun-web-apps-resources-list
-          *ngIf="!loading"
-          [resources]="resources"
-          [displayedColumns]="['name', 'description']"
-          [disableRouting]="true"></perun-web-apps-resources-list>
+        <ng-template #spinner>
+          <perun-web-apps-loading-table></perun-web-apps-loading-table>
+        </ng-template>
+        <div class="position-relative">
+          <perun-web-apps-resources-list
+            *perunWebAppsLoader="loading; indicator: spinner"
+            [resources]="resources"
+            [displayedColumns]="['name', 'description']"
+            [disableRouting]="true"></perun-web-apps-resources-list>
+        </div>
       </ng-template>
     </mat-expansion-panel>
   </mat-accordion>

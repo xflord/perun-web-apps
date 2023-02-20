@@ -1,69 +1,72 @@
-<h1 mat-dialog-title>{{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.TITLE' | translate}}</h1>
-<div class="{{theme}}">
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <div *ngIf="!loading" mat-dialog-content>
-    <p>{{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CHECKBOXES_DESCRIPTION' | translate}}</p>
-    <div>
-      <mat-checkbox
-        *ngIf="taskId !== null"
-        (change)="change($event)"
-        class="right-space"
-        color="warn"
-        [checked]="taskChecked"
-        [disabled]="checkboxesDisabled"
-        [matTooltipDisabled]="!checkboxesDisabled"
-        id="task"
-        matTooltip="{{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CHECKBOXES_DISABLED' | translate}}">
-        {{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CHECKBOX_TASK_AND_TASK_RESULTS' | translate}}
-      </mat-checkbox>
-      <mat-checkbox
-        *ngIf="taskId !== null"
-        (change)="change($event)"
-        class="right-space"
-        color="warn"
-        [checked]="taskResultsChecked"
-        [disabled]="checkboxesDisabled"
-        [matTooltipDisabled]="!checkboxesDisabled"
-        id="taskResults"
-        matTooltip="{{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CHECKBOXES_DISABLED' | translate}}">
-        {{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CHECKBOX_TASK_RESULTS' | translate}}
-      </mat-checkbox>
-      <mat-checkbox
-        (change)="change($event)"
-        [disabled]="checkboxesDisabled"
-        [matTooltipDisabled]="!checkboxesDisabled"
-        color="warn"
-        id="destination"
-        [checked]="destinationChecked"
-        matTooltip="{{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CHECKBOXES_DISABLED' | translate}}">
-        {{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CHECKBOX_DESTINATION' | translate}}
-      </mat-checkbox>
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.TITLE' | translate}}</h1>
+    <div mat-dialog-content>
+      <p>{{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CHECKBOXES_DESCRIPTION' | translate}}</p>
+      <div>
+        <mat-checkbox
+          *ngIf="taskId !== null"
+          (change)="change($event)"
+          class="right-space"
+          color="warn"
+          [checked]="taskChecked"
+          [disabled]="checkboxesDisabled"
+          [matTooltipDisabled]="!checkboxesDisabled"
+          id="task"
+          matTooltip="{{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CHECKBOXES_DISABLED' | translate}}">
+          {{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CHECKBOX_TASK_AND_TASK_RESULTS' | translate}}
+        </mat-checkbox>
+        <mat-checkbox
+          *ngIf="taskId !== null"
+          (change)="change($event)"
+          class="right-space"
+          color="warn"
+          [checked]="taskResultsChecked"
+          [disabled]="checkboxesDisabled"
+          [matTooltipDisabled]="!checkboxesDisabled"
+          id="taskResults"
+          matTooltip="{{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CHECKBOXES_DISABLED' | translate}}">
+          {{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CHECKBOX_TASK_RESULTS' | translate}}
+        </mat-checkbox>
+        <mat-checkbox
+          (change)="change($event)"
+          [disabled]="checkboxesDisabled"
+          [matTooltipDisabled]="!checkboxesDisabled"
+          color="warn"
+          id="destination"
+          [checked]="destinationChecked"
+          matTooltip="{{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CHECKBOXES_DISABLED' | translate}}">
+          {{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CHECKBOX_DESTINATION' | translate}}
+        </mat-checkbox>
+      </div>
+      <p>{{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.DESCRIPTION' | translate}}</p>
+      <div class="font-weight-bold">
+        {{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.ASK' | translate}}
+      </div>
+      <perun-web-apps-resources-list
+        (allSelected)="disableCheckboxes($event)"
+        [displayedColumns]="displayedColumns"
+        [disableRouting]="true"
+        [resources]="resources"
+        [selection]="selected"
+        [tableId]="tableId">
+      </perun-web-apps-resources-list>
     </div>
-    <p>{{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.DESCRIPTION' | translate}}</p>
-    <div class="font-weight-bold">
-      {{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.ASK' | translate}}
+    <div mat-dialog-actions>
+      <button (click)="cancel()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CANCEL' | translate}}
+      </button>
+      <button
+        (click)="remove()"
+        class="ml-2"
+        color="warn"
+        [disabled]="loading || selected.selected.length === 0"
+        mat-flat-button>
+        {{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.REMOVE' | translate}}
+      </button>
     </div>
-    <perun-web-apps-resources-list
-      (allSelected)="disableCheckboxes($event)"
-      [displayedColumns]="displayedColumns"
-      *ngIf="!loading"
-      [disableRouting]="true"
-      [resources]="resources"
-      [selection]="selected"
-      [tableId]="tableId">
-    </perun-web-apps-resources-list>
-  </div>
-  <div mat-dialog-actions>
-    <button (click)="cancel()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CANCEL' | translate}}
-    </button>
-    <button
-      (click)="remove()"
-      class="ml-2"
-      color="warn"
-      [disabled]="loading || selected.selected.length === 0"
-      mat-flat-button>
-      {{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.REMOVE' | translate}}
-    </button>
   </div>
 </div>

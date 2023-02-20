@@ -1,33 +1,35 @@
-<div class="{{data.theme}}">
-  <h1 mat-dialog-title>{{'DIALOGS.REMOVE_RESOURCES.TITLE' | translate}}</h1>
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{data.theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.REMOVE_RESOURCES.TITLE' | translate}}</h1>
+    <div mat-dialog-content>
+      <p>
+        {{'DIALOGS.REMOVE_RESOURCES.DESCRIPTION' | translate}}
+      </p>
 
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
+      <div class="font-weight-bold">
+        {{'DIALOGS.REMOVE_RESOURCES.ASK' | translate}}
+      </div>
 
-  <div *ngIf="!loading" mat-dialog-content>
-    <p>
-      {{'DIALOGS.REMOVE_RESOURCES.DESCRIPTION' | translate}}
-    </p>
+      <table [dataSource]="dataSource" class="w-100" mat-table>
+        <ng-container matColumnDef="name">
+          <th *matHeaderCellDef mat-header-cell></th>
+          <td *matCellDef="let resource" mat-cell>{{resource.name}}</td>
+        </ng-container>
 
-    <div class="font-weight-bold">
-      {{'DIALOGS.REMOVE_RESOURCES.ASK' | translate}}
+        <tr *matHeaderRowDef="displayedColumns" class="font-weight-bolder" mat-header-row></tr>
+        <tr *matRowDef="let resource; columns: displayedColumns;" mat-row></tr>
+      </table>
     </div>
-
-    <table [dataSource]="dataSource" class="w-100" mat-table>
-      <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let resource" mat-cell>{{resource.name}}</td>
-      </ng-container>
-
-      <tr *matHeaderRowDef="displayedColumns" class="font-weight-bolder" mat-header-row></tr>
-      <tr *matRowDef="let resource; columns: displayedColumns;" mat-row></tr>
-    </table>
-  </div>
-  <div *ngIf="!loading" mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.REMOVE_RESOURCES.CANCEL' | translate}}
-    </button>
-    <button (click)="onSubmit()" [disabled]="loading" class="ml-2" color="warn" mat-flat-button>
-      {{'DIALOGS.REMOVE_RESOURCES.DELETE' | translate}}
-    </button>
+    <div mat-dialog-actions>
+      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.REMOVE_RESOURCES.CANCEL' | translate}}
+      </button>
+      <button (click)="onSubmit()" [disabled]="loading" class="ml-2" color="warn" mat-flat-button>
+        {{'DIALOGS.REMOVE_RESOURCES.DELETE' | translate}}
+      </button>
+    </div>
   </div>
 </div>

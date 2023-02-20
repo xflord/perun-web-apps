@@ -90,13 +90,18 @@
     {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.DRAG_AND_DROP_INFO' | translate}}
   </perun-web-apps-alert>
 
-  <app-application-form-list
-    (applicationFormItemsChange)="changeItems()"
-    [applicationForm]="applicationForm"
-    [applicationFormItems]="applicationFormItems"
-    [loading]="loading"
-    [displayedColumns]="displayedColumns"
-    [refreshApplicationForm]="refreshApplicationForm"
-    [theme]="'vo-theme'">
-  </app-application-form-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <app-application-form-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      (applicationFormItemsChange)="changeItems()"
+      [applicationForm]="applicationForm"
+      [applicationFormItems]="applicationFormItems"
+      [displayedColumns]="displayedColumns"
+      [refreshApplicationForm]="refreshApplicationForm"
+      [theme]="'vo-theme'">
+    </app-application-form-list>
+  </div>
 </div>

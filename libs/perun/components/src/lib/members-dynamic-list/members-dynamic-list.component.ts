@@ -1,9 +1,11 @@
 import {
   AfterViewInit,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -42,7 +44,7 @@ import { MatSort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TableConfigService } from '@perun-web-apps/config/table-config';
 import { TableWrapperComponent } from '@perun-web-apps/perun/utils';
-import { merge } from 'rxjs';
+import { merge, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ChangeMemberStatusOrExpirationDialogComponent } from '../change-member-status-or-expiration-dialog/change-member-status-or-expiration-dialog.component';
 
@@ -77,7 +79,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
   @Input() updateTable: boolean;
   @Input() isMembersGroup: boolean;
   @Input() disableRouting = false;
-
+  @Output() loading$: EventEmitter<Observable<boolean>> = new EventEmitter<Observable<boolean>>();
   expireGroupAuth: boolean;
   expireVoAuth: boolean;
 
@@ -152,6 +154,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
       this.groupId,
       this.selectedGroupStatuses
     );
+    this.loading$.emit(this.dataSource.loading$);
   }
 
   canBeSelected = (member: RichMember): boolean => !isMemberIndirect(member);

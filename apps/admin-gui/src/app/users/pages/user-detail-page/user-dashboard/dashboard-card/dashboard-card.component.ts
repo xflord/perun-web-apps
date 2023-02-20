@@ -24,7 +24,7 @@ export class DashboardCardComponent implements OnInit {
   svgIcon: string;
   title: string;
   roleTooltipInfo: string;
-  objects: Vo[] | Group[] | RichResource[] | EnrichedFacility[];
+  objects: Vo[] | Group[] | RichResource[] | EnrichedFacility[] = [];
   loading = false;
   recentIds: number[] = [];
 

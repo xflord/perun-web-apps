@@ -27,14 +27,18 @@
   (filter)="this.filterValue = $event"
   [placeholder]="'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.FILTER'">
 </perun-web-apps-immediate-filter>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
-<perun-web-apps-groups-list
-  *ngIf="!loading"
-  [displayedColumns]="['select', 'id', 'name', 'description']"
-  [disableRouting]="true"
-  [groups]="this.groups"
-  [filter]="filterValue"
-  [selection]="selected"
-  [tableId]="tableId"
-  theme="vo-theme">
-</perun-web-apps-groups-list>
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div class="position-relative">
+  <perun-web-apps-groups-list
+    *perunWebAppsLoader="loading; indicator: spinner"
+    [displayedColumns]="['select', 'id', 'name', 'description']"
+    [disableRouting]="true"
+    [groups]="this.groups"
+    [filter]="filterValue"
+    [selection]="selected"
+    [tableId]="tableId"
+    theme="vo-theme">
+  </perun-web-apps-groups-list>
+</div>

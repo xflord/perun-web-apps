@@ -20,13 +20,17 @@
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'FACILITY_DETAIL.SECURITY_TEAMS.FILTER'"></perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <app-security-teams-list
-    [displayedColumns]="displayedColumns"
-    *ngIf="!loading"
-    [filterValue]="filterValue"
-    [securityTeams]="securityTeams"
-    [selection]="selected"
-    [tableId]="tableId">
-  </app-security-teams-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <app-security-teams-list
+      [displayedColumns]="displayedColumns"
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [filterValue]="filterValue"
+      [securityTeams]="securityTeams"
+      [selection]="selected"
+      [tableId]="tableId">
+    </app-security-teams-list>
+  </div>
 </div>

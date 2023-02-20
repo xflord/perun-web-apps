@@ -10,7 +10,7 @@ import { TABLE_PUBLICATION_AUTHORS } from '@perun-web-apps/config/table-config';
 export class AuthorsPageComponent implements OnInit {
   filterValue = '';
   loading: boolean;
-  authors: Author[];
+  authors: Author[] = [];
   tableId = TABLE_PUBLICATION_AUTHORS;
 
   constructor(private cabinetService: CabinetManagerService) {}

@@ -26,7 +26,7 @@ export class AddGroupResourceDialogComponent implements OnInit {
 
   loading: boolean;
   filterValue = '';
-  resources: RichResource[] = [];
+  resources: RichResource[] = null;
   selection = new SelectionModel<RichResource>(true, []);
   theme = '';
   async = true;
@@ -59,10 +59,11 @@ export class AddGroupResourceDialogComponent implements OnInit {
       'DIALOGS.ADD_GROUP_RESOURCES.ACTIVE_ON_HINT'
     ) as string;
     this.asyncHint = this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ASYNC_ON_HINT') as string;
-    this.resourcesManager.getRichResources(this.data.group.voId).subscribe(
-      (allResources) => {
-        this.resourcesManager.getAssignedResourcesWithGroup(this.data.group.id).subscribe(
-          (assignedResources) => {
+    this.resourcesManager.getRichResources(this.data.group.voId).subscribe({
+      next: (allResources) => {
+        this.resourcesManager.getAssignedResourcesWithGroup(this.data.group.id).subscribe({
+          next: (assignedResources) => {
+            this.resources = [];
             for (const allResource of allResources) {
               if (
                 assignedResources.findIndex((item) => item.id === allResource.id) === -1 &&
@@ -77,11 +78,11 @@ export class AddGroupResourceDialogComponent implements OnInit {
             this.loading = false;
             this.cd.detectChanges();
           },
-          () => (this.loading = false)
-        );
+          error: () => (this.loading = false),
+        });
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 
   applyFilter(filterValue: string): void {
@@ -103,8 +104,8 @@ export class AddGroupResourceDialogComponent implements OnInit {
         !this.asActive,
         this.autoAssignSubgroups
       )
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.translate
             .get('DIALOGS.ADD_GROUP_RESOURCES.SUCCESS')
             .subscribe((successMessage: string) => {
@@ -112,8 +113,8 @@ export class AddGroupResourceDialogComponent implements OnInit {
               this.dialogRef.close(true);
             });
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
   }
 
   changeSubgroupsMessage(): void {

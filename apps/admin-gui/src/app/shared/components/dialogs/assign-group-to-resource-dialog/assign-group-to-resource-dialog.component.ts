@@ -28,7 +28,7 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
 
   loading = false;
   theme: string;
-  unAssignedGroups: Group[] = this.data.onlyAutoAssignedGroups;
+  unAssignedGroups: Group[] = null;
   async = true;
   autoAssignSubgroups = false;
   asActive = true;
@@ -64,10 +64,11 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
     this.asyncHint = this.translate.instant(
       'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_ON_HINT'
     ) as string;
-    this.resourceManager.getAssignedGroups(this.resource.id).subscribe(
-      (assignedGroups) => {
-        this.groupService.getAllGroups(this.resource.voId).subscribe(
-          (allGroups) => {
+    this.resourceManager.getAssignedGroups(this.resource.id).subscribe({
+      next: (assignedGroups) => {
+        this.groupService.getAllGroups(this.resource.voId).subscribe({
+          next: (allGroups) => {
+            this.unAssignedGroups = this.data.onlyAutoAssignedGroups;
             for (const allGroup of allGroups) {
               if (
                 assignedGroups.findIndex((item) => item.id === allGroup.id) === -1 &&
@@ -82,11 +83,11 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
             this.loading = false;
             this.cd.detectChanges();
           },
-          () => (this.loading = false)
-        );
+          error: () => (this.loading = false),
+        });
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 
   onCancel(): void {

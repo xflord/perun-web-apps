@@ -21,12 +21,13 @@
   (filter)="applyFilter($event)"
   [placeholder]="'USER_DETAIL.IDENTITIES.FILTER_PLACEHOLDER'">
 </perun-web-apps-immediate-filter>
-<div class="admin-theme">
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-</div>
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
 
-<div *ngIf="!loading">
+<div class="position-relative">
   <perun-web-apps-user-ext-sources-list
+    *perunWebAppsLoader="loading; indicator: spinner"
     [displayedColumns]="displayedColumns"
     [filterValue]="filterValue"
     [selection]="selection"

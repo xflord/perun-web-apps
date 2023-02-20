@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {
   Consent,
   ConsentsManagerService,
@@ -24,7 +33,7 @@ import {
   GuiAuthResolver,
   TableCheckbox,
 } from '@perun-web-apps/perun/services';
-import { merge } from 'rxjs';
+import { merge, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { TableConfigService } from '@perun-web-apps/config/table-config';
 import { MatDialog } from '@angular/material/dialog';
@@ -65,6 +74,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
   @Input() onlyAllowed: boolean;
   @Input() consentStatuses: ConsentStatus[];
   @Input() includeConsents = false;
+  @Output() loading$: EventEmitter<Observable<boolean>> = new EventEmitter<Observable<boolean>>();
 
   consents: Consent[];
   dataSource: DynamicDataSource<RichUser>;
@@ -141,6 +151,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
       this.onlyAllowed,
       this.consentStatuses
     );
+    this.loading$.emit(this.dataSource.loading$);
   }
 
   ngOnChanges(): void {

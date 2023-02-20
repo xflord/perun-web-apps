@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostBinding, OnInit } from '@angular/core';
 import {
   AppState,
   AttributeDefinition,
@@ -16,6 +16,7 @@ import { formatDate } from '@angular/common';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ApplicationsListColumnsChangeDialogComponent } from '../../../../shared/components/dialogs/applications-list-columns-change-dialog/applications-list-columns-change-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-group-applications',
@@ -55,17 +56,19 @@ export class GroupApplicationsComponent implements OnInit {
   configuredColumns: string[] = [];
   configuredFedColumns: string[] = [];
   columnsAuth = false;
-  loading = false;
+  loading$: Observable<boolean>;
 
   constructor(
     private registrarManager: RegistrarManagerService,
     private guiAuthResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService,
     private attributeManager: AttributesManagerService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    this.loading$ = of(true);
     this.group = this.entityStorageService.getEntity();
     this.startDate = new UntypedFormControl(formatDate(this.yearAgo(), 'yyyy-MM-dd', 'en-GB'));
     this.endDate = new UntypedFormControl(formatDate(new Date(), 'yyyy-MM-dd', 'en-GB'));
@@ -92,11 +95,11 @@ export class GroupApplicationsComponent implements OnInit {
   }
 
   showDetails(value: boolean): void {
-    this.loading = true;
     this.showAllDetails = value;
     this.loadViewConfiguration();
   }
   refreshColumns(): string[] {
+    this.cd.detectChanges();
     if (this.showAllDetails) {
       return ['id'].concat(this.detailedColumns);
     }
@@ -107,6 +110,7 @@ export class GroupApplicationsComponent implements OnInit {
   }
 
   loadViewConfiguration(): void {
+    this.cd.detectChanges();
     this.attributeManager
       .getGroupAttributeByName(
         this.group.id,
@@ -128,7 +132,6 @@ export class GroupApplicationsComponent implements OnInit {
         }
         this.columnsAuth = attribute.writable;
         this.currentColumns = this.refreshColumns();
-        this.loading = false;
       });
   }
 
@@ -143,5 +146,10 @@ export class GroupApplicationsComponent implements OnInit {
         this.loadViewConfiguration();
       }
     });
+  }
+
+  refreshTable(): void {
+    this.refresh = !this.refresh;
+    this.cd.detectChanges();
   }
 }

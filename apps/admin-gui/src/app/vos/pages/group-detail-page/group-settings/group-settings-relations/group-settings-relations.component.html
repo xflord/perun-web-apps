@@ -29,15 +29,19 @@
     (change)="showReverseUnions()"
     >{{'GROUP_DETAIL.SETTINGS.RELATIONS.REVERSE_UNIONS' | translate}}</mat-checkbox
   >
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
 
-  <perun-web-apps-groups-list
-    *ngIf="!loading"
-    [groups]="groups"
-    [parentGroup]="group"
-    [disableHeadCheckbox]="true"
-    [selection]="selection"
-    [displayedColumns]="['select', 'id', 'vo', 'name', 'description']"
-    [filter]="filterValue"
-    [tableId]="tableId"></perun-web-apps-groups-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-groups-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [groups]="groups"
+      [parentGroup]="group"
+      [disableHeadCheckbox]="true"
+      [selection]="selection"
+      [displayedColumns]="['select', 'id', 'vo', 'name', 'description']"
+      [filter]="filterValue"
+      [tableId]="tableId"></perun-web-apps-groups-list>
+  </div>
 </div>

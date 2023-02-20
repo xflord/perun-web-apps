@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostBinding, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
   ApiRequestConfigurationService,
@@ -26,6 +26,7 @@ import { RPCError } from '@perun-web-apps/perun/models';
 import { GroupAddMemberDialogComponent } from '../../../components/group-add-member-dialog/group-add-member-dialog.component';
 import { BulkInviteMembersDialogComponent } from '../../../../shared/components/dialogs/bulk-invite-members-dialog/bulk-invite-members-dialog.component';
 import { CopyMembersDialogComponent } from '../../../../shared/components/dialogs/copy-members-dialog/copy-members-dialog-component';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-group-members',
@@ -42,7 +43,7 @@ export class GroupMembersComponent implements OnInit {
   synchEnabled = false;
   searchString: string;
   updateTable = false;
-  loading = false;
+  loading$: Observable<boolean>;
   tableId = TABLE_GROUP_MEMBERS;
   memberAttrNames = [
     Urns.MEMBER_DEF_ORGANIZATION,
@@ -94,11 +95,12 @@ export class GroupMembersComponent implements OnInit {
     private attributesManager: AttributesManagerService,
     private apiRequest: ApiRequestConfigurationService,
     private notificator: NotificatorService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.loading = true;
+    this.loading$ = of(true);
     this.selection = new SelectionModel<RichMember>(true, []);
     this.statuses.setValue(this.selectedStatuses);
     this.groupStatuses.setValue(this.selectedGroupStatuses);
@@ -115,7 +117,6 @@ export class GroupMembersComponent implements OnInit {
       .subscribe((group) => {
         this.group = group;
         this.synchEnabled = isGroupSynchronized(this.group);
-        this.loading = false;
       });
   }
 
@@ -269,7 +270,7 @@ export class GroupMembersComponent implements OnInit {
   }
 
   isCopyMembersDisabled(): void {
-    this.copyDisabled = false;
+    this.copyDisabled = true;
     this.groupService.getGroupDirectMembersCount(this.group.id).subscribe({
       next: (count) => {
         this.copyDisabled = count === 0;
@@ -283,16 +284,19 @@ export class GroupMembersComponent implements OnInit {
   changeVoStatuses(): void {
     this.selection.clear();
     this.selectedStatuses = this.statuses.value as VoMemberStatuses[];
+    this.cd.detectChanges();
   }
 
   changeGroupStatuses(): void {
     this.selection.clear();
     this.selectedGroupStatuses = this.groupStatuses.value as MemberGroupStatus[];
+    this.cd.detectChanges();
   }
 
   refreshTable(): void {
     this.selection.clear();
     this.updateTable = !this.updateTable;
+    this.cd.detectChanges();
     this.isCopyMembersDisabled();
   }
 }

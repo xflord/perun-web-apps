@@ -1,108 +1,112 @@
-<div class="admin-theme">
-  <h1 mat-dialog-title>{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.TITLE' | translate}}</h1>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-  <div *ngIf="!loading" mat-dialog-content>
-    <form [formGroup]="attributeControl" class="dialog-container">
-      <mat-form-field>
-        <input
-          matInput
-          formControlName="friendlyName"
-          placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.FRIENDLY_NAME' | translate}}"
-          data-cy="attribute-friendly-name-input"
-          required />
-        <mat-error *ngIf="attributeControl.hasError('required', 'friendlyName')">
-          {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input
-          matInput
-          formControlName="displayName"
-          placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.DISPLAY_NAME' | translate}}"
-          data-cy="attribute-display-name-input"
-          required />
-        <mat-error *ngIf="attributeControl.hasError('required', 'displayName')">
-          {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <textarea
-          matInput
-          formControlName="description"
-          cdkTextareaAutosize
-          placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.DESCRIPTION' | translate}}"
-          data-cy="attribute-description-input"
-          required>
-        </textarea>
-        <mat-error *ngIf="attributeControl.hasError('required', 'description')">
-          {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-select
-          placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ENTITY' | translate}}"
-          formControlName="entity"
-          data-cy="attribute-entity-input"
-          required>
-          <mat-option *ngFor="let entity of entities" [value]="entity">{{entity}}</mat-option>
-        </mat-select>
-        <mat-error *ngIf="attributeControl.hasError('required', 'entity')">
-          {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-select
-          placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.DEFINITION' | translate}}"
-          formControlName="definitionType"
-          data-cy="attribute-definition-type-input"
-          required>
-          <mat-option *ngFor="let defType of definitionTypes" [value]="defType"
-            >{{defType}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="attributeControl.hasError('required', 'definitionType')">
-          {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-select
-          placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.VALUE_TYPE' | translate}}"
-          formControlName="valueType"
-          data-cy="attribute-value-type-input"
-          required>
-          <mat-option *ngFor="let valType of valueTypes" [value]="valType">
-            {{valType | attributeTypeClean}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="attributeControl.hasError('required', 'valueType')">
-          {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
-        </mat-error>
-      </mat-form-field>
-    </form>
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="admin-theme position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.TITLE' | translate}}</h1>
+    <div mat-dialog-content>
+      <form [formGroup]="attributeControl" class="dialog-container">
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="friendlyName"
+            placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.FRIENDLY_NAME' | translate}}"
+            data-cy="attribute-friendly-name-input"
+            required />
+          <mat-error *ngIf="attributeControl.hasError('required', 'friendlyName')">
+            {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="displayName"
+            placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.DISPLAY_NAME' | translate}}"
+            data-cy="attribute-display-name-input"
+            required />
+          <mat-error *ngIf="attributeControl.hasError('required', 'displayName')">
+            {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea
+            matInput
+            formControlName="description"
+            cdkTextareaAutosize
+            placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.DESCRIPTION' | translate}}"
+            data-cy="attribute-description-input"
+            required>
+          </textarea>
+          <mat-error *ngIf="attributeControl.hasError('required', 'description')">
+            {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select
+            placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ENTITY' | translate}}"
+            formControlName="entity"
+            data-cy="attribute-entity-input"
+            required>
+            <mat-option *ngFor="let entity of entities" [value]="entity">{{entity}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="attributeControl.hasError('required', 'entity')">
+            {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select
+            placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.DEFINITION' | translate}}"
+            formControlName="definitionType"
+            data-cy="attribute-definition-type-input"
+            required>
+            <mat-option *ngFor="let defType of definitionTypes" [value]="defType"
+              >{{defType}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="attributeControl.hasError('required', 'definitionType')">
+            {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select
+            placeholder="{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.VALUE_TYPE' | translate}}"
+            formControlName="valueType"
+            data-cy="attribute-value-type-input"
+            required>
+            <mat-option *ngFor="let valType of valueTypes" [value]="valType">
+              {{valType | attributeTypeClean}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="attributeControl.hasError('required', 'valueType')">
+            {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
+          </mat-error>
+        </mat-form-field>
+      </form>
 
-    <perun-web-apps-attribute-unique-toggle [attDef]="attDef | async">
-    </perun-web-apps-attribute-unique-toggle>
+      <perun-web-apps-attribute-unique-toggle [attDef]="attDef | async">
+      </perun-web-apps-attribute-unique-toggle>
 
-    <perun-web-apps-attribute-critical-operations-toggles
-      (readOperationChanged)="finalReadOperations=$event"
-      (writeOperationChanged)="finalWriteOperations=$event">
-    </perun-web-apps-attribute-critical-operations-toggles>
+      <perun-web-apps-attribute-critical-operations-toggles
+        (readOperationChanged)="finalReadOperations=$event"
+        (writeOperationChanged)="finalWriteOperations=$event">
+      </perun-web-apps-attribute-critical-operations-toggles>
 
-    <perun-web-apps-attribute-rights-tab-group [collections]="collections">
-    </perun-web-apps-attribute-rights-tab-group>
-  </div>
-  <div mat-dialog-actions>
-    <button (click)="cancel()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.CANCEL' | translate}}
-    </button>
-    <button
-      class="ml-2"
-      color="accent"
-      (click)="submit()"
-      [disabled]="loading || attributeControl.invalid"
-      data-cy="create-attr-definition-button"
-      mat-flat-button>
-      {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.CONFIRM' | translate}}
-    </button>
+      <perun-web-apps-attribute-rights-tab-group [collections]="collections">
+      </perun-web-apps-attribute-rights-tab-group>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="cancel()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.CANCEL' | translate}}
+      </button>
+      <button
+        class="ml-2"
+        color="accent"
+        (click)="submit()"
+        [disabled]="loading || attributeControl.invalid"
+        data-cy="create-attr-definition-button"
+        mat-flat-button>
+        {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.CONFIRM' | translate}}
+      </button>
+    </div>
   </div>
 </div>

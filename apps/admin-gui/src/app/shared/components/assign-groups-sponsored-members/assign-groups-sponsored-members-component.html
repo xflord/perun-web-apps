@@ -1,64 +1,59 @@
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-<div *ngIf="!loading">
-  <div class="mt-2">
-    <h5 class="mb-4">{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.GROUP_ASSIGMENT' | translate}}</h5>
-    <mat-radio-group
-      (change)="groupAssigmentChanged()"
-      [(ngModel)]="groupAssignment"
-      class="flex-container">
-      <mat-radio-button value="none" data-cy="no-assign-button">
-        {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NO_ASSIGN' | translate}}
+<div class="mt-2">
+  <h5 class="mb-4">{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.GROUP_ASSIGMENT' | translate}}</h5>
+  <mat-radio-group
+    (change)="groupAssigmentChanged()"
+    [(ngModel)]="groupAssignment"
+    class="flex-container">
+    <mat-radio-button value="none" data-cy="no-assign-button">
+      {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NO_ASSIGN' | translate}}
+    </mat-radio-button>
+    <span
+      matTooltip="{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DISABLED_ASSIGN_NEW' | translate}}"
+      [matTooltipDisabled]="!manualMemberAddingBlocked && createGroupAuth"
+      matTooltipPosition="above">
+      <mat-radio-button [disabled]="manualMemberAddingBlocked || !createGroupAuth" value="new">
+        {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.ASSIGN_TO_NEW' | translate}}
       </mat-radio-button>
-      <span
-        matTooltip="{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DISABLED_ASSIGN_NEW' | translate}}"
-        [matTooltipDisabled]="!manualMemberAddingBlocked && createGroupAuth"
-        matTooltipPosition="above">
-        <mat-radio-button [disabled]="manualMemberAddingBlocked || !createGroupAuth" value="new">
-          {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.ASSIGN_TO_NEW' | translate}}
-        </mat-radio-button>
-      </span>
-      <span
-        matTooltip="{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DISABLED_ASSIGN_EXISTING' | translate}}"
-        [matTooltipDisabled]="!manualMemberAddingBlocked && assignableGroups.length !== 0"
-        matTooltipPosition="above">
-        <mat-radio-button
-          [disabled]="manualMemberAddingBlocked || assignableGroups.length === 0"
-          value="existing">
-          {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.ASSIGN_EXISTING' | translate}}
-        </mat-radio-button>
-      </span>
-    </mat-radio-group>
-  </div>
-  <div *ngIf="groupAssignment === 'none'">
-    <perun-web-apps-alert class="mt-4" alert_type="info"
-      >{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DONT_ASSIGN_INFO' | translate}}</perun-web-apps-alert
-    >
-  </div>
-  <div *ngIf="groupAssignment === 'new'">
-    <h5 class="mt-4">{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.CREATE_NEW_GROUP' | translate}}</h5>
-    <perun-web-apps-create-group-form
-      (asSubgroupChanged)="onAsSubgroupChange($event)"
-      (nameChanged)="onNameChange($event)"
-      (descriptionChanged)="onDescriptionChange($event)"
-      (parentGroupChanged)="onParentChange($event)"
-      [voGroups]="allVoGroups">
-    </perun-web-apps-create-group-form>
-  </div>
-  <div *ngIf="groupAssignment === 'existing'">
-    <h5 class="mt-4">
-      {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.SELECT_EXISTING_GROUPS' | translate}}
-    </h5>
-    <perun-web-apps-immediate-filter
-      (filter)="applyFilter($event)"
-      [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'">
-    </perun-web-apps-immediate-filter>
-    <perun-web-apps-groups-list
-      [groups]="assignableGroups"
-      [selection]="selection"
-      [disableRouting]="true"
-      [displayedColumns]="['select', 'id', 'name', 'description']"
-      [filter]="filterValue"
-      [tableId]="tableId">
-    </perun-web-apps-groups-list>
-  </div>
+    </span>
+    <span
+      matTooltip="{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DISABLED_ASSIGN_EXISTING' | translate}}"
+      [matTooltipDisabled]="!manualMemberAddingBlocked && assignableGroups.length !== 0"
+      matTooltipPosition="above">
+      <mat-radio-button
+        [disabled]="manualMemberAddingBlocked || assignableGroups.length === 0"
+        value="existing">
+        {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.ASSIGN_EXISTING' | translate}}
+      </mat-radio-button>
+    </span>
+  </mat-radio-group>
+</div>
+<div *ngIf="groupAssignment === 'none'">
+  <perun-web-apps-alert class="mt-4" alert_type="info"
+    >{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DONT_ASSIGN_INFO' | translate}}</perun-web-apps-alert
+  >
+</div>
+<div *ngIf="groupAssignment === 'new'">
+  <h5 class="mt-4">{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.CREATE_NEW_GROUP' | translate}}</h5>
+  <perun-web-apps-create-group-form
+    (asSubgroupChanged)="onAsSubgroupChange($event)"
+    (nameChanged)="onNameChange($event)"
+    (descriptionChanged)="onDescriptionChange($event)"
+    (parentGroupChanged)="onParentChange($event)"
+    [voGroups]="allVoGroups">
+  </perun-web-apps-create-group-form>
+</div>
+<div *ngIf="groupAssignment === 'existing'">
+  <h5 class="mt-4">{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.SELECT_EXISTING_GROUPS' | translate}}</h5>
+  <perun-web-apps-immediate-filter
+    (filter)="applyFilter($event)"
+    [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'">
+  </perun-web-apps-immediate-filter>
+  <perun-web-apps-groups-list
+    [groups]="assignableGroups"
+    [selection]="selection"
+    [disableRouting]="true"
+    [displayedColumns]="['select', 'id', 'name', 'description']"
+    [filter]="filterValue"
+    [tableId]="tableId">
+  </perun-web-apps-groups-list>
 </div>

@@ -1,7 +1,9 @@
-<div class="user-theme">
-  <h1 mat-dialog-title>{{"DIALOGS.UPDATE_RANK.TITLE" | translate}}{{categoryName}}</h1>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <div *ngIf="!loading">
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="user-theme position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{"DIALOGS.UPDATE_RANK.TITLE" | translate}}{{categoryName}}</h1>
     <div mat-dialog-content class="dialog-container">
       <mat-form-field>
         <input
@@ -27,7 +29,7 @@
           mat-flat-button
           class="ml-2"
           color="accent"
-          [disabled]="rankCtrl.invalid"
+          [disabled]="rankCtrl.invalid || loading"
           (click)="onSubmit()">
           {{'DIALOGS.UPDATE_RANK.UPDATE' | translate}}
         </button>

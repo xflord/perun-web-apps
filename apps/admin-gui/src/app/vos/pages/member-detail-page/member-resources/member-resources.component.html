@@ -14,15 +14,18 @@
     (filter)="applyFilter($event)"
     [placeholder]="'MEMBER_DETAIL.RESOURCES.FILTER'">
   </perun-web-apps-immediate-filter>
-  <perun-web-apps-resources-list
-    [disableRouting]="!routeAuth"
-    *ngIf="!loading"
-    [filterValue]="filterValue"
-    [displayedColumns]="displayedColumns"
-    [routingVo]="true"
-    [resources]="resources"
-    [tableId]="tableId">
-  </perun-web-apps-resources-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-resources-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [disableRouting]="!routeAuth"
+      [filterValue]="filterValue"
+      [displayedColumns]="displayedColumns"
+      [routingVo]="true"
+      [resources]="resources"
+      [tableId]="tableId">
+    </perun-web-apps-resources-list>
+  </div>
 </div>
-
-<mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>

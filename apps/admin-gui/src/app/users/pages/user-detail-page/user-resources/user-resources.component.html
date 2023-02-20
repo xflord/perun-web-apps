@@ -5,12 +5,16 @@
     (filter)="resourceFilter($event)"
     [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <perun-web-apps-resources-list
-    [displayedColumns]="['id', 'name', 'vo', 'facility', 'description']"
-    *ngIf="!loading"
-    [resources]="resources"
-    [filterValue]="filterValue"
-    [tableId]="tableId">
-  </perun-web-apps-resources-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-resources-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [displayedColumns]="['id', 'name', 'vo', 'facility', 'description']"
+      [resources]="resources"
+      [filterValue]="filterValue"
+      [tableId]="tableId">
+    </perun-web-apps-resources-list>
+  </div>
 </div>

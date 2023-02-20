@@ -35,6 +35,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatMenuModule } from '@angular/material/menu';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { UiLoadersModule } from '@perun-web-apps/ui/loaders';
 import { MatBadgeModule } from '@angular/material/badge';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { ConfigTableConfigModule } from '@perun-web-apps/config/table-config';
@@ -140,6 +141,7 @@ import { UserBansComponent } from './pages/user-detail-page/user-bans/user-bans.
     MatMenuModule,
     ScrollingModule,
     UiAlertsModule,
+    UiLoadersModule,
     MatBadgeModule,
     PerunSharedComponentsModule,
     ConfigTableConfigModule,

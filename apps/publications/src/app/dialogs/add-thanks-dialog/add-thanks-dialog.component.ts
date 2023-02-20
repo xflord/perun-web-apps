@@ -18,7 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AddThanksDialogComponent implements OnInit {
   loading: boolean;
-  owners: Owner[];
+  owners: Owner[] = [];
   selected = new SelectionModel<Owner>(true, []);
   filterValue: string;
   tableId = TABLE_ADD_THANKS_DIALOG;

@@ -1,77 +1,81 @@
-<div class="{{data.theme}}">
-  <h1 mat-dialog-title>{{'DIALOGS.BULK_INVITE_MEMBERS.TITLE' | translate}}</h1>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
-    <div *ngIf="state === 'input'">
-      <div *ngIf="!data.groupId" class="font-italic">
-        {{'DIALOGS.BULK_INVITE_MEMBERS.DESCRIPTION_VO' | translate}}
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{data.theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.BULK_INVITE_MEMBERS.TITLE' | translate}}</h1>
+    <div class="dialog-container" mat-dialog-content>
+      <div *ngIf="state === 'input'">
+        <div *ngIf="!data.groupId" class="font-italic">
+          {{'DIALOGS.BULK_INVITE_MEMBERS.DESCRIPTION_VO' | translate}}
+        </div>
+        <div *ngIf="data.groupId" class="font-italic">
+          {{'DIALOGS.BULK_INVITE_MEMBERS.DESCRIPTION_GROUP' | translate}}
+        </div>
+        <mat-form-field class="w-100 pt-2">
+          <mat-label>{{'DIALOGS.BULK_INVITE_MEMBERS.LANGUAGE' | translate}}</mat-label>
+          <mat-select [(value)]="currentLanguage">
+            <mat-option *ngFor="let lang of languages" value="{{lang}}">
+              {{'SHARED_LIB.LANGUAGES.'+lang | uppercase | translate}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <p [innerHTML]="'DIALOGS.BULK_INVITE_MEMBERS.HINT' | translate"></p>
+        <mat-form-field class="pt-2 flex-container">
+          <mat-label>{{'DIALOGS.BULK_INVITE_MEMBERS.INSERT_HERE'| translate}}</mat-label>
+          <textarea
+            cols="50"
+            class="md-textarea form-control"
+            [formControl]="invitedMembers"
+            required
+            matInput
+            placeholder="{{'DIALOGS.BULK_INVITE_MEMBERS.PLACEHOLDER' | translate}}"
+            rows="8">
+          </textarea>
+          <mat-error *ngIf="invitedMembers.hasError('required')">
+            {{'DIALOGS.BULK_INVITE_MEMBERS.NAMES_ERROR' | translate}}
+          </mat-error>
+          <mat-error *ngIf="invitedMembers.hasError('invalidFormat')">
+            {{'DIALOGS.BULK_INVITE_MEMBERS.ERROR_FORMAT'| translate}}:
+            {{invitedMembers.getError('invalidFormat').value}}
+          </mat-error>
+          <mat-error *ngIf="invitedMembers.hasError('invalidEmail')">
+            {{'DIALOGS.BULK_INVITE_MEMBERS.ERROR_EMAIL'| translate}}:
+            {{invitedMembers.getError('invalidEmail').value}}
+          </mat-error>
+        </mat-form-field>
       </div>
-      <div *ngIf="data.groupId" class="font-italic">
-        {{'DIALOGS.BULK_INVITE_MEMBERS.DESCRIPTION_GROUP' | translate}}
-      </div>
-      <mat-form-field class="w-100 pt-2">
-        <mat-label>{{'DIALOGS.BULK_INVITE_MEMBERS.LANGUAGE' | translate}}</mat-label>
-        <mat-select [(value)]="currentLanguage">
-          <mat-option *ngFor="let lang of languages" value="{{lang}}">
-            {{'SHARED_LIB.LANGUAGES.'+lang | uppercase | translate}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <p [innerHTML]="'DIALOGS.BULK_INVITE_MEMBERS.HINT' | translate"></p>
-      <mat-form-field class="pt-2 flex-container">
-        <mat-label>{{'DIALOGS.BULK_INVITE_MEMBERS.INSERT_HERE'| translate}}</mat-label>
-        <textarea
-          cols="50"
-          class="md-textarea form-control"
-          [formControl]="invitedMembers"
-          required
-          matInput
-          placeholder="{{'DIALOGS.BULK_INVITE_MEMBERS.PLACEHOLDER' | translate}}"
-          rows="8">
-        </textarea>
-        <mat-error *ngIf="invitedMembers.hasError('required')">
-          {{'DIALOGS.BULK_INVITE_MEMBERS.NAMES_ERROR' | translate}}
-        </mat-error>
-        <mat-error *ngIf="invitedMembers.hasError('invalidFormat')">
-          {{'DIALOGS.BULK_INVITE_MEMBERS.ERROR_FORMAT'| translate}}:
-          {{invitedMembers.getError('invalidFormat').value}}
-        </mat-error>
-        <mat-error *ngIf="invitedMembers.hasError('invalidEmail')">
-          {{'DIALOGS.BULK_INVITE_MEMBERS.ERROR_EMAIL'| translate}}:
-          {{invitedMembers.getError('invalidEmail').value}}
-        </mat-error>
-      </mat-form-field>
     </div>
-  </div>
-  <div *ngIf="state === 'results'">
-    <perun-web-apps-alert *ngIf="!this.finishedWithErrors" [alert_type]="'success'">
-      {{'DIALOGS.BULK_INVITE_MEMBERS.SUCCESS' | translate}}
-    </perun-web-apps-alert>
-    <perun-web-apps-alert *ngIf="this.finishedWithErrors" [alert_type]="'warn'">
-      {{'DIALOGS.BULK_INVITE_MEMBERS.FINISHED_WITH_ERRORS' | translate}}
-    </perun-web-apps-alert>
-  </div>
-  <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.BULK_INVITE_MEMBERS.CANCEL' | translate}}
-    </button>
-    <button
-      *ngIf="state === 'input'"
-      (click)="onSubmit()"
-      class="ml-2"
-      color="accent"
-      [disabled]="loading || invitedMembers.invalid"
-      mat-flat-button>
-      {{'DIALOGS.BULK_INVITE_MEMBERS.INVITE' | translate}}
-    </button>
-    <button
-      *ngIf="state === 'results'"
-      [disabled]="!resultData"
-      (click)="downloadCsv()"
-      class="ml-2"
-      color="accent"
-      mat-flat-button>
-      {{'DIALOGS.BULK_INVITE_MEMBERS.DOWNLOAD_CSV' | translate}}
-    </button>
+    <div *ngIf="state === 'results'">
+      <perun-web-apps-alert *ngIf="!this.finishedWithErrors" [alert_type]="'success'">
+        {{'DIALOGS.BULK_INVITE_MEMBERS.SUCCESS' | translate}}
+      </perun-web-apps-alert>
+      <perun-web-apps-alert *ngIf="this.finishedWithErrors" [alert_type]="'warn'">
+        {{'DIALOGS.BULK_INVITE_MEMBERS.FINISHED_WITH_ERRORS' | translate}}
+      </perun-web-apps-alert>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.BULK_INVITE_MEMBERS.CANCEL' | translate}}
+      </button>
+      <button
+        *ngIf="state === 'input'"
+        (click)="onSubmit()"
+        class="ml-2"
+        color="accent"
+        [disabled]="loading || invitedMembers.invalid"
+        mat-flat-button>
+        {{'DIALOGS.BULK_INVITE_MEMBERS.INVITE' | translate}}
+      </button>
+      <button
+        *ngIf="state === 'results'"
+        [disabled]="!resultData"
+        (click)="downloadCsv()"
+        class="ml-2"
+        color="accent"
+        mat-flat-button>
+        {{'DIALOGS.BULK_INVITE_MEMBERS.DOWNLOAD_CSV' | translate}}
+      </button>
+    </div>
   </div>
 </div>

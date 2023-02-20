@@ -1,55 +1,60 @@
-<div (keyup)="onKeyInput($event)" class="{{theme}}">
-  <h1 mat-dialog-title>{{'DIALOGS.CONNECT_IDENTITY.TITLE_'+target | translate}}</h1>
-  <div class="dialog-container" mat-dialog-content>
-    <mat-form-field class="mr-2 search-field no-border-mat-input">
-      <input
-        matInput
-        autocomplete="false"
-        placeholder="{{'DIALOGS.CONNECT_IDENTITY.SEARCH' | translate}}"
-        [formControl]="searchCtrl" />
-      <mat-error>
-        {{'DIALOGS.CONNECT_IDENTITY.EMPTY_SEARCH_MESSAGE' | translate}}
-      </mat-error>
-    </mat-form-field>
-    <button
-      (click)="onSearchByString()"
-      [disabled]="loading"
-      class="mr-2 search-btn"
-      color="primary"
-      mat-flat-button>
-      <mat-icon>search</mat-icon>
-    </button>
-    <div *ngIf="!loading">
-      <app-users-list
-        [displayedColumns]="displayedColumns"
-        [selection]="selection"
-        *ngIf="identities !== undefined && identities.length > 0"
-        [tableId]="tableId"
-        [disableRouting]="true"
-        [users]="identities">
-      </app-users-list>
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="finalLoading; indicator: spinner">
+    <div (keyup)="onKeyInput($event)" class="{{theme}}">
+      <h1 mat-dialog-title>{{'DIALOGS.CONNECT_IDENTITY.TITLE_'+target | translate}}</h1>
+      <div class="dialog-container" mat-dialog-content>
+        <mat-form-field class="mr-2 search-field no-border-mat-input">
+          <input
+            matInput
+            autocomplete="false"
+            placeholder="{{'DIALOGS.CONNECT_IDENTITY.SEARCH' | translate}}"
+            [formControl]="searchCtrl" />
+          <mat-error>
+            {{'DIALOGS.CONNECT_IDENTITY.EMPTY_SEARCH_MESSAGE' | translate}}
+          </mat-error>
+        </mat-form-field>
+        <button
+          (click)="onSearchByString()"
+          [disabled]="loading"
+          class="mr-2 search-btn"
+          color="primary"
+          mat-flat-button>
+          <mat-icon>search</mat-icon>
+        </button>
+        <ng-template #searchSpinner>
+          <perun-web-apps-loading-table></perun-web-apps-loading-table>
+        </ng-template>
+        <div class="position-relative" *ngIf="firstSearchDone">
+          <app-users-list
+            *perunWebAppsLoader="loading; indicator: searchSpinner"
+            [displayedColumns]="displayedColumns"
+            [selection]="selection"
+            [tableId]="tableId"
+            [disableRouting]="true"
+            [users]="identities"
+            [noUsersFoundLabel]="'DIALOGS.CONNECT_IDENTITY.NO_IDENTITIES' | translate">
+          </app-users-list>
+        </div>
+        <perun-web-apps-alert *ngIf="!firstSearchDone" alert_type="info">
+          {{'DIALOGS.CONNECT_IDENTITY.SEARCH_HINT' | translate}}
+        </perun-web-apps-alert>
+      </div>
+      <div mat-dialog-actions>
+        <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+          {{'DIALOGS.CONNECT_IDENTITY.CANCEL' | translate}}
+        </button>
+        <button
+          class="ml-2"
+          (click)="onAdd()"
+          [disabled]="selection.selected.length === 0"
+          color="accent"
+          mat-flat-button>
+          {{'DIALOGS.CONNECT_IDENTITY.CONNECT' | translate}}
+        </button>
+      </div>
     </div>
-    <perun-web-apps-alert *ngIf="!firstSearchDone" alert_type="info">
-      {{'DIALOGS.CONNECT_IDENTITY.SEARCH_HINT' | translate}}
-    </perun-web-apps-alert>
-    <perun-web-apps-alert
-      *ngIf="!loading && firstSearchDone && identities.length === 0"
-      alert_type="warn">
-      {{'DIALOGS.CONNECT_IDENTITY.NO_IDENTITIES' | translate}}
-    </perun-web-apps-alert>
-  </div>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
-  <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.CONNECT_IDENTITY.CANCEL' | translate}}
-    </button>
-    <button
-      class="ml-2"
-      (click)="onAdd()"
-      [disabled]="selection.selected.length === 0"
-      color="accent"
-      mat-flat-button>
-      {{'DIALOGS.CONNECT_IDENTITY.CONNECT' | translate}}
-    </button>
   </div>
 </div>

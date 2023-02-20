@@ -32,13 +32,17 @@
     (filter)="applyFilter($event)"
     [placeholder]="'FACILITY_MANAGEMENT.FILTER_PLACEHOLDER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <perun-web-apps-facilities-list
-    [tableId]="tableId"
-    *ngIf="!loading"
-    [selection]="selection"
-    [filterValue]="filterValue"
-    [facilities]="facilities"
-    [recentIds]="recentIds">
-  </perun-web-apps-facilities-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-facilities-list
+      [tableId]="tableId"
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [selection]="selection"
+      [filterValue]="filterValue"
+      [facilities]="facilities"
+      [recentIds]="recentIds">
+    </perun-web-apps-facilities-list>
+  </div>
 </div>

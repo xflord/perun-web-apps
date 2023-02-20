@@ -1,55 +1,61 @@
-<div class="{{theme}}">
-  <h1 mat-dialog-title>{{'DIALOGS.INVITE_MEMBER.TITLE' | translate}}</h1>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <div *ngIf="!loading" mat-dialog-content>
-    <div *ngIf="!data.groupId" class="font-italic">
-      {{'DIALOGS.INVITE_MEMBER.DESCRIPTION_VO' | translate}}
-    </div>
-    <div *ngIf="data.groupId" class="font-italic">
-      {{'DIALOGS.INVITE_MEMBER.DESCRIPTION_GROUP' | translate}}
-    </div>
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.INVITE_MEMBER.TITLE' | translate}}</h1>
+    <div mat-dialog-content>
+      <div *ngIf="!data.groupId" class="font-italic">
+        {{'DIALOGS.INVITE_MEMBER.DESCRIPTION_VO' | translate}}
+      </div>
+      <div *ngIf="data.groupId" class="font-italic">
+        {{'DIALOGS.INVITE_MEMBER.DESCRIPTION_GROUP' | translate}}
+      </div>
 
-    <mat-form-field class="w-100">
-      <input
-        matInput
-        placeholder="{{'DIALOGS.INVITE_MEMBER.NAME' | translate}}"
-        [formControl]="name"
-        required />
-      <mat-error *ngIf="name.invalid">{{'DIALOGS.INVITE_MEMBER.NAME_ERROR' | translate}}</mat-error>
-    </mat-form-field>
-    <mat-form-field class="w-100">
-      <textarea
-        matInput
-        placeholder="{{'DIALOGS.INVITE_MEMBER.EMAIL' | translate}}"
-        [formControl]="emailForm"
-        required></textarea>
-      <mat-error
-        *ngIf="emailForm.invalid"
-        >{{'DIALOGS.INVITE_MEMBER.EMAIL_ERROR' | translate}}</mat-error
-      >
-    </mat-form-field>
-    <mat-form-field class="w-100">
-      <mat-label>{{'DIALOGS.INVITE_MEMBER.LANGUAGE' | translate}}</mat-label>
-      <mat-select [(value)]="currentLanguage">
-        <mat-option
-          *ngFor="let lang of languages"
-          value="{{lang}}"
-          >{{'SHARED_LIB.LANGUAGES.'+lang | uppercase | translate}}</mat-option
+      <mat-form-field class="w-100">
+        <input
+          matInput
+          placeholder="{{'DIALOGS.INVITE_MEMBER.NAME' | translate}}"
+          [formControl]="name"
+          required />
+        <mat-error *ngIf="name.invalid">
+          {{'DIALOGS.INVITE_MEMBER.NAME_ERROR' | translate}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <textarea
+          matInput
+          placeholder="{{'DIALOGS.INVITE_MEMBER.EMAIL' | translate}}"
+          [formControl]="emailForm"
+          required></textarea>
+        <mat-error
+          *ngIf="emailForm.invalid"
+          >{{'DIALOGS.INVITE_MEMBER.EMAIL_ERROR' | translate}}</mat-error
         >
-      </mat-select>
-    </mat-form-field>
-  </div>
-  <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.INVITE_MEMBER.CANCEL' | translate}}
-    </button>
-    <button
-      (click)="onSubmit()"
-      class="ml-2"
-      color="accent"
-      [disabled]="emailForm.invalid || name.invalid || loading"
-      mat-flat-button>
-      {{'DIALOGS.INVITE_MEMBER.INVITE' | translate}}
-    </button>
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <mat-label>{{'DIALOGS.INVITE_MEMBER.LANGUAGE' | translate}}</mat-label>
+        <mat-select [(value)]="currentLanguage">
+          <mat-option
+            *ngFor="let lang of languages"
+            value="{{lang}}"
+            >{{'SHARED_LIB.LANGUAGES.'+lang | uppercase | translate}}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.INVITE_MEMBER.CANCEL' | translate}}
+      </button>
+      <button
+        (click)="onSubmit()"
+        class="ml-2"
+        color="accent"
+        [disabled]="emailForm.invalid || name.invalid || loading"
+        mat-flat-button>
+        {{'DIALOGS.INVITE_MEMBER.INVITE' | translate}}
+      </button>
+    </div>
   </div>
 </div>

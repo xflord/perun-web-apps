@@ -20,13 +20,17 @@
     </perun-web-apps-vo-search-select>
   </div>
 </div>
-<perun-web-apps-groups-list
-  *ngIf="!loading"
-  [tableId]="tableId"
-  [groups]="allowedGroups"
-  [selection]="selected"
-  [displayedColumns]="['select', 'id', 'name', 'description']"
-  [noGroupsAlert]="'VO_DETAIL.SETTINGS.HIERARCHICAL_INCLUSION.NO_GROUPS_ALLOWED_ALERT'"
-  theme="vo-theme">
-</perun-web-apps-groups-list>
-<mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div class="position-relative">
+  <perun-web-apps-groups-list
+    *perunWebAppsLoader="loading; indicator: spinner"
+    [tableId]="tableId"
+    [groups]="allowedGroups"
+    [selection]="selected"
+    [displayedColumns]="['select', 'id', 'name', 'description']"
+    [noGroupsAlert]="'VO_DETAIL.SETTINGS.HIERARCHICAL_INCLUSION.NO_GROUPS_ALLOWED_ALERT'"
+    theme="vo-theme">
+  </perun-web-apps-groups-list>
+</div>

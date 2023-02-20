@@ -21,15 +21,19 @@
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'FACILITY_DETAIL.HOSTS.FILTER'"></perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <app-hosts-list
-    [disableRouting]="!routeAuth || disableRouting"
-    *ngIf="!loading"
-    [filterValue]="filterValue"
-    [hosts]="hosts"
-    [selection]="selected"
-    [displayedColumns]="displayedColumns"
-    [facilityId]="facility.id"
-    [tableId]="tableId">
-  </app-hosts-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <app-hosts-list
+      [disableRouting]="!routeAuth || disableRouting"
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [filterValue]="filterValue"
+      [hosts]="hosts"
+      [selection]="selected"
+      [displayedColumns]="displayedColumns"
+      [facilityId]="facility.id"
+      [tableId]="tableId">
+    </app-hosts-list>
+  </div>
 </div>

@@ -1,7 +1,9 @@
-<div class="user-theme">
-  <h1 mat-dialog-title>{{"DIALOGS.ADD_THANKS.TITLE" | translate}}</h1>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <div *ngIf="!loading">
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="user-theme position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{"DIALOGS.ADD_THANKS.TITLE" | translate}}</h1>
     <div mat-dialog-content class="dialog-container">
       <perun-web-apps-immediate-filter
         (filter)="filterValue = $event"

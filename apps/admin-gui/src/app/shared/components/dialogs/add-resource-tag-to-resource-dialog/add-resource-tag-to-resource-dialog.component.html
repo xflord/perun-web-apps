@@ -2,18 +2,20 @@
   <h1 mat-dialog-title>{{'RESOURCE_DETAIL.TAGS.ADD_TAGS' | translate}}</h1>
 
   <div mat-dialog-content>
-    <div class="overflow-hidden">
-      <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+    <ng-template #spinner>
+      <perun-web-apps-loading-table></perun-web-apps-loading-table>
+    </ng-template>
+    <div class="position-relative">
+      <app-resources-tags-list
+        *perunWebAppsLoader="loading; indicator: spinner"
+        [selection]="selection"
+        [displayedColumns]="displayedColumns"
+        [entity]="'resource'"
+        [filterValue]="filterValue"
+        [resourceTags]="resourceTags"
+        [tableId]="tableId">
+      </app-resources-tags-list>
     </div>
-    <app-resources-tags-list
-      *ngIf="!loading"
-      [selection]="selection"
-      [displayedColumns]="displayedColumns"
-      [entity]="'resource'"
-      [filterValue]="filterValue"
-      [resourceTags]="resourceTags"
-      [tableId]="tableId">
-    </app-resources-tags-list>
   </div>
 
   <div mat-dialog-actions>

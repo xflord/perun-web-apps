@@ -2,16 +2,14 @@
 <div class="user-theme">
   <perun-web-apps-immediate-filter
     [placeholder]="'ORGANIZATIONS.FILTER'"
-    (filter)="applyFilter($event)"
-    *ngIf="!loading"></perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+    (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
 
-  <div *ngIf="!loading" class="mt-5">
+  <div class="mt-5">
     <h1 class="page-subtitle">{{'ORGANIZATIONS.IS_MEMBER' | customTranslate | translate}}</h1>
-    <div *ngIf="userMemberships.length !== 0">
+    <div class="position-relative" *ngIf="userMemberships.length || loading">
       <perun-web-apps-membership-list
+        *perunWebAppsLoader="loading; indicator: spinner"
         [members]="userMemberships"
-        [selection]="selection"
         [filterValue]="filterValue"
         [displayedColumns]="['name', 'expirationAttribute', 'extend']"
         (extendMembership)="extendMembership($event)">
@@ -19,23 +17,28 @@
     </div>
     <perun-web-apps-alert
       alert_type="warn"
-      *ngIf="userMemberships.length === 0"
+      *ngIf="userMemberships.length === 0  && !loading"
       >{{'ORGANIZATIONS.NO_VOS_ALERT' | customTranslate | translate}}</perun-web-apps-alert
     >
   </div>
 
-  <div *ngIf="!loading" class="mt-5">
+  <div class="mt-5">
     <h1 class="page-subtitle">{{'ORGANIZATIONS.IS_ADMIN' | customTranslate | translate}}</h1>
     <perun-web-apps-alert
-      *ngIf="!adminMemberships.length"
+      *ngIf="!adminMemberships.length && !loading"
       alert_type="warn"
       >{{'ORGANIZATIONS.NO_VOS_ALERT' | customTranslate | translate}}</perun-web-apps-alert
     >
-    <perun-web-apps-membership-list
-      [members]="adminMemberships"
-      *ngIf="adminMemberships.length"
-      [filterValue]="filterValue"
-      [displayedColumns]="['name']">
-    </perun-web-apps-membership-list>
+    <div class="position-relative" *ngIf="adminMemberships.length || loading">
+      <perun-web-apps-membership-list
+        *perunWebAppsLoader="loading; indicator: spinner"
+        [members]="adminMemberships"
+        [filterValue]="filterValue"
+        [displayedColumns]="['name']">
+      </perun-web-apps-membership-list>
+    </div>
   </div>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
 </div>

@@ -47,13 +47,17 @@
     (filter)="applyFilter($event)"
     [placeholder]="'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.FILTER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <app-sponsored-members-list
-    *ngIf="!loading"
-    (refreshTable)="refresh()"
-    [disableRouting]="!routeAuth"
-    [selection]="selection"
-    [filterValue]="searchString"
-    [sponsoredMembers]="members"
-    [tableId]="tableId"></app-sponsored-members-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <app-sponsored-members-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      (refreshTable)="refresh()"
+      [disableRouting]="!routeAuth"
+      [selection]="selection"
+      [filterValue]="searchString"
+      [sponsoredMembers]="members"
+      [tableId]="tableId"></app-sponsored-members-list>
+  </div>
 </div>

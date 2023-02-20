@@ -1,192 +1,198 @@
-<div class="{{theme}}">
-  <h1 class="mat-dialog-title">{{'DIALOGS.CREATE_SERVICE_MEMBER.TITLE' | translate}}</h1>
-  <div *ngIf="!processing" class="dialog-container" mat-dialog-content>
-    <mat-stepper #stepper [linear]="true">
-      <mat-step [stepControl]="firstFormGroup">
-        <form [formGroup]="firstFormGroup">
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="processing; indicator: spinner">
+    <h1 class="mat-dialog-title">{{'DIALOGS.CREATE_SERVICE_MEMBER.TITLE' | translate}}</h1>
+    <div *ngIf="firstFormGroup !== undefined" class="dialog-container" mat-dialog-content>
+      <mat-stepper #stepper [linear]="true">
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template
+              matStepLabel
+              >{{'DIALOGS.CREATE_SERVICE_MEMBER.CREATE_IDENTITY' | translate}}</ng-template
+            >
+            <div class="display-flex">
+              <mat-form-field>
+                <mat-label>{{'DIALOGS.CREATE_SERVICE_MEMBER.NAME' | translate}}</mat-label>
+                <input formControlName="nameCtrl" matInput required />
+                <mat-error
+                  *ngIf="firstFormGroup.get('nameCtrl').hasError('required')"
+                  >{{'DIALOGS.CREATE_SERVICE_MEMBER.FIELD_EMPTY' | translate}}</mat-error
+                >
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>{{'DIALOGS.CREATE_SERVICE_MEMBER.EMAIL' | translate}}</mat-label>
+                <input formControlName="emailCtrl" matInput required type="email" />
+                <mat-error
+                  *ngIf="firstFormGroup.get('emailCtrl').hasError('required')"
+                  >{{'DIALOGS.CREATE_SERVICE_MEMBER.FIELD_EMPTY' | translate}}</mat-error
+                >
+                <mat-error
+                  *ngIf="firstFormGroup.get('emailCtrl').hasError('pattern')"
+                  >{{'DIALOGS.CREATE_SERVICE_MEMBER.EMAIL_INVALID' | translate}}</mat-error
+                >
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>{{'DIALOGS.CREATE_SERVICE_MEMBER.SUBJECT_DN' | translate}}</mat-label>
+                <input
+                  [required]="!!firstFormGroup.get('issuerCtrl').value && firstFormGroup.get('issuerCtrl').value.trim().length !== 0"
+                  formControlName="subjectCtrl"
+                  matInput />
+                <mat-error
+                  *ngIf="firstFormGroup.get('subjectCtrl').hasError('required')"
+                  >{{'DIALOGS.CREATE_SERVICE_MEMBER.FIELD_EMPTY' | translate}}</mat-error
+                >
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>{{'DIALOGS.CREATE_SERVICE_MEMBER.ISSUER_DN' | translate}}</mat-label>
+                <input
+                  [required]="!!firstFormGroup.get('subjectCtrl').value && firstFormGroup.get('subjectCtrl').value.trim().length !== 0"
+                  formControlName="issuerCtrl"
+                  matInput />
+                <mat-error
+                  *ngIf="firstFormGroup.get('issuerCtrl').hasError('required')"
+                  >{{'DIALOGS.CREATE_SERVICE_MEMBER.FIELD_EMPTY' | translate}}</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template
+              matStepLabel
+              >{{'DIALOGS.CREATE_SERVICE_MEMBER.SET_CREDENTIALS' | translate}}</ng-template
+            >
+            <app-login-password-form-with-generate-option
+              [formGroup]="secondFormGroup"
+              (parsedRulesOutput)="parsedRules = $event">
+            </app-login-password-form-with-generate-option>
+          </form>
+        </mat-step>
+        <mat-step>
           <ng-template
             matStepLabel
-            >{{'DIALOGS.CREATE_SERVICE_MEMBER.CREATE_IDENTITY' | translate}}</ng-template
+            >{{'DIALOGS.CREATE_SERVICE_MEMBER.ASSOCIATE_USERS' | translate}}</ng-template
           >
-          <div class="display-flex">
-            <mat-form-field>
-              <mat-label>{{'DIALOGS.CREATE_SERVICE_MEMBER.NAME' | translate}}</mat-label>
-              <input formControlName="nameCtrl" matInput required />
-              <mat-error
-                *ngIf="firstFormGroup.get('nameCtrl').hasError('required')"
-                >{{'DIALOGS.CREATE_SERVICE_MEMBER.FIELD_EMPTY' | translate}}</mat-error
-              >
-            </mat-form-field>
+          <h6>{{'DIALOGS.CREATE_SERVICE_MEMBER.ASSOCIATED_USERS' | translate}}</h6>
+          <mat-list>
+            <mat-list-item *ngFor="let member of assignedMembers">
+              <p class="truncate center-content">
+                {{member.user | userFullName}}
+                <span *ngIf="member.id" class="text-muted">#{{member.id}}</span>
+                <span
+                  [matTooltipDisabled]="assignedMembers.length > 1"
+                  [matTooltip]="'DIALOGS.CREATE_SERVICE_MEMBER.MINIMAL_USERS' | translate">
+                  <button
+                    (click)="removeUser(member)"
+                    [disabled]="assignedMembers.length === 1"
+                    class="ml-1"
+                    color="warn"
+                    mat-icon-button>
+                    <mat-icon class="margin-bottom">close</mat-icon>
+                  </button>
+                </span>
+              </p>
+            </mat-list-item>
+          </mat-list>
 
-            <mat-form-field>
-              <mat-label>{{'DIALOGS.CREATE_SERVICE_MEMBER.EMAIL' | translate}}</mat-label>
-              <input formControlName="emailCtrl" matInput required type="email" />
-              <mat-error
-                *ngIf="firstFormGroup.get('emailCtrl').hasError('required')"
-                >{{'DIALOGS.CREATE_SERVICE_MEMBER.FIELD_EMPTY' | translate}}</mat-error
-              >
-              <mat-error
-                *ngIf="firstFormGroup.get('emailCtrl').hasError('pattern')"
-                >{{'DIALOGS.CREATE_SERVICE_MEMBER.EMAIL_INVALID' | translate}}</mat-error
-              >
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-label>{{'DIALOGS.CREATE_SERVICE_MEMBER.SUBJECT_DN' | translate}}</mat-label>
-              <input
-                [required]="!!firstFormGroup.get('issuerCtrl').value && firstFormGroup.get('issuerCtrl').value.trim().length !== 0"
-                formControlName="subjectCtrl"
-                matInput />
-              <mat-error
-                *ngIf="firstFormGroup.get('subjectCtrl').hasError('required')"
-                >{{'DIALOGS.CREATE_SERVICE_MEMBER.FIELD_EMPTY' | translate}}</mat-error
-              >
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-label>{{'DIALOGS.CREATE_SERVICE_MEMBER.ISSUER_DN' | translate}}</mat-label>
-              <input
-                [required]="!!firstFormGroup.get('subjectCtrl').value && firstFormGroup.get('subjectCtrl').value.trim().length !== 0"
-                formControlName="issuerCtrl"
-                matInput />
-              <mat-error
-                *ngIf="firstFormGroup.get('issuerCtrl').hasError('required')"
-                >{{'DIALOGS.CREATE_SERVICE_MEMBER.FIELD_EMPTY' | translate}}</mat-error
-              >
-            </mat-form-field>
+          <h6 class="mt-3">{{'DIALOGS.CREATE_SERVICE_MEMBER.SEARCH_INFO' | translate}}</h6>
+          <mat-form-field class="mr-2 w-50">
+            <input
+              [formControl]="searchCtrl"
+              autocomplete="false"
+              matInput
+              (keyup.enter)="searchCtrl.value.length !== 0 && onSearchByString()"
+              placeholder="{{'DIALOGS.CREATE_SERVICE_MEMBER.SEARCH_PLACEHOLDER' | translate}}" />
+          </mat-form-field>
+          <button
+            (click)="onSearchByString()"
+            [disabled]="loading || searchCtrl.value.length === 0"
+            class="mr-2"
+            color="primary"
+            mat-flat-button>
+            <mat-icon>search</mat-icon>
+          </button>
+          <button
+            (click)="addUsers()"
+            [disabled]="selection.selected.length === 0"
+            color="accent"
+            mat-flat-button>
+            {{'DIALOGS.CREATE_SERVICE_MEMBER.ADD_USER' | translate}}
+          </button>
+          <ng-template #spinner>
+            <perun-web-apps-loading-table></perun-web-apps-loading-table>
+          </ng-template>
+          <div class="position-relative" *ngIf="firstSearchDone">
+            <perun-web-apps-members-list
+              *perunWebAppsLoader="loading; indicator: spinner"
+              [disableRouting]="true"
+              [displayedColumns]="['checkbox', 'id', 'fullName']"
+              [members]="members"
+              [tableId]="tableId"
+              [selection]="selection"></perun-web-apps-members-list>
           </div>
-        </form>
-      </mat-step>
-      <mat-step [stepControl]="secondFormGroup">
-        <form [formGroup]="secondFormGroup">
-          <ng-template
-            matStepLabel
-            >{{'DIALOGS.CREATE_SERVICE_MEMBER.SET_CREDENTIALS' | translate}}</ng-template
-          >
-          <app-login-password-form-with-generate-option
-            [formGroup]="secondFormGroup"
-            (parsedRulesOutput)="parsedRules = $event">
-          </app-login-password-form-with-generate-option>
-        </form>
-      </mat-step>
-      <mat-step>
-        <ng-template
-          matStepLabel
-          >{{'DIALOGS.CREATE_SERVICE_MEMBER.ASSOCIATE_USERS' | translate}}</ng-template
-        >
-        <h6>{{'DIALOGS.CREATE_SERVICE_MEMBER.ASSOCIATED_USERS' | translate}}</h6>
-        <mat-list>
-          <mat-list-item *ngFor="let member of assignedMembers">
-            <p class="truncate center-content">
-              {{member.user | userFullName}}
-              <span *ngIf="member.id" class="text-muted">#{{member.id}}</span>
-              <span
-                [matTooltipDisabled]="assignedMembers.length > 1"
-                [matTooltip]="'DIALOGS.CREATE_SERVICE_MEMBER.MINIMAL_USERS' | translate">
-                <button
-                  (click)="removeUser(member)"
-                  [disabled]="assignedMembers.length === 1"
-                  class="ml-1"
-                  color="warn"
-                  mat-icon-button>
-                  <mat-icon class="margin-bottom">close</mat-icon>
-                </button>
-              </span>
-            </p>
-          </mat-list-item>
-        </mat-list>
-
-        <h6 class="mt-3">{{'DIALOGS.CREATE_SERVICE_MEMBER.SEARCH_INFO' | translate}}</h6>
-        <mat-form-field class="mr-2 w-50">
-          <input
-            [formControl]="searchCtrl"
-            autocomplete="false"
-            matInput
-            (keyup.enter)="searchCtrl.value.length !== 0 && onSearchByString()"
-            placeholder="{{'DIALOGS.CREATE_SERVICE_MEMBER.SEARCH_PLACEHOLDER' | translate}}" />
-        </mat-form-field>
-        <button
-          (click)="onSearchByString()"
-          [disabled]="loading || searchCtrl.value.length === 0"
-          class="mr-2"
-          color="primary"
-          mat-flat-button>
-          <mat-icon>search</mat-icon>
-        </button>
-        <button
-          (click)="addUsers()"
-          [disabled]="selection.selected.length === 0"
-          color="accent"
-          mat-flat-button>
-          {{'DIALOGS.CREATE_SERVICE_MEMBER.ADD_USER' | translate}}
-        </button>
-        <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
-        <div *ngIf="!loading">
-          <perun-web-apps-members-list
-            *ngIf="firstSearchDone"
-            [disableRouting]="true"
-            [displayedColumns]="['checkbox', 'id', 'fullName']"
-            [members]="members"
-            [tableId]="tableId"
-            [selection]="selection"></perun-web-apps-members-list>
           <perun-web-apps-alert *ngIf="!firstSearchDone" alert_type="info">
             {{'DIALOGS.CREATE_SERVICE_MEMBER.SEARCH_INFO' | translate}}
           </perun-web-apps-alert>
-        </div>
-      </mat-step>
-      <mat-step *ngIf="findSponsorsAuth && voSponsors.length !== 0 && setSponsorshipAuth">
-        <ng-template matStepLabel>
-          {{'DIALOGS.CREATE_SERVICE_MEMBER.SPONSOR' | translate}}
-        </ng-template>
-        <perun-web-apps-alert alert_type="info">
-          {{'DIALOGS.CREATE_SERVICE_MEMBER.MANAGE_LIFECYCLE_INFO' | translate}}
-        </perun-web-apps-alert>
-      </mat-step>
-    </mat-stepper>
-  </div>
-  <mat-spinner *ngIf="processing" class="ml-auto mr-auto"></mat-spinner>
-  <div *ngIf="!processing" mat-dialog-actions>
-    <button (click)="onCancel()" mat-flat-button>
-      {{'DIALOGS.CREATE_SERVICE_MEMBER.CANCEL' | translate}}
-    </button>
-    <button
-      (click)="stepperPrevious()"
-      *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
-      class="ml-auto"
-      mat-flat-button>
-      {{'DIALOGS.CREATE_SERVICE_MEMBER.BACK' | translate}}
-    </button>
-    <span
-      [matTooltipDisabled]="selection.selected.length === 0"
-      [matTooltip]="'DIALOGS.CREATE_SERVICE_MEMBER.NEXT_BUTTON_DISABLED_TOOLTIP' | translate">
+        </mat-step>
+        <mat-step *ngIf="findSponsorsAuth && voSponsors.length !== 0 && setSponsorshipAuth">
+          <ng-template matStepLabel>
+            {{'DIALOGS.CREATE_SERVICE_MEMBER.SPONSOR' | translate}}
+          </ng-template>
+          <perun-web-apps-alert alert_type="info">
+            {{'DIALOGS.CREATE_SERVICE_MEMBER.MANAGE_LIFECYCLE_INFO' | translate}}
+          </perun-web-apps-alert>
+        </mat-step>
+      </mat-stepper>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="onCancel()" mat-flat-button>
+        {{'DIALOGS.CREATE_SERVICE_MEMBER.CANCEL' | translate}}
+      </button>
       <button
-        (click)="stepperNext()"
-        *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
-        [class.ml-2]="stepper !== undefined && stepper.selectedIndex !== 0"
-        [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
-        [disabled]="getStepperNextConditions()"
+        (click)="stepperPrevious()"
+        *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
+        class="ml-auto"
+        mat-flat-button>
+        {{'DIALOGS.CREATE_SERVICE_MEMBER.BACK' | translate}}
+      </button>
+      <span
+        [matTooltipDisabled]="selection.selected.length === 0"
+        [matTooltip]="'DIALOGS.CREATE_SERVICE_MEMBER.NEXT_BUTTON_DISABLED_TOOLTIP' | translate">
+        <button
+          (click)="stepperNext()"
+          *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
+          [class.ml-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+          [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+          [disabled]="getStepperNextConditions()"
+          color="accent"
+          mat-flat-button>
+          {{'DIALOGS.CREATE_SERVICE_MEMBER.NEXT' | translate}}
+        </button>
+      </span>
+      <button
+        (click)="onCreate(false)"
+        *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
+        [disabled]="firstFormGroup.invalid || (secondFormGroup.get('namespaceCtrl').value !== 'Not selected' && secondFormGroup.invalid)"
+        class="ml-2"
         color="accent"
         mat-flat-button>
-        {{'DIALOGS.CREATE_SERVICE_MEMBER.NEXT' | translate}}
+        {{"DIALOGS.CREATE_SERVICE_MEMBER.CREATE" | translate}}
       </button>
-    </span>
-    <button
-      (click)="onCreate(false)"
-      *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
-      [disabled]="firstFormGroup.invalid || (secondFormGroup.get('namespaceCtrl').value !== 'Not selected' && secondFormGroup.invalid)"
-      class="ml-2"
-      color="accent"
-      mat-flat-button>
-      {{"DIALOGS.CREATE_SERVICE_MEMBER.CREATE" | translate}}
-    </button>
-    <button
-      (click)="onCreate(true)"
-      *ngIf="(findSponsorsAuth && voSponsors.length !== 0 && setSponsorshipAuth) && stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
-      [disabled]="firstFormGroup.invalid || (secondFormGroup.get('namespaceCtrl').value !== 'Not selected' && secondFormGroup.invalid)"
-      class="ml-2"
-      color="accent"
-      mat-flat-button>
-      {{"DIALOGS.CREATE_SERVICE_MEMBER.CREATE_AND_SPONSOR" | translate}}
-    </button>
+      <button
+        (click)="onCreate(true)"
+        *ngIf="(findSponsorsAuth && voSponsors.length !== 0 && setSponsorshipAuth) && stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
+        [disabled]="firstFormGroup.invalid || (secondFormGroup.get('namespaceCtrl').value !== 'Not selected' && secondFormGroup.invalid)"
+        class="ml-2"
+        color="accent"
+        mat-flat-button>
+        {{"DIALOGS.CREATE_SERVICE_MEMBER.CREATE_AND_SPONSOR" | translate}}
+      </button>
+    </div>
   </div>
 </div>

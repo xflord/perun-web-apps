@@ -25,8 +25,6 @@ import { Router } from '@angular/router';
 })
 export class ApplicationFormListComponent implements OnInit, OnChanges {
   @Input()
-  loading: boolean;
-  @Input()
   applicationForm: ApplicationForm;
   @Input()
   applicationFormItems: ApplicationFormItem[] = [];

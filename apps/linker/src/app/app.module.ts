@@ -21,6 +21,7 @@ import { PerunLoginModule } from '@perun-web-apps/perun/login';
 import { MatIconModule } from '@angular/material/icon';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { UiLoadersModule } from '@perun-web-apps/ui/loaders';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
 import { GeneralModule } from '@perun-web-apps/general';
 import { OAuthModule } from 'angular-oauth2-oidc';
@@ -62,6 +63,7 @@ const loadConfigs = (appConfig: LinkerConfigService) => (): Promise<void> =>
     MatIconModule,
     PerunSharedComponentsModule,
     UiAlertsModule,
+    UiLoadersModule,
     PerunUtilsModule,
     GeneralModule,
     OAuthModule.forRoot(),

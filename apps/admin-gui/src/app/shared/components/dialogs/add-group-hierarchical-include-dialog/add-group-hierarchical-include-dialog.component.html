@@ -10,25 +10,29 @@
       [placeholder]="'DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.SEARCH'"
       (filter)="applyFilter($event)">
     </perun-web-apps-immediate-filter>
-    <perun-web-apps-groups-list
-      *ngIf="!loading"
-      [tableId]="tableId"
-      [groups]="groups"
-      [selection]="selected"
-      [filter]="filterValue"
-      [displayedColumns]="['select', 'id', 'name', 'description']"
-      [disableRouting]="true"
-      [noGroupsAlert]="'DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.NO_GROUPS_FOUND_ALERT'"
-      theme="vo-theme">
-    </perun-web-apps-groups-list>
-    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
+    <div class="position-relative">
+      <perun-web-apps-groups-list
+        *perunWebAppsLoader="loading; indicator: spinner"
+        [tableId]="tableId"
+        [groups]="groups"
+        [selection]="selected"
+        [filter]="filterValue"
+        [displayedColumns]="['select', 'id', 'name', 'description']"
+        [disableRouting]="true"
+        [noGroupsAlert]="'DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.NO_GROUPS_FOUND_ALERT'"
+        theme="vo-theme">
+      </perun-web-apps-groups-list>
+    </div>
+    <ng-template #spinner>
+      <perun-web-apps-loading-table></perun-web-apps-loading-table>
+    </ng-template>
   </div>
-  <div *ngIf="!loading" mat-dialog-actions>
-    <button (click)="close()" mat-flat-button class="ml-auto">
+  <div mat-dialog-actions>
+    <button [disabled]="loading" (click)="close()" mat-flat-button class="ml-auto">
       {{'DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.CANCEL' | translate}}
     </button>
     <button
-      [disabled]="selected.selected.length === 0"
+      [disabled]="selected.selected.length === 0 || loading"
       (click)="confirm()"
       color="accent"
       mat-flat-button>

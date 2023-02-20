@@ -117,6 +117,7 @@ export class FacilityServiceStatusComponent implements OnInit {
   }
 
   removeTaskResults(): void {
+    this.loading = true;
     this.tasksManager
       .getTaskResultsForGUIByTask(this.selected.selected[0].task.id)
       .subscribe((taskResults) => {
@@ -126,55 +127,62 @@ export class FacilityServiceStatusComponent implements OnInit {
           theme: 'facility-theme',
           taskResults: taskResults,
         };
+        this.loading = false;
         this.dialog.open(DeleteTaskResultDialogComponent, config);
       });
   }
 
   removeServiceFromFacility(): void {
+    this.loading = true;
     this.facilityManager
       .getAssignedResourcesByAssignedServiceForFacility(
         this.selected.selected[0].facility.id,
         this.selected.selected[0].service.id
       )
-      .subscribe((resources) => {
-        const config = getDefaultDialogConfig();
-        config.width = '600px';
-        this.taskId = this.taskIsNull ? null : this.selected.selected[0].task.id;
+      .subscribe({
+        next: (resources) => {
+          const config = getDefaultDialogConfig();
+          config.width = '600px';
+          this.taskId = this.taskIsNull ? null : this.selected.selected[0].task.id;
 
-        if (resources.length === 0) {
-          config.data = {
-            theme: 'facility-theme',
-            taskId: this.taskId,
-          };
-          const dialogRef = this.dialog.open(DeleteTaskDialogComponent, config);
+          if (resources.length === 0) {
+            config.data = {
+              theme: 'facility-theme',
+              taskId: this.taskId,
+            };
+            this.loading = false;
+            const dialogRef = this.dialog.open(DeleteTaskDialogComponent, config);
 
-          dialogRef.afterClosed().subscribe((result) => {
-            if (result) {
-              this.disableRemoveButton = true;
-              this.refreshTable();
-            }
-          });
-        } else {
-          this.resourcesManager
-            .getRichResourcesByIds(resources.map((resource) => resource.id))
-            .subscribe((richResources) => {
-              config.data = {
-                theme: 'facility-theme',
-                taskId: this.taskId,
-                serviceId: this.selected.selected[0].service.id,
-                facilityId: this.selected.selected[0].facility.id,
-                resource: richResources,
-              };
-              const dialogRef = this.dialog.open(DeleteServiceFromFacilityComponent, config);
-
-              dialogRef.afterClosed().subscribe((result) => {
-                if (result) {
-                  this.disableRemoveButton = true;
-                  this.refreshTable();
-                }
-              });
+            dialogRef.afterClosed().subscribe((result) => {
+              if (result) {
+                this.disableRemoveButton = true;
+                this.refreshTable();
+              }
             });
-        }
+          } else {
+            this.resourcesManager
+              .getRichResourcesByIds(resources.map((resource) => resource.id))
+              .subscribe((richResources) => {
+                config.data = {
+                  theme: 'facility-theme',
+                  taskId: this.taskId,
+                  serviceId: this.selected.selected[0].service.id,
+                  facilityId: this.selected.selected[0].facility.id,
+                  resource: richResources,
+                };
+                this.loading = false;
+                const dialogRef = this.dialog.open(DeleteServiceFromFacilityComponent, config);
+
+                dialogRef.afterClosed().subscribe((result) => {
+                  if (result) {
+                    this.disableRemoveButton = true;
+                    this.refreshTable();
+                  }
+                });
+              });
+          }
+        },
+        error: () => (this.loading = false),
       });
   }
 

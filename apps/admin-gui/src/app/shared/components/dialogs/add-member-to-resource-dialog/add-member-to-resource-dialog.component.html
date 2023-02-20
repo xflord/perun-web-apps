@@ -1,14 +1,15 @@
-<div class="{{theme}}">
-  <h1 mat-dialog-title>{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.TITLE' | translate}}</h1>
-  <div class="dialog-container" mat-dialog-content>
-    <mat-stepper [linear]="true">
-      <mat-step completed="false">
-        <ng-template
-          matStepLabel
-          >{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.SELECT_RESOURCE' | translate}}</ng-template
-        >
-        <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-        <div *ngIf="!loading">
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.TITLE' | translate}}</h1>
+    <div class="dialog-container" mat-dialog-content>
+      <mat-stepper [linear]="true">
+        <mat-step completed="false">
+          <ng-template matStepLabel>
+            {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.SELECT_RESOURCE' | translate}}
+          </ng-template>
           <div class="input-style">
             <perun-web-apps-facility-search-select
               (facilitySelected)="filterResources($event.name); stepper.selected.completed = true"
@@ -45,60 +46,63 @@
             >
             <div *ngFor="let service of services" class="ml-5">{{service.name}}</div>
           </div>
-        </div>
-      </mat-step>
-      <mat-step>
-        <ng-template
-          matStepLabel
-          >{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.ADD_GROUP' | translate}}</ng-template
-        >
-        <mat-spinner *ngIf="processing" class="mr-auto ml-auto"></mat-spinner>
-        <div *ngIf="groups.length !== 0 && !processing">
-          <perun-web-apps-groups-list
-            [disableGroups]="true"
-            [disableHeadCheckbox]="true"
-            [disableRouting]="true"
-            [groupsToDisableCheckbox]="membersGroupsId"
-            [groups]="groups"
-            [displayedColumns]="['select', 'id', 'name', 'description']"
-            [selection]="selectedGroups">
-          </perun-web-apps-groups-list>
-        </div>
-        <perun-web-apps-alert *ngIf="groups.length === 0 && !processing" alert_type="warn">
-          {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.NO_GROUPS' | translate}}
-        </perun-web-apps-alert>
-      </mat-step>
-    </mat-stepper>
-  </div>
-  <div mat-dialog-actions>
-    <button (click)="onCancel()" mat-flat-button>
-      {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CANCEL' | translate}}
-    </button>
-    <button
-      (click)="stepperPrevious()"
-      *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
-      class="ml-auto"
-      mat-flat-button>
-      {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.BACK' | translate}}
-    </button>
-    <button
-      (click)="stepperNext(); loadGroups()"
-      *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
-      [class.ml-2]="stepper !== undefined && stepper.selectedIndex !== 0"
-      [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
-      [disabled]="selectedResource === null || processing || loading"
-      color="accent"
-      mat-flat-button>
-      {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CONTINUE' | translate}}
-    </button>
-    <button
-      (click)="onFinish()"
-      *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
-      [disabled]="selectedGroups.selected.length === 0 || processing"
-      class="ml-2"
-      color="accent"
-      mat-flat-button>
-      {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.SUBMIT' | translate}}
-    </button>
+        </mat-step>
+        <mat-step>
+          <ng-template
+            matStepLabel
+            >{{'DIALOGS.ADD_MEMBER_TO_RESOURCE.ADD_GROUP' | translate}}</ng-template
+          >
+          <ng-template #spinner>
+            <perun-web-apps-loading-table></perun-web-apps-loading-table>
+          </ng-template>
+          <div class="position-relative">
+            <perun-web-apps-groups-list
+              *perunWebAppsLoader="processing; indicator: spinner"
+              [disableGroups]="true"
+              [disableHeadCheckbox]="true"
+              [disableRouting]="true"
+              [groupsToDisableCheckbox]="membersGroupsId"
+              [groups]="groups"
+              [displayedColumns]="['select', 'id', 'name', 'description']"
+              [selection]="selectedGroups">
+            </perun-web-apps-groups-list>
+          </div>
+          <perun-web-apps-alert *ngIf="groups.length === 0 && !processing" alert_type="warn">
+            {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.NO_GROUPS' | translate}}
+          </perun-web-apps-alert>
+        </mat-step>
+      </mat-stepper>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="onCancel()" mat-flat-button>
+        {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CANCEL' | translate}}
+      </button>
+      <button
+        (click)="stepperPrevious()"
+        *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
+        class="ml-auto"
+        mat-flat-button>
+        {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.BACK' | translate}}
+      </button>
+      <button
+        (click)="stepperNext(); loadGroups()"
+        *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
+        [class.ml-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+        [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+        [disabled]="selectedResource === null || processing || loading"
+        color="accent"
+        mat-flat-button>
+        {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CONTINUE' | translate}}
+      </button>
+      <button
+        (click)="onFinish()"
+        *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
+        [disabled]="selectedGroups.selected.length === 0 || processing"
+        class="ml-2"
+        color="accent"
+        mat-flat-button>
+        {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.SUBMIT' | translate}}
+      </button>
+    </div>
   </div>
 </div>

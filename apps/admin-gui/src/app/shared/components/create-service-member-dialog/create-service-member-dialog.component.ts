@@ -332,11 +332,11 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
 
   onSearchByString(): void {
     this.loading = true;
+    this.firstSearchDone = true;
     this.membersManagerService
       .findCompleteRichMembersForVo(this.data.vo.id, [''], this.searchCtrl.value as string)
       .subscribe((members) => {
         this.members = members.filter((m) => !m.user.specificUser);
-        this.firstSearchDone = true;
         this.loading = false;
       });
   }

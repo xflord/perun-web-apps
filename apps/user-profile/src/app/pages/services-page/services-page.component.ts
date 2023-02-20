@@ -36,7 +36,11 @@ export class ServicesPageComponent implements OnInit {
   }
 
   getMemberData(vo: Vo): void {
+    if (this.resources.length && this.resources[0].voId === vo.id) {
+      return;
+    }
     this.loading = true;
+    this.resources = [];
     this.membersManagerService.getMemberByUser(vo.id, this.userId).subscribe((member) => {
       this.resourcesManagerService
         .getAssignedRichResourcesWithMember(member.id)

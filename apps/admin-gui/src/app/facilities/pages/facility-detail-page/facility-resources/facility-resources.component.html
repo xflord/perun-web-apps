@@ -33,14 +33,18 @@
       class="filter-field">
     </perun-web-apps-immediate-filter>
   </div>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <perun-web-apps-resources-list
-    [tableId]="tableId"
-    *ngIf="!loading"
-    [filterValue]="filterValue"
-    [resources]="resources"
-    [selection]="selected"
-    [disableRouting]="!routeAuth"
-    [displayedColumns]="displayedColumns">
-  </perun-web-apps-resources-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-resources-list
+      [tableId]="tableId"
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [filterValue]="filterValue"
+      [resources]="resources"
+      [selection]="selected"
+      [disableRouting]="!routeAuth"
+      [displayedColumns]="displayedColumns">
+    </perun-web-apps-resources-list>
+  </div>
 </div>

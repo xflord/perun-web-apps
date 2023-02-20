@@ -28,7 +28,7 @@ export class GroupResourcesComponent implements OnInit {
   list: ResourcesListComponent;
 
   group: Group;
-  resources: ResourceWithStatus[] = null;
+  resources: ResourceWithStatus[] = [];
   selected = new SelectionModel<ResourceWithStatus>(true, []);
   resourcesToDisable: Set<number>;
   loading: boolean;

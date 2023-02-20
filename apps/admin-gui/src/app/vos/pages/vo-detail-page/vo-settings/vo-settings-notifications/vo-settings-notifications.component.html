@@ -29,16 +29,19 @@
   </button>
 </div>
 
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
-
-<app-notification-list
-  *ngIf="!loading"
-  [applicationMails]="applicationMails"
-  (selectionChange)="changeSelection($event)"
-  [disableSend]="!addAuth"
-  [displayedColumns]="displayedColumns"
-  [tableId]="tableId"
-  [selection]="selection"
-  [theme]="'vo-theme'"
-  [voId]="vo.id">
-</app-notification-list>
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div class="position-relative">
+  <app-notification-list
+    *perunWebAppsLoader="loading; indicator: spinner"
+    [applicationMails]="applicationMails"
+    (selectionChange)="changeSelection($event)"
+    [disableSend]="!addAuth"
+    [displayedColumns]="displayedColumns"
+    [tableId]="tableId"
+    [selection]="selection"
+    [theme]="'vo-theme'"
+    [voId]="vo.id">
+  </app-notification-list>
+</div>

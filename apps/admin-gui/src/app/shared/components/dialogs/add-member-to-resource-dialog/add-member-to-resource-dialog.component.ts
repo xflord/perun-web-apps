@@ -118,18 +118,18 @@ export class AddMemberToResourceDialogComponent implements OnInit, AfterViewInit
   }
 
   onFinish(): void {
-    this.processing = true;
+    this.loading = true;
     const groupId = this.selectedGroups.selected[0].id;
 
-    this.groupManager.addMembers(groupId, [this.data.memberId]).subscribe(
-      () => {
+    this.groupManager.addMembers(groupId, [this.data.memberId]).subscribe({
+      next: () => {
         this.notificator.showSuccess(
           this.translate.instant('DIALOGS.ADD_MEMBER_TO_RESOURCE.SUCCESS') as string
         );
         this.dialogRef.close(true);
       },
-      () => (this.processing = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 
   onCancel(): void {
@@ -161,11 +161,13 @@ export class AddMemberToResourceDialogComponent implements OnInit, AfterViewInit
 
   private getResourceFacilities(): void {
     const distinctFacilities = new Set<string>();
+    const facilitiesToAdd: Facility[] = [];
     for (const resource of this.resources) {
       distinctFacilities.add(resource.facility.name);
-      if (this.facilities.length !== distinctFacilities.size) {
-        this.facilities.push(resource.facility);
+      if (facilitiesToAdd.length !== distinctFacilities.size) {
+        facilitiesToAdd.push(resource.facility);
       }
     }
+    this.facilities = facilitiesToAdd;
   }
 }

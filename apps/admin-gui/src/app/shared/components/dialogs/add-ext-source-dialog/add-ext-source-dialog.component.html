@@ -6,14 +6,19 @@
       [placeholder]="'DIALOGS.ADD_EXT_SOURCES.FILTER'"
       class="font-size-1rem"></perun-web-apps-immediate-filter>
   </div>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-  <div *ngIf="!loading" mat-dialog-content>
-    <app-ext-sources-list
-      [selection]="selection"
-      [extSources]="extSources"
-      [filterValue]="filterValue"
-      [tableId]="tableId">
-    </app-ext-sources-list>
+  <div mat-dialog-content>
+    <ng-template #spinner>
+      <perun-web-apps-loading-table></perun-web-apps-loading-table>
+    </ng-template>
+    <div class="position-relative">
+      <app-ext-sources-list
+        *perunWebAppsLoader="loading; indicator: spinner"
+        [selection]="selection"
+        [extSources]="extSources"
+        [filterValue]="filterValue"
+        [tableId]="tableId">
+      </app-ext-sources-list>
+    </div>
   </div>
 
   <div mat-dialog-actions>

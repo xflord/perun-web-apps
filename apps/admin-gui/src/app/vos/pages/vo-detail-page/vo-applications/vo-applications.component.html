@@ -1,7 +1,6 @@
 <h1 class="page-subtitle">{{'VO_DETAIL.APPLICATION.TITLE' | translate}}</h1>
 <div>
-  <perun-web-apps-refresh-button
-    (refresh)="this.refresh = !this.refresh"></perun-web-apps-refresh-button>
+  <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button mat-stroked-button *ngIf="!showAllDetails" class="mr-2" (click)="this.showDetails(true)">
     {{'VO_DETAIL.APPLICATION.SHOW_ALL_DETAILS' | translate}}
   </button>
@@ -38,9 +37,13 @@
     </span>
   </div>
 </div>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-<div *ngIf="!loading">
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div class="position-relative">
   <app-applications-dynamic-list
+    *perunWebAppsLoader="loading$ | async; indicator: spinner"
+    (loading$)="loading$ = $event"
     [tableId]="showAllDetails ? detailTableId : tableId"
     [searchString]="filterValue"
     [displayedColumns]="currentColumns"

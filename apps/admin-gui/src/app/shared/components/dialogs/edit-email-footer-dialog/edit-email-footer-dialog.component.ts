@@ -43,7 +43,6 @@ export class EditEmailFooterDialogComponent implements OnInit {
     } else {
       this.getFooterForVo();
     }
-    this.loading = false;
   }
 
   submit(): void {
@@ -96,9 +95,8 @@ export class EditEmailFooterDialogComponent implements OnInit {
   }
 
   private getFooterForVo(): void {
-    this.attributesManager
-      .getVoAttributeByName(this.data.voId, Urns.VO_DEF_MAIL_FOOTER)
-      .subscribe((footer) => {
+    this.attributesManager.getVoAttributeByName(this.data.voId, Urns.VO_DEF_MAIL_FOOTER).subscribe({
+      next: (footer) => {
         this.mailAttribute = footer;
         this.plainEdithAuth = this.mailAttribute.writable;
         if (footer.value) {
@@ -106,42 +104,57 @@ export class EditEmailFooterDialogComponent implements OnInit {
         } else {
           this.mailFooter = '';
         }
-      });
+        this.loading = false;
+      },
+      error: () => (this.loading = false),
+    });
     this.attributesManager
       .getVoAttributeByName(this.data.voId, Urns.VO_DEF_MAIL_HTML_FOOTER)
-      .subscribe((footer) => {
-        this.htmlMailAttribute = footer;
-        this.htmlEditAuth = this.htmlMailAttribute.writable;
-        if (footer.value) {
-          this.htmlMailFooter = footer.value as string;
-        } else {
-          this.htmlMailFooter = '';
-        }
+      .subscribe({
+        next: (footer) => {
+          this.htmlMailAttribute = footer;
+          this.htmlEditAuth = this.htmlMailAttribute.writable;
+          if (footer.value) {
+            this.htmlMailFooter = footer.value as string;
+          } else {
+            this.htmlMailFooter = '';
+          }
+          this.loading = false;
+        },
+        error: () => (this.loading = false),
       });
   }
 
   private getFooterForGroup(): void {
     this.attributesManager
       .getGroupAttributeByName(this.data.groupId, Urns.GROUP_DEF_MAIL_FOOTER)
-      .subscribe((footer) => {
-        this.mailAttribute = footer;
-        this.plainEdithAuth = this.mailAttribute.writable;
-        if (footer.value) {
-          this.mailFooter = footer.value as string;
-        } else {
-          this.mailFooter = '';
-        }
+      .subscribe({
+        next: (footer) => {
+          this.mailAttribute = footer;
+          this.plainEdithAuth = this.mailAttribute.writable;
+          if (footer.value) {
+            this.mailFooter = footer.value as string;
+          } else {
+            this.mailFooter = '';
+          }
+          this.loading = false;
+        },
+        error: () => (this.loading = false),
       });
     this.attributesManager
       .getGroupAttributeByName(this.data.groupId, Urns.GROUP_DEF_MAIL_HTML_FOOTER)
-      .subscribe((footer) => {
-        this.htmlMailAttribute = footer;
-        this.htmlEditAuth = this.htmlMailAttribute.writable;
-        if (footer.value) {
-          this.htmlMailFooter = footer.value as string;
-        } else {
-          this.htmlMailFooter = '';
-        }
+      .subscribe({
+        next: (footer) => {
+          this.htmlMailAttribute = footer;
+          this.htmlEditAuth = this.htmlMailAttribute.writable;
+          if (footer.value) {
+            this.htmlMailFooter = footer.value as string;
+          } else {
+            this.htmlMailFooter = '';
+          }
+          this.loading = false;
+        },
+        error: () => (this.loading = false),
       });
   }
 

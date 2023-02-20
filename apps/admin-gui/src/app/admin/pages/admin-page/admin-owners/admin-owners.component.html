@@ -23,11 +23,15 @@
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'ADMIN.OWNERS.FILTER'"></perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <perun-web-apps-owners-list
-    [selection]="selected"
-    *ngIf="!loading"
-    [filterValue]="filterValue"
-    [owners]="owners"
-    [tableId]="tableId"></perun-web-apps-owners-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-owners-list
+      [selection]="selected"
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [filterValue]="filterValue"
+      [owners]="owners"
+      [tableId]="tableId"></perun-web-apps-owners-list>
+  </div>
 </div>

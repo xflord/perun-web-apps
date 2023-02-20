@@ -15,7 +15,7 @@ export class ResourceAssignedMembersComponent implements OnInit {
   tableId = TABLE_RESOURCE_MEMBERS;
 
   resource: Resource;
-  members: RichMember[];
+  members: RichMember[] = [];
 
   routeAuth: boolean;
 

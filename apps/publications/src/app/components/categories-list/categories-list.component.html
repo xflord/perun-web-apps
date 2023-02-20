@@ -59,8 +59,6 @@
   </perun-web-apps-table-wrapper>
 </div>
 
-<perun-web-apps-alert
-  *ngIf="dataSource.filteredData.length === 0 && categories.length !== 0"
-  alert_type="warn">
+<perun-web-apps-alert *ngIf="dataSource.filteredData.length === 0" alert_type="warn">
   {{'CATEGORIES_PAGE.NO_FILTER_RESULTS' | translate}}
 </perun-web-apps-alert>

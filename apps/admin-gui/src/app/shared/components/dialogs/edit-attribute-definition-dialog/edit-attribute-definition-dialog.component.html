@@ -1,106 +1,110 @@
-<div class="admin-theme">
-  <div *ngIf="!showKeys">
-    <h1 mat-dialog-title>{{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.TITLE' | translate}}</h1>
-    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-    <div *ngIf="!loading" mat-dialog-content>
-      <form [formGroup]="attributeControl" class="fields-container">
-        <mat-form-field>
-          <input
-            matInput
-            data-cy="display-name-input"
-            formControlName="name"
-            placeholder="{{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.DISPLAY_NAME' | translate}}"
-            required />
-          <mat-error *ngIf="attributeControl.hasError('required', 'name')">
-            {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
-          </mat-error>
-        </mat-form-field>
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="admin-theme position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <div *ngIf="!showKeys">
+      <h1 mat-dialog-title>{{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.TITLE' | translate}}</h1>
+      <div mat-dialog-content>
+        <form [formGroup]="attributeControl" class="fields-container">
+          <mat-form-field>
+            <input
+              matInput
+              data-cy="display-name-input"
+              formControlName="name"
+              placeholder="{{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.DISPLAY_NAME' | translate}}"
+              required />
+            <mat-error *ngIf="attributeControl.hasError('required', 'name')">
+              {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
+            </mat-error>
+          </mat-form-field>
 
-        <mat-form-field>
-          <textarea
-            matInput
-            formControlName="description"
-            cdkTextareaAutosize
-            placeholder="{{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.DESCRIPTION' | translate}}"
-            required>
-          </textarea>
-          <mat-error *ngIf="attributeControl.hasError('required', 'description')">
-            {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
-          </mat-error>
-        </mat-form-field>
-      </form>
+          <mat-form-field>
+            <textarea
+              matInput
+              formControlName="description"
+              cdkTextareaAutosize
+              placeholder="{{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.DESCRIPTION' | translate}}"
+              required>
+            </textarea>
+            <mat-error *ngIf="attributeControl.hasError('required', 'description')">
+              {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
+            </mat-error>
+          </mat-form-field>
+        </form>
 
-      <label class="urn-name">
-        {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.URN' | translate}}
-      </label>
-      <div class="urn-row">
-        {{urn}}
-        <mat-icon
-          class="copy-urn"
-          matSuffix
-          (click)="copyUrn()"
-          matTooltip="{{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.URN_TOOLTIP' | translate}}"
-          >content_copy</mat-icon
-        >
+        <label class="urn-name">
+          {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.URN' | translate}}
+        </label>
+        <div class="urn-row">
+          {{urn}}
+          <mat-icon
+            class="copy-urn"
+            matSuffix
+            (click)="copyUrn()"
+            matTooltip="{{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.URN_TOOLTIP' | translate}}"
+            >content_copy</mat-icon
+          >
+        </div>
+
+        <perun-web-apps-attribute-unique-toggle [attDef]="attDef">
+        </perun-web-apps-attribute-unique-toggle>
+
+        <perun-web-apps-attribute-critical-operations-toggles
+          [readOperation]="initReadOperations"
+          [writeOperation]="initWriteOperations"
+          (readOperationChanged)="finalReadOperations=$event"
+          (writeOperationChanged)="finalWriteOperations=$event">
+        </perun-web-apps-attribute-critical-operations-toggles>
+
+        <perun-web-apps-attribute-rights-tab-group
+          [attDef]="attDef"
+          [collections]="collections$ | async">
+        </perun-web-apps-attribute-rights-tab-group>
+
+        <mat-accordion>
+          <mat-expansion-panel class="mt-4 mb-4">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.SERVICES' | translate}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-services-list
+              [disableRouting]="true"
+              [displayedColumns]="['id', 'name', 'enabled', 'script']"
+              [services]="this.services$ | async">
+            </app-services-list>
+          </mat-expansion-panel>
+        </mat-accordion>
       </div>
 
-      <perun-web-apps-attribute-unique-toggle [attDef]="attDef">
-      </perun-web-apps-attribute-unique-toggle>
+      <div mat-dialog-actions>
+        <button *ngIf="attDef?.entity === 'entityless'" (click)="switchShowKeys()" mat-flat-button>
+          {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.SHOW_KEYS' | translate}}
+        </button>
+        <button (click)="onCopy()" class="ml-auto" mat-flat-button>
+          {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPY_FOR_IMPORT' | translate}}
+        </button>
+        <button (click)="onCancel()" class="ml-2" mat-flat-button>
+          {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.CANCEL' | translate}}
+        </button>
+        <button
+          class="ml-2"
+          color="accent"
+          mat-flat-button
+          (click)="onSubmit()"
+          [disabled]="loading || attributeControl.invalid">
+          {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.CONFIRM' | translate}}
+        </button>
+      </div>
+    </div>
 
-      <perun-web-apps-attribute-critical-operations-toggles
-        [readOperation]="initReadOperations"
-        [writeOperation]="initWriteOperations"
-        (readOperationChanged)="finalReadOperations=$event"
-        (writeOperationChanged)="finalWriteOperations=$event">
-      </perun-web-apps-attribute-critical-operations-toggles>
-
-      <perun-web-apps-attribute-rights-tab-group
+    <div *ngIf="showKeys">
+      <app-entityless-attribute-keys-list
+        (switchView)="switchShowKeys()"
         [attDef]="attDef"
-        [collections]="collections$ | async">
-      </perun-web-apps-attribute-rights-tab-group>
-
-      <mat-accordion>
-        <mat-expansion-panel class="mt-4 mb-4">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.SERVICES' | translate}}
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <app-services-list
-            [disableRouting]="true"
-            [displayedColumns]="['id', 'name', 'enabled', 'script']"
-            [services]="this.services$ | async">
-          </app-services-list>
-        </mat-expansion-panel>
-      </mat-accordion>
+        [tableId]="tableId">
+      </app-entityless-attribute-keys-list>
     </div>
-
-    <div mat-dialog-actions>
-      <button *ngIf="attDef?.entity === 'entityless'" (click)="switchShowKeys()" mat-flat-button>
-        {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.SHOW_KEYS' | translate}}
-      </button>
-      <button (click)="onCopy()" class="ml-auto" mat-flat-button>
-        {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPY_FOR_IMPORT' | translate}}
-      </button>
-      <button (click)="onCancel()" class="ml-2" mat-flat-button>
-        {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.CANCEL' | translate}}
-      </button>
-      <button
-        class="ml-2"
-        color="accent"
-        mat-flat-button
-        (click)="onSubmit()"
-        [disabled]="loading || attributeControl.invalid">
-        {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.CONFIRM' | translate}}
-      </button>
-    </div>
-  </div>
-
-  <div *ngIf="showKeys">
-    <app-entityless-attribute-keys-list
-      (switchView)="switchShowKeys()"
-      [attDef]="attDef"
-      [tableId]="tableId">
-    </app-entityless-attribute-keys-list>
   </div>
 </div>

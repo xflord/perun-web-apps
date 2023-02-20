@@ -28,6 +28,7 @@ import { CategoriesListComponent } from './components/categories-list/categories
 import { AddCategoryDialogComponent } from './dialogs/add-category-dialog/add-category-dialog.component';
 import { RemoveCategoryDialogComponent } from './dialogs/remove-category-dialog/remove-category-dialog.component';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { UiLoadersModule } from '@perun-web-apps/ui/loaders';
 import { PublicationSystemsListComponent } from './components/publication-systems-list/publication-systems-list.component';
 import { UpdateRankDialogComponent } from './dialogs/update-rank-dialog/update-rank-dialog.component';
 import { AuthorsListComponent } from './components/authors-list/authors-list.component';
@@ -122,6 +123,7 @@ const loadConfigs: (appConfig: PublicationsConfigService) => () => Promise<void>
     HttpClientModule,
     AppRoutingModule,
     UiAlertsModule,
+    UiLoadersModule,
     PerunPipesModule,
     PerunLoginModule,
     MatTabsModule,

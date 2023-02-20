@@ -18,14 +18,17 @@
   {{'USER_DETAIL.SETTINGS.SERVICE_IDENTITIES.DELETE' | translate}}
 </button>
 
-<mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-
-<app-users-list
-  *ngIf="!loading"
-  [noUsersFoundLabel]="'USER_DETAIL.SETTINGS.SERVICE_IDENTITIES.NO_IDENTITIES' | translate"
-  [displayedColumns]="displayedColumns"
-  [selection]="selection"
-  [tableId]="tableId"
-  [routeToAdmin]="routeToAdminSection"
-  [users]="identities">
-</app-users-list>
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div class="position-relative">
+  <app-users-list
+    *perunWebAppsLoader="loading; indicator: spinner"
+    [noUsersFoundLabel]="'USER_DETAIL.SETTINGS.SERVICE_IDENTITIES.NO_IDENTITIES' | translate"
+    [displayedColumns]="displayedColumns"
+    [selection]="selection"
+    [tableId]="tableId"
+    [routeToAdmin]="routeToAdminSection"
+    [users]="identities">
+  </app-users-list>
+</div>

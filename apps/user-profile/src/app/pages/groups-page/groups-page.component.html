@@ -1,6 +1,6 @@
 <h1 class="page-title pt-2">{{'GROUPS.TITLE' | customTranslate | translate}}</h1>
 <div class="user-theme">
-  <mat-form-field class="mr-2 w-75" *ngIf="!loading">
+  <mat-form-field class="mr-2 w-75" *ngIf="!initialLoading">
     <mat-label>{{'GROUPS.SELECT_VO' | translate}}</mat-label>
     <input
       type="text"
@@ -20,7 +20,7 @@
     </mat-autocomplete>
   </mat-form-field>
 
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+  <mat-spinner *ngIf="initialLoading" class="mr-auto ml-auto"></mat-spinner>
 
   <perun-web-apps-alert
     alert_type="warn"
@@ -28,19 +28,25 @@
     >{{'GROUPS.NO_GROUPS'| customTranslate | translate}}</perun-web-apps-alert
   >
 
-  <div *ngIf="!loading && userMemberships.length !== 0">
-    <h4 class="page-subtitle">{{'GROUPS.MEMBER_GROUPS' | customTranslate | translate}}</h4>
+  <h4 class="page-subtitle">{{'GROUPS.MEMBER_GROUPS' | customTranslate | translate}}</h4>
+  <div class="position-relative">
     <perun-web-apps-membership-list
+      *perunWebAppsLoader="loading; indicator: spinner"
       [members]="userMemberships"
       [selection]="selection"
       [displayedColumns]="['name', 'description', 'expirationAttribute', 'extend']"
       (extendMembership)="extendMembership($event)"></perun-web-apps-membership-list>
   </div>
 
-  <div *ngIf="!loading && adminMemberships.length !== 0" class="mt-5">
-    <h4 class="page-subtitle">{{'GROUPS.ADMINS_GROUPS' | customTranslate | translate}}</h4>
+  <h4 class="page-subtitle mt-5">{{'GROUPS.ADMINS_GROUPS' | customTranslate | translate}}</h4>
+  <div class="position-relative">
     <perun-web-apps-membership-list
+      *perunWebAppsLoader="loading; indicator: spinner"
       [members]="adminMemberships"
       [displayedColumns]="['name', 'description']"></perun-web-apps-membership-list>
   </div>
+
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
 </div>

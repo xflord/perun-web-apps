@@ -27,7 +27,7 @@ export interface CreateRelationDialogData {
 })
 export class CreateRelationDialogComponent implements OnInit {
   selection = new SelectionModel<Group>(false, []);
-  groups: Group[];
+  groups: Group[] = [];
   theme: string;
   filterValue = '';
   initLoading: boolean;
@@ -55,8 +55,8 @@ export class CreateRelationDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.initLoading = true;
-    this.groupService.getGroupUnions(this.data.group.id, !this.data.reverse).subscribe(
-      (unionGroups) => {
+    this.groupService.getGroupUnions(this.data.group.id, !this.data.reverse).subscribe({
+      next: (unionGroups) => {
         unionGroups = unionGroups.concat(this.data.groups);
         this.groupsToNotInclude = unionGroups.map((elem) => elem.id);
         this.voService.getEnrichedVoById(this.data.voId).subscribe((enrichedVo) => {
@@ -69,8 +69,8 @@ export class CreateRelationDialogComponent implements OnInit {
           this.initLoading = false;
         });
       },
-      () => (this.initLoading = false)
-    );
+      error: () => (this.initLoading = false),
+    });
     this.theme = this.data.theme;
   }
 
@@ -81,32 +81,34 @@ export class CreateRelationDialogComponent implements OnInit {
   getGroupsToInclude(voId: number): void {
     this.loading = true;
     if (voId === this.data.voId) {
-      this.groupService.getAllGroups(this.data.voId).subscribe(
-        (allGroups) => {
+      this.groupService.getAllGroups(this.data.voId).subscribe({
+        next: (allGroups) => {
           this.finishLoadingGroups(allGroups);
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
     } else {
-      this.groupService.getVoAllAllowedGroupsToHierarchicalVo(this.data.voId, voId).subscribe(
-        (groups) => {
+      this.groupService.getVoAllAllowedGroupsToHierarchicalVo(this.data.voId, voId).subscribe({
+        next: (groups) => {
           this.finishLoadingGroups(groups);
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
     }
   }
 
   onSubmit(): void {
     this.loading = true;
-    this.groupService.createGroupUnion(this.data.group.id, this.selection.selected[0].id).subscribe(
-      () => {
-        this.notificator.showSuccess(this.successMessage);
-        this.loading = false;
-        this.dialogRef.close(true);
-      },
-      () => (this.loading = false)
-    );
+    this.groupService
+      .createGroupUnion(this.data.group.id, this.selection.selected[0].id)
+      .subscribe({
+        next: () => {
+          this.notificator.showSuccess(this.successMessage);
+          this.loading = false;
+          this.dialogRef.close(true);
+        },
+        error: () => (this.loading = false),
+      });
   }
 
   applyFilter(filterValue: string): void {

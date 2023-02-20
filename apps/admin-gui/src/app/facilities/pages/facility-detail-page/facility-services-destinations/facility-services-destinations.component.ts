@@ -52,7 +52,7 @@ export class FacilityServicesDestinationsComponent implements OnInit {
   loading: boolean;
 
   facility: Facility;
-  destinations: RichDestination[];
+  destinations: RichDestination[] = [];
   selected = new SelectionModel<RichDestination>(true, []);
   filterValue = '';
   tableId = TABLE_FACILITY_SERVICES_DESTINATION_LIST;

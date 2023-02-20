@@ -25,16 +25,20 @@
   (filter)="applyFilter($event)"
   [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'">
 </perun-web-apps-immediate-filter>
-<mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-<perun-web-apps-groups-list
-  *ngIf="!loading"
-  (refreshTable)="refreshTable()"
-  [displayedColumns]="['select', 'id', 'name', 'description', 'expiration', 'groupStatus']"
-  [memberId]="memberId"
-  [disableRouting]="!routeAuth"
-  [groups]="groups"
-  [filter]="filterValue"
-  [memberGroupStatus]="member.groupStatus"
-  [selection]="selection"
-  [tableId]="tableId">
-</perun-web-apps-groups-list>
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div class="position-relative">
+  <perun-web-apps-groups-list
+    *perunWebAppsLoader="loading; indicator: spinner"
+    (refreshTable)="refreshTable()"
+    [displayedColumns]="['select', 'id', 'name', 'description', 'expiration', 'groupStatus']"
+    [memberId]="memberId"
+    [disableRouting]="!routeAuth"
+    [groups]="groups"
+    [filter]="filterValue"
+    [memberGroupStatus]="member?.groupStatus"
+    [selection]="selection"
+    [tableId]="tableId">
+  </perun-web-apps-groups-list>
+</div>

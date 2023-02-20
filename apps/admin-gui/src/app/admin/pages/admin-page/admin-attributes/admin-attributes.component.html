@@ -31,14 +31,18 @@
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'ADMIN.ATTRIBUTES.SEARCH'"></perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <app-attr-def-list
-    *ngIf="!loading"
-    (refreshEvent)="refreshTable()"
-    [definitions]="attrDefinitions"
-    [disableRouting]="!authResolver.isPerunAdminOrObserver()"
-    [filterValue]="filterValue"
-    [selection]="selected"
-    [tableId]="tableId">
-  </app-attr-def-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <app-attr-def-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      (refreshEvent)="refreshTable()"
+      [definitions]="attrDefinitions"
+      [disableRouting]="!authResolver.isPerunAdminOrObserver()"
+      [filterValue]="filterValue"
+      [selection]="selected"
+      [tableId]="tableId">
+    </app-attr-def-list>
+  </div>
 </div>

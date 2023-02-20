@@ -107,6 +107,7 @@ export class FacilitySettingsBansComponent implements OnInit {
     const dialogRef = this.dialog.open(UniversalConfirmationItemsDialogComponent, config);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+        this.loading = true;
         this.facilityService
           .removeFacilityBanById(this.selection.selected[0].ban.id)
           .subscribe(() => {

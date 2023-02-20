@@ -32,14 +32,17 @@
   [placeholder]="'RESOURCE_DETAIL.TAGS.SEARCH'">
 </perun-web-apps-immediate-filter>
 
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-
-<app-resources-tags-list
-  *ngIf="!loading"
-  [displayedColumns]="displayedColumns"
-  [entity]="'resource'"
-  [resourceTags]="resourceTags"
-  [filterValue]="filterValue"
-  [selection]="selection"
-  [tableId]="tableId">
-</app-resources-tags-list>
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div class="position-relative">
+  <app-resources-tags-list
+    *perunWebAppsLoader="loading; indicator: spinner"
+    [displayedColumns]="displayedColumns"
+    [entity]="'resource'"
+    [resourceTags]="resourceTags"
+    [filterValue]="filterValue"
+    [selection]="selection"
+    [tableId]="tableId">
+  </app-resources-tags-list>
+</div>

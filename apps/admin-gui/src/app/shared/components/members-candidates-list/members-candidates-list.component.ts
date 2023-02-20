@@ -42,8 +42,9 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
     'alreadyMember',
     'local',
   ];
-  dataSource: MatTableDataSource<MemberCandidate>;
+  dataSource: MatTableDataSource<MemberCandidate> = new MatTableDataSource<MemberCandidate>([]);
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  firstSearchDone = false;
   private sort: MatSort;
 
   constructor(
@@ -62,8 +63,11 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   }
 
   ngOnChanges(): void {
-    this.dataSource = new MatTableDataSource<MemberCandidate>(this.members);
-    this.setDataSource();
+    if (this.members !== undefined && this.members !== null) {
+      this.firstSearchDone = true;
+      this.dataSource = new MatTableDataSource<MemberCandidate>(this.members);
+      this.setDataSource();
+    }
   }
 
   canBeSelected = (row: MemberCandidate): boolean =>

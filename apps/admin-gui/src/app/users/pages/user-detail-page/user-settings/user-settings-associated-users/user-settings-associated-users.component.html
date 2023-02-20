@@ -12,15 +12,18 @@
     mat-flat-button>
     {{'USER_DETAIL.SETTINGS.ASSOCIATED_USERS.REMOVE' | translate}}
   </button>
-  <app-users-list
-    *ngIf="!loading"
-    [noUsersFoundLabel]="'USER_DETAIL.SETTINGS.ASSOCIATED_USERS.NO_ASSOCIATED_USERS' | translate"
-    [disableRouting]="disableRouting"
-    [displayedColumns]="displayedColumns"
-    [selection]="selection"
-    [tableId]="tableId"
-    [users]="associatedUsers">
-  </app-users-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <app-users-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [noUsersFoundLabel]="'USER_DETAIL.SETTINGS.ASSOCIATED_USERS.NO_ASSOCIATED_USERS' | translate"
+      [disableRouting]="disableRouting"
+      [displayedColumns]="displayedColumns"
+      [selection]="selection"
+      [tableId]="tableId"
+      [users]="associatedUsers">
+    </app-users-list>
+  </div>
 </div>
-
-<mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>

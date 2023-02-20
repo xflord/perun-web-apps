@@ -1,26 +1,30 @@
-<h1 mat-dialog-title>{{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.TITLE' | translate}}</h1>
-<div class="{{theme}}">
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-  <div *ngIf="!loading" mat-dialog-content>
-    <p>{{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.DESCRIPTION' | translate}}</p>
-    <div class="font-weight-bold">
-      {{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.ASK' | translate}}
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.TITLE' | translate}}</h1>
+    <div mat-dialog-content>
+      <p>{{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.DESCRIPTION' | translate}}</p>
+      <div class="font-weight-bold">
+        {{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.ASK' | translate}}
+      </div>
+      <table [dataSource]="dataSource" class="w-100" mat-table>
+        <ng-container matColumnDef="name">
+          <th *matHeaderCellDef mat-header-cell></th>
+          <td *matCellDef="let attrDefinition" mat-cell>{{attrDefinition.friendlyName}}</td>
+        </ng-container>
+        <tr *matHeaderRowDef="displayedColumns" class="font-weight-bolder" mat-header-row></tr>
+        <tr *matRowDef="let attrDefinition; columns: displayedColumns;" mat-row></tr>
+      </table>
     </div>
-    <table [dataSource]="dataSource" class="w-100" mat-table>
-      <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let attrDefinition" mat-cell>{{attrDefinition.friendlyName}}</td>
-      </ng-container>
-      <tr *matHeaderRowDef="displayedColumns" class="font-weight-bolder" mat-header-row></tr>
-      <tr *matRowDef="let attrDefinition; columns: displayedColumns;" mat-row></tr>
-    </table>
-  </div>
-  <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.CANCEL' | translate}}
-    </button>
-    <button (click)="onConfirm()" [disabled]="loading" class="ml-2" color="warn" mat-flat-button>
-      {{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.REMOVE' | translate}}
-    </button>
+    <div mat-dialog-actions>
+      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.CANCEL' | translate}}
+      </button>
+      <button (click)="onConfirm()" [disabled]="loading" class="ml-2" color="warn" mat-flat-button>
+        {{'DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.REMOVE' | translate}}
+      </button>
+    </div>
   </div>
 </div>

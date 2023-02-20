@@ -12,12 +12,13 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <mat-spinner class="ml-auto mr-auto" *ngIf="innerLoading"></mat-spinner>
-        <perun-web-apps-attributes-list
-          *ngIf="!innerLoading"
-          [attributes]="attributes"
-          [readonly]="true"
-          [hiddenColumns]="hiddenColumns"></perun-web-apps-attributes-list>
+        <div class="position-relative">
+          <perun-web-apps-attributes-list
+            *perunWebAppsLoader="innerLoading; indicator: spinner"
+            [attributes]="attributes"
+            [readonly]="true"
+            [hiddenColumns]="hiddenColumns"></perun-web-apps-attributes-list>
+        </div>
       </ng-template>
     </mat-expansion-panel>
 
@@ -28,13 +29,17 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <mat-spinner class="ml-auto mr-auto" *ngIf="innerLoading"></mat-spinner>
-        <perun-web-apps-attributes-list
-          *ngIf="!innerLoading"
-          [attributes]="attributes"
-          [readonly]="true"
-          [hiddenColumns]="hiddenColumns"></perun-web-apps-attributes-list>
+        <div class="position-relative">
+          <perun-web-apps-attributes-list
+            *perunWebAppsLoader="innerLoading; indicator: spinner"
+            [attributes]="attributes"
+            [readonly]="true"
+            [hiddenColumns]="hiddenColumns"></perun-web-apps-attributes-list>
+        </div>
       </ng-template>
     </mat-expansion-panel>
+    <ng-template #spinner>
+      <perun-web-apps-loading-table></perun-web-apps-loading-table>
+    </ng-template>
   </mat-accordion>
 </div>

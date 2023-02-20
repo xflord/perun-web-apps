@@ -33,19 +33,23 @@
       {{'GROUP_DETAIL.SETTINGS.NOTIFICATIONS.COPY_FROM_VO' | translate}}
     </button>
   </div>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
 
-  <app-notification-list
-    *ngIf="!loading"
-    [disableSend]="!addAuth"
-    [displayedColumns]="displayedColumns"
-    (selectionChange)="changeSelection($event)"
-    [applicationMails]="applicationMails"
-    [groupId]="group.id"
-    [selection]="selection"
-    [tableId]="tableId"
-    [theme]="'group-theme'">
-  </app-notification-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <app-notification-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [disableSend]="!addAuth"
+      [displayedColumns]="displayedColumns"
+      (selectionChange)="changeSelection($event)"
+      [applicationMails]="applicationMails"
+      [groupId]="group.id"
+      [selection]="selection"
+      [tableId]="tableId"
+      [theme]="'group-theme'">
+    </app-notification-list>
+  </div>
 </div>
 <div *ngIf="noApplicationForm && !loading">
   <perun-web-apps-alert

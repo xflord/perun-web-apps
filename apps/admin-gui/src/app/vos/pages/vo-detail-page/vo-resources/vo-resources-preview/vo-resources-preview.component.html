@@ -14,15 +14,19 @@
     (filter)="applyFilter($event)"
     [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'"></perun-web-apps-immediate-filter>
 
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <perun-web-apps-resources-list
-    *ngIf="!loading"
-    [disableRouting]="!routeAuth"
-    [filterValue]="filterValue"
-    [resources]="resources"
-    [routingVo]="true"
-    [displayedColumns]="displayedColumns"
-    [selection]="selected"
-    [tableId]="tableId">
-  </perun-web-apps-resources-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-resources-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [disableRouting]="!routeAuth"
+      [filterValue]="filterValue"
+      [resources]="resources"
+      [routingVo]="true"
+      [displayedColumns]="displayedColumns"
+      [selection]="selected"
+      [tableId]="tableId">
+    </perun-web-apps-resources-list>
+  </div>
 </div>

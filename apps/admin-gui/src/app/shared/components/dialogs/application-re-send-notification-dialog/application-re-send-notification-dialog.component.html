@@ -1,55 +1,59 @@
-<div class="{{theme}}}">
-  <h1 mat-dialog-title>{{'DIALOGS.RE_SEND_NOTIFICATION.TITLE' | translate}}</h1>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <div *ngIf="!loading" mat-dialog-content>
-    {{'DIALOGS.RE_SEND_NOTIFICATION.SELECT' | translate}}:
-    <mat-form-field class="w-100">
-      <mat-select [(value)]="mailType" disableOptionCentering>
-        <mat-option
-          value="APP_CREATED_USER"
-          >{{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APP_CREATED_USER' | translate}}</mat-option
-        >
-        <mat-option
-          *ngIf="data.groupId"
-          value="APPROVABLE_GROUP_APP_USER"
-          >{{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APPROVABLE_GROUP_APP_USER' | translate}}</mat-option
-        >
-        <mat-option
-          value="APP_CREATED_VO_ADMIN"
-          >{{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APP_CREATED_VO_ADMIN' | translate}}</mat-option
-        >
-        <mat-option
-          value="MAIL_VALIDATION"
-          >{{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.MAIL_VALIDATION' | translate}}</mat-option
-        >
-        <mat-option
-          value="APP_APPROVED_USER"
-          >{{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APP_APPROVED_USER' | translate}}</mat-option
-        >
-        <mat-option
-          value="APP_REJECTED_USER"
-          >{{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APP_REJECTED_USER' | translate}}</mat-option
-        >
-        <mat-option
-          value="APP_ERROR_VO_ADMIN"
-          >{{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APP_ERROR_VO_ADMIN' | translate}}</mat-option
-        >
-      </mat-select>
-    </mat-form-field>
-
-    <div *ngIf="mailType === 'APP_REJECTED_USER'">
-      {{'DIALOGS.RE_SEND_NOTIFICATION.REASON' | translate}}:
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.RE_SEND_NOTIFICATION.TITLE' | translate}}</h1>
+    <div mat-dialog-content>
+      {{'DIALOGS.RE_SEND_NOTIFICATION.SELECT' | translate}}:
       <mat-form-field class="w-100">
-        <textarea [(ngModel)]="reason" matInput></textarea>
+        <mat-select [(value)]="mailType" disableOptionCentering>
+          <mat-option
+            value="APP_CREATED_USER"
+            >{{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APP_CREATED_USER' | translate}}</mat-option
+          >
+          <mat-option
+            *ngIf="data.groupId"
+            value="APPROVABLE_GROUP_APP_USER"
+            >{{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APPROVABLE_GROUP_APP_USER' | translate}}</mat-option
+          >
+          <mat-option
+            value="APP_CREATED_VO_ADMIN"
+            >{{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APP_CREATED_VO_ADMIN' | translate}}</mat-option
+          >
+          <mat-option
+            value="MAIL_VALIDATION"
+            >{{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.MAIL_VALIDATION' | translate}}</mat-option
+          >
+          <mat-option
+            value="APP_APPROVED_USER"
+            >{{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APP_APPROVED_USER' | translate}}</mat-option
+          >
+          <mat-option
+            value="APP_REJECTED_USER"
+            >{{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APP_REJECTED_USER' | translate}}</mat-option
+          >
+          <mat-option
+            value="APP_ERROR_VO_ADMIN"
+            >{{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APP_ERROR_VO_ADMIN' | translate}}</mat-option
+          >
+        </mat-select>
       </mat-form-field>
+
+      <div *ngIf="mailType === 'APP_REJECTED_USER'">
+        {{'DIALOGS.RE_SEND_NOTIFICATION.REASON' | translate}}:
+        <mat-form-field class="w-100">
+          <textarea [(ngModel)]="reason" matInput></textarea>
+        </mat-form-field>
+      </div>
     </div>
-  </div>
-  <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.RE_SEND_NOTIFICATION.CANCEL' | translate}}
-    </button>
-    <button (click)="onSubmit()" [disabled]="loading" class="ml-2" color="accent" mat-flat-button>
-      {{'DIALOGS.RE_SEND_NOTIFICATION.SEND' | translate}}
-    </button>
+    <div mat-dialog-actions>
+      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.RE_SEND_NOTIFICATION.CANCEL' | translate}}
+      </button>
+      <button (click)="onSubmit()" [disabled]="loading" class="ml-2" color="accent" mat-flat-button>
+        {{'DIALOGS.RE_SEND_NOTIFICATION.SEND' | translate}}
+      </button>
+    </div>
   </div>
 </div>

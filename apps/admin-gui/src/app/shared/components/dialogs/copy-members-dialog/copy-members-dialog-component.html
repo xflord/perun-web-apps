@@ -1,48 +1,52 @@
-<div class="{{data.theme}}">
-  <h1 mat-dialog-title>{{'DIALOGS.COPY_MEMBERS.TITLE' | translate}}</h1>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-  <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
-    <mat-radio-group [(ngModel)]="copyType" class="flex-container">
-      <span
-        matTooltip="{{'DIALOGS.COPY_MEMBERS.DISABLED_COPY_SELECTION' | translate}}"
-        [matTooltipDisabled]="data.members.length > 0"
-        matTooltipPosition="above">
-        <mat-radio-button [disabled]="data.members.length === 0" value="selection">
-          {{'DIALOGS.COPY_MEMBERS.COPY_SELECTION' | translate}}
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{data.theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.COPY_MEMBERS.TITLE' | translate}}</h1>
+    <div class="dialog-container" mat-dialog-content>
+      <mat-radio-group [(ngModel)]="copyType" class="flex-container">
+        <span
+          matTooltip="{{'DIALOGS.COPY_MEMBERS.DISABLED_COPY_SELECTION' | translate}}"
+          [matTooltipDisabled]="data.members.length > 0"
+          matTooltipPosition="above">
+          <mat-radio-button [disabled]="data.members.length === 0" value="selection">
+            {{'DIALOGS.COPY_MEMBERS.COPY_SELECTION' | translate}}
+          </mat-radio-button>
+        </span>
+        <mat-radio-button value="all">
+          {{'DIALOGS.COPY_MEMBERS.COPY_ALL' | translate}}
         </mat-radio-button>
-      </span>
-      <mat-radio-button value="all">
-        {{'DIALOGS.COPY_MEMBERS.COPY_ALL' | translate}}
-      </mat-radio-button>
-    </mat-radio-group>
-    <perun-web-apps-alert class="mt-4" alert_type="warn">
-      {{'DIALOGS.COPY_MEMBERS.ATTRIBUTES_WARN' | translate}}
-    </perun-web-apps-alert>
-    <h5 class="mt-4">{{'DIALOGS.COPY_MEMBERS.SELECT_GROUPS' | translate}}</h5>
-    <perun-web-apps-immediate-filter
-      (filter)="applyFilter($event)"
-      [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'">
-    </perun-web-apps-immediate-filter>
-    <perun-web-apps-groups-list
-      [groups]="assignableGroups"
-      [selection]="selection"
-      [disableRouting]="true"
-      [displayedColumns]="['select', 'id', 'name', 'description']"
-      [filter]="filterValue"
-      [tableId]="tableId">
-    </perun-web-apps-groups-list>
-  </div>
-  <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.COPY_MEMBERS.CANCEL' | translate}}
-    </button>
-    <button
-      (click)="onSubmit()"
-      [disabled]="loading || selection.isEmpty()"
-      class="ml-2"
-      color="accent"
-      mat-flat-button>
-      {{'DIALOGS.COPY_MEMBERS.COPY' | translate}}
-    </button>
+      </mat-radio-group>
+      <perun-web-apps-alert class="mt-4" alert_type="warn">
+        {{'DIALOGS.COPY_MEMBERS.ATTRIBUTES_WARN' | translate}}
+      </perun-web-apps-alert>
+      <h5 class="mt-4">{{'DIALOGS.COPY_MEMBERS.SELECT_GROUPS' | translate}}</h5>
+      <perun-web-apps-immediate-filter
+        (filter)="applyFilter($event)"
+        [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'">
+      </perun-web-apps-immediate-filter>
+      <perun-web-apps-groups-list
+        [groups]="assignableGroups"
+        [selection]="selection"
+        [disableRouting]="true"
+        [displayedColumns]="['select', 'id', 'name', 'description']"
+        [filter]="filterValue"
+        [tableId]="tableId">
+      </perun-web-apps-groups-list>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.COPY_MEMBERS.CANCEL' | translate}}
+      </button>
+      <button
+        (click)="onSubmit()"
+        [disabled]="loading || selection.isEmpty()"
+        class="ml-2"
+        color="accent"
+        mat-flat-button>
+        {{'DIALOGS.COPY_MEMBERS.COPY' | translate}}
+      </button>
+    </div>
   </div>
 </div>

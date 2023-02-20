@@ -15,6 +15,7 @@ import { UserDestinationGraphComponent } from './pages/admin-page/admin-visualiz
 import { AdminUsersComponent } from './pages/admin-page/admin-users/admin-users.component';
 import { AdminUserDetailPageComponent } from './pages/admin-user-detail-page/admin-user-detail-page.component';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { UiLoadersModule } from '@perun-web-apps/ui/loaders';
 import { AdminExtSourcesComponent } from './pages/admin-page/admin-ext-sources/admin-ext-sources.component';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { PerunPipesModule } from '@perun-web-apps/perun/pipes';
@@ -59,6 +60,7 @@ import { AdminSearcherComponent } from './pages/admin-page/admin-searcher/admin-
     AdminRoutingModule,
     SharedModule,
     UiAlertsModule,
+    UiLoadersModule,
     PerunSharedComponentsModule,
     PerunPipesModule,
     UsersModule,

@@ -1,7 +1,9 @@
-<h1 mat-dialog-title>{{'DIALOGS.ADD_UNIX_GROUP.TITLE'|customTranslate | translate}}</h1>
-<div class="user-theme">
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <div *ngIf="!loading">
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="user-theme position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.ADD_UNIX_GROUP.TITLE'|customTranslate | translate}}</h1>
     <div mat-dialog-content class="dialog-container">
       <mat-form-field class="w-100">
         <label class="w-100">

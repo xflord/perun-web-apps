@@ -24,6 +24,9 @@ export class IdentitiesPageComponent implements OnInit {
   idpExtSources: RichUserExtSource[] = [];
   certExtSources: RichUserExtSource[] = [];
   otherExtSources: RichUserExtSource[] = [];
+  idpExtSourcesTemp: RichUserExtSource[] = [];
+  certExtSourcesTemp: RichUserExtSource[] = [];
+  otherExtSourcesTemp: RichUserExtSource[] = [];
   idpSelection: SelectionModel<UserExtSource> = new SelectionModel<UserExtSource>(true, []);
   certSelection: SelectionModel<UserExtSource> = new SelectionModel<UserExtSource>(true, []);
   otherSelection: SelectionModel<UserExtSource> = new SelectionModel<UserExtSource>(true, []);
@@ -60,9 +63,9 @@ export class IdentitiesPageComponent implements OnInit {
 
   refreshTables(): void {
     this.loading = true;
-    this.idpExtSources = [];
-    this.certExtSources = [];
-    this.otherExtSources = [];
+    this.idpExtSourcesTemp = [];
+    this.certExtSourcesTemp = [];
+    this.otherExtSourcesTemp = [];
     this.usersManagerService.getRichUserExtSources(this.userId).subscribe((userExtSources) => {
       let count = userExtSources.length;
       userExtSources.forEach((ues) => {
@@ -151,11 +154,16 @@ export class IdentitiesPageComponent implements OnInit {
 
   private addToList(ues: RichUserExtSource): void {
     if (ues.userExtSource.extSource.type.endsWith('Idp')) {
-      this.idpExtSources.push(ues);
+      this.idpExtSourcesTemp.push(ues);
     } else if (ues.userExtSource.extSource.type.endsWith('X509')) {
-      this.certExtSources.push(ues);
+      this.certExtSourcesTemp.push(ues);
     } else {
-      this.otherExtSources.push(ues);
+      this.otherExtSourcesTemp.push(ues);
+    }
+    if (!this.loading) {
+      this.idpExtSources = this.idpExtSourcesTemp;
+      this.certExtSources = this.certExtSourcesTemp;
+      this.otherExtSources = this.otherExtSourcesTemp;
     }
   }
 }

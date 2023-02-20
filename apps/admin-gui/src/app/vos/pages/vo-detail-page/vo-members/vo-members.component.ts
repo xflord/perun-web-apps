@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostBinding, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
   ApiRequestConfigurationService,
@@ -23,6 +23,7 @@ import { InviteMemberDialogComponent } from '../../../../shared/components/dialo
 import { RPCError } from '@perun-web-apps/perun/models';
 import { VoAddMemberDialogComponent } from '../../../components/vo-add-member-dialog/vo-add-member-dialog.component';
 import { BulkInviteMembersDialogComponent } from '../../../../shared/components/dialogs/bulk-invite-members-dialog/bulk-invite-members-dialog.component';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-vo-members',
@@ -36,7 +37,7 @@ export class VoMembersComponent implements OnInit {
   vo: Vo;
   members: RichMember[] = null;
   selection = new SelectionModel<RichMember>(true, []);
-  loading = false;
+  loading$: Observable<boolean>;
   attrNames = [
     Urns.MEMBER_DEF_ORGANIZATION,
     Urns.MEMBER_DEF_MAIL,
@@ -65,18 +66,19 @@ export class VoMembersComponent implements OnInit {
     private storeService: StoreService,
     private attributesManager: AttributesManagerService,
     private apiRequest: ApiRequestConfigurationService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.loading = true;
+    this.loading$ = of(true);
     this.statuses.setValue(this.selectedStatuses);
     this.attrNames = this.attrNames.concat(this.storeService.getLoginAttributeNames());
 
     this.vo = this.entityStorageService.getEntity();
     this.setAuthRights();
 
-    void this.isManualAddingBlocked(this.vo.id).then(() => (this.loading = false));
+    void this.isManualAddingBlocked(this.vo.id);
   }
 
   setAuthRights(): void {
@@ -202,10 +204,12 @@ export class VoMembersComponent implements OnInit {
   changeStatuses(): void {
     this.selection.clear();
     this.selectedStatuses = this.statuses.value as VoMemberStatuses[];
+    this.cd.detectChanges();
   }
 
   refreshTable(): void {
     this.selection.clear();
     this.updateTable = !this.updateTable;
+    this.cd.detectChanges();
   }
 }

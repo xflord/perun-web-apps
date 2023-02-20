@@ -8,13 +8,20 @@
   <perun-web-apps-debounce-filter
     (filter)="setFilter($event)"
     [placeholder]="'DIALOGS.ADD_BAN.FILTER'"></perun-web-apps-debounce-filter>
-  <perun-web-apps-users-dynamic-list
-    [attrNames]="attrNames"
-    [selection]="selection"
-    [tableId]="tableId"
-    [disableRouting]="true"
-    [displayedColumns]="displayedColumns"
-    [searchString]="filter"
-    [facilityId]="data.entityId">
-  </perun-web-apps-users-dynamic-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-users-dynamic-list
+      *perunWebAppsLoader="loading$ | async; indicator: spinner"
+      (loading$)="loading$ = $event"
+      [attrNames]="attrNames"
+      [selection]="selection"
+      [tableId]="tableId"
+      [disableRouting]="true"
+      [displayedColumns]="displayedColumns"
+      [searchString]="filter"
+      [facilityId]="data.entityId">
+    </perun-web-apps-users-dynamic-list>
+  </div>
 </app-add-ban-dialog>

@@ -29,7 +29,7 @@ export class MemberGroupsComponent implements OnInit {
   // used for router animation
   @HostBinding('class.router-component') true;
 
-  groups: Group[];
+  groups: Group[] = [];
   memberId: number;
   member: Member;
   allGroups: Group[];

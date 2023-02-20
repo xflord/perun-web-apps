@@ -1,47 +1,51 @@
-<div class="{{theme}}">
-  <h1 mat-dialog-title>{{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.TITLE' | translate}}</h1>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
-    <perun-web-apps-alert alert_type="info" *ngIf="plainEdithAuth && !htmlEditAuth">
-      {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.FORMAT_HTML_NOT_AUTHORIZED' | translate}}
-    </perun-web-apps-alert>
-    <mat-tab-group color="primary">
-      <mat-tab *ngFor="let format of formats" [disabled]="format === 'html' && !htmlEditAuth">
-        <ng-template mat-tab-label>
-          <span [ngClass]="{'disabled-label': format === 'html' && !htmlEditAuth}">
-            {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.FORMAT_' + format | uppercase | translate}}
-          </span>
-        </ng-template>
-        <mat-form-field class="w-100">
-          <textarea *ngIf="format === 'plain_text'" [(ngModel)]="mailFooter" matInput rows="5">
-          </textarea>
-          <textarea *ngIf="format === 'html'" [(ngModel)]="htmlMailFooter" matInput rows="5">
-          </textarea>
-        </mat-form-field>
-      </mat-tab>
-    </mat-tab-group>
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.TITLE' | translate}}</h1>
+    <div class="dialog-container" mat-dialog-content>
+      <perun-web-apps-alert alert_type="info" *ngIf="plainEdithAuth && !htmlEditAuth">
+        {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.FORMAT_HTML_NOT_AUTHORIZED' | translate}}
+      </perun-web-apps-alert>
+      <mat-tab-group color="primary">
+        <mat-tab *ngFor="let format of formats" [disabled]="format === 'html' && !htmlEditAuth">
+          <ng-template mat-tab-label>
+            <span [ngClass]="{'disabled-label': format === 'html' && !htmlEditAuth}">
+              {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.FORMAT_' + format | uppercase | translate}}
+            </span>
+          </ng-template>
+          <mat-form-field class="w-100">
+            <textarea *ngIf="format === 'plain_text'" [(ngModel)]="mailFooter" matInput rows="5">
+            </textarea>
+            <textarea *ngIf="format === 'html'" [(ngModel)]="htmlMailFooter" matInput rows="5">
+            </textarea>
+          </mat-form-field>
+        </mat-tab>
+      </mat-tab-group>
 
-    <div class="mt-2 font-italic text-muted">
-      {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.DESCRIPTION' | translate}}
+      <div class="mt-2 font-italic text-muted">
+        {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.DESCRIPTION' | translate}}
+      </div>
     </div>
-  </div>
 
-  <div mat-dialog-actions>
-    <button (click)="cancel()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.CANCEL_BUTTON' | translate}}
-    </button>
-    <div
-      [matTooltipDisabled]="plainEdithAuth"
-      [matTooltipPosition]="'above'"
-      matTooltip="{{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.HINT' | translate}}">
-      <button
-        (click)="submit()"
-        [disabled]="loading || !plainEdithAuth"
-        class="ml-2"
-        color="accent"
-        mat-flat-button>
-        {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.SUBMIT_BUTTON' | translate}}
+    <div mat-dialog-actions>
+      <button (click)="cancel()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.CANCEL_BUTTON' | translate}}
       </button>
+      <div
+        [matTooltipDisabled]="plainEdithAuth"
+        [matTooltipPosition]="'above'"
+        matTooltip="{{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.HINT' | translate}}">
+        <button
+          (click)="submit()"
+          [disabled]="loading || !plainEdithAuth"
+          class="ml-2"
+          color="accent"
+          mat-flat-button>
+          {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.SUBMIT_BUTTON' | translate}}
+        </button>
+      </div>
     </div>
   </div>
 </div>

@@ -5,9 +5,6 @@
     [dataLength]="dataSource.allObjectCount"
     [pageSizeOptions]="pageSizeOptions"
     [tableId]="tableId">
-    <div class="spinner-container" *ngIf="dataSource.loading$ | async">
-      <mat-spinner class="ml-auto mr-auto"></mat-spinner>
-    </div>
     <table
       [dataSource]="dataSource"
       class="w-100"
@@ -138,8 +135,6 @@
   </perun-web-apps-table-wrapper>
 </div>
 
-<perun-web-apps-alert
-  *ngIf="this.dataSource.allObjectCount === 0 && (dataSource.loading$ | async) === false"
-  [alert_type]="'warn'">
+<perun-web-apps-alert *ngIf="this.dataSource.allObjectCount === 0" [alert_type]="'warn'">
   {{'VO_DETAIL.APPLICATION.NO_APPLICATION_FOUND' | translate}}
 </perun-web-apps-alert>

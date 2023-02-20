@@ -1,5 +1,8 @@
-<div class="{{theme}} h-100">
-  <div class="h-100 d-flex flex-column">
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative h-100">
+  <div *perunWebAppsLoader="loading; indicator: spinner" class="h-100 d-flex flex-column">
     <div *ngIf="data.createMailNotification; else edit">
       <h1 mat-dialog-title>{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.TITLE_CREATE' | translate}}</h1>
     </div>
@@ -7,8 +10,7 @@
       <h1 mat-dialog-title>{{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.TITLE_EDIT' | translate}}</h1>
     </ng-template>
 
-    <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-    <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
+    <div class="dialog-container" mat-dialog-content>
       <div [@openClose]="invalidNotification ? 'open' : 'closed'">
         <perun-web-apps-alert
           alert_type="error"
@@ -202,7 +204,7 @@
         *ngIf="data.createMailNotification"
         class="ml-2"
         color="accent"
-        [disabled]="invalidNotification || loading"
+        [disabled]="invalidNotification"
         mat-flat-button>
         {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.CREATE_BUTTON' | translate}}
       </button>
@@ -215,7 +217,7 @@
           *ngIf="!data.createMailNotification"
           class="ml-2"
           color="accent"
-          [disabled]="loading || !editAuth"
+          [disabled]="!editAuth"
           mat-flat-button>
           {{'DIALOGS.NOTIFICATIONS_ADD_EDIT_MAIL.SAVE_BUTTON' | translate}}
         </button>

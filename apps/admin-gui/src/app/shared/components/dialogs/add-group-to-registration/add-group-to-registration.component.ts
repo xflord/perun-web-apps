@@ -22,7 +22,7 @@ export interface AddGroupToRegistrationDialogData {
 export class AddGroupToRegistrationComponent implements OnInit {
   loading = false;
   theme: string;
-  unAssignedGroups: Group[];
+  unAssignedGroups: Group[] = [];
   selection = new SelectionModel<Group>(true, []);
   filterValue = '';
 

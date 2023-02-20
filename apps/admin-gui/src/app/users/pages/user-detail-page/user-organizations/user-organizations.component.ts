@@ -14,8 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserOrganizationsComponent implements OnInit {
   @HostBinding('class.router-component') true;
-  vosWhereIsAdmin: Vo[];
-  vosWhereIsMember: Vo[];
+  vosWhereIsAdmin: Vo[] = [];
+  vosWhereIsMember: Vo[] = [];
   memberRefresh: boolean;
   adminRefresh: boolean;
   userId: number;

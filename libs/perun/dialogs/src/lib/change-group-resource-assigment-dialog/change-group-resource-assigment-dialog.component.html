@@ -1,74 +1,78 @@
-<div class="{{theme}}">
-  <h1 mat-dialog-title>
-    {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.TITLE' | translate}}
-  </h1>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <div mat-dialog-content *ngIf="!loading">
-    <p class="mb-4">
-      {{group.name}} <span class="text-muted id-font">#{{group.id}}</span> - {{resource.name}}
-      <span class="text-muted id-font">#{{resource.id}}</span>
-    </p>
-    <p>
-      <strong class="mr-2">
-        {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.CURRENT' | translate}}
-        :
-      </strong>
-      {{status}}
-    </p>
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>
+      {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.TITLE' | translate}}
+    </h1>
+    <div mat-dialog-content>
+      <p *ngIf="group && resource" class="mb-4">
+        {{group.name}} <span class="text-muted id-font">#{{group.id}}</span> - {{resource.name}}
+        <span class="text-muted id-font">#{{resource.id}}</span>
+      </p>
+      <p>
+        <strong class="mr-2">
+          {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.CURRENT' | translate}}
+          :
+        </strong>
+        {{status}}
+      </p>
 
-    <p>
-      <strong class="mr-2">
-        {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.NEW' | translate}}
-        :
-      </strong>
-      {{getReversedStatus()}}
-    </p>
+      <p>
+        <strong class="mr-2">
+          {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.NEW' | translate}}
+          :
+        </strong>
+        {{getReversedStatus()}}
+      </p>
 
-    <span *ngIf="status ==='INACTIVE' || status ==='FAILED'" class="text-muted">
-      {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.ACTIVE_HINT' | translate}}
-    </span>
-    <span *ngIf="status ==='ACTIVE'" class="text-muted">
-      {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.INACTIVE_HINT' | translate}}
-    </span>
-
-    <mat-radio-group
-      class="d-flex flex-column mt-3"
-      *ngIf="status === 'INACTIVE' || status ==='FAILED'"
-      [(ngModel)]="asyncValidation">
-      <span class="font-weight-bold">
-        {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.VALIDATE' | translate}}
-        :
+      <span *ngIf="status ==='INACTIVE' || status ==='FAILED'" class="text-muted">
+        {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.ACTIVE_HINT' | translate}}
       </span>
-      <mat-radio-button [value]="false">
-        {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.SYNC' | translate}}
-      </mat-radio-button>
-      <mat-radio-button [value]="true">
-        {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.ASYNC' | translate}}
-      </mat-radio-button>
-    </mat-radio-group>
+      <span *ngIf="status ==='ACTIVE'" class="text-muted">
+        {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.INACTIVE_HINT' | translate}}
+      </span>
 
-    <span
-      class="text-muted"
-      *ngIf="(status === 'INACTIVE' || status === 'FAILED') && asyncValidation === false">
-      {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.SYNC_HINT' | translate}}
-    </span>
-    <span
-      class="text-muted"
-      *ngIf="(status === 'INACTIVE' || status ==='FAILED') && asyncValidation === true">
-      {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.ASYNC_HINT' | translate}}
-    </span>
-  </div>
-  <div mat-dialog-actions *ngIf="!loading">
-    <button class="ml-auto mr-2" mat-flat-button (click)="onCancel()">
-      {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.CANCEL' | translate}}
-    </button>
-    <button
-      data-cy="change-status-button"
-      mat-flat-button
-      color="accent"
-      [disabled]="loading"
-      (click)="onSubmit()">
-      {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.'+(status === 'ACTIVE' ? 'DEACTIVATE' : 'ACTIVATE') | translate}}
-    </button>
+      <mat-radio-group
+        class="d-flex flex-column mt-3"
+        *ngIf="status === 'INACTIVE' || status ==='FAILED'"
+        [(ngModel)]="asyncValidation">
+        <span class="font-weight-bold">
+          {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.VALIDATE' | translate}}
+          :
+        </span>
+        <mat-radio-button [value]="false">
+          {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.SYNC' | translate}}
+        </mat-radio-button>
+        <mat-radio-button [value]="true">
+          {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.ASYNC' | translate}}
+        </mat-radio-button>
+      </mat-radio-group>
+
+      <span
+        class="text-muted"
+        *ngIf="(status === 'INACTIVE' || status === 'FAILED') && asyncValidation === false">
+        {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.SYNC_HINT' | translate}}
+      </span>
+      <span
+        class="text-muted"
+        *ngIf="(status === 'INACTIVE' || status ==='FAILED') && asyncValidation === true">
+        {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.ASYNC_HINT' | translate}}
+      </span>
+    </div>
+    <div mat-dialog-actions>
+      <button class="ml-auto mr-2" mat-flat-button (click)="onCancel()">
+        {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.CANCEL' | translate}}
+      </button>
+      <button
+        data-cy="change-status-button"
+        mat-flat-button
+        color="accent"
+        [disabled]="loading"
+        (click)="onSubmit()">
+        {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.'+(status === 'ACTIVE' ? 'DEACTIVATE' : 'ACTIVATE') | translate}}
+      </button>
+    </div>
   </div>
 </div>

@@ -17,6 +17,7 @@ import { ResourceSettingsComponent } from './pages/resource-detail-page/resource
 import { ResourceSettingsOverviewComponent } from './pages/resource-detail-page/resource-settings/resource-settings-overview/resource-settings-overview.component';
 import { ResourceAttributesComponent } from './pages/resource-detail-page/resource-attributes/resource-attributes.component';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { UiLoadersModule } from '@perun-web-apps/ui/loaders';
 import { ResourceGroupsComponent } from './pages/resource-detail-page/resource-groups/resource-groups.component';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { FacilityServiceConfigComponent } from './pages/facility-detail-page/facility-service-config/facility-service-config.component';
@@ -87,6 +88,7 @@ import { ResourceSettingsBansComponent } from './pages/resource-detail-page/reso
     FacilitiesRoutingModule,
     SharedModule,
     UiAlertsModule,
+    UiLoadersModule,
     PerunSharedComponentsModule,
     PerunPipesModule,
     UsersModule,

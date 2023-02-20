@@ -24,6 +24,8 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatIconModule } from '@angular/material/icon';
 import { PerunPipesModule } from '@perun-web-apps/perun/pipes';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { UiLoadersModule } from '@perun-web-apps/ui/loaders';
+import { LoaderDirective } from '@perun-web-apps/perun/directives';
 import { AttributeValueListDeleteDialogComponent } from './attribute-value-list-delete-dialog/attribute-value-list-delete-dialog.component';
 import { ChangeEmailDialogComponent } from './change-email-dialog/change-email-dialog.component';
 import { UniversalConfirmationItemsDialogComponent } from './universal-confirmation-items-dialog/universal-confirmation-items-dialog.component';
@@ -63,6 +65,8 @@ import { RequestChangeDataQuotaDialogComponent } from './request-change-data-quo
     MatIconModule,
     PerunPipesModule,
     UiAlertsModule,
+    UiLoadersModule,
+    LoaderDirective,
     RouterModule,
     MatTreeModule,
     MatSelectModule,

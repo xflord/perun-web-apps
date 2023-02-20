@@ -21,12 +21,16 @@
     mat-flat-button>
     {{'FACILITY_DETAIL.HOSTS.HOSTS_DETAIL.REMOVE' | translate}}
   </button>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <perun-web-apps-attributes-list
-    [selection]="selected"
-    #list
-    *ngIf="!loading"
-    [attributes]="attributes"
-    [tableId]="tableId">
-  </perun-web-apps-attributes-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-attributes-list
+      [selection]="selected"
+      #list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [attributes]="attributes"
+      [tableId]="tableId">
+    </perun-web-apps-attributes-list>
+  </div>
 </div>

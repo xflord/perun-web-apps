@@ -1,12 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Group, RichResource } from '@perun-web-apps/perun/openapi';
@@ -27,7 +19,7 @@ import { ResourceWithStatus } from '@perun-web-apps/perun/models';
   templateUrl: './resources-list.component.html',
   styleUrls: ['./resources-list.component.scss'],
 })
-export class ResourcesListComponent implements OnInit, OnChanges {
+export class ResourcesListComponent implements OnChanges {
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
   @Input() resources: ResourceWithStatus[] = [];
   @Input() resourceWithAuthzGroupPairs: Map<number, Group[]>;
@@ -114,11 +106,8 @@ export class ResourcesListComponent implements OnInit, OnChanges {
     return ResourcesListComponent.getDataForColumn(data, column, this.recentIds);
   };
 
-  ngOnInit(): void {
-    this.disabledRouting = this.disableRouting;
-  }
-
   ngOnChanges(): void {
+    this.disabledRouting = this.disableRouting;
     if (!this.guiAuthResolver.isPerunAdminOrObserver()) {
       this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }

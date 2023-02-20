@@ -24,12 +24,16 @@
     (filter)="applyFilter($event)"
     [placeholder]="'ADMIN.SERVICES.FILTER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-  <app-services-list
-    *ngIf="!loading"
-    [filterValue]="filterValue"
-    [selection]="selection"
-    [services]="services"
-    [tableId]="tableId">
-  </app-services-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <app-services-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [filterValue]="filterValue"
+      [selection]="selection"
+      [services]="services"
+      [tableId]="tableId">
+    </app-services-list>
+  </div>
 </div>

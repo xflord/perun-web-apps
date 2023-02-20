@@ -4,12 +4,16 @@
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'FACILITY_DETAIL.SETTINGS.BLACKLIST.FILTER' | translate"></perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <app-perun-web-apps-blacklist-list
-    [bansOnFacilitiesWithUsers]="bansOnFacilitiesWithUsers"
-    *ngIf="!loading"
-    [filterValue]="filterValue"
-    [selection]="selected"
-    [tableId]="tableId">
-  </app-perun-web-apps-blacklist-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <app-perun-web-apps-blacklist-list
+      [bansOnFacilitiesWithUsers]="bansOnFacilitiesWithUsers"
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [filterValue]="filterValue"
+      [selection]="selected"
+      [tableId]="tableId">
+    </app-perun-web-apps-blacklist-list>
+  </div>
 </div>

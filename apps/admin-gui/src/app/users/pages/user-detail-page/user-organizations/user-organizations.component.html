@@ -9,14 +9,15 @@
   (filter)="applyMemberFilter($event)"
   [placeholder]="'SHARED_LIB.PERUN.ORGANIZATIONS.FILTER'">
 </perun-web-apps-immediate-filter>
-<mat-spinner *ngIf="memberRefresh" class="mr-auto ml-auto"></mat-spinner>
-<perun-web-apps-vos-list
-  *ngIf="!memberRefresh"
-  [displayedColumns]="displayedColumns"
-  [tableId]="memberTableId"
-  [filterValue]="memberFilterValue"
-  [vos]="vosWhereIsMember">
-</perun-web-apps-vos-list>
+<div class="position-relative">
+  <perun-web-apps-vos-list
+    *perunWebAppsLoader="memberRefresh; indicator: spinner"
+    [displayedColumns]="displayedColumns"
+    [tableId]="memberTableId"
+    [filterValue]="memberFilterValue"
+    [vos]="vosWhereIsMember">
+  </perun-web-apps-vos-list>
+</div>
 
 <div *ngIf="!this.isMyProfile" class="mt-5">
   <h1 class="page-subtitle">{{'SHARED_LIB.PERUN.ORGANIZATIONS.USER_IS_ADMIN' | translate}}</h1>
@@ -25,12 +26,17 @@
     (filter)="applyAdminFilter($event)"
     [placeholder]="'SHARED_LIB.PERUN.ORGANIZATIONS.FILTER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="adminRefresh" class="mr-auto ml-auto"></mat-spinner>
-  <perun-web-apps-vos-list
-    *ngIf="!adminRefresh"
-    [displayedColumns]="displayedColumns"
-    [tableId]="adminTableId"
-    [filterValue]="adminFilterValue"
-    [vos]="vosWhereIsAdmin">
-  </perun-web-apps-vos-list>
+  <div class="position-relative">
+    <perun-web-apps-vos-list
+      *perunWebAppsLoader="adminRefresh; indicator: spinner"
+      [displayedColumns]="displayedColumns"
+      [tableId]="adminTableId"
+      [filterValue]="adminFilterValue"
+      [vos]="vosWhereIsAdmin">
+    </perun-web-apps-vos-list>
+  </div>
 </div>
+
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>

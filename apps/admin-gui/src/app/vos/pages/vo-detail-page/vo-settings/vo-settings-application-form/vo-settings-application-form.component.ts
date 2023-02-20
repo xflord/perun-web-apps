@@ -158,6 +158,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
   }
 
   save(): void {
+    this.loading = true;
     let i = 0;
     for (const item of this.applicationFormItems) {
       item.ordnum = i;
@@ -168,13 +169,16 @@ export class VoSettingsApplicationFormComponent implements OnInit {
 
     this.registrarManager
       .updateFormItemsForVo({ vo: this.vo.id, items: this.applicationFormItems })
-      .subscribe(() => {
-        this.translate
-          .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_APPLICATION_FORM_ITEMS_SUCCESS')
-          .subscribe((successMessage: string) => {
-            this.notificator.showSuccess(successMessage);
-          });
-        this.updateFormItems();
+      .subscribe({
+        next: () => {
+          this.translate
+            .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_APPLICATION_FORM_ITEMS_SUCCESS')
+            .subscribe((successMessage: string) => {
+              this.notificator.showSuccess(successMessage);
+            });
+          this.updateFormItems();
+        },
+        error: () => (this.loading = false),
       });
   }
 

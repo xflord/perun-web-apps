@@ -23,8 +23,9 @@ export interface AddUserServiceIdentityData {
 export class ConnectIdentityDialogComponent implements OnInit {
   theme: string;
   loading = false;
+  finalLoading = false;
   target: string;
-  identities: RichUser[];
+  identities: RichUser[] = [];
   selection = new SelectionModel<RichUser>(false, []);
   firstSearchDone = false;
   displayedColumns = ['select', 'id', 'user', 'name', 'email', 'logins', 'organization'];
@@ -54,7 +55,7 @@ export class ConnectIdentityDialogComponent implements OnInit {
   }
 
   onAdd(): void {
-    this.loading = true;
+    this.finalLoading = true;
     let owner: number;
     let specificUser: number;
 
@@ -73,7 +74,7 @@ export class ConnectIdentityDialogComponent implements OnInit {
         );
         this.dialogRef.close(true);
       },
-      error: () => (this.loading = false),
+      error: () => (this.finalLoading = false),
     });
   }
 

@@ -47,6 +47,7 @@ import { GroupSettingsManagersComponent } from './pages/group-detail-page/group-
 import { GroupSettingsNotificationsComponent } from './pages/group-detail-page/group-settings/group-settings-notifications/group-settings-notifications.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { UiLoadersModule } from '@perun-web-apps/ui/loaders';
 import { VoSettingsExtsourcesComponent } from './pages/vo-detail-page/vo-settings/vo-settings-extsources/vo-settings-extsources.component';
 import { GroupSettingsRelationsComponent } from './pages/group-detail-page/group-settings/group-settings-relations/group-settings-relations.component';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
@@ -77,6 +78,7 @@ import { MemberBansComponent } from './pages/member-detail-page/member-bans/memb
     VosRoutingModule,
     SharedModule,
     UiAlertsModule,
+    UiLoadersModule,
     PerunSharedComponentsModule,
     PerunPipesModule,
     PerunUtilsModule,

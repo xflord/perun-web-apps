@@ -15,12 +15,16 @@
 <perun-web-apps-immediate-filter
   (filter)="applyFilter($event)"
   [placeholder]="'FACILITY_DETAIL.TASK_RESULTS.FILTER'"></perun-web-apps-immediate-filter>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-<perun-web-apps-task-results-list
-  [tableId]="tableId"
-  *ngIf="!loading"
-  [displayedColumns]="displayedColumns"
-  [filterValue]="filterValue"
-  [selection]="selection"
-  [taskResults]="taskResults">
-</perun-web-apps-task-results-list>
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div class="position-relative">
+  <perun-web-apps-task-results-list
+    [tableId]="tableId"
+    *perunWebAppsLoader="loading; indicator: spinner"
+    [displayedColumns]="displayedColumns"
+    [filterValue]="filterValue"
+    [selection]="selection"
+    [taskResults]="taskResults">
+  </perun-web-apps-task-results-list>
+</div>

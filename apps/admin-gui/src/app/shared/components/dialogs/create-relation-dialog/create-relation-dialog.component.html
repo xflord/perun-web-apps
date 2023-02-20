@@ -1,43 +1,49 @@
-<h1 mat-dialog-title>{{"DIALOGS.CREATE_RELATION.TITLE" | translate}}</h1>
-<div class="{{theme}}">
-  <mat-spinner *ngIf="initLoading" class="ml-auto mr-auto"></mat-spinner>
-</div>
-<div *ngIf="!initLoading" class="{{theme}}">
-  <perun-web-apps-vo-search-select
-    *ngIf="vosToSelect.length > 1"
-    [vo]="thisVo.vo"
-    [vos]="vosToSelect"
-    (voSelected)="getGroupsToInclude($event.id)"></perun-web-apps-vo-search-select>
-  <perun-web-apps-immediate-filter
-    (filter)="applyFilter($event)"
-    [placeholder]="'GROUP_DETAIL.SETTINGS.RELATIONS.FILTER'"></perun-web-apps-immediate-filter>
-  <div class="dialog-container" mat-dialog-content>
-    <perun-web-apps-groups-list
-      *ngIf="!loading"
-      [groupsToDisableCheckbox]="groupsToDisable"
-      [disableGroups]="true"
-      [groups]="groups"
-      [selection]="selection"
-      [disableHeadCheckbox]="true"
-      [disableRouting]="true"
-      [displayedColumns]="['select', 'id', 'name', 'description']"
-      [filter]="filterValue"
-      [tableId]="tableId"
-      [relation]="true">
-    </perun-web-apps-groups-list>
-  </div>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.CREATE_RELATION.CANCEL' | translate}}
-    </button>
-    <button
-      (click)="onSubmit()"
-      class="ml-2"
-      color="accent"
-      [disabled]="loading || initLoading || selection.selected.length === 0"
-      mat-flat-button>
-      {{'DIALOGS.CREATE_RELATION.CREATE' | translate}}
-    </button>
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="initLoading; indicator: spinner">
+    <h1 mat-dialog-title>{{"DIALOGS.CREATE_RELATION.TITLE" | translate}}</h1>
+    <perun-web-apps-vo-search-select
+      *ngIf="vosToSelect.length > 1"
+      [vo]="thisVo.vo"
+      [vos]="vosToSelect"
+      (voSelected)="getGroupsToInclude($event.id)"></perun-web-apps-vo-search-select>
+    <perun-web-apps-immediate-filter
+      (filter)="applyFilter($event)"
+      [placeholder]="'GROUP_DETAIL.SETTINGS.RELATIONS.FILTER'"></perun-web-apps-immediate-filter>
+    <div class="dialog-container" mat-dialog-content>
+      <ng-template #spinner>
+        <perun-web-apps-loading-table></perun-web-apps-loading-table>
+      </ng-template>
+      <div class="position-relative">
+        <perun-web-apps-groups-list
+          *perunWebAppsLoader="loading; indicator: spinner"
+          [groupsToDisableCheckbox]="groupsToDisable"
+          [disableGroups]="true"
+          [groups]="groups"
+          [selection]="selection"
+          [disableHeadCheckbox]="true"
+          [disableRouting]="true"
+          [displayedColumns]="['select', 'id', 'name', 'description']"
+          [filter]="filterValue"
+          [tableId]="tableId"
+          [relation]="true">
+        </perun-web-apps-groups-list>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.CREATE_RELATION.CANCEL' | translate}}
+      </button>
+      <button
+        (click)="onSubmit()"
+        class="ml-2"
+        color="accent"
+        [disabled]="loading || initLoading || selection.selected.length === 0"
+        mat-flat-button>
+        {{'DIALOGS.CREATE_RELATION.CREATE' | translate}}
+      </button>
+    </div>
   </div>
 </div>

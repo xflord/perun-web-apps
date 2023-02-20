@@ -103,6 +103,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
   }
 
   onConfirm(): void {
+    this.loading = true;
     this.groupsToAssign.next();
   }
 

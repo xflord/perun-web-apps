@@ -32,6 +32,7 @@ import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.componen
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { UiLoadersModule } from '@perun-web-apps/ui/loaders';
 import { AddUnixGroupDialogComponent } from './components/dialogs/add-unix-group-dialog/add-unix-group-dialog.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -158,6 +159,7 @@ const loadConfigs: (appConfig: UserProfileConfigService) => () => Promise<void> 
     MatToolbarModule,
     PerunSharedComponentsModule,
     UiAlertsModule,
+    UiLoadersModule,
     MatExpansionModule,
     MatFormFieldModule,
     MatSelectModule,

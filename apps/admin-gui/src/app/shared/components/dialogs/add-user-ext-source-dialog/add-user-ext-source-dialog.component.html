@@ -1,46 +1,50 @@
-<h1 mat-dialog-title>{{'DIALOGS.ADD_USER_EXT_SOURCE.TITLE'|translate}}</h1>
-<div class="dialog-container user-theme" mat-dialog-content>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <div *ngIf="!loading">
-    <mat-form-field class="center-self w-100">
-      <input
-        [formControl]="loginControl"
-        matInput
-        placeholder="{{'DIALOGS.ADD_USER_EXT_SOURCE.LOGIN' | translate}}"
-        required />
-      <mat-error>
-        {{'DIALOGS.ADD_USER_EXT_SOURCE.EMPTY_LOGIN' | translate}}
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="center-self w-100">
-      <input
-        [formControl]="extSourcesControl"
-        [matAutocomplete]="auto"
-        matInput
-        placeholder="{{'DIALOGS.ADD_USER_EXT_SOURCE.EXT_SOURCE' | translate}}"
-        required
-        type="text" />
-      <mat-error>
-        {{'DIALOGS.ADD_USER_EXT_SOURCE.EMPTY_EXT_SOURCE' | translate}}
-      </mat-error>
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let extSource of filteredExtSources | async" [value]="extSource">
-          {{extSource.name}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.ADD_USER_EXT_SOURCE.TITLE'|translate}}</h1>
+    <div class="dialog-container user-theme" mat-dialog-content>
+      <mat-form-field class="center-self w-100">
+        <input
+          [formControl]="loginControl"
+          matInput
+          placeholder="{{'DIALOGS.ADD_USER_EXT_SOURCE.LOGIN' | translate}}"
+          required />
+        <mat-error>
+          {{'DIALOGS.ADD_USER_EXT_SOURCE.EMPTY_LOGIN' | translate}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="center-self w-100">
+        <input
+          [formControl]="extSourcesControl"
+          [matAutocomplete]="auto"
+          matInput
+          placeholder="{{'DIALOGS.ADD_USER_EXT_SOURCE.EXT_SOURCE' | translate}}"
+          required
+          type="text" />
+        <mat-error>
+          {{'DIALOGS.ADD_USER_EXT_SOURCE.EMPTY_EXT_SOURCE' | translate}}
+        </mat-error>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let extSource of filteredExtSources | async" [value]="extSource">
+            {{extSource.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.ADD_USER_EXT_SOURCE.CANCEL'|translate}}
+      </button>
+      <button
+        (click)="onAdd()"
+        [disabled]="loginControl.invalid || extSourcesControl.invalid || loading"
+        class="ml-2"
+        color="accent"
+        mat-flat-button>
+        {{'DIALOGS.ADD_USER_EXT_SOURCE.ADD'|translate}}
+      </button>
+    </div>
   </div>
-</div>
-<div mat-dialog-actions>
-  <button (click)="onCancel()" class="ml-auto" mat-flat-button>
-    {{'DIALOGS.ADD_USER_EXT_SOURCE.CANCEL'|translate}}
-  </button>
-  <button
-    (click)="onAdd()"
-    [disabled]="loginControl.invalid || extSourcesControl.invalid || loading"
-    class="ml-2"
-    color="accent"
-    mat-flat-button>
-    {{'DIALOGS.ADD_USER_EXT_SOURCE.ADD'|translate}}
-  </button>
 </div>

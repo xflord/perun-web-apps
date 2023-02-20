@@ -1,15 +1,10 @@
-<div
-  [hidden]="this.dataSource.allObjectCount === 0 && (dataSource.loading$ | async) === false"
-  class="card mt-2">
+<div [hidden]="this.dataSource.allObjectCount === 0" class="card mt-2">
   <perun-web-apps-table-wrapper
     (exportDisplayedData)="exportDisplayedData($event)"
     (exportAllData)="exportAllData($event)"
     [tableId]="tableId"
     [dataLength]="dataSource.allObjectCount"
     [pageSizeOptions]="pageSizeOptions">
-    <div class="spinner-container" *ngIf="dataSource.loading$ | async">
-      <mat-spinner class="ml-auto mr-auto"></mat-spinner>
-    </div>
     <table
       [dataSource]="dataSource"
       class="w-100"
@@ -136,8 +131,6 @@
   </perun-web-apps-table-wrapper>
 </div>
 
-<perun-web-apps-alert
-  *ngIf="this.dataSource.allObjectCount === 0 && (dataSource.loading$ | async) === false"
-  alert_type="warn">
+<perun-web-apps-alert *ngIf="this.dataSource.allObjectCount === 0" alert_type="warn">
   {{'SHARED_LIB.UI.ALERTS.NO_MEMBERS' | translate}}
 </perun-web-apps-alert>

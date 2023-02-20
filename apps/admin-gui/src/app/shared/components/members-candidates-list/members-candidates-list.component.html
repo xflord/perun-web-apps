@@ -1,4 +1,4 @@
-<div [hidden]="members.length === 0" class="card mt-2">
+<div [hidden]="dataSource.data.length === 0" class="card mt-2">
   <perun-web-apps-table-wrapper
     (exportDisplayedData)="exportDisplayedData($event)"
     (exportAllData)="exportAllData($event)"
@@ -111,6 +111,8 @@
   </perun-web-apps-table-wrapper>
 </div>
 
-<perun-web-apps-alert *ngIf="members.length === 0" alert_type="warn">
+<perun-web-apps-alert
+  *ngIf="dataSource.data.length === 0 && members !== undefined"
+  alert_type="warn">
   {{'DIALOGS.ADD_MEMBERS.NO_USERS_FOUND' | translate}}
 </perun-web-apps-alert>

@@ -14,14 +14,18 @@
     (filter)="applyFilter($event)"
     [placeholder]="'FACILITY_DETAIL.ALLOWED_GROUPS.FILTER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <perun-web-apps-groups-list
-    *ngIf="!loading"
-    [displayedColumns]="['id', 'vo', 'name', 'description']"
-    [groups]="groupsToShow"
-    [disableMembers]="false"
-    [filter]="filterValue"
-    [groupsToDisableRouting]="groupsWithoutRouteAuth"
-    [tableId]="tableId">
-  </perun-web-apps-groups-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-groups-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [displayedColumns]="['id', 'vo', 'name', 'description']"
+      [groups]="groupsToShow"
+      [disableMembers]="false"
+      [filter]="filterValue"
+      [groupsToDisableRouting]="groupsWithoutRouteAuth"
+      [tableId]="tableId">
+    </perun-web-apps-groups-list>
+  </div>
 </div>

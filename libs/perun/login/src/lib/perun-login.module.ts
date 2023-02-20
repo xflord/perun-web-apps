@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { UiLoadersModule } from '@perun-web-apps/ui/loaders';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
     ReactiveFormsModule,
     MatInputModule,
     UiAlertsModule,
+    UiLoadersModule,
   ],
   declarations: [LoginScreenComponent, LoginScreenBaseComponent, LoginScreenServiceAccessComponent],
   exports: [LoginScreenBaseComponent, LoginScreenComponent, LoginScreenServiceAccessComponent],

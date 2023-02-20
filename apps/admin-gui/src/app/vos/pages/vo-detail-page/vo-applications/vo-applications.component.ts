@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostBinding, OnInit } from '@angular/core';
 import {
   AppState,
   AttributeDefinition,
@@ -17,6 +17,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ApplicationsListColumnsChangeDialogComponent } from '../../../../shared/components/dialogs/applications-list-columns-change-dialog/applications-list-columns-change-dialog.component';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-vo-applications',
@@ -56,18 +57,19 @@ export class VoApplicationsComponent implements OnInit {
   endDate: FormControl<Date | string>;
   showGroupApps = false;
   refresh = false;
-  loading = true;
+  loading$: Observable<boolean>;
   fedAttrNames: string[] = [];
 
   constructor(
     private registrarManager: RegistrarManagerService,
     private entityStorageService: EntityStorageService,
     private attributeManager: AttributesManagerService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.loading = true;
+    this.loading$ = of(true);
     this.vo = this.entityStorageService.getEntity();
     this.startDate = new FormControl<Date | string>(
       formatDate(this.yearAgo(), 'yyyy-MM-dd', 'en-GB')
@@ -97,7 +99,6 @@ export class VoApplicationsComponent implements OnInit {
   }
 
   showDetails(value: boolean): void {
-    this.loading = true;
     this.showAllDetails = value;
     this.loadViewConfiguration();
   }
@@ -107,6 +108,7 @@ export class VoApplicationsComponent implements OnInit {
   }
 
   refreshColumns(): string[] {
+    this.cd.detectChanges();
     if (this.showAllDetails) {
       return this.showGroupApps
         ? this.groupPrependColumns.concat(this.detailedColumns)
@@ -123,6 +125,7 @@ export class VoApplicationsComponent implements OnInit {
   }
 
   loadViewConfiguration(): void {
+    this.cd.detectChanges();
     this.attributeManager
       .getVoAttributeByName(this.vo.id, 'urn:perun:vo:attribute-def:def:applicationViewPreferences')
       .subscribe((attribute) => {
@@ -141,7 +144,6 @@ export class VoApplicationsComponent implements OnInit {
         }
         this.columnsAuth = attribute.writable;
         this.currentColumns = this.refreshColumns();
-        this.loading = false;
       });
   }
 
@@ -156,5 +158,10 @@ export class VoApplicationsComponent implements OnInit {
         this.loadViewConfiguration();
       }
     });
+  }
+
+  refreshTable(): void {
+    this.refresh = !this.refresh;
+    this.cd.detectChanges();
   }
 }

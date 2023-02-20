@@ -43,7 +43,6 @@ export class GroupSettingsOverviewComponent implements OnInit {
     this.loading = true;
     this.group = this.entityStorageService.getEntity();
     this.initItems();
-    this.loading = false;
   }
 
   private initItems(): void {
@@ -54,21 +53,23 @@ export class GroupSettingsOverviewComponent implements OnInit {
     this.apiRequest.dontHandleErrorForNext();
     this.attributesManager
       .getGroupAttributeByName(this.group.id, Urns.GROUP_DEF_EXPIRATION_RULES)
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.items.push({
             cssIcon: 'perun-group',
             url: `/organizations/${this.group.voId}/groups/${this.group.id}/settings/expiration`,
             label: 'MENU_ITEMS.GROUP.EXPIRATION',
             style: 'group-btn',
           });
+          this.loading = false;
         },
-        (error: RPCError) => {
+        error: (error: RPCError) => {
           if (error.name !== 'PrivilegeException') {
             this.notificator.showRPCError(error);
           }
-        }
-      );
+          this.loading = false;
+        },
+      });
 
     if (this.routePolicyService.canNavigate('groups-settings-managers', this.group)) {
       this.items.push({

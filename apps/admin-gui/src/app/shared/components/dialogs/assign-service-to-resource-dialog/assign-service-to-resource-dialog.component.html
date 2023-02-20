@@ -1,56 +1,64 @@
-<div class="{{theme}}">
-  <h1 mat-dialog-title>{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.TITLE' | translate}}</h1>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-  <div *ngIf="!loading" mat-dialog-content>
-    <mat-tab-group (selectedTabChange)="tabChanged()">
-      <mat-tab label="{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.SELECT_SERVICE' | translate}}">
-        <div class="mt-2">
-          <perun-web-apps-debounce-filter
-            (filter)="applyFilter($event)"
-            placeholder="{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.FILTER_DESCRIPTION' | translate}}">
-          </perun-web-apps-debounce-filter>
-        </div>
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.TITLE' | translate}}</h1>
+    <div mat-dialog-content>
+      <mat-tab-group (selectedTabChange)="tabChanged()">
+        <mat-tab
+          [disabled]="loading"
+          label="{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.SELECT_SERVICE' | translate}}">
+          <div class="mt-2">
+            <perun-web-apps-debounce-filter
+              (filter)="applyFilter($event)"
+              placeholder="{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.FILTER_DESCRIPTION' | translate}}">
+            </perun-web-apps-debounce-filter>
+          </div>
 
-        <app-services-list
-          [services]="unAssignedServices"
-          [disableRouting]="true"
-          [displayedColumns]="['select', 'id', 'name', 'enabled', 'description']"
-          [filterValue]="filterValue"
-          [selection]="selection"
-          [tableId]="tableId">
-        </app-services-list>
-      </mat-tab>
-      <mat-tab label="{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.SELECT_PACKAGE' | translate}}">
-        <div class="mt-3">
-          <perun-web-apps-service-package-search-select
-            (packageSelected)="servicePackageSelected($event)"
-            [selectedPackage]="selectedPackage"
-            [servicePackages]="servicePackages">
-          </perun-web-apps-service-package-search-select>
-        </div>
+          <app-services-list
+            [services]="unAssignedServices"
+            [disableRouting]="true"
+            [displayedColumns]="['select', 'id', 'name', 'enabled', 'description']"
+            [filterValue]="filterValue"
+            [selection]="selection"
+            [tableId]="tableId">
+          </app-services-list>
+        </mat-tab>
+        <mat-tab
+          [disabled]="loading"
+          label="{{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.SELECT_PACKAGE' | translate}}">
+          <div class="mt-3">
+            <perun-web-apps-service-package-search-select
+              (packageSelected)="servicePackageSelected($event)"
+              [selectedPackage]="selectedPackage"
+              [servicePackages]="servicePackages">
+            </perun-web-apps-service-package-search-select>
+          </div>
 
-        <app-services-list
-          *ngIf="selectedPackage.id !== -1"
-          [disableRouting]="true"
-          [services]="filteredServices"
-          [displayedColumns]="['id', 'name', 'enabled', 'description']"
-          [selection]="selection"
-          [tableId]="tableId">
-        </app-services-list>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
-  <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.CANCEL_BUTTON' | translate}}
-    </button>
-    <button
-      (click)="onAdd()"
-      class="ml-2"
-      color="accent"
-      [disabled]="(selection.selected.length === 0 && selectedPackage.id === -1) || loading"
-      mat-flat-button>
-      {{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.'+(selectedPackage.id === -1 ? 'ADD_SERVICES' : 'ADD_PACKAGE') | translate}}
-    </button>
+          <app-services-list
+            *ngIf="selectedPackage.id !== -1"
+            [disableRouting]="true"
+            [services]="filteredServices"
+            [displayedColumns]="['id', 'name', 'enabled', 'description']"
+            [selection]="selection"
+            [tableId]="tableId">
+          </app-services-list>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.CANCEL_BUTTON' | translate}}
+      </button>
+      <button
+        (click)="onAdd()"
+        class="ml-2"
+        color="accent"
+        [disabled]="(selection.selected.length === 0 && selectedPackage.id === -1) || loading"
+        mat-flat-button>
+        {{'DIALOGS.ASSIGN_SERVICE_TO_RESOURCE.'+(selectedPackage.id === -1 ? 'ADD_SERVICES' : 'ADD_PACKAGE') | translate}}
+      </button>
+    </div>
   </div>
 </div>

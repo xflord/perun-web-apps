@@ -80,6 +80,7 @@ import { DeleteAttributeDefinitionDialogComponent } from './components/dialogs/d
 // eslint-disable-next-line max-len
 import { CreateAttributeDefinitionDialogComponent } from './components/dialogs/create-attribute-definition-dialog/create-attribute-definition-dialog.component';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { UiLoadersModule } from '@perun-web-apps/ui/loaders';
 import { EditAttributeDefinitionDialogComponent } from './components/dialogs/edit-attribute-definition-dialog/edit-attribute-definition-dialog.component';
 import { EntitylessAttributeKeysListComponent } from './components/entityless-attribute-keys-list/entityless-attribute-keys-list.component';
 import { ServicesListComponent } from './components/services-list/services-list.component';
@@ -229,6 +230,7 @@ import { ApplicationsListColumnsChangeDialogComponent } from './components/dialo
     MatMenuModule,
     ScrollingModule,
     UiAlertsModule,
+    UiLoadersModule,
     MatBadgeModule,
     PerunSharedComponentsModule,
     ConfigTableConfigModule,

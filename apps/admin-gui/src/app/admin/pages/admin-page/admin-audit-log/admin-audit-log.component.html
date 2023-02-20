@@ -8,8 +8,15 @@
       (selectClosed)="refreshOnClosed()"></perun-web-apps-audit-log-search-select>
   </div>
 
-  <app-audit-messages-list
-    [refresh]="refresh"
-    [tableId]="tableId"
-    [selectedEvents]="selectedEvents"></app-audit-messages-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <app-audit-messages-list
+      *perunWebAppsLoader="loading$ | async; indicator: spinner"
+      (loading$)="loading$ = $event"
+      [refresh]="refresh"
+      [tableId]="tableId"
+      [selectedEvents]="selectedEvents"></app-audit-messages-list>
+  </div>
 </div>

@@ -9,15 +9,16 @@
   (filter)="memberFilter($event)"
   [placeholder]="'SHARED_LIB.PERUN.ORGANIZATIONS.FILTER'">
 </perun-web-apps-immediate-filter>
-<mat-spinner *ngIf="memberRefresh" class="ml-auto mr-auto"></mat-spinner>
-<perun-web-apps-groups-list
-  *ngIf="!memberRefresh"
-  [disableMembers]="false"
-  [groups]="membersGroups"
-  [displayedColumns]="['id', 'vo', 'name', 'description']"
-  [filter]="memberFilterValue"
-  [tableId]="tableId">
-</perun-web-apps-groups-list>
+<div class="position-relative">
+  <perun-web-apps-groups-list
+    *perunWebAppsLoader="memberRefresh; indicator: spinner"
+    [disableMembers]="false"
+    [groups]="membersGroups"
+    [displayedColumns]="['id', 'vo', 'name', 'description']"
+    [filter]="memberFilterValue"
+    [tableId]="tableId">
+  </perun-web-apps-groups-list>
+</div>
 
 <div *ngIf="!this.showPrincipal" class="mt-5">
   <h1 class="page-subtitle">
@@ -28,13 +29,18 @@
     (filter)="adminFilter($event)"
     [placeholder]="'SHARED_LIB.PERUN.ORGANIZATIONS.FILTER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="adminRefresh" class="ml-auto mr-auto"></mat-spinner>
-  <perun-web-apps-groups-list
-    *ngIf="!adminRefresh"
-    [disableMembers]="false"
-    [groups]="adminsGroups"
-    [displayedColumns]="['id', 'vo', 'name', 'description']"
-    [filter]="adminFilterValue"
-    [tableId]="adminTableId">
-  </perun-web-apps-groups-list>
+  <div class="position-relative">
+    <perun-web-apps-groups-list
+      *perunWebAppsLoader="adminRefresh; indicator: spinner"
+      [disableMembers]="false"
+      [groups]="adminsGroups"
+      [displayedColumns]="['id', 'vo', 'name', 'description']"
+      [filter]="adminFilterValue"
+      [tableId]="adminTableId">
+    </perun-web-apps-groups-list>
+  </div>
 </div>
+
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>

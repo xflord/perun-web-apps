@@ -1,39 +1,43 @@
-<div class="{{theme}}">
-  <h1 mat-dialog-title>{{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.TITLE' | translate}}</h1>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <div [hidden]="loading" class="dialog-container" mat-dialog-content>
-    <div class="mb-2 font-italic">
-      {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.DESCRIPTION' | translate}}
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.TITLE' | translate}}</h1>
+    <div class="dialog-container" mat-dialog-content>
+      <div class="mb-2 font-italic">
+        {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.DESCRIPTION' | translate}}
+      </div>
+      {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.SOURCE_VO' | translate}}:
+
+      <perun-web-apps-vo-search-select
+        (voSelected)="voSelected($event)"
+        [vos]="vos"
+        class="long-input">
+      </perun-web-apps-vo-search-select>
+
+      {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.SOURCE_GROUP' | translate}}:
+
+      <perun-web-apps-group-search-select
+        (groupSelected)="selectedGroup = ($event)"
+        [groups]="groups"
+        [disableAutoSelect]="true"
+        class="long-input">
+      </perun-web-apps-group-search-select>
     </div>
-    {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.SOURCE_VO' | translate}}:
 
-    <perun-web-apps-vo-search-select
-      (voSelected)="voSelected($event)"
-      [vos]="vos"
-      class="long-input">
-    </perun-web-apps-vo-search-select>
-
-    {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.SOURCE_GROUP' | translate}}:
-
-    <perun-web-apps-group-search-select
-      (groupSelected)="selectedGroup = ($event)"
-      [groups]="groups"
-      [disableAutoSelect]="true"
-      class="long-input">
-    </perun-web-apps-group-search-select>
-  </div>
-
-  <div mat-dialog-actions>
-    <button (click)="cancel()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.CANCEL_BUTTON' | translate}}
-    </button>
-    <button
-      (click)="submit()"
-      class="ml-2"
-      color="accent"
-      [disabled]="(!selectedVo && !selectedGroup) || loading"
-      mat-flat-button>
-      {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.SUBMIT_BUTTON' | translate}}
-    </button>
+    <div mat-dialog-actions>
+      <button (click)="cancel()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.CANCEL_BUTTON' | translate}}
+      </button>
+      <button
+        (click)="submit()"
+        class="ml-2"
+        color="accent"
+        [disabled]="(!selectedVo && !selectedGroup) || loading"
+        mat-flat-button>
+        {{'DIALOGS.APPLICATION_FORM_COPY_ITEMS.SUBMIT_BUTTON' | translate}}
+      </button>
+    </div>
   </div>
 </div>

@@ -25,6 +25,9 @@ interface ApplicationData extends Application {
   prefilledValue?: string;
 }
 
+/**
+ * @deprecated it seems that this component is no longer used anywhere
+ */
 @Component({
   selector: 'app-perun-web-apps-application-list-details',
   templateUrl: './application-list-details.component.html',

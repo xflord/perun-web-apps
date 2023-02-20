@@ -35,12 +35,16 @@
     mat-flat-button>
     {{ 'SHARED.IDENTITY_DETAIL.REMOVE' | translate}}
   </button>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <perun-web-apps-attributes-list
-    #list
-    [selection]="selection"
-    *ngIf="!loading"
-    [attributes]="attributes"
-    [tableId]="tableId">
-  </perun-web-apps-attributes-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-attributes-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      #list
+      [selection]="selection"
+      [attributes]="attributes"
+      [tableId]="tableId">
+    </perun-web-apps-attributes-list>
+  </div>
 </div>

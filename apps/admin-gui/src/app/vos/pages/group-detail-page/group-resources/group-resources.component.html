@@ -24,20 +24,24 @@
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'"></perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <perun-web-apps-resources-list
-    #list
-    *ngIf="resources && !loading"
-    (refreshTable)="refreshTable()"
-    [disableRouting]="!routingAuth"
-    [filterValue]="filterValue"
-    [resources]="resources"
-    [routingVo]="true"
-    [displayedColumns]="['select', 'id', 'indirectResourceAssigment', 'name', 'status', 'facility', 'tags', 'description']"
-    [selection]="selected"
-    [groupId]="group.id"
-    [groupToResource]="group"
-    [resourcesToDisableCheckbox]="resourcesToDisable"
-    [tableId]="tableId">
-  </perun-web-apps-resources-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative" *ngIf="resources">
+    <perun-web-apps-resources-list
+      #list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      (refreshTable)="refreshTable()"
+      [disableRouting]="!routingAuth"
+      [filterValue]="filterValue"
+      [resources]="resources"
+      [routingVo]="true"
+      [displayedColumns]="['select', 'id', 'indirectResourceAssigment', 'name', 'status', 'facility', 'tags', 'description']"
+      [selection]="selected"
+      [groupId]="group.id"
+      [groupToResource]="group"
+      [resourcesToDisableCheckbox]="resourcesToDisable"
+      [tableId]="tableId">
+    </perun-web-apps-resources-list>
+  </div>
 </div>

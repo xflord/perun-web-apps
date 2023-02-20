@@ -98,6 +98,7 @@ export class AddManagerDialogComponent implements OnInit {
       return;
     }
     this.loading = true;
+    this.firstSearchDone = true;
 
     this.selection.clear();
 
@@ -110,7 +111,6 @@ export class AddManagerDialogComponent implements OnInit {
         next: (users) => {
           this.users = users;
           this.loading = false;
-          this.firstSearchDone = true;
         },
         error: () => (this.loading = false),
       });

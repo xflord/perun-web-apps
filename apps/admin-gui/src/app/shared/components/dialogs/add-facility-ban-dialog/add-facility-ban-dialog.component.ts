@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { BanOnFacility, FacilitiesManagerService, RichUser } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
@@ -6,6 +6,7 @@ import { TABLE_BANS } from '@perun-web-apps/config/table-config';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AddBanData, BanForm } from '../add-ban-dialog/add-ban-dialog.component';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-add-facility-ban-dialog',
@@ -15,6 +16,7 @@ import { NotificatorService, StoreService } from '@perun-web-apps/perun/services
 export class AddFacilityBanDialogComponent implements OnInit {
   selection = new SelectionModel<RichUser>(false, []);
   ban: BanOnFacility;
+  loading$: Observable<boolean>;
   loading = false;
   attrNames = [Urns.USER_DEF_PREFERRED_MAIL].concat(this.store.getLoginAttributeNames());
   displayedColumns = ['select', 'id', 'name', 'email', 'logins'];
@@ -26,10 +28,12 @@ export class AddFacilityBanDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<AddFacilityBanDialogComponent>,
     private store: StoreService,
     private facilityService: FacilitiesManagerService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    this.loading$ = of(true);
     this.selection.changed.subscribe((change) => {
       this.ban = this.data.bans.find((ban) => ban.userId === change.source.selected[0]?.id);
     });
@@ -50,6 +54,7 @@ export class AddFacilityBanDialogComponent implements OnInit {
   setFilter(filter: string): void {
     this.filter = filter;
     this.selection.clear();
+    this.cd.detectChanges();
   }
 
   private banUser(banForm: BanForm): void {

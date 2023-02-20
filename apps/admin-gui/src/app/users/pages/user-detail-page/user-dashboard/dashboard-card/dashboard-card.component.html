@@ -6,40 +6,44 @@
       <mat-icon class="dashboard-icon">info_outline</mat-icon>
     </span>
   </div>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <div *ngIf="!loading">
-    <span *ngIf="primaryObject === 'Vo'">
-      <perun-web-apps-vos-list
-        [pageSizeOptions]="null"
-        [displayedColumns]="['id', 'recent', 'shortName', 'name']"
-        [recentIds]="this.recentIds"
-        [vos]="this.objects">
-      </perun-web-apps-vos-list>
-    </span>
-    <span *ngIf="primaryObject === 'Group'">
-      <perun-web-apps-groups-list
-        [pageSizeOptions]="null"
-        [displayedColumns]="['id', 'recent', 'vo', 'name', 'description']"
-        [groups]="this.objects"
-        [recentIds]="recentIds">
-      </perun-web-apps-groups-list>
-    </span>
-    <span *ngIf="primaryObject === 'Resource'">
-      <perun-web-apps-resources-list
-        [pageSizeOptions]="null"
-        [displayedColumns]="['id', 'recent', 'name', 'vo', 'facility']"
-        [resources]="this.objects"
-        [recentIds]="recentIds"
-        [routingVo]="true">
-      </perun-web-apps-resources-list>
-    </span>
-    <span *ngIf="primaryObject === 'Facility'">
-      <perun-web-apps-facilities-list
-        [displayedColumns]="['id', 'recent', 'name', 'description']"
-        [facilities]="this.objects"
-        [pageSizeOptions]="null"
-        [recentIds]="recentIds">
-      </perun-web-apps-facilities-list>
-    </span>
-  </div>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <span *ngIf="primaryObject === 'Vo'" class="position-relative">
+    <perun-web-apps-vos-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [pageSizeOptions]="null"
+      [displayedColumns]="['id', 'recent', 'shortName', 'name']"
+      [recentIds]="this.recentIds"
+      [vos]="this.objects">
+    </perun-web-apps-vos-list>
+  </span>
+  <span *ngIf="primaryObject === 'Group'" class="position-relative">
+    <perun-web-apps-groups-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [pageSizeOptions]="null"
+      [displayedColumns]="['id', 'recent', 'vo', 'name', 'description']"
+      [groups]="this.objects"
+      [recentIds]="recentIds">
+    </perun-web-apps-groups-list>
+  </span>
+  <span *ngIf="primaryObject === 'Resource'" class="position-relative">
+    <perun-web-apps-resources-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [pageSizeOptions]="null"
+      [displayedColumns]="['id', 'recent', 'name', 'vo', 'facility']"
+      [resources]="this.objects"
+      [recentIds]="recentIds"
+      [routingVo]="true">
+    </perun-web-apps-resources-list>
+  </span>
+  <span *ngIf="primaryObject === 'Facility'" class="position-relative">
+    <perun-web-apps-facilities-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [displayedColumns]="['id', 'recent', 'name', 'description']"
+      [facilities]="this.objects"
+      [pageSizeOptions]="null"
+      [recentIds]="recentIds">
+    </perun-web-apps-facilities-list>
+  </span>
 </div>

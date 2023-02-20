@@ -13,7 +13,6 @@ import { SendMessageDialogComponent } from '../send-message-dialog/send-message-
 })
 export class ShowResultComponent implements OnInit {
   linkerResult: LinkerResult = 'UNKNOWN_ERROR';
-  loading = false;
   openerWindow = window.opener as Window;
 
   constructor(

@@ -24,6 +24,7 @@ import { MainWindowComponent } from './components/main-window/main-window.compon
 import { MatIconModule } from '@angular/material/icon';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { UiLoadersModule } from '@perun-web-apps/ui/loaders';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
 import { GeneralModule } from '@perun-web-apps/general';
 import { LibLinkerModule } from '@perun-web-apps/lib-linker';
@@ -68,6 +69,7 @@ const loadConfigs = (appConfig: ConsolidatorConfigService) => (): Promise<void> 
     MatIconModule,
     PerunSharedComponentsModule,
     UiAlertsModule,
+    UiLoadersModule,
     PerunUtilsModule,
     GeneralModule,
     OAuthModule.forRoot(),

@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { AuditMessage } from '@perun-web-apps/perun/openapi';
 import {
   downloadData,
@@ -16,7 +25,7 @@ import {
 } from '@perun-web-apps/perun/services';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { merge } from 'rxjs';
+import { merge, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { TableConfigService } from '@perun-web-apps/config/table-config';
 import { formatDate } from '@angular/common';
@@ -33,14 +42,18 @@ import { formatDate } from '@angular/common';
   ],
 })
 export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewInit {
-  @Input()
-  tableId: string;
-  @Input()
-  refresh: boolean;
-  @Input()
-  displayedColumns: string[] = ['id', 'timestamp', 'name', 'actor', 'event.message', 'detail'];
-  @Input()
-  selectedEvents: string[];
+  @Input() tableId: string;
+  @Input() refresh: boolean;
+  @Input() displayedColumns: string[] = [
+    'id',
+    'timestamp',
+    'name',
+    'actor',
+    'event.message',
+    'detail',
+  ];
+  @Input() selectedEvents: string[];
+  @Output() loading$: EventEmitter<Observable<boolean>> = new EventEmitter<Observable<boolean>>();
 
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
   @ViewChild(MatSort) sort: MatSort;
@@ -87,6 +100,7 @@ export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewI
       'DESCENDING',
       this.selectedEvents
     );
+    this.loading$.emit(this.dataSource.loading$);
   }
 
   ngOnChanges(): void {

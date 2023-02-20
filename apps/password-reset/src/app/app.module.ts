@@ -23,6 +23,7 @@ import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { PasswordResetPageComponent } from './pages/password-reset-page/password-reset-page.component';
 import { PasswordResetFormComponent } from './components/password-reset-form/password-reset-form.component';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { UiLoadersModule } from '@perun-web-apps/ui/loaders';
 import { InvalidRequestAlertComponent } from './components/invalid-request-alert/invalid-request-alert.component';
 import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespace-password-form';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
@@ -72,6 +73,7 @@ const loadConfigs = (appConfig: PasswordResetConfigService) => (): Promise<void>
     AppRoutingModule,
     UiMaterialModule,
     UiAlertsModule,
+    UiLoadersModule,
     PerunNamespacePasswordFormModule,
     OAuthModule.forRoot(),
     PerunSharedComponentsModule,

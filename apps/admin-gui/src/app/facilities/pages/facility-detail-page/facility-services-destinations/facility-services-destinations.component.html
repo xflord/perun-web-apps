@@ -42,14 +42,18 @@
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'FACILITY_DETAIL.SERVICES_DESTINATIONS.FILTER'"></perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <app-perun-web-apps-destination-list
-    [filterValue]="filterValue"
-    *ngIf="!loading"
-    [selection]="selected"
-    [destinations]="destinations"
-    [services]="configServicesIds"
-    [displayedColumns]="displayedColumns"
-    [tableId]="tableId">
-  </app-perun-web-apps-destination-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <app-perun-web-apps-destination-list
+      [filterValue]="filterValue"
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [selection]="selected"
+      [destinations]="destinations"
+      [services]="configServicesIds"
+      [displayedColumns]="displayedColumns"
+      [tableId]="tableId">
+    </app-perun-web-apps-destination-list>
+  </div>
 </div>

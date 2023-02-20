@@ -39,30 +39,34 @@
     >{{'GROUP_DETAIL.SUBGROUPS.TREE_VIEW' | translate}}</mat-slide-toggle
   >
   <label [attr.for]="toggle.inputId">{{'GROUP_DETAIL.SUBGROUPS.LIST_VIEW' | translate}}</label>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <div *ngIf="!loading" class="mt-3">
-    <perun-web-apps-groups-tree
-      *ngIf="!showGroupList"
-      [disableRouting]="!routeAuth"
-      [expandAll]="filtering"
-      [groups]="groups"
-      (moveGroup)="onMoveGroup($event)"
-      (refreshTable)="refreshTable()"
-      [hideCheckbox]="!deleteAuth"
-      [filterValue]="filterValue"
-      [selection]="selected">
-    </perun-web-apps-groups-tree>
-    <perun-web-apps-groups-list
-      (groupMoved)="onMoveGroup($event)"
-      (refreshTable)="refreshTable()"
-      *ngIf="showGroupList"
-      [disableMembers]="true"
-      [disableRouting]="!routeAuth"
-      [displayedColumns]="deleteAuth ? ['select', 'id', 'name', 'description', 'menu'] : ['id', 'name', 'description', 'menu']"
-      [groups]="groups"
-      [selection]="selected"
-      [filter]="filterValue"
-      [tableId]="tableId">
-    </perun-web-apps-groups-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative mt-3">
+    <div *perunWebAppsLoader="loading; indicator: spinner">
+      <perun-web-apps-groups-tree
+        *ngIf="!showGroupList"
+        [disableRouting]="!routeAuth"
+        [expandAll]="filtering"
+        [groups]="groups"
+        (moveGroup)="onMoveGroup($event)"
+        (refreshTable)="refreshTable()"
+        [hideCheckbox]="!deleteAuth"
+        [filterValue]="filterValue"
+        [selection]="selected">
+      </perun-web-apps-groups-tree>
+      <perun-web-apps-groups-list
+        (groupMoved)="onMoveGroup($event)"
+        (refreshTable)="refreshTable()"
+        *ngIf="showGroupList"
+        [disableMembers]="true"
+        [disableRouting]="!routeAuth"
+        [displayedColumns]="deleteAuth ? ['select', 'id', 'name', 'description', 'menu'] : ['id', 'name', 'description', 'menu']"
+        [groups]="groups"
+        [selection]="selected"
+        [filter]="filterValue"
+        [tableId]="tableId">
+      </perun-web-apps-groups-list>
+    </div>
   </div>
 </div>

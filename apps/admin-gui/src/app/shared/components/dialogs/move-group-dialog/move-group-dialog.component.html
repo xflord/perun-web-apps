@@ -1,63 +1,67 @@
-<div class="{{data.theme}}">
-  <h1 mat-dialog-title>{{'DIALOGS.MOVE_GROUP.TITLE' | translate}}{{this.data.group.name}}</h1>
-  <div mat-dialog-content>
-    <p>
-      {{'DIALOGS.MOVE_GROUP.INFO' | translate}}
-    </p>
-    <mat-radio-group [(ngModel)]="moveOption">
-      <mat-radio-button
-        *ngIf="!toRootOptionDisabled"
-        color="primary"
-        class="move-options"
-        value="toRoot">
-        {{'DIALOGS.MOVE_GROUP.NO_GROUP' | translate}}
-      </mat-radio-button>
-      <mat-radio-button *ngIf="!toGroupOptionDisabled" color="primary" value="toGroup">
-        {{'DIALOGS.MOVE_GROUP.TO_GROUP' | translate}}
-      </mat-radio-button>
-    </mat-radio-group>
-    <perun-web-apps-alert *ngIf="toRootOptionDisabled && toGroupOptionDisabled" alert_type="warn">
-      {{'DIALOGS.MOVE_GROUP.CANNOT_MOVE' | translate}}
-    </perun-web-apps-alert>
-    <mat-form-field
-      *ngIf="!toGroupOptionDisabled"
-      [@openClose]="moveOption === 'toGroup' ? 'open' : 'closed'"
-      class="w-100 mt-2">
-      <input
-        matInput
-        placeholder="{{'DIALOGS.MOVE_GROUP.GROUP_SELECT' | translate}}"
-        (change)="selectedGroup = null"
-        [formControl]="otherGroupsCtrl"
-        [matAutocomplete]="groupSelectAutocomplete"
-        required />
-      <!--suppress AngularInvalidExpressionResultType -->
-      <mat-autocomplete #groupSelectAutocomplete="matAutocomplete" [displayWith]="displayFn">
-        <mat-option
-          *ngFor="let group of filteredGroups | async"
-          (click)="selectedGroup = group"
-          [value]="group">
-          <span>{{group.name}}</span>
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-  </div>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
-  <div mat-dialog-actions>
-    <button (click)="close()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.MOVE_GROUP.CANCEL' | translate}}
-    </button>
-    <span
-      [matTooltipDisabled]="selectedGroup !== null || moveOption === 'toRoot'"
-      [matTooltipPosition]="'above'"
-      matTooltip="{{'DIALOGS.MOVE_GROUP.DISABLED_HINT' | translate}}">
-      <button
-        (click)="confirm()"
-        [disabled]="((otherGroupsCtrl.invalid || selectedGroup === null) && moveOption !== 'toRoot') || loading"
-        class="ml-2"
-        color="accent"
-        mat-flat-button>
-        {{'DIALOGS.MOVE_GROUP.CONFIRM' | translate}}
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{data.theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.MOVE_GROUP.TITLE' | translate}}{{this.data.group.name}}</h1>
+    <div mat-dialog-content>
+      <p>
+        {{'DIALOGS.MOVE_GROUP.INFO' | translate}}
+      </p>
+      <mat-radio-group [(ngModel)]="moveOption">
+        <mat-radio-button
+          *ngIf="!toRootOptionDisabled"
+          color="primary"
+          class="move-options"
+          value="toRoot">
+          {{'DIALOGS.MOVE_GROUP.NO_GROUP' | translate}}
+        </mat-radio-button>
+        <mat-radio-button *ngIf="!toGroupOptionDisabled" color="primary" value="toGroup">
+          {{'DIALOGS.MOVE_GROUP.TO_GROUP' | translate}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <perun-web-apps-alert *ngIf="toRootOptionDisabled && toGroupOptionDisabled" alert_type="warn">
+        {{'DIALOGS.MOVE_GROUP.CANNOT_MOVE' | translate}}
+      </perun-web-apps-alert>
+      <mat-form-field
+        *ngIf="!toGroupOptionDisabled"
+        [@openClose]="moveOption === 'toGroup' ? 'open' : 'closed'"
+        class="w-100 mt-2">
+        <input
+          matInput
+          placeholder="{{'DIALOGS.MOVE_GROUP.GROUP_SELECT' | translate}}"
+          (change)="selectedGroup = null"
+          [formControl]="otherGroupsCtrl"
+          [matAutocomplete]="groupSelectAutocomplete"
+          required />
+        <!--suppress AngularInvalidExpressionResultType -->
+        <mat-autocomplete #groupSelectAutocomplete="matAutocomplete" [displayWith]="displayFn">
+          <mat-option
+            *ngFor="let group of filteredGroups | async"
+            (click)="selectedGroup = group"
+            [value]="group">
+            <span>{{group.name}}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="close()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.MOVE_GROUP.CANCEL' | translate}}
       </button>
-    </span>
+      <span
+        [matTooltipDisabled]="selectedGroup !== null || moveOption === 'toRoot'"
+        [matTooltipPosition]="'above'"
+        matTooltip="{{'DIALOGS.MOVE_GROUP.DISABLED_HINT' | translate}}">
+        <button
+          (click)="confirm()"
+          [disabled]="((otherGroupsCtrl.invalid || selectedGroup === null) && moveOption !== 'toRoot') || loading"
+          class="ml-2"
+          color="accent"
+          mat-flat-button>
+          {{'DIALOGS.MOVE_GROUP.CONFIRM' | translate}}
+        </button>
+      </span>
+    </div>
   </div>
 </div>

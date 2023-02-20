@@ -1,19 +1,10 @@
 <h1 class="page-subtitle">{{'MEMBER_DETAIL.APPLICATIONS.TITLE' | translate}}</h1>
 <div>
-  <perun-web-apps-refresh-button
-    (refresh)="this.refresh=!this.refresh"></perun-web-apps-refresh-button>
-  <button
-    (click)="this.showAllDetails = true"
-    *ngIf="!showAllDetails"
-    class="mr-2"
-    mat-stroked-button>
+  <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
+  <button (click)="showDetails()" *ngIf="!showAllDetails" class="mr-2" mat-stroked-button>
     {{'MEMBER_DETAIL.APPLICATIONS.SHOW_ALL_DETAILS' | translate}}
   </button>
-  <button
-    (click)="this.showAllDetails = false"
-    *ngIf="showAllDetails"
-    class="mr-2"
-    mat-stroked-button>
+  <button (click)="showDetails()" *ngIf="showAllDetails" class="mr-2" mat-stroked-button>
     {{'MEMBER_DETAIL.APPLICATIONS.SHOW_LESS_DETAILS' | translate}}
   </button>
   <perun-web-apps-debounce-filter
@@ -21,9 +12,13 @@
     (filter)="applyFilter($event)">
   </perun-web-apps-debounce-filter>
 </div>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-<div *ngIf="!loading">
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div class="position-relative">
   <app-applications-dynamic-list
+    *perunWebAppsLoader="loading$ | async; indicator: spinner"
+    (loading$)="loading$ = $event"
     [tableId]="showAllDetails ? detailTableId : tableId"
     [searchString]="filterValue"
     [member]="member"

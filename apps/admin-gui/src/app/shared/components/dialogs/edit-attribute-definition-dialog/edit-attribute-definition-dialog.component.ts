@@ -60,11 +60,13 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loading = true;
     this.dialogRef.addPanelClass('mat-dialog-height-transition');
     this.attributesManager.getAttributeRules(this.attDef.id).subscribe((attrRights) => {
       this.collections$ = new BehaviorSubject(attrRights.attributePolicyCollections);
       this.initReadOperations = attrRights.criticalActions.includes('READ');
       this.initWriteOperations = attrRights.criticalActions.includes('WRITE');
+      this.loading = false;
     });
   }
 
@@ -96,15 +98,15 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
           )
         )
       )
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.notificator.showSuccess(
             this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.SUCCESS') as string
           );
           this.dialogRef.close(true);
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
   }
 
   onCancel(): void {

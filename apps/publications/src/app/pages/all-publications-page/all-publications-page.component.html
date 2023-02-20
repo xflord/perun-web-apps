@@ -17,12 +17,16 @@
       (filteredPublication)="filterPublication($event)"></perun-web-apps-publication-filter>
   </div>
 
-  <perun-web-apps-publications-list
-    *ngIf="!loading"
-    [publications]="publications"
-    [selection]="selected"
-    [routerPath]="'/all-publications'"
-    [tableId]="tableId">
-  </perun-web-apps-publications-list>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-publications-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [publications]="publications"
+      [selection]="selected"
+      [routerPath]="'/all-publications'"
+      [tableId]="tableId">
+    </perun-web-apps-publications-list>
+  </div>
 </div>

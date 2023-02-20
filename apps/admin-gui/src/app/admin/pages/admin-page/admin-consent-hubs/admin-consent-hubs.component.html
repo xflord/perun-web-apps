@@ -22,12 +22,16 @@
     (filter)="applyFilter($event)">
   </perun-web-apps-immediate-filter>
 
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <app-perun-web-apps-consent-hubs-list
-    *ngIf="!loading"
-    [consentHubs]="consentHubs"
-    [selection]="selection"
-    [filterValue]="filterValue"
-    [tableId]="tableId">
-  </app-perun-web-apps-consent-hubs-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <app-perun-web-apps-consent-hubs-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [consentHubs]="consentHubs"
+      [selection]="selection"
+      [filterValue]="filterValue"
+      [tableId]="tableId">
+    </app-perun-web-apps-consent-hubs-list>
+  </div>
 </div>

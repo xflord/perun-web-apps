@@ -1,35 +1,37 @@
-<div class="{{theme}}">
-  <h1 mat-dialog-title>{{'DIALOGS.ADD_MEMBER_GROUP.TITLE' | translate}}</h1>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-  <div class="dialog-container" mat-dialog-content>
-    <perun-web-apps-immediate-filter
-      (filter)="applyFilter($event)"
-      *ngIf="!loading"
-      [placeholder]="'DIALOGS.ADD_MEMBER_GROUP.FILTER'">
-    </perun-web-apps-immediate-filter>
-    <perun-web-apps-groups-list
-      *ngIf="!loading"
-      [disableGroups]="true"
-      [disableMembers]="true"
-      [displayedColumns]="['select', 'id', 'name', 'description']"
-      [groupsToDisableCheckbox]="membersGroups"
-      [disableRouting]="true"
-      [groups]="groups"
-      [filter]="filterValue"
-      [selection]="selection">
-    </perun-web-apps-groups-list>
-  </div>
-  <div *ngIf="!loading" mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.ADD_MEMBER_GROUP.CANCEL' | translate}}
-    </button>
-    <button
-      [disabled]="selection.selected.length === 0"
-      (click)="onAdd()"
-      class="ml-2"
-      color="accent"
-      mat-flat-button>
-      {{'DIALOGS.ADD_MEMBER_GROUP.ADD' | translate}}
-    </button>
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.ADD_MEMBER_GROUP.TITLE' | translate}}</h1>
+    <div class="dialog-container" mat-dialog-content>
+      <perun-web-apps-immediate-filter
+        (filter)="applyFilter($event)"
+        [placeholder]="'DIALOGS.ADD_MEMBER_GROUP.FILTER'">
+      </perun-web-apps-immediate-filter>
+      <perun-web-apps-groups-list
+        [disableGroups]="true"
+        [disableMembers]="true"
+        [displayedColumns]="['select', 'id', 'name', 'description']"
+        [groupsToDisableCheckbox]="membersGroups"
+        [disableRouting]="true"
+        [groups]="groups"
+        [filter]="filterValue"
+        [selection]="selection">
+      </perun-web-apps-groups-list>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.ADD_MEMBER_GROUP.CANCEL' | translate}}
+      </button>
+      <button
+        [disabled]="selection.selected.length === 0"
+        (click)="onAdd()"
+        class="ml-2"
+        color="accent"
+        mat-flat-button>
+        {{'DIALOGS.ADD_MEMBER_GROUP.ADD' | translate}}
+      </button>
+    </div>
   </div>
 </div>

@@ -1,85 +1,88 @@
-<div class="{{theme}}">
-  <h1 mat-dialog-title>{{title}}</h1>
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{title}}</h1>
 
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
+    <div class="dialog-container" mat-dialog-content>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.NAME' | translate}}"
+          (change)="makePath()"
+          [formControl]="nameControl"
+          data-cy="service-name-input"
+          required />
+        <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.RESTRICTION_NAME' | translate}}</mat-error>
+      </mat-form-field>
 
-  <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
-    <mat-form-field>
-      <input
-        matInput
-        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.NAME' | translate}}"
-        (change)="makePath()"
-        [formControl]="nameControl"
-        data-cy="service-name-input"
-        required />
-      <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.RESTRICTION_NAME' | translate}}</mat-error>
-    </mat-form-field>
+      <mat-form-field>
+        <input
+          [(ngModel)]="description"
+          matInput
+          data-cy="service-description-input"
+          placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.DESCRIPTION' | translate}}" />
+      </mat-form-field>
 
-    <mat-form-field>
-      <input
-        [(ngModel)]="description"
-        matInput
-        data-cy="service-description-input"
-        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.DESCRIPTION' | translate}}" />
-    </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          [formControl]="delayControl"
+          placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.DELAY' | translate}}"
+          required />
+        <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.INVALID_DELAY' | translate}}</mat-error>
+      </mat-form-field>
 
-    <mat-form-field>
-      <input
-        matInput
-        [formControl]="delayControl"
-        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.DELAY' | translate}}"
-        required />
-      <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.INVALID_DELAY' | translate}}</mat-error>
-    </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.RECURRENCE' | translate}}"
+          [formControl]="recurrenceControl"
+          required />
+        <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.INVALID_RECURRENCE' | translate}}</mat-error>
+      </mat-form-field>
 
-    <mat-form-field>
-      <input
-        matInput
-        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.RECURRENCE' | translate}}"
-        [formControl]="recurrenceControl"
-        required />
-      <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.INVALID_RECURRENCE' | translate}}</mat-error>
-    </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          [formControl]="pathControl"
+          placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.PATH' | translate}}"
+          required />
+        <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.REQUIRE_PATH' | translate}}</mat-error>
+      </mat-form-field>
 
-    <mat-form-field>
-      <input
-        matInput
-        [formControl]="pathControl"
-        placeholder="{{'DIALOGS.CREATE_EDIT_SERVICE.PATH' | translate}}"
-        required />
-      <mat-error>{{'DIALOGS.CREATE_EDIT_SERVICE.REQUIRE_PATH' | translate}}</mat-error>
-    </mat-form-field>
+      <span class="d-flex"
+        >{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS' | translate}}
+        <mat-checkbox
+          class="ml-3"
+          [(ngModel)]="status"
+          >{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS_HINT' | translate}}</mat-checkbox
+        >
+      </span>
 
-    <span class="d-flex"
-      >{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS' | translate}}
-      <mat-checkbox
-        class="ml-3"
-        [(ngModel)]="status"
-        >{{'DIALOGS.CREATE_EDIT_SERVICE.STATUS_HINT' | translate}}</mat-checkbox
-      >
-    </span>
-
-    <span class="d-flex"
-      >{{'DIALOGS.CREATE_EDIT_SERVICE.EXPIRED_MEMBERS' | translate}}
-      <mat-checkbox
-        class="ml-3"
-        [(ngModel)]="propagateExpiredMembers"
-        >{{'DIALOGS.CREATE_EDIT_SERVICE.EXPIRED_MEMBERS_HINT' | translate}}</mat-checkbox
-      >
-    </span>
-  </div>
-  <div *ngIf="!loading" mat-dialog-actions>
-    <button (click)="onCancel()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.CREATE_EDIT_SERVICE.CANCEL' | translate}}
-    </button>
-    <button
-      [disabled]="nameControl.invalid || delayControl.invalid || recurrenceControl.invalid || pathControl.invalid"
-      class="ml-2"
-      color="accent"
-      (click)="asEdit ? onEdit() : onCreate()"
-      data-cy="service-create-edit-dialog-button"
-      mat-flat-button>
-      {{buttonText}}
-    </button>
+      <span class="d-flex"
+        >{{'DIALOGS.CREATE_EDIT_SERVICE.EXPIRED_MEMBERS' | translate}}
+        <mat-checkbox
+          class="ml-3"
+          [(ngModel)]="propagateExpiredMembers"
+          >{{'DIALOGS.CREATE_EDIT_SERVICE.EXPIRED_MEMBERS_HINT' | translate}}</mat-checkbox
+        >
+      </span>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.CREATE_EDIT_SERVICE.CANCEL' | translate}}
+      </button>
+      <button
+        [disabled]="nameControl.invalid || delayControl.invalid || recurrenceControl.invalid || pathControl.invalid || loading"
+        class="ml-2"
+        color="accent"
+        (click)="asEdit ? onEdit() : onCreate()"
+        data-cy="service-create-edit-dialog-button"
+        mat-flat-button>
+        {{buttonText}}
+      </button>
+    </div>
   </div>
 </div>

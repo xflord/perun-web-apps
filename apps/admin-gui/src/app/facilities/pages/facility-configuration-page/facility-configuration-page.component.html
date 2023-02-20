@@ -90,13 +90,17 @@
             class="service-search-select">
           </perun-web-apps-service-search-select>
         </div>
-        <mat-spinner *ngIf="processing" class="ml-auto mr-auto"></mat-spinner>
-        <perun-web-apps-attributes-list
-          *ngIf="!processing"
-          [emptyListText]="'FACILITY_CONFIGURATION.EMPTY_REQ_ATT'"
-          [attributes]="filteredAttributes"
-          [selection]="attSelection">
-        </perun-web-apps-attributes-list>
+        <ng-template #spinner>
+          <perun-web-apps-loading-table></perun-web-apps-loading-table>
+        </ng-template>
+        <div class="position-relative">
+          <perun-web-apps-attributes-list
+            *perunWebAppsLoader="processing; indicator: spinner"
+            [emptyListText]="'FACILITY_CONFIGURATION.EMPTY_REQ_ATT'"
+            [attributes]="filteredAttributes"
+            [selection]="attSelection">
+          </perun-web-apps-attributes-list>
+        </div>
       </ng-template>
     </mat-step>
     <mat-step
@@ -141,12 +145,16 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <h1 class="page-subtitle">{{'FACILITY_CONFIGURATION.OWNERS' | translate}}</h1>
-            <mat-spinner *ngIf="processing" class="ml-auto mr-auto"></mat-spinner>
-            <perun-web-apps-owners-list
-              *ngIf="!processing"
-              [displayedColumns]="['id', 'name', 'contact', 'type']"
-              [owners]="owners">
-            </perun-web-apps-owners-list>
+            <ng-template #spinner>
+              <perun-web-apps-loading-table></perun-web-apps-loading-table>
+            </ng-template>
+            <div class="position-relative">
+              <perun-web-apps-owners-list
+                *perunWebAppsLoader="processing; indicator: spinner"
+                [displayedColumns]="['id', 'name', 'contact', 'type']"
+                [owners]="owners">
+              </perun-web-apps-owners-list>
+            </div>
           </mat-expansion-panel>
           <mat-expansion-panel [disabled]="hosts.length === 0">
             <mat-expansion-panel-header [class.cursor-default]="hosts.length === 0">
@@ -156,13 +164,17 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <h1 class="page-subtitle">{{'FACILITY_CONFIGURATION.HOSTS' | translate}}</h1>
-            <mat-spinner *ngIf="processing" class="ml-auto mr-auto"></mat-spinner>
-            <app-hosts-list
-              *ngIf="!processing"
-              [disableRouting]="true"
-              [displayedColumns]="['id', 'name']"
-              [hosts]="hosts">
-            </app-hosts-list>
+            <ng-template #spinner>
+              <perun-web-apps-loading-table></perun-web-apps-loading-table>
+            </ng-template>
+            <div class="position-relative">
+              <app-hosts-list
+                *perunWebAppsLoader="processing; indicator: spinner"
+                [disableRouting]="true"
+                [displayedColumns]="['id', 'name']"
+                [hosts]="hosts">
+              </app-hosts-list>
+            </div>
           </mat-expansion-panel>
           <mat-expansion-panel [disabled]="selection.selected.length === 0">
             <mat-expansion-panel-header [class.cursor-default]="selection.selected.length === 0">
@@ -205,12 +217,17 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <h1 class="page-subtitle">{{'FACILITY_CONFIGURATION.DESTINATION' | translate}}</h1>
-            <mat-spinner *ngIf="processing" class="ml-auto mr-auto"></mat-spinner>
-            <app-perun-web-apps-destination-list
-              [destinations]="destinations"
-              [displayedColumns]="['destinationId', 'service', 'warn', 'destination', 'type', 'propagationType']"
-              [services]="serviceIds">
-            </app-perun-web-apps-destination-list>
+            <ng-template #spinner>
+              <perun-web-apps-loading-table></perun-web-apps-loading-table>
+            </ng-template>
+            <div class="position-relative">
+              <app-perun-web-apps-destination-list
+                *perunWebAppsLoader="processing; indicator: spinner"
+                [destinations]="destinations"
+                [displayedColumns]="['destinationId', 'service', 'warn', 'destination', 'type', 'propagationType']"
+                [services]="serviceIds">
+              </app-perun-web-apps-destination-list>
+            </div>
           </mat-expansion-panel>
           <mat-expansion-panel>
             <mat-expansion-panel-header>

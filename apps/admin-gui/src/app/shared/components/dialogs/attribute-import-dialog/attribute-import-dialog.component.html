@@ -1,31 +1,35 @@
-<div class="admin-theme">
-  <h1 mat-dialog-title>
-    {{'DIALOGS.IMPORT_ATTRIBUTE.TITLE' | translate}}
-  </h1>
-  <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-  <div *ngIf="!loading" mat-dialog-content>
-    <perun-web-apps-alert alert_type="info">
-      {{'DIALOGS.IMPORT_ATTRIBUTE.INFO' | translate}}
-    </perun-web-apps-alert>
-    <mat-form-field class="w-100">
-      <input
-        matInput
-        [(ngModel)]="value"
-        [placeholder]="'DIALOGS.IMPORT_ATTRIBUTE.HINT' | translate"
-        required />
-    </mat-form-field>
-  </div>
-  <div mat-dialog-actions>
-    <button (click)="dialogRef.close()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.IMPORT_ATTRIBUTE.CANCEL' | translate}}
-    </button>
-    <button
-      (click)="create()"
-      [disabled]="value.trim().length === 0 || loading"
-      class="ml-2"
-      color="accent"
-      mat-flat-button>
-      {{'DIALOGS.IMPORT_ATTRIBUTE.CREATE' | translate}}
-    </button>
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="admin-theme position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>
+      {{'DIALOGS.IMPORT_ATTRIBUTE.TITLE' | translate}}
+    </h1>
+    <div mat-dialog-content>
+      <perun-web-apps-alert alert_type="info">
+        {{'DIALOGS.IMPORT_ATTRIBUTE.INFO' | translate}}
+      </perun-web-apps-alert>
+      <mat-form-field class="w-100">
+        <input
+          matInput
+          [(ngModel)]="value"
+          [placeholder]="'DIALOGS.IMPORT_ATTRIBUTE.HINT' | translate"
+          required />
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="dialogRef.close()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.IMPORT_ATTRIBUTE.CANCEL' | translate}}
+      </button>
+      <button
+        (click)="create()"
+        [disabled]="value.trim().length === 0 || loading"
+        class="ml-2"
+        color="accent"
+        mat-flat-button>
+        {{'DIALOGS.IMPORT_ATTRIBUTE.CREATE' | translate}}
+      </button>
+    </div>
   </div>
 </div>

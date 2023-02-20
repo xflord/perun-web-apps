@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TABLE_FACILITY_ALLOWED_USERS } from '@perun-web-apps/config/table-config';
 import {
   ConsentStatus,
@@ -20,6 +20,7 @@ import {
 } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { FormControl } from '@angular/forms';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-facility-allowed-users',
@@ -29,7 +30,8 @@ import { FormControl } from '@angular/forms';
 export class FacilityAllowedUsersComponent implements OnInit {
   static id = 'FacilityAllowedUsersComponent';
 
-  loading = false;
+  loading$: Observable<boolean>;
+  update = false;
   filterValue = '';
 
   facility: Facility;
@@ -79,11 +81,12 @@ export class FacilityAllowedUsersComponent implements OnInit {
     private storeService: StoreService,
     private entityStorageService: EntityStorageService,
     private consentService: ConsentsManagerService,
-    private translate: PerunTranslateService
+    private translate: PerunTranslateService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.loading = true;
+    this.loading$ = of(true);
     this.statuses = new FormControl<ConsentStatus[]>(this.selectedConsentStatuses);
     this.attributes = [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL];
     this.attributes = this.attributes.concat(this.storeService.getLoginAttributeNames());
@@ -111,6 +114,7 @@ export class FacilityAllowedUsersComponent implements OnInit {
     if (this.selectedConsentStatuses.length > 0) {
       this.filtersCount += 1;
     }
+    this.cd.detectChanges();
   }
 
   clearFilters(): void {
@@ -121,33 +125,26 @@ export class FacilityAllowedUsersComponent implements OnInit {
     this.selectedConsentStatuses = [];
     this.statuses.setValue(this.selectedConsentStatuses);
     this.filtersCount = 0;
+    this.cd.detectChanges();
   }
 
   refreshPage(): void {
-    this.loading = true;
-
-    this.facilityService.getAssignedResourcesForFacility(this.facility.id).subscribe(
-      (resources) => {
+    this.facilityService
+      .getAssignedResourcesForFacility(this.facility.id)
+      .subscribe((resources) => {
         this.resources = [this.emptyResource].concat(resources);
         this.filteredResources = this.resources;
 
-        this.facilityService.getAllowedVos(this.facility.id).subscribe(
-          (vos) => {
-            this.vos = [this.emptyVo].concat(vos);
-            this.serviceService.getAssignedServices(this.facility.id).subscribe(
-              (services) => {
-                this.services = [this.emptyService].concat(services);
-                this.filteredServices = this.services;
-                this.loading = false;
-              },
-              () => (this.loading = false)
-            );
-          },
-          () => (this.loading = false)
-        );
-      },
-      () => (this.loading = false)
-    );
+        this.facilityService.getAllowedVos(this.facility.id).subscribe((vos) => {
+          this.vos = [this.emptyVo].concat(vos);
+          this.serviceService.getAssignedServices(this.facility.id).subscribe((services) => {
+            this.services = [this.emptyService].concat(services);
+            this.filteredServices = this.services;
+            this.update = !this.update;
+            this.cd.detectChanges();
+          });
+        });
+      });
   }
 
   applyFilter(filterValue: string): void {
@@ -169,13 +166,9 @@ export class FacilityAllowedUsersComponent implements OnInit {
       this.filteredServices = this.services;
     } else {
       this.filteredResources = this.resources.filter((res) => res.voId === vo.id);
-      this.serviceService.getAssignedServicesVo(this.facility.id, vo.id).subscribe(
-        (services) => {
-          this.filteredServices = [this.emptyService].concat(services);
-          this.loading = false;
-        },
-        () => (this.loading = false)
-      );
+      this.serviceService.getAssignedServicesVo(this.facility.id, vo.id).subscribe((services) => {
+        this.filteredServices = [this.emptyService].concat(services);
+      });
 
       this.filteredResources = [this.emptyResource].concat(this.filteredResources);
     }
@@ -194,13 +187,9 @@ export class FacilityAllowedUsersComponent implements OnInit {
     if (resource.id === -1) {
       this.filteredServices = this.services;
     } else {
-      this.resourceService.getAssignedServicesToResource(resource.id).subscribe(
-        (services) => {
-          this.filteredServices = [this.emptyService].concat(services);
-          this.loading = false;
-        },
-        () => (this.loading = false)
-      );
+      this.resourceService.getAssignedServicesToResource(resource.id).subscribe((services) => {
+        this.filteredServices = [this.emptyService].concat(services);
+      });
     }
     this.changeFilter();
   }

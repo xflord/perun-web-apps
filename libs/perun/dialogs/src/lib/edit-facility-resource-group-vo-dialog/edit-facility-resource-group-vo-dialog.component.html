@@ -1,19 +1,21 @@
-<div class="{{theme}}">
-  <h1 *ngIf="dialogType === 0" mat-dialog-title>
-    {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_FACILITY' | translate}}
-  </h1>
-  <h1 *ngIf="dialogType === 1" mat-dialog-title>
-    {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_RESOURCE' | translate}}
-  </h1>
-  <h1 *ngIf="dialogType === 2" mat-dialog-title>
-    {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_VO' | translate}}
-  </h1>
-  <h1 *ngIf="dialogType === 3" mat-dialog-title>
-    {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_GROUP' | translate}}
-  </h1>
-  <div mat-dialog-content>
-    <mat-spinner *ngIf="loading" class="mr-auto ml-auto"></mat-spinner>
-    <div *ngIf="!loading" class="dialog-container" mat-dialog-content>
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 *ngIf="dialogType === 0" mat-dialog-title>
+      {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_FACILITY' | translate}}
+    </h1>
+    <h1 *ngIf="dialogType === 1" mat-dialog-title>
+      {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_RESOURCE' | translate}}
+    </h1>
+    <h1 *ngIf="dialogType === 2" mat-dialog-title>
+      {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_VO' | translate}}
+    </h1>
+    <h1 *ngIf="dialogType === 3" mat-dialog-title>
+      {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.EDIT_GROUP' | translate}}
+    </h1>
+    <div class="dialog-container" mat-dialog-content>
       <mat-form-field *ngIf="dialogType === 2">
         <input
           [value]="shortName"
@@ -41,19 +43,19 @@
           placeholder="{{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.DESCRIPTION' | translate}}:"></textarea>
       </mat-form-field>
     </div>
-  </div>
 
-  <div mat-dialog-actions>
-    <button (click)="cancel()" class="ml-auto" mat-flat-button>
-      {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.CANCEL_BUTTON' | translate}}
-    </button>
-    <button
-      (click)="submit()"
-      [disabled]="loading || nameCtrl.invalid || descriptionCtrl.invalid"
-      class="ml-2"
-      color="accent"
-      mat-flat-button>
-      {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.SUBMIT_BUTTON' | translate}}
-    </button>
+    <div mat-dialog-actions>
+      <button (click)="cancel()" class="ml-auto" mat-flat-button>
+        {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.CANCEL_BUTTON' | translate}}
+      </button>
+      <button
+        (click)="submit()"
+        [disabled]="loading || nameCtrl.invalid || descriptionCtrl.invalid"
+        class="ml-2"
+        color="accent"
+        mat-flat-button>
+        {{'DIALOGS.EDIT_FACILITY_RESOURCE_GROUP_VO.SUBMIT_BUTTON' | translate}}
+      </button>
+    </div>
   </div>
 </div>

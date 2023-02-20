@@ -7,12 +7,16 @@
   <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
     [placeholder]="'AUTHORS_PAGE.FILTER'"></perun-web-apps-debounce-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <perun-web-apps-authors-list
-    *ngIf="!loading"
-    [authors]="authors"
-    [displayedColumns]="['id', 'name', 'organization', 'email', 'numberOfPublications']"
-    [filterValue]="filterValue"
-    [tableId]="tableId">
-  </perun-web-apps-authors-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-authors-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [authors]="authors"
+      [displayedColumns]="['id', 'name', 'organization', 'email', 'numberOfPublications']"
+      [filterValue]="filterValue"
+      [tableId]="tableId">
+    </perun-web-apps-authors-list>
+  </div>
 </div>

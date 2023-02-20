@@ -71,7 +71,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   languages = ['en'];
   currentLanguage = 'en';
 
-  private namespaceRules: NamespaceRules[] = [];
+  namespaceRules: NamespaceRules[] = [];
   private resultData: MemberData[] = [];
 
   constructor(
@@ -154,6 +154,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.loading = true;
     this.groupsToAssign.next();
   }
 

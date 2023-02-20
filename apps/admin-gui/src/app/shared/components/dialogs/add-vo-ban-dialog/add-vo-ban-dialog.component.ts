@@ -6,6 +6,7 @@ import { Urns } from '@perun-web-apps/perun/urns';
 import { TABLE_BANS } from '@perun-web-apps/config/table-config';
 import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
 import { AddBanData, BanForm } from '../add-ban-dialog/add-ban-dialog.component';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-add-vo-ban-dialog',
@@ -22,6 +23,7 @@ export class AddVoBanDialogComponent implements OnInit {
   displayedColumns = ['checkbox', 'id', 'fullName', 'email', 'logins'];
   tableId = TABLE_BANS;
   filter = '';
+  loading$: Observable<boolean> = of(true);
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: AddBanData<BanOnVo>,

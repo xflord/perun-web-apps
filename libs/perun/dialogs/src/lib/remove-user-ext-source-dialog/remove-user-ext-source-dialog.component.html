@@ -1,10 +1,11 @@
-<h1 mat-dialog-title>
-  {{'SHARED_LIB.PERUN.COMPONENTS.REMOVE_USER_EXT_SOURCE.TITLE' | customTranslate | translate}}
-</h1>
-<div class="{{theme}}">
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-
-  <div *ngIf="!loading">
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>
+      {{'SHARED_LIB.PERUN.COMPONENTS.REMOVE_USER_EXT_SOURCE.TITLE' | customTranslate | translate}}
+    </h1>
     <div mat-dialog-content>
       <p>
         {{'SHARED_LIB.PERUN.COMPONENTS.REMOVE_USER_EXT_SOURCE.DESCRIPTION' | customTranslate | translate}}

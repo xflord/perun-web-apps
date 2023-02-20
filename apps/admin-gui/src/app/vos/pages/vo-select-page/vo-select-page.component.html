@@ -31,14 +31,18 @@
     (filter)="applyFilter($event)"
     [placeholder]="'VO_MANAGEMENT.FILTER_PLACEHOLDER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <perun-web-apps-vos-list
-    *ngIf="!loading"
-    [tableId]="tableId"
-    [displayedColumns]="displayedColumns"
-    [filterValue]="filterValue"
-    [recentIds]="recentIds"
-    [selection]="selection"
-    [vos]="vos">
-  </perun-web-apps-vos-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-vos-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [tableId]="tableId"
+      [displayedColumns]="displayedColumns"
+      [filterValue]="filterValue"
+      [recentIds]="recentIds"
+      [selection]="selection"
+      [vos]="vos">
+    </perun-web-apps-vos-list>
+  </div>
 </div>

@@ -93,6 +93,9 @@
       ],
       "@perun-web-apps/ui/material": [
         "libs/ui/material/src/index.ts"
+      ],
+      "@perun-web-apps/ui/loaders": [
+        "libs/ui/loaders/src/index.ts"
       ]
     }
   },

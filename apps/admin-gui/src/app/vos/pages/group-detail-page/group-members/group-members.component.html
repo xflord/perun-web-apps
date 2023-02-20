@@ -115,18 +115,23 @@
     class="mt-2 search-field">
   </perun-web-apps-debounce-filter>
 </div>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
-<perun-web-apps-members-dynamic-list
-  *ngIf="!loading"
-  [attrNames]="memberAttrNames"
-  [groupId]="group.id"
-  [tableId]="tableId"
-  [displayedColumns]="displayedColumns"
-  [searchString]="searchString"
-  [updateTable]="updateTable"
-  [selectedGroupStatuses]="selectedGroupStatuses"
-  [selectedStatuses]="selectedStatuses"
-  [selection]="selection"
-  [voId]="group.voId"
-  [isMembersGroup]="group.name === 'members'">
-</perun-web-apps-members-dynamic-list>
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div class="position-relative">
+  <perun-web-apps-members-dynamic-list
+    *perunWebAppsLoader="loading$ | async; indicator: spinner"
+    (loading$)="loading$ = $event"
+    [attrNames]="memberAttrNames"
+    [groupId]="group.id"
+    [tableId]="tableId"
+    [displayedColumns]="displayedColumns"
+    [searchString]="searchString"
+    [updateTable]="updateTable"
+    [selectedGroupStatuses]="selectedGroupStatuses"
+    [selectedStatuses]="selectedStatuses"
+    [selection]="selection"
+    [voId]="group.voId"
+    [isMembersGroup]="group.name === 'members'">
+  </perun-web-apps-members-dynamic-list>
+</div>

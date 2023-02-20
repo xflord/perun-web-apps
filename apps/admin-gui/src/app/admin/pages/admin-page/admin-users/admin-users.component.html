@@ -9,12 +9,19 @@
 <mat-checkbox (change)="findUsersWithoutVO()" [checked]="usersWithoutVo" color="primary">
   {{'ADMIN.USERS.USERS_WITHOUT_VO' | translate}}
 </mat-checkbox>
-<perun-web-apps-users-dynamic-list
-  [disableRouting]="false"
-  [searchString]="searchString"
-  [attrNames]="attributes"
-  [displayedColumns]="['user', 'id', 'name', 'email', 'logins', 'organization']"
-  [tableId]="tableId"
-  [withoutVo]="usersWithoutVo"
-  [updateTable]="update">
-</perun-web-apps-users-dynamic-list>
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div class="position-relative">
+  <perun-web-apps-users-dynamic-list
+    *perunWebAppsLoader="loading$ | async; indicator: spinner"
+    (loading$)="loading$ = $event"
+    [disableRouting]="false"
+    [searchString]="searchString"
+    [attrNames]="attributes"
+    [displayedColumns]="['user', 'id', 'name', 'email', 'logins', 'organization']"
+    [tableId]="tableId"
+    [withoutVo]="usersWithoutVo"
+    [updateTable]="update">
+  </perun-web-apps-users-dynamic-list>
+</div>

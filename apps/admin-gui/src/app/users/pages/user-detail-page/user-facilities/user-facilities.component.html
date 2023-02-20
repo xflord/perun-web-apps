@@ -5,12 +5,16 @@
     (filter)="applyFilter($event)"
     [placeholder]="'USER_DETAIL.FACILITIES.FILTER_PLACEHOLDER'">
   </perun-web-apps-immediate-filter>
-  <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-  <perun-web-apps-facilities-list
-    [displayedColumns]="displayedColumns"
-    *ngIf="!loading"
-    [filterValue]="filterValue"
-    [facilities]="facilities"
-    [tableId]="tableId">
-  </perun-web-apps-facilities-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-facilities-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [displayedColumns]="displayedColumns"
+      [filterValue]="filterValue"
+      [facilities]="facilities"
+      [tableId]="tableId">
+    </perun-web-apps-facilities-list>
+  </div>
 </div>

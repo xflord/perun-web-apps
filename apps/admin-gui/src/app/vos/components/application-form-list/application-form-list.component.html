@@ -1,6 +1,4 @@
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-
-<div *ngIf="this.applicationFormItems.length !== 0 && !loading" class="card mt-2">
+<div *ngIf="this.applicationFormItems.length !== 0" class="card mt-2">
   <div class="card-body table-theme">
     <div class="overflow-auto">
       <table
@@ -287,6 +285,6 @@
   </div>
 </div>
 
-<perun-web-apps-alert *ngIf="this.applicationFormItems.length === 0 && !loading" alert_type="warn">
+<perun-web-apps-alert *ngIf="this.applicationFormItems.length === 0" alert_type="warn">
   {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.NO_APPLICATION_FORM' | translate}}
 </perun-web-apps-alert>

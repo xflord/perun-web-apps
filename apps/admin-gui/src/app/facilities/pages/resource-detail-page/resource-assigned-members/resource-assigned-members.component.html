@@ -4,13 +4,17 @@
   (filter)="applyFilter($event)"
   [placeholder]="'RESOURCE_DETAIL.ASSIGNED_MEMBERS.FILTER'">
 </perun-web-apps-debounce-filter>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"> </mat-spinner>
-<perun-web-apps-members-list
-  [displayedColumns]="['id', 'fullName']"
-  (updateTable)="refreshTable()"
-  *ngIf="!loading"
-  [disableRouting]="!routeAuth"
-  [filter]="filterValue"
-  [members]="members"
-  [tableId]="tableId">
-</perun-web-apps-members-list>
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div class="position-relative">
+  <perun-web-apps-members-list
+    [displayedColumns]="['id', 'fullName']"
+    (updateTable)="refreshTable()"
+    *perunWebAppsLoader="loading; indicator: spinner"
+    [disableRouting]="!routeAuth"
+    [filter]="filterValue"
+    [members]="members"
+    [tableId]="tableId">
+  </perun-web-apps-members-list>
+</div>

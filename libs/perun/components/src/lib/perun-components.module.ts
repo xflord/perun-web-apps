@@ -8,6 +8,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
+import { UiLoadersModule } from '@perun-web-apps/ui/loaders';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
@@ -163,6 +164,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     MatPaginatorModule,
     MatProgressSpinnerModule,
     UiAlertsModule,
+    UiLoadersModule,
+    LoaderDirective,
     MatIconModule,
     MatMenuModule,
     MatButtonModule,
@@ -247,7 +250,6 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     AttributeRightsTabGroupComponent,
     AttributeUniqueToggleComponent,
     AttributeCriticalOperationsTogglesComponent,
-    LoaderDirective,
     MailingListsComponent,
     DataQuotasComponent,
     SettingsSSHKeysComponent,
@@ -323,7 +325,6 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     AttributeRightsTabGroupComponent,
     AttributeUniqueToggleComponent,
     AttributeCriticalOperationsTogglesComponent,
-    LoaderDirective,
     MailingListsComponent,
     DataQuotasComponent,
     SettingsSSHKeysComponent,
@@ -342,6 +343,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     DeselectButtonComponent,
     AuditLogSearchSelectComponent,
     ApplicationStateSelectorComponent,
+    LoaderDirective,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

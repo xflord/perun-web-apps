@@ -26,18 +26,22 @@
   (filter)="applyFilter($event)"
   [placeholder]="'RESOURCE_DETAIL.ASSIGNED_GROUPS.FILTER_GROUPS'">
 </perun-web-apps-debounce-filter>
-<mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-<perun-web-apps-groups-list
-  *ngIf="!loading"
-  [disableGroups]="true"
-  [groupsToDisableCheckbox]="groupsToDisable"
-  (refreshTable)="loadAllGroups()"
-  [disableMembers]="false"
-  [groups]="assignedGroups"
-  [disableRouting]="assignedGroups[0] ? !guiAuthResolver.isAuthorized('getGroupById_int_policy', [assignedGroups[0]]) : false"
-  [displayedColumns]="['select', 'id', 'indirectGroupAssigment', 'name', 'status', 'description']"
-  [filter]="filteredValue"
-  [resourceId]="resource.id"
-  [selection]="selected"
-  [tableId]="tableId">
-</perun-web-apps-groups-list>
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div class="position-relative">
+  <perun-web-apps-groups-list
+    *perunWebAppsLoader="loading; indicator: spinner"
+    [disableGroups]="true"
+    [groupsToDisableCheckbox]="groupsToDisable"
+    (refreshTable)="loadAllGroups()"
+    [disableMembers]="false"
+    [groups]="assignedGroups"
+    [disableRouting]="assignedGroups[0] ? !guiAuthResolver.isAuthorized('getGroupById_int_policy', [assignedGroups[0]]) : false"
+    [displayedColumns]="['select', 'id', 'indirectGroupAssigment', 'name', 'status', 'description']"
+    [filter]="filteredValue"
+    [resourceId]="resource.id"
+    [selection]="selected"
+    [tableId]="tableId">
+  </perun-web-apps-groups-list>
+</div>

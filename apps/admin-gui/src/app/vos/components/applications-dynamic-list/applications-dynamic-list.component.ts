@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {
   Application,
   ApplicationFormItemData,
@@ -24,7 +33,7 @@ import {
   DynamicPaginatingService,
   GuiAuthResolver,
 } from '@perun-web-apps/perun/services';
-import { merge } from 'rxjs';
+import { merge, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { TableConfigService } from '@perun-web-apps/config/table-config';
 import { formatDate } from '@angular/common';
@@ -40,46 +49,21 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   @ViewChild(MatSort) sort: MatSort;
-
-  @Input()
-  displayedColumns: string[] = [];
-  @Input()
-  fedColumns: string[] = [];
-
-  @Input()
-  tableId: string;
-
-  @Input()
-  disableRouting = false;
-
-  @Input()
-  searchString = '';
-
-  @Input()
-  group: Group;
-
-  @Input()
-  member: Member;
-
-  @Input()
-  vo: Vo;
-
-  @Input()
-  includeGroupApps: boolean;
-
-  @Input()
-  states: AppState[];
-
-  @Input()
-  dateTo: Date = new Date();
-
-  @Input()
-  dateFrom: Date = this.yearAgo();
-  @Input()
-  fedAttrNames: string[] = [];
-
-  @Input()
-  refreshTable = false;
+  @Input() displayedColumns: string[] = [];
+  @Input() fedColumns: string[] = [];
+  @Input() tableId: string;
+  @Input() disableRouting = false;
+  @Input() searchString = '';
+  @Input() group: Group;
+  @Input() member: Member;
+  @Input() vo: Vo;
+  @Input() includeGroupApps: boolean;
+  @Input() states: AppState[];
+  @Input() dateTo: Date = new Date();
+  @Input() dateFrom: Date = this.yearAgo();
+  @Input() fedAttrNames: string[] = [];
+  @Input() refreshTable = false;
+  @Output() loading$: EventEmitter<Observable<boolean>> = new EventEmitter<Observable<boolean>>();
   parsedColumns: string[] = [];
   dataSource: DynamicDataSource<Application>;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
@@ -126,6 +110,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       this.group?.id ?? null,
       this.getVoId()
     );
+    this.loading$.emit(this.dataSource.loading$);
 
     this.dataSource.loading$.subscribe((val) => {
       if (val || !this.displayedColumns.includes('fedInfo')) return;

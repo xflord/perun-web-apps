@@ -23,13 +23,17 @@
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'CATEGORIES_PAGE.FILTER'"></perun-web-apps-immediate-filter>
-  <mat-spinner class="ml-auto mr-auto" *ngIf="loading"></mat-spinner>
-  <perun-web-apps-categories-list
-    *ngIf="categories && !loading"
-    [categories]="categories"
-    [filterValue]="filterValue"
-    (refreshTable)="refreshTable()"
-    [displayedColumns]="removeAuth ? ['select', 'id', 'name', 'rank'] : ['name', 'rank']"
-    [tableId]="tableId"
-    [selection]="selected"></perun-web-apps-categories-list>
+  <ng-template #spinner>
+    <perun-web-apps-loading-table></perun-web-apps-loading-table>
+  </ng-template>
+  <div class="position-relative">
+    <perun-web-apps-categories-list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      [categories]="categories"
+      [filterValue]="filterValue"
+      (refreshTable)="refreshTable()"
+      [displayedColumns]="removeAuth ? ['select', 'id', 'name', 'rank'] : ['name', 'rank']"
+      [tableId]="tableId"
+      [selection]="selected"></perun-web-apps-categories-list>
+  </div>
 </div>

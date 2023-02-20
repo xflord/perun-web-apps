@@ -21,7 +21,7 @@ import { FilterPublication } from '../../components/publication-filter/publicati
 export class AuthorDetailComponent implements OnInit {
   loading: boolean;
   initLoading: boolean;
-  publications: PublicationForGUI[];
+  publications: PublicationForGUI[] = [];
   selected = new SelectionModel<PublicationForGUI>(true, []);
   tableId = TABLE_PUBLICATION_AUTHOR_DETAIL_PUBLICATIONS;
   author: User;

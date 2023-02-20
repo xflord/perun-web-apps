@@ -51,6 +51,7 @@ export class AddAuthorsDialogComponent implements OnInit {
   }
 
   onSearchByString(): void {
+    this.firstSearchDone = true;
     if (!this.searchLoading && this.searchControl.value.trim() !== '') {
       this.searchLoading = true;
       this.cabinetService.findNewAuthors(this.searchControl.value).subscribe({
@@ -59,7 +60,6 @@ export class AddAuthorsDialogComponent implements OnInit {
             (item) => !this.alreadyAddedAuthors.map((author) => author.id).includes(item.id)
           );
           this.authors = authors;
-          this.firstSearchDone = true;
           this.searchLoading = false;
         },
         error: () => {

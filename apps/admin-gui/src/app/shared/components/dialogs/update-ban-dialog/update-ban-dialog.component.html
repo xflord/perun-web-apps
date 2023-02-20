@@ -1,19 +1,20 @@
-<div class="{{theme}}">
-  <h1 mat-dialog-title>{{'DIALOGS.UPDATE_BAN.TITLE' | translate}}</h1>
-  <div mat-dialog-content>
-    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-    <perun-web-apps-ban-specification
-      *ngIf="!loading"
-      [description]="ban.description"
-      [validity]="ban.validityTo">
-    </perun-web-apps-ban-specification>
-  </div>
-  <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto mr-2" (click)="cancel.emit()">
-      {{'DIALOGS.UPDATE_BAN.CANCEL' | translate}}
-    </button>
-    <button mat-flat-button color="accent" (click)="updateBan()">
-      {{'DIALOGS.UPDATE_BAN.UPDATE' | translate}}
-    </button>
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.UPDATE_BAN.TITLE' | translate}}</h1>
+    <div mat-dialog-content>
+      <perun-web-apps-ban-specification [description]="ban.description" [validity]="ban.validityTo">
+      </perun-web-apps-ban-specification>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-flat-button class="ml-auto mr-2" (click)="cancel.emit()">
+        {{'DIALOGS.UPDATE_BAN.CANCEL' | translate}}
+      </button>
+      <button mat-flat-button color="accent" (click)="updateBan()">
+        {{'DIALOGS.UPDATE_BAN.UPDATE' | translate}}
+      </button>
+    </div>
   </div>
 </div>

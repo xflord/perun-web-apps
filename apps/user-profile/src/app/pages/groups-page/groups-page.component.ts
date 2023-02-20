@@ -23,6 +23,7 @@ import { Membership } from '../../components/membership-list/membership-list.com
 })
 export class GroupsPageComponent implements OnInit {
   loading = false;
+  initialLoading = false;
   userId: number;
   vos: Vo[] = [];
   myControl = new UntypedFormControl();
@@ -33,6 +34,8 @@ export class GroupsPageComponent implements OnInit {
 
   userMemberships: Membership[] = [];
   adminMemberships: Membership[] = [];
+  userMembershipsTemp: Membership[] = [];
+  adminMembershipsTemp: Membership[] = [];
 
   constructor(
     private usersService: UsersManagerService,
@@ -45,6 +48,7 @@ export class GroupsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
+    this.initialLoading = true;
     this.userId = this.store.getPerunPrincipal().userId;
 
     this.usersService.getVosWhereUserIsMember(this.userId).subscribe((vos) => {
@@ -61,8 +65,8 @@ export class GroupsPageComponent implements OnInit {
     this.loading = true;
     let i = 0;
     let j = 0;
-    this.userMemberships = [];
-    this.adminMemberships = [];
+    this.userMembershipsTemp = [];
+    this.adminMembershipsTemp = [];
     const allMemberIds = this.store.getPerunPrincipal().roles['SELF']['Member'];
     if (!allMemberIds.length) {
       this.loading = false;
@@ -73,19 +77,19 @@ export class GroupsPageComponent implements OnInit {
       j--;
       this.groupService.getMemberGroups(memberId).subscribe((groups) => {
         i += groups.length;
-        this.loading = i === 0 && j !== 0;
         groups.forEach((group) => {
           this.attributesManagerService
             .getMemberGroupAttributes(memberId, group.id)
             .subscribe((atts) => {
               i--;
-              this.userMemberships.push({
+              this.userMembershipsTemp.push({
                 entity: group,
                 expirationAttribute: atts.find(
                   (att) => att.friendlyName === 'groupMembershipExpiration'
                 ),
               });
-              this.loading = i !== 0;
+              this.loading = i !== 0 && j !== 0;
+              if (i === 0 && j === 0) this.addToLists();
             });
         });
       });
@@ -93,7 +97,7 @@ export class GroupsPageComponent implements OnInit {
 
     this.usersService.getGroupsWhereUserIsAdmin(this.userId).subscribe((adminGroups) => {
       adminGroups.forEach((group) => {
-        this.adminMemberships.push({
+        this.adminMembershipsTemp.push({
           entity: group,
           expirationAttribute: null,
         });
@@ -109,8 +113,8 @@ export class GroupsPageComponent implements OnInit {
     if (event.option.value === 'all') {
       this.getAllGroups();
     } else {
-      this.userMemberships = [];
-      this.adminMemberships = [];
+      this.userMembershipsTemp = [];
+      this.adminMembershipsTemp = [];
       this.loading = true;
       const vo: Vo = event.option.value as Vo;
       this.memberService.getMemberByUser(vo.id, this.userId).subscribe((member) => {
@@ -122,13 +126,14 @@ export class GroupsPageComponent implements OnInit {
               .getMemberGroupAttributes(member.id, group.id)
               .subscribe((atts) => {
                 i--;
-                this.userMemberships.push({
+                this.userMembershipsTemp.push({
                   entity: group,
                   expirationAttribute: atts.find(
                     (att) => att.friendlyName === 'groupMembershipExpiration'
                   ),
                 });
                 this.loading = i !== 0;
+                if (!this.loading) this.addToLists();
               });
           });
         });
@@ -137,7 +142,7 @@ export class GroupsPageComponent implements OnInit {
         .getGroupsInVoWhereUserIsAdmin(this.userId, vo.id)
         .subscribe((adminGroups) => {
           adminGroups.forEach((group) => {
-            this.adminMemberships.push({
+            this.adminMembershipsTemp.push({
               entity: group,
               expirationAttribute: null,
             });
@@ -156,5 +161,11 @@ export class GroupsPageComponent implements OnInit {
   private _filter(value: string | Vo): Vo[] {
     const filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLowerCase();
     return this.vos.filter((option) => option.name.toLowerCase().includes(filterValue));
+  }
+
+  private addToLists(): void {
+    this.userMemberships = this.userMembershipsTemp;
+    this.adminMemberships = this.adminMembershipsTemp;
+    this.initialLoading = false;
   }
 }

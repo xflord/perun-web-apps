@@ -6,7 +6,6 @@ import {
   Vo,
 } from '@perun-web-apps/perun/openapi';
 import { StoreService } from '@perun-web-apps/perun/services';
-import { SelectionModel } from '@angular/cdk/collections';
 import { Membership } from '../../components/membership-list/membership-list.component';
 
 @Component({
@@ -19,10 +18,11 @@ export class VosPageComponent implements OnInit {
   loading: boolean;
   userId: number;
   filterValue = '';
-  selection = new SelectionModel<Membership>(false, []);
 
   userMemberships: Membership[] = [];
   adminMemberships: Membership[] = [];
+  userMembershipsTemp: Membership[] = [];
+  adminMembershipsTemp: Membership[] = [];
 
   vosCount = 0;
 
@@ -44,8 +44,8 @@ export class VosPageComponent implements OnInit {
     this.usersService.getVosWhereUserIsMember(this.userId).subscribe((vosMember) => {
       this.usersService.getVosWhereUserIsAdmin(this.userId).subscribe((vosAdmin) => {
         this.vosCount = vosMember.length + vosAdmin.length;
-        this.fillMemberships(vosMember, this.userMemberships);
-        this.fillMemberships(vosAdmin, this.adminMemberships);
+        this.fillMemberships(vosMember, this.userMembershipsTemp);
+        this.fillMemberships(vosAdmin, this.adminMembershipsTemp);
       });
     });
   }
@@ -57,6 +57,10 @@ export class VosPageComponent implements OnInit {
   isEverythingLoaded(): void {
     this.vosCount--;
     this.loading = this.vosCount !== 0;
+    if (!this.loading) {
+      this.userMemberships = this.userMembershipsTemp;
+      this.adminMemberships = this.adminMembershipsTemp;
+    }
   }
 
   extendMembership(membership: Membership): void {

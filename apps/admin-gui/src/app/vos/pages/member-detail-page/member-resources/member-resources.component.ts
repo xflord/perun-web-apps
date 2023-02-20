@@ -37,6 +37,7 @@ export class MemberResourcesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loading = true;
     this.route.parent.params.subscribe((parentParams) => {
       const memberId = Number(parentParams['memberId']);
 

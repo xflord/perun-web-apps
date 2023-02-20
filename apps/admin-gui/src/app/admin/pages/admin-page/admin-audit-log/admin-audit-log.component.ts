@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TABLE_AUDIT_MESSAGES } from '@perun-web-apps/config/table-config';
 import { AuditMessagesManagerService } from '@perun-web-apps/perun/openapi';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-admin-audit-log',
@@ -10,13 +11,18 @@ import { AuditMessagesManagerService } from '@perun-web-apps/perun/openapi';
 export class AdminAuditLogComponent implements OnInit {
   tableId = TABLE_AUDIT_MESSAGES;
   refresh = false;
+  loading$: Observable<boolean>;
 
   selectedEvents: string[] = [];
   eventOptions: string[] = [];
 
-  constructor(private auditMessagesManagerService: AuditMessagesManagerService) {}
+  constructor(
+    private auditMessagesManagerService: AuditMessagesManagerService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
+    this.loading$ = of(true);
     this.auditMessagesManagerService.findAllPossibleEvents().subscribe((res) => {
       this.eventOptions = res.sort();
     });
@@ -24,6 +30,7 @@ export class AdminAuditLogComponent implements OnInit {
 
   refreshTable(): void {
     this.refresh = !this.refresh;
+    this.cd.detectChanges();
   }
 
   toggleEvent(events: string[]): void {
@@ -33,5 +40,6 @@ export class AdminAuditLogComponent implements OnInit {
 
   refreshOnClosed(): void {
     this.selectedEvents = [...this.selectedEvents];
+    this.cd.detectChanges();
   }
 }

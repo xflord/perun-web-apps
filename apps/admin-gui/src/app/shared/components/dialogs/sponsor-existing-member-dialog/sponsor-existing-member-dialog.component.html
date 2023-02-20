@@ -27,18 +27,21 @@
       {{'DIALOGS.SPONSOR_EXISTING_MEMBER.SEARCH' | translate}}
     </button>
 
-    <mat-spinner *ngIf="loading" class="ml-auto mr-auto"></mat-spinner>
-
-    <perun-web-apps-members-list
-      [disableRouting]="true"
-      *ngIf="firstSearchDone"
-      [hidden]="loading"
-      [disableStatusChange]="true"
-      [members]="members"
-      [selection]="selection"
-      [displayedColumns]="displayedColumns"
-      [tableId]="tableId">
-    </perun-web-apps-members-list>
+    <ng-template #spinner>
+      <perun-web-apps-loading-table></perun-web-apps-loading-table>
+    </ng-template>
+    <div class="position-relative" *ngIf="firstSearchDone">
+      <perun-web-apps-members-list
+        *perunWebAppsLoader="loading; indicator: spinner"
+        [disableRouting]="true"
+        [hidden]="loading"
+        [disableStatusChange]="true"
+        [members]="members"
+        [selection]="selection"
+        [displayedColumns]="displayedColumns"
+        [tableId]="tableId">
+      </perun-web-apps-members-list>
+    </div>
 
     <perun-web-apps-alert *ngIf="!firstSearchDone" alert_type="info">
       {{'DIALOGS.SPONSOR_EXISTING_MEMBER.BEGIN_SEARCH' | translate}}
