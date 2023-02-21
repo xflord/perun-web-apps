@@ -78,7 +78,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   isLoggedIn(): boolean {
-    return !this.authService.isLoggedIn() && !this.initAuth.isServiceAccess();
+    return this.authService.isLoggedIn() || this.initAuth.isServiceAccess();
   }
 
   isMobile(): boolean {

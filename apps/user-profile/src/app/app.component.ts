@@ -12,6 +12,7 @@ import {
   InitAuthService,
   StoreService,
   PreferredLanguageService,
+  AuthService,
 } from '@perun-web-apps/perun/services';
 import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
@@ -41,6 +42,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private attributesManagerService: AttributesManagerService,
     private translateService: TranslateService,
     private initAuth: InitAuthService,
+    private authService: AuthService,
     private changeDetector: ChangeDetectorRef,
     private preferredLangService: PreferredLanguageService,
     private titleService: Title,
@@ -87,8 +89,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     return window.innerWidth <= AppComponent.minWidth;
   }
 
-  isServiceLogin(): boolean {
-    return !!sessionStorage.getItem('baLogout');
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn() || this.initAuth.isServiceAccess();
   }
 
   ngAfterViewInit(): void {

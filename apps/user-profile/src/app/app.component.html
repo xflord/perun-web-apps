@@ -1,4 +1,4 @@
-<ng-template [ngIf]="!isLoginScreenShown && !isServiceAccess && !isServiceLogin()">
+<ng-template [ngIf]="!isLoginScreenShown && !isServiceAccess && isLoggedIn()">
   <perun-web-apps-notificator></perun-web-apps-notificator>
   <div class="app-min-width">
     <perun-web-apps-header
@@ -31,7 +31,7 @@
   </div>
 </ng-template>
 <perun-web-apps-login-screen-base
-  *ngIf="isLoginScreenShown || isServiceAccess || isServiceLogin()"
+  *ngIf="isLoginScreenShown || isServiceAccess || !isLoggedIn()"
   [application]="'user-profile'"
   [headerTitle]="headerLabel">
 </perun-web-apps-login-screen-base>

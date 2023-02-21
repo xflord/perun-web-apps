@@ -3,7 +3,7 @@
   {{ warningMessage }}
 </div>
 <perun-web-apps-notificator [displayWarning]="displayWarning"></perun-web-apps-notificator>
-<ng-template [ngIf]="!isLoginScreenShow && !isServiceAccess && !isLoggedIn()">
+<ng-template [ngIf]="!isLoginScreenShow && !isServiceAccess && isLoggedIn()">
   <perun-web-apps-header
     (sidenavToggle)="sidenav.toggle()"
     [ngStyle]="{'top': getNavMenuTop(), 'background': navBackgroundColor}"
@@ -39,6 +39,6 @@
   </mat-sidenav-container>
 </ng-template>
 
-<ng-template [ngIf]="isLoginScreenShow || isServiceAccess || isLoggedIn()">
+<ng-template [ngIf]="isLoginScreenShow || isServiceAccess || !isLoggedIn()">
   <perun-web-apps-login-screen-base [application]="'admin-gui'"></perun-web-apps-login-screen-base>
 </ng-template>
