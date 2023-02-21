@@ -87,7 +87,7 @@
             </mat-form-field>
 
             <mat-form-field
-              matTooltip="{{'DIALOGS.CREATE_SPONSORED_MEMBER.LOGIN_DISABLED' | translate}}"
+              matTooltip="{{(this.selectedNamespace === null ? 'DIALOGS.CREATE_SPONSORED_MEMBER.NO_NAMESPACE_SELECTED' : 'DIALOGS.CREATE_SPONSORED_MEMBER.LOGIN_DISABLED') | translate}}"
               [matTooltipDisabled]="namespaceControl.get('login').enabled"
               matTooltipPosition="left">
               <input
@@ -116,7 +116,7 @@
             </mat-form-field>
 
             <span
-              matTooltip="{{'DIALOGS.CREATE_SPONSORED_MEMBER.PASSWORD_RESET_DISABLED' | translate}}"
+              matTooltip="{{(this.selectedNamespace === null ? 'DIALOGS.CREATE_SPONSORED_MEMBER.NO_NAMESPACE_SELECTED' : 'DIALOGS.CREATE_SPONSORED_MEMBER.PASSWORD_RESET_DISABLED') | translate}}"
               [matTooltipDisabled]="namespaceControl.get('passwordReset').enabled"
               matTooltipPosition="left">
               <mat-checkbox

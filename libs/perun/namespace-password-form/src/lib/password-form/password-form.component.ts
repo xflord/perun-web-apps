@@ -62,6 +62,12 @@ export class PasswordFormComponent implements OnInit, OnChanges {
   }
 
   getPasswordDisabledTooltip(): string {
+    if (this.namespace === null) {
+      return this.translator.instant(
+        'DIALOGS.CREATE_SPONSORED_MEMBER.NO_NAMESPACE_SELECTED'
+      ) as string;
+    }
+
     if (this.tooltipPwdViaEmail) {
       return this.translator.instant(
         'SHARED_LIB.PERUN.COMPONENTS.PASSWORD_FORM_FIELD.TOOLTIP_PASSWORD_VIA_EMAIL'

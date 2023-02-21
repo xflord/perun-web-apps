@@ -2035,7 +2035,8 @@
       "SPONSORSHIP_LABEL": "Sponsorship",
       "USER_TITLE": "User name",
       "NAMESPACE_TITLE": "Namespace details",
-      "SPONSORSHIP_TITLE": "Sponsorship options"
+      "SPONSORSHIP_TITLE": "Sponsorship options",
+      "NO_NAMESPACE_SELECTED": "Select namespace first"
     },
     "GENERATE_SPONSORED_MEMBERS": {
       "TITLE": "Generate sponsored members",

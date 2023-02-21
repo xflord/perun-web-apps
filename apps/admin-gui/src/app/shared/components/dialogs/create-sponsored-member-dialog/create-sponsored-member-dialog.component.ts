@@ -187,7 +187,10 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
 
   onNamespaceChanged(namespc: string): void {
     this.selectedNamespace = namespc;
-    const rules = this.parsedRules.get(namespc);
+    const rules =
+      this.selectedNamespace === null
+        ? { login: 'disabled', password: 'disabled' }
+        : this.parsedRules.get(namespc);
     const login = this.namespaceControl.get('login');
     const password = this.namespaceControl.get('passwordCtrl');
     const passwordAgain = this.namespaceControl.get('passwordAgainCtrl');
@@ -308,6 +311,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
       if (this.namespaceOptions.length === 0) {
         this.functionalityNotSupported = true;
       }
+      this.onNamespaceChanged(this.selectedNamespace);
       this.loading = false;
       this.cd.detectChanges();
     });
@@ -330,6 +334,11 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
       );
 
       this.parsedRules.set(rule.namespaceName, fieldTypes);
+    }
+
+    // if there is single option, pre-select it
+    if (this.namespaceOptions.length === 1) {
+      this.selectedNamespace = this.namespaceOptions[0];
     }
   }
 }
