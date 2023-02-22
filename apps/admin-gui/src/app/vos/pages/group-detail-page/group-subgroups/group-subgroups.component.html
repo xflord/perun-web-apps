@@ -4,7 +4,7 @@
   <button
     *ngIf="createAuth"
     (click)="onCreateGroup()"
-    class="mr-2 action-button"
+    class="me-2 action-button"
     color="accent"
     data-cy="new-subgroup-button"
     mat-flat-button>
@@ -19,7 +19,7 @@
       *ngIf="deleteAuth"
       [disabled]="selected.selected.length === 0 || !auth.removeAuth"
       color="warn"
-      class="mr-2"
+      class="me-2"
       data-cy="delete-group-button"
       mat-flat-button>
       {{'GROUP_DETAIL.SUBGROUPS.DELETE_GROUP' | translate}}
@@ -29,16 +29,23 @@
     (filter)="applyFilter($event)"
     [placeholder]="'GROUP_DETAIL.SUBGROUPS.FILTER'">
   </perun-web-apps-debounce-filter>
+  <label
+    class="slide-label"
+    (click)="labelToggle()">
+    {{'GROUP_DETAIL.SUBGROUPS.TREE_VIEW' | translate}}
+  </label>
   <mat-slide-toggle
     #toggle
     (change)="selected.clear()"
     [(ngModel)]="showGroupList"
-    class="mr-1"
+    class="me-1"
     color="primary"
-    labelPosition="before"
-    >{{'GROUP_DETAIL.SUBGROUPS.TREE_VIEW' | translate}}</mat-slide-toggle
-  >
-  <label [attr.for]="toggle.inputId">{{'GROUP_DETAIL.SUBGROUPS.LIST_VIEW' | translate}}</label>
+    labelPosition="before"></mat-slide-toggle>
+  <label
+    class="slide-label"
+    (click)="labelToggle()">
+    {{'GROUP_DETAIL.SUBGROUPS.LIST_VIEW' | translate}}
+  </label>
   <ng-template #spinner>
     <perun-web-apps-loading-table></perun-web-apps-loading-table>
   </ng-template>

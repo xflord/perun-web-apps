@@ -45,7 +45,7 @@ export class VoSettingsServiceMembersComponent implements OnInit {
 
   createServiceMember(): void {
     const config = getDefaultDialogConfig();
-    config.width = '800px';
+    config.width = '900px';
     config.data = {
       vo: this.vo,
       theme: 'vo-theme',

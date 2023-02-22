@@ -39,7 +39,7 @@
     mat-flat-button>
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DELETE' | translate}}
   </button>
-  <button (click)="resendNotification()" *ngIf="resendAuth" class="me-2 mb-2" mat-stroked-button>
+  <button (click)="resendNotification()" *ngIf="resendAuth" class="me-2" mat-stroked-button>
     <i class="material-icons"> mail_outline </i>
     {{'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.SEND_NOTIFICATION' | translate}}
   </button>
@@ -154,15 +154,17 @@
       <ng-container matColumnDef="value">
         <th *matHeaderCellDef mat-header-cell></th>
         <td *matCellDef="let userData" class="word-break-all" mat-cell>
-          {{userData.value}}
-          <button
-            *ngIf="(application.state === 'NEW' || application.state === 'VERIFIED') &&
+          <div class="d-flex align-items-center">
+            {{userData.value}}
+            <button
+              *ngIf="(application.state === 'NEW' || application.state === 'VERIFIED') &&
             userData.formItem.type !== 'EMBEDDED_GROUP_APPLICATION'"
-            (click)="editApplicationData(userData)"
-            aria-label="Edit Application data"
-            mat-icon-button>
-            <mat-icon>edit</mat-icon>
-          </button>
+              (click)="editApplicationData(userData)"
+              aria-label="Edit Application data"
+              mat-icon-button>
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
         </td>
       </ng-container>
 

@@ -81,7 +81,7 @@
           <h6>{{'DIALOGS.CREATE_SERVICE_MEMBER.ASSOCIATED_USERS' | translate}}</h6>
           <mat-list>
             <mat-list-item *ngFor="let member of assignedMembers">
-              <p class="truncate center-content">
+              <p class="truncate center-content d-flex align-items-center">
                 {{member.user | userFullName}}
                 <span *ngIf="member.id" class="text-muted">#{{member.id}}</span>
                 <span
