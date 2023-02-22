@@ -113,7 +113,10 @@ export class GroupSubgroupsComponent implements OnInit {
       }
     });
   }
-
+  labelToggle(): void {
+    this.showGroupList = !this.showGroupList;
+    this.refreshTable();
+  }
   refreshTable(): void {
     this.loading = true;
     this.groupService

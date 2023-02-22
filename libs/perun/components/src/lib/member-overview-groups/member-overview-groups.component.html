@@ -31,7 +31,7 @@
       <ng-container matColumnDef="attValue">
         <th *matHeaderCellDef mat-header-cell></th>
         <td *matCellDef="let attribute" class="column-center" mat-cell>
-          <div *ngIf="attribute === 'Status'">
+          <div class="d-flex align-items-center" *ngIf="attribute === 'Status'">
             <i
               class="material-icons vert-center me-1 {{(selectedMember.groupStatus | groupStatusIconColor)}}">
               {{selectedMember.groupStatus | memberStatusIcon}}
@@ -46,7 +46,7 @@
               <mat-icon>edit</mat-icon>
             </button>
           </div>
-          <div *ngIf="attribute === 'Expiration'">
+          <div class="d-flex align-items-center" *ngIf="attribute === 'Expiration'">
             <i class="column-center">
               {{expiration | parseDate}}
             </i>

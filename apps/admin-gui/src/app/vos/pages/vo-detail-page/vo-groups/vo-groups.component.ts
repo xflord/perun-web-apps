@@ -162,6 +162,10 @@ export class VoGroupsComponent implements OnInit {
     });
   }
 
+  labelToggle(): void {
+    this.showGroupList = !this.showGroupList;
+    this.refresh();
+  }
   removeAllGroups(): void {
     this.selected.clear();
   }

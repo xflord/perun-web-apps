@@ -24,7 +24,7 @@
             </mat-select>
           </mat-form-field>
 
-          <div *ngSwitchCase="'preferredMail'">
+          <div *ngSwitchCase="'preferredMail'" class="d-flex align-items-center">
             <a class="center-self" href="mailto:{{email}}">{{email}}</a>
             <button (click)="changeEmail()" class="ms-2" mat-icon-button>
               <mat-icon> edit </mat-icon>

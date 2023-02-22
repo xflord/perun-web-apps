@@ -26,7 +26,13 @@
             color="primary">
           </mat-checkbox>
         </th>
-        <td *matCellDef="let group" class="static-column-size align-checkbox" mat-cell>
+        <td
+          *matCellDef="let group"
+          class="static-column-size align-checkbox"
+          mat-cell
+          (mouseenter)="disabledRouting = true"
+          (mouseleave)="disabledRouting = disableRouting"
+          [class.cursor-default]="(group | disableGroupSelect: disableMembers : disableGroups : groupsToDisableCheckbox) || !canBeSelected(group)">
           <span
             *ngIf="{disable: group | disableGroupSelect: disableMembers : disableGroups : groupsToDisableCheckbox} as groupStatus"
             [matTooltip]="group | groupCheckboxTooltip: false: canBeSelected(group) | translate"

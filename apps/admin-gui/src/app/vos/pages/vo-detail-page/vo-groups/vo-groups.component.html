@@ -28,16 +28,19 @@
     (filter)="applyFilter($event)"
     [placeholder]="'VO_DETAIL.GROUPS.FILTER'">
   </perun-web-apps-debounce-filter>
+  <label class="slide-label" (click)="labelToggle()"
+    >{{'VO_DETAIL.GROUPS.TREE_VIEW' | translate}}
+  </label>
   <mat-slide-toggle
     #toggle
     (change)="removeAllGroups()"
     [(ngModel)]="showGroupList"
     class="me-1"
-    color="primary"
-    labelPosition="before">
-    {{'VO_DETAIL.GROUPS.TREE_VIEW' | translate}}</mat-slide-toggle
-  >
-  <label [attr.for]="toggle.inputId">{{'VO_DETAIL.GROUPS.LIST_VIEW' | translate}}</label>
+    color="primary">
+  </mat-slide-toggle>
+  <label class="slide-label" (click)="labelToggle()"
+    >{{'VO_DETAIL.GROUPS.LIST_VIEW' | translate}}
+  </label>
   <div class="mt-3 position-relative">
     <div *ngIf="!showGroupList">
       <perun-web-apps-groups-tree
