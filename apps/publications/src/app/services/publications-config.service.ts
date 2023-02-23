@@ -79,6 +79,7 @@ export class PublicationsConfigService {
           return this.initAuthService
             .loadPrincipal()
             .then(() => this.loadPolicies())
+            .then(() => this.appConfigService.loadAppsConfig())
             .then(() => this.initAuthService.checkRouteGuard());
         } else {
           return this.initAuthService.handleAuthStart();
