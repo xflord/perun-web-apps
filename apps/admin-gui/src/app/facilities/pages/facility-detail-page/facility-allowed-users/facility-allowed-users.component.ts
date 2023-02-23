@@ -40,19 +40,14 @@ export class FacilityAllowedUsersComponent implements OnInit {
 
   allowed = true;
 
-  emptyResource: Resource = { id: -1, beanName: 'Resource', name: 'No filter' };
-  resources: Resource[] = [this.emptyResource];
-  filteredResources: Resource[] = [this.emptyResource];
-  selectedResource: Resource = this.emptyResource;
-
-  emptyVo: Vo = { id: -1, beanName: 'Vo', name: 'No filter' };
-  vos: Vo[] = [this.emptyVo];
-  selectedVo: Vo = this.emptyVo;
-
-  emptyService: Service = { id: -1, beanName: 'Service', name: 'No filter' };
-  services: Service[] = [this.emptyService];
-  filteredServices: Service[] = [this.emptyService];
-  selectedService: Service = this.emptyService;
+  resources: Resource[] = [];
+  filteredResources: Resource[] = [];
+  selectedResource: Resource;
+  vos: Vo[] = [];
+  selectedVo: Vo;
+  services: Service[] = [];
+  filteredServices: Service[] = [];
+  selectedService: Service;
 
   globalForceConsents: boolean;
   facilityForceConsents: boolean;
@@ -102,13 +97,13 @@ export class FacilityAllowedUsersComponent implements OnInit {
 
   changeFilter(): void {
     this.filtersCount = this.allowed ? 1 : 0;
-    if (this.selectedVo.id !== -1) {
+    if (this.selectedVo) {
       this.filtersCount += 1;
     }
-    if (this.selectedResource.id !== -1) {
+    if (this.selectedResource) {
       this.filtersCount += 1;
     }
-    if (this.selectedService.id !== -1) {
+    if (this.selectedService) {
       this.filtersCount += 1;
     }
     if (this.selectedConsentStatuses.length > 0) {
@@ -119,12 +114,15 @@ export class FacilityAllowedUsersComponent implements OnInit {
 
   clearFilters(): void {
     this.allowed = false;
-    this.selectedVo = this.emptyVo;
-    this.selectedResource = this.emptyResource;
-    this.selectedService = this.emptyService;
+    this.selectedVo = undefined;
+    this.selectedResource = undefined;
+    this.selectedService = undefined;
     this.selectedConsentStatuses = [];
     this.statuses.setValue(this.selectedConsentStatuses);
     this.filtersCount = 0;
+    this.voSelected(this.selectedVo);
+    this.resourceSelected(this.selectedResource);
+    this.serviceSelected(this.selectedService);
     this.cd.detectChanges();
   }
 
@@ -132,13 +130,13 @@ export class FacilityAllowedUsersComponent implements OnInit {
     this.facilityService
       .getAssignedResourcesForFacility(this.facility.id)
       .subscribe((resources) => {
-        this.resources = [this.emptyResource].concat(resources);
+        this.resources = resources;
         this.filteredResources = this.resources;
 
         this.facilityService.getAllowedVos(this.facility.id).subscribe((vos) => {
-          this.vos = [this.emptyVo].concat(vos);
+          this.vos = vos;
           this.serviceService.getAssignedServices(this.facility.id).subscribe((services) => {
-            this.services = [this.emptyService].concat(services);
+            this.services = services;
             this.filteredServices = this.services;
             this.update = !this.update;
             this.cd.detectChanges();
@@ -152,43 +150,31 @@ export class FacilityAllowedUsersComponent implements OnInit {
   }
 
   voSelected(vo: Vo): void {
-    // prevents "fake" triggers
-    if (this.selectedVo.id === vo.id) {
-      return;
-    }
-
     this.selectedVo = vo;
-    this.selectedResource = this.emptyResource;
-    this.selectedService = this.emptyService;
+    this.selectedResource = undefined;
+    this.selectedService = undefined;
 
-    if (vo.id === -1) {
+    if (!vo) {
       this.filteredResources = this.resources;
       this.filteredServices = this.services;
     } else {
       this.filteredResources = this.resources.filter((res) => res.voId === vo.id);
       this.serviceService.getAssignedServicesVo(this.facility.id, vo.id).subscribe((services) => {
-        this.filteredServices = [this.emptyService].concat(services);
+        this.filteredServices = services;
       });
-
-      this.filteredResources = [this.emptyResource].concat(this.filteredResources);
     }
     this.changeFilter();
   }
 
   resourceSelected(resource: Resource): void {
-    // prevents "fake" triggers
-    if (this.selectedResource.id === resource.id) {
-      return;
-    }
-
     this.selectedResource = resource;
-    this.selectedService = this.emptyService;
+    this.selectedService = undefined;
 
-    if (resource.id === -1) {
+    if (resource === undefined) {
       this.filteredServices = this.services;
     } else {
       this.resourceService.getAssignedServicesToResource(resource.id).subscribe((services) => {
-        this.filteredServices = [this.emptyService].concat(services);
+        this.filteredServices = services;
       });
     }
     this.changeFilter();

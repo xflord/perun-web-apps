@@ -1,12 +1,12 @@
 <div>
   <h1 class="page-subtitle">{{'FACILITY_DETAIL.ALLOWED_USERS.TITLE' | translate}}</h1>
   <div class="filters">
-    <perun-web-apps-refresh-button (refresh)="refreshPage()" class="mr-2">
+    <perun-web-apps-refresh-button (refresh)="refreshPage()" class="me-2">
     </perun-web-apps-refresh-button>
     <perun-web-apps-debounce-filter
       (filter)="applyFilter($event)"
       [placeholder]="'FACILITY_DETAIL.ALLOWED_USERS.FILTER'"
-      class="mr-2 filter"></perun-web-apps-debounce-filter>
+      class="me-2 filter"></perun-web-apps-debounce-filter>
     <perun-web-apps-advanced-filter
       (changeAdvancedFilter)="advancedFilter=$event"
       [advancedFilter]="advancedFilter"
@@ -19,7 +19,7 @@
       <mat-slide-toggle
         [(ngModel)]="allowed"
         (change)="changeFilter()"
-        class="mr-2"
+        class="me-2"
         labelPosition="before">
         {{'FACILITY_DETAIL.ALLOWED_USERS.FILTER_ALLOWED' | translate}}
       </mat-slide-toggle>
@@ -30,6 +30,7 @@
         [vos]="vos"
         (voSelected)="voSelected($event)"
         [vo]="selectedVo"
+        [disableAutoSelect]="true"
         class="search-select">
       </perun-web-apps-vo-search-select>
       <perun-web-apps-resource-search-select
@@ -37,12 +38,14 @@
         (resourceSelected)="resourceSelected($event)"
         [displayStatus]="false"
         [resource]="selectedResource"
+        [disableAutoSelect]="true"
         class="search-select">
       </perun-web-apps-resource-search-select>
       <perun-web-apps-service-search-select
         [services]="filteredServices"
         (serviceSelected)="serviceSelected($event)"
         [service]="selectedService"
+        [disableAutoSelect]="true"
         class="search-select">
       </perun-web-apps-service-search-select>
       <mat-form-field class="search-select" *ngIf="globalForceConsents && facilityForceConsents">
