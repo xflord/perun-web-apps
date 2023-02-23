@@ -78,9 +78,16 @@ $password-reset-theme: mat.define-light-theme(
   $user-primary: mat.define-palette($user-dynamic-colors, 500);
   $user-accent: mat.define-palette(mat.$green-palette, 600);
 
-  $user-theme: mat.define-light-theme($user-primary, $user-accent);
+  $user-theme: mat.define-light-theme(
+    (
+      color: (
+        primary: $user-primary,
+        accent: $user-accent,
+      ),
+    )
+  );
 
-  @include mat.all-component-themes($user-theme);
+  @include mat.all-component-colors($user-theme);
 }
 
 .mat-mdc-unelevated-button {

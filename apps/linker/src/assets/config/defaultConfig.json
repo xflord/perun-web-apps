@@ -15,6 +15,9 @@
   "mfa": {
     "url_en": "https://mfa.id.muni.cz/"
   },
+  "theme": {
+  "user_color": "#00796b"
+  },
   "application": "Linker",
   "document_title": "Linker",
   "support_mail": "perun@cesnet.cz",

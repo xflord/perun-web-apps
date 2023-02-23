@@ -35,12 +35,10 @@
           </mat-expansion-panel-header>
           <div class="row">
             <mat-checkbox
-              class="ms-3 me-2"
               [checked]="optOutAttribute && optOutAttribute.value !== null"
-              (change)="setOptOut()"></mat-checkbox>
-            <p>
+              (change)="setOptOut()">
               {{'SHARED_LIB.PERUN.COMPONENTS.OPT_OUT_MAILING_LISTS.OPT_OUT_LABEL' | customTranslate | translate}}
-            </p>
+            </mat-checkbox>
           </div>
         </mat-expansion-panel>
       </mat-accordion>
