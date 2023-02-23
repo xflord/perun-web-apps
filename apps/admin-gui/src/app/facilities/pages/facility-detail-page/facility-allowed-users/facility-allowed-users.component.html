@@ -30,6 +30,7 @@
         [vos]="vos"
         (voSelected)="voSelected($event)"
         [vo]="selectedVo"
+        [disableAutoSelect]="true"
         class="search-select">
       </perun-web-apps-vo-search-select>
       <perun-web-apps-resource-search-select
@@ -37,12 +38,14 @@
         (resourceSelected)="resourceSelected($event)"
         [displayStatus]="false"
         [resource]="selectedResource"
+        [disableAutoSelect]="true"
         class="search-select">
       </perun-web-apps-resource-search-select>
       <perun-web-apps-service-search-select
         [services]="filteredServices"
         (serviceSelected)="serviceSelected($event)"
         [service]="selectedService"
+        [disableAutoSelect]="true"
         class="search-select">
       </perun-web-apps-service-search-select>
       <mat-form-field class="search-select" *ngIf="globalForceConsents && facilityForceConsents">
@@ -69,10 +72,10 @@
     [onlyAllowed]="allowed"
     [facilityId]="facility.id"
     [searchString]="filterValue"
-    [resourceId]="selectedResource.id === -1 ? null : selectedResource.id"
-    [serviceId]="selectedService.id === -1 ? null : selectedService.id"
+    [resourceId]="selectedResource?.id"
+    [serviceId]="selectedService?.id"
     [tableId]="tableId"
-    [voId]="selectedVo.id === -1 ? null : selectedVo.id"
+    [voId]="selectedVo?.id"
     [consentStatuses]="selectedConsentStatuses"
     [includeConsents]="globalForceConsents && facilityForceConsents">
   </perun-web-apps-users-dynamic-list>

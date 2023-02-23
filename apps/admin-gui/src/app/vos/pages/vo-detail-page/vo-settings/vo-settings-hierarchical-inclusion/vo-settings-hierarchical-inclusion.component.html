@@ -1,7 +1,12 @@
 <h1 class="page-subtitle">{{'VO_DETAIL.SETTINGS.HIERARCHICAL_INCLUSION.TITLE' | translate}}</h1>
 <div class="display-flex">
   <perun-web-apps-refresh-button (click)="loadAllowedGroups()"></perun-web-apps-refresh-button>
-  <button (click)="addGroupsInclusion()" mat-flat-button class="me-2 action-button" color="accent">
+  <button
+    [disabled]="!selectedParentVo"
+    (click)="addGroupsInclusion()"
+    mat-flat-button
+    class="me-2 action-button"
+    color="accent">
     {{'VO_DETAIL.SETTINGS.HIERARCHICAL_INCLUSION.ADD' | translate}}
   </button>
   <button
@@ -16,7 +21,8 @@
     <perun-web-apps-vo-search-select
       *ngIf="parentVos.length > 0"
       [vos]="parentVos"
-      (voSelected)="voSelected($event)">
+      (voSelected)="voSelected($event)"
+      [disableAutoSelect]="true">
     </perun-web-apps-vo-search-select>
   </div>
 </div>

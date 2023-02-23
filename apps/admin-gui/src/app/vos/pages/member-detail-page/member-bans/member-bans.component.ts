@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { EnrichedBanOnVo, Member, VosManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  EnrichedBanOnVo,
+  Member,
+  RichMember,
+  VosManagerService,
+} from '@perun-web-apps/perun/openapi';
 import { EntityStorageService } from '@perun-web-apps/perun/services';
 import { BanOnEntityListColumn } from '@perun-web-apps/perun/components';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -34,7 +39,15 @@ export class MemberBansComponent implements OnInit {
     this.loading = true;
     this.voService.getVoBanForMember(this.member.id).subscribe({
       next: (ban) => {
-        this.bans = [{ ban: ban, member: null, vo: null }];
+        if (ban) {
+          this.bans = [
+            {
+              ban: ban,
+              member: this.member as RichMember,
+              vo: { id: this.member.voId, beanName: 'Vo' },
+            },
+          ];
+        }
         this.loading = false;
       },
       error: () => (this.loading = false),
