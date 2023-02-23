@@ -345,7 +345,10 @@
           "TITLE": "Requested user (by ID or external identity) doesn't exist."
         },
         "TABLE_OPTIONS": {
-          "EXPORT_TO_FILE": "Export to file"
+          "EXPORT_TO_FILE": "Export to file",
+          "ALL_DATA": "All data",
+          "DISPLAYED_DATA": "Displayed data",
+          "EXPORT_LOADING": "Exporting data..."
         },
         "NOTIFICATOR": {
           "NOTIFICATION": {

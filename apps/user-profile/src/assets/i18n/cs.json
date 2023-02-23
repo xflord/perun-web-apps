@@ -307,7 +307,10 @@
           "TITLE": "Požadovaný uživatel (dle ID nebo externí identity) neexistuje."
         },
         "TABLE_OPTIONS": {
-          "EXPORT_TO_FILE": "Exportovat do souboru"
+          "EXPORT_TO_FILE": "Exportovat do souboru",
+          "ALL_DATA": "Všechna data",
+          "DISPLAYED_DATA": "Zobrazená data",
+          "EXPORT_LOADING": "Exportuji data.."
         },
         "NOTIFICATOR": {
           "NOTIFICATION": {
