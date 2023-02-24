@@ -218,6 +218,8 @@
     },
     "ADD_AUTH_TEXT": {
       "TITLE": "Změna bezpečnostního textu",
+      "GENERATE_TEXT": "Generovat text",
+      "GENERATE_EMOJIS": "Generovat emotikony",
       "CANCEL": "Zrušit",
       "ADD": "Uložit text",
       "DELAY_INFO": "Změna bezpečnostního textu se projeví většinou do 5 minut, v ojedinělých případech může propagace změny trvat několik hodin."
