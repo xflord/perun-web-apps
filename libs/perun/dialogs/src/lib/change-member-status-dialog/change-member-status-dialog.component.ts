@@ -1,19 +1,21 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
+  Attribute,
+  AttributesManagerService,
   GroupsManagerService,
   MembersManagerService,
   RichMember,
 } from '@perun-web-apps/perun/openapi';
 import { NotificatorService, PerunTranslateService } from '@perun-web-apps/perun/services';
 import { MatSelectChange } from '@angular/material/select';
+import { formatDate } from '@angular/common';
 
 export interface ChangeMemberStatusDialogData {
   member: RichMember;
   voId?: number;
   groupId?: number;
-  backButton?: boolean;
-  disableChangeExpiration?: boolean;
+  expirationAttr: Attribute;
 }
 
 @Component({
@@ -24,22 +26,36 @@ export interface ChangeMemberStatusDialogData {
 export class ChangeMemberStatusDialogComponent implements OnInit {
   loading = false;
   theme: string;
+  statuses: string[] = ['VALID', 'INVALID', 'EXPIRED', 'DISABLED'];
+  currentStatus: string;
+  currentStatusDescription: string;
+  newStatus: string;
+  changeDescription: string;
+  expiration: string;
+  expirationRequired: boolean;
+  maxDate = new Date();
+  minDate = new Date();
 
-  allStatuses: string[] = ['VALID', 'INVALID', 'EXPIRED', 'DISABLED'];
-  actualStatus: string;
-  selectedStatus: string;
-  description: string;
-  changeMessage: string;
-  submitButtonText: string;
-  cancelOrBackButton: string;
-  private changeStatusButton: string;
-  private changeStatusWithExpButton: string;
+  descriptionTranslations = new Map<string, string>([
+    ['VALID', 'DIALOGS.CHANGE_STATUS.VALID_DESCRIPTION'],
+    ['INVALID', 'DIALOGS.CHANGE_STATUS.INVALID_DESCRIPTION'],
+    ['EXPIRED', 'DIALOGS.CHANGE_STATUS.EXPIRED_DESCRIPTION'],
+    ['DISABLED', 'DIALOGS.CHANGE_STATUS.DISABLED_DESCRIPTION'],
+    ['VALIDINVALID', 'DIALOGS.CHANGE_STATUS.CHANGE_VALID_TO_INVALID'],
+    ['VALIDEXPIRED', 'DIALOGS.CHANGE_STATUS.CHANGE_VALID_TO_EXPIRED'],
+    ['VALIDDISABLED', 'DIALOGS.CHANGE_STATUS.CHANGE_VALID_TO_DISABLED'],
+    ['NOVALIDVALID', 'DIALOGS.CHANGE_STATUS.CHANGE_NO_VALID_TO_VALID'],
+    ['NOVALIDINVALID', 'DIALOGS.CHANGE_STATUS.CHANGE_NO_VALID_TO_INVALID'],
+    ['NOVALIDEXPIRED', 'DIALOGS.CHANGE_STATUS.CHANGE_NO_VALID_TO_EXPIRED'],
+    ['NOVALIDDISABLED', 'DIALOGS.CHANGE_STATUS.CHANGE_NO_VALID_TO_DISABLED'],
+  ]);
 
   constructor(
-    public dialogRef: MatDialogRef<ChangeMemberStatusDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ChangeMemberStatusDialogData,
+    private dialogRef: MatDialogRef<ChangeMemberStatusDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: ChangeMemberStatusDialogData,
     private memberManager: MembersManagerService,
     private groupsManager: GroupsManagerService,
+    private attributeService: AttributesManagerService,
     private notificatorService: NotificatorService,
     private translate: PerunTranslateService
   ) {}
@@ -47,70 +63,43 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
   ngOnInit(): void {
     if (this.data.groupId) {
       this.theme = 'group-theme';
-      this.actualStatus = this.data.member.groupStatus;
+      this.currentStatus = this.data.member.groupStatus;
+      this.statuses = ['VALID', 'EXPIRED'];
     } else {
       this.theme = 'vo-theme';
-      this.actualStatus = this.data.member.status;
+      this.currentStatus = this.data.member.status;
+      if (this.currentStatus === 'INVALID') {
+        this.statuses = ['VALID', 'EXPIRED'];
+      }
     }
 
-    this.changeStatusButton = this.translate.instant('DIALOGS.CHANGE_STATUS.CHANGE_STATUS');
-    this.changeStatusWithExpButton = this.translate.instant(
-      'DIALOGS.CHANGE_STATUS.CHANGE_STATUS_WITH_EXPIRATION'
+    this.statuses = this.statuses.filter((status) => status !== this.currentStatus);
+    if (this.statuses.length === 1) {
+      this.newStatus = this.statuses[0];
+      this.changeStatusMessage();
+    }
+
+    this.resetExpiration();
+    this.setDateBounds();
+    this.currentStatusDescription = this.translate.instant(
+      this.descriptionTranslations.get(this.currentStatus)
     );
-    this.submitButtonText = this.changeStatusButton;
-    this.cancelOrBackButton = this.data.backButton
-      ? this.translate.instant('DIALOGS.CHANGE_STATUS.BACK')
-      : this.translate.instant('DIALOGS.CHANGE_STATUS.CANCEL');
-
-    if (this.data.groupId) {
-      if (this.actualStatus === 'VALID') {
-        this.allStatuses = ['EXPIRED'];
-        this.selectedStatus = 'EXPIRED';
-      } else {
-        this.allStatuses = ['VALID'];
-        this.selectedStatus = 'VALID';
-      }
-      this.submitButtonText = this.changeStatusWithExpButton;
-      this.changeStatusMessage(this.actualStatus, this.selectedStatus);
-    } else {
-      if (this.actualStatus === 'INVALID') {
-        this.allStatuses = ['VALID', 'EXPIRED'];
-      } else {
-        this.allStatuses = this.allStatuses.filter((status) => status !== this.actualStatus);
-      }
-    }
-
-    switch (this.actualStatus) {
-      case 'VALID':
-        this.description = this.translate.instant('DIALOGS.CHANGE_STATUS.VALID_DESCRIPTION');
-        break;
-      case 'INVALID':
-        this.description = this.translate.instant('DIALOGS.CHANGE_STATUS.INVALID_DESCRIPTION');
-        break;
-      case 'EXPIRED':
-        this.description = this.translate.instant('DIALOGS.CHANGE_STATUS.EXPIRED_DESCRIPTION');
-        break;
-      case 'DISABLED':
-        this.description = this.translate.instant('DIALOGS.CHANGE_STATUS.DISABLED_DESCRIPTION');
-        break;
-      default:
-        this.description = '';
-    }
   }
 
   changeStatus(event: MatSelectChange): void {
-    this.selectedStatus = event.value as string;
-    if (
-      ((this.actualStatus === 'VALID' && this.selectedStatus === 'EXPIRED') ||
-        (this.actualStatus === 'VALID' && this.selectedStatus === 'DISABLED') ||
-        this.selectedStatus === 'VALID') &&
-      !this.data.disableChangeExpiration
-    ) {
-      this.submitButtonText = this.changeStatusWithExpButton;
+    this.newStatus = event.value as string;
+
+    this.setDateBounds();
+    this.resetExpiration();
+    this.changeStatusMessage();
+  }
+
+  setExpiration(newExpiration: string): void {
+    if (newExpiration === 'never') {
+      this.expiration = 'never';
     } else {
-      this.submitButtonText = this.changeStatusButton;
+      this.expiration = formatDate(newExpiration, 'yyyy-MM-dd', 'en-GB');
     }
-    this.changeStatusMessage(this.actualStatus, this.selectedStatus);
   }
 
   cancel(): void {
@@ -119,77 +108,83 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
 
   submit(): void {
     this.loading = true;
+    this.data.expirationAttr.value = this.expiration === 'never' ? null : this.expiration;
+
     if (!this.data.groupId) {
-      this.memberManager.setStatus(this.data.member.id, this.selectedStatus).subscribe({
+      this.memberManager.setStatus(this.data.member.id, this.newStatus).subscribe({
         next: (member) => {
-          this.translate.get('DIALOGS.CHANGE_STATUS.SUCCESS').subscribe((success: string) => {
-            this.notificatorService.showSuccess(success);
-            this.dialogRef.close(member);
-          });
+          this.attributeService
+            .setMemberAttributes({
+              member: this.data.member.id,
+              attributes: [this.data.expirationAttr],
+            })
+            .subscribe({
+              next: () => {
+                this.translate.get('DIALOGS.CHANGE_STATUS.SUCCESS').subscribe((success: string) => {
+                  this.notificatorService.showSuccess(success);
+                  this.dialogRef.close(member);
+                });
+              },
+              error: () => (this.loading = false),
+            });
         },
         error: () => (this.loading = false),
       });
     } else {
       this.groupsManager
-        .setGroupsMemberStatus(this.data.member.id, this.data.groupId, this.selectedStatus)
+        .setGroupsMemberStatus(this.data.member.id, this.data.groupId, this.newStatus)
         .subscribe({
           next: (member) => {
-            this.translate.get('DIALOGS.CHANGE_STATUS.SUCCESS').subscribe((success: string) => {
-              this.notificatorService.showSuccess(success);
-              this.dialogRef.close(member);
-            });
+            this.attributeService
+              .setMemberGroupAttributes({
+                member: this.data.member.id,
+                group: this.data.groupId,
+                attributes: [this.data.expirationAttr],
+              })
+              .subscribe({
+                next: () => {
+                  this.translate
+                    .get('DIALOGS.CHANGE_STATUS.SUCCESS')
+                    .subscribe((success: string) => {
+                      this.notificatorService.showSuccess(success);
+                      this.dialogRef.close(member);
+                    });
+                },
+                error: () => (this.loading = false),
+              });
           },
           error: () => (this.loading = false),
         });
     }
   }
 
-  private changeStatusMessage(actualStatus: string, newStatus: string): void {
-    if (actualStatus === 'VALID') {
-      switch (newStatus) {
-        case 'INVALID':
-          this.changeMessage = this.translate.instant(
-            'DIALOGS.CHANGE_STATUS.CHANGE_VALID_TO_INVALID'
-          );
-          break;
-        case 'EXPIRED':
-          this.changeMessage = this.translate.instant(
-            'DIALOGS.CHANGE_STATUS.CHANGE_VALID_TO_EXPIRED'
-          );
-          break;
-        case 'DISABLED':
-          this.changeMessage = this.translate.instant(
-            'DIALOGS.CHANGE_STATUS.CHANGE_VALID_TO_DISABLED'
-          );
-          break;
-        default:
-          this.changeMessage = '';
-      }
+  private changeStatusMessage(): void {
+    let val = this.currentStatus;
+    if (this.currentStatus !== 'VALID') {
+      val = 'NOVALID';
+    }
+
+    this.changeDescription = this.translate.instant(
+      this.descriptionTranslations.get(val + this.newStatus)
+    );
+  }
+
+  private setDateBounds(): void {
+    if (this.newStatus === 'VALID') {
+      this.minDate = new Date();
+      this.maxDate = null;
+    } else if (this.newStatus === 'EXPIRED') {
+      this.minDate = null;
+      this.maxDate = new Date();
+    }
+  }
+
+  private resetExpiration(): void {
+    this.expirationRequired = this.newStatus === 'VALID' || this.newStatus === 'EXPIRED';
+    if (this.newStatus === 'EXPIRED') {
+      this.expiration = formatDate(new Date(), 'yyyy-MM-dd', 'en-GB');
     } else {
-      switch (newStatus) {
-        case 'VALID':
-          this.changeMessage = this.translate.instant(
-            'DIALOGS.CHANGE_STATUS.CHANGE_NO_VALID_TO_VALID'
-          );
-          break;
-        case 'INVALID':
-          this.changeMessage = this.translate.instant(
-            'DIALOGS.CHANGE_STATUS.CHANGE_NO_VALID_TO_INVALID'
-          );
-          break;
-        case 'EXPIRED':
-          this.changeMessage = this.translate.instant(
-            'DIALOGS.CHANGE_STATUS.CHANGE_NO_VALID_TO_EXPIRED'
-          );
-          break;
-        case 'DISABLED':
-          this.changeMessage = this.translate.instant(
-            'DIALOGS.CHANGE_STATUS.CHANGE_NO_VALID_TO_DISABLED'
-          );
-          break;
-        default:
-          this.changeMessage = '';
-      }
+      this.expiration = 'never';
     }
   }
 }

@@ -1,13 +1,14 @@
 <mat-radio-group [(ngModel)]="expiration" (change)="emitDate()" class="d-flex flex-column">
-  <mat-radio-button value="never">
+  <mat-radio-button *ngIf="allowNever" value="never">
     {{'DIALOGS.CHANGE_EXPIRATION.EXPIRATION_NEVER'|translate}}
   </mat-radio-button>
   <mat-radio-button value="{{expirationControl.value}}">
     <mat-form-field color="primary" class="cursor-pointer me-3" (click)="picker.open()">
       <mat-label>{{'DIALOGS.CHANGE_EXPIRATION.DATE_LABEL'|translate}}</mat-label>
       <input
-        (dateChange)="setExpiration()"
+        (dateChange)="setExpiration($event)"
         [min]="minDate"
+        [max]="maxDate"
         [formControl]="expirationControl"
         [matDatepicker]="picker"
         class="disable"

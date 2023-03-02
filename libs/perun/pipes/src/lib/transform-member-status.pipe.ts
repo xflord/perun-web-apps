@@ -11,6 +11,6 @@ export class TransformMemberStatusPipe implements PipeTransform {
     ) {
       return 'ACTIVE';
     }
-    return memberStatus;
+    return memberStatus.replace('INVALID', 'INCOMPLETE');
   }
 }

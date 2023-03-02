@@ -59,6 +59,8 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
   submitAllowed = false;
   groupsToAssign: Subject<void> = new Subject<void>();
 
+  minDate = new Date();
+
   private namespaceRules: NamespaceRules[] = [];
   private parsedRules: Map<string, { login: string; password: string }> = new Map<
     string,

@@ -71,6 +71,8 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   languages = ['en'];
   currentLanguage = 'en';
 
+  minDate = new Date();
+
   namespaceRules: NamespaceRules[] = [];
   private resultData: MemberData[] = [];
 

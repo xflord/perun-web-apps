@@ -100,15 +100,13 @@ export class MemberOverviewGroupsComponent implements OnChanges {
       });
   }
 
-  changeExpiration(statusChanged = false): void {
+  changeExpiration(): void {
     const config = getDefaultDialogConfig();
     config.width = '400px';
     config.data = {
       memberId: this.member.id,
       groupId: this.selectedGroup.id,
       expirationAttr: this.expirationAtt,
-      status: this.selectedMember.groupStatus,
-      statusChanged: statusChanged,
       backButton: this.openedInDialog,
     };
 
@@ -117,8 +115,6 @@ export class MemberOverviewGroupsComponent implements OnChanges {
       if (result.success) {
         this.groupIsSelected(this.selectedGroup);
         this.dialog.closeAll();
-      } else if (statusChanged) {
-        this.statusChanged.emit(statusChanged);
       }
     });
   }
@@ -130,6 +126,7 @@ export class MemberOverviewGroupsComponent implements OnChanges {
       member: this.selectedMember,
       voId: this.voId,
       groupId: this.selectedGroup.id,
+      expirationAttr: this.expirationAtt,
       backButton: this.openedInDialog,
     };
 
@@ -137,7 +134,9 @@ export class MemberOverviewGroupsComponent implements OnChanges {
     dialogRef.afterClosed().subscribe((member: RichMember) => {
       if (member) {
         this.selectedMember = member;
-        this.changeExpiration(true);
+        this.groupIsSelected(this.selectedGroup);
+        this.dialog.closeAll();
+        this.statusChanged.emit(true);
       }
     });
   }

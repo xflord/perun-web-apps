@@ -38,6 +38,7 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
   serviceMemberId: number;
   selectedSponsor: User = null;
   sponsorType = 'self';
+  minDate = new Date();
 
   constructor(
     private dialogRef: MatDialogRef<SponsorExistingMemberDialogComponent>,

@@ -42,7 +42,7 @@
             </i>
             <button
               *ngIf="authResolver.isThisVoAdmin(voId) && !(member | memberStatusDisabled)"
-              (click)="changeVoExpiration(false)"
+              (click)="changeVoExpiration()"
               mat-icon-button>
               <mat-icon>edit</mat-icon>
             </button>

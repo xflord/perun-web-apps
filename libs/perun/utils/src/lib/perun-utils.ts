@@ -643,7 +643,7 @@ export function parseMemberStatus(memberStatus: string, memberGroupStatus?: stri
   ) {
     return 'ACTIVE';
   }
-  return memberStatus;
+  return memberStatus.replace('INVALID', 'INCOMPLETE');
 }
 
 /**

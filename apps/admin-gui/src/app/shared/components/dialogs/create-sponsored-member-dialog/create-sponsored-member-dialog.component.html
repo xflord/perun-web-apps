@@ -139,7 +139,10 @@
             </app-choose-sponsor>
 
             <h6 class="mt-4">{{'DIALOGS.CREATE_SPONSORED_MEMBER.EXPIRATION' | translate}}</h6>
-            <perun-web-apps-expiration-select (datePicker)="setExpiration($event)" class="mt-2">
+            <perun-web-apps-expiration-select
+              [minDate]="minDate"
+              (datePicker)="setExpiration($event)"
+              class="mt-2">
             </perun-web-apps-expiration-select>
           </div>
         </mat-step>

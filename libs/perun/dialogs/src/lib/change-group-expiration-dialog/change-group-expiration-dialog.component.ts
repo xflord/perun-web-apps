@@ -8,7 +8,6 @@ import {
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificatorService } from '@perun-web-apps/perun/services';
-import { formatDate } from '@angular/common';
 import { Urns } from '@perun-web-apps/perun/urns';
 
 export interface ChangeGroupExpirationDialogData {
@@ -16,7 +15,6 @@ export interface ChangeGroupExpirationDialogData {
   memberId: number;
   expirationAttr: Attribute;
   status: string;
-  statusChanged?: boolean;
   backButton?: boolean;
 }
 
@@ -73,15 +71,6 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
     this.expirationAttr = this.data.expirationAttr;
     this.currentExpiration = (this.expirationAttr?.value as string) ?? 'never';
     this.newExpiration = this.currentExpiration;
-
-    if (this.data.statusChanged) {
-      if (this.data.status !== 'VALID') {
-        this.newExpiration = formatDate(currentDate, 'yyyy-MM-dd', 'en');
-        this.maxDate = currentDate;
-      } else {
-        this.newExpiration = 'never';
-      }
-    }
 
     if (this.data.status === 'VALID') {
       this.attributesManagerService

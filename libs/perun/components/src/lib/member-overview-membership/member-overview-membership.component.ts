@@ -49,27 +49,24 @@ export class MemberOverviewMembershipComponent implements OnChanges {
   changeStatus(): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
-    config.data = { member: this.member, voId: this.voId, backButton: this.openedInDialog };
-    const oldStatus = this.member.status;
+    config.data = {
+      member: this.member,
+      voId: this.voId,
+      backButton: this.openedInDialog,
+      expirationAttr: this.voExpirationAtt,
+    };
 
     const dialogRef = this.dialog.open(ChangeMemberStatusDialogComponent, config);
     dialogRef.afterClosed().subscribe((member: RichMember) => {
       if (member) {
         this.member = member;
-        if (
-          (oldStatus === 'VALID' &&
-            (member.status === 'EXPIRED' || member.status === 'DISABLED')) ||
-          member.status === 'VALID'
-        ) {
-          this.changeVoExpiration(true);
-        } else {
-          this.dialog.closeAll();
-        }
+        this.dialog.closeAll();
+        this.refreshVoExpiration();
       }
     });
   }
 
-  changeVoExpiration(statusChanged: boolean): void {
+  changeVoExpiration(): void {
     const config = getDefaultDialogConfig();
     config.width = '400px';
     config.data = {
@@ -77,7 +74,6 @@ export class MemberOverviewMembershipComponent implements OnChanges {
       memberId: this.member.id,
       expirationAttr: this.voExpirationAtt,
       status: this.member.status,
-      statusChanged: statusChanged,
       backButton: this.openedInDialog,
     };
 
@@ -89,8 +85,6 @@ export class MemberOverviewMembershipComponent implements OnChanges {
         }
         this.refreshVoExpiration();
         this.dialog.closeAll();
-      } else if (statusChanged) {
-        this.statusChanged.emit(statusChanged);
       }
     });
   }

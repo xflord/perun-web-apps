@@ -41,6 +41,9 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Cache
+/.eslintcache
+
 # The instance specific configuration should not be part of the repository
 apps/admin-gui/src/assets/config/instanceConfig.json
 apps/admin-gui/src/assets/config/instanceFavicon.ico

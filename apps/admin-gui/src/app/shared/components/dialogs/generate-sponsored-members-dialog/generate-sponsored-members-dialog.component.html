@@ -111,6 +111,7 @@
             <h5 class="mb-4">{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.EXPIRATION' | translate}}</h5>
             <perun-web-apps-expiration-select
               (datePicker)="setExpiration($event)"
+              [minDate]="minDate"
               [expiration]="expiration">
             </perun-web-apps-expiration-select>
           </div>

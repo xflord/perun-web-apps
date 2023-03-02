@@ -64,7 +64,6 @@ import { ResourceSearchSelectComponent } from './resource-search-select/resource
 import { MemberSearchSelectComponent } from './member-search-select/member-search-select.component';
 import { FacilitySearchSelectComponent } from './facility-search-select/facility-search-select.component';
 import { UserSearchSelectComponent } from './user-search-select/user-search-select.component';
-import { ExpirationSelectComponent } from './expiration-select/expiration-select.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { RecentlyViewedIconComponent } from './recently-viewed-icon/recently-viewed-icon.component';
 import { FacilitiesListComponent } from './facilities-list/facilities-list.component';
@@ -102,13 +101,9 @@ import { MailingListsComponent } from './settings-mailing-lists/mailing-lists.co
 import { DataQuotasComponent } from './settings-data-quotas/data-quotas.component';
 import { LoaderDirective } from '@perun-web-apps/perun/directives';
 import { SettingsSSHKeysComponent } from './settings-ssh-keys/settings-ssh-keys.component';
-import { AddSshDialogComponent } from '@perun-web-apps/perun/dialogs';
-import { RemoveStringValueDialogComponent } from '@perun-web-apps/perun/dialogs';
-import { ShowSshDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { RoleSearchSelectComponent } from './role-search-select/role-search-select.component';
 import { PerunHeaderComponent } from './perun-header/perun-header.component';
 import { MatBadgeModule } from '@angular/material/badge';
-import { ShowNotificationHistoryDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { QueryParamsHandlingDirective } from '@perun-web-apps/perun/directives';
 import { BanSpecificationComponent } from './ban-specification/ban-specification.component';
 import { BanOnEntityListComponent } from './ban-on-entity-list/ban-on-entity-list.component';
@@ -117,6 +112,10 @@ import { ChangeMemberStatusOrExpirationDialogComponent } from './change-member-s
 import { MemberOverviewGroupsComponent } from './member-overview-groups/member-overview-groups.component';
 import { DeselectButtonComponent } from './deselect-button/deselect-button.component';
 import { AuditLogSearchSelectComponent } from './audit-log-search-select/audit-log-search-select.component';
+import { AddSshDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { RemoveStringValueDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { ShowSshDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { ShowNotificationHistoryDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { ApplicationStateSelectorComponent } from './application-state-selector/application-state-selector.component';
 import { AuthorizedGroupsCellComponent } from './authorized-groups-cell/authorized-groups-cell.component';
 
@@ -220,7 +219,6 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     MemberSearchSelectComponent,
     FacilitySearchSelectComponent,
     UserSearchSelectComponent,
-    ExpirationSelectComponent,
     RecentlyViewedIconComponent,
     FacilitiesListComponent,
     EntitySearchSelectComponent,
@@ -254,12 +252,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     MailingListsComponent,
     DataQuotasComponent,
     SettingsSSHKeysComponent,
-    AddSshDialogComponent,
-    RemoveStringValueDialogComponent,
-    ShowSshDialogComponent,
     RoleSearchSelectComponent,
     PerunHeaderComponent,
-    ShowNotificationHistoryDialogComponent,
     QueryParamsHandlingDirective,
     BanSpecificationComponent,
     BanOnEntityListComponent,
@@ -270,6 +264,10 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     AuditLogSearchSelectComponent,
     ApplicationStateSelectorComponent,
     AuthorizedGroupsCellComponent,
+    AddSshDialogComponent,
+    RemoveStringValueDialogComponent,
+    ShowSshDialogComponent,
+    ShowNotificationHistoryDialogComponent,
   ],
   exports: [
     VosListComponent,
@@ -301,7 +299,6 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     MemberSearchSelectComponent,
     FacilitySearchSelectComponent,
     UserSearchSelectComponent,
-    ExpirationSelectComponent,
     RecentlyViewedIconComponent,
     FacilitiesListComponent,
     EntitySearchSelectComponent,
@@ -330,12 +327,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     MailingListsComponent,
     DataQuotasComponent,
     SettingsSSHKeysComponent,
-    AddSshDialogComponent,
-    RemoveStringValueDialogComponent,
-    ShowSshDialogComponent,
     RoleSearchSelectComponent,
     PerunHeaderComponent,
-    ShowNotificationHistoryDialogComponent,
     QueryParamsHandlingDirective,
     BanSpecificationComponent,
     BanOnEntityListComponent,
@@ -347,6 +340,10 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     ApplicationStateSelectorComponent,
     LoaderDirective,
     AuthorizedGroupsCellComponent,
+    AddSshDialogComponent,
+    RemoveStringValueDialogComponent,
+    ShowSshDialogComponent,
+    ShowNotificationHistoryDialogComponent,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },
