@@ -91,13 +91,20 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="authzGroup">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        <th *matHeaderCellDef mat-header-cell>
           {{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.AUTHZ_GROUP' | translate}}
         </th>
-        <td *matCellDef="let group" mat-cell>
-          {{ groupWithAuthzGroupPairs.has(group.id)
-              ? authzVoNames.get(groupWithAuthzGroupPairs.get(group.id)[0].voId) + ":" + groupWithAuthzGroupPairs.get(group.id)[0].name
-              : ""}}
+        <td
+          mat-cell
+          *matCellDef="let group"
+          (mouseenter)="disabledRouting = true"
+          (mouseleave)="disabledRouting = disableRouting"
+          style="cursor: default">
+          <perun-web-apps-authorized-groups-cell
+            [groups]="groupWithAuthzGroupPairs.get(group.id)"
+            [disableRouting]="disableRouting"
+            [authzVoNames]="authzVoNames">
+          </perun-web-apps-authorized-groups-cell>
         </td>
       </ng-container>
       <ng-container matColumnDef="status">

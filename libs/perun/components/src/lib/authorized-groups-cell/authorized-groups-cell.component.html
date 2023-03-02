@@ -1,0 +1,20 @@
+<div class="mt-1">
+  <div class="mb-1" *ngFor="let group of groups.slice(0, itemsShown)">
+    <a
+      class="group-link"
+      [routerLink]="disableRouting ? null : ['/organizations', group.voId, 'groups', group.id]"
+      [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/organizations', group.voId.toString(), 'groups', group.id.toString()]"
+      (auxclick)="$event.preventDefault()"
+      [class.cursor-pointer]="!disableRouting"
+      >{{authzVoNames.get(group.voId) + " : " + group.name}}</a
+    >
+  </div>
+</div>
+<div>
+  <span [matTooltip]="showMore ? 'Show less' : 'Show more'" [matTooltipPosition]="'above'">
+    <button *ngIf="groups.length > defaultItemsShown" mat-icon-button (click)="onShowChange()">
+      <mat-icon *ngIf="!showMore">more_horiz</mat-icon>
+      <mat-icon *ngIf="showMore">keyboard_arrow_up</mat-icon>
+    </button>
+  </span>
+</div>

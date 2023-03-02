@@ -42,7 +42,7 @@
               {{('ROLES.' + role.roleName + '_VOS_' + entityType) | translate}}
             </div>
             <perun-web-apps-vos-list
-              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'name', 'shortName'] : (editable ? ['checkbox', 'id', 'name', 'shortName'] : ['id', 'name', 'authzGroup', 'shortName'])"
+              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'name', 'shortName'] : (editable ? ['checkbox', 'id', 'name', 'shortName'] : ['id', 'name', 'shortName', 'authzGroup'])"
               [vos]="vos | async"
               [selection]="selection"
               [authzVoNames]="voNames"
@@ -56,7 +56,7 @@
               {{('ROLES.' + role.roleName + '_GROUPS_' + entityType) | translate}}
             </div>
             <perun-web-apps-groups-list
-              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'vo', 'name', 'description'] : (editable ? ['select', 'id', 'vo', 'name', 'description'] : ['id', 'vo', 'name', 'authzGroup', 'description'])"
+              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'vo', 'name', 'description'] : (editable ? ['select', 'id', 'vo', 'name', 'description'] : ['id', 'vo', 'name', 'description', 'authzGroup'])"
               [groups]="groups | async"
               [selection]="selection"
               [authzVoNames]="voNames"
@@ -71,7 +71,7 @@
             </div>
             <perun-web-apps-resources-list
               [resources]="resources | async"
-              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'name', 'vo', 'facility', 'description'] : (editable ? ['select', 'id', 'name', 'vo', 'facility', 'description'] : ['id', 'name', 'authzGroup', 'vo', 'facility', 'description'])"
+              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'name', 'vo', 'facility', 'description'] : (editable ? ['select', 'id', 'name', 'vo', 'facility', 'description'] : ['id', 'name', 'vo', 'facility', 'description', 'authzGroup'])"
               [routingVo]="true"
               [selection]="selection"
               [authzVoNames]="voNames"
@@ -85,7 +85,7 @@
               {{('ROLES.' + role.roleName + '_FACILITIES_' + entityType) | translate}}
             </div>
             <perun-web-apps-facilities-list
-              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'name', 'description'] : (editable ? ['select', 'id', 'name', 'description'] : ['id', 'name', 'authzGroup', 'description'])"
+              [displayedColumns]="role.roleName === 'MEMBERSHIP' ? ['id', 'name', 'description'] : (editable ? ['select', 'id', 'name', 'description'] : ['id', 'name', 'description', 'authzGroup'])"
               [facilities]="facilities | async"
               [selection]="selectedFacilities"
               [authzVoNames]="voNames"
