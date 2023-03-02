@@ -52,13 +52,20 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="authzGroup">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <th mat-header-cell *matHeaderCellDef>
           {{'SHARED.COMPONENTS.FACILITIES_LIST.AUTHZ_GROUP' | translate}}
         </th>
-        <td mat-cell *matCellDef="let facility">
-          {{ facilityWithAuthzGroupPairs.has(facility.facility.id)
-              ? authzVoNames.get(facilityWithAuthzGroupPairs.get(facility.facility.id)[0].voId) + ":" + facilityWithAuthzGroupPairs.get(facility.facility.id)[0].name
-              : "" }}
+        <td
+          mat-cell
+          *matCellDef="let facility"
+          (mouseenter)="localDisableRouting = true"
+          (mouseleave)="localDisableRouting = disableRouting"
+          style="cursor: default">
+          <perun-web-apps-authorized-groups-cell
+            [groups]="facilityWithAuthzGroupPairs.get(facility.facility.id)"
+            [disableRouting]="disableRouting"
+            [authzVoNames]="authzVoNames">
+          </perun-web-apps-authorized-groups-cell>
         </td>
       </ng-container>
       <ng-container matColumnDef="description">
@@ -102,8 +109,8 @@
         *matRowDef="let facility; columns: displayedColumns;"
         [class.cursor-pointer]="!disableRouting"
         [class.disable-outline]="disableRouting"
-        [perunWebAppsMiddleClickRouterLink]="['/facilities', facility.facility.id]"
-        [routerLink]="(disableRouting || localDisableRouting) ? [] : ['/facilities', facility.facility.id]"
+        [perunWebAppsMiddleClickRouterLink]="(disableRouting || localDisableRouting) ? null : ['/facilities', facility.facility.id]"
+        [routerLink]="(disableRouting || localDisableRouting) ? null : ['/facilities', facility.facility.id]"
         class="dark-hover-list-item"
         mat-row></tr>
     </table>

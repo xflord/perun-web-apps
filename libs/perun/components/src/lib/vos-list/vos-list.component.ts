@@ -32,6 +32,7 @@ export class VosListComponent implements OnChanges {
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;
 
   dataSource: MatTableDataSource<Vo | EnrichedVo>;
+  disabledRouting = false;
   private sort: MatSort;
 
   constructor(private authResolver: GuiAuthResolver) {}

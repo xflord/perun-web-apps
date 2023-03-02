@@ -2694,7 +2694,7 @@
         "DESTINATIONS": "Destinations",
         "HOSTS": "Hosts",
         "NO_FACILITIES_WARNING": "No facilities found",
-        "AUTHZ_GROUP": "Authorized group"
+        "AUTHZ_GROUP": "Role acquired through"
       },
       "CONSENT_HUBS_LIST": {
         "ID": "Id",
@@ -2849,7 +2849,7 @@
           "SYNCHRONIZED_GROUP": "Group is filled with members from an external source",
           "INDIRECT_GROUP": "This group is assigned as a part of a groups tree.",
           "MULTIPLE_ASSIGNMENTS": "This group is assigned manually and also as a part of a groups tree. You can remove only manual assignment.",
-          "AUTHZ_GROUP": "Authorized group"
+          "AUTHZ_GROUP": "Role acquired through"
         },
         "GROUP_MENU": {
           "MOVE": "Move group",
@@ -2865,7 +2865,7 @@
           "ID": "Id",
           "NAME": "Name",
           "SHORTNAME": "Short name",
-          "AUTHZ_GROUP": "Authorized group"
+          "AUTHZ_GROUP": "Role acquired through"
         },
         "VO_SEARCH_SELECT": {
           "SELECT_VO": "Select organization",
@@ -2897,7 +2897,7 @@
           "TABLE_GROUP_RESOURCE_STATUS": "Status",
           "NO_RESOURCES_WARNING": "No resources assigned.",
           "INDIRECT_RESOURCE": "This resource is assigned indirectly.",
-          "AUTHZ_GROUP": "Authorized group"
+          "AUTHZ_GROUP": "Role acquired through"
         },
         "RESOURCE_SEARCH_SELECT": {
           "SELECT_RESOURCE": "Select resource",

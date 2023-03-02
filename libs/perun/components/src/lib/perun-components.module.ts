@@ -118,6 +118,7 @@ import { MemberOverviewGroupsComponent } from './member-overview-groups/member-o
 import { DeselectButtonComponent } from './deselect-button/deselect-button.component';
 import { AuditLogSearchSelectComponent } from './audit-log-search-select/audit-log-search-select.component';
 import { ApplicationStateSelectorComponent } from './application-state-selector/application-state-selector.component';
+import { AuthorizedGroupsCellComponent } from './authorized-groups-cell/authorized-groups-cell.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -268,6 +269,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     DeselectButtonComponent,
     AuditLogSearchSelectComponent,
     ApplicationStateSelectorComponent,
+    AuthorizedGroupsCellComponent,
   ],
   exports: [
     VosListComponent,
@@ -344,6 +346,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     AuditLogSearchSelectComponent,
     ApplicationStateSelectorComponent,
     LoaderDirective,
+    AuthorizedGroupsCellComponent,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },
