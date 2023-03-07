@@ -46,7 +46,7 @@
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button (click)="close()" class="ml-auto" mat-flat-button>
+      <button (click)="close()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.MOVE_GROUP.CANCEL' | translate}}
       </button>
       <span
@@ -56,7 +56,7 @@
         <button
           (click)="confirm()"
           [disabled]="((otherGroupsCtrl.invalid || selectedGroup === null) && moveOption !== 'toRoot') || loading"
-          class="ml-2"
+          class="ms-2"
           color="accent"
           mat-flat-button>
           {{'DIALOGS.MOVE_GROUP.CONFIRM' | translate}}

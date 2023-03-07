@@ -66,13 +66,13 @@
       </table>
     </div>
     <div mat-dialog-actions>
-      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.EDIT_MEMBER_SPONSORS.CANCEL' | translate}}
       </button>
       <button
         data-cy="unsponsor-confirm-button"
         (click)="onSubmit()"
-        class="ml-2"
+        class="ms-2"
         color="warn"
         [disabled]="loading || sponsorsToRemove.size === 0"
         mat-flat-button>

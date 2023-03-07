@@ -8,7 +8,7 @@
       <p>
         {{description}}
       </p>
-      <div class="font-weight-bold">
+      <div class="fw-bold">
         {{'DIALOGS.REMOVE_STRING_VALUE.ASK' | customTranslate | translate}}
       </div>
       <table *ngIf="dataSource.data.length" [dataSource]="dataSource" class="w-100" mat-table>
@@ -23,10 +23,10 @@
     </div>
 
     <div mat-dialog-actions>
-      <button mat-flat-button class="ml-auto" (click)="onCancel()">
+      <button mat-flat-button class="ms-auto" (click)="onCancel()">
         {{'DIALOGS.REMOVE_STRING_VALUE.CANCEL' | customTranslate | translate}}
       </button>
-      <button mat-flat-button class="ml-2" color="warn" (click)="onSubmit()">
+      <button mat-flat-button class="ms-2" color="warn" (click)="onSubmit()">
         {{'DIALOGS.REMOVE_STRING_VALUE.REMOVE' | customTranslate | translate}}
       </button>
     </div>

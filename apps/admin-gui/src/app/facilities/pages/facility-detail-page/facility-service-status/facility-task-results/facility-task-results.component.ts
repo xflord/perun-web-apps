@@ -21,7 +21,7 @@ export class FacilityTaskResultsComponent implements OnInit {
   taskId: number;
   task: Task = { id: 0 };
   facility: Facility;
-  taskResults: TaskResult[];
+  taskResults: TaskResult[] = [];
 
   tableId = TABLE_TASK_RESULTS;
   displayedColumns = [

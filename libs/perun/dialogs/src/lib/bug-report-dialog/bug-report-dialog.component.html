@@ -30,14 +30,14 @@
     </div>
 
     <div mat-dialog-actions>
-      <div class="ml-auto">
+      <div class="ms-auto">
         <button (click)="dialogRef.close()" mat-button>
           {{'SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.CANCEL' | translate}}
         </button>
         <button
           (click)="sendBugReport()"
           [disabled]="message === '' || subject === '' || loading"
-          class="ml-2"
+          class="ms-2"
           color="accent"
           mat-flat-button>
           {{'SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SEND' | translate}}

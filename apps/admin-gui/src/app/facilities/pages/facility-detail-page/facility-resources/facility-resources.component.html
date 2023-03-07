@@ -7,7 +7,7 @@
       mat-flat-button
       color="accent"
       data-cy="create-resource-button"
-      class="mr-2 action-button"
+      class="me-2 action-button"
       (click)="createResource()">
       {{'FACILITY_DETAIL.RESOURCES.CREATE' | translate}}
     </button>
@@ -15,7 +15,7 @@
       *ngIf="removeAuth"
       mat-flat-button
       color="warn"
-      class="mr-2"
+      class="me-2"
       data-cy="delete-resource-button"
       [disabled]="selected.selected.length === 0"
       (click)="removeResource()">
@@ -25,7 +25,7 @@
       [services]="services"
       (serviceSelected)="serviceSelected($event)"
       [service]="selectedService"
-      class="search-select mr-2">
+      class="search-select me-2">
     </perun-web-apps-service-search-select>
     <perun-web-apps-immediate-filter
       [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'"

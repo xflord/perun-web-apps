@@ -10,7 +10,7 @@
         {{'DIALOGS.REMOVE_CATEGORY.DESCRIPTION' | translate}}
       </p>
 
-      <div class="font-weight-bold">
+      <div class="fw-bold">
         {{'DIALOGS.REMOVE_CATEGORY.ASK' | translate}}
       </div>
 
@@ -25,10 +25,10 @@
       </table>
     </div>
     <div mat-dialog-actions>
-      <button mat-flat-button class="ml-auto" (click)="onCancel()">
+      <button mat-flat-button class="ms-auto" (click)="onCancel()">
         {{'DIALOGS.REMOVE_CATEGORY.CANCEL' | translate}}
       </button>
-      <button mat-flat-button class="ml-2" color="warn" [disabled]="loading" (click)="onSubmit()">
+      <button mat-flat-button class="ms-2" color="warn" [disabled]="loading" (click)="onSubmit()">
         {{'DIALOGS.REMOVE_CATEGORY.DELETE' | translate}}
       </button>
     </div>

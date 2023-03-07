@@ -34,7 +34,7 @@
               </mat-error>
             </mat-form-field>
             <div>{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.HINT'| translate}}</div>
-            <div class="font-weight-bold">
+            <div class="fw-bold">
               {{this.getSelectedNamespaceRules().csvGenHeaderDescription}}
             </div>
             <mat-form-field class="pt-2">
@@ -143,7 +143,7 @@
       <button
         (click)="stepperPrevious()"
         *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
-        class="ml-auto"
+        class="ms-auto"
         mat-flat-button>
         {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.BACK' | translate}}
       </button>
@@ -151,8 +151,8 @@
         data-cy="next-button"
         (click)="stepperNext()"
         *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
-        [class.ml-2]="stepper !== undefined && stepper.selectedIndex !== 0"
-        [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+        [class.ms-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+        [class.ms-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
         [disabled]="getStepperNextConditions()"
         color="accent"
         mat-flat-button>
@@ -175,7 +175,7 @@
       <button
         [matMenuTriggerFor]="menu"
         color="accent"
-        class="ml-auto dropdown-toggle"
+        class="ms-auto dropdown-toggle"
         mat-flat-button>
         {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DOWNLOAD' | translate}}
       </button>

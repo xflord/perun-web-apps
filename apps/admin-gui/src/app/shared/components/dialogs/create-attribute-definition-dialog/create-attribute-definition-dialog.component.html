@@ -43,10 +43,7 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.ENTITY' | translate}}</mat-label>
-          <mat-select
-            formControlName="entity"
-            data-cy="attribute-entity-input"
-            required>
+          <mat-select formControlName="entity" data-cy="attribute-entity-input" required>
             <mat-option *ngFor="let entity of entities" [value]="entity">{{entity}}</mat-option>
           </mat-select>
           <mat-error *ngIf="attributeControl.hasError('required', 'entity')">
@@ -69,10 +66,7 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>{{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.VALUE_TYPE' | translate}}</mat-label>
-          <mat-select
-            formControlName="valueType"
-            data-cy="attribute-value-type-input"
-            required>
+          <mat-select formControlName="valueType" data-cy="attribute-value-type-input" required>
             <mat-option *ngFor="let valType of valueTypes" [value]="valType">
               {{valType | attributeTypeClean}}
             </mat-option>
@@ -95,11 +89,11 @@
       </perun-web-apps-attribute-rights-tab-group>
     </div>
     <div mat-dialog-actions>
-      <button (click)="cancel()" class="ml-auto" mat-flat-button>
+      <button (click)="cancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.CREATE_ATTRIBUTE_DEFINITION.CANCEL' | translate}}
       </button>
       <button
-        class="ml-2"
+        class="ms-2"
         color="accent"
         (click)="submit()"
         [disabled]="loading || attributeControl.invalid"

@@ -9,7 +9,7 @@
         {{'DIALOGS.DELETE_ATTRIBUTES.DESCRIPTION' | translate}}
       </div>
 
-      <div class="font-weight-bold">
+      <div class="fw-bold">
         {{'DIALOGS.DELETE_ATTRIBUTES.ASK' | translate}}
       </div>
 
@@ -24,12 +24,12 @@
       </table>
     </div>
     <div mat-dialog-actions>
-      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.DELETE_ATTRIBUTES.CANCEL' | translate}}
       </button>
       <button
         (click)="onSubmit()"
-        class="ml-2"
+        class="ms-2"
         color="warn"
         data-cy="delete-attributes"
         [disabled]="loading"

@@ -8,14 +8,14 @@
     *ngIf="addAuth"
     (click)="addDestination()"
     color="accent"
-    class="mr-2 action-button"
+    class="me-2 action-button"
     mat-flat-button>
     {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.ADD' | translate}}
   </button>
   <button
     *ngIf="removeAuth"
     (click)="removeDestination()"
-    class="mr-2"
+    class="me-2"
     color="warn"
     [disabled]="selected.selected.length === 0"
     mat-flat-button>
@@ -24,7 +24,7 @@
   <button
     *ngIf="allowAuth"
     (click)="onAllow()"
-    class="mr-2"
+    class="me-2"
     [disabled]="selected.selected.length === 0 || allSelectedAllowed()"
     mat-stroked-button>
     <mat-icon> check_circle_outline </mat-icon>
@@ -33,7 +33,7 @@
   <button
     *ngIf="blockAuth"
     (click)="onBlock()"
-    class="mr-2"
+    class="me-2"
     [disabled]="selected.selected.length === 0 || allSelectedBlocked()"
     mat-stroked-button>
     <mat-icon> block </mat-icon>

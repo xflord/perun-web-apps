@@ -18,19 +18,19 @@
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
     (click)="onSave()"
-    class="mr-2"
+    class="me-2"
     color="accent"
     [disabled]="selection.selected.length === 0"
     mat-flat-button>
     {{ 'SHARED.IDENTITY_DETAIL.SAVE' | translate}}
   </button>
-  <button (click)="onAdd()" class="mr-2" color="accent" mat-flat-button>
+  <button (click)="onAdd()" class="me-2" color="accent" mat-flat-button>
     {{ 'SHARED.IDENTITY_DETAIL.ADD' | translate}}
   </button>
   <button
     (click)="onRemove()"
     [disabled]="selection.selected.length === 0"
-    class="mr-2"
+    class="me-2"
     color="warn"
     mat-flat-button>
     {{ 'SHARED.IDENTITY_DETAIL.REMOVE' | translate}}

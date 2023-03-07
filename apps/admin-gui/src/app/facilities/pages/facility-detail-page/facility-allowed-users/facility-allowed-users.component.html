@@ -76,10 +76,10 @@
       [onlyAllowed]="allowed"
       [facilityId]="facility.id"
       [searchString]="filterValue"
-      [resourceId]="selectedResource.id === -1 ? null : selectedResource.id"
-      [serviceId]="selectedService.id === -1 ? null : selectedService.id"
+      [resourceId]="selectedResource?.id"
+      [serviceId]="selectedService?.id"
       [tableId]="tableId"
-      [voId]="selectedVo.id === -1 ? null : selectedVo.id"
+      [voId]="selectedVo?.id"
       [consentStatuses]="selectedConsentStatuses"
       [includeConsents]="globalForceConsents && facilityForceConsents"
       [updateTable]="update">

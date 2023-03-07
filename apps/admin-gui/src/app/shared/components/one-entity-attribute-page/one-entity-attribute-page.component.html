@@ -1,7 +1,7 @@
 <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
 <button
   (click)="onCreate()"
-  class="mr-2 action-button"
+  class="me-2 action-button"
   color="accent"
   data-cy="add-attributes"
   mat-flat-button>
@@ -10,7 +10,7 @@
 
 <button
   (click)="onSave()"
-  class="mr-2"
+  class="me-2"
   color="accent"
   [disabled]="selection.selected.length === 0"
   mat-flat-button>
@@ -20,7 +20,7 @@
 <button
   (click)="onDelete()"
   [disabled]="selection.selected.length === 0"
-  class="mr-2"
+  class="me-2"
   color="warn"
   data-cy="remove-attributes"
   mat-flat-button>

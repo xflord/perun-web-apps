@@ -10,7 +10,7 @@
         >{{'DIALOGS.REMOVE_DESTINATIONS.WARNING' | translate}}</perun-web-apps-alert
       >
       <p>{{'DIALOGS.REMOVE_DESTINATIONS.DESCRIPTION' | translate}}</p>
-      <div class="font-weight-bold">
+      <div class="fw-bold">
         {{'DIALOGS.REMOVE_DESTINATIONS.ASK' | translate}}
       </div>
       <app-perun-web-apps-destination-list
@@ -19,10 +19,10 @@
       </app-perun-web-apps-destination-list>
     </div>
     <div mat-dialog-actions>
-      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.REMOVE_DESTINATIONS.CANCEL' | translate}}
       </button>
-      <button (click)="onConfirm()" [disabled]="loading" class="ml-2" color="warn" mat-flat-button>
+      <button (click)="onConfirm()" [disabled]="loading" class="ms-2" color="warn" mat-flat-button>
         {{'DIALOGS.REMOVE_DESTINATIONS.CONFIRM' | translate}}
       </button>
     </div>

@@ -8,9 +8,7 @@
       <div class="font-italic">{{'DIALOGS.ADD_SERVICE_DESTINATION.DESCRIPTION' | translate}}</div>
       <mat-form-field>
         <mat-label>{{'DIALOGS.ADD_SERVICE_DESTINATION.SERVICE' | translate}}</mat-label>
-        <mat-select
-          [formControl]="serviceControl"
-          required>
+        <mat-select [formControl]="serviceControl" required>
           <mat-option
             *ngIf="services.length !== 0"
             value="all"
@@ -29,9 +27,7 @@
           {{'DIALOGS.ADD_SERVICE_DESTINATION.CHOOSE_SERVICE' | translate}}
         </mat-error>
       </mat-form-field>
-      <mat-checkbox
-        (change)="getServices()"
-        [(ngModel)]="servicesOnFacility">
+      <mat-checkbox (change)="getServices()" [(ngModel)]="servicesOnFacility">
         {{'DIALOGS.ADD_SERVICE_DESTINATION.IS_SERVICES_ONLY_ON_FACILITY' | translate}}
       </mat-checkbox>
       <mat-form-field>
@@ -47,10 +43,7 @@
 
       <mat-form-field *ngIf="!(selectedType === 'host' && useFacilityHost)" class="w-100">
         <mat-label>{{getTypeForView(selectedType)}}</mat-label>
-        <input
-          [formControl]="destinationControl"
-          matInput
-          required />
+        <input [formControl]="destinationControl" matInput required />
         <mat-error
           *ngIf="selectedType === 'host' && !useFacilityHost && destinationControl.hasError('required')">
           {{'DIALOGS.ADD_SERVICE_DESTINATION.REQUIRED_FIELD' | translate}}
@@ -66,8 +59,7 @@
 
       <mat-form-field>
         <mat-label>{{'DIALOGS.ADD_SERVICE_DESTINATION.PROPAGATION' | translate}}</mat-label>
-        <mat-select
-          [(ngModel)]="selectedPropagation">
+        <mat-select [(ngModel)]="selectedPropagation">
           <mat-option *ngFor="let propagation of propagations" [value]="propagation">
             {{propagation}}
           </mat-option>
@@ -78,13 +70,13 @@
       </div>
     </div>
     <div mat-dialog-actions>
-      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.ADD_SERVICE_DESTINATION.CANCEL' | translate}}
       </button>
       <button
         (click)="onSubmit()"
         [disabled]="loading || invalidDestination() || serviceControl.invalid || serviceControl.value === 'noService'"
-        class="ml-2"
+        class="ms-2"
         color="accent"
         mat-flat-button>
         {{'DIALOGS.ADD_SERVICE_DESTINATION.ADD' | translate}}

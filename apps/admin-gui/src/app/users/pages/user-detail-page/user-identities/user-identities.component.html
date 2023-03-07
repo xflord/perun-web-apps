@@ -3,7 +3,7 @@
 <button
   *ngIf="authResolver.isPerunAdmin()"
   (click)="addIdentity()"
-  class="mr-2 action-button"
+  class="me-2 action-button"
   color="accent"
   mat-flat-button>
   {{'USER_DETAIL.IDENTITIES.ADD'|translate}}
@@ -12,7 +12,7 @@
   *ngIf="authResolver.isPerunAdmin()"
   (click)="removeIdentity()"
   [disabled]="selection.selected.length === 0"
-  class="mr-2"
+  class="me-2"
   color="warn"
   mat-flat-button>
   {{'USER_DETAIL.IDENTITIES.REMOVE'|translate}}

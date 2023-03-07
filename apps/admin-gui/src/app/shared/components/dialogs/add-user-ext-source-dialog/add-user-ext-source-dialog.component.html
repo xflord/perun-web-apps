@@ -7,10 +7,7 @@
     <div class="dialog-container user-theme" mat-dialog-content>
       <mat-form-field class="center-self w-100">
         <mat-label>{{'DIALOGS.ADD_USER_EXT_SOURCE.LOGIN' | translate}}</mat-label>
-        <input
-          [formControl]="loginControl"
-          matInput
-          required />
+        <input [formControl]="loginControl" matInput required />
         <mat-error>
           {{'DIALOGS.ADD_USER_EXT_SOURCE.EMPTY_LOGIN' | translate}}
         </mat-error>
@@ -34,13 +31,13 @@
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.ADD_USER_EXT_SOURCE.CANCEL'|translate}}
       </button>
       <button
         (click)="onAdd()"
         [disabled]="loginControl.invalid || extSourcesControl.invalid || loading"
-        class="ml-2"
+        class="ms-2"
         color="accent"
         mat-flat-button>
         {{'DIALOGS.ADD_USER_EXT_SOURCE.ADD'|translate}}

@@ -20,18 +20,19 @@
         <mat-label>{{itemName}}</mat-label>
         <input [formControl]="inputControl" matInput required type="text" />
         <mat-error *ngIf="inputControl.invalid">
-          {{'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.EMPTY_INPUT' | translate}}</mat-error>
+          {{'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.EMPTY_INPUT' | translate}}</mat-error
+        >
       </mat-form-field>
     </div>
 
     <div mat-dialog-actions>
-      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.CANCEL' | translate}}
       </button>
       <button
         (click)="onSubmit()"
         [disabled]="loading || (inputControl !== null && inputControl.invalid) || (emailControl !== null && emailControl.invalid)"
-        class="ml-2"
+        class="ms-2"
         color="accent"
         mat-flat-button>
         {{'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.SUBMIT' | translate}}

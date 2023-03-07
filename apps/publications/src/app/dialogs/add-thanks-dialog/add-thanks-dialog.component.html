@@ -18,12 +18,12 @@
       </perun-web-apps-owners-list>
     </div>
     <div mat-dialog-actions>
-      <button mat-flat-button class="ml-auto" (click)="onCancel()">
+      <button mat-flat-button class="ms-auto" (click)="onCancel()">
         {{'DIALOGS.ADD_THANKS.CANCEL' | translate}}
       </button>
       <button
         mat-flat-button
-        class="ml-2"
+        class="ms-2"
         color="accent"
         [disabled]="selected.selected.length === 0 || loading"
         (click)="onSubmit()">

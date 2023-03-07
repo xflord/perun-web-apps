@@ -10,7 +10,7 @@
         [disabled]="blockManualMemberAdding"
         (click)="onAddMember()"
         color="accent"
-        class="mr-2 action-button"
+        class="me-2 action-button"
         data-cy="add-members"
         mat-flat-button>
         {{'VO_DETAIL.MEMBERS.ADD_MEMBER' | translate}}
@@ -20,7 +20,7 @@
       *ngIf="inviteAuth"
       [disabled]="blockManualMemberAdding"
       [matMenuTriggerFor]="menu"
-      class="mr-2 dropdown-toggle"
+      class="me-2 dropdown-toggle"
       color="accent"
       mat-flat-button>
       {{'VO_DETAIL.MEMBERS.INVITE' | translate}}
@@ -39,12 +39,12 @@
       color="warn"
       [disabled]="selection.isEmpty()"
       data-cy="remove-members"
-      class="mr-2"
+      class="me-2"
       mat-flat-button>
       {{'VO_DETAIL.MEMBERS.REMOVE_MEMBERS' | translate}}
     </button>
 
-    <mat-form-field class="mr-2 fix-select">
+    <mat-form-field class="me-2 fix-select">
       <mat-label>{{'VO_DETAIL.MEMBERS.FILTER_STATUS' | translate}}</mat-label>
       <mat-select (closed)="changeStatuses()" [formControl]="statuses" multiple>
         <mat-select-trigger>

@@ -12,7 +12,7 @@
       (click)="onAddMember()"
       *ngIf="addAuth"
       [disabled]="(group | groupMembersActionButtonDisabled: 'add')"
-      class="mr-2 action-button"
+      class="me-2 action-button"
       color="accent"
       data-cy="add-members"
       mat-flat-button>
@@ -27,7 +27,7 @@
       *ngIf="inviteAuth"
       [disabled]="(group | groupMembersActionButtonDisabled)"
       [matMenuTriggerFor]="menu"
-      class="mr-2 dropdown-toggle"
+      class="me-2 dropdown-toggle"
       color="accent"
       mat-flat-button>
       {{'GROUP_DETAIL.MEMBERS.INVITE' | translate}}
@@ -59,7 +59,7 @@
       (click)="onCopyMembers()"
       *ngIf="copyAuth"
       [disabled]="copyDisabled"
-      class="mr-2"
+      class="me-2"
       color="accent"
       mat-flat-button>
       {{'GROUP_DETAIL.MEMBERS.COPY_MEMBERS' | translate}}
@@ -73,14 +73,14 @@
       (click)="onRemoveMembers()"
       *ngIf="removeAuth"
       [disabled]="selection.isEmpty() || (group | groupMembersActionButtonDisabled)"
-      class="mr-2"
+      class="me-2"
       color="warn"
       data-cy="remove-members"
       mat-flat-button>
       {{'GROUP_DETAIL.MEMBERS.REMOVE_MEMBERS' | translate}}
     </button>
   </span>
-  <mat-form-field class="mr-2 fix-select">
+  <mat-form-field class="me-2 fix-select">
     <mat-label>{{'GROUP_DETAIL.MEMBERS.FILTER_STATUS' | translate}}</mat-label>
     <mat-select (closed)="changeVoStatuses()" [formControl]="statuses" multiple>
       <mat-select-trigger>
@@ -94,7 +94,7 @@
       >
     </mat-select>
   </mat-form-field>
-  <mat-form-field class="mr-2 fix-select">
+  <mat-form-field class="me-2 fix-select">
     <mat-label>{{'GROUP_DETAIL.MEMBERS.FILTER_GROUP_STATUS' | translate}}</mat-label>
     <mat-select (closed)="changeGroupStatuses()" [formControl]="groupStatuses" multiple>
       <mat-select-trigger>

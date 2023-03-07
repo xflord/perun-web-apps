@@ -43,7 +43,7 @@
         </mat-checkbox>
       </div>
       <p>{{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.DESCRIPTION' | translate}}</p>
-      <div class="font-weight-bold">
+      <div class="fw-bold">
         {{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.ASK' | translate}}
       </div>
       <perun-web-apps-resources-list
@@ -56,12 +56,12 @@
       </perun-web-apps-resources-list>
     </div>
     <div mat-dialog-actions>
-      <button (click)="cancel()" class="ml-auto" mat-flat-button>
+      <button (click)="cancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CANCEL' | translate}}
       </button>
       <button
         (click)="remove()"
-        class="ml-2"
+        class="ms-2"
         color="warn"
         [disabled]="loading || selected.selected.length === 0"
         mat-flat-button>

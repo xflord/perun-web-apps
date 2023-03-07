@@ -3,12 +3,12 @@
     {{'FACILITY_DETAIL.HOSTS.HOSTS_DETAIL.TITLE' | translate}} {{host.hostname}}
   </h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button (click)="addAttribute()" class="mr-2" color="accent" mat-flat-button>
+  <button (click)="addAttribute()" class="me-2" color="accent" mat-flat-button>
     {{'FACILITY_DETAIL.HOSTS.HOSTS_DETAIL.ADD' | translate}}
   </button>
   <button
     (click)="onSave()"
-    class="mr-2"
+    class="me-2"
     color="accent"
     [disabled]="selected.selected.length === 0"
     mat-flat-button>

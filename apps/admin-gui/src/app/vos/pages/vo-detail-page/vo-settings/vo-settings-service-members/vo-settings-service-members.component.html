@@ -1,13 +1,13 @@
 <h1 class="page-subtitle">{{'VO_DETAIL.SETTINGS.SERVICE_MEMBERS.TITLE' | translate}}</h1>
 <perun-web-apps-refresh-button (refresh)="refresh()"></perun-web-apps-refresh-button>
-<button (click)="createServiceMember()" class="mr-2 action-button" color="accent" mat-flat-button>
+<button (click)="createServiceMember()" class="me-2 action-button" color="accent" mat-flat-button>
   {{'VO_DETAIL.SETTINGS.SERVICE_MEMBERS.CREATE' | translate}}
 </button>
 <button
   (click)="onRemoveMembers()"
   *ngIf="removeAuth"
   [disabled]="selection.isEmpty()"
-  class="mr-2"
+  class="me-2"
   color="warn"
   mat-flat-button>
   {{'VO_DETAIL.SETTINGS.SERVICE_MEMBERS.DELETE' | translate}}

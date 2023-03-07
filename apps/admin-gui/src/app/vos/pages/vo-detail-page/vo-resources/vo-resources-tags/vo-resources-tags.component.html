@@ -3,7 +3,7 @@
 <button
   *ngIf="createAuth"
   (click)="create()"
-  class="mr-2 action-button"
+  class="me-2 action-button"
   color="accent"
   mat-flat-button>
   {{'VO_DETAIL.RESOURCES.TAGS.CREATE_BUTTON' | translate}}
@@ -12,7 +12,7 @@
 <button
   *ngIf="deleteAuth"
   (click)="deleteTag()"
-  class="mr-2"
+  class="me-2"
   color="warn"
   [disabled]="selection.selected.length === 0"
   mat-flat-button>

@@ -7,18 +7,15 @@
     <div class="dialog-container" mat-dialog-content>
       <mat-form-field>
         <mat-label>{{'DIALOGS.CREATE_RESOURCE_TAG.NAME' | translate}}</mat-label>
-        <input
-          matInput
-          [(ngModel)]="name"
-          required />
+        <input matInput [(ngModel)]="name" required />
         <mat-error>{{'DIALOGS.CREATE_RESOURCE_TAG.EMPTY_NAME' | translate}}</mat-error>
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.CREATE_RESOURCE_TAG.CANCEL' | translate}}
       </button>
-      <button (click)="onSubmit()" [disabled]="loading" class="ml-2" color="accent" mat-flat-button>
+      <button (click)="onSubmit()" [disabled]="loading" class="ms-2" color="accent" mat-flat-button>
         {{'DIALOGS.CREATE_RESOURCE_TAG.CREATE' | translate}}
       </button>
     </div>

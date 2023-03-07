@@ -1,7 +1,7 @@
 <h1 class="page-subtitle">{{'RESOURCE_DETAIL.ASSIGNED_MEMBERS.TITLE' | translate}}</h1>
 <perun-web-apps-refresh-button (refresh)="refreshTable()"> </perun-web-apps-refresh-button>
 
-<mat-form-field class="mr-2 fix-select" *ngIf="includeConsents">
+<mat-form-field class="me-2 fix-select" *ngIf="includeConsents">
   <mat-label>{{'RESOURCE_DETAIL.ASSIGNED_MEMBERS.FILTER_CONSENT_STATUS' | translate}}</mat-label>
   <mat-select (closed)="changeConsentStatuses()" [formControl]="consentStatuses" multiple>
     <mat-select-trigger>

@@ -17,7 +17,11 @@
 
           <mat-form-field>
             <mat-label>{{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.DESCRIPTION' | translate}}</mat-label>
-            <textarea matInput formControlName="description" cdkTextareaAutosize required></textarea>
+            <textarea
+              matInput
+              formControlName="description"
+              cdkTextareaAutosize
+              required></textarea>
             <mat-error *ngIf="attributeControl.hasError('required', 'description')">
               {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.ERROR_FIELD_EMPTY' | translate}}
             </mat-error>
@@ -73,14 +77,14 @@
         <button *ngIf="attDef?.entity === 'entityless'" (click)="switchShowKeys()" mat-flat-button>
           {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.SHOW_KEYS' | translate}}
         </button>
-        <button (click)="onCopy()" class="ml-auto" mat-flat-button>
+        <button (click)="onCopy()" class="ms-auto" mat-flat-button>
           {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPY_FOR_IMPORT' | translate}}
         </button>
-        <button (click)="onCancel()" class="ml-2" mat-flat-button>
+        <button (click)="onCancel()" class="ms-2" mat-flat-button>
           {{'DIALOGS.EDIT_ATTRIBUTE_DEFINITION.CANCEL' | translate}}
         </button>
         <button
-          class="ml-2"
+          class="ms-2"
           color="accent"
           mat-flat-button
           (click)="onSubmit()"

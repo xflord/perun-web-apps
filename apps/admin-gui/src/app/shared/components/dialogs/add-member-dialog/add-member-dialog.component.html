@@ -29,7 +29,7 @@
         </div>
       </div>
       <div mat-dialog-actions>
-        <button mat-flat-button class="ml-auto" (click)="cancel.emit(false)">
+        <button mat-flat-button class="ms-auto" (click)="cancel.emit(false)">
           {{'DIALOGS.ADD_MEMBERS.CANCEL' | translate}}
         </button>
         <span
@@ -40,7 +40,7 @@
             *ngIf="inviteAuth"
             [disabled]="selection.selected.length === 0 || !inviteAuth || !showInvite"
             [matMenuTriggerFor]="menu"
-            class="ml-2 dropdown-toggle"
+            class="ms-2 dropdown-toggle"
             color="accent"
             mat-flat-button>
             {{'DIALOGS.ADD_MEMBERS.INVITE' | translate}}
@@ -59,7 +59,7 @@
           [matTooltipDisabled]="selection.selected.length === 0 || addAuth">
           <button
             mat-flat-button
-            class="ml-2"
+            class="ms-2"
             color="accent"
             data-cy="add-button"
             (click)="add.emit()"
@@ -101,7 +101,7 @@
         </table>
       </div>
       <div mat-dialog-actions *ngIf="!loading">
-        <button mat-flat-button class="ml-auto" (click)="cancel.emit(true)">
+        <button mat-flat-button class="ms-auto" (click)="cancel.emit(true)">
           {{'DIALOGS.ADD_MEMBERS.CLOSE' | translate}}
         </button>
       </div>

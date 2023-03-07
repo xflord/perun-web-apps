@@ -5,14 +5,14 @@
     *ngIf="addAuth"
     (click)="addOwner()"
     color="accent"
-    class="mr-2 action-button"
+    class="me-2 action-button"
     mat-flat-button>
     {{'ADMIN.OWNERS.ADD' | translate}}
   </button>
 
   <button
     (click)="removeOwner()"
-    class="mr-2"
+    class="me-2"
     color="warn"
     *ngIf="removeAuth"
     [disabled]="!selected.selected.length"

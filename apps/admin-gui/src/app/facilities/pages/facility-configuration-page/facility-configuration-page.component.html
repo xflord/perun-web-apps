@@ -66,7 +66,7 @@
         <div class="filters">
           <button
             (click)="onRemoveAttributes()"
-            class="mr-2"
+            class="me-2"
             color="warn"
             [disabled]="attSelection.selected.length === 0"
             mat-flat-button>
@@ -74,7 +74,7 @@
           </button>
           <button
             (click)="onSaveAttributes()"
-            class="mr-2"
+            class="me-2"
             color="accent"
             [disabled]="attSelection.selected.length === 0"
             mat-flat-button>
@@ -140,7 +140,7 @@
           <mat-expansion-panel [disabled]="owners.length === 0">
             <mat-expansion-panel-header [class.cursor-default]="owners.length === 0">
               <mat-panel-title>
-                <mat-icon class="mr-2" svgIcon="perun-owner-grey"></mat-icon>
+                <mat-icon class="me-2" svgIcon="perun-owner-grey"></mat-icon>
                 {{'FACILITY_CONFIGURATION.OWNERS' | translate}}
               </mat-panel-title>
             </mat-expansion-panel-header>
@@ -159,7 +159,7 @@
           <mat-expansion-panel [disabled]="hosts.length === 0">
             <mat-expansion-panel-header [class.cursor-default]="hosts.length === 0">
               <mat-panel-title>
-                <mat-icon class="mr-2" svgIcon="perun-hosts"></mat-icon>
+                <mat-icon class="me-2" svgIcon="perun-hosts"></mat-icon>
                 {{'FACILITY_CONFIGURATION.HOSTS' | translate}}
               </mat-panel-title>
             </mat-expansion-panel-header>
@@ -179,7 +179,7 @@
           <mat-expansion-panel [disabled]="selection.selected.length === 0">
             <mat-expansion-panel-header [class.cursor-default]="selection.selected.length === 0">
               <mat-panel-title>
-                <mat-icon class="mr-2" svgIcon="perun-service"></mat-icon>
+                <mat-icon class="me-2" svgIcon="perun-service"></mat-icon>
                 {{'FACILITY_CONFIGURATION.SERVICES' | translate}}
               </mat-panel-title>
             </mat-expansion-panel-header>
@@ -195,7 +195,7 @@
             [disabled]="selection.selected.length === 0">
             <mat-expansion-panel-header [class.cursor-default]="selection.selected.length === 0">
               <mat-panel-title>
-                <mat-icon class="mr-2" svgIcon="perun-hosts"></mat-icon>
+                <mat-icon class="me-2" svgIcon="perun-hosts"></mat-icon>
                 {{'FACILITY_CONFIGURATION.SERVICE_CONFIG' | translate}}
               </mat-panel-title>
             </mat-expansion-panel-header>
@@ -212,7 +212,7 @@
             <mat-expansion-panel-header
               [class.cursor-default]="selection.selected.length === 0 && destinations.length === 0">
               <mat-panel-title>
-                <mat-icon class="mr-2" svgIcon="perun-service_destination"></mat-icon>
+                <mat-icon class="me-2" svgIcon="perun-service_destination"></mat-icon>
                 {{'FACILITY_CONFIGURATION.DESTINATION_CONFIG' | translate}}
               </mat-panel-title>
             </mat-expansion-panel-header>
@@ -232,7 +232,7 @@
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <mat-icon class="mr-2" svgIcon="perun-manager"></mat-icon>
+                <mat-icon class="me-2" svgIcon="perun-manager"></mat-icon>
                 {{'FACILITY_CONFIGURATION.MANAGERS' | translate}}
               </mat-panel-title>
             </mat-expansion-panel-header>
@@ -257,15 +257,15 @@
     <button
       *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
       (click)="back()"
-      class="ml-auto mr-2"
+      class="ms-auto me-2"
       mat-flat-button>
       {{'FACILITY_CONFIGURATION.BACK' | translate}}
     </button>
     <button
       *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper.steps.length - 1"
       (click)="next()"
-      [class.mr-2]="stepper !== undefined && stepper.selectedIndex !== 0"
-      [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+      [class.me-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+      [class.ms-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
       color="accent"
       mat-flat-button>
       {{'FACILITY_CONFIGURATION.NEXT' | translate}}
@@ -273,7 +273,7 @@
     <button
       *ngIf="stepper !== undefined && stepper.selectedIndex === stepper.steps.length -1"
       (click)="onFinish()"
-      class="mr-2"
+      class="me-2"
       color="accent"
       mat-flat-button>
       {{'FACILITY_CONFIGURATION.FINISH' | translate}}

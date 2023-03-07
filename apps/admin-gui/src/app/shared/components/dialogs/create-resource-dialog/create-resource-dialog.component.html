@@ -27,12 +27,12 @@
     </div>
 
     <div mat-dialog-actions>
-      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.CREATE_RESOURCE.CANCEL' | translate}}
       </button>
       <button
         (click)="onSubmit()"
-        class="ml-2"
+        class="ms-2"
         data-cy="create-resource-dialog-button"
         [disabled]="nameCtrl.invalid || descriptionCtrl.invalid || selectedVo === null || loading"
         color="accent"

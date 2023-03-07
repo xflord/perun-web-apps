@@ -1,4 +1,4 @@
-<div class="container-fluid pl-xl-5 pr-xl-5 facility-theme">
+<div class="container-fluid ps-xl-5 pe-xl-5 facility-theme">
   <perun-web-apps-back-button> </perun-web-apps-back-button>
 
   <h1 class="page-title d-flex">
@@ -12,7 +12,7 @@
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
   <button
     mat-flat-button
-    class="action-button mr-2"
+    class="action-button me-2"
     (click)="onCreate()"
     data-cy="new-facility-button"
     color="accent">
@@ -20,7 +20,7 @@
   </button>
   <button
     mat-flat-button
-    class="mr-2"
+    class="me-2"
     data-cy="delete-facility-button"
     [disabled]="selection.selected.length === 0"
     (click)="onDelete()"

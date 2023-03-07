@@ -4,7 +4,7 @@
   *ngIf="auth"
   (click)="addMemberOrganization()"
   mat-flat-button
-  class="mr-2 action-button"
+  class="me-2 action-button"
   color="accent">
   {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD' | translate}}
 </button>
@@ -14,7 +14,7 @@
   [disabled]="voSelection.selected.length === 0"
   mat-flat-button
   color="warn"
-  class="mr-2">
+  class="me-2">
   {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.REMOVE' | translate}}
 </button>
 <perun-web-apps-immediate-filter

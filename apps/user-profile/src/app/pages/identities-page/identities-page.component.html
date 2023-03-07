@@ -6,7 +6,7 @@
   <button
     (click)="removeIdentity(idpSelection)"
     [disabled]="idpSelection.selected.length === 0 || loading"
-    class="ml-2"
+    class="ms-2"
     color="warn"
     mat-flat-button>
     {{'IDENTITIES.REMOVE' | customTranslate | translate}}
@@ -29,7 +29,7 @@
     <button
       (click)="removeIdentity(certSelection)"
       [disabled]="certSelection.selected.length === 0 || loading"
-      class="ml-2"
+      class="ms-2"
       color="warn"
       mat-flat-button>
       {{'IDENTITIES.REMOVE' | customTranslate | translate}}

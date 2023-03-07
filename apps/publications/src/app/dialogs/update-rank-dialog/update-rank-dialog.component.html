@@ -15,7 +15,7 @@
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button mat-flat-button class="ml-auto" (click)="onCancel()">
+      <button mat-flat-button class="ms-auto" (click)="onCancel()">
         {{'DIALOGS.UPDATE_RANK.CANCEL' | translate}}
       </button>
       <div
@@ -24,7 +24,7 @@
         [matTooltipDisabled]="rankCtrl.valid">
         <button
           mat-flat-button
-          class="ml-2"
+          class="ms-2"
           color="accent"
           [disabled]="rankCtrl.invalid || loading"
           (click)="onSubmit()">

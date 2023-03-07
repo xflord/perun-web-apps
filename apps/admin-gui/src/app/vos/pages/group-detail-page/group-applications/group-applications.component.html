@@ -1,10 +1,10 @@
 <h1 class="page-subtitle">{{'VO_DETAIL.APPLICATION.TITLE' | translate}}</h1>
 <div>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button (click)="this.showDetails(true)" *ngIf="!showAllDetails" class="mr-2" mat-stroked-button>
+  <button (click)="this.showDetails(true)" *ngIf="!showAllDetails" class="me-2" mat-stroked-button>
     {{'VO_DETAIL.APPLICATION.SHOW_ALL_DETAILS' | translate}}
   </button>
-  <button (click)="this.showDetails(false)" *ngIf="showAllDetails" class="mr-2" mat-stroked-button>
+  <button (click)="this.showDetails(false)" *ngIf="showAllDetails" class="me-2" mat-stroked-button>
     {{'VO_DETAIL.APPLICATION.SHOW_LESS_DETAILS' | translate}}
   </button>
   <perun-web-apps-application-state-selector (stateChanged)="currentStates = $event">

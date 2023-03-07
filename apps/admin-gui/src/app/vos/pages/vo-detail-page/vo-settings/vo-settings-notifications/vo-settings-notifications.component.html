@@ -4,7 +4,7 @@
 
 <div class="w-100 d-flex">
   <perun-web-apps-refresh-button (click)="refresh()"></perun-web-apps-refresh-button>
-  <button (click)="add()" *ngIf="addAuth" class="mr-2 action-button" color="accent" mat-flat-button>
+  <button (click)="add()" *ngIf="addAuth" class="me-2 action-button" color="accent" mat-flat-button>
     {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.ADD' | translate}}
   </button>
 
@@ -13,12 +13,12 @@
     (click)="remove()"
     color="warn"
     [disabled]="selection.selected.length === 0"
-    class="mr-2"
+    class="me-2"
     mat-flat-button>
     {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.REMOVE' | translate}}
   </button>
 
-  <button (click)="changeEmailFooter()" class="mr-2 action-button" mat-stroked-button>
+  <button (click)="changeEmailFooter()" class="me-2 action-button" mat-stroked-button>
     <i class="material-icons">email</i>
     {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.EMAIL_FOOTER' | translate}}
   </button>

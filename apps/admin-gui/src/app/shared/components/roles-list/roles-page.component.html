@@ -2,11 +2,11 @@
   *ngIf="assignableRules.length !== 0 && editable"
   mat-flat-button
   color="accent"
-  class="mb-3 mr-2 mt-2"
+  class="mb-3 me-2 mt-2"
   (click)="addRole()">
   {{'ROLES.ADD'| translate}}
 </button>
-<mat-spinner *ngIf="outerLoading" class="ml-auto mr-auto"></mat-spinner>
+<mat-spinner *ngIf="outerLoading" class="ms-auto me-auto"></mat-spinner>
 <mat-accordion *ngIf="!outerLoading && roles.size > 0">
   <mat-expansion-panel
     *ngFor="let role of allRules"
@@ -15,7 +15,7 @@
     #panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon class="mr-2" mat-card-avatar svgIcon="perun-user-dark"></mat-icon>
+        <mat-icon class="me-2" mat-card-avatar svgIcon="perun-user-dark"></mat-icon>
         <p class="mt-auto mb-auto">{{role | displayedRole}}</p>
       </mat-panel-title>
     </mat-expansion-panel-header>

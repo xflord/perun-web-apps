@@ -10,7 +10,7 @@
       *ngIf="createAuth || generateAuth"
       [disabled]="findSponsorsAuth && voSponsors.length === 0"
       [matMenuTriggerFor]="menu"
-      class="mr-2 dropdown-toggle"
+      class="me-2 dropdown-toggle"
       color="accent"
       mat-flat-button>
       {{'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.CREATE' | translate}}
@@ -39,7 +39,7 @@
     *ngIf="setSponsorshipAuth"
     (click)="onSponsorExistingMember()"
     color="accent"
-    class="mr-2 action-button"
+    class="me-2 action-button"
     mat-flat-button>
     {{'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.SPONSOR_EXISTING' | translate}}
   </button>

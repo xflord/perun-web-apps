@@ -1,14 +1,14 @@
 <div class="user-theme">
   <h1 class="page-subtitle d-flex">
     <mat-icon class="title-icon">local_library</mat-icon>
-    <span class="ml-3 mt-1">{{'MY_PUBLICATIONS.TITLE' | translate}}</span>
+    <span class="ms-3 mt-1">{{'MY_PUBLICATIONS.TITLE' | translate}}</span>
   </h1>
   <div class="mt-4">
     <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
     <button
       mat-flat-button
       color="warn"
-      class="mr-2"
+      class="me-2"
       [disabled]="selected.selected.length === 0"
       (click)="removePublication()">
       {{'MY_PUBLICATIONS.REMOVE' | translate}}

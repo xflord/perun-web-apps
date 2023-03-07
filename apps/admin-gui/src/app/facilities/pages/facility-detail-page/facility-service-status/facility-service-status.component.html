@@ -5,7 +5,7 @@
     *ngIf="propagationAuth"
     (click)="forcePropagation()"
     [disabled]="selected.selected.length === 0 || loading"
-    class="mr-2"
+    class="me-2"
     color="accent"
     mat-flat-button>
     {{'FACILITY_DETAIL.SERVICES_STATUS.FORCE_PROPAGATION' | translate}}
@@ -14,7 +14,7 @@
     *ngIf="allowAuth"
     (click)="allow()"
     [disabled]="selected.selected.length === 0 || this.disableAllowButton || loading"
-    class="mr-2"
+    class="me-2"
     color="accent"
     mat-flat-button>
     {{'FACILITY_DETAIL.SERVICES_STATUS.ALLOW' | translate}}
@@ -22,7 +22,7 @@
   <button
     *ngIf="blockAuth"
     (click)="block()"
-    class="mr-2"
+    class="me-2"
     color="warn"
     [disabled]="selected.selected.length === 0 || this.disableBlockButton || loading"
     mat-flat-button>
@@ -34,7 +34,7 @@
     [disabled]="disableRemoveButton || loading"
     [matMenuTriggerFor]="menu"
     [matTooltipDisabled]="!disableRemoveButton"
-    class="mr-2 dropdown-toggle"
+    class="me-2 dropdown-toggle"
     color="warn"
     matTooltip="{{'DIALOGS.REMOVE_SERVICE_FROM_FACILITY.CHECKBOXES_DISABLED' | translate}}">
     {{'FACILITY_DETAIL.SERVICES_STATUS.REMOVE' | translate}}

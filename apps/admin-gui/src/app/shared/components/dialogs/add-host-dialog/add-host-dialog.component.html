@@ -30,12 +30,12 @@
       >
     </div>
     <div mat-dialog-actions>
-      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.ADD_HOST.CANCEL' | translate}}
       </button>
       <button
         (click)="onAdd()"
-        class="ml-2"
+        class="ms-2"
         color="accent"
         [disabled]="hostsCtrl.invalid || loading"
         mat-flat-button>

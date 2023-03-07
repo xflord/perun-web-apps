@@ -30,7 +30,7 @@
     </div>
 
     <div mat-dialog-actions>
-      <button (click)="cancel()" class="ml-auto" mat-flat-button>
+      <button (click)="cancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.CANCEL_BUTTON' | translate}}
       </button>
       <div
@@ -40,7 +40,7 @@
         <button
           (click)="submit()"
           [disabled]="loading || !plainEdithAuth"
-          class="ml-2"
+          class="ms-2"
           color="accent"
           mat-flat-button>
           {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.SUBMIT_BUTTON' | translate}}

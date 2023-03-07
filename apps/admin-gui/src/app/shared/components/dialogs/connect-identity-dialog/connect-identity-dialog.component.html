@@ -6,12 +6,9 @@
     <div (keyup)="onKeyInput($event)" class="{{theme}}">
       <h1 mat-dialog-title>{{'DIALOGS.CONNECT_IDENTITY.TITLE_'+target | translate}}</h1>
       <div class="dialog-container" mat-dialog-content>
-        <mat-form-field class="mr-2 search-field no-border-mat-input">
+        <mat-form-field class="me-2 search-field no-border-mat-input">
           <mat-label>{{'DIALOGS.CONNECT_IDENTITY.SEARCH' | translate}}</mat-label>
-          <input
-            matInput
-            autocomplete="false"
-            [formControl]="searchCtrl" />
+          <input matInput autocomplete="false" [formControl]="searchCtrl" />
           <mat-error>
             {{'DIALOGS.CONNECT_IDENTITY.EMPTY_SEARCH_MESSAGE' | translate}}
           </mat-error>
@@ -19,7 +16,7 @@
         <button
           (click)="onSearchByString()"
           [disabled]="loading"
-          class="mr-2 search-btn"
+          class="me-2 search-btn"
           color="primary"
           mat-flat-button>
           <mat-icon>search</mat-icon>
@@ -43,11 +40,11 @@
         </perun-web-apps-alert>
       </div>
       <div mat-dialog-actions>
-        <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+        <button (click)="onCancel()" class="ms-auto" mat-flat-button>
           {{'DIALOGS.CONNECT_IDENTITY.CANCEL' | translate}}
         </button>
         <button
-          class="ml-2"
+          class="ms-2"
           (click)="onAdd()"
           [disabled]="selection.selected.length === 0"
           color="accent"

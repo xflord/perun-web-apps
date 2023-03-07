@@ -29,9 +29,7 @@
     (filter)="applyFilter($event)"
     [placeholder]="'GROUP_DETAIL.SUBGROUPS.FILTER'">
   </perun-web-apps-debounce-filter>
-  <label
-    class="slide-label"
-    (click)="labelToggle()">
+  <label class="slide-label" (click)="labelToggle()">
     {{'GROUP_DETAIL.SUBGROUPS.TREE_VIEW' | translate}}
   </label>
   <mat-slide-toggle
@@ -41,9 +39,7 @@
     class="me-1"
     color="primary"
     labelPosition="before"></mat-slide-toggle>
-  <label
-    class="slide-label"
-    (click)="labelToggle()">
+  <label class="slide-label" (click)="labelToggle()">
     {{'GROUP_DETAIL.SUBGROUPS.LIST_VIEW' | translate}}
   </label>
   <ng-template #spinner>

@@ -12,7 +12,7 @@
         <span class="text-muted id-font">#{{resource.id}}</span>
       </p>
       <p>
-        <strong class="mr-2">
+        <strong class="me-2">
           {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.CURRENT' | translate}}
           :
         </strong>
@@ -20,7 +20,7 @@
       </p>
 
       <p>
-        <strong class="mr-2">
+        <strong class="me-2">
           {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.NEW' | translate}}
           :
         </strong>
@@ -38,7 +38,7 @@
         class="d-flex flex-column mt-3"
         *ngIf="status === 'INACTIVE' || status ==='FAILED'"
         [(ngModel)]="asyncValidation">
-        <span class="font-weight-bold">
+        <span class="fw-bold">
           {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.VALIDATE' | translate}}
           :
         </span>
@@ -62,7 +62,7 @@
       </span>
     </div>
     <div mat-dialog-actions>
-      <button class="ml-auto mr-2" mat-flat-button (click)="onCancel()">
+      <button class="ms-auto me-2" mat-flat-button (click)="onCancel()">
         {{'SHARED_LIB.PERUN.COMPONENTS.CHANGE_GROUP_RESOURCE_ASSIGMENT_DIALOG.CANCEL' | translate}}
       </button>
       <button

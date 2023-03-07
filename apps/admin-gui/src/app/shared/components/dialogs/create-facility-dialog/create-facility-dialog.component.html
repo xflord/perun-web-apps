@@ -7,24 +7,16 @@
     <div class="dialog-container" mat-dialog-content>
       <mat-form-field>
         <mat-label>{{'DIALOGS.CREATE_FACILITY.NAME' | translate}}</mat-label>
-        <input
-          matInput
-          required
-          data-cy="facility-name-input"
-          [formControl]="nameControl" />
+        <input matInput required data-cy="facility-name-input" [formControl]="nameControl" />
         <mat-error>{{"DIALOGS.CREATE_FACILITY.REQUIRE_NAME" | translate}}</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>{{'DIALOGS.CREATE_FACILITY.DESCRIPTION' | translate}}</mat-label>
-        <input
-          matInput
-          data-cy="facility-description-input"
-          [formControl]="descControl" />
+        <input matInput data-cy="facility-description-input" [formControl]="descControl" />
       </mat-form-field>
       <mat-form-field>
         <mat-label>{{'DIALOGS.CREATE_FACILITY.AS_COPY' | translate}}</mat-label>
-        <mat-select
-          disableOptionCentering="true">
+        <mat-select disableOptionCentering="true">
           <mat-option (click)="srcFacility = null">
             {{'DIALOGS.CREATE_FACILITY.NO_COPY' | translate}}
           </mat-option>
@@ -41,7 +33,7 @@
       </perun-web-apps-alert>
     </div>
     <div mat-dialog-actions>
-      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
         {{"DIALOGS.CREATE_FACILITY.CANCEL" | translate}}
       </button>
       <button

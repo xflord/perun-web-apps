@@ -5,7 +5,7 @@
       {{this.data.description | translate}}
     </p>
 
-    <div class="font-weight-bold" *ngIf="data.showAsk">
+    <div class="fw-bold" *ngIf="data.showAsk">
       {{'SHARED_LIB.PERUN.COMPONENTS.UNIVERSAL_REMOVE_ITEMS_DIALOG.ASK' | translate}}
     </div>
 
@@ -23,12 +23,12 @@
     </perun-web-apps-alert>
   </div>
   <div mat-dialog-actions>
-    <button mat-flat-button class="ml-auto" (click)="onCancel()">
+    <button mat-flat-button class="ms-auto" (click)="onCancel()">
       {{'SHARED_LIB.PERUN.COMPONENTS.UNIVERSAL_REMOVE_ITEMS_DIALOG.CANCEL_BUTTON' | translate}}
     </button>
     <button
       mat-flat-button
-      class="ml-2"
+      class="ms-2"
       color="warn"
       (click)="onSubmit()"
       *ngIf="data.type === 'remove'">
@@ -36,7 +36,7 @@
     </button>
     <button
       mat-flat-button
-      class="ml-2"
+      class="ms-2"
       color="accent"
       (click)="onSubmit()"
       *ngIf="data.type === 'confirmation'">

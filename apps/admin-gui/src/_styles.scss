@@ -843,7 +843,7 @@ textarea.cdk-textarea-autosize-measuring {
   flex-direction: column;
   margin-left: 2rem;
   margin-bottom: 2rem;
-  //d-flex flex-column ml-5 pb-4
+  //d-flex flex-column ms-5 pb-4
 }
 
 .page-subtitle {
@@ -1435,26 +1435,10 @@ td.mat-mdc-cell {
   bottom: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.15);
-  z-index: 1;
+  z-index: 999;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-// TODO: check this style after the migration to Angular 15
-// make the whole dialog grey (including padding space) while the spinner is active
-mat-dialog-container:has(#loading-dialog-spinner) {
-  box-shadow: 0 0 0 24px rgba(0, 0, 0, 0.15) inset;
-  padding-bottom: 0;
-  .position-relative {
-    padding-bottom: 24px;
-  }
-  .spinner-container {
-    margin-bottom: 24px;
-  }
-  .mat-dialog-actions {
-    padding-bottom: 16px;
-  }
 }
 
 #preloader {

@@ -5,7 +5,7 @@
     *ngIf="addAuth"
     (click)="addHost()"
     color="accent"
-    class="mr-2 action-button"
+    class="me-2 action-button"
     mat-flat-button>
     {{'FACILITY_DETAIL.HOSTS.ADD' | translate}}
   </button>
@@ -13,7 +13,7 @@
     *ngIf="removeAuth"
     (click)="removeHost()"
     [disabled]="selected.selected.length === 0"
-    class="mr-2"
+    class="me-2"
     color="warn"
     mat-flat-button>
     {{'FACILITY_DETAIL.HOSTS.REMOVE' | translate}}

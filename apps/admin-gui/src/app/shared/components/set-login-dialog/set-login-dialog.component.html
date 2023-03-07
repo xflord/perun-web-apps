@@ -11,13 +11,13 @@
       </app-login-password-form-with-generate-option>
     </div>
     <div mat-dialog-actions>
-      <button (click)="onCancel()" mat-flat-button class="ml-auto">
+      <button (click)="onCancel()" mat-flat-button class="ms-auto">
         {{'DIALOGS.SET_LOGIN.CANCEL' | translate}}
       </button>
       <button
         (click)="onSetLogin()"
         [disabled]="(formGroup.get('namespaceCtrl').value === 'Not selected' || formGroup.invalid || formGroup.pending) || processing"
-        class="ml-2"
+        class="ms-2"
         color="accent"
         mat-flat-button>
         {{"DIALOGS.SET_LOGIN.SET_LOGIN" | translate}}

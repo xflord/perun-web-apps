@@ -159,7 +159,7 @@
 
     <div *ngIf="successfullyCreated" class="dialog-container" mat-dialog-content>
       <div class="bigger-font mb-2">
-        <mat-icon class="mr-2 mb-2">done</mat-icon>
+        <mat-icon class="me-2 mb-2">done</mat-icon>
         {{'DIALOGS.CREATE_SPONSORED_MEMBER.USER' | translate}}
         <i>{{this.createdMember.user | userFullName}}</i>
         {{'DIALOGS.CREATE_SPONSORED_MEMBER.WAS_CREATED' | translate}}
@@ -181,7 +181,7 @@
     </div>
 
     <div *ngIf="successfullyCreated" mat-dialog-actions>
-      <button (click)="onCancel()" class="ml-auto" mat-flat-button data-cy="ok-button">
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button data-cy="ok-button">
         {{'DIALOGS.CREATE_SPONSORED_MEMBER.OK' | translate}}
       </button>
     </div>
@@ -193,7 +193,7 @@
       <button
         (click)="stepperPrevious()"
         *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
-        class="ml-auto"
+        class="ms-auto"
         mat-flat-button>
         {{'DIALOGS.CREATE_SPONSORED_MEMBER.BACK' | translate}}
       </button>
@@ -201,8 +201,8 @@
         data-cy="next-button"
         (click)="stepperNext()"
         *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
-        [class.ml-2]="stepper !== undefined && stepper.selectedIndex !== 0"
-        [class.ml-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+        [class.ms-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+        [class.ms-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
         [disabled]="getStepperNextConditions()"
         color="accent"
         mat-flat-button
@@ -214,7 +214,7 @@
         (click)="onConfirm()"
         *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
         [disabled]="!submitAllowed"
-        class="ml-2"
+        class="ms-2"
         color="accent"
         mat-flat-button
         type="button">

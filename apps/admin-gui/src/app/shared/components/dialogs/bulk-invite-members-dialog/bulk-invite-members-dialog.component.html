@@ -55,13 +55,13 @@
       </perun-web-apps-alert>
     </div>
     <div mat-dialog-actions>
-      <button (click)="onCancel()" class="ml-auto" mat-flat-button>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
         {{'DIALOGS.BULK_INVITE_MEMBERS.CANCEL' | translate}}
       </button>
       <button
         *ngIf="state === 'input'"
         (click)="onSubmit()"
-        class="ml-2"
+        class="ms-2"
         color="accent"
         [disabled]="loading || invitedMembers.invalid"
         mat-flat-button>
@@ -71,7 +71,7 @@
         *ngIf="state === 'results'"
         [disabled]="!resultData"
         (click)="downloadCsv()"
-        class="ml-2"
+        class="ms-2"
         color="accent"
         mat-flat-button>
         {{'DIALOGS.BULK_INVITE_MEMBERS.DOWNLOAD_CSV' | translate}}
