@@ -1,4 +1,4 @@
-<mat-form-field (click)="picker.open()" appearance="standard">
+<mat-form-field (click)="picker.open()" appearance="fill" class="me-2">
   <mat-label>{{'VO_DETAIL.APPLICATION.DATE.LABEL' | translate}}</mat-label>
   <mat-date-range-input [max]="endMaxDate" [min]="startMinDate" [rangePicker]="picker">
     <input [formControl]="startDate" matStartDate readonly />

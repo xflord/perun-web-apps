@@ -7,7 +7,7 @@
     </div>
     <button
       (click)="onAddAttribute(this.imgAtt, this.imgAttrName, 'AddAuthImgDialogComponent', 'IMG')"
-      class="me-2 mt-1 action-button"
+      class="me-2 action-button"
       color="accent"
       mat-flat-button>
       {{'AUTHENTICATION.NEW_IMG' | customTranslate | translate}}
@@ -27,7 +27,7 @@
     <h4 *ngIf="textAtt" class="security-text">{{textAtt.value}}</h4>
     <button
       (click)="onAddAttribute(this.textAtt, this.textAttrName, 'AddAuthTextDialogComponent', 'TEXT')"
-      class="me-2 mt-1 action-button"
+      class="me-2 action-button"
       color="accent"
       mat-flat-button>
       {{'AUTHENTICATION.NEW_TEXT' | customTranslate | translate}}
