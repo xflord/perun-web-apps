@@ -1628,7 +1628,7 @@ table .mdc-text-field {
   margin-top: 0 !important;
 }
 table .mat-mdc-form-field-infix {
-  height: 35px !important;
+  min-height: 35px !important;
   padding-top: 7px !important;
   padding-bottom: 0 !important;
 }

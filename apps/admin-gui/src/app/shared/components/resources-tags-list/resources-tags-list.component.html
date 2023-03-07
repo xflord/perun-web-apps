@@ -54,9 +54,11 @@
             {{tag.tagName}}
           </div>
           <div *ngIf="isChanging.isSelected(tag)">
-            <mat-form-field>
-              <mat-label>{{'VO_DETAIL.RESOURCES.TAGS.CHANGE_TAG_NAME' | translate}}</mat-label>
-              <input [(ngModel)]="tag.tagName" matInput />
+            <mat-form-field subscriptSizing="dynamic">
+              <input
+                [(ngModel)]="tag.tagName"
+                matInput
+                placeholder="{{'VO_DETAIL.RESOURCES.TAGS.CHANGE_TAG_NAME' | translate}}" />
             </mat-form-field>
           </div>
         </td>

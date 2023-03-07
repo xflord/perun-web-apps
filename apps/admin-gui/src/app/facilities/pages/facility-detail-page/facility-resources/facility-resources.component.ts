@@ -58,6 +58,7 @@ export class FacilityResourcesComponent implements OnInit, AfterViewInit {
     this.setAuthRights();
     this.servicesManager.getAssignedServices(this.facility.id).subscribe((services) => {
       this.services = [this.emptyService].concat(services);
+      this.refreshTable();
     });
     this.loadResourcesForFacility();
   }

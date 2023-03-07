@@ -22,7 +22,7 @@
           <th *matHeaderCellDef mat-header-cell>
             {{'DIALOGS.EDIT_MEMBER_SPONSORS.TABLE_EXPIRATION' | translate}}
           </th>
-          <td *matCellDef="let sponsor" mat-cell>
+          <td *matCellDef="let sponsor" class="align-elements" mat-cell>
             <span>{{parseDate(sponsor.validityTo)}}</span>
             <button
               *ngIf="isExpirationAuthorized(sponsor)"
