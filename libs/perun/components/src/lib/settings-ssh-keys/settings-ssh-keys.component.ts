@@ -15,18 +15,14 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
   styleUrls: ['./settings-ssh-keys.component.scss'],
 })
 export class SettingsSSHKeysComponent implements OnInit {
-  adminKeys: string[] = [];
   userKeys: string[] = [];
 
   userUrn = 'urn:perun:user:attribute-def:def:sshPublicKey';
-  adminUrn = 'urn:perun:user:attribute-def:def:sshPublicAdminKey';
 
   userKeyAttribute: Attribute;
-  adminKeyAttribute: Attribute;
 
   userId: number;
   selection = new SelectionModel<string>(false, []);
-  selectionAdmin = new SelectionModel<string>(false, []);
 
   removeDialogTitle: string;
   removeDialogDescription: string;
@@ -79,14 +75,13 @@ export class SettingsSSHKeysComponent implements OnInit {
     });
     this.loading = true;
     this.getUserSSH();
-    this.getAdminSSH();
   }
 
-  addKey(admin: boolean): void {
+  addKey(): void {
     const config = getDefaultDialogConfig();
     config.width = '850px';
     config.data = {
-      attribute: admin ? this.adminKeyAttribute : this.userKeyAttribute,
+      attribute: this.userKeyAttribute,
       userId: this.userId,
     };
 
@@ -94,21 +89,17 @@ export class SettingsSSHKeysComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((sshAdded) => {
       if (sshAdded) {
-        if (admin) {
-          this.getAdminSSH();
-        } else {
-          this.getUserSSH();
-        }
+        this.getUserSSH();
       }
     });
   }
 
-  removeKey(key: string, admin: boolean): void {
+  removeKey(key: string): void {
     const config = getDefaultDialogConfig();
     config.width = '600px';
     config.data = {
       values: [key],
-      attribute: admin ? this.adminKeyAttribute : this.userKeyAttribute,
+      attribute: this.userKeyAttribute,
       userId: this.userId,
       title: this.removeDialogTitle,
       description: this.removeDialogDescription,
@@ -119,13 +110,8 @@ export class SettingsSSHKeysComponent implements OnInit {
     dialogRef.afterClosed().subscribe((sshAdded) => {
       if (sshAdded) {
         this.loading = true;
-        if (admin) {
-          this.getAdminSSH();
-          this.selectionAdmin.clear();
-        } else {
-          this.getUserSSH();
-          this.selection.clear();
-        }
+        this.getUserSSH();
+        this.selection.clear();
       }
     });
   }
@@ -136,16 +122,6 @@ export class SettingsSSHKeysComponent implements OnInit {
       .subscribe((sshKeys) => {
         this.userKeyAttribute = sshKeys;
         this.userKeys = sshKeys.value as string[];
-        this.loading = false;
-      });
-  }
-
-  getAdminSSH(): void {
-    this.attributesManagerService
-      .getUserAttributeByName(this.userId, this.adminUrn)
-      .subscribe((sshKeys) => {
-        this.adminKeyAttribute = sshKeys;
-        this.adminKeys = sshKeys.value as string[];
         this.loading = false;
       });
   }
