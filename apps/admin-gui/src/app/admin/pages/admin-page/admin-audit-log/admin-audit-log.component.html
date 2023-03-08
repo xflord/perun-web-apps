@@ -1,17 +1,15 @@
 <h1 class="page-subtitle">{{'ADMIN.AUDIT_LOG.TITLE'|translate}}</h1>
 <div class="align-elements">
-  <div class="d-flex align-items-center">
-    <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-    <perun-web-apps-audit-log-search-select
-      [auditLogs]="eventOptions"
-      (auditLogsSelected)="toggleEvent($event)"
-      (selectClosed)="refreshOnClosed()"></perun-web-apps-audit-log-search-select>
-  </div>
+  <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
+  <perun-web-apps-audit-log-search-select
+    (auditLogsSelected)="toggleEvent($event)"
+    (selectClosed)="refreshOnClosed()"
+    [auditLogs]="eventOptionsForSearchSelect"></perun-web-apps-audit-log-search-select>
 
   <ng-template #spinner>
     <perun-web-apps-loading-table></perun-web-apps-loading-table>
   </ng-template>
-  <div class="position-relative">
+  <div class="position-relative w-100">
     <app-audit-messages-list
       *perunWebAppsLoader="loading$ | async; indicator: spinner"
       (loading$)="loading$ = $event"

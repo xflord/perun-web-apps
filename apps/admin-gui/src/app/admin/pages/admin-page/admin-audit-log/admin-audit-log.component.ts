@@ -15,6 +15,7 @@ export class AdminAuditLogComponent implements OnInit {
 
   selectedEvents: string[] = [];
   eventOptions: string[] = [];
+  eventOptionsForSearchSelect: string[] = [];
 
   constructor(
     private auditMessagesManagerService: AuditMessagesManagerService,
@@ -25,6 +26,7 @@ export class AdminAuditLogComponent implements OnInit {
     this.loading$ = of(true);
     this.auditMessagesManagerService.findAllPossibleEvents().subscribe((res) => {
       this.eventOptions = res.sort();
+      this.eventOptionsForSearchSelect = this.eventOptions;
     });
   }
 
@@ -40,6 +42,8 @@ export class AdminAuditLogComponent implements OnInit {
 
   refreshOnClosed(): void {
     this.selectedEvents = [...this.selectedEvents];
+    const otherEntities = this.eventOptions.filter((e) => !this.selectedEvents.includes(e));
+    this.eventOptionsForSearchSelect = [...this.selectedEvents, ...otherEntities];
     this.cd.detectChanges();
   }
 }

@@ -46,8 +46,8 @@ export class EntitySearchSelectComponent<T extends PerunBean>
   entitiesCtrl: UntypedFormControl = new UntypedFormControl();
   entityFilterCtrl: UntypedFormControl = new UntypedFormControl();
   filteredEntities = new ReplaySubject<T[]>(1);
+  entitiesLen = 0;
   protected _onDestroy = new Subject<void>();
-  private entitiesLen = 0;
 
   constructor(public cd: ChangeDetectorRef) {}
 
@@ -70,7 +70,7 @@ export class EntitySearchSelectComponent<T extends PerunBean>
     this.filteredEntities.subscribe((entities) => (this.entitiesLen = entities.length));
 
     this.entityFilterCtrl.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
-      this.filterEntites();
+      this.filterEntities();
     });
 
     if (this.entity !== null) {
@@ -174,7 +174,7 @@ export class EntitySearchSelectComponent<T extends PerunBean>
     }
   }
 
-  filterEntites(): void {
+  filterEntities(): void {
     if (!this.entities) {
       return;
     }
