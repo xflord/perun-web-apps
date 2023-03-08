@@ -73,7 +73,6 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
   @Input() serviceId: number;
   @Input() onlyAllowed: boolean;
   @Input() consentStatuses: ConsentStatus[];
-  @Input() includeConsents = false;
   @Output() loading$: EventEmitter<Observable<boolean>> = new EventEmitter<Observable<boolean>>();
 
   consents: Consent[];
@@ -127,9 +126,6 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
     if (!this.authResolver.isPerunAdminOrObserver()) {
       this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
-    if (this.includeConsents) {
-      this.displayedColumns.push('consentStatus');
-    }
 
     this.dataSource = new DynamicDataSource<RichUser>(
       this.dynamicPaginatingService,
@@ -158,6 +154,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
     if (this.dataSource) {
       this.child.paginator.pageIndex = 0;
       this.loadUsersPage();
+      this.loadConsents();
     }
   }
 
@@ -196,7 +193,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
   }
 
   loadConsents(): void {
-    if (this.includeConsents) {
+    if (this.displayedColumns.includes('consentStatus')) {
       this.consentService
         .getConsentHubByFacility(this.facilityId)
         .subscribe((consentHub) =>
@@ -256,7 +253,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
 
   getConsentsForUsers(users: RichUser[]): UserWithConsentStatus[] | RichUser[] {
     const result: UserWithConsentStatus[] = [];
-    if (this.includeConsents) {
+    if (this.displayedColumns.includes('consentStatus')) {
       users.forEach((user) => {
         const uwc: UserWithConsentStatus = user;
         uwc.consent = this.translate.instant(
