@@ -69,7 +69,7 @@
       (loading$)="loading$ = $event"
       [attrNames]="attributes"
       [disableRouting]="!routeAuth"
-      [displayedColumns]="['id', 'name', 'email', 'logins', 'organization']"
+      [displayedColumns]="globalForceConsents && facilityForceConsents ? ['id', 'name', 'email', 'logins', 'organization', 'consentStatus' ] : ['id', 'name', 'email', 'logins', 'organization']"
       [onlyAllowed]="allowed"
       [facilityId]="facility.id"
       [searchString]="filterValue"
@@ -78,7 +78,6 @@
       [tableId]="tableId"
       [voId]="selectedVo.id === -1 ? null : selectedVo.id"
       [consentStatuses]="selectedConsentStatuses"
-      [includeConsents]="globalForceConsents && facilityForceConsents"
       [updateTable]="update">
     </perun-web-apps-users-dynamic-list>
   </div>
