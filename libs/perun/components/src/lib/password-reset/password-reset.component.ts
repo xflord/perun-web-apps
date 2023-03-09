@@ -95,13 +95,19 @@ export class PasswordResetComponent implements OnInit {
 
     const dialogRef = this.dialog.open(ChangePasswordDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(() => {
-      void this.router.navigate([], {
-        queryParams: {
-          namespace: null,
-        },
-        queryParamsHandling: 'merge',
-      });
+    dialogRef.afterClosed().subscribe((state) => {
+      if (state === undefined) {
+        // closed by browser back button
+        void this.router.navigate([], {
+          queryParams: {
+            namespace: null,
+          },
+          queryParamsHandling: 'merge',
+        });
+      } else {
+        // Confirmed or Closed by buttons
+        window.history.back();
+      }
     });
   }
 }
