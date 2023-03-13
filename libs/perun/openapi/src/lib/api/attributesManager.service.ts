@@ -3127,7 +3127,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -3892,7 +3892,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -4783,7 +4783,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -5246,7 +5246,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -5752,7 +5752,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -5905,7 +5905,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -6463,7 +6463,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -6765,7 +6765,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -10039,7 +10039,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -10333,7 +10333,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -10624,7 +10624,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -11107,7 +11107,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -11606,7 +11606,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -12495,7 +12495,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }

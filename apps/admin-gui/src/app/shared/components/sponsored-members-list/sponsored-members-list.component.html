@@ -78,8 +78,16 @@
           </span>
         </td>
       </ng-container>
+      <ng-container matColumnDef="expiration">
+        <th *matHeaderCellDef mat-header-cell>
+          {{'SHARED.COMPONENTS.SPONSORED_MEMBERS_LIST.EXPIRATION' | translate}}
+        </th>
+        <td *matCellDef="let sponsoredMember" mat-cell>
+          {{(sponsoredMember.sponsors | selectedSponsor : selectedSponsor).validityTo | parseDate }}
+        </td>
+      </ng-container>
       <ng-container matColumnDef="menu">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
+        <th *matHeaderCellDef mat-header-cell></th>
         <td *matCellDef="let sponsoredMember" mat-cell>
           <button
             attr.data-cy="{{sponsoredMember.member.user.firstName}}-edit-sponsors-button"

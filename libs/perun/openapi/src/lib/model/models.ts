@@ -231,7 +231,6 @@ export * from './roleManagementRules';
 export * from './roleObject';
 export * from './securityTeam';
 export * from './service';
-export * from './serviceAttributes';
 export * from './serviceForGUI';
 export * from './serviceState';
 export * from './servicesPackage';

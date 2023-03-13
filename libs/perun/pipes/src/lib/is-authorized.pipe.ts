@@ -8,7 +8,7 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 export class IsAuthorizedPipe implements PipeTransform {
   constructor(private authResolver: GuiAuthResolver) {}
 
-  transform(obj: PerunBean, policy: string): boolean {
-    return this.authResolver.isAuthorized(policy, [obj]);
+  transform(objs: PerunBean[], policy: string): boolean {
+    return this.authResolver.isAuthorized(policy, objs);
   }
 }

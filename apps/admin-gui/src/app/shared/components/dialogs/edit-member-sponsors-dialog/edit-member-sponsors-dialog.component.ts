@@ -15,8 +15,6 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ChangeSponsorshipExpirationDialogComponent } from '@perun-web-apps/perun/dialogs';
-import { formatDate } from '@angular/common';
-
 export interface EditMemberSponsorsDialogComponent {
   theme: string;
   sponsors: Sponsor[];
@@ -35,7 +33,8 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
   dataSource: MatTableDataSource<Sponsor>;
   loading = false;
   sponsorsToRemove: Set<number> = new Set<number>();
-  private vo: Vo;
+  member: Member;
+  vo: Vo;
   private expirationChanged = false;
 
   constructor(
@@ -52,6 +51,7 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.sponsors = this.data.sponsors;
+    this.member = this.data.member;
     this.dataSource = new MatTableDataSource<Sponsor>(this.data.sponsors);
     this.vo = {
       beanName: 'Vo',
@@ -75,29 +75,6 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
 
   onCancel(): void {
     this.dialogRef.close(this.expirationChanged);
-  }
-
-  isRemoveAuthorized(sponsor: Sponsor): boolean {
-    return (
-      this.authResolver.isAuthorized('sponsored-removeSponsor_Member_User_policy', [
-        this.data.member,
-      ]) &&
-      this.authResolver.isAuthorized('sponsor-removeSponsor_Member_User_policy', [sponsor.user])
-    );
-  }
-
-  isExpirationAuthorized(sponsor: Sponsor): boolean {
-    return this.authResolver.isAuthorized('updateSponsorshipValidity_Member_User_LocalDate', [
-      sponsor.user,
-      this.vo,
-    ]);
-  }
-
-  parseDate(date: string): string {
-    if (date === null) {
-      return 'Never expire';
-    }
-    return formatDate(date, 'd.M.y', 'en');
   }
 
   changeExpiration(sponsor: Sponsor): void {

@@ -2659,7 +2659,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -2785,7 +2785,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -3932,7 +3932,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -4752,7 +4752,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }

@@ -1109,117 +1109,6 @@ export class ConsentsManagerService {
   }
 
   /**
-   * Returns a Consent Hub for facility to which resource belongs
-   * @param resource id of resource
-   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public getConsentHubByResource(
-    resource: number,
-    useNon?: boolean,
-    observe?: 'body',
-    reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
-  ): Observable<ConsentHub>;
-  public getConsentHubByResource(
-    resource: number,
-    useNon?: boolean,
-    observe?: 'response',
-    reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
-  ): Observable<HttpResponse<ConsentHub>>;
-  public getConsentHubByResource(
-    resource: number,
-    useNon?: boolean,
-    observe?: 'events',
-    reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
-  ): Observable<HttpEvent<ConsentHub>>;
-  public getConsentHubByResource(
-    resource: number,
-    useNon: boolean = false,
-    observe: any = 'body',
-    reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
-  ): Observable<any> {
-    if (resource === null || resource === undefined) {
-      throw new Error(
-        'Required parameter resource was null or undefined when calling getConsentHubByResource.'
-      );
-    }
-
-    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
-    if (resource !== undefined && resource !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>resource,
-        'resource'
-      );
-    }
-
-    let localVarHeaders = this.defaultHeaders;
-
-    let localVarCredential: string | undefined;
-    // authentication (BasicAuth) required
-    localVarCredential = this.configuration.lookupCredential('BasicAuth');
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
-    }
-
-    // authentication (BearerAuth) required
-    localVarCredential = this.configuration.lookupCredential('BearerAuth');
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
-    }
-
-    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
-      // to determine the Accept header
-      const httpHeaderAccepts: string[] = ['application/json'];
-      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-    }
-
-    let localVarHttpContext: HttpContext | undefined = options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
-    }
-
-    let responseType_: 'text' | 'json' | 'blob' = 'json';
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-        responseType_ = 'text';
-      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
-        responseType_ = 'json';
-      } else {
-        responseType_ = 'blob';
-      }
-    }
-
-    let requestUrl = `${this.configuration.basePath}/json/consentsManager/getConsentHubByResource`;
-    if (useNon) {
-      // replace the authentication part of url with 'non' authentication
-      let helperUrl = new URL(requestUrl);
-      let path = helperUrl.pathname.split('/');
-      path[1] = 'non';
-      helperUrl.pathname = path.join('/');
-      requestUrl = helperUrl.toString();
-    }
-    return this.httpClient.get<ConsentHub>(requestUrl, {
-      context: localVarHttpContext,
-      params: localVarQueryParameters,
-      responseType: <any>responseType_,
-      withCredentials: this.configuration.withCredentials,
-      headers: localVarHeaders,
-      observe: observe,
-      reportProgress: reportProgress,
-    });
-  }
-
-  /**
    * Returns a Consent Hub by id.
    * @param id numeric id
    * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
@@ -1434,6 +1323,117 @@ export class ConsentsManagerService {
   }
 
   /**
+   * Returns a Consent Hub for facility to which resource belongs.
+   * @param resource id of Resource
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getConsentHubByResource(
+    resource: number,
+    useNon?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<ConsentHub>;
+  public getConsentHubByResource(
+    resource: number,
+    useNon?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<ConsentHub>>;
+  public getConsentHubByResource(
+    resource: number,
+    useNon?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<ConsentHub>>;
+  public getConsentHubByResource(
+    resource: number,
+    useNon: boolean = false,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (resource === null || resource === undefined) {
+      throw new Error(
+        'Required parameter resource was null or undefined when calling getConsentHubByResource.'
+      );
+    }
+
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
+    if (resource !== undefined && resource !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>resource,
+        'resource'
+      );
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let requestUrl = `${this.configuration.basePath}/json/consentsManager/getConsentHubByResource`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+    }
+    return this.httpClient.get<ConsentHub>(requestUrl, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
+  }
+
+  /**
    * Return Consents for ConsentHub with corresponding id
    * @param consentHub id of ConsentHub
    * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
@@ -1545,8 +1545,8 @@ export class ConsentsManagerService {
   }
 
   /**
-   * Return all consents for ConsentHub corresponding to facility of the chosen resource.
-   * @param consentHub id of resource
+   * Get consents for members assigned to the resource.
+   * @param resource id of Resource
    * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.

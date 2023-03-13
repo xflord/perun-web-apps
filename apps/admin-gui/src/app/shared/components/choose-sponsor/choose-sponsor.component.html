@@ -1,14 +1,16 @@
 <div class="mt-4">
-  <h6>{{'DIALOGS.CREATE_SPONSORED_MEMBER.SELECT_SPONSOR' | translate}}</h6>
+  <h6>
+    {{(copy ? 'DIALOGS.CREATE_SPONSORED_MEMBER.SELECT_SPONSOR_COPY' : 'DIALOGS.CREATE_SPONSORED_MEMBER.SELECT_SPONSOR') | translate }}
+  </h6>
   <mat-radio-group
     [(ngModel)]="sponsorType"
     (ngModelChange)="emitSponsorType()"
     class="dialog-container">
     <span
-      matTooltip="{{'DIALOGS.CREATE_SPONSORED_MEMBER.SELECT_SELF_DISABLED' | translate}}"
-      [matTooltipDisabled]="isSponsor"
+      matTooltip="{{selfTooltip | translate}}"
+      [matTooltipDisabled]="isSelfEnabled()"
       matTooltipPosition="before">
-      <mat-radio-button [disabled]="!isSponsor" (click)="selectedSponsor = null" value="self">
+      <mat-radio-button [disabled]="!isSelfEnabled()" (click)="selectedSponsor = null" value="self">
         {{'DIALOGS.CREATE_SPONSORED_MEMBER.SELECT_SELF' | translate}}
       </mat-radio-button>
     </span>

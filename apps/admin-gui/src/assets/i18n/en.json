@@ -534,6 +534,7 @@
       "SPONSORED_MEMBERS": {
         "TITLE": "Sponsored members",
         "CREATE": "Create",
+        "COPY": "Copy sponsored members",
         "CREATE_ONE": "Create sponsored member",
         "GENERATE": "Generate sponsored members",
         "FILTER": "Filter by name or Id",
@@ -2024,9 +2025,11 @@
       "EXPIRE_NEVER": "Never expire",
       "EXPIRATION_ERROR": "The date has to be in format yyyy-mm-dd",
       "SELECT_SPONSOR": "Choose sponsor for created user",
+      "SELECT_SPONSOR_COPY": "Select target sponsor",
       "SELECT_SELF": "Make myself sponsor",
       "SELECT_OTHER": "Select other sponsor from this organization",
       "SELECT_SELF_DISABLED": "You must be sponsor in this organization",
+      "SELECT_SELF_DISABLED_COPY": "You cannot copy to yourself",
       "SELECT_OTHER_DISABLED": "You don't have permission to select other sponsor",
       "NEXT": "Next",
       "BACK": "Back",
@@ -2146,6 +2149,17 @@
       "EMPTY_SEARCH_MESSAGE": "Search field cannot be empty",
       "EXPIRATION": "Sponsorship expiration",
       "BEGIN_SEARCH": "Search for members you would like to sponsor",
+      "SUCCESS": "Members successfully sponsored"
+    },
+    "COPY_SPONSORED_MEMBERS": {
+      "TITLE": "Copy sponsored members",
+      "CANCEL": "Cancel",
+      "SPONSOR": "Copy",
+      "SPONSORED_MEMBERS": "Select sponsored members to copy",
+      "SPONSORED_MEMBERS_INFO": "Members already sponsored by the target sponsor will not be affected.",
+      "SPONSOR_FROM": "Select source sponsor",
+      "EXPIRATION": "Sponsorship expiration",
+      "EXP_INFO": "The expiration of the original sponsorship will be set if no new date is selected.",
       "SUCCESS": "Members successfully sponsored"
     },
     "ADD_OWNER": {
@@ -2674,6 +2688,7 @@
         "EMAIL": "Email",
         "LOGIN": "Login",
         "SPONSORS": "Sponsors",
+        "EXPIRATION": "Expiration",
         "NO_SPONSORED_MEMBERS_WARNING": "No sponsored members found",
         "PASSWORD_RESET": "Reset password"
       },

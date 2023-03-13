@@ -12,6 +12,7 @@
 import { Attribute } from './attribute';
 import { Facility } from './facility';
 
-export interface FacilityWithAttributes extends Facility {
+export interface FacilityWithAttributes {
+  facility: Facility;
   attributes: Array<Attribute>;
 }

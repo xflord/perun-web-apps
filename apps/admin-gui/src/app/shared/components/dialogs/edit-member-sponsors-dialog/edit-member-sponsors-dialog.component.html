@@ -22,10 +22,13 @@
           <th *matHeaderCellDef mat-header-cell>
             {{'DIALOGS.EDIT_MEMBER_SPONSORS.TABLE_EXPIRATION' | translate}}
           </th>
-          <td *matCellDef="let sponsor" class="align-elements" mat-cell>
-            <span>{{parseDate(sponsor.validityTo)}}</span>
+          <td
+            *matCellDef="let sponsor"
+            [class.align-elements]="[sponsor.user, vo] | isAuthorized: 'updateSponsorshipValidity_Member_User_LocalDate'"
+            mat-cell>
+            <span>{{sponsor.validityTo | parseDate}}</span>
             <button
-              *ngIf="isExpirationAuthorized(sponsor)"
+              *ngIf="[sponsor.user, vo] | isAuthorized: 'updateSponsorshipValidity_Member_User_LocalDate'"
               (click)="changeExpiration(sponsor)"
               mat-icon-button>
               <mat-icon> today </mat-icon>
@@ -36,14 +39,14 @@
           <th *matHeaderCellDef mat-header-cell></th>
           <td *matCellDef="let sponsor" mat-cell>
             <div
-              [matTooltipDisabled]="isRemoveAuthorized(sponsor)"
+              [matTooltipDisabled]="([member] | isAuthorized: 'sponsored-removeSponsor_Member_User_policy') && ([sponsor.user] | isAuthorized: 'sponsor-removeSponsor_Member_User_policy')"
               [matTooltipPosition]="'above'"
               matTooltip="{{'DIALOGS.EDIT_MEMBER_SPONSORS.REMOVE_SPONSOR_DISABLED' | translate}}">
               <button
                 attr.data-cy="{{sponsor.user.firstName}}-unsponsor-mark-button"
                 (click)="markSponsor(sponsor)"
                 class="btn-delete"
-                [disabled]="!isRemoveAuthorized(sponsor)"
+                [disabled]="!([member] | isAuthorized: 'sponsored-removeSponsor_Member_User_policy') || !([sponsor.user] | isAuthorized: 'sponsor-removeSponsor_Member_User_policy')"
                 mat-icon-button>
                 <mat-icon
                   *ngIf="!sponsorsToRemove.has(sponsor.user.id)"

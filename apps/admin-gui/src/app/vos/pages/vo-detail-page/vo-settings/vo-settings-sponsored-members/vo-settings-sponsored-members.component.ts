@@ -20,6 +20,7 @@ import {
 } from '@perun-web-apps/perun/services';
 import { SponsorExistingMemberDialogComponent } from '../../../../../shared/components/dialogs/sponsor-existing-member-dialog/sponsor-existing-member-dialog.component';
 import { Urns } from '@perun-web-apps/perun/urns';
+import { CopySponsoredMembersDialogComponent } from '../../../../../shared/components/dialogs/copy-sponsored-members-dialog/copy-sponsored-members-dialog.component';
 
 @Component({
   selector: 'app-vo-settings-sponsored-members',
@@ -146,6 +147,29 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
     };
 
     const dialogRef = this.dialog.open(SponsorExistingMemberDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loading = true;
+        this.authzResolver.getPerunPrincipal().subscribe((principal) => {
+          this.storeService.setPerunPrincipal(principal);
+          this.refresh();
+        });
+      }
+    });
+  }
+
+  copySponsoredMembers(): void {
+    const config = getDefaultDialogConfig();
+    config.width = '1000px';
+    config.data = {
+      voId: this.vo.id,
+      theme: 'vo-theme',
+      voSponsors: this.voSponsors,
+      findSponsorsAuth: this.findSponsorsAuth,
+    };
+
+    const dialogRef = this.dialog.open(CopySponsoredMembersDialogComponent, config);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {

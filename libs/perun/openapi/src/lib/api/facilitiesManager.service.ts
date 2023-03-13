@@ -4735,7 +4735,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -4885,7 +4885,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -7665,7 +7665,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -7941,7 +7941,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
