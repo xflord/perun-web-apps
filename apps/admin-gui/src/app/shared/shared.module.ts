@@ -188,6 +188,7 @@ import { UpdateResourceBanDialogComponent } from './components/dialogs/update-re
 import { UpdateFacilityBanDialogComponent } from './components/dialogs/update-facility-ban-dialog/update-facility-ban-dialog.component';
 import { CopyMembersDialogComponent } from './components/dialogs/copy-members-dialog/copy-members-dialog-component';
 import { ApplicationsListColumnsChangeDialogComponent } from './components/dialogs/applications-list-columns-change-dialog/applications-list-columns-change-dialog.component';
+import { CopySponsoredMembersDialogComponent } from './components/dialogs/copy-sponsored-members-dialog/copy-sponsored-members-dialog.component';
 
 @NgModule({
   imports: [
@@ -425,6 +426,7 @@ import { ApplicationsListColumnsChangeDialogComponent } from './components/dialo
     PasswordResetRequestDialogComponent,
     NewVersionDialogComponent,
     SponsorExistingMemberDialogComponent,
+    CopySponsoredMembersDialogComponent,
     DeleteServiceFromFacilityComponent,
     RemoveExtSourceDialogComponent,
     DeleteTaskDialogComponent,

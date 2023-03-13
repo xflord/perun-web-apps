@@ -59,6 +59,7 @@ import { ExtractFacilityPipe } from './extract-facility.pipe';
 import { ToEnrichedFacilityPipe } from './to-enriched-facility.pipe';
 import { TransformMemberStatusPipe } from './transform-member-status.pipe';
 import { ApplicationColumnSelectLabelPipe } from './application-column-select-label.pipe';
+import { SelectedSponsorPipe } from './selected-sponsor.pipe';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { ApplicationColumnSelectLabelPipe } from './application-column-select-la
     MemberCheckboxLabelPipe,
     GroupExpirationPipe,
     ParseDatePipe,
+    SelectedSponsorPipe,
     TechnicalOwnersPipe,
     FilterUniqueObjectsPipe,
     ParseGroupNamePipe,
@@ -146,6 +148,7 @@ import { ApplicationColumnSelectLabelPipe } from './application-column-select-la
     MemberStatusDisabledPipe,
     MemberCheckboxLabelPipe,
     ParseDatePipe,
+    SelectedSponsorPipe,
     TechnicalOwnersPipe,
     FilterUniqueObjectsPipe,
     ParseGroupNamePipe,

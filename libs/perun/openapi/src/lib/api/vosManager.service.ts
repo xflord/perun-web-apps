@@ -1496,7 +1496,7 @@ export class VosManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }
@@ -1639,7 +1639,7 @@ export class VosManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames'
         );
       });
     }

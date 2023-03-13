@@ -261,7 +261,6 @@ model/roleManagementRules.ts
 model/roleObject.ts
 model/securityTeam.ts
 model/service.ts
-model/serviceAttributes.ts
 model/serviceForGUI.ts
 model/serviceState.ts
 model/servicesPackage.ts

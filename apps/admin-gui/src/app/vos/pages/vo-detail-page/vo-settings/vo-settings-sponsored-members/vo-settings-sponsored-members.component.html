@@ -43,6 +43,14 @@
     mat-flat-button>
     {{'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.SPONSOR_EXISTING' | translate}}
   </button>
+  <button
+    *ngIf="setSponsorshipAuth"
+    (click)="copySponsoredMembers()"
+    color="accent"
+    class="me-2 action-button"
+    mat-flat-button>
+    {{'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.COPY' | translate}}
+  </button>
   <perun-web-apps-immediate-filter
     (filter)="applyFilter($event)"
     [placeholder]="'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.FILTER'">

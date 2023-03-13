@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
-import { AttributesManagerService, MemberWithSponsors, Vo } from '@perun-web-apps/perun/openapi';
+import {
+  AttributesManagerService,
+  MemberWithSponsors,
+  User,
+  Vo,
+} from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -37,6 +42,8 @@ export class SponsoredMembersListComponent implements OnChanges {
   disableRouting = false;
   @Input()
   tableId: string;
+  @Input()
+  selectedSponsor: User;
   @Output()
   refreshTable = new EventEmitter<void>();
   @ViewChild(TableWrapperComponent, { static: true }) child: TableWrapperComponent;

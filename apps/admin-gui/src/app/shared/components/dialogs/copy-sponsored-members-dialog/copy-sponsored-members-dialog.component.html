@@ -1,0 +1,73 @@
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.COPY_SPONSORED_MEMBERS.TITLE' | translate}}</h1>
+    <div class="dialog-container" mat-dialog-content>
+      <h6>{{'DIALOGS.COPY_SPONSORED_MEMBERS.SPONSOR_FROM' | translate}}</h6>
+      <perun-web-apps-user-search-select
+        (userSelected)="sourceSponsorChanged($event)"
+        [disableAutoSelect]="true"
+        [users]="voSponsorsSource">
+      </perun-web-apps-user-search-select>
+      <ng-template #spinner>
+        <perun-web-apps-loading-table></perun-web-apps-loading-table>
+      </ng-template>
+      <div class="position-relative" *ngIf="sourceSponsorSelected">
+        <h6>{{'DIALOGS.COPY_SPONSORED_MEMBERS.SPONSORED_MEMBERS' | translate}}</h6>
+        <perun-web-apps-alert alert_type="info">
+          {{'DIALOGS.COPY_SPONSORED_MEMBERS.SPONSORED_MEMBERS_INFO' | translate}}
+        </perun-web-apps-alert>
+        <perun-web-apps-immediate-filter
+          (filter)="filter = $event"
+          [placeholder]="'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.FILTER'">
+        </perun-web-apps-immediate-filter>
+        <app-sponsored-members-list
+          *perunWebAppsLoader="tableLoading; indicator: spinner"
+          [disableRouting]="true"
+          [sponsoredMembers]="filteredSponsoredMembers"
+          [selection]="selection"
+          [filterValue]="filter"
+          [displayedColumns]="['select', 'id', 'name', 'email', 'logins', 'expiration']"
+          [selectedSponsor]="sourceSponsor"
+          [tableId]="tableId">
+        </app-sponsored-members-list>
+      </div>
+      <div *ngIf="isPerunAdmin">
+        <app-choose-sponsor
+          *ngIf="!tableLoading"
+          [voId]="data.voId"
+          [copy]="true"
+          [disableSelf]="disableSelf"
+          [voSponsors]="voSponsorsTarget"
+          (sponsorTypeSelected)="sponsorType = $event"
+          (sponsorSelected)="targetSponsor = $event">
+        </app-choose-sponsor>
+      </div>
+      <div>
+        <perun-web-apps-alert alert_type="info">
+          {{'DIALOGS.COPY_SPONSORED_MEMBERS.EXP_INFO' | translate}}
+        </perun-web-apps-alert>
+        <h6>{{'DIALOGS.COPY_SPONSORED_MEMBERS.EXPIRATION' | translate}}</h6>
+        <mat-checkbox [(ngModel)]="pickExpiration">Pick new expiration date</mat-checkbox>
+        <perun-web-apps-expiration-select *ngIf="pickExpiration" (datePicker)="expiration = $event">
+        </perun-web-apps-expiration-select>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="cancel()" class="ms-auto" mat-flat-button>
+        {{'DIALOGS.COPY_SPONSORED_MEMBERS.CANCEL' | translate}}
+      </button>
+      <button
+        data-cy="sponsor-member-button"
+        (click)="submit()"
+        class="ms-2"
+        color="accent"
+        [disabled]="loading || selection.selected.length === 0 || (sponsorType === 'other' && !targetSponsor)"
+        mat-flat-button>
+        {{'DIALOGS.COPY_SPONSORED_MEMBERS.SPONSOR' | translate}}
+      </button>
+    </div>
+  </div>
+</div>
