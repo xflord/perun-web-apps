@@ -165,8 +165,8 @@ export class NotificatorService {
     actionText?: string,
     action?: () => void
   ): void {
-    const translatedDescription = description ? this.translate.instant(description) : null;
-    const translatedActionText = actionText ? this.translate.instant(actionText) : null;
+    const translatedDescription = description ? this.translate.instant(description) : undefined;
+    const translatedActionText = actionText ? this.translate.instant(actionText) : undefined;
     if (translatedActionText) {
       this.showSuccess(
         this.translate.instant(title),

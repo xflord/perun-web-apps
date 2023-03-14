@@ -987,7 +987,8 @@
       "OWNERS": "Owners",
       "AUDIT_LOG": "Audit log",
       "CONSENT_HUBS": "Consent hubs",
-      "SEARCHER": "Searcher"
+      "SEARCHER": "Searcher",
+      "BLOCKED_LOGINS": "Blocked logins"
     },
     "VISUALIZER": {
       "ATTR_DEPENDENCIES": "Modules dependencies",
@@ -2347,6 +2348,26 @@
       "UPDATE": "Update",
       "CANCEL": "Cancel",
       "SUCCESS": "Ban was successfully updated"
+    },
+    "UNBLOCK_LOGINS": {
+      "TITLE": "Confirm unblocking",
+      "DESCRIPTION": "The following logins will be unblocked globally, or in the namespace they were initially blocked.",
+      "ASK": "Do you want to proceed?",
+      "CANCEL": "Cancel",
+      "UNBLOCK": "Unblock"
+    },
+    "BLOCK_LOGINS": {
+      "TITLE": "Block logins",
+      "DESCRIPTION": "Logins can be blocked globally or within the specified namespace. Blocked login can not be reused.",
+      "BLOCK": "Block",
+      "PLACEHOLDER": "example1\nexample2",
+      "FIND_PLACEHOLDER": "Find namespace",
+      "INSERT_HERE": "Here insert logins",
+      "LOGINS_ERROR": "This line cannot be empty",
+      "GLOBAL": "Globally",
+      "SPECIFIC": "For specific namespace",
+      "NAMESPACE": "Namespace",
+      "NAMESPACE_ERROR": "Namespace cannot be empty"
     }
   },
   "MEMBERS_LIST": {
@@ -2394,6 +2415,11 @@
     "ACTOR": "Actor",
     "VIEW_DETAIL": "View details",
     "MESSAGE": "Message"
+  },
+  "BLOCKED_LOGINS_LIST": {
+    "ID": "Id",
+    "LOGIN": "Login",
+    "NAMESPACE": "Namespace"
   },
   "ADMIN_USER": {
     "ENTITY": "User",
@@ -2500,6 +2526,15 @@
       "TAB_MEMBERS": "Members",
       "TAB_FACILITIES": "Facilities",
       "TAB_RESOURCES": "Resources"
+    },
+    "BLOCKED_LOGINS": {
+      "TITLE": "Blocked logins",
+      "SEARCH_PLACEHOLDER": "Search by login",
+      "BLOCK": "Block",
+      "UNBLOCK": "Unblock",
+      "FILTER_NAMESPACE": "Filter by namespace",
+      "UNBLOCK_SUCCESS": "Logins were successfully unblocked",
+      "BLOCK_SUCCESS": "Logins were successfully blocked"
     }
   },
   "USER_DETAIL": {
@@ -2899,6 +2934,11 @@
           "SELECT_VO": "Select organization",
           "FIND_VO": "Find organization...",
           "NO_VO_FOUND": "No matching organization found"
+        },
+        "NAMESPACE_SEARCH_SELECT": {
+          "SELECT_NAMESPACE": "Select namespace",
+          "FIND_NAMESPACE": "Blocked in...",
+          "NO_NAMESPACE_FOUND": "No matching namespace found"
         },
         "SERVICE_PACKAGE_SEARCH_SELECT": {
           "SELECT_PACKAGE": "Select service package",
@@ -3314,7 +3354,8 @@
         "NO_MEMBERS": "No members found",
         "NO_USERS": "No users found.",
         "NO_FACILITIES": "No facilities found.",
-        "NO_AUDIT_MESSAGES": "No audit messages found."
+        "NO_AUDIT_MESSAGES": "No audit messages found.",
+        "NO_BLOCKED_LOGINS": "No blocked logins found."
       }
     }
   }

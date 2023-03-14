@@ -38,7 +38,7 @@
         [minBufferPx]="5 * 48"
         [maxBufferPx]="10 * 48">
         <mat-option
-          class="{{theme}}"
+          class="{{highlightOption && !entity ? 'fst-italic ' + theme : theme}}"
           *cdkVirtualFor="let entity of filteredEntities | async"
           [value]="entity"
           (onSelectionChange)="onChange($event)">
@@ -52,9 +52,6 @@
     </mat-select>
   </mat-form-field>
 
-  <perun-web-apps-deselect-button
-    class="ms-2"
-    *ngIf="visibleDeselectButton"
-    (deselect)="deselectEvent()">
+  <perun-web-apps-deselect-button *ngIf="visibleDeselectButton" (deselect)="deselectEvent()">
   </perun-web-apps-deselect-button>
 </div>

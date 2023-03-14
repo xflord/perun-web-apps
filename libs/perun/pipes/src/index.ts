@@ -41,3 +41,4 @@ export * from './lib/to-enriched-facility.pipe';
 export * from './lib/transform-member-status.pipe';
 export * from './lib/application-column-select-label.pipe';
 export * from './lib/selected-consent-statuses.pipe';
+export * from './lib/global-namespace.pipe';

@@ -233,6 +233,7 @@ model/newApps.ts
 model/owner.ts
 model/ownerType.ts
 model/paginatedAuditMessages.ts
+model/paginatedBlockedLogins.ts
 model/paginatedRichApplications.ts
 model/paginatedRichGroups.ts
 model/paginatedRichMembers.ts

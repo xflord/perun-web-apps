@@ -1,0 +1,79 @@
+<div [hidden]="this.dataSource.allObjectCount === 0" class="card mt-2">
+  <perun-web-apps-table-wrapper
+    (exportDisplayedData)="exportDisplayedData($event)"
+    (exportAllData)="exportAllData($event)"
+    [tableId]="tableId"
+    [dataLength]="dataSource.allObjectCount"
+    [pageSizeOptions]="pageSizeOptions">
+    <table
+      [dataSource]="dataSource"
+      class="w-100"
+      mat-table
+      matSort
+      matSortActive="login"
+      matSortDirection="asc"
+      matSortDisableClear>
+      <ng-container
+        matColumnDef="checkbox"
+        *ngIf="{all: dataSource | isAllSelected: selection.selected.length} as selected">
+        <th *matHeaderCellDef="let row" mat-header-cell class="align-checkbox">
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            *ngIf="selection.isMultipleSelection()"
+            [aria-label]="selected.all | masterCheckboxLabel | translate"
+            [checked]="selection.hasValue() && selected.all"
+            [indeterminate]="selection.hasValue() && !selected.all"
+            color="primary">
+          </mat-checkbox>
+        </th>
+        <td *matCellDef="let row" class="static-column-size align-checkbox" mat-cell>
+          <mat-checkbox
+            (change)="$event ? selection.toggle(row) : null"
+            (click)="$event.stopPropagation()"
+            [aria-label]="selection.isSelected(row) | checkboxLabel | translate: {name: row}"
+            [checked]="selection.isSelected(row)"
+            color="primary">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="id">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'BLOCKED_LOGINS_LIST.ID' | translate}}
+        </th>
+        <td *matCellDef="let blockedLogin" class="static-column-size" mat-cell>
+          {{blockedLogin.id}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="login">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'BLOCKED_LOGINS_LIST.LOGIN' | translate}}
+        </th>
+        <td *matCellDef="let blockedLogin" mat-cell>{{blockedLogin.login}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="namespace">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'BLOCKED_LOGINS_LIST.NAMESPACE' | translate}}
+        </th>
+        <td
+          *matCellDef="let blockedLogin"
+          mat-cell
+          class="{{!blockedLogin.namespace ? 'fst-italic' : ''}}">
+          {{blockedLogin.namespace | globalNamespace}}
+        </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr
+        *matRowDef="let blockedLogin; columns: displayedColumns;"
+        class="dark-hover-list-item"
+        mat-row></tr>
+    </table>
+  </perun-web-apps-table-wrapper>
+</div>
+
+<perun-web-apps-alert *ngIf="this.dataSource.allObjectCount === 0" [alert_type]="'warn'">
+  {{'SHARED_LIB.UI.ALERTS.NO_BLOCKED_LOGINS' | translate}}
+</perun-web-apps-alert>

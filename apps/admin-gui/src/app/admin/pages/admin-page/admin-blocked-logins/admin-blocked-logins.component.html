@@ -1,0 +1,56 @@
+<h1 class="page-subtitle">{{'ADMIN.BLOCKED_LOGINS.TITLE' | translate}}</h1>
+
+<div class="align-elements">
+  <div>
+    <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
+    <button
+      (click)="block()"
+      color="accent"
+      class="me-2 action-button"
+      mat-flat-button
+      *ngIf="isAdmin">
+      {{'ADMIN.BLOCKED_LOGINS.BLOCK' | translate}}
+    </button>
+    <button
+      *ngIf="isAdmin"
+      (click)="unblock()"
+      class="me-2"
+      color="warn"
+      mat-flat-button
+      [disabled]="selection.selected.length === 0">
+      {{'ADMIN.BLOCKED_LOGINS.UNBLOCK' | translate}}
+    </button>
+  </div>
+
+  <perun-web-apps-namespace-search-select
+    class="pr-2 me-2 flex-grow-1"
+    [namespaceOptions]="filterOptions"
+    [multiple]="true"
+    (namespaceSelected)="toggleEvent($event)"
+    [disableAutoSelect]="true"
+    [customSelectPlaceholder]="'ADMIN.BLOCKED_LOGINS.FILTER_NAMESPACE' | translate"
+    (selectClosed)="refreshOnClosed()">
+  </perun-web-apps-namespace-search-select>
+
+  <perun-web-apps-debounce-filter
+    class="search-field flex-grow-1"
+    [autoFocus]="true"
+    [placeholder]="'ADMIN.BLOCKED_LOGINS.SEARCH_PLACEHOLDER'"
+    (filter)="onSearchByString($event)">
+  </perun-web-apps-debounce-filter>
+</div>
+
+<ng-template #spinner>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div class="position-relative">
+  <perun-web-apps-blocked-logins-dynamic-list
+    *perunWebAppsLoader="loading$ | async; indicator: spinner"
+    (loading$)="loading$ = $event"
+    [searchString]="searchString"
+    [tableId]="tableId"
+    [updateTable]="update"
+    [selection]="selection"
+    [selectedNamespaces]="selectedNamespaces">
+  </perun-web-apps-blocked-logins-dynamic-list>
+</div>

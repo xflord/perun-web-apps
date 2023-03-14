@@ -60,6 +60,7 @@ import { ToEnrichedFacilityPipe } from './to-enriched-facility.pipe';
 import { TransformMemberStatusPipe } from './transform-member-status.pipe';
 import { ApplicationColumnSelectLabelPipe } from './application-column-select-label.pipe';
 import { SelectedSponsorPipe } from './selected-sponsor.pipe';
+import { GlobalNamespacePipe } from './global-namespace.pipe';
 
 @NgModule({
   declarations: [
@@ -124,6 +125,7 @@ import { SelectedSponsorPipe } from './selected-sponsor.pipe';
     ToEnrichedFacilityPipe,
     TransformMemberStatusPipe,
     ApplicationColumnSelectLabelPipe,
+    GlobalNamespacePipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -187,6 +189,7 @@ import { SelectedSponsorPipe } from './selected-sponsor.pipe';
     ToEnrichedFacilityPipe,
     TransformMemberStatusPipe,
     ApplicationColumnSelectLabelPipe,
+    GlobalNamespacePipe,
   ],
   imports: [CommonModule],
 })

@@ -1,0 +1,50 @@
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.UNBLOCK_LOGINS.TITLE' | translate}}</h1>
+    <div mat-dialog-content>
+      <p>
+        {{'DIALOGS.UNBLOCK_LOGINS.DESCRIPTION' | translate}}
+      </p>
+
+      <div class="fw-bold">
+        {{'DIALOGS.UNBLOCK_LOGINS.ASK' | translate}}
+      </div>
+
+      <table [dataSource]="dataSource" class="w-100" mat-table>
+        <ng-container matColumnDef="id">
+          <th *matHeaderCellDef mat-header-cell></th>
+          <td *matCellDef="let blockedLogin" mat-cell>{{blockedLogin.id}}</td>
+        </ng-container>
+        <ng-container matColumnDef="login">
+          <th *matHeaderCellDef mat-header-cell></th>
+          <td *matCellDef="let blockedLogin" mat-cell class="trim-login">
+            {{blockedLogin.login}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="namespace">
+          <th *matHeaderCellDef mat-header-cell></th>
+          <td
+            *matCellDef="let blockedLogin"
+            mat-cell
+            class="{{!blockedLogin.namespace ? 'fst-italic' : ''}}">
+            {{blockedLogin.namespace | globalNamespace}}
+          </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="displayedColumns" class="fw-bolder" mat-header-row></tr>
+        <tr *matRowDef="let blockedLogin; columns: displayedColumns;" mat-row></tr>
+      </table>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
+        {{'DIALOGS.UNBLOCK_LOGINS.CANCEL' | translate}}
+      </button>
+      <button (click)="onSubmit()" class="ms-2" color="warn" mat-flat-button>
+        {{'DIALOGS.UNBLOCK_LOGINS.UNBLOCK' | translate}}
+      </button>
+    </div>
+  </div>
+</div>

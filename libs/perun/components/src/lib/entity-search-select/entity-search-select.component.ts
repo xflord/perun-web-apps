@@ -35,6 +35,7 @@ export class EntitySearchSelectComponent<T extends PerunBean>
   @Input() entity: T | T[] = null;
   @Input() displayStatus = false;
   @Input() multiple = false;
+  @Input() highlightOption = false;
   @Input() theme = '';
   @Input() required = false;
   @Output() entitySelected = new EventEmitter<T | T[]>();
@@ -95,7 +96,7 @@ export class EntitySearchSelectComponent<T extends PerunBean>
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.entity !== null) {
+    if (this.entity) {
       this.entitiesCtrl.setValue(this.entity);
       if (Array.isArray(this.entity)) {
         this.selectedEntities = this.entity;
@@ -142,7 +143,6 @@ export class EntitySearchSelectComponent<T extends PerunBean>
         this.entitySelected.emit(value);
       }
     }
-
     this.visibleDeselectButton = !this.disableDeselectButton && this.selectedEntities.length !== 0;
   }
 
@@ -171,6 +171,7 @@ export class EntitySearchSelectComponent<T extends PerunBean>
     if (!entities || entities.length === 0) {
       return;
     }
+
     if (entities.length === this.entities.length) {
       return 'ALL';
     } else if (entities.length > 1) {

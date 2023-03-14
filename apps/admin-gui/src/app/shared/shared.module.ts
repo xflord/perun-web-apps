@@ -189,6 +189,8 @@ import { UpdateFacilityBanDialogComponent } from './components/dialogs/update-fa
 import { CopyMembersDialogComponent } from './components/dialogs/copy-members-dialog/copy-members-dialog-component';
 import { ApplicationsListColumnsChangeDialogComponent } from './components/dialogs/applications-list-columns-change-dialog/applications-list-columns-change-dialog.component';
 import { CopySponsoredMembersDialogComponent } from './components/dialogs/copy-sponsored-members-dialog/copy-sponsored-members-dialog.component';
+import { UnblockLoginsDialogComponent } from './components/dialogs/unblock-logins-dialog/unblock-logins-dialog.component';
+import { BlockLoginsDialogComponent } from './components/dialogs/block-logins-dialog/block-logins-dialog.component';
 
 @NgModule({
   imports: [
@@ -468,6 +470,8 @@ import { CopySponsoredMembersDialogComponent } from './components/dialogs/copy-s
     UpdateFacilityBanDialogComponent,
     CopyMembersDialogComponent,
     ApplicationsListColumnsChangeDialogComponent,
+    UnblockLoginsDialogComponent,
+    BlockLoginsDialogComponent,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe, ConsentRelatedAttributePipe],
 })

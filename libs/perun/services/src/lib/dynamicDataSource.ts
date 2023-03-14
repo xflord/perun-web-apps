@@ -24,6 +24,11 @@ import { DynamicPaginatingService } from './dynamic-paginating.service';
 import { GuiAuthResolver } from './gui-auth-resolver.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { DynamicDataSource as NewDynamicDataSource } from '@perun-web-apps/perun/models';
+import {
+  BlockedLogin,
+  BlockedLoginsOrderColumn,
+  PaginatedBlockedLogins,
+} from '@perun-web-apps/perun/openapi';
 
 export function isPaginatedDataSource<T>(
   ds: MatTableDataSource<T> | DynamicDataSource<T> | NewDynamicDataSource<T>
@@ -226,6 +231,67 @@ export class DynamicDataSource<T> implements DataSource<T> {
             ...results.map((result) => (result as PaginatedRichUsers).data)
           );
           subscriber.next(mergedData as RichUser[]);
+          subscriber.complete();
+        },
+        error: (error) => subscriber.error(error),
+      });
+    });
+  }
+
+  loadBlockedLogins(
+    pageSize: number,
+    pageIndex: number,
+    sortOrder: SortingOrder,
+    sortColumn: BlockedLoginsOrderColumn,
+    searchString?: string,
+    namespaces?: string[]
+  ): void {
+    this.loadingSubject.next(true);
+    this.latestQueryTime = Date.now();
+    const thisQueryTime = this.latestQueryTime;
+
+    this.dynamicPaginatingService
+      .getBlockedLogins(pageSize, pageIndex, sortOrder, sortColumn, searchString, namespaces)
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject.next(false))
+      )
+      .subscribe((paginatedBlockedLogins) => {
+        if (this.latestQueryTime <= thisQueryTime) {
+          const data: BlockedLogin[] = (paginatedBlockedLogins as PaginatedBlockedLogins).data;
+          this.allObjectCount = (paginatedBlockedLogins as PaginatedBlockedLogins).totalCount;
+          this.dataSubject.next(data as unknown as T[]);
+        }
+      });
+  }
+
+  getAllBlockedLogins(
+    order: SortingOrder,
+    totalCount: number,
+    sortColumn: BlockedLoginsOrderColumn,
+    searchString: string,
+    namespaces: string[]
+  ): Observable<BlockedLogin[]> {
+    return new Observable((subscriber) => {
+      const requests = [];
+      for (let pageNumber = 0; pageNumber < Math.ceil(totalCount / this.step); pageNumber++) {
+        requests.push(
+          this.dynamicPaginatingService.getBlockedLogins(
+            this.step,
+            pageNumber,
+            order,
+            sortColumn,
+            searchString,
+            namespaces
+          )
+        );
+      }
+      forkJoin(requests).subscribe({
+        next: (results) => {
+          const mergedData = [].concat(
+            ...results.map((result) => (result as PaginatedBlockedLogins).data)
+          );
+          subscriber.next(mergedData as BlockedLogin[]);
           subscriber.complete();
         },
         error: (error) => subscriber.error(error),

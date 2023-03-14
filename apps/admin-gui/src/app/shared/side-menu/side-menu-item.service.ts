@@ -232,6 +232,11 @@ export class SideMenuItemService {
           url: ['/admin/searcher'],
           activatedRegex: '^/admin/searcher',
         },
+        {
+          label: 'MENU_ITEMS.ADMIN.BLOCKED_LOGINS',
+          url: ['/admin/blocked_logins'],
+          activatedRegex: '^/admin/blocked_logins',
+        },
       ],
     };
   }

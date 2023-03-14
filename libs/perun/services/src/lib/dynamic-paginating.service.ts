@@ -18,6 +18,7 @@ import {
   ConsentStatus,
 } from '@perun-web-apps/perun/openapi';
 import { Observable } from 'rxjs';
+import { BlockedLoginsOrderColumn, PaginatedBlockedLogins } from '@perun-web-apps/perun/openapi';
 
 @Injectable({
   providedIn: 'root',
@@ -88,6 +89,26 @@ export class DynamicPaginatingService {
         serviceId: serviceId,
         onlyAllowed: onlyAllowed,
         consentStatuses: consentStatuses,
+      },
+    });
+  }
+
+  getBlockedLogins(
+    pageSize: number,
+    pageNumber: number,
+    order: SortingOrder,
+    sortColumn: BlockedLoginsOrderColumn,
+    searchString?: string,
+    namespaces?: string[]
+  ): Observable<PaginatedBlockedLogins> {
+    return this.usersService.getBlockedLoginsPage({
+      query: {
+        pageSize: pageSize,
+        offset: pageSize * pageNumber,
+        order: order,
+        sortColumn: sortColumn,
+        namespaces: namespaces,
+        searchString: searchString,
       },
     });
   }

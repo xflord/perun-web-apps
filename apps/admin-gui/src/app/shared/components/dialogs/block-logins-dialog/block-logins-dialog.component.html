@@ -1,0 +1,62 @@
+<ng-template #spinner>
+  <perun-web-apps-loading-dialog></perun-web-apps-loading-dialog>
+</ng-template>
+<div class="{{data.theme}} position-relative">
+  <div *perunWebAppsLoader="loading; indicator: spinner">
+    <h1 mat-dialog-title>{{'DIALOGS.BLOCK_LOGINS.TITLE' | translate}}</h1>
+
+    <div class="dialog-container" mat-dialog-content>
+      <mat-radio-group [(ngModel)]="isGlobal" class="d-flex flex-column">
+        <mat-radio-button class="me-3" color="primary" [value]="true" [checked]="isGlobal">
+          {{'DIALOGS.BLOCK_LOGINS.GLOBAL' | translate}}
+        </mat-radio-button>
+        <mat-radio-button
+          class="me-3"
+          color="primary"
+          [value]="false"
+          [checked]="!isGlobal"
+          *ngIf="data.namespaceOptions.length > 0">
+          {{'DIALOGS.BLOCK_LOGINS.SPECIFIC' | translate}}
+        </mat-radio-button>
+      </mat-radio-group>
+
+      <perun-web-apps-namespace-search-select
+        *ngIf="data.namespaceOptions.length > 0 && !isGlobal"
+        [namespaceOptions]="data.namespaceOptions"
+        [disableDeselectButton]="true"
+        [disableAutoSelect]="true"
+        [customFindPlaceholder]="'DIALOGS.BLOCK_LOGINS.FIND_PLACEHOLDER'"
+        (namespaceSelected)="selectedNamespace = $event">
+      </perun-web-apps-namespace-search-select>
+
+      <mat-form-field class="pt-2 d-flex flex-column">
+        <mat-label>{{'DIALOGS.BLOCK_LOGINS.INSERT_HERE'| translate}}</mat-label>
+        <textarea
+          cols="50"
+          class="md-textarea form-control"
+          [formControl]="blockLogins"
+          required
+          matInput
+          placeholder="{{'DIALOGS.BLOCK_LOGINS.PLACEHOLDER' | translate}}"
+          rows="8"></textarea>
+        <mat-error *ngIf="blockLogins.hasError('required')">
+          {{'DIALOGS.BLOCK_LOGINS.LOGINS_ERROR' | translate}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+      <button (click)="onCancel()" class="ms-auto" mat-flat-button>
+        {{'DIALOGS.BULK_INVITE_MEMBERS.CANCEL' | translate}}
+      </button>
+      <button
+        (click)="onSubmit()"
+        class="ms-2"
+        color="accent"
+        [disabled]="loading || blockLogins.invalid || (!isGlobal && selectedNamespace === null)"
+        mat-flat-button>
+        {{'DIALOGS.BLOCK_LOGINS.BLOCK' | translate}}
+      </button>
+    </div>
+  </div>
+</div>

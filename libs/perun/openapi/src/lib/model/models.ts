@@ -268,3 +268,8 @@ export * from './usersPageQuery';
 export * from './vo';
 export * from './voAdminRoles';
 export * from './voMemberStatuses';
+export * from './blockedLogin';
+export * from './blockedLoginsOrderColumn';
+export * from './blockedLoginsPageQuery';
+export * from './inputGetPaginatedBlockedLogins';
+export * from './paginatedBlockedLogins';

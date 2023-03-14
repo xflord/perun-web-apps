@@ -64,5 +64,11 @@ export class AdminOverviewComponent {
       label: 'MENU_ITEMS.ADMIN.SEARCHER',
       style: 'admin-btn',
     },
+    {
+      cssIcon: 'perun-blocked-logins',
+      url: '/admin/blocked_logins',
+      label: 'MENU_ITEMS.ADMIN.BLOCKED_LOGINS',
+      style: 'admin-btn',
+    },
   ];
 }

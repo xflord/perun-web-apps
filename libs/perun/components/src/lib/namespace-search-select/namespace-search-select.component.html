@@ -1,0 +1,16 @@
+<perun-web-apps-entity-search-select
+  [entity]="namespace"
+  [entities]="namespaceOptions"
+  [disableAutoSelect]="disableAutoSelect"
+  (entitySelected)="this.namespaceSelected.emit($event)"
+  (selectClosed)="this.selectClosed.emit($event)"
+  [multiple]="this.multiple"
+  [highlightOption]="true"
+  [disableDeselectButton]="disableDeselectButton"
+  [searchFunction]="searchFunction"
+  [mainTextFunction]="mainTextFunction"
+  [secondaryTextFunction]="secondaryTextFunction"
+  [selectPlaceholder]="this.customSelectPlaceholder ?? 'SHARED_LIB.PERUN.COMPONENTS.NAMESPACE_SEARCH_SELECT.SELECT_NAMESPACE' | translate"
+  [findPlaceholder]="this.customFindPlaceholder ?? 'SHARED_LIB.PERUN.COMPONENTS.NAMESPACE_SEARCH_SELECT.FIND_NAMESPACE' | translate"
+  [noEntriesText]="'SHARED_LIB.PERUN.COMPONENTS.NAMESPACE_SEARCH_SELECT.NO_NAMESPACE_FOUND' | translate">
+</perun-web-apps-entity-search-select>
