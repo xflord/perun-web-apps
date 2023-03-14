@@ -520,8 +520,6 @@
         "SSH_KEYS": {
           "SSH_KEYS_TITLE": "SSH keys",
           "SSH_KEYS_DESCRIPTION": "List of your ssh keys.",
-          "ADMIN_SSH_KEYS_TITLE": "Admin SSH keys",
-          "ADMIN_SSH_KEYS_DESCRIPTION": "List of your ssh keys for root access.",
           "NEW_KEY": "Add new key",
           "COPY_TOOLTIP": "Copy to clipboard",
           "REMOVE_TOOLTIP": "Remove",
