@@ -66,6 +66,43 @@ const getConfigs = async () => {
   return configs;
 }
 
+// https://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef
+const computeLuminance = (color) => {
+  const rgb = tinycolor(color).toRgb();
+  let r = rgb.r / 255;
+  let g = rgb.g / 255;
+  let b = rgb.b / 255;
+  if (r <= 0.03928) {
+    r = r / 12.92;
+  } else {
+    r = Math.pow((r + 0.055) / 1.055, 2.4);
+  }
+  if (g <= 0.03928) {
+    g = g / 12.92;
+  }
+  else {
+    g = Math.pow((g + 0.055) / 1.055, 2.4);
+  }
+  if (b <= 0.03928) {
+    b = b / 12.92;
+  }
+  else {
+    b = Math.pow((b + 0.055) / 1.055, 2.4);
+  }
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+// Via: https://www.w3.org/TR/2008/REC-WCAG20-20081211/#contrast-ratiodef
+const computeContrast = (color1, color2) => {
+  const l1 = computeLuminance(color1);
+  const l2 = computeLuminance(color2);
+  if (l1 > l2) {
+    return (l1 + 0.05) / (l2 + 0.05);
+  } else {
+    return (l2 + 0.05) / (l1 + 0.05);
+  }
+}
+
 const generatePallette = (color) => {
   const colors = {
     "50": tinycolor(color).lighten(52).toHexString(), // light
@@ -85,11 +122,12 @@ const generatePallette = (color) => {
   }
   const contrast = {};
   for (let key in colors) {
-    if (tinycolor(colors[key]).isLight()) {
-      contrast[key] = tinycolor("#1e1e1e").toHexString();
-    } else {
-      contrast[key] = tinycolor("#ffffff").toHexString();
-    }
+    // Compute contrast ratio w.r.t. white
+    const ratioWhite = computeContrast(colors[key], "#ffffff");
+    // Compute contrast ratio w.r.t. 1e1e1e
+    const ratioBlack = computeContrast(colors[key], "#1e1e1e");
+    // Pick the higher ratio
+    contrast[key] = ratioWhite > ratioBlack ? "#ffffff" : "#1e1e1e";
   }
   return { colors, contrast };
 }
@@ -98,26 +136,36 @@ const updateTemplates = async (configs) => {
   // Open styles file and replace colors from config
   for (let config of configs) {
     let _style = await fs.readFile(`${config.path}/src/_styles.scss`, 'utf-8');
+
+    const regex = new RegExp(/.(.*)-theme \{\n ((.|\n)*)-theme\);\n\}/g);
+    const matches = _style.match(regex);
+    if (matches == null) {
+      continue;
+    }
+    let string = matches[0];
     for (let color in config.colors) {
-      // Special case for entities
+      // Regex to match all instances of color-theme
       // var(--{entity}-theme-primary-50)
       const regex = new RegExp(`var\\(--${color}-theme-primary-(.*\\d{2,3}\\))`, 'g');
-      const matches = _style.match(regex);
+      const m = _style.match(regex);
+      const pallette = generatePallette(config.colors[color]);
 
-      if (matches != null) {
-        for (const match of matches) {
-          const pallette = generatePallette(config.colors[color]);
+      // Special case for entities
+      if (m != null) {
+        for (const match of m) {
           const key = match.substring(match.lastIndexOf('-') + 1, match.indexOf(')'));
 
           if (match.includes('contrast')) {
-            _style = _style.replaceAll(match, pallette.contrast[key]);
+            string = string.replaceAll(match, pallette.contrast[key]);
             continue;
           }
-          _style = _style.replaceAll(match, pallette.colors[key]);
+          // Replace colors in pallette
+          string = string.replaceAll(match, pallette.colors[key]);
         }
       }
     }
     // Save cahnges to styles.scss
+    _style = _style.replaceAll(regex, string);
     await fs.writeFile(`${config.path}/src/styles.scss`, _style);
   }
 }
