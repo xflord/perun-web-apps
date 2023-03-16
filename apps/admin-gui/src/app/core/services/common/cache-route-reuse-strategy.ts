@@ -111,6 +111,12 @@ export class CacheRouteReuseStrategy implements RouteReuseStrategy {
     while (document.getElementsByTagName('mat-tooltip-component').length > 0) {
       document.getElementsByTagName('mat-tooltip-component')[0].remove();
     }
+    // Do not cache components in the overlay to prevent a bug where they would stay on screen after rerouting
+    if (document.getElementsByClassName('cdk-overlay-container').length > 0) {
+      while (document.getElementsByClassName('cdk-overlay-container')[0].children.length > 0) {
+        document.getElementsByClassName('cdk-overlay-container')[0].children[0].remove();
+      }
+    }
 
     this.handlers.set(this.getKey(route), {
       routeHandle: detachedTree,
