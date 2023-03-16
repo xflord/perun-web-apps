@@ -17,7 +17,12 @@
         <th *matHeaderCellDef mat-header-cell mat-sort-header>
           {{'APPLICATIONS_LIST.ID' | translate}}
         </th>
-        <td *matCellDef="let application" mat-cell>{{application.id}}</td>
+        <td
+          *matCellDef="let application"
+          mat-cell
+          attr.data-cy="{{application.group ? application.group.name : 'no-group' | multiWordDataCy}}-id-td">
+          {{application.id}}
+        </td>
       </ng-container>
       <ng-container matColumnDef="createdAt">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>

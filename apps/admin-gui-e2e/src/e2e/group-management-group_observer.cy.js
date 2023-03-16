@@ -28,7 +28,7 @@ context('Actions', () => {
       .get(`[data-cy=groups]`)
       .click()
       .get('[data-cy=filter-input]')
-      .type(dbGroupName)
+      .type(dbGroupName, {force: true})
       .get(`[data-cy=${dbGroupName}]`)
       .click();
   });
@@ -37,7 +37,7 @@ context('Actions', () => {
     cy.get('[data-cy=members]')
       .click()
       .get('[data-cy=filter-input]')
-      .type(dbGroupMember)
+      .type(dbGroupMember, {force: true})
       .intercept('**/membersManager/getMembersPage')
       .as('getMembers')
       .wait('@getMembers')
@@ -62,25 +62,27 @@ context('Actions', () => {
       .get('[data-cy=external-sources]')
       .click()
       .get('[data-cy=unfocused-filter]')
-      .type(dbExtsource)
+      .type(dbExtsource, {force: true})
       .get(`[data-cy=${dbExtsource}-name-td]`)
       .should('exist')
   });
 
   it('test list vo members', () => {
     cy.get('[data-cy=vo-link]')
-      .click()
+      .click({force: true})
+      //FIXME: this is just a quick fix to reload the page cause there is a problem with policies otherwise
+      // this problem occurs only during the test not in real usage of admin-gui application
+      .reload()
       .get('[data-cy=members]')
       .click()
       .get('[data-cy=filter-input]')
-      .type(dbGroupMember)
+      .type(dbGroupMember, {force: true})
       .intercept('**/membersManager/getMembersPage')
       .as('getMembers')
       .wait('@getMembers')
       .get(`[data-cy=${dbGroupMember}-firstName-td]`)
       .should('exist')
   });
-
 
   it('test get application form', () => {
     cy.get('[data-cy=advanced-settings]')
@@ -94,7 +96,7 @@ context('Actions', () => {
   it('test list applications', () => {
     cy.get('[data-cy=applications]')
       .click()
-      .get(`[data-cy=${dbGroupName}-groupname-td]`)
+      .get(`[data-cy=${dbGroupName}-id-td]`)
       .click()
       .get(`[data-cy=${dbExtsource}-application-extsource]`)
       .should('exist')

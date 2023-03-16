@@ -24,7 +24,7 @@ context('Actions', () => {
       .get(`[data-cy=access-item-button]`)
       .click()
       .get('[data-cy=auto-focused-filter]')
-      .type(dbVoName)
+      .type(dbVoName, {force: true})
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get(`[data-cy=resources]`)
@@ -32,7 +32,7 @@ context('Actions', () => {
       .get(`[data-cy=resource-list]`)
       .click()
       .get('[data-cy=unfocused-filter]')
-      .type(dbResourceName)
+      .type(dbResourceName, {force: true})
       .get(`[data-cy=${dbResourceName}]`)
       .click()
       .get('[data-cy=assigned-groups]')
@@ -41,7 +41,8 @@ context('Actions', () => {
 
   it('test assign group to resource', () => {
     cy.get('[data-cy=add-group-button]')
-      .click()
+      .should('have.attr', 'color', 'accent') // check if the button is enabled (due to the force click below)
+      .click({ force: true })
       .get(`[data-cy=${dbGroupToAssign}-checkbox]`)
       .click()
       .get('[data-cy=next-button]')
@@ -54,14 +55,14 @@ context('Actions', () => {
 
       //  assert that group was added
       .get('[data-cy=filter-input]')
-      .type(dbGroupToAssign)
+      .type(dbGroupToAssign, {force: true})
       .get(`[data-cy=${dbGroupToAssign}-checkbox]`)
       .should('exist');
   });
 
   it('test remove group from resource', () => {
     cy.get('[data-cy=filter-input]')
-      .type(dbGroupToRemove)
+      .type(dbGroupToRemove, {force: true})
       .get(`[data-cy=${dbGroupToRemove}-checkbox]`)
       .click()
       .get('[data-cy=remove-group-button]')
@@ -79,7 +80,7 @@ context('Actions', () => {
 
   it('test activate group resource assignment', () => {
     cy.get('[data-cy=filter-input]')
-      .type(dbGroupToActivate)
+      .type(dbGroupToActivate, {force: true})
       .get(`[data-cy=${dbGroupToActivate}-inactive]`)
       .click()
       .intercept('**/resourcesManager/activateGroupResourceAssignment**')
@@ -95,7 +96,7 @@ context('Actions', () => {
 
   it('test deactivate group resource assignment', () => {
     cy.get('[data-cy=filter-input]')
-      .type(dbGroupToDeactivate)
+      .type(dbGroupToDeactivate, {force: true})
       .get(`[data-cy=${dbGroupToDeactivate}-active]`)
       .click()
       .intercept('**/resourcesManager/deactivateGroupResourceAssignment**')

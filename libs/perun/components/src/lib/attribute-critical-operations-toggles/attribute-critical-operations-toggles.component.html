@@ -2,6 +2,7 @@
   class="toggle-font"
   color="accent"
   labelPosition="before"
+  data-cy="toggle-read-critical"
   [(ngModel)]="readOperation"
   (toggleChange)="readOperationChanged.emit(!readOperation)">
   {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_CRITICAL_OPERATIONS_TOGGLE.READ' | translate}}

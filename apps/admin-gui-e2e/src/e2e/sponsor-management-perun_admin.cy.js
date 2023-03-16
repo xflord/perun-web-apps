@@ -32,7 +32,7 @@ context('Actions', () => {
       .get(`[data-cy=access-item-button]`)
       .click()
       .get('[data-cy=auto-focused-filter]')
-      .type(dbVoName)
+      .type(dbVoName, {force: true})
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get('[data-cy=sponsored-members]')
@@ -42,7 +42,7 @@ context('Actions', () => {
 
   it ('test list member sponsors', () => {
       cy.get('[data-cy=unfocused-filter]')
-        .type(dbSponsoredMember)
+        .type(dbSponsoredMember, {force: true})
         .get(`[data-cy=${dbSponsoredMember}-edit-sponsors-button]`)
         .click()
 
@@ -53,9 +53,10 @@ context('Actions', () => {
 
   it ('test sponsor existing member', () => {
     cy.get(`[data-cy=sponsor-existing-button]`)
-      .click()
+      .should('have.attr', 'color', 'accent') // check if the button is enabled (due to the force click below)
+      .click({ force: true })
       .get(`[data-cy=sponsor-search-input]`)
-      .type(`${dbMemberToSponsor}`)
+      .type(`${dbMemberToSponsor}`, {force: true})
       .get(`[data-cy=sponsor-search-button]`)
       .click()
       .get(`[data-cy=${dbMemberToSponsor}-checkbox]`)
@@ -67,7 +68,7 @@ context('Actions', () => {
 
       // assert that sponsored member exists
       .get('[data-cy=unfocused-filter]')
-      .type(dbMemberToSponsor)
+      .type(dbMemberToSponsor, {force: true})
       .get(`[data-cy=${dbMemberToSponsor}-name]`)
       .should('exist')
   })
@@ -75,13 +76,14 @@ context('Actions', () => {
   it ('test sponsor new member', () => {
     cy.intercept('**/membersManager/createSponsoredMember/withFullName**').as('createSponsoredMember')
       .get('[data-cy=sponsor-dropdown-button]')
-      .click()
+      .should('have.attr', 'color', 'accent') // check if the button is enabled (due to the force click below)
+      .click({ force: true })
       .get(`[data-cy=sponsor-new-button]`)
       .click()
       .get(`[data-cy=first-name-input]`)
-      .type(`${newSponsoredMemberFirstName}`)
+      .type(`${newSponsoredMemberFirstName}`, {force: true})
       .get(`[data-cy=last-name-input]`)
-      .type(`${newSponsoredMemberLastName}`)
+      .type(`${newSponsoredMemberLastName}`, {force: true})
       .get(`[data-cy=next-button]`)
       .click()
       .get(`[data-cy=namespace-filter]`)
@@ -89,13 +91,15 @@ context('Actions', () => {
       .get(`[data-cy=dummy]`)
       .click()
       .get(`[data-cy=email-input]`)
-      .type(`${newSponsoredMemberEmail}`)
+      .type(`${newSponsoredMemberEmail}`, {force: true})
       .get(`[data-cy=login-input]`)
-      .type(`${newSponsoredMemberLogin}`)
+      .type(`${newSponsoredMemberLogin}`, {force: true})
       .get(`[data-cy=passwd-input]`)
-      .type(`${newSponsoredMemberPasswd}`)
+      .type(`${newSponsoredMemberPasswd}`, {force: true})
       .get(`[data-cy=confirm-passwd-input]`)
-      .type(`${newSponsoredMemberPasswd}`)
+      .type(`${newSponsoredMemberPasswd}`, {force: true})
+      .get(`[data-cy=next-button]`)
+      .click()
       .get(`[data-cy=next-button]`)
       .click()
       .get(`[data-cy=confirm-button]`)
@@ -108,14 +112,15 @@ context('Actions', () => {
 
       // assert that sponsored member exists
       .get('[data-cy=unfocused-filter]')
-      .type(newSponsoredMemberFirstName)
+      .type(newSponsoredMemberFirstName, {force: true})
       .get(`[data-cy=${newSponsoredMemberFirstName}-name]`)
       .should('exist')
   })
 
   it ('test create sponsors csv', () => {
     cy.get('[data-cy=sponsor-dropdown-button]')
-      .click()
+      .should('have.attr', 'color', 'accent') // check if the button is enabled (due to the force click below)
+      .click({ force: true })
       .get('[data-cy=sponsor-csv-button]')
       .click()
       .get(`[data-cy=namespace-filter]`)
@@ -123,7 +128,7 @@ context('Actions', () => {
       .get(`[data-cy=dummy]`)
       .click()
       .get('[data-cy=csv-input]')
-      .type(`${csvMembersToSponsor}`)
+      .type(`${csvMembersToSponsor}`, {force: true})
       .get('[data-cy=next-button]')
       .click()
       .get('[data-cy=next-button]')
@@ -141,14 +146,14 @@ context('Actions', () => {
 
       // assert that sponsored member exists
       .get('[data-cy=unfocused-filter]')
-      .type(csvMemberFirstName)
+      .type(csvMemberFirstName, {force: true})
       .get(`[data-cy=${csvMemberFirstName}-name]`)
       .should('exist')
   })
 
   it ('test remove sponsor from sponsored member', () => {
     cy.get('[data-cy=unfocused-filter]')
-      .type(dbMemberToUnsponsor)
+      .type(dbMemberToUnsponsor, {force: true})
       .get(`[data-cy=${dbMemberToUnsponsor}-edit-sponsors-button]`)
       .click()
       .get(`[data-cy=${dbSponsor}-unsponsor-mark-button]`)
@@ -167,7 +172,7 @@ context('Actions', () => {
   it ('test send password reset email', () => {
     cy.intercept('**/membersManager/sendPasswordResetLinkEmail**').as('sendPasswordResetLinkEmail')
       .get('[data-cy=unfocused-filter]')
-      .type(dbSponsoredMember)
+      .type(dbSponsoredMember, {force: true})
       .get(`[data-cy=${dbSponsoredMember}-reset-passwd-button]`)
       .click()
       .get(`[data-cy=reset-passwd-confirm-button]`)

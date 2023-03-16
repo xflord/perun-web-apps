@@ -31,7 +31,7 @@ context('Actions', () => {
     cy.get('[data-cy=attribute-definitions]')
       .click()
       .get('[data-cy=unfocused-filter]')
-      .type(dbAttrFriendlyName)
+      .type(dbAttrFriendlyName, {force: true})
       .get(`[data-cy=${dbAttrFriendlyName.toLowerCase()}-friendly-name]`)
       .click()
       .get('[data-cy=display-name-input]')
@@ -42,7 +42,7 @@ context('Actions', () => {
     cy.get('[data-cy=users]')
       .click()
       .get('[data-cy=filter-input]')
-      .type('perunobservertest1')
+      .type('perunobservertest1', {force: true})
       .intercept('**/usersManager/getUsersPage')
       .as('getUsers')
       .wait('@getUsers')
@@ -56,7 +56,7 @@ context('Actions', () => {
     cy.get('[data-cy=owners]')
       .click()
       .get('[data-cy=unfocused-filter]')
-      .type(dbOwnerName)
+      .type(dbOwnerName, {force: true})
       .get(`[data-cy=${dbOwnerName}]`)
       .should('exist');
   });
@@ -65,7 +65,7 @@ context('Actions', () => {
     cy.get('[data-cy=services]')
       .click()
       .get('[data-cy=unfocused-filter]')
-      .type(dbServiceName)
+      .type(dbServiceName, {force: true})
       .get(`[data-cy=${dbServiceName.toLowerCase()}-name-td]`)
       .click()
       .get(`[data-cy=service-name-link]`)
@@ -76,7 +76,7 @@ context('Actions', () => {
     cy.get('[data-cy=external-sources]')
       .click()
       .get('[data-cy=unfocused-filter]')
-      .type(dbExtSourceName)
+      .type(dbExtSourceName, {force: true})
       .get(`[data-cy=${dbExtSourceName.toLowerCase()}-name-td]`)
       .should('exist');
   });
@@ -86,9 +86,8 @@ context('Actions', () => {
       .click()
       .get(`[data-cy=audit-message-detail-button]`)
       .first()
-      .click()
-      .get('.mat-tab-label')
-      .contains('Message')
+      .click({force: true})
+      .get('#mat-tab-label-0-1') // click on Message tab
       .click()
       .get(`[data-cy=audit-message-text]`)
       .should('not.be.empty');
@@ -98,7 +97,7 @@ context('Actions', () => {
     cy.get('[data-cy=consent-hubs]')
       .click()
       .get('[data-cy=unfocused-filter]')
-      .type(dbConsentHubName)
+      .type(dbConsentHubName, {force: true})
       .get(`[data-cy=${dbConsentHubName.toLowerCase()}-name-td]`)
       .should('exist');
   });
@@ -107,11 +106,11 @@ context('Actions', () => {
     cy.get('[data-cy=searcher]')
       .click()
       .get(`[data-cy=filter-input]`)
-      .type(dbSearcherAttrValue)
+      .type(dbSearcherAttrValue, {force: true})
       .get(`[data-cy=search-select-input]`)
       .click()
-      .get('[data-cy=find-input]')
-      .type(dbSearcherAttrDisplayName)
+      .get('[data-cy=find-input] > div > input')
+      .type(dbSearcherAttrDisplayName, {force: true})
       .get('mat-option')
       .contains(dbSearcherAttrDisplayName)
       .click()

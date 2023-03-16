@@ -99,7 +99,9 @@
           {{'SHARED_LIB.PERUN.COMPONENTS.TASK_RESULTS_LIST.STANDARD_MESSAGE' | translate}}
         </th>
         <td *matCellDef="let taskResult" class="static-column-size" mat-cell>
-          <span *ngFor="let res of taskResult.standardMessage.split('\n')">{{res}}<br /></span>
+          <span *ngIf="taskResult?.standardMessage">
+            <span *ngFor="let res of taskResult.standardMessage.split('\n')">{{res}}<br /></span>
+          </span>
         </td>
       </ng-container>
       <ng-container matColumnDef="errorMessage">

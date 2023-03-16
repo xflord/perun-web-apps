@@ -62,9 +62,11 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
       case 'status':
         return data.status;
       case 'time':
-        return formatDate(data.timestamp.toString(), 'yyyy.MM.dd HH:mm:ss', 'en');
+        return data?.timestamp
+          ? formatDate(data.timestamp.toString(), 'yyyy.MM.dd HH:mm:ss', 'en')
+          : null;
       case 'returnCode':
-        return data.returnCode.toString();
+        return data?.returnCode.toString();
       case 'standardMessage':
         return data.standardMessage;
       case 'errorMessage':
@@ -87,9 +89,11 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
       case 'status':
         return data.status;
       case 'time':
-        return formatDate(data.timestamp.toString(), 'd.M.y H:mm:ss', 'en');
+        return data?.timestamp
+          ? formatDate(data.timestamp.toString(), 'd.M.y H:mm:ss', 'en')
+          : null;
       case 'returnCode':
-        return data.returnCode.toString();
+        return data?.returnCode.toString();
       case 'standardMessage':
         return data.standardMessage;
       case 'errorMessage':

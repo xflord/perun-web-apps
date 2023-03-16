@@ -11,6 +11,9 @@ export default defineConfig({
     screenshotsFolder: '../../dist/cypress/apps/admin-gui-e2e/screenshots',
     chromeWebSecurity: false,
     baseUrl: 'http://localhost:4200',
+    testIsolation: false, // true means local/session storage and cookies are cleared before each test - it causes log out
+    experimentalRunAllSpecs: true,
+    experimentalMemoryManagement: true,
     env: {
       BA_USERNAME: 'perun',
       BA_PASSWORD: 'test',

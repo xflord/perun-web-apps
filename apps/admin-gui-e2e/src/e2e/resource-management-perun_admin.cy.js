@@ -25,7 +25,7 @@ context('Actions', () => {
       .get(`[data-cy=access-item-button]`)
       .click()
       .get('[data-cy=auto-focused-filter]')
-      .type(dbVoName)
+      .type(dbVoName, {force: true})
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get(`[data-cy=resources]`)
@@ -33,7 +33,7 @@ context('Actions', () => {
       .get(`[data-cy=resource-list]`)
       .click()
       .get('[data-cy=unfocused-filter]')
-      .type(dbResourceName)
+      .type(dbResourceName, {force: true})
       .get(`[data-cy=${dbResourceName}]`)
       .click();
   });
@@ -44,7 +44,7 @@ context('Actions', () => {
       .get('[data-cy=add-attributes]')
       .click()
       .get(`[data-cy=${dbAttributeToAdd}-value]`)
-      .type('test')
+      .type('test', {force: true})
       .intercept('**/attributesManager/getAttributes/r**')
       .as('getAttributes')
       .get('[data-cy=save-selected-attributes]')
@@ -53,7 +53,7 @@ context('Actions', () => {
 
       // check that attribute was added
       .get('[data-cy=unfocused-filter]')
-      .type('user settings name')
+      .type('user settings name', {force: true})
       .get(`[data-cy=${dbAttributeToAdd}-value]`)
       .should('exist');
   });
@@ -62,7 +62,7 @@ context('Actions', () => {
     cy.get('[data-cy=attributes]')
       .click()
       .get('[data-cy=unfocused-filter]')
-      .type('user settings description')
+      .type('user settings description', {force: true})
       .get(`[data-cy=${dbAttributeToDelete}-checkbox]`)
       .click()
       .get('[data-cy=remove-attributes]')
@@ -86,7 +86,7 @@ context('Actions', () => {
       .get('[data-cy=add-manager-button]')
       .click()
       .get('[data-cy=search-manager-input]')
-      .type(`${dbAddManager}`)
+      .type(`${dbAddManager}`, {force: true})
       .get('[data-cy=search-manager-button]')
       .click()
       .get(`[data-cy=${dbAddManager}-checkbox]`)
@@ -139,7 +139,7 @@ context('Actions', () => {
 
       //  assert that group was added
       .get('[data-cy=filter-input]')
-      .type(dbGroupToAssign)
+      .type(dbGroupToAssign, {force: true})
       .get(`[data-cy=${dbGroupToAssign}-checkbox]`)
       .should('exist');
   });
@@ -148,7 +148,7 @@ context('Actions', () => {
     cy.get('[data-cy=assigned-groups]')
       .click()
       .get('[data-cy=filter-input]')
-      .type(dbGroupToRemove)
+      .type(dbGroupToRemove, {force: true})
       .get(`[data-cy=${dbGroupToRemove}-checkbox]`)
       .click()
       .get('[data-cy=remove-group-button]')

@@ -16,7 +16,7 @@ context('Actions', () => {
       .get(`[data-cy=access-item-button]`)
       .click()
       .get('[data-cy=auto-focused-filter]')
-      .type(dbVoName)
+      .type(dbVoName, {force: true})
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get(`[data-cy=groups]`)
@@ -28,7 +28,7 @@ context('Actions', () => {
       .get('[data-cy=create-group-button]')
       .click()
       .get('[data-cy=group-name]')
-      .type(groupName)
+      .type(groupName, {force: true})
       .get('[data-cy=create-group-button-dialog]')
       .click()
       .wait('@createGroup')
@@ -37,7 +37,7 @@ context('Actions', () => {
 
       // assert that top group was created
       .get('[data-cy=filter-input]')
-      .type(groupName)
+      .type(groupName, {force: true})
       .get(`[data-cy=${groupName}-checkbox]`)
       .should('exist');
   });

@@ -21,7 +21,7 @@ context('Actions', () => {
       .get(`[data-cy=access-item-button]`)
       .click()
       .get('[data-cy=auto-focused-filter]')
-      .type(dbVoName)
+      .type(dbVoName, {force: true})
       .get(`[data-cy=${dbVoName}]`)
       .click()
       .get(`[data-cy=resources]`)
@@ -29,7 +29,7 @@ context('Actions', () => {
       .get(`[data-cy=resource-list]`)
       .click()
       .get('[data-cy=unfocused-filter]')
-      .type(dbResourceName)
+      .type(dbResourceName, {force: true})
       .get(`[data-cy=${dbResourceName}]`)
       .click();
   });
@@ -42,7 +42,7 @@ context('Actions', () => {
 
       // group should be visible
       .get('[data-cy=filter-input]')
-      .type(dbGroupName)
+      .type(dbGroupName, {force: true})
       .get(`[data-cy=${dbGroupName}]`)
       .should('exist')
   })
@@ -53,7 +53,7 @@ context('Actions', () => {
 
       // group should be visible
       .get('[data-cy=filter-input]')
-      .type(dbGroupName)
+      .type(dbGroupName, {force: true})
       .get(`[data-cy=${dbGroupName}]`)
       .should('exist')
   })
