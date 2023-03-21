@@ -2,7 +2,7 @@
 <div [hidden]="loadingMfa">
   <span
     class="toggle-and-button"
-    [matTooltip]="'AUTHENTICATION.MFA_DISABLED' | customTranslate | translate"
+    [matTooltip]="errorTooltip | customTranslate | translate"
     [matTooltipDisabled]="mfaAvailable"
     matTooltipPosition="right">
     <mat-slide-toggle
