@@ -139,6 +139,7 @@
     "MFA": "Vícefázové ověření",
     "MFA_TOGGLE": "Zapnout vícefázové ověření pro všechny služby",
     "MFA_DISABLED": "Potřebujete mít alespoň jeden aktivní MFA token.",
+    "MFA_ERROR": "Při ověřování dostupnosti MFA došlo k chybě, prosím opakujte akci později.",
     "MFA_SAVE": "Uložit nastavení",
     "NEW_IMG": "Nový obrázek",
     "DELETE_IMG": "Vymazat obrázek",

@@ -23,6 +23,7 @@ export class MfaSettingsComponent implements OnInit {
 
   mfaAvailable = false;
   loadingMfa = false;
+  errorTooltip = 'AUTHENTICATION.MFA_DISABLED';
 
   enforceMfa: boolean;
   enableDetailSettings: boolean;
@@ -60,6 +61,7 @@ export class MfaSettingsComponent implements OnInit {
       },
       error: (err) => {
         console.error(err);
+        this.errorTooltip = 'AUTHENTICATION.MFA_ERROR';
         this.loadingMfa = false;
       },
     });
