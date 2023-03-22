@@ -107,20 +107,28 @@ export class MfaSettingsComponent implements OnInit {
   }
 
   /**
-   * This method loads all available categories from the mfa api and current settings
+   * This method loads all available categories from the mfaCategories attribute and loads current settings
    */
   getCategoriesAndSettings(): void {
     this.loadingCategories = true;
-    this.mfaApiService.getCategories().subscribe({
-      next: (categories) => {
-        this.categories = categories;
-        this.getSettings();
-      },
-      error: (err) => {
-        console.error(err);
-        this.loadingCategories = false;
-      },
-    });
+    this.attributesManagerService
+      .getEntitylessAttributeByName(
+        'categories',
+        'urn:perun:entityless:attribute-def:def:mfaCategories'
+      )
+      .subscribe({
+        next: (categories) => {
+          this.categories = categories.value;
+          for (const category in this.categories) {
+            this.categories[category] = JSON.parse(String(this.categories[category]));
+          }
+          this.getSettings();
+        },
+        error: (err) => {
+          console.error(err);
+          this.loadingCategories = false;
+        },
+      });
   }
 
   /**
