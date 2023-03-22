@@ -40,13 +40,6 @@
       {{'AUTHENTICATION.DELETE_TEXT' | customTranslate | translate}}
     </button>
   </div>
-
-  <h1 class="page-subtitle">{{'AUTHENTICATION.MFA' | customTranslate | translate}}</h1>
-
-  <button mat-flat-button (click)="redirectToMfa()" color="accent" class="mb-2">
-    {{'AUTHENTICATION.MFA_INFO'|translate}}
-  </button>
-  <br />
   <perun-web-apps-mfa-settings></perun-web-apps-mfa-settings>
 </div>
 <mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>

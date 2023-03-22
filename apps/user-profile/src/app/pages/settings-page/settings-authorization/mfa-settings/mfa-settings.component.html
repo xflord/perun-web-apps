@@ -1,63 +1,64 @@
-<mat-spinner class="ms-auto me-auto mt-2" *ngIf="loadingMfa"></mat-spinner>
-<div [hidden]="loadingMfa">
-  <span
-    class="toggle-and-button"
-    [matTooltip]="errorTooltip | customTranslate | translate"
-    [matTooltipDisabled]="mfaAvailable"
-    matTooltipPosition="right">
-    <mat-slide-toggle
-      class="toggle-ellipsis"
-      [disabled]="!mfaAvailable"
-      (toggleChange)="toggleEnableMfa()"
-      #toggle
-      >{{'AUTHENTICATION.MFA_TOGGLE' | customTranslate | translate}}
-    </mat-slide-toggle>
-    <button
-      class="show-button"
-      mat-icon-button
-      (click)="showDetailSettings()"
-      [hidden]="!enableDetailSettings"
-      [disabled]="!mfaAvailable">
-      <mat-icon>{{showDetail ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
-    </button>
-  </span>
+<h1 class="page-subtitle">{{'AUTHENTICATION.MFA' | customTranslate | translate}}</h1>
+<div class="mb-2">
   <button
     mat-flat-button
     color="accent"
-    class="ms-3"
+    class="me-2 action-button"
     (click)="saveSettings()"
-    [disabled]="unchangedSettings && unchangedEnforce">
+    [disabled]="unchangedSettings"
+    [hidden]="!mfaAvailable">
     {{'AUTHENTICATION.MFA_SAVE'|translate}}
   </button>
-  <div *ngIf="showDetail">
-    <div *ngFor="let category of categories | keyvalue">
-      <span class="toggle-and-button">
-        <mat-slide-toggle
-          class="ms-4 toggle-ellipsis"
-          [checked]="category.value.value"
-          (toggleChange)="toggleCategory(category.value)">
-          {{category.value.label | categoryLabel}}
-        </mat-slide-toggle>
-        <button
-          class="show-button"
-          mat-icon-button
-          (click)="category.value.show = !category.value.show">
-          <mat-icon>
-            {{category.value.show ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}
-          </mat-icon>
-        </button>
-      </span>
-      <div *ngIf="category.value.show">
-        <div *ngFor="let rps of category?.value['rps'] | keyvalue">
-          <mat-slide-toggle
-            [checked]="category?.value['rps_value'][rps.key]"
-            (toggleChange)="toggleRps(category, rps.key)"
-            class="ms-5">
-            {{rps.value | categoryLabel}}
-          </mat-slide-toggle>
-        </div>
-      </div>
-    </div>
-  </div>
-  <mat-spinner class="ms-auto me-auto mt-2" *ngIf="loadingCategories"></mat-spinner>
+  <button mat-stroked-button (click)="redirectToMfa()">
+    {{'AUTHENTICATION.MFA_INFO'|translate}}
+  </button>
+</div>
+<perun-web-apps-alert *ngIf="!(loadingMfa || loadingCategories) && !mfaAvailable" alert_type="warn">
+  {{errorTooltip | customTranslate | translate}}
+</perun-web-apps-alert>
+<mat-spinner class="ms-auto me-auto mt-2" *ngIf="loadingMfa || loadingCategories"></mat-spinner>
+<div [hidden]="loadingMfa || loadingCategories || !mfaAvailable ">
+  <span class="toggle-and-button">
+    <mat-accordion>
+      <mat-expansion-panel [disabled]="!mfaAvailable || !enableDetailSettings">
+        <mat-expansion-panel-header>
+          <mat-checkbox
+            class="toggle-ellipsis mt-2 me-5"
+            [disabled]="!mfaAvailable"
+            (click)="$event.stopPropagation()"
+            [(ngModel)]="enforceMfa"
+            (change)="toggleEnableMfa($event.checked)"
+            [indeterminate]="enforceMfa && (!allRpsSelected || categorySelection.selected.length !== allCategoriesKeys.length)"
+            #master
+            >{{'AUTHENTICATION.MFA_TOGGLE' | customTranslate | translate}}
+          </mat-checkbox>
+        </mat-expansion-panel-header>
+        <mat-accordion multi *ngIf="!loadingCategories">
+          <mat-expansion-panel
+            *ngFor="let category of allCategoriesKeys"
+            [disabled]="allRpsKeysByCategory.get(category).length === 0">
+            <mat-expansion-panel-header
+              [class.cursor-default]="allRpsKeysByCategory.get(category).length === 0">
+              <mat-checkbox
+                class="toggle-ellipsis mt-2 me-2"
+                (click)="$event.stopPropagation()"
+                [checked]="categorySelection.isSelected(category)"
+                [indeterminate]="categorySelection.isSelected(category) && rpsSelections.get(category).selected.length !== allRpsKeysByCategory.get(category).length"
+                (change)="toggleCategory(category, $event.checked)">
+                {{settings.categories[category].label | categoryLabel}}
+              </mat-checkbox>
+            </mat-expansion-panel-header>
+            <div *ngFor="let rps of settings.categories[category]['rps'] | keyvalue">
+              <mat-checkbox
+                [checked]="rpsSelections.get(category).isSelected(rps.key)"
+                (change)="toggleRps(category, rps.key, $event.checked)"
+                class="ms-5">
+                {{rps.value | categoryLabel}}
+              </mat-checkbox>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </span>
 </div>

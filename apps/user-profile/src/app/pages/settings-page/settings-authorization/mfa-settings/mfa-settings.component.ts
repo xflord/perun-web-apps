@@ -5,13 +5,14 @@
    @typescript-eslint/no-unsafe-assignment */
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { now } from 'moment-timezone';
 import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
 import { AuthService, MfaApiService, StoreService } from '@perun-web-apps/perun/services';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { HttpClient } from '@angular/common/http';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { TranslateService } from '@ngx-translate/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MfaSettings } from '@perun-web-apps/perun/models';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'perun-web-apps-mfa-settings',
@@ -19,23 +20,28 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./mfa-settings.component.scss'],
 })
 export class MfaSettingsComponent implements OnInit {
-  @ViewChild('toggle') toggle: MatSlideToggle;
+  @ViewChild('master') checkbox: MatCheckbox;
 
   mfaAvailable = false;
   loadingMfa = false;
   errorTooltip = 'AUTHENTICATION.MFA_DISABLED';
 
   enforceMfa: boolean;
+  originalMfa = false;
   enableDetailSettings: boolean;
-  showDetail = false;
   loadingCategories = false;
-  includeCategories: string[] = [];
-  excludeRps: string[] = [];
-  allCategories = false;
   unchangedSettings = true;
-  unchangedEnforce = true;
+  categorySelection: SelectionModel<string>;
+  rpsSelections: Map<string, SelectionModel<string>> = new Map<string, SelectionModel<string>>();
+  allRpsSelected = false;
 
   categories = {};
+  mfaUrl = '';
+  settings: MfaSettings;
+
+  // need these because can't call Object.keys in template
+  allCategoriesKeys: string[] = [];
+  allRpsKeysByCategory: Map<string, string[]> = new Map();
 
   constructor(
     public translate: TranslateService,
@@ -49,11 +55,19 @@ export class MfaSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadingMfa = true;
+    const mfa = this.store.getProperty('mfa');
+    this.translate.onLangChange.subscribe(() => {
+      this.mfaUrl = this.translate.currentLang === 'en' ? mfa.url_en : mfa.url_cs;
+    });
+
+    this.mfaUrl = this.translate.currentLang === 'en' ? mfa.url_en : mfa.url_cs;
+    this.categorySelection = new SelectionModel<string>(true, []);
     this.enableDetailSettings = this.store.getProperty('mfa').enable_detail_settings;
     this.mfaApiService.isMfaAvailable().subscribe({
       next: (isAvailable) => {
         this.mfaAvailable = isAvailable;
-        if (isAvailable) {
+        if (this.mfaAvailable) {
+          this.loadingCategories = true;
           this.loadMfa();
         } else {
           this.loadingMfa = false;
@@ -76,12 +90,33 @@ export class MfaSettingsComponent implements OnInit {
     if (mfaRoute) {
       const enforceMfa = sessionStorage.getItem('enforce_mfa');
       if (enforceMfa) {
-        this.changeEnforceMfa(enforceMfa === 'true');
+        this.mfaApiService.changeEnforceMfa(enforceMfa === 'true').subscribe({
+          next: () => {
+            this.loadingMfa = false;
+          },
+          error: () => {
+            this.loadingMfa = false;
+            this.loadingCategories = false;
+          },
+        });
       }
-
       const settingsMfa = sessionStorage.getItem('settings_mfa');
       if (settingsMfa) {
-        this.updateDetailSettings();
+        this.mfaApiService.updateDetailSettings().subscribe({
+          next: () => {
+            this.loadSettings();
+            this.loadingMfa = false;
+            return;
+          },
+          error: () => {
+            this.loadingMfa = false;
+            this.loadingCategories = false;
+          },
+        });
+      } else {
+        // if settings missing in the storage, load them
+        this.loadSettings();
+        this.loadingMfa = false;
       }
     } else {
       // load enforce_mfa from attribute
@@ -90,355 +125,159 @@ export class MfaSettingsComponent implements OnInit {
         .getUserAttributeByName(this.store.getPerunPrincipal().userId, enforceMfaAttributeName)
         .subscribe({
           next: (attr) => {
-            if (attr.value) {
-              this.enforceMfa = true;
-              this.toggle.toggle();
-            } else {
-              this.enforceMfa = false;
-            }
+            this.originalMfa = !!attr.value;
+            this.loadSettings();
             this.loadingMfa = false;
           },
           error: (e) => {
             console.error(e);
             this.loadingMfa = false;
+            this.loadingCategories = false;
           },
         });
     }
   }
 
-  /**
-   * This method loads all available categories from the mfaCategories attribute and loads current settings
-   */
-  getCategoriesAndSettings(): void {
-    this.loadingCategories = true;
-    this.attributesManagerService
-      .getEntitylessAttributeByName(
-        'categories',
-        'urn:perun:entityless:attribute-def:def:mfaCategories'
-      )
-      .subscribe({
-        next: (categories) => {
-          this.categories = categories.value;
-          for (const category in this.categories) {
-            this.categories[category] = JSON.parse(String(this.categories[category]));
-          }
-          this.getSettings();
-        },
-        error: (err) => {
-          console.error(err);
-          this.loadingCategories = false;
-        },
-      });
+  loadSettings(): void {
+    this.mfaApiService.getSettings().subscribe({
+      next: (settings) => {
+        this.settings = settings;
+        this.setSelections();
+        this.loadingCategories = false;
+      },
+      error: () => {
+        this.loadingMfa = false;
+        this.loadingCategories = false;
+      },
+    });
   }
 
-  /**
-   * This method loads current categories/rps mfa settings
-   */
-  getSettings(): void {
-    if (!this.unchangedEnforce) {
-      // if enforce mfa for all services is changed before categories and settings are loaded
-      this.includeCategories = [];
-      this.allCategories = this.toggle.checked;
-      this.setValuesFromSetting();
-      this.showDetail = !this.showDetail;
-      this.loadingCategories = false;
-    } else {
-      this.mfaApiService.getSettings().subscribe({
-        next: (settings) => {
-          if (settings.length !== 0) {
-            if (settings.all) {
-              this.allCategories = true;
-            } else {
-              this.includeCategories = settings['include_categories']
-                ? settings['include_categories']
-                : [];
-              this.excludeRps = settings['exclude_rps'] ? settings['exclude_rps'] : [];
-            }
-          }
-          this.setValuesFromSetting();
-          this.showDetail = !this.showDetail;
-          this.loadingCategories = false;
-        },
-        error: (err) => {
-          console.error(err);
-          this.loadingCategories = false;
-        },
-      });
+  setSelections(): void {
+    this.categorySelection = new SelectionModel<string>(true, this.settings.includedCategories);
+    this.allCategoriesKeys = Object.keys(this.settings.categories);
+    this.enforceMfa = this.settings.includedCategories.length > 0;
+    for (const category in this.settings.categories) {
+      this.allRpsKeysByCategory.set(
+        category,
+        Object.keys(this.settings.rpsByCategory[category] as object)
+      );
+      this.rpsSelections.set(
+        category,
+        new SelectionModel<string>(true, this.settings.includedRpsByCategory[category] as string[])
+      );
     }
+    this.checkAllRpsSelected();
   }
 
-  /**
-   * Sets values for mfa api to object - these values in object are represented by toggles
-   */
-  setValuesFromSetting(): void {
-    if (this.includeCategories.length === 0) {
-      // for all categories and for no category in the settings
-      const value = this.allCategories;
-      for (const category in this.categories) {
-        this.categories[category].value = value;
-        this.categories[category].show = false; // if the sub toggles are showed in GUI or not
-        this.categories[category].rps_value = {};
-        for (const service in this.categories[category].rps) {
-          this.categories[category].rps_value[service] = value;
-        }
-      }
-    } else {
-      // for some included categories with some excluded rps
-      for (const category in this.categories) {
-        this.categories[category].value = this.includeCategories.includes(category);
-        this.categories[category].show = false;
-        this.categories[category].rps_value = {};
-        for (const rps in this.categories[category].rps) {
-          this.categories[category].rps_value[rps] = this.categories[category].value
-            ? !this.excludeRps.includes(rps)
-            : false;
-        }
-      }
-    }
-  }
-
-  /**
-   * Shows all categories and services (rps) and allow to change their values
-   * If user clicks on more detail button (arrow button) first time, this method will load all categories and settings
-   */
-  showDetailSettings(): void {
-    if (!this.showDetail && Object.keys(this.categories).length === 0) {
-      this.getCategoriesAndSettings();
-    } else {
-      this.showDetail = !this.showDetail;
-    }
-  }
-
-  toggleEnableMfa(): void {
-    this.unchangedEnforce = false;
-    this.includeCategories = [];
-    this.allCategories = !this.toggle.checked;
-    this.setValuesFromSetting();
-  }
-
-  toggleCategory(categoryValue: any, skipServices = false): void {
+  toggleEnableMfa(checked: boolean): void {
     this.unchangedSettings = false;
-    // deselect toggle mfa for all categories
-    if (this.checkAllCategoriesSelected() && this.toggle.checked && !skipServices) {
-      this.toggle.toggle();
-    }
-
-    categoryValue.value = !categoryValue.value;
-    if (!skipServices) {
-      for (const rps in categoryValue.rps_value) {
-        categoryValue.rps_value[rps] = categoryValue.value;
+    if (checked) {
+      this.categorySelection.setSelection(...Object.keys(this.settings.categories));
+      for (const category in this.settings.categories) {
+        this.rpsSelections
+          .get(category)
+          .setSelection(...Object.keys(this.settings.rpsByCategory[category] as object));
+      }
+    } else {
+      this.categorySelection.clear();
+      for (const category in this.settings.categories) {
+        this.rpsSelections.get(category).clear();
       }
     }
-
-    // select toggle mfa for all categories
-    if (this.checkAllCategoriesSelected() && !this.toggle.checked && !skipServices) {
-      this.toggle.toggle();
-    }
+    this.checkAllRpsSelected();
   }
 
-  checkAllCategoriesSelected(): boolean {
-    let allTrueCheck = true;
-    for (const category in this.categories) {
-      if (!this.categories[category].value) {
-        allTrueCheck = false;
-      }
-    }
-    return allTrueCheck;
-  }
-
-  toggleRps(category: any, rps: any): void {
-    rps = String(rps);
+  toggleCategory(categoryAny: any, checked: boolean): void {
     this.unchangedSettings = false;
-    // select toggle mfa for category
-    if (this.checkAllRpsDeselectedForCategory(String(category.key))) {
-      this.toggleCategory(category.value, true);
-    }
-
-    // deselect toggle mfa for all categories
-    if (this.checkAllRpsSelected()) {
-      this.toggle.toggle();
-    }
-
-    category.value['rps_value'][rps] = !category.value['rps_value'][rps];
-
-    // deselect toggle mfa for category
-    if (this.checkAllRpsDeselectedForCategory(String(category.key))) {
-      this.toggleCategory(category.value, true);
-    }
-
-    // select toggle mfa for all categories
-    if (this.checkAllRpsSelected()) {
-      this.toggle.toggle();
-    }
-  }
-
-  checkAllRpsDeselectedForCategory(category: string): boolean {
-    let allFalseCheck = true;
-    for (const rps in this.categories[category]['rps']) {
-      if (this.categories[category].rps_value[rps]) {
-        allFalseCheck = false;
+    const category = String(categoryAny);
+    if (checked) {
+      this.categorySelection.select(category);
+      for (const rps in this.settings.rpsByCategory[category]) {
+        this.rpsSelections.get(category).select(rps);
+      }
+      this.enforceMfa = true;
+    } else {
+      this.categorySelection.deselect(category);
+      this.rpsSelections.get(category).clear();
+      if (this.categorySelection.isEmpty()) {
+        this.enforceMfa = false;
       }
     }
-    return allFalseCheck;
+    this.checkAllRpsSelected();
   }
 
-  checkAllRpsSelected(): boolean {
-    let allTrueCheck = true;
-
-    for (const category in this.categories) {
-      if (!this.categories[category].value) {
-        return false;
-      }
-      for (const rps in this.categories[category]['rps']) {
-        if (!this.categories[category].rps_value[rps]) {
-          allTrueCheck = false;
+  toggleRps(categoryAny: any, rpsAny: any, checked: boolean): void {
+    const rps = String(rpsAny);
+    const category = String(categoryAny);
+    this.unchangedSettings = false;
+    if (checked) {
+      this.rpsSelections.get(category).select(rps);
+      this.categorySelection.select(category);
+      this.enforceMfa = true;
+    } else {
+      this.rpsSelections.get(category).deselect(rps);
+      if (this.rpsSelections.get(category).isEmpty()) {
+        this.categorySelection.deselect(category);
+        if (this.categorySelection.isEmpty()) {
+          this.enforceMfa = false;
         }
       }
     }
-
-    return allTrueCheck;
+    this.checkAllRpsSelected();
   }
 
   /**
    * This method fires logic for setting new values of enforceMfa and settings
    */
   saveSettings(enforceFirstMfa = false): void {
-    if (this.oauthService.getIdTokenExpiration() - now() > 0 && !enforceFirstMfa) {
-      if (this.enforceMfa !== this.toggle.checked) {
-        this.loadingMfa = true;
-        this.changeEnforceMfa(this.toggle.checked);
-      }
-      if (!this.unchangedSettings) {
-        this.loadingMfa = true;
-        this.saveDetailSettings();
-        this.updateDetailSettings();
-      }
-    } else {
-      this.saveEnforceMfa();
-      if (!this.unchangedSettings) {
-        this.saveDetailSettings();
-      }
-      this.reAuthenticate();
-    }
+    this.loadingMfa = true;
+    // enforce all only if all rps + categories are truly checked (checkbox isn't indeterminate)
+    const newEnforce = this.enforceMfa && !this.checkbox.indeterminate;
+    sessionStorage.setItem('enforce_mfa', newEnforce.toString());
+    this.saveDetailSettings();
+    this.mfaApiService.saveSettings(newEnforce, enforceFirstMfa).subscribe({
+      next: () => {
+        this.unchangedSettings = true;
+        this.loadingMfa = false;
+      },
+      error: () => {
+        this.loadingMfa = false;
+      },
+    });
   }
 
-  saveEnforceMfa(): void {
-    if (this.enforceMfa !== this.toggle.checked) {
-      sessionStorage.setItem('enforce_mfa', this.toggle.checked.toString());
+  checkAllRpsSelected(): void {
+    for (const category in this.settings.categories) {
+      if (
+        this.rpsSelections.get(category).selected.length !==
+        Object.keys(this.settings.rpsByCategory[category] as object).length
+      ) {
+        this.allRpsSelected = false;
+        return;
+      }
     }
+    this.allRpsSelected = true;
   }
 
   /**
    * This method creates request body for new settings according to toggles
    */
   saveDetailSettings(): void {
-    let allTrueCheck = true;
-    let allFalseCheck = false;
-    this.includeCategories = [];
-    this.excludeRps = [];
-
-    for (const category in this.categories) {
-      if (this.categories[category].value) {
-        allFalseCheck = true;
-        this.includeCategories.push(category);
-      } else {
-        allTrueCheck = false;
-        continue;
-      }
-      for (const rps in this.categories[category]['rps']) {
-        if (this.categories[category].rps_value[rps]) {
-          allFalseCheck = true;
-        } else {
-          allTrueCheck = false;
-          this.excludeRps.push(rps);
-        }
-      }
+    this.settings.includedCategories = this.categorySelection.selected;
+    this.settings.excludedRps = [];
+    for (const category of this.settings.includedCategories) {
+      this.settings.includedRpsByCategory[category] = this.rpsSelections.get(category).selected;
+      this.settings.excludedRps.push(
+        ...Object.keys(this.settings.rpsByCategory[category] as object).filter(
+          (rps) => !this.rpsSelections.get(category).selected.includes(rps)
+        )
+      );
     }
 
-    let body: string;
-
-    if (allTrueCheck === allFalseCheck) {
-      if (allTrueCheck) {
-        body = JSON.stringify({ all: true });
-      } else {
-        body = '{}';
-      }
-    } else {
-      body = JSON.stringify({
-        include_categories: this.includeCategories,
-        exclude_rps: this.excludeRps,
-      });
-    }
-
-    sessionStorage.setItem('settings_mfa', body);
+    this.mfaApiService.saveDetailSettings(this.settings);
   }
 
-  /**
-   * This method is used when we want to do some PUT operation, but we need new (not expired) id token
-   */
-  reAuthenticate(): void {
-    sessionStorage.setItem('mfa_route', '/profile/settings/auth');
-    this.oauthService.logOut(true);
-    sessionStorage.setItem('auth:redirect', location.pathname);
-    sessionStorage.setItem('auth:queryParams', location.search.substring(1));
-    this.authService.loadOidcConfigData();
-    void this.oauthService.loadDiscoveryDocumentAndLogin();
-  }
-
-  /**
-   * This method turns on/off enforceMfa flag
-   * @param enforceMfa turn on/off mfa for all services according to toggle
-   */
-  changeEnforceMfa(enforceMfa: boolean): void {
-    this.mfaApiService.enforceMfaForAllServices(enforceMfa).subscribe({
-      next: () => {
-        if (enforceMfa) {
-          this.enforceMfa = true;
-          if (!this.toggle.checked) {
-            this.toggle.toggle();
-          }
-        } else {
-          this.enforceMfa = false;
-        }
-        this.unchangedSettings = true;
-        this.unchangedEnforce = true;
-        sessionStorage.removeItem('enforce_mfa');
-        sessionStorage.removeItem('mfa_route');
-        this.loadingMfa = false;
-      },
-      error: (err) => {
-        // when token is valid, but user is logged in without MFA -> enforce MFA
-        if (err.error.error === 'MFA is required') {
-          this.saveSettings(true);
-        } else {
-          this.loadingMfa = false;
-        }
-      },
-    });
-  }
-
-  /**
-   * This method updates settings of enforced mfa for categories and services
-   */
-  updateDetailSettings(): void {
-    const body = sessionStorage.getItem('settings_mfa');
-
-    this.mfaApiService.updateDetailSettings(body).subscribe({
-      next: () => {
-        this.unchangedSettings = true;
-        this.unchangedEnforce = true;
-        sessionStorage.removeItem('settings_mfa');
-        sessionStorage.removeItem('mfa_route');
-        this.loadingMfa = false;
-      },
-      error: (err) => {
-        // when token is valid, but user is logged in without MFA -> enforce MFA
-        if (err.error.error === 'MFA is required') {
-          this.saveSettings(true);
-        } else {
-          this.loadingMfa = false;
-        }
-      },
-    });
+  redirectToMfa(): void {
+    window.open(this.mfaUrl, '_blank');
   }
 }

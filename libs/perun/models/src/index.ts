@@ -18,3 +18,4 @@ export * from './lib/MemberWithConsentStatus';
 export * from './lib/AuthPrivilege';
 export * from './lib/AppType';
 export * from './lib/HttpResponseError';
+export * from './lib/MfaSettings';
