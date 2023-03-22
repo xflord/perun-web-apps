@@ -30,7 +30,6 @@ export class SettingsAuthenticationComponent implements OnInit {
   componentMapper: {
     [key: string]: ComponentType<AddAuthImgDialogComponent | AddAuthTextDialogComponent>;
   };
-  mfaUrl = '';
   displayImageBlock: boolean;
   displayTextBlock: boolean;
   loading = false;
@@ -44,7 +43,6 @@ export class SettingsAuthenticationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const mfa = this.store.getProperty('mfa');
     this.imgAttrName = this.store.getProperty('mfa').security_image_attribute;
     this.textAttrName = this.store.getProperty('mfa').security_text_attribute;
 
@@ -52,12 +50,6 @@ export class SettingsAuthenticationComponent implements OnInit {
       AddAuthImgDialogComponent: AddAuthImgDialogComponent,
       AddAuthTextDialogComponent: AddAuthTextDialogComponent,
     };
-
-    this.translate.onLangChange.subscribe(() => {
-      this.mfaUrl = this.translate.currentLang === 'en' ? mfa.url_en : mfa.url_cs;
-    });
-
-    this.mfaUrl = this.translate.currentLang === 'en' ? mfa.url_en : mfa.url_cs;
     this.displayImageBlock = this.store.getProperty('mfa').enable_security_image;
     if (this.displayImageBlock) {
       this.loadSecurityAttribute(this.imgAttrName, true).subscribe((attr) => {
@@ -154,9 +146,5 @@ export class SettingsAuthenticationComponent implements OnInit {
         });
       }
     });
-  }
-
-  redirectToMfa(): void {
-    window.open(this.mfaUrl, '_blank');
   }
 }
