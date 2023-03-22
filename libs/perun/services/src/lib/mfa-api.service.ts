@@ -31,6 +31,7 @@ export class MfaApiService {
    * This method loads all available categories from the mfa api
    * NOTE: Each service (rps) belongs to exactly one category.
    * If some service doesn't have some category in Perun, then belongs to universal category "other".
+   * @deprecated
    */
   getCategories(): Observable<any> {
     return this.httpClient.get<any>(this.mfaApiUrl + 'categories', {
