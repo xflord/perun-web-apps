@@ -27,6 +27,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { PerunLoginModule } from '@perun-web-apps/perun/login';
 import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
+import { isRunningLocally } from '@perun-web-apps/perun/utils';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -41,7 +42,7 @@ export function httpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 export function apiConfigFactory(store: StoreService): Configuration {
   const params: ConfigurationParameters = {
     basePath: store.getProperty('api_url'),
-    // set configuration parameters here.
+    withCredentials: !isRunningLocally() /* add cookies to keep same session for BA access */,
   };
   return new Configuration(params);
 }

@@ -25,7 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 import { UiLoadersModule } from '@perun-web-apps/ui/loaders';
-import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
+import { isRunningLocally, PerunUtilsModule } from '@perun-web-apps/perun/utils';
 import { GeneralModule } from '@perun-web-apps/general';
 import { LibLinkerModule } from '@perun-web-apps/lib-linker';
 import { ListOfIdentitiesComponent } from './components/list-of-identities/list-of-identities.component';
@@ -44,6 +44,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 export function apiConfigFactory(store: StoreService): Configuration {
   const params: ConfigurationParameters = {
     basePath: store.getProperty('api_url'),
+    withCredentials: !isRunningLocally() /* add cookies to keep same session for BA access */,
   };
   return new Configuration(params);
 }

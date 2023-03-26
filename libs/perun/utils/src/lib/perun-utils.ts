@@ -868,3 +868,10 @@ export function isMemberIndirectString(member: RichMember): string {
 export function containsExactlyInAnyOrder(array1: string[], array2: string[]): boolean {
   return array1.length === array2.length && array1.every((v) => array2.includes(v));
 }
+
+/**
+ * Return true, if GUI is run locally, false otherwise.
+ */
+export function isRunningLocally(): boolean {
+  return location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+}

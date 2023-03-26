@@ -51,7 +51,7 @@ import { AddAuthorsComponent } from './components/add-authors/add-authors.compon
 import { AddThanksComponent } from './components/add-thanks/add-thanks.component';
 import { ImportPublicationsPageComponent } from './pages/create-publication-page/import-publications-page/import-publications-page.component';
 import { YearRangeComponent } from './components/year-range/year-range.component';
-import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
+import { isRunningLocally, PerunUtilsModule } from '@perun-web-apps/perun/utils';
 import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 
@@ -68,6 +68,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 export function apiConfigFactory(store: StoreService): Configuration {
   const params: ConfigurationParameters = {
     basePath: store.getProperty('api_url'),
+    withCredentials: !isRunningLocally() /* add cookies to keep same session for BA access */,
   };
   return new Configuration(params);
 }

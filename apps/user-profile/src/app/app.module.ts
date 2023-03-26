@@ -64,7 +64,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AddAuthImgDialogComponent } from './components/dialogs/add-auth-img-dialog/add-auth-img-dialog.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { PerunLoginModule } from '@perun-web-apps/perun/login';
-import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
+import { isRunningLocally, PerunUtilsModule } from '@perun-web-apps/perun/utils';
 import { MatMenuModule } from '@angular/material/menu';
 import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { ConsentsPageComponent } from './pages/consents-page/consents-page.component';
@@ -92,6 +92,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 export function apiConfigFactory(store: StoreService): Configuration {
   const params: ConfigurationParameters = {
     basePath: store.getProperty('api_url'),
+    withCredentials: !isRunningLocally() /* add cookies to keep same session for BA access */,
   };
   return new Configuration(params);
 }
