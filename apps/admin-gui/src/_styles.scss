@@ -1399,7 +1399,7 @@ textarea.cdk-textarea-autosize-measuring {
 // this allows custom colors for perun icons used in material icons
 .perun-icon {
   path {
-    fill: currentColor;
+    fill: currentColor !important;
   }
 
   rect {

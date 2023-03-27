@@ -198,7 +198,7 @@ $perun-theme: mat.define-light-theme(
 
 .perun-icon {
   path {
-    fill: currentColor;
+    fill: currentColor !important;
   }
   rect {
     fill: currentColor;
