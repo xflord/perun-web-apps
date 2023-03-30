@@ -167,6 +167,7 @@ export interface PerunConfig {
   // Admin gui specific
   // Required
   config: string;
+  user_deletion_forced?: boolean;
   // Optional
   login_namespace_attributes?: string[];
   profile_label_en?: string;

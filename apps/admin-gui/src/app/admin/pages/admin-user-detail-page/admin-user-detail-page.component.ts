@@ -6,8 +6,16 @@ import { AttributesManagerService, User, UsersManagerService } from '@perun-web-
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { EditUserDialogComponent } from '../../../shared/components/dialogs/edit-user-dialog/edit-user-dialog.component';
-import { EntityStorageService, GuiAuthResolver } from '@perun-web-apps/perun/services';
-import { AnonymizeUserDialogComponent } from '@perun-web-apps/perun/dialogs';
+import {
+  EntityStorageService,
+  GuiAuthResolver,
+  StoreService,
+} from '@perun-web-apps/perun/services';
+import {
+  AnonymizeUserDialogComponent,
+  DeleteUserDialogComponent,
+} from '@perun-web-apps/perun/dialogs';
+import { ComponentType } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-admin-user-detail-page',
@@ -19,6 +27,7 @@ export class AdminUserDetailPageComponent implements OnInit {
   loading = false;
   svgIcon = 'perun-user-dark';
   anonymized: boolean;
+  userDeletionForced: boolean;
   private path: string;
   private regex: string;
 
@@ -31,11 +40,13 @@ export class AdminUserDetailPageComponent implements OnInit {
     private dialog: MatDialog,
     public authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService,
-    private router: Router
+    private router: Router,
+    private store: StoreService
   ) {}
 
   ngOnInit(): void {
     this.loading = true;
+    this.userDeletionForced = this.store.getProperty('user_deletion_forced');
     this.route.params.subscribe((params) => {
       const userId = Number(params['userId']);
       this.entityStorageService.setEntity({ id: Number(userId), beanName: 'User' });
@@ -91,14 +102,23 @@ export class AdminUserDetailPageComponent implements OnInit {
   }
 
   anonymizeUser(): void {
+    this.openDialog(AnonymizeUserDialogComponent);
+  }
+
+  deleteUser(): void {
+    this.openDialog(DeleteUserDialogComponent);
+  }
+
+  private openDialog(
+    dialogComponent: ComponentType<AnonymizeUserDialogComponent | DeleteUserDialogComponent>
+  ): void {
     const config = getDefaultDialogConfig();
     config.width = '550px';
     config.data = {
       theme: 'admin-theme',
       user: this.user,
     };
-
-    const dialogRef = this.dialog.open(AnonymizeUserDialogComponent, config);
+    const dialogRef = this.dialog.open(dialogComponent, config);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {

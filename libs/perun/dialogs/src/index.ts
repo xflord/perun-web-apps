@@ -27,3 +27,4 @@ export * from './lib/add-ssh-dialog/add-ssh-dialog.component';
 export * from './lib/remove-string-value-dialog/remove-string-value-dialog.component';
 export * from './lib/show-ssh-dialog/show-ssh-dialog.component';
 export * from './lib/show-notification-history-dialog/show-notification-history-dialog.component';
+export * from './lib/delete-user-dialog/delete-user-dialog.component';

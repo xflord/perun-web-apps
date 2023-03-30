@@ -47,6 +47,7 @@ import { UiMaterialModule } from '@perun-web-apps/ui/material';
 import { ExportDataDialogComponent } from './exporting-data-dialog/export-data-dialog.component';
 import { RequestChangeDataQuotaDialogComponent } from './request-change-data-quota-dialog/request-change-data-quota-dialog.component';
 import { ExpirationSelectComponent } from './expiration-select/expiration-select.component';
+import { DeleteUserDialogComponent } from './delete-user-dialog/delete-user-dialog.component';
 
 @NgModule({
   imports: [
@@ -101,6 +102,7 @@ import { ExpirationSelectComponent } from './expiration-select/expiration-select
     ExportDataDialogComponent,
     RequestChangeDataQuotaDialogComponent,
     ExpirationSelectComponent,
+    DeleteUserDialogComponent,
   ],
   exports: [
     ChangeExpirationDialogComponent,
@@ -125,6 +127,7 @@ import { ExpirationSelectComponent } from './expiration-select/expiration-select
     ExportDataDialogComponent,
     RequestChangeDataQuotaDialogComponent,
     ExpirationSelectComponent,
+    DeleteUserDialogComponent,
   ],
 })
 export class PerunDialogsModule {}

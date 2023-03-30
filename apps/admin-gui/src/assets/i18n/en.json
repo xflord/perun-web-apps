@@ -2208,6 +2208,11 @@
       "GROUP_RELATION": "User's membership in all groups",
       "SUCCESS_NOTIFICATION": "User was successfully anonymized"
     },
+    "DELETE_USER": {
+      "VO_RELATION": "User's membership in all organizations",
+      "GROUP_RELATION": "User's membership in all groups",
+      "SUCCESS_NOTIFICATION": "User was successfully deleted"
+    },
     "CHANGE_VO_EXPIRATION": {
       "TITLE": "Change member expiration"
     },

@@ -22,8 +22,14 @@
             data-cy="edit-user-button">
             <mat-icon>edit</mat-icon>
           </button>
-          <button *ngIf="!anonymized" (click)="anonymizeUser()" mat-icon-button>
+          <button
+            *ngIf="!anonymized && !userDeletionForced"
+            (click)="anonymizeUser()"
+            mat-icon-button>
             <mat-icon>no_accounts</mat-icon>
+          </button>
+          <button *ngIf="userDeletionForced" (click)="deleteUser()" mat-icon-button>
+            <mat-icon>delete_forever</mat-icon>
           </button>
           <mat-icon
             *ngIf="anonymized"

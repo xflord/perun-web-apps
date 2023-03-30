@@ -5,27 +5,26 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificatorService, PerunTranslateService } from '@perun-web-apps/perun/services';
 import { DeleteDialogResult } from '../delete-entity-dialog/delete-entity-dialog.component';
 
-export interface AnonymizeUserDialogComponentData {
+export interface DeleteUserDialogComponentData {
   user: User;
   theme: string;
 }
 
 @Component({
-  selector: 'perun-web-apps-anonymize-user-dialog',
-  templateUrl: './anonymize-user-dialog.component.html',
-  styleUrls: ['./anonymize-user-dialog.component.scss'],
+  selector: 'perun-web-apps-delete-user-dialog',
+  templateUrl: './delete-user-dialog.component.html',
+  styleUrls: ['./delete-user-dialog.component.scss'],
 })
-export class AnonymizeUserDialogComponent implements OnInit {
+export class DeleteUserDialogComponent implements OnInit {
   theme: string;
   force = false;
   loading: boolean;
-  displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<User>;
   relations: string[] = [];
 
   constructor(
-    private dialogRef: MatDialogRef<AnonymizeUserDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: AnonymizeUserDialogComponentData,
+    private dialogRef: MatDialogRef<DeleteUserDialogComponentData>,
+    @Inject(MAT_DIALOG_DATA) private data: DeleteUserDialogComponentData,
     private notificator: NotificatorService,
     private usersService: UsersManagerService,
     private translate: PerunTranslateService
@@ -34,20 +33,20 @@ export class AnonymizeUserDialogComponent implements OnInit {
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.dataSource = new MatTableDataSource<User>([this.data.user]);
-    this.relations.push(this.translate.instant('DIALOGS.ANONYMIZE_USER.GROUP_RELATION'));
-    this.relations.push(this.translate.instant('DIALOGS.ANONYMIZE_USER.VO_RELATION'));
+    this.relations.push(this.translate.instant('DIALOGS.DELETE_USER.GROUP_RELATION'));
+    this.relations.push(this.translate.instant('DIALOGS.DELETE_USER.VO_RELATION'));
   }
 
   onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  anonymizeUser(): void {
+  deleteUser(): void {
     this.loading = true;
-    this.usersService.anonymizeUser(this.data.user.id, this.force).subscribe({
+    this.usersService.deleteUser(this.data.user.id, this.force).subscribe({
       next: () => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.ANONYMIZE_USER.SUCCESS_NOTIFICATION')
+          this.translate.instant('DIALOGS.DELETE_USER.SUCCESS_NOTIFICATION')
         );
         this.loading = false;
         this.dialogRef.close(true);
@@ -59,7 +58,7 @@ export class AnonymizeUserDialogComponent implements OnInit {
   onSubmit(result: DeleteDialogResult): void {
     this.force = result.force;
     if (result.deleted) {
-      this.anonymizeUser();
+      this.deleteUser();
     } else {
       this.onCancel();
     }
