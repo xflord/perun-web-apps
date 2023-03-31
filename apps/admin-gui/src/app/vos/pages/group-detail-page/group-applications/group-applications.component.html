@@ -12,18 +12,17 @@
   <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
     [placeholder]="'VO_DETAIL.APPLICATION.FILTER'"></perun-web-apps-debounce-filter>
-  <perun-web-apps-date-range [endDate]="endDate" [startDate]="startDate">
+  <perun-web-apps-date-range [endDate]="endDate" [startDate]="startDate" class="me-2">
   </perun-web-apps-date-range>
   <span
-    [matTooltipDisabled]="!showAllDetails"
-    matTooltip="{{'VO_DETAIL.APPLICATION.COLUMNS_TOOLTIP' | translate}}"
+    matTooltip="{{showAllDetails ? ('VO_DETAIL.APPLICATION.COLUMNS_TOOLTIP' | translate) : ('VO_DETAIL.APPLICATION.SET_COLUMN_SETTINGS' | translate)}}"
     matTooltipPosition="above">
     <button
       mat-stroked-button
       *ngIf="columnsAuth"
       [disabled]="showAllDetails"
       (click)="this.setColumns()">
-      {{'VO_DETAIL.APPLICATION.SET_COLUMN_SETTINGS' | translate}}
+      <mat-icon>settings</mat-icon>
     </button>
   </span>
 </div>
@@ -37,8 +36,8 @@
     [tableId]="showAllDetails ? detailTableId : tableId"
     [searchString]="filterValue"
     [displayedColumns]="currentColumns"
-    [fedColumns]="configuredFedColumns"
-    [fedAttrNames]="fedAttrNames"
+    [fedColumnsFriendly]="showAllDetails ? [] : configuredFedColumns"
+    [fedAttrs]="fedAttrs"
     [states]="currentStates"
     [dateFrom]="startDate.value"
     [dateTo]="endDate.value"

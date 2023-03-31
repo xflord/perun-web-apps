@@ -864,3 +864,7 @@ export function isMemberIndirectString(member: RichMember): string {
   }
   return 'UNKNOWN';
 }
+
+export function containsExactlyInAnyOrder(array1: string[], array2: string[]): boolean {
+  return array1.length === array2.length && array1.every((v) => array2.includes(v));
+}

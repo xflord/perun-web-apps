@@ -31,7 +31,8 @@ export class EntitySearchSelectComponent<T extends PerunBean>
   @Input() findPlaceholder = 'Find...';
   @Input() noEntriesText = 'Nothing found';
   @Input() disableAutoSelect = false;
-  @Input() entity: T = null;
+  @Input() disableDeselectButton = false;
+  @Input() entity: T | T[] = null;
   @Input() displayStatus = false;
   @Input() multiple = false;
   @Input() theme = '';
@@ -96,6 +97,11 @@ export class EntitySearchSelectComponent<T extends PerunBean>
   ngOnChanges(changes: SimpleChanges): void {
     if (this.entity !== null) {
       this.entitiesCtrl.setValue(this.entity);
+      if (Array.isArray(this.entity)) {
+        this.selectedEntities = this.entity;
+      } else {
+        this.selectedEntities = [this.entity];
+      }
     }
     if (changes['entities']) {
       this.filteredEntities.next(this.entities.slice());
@@ -137,7 +143,7 @@ export class EntitySearchSelectComponent<T extends PerunBean>
       }
     }
 
-    this.visibleDeselectButton = this.selectedEntities.length !== 0;
+    this.visibleDeselectButton = !this.disableDeselectButton && this.selectedEntities.length !== 0;
   }
 
   openChange(): void {

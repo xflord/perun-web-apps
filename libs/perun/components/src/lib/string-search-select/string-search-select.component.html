@@ -1,0 +1,15 @@
+<div class="w-450">
+  <perun-web-apps-entity-search-select
+    [entities]="values"
+    [entity]="preselectedValues"
+    [searchFunction]="mainTextFunction ? mainTextFunction : defaultTextFunction"
+    (entitySelected)="this.valueSelection.emit($event)"
+    (selectClosed)="this.selectClosed.emit($event)"
+    [mainTextFunction]="mainTextFunction ? mainTextFunction : defaultTextFunction"
+    [secondaryTextFunction]="secondaryTextFunction"
+    [multiple]="true"
+    [disableAutoSelect]="true"
+    [selectPlaceholder]="selectPlaceholder"
+    [disableDeselectButton]="disableDeselectButton">
+  </perun-web-apps-entity-search-select>
+</div>

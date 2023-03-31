@@ -13,6 +13,7 @@ import {
   ApplicationFormItemData,
   ApplicationsOrderColumn,
   AppState,
+  AttributeDefinition,
   AttributesManagerService,
   Group,
   Member,
@@ -50,7 +51,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
 
   @ViewChild(MatSort) sort: MatSort;
   @Input() displayedColumns: string[] = [];
-  @Input() fedColumns: string[] = [];
+  @Input() fedColumnsFriendly: string[] = [];
   @Input() tableId: string;
   @Input() disableRouting = false;
   @Input() searchString = '';
@@ -61,12 +62,16 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
   @Input() states: AppState[];
   @Input() dateTo: Date = new Date();
   @Input() dateFrom: Date = this.yearAgo();
+  @Input() fedAttrs: AttributeDefinition[] = [];
   @Input() fedAttrNames: string[] = [];
   @Input() refreshTable = false;
   @Output() loading$: EventEmitter<Observable<boolean>> = new EventEmitter<Observable<boolean>>();
+
   parsedColumns: string[] = [];
   dataSource: DynamicDataSource<Application>;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+
+  fedColumnsDisplay = [];
 
   constructor(
     private authResolver: GuiAuthResolver,
@@ -126,6 +131,13 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
   }
 
   ngOnChanges(): void {
+    this.fedColumnsDisplay = [];
+    this.fedColumnsFriendly.forEach((name) =>
+      this.fedColumnsDisplay.push(
+        this.fedAttrs.find((attr) => attr.friendlyName === name)?.displayName || ''
+      )
+    );
+
     this.refreshTable = false;
     if (this.dataSource) {
       this.child.paginator.pageIndex = 0;
@@ -216,7 +228,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       case 'type':
         return data.type;
       case 'fedInfo':
-        return data.fedInfo;
+        return data.fedInfo ? this.deescapeMapEscapings(data.fedInfo) : '';
       case 'formData':
         return this.stringify((data as RichApplication).formData);
       case 'state':
@@ -236,7 +248,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       case 'modifiedAt':
         return data.modifiedAt;
       default:
-        return data[column] as string;
+        return this.getFedValue(data.fedInfo, column);
     }
   }
 
@@ -341,7 +353,6 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
 
   getFedValue(fedInfo: string, colName: string): string {
     // looking for values between {,FED_INFO_ATTR_NAME:}
-    const regexOtherValues = new RegExp(this.fedAttrNames.map((v) => ',' + v + ':').join('|'));
     if (fedInfo === null || fedInfo.length === 0) {
       return '';
     }
@@ -355,7 +366,18 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     if (values.length < 2) {
       return '';
     }
-    values = values[1].split(regexOtherValues);
-    return values[0].endsWith(',') ? values[0].slice(0, -1) : values[0];
+    // fedInfo should always end with comma - not escaped one though
+    values[1] = values[1].replace(/\\,/gi, '#ESCAPED_COMMA');
+    values = values[1].split(',');
+    values[0] = values[0].replace('#ESCAPED_COMMA', '\\,');
+    return this.deescapeMapEscapings(values[0]);
+  }
+
+  // Fedinfo characters that are being escaped: '\', ':' and ','
+  deescapeMapEscapings(value: string): string {
+    let newValue = value.replace(/\\:/gi, ':');
+    newValue = newValue.replace(/\\,/gi, ',');
+    newValue = newValue.replace(/\\\\/gi, '\\');
+    return newValue;
   }
 }

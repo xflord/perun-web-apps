@@ -5,34 +5,44 @@
   <div *perunWebAppsLoader="loading; indicator: spinner">
     <h1 mat-dialog-title>{{'DIALOGS.APPLICATIONS_LIST_COLUMNS_CHANGE.TITLE' | translate}}</h1>
     <div mat-dialog-content>
+      <div class="d-flex flex-row align-items-baseline justify-content-between">
+        <perun-web-apps-string-search-select
+          [values]="columnOptions"
+          [preselectedValues]="selectedColumns"
+          [selectPlaceholder]="'DIALOGS.APPLICATIONS_LIST_COLUMNS_CHANGE.FILTER_COLUMNS' | translate"
+          [mainTextFunction]="columnTranslation"
+          [disableDeselectButton]="true">
+        </perun-web-apps-string-search-select>
+
+        <button *ngIf="!this.templateAttribute" (click)="default()" mat-stroked-button>
+          {{'DIALOGS.APPLICATIONS_LIST_COLUMNS_CHANGE.SET_TO_DEFAULT' | translate}}
+        </button>
+
+        <button
+          [matMenuTriggerFor]="menu"
+          *ngIf="this.templateAttribute"
+          class="dropdown-toggle ml-auto"
+          mat-stroked-button>
+          {{'DIALOGS.APPLICATIONS_LIST_COLUMNS_CHANGE.SET_TO' | translate}}
+        </button>
+        <mat-menu #menu="matMenu">
+          <button (click)="default()" mat-menu-item>
+            {{'DIALOGS.APPLICATIONS_LIST_COLUMNS_CHANGE.DEFAULT' | translate}}
+          </button>
+          <button (click)="template()" mat-menu-item>
+            {{'DIALOGS.APPLICATIONS_LIST_COLUMNS_CHANGE.VO_SETTINGS' | translate}}
+          </button>
+        </mat-menu>
+      </div>
       <perun-web-apps-alert alert_type="warn">
         {{'DIALOGS.APPLICATIONS_LIST_COLUMNS_CHANGE.WARN' | translate}}
       </perun-web-apps-alert>
-      <mat-form-field class="w-100">
-        <mat-label
-          >{{'DIALOGS.APPLICATIONS_LIST_COLUMNS_CHANGE.FILTER_COLUMNS' | translate}}</mat-label
-        >
-        <mat-select
-          (closed)="attribute.value = selectedColumns.value"
-          [formControl]="selectedColumns"
-          multiple>
-          <mat-option class="{{theme}}" *ngFor="let column of columnOptions" [value]="column">
-            {{column | applicationColumnSelectLabel}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <perun-web-apps-alert alert_type="info">
-        {{'DIALOGS.APPLICATIONS_LIST_COLUMNS_CHANGE.DEFAULT_TEXT' | translate}}
-      </perun-web-apps-alert>
     </div>
     <div mat-dialog-actions>
-      <button (click)="cancel()" mat-flat-button>
+      <button (click)="cancel()" mat-flat-button class="ms-auto">
         {{'DIALOGS.APPLICATIONS_LIST_COLUMNS_CHANGE.CANCEL' | translate}}
       </button>
-      <button (click)="default()" class="ms-auto" mat-flat-button>
-        {{'DIALOGS.APPLICATIONS_LIST_COLUMNS_CHANGE.DEFAULT' | translate}}
-      </button>
-      <button (click)="confirm()" [disabled]="loading" class="ms-2" color="accent" mat-flat-button>
+      <button (click)="confirm()" [disabled]="loading" color="accent" mat-flat-button>
         {{'DIALOGS.APPLICATIONS_LIST_COLUMNS_CHANGE.CONFIRM' | translate}}
       </button>
     </div>

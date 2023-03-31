@@ -51,7 +51,7 @@ export class GroupApplicationsComponent implements OnInit {
   refresh = false;
   startDate: UntypedFormControl;
   endDate: UntypedFormControl;
-  fedAttrNames: string[] = [];
+  fedAttrs: AttributeDefinition[] = [];
   currentColumns: string[] = [];
   configuredColumns: string[] = [];
   configuredFedColumns: string[] = [];
@@ -76,8 +76,8 @@ export class GroupApplicationsComponent implements OnInit {
       .getIdpAttributeDefinitions()
       .subscribe((attrDefs: AttributeDefinition[]) => {
         attrDefs.forEach((attr) => {
-          if (!this.fedAttrNames.includes(attr.friendlyName)) {
-            this.fedAttrNames.push(attr.friendlyName);
+          if (!this.fedAttrs.includes(attr)) {
+            this.fedAttrs.push(attr);
           }
         });
       });
@@ -124,7 +124,7 @@ export class GroupApplicationsComponent implements OnInit {
         ) {
           this.configuredColumns = attribute.value as Array<string>;
           this.configuredFedColumns = this.configuredColumns.filter((column) =>
-            this.fedAttrNames.includes(column)
+            this.fedAttrs.some((attr) => attr.friendlyName === column)
           );
         } else {
           this.configuredColumns = [];
@@ -138,7 +138,12 @@ export class GroupApplicationsComponent implements OnInit {
   setColumns(): void {
     const config = getDefaultDialogConfig();
     config.width = '650px';
-    config.data = { columns: [], groupId: this.group.id, theme: 'group-theme' };
+    config.data = {
+      columns: [],
+      groupId: this.group.id,
+      voId: this.group.voId,
+      theme: 'group-theme',
+    };
 
     const dialogRef = this.dialog.open(ApplicationsListColumnsChangeDialogComponent, config);
     dialogRef.afterClosed().subscribe((success) => {

@@ -58,7 +58,7 @@ export class VoApplicationsComponent implements OnInit {
   showGroupApps = false;
   refresh = false;
   loading$: Observable<boolean>;
-  fedAttrNames: string[] = [];
+  fedAttrs: AttributeDefinition[] = [];
 
   constructor(
     private registrarManager: RegistrarManagerService,
@@ -79,8 +79,8 @@ export class VoApplicationsComponent implements OnInit {
       .getIdpAttributeDefinitions()
       .subscribe((attrDefs: AttributeDefinition[]) => {
         attrDefs.forEach((attr) => {
-          if (!this.fedAttrNames.includes(attr.friendlyName)) {
-            this.fedAttrNames.push(attr.friendlyName);
+          if (!this.fedAttrs.includes(attr)) {
+            this.fedAttrs.push(attr);
           }
         });
       });
@@ -136,7 +136,7 @@ export class VoApplicationsComponent implements OnInit {
         ) {
           this.configuredColumns = attribute.value as Array<string>;
           this.configuredFedColumns = this.configuredColumns.filter((column) =>
-            this.fedAttrNames.includes(column)
+            this.fedAttrs.some((attr) => attr.friendlyName === column)
           );
         } else {
           this.configuredColumns = [];

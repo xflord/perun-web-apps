@@ -115,8 +115,8 @@
         <td *matCellDef="let application" mat-cell>{{application.fedInfo}}</td>
       </ng-container>
 
-      <ng-container *ngFor="let i = index; let col of fedColumns;" matColumnDef="{{col}}">
-        <th *matHeaderCellDef mat-header-cell>{{col}}</th>
+      <ng-container *ngFor="let i = index; let col of fedColumnsFriendly;" matColumnDef="{{col}}">
+        <th *matHeaderCellDef mat-header-cell>{{fedColumnsDisplay[i]}}</th>
         <td *matCellDef="let application" mat-cell>
           {{getFedValue(application.fedInfo, col)}}
         </td>

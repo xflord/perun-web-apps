@@ -787,8 +787,7 @@
     "MODIFIED_AT": "Modified at",
     "USER": "User",
     "CREATED_BY": "Created by",
-    "VO_NAME": "Organization name",
-    "CONFIGURE": "Configure applications view"
+    "VO_NAME": "Organization name"
   },
   "MEMBER_DETAIL": {
     "ENTITY": "Member",
@@ -1265,13 +1264,16 @@
     },
     "APPLICATIONS_LIST_COLUMNS_CHANGE":  {
       "TITLE": "Change applications view preferences",
-      "DEFAULT_TEXT": "The default setting of the columns is: 'createdAt', 'type', 'state', 'createdBy', 'modifiedBy' ",
+      "DESCRIPTION": "Search for column name",
       "FILTER_COLUMNS": "Displayed columns",
+      "VO_SETTINGS": "Organization configuration",
       "WARN": "Changes to displayed columns will be saved for everyone that views applications in this organization/group!",
       "CANCEL": "Cancel",
       "CONFIRM": "Confirm",
-      "DEFAULT": "Reset default settings",
-      "SUCCESS": "Displayed columns were successfully updated"
+      "DEFAULT": "Default configuration",
+      "SUCCESS": "Displayed columns were successfully updated",
+      "SET_TO": "Set to...",
+      "SET_TO_DEFAULT": "Set to default"
     },
     "UPDATE_APPLICATION_FORM": {
       "TITLE": "Change application form settings",
