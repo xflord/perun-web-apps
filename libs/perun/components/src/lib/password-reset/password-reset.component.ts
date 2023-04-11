@@ -41,7 +41,7 @@ export class PasswordResetComponent implements OnInit {
       ? this.entityStorageService.getEntity().id
       : this.store.getPerunPrincipal().userId;
     this.displayedColumns = this.authenticationPage
-      ? ['namespace', 'value', 'change']
+      ? ['namespace', 'value', 'reset']
       : ['namespace', 'value', 'reset', 'change'];
     this.nameSpaces = this.store.getProperty('password_namespace_attributes').map((urn: string) => {
       const urns: string[] = urn.split(':');
