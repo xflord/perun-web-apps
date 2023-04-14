@@ -36,12 +36,6 @@ export class FacilityServiceStatusComponent implements OnInit {
 
   tableId = TABLE_FACILITY_SERVICES_STATUS_LIST;
 
-  successFPMessage: string;
-  successAllowMessage: string;
-  successBlockMessage: string;
-  successDeleteMessage: string;
-  allreadyDeletedMessage: string;
-
   disableAllowButton = true;
   disableBlockButton = true;
   disableRemoveButton = true;
@@ -64,23 +58,7 @@ export class FacilityServiceStatusComponent implements OnInit {
     private resourcesManager: ResourcesManagerService,
     private dialog: MatDialog,
     private entityStorageService: EntityStorageService
-  ) {
-    translate
-      .get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_FORCE_PROPAGATION')
-      .subscribe((value: string) => (this.successFPMessage = value));
-    translate
-      .get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_ALLOW')
-      .subscribe((value: string) => (this.successAllowMessage = value));
-    translate
-      .get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_BLOCK')
-      .subscribe((value: string) => (this.successBlockMessage = value));
-    translate
-      .get('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_DELETE')
-      .subscribe((value: string) => (this.successDeleteMessage = value));
-    translate
-      .get('FACILITY_DETAIL.SERVICES_STATUS.ALREADY_DELETED')
-      .subscribe((value: string) => (this.allreadyDeletedMessage = value));
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -90,30 +68,44 @@ export class FacilityServiceStatusComponent implements OnInit {
   }
 
   forcePropagation(): void {
-    for (const ss of this.selected.selected) {
-      this.servicesManager.forceServicePropagation(ss.service.id, ss.facility.id).subscribe(() => {
-        this.refreshTable();
-        this.notificator.showSuccess(this.successFPMessage);
-      });
-    }
+    const serviceIds = this.selected.selected.map((status) => status.service.id);
+    this.servicesManager.forceServicePropagationBulk(serviceIds, this.facility.id).subscribe({
+      next: () => {
+        this.notificator.showInstantSuccess(
+          'FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_FORCE_PROPAGATION'
+        );
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+      },
+    });
   }
 
   allow(): void {
-    for (const ss of this.selected.selected) {
-      this.servicesManager.unblockServiceOnFacility(ss.service.id, ss.facility.id).subscribe(() => {
-        this.refreshTable();
-        this.notificator.showSuccess(this.successAllowMessage);
-      });
-    }
+    const serviceIds = this.selected.selected.map((status) => status.service.id);
+    this.servicesManager.unblockServicesOnFacility(serviceIds, this.facility.id).subscribe({
+      next: () => {
+        this.notificator.showInstantSuccess('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_ALLOW');
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+      },
+    });
   }
 
   block(): void {
-    for (const ss of this.selected.selected) {
-      this.servicesManager.blockServiceOnFacility(ss.service.id, ss.facility.id).subscribe(() => {
-        this.refreshTable();
-        this.notificator.showSuccess(this.successBlockMessage);
-      });
-    }
+    const serviceIds = this.selected.selected.map((status) => status.service.id);
+    this.servicesManager.blockServicesOnFacility(serviceIds, this.facility.id).subscribe({
+      next: () => {
+        this.notificator.showInstantSuccess('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_BLOCK');
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+      },
+    });
   }
 
   removeTaskResults(): void {
