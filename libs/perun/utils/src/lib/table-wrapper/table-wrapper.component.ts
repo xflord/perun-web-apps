@@ -32,6 +32,7 @@ export class TableWrapperComponent implements OnInit {
   @Output() exportDisplayedData = new EventEmitter<string>();
   @Output() exportAllData = new EventEmitter<string>();
   @ViewChild('topNav') topNav: ElementRef<HTMLDivElement>;
+  @ViewChild('table') table: ElementRef<HTMLDivElement>;
 
   pageSize = 5;
   paginator: MatPaginator;
@@ -52,8 +53,14 @@ export class TableWrapperComponent implements OnInit {
   }
 
   pageChangedTop(event: PageEvent): void {
-    this.pageSize = event.pageSize;
-    this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
+    if (this.table) {
+      this.pageSize = event.pageSize;
+      this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
+      this.table.nativeElement.scroll({
+        top: 0,
+        behavior: 'smooth',
+      }); // scroll to top of table on page changes
+    }
   }
 
   pageChangedBottom(event: PageEvent): void {
@@ -64,10 +71,5 @@ export class TableWrapperComponent implements OnInit {
     if (this.tableId) {
       this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
     }
-    this.topNav.nativeElement.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-      inline: 'nearest',
-    }); // scroll to top of table on page changes
   }
 }

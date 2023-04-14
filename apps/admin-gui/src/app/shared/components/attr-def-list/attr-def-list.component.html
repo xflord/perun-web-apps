@@ -5,101 +5,99 @@
     [pageSizeOptions]="pageSizeOptions"
     [dataLength]="dataSource.filteredData.length"
     [tableId]="tableId">
-    <div class="overflow-auto">
-      <table
-        [dataSource]="dataSource"
-        class="w-100"
-        mat-table
-        matSort
-        matSortActive="displayName"
-        matSortDirection="asc"
-        matSortDisableClear>
-        <ng-container
-          matColumnDef="select"
-          *ngIf="{all: dataSource | isAllSelected: selection.selected.length :canBeSelected} as selected">
-          <th *matHeaderCellDef class="align-checkbox" mat-header-cell>
-            <mat-checkbox
-              (change)="$event ? masterToggle() : null"
-              [aria-label]="selected.all | masterCheckboxLabel | translate"
-              [checked]="selection.hasValue() && selected.all"
-              [indeterminate]="selection.hasValue() && !selected.all"
-              color="primary">
-            </mat-checkbox>
-          </th>
-          <td *matCellDef="let row" class="static-column-size align-checkbox" mat-cell>
-            <mat-checkbox
-              attr.data-cy="{{row.displayName | multiWordDataCy}}-checkbox"
-              (change)="$event ? selection.toggle(row) : null"
-              (click)="$event.stopPropagation()"
-              [aria-label]="selection.isSelected(row) | checkboxLabel | translate: {name: row.displayName}"
-              [checked]="selection.isSelected(row)"
-              [disabled]="row.namespace | consentRelatedAttribute:serviceEnabled:consentRequired"
-              [matTooltip]="'ADMIN.ATTRIBUTES.CONSENT_RELATED_DISABLED' | translate"
-              [matTooltipDisabled]="!(row.namespace | consentRelatedAttribute:serviceEnabled:consentRequired)"
-              matTooltipPosition="left"
-              color="primary">
-            </mat-checkbox>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="id">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header>
-            {{'ADMIN.ATTRIBUTES.TABLE_ATTR_ID' | translate}}
-          </th>
-          <td *matCellDef="let attrDef" class="static-column-size" mat-cell>{{attrDef.id}}</td>
-        </ng-container>
-        <ng-container matColumnDef="friendlyName">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header>
-            {{'ADMIN.ATTRIBUTES.TABLE_ATTR_FRIENDLY_NAME' | translate}}
-          </th>
-          <td
-            attr.data-cy="{{attrDef.friendlyName | multiWordDataCy}}-friendly-name"
-            *matCellDef="let attrDef"
-            mat-cell>
-            {{attrDef.friendlyName}}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="displayName">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header>
-            {{'ADMIN.ATTRIBUTES.TABLE_ATTR_DISPLAY_NAME' | translate}}
-          </th>
-          <td mat-cell *matCellDef="let attribute">
-            {{attribute.displayName}}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="entity">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header>
-            {{'ADMIN.ATTRIBUTES.TABLE_ATTR_ENTITY' | translate}}
-          </th>
-          <td *matCellDef="let attrDef" mat-cell>{{attrDef.entity}}</td>
-        </ng-container>
-        <ng-container matColumnDef="namespace">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header>
-            {{'ADMIN.ATTRIBUTES.TABLE_ATTR_DEF' | translate}}
-          </th>
-          <td *matCellDef="let attrDef" mat-cell>{{attrDef.namespace | nameSpaceToDef}}</td>
-        </ng-container>
-        <ng-container matColumnDef="type">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header>
-            {{'ADMIN.ATTRIBUTES.TABLE_ATTR_TYPE' | translate}}
-          </th>
-          <td *matCellDef="let attrDef" mat-cell>{{attrDef.type | attributeTypeClean}}</td>
-        </ng-container>
-        <ng-container matColumnDef="unique">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header>
-            {{'ADMIN.ATTRIBUTES.TABLE_ATTR_UNIQUE' | translate}}
-          </th>
-          <td *matCellDef="let attrDef" mat-cell>{{attrDef.unique}}</td>
-        </ng-container>
+    <table
+      [dataSource]="dataSource"
+      class="w-100"
+      mat-table
+      matSort
+      matSortActive="displayName"
+      matSortDirection="asc"
+      matSortDisableClear>
+      <ng-container
+        matColumnDef="select"
+        *ngIf="{all: dataSource | isAllSelected: selection.selected.length :canBeSelected} as selected">
+        <th *matHeaderCellDef class="align-checkbox" mat-header-cell>
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            [aria-label]="selected.all | masterCheckboxLabel | translate"
+            [checked]="selection.hasValue() && selected.all"
+            [indeterminate]="selection.hasValue() && !selected.all"
+            color="primary">
+          </mat-checkbox>
+        </th>
+        <td *matCellDef="let row" class="static-column-size align-checkbox" mat-cell>
+          <mat-checkbox
+            attr.data-cy="{{row.displayName | multiWordDataCy}}-checkbox"
+            (change)="$event ? selection.toggle(row) : null"
+            (click)="$event.stopPropagation()"
+            [aria-label]="selection.isSelected(row) | checkboxLabel | translate: {name: row.displayName}"
+            [checked]="selection.isSelected(row)"
+            [disabled]="row.namespace | consentRelatedAttribute:serviceEnabled:consentRequired"
+            [matTooltip]="'ADMIN.ATTRIBUTES.CONSENT_RELATED_DISABLED' | translate"
+            [matTooltipDisabled]="!(row.namespace | consentRelatedAttribute:serviceEnabled:consentRequired)"
+            matTooltipPosition="left"
+            color="primary">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="id">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'ADMIN.ATTRIBUTES.TABLE_ATTR_ID' | translate}}
+        </th>
+        <td *matCellDef="let attrDef" class="static-column-size" mat-cell>{{attrDef.id}}</td>
+      </ng-container>
+      <ng-container matColumnDef="friendlyName">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'ADMIN.ATTRIBUTES.TABLE_ATTR_FRIENDLY_NAME' | translate}}
+        </th>
+        <td
+          attr.data-cy="{{attrDef.friendlyName | multiWordDataCy}}-friendly-name"
+          *matCellDef="let attrDef"
+          mat-cell>
+          {{attrDef.friendlyName}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="displayName">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'ADMIN.ATTRIBUTES.TABLE_ATTR_DISPLAY_NAME' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let attribute">
+          {{attribute.displayName}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="entity">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'ADMIN.ATTRIBUTES.TABLE_ATTR_ENTITY' | translate}}
+        </th>
+        <td *matCellDef="let attrDef" mat-cell>{{attrDef.entity}}</td>
+      </ng-container>
+      <ng-container matColumnDef="namespace">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'ADMIN.ATTRIBUTES.TABLE_ATTR_DEF' | translate}}
+        </th>
+        <td *matCellDef="let attrDef" mat-cell>{{attrDef.namespace | nameSpaceToDef}}</td>
+      </ng-container>
+      <ng-container matColumnDef="type">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'ADMIN.ATTRIBUTES.TABLE_ATTR_TYPE' | translate}}
+        </th>
+        <td *matCellDef="let attrDef" mat-cell>{{attrDef.type | attributeTypeClean}}</td>
+      </ng-container>
+      <ng-container matColumnDef="unique">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'ADMIN.ATTRIBUTES.TABLE_ATTR_UNIQUE' | translate}}
+        </th>
+        <td *matCellDef="let attrDef" mat-cell>{{attrDef.unique}}</td>
+      </ng-container>
 
-        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-        <tr
-          (click)="onRowClick(attrDef)"
-          *matRowDef="let attrDef; columns: displayedColumns;"
-          [class.cursor-pointer]="!disableRouting"
-          class="dark-hover-list-item"
-          mat-row></tr>
-      </table>
-    </div>
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr
+        (click)="onRowClick(attrDef)"
+        *matRowDef="let attrDef; columns: displayedColumns;"
+        [class.cursor-pointer]="!disableRouting"
+        class="dark-hover-list-item"
+        mat-row></tr>
+    </table>
   </perun-web-apps-table-wrapper>
 </div>
 

@@ -433,3 +433,10 @@ mat-form-field mat-icon {
 .mdc-data-table__cell {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
 }
+
+// sticky table headers
+.mat-mdc-header-cell {
+  position: sticky !important;
+  top: 0;
+  z-index: 100;
+}
