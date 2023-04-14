@@ -261,3 +261,10 @@ mat-icon {
   white-space: nowrap !important;
   letter-spacing: normal;
 }
+
+// sticky table headers
+.mat-mdc-header-cell {
+  position: sticky !important;
+  top: 0;
+  z-index: 100;
+}
