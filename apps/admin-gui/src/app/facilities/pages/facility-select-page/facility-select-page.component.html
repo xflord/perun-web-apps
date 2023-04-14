@@ -13,6 +13,7 @@
   <button
     mat-flat-button
     class="action-button me-2"
+    *ngIf="createAuth"
     (click)="onCreate()"
     data-cy="new-facility-button"
     color="accent">
@@ -23,6 +24,7 @@
     class="me-2"
     data-cy="delete-facility-button"
     [disabled]="selection.selected.length === 0"
+    *ngIf="deleteAuth"
     (click)="onDelete()"
     color="warn">
     {{'FACILITY_MANAGEMENT.DELETE' | translate}}

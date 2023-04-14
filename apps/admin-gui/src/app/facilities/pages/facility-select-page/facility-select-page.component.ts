@@ -7,6 +7,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateFacilityDialogComponent } from '../../../shared/components/dialogs/create-facility-dialog/create-facility-dialog.component';
 import { DeleteFacilityDialogComponent } from '../../../shared/components/dialogs/delete-facility-dialog/delete-facility-dialog.component';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'app-facility-select-page',
@@ -21,18 +22,25 @@ export class FacilitySelectPageComponent implements OnInit, AfterViewChecked {
   facilities: EnrichedFacility[] = [];
   recentIds: number[] = [];
   loading: boolean;
+  createAuth: boolean;
+  deleteAuth: boolean;
   filterValue = '';
   tableId = TABLE_FACILITY_SELECT;
   selection = new SelectionModel<EnrichedFacility>(false, []);
-  includeDestinations: boolean;
 
   constructor(
     private facilityManager: FacilitiesManagerService,
     private sideMenuService: SideMenuService,
+    private guiAuthResolver: GuiAuthResolver,
     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
+    this.createAuth = this.guiAuthResolver.isAuthorized('createFacility_Facility_policy', []);
+    this.deleteAuth = this.guiAuthResolver.isAuthorized(
+      'deleteFacility_Facility_Boolean_policy',
+      []
+    );
     this.refreshTable();
   }
 
