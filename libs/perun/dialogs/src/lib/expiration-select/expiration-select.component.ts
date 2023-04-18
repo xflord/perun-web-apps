@@ -25,9 +25,9 @@ export class ExpirationSelectComponent implements OnInit, OnChanges {
     // Change selected date to be in [min, max] range
     const selectedExpiration = new Date(this.expirationControl.value);
     let validExpiration = selectedExpiration;
-    if (selectedExpiration < this.minDate) {
+    if (this.minDate && selectedExpiration < this.minDate) {
       validExpiration = this.minDate;
-    } else if (selectedExpiration > this.maxDate) {
+    } else if (this.maxDate && selectedExpiration > this.maxDate) {
       validExpiration = this.maxDate;
     }
 
