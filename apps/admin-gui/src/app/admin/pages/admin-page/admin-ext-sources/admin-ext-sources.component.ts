@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GuiAuthResolver, NotificatorService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
+import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { ExtSource, ExtSourcesManagerService } from '@perun-web-apps/perun/openapi';
 import { TABLE_ADMIN_EXTSOURCES } from '@perun-web-apps/config/table-config';
 
@@ -16,18 +15,11 @@ export class AdminExtSourcesComponent implements OnInit {
 
   loading = false;
   tableId = TABLE_ADMIN_EXTSOURCES;
-  private loadSuccess: string;
 
   constructor(
     private extSourceService: ExtSourcesManagerService,
-    private notificator: NotificatorService,
-    private translate: TranslateService,
     public authResolver: GuiAuthResolver
-  ) {
-    this.translate
-      .get('ADMIN.EXT_SOURCES.LOAD_SUCCESS')
-      .subscribe((result: string) => (this.loadSuccess = result));
-  }
+  ) {}
 
   ngOnInit(): void {
     this.refreshTable();
@@ -37,14 +29,14 @@ export class AdminExtSourcesComponent implements OnInit {
     this.filterValue = filterValue;
   }
 
-  onLoad(): void {
+  loadConfigExtSources(): void {
+    this.loading = true;
     this.extSourceService.loadExtSourcesDefinitions().subscribe(() => {
-      this.notificator.showSuccess(this.loadSuccess);
       this.refreshTable();
     });
   }
 
-  private refreshTable(): void {
+  refreshTable(): void {
     this.loading = true;
     this.extSourceService.getExtSources().subscribe((result) => {
       this.extSources = result;
