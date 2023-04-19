@@ -37,10 +37,7 @@ export class FacilitySelectPageComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     this.createAuth = this.guiAuthResolver.isAuthorized('createFacility_Facility_policy', []);
-    this.deleteAuth = this.guiAuthResolver.isAuthorized(
-      'deleteFacility_Facility_Boolean_policy',
-      []
-    );
+    this.deleteAuth = this.guiAuthResolver.isFacilityAdmin();
     this.refreshTable();
   }
 

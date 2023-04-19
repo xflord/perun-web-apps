@@ -19,16 +19,21 @@
     color="accent">
     {{'FACILITY_MANAGEMENT.CREATE' | translate}}
   </button>
-  <button
-    mat-flat-button
-    class="me-2"
-    data-cy="delete-facility-button"
-    [disabled]="selection.selected.length === 0"
-    *ngIf="deleteAuth"
-    (click)="onDelete()"
-    color="warn">
-    {{'FACILITY_MANAGEMENT.DELETE' | translate}}
-  </button>
+  <span
+    [matTooltipDisabled]="selection.selected.length === 0 || ([selection.selected[0]?.facility] | isAuthorized: 'deleteFacility_Facility_Boolean_policy')"
+    [matTooltipPosition]="'below'"
+    matTooltip="{{'FACILITY_MANAGEMENT.DELETE_PERMISSION_HINT' | translate}}">
+    <button
+      mat-flat-button
+      class="me-2"
+      data-cy="delete-facility-button"
+      [disabled]="selection.selected.length === 0 || !([selection.selected[0]?.facility] | isAuthorized: 'deleteFacility_Facility_Boolean_policy')"
+      *ngIf="deleteAuth"
+      (click)="onDelete()"
+      color="warn">
+      {{'FACILITY_MANAGEMENT.DELETE' | translate}}
+    </button>
+  </span>
   <perun-web-apps-immediate-filter
     [autoFocus]="true"
     (filter)="applyFilter($event)"
