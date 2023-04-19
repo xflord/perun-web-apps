@@ -1,6 +1,6 @@
 <div class="card p-3">
-  <div class="flex-column card-title">
-    <mat-icon [svgIcon]="svgIcon" class="cover-image"></mat-icon>
+  <div class="d-flex flex-row align-items-center gap-2 card-title">
+    <mat-icon [svgIcon]="svgIcon" class="d-flex cover-image"></mat-icon>
     {{this.title | translate}}
     <span matTooltip="{{this.roleTooltipInfo | translate }}" matTooltipPosition="above">
       <mat-icon class="dashboard-icon">info_outline</mat-icon>
