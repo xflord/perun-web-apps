@@ -71,32 +71,32 @@ export class AddEditNotificationDialogComponent implements OnInit {
         'vo-addMail_ApplicationForm_ApplicationMail_policy',
         [vo]
       );
-
-      const formGroupFields: { [key: string]: FormControl } = {};
-      for (const lang of this.languages) {
-        // Plain
-        formGroupFields[`${lang}-plain-subject`] = new FormControl(
-          this.applicationMail.message[lang].subject,
-          []
-        );
-        formGroupFields[`${lang}-plain-text`] = new FormControl(
-          this.applicationMail.message[lang].text,
-          []
-        );
-        // Html
-        formGroupFields[`${lang}-html-subject`] = new FormControl(
-          this.applicationMail.htmlMessage[lang].subject,
-          [this.inputEscape.htmlContentValidator()]
-        );
-        formGroupFields[`${lang}-html-text`] = new FormControl(
-          this.applicationMail.htmlMessage[lang].text,
-          [this.inputEscape.htmlContentValidator()]
-        );
-        formGroupFields[`${lang}-html-subject`].markAsTouched();
-        formGroupFields[`${lang}-html-text`].markAsTouched();
-      }
-      this.inputFormGroup = new FormGroup(formGroupFields);
     }
+
+    const formGroupFields: { [key: string]: FormControl } = {};
+    for (const lang of this.languages) {
+      // Plain
+      formGroupFields[`${lang}-plain-subject`] = new FormControl(
+        this.applicationMail.message[lang].subject,
+        []
+      );
+      formGroupFields[`${lang}-plain-text`] = new FormControl(
+        this.applicationMail.message[lang].text,
+        []
+      );
+      // Html
+      formGroupFields[`${lang}-html-subject`] = new FormControl(
+        this.applicationMail.htmlMessage[lang].subject,
+        [this.inputEscape.htmlContentValidator()]
+      );
+      formGroupFields[`${lang}-html-text`] = new FormControl(
+        this.applicationMail.htmlMessage[lang].text,
+        [this.inputEscape.htmlContentValidator()]
+      );
+      formGroupFields[`${lang}-html-subject`].markAsTouched();
+      formGroupFields[`${lang}-html-text`].markAsTouched();
+    }
+    this.inputFormGroup = new FormGroup(formGroupFields);
   }
 
   cancel(): void {
