@@ -85,6 +85,12 @@ export class OneEntityAttributePageComponent implements OnInit {
           this.loading = false;
         });
         break;
+      case 'host':
+        this.attributesManagerService.getHostAttributes(this.entityId).subscribe((attributes) => {
+          this.attributes = attributes;
+          this.selection.clear();
+          this.loading = false;
+        });
     }
   }
 

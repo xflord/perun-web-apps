@@ -54,6 +54,7 @@
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
       <tr
         *matRowDef="let host; columns: displayedColumns;"
+        [class.cursor-pointer]="!disableRouting"
         [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : ['/facilities', this.facilityId.toString(), 'hosts', host.id.toString()]"
         [routerLink]="disableRouting ? null : ['/facilities', this.facilityId, 'hosts', host.id]"
         class="dark-hover-list-item"
