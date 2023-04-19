@@ -43,10 +43,7 @@ export class FacilityHostsComponent implements OnInit {
     this.loading = true;
     this.facility = this.entityStorageService.getEntity();
     this.setAuthRights();
-    this.facilitiesManager.getFacilityById(this.facility.id).subscribe((facility) => {
-      this.facility = facility;
-      this.refreshTable();
-    });
+    this.refreshTable();
   }
 
   refreshTable(): void {

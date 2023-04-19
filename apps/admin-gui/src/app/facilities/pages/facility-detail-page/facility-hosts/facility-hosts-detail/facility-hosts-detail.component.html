@@ -2,35 +2,7 @@
   <h1 class="page-subtitle">
     {{'FACILITY_DETAIL.HOSTS.HOSTS_DETAIL.TITLE' | translate}} {{host.hostname}}
   </h1>
-  <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button (click)="addAttribute()" class="me-2" color="accent" mat-flat-button>
-    {{'FACILITY_DETAIL.HOSTS.HOSTS_DETAIL.ADD' | translate}}
-  </button>
-  <button
-    (click)="onSave()"
-    class="me-2"
-    color="accent"
-    [disabled]="selected.selected.length === 0"
-    mat-flat-button>
-    {{'FACILITY_DETAIL.HOSTS.HOSTS_DETAIL.SAVE' | translate}}
-  </button>
-  <button
-    (click)="removeAttribute()"
-    color="warn"
-    [disabled]="selected.selected.length === 0"
-    mat-flat-button>
-    {{'FACILITY_DETAIL.HOSTS.HOSTS_DETAIL.REMOVE' | translate}}
-  </button>
-  <ng-template #spinner>
-    <perun-web-apps-loading-table></perun-web-apps-loading-table>
-  </ng-template>
-  <div class="position-relative">
-    <perun-web-apps-attributes-list
-      [selection]="selected"
-      #list
-      *perunWebAppsLoader="loading; indicator: spinner"
-      [attributes]="attributes"
-      [tableId]="tableId">
-    </perun-web-apps-attributes-list>
-  </div>
+  <app-one-entity-attribute-page
+    [entityId]="hostId"
+    [entity]="'host'"></app-one-entity-attribute-page>
 </div>
