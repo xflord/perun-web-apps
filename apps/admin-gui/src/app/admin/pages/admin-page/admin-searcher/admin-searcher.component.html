@@ -9,7 +9,7 @@
         *ngIf="!loading"
         [attributes]="allAttrDefinitions"
         [attributesForEntity]="'user'"
-        (search)="searchEntities($event, 'user')">
+        (search)="getUsers($event)">
       </perun-web-apps-attribute-search-select>
       <app-users-list
         *ngIf="!loadingEntityData"
@@ -36,7 +36,7 @@
         *ngIf="!loading"
         [attributes]="allAttrDefinitions"
         [attributesForEntity]="'user'"
-        (search)="searchEntities($event, 'member')">
+        (search)="getMembers($event)">
       </perun-web-apps-attribute-search-select>
       <perun-web-apps-members-list
         *ngIf="!loadingEntityData"
@@ -44,7 +44,7 @@
         [displayedColumns]="['id', 'voId', 'userId', 'status']"
         [disableStatusChange]="true"
         [disableExpirationChange]="true"
-        (updateTable)="searchEntities(searchInput, 'member')"
+        (updateTable)="getMembers(searchInput)"
         [members]="entities">
       </perun-web-apps-members-list>
     </ng-template>
@@ -58,7 +58,7 @@
         *ngIf="!loading"
         [attributes]="allAttrDefinitions"
         [attributesForEntity]="'facility'"
-        (search)="searchEntities($event, 'facility')">
+        (search)="getFacilities($event)">
       </perun-web-apps-attribute-search-select>
       <perun-web-apps-facilities-list
         *ngIf="!loadingEntityData"
@@ -77,7 +77,7 @@
         *ngIf="!loading"
         [attributes]="allAttrDefinitions"
         [attributesForEntity]="'resource'"
-        (search)="searchEntities($event, 'resource')">
+        (search)="getResources($event)">
       </perun-web-apps-attribute-search-select>
       <perun-web-apps-resources-list
         *ngIf="!loadingEntityData"

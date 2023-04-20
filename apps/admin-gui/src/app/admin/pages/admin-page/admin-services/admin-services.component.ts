@@ -29,10 +29,7 @@ export class AdminServicesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.serviceManager.getServices().subscribe((services) => {
-      this.services = services;
-      this.refreshTable();
-    });
+    this.refreshTable();
   }
 
   createService(): void {

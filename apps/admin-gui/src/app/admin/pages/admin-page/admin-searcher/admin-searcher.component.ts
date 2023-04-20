@@ -85,28 +85,9 @@ export class AdminSearcherComponent implements OnInit {
     }
   }
 
-  searchEntities(event: { [p: string]: string }, entity: string): void {
+  getUsers(event: { [p: string]: string }): void {
     this.searchInput = event;
     this.loadingEntityData = true;
-    switch (entity) {
-      case 'user':
-        this.getUsers();
-        break;
-      case 'member':
-        this.getMembers();
-        break;
-      case 'facility':
-        this.getFacilities();
-        break;
-      case 'resource':
-        this.getResources();
-        break;
-      default:
-        break;
-    }
-  }
-
-  getUsers(): void {
     this.searcher
       .getUsersSearcher({
         attributesWithSearchingValues: this.searchInput,
@@ -117,7 +98,9 @@ export class AdminSearcherComponent implements OnInit {
       });
   }
 
-  getMembers(): void {
+  getMembers(event: { [p: string]: string }): void {
+    this.searchInput = event;
+    this.loadingEntityData = true;
     this.searcher
       .getMembersByUserAttributes({
         vo: this.selectedVo.id,
@@ -129,7 +112,9 @@ export class AdminSearcherComponent implements OnInit {
       });
   }
 
-  getFacilities(): void {
+  getFacilities(event: { [p: string]: string }): void {
+    this.searchInput = event;
+    this.loadingEntityData = true;
     this.searcher
       .getFacilities({
         attributesWithSearchingValues: this.searchInput,
@@ -140,7 +125,9 @@ export class AdminSearcherComponent implements OnInit {
       });
   }
 
-  getResources(): void {
+  getResources(event: { [p: string]: string }): void {
+    this.searchInput = event;
+    this.loadingEntityData = true;
     this.searcher
       .getAttributesResources({
         attributesWithSearchingValues: this.searchInput,
