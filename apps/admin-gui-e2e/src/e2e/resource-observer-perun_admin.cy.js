@@ -8,12 +8,7 @@ context('Actions', () => {
   const dbFacilityName = "resource-observer-facility-from-db-1"*/
 
   before(() => {
-    if (Cypress.env('BA_USERNAME_RESOURCE_OBSERVER')) {
-      sessionStorage.setItem('baPrincipal', '{"name": "resourceObserver1"}');
-      sessionStorage.setItem('basicUsername', Cypress.env('BA_USERNAME_RESOURCE_OBSERVER'));
-      sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD_RESOURCE_OBSERVER'));
-      cy.visit('service-access');
-    }
+    cy.login('RESOURCE_OBSERVER', 'resourceObserver1');
   });
 
   beforeEach(() => {

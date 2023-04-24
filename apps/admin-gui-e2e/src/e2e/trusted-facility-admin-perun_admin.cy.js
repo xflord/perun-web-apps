@@ -11,12 +11,7 @@ context('Actions', () => {
   const dbUserToRemoveRoles = 'test8';
 
   before(() => {
-    if (Cypress.env('BA_USERNAME_TRUSTED_FACILITY_ADMIN')) {
-      sessionStorage.setItem('baPrincipal', '{"name": "trustedFacilityAdmin"}');
-      sessionStorage.setItem('basicUsername', Cypress.env('BA_USERNAME_TRUSTED_FACILITY_ADMIN'));
-      sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD_TRUSTED_FACILITY_ADMIN'));
-      cy.visit('service-access');
-    }
+    cy.login('TRUSTED_FACILITY_ADMIN', 'trustedFacilityAdmin');
   });
 
   beforeEach(() => {

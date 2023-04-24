@@ -10,12 +10,7 @@ context('Actions', () => {
   const removeManagerUser = 'test3';
 
   before(() => {
-    if (Cypress.env('BA_USERNAME_FACILITY_MANAGER')) {
-      sessionStorage.setItem('baPrincipal', '{"name": "facilityManager"}');
-      sessionStorage.setItem('basicUsername', Cypress.env('BA_USERNAME_FACILITY_MANAGER'));
-      sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD_FACILITY_MANAGER'));
-      cy.visit('service-access');
-    }
+    cy.login('FACILITY_MANAGER', 'facilityManager');
   });
 
   beforeEach(() => {

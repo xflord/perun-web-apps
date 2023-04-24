@@ -3,12 +3,7 @@ context('Actions', () => {
   const groupName = 'test';
 
   before(() => {
-    if (Cypress.env('BA_USERNAME_TOP_GROUP_CREATOR')) {
-      sessionStorage.setItem('baPrincipal', '{"name": "topGroupCreator"}');
-      sessionStorage.setItem('basicUsername', Cypress.env('BA_USERNAME_TOP_GROUP_CREATOR'));
-      sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD_TOP_GROUP_CREATOR'));
-      cy.visit('service-access');
-    }
+    cy.login('TOP_GROUP_CREATOR', 'topGroupCreator');
   });
 
   beforeEach(() => {

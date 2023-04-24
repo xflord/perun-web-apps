@@ -18,12 +18,7 @@ context('Actions', () => {
   const csvMembersToSponsor = csvMemberFirstName + ";" + csvMemberLastName + ";" + csvMemberEmail + ";" + csvMemberLogin;
 
   before(() => {
-    if (Cypress.env('BA_USERNAME_SPONSOR')) {
-      sessionStorage.setItem('baPrincipal', '{"name": "sponsor"}');
-      sessionStorage.setItem('basicUsername', Cypress.env('BA_USERNAME_SPONSOR'));
-      sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD_SPONSOR'));
-      cy.visit('service-access');
-    }
+    cy.login('SPONSOR', 'sponsor');
   });
 
   beforeEach(() => {

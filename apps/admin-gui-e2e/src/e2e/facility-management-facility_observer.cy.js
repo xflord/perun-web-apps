@@ -14,12 +14,7 @@ context('Actions', () => {
   const dbAttributeName = 'uid-namespace';
 
   before(() => {
-    if (Cypress.env('BA_USERNAME_FACILITY_OBSERVER')) {
-      sessionStorage.setItem('baPrincipal', '{"name": "facilityObserver"}');
-      sessionStorage.setItem('basicUsername', Cypress.env('BA_USERNAME_FACILITY_OBSERVER'));
-      sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD_FACILITY_OBSERVER'));
-      cy.visit('service-access');
-    }
+    cy.login('FACILITY_OBSERVER', 'facilityObserver');
   });
 
   beforeEach(() => {

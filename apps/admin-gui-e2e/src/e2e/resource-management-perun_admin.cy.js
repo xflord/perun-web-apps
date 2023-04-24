@@ -12,12 +12,7 @@ context('Actions', () => {
   const dbGroupToRemove = 'test-e2e-group-from-db-1';
 
   before(() => {
-    if (Cypress.env('BA_USERNAME_RESOURCE_MANAGER')) {
-      sessionStorage.setItem('baPrincipal', '{"name": "resourceManager"}');
-      sessionStorage.setItem('basicUsername', Cypress.env('BA_USERNAME_RESOURCE_MANAGER'));
-      sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD_RESOURCE_MANAGER'));
-      cy.visit('service-access');
-    }
+    cy.login('RESOURCE_MANAGER', 'resourceManager');
   });
 
   beforeEach(() => {

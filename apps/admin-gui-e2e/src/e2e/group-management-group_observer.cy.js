@@ -9,12 +9,7 @@ context('Actions', () => {
   const dbExtsource = 'internal';
 
   before(() => {
-    if (Cypress.env('BA_USERNAME_GROUP_OBSERVER')) {
-      sessionStorage.setItem('baPrincipal', '{"name": "groupObserver"}');
-      sessionStorage.setItem('basicUsername', Cypress.env('BA_USERNAME_GROUP_OBSERVER'));
-      sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD_GROUP_OBSERVER'));
-      cy.visit('service-access');
-    }
+    cy.login('GROUP_OBSERVER', 'groupObserver');
   });
 
   beforeEach(() => {

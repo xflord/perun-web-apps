@@ -11,12 +11,7 @@ context('Actions', () => {
   const dbVoName = 'test-e2e-vo-from-db-2';
 
   before(() => {
-    if (Cypress.env('BA_USERNAME_GROUP_MANAGER')) {
-      sessionStorage.setItem('baPrincipal', '{"name": "groupManager"}');
-      sessionStorage.setItem('basicUsername', Cypress.env('BA_USERNAME_GROUP_MANAGER'));
-      sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD_GROUP_MANAGER'));
-      cy.visit('service-access');
-    }
+    cy.login('GROUP_MANAGER', 'groupManager');
   });
 
   beforeEach(() => {

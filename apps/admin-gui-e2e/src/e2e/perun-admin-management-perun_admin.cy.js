@@ -13,12 +13,7 @@ context('Actions', () => {
   const dbSearcherUserFirstName = 'Test6';
 
   before(() => {
-    if (Cypress.env('BA_USERNAME')) {
-      sessionStorage.setItem('baPrincipal', '{"name": "perun"}');
-      sessionStorage.setItem('basicUsername', Cypress.env('BA_USERNAME'));
-      sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD'));
-      cy.visit('service-access');
-    }
+    cy.login('', 'perun');
   });
 
   beforeEach(() => {

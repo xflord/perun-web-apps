@@ -13,12 +13,7 @@ context('Actions', () => {
   const dbOwnerName = 'DbOwnerTest';
 
   before(() => {
-    if (Cypress.env('BA_USERNAME_PERUN_OBSERVER')) {
-      sessionStorage.setItem('baPrincipal', '{"name": "perunObserver"}');
-      sessionStorage.setItem('basicUsername', Cypress.env('BA_USERNAME_PERUN_OBSERVER'));
-      sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD_PERUN_OBSERVER'));
-      cy.visit('service-access');
-    }
+    cy.login('PERUN_OBSERVER', 'perunObserver');
   });
 
   beforeEach(() => {

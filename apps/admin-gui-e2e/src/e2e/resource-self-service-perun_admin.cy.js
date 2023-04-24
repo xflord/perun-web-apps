@@ -11,12 +11,7 @@ context('Actions', () => {
 
 
   before(() => {
-    if (Cypress.env('BA_USERNAME_RESOURCE_SELF_SERVICE')) {
-      sessionStorage.setItem('baPrincipal', '{"name": "resourceSelfService"}');
-      sessionStorage.setItem('basicUsername', Cypress.env('BA_USERNAME_RESOURCE_SELF_SERVICE'));
-      sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD_RESOURCE_SELF_SERVICE'));
-      cy.visit('service-access');
-    }
+    cy.login('RESOURCE_SELF_SERVICE', 'resourceSelfService');
   });
 
   beforeEach(() => {

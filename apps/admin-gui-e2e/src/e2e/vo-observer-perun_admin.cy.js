@@ -7,12 +7,7 @@ context('Actions', () => {
   const dbApplicationItemTextFieldName = 'input-test';
 
   before(() => {
-    if (Cypress.env('BA_USERNAME_VO_OBSERVER')) {
-      sessionStorage.setItem('baPrincipal', '{"name": "voObserver"}');
-      sessionStorage.setItem('basicUsername', Cypress.env('BA_USERNAME_VO_OBSERVER'));
-      sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD_VO_OBSERVER'));
-      cy.visit('service-access');
-    }
+    cy.login('VO_OBSERVER', 'voObserver');
   });
 
   beforeEach(() => {

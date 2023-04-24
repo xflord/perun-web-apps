@@ -10,12 +10,7 @@ context('Actions', () => {
   const addedAttribute = 'notification-default-language';
 
   before(() => {
-    if (Cypress.env('BA_USERNAME_VO_MANAGER')) {
-      sessionStorage.setItem('baPrincipal', '{"name": "voManager"}');
-      sessionStorage.setItem('basicUsername', Cypress.env('BA_USERNAME_VO_MANAGER'));
-      sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD_VO_MANAGER'));
-      cy.visit('service-access');
-    }
+    cy.login('VO_MANAGER', 'voManager');
   });
 
   beforeEach(() => {
@@ -330,10 +325,7 @@ context('Actions', () => {
 
   it('test delete vo (perun admin)', () => {
     // change role to perun admin
-    sessionStorage.setItem('baPrincipal', '{"name": "perun"}');
-    sessionStorage.setItem('basicUsername', Cypress.env('BA_USERNAME'));
-    sessionStorage.setItem('basicPassword', Cypress.env('BA_PASSWORD'));
-    cy.reload();
+    cy.login('', 'perun');
 
     cy.visit('home')
       .get(`[data-cy=access-item-button]`)

@@ -45,6 +45,5 @@ export default defineConfig({
       BA_PASSWORD_SPONSOR: 'test',
     },
     specPattern: 'src/e2e/**/*.cy.{js,jsx,ts,tsx}',
-    supportFile: false,
   },
 });

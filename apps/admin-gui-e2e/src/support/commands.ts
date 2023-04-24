@@ -23,3 +23,13 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('login', (envRole: string, baPrincipalName: string) => {
+  envRole = envRole ? '_' + envRole : envRole;
+
+  sessionStorage.setItem('baPrincipal', `{"name": "${baPrincipalName}"`);
+  sessionStorage.setItem('basicUsername', String(Cypress.env('BA_USERNAME' + envRole)));
+  sessionStorage.setItem('basicPassword', String(Cypress.env('BA_PASSWORD' + envRole)));
+
+  cy.visit('service-access');
+});
