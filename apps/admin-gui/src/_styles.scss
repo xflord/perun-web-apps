@@ -1581,8 +1581,13 @@ td.mat-mdc-cell {
   contain: size !important;
 }
 
+.action-button {
+  display: inline-block !important;
+}
+
 .action-button::after {
   content: '\2026';
+  margin-left: -4px;
 }
 
 .align-checkbox {
