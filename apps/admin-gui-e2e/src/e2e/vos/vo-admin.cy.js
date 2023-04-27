@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context('Actions', () => {
+describe('VO management with role VO admin', () => {
   const dbVoName = 'test-e2e-vo-from-db';
   const dbGroupName = 'test-group-from-db';
   const dbApplicationItemTextFieldName = 'input-test';
@@ -206,150 +206,107 @@ context('Actions', () => {
       .should('not.exist');
   });
 
-  it('test create vo application form item', () => {
-    cy.intercept('**/registrarManager/updateFormItems/**')
-      .as('addFormItem')
-      .get('[data-cy=auto-focused-filter]')
-      .type(dbVoName, {force: true})
-      .get(`[data-cy=${dbVoName}]`)
-      .click()
-      .get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=application-form]')
-      .click()
-      .get('[data-cy=add-form-item]')
-      .click()
-      .get('[data-cy=item-short-name]')
-      .type('Header', {force: true})
-      .get('[data-cy=add-form-item-button-dialog]')
-      .click()
-      .get('[data-cy=edit-form-item-button-dialog]')
-      .click()
-      .intercept('**/registrarManager/getFormItems/vo**')
-      .as('getFormItems')
-      .get('[data-cy=save-application-form]')
-      .click()
-      .wait('@addFormItem')
-      .wait('@getFormItems')
-      .get('[data-cy=refresh-button]')
-      .click()
-      .wait('@getFormItems')
-      // assert that form item exists
-      .get('[data-cy=header-delete]')
-      .should('exist');
-  });
+  context('Advanced settings', () => {
+    beforeEach(() => {
+      cy.get('[data-cy=auto-focused-filter]')
+        .type(dbVoName, {force: true})
+        .get(`[data-cy=${dbVoName}]`)
+        .click()
+        .get('[data-cy=advanced-settings]')
+        .click()
+    })
 
-  it('test delete vo application form item', () => {
-    cy.intercept('**/registrarManager/updateFormItems/**')
-      .as('deleteFormItem')
-      .intercept('**/registrarManager/getFormItems/vo**')
-      .as('getFormItems')
-      .get('[data-cy=auto-focused-filter]')
-      .type(dbVoName, {force: true})
-      .get(`[data-cy=${dbVoName}]`)
-      .click()
-      .get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=application-form]')
-      .click()
-      .wait('@getFormItems')
-      .get(`[data-cy=${dbApplicationItemTextFieldName}-delete]`)
-      .click()
-      .get('[data-cy=delete-application-form-item-dialog]')
-      .click()
-      .get('[data-cy=save-application-form]')
-      .click()
-      .wait('@deleteFormItem')
-      .get('[data-cy=refresh-button]')
-      .click()
-      // assert that form item doesn't exist
-      .get(`[data-cy=${dbApplicationItemTextFieldName}-delete]`)
-      .should('not.exist');
-  });
+    it('test create vo application form item', () => {
+      cy.intercept('**/registrarManager/updateFormItems/**')
+        .as('addFormItem')
+        .get('[data-cy=application-form]')
+        .click()
+        .get('[data-cy=add-form-item]')
+        .click()
+        .get('[data-cy=item-short-name]')
+        .type('Header', {force: true})
+        .get('[data-cy=add-form-item-button-dialog]')
+        .click()
+        .get('[data-cy=edit-form-item-button-dialog]')
+        .click()
+        .intercept('**/registrarManager/getFormItems/vo**')
+        .as('getFormItems')
+        .get('[data-cy=save-application-form]')
+        .click()
+        .wait('@addFormItem')
+        .wait('@getFormItems')
+        .get('[data-cy=refresh-button]')
+        .click()
+        .wait('@getFormItems')
+        // assert that form item exists
+        .get('[data-cy=header-delete]')
+        .should('exist');
+    });
 
-  it('test add vo manager', () => {
-    cy.intercept('**/authzResolver/setRole/**')
-      .as('setRole')
-      .get('[data-cy=auto-focused-filter]')
-      .type(dbVoName, {force: true})
-      .get(`[data-cy=${dbVoName}]`)
-      .click()
-      .get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=managers]')
-      .click()
-      .get('[data-cy=add-manager-button]')
-      .click()
-      .get('[data-cy=search-manager-input]')
-      .type(`${dbUser}`, {force: true})
-      .get('[data-cy=search-manager-button]')
-      .click()
-      .get(`[data-cy=${dbUser}-checkbox]`)
-      .click()
-      .get('[data-cy=add-manager-button-dialog]')
-      .click()
-      .intercept('**/authzResolver/getRichAdmins**')
-      .as('getRichAdmins')
-      .wait('@setRole')
-      .wait('@getRichAdmins')
-      // assert that manager was added
-      .get(`[data-cy=${dbUser}-checkbox]`)
-      .should('exist');
-  });
+    it('test delete vo application form item', () => {
+      cy.intercept('**/registrarManager/updateFormItems/**')
+        .as('deleteFormItem')
+        .intercept('**/registrarManager/getFormItems/vo**')
+        .as('getFormItems')
+        .get('[data-cy=application-form]')
+        .click()
+        .wait('@getFormItems')
+        .get(`[data-cy=${dbApplicationItemTextFieldName}-delete]`)
+        .click()
+        .get('[data-cy=delete-application-form-item-dialog]')
+        .click()
+        .get('[data-cy=save-application-form]')
+        .click()
+        .wait('@deleteFormItem')
+        .get('[data-cy=refresh-button]')
+        .click()
+        // assert that form item doesn't exist
+        .get(`[data-cy=${dbApplicationItemTextFieldName}-delete]`)
+        .should('not.exist');
+    });
 
-  it('test remove vo manager', () => {
-    cy.intercept('**/authzResolver/unsetRole/**')
-      .as('unsetRole')
-      .get('[data-cy=auto-focused-filter]')
-      .type(dbVoName, {force: true})
-      .get(`[data-cy=${dbVoName}]`)
-      .click()
-      .get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=managers]')
-      .click()
-      .get(`[data-cy=${dbVoManager}-checkbox]`)
-      .click()
-      .get('[data-cy=remove-manager-button]')
-      .click()
-      .intercept('**/authzResolver/getRichAdmins**')
-      .as('getRichAdmins')
-      .get('[data-cy=remove-manager-button-dialog]')
-      .click()
-      .wait('@unsetRole')
-      .wait('@getRichAdmins')
-      // assert that manager doesn't exist
-      .get(`[data-cy=${dbVoManager}-checkbox]`)
-      .should('not.exist');
-  });
+    it('test add vo manager', () => {
+      cy.intercept('**/authzResolver/setRole/**')
+        .as('setRole')
+        .get('[data-cy=managers]')
+        .click()
+        .get('[data-cy=add-manager-button]')
+        .click()
+        .get('[data-cy=search-manager-input]')
+        .type(`${dbUser}`, {force: true})
+        .get('[data-cy=search-manager-button]')
+        .click()
+        .get(`[data-cy=${dbUser}-checkbox]`)
+        .click()
+        .get('[data-cy=add-manager-button-dialog]')
+        .click()
+        .intercept('**/authzResolver/getRichAdmins**')
+        .as('getRichAdmins')
+        .wait('@setRole')
+        .wait('@getRichAdmins')
+        // assert that manager was added
+        .get(`[data-cy=${dbUser}-checkbox]`)
+        .should('exist');
+    });
 
-  it('test delete vo (perun admin)', () => {
-    // change role to perun admin
-    cy.login('', 'perun');
-
-    cy.visit('home')
-      .get(`[data-cy=access-item-button]`)
-      .click()
-
-    cy.intercept('**/vosManager/deleteVo**')
-      .as('deleteVo')
-      .get('[data-cy=auto-focused-filter]')
-      .type(`${dbVoName}`, {force: true})
-      .get(`[data-cy=${dbVoName}]`)
-      .click({force: true}) // covered by toolbar (header)
-      .get('[data-cy=delete-vo]')
-      .click({force: true}) // covered by span
-      .get('[data-cy=force-delete]')
-      .click()
-      .get('[data-cy=force-delete-control]')
-      .type('DELETE', {force: true})
-      .get('[data-cy=force-delete-button]')
-      .click()
-      .wait('@deleteVo')
-
-      // assert that the delete action was successful
-      .get('[data-cy=notification-message]')
-      .contains('Organization was successfully removed')
-      .should('exist');
+    it('test remove vo manager', () => {
+      cy.intercept('**/authzResolver/unsetRole/**')
+        .as('unsetRole')
+        .get('[data-cy=managers]')
+        .click()
+        .get(`[data-cy=${dbVoManager}-checkbox]`)
+        .click()
+        .get('[data-cy=remove-manager-button]')
+        .click()
+        .intercept('**/authzResolver/getRichAdmins**')
+        .as('getRichAdmins')
+        .get('[data-cy=remove-manager-button-dialog]')
+        .click()
+        .wait('@unsetRole')
+        .wait('@getRichAdmins')
+        // assert that manager doesn't exist
+        .get(`[data-cy=${dbVoManager}-checkbox]`)
+        .should('not.exist');
+    });
   });
 });

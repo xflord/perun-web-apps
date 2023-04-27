@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context('Actions', () => {
+describe('Facility management with role Facility observer', () => {
   const dbFacilityName = 'f-o-test-facility';
   const dbResourceName = 'f-o-test-resource';
   const dbUserFirstName = 'f-o-assigned-user-firstname';
@@ -52,16 +52,16 @@ context('Actions', () => {
   // There is problem with policies - test sometimes fails with error "You are not
   // authorized to perform this action", but according to getPerunPrincipal() method
   // there should be the privilege for given facility and called method (getAllowedGroups).
-  // For the correct run in CI this test was commented for this moment
-  // it('test list allowed groups', () => {
-  //   cy.get('[data-cy=allowed-groups]')
-  //     .click()
-  //     .reload()
-  //     .get('[data-cy=unfocused-filter]')
-  //     .type(dbGroupName, {force: true})
-  //     .get(`[data-cy=${dbGroupName}]`)
-  //     .should('exist')
-  // });
+  // For the correct run in CI this test was skipped for this moment
+  it.skip('test list allowed groups', () => {
+    cy.get('[data-cy=allowed-groups]')
+      .click()
+      .reload()
+      .get('[data-cy=unfocused-filter]')
+      .type(dbGroupName, {force: true})
+      .get(`[data-cy=${dbGroupName}]`)
+      .should('exist')
+  });
 
   it('test get service status detail', () => {
     cy.get('[data-cy=services-status]')
@@ -85,13 +85,13 @@ context('Actions', () => {
       .should('exist')
   });
 
-  // FIXME: v route-policiy.service.ts je check na isFacilityAdmin();
-  // it('test get host detail', () => {
-  //   cy.get('[data-cy=hosts]')
-  //     .click()
-  //     .get(`[data-cy=${dbHostName}]`)
-  //     .should('exist')
-  // });
+  // FIXME: v route-policiy.service.ts is the check for isFacilityAdmin();
+  it.skip('test get host detail', () => {
+    cy.get('[data-cy=hosts]')
+      .click()
+      .get(`[data-cy=${dbHostName}]`)
+      .should('exist')
+  });
 
   it('test list attributes', () => {
     cy.get('[data-cy=attributes]')

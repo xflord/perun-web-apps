@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context('Actions', () => {
+describe('Group management with role Group observer', () => {
   const dbGroupName = 'g-o-test-group';
   const dbGroupMember = 'g-o-testgroupmember';
   const dbGroupAdmin = 'g-o-testgroupadmin';

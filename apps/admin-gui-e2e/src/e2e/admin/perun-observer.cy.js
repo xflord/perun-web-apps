@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context('Actions', () => {
+describe('Perun admin management with role Perun observer', () => {
   const dbServiceName = 'perun_observer_test';
 
   // the same data from perun admin tests

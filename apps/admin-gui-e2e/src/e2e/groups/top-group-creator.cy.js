@@ -1,4 +1,6 @@
-context('Actions', () => {
+/// <reference types="cypress" />
+
+describe('Group management with role Top group creator', () => {
   const dbVoName = 'test-e2e-vo-from-db-4';
   const groupName = 'test';
 

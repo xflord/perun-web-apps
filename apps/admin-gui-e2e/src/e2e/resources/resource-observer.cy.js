@@ -1,11 +1,14 @@
-context('Actions', () => {
+/// <reference types="cypress" />
+
+describe('Resource management with role Resource observer', () => {
   const dbVoName = "resource-observer-vo-from-db-1";
   const dbResourceName = "resource-observer-resource-from-db-1"
   const dbGroupName = "resource-observer-group-from-db-1"
   const dbResourceAdminName = "resource-observer-user2"
-/*  const dbAssignedMemberName = "resource-observer-user3"
+  // constants for not supported tests yet
+  const dbAssignedMemberName = "resource-observer-user3"
   const dbServiceName = "resource-observer-test_service_db"
-  const dbFacilityName = "resource-observer-facility-from-db-1"*/
+  const dbFacilityName = "resource-observer-facility-from-db-1"
 
   before(() => {
     cy.login('RESOURCE_OBSERVER', 'resourceObserver1');
@@ -64,34 +67,34 @@ context('Actions', () => {
       .should('exist')
   })
 
-  // tests that are not supported by policies yet
-/*  it('view assigned members', () => {
-    cy.get('[data-cy=assigned-members]')
-      .click()
+  context.skip('Tests that are not supported by policies yet', () => {
+    it('view assigned members', () => {
+      cy.get('[data-cy=assigned-members]')
+        .click()
 
-      // group should be visible
-      .get(`[data-cy=${dbAssignedMemberName}]`)
-      .should('exist')
-  })
+        // group should be visible
+        .get(`[data-cy=${dbAssignedMemberName}]`)
+        .should('exist')
+    })
 
     it('view resources on facility', () => {
-    cy.get(`[data-cy=${dbFacilityName}]`)
-      .click()
-      .get('[data-cy=resources]')
-      .click()
+      cy.get(`[data-cy=${dbFacilityName}]`)
+        .click()
+        .get('[data-cy=resources]')
+        .click()
 
-      // resource should be visible
-      .get(`[data-cy=${dbResourceName}]`)
-      .should('exist')
+        // resource should be visible
+        .get(`[data-cy=${dbResourceName}]`)
+        .should('exist')
+    })
+
+    it('view assigned groups', () => {
+      cy.get('[data-cy=assigned-services]')
+        .click()
+
+        // group should be visible
+        .get(`[data-cy=${dbServiceName}]`)
+        .should('exist')
+    })
   })
-
-  it('view assigned groups', () => {
-    cy.get('[data-cy=assigned-services]')
-      .click()
-
-      // group should be visible
-      .get(`[data-cy=${dbServiceName}]`)
-      .should('exist')
-  })*/
-
 })

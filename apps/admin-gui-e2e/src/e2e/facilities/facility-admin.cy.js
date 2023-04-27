@@ -1,4 +1,6 @@
-context('Actions', () => {
+/// <reference types="cypress" />
+
+describe('Facility management with role Facility admin', () => {
   const dbFacilityName1 = 'test-e2e-facility-from-db';
   const dbFacilityName2 = 'test-e2e-facility-from-db-2';
   const dbVoName = 'test-e2e-vo-from-db-for-facility';

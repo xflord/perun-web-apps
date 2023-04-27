@@ -1,4 +1,6 @@
-context('Actions', () => {
+/// <reference types="cypress" />
+
+describe('VO management with role Sponsor', () => {
   const dbVoName = 'test-e2e-vo-from-db-7';
   const dbMemberToSponsor = 'MemberToSponsor';
   const dbSponsoredMember = 'SponsoredMember';

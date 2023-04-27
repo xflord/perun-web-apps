@@ -1,4 +1,6 @@
-context('Actions', () => {
+/// <reference types="cypress" />
+
+describe('Resource management with role Resource admin', () => {
   const dbVoName = 'test-e2e-vo-from-db-3';
   const dbResourceName = 'test-e2e-resource-from-db-2';
 

@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context('Actions', () => {
+describe('Group management with role Group admin', () => {
   const dbGroupName = 'test-group-from-db-2';
   const dbSubGroupName = 'subgroup';
   const dbApplicationItemTextFieldName = 'input-test';
@@ -175,105 +175,104 @@ context('Actions', () => {
       .should('not.exist');
   });
 
-  it('test create group application form item', () => {
-    cy.intercept('**/registrarManager/updateFormItems/**')
-      .as('addFormItem')
-      .get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=application-form]')
-      .click()
-      .get('[data-cy=add-form-item]')
-      .click()
-      .get('[data-cy=item-short-name]')
-      .type('Header', {force: true})
-      .get('[data-cy=add-form-item-button-dialog]')
-      .click()
-      .get('[data-cy=edit-form-item-button-dialog]')
-      .click()
-      .intercept('**/registrarManager/getFormItems/group**')
-      .as('getAttributes')
-      .get('[data-cy=save-application-form]')
-      .click()
-      .wait('@getAttributes')
-      .wait('@addFormItem')
-      .get('[data-cy=refresh-button]')
-      .click()
-      // assert that form item exists
-      .wait('@getAttributes')
-      .get('[data-cy=header-delete]')
-      .should('exist');
-  });
+  context('Advanced settings', () => {
+    beforeEach(() => {
+      cy.get('[data-cy=advanced-settings]')
+        .click();
+    });
 
-  it('test delete group application form item', () => {
-    cy.intercept('**/registrarManager/updateFormItems/**')
-      .as('deleteFormItem')
-      .get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=application-form]')
-      .click()
-      .get(`[data-cy=${dbApplicationItemTextFieldName}-delete]`)
-      .click()
-      .intercept('**/registrarManager/getFormItems/group**')
-      .as('getGroupFormItems')
-      .get('[data-cy=delete-application-form-item-dialog]')
-      .click()
-      .get('[data-cy=save-application-form]')
-      .click()
-      .wait('@deleteFormItem')
-      .wait('@getGroupFormItems')
-      .get('[data-cy=refresh-button]')
-      .click()
-      .wait('@getGroupFormItems')
-      // assert that form item doesn't exist
-      .get(`[data-cy=${dbApplicationItemTextFieldName}-delete]`)
-      .should('not.exist');
-  });
+    it('test create group application form item', () => {
+      cy.intercept('**/registrarManager/updateFormItems/**')
+        .as('addFormItem')
+        .get('[data-cy=application-form]')
+        .click()
+        .get('[data-cy=add-form-item]')
+        .click()
+        .get('[data-cy=item-short-name]')
+        .type('Header', {force: true})
+        .get('[data-cy=add-form-item-button-dialog]')
+        .click()
+        .get('[data-cy=edit-form-item-button-dialog]')
+        .click()
+        .intercept('**/registrarManager/getFormItems/group**')
+        .as('getAttributes')
+        .get('[data-cy=save-application-form]')
+        .click()
+        .wait('@getAttributes')
+        .wait('@addFormItem')
+        .get('[data-cy=refresh-button]')
+        .click()
+        // assert that form item exists
+        .wait('@getAttributes')
+        .get('[data-cy=header-delete]')
+        .should('exist');
+    });
 
-  it('test add group manager', () => {
-    cy.intercept('**/authzResolver/setRole/**')
-      .as('setRole')
-      .get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=managers]')
-      .click()
-      .get('[data-cy=add-manager-button]')
-      .click()
-      .get('[data-cy=search-manager-input]')
-      .type(`${dbUser}`, {force: true})
-      .get('[data-cy=search-manager-button]')
-      .click()
-      .get(`[data-cy=${dbUser}-checkbox]`)
-      .click()
-      .intercept('**/authzResolver/getRichAdmins**')
-      .as('getRichAdmins')
-      .get('[data-cy=add-manager-button-dialog]')
-      .click()
-      .wait('@setRole')
-      .wait('@getRichAdmins')
-      // assert that manager was added
-      .get(`[data-cy=${dbUser}-checkbox]`)
-      .should('exist');
-  });
+    it('test delete group application form item', () => {
+      cy.intercept('**/registrarManager/updateFormItems/**')
+        .as('deleteFormItem')
+        .get('[data-cy=application-form]')
+        .click()
+        .get(`[data-cy=${dbApplicationItemTextFieldName}-delete]`)
+        .click()
+        .intercept('**/registrarManager/getFormItems/group**')
+        .as('getGroupFormItems')
+        .get('[data-cy=delete-application-form-item-dialog]')
+        .click()
+        .get('[data-cy=save-application-form]')
+        .click()
+        .wait('@deleteFormItem')
+        .wait('@getGroupFormItems')
+        .get('[data-cy=refresh-button]')
+        .click()
+        .wait('@getGroupFormItems')
+        // assert that form item doesn't exist
+        .get(`[data-cy=${dbApplicationItemTextFieldName}-delete]`)
+        .should('not.exist');
+    });
 
-  it('test remove group manager', () => {
-    cy.intercept('**/authzResolver/unsetRole/**')
-      .as('unsetRole')
-      .get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=managers]')
-      .click()
-      .get(`[data-cy=${dbGroupManager}-checkbox]`)
-      .click()
-      .get('[data-cy=remove-manager-button]')
-      .click()
-      .intercept('**/authzResolver/getRichAdmins**')
-      .as('getRichAdmins')
-      .get('[data-cy=remove-manager-button-dialog]')
-      .click()
-      .wait('@unsetRole')
-      .wait('@getRichAdmins')
-      // assert that manager doesn't exist
-      .get(`[data-cy=${dbGroupManager}-checkbox]`)
-      .should('not.exist');
+    it('test add group manager', () => {
+      cy.intercept('**/authzResolver/setRole/**')
+        .as('setRole')
+        .get('[data-cy=managers]')
+        .click()
+        .get('[data-cy=add-manager-button]')
+        .click()
+        .get('[data-cy=search-manager-input]')
+        .type(`${dbUser}`, {force: true})
+        .get('[data-cy=search-manager-button]')
+        .click()
+        .get(`[data-cy=${dbUser}-checkbox]`)
+        .click()
+        .intercept('**/authzResolver/getRichAdmins**')
+        .as('getRichAdmins')
+        .get('[data-cy=add-manager-button-dialog]')
+        .click()
+        .wait('@setRole')
+        .wait('@getRichAdmins')
+        // assert that manager was added
+        .get(`[data-cy=${dbUser}-checkbox]`)
+        .should('exist');
+    });
+
+    it('test remove group manager', () => {
+      cy.intercept('**/authzResolver/unsetRole/**')
+        .as('unsetRole')
+        .get('[data-cy=managers]')
+        .click()
+        .get(`[data-cy=${dbGroupManager}-checkbox]`)
+        .click()
+        .get('[data-cy=remove-manager-button]')
+        .click()
+        .intercept('**/authzResolver/getRichAdmins**')
+        .as('getRichAdmins')
+        .get('[data-cy=remove-manager-button-dialog]')
+        .click()
+        .wait('@unsetRole')
+        .wait('@getRichAdmins')
+        // assert that manager doesn't exist
+        .get(`[data-cy=${dbGroupManager}-checkbox]`)
+        .should('not.exist');
+    });
   });
 });
