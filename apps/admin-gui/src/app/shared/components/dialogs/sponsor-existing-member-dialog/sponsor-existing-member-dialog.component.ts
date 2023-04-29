@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   NotificatorService,
@@ -46,7 +46,8 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
     private store: StoreService,
     private membersService: MembersManagerService,
     private notificator: NotificatorService,
-    private translate: PerunTranslateService
+    private translate: PerunTranslateService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -110,6 +111,7 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
     this.loading = true;
 
     this.selection.clear();
+    this.cd.detectChanges();
 
     const attrNames = [Urns.MEMBER_DEF_EXPIRATION, Urns.USER_DEF_PREFERRED_MAIL];
     this.membersService

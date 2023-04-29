@@ -110,6 +110,7 @@ export class VoMembersComponent implements OnInit {
   onSearchByString(filter: string): void {
     this.searchString = filter;
     this.selection.clear();
+    this.cd.detectChanges();
   }
 
   onAddMember(): void {
@@ -123,8 +124,7 @@ export class VoMembersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((wereMembersAdded) => {
       if (wereMembersAdded) {
-        this.updateTable = !this.updateTable;
-        this.selection.clear();
+        this.refreshTable();
       }
     });
   }
@@ -141,8 +141,7 @@ export class VoMembersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((wereMembersDeleted) => {
       if (wereMembersDeleted) {
-        this.updateTable = !this.updateTable;
-        this.selection.clear();
+        this.refreshTable();
       }
     });
   }

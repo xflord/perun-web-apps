@@ -25,7 +25,7 @@ describe('Perun admin management with role Perun observer', () => {
   it('test attribute detail', () => {
     cy.get('[data-cy=attribute-definitions]')
       .click()
-      .get('[data-cy=unfocused-filter]')
+      .get('[data-cy=filter-input]')
       .type(dbAttrFriendlyName, {force: true})
       .get(`[data-cy=${dbAttrFriendlyName.toLowerCase()}-friendly-name]`)
       .click()
@@ -50,7 +50,7 @@ describe('Perun admin management with role Perun observer', () => {
   it('test list owners', () => {
     cy.get('[data-cy=owners]')
       .click()
-      .get('[data-cy=unfocused-filter]')
+      .get('[data-cy=filter-input]')
       .type(dbOwnerName, {force: true})
       .get(`[data-cy=${dbOwnerName}]`)
       .should('exist');
@@ -59,7 +59,7 @@ describe('Perun admin management with role Perun observer', () => {
   it('test service detail', () => {
     cy.get('[data-cy=services]')
       .click()
-      .get('[data-cy=unfocused-filter]')
+      .get('[data-cy=filter-input]')
       .type(dbServiceName, {force: true})
       .get(`[data-cy=${dbServiceName.toLowerCase()}-name-td]`)
       .click()
@@ -70,7 +70,7 @@ describe('Perun admin management with role Perun observer', () => {
   it('test list ext sources', () => {
     cy.get('[data-cy=external-sources]')
       .click()
-      .get('[data-cy=unfocused-filter]')
+      .get('[data-cy=filter-input]')
       .type(dbExtSourceName, {force: true})
       .get(`[data-cy=${dbExtSourceName.toLowerCase()}-name-td]`)
       .should('exist');
@@ -91,7 +91,7 @@ describe('Perun admin management with role Perun observer', () => {
   it('test list consent hubs', () => {
     cy.get('[data-cy=consent-hubs]')
       .click()
-      .get('[data-cy=unfocused-filter]')
+      .get('[data-cy=filter-input]')
       .type(dbConsentHubName, {force: true})
       .get(`[data-cy=${dbConsentHubName.toLowerCase()}-name-td]`)
       .should('exist');

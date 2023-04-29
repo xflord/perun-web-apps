@@ -16,7 +16,7 @@ describe('VO management with role VO observer', () => {
     cy.visit('home')
       .get(`[data-cy=access-item-button]`)
       .click()
-      .get('[data-cy=auto-focused-filter]')
+      .get('[data-cy=filter-input]')
       .type(dbVoName, {force: true})
       .get(`[data-cy=${dbVoName}]`)
       .click()
@@ -99,7 +99,7 @@ describe('VO management with role VO observer', () => {
         .get('[data-cy=external-sources]')
         .click()
         .wait('@getVoExtSources')
-        .get('[data-cy=unfocused-filter]')
+        .get('[data-cy=filter-input]')
         .type('internal', {force: true})
 
         // the vo external source was set to INTERNAL in the db (id 1)

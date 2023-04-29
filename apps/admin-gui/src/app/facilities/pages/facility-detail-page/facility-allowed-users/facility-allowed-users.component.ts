@@ -147,6 +147,7 @@ export class FacilityAllowedUsersComponent implements OnInit {
 
   applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
+    this.cd.detectChanges();
   }
 
   voSelected(vo: Vo): void {

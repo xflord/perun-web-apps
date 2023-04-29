@@ -143,6 +143,7 @@ export class GroupMembersComponent implements OnInit {
   onSearchByString(filter: string): void {
     this.searchString = filter;
     this.selection.clear();
+    this.cd.detectChanges();
   }
 
   onAddMember(): void {
@@ -157,9 +158,7 @@ export class GroupMembersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((wereMembersAdded) => {
       if (wereMembersAdded) {
-        this.selection.clear();
-        this.updateTable = !this.updateTable;
-        this.isCopyMembersDisabled();
+        this.refreshTable();
       }
     });
   }
@@ -177,9 +176,7 @@ export class GroupMembersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((wereMembersDeleted) => {
       if (wereMembersDeleted) {
-        this.selection.clear();
-        this.updateTable = !this.updateTable;
-        this.isCopyMembersDisabled();
+        this.refreshTable();
       }
     });
   }
