@@ -15,3 +15,6 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands';
+import failOnConsoleError from 'cypress-fail-on-console-error';
+// eslint-disable-next-line
+failOnConsoleError();

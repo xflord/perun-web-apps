@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   AuthzResolverService,
@@ -36,7 +43,7 @@ export interface CreateSponsoredMemberDialogData {
   templateUrl: './create-sponsored-member-dialog.component.html',
   styleUrls: ['./create-sponsored-member-dialog.component.scss'],
 })
-export class CreateSponsoredMemberDialogComponent implements OnInit {
+export class CreateSponsoredMemberDialogComponent implements OnInit, AfterViewInit {
   @ViewChild('stepper') stepper: MatStepper;
 
   theme: string;
@@ -317,6 +324,10 @@ export class CreateSponsoredMemberDialogComponent implements OnInit {
       this.loading = false;
       this.cd.detectChanges();
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.cd.detectChanges();
   }
 
   private parseNamespaceRules(): void {

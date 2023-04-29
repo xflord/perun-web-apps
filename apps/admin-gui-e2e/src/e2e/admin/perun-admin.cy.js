@@ -29,7 +29,7 @@ describe('Perun admin management with role Perun admin', () => {
     });
 
     it('test attribute detail', () => {
-      cy.get('[data-cy=unfocused-filter]')
+      cy.get('[data-cy=filter-input]')
         .type(dbAttrFriendlyName, {force: true})
         .get(`[data-cy=${dbAttrFriendlyName.toLowerCase()}-friendly-name]`)
         .click()
@@ -72,7 +72,7 @@ describe('Perun admin management with role Perun admin', () => {
         .wait('@createAttribute')
         .wait('@getAttributesDefinition')
         // assert that attribute exists
-        .get('[data-cy=unfocused-filter]')
+        .get('[data-cy=filter-input]')
         .type('testAttrE2E', {force: true})
         .get('[data-cy=testattre2e-checkbox]')
         .should('exist');
@@ -83,7 +83,7 @@ describe('Perun admin management with role Perun admin', () => {
         .as('deleteAttributes')
         .intercept('**/attributesManager/getAttributesDefinition**')
         .as('getAttributesDefinition')
-        .get('[data-cy=unfocused-filter]')
+        .get('[data-cy=filter-input]')
         .type('e2eTestAttrFromDb', {force: true})
         .get('[data-cy=e2e-test-attr-from-db-checkbox]')
         .click()
@@ -149,7 +149,7 @@ describe('Perun admin management with role Perun admin', () => {
         .wait('@createService')
         .wait('@getServices')
         // assert that service exists
-        .get('[data-cy=unfocused-filter]')
+        .get('[data-cy=filter-input]')
         .type('e2e_test_service', {force: true})
         .get('[data-cy=e2e_test_service-checkbox]')
         .should('exist');
@@ -160,7 +160,7 @@ describe('Perun admin management with role Perun admin', () => {
         .as('deleteService')
         .intercept('**/servicesManager/getServices**')
         .as('getServices')
-        .get('[data-cy=unfocused-filter]')
+        .get('[data-cy=filter-input]')
         .type(dbServiceName, {force: true})
         .get(`[data-cy=${dbServiceName.toLowerCase()}-checkbox]`)
         .click()
@@ -180,7 +180,7 @@ describe('Perun admin management with role Perun admin', () => {
         .as('updateService')
         .intercept('**/servicesManager/getServiceById**')
         .as('getServiceById')
-        .get('[data-cy=unfocused-filter]')
+        .get('[data-cy=filter-input]')
         .type(dbServiceName2, {force: true})
         .get(`[data-cy=${dbServiceName2.toLowerCase()}-name-td]`)
         .click()
@@ -202,7 +202,7 @@ describe('Perun admin management with role Perun admin', () => {
   it('test list ext sources', () => {
     cy.get('[data-cy=external-sources]')
       .click()
-      .get('[data-cy=unfocused-filter]')
+      .get('[data-cy=filter-input]')
       .type(dbExtSourceName, {force: true})
       .get(`[data-cy=${dbExtSourceName.toLowerCase()}-name-td]`)
       .should('exist');
@@ -223,7 +223,7 @@ describe('Perun admin management with role Perun admin', () => {
   it('test list consent hubs', () => {
     cy.get('[data-cy=consent-hubs]')
       .click()
-      .get('[data-cy=unfocused-filter]')
+      .get('[data-cy=filter-input]')
       .type(dbConsentHubName, {force: true})
       .get(`[data-cy=${dbConsentHubName.toLowerCase()}-name-td]`)
       .should('exist');
@@ -250,7 +250,7 @@ describe('Perun admin management with role Perun admin', () => {
   it('test list owners', () => {
     cy.get('[data-cy=owners]')
       .click()
-      .get('[data-cy=unfocused-filter]')
+      .get('[data-cy=filter-input]')
       .type(dbOwnerName, {force: true})
       .get(`[data-cy=${dbOwnerName}]`)
       .should('exist');

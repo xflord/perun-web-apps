@@ -16,7 +16,7 @@ describe('VO management with role VO admin', () => {
   it('test delete vo', () => {
     cy.intercept('**/vosManager/deleteVo**')
       .as('deleteVo')
-      .get('[data-cy=auto-focused-filter]')
+      .get('[data-cy=filter-input]')
       .type(`${dbVoName}`, {force: true})
       .get(`[data-cy=${dbVoName}]`)
       .click({force: true}) // covered by toolbar (header)

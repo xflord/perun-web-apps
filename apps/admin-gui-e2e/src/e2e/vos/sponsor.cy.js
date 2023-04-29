@@ -28,7 +28,7 @@ describe('VO management with role Sponsor', () => {
       .visit('home')
       .get(`[data-cy=access-item-button]`)
       .click()
-      .get('[data-cy=auto-focused-filter]')
+      .get('[data-cy=filter-input]')
       .type(dbVoName, {force: true})
       .get(`[data-cy=${dbVoName}]`)
       .click()
@@ -38,7 +38,7 @@ describe('VO management with role Sponsor', () => {
   })
 
   it ('test list member sponsors', () => {
-      cy.get('[data-cy=unfocused-filter]')
+      cy.get('[data-cy=filter-input]')
         .type(dbSponsoredMember, {force: true})
         .get(`[data-cy=${dbSponsoredMember}-edit-sponsors-button]`)
         .click()
@@ -64,7 +64,7 @@ describe('VO management with role Sponsor', () => {
       .wait('@getSponsoredMembers')
 
       // assert that sponsored member exists
-      .get('[data-cy=unfocused-filter]')
+      .get('[data-cy=filter-input]')
       .type(dbMemberToSponsor, {force: true})
       .get(`[data-cy=${dbMemberToSponsor}-name]`)
       .should('exist')
@@ -108,7 +108,7 @@ describe('VO management with role Sponsor', () => {
       .wait('@getSponsoredMembers')
 
       // assert that sponsored member exists
-      .get('[data-cy=unfocused-filter]')
+      .get('[data-cy=filter-input]')
       .type(newSponsoredMemberFirstName, {force: true})
       .get(`[data-cy=${newSponsoredMemberFirstName}-name]`)
       .should('exist')
@@ -142,14 +142,14 @@ describe('VO management with role Sponsor', () => {
       .wait('@getSponsoredMembers')
 
       // assert that sponsored member exists
-      .get('[data-cy=unfocused-filter]')
+      .get('[data-cy=filter-input]')
       .type(csvMemberFirstName, {force: true})
       .get(`[data-cy=${csvMemberFirstName}-name]`)
       .should('exist')
   })
 
   it ('test remove sponsor from sponsored member', () => {
-    cy.get('[data-cy=unfocused-filter]')
+    cy.get('[data-cy=filter-input]')
       .type(dbMemberToUnsponsor, {force: true})
       .get(`[data-cy=${dbMemberToUnsponsor}-edit-sponsors-button]`)
       .click()
@@ -168,7 +168,7 @@ describe('VO management with role Sponsor', () => {
 
   it ('test send password reset email', () => {
     cy.intercept('**/membersManager/sendPasswordResetLinkEmail**').as('sendPasswordResetLinkEmail')
-      .get('[data-cy=unfocused-filter]')
+      .get('[data-cy=filter-input]')
       .type(dbSponsoredMember, {force: true})
       .get(`[data-cy=${dbSponsoredMember}-reset-passwd-button]`)
       .click()

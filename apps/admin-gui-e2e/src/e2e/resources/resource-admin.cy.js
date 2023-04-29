@@ -21,7 +21,7 @@ describe('Resource management with role Resource admin', () => {
     cy.visit('home')
       .get(`[data-cy=access-item-button]`)
       .click()
-      .get('[data-cy=auto-focused-filter]')
+      .get('[data-cy=filter-input]')
       .type(dbVoName, {force: true})
       .get(`[data-cy=${dbVoName}]`)
       .click()
@@ -29,7 +29,7 @@ describe('Resource management with role Resource admin', () => {
       .click()
       .get(`[data-cy=resource-list]`)
       .click()
-      .get('[data-cy=unfocused-filter]')
+      .get('[data-cy=filter-input]')
       .type(dbResourceName, {force: true})
       .get(`[data-cy=${dbResourceName}]`)
       .click();
@@ -49,7 +49,7 @@ describe('Resource management with role Resource admin', () => {
       .wait('@getAttributes')
 
       // check that attribute was added
-      .get('[data-cy=unfocused-filter]')
+      .get('[data-cy=filter-input]')
       .type('user settings name', {force: true})
       .get(`[data-cy=${dbAttributeToAdd}-value]`)
       .should('exist');
@@ -58,7 +58,7 @@ describe('Resource management with role Resource admin', () => {
   it('test delete attribute', () => {
     cy.get('[data-cy=attributes]')
       .click()
-      .get('[data-cy=unfocused-filter]')
+      .get('[data-cy=filter-input]')
       .type('user settings description', {force: true})
       .get(`[data-cy=${dbAttributeToDelete}-checkbox]`)
       .click()
