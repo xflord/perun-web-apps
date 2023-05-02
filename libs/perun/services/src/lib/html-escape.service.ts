@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { addHook, removed, sanitize } from 'dompurify';
+// import { addHook, removed, sanitize } from 'dompurify';
 
 export interface EscapeOutput {
   escapedHtml: string;
@@ -10,15 +10,15 @@ export interface EscapeOutput {
 }
 
 // Types needed for EsLint errors
-interface ElementRemoved {
-  element: HTMLElement;
-}
-
-interface AttributeRemoved {
-  attribute: Attr;
-  from?: HTMLElement;
-  tag: string;
-}
+// interface ElementRemoved {
+//   element: HTMLElement;
+// }
+//
+// interface AttributeRemoved {
+//   attribute: Attr;
+//   from?: HTMLElement;
+//   tag: string;
+// }
 
 interface StyleRemoved {
   style: string;
