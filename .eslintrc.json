@@ -19,7 +19,7 @@
         "eqeqeq": ["error", "smart"],
         "no-console": ["error", { "allow": ["error"] }],
         "no-throw-literal": "error",
-
+        "no-unused-vars": "error",
         // Typescript rules
         "@typescript-eslint/unbound-method": ["error", { "ignoreStatic": true }],
         "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
