@@ -18,10 +18,10 @@
     mat-flat-button>
     {{ 'SERVICE_DETAIL.REQUIRED_ATTRIBUTES.REMOVE' | translate}}
   </button>
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
     [placeholder]="'SERVICE_DETAIL.REQUIRED_ATTRIBUTES.FILTER'">
-  </perun-web-apps-immediate-filter>
+  </perun-web-apps-debounce-filter>
   <ng-template #spinner>
     <perun-web-apps-loading-table></perun-web-apps-loading-table>
   </ng-template>

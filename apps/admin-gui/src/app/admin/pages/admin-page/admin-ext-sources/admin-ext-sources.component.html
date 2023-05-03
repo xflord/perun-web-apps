@@ -4,9 +4,9 @@
   <button (click)="loadConfigExtSources()" class="me-2" mat-stroked-button>
     {{'ADMIN.EXT_SOURCES.LOAD' | translate}}
   </button>
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
-    [placeholder]="'ADMIN.EXT_SOURCES.SEARCH'"></perun-web-apps-immediate-filter>
+    [placeholder]="'ADMIN.EXT_SOURCES.SEARCH'"></perun-web-apps-debounce-filter>
   <ng-template #spinner>
     <perun-web-apps-loading-table></perun-web-apps-loading-table>
   </ng-template>

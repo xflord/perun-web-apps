@@ -1,9 +1,9 @@
 <div>
   <h1 class="page-subtitle">{{'FACILITY_DETAIL.SETTINGS.BLACKLIST.TITLE' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
-    [placeholder]="'FACILITY_DETAIL.SETTINGS.BLACKLIST.FILTER' | translate"></perun-web-apps-immediate-filter>
+    [placeholder]="'FACILITY_DETAIL.SETTINGS.BLACKLIST.FILTER' | translate"></perun-web-apps-debounce-filter>
   <ng-template #spinner>
     <perun-web-apps-loading-table></perun-web-apps-loading-table>
   </ng-template>

@@ -4,16 +4,15 @@
   <button
     *ngIf="addAuth"
     (click)="addResource()"
-    class="action-button"
+    class="action-button me-2"
     color="accent"
-    class="me-2"
     mat-flat-button>
     {{ 'MEMBER_DETAIL.RESOURCES.ADD' | translate}}
   </button>
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
     [placeholder]="'MEMBER_DETAIL.RESOURCES.FILTER'">
-  </perun-web-apps-immediate-filter>
+  </perun-web-apps-debounce-filter>
   <ng-template #spinner>
     <perun-web-apps-loading-table></perun-web-apps-loading-table>
   </ng-template>

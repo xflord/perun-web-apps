@@ -28,9 +28,9 @@
     mat-flat-button>
     {{'ADMIN.ATTRIBUTES.DELETE' | translate}}
   </button>
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
-    [placeholder]="'ADMIN.ATTRIBUTES.SEARCH'"></perun-web-apps-immediate-filter>
+    [placeholder]="'ADMIN.ATTRIBUTES.SEARCH'"></perun-web-apps-debounce-filter>
   <ng-template #spinner>
     <perun-web-apps-loading-table></perun-web-apps-loading-table>
   </ng-template>

@@ -28,10 +28,10 @@
     mat-flat-button>
     {{ 'SERVICE_DETAIL.DESTINATIONS.BLOCK' | translate}}
   </button>
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
     [placeholder]="'SERVICE_DETAIL.DESTINATIONS.FILTER'">
-  </perun-web-apps-immediate-filter>
+  </perun-web-apps-debounce-filter>
   <ng-template #spinner>
     <perun-web-apps-loading-table></perun-web-apps-loading-table>
   </ng-template>

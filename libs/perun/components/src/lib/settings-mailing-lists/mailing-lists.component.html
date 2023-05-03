@@ -1,9 +1,9 @@
 <h1 class="page-title">
   {{'SHARED_LIB.PERUN.COMPONENTS.OPT_OUT_MAILING_LISTS.TITLE' | customTranslate | translate}}
 </h1>
-<perun-web-apps-immediate-filter
+<perun-web-apps-debounce-filter
   [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.OPT_OUT_MAILING_LISTS.FILTER' | customTranslate | translate"
-  (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
+  (filter)="applyFilter($event)"></perun-web-apps-debounce-filter>
 <mat-accordion>
   <mat-expansion-panel
     *ngFor="let vo of filteredVos"

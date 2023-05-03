@@ -18,9 +18,9 @@
     mat-flat-button>
     {{'FACILITY_DETAIL.HOSTS.REMOVE' | translate}}
   </button>
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
-    [placeholder]="'FACILITY_DETAIL.HOSTS.FILTER'"></perun-web-apps-immediate-filter>
+    [placeholder]="'FACILITY_DETAIL.HOSTS.FILTER'"></perun-web-apps-debounce-filter>
   <ng-template #spinner>
     <perun-web-apps-loading-table></perun-web-apps-loading-table>
   </ng-template>

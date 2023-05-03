@@ -17,10 +17,10 @@
   mat-flat-button>
   {{'USER_DETAIL.IDENTITIES.REMOVE'|translate}}
 </button>
-<perun-web-apps-immediate-filter
+<perun-web-apps-debounce-filter
   (filter)="applyFilter($event)"
   [placeholder]="'USER_DETAIL.IDENTITIES.FILTER_PLACEHOLDER'">
-</perun-web-apps-immediate-filter>
+</perun-web-apps-debounce-filter>
 <ng-template #spinner>
   <perun-web-apps-loading-table></perun-web-apps-loading-table>
 </ng-template>

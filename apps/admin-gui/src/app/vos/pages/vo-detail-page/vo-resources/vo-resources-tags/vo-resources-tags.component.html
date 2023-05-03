@@ -18,10 +18,10 @@
   mat-flat-button>
   {{'VO_DETAIL.RESOURCES.TAGS.DELETE_BUTTON' | translate}}
 </button>
-<perun-web-apps-immediate-filter
+<perun-web-apps-debounce-filter
   (filter)="applyFilter($event)"
   [placeholder]="'VO_DETAIL.RESOURCES.TAGS.SEARCH'">
-</perun-web-apps-immediate-filter>
+</perun-web-apps-debounce-filter>
 
 <ng-template #spinner>
   <perun-web-apps-loading-table></perun-web-apps-loading-table>

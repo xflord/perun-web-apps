@@ -13,9 +13,9 @@
             matStepLabel
             >{{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.SELECTION_STEP' | translate}}</ng-template
           >
-          <perun-web-apps-immediate-filter
+          <perun-web-apps-debounce-filter
             (filter)="voFilter = $event"
-            [placeholder]="'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.FILTER_VOS'"></perun-web-apps-immediate-filter>
+            [placeholder]="'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.FILTER_VOS'"></perun-web-apps-debounce-filter>
           <perun-web-apps-vos-list
             [vos]="vos"
             [selection]="voSelection"

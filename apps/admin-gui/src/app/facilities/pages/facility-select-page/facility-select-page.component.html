@@ -34,11 +34,11 @@
       {{'FACILITY_MANAGEMENT.DELETE' | translate}}
     </button>
   </span>
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     [autoFocus]="true"
     (filter)="applyFilter($event)"
     [placeholder]="'FACILITY_MANAGEMENT.FILTER_PLACEHOLDER'">
-  </perun-web-apps-immediate-filter>
+  </perun-web-apps-debounce-filter>
   <ng-template #spinner>
     <perun-web-apps-loading-table></perun-web-apps-loading-table>
   </ng-template>

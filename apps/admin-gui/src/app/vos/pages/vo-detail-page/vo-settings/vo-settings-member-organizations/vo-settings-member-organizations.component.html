@@ -17,9 +17,9 @@
   class="me-2">
   {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.REMOVE' | translate}}
 </button>
-<perun-web-apps-immediate-filter
+<perun-web-apps-debounce-filter
   (filter)="filterValue = $event"
-  [placeholder]="'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.FILTER'"></perun-web-apps-immediate-filter>
+  [placeholder]="'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.FILTER'"></perun-web-apps-debounce-filter>
 <ng-template #spinner>
   <perun-web-apps-loading-table></perun-web-apps-loading-table>
 </ng-template>

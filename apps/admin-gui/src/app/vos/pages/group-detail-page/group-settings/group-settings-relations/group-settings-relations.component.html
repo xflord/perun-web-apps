@@ -22,9 +22,9 @@
       {{'GROUP_DETAIL.SETTINGS.RELATIONS.DELETE' | translate}}
     </button>
   </span>
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
-    [placeholder]="'GROUP_DETAIL.SETTINGS.RELATIONS.FILTER'"></perun-web-apps-immediate-filter>
+    [placeholder]="'GROUP_DETAIL.SETTINGS.RELATIONS.FILTER'"></perun-web-apps-debounce-filter>
   <mat-checkbox
     (change)="showReverseUnions()"
     >{{'GROUP_DETAIL.SETTINGS.RELATIONS.REVERSE_UNIONS' | translate}}</mat-checkbox

@@ -6,10 +6,10 @@
     <perun-web-apps-alert alert_type="info">
       {{'DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.INFO' | translate : {parentVo: parentVo.name} }}
     </perun-web-apps-alert>
-    <perun-web-apps-immediate-filter
+    <perun-web-apps-debounce-filter
       [placeholder]="'DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.SEARCH'"
       (filter)="applyFilter($event)">
-    </perun-web-apps-immediate-filter>
+    </perun-web-apps-debounce-filter>
     <div class="position-relative">
       <perun-web-apps-groups-list
         *perunWebAppsLoader="loading; indicator: spinner"

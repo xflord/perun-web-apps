@@ -6,10 +6,10 @@
     <h1 mat-dialog-title>{{'DIALOGS.ADD_OWNERS.TITLE' | translate}}</h1>
 
     <div>
-      <perun-web-apps-immediate-filter
+      <perun-web-apps-debounce-filter
         (filter)="applyFilter($event)"
         [placeholder]="'DIALOGS.ADD_OWNERS.FILTER'"
-        class="font-size-1rem"></perun-web-apps-immediate-filter>
+        class="font-size-1rem"></perun-web-apps-debounce-filter>
 
       <div mat-dialog-content>
         <perun-web-apps-owners-list

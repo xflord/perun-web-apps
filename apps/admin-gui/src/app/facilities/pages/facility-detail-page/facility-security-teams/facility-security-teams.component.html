@@ -17,9 +17,9 @@
   <!--    [disabled]="selected.selected.length === 0" (click)="removeSecurityTeam()">-->
   <!--    {{'FACILITY_DETAIL.SECURITY_TEAMS.REMOVE'| translate}}-->
   <!--  </button>-->
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
-    [placeholder]="'FACILITY_DETAIL.SECURITY_TEAMS.FILTER'"></perun-web-apps-immediate-filter>
+    [placeholder]="'FACILITY_DETAIL.SECURITY_TEAMS.FILTER'"></perun-web-apps-debounce-filter>
   <ng-template #spinner>
     <perun-web-apps-loading-table></perun-web-apps-loading-table>
   </ng-template>

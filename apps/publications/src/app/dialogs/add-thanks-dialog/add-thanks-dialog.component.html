@@ -5,10 +5,10 @@
   <div *perunWebAppsLoader="loading; indicator: spinner">
     <h1 mat-dialog-title>{{"DIALOGS.ADD_THANKS.TITLE" | translate}}</h1>
     <div mat-dialog-content class="dialog-container">
-      <perun-web-apps-immediate-filter
+      <perun-web-apps-debounce-filter
         (filter)="filterValue = $event"
         [placeholder]="'DIALOGS.ADD_THANKS.FILTER'">
-      </perun-web-apps-immediate-filter>
+      </perun-web-apps-debounce-filter>
       <perun-web-apps-owners-list
         [owners]="owners"
         [filterValue]="filterValue"

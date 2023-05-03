@@ -5,10 +5,10 @@
   <div *perunWebAppsLoader="loading; indicator: spinner">
     <h1 mat-dialog-title>{{'DIALOGS.ADD_MEMBER_GROUP.TITLE' | translate}}</h1>
     <div class="dialog-container" mat-dialog-content>
-      <perun-web-apps-immediate-filter
+      <perun-web-apps-debounce-filter
         (filter)="applyFilter($event)"
         [placeholder]="'DIALOGS.ADD_MEMBER_GROUP.FILTER'">
-      </perun-web-apps-immediate-filter>
+      </perun-web-apps-debounce-filter>
       <perun-web-apps-groups-list
         [disableGroups]="true"
         [disableMembers]="true"

@@ -10,10 +10,10 @@
         [alert_type]="'warn'"
         >{{'DIALOGS.ADD_REQUIRED_ATTRIBUTES.ACTIVE_WARN' | translate}}</perun-web-apps-alert
       >
-      <perun-web-apps-immediate-filter
+      <perun-web-apps-debounce-filter
         (filter)="applyFilter($event)"
         [placeholder]="'DIALOGS.ADD_REQUIRED_ATTRIBUTES.FILTER'">
-      </perun-web-apps-immediate-filter>
+      </perun-web-apps-debounce-filter>
       <app-attr-def-list
         [selection]="selection"
         [definitions]="attrDefinitions"

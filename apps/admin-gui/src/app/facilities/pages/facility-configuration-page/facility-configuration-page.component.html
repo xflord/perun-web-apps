@@ -25,11 +25,11 @@
           {{'FACILITY_CONFIGURATION.SERVICES_INFO' | translate}}
         </perun-web-apps-alert>
         <div class="filters">
-          <perun-web-apps-immediate-filter
+          <perun-web-apps-debounce-filter
             [placeholder]="'FACILITY_CONFIGURATION.SERVICES_FILTER'"
             (filter)="applyFilter($event)"
             class="filter">
-          </perun-web-apps-immediate-filter>
+          </perun-web-apps-debounce-filter>
           <perun-web-apps-service-package-search-select
             (packageSelected)="packagesSelected($event)"
             [disableAutoSelect]="true"

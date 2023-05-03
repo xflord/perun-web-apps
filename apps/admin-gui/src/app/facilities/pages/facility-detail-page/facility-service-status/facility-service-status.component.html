@@ -47,9 +47,9 @@
       {{'FACILITY_DETAIL.SERVICES_STATUS.REMOVE_SERVICE_FROM_FACILITY' | translate}}
     </button>
   </mat-menu>
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
-    [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.TABLE_SEARCH'"></perun-web-apps-immediate-filter>
+    [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.SERVICES_STATUS_LIST.TABLE_SEARCH'"></perun-web-apps-debounce-filter>
   <ng-template #spinner>
     <perun-web-apps-loading-table></perun-web-apps-loading-table>
   </ng-template>

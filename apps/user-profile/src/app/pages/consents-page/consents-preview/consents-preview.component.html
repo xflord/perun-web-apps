@@ -7,10 +7,10 @@
       {{ 'CONSENTS.UNSIGNED_CONSENTS' | customTranslate | translate }}
     </div>
 
-    <perun-web-apps-immediate-filter
+    <perun-web-apps-debounce-filter
       [placeholder]="'CONSENTS.FILTER' | customTranslate | translate"
       (filter)="applyFilterUnsigned($event)">
-    </perun-web-apps-immediate-filter>
+    </perun-web-apps-debounce-filter>
 
     <perun-web-apps-consents-list
       [consents]="unsignedConsents"
@@ -29,10 +29,10 @@
     <div class="page-subtitle mt-4">
       {{ 'CONSENTS.PROCESSED_CONSENTS' | customTranslate | translate }}
     </div>
-    <perun-web-apps-immediate-filter
+    <perun-web-apps-debounce-filter
       [placeholder]="'CONSENTS.FILTER' | customTranslate | translate"
       (filter)="applyFilterSigned($event)">
-    </perun-web-apps-immediate-filter>
+    </perun-web-apps-debounce-filter>
     <perun-web-apps-consents-list
       [consents]="signedConsents"
       [tableId]="'TABLE_USER_CONSENTS'"

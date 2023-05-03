@@ -39,9 +39,9 @@
     <mat-icon> block </mat-icon>
     {{'FACILITY_DETAIL.SERVICES_DESTINATIONS.BLOCK' | translate}}
   </button>
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
-    [placeholder]="'FACILITY_DETAIL.SERVICES_DESTINATIONS.FILTER'"></perun-web-apps-immediate-filter>
+    [placeholder]="'FACILITY_DETAIL.SERVICES_DESTINATIONS.FILTER'"></perun-web-apps-debounce-filter>
   <ng-template #spinner>
     <perun-web-apps-loading-table></perun-web-apps-loading-table>
   </ng-template>

@@ -20,9 +20,9 @@
     {{'ADMIN.OWNERS.DELETE' | translate}}
   </button>
 
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
-    [placeholder]="'ADMIN.OWNERS.FILTER'"></perun-web-apps-immediate-filter>
+    [placeholder]="'ADMIN.OWNERS.FILTER'"></perun-web-apps-debounce-filter>
   <ng-template #spinner>
     <perun-web-apps-loading-table></perun-web-apps-loading-table>
   </ng-template>

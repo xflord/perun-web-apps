@@ -14,7 +14,7 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ToEnrichedFacilityPipe } from '@perun-web-apps/perun/pipes';
-import { ImmediateFilterComponent } from '@perun-web-apps/perun/components';
+import { DebounceFilterComponent } from '@perun-web-apps/perun/components';
 
 export interface AddRoleDialogData {
   entityId: number;
@@ -38,8 +38,8 @@ export class AddRoleDialogComponent implements OnInit {
   @Input() theme: string;
   @Output() submitForm = new EventEmitter<AddRoleForm>();
 
-  @ViewChild(ImmediateFilterComponent)
-  filterComponent: ImmediateFilterComponent;
+  @ViewChild(DebounceFilterComponent)
+  filterComponent: DebounceFilterComponent;
 
   selectedRule: RoleManagementRules;
   selected = new SelectionModel<PerunBean>(true, []);
@@ -104,7 +104,7 @@ export class AddRoleDialogComponent implements OnInit {
     this.filterValue = '';
     this.loadObjects();
     if (this.filterComponent) {
-      this.filterComponent.formControl.setValue('');
+      this.filterComponent.control.setValue('');
     }
   }
 }

@@ -18,9 +18,9 @@
     mat-flat-button>
     {{'VO_DETAIL.SETTINGS.EXT_SOURCES.REMOVE' | translate}}
   </button>
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
-    [placeholder]="'VO_DETAIL.SETTINGS.EXT_SOURCES.FILTER'"></perun-web-apps-immediate-filter>
+    [placeholder]="'VO_DETAIL.SETTINGS.EXT_SOURCES.FILTER'"></perun-web-apps-debounce-filter>
   <ng-template #spinner>
     <perun-web-apps-loading-table></perun-web-apps-loading-table>
   </ng-template>

@@ -27,11 +27,11 @@
       [service]="selectedService"
       class="search-select me-2">
     </perun-web-apps-service-search-select>
-    <perun-web-apps-immediate-filter
+    <perun-web-apps-debounce-filter
       [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'"
       (filter)="applyFilter($event)"
       class="filter-field">
-    </perun-web-apps-immediate-filter>
+    </perun-web-apps-debounce-filter>
   </div>
   <ng-template #spinner>
     <perun-web-apps-loading-table></perun-web-apps-loading-table>

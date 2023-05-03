@@ -5,10 +5,10 @@
   {{'SHARED_LIB.PERUN.ORGANIZATIONS.USER_IS_MEMBER' | translate}}
 </h1>
 <perun-web-apps-refresh-button (refresh)="refreshMemberTable()"></perun-web-apps-refresh-button>
-<perun-web-apps-immediate-filter
+<perun-web-apps-debounce-filter
   (filter)="applyMemberFilter($event)"
   [placeholder]="'SHARED_LIB.PERUN.ORGANIZATIONS.FILTER'">
-</perun-web-apps-immediate-filter>
+</perun-web-apps-debounce-filter>
 <div class="position-relative">
   <perun-web-apps-vos-list
     *perunWebAppsLoader="memberRefresh; indicator: spinner"
@@ -22,10 +22,10 @@
 <div *ngIf="!this.isMyProfile" class="mt-5">
   <h1 class="page-subtitle">{{'SHARED_LIB.PERUN.ORGANIZATIONS.USER_IS_ADMIN' | translate}}</h1>
   <perun-web-apps-refresh-button (refresh)="refreshAdminTable()"></perun-web-apps-refresh-button>
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     (filter)="applyAdminFilter($event)"
     [placeholder]="'SHARED_LIB.PERUN.ORGANIZATIONS.FILTER'">
-  </perun-web-apps-immediate-filter>
+  </perun-web-apps-debounce-filter>
   <div class="position-relative">
     <perun-web-apps-vos-list
       *perunWebAppsLoader="adminRefresh; indicator: spinner"

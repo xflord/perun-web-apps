@@ -21,7 +21,6 @@ import { GroupsListComponent } from './groups-list/groups-list.component';
 import { RefreshButtonComponent } from './refresh-button/refresh-button.component';
 import { GroupMenuComponent } from './group-menu/group-menu.component';
 import { BackButtonComponent } from './back-button/back-button.component';
-import { ImmediateFilterComponent } from './immediate-filter/immediate-filter.component';
 import { AttributeValueStringComponent } from './attributes-list/attribute-value/attribute-value-string/attribute-value-string.component';
 import { AttributeValueMapComponent } from './attributes-list/attribute-value/attribute-value-map/attribute-value-map.component';
 import { AttributeValueListComponent } from './attributes-list/attribute-value/attribute-value-list/attribute-value-list.component';
@@ -197,7 +196,6 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     GroupMenuComponent,
     RefreshButtonComponent,
     BackButtonComponent,
-    ImmediateFilterComponent,
     AttributesListComponent,
     AttributeValueComponent,
     AttributeValueBooleanComponent,
@@ -281,7 +279,6 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     GroupMenuComponent,
     RefreshButtonComponent,
     BackButtonComponent,
-    ImmediateFilterComponent,
     AttributesListComponent,
     AttributeValueComponent,
     AttributeValueBooleanComponent,

@@ -17,10 +17,10 @@
       {{'ADMIN.CONSENT_HUBS.EVALUATE_CONSENTS' | translate}}
     </button>
   </span>
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     [placeholder]="'ADMIN.CONSENT_HUBS.SEARCH'"
     (filter)="applyFilter($event)">
-  </perun-web-apps-immediate-filter>
+  </perun-web-apps-debounce-filter>
 
   <ng-template #spinner>
     <perun-web-apps-loading-table></perun-web-apps-loading-table>

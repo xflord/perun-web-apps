@@ -23,10 +23,10 @@
     {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.REMOVE' | translate}}
   </button>
 </span>
-<perun-web-apps-immediate-filter
+<perun-web-apps-debounce-filter
   (filter)="this.filterValue = $event"
   [placeholder]="'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.FILTER'">
-</perun-web-apps-immediate-filter>
+</perun-web-apps-debounce-filter>
 <ng-template #spinner>
   <perun-web-apps-loading-table></perun-web-apps-loading-table>
 </ng-template>

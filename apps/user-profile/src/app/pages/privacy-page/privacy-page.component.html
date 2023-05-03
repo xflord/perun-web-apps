@@ -1,8 +1,8 @@
 <h1 class="page-title mt-2">{{'PRIVACY.TITLE' | customTranslate | translate}}</h1>
 <div class="user-theme">
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     [placeholder]="'SERVICES.FILTER' | customTranslate | translate"
-    (filter)="applyFilter($event)"></perun-web-apps-immediate-filter>
+    (filter)="applyFilter($event)"></perun-web-apps-debounce-filter>
   <mat-spinner class="ms-auto me-auto" *ngIf="outerLoading"></mat-spinner>
   <mat-accordion *ngIf="!outerLoading">
     <mat-expansion-panel (opened)="getUserData()">
