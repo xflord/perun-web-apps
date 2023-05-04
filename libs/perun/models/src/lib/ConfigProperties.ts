@@ -147,6 +147,7 @@ export interface PerunConfig {
   // Required
   api_url: string;
   oidc_client: OidcClient;
+  proxy_logout: boolean;
   pwd_reset_base_url: string;
   password_namespace_attributes: string[];
   // Optional

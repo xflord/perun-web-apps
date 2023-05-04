@@ -13,6 +13,7 @@
     "user_info_endpoint_url": "https://proxy.aai.muni.cz/OIDC/userinfo",
     "oauth_offline_access_consent_prompt": true
   },
+  "proxy_logout": true,
   "mfa": {
     "url_en": "https://mfa.id.muni.cz/"
   },

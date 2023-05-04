@@ -1,6 +1,9 @@
 <div class="container login-con">
   <div class="row">
     <div class="ms-auto me-auto d-flex flex-column align-items-center">
+      <perun-web-apps-alert *ngIf="afterLogout" class="mb-2" alert_type="success">
+        {{'SHARED_LIB.PERUN.LOGIN.LOGOUT_INFO' | translate}}
+      </perun-web-apps-alert>
       <h4 class="mb-3">
         {{'SHARED_LIB.PERUN.LOGIN.TEXT' | translate}}
       </h4>

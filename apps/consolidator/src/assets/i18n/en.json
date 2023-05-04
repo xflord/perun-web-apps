@@ -30,7 +30,8 @@
     "PERUN": {
       "LOGIN": {
         "SIGN_IN": "Sign in",
-        "TEXT": "You must sign in to continue."
+        "TEXT": "You must sign in to continue.",
+        "LOGOUT_INFO": "You have been successfully logged out."
       },
       "COMPONENTS": {
         "SESSION_EXPIRATION": {

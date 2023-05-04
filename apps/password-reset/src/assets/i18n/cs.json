@@ -49,6 +49,19 @@
           "FIELD_EMPTY": "Tohle políčko musí být vyplněné",
           "PWD_DONT_MATCH": "Hesla se neshodují"
         }
+      },
+      "LOGIN": {
+        "SIGN_IN": "Přihlásit se",
+        "TEXT": "Pro pokračování se přihlaste."
+      },
+      "LOGIN_SERVICE_ACCESS": {
+        "LABEL": "Přihlásit se",
+        "USERNAME": "Uživatelské jméno",
+        "USERNAME_ERROR": "Uživatelské jméno nemůže být prázdné",
+        "PASSWORD": "Heslo",
+        "PASSWORD_ERROR": "Heslo nemůže být prázdné",
+        "SIGN_IN": "Přihlásit se",
+        "WRONG_LOGIN_OR_PASSWORD": "Nesprávné uživatelské jméno nebo heslo. Zkuste to znovu."
       }
     }
   }

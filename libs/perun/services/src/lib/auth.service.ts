@@ -12,6 +12,7 @@ import { OidcClient } from '@perun-web-apps/perun/models';
 })
 export class AuthService {
   filterShortname: string;
+  logoutProcess: boolean;
   private router: Router;
 
   constructor(
@@ -46,12 +47,33 @@ export class AuthService {
       sessionStorage.setItem('baLogout', 'true');
       void this.router.navigate(['/service-access'], { queryParamsHandling: 'preserve' });
     } else {
+      this.logoutProcess = true;
       this.oauthService.logOut();
+
+      const postLogoutUrl = this.store.getProperty('oidc_client').oauth_post_logout_redirect_uri;
+      if (!postLogoutUrl) {
+        // redirect to the login page if there is no postLogoutUrl
+        void this.router.navigate(['/login'], { queryParamsHandling: 'preserve' });
+      } else if (this.store.getProperty('proxy_logout')) {
+        // redirect to the logout loading page if postLogoutUrl exist and logout should be handled by proxy
+        void this.router.navigate(['/logout'], { queryParamsHandling: 'preserve' });
+      } else {
+        // directly redirect if postLogoutUrl exist and logout should be handled locally (not by proxy)
+        window.open(postLogoutUrl, '_self');
+      }
     }
   }
 
   isLoggedIn(): boolean {
     return this.oauthService.hasValidAccessToken();
+  }
+
+  isLogoutProcess(): boolean {
+    return this.logoutProcess;
+  }
+
+  setLogoutProcess(logoutProcess: boolean): void {
+    this.logoutProcess = logoutProcess;
   }
 
   getAuthorizationHeaderValue(): string {

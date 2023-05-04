@@ -14,6 +14,7 @@ import {
 } from '@perun-web-apps/perun/login';
 import { CreateSinglePublicationPageComponent } from './pages/create-publication-page/create-single-publication-page/create-single-publication-page.component';
 import { ImportPublicationsPageComponent } from './pages/create-publication-page/import-publications-page/import-publications-page.component';
+import { LogoutLoaderComponent } from '@perun-web-apps/ui/loaders';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'service-access',
     component: LoginScreenServiceAccessComponent,
+  },
+  {
+    path: 'logout',
+    component: LogoutLoaderComponent,
   },
   {
     path: 'all-publications',

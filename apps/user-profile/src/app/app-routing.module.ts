@@ -26,6 +26,7 @@ import { ConsentsPreviewComponent } from './pages/consents-page/consents-preview
 import { SettingsLocalAccountComponent } from './pages/settings-page/settings-local-account/settings-local-account.component';
 import { SettingsMailingListsComponent } from './pages/settings-page/settings-mailing-lists/settings-mailing-lists.component';
 import { SettingsDataQuotasComponent } from './pages/settings-page/settings-data-quotas/settings-data-quotas.component';
+import { LogoutLoaderComponent } from '@perun-web-apps/ui/loaders';
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'service-access',
     component: LoginScreenServiceAccessComponent,
+  },
+  {
+    path: 'logout',
+    component: LogoutLoaderComponent,
   },
   {
     path: 'profile',

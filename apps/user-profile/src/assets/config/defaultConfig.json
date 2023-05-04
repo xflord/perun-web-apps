@@ -20,6 +20,7 @@
     "oauth_response_type": "code",
     "oauth_offline_access_consent_prompt": true
   },
+  "proxy_logout": true,
   "password_namespace_attributes": [
     "urn:perun:user:attribute-def:def:login-namespace:einfra",
     "urn:perun:user:attribute-def:def:login-namespace:einfra-services",

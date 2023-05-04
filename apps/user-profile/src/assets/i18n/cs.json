@@ -243,7 +243,8 @@
     "PERUN": {
       "LOGIN": {
         "SIGN_IN": "Přihlásit se",
-        "TEXT": "Pro pokračování se přihlaste."
+        "TEXT": "Pro pokračování se přihlaste.",
+        "LOGOUT_INFO": "Byli jste úspěšně odhlášeni."
       },
       "LOGIN_SERVICE_ACCESS": {
         "LABEL": "Přihlásit se",

@@ -13,6 +13,7 @@
     "oauth_response_type": "code",
     "oauth_offline_access_consent_prompt": true
   },
+  "proxy_logout": true,
   "mfa": {
     "url_en": "https://mfa.id.muni.cz/"
   },

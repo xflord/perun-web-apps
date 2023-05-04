@@ -6,6 +6,7 @@ import { NotFoundPageComponent } from './shared/components/not-found-page/not-fo
 import { NotAuthorizedPageComponent } from '@perun-web-apps/perun/components';
 import { LoginScreenComponent } from '@perun-web-apps/perun/login';
 import { LoginScreenServiceAccessComponent } from '@perun-web-apps/perun/login';
+import { LogoutLoaderComponent } from '@perun-web-apps/ui/loaders';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
   {
     path: 'service-access',
     component: LoginScreenServiceAccessComponent,
+  },
+  {
+    path: 'logout',
+    component: LogoutLoaderComponent,
   },
   {
     path: 'organizations',
