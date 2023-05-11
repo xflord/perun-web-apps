@@ -4,6 +4,7 @@
   <perun-web-apps-audit-log-search-select
     (auditLogsSelected)="toggleEvent($event)"
     (selectClosed)="refreshOnClosed()"
+    [disableDeselectButton]="false"
     [auditLogs]="eventOptionsForSearchSelect"></perun-web-apps-audit-log-search-select>
 
   <ng-template #spinner>

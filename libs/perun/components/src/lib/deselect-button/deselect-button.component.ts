@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'perun-web-apps-deselect-button',
@@ -6,6 +6,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./deselect-button.component.scss'],
 })
 export class DeselectButtonComponent {
+  @Input() isDisabled = true;
   @Output() deselect = new EventEmitter<MouseEvent>();
 
   onClickButton(event: MouseEvent): void {

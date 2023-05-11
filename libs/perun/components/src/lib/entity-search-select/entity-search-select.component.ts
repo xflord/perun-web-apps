@@ -31,7 +31,7 @@ export class EntitySearchSelectComponent<T extends PerunBean>
   @Input() findPlaceholder = 'Find...';
   @Input() noEntriesText = 'Nothing found';
   @Input() disableAutoSelect = false;
-  @Input() disableDeselectButton = false;
+  @Input() disableDeselectButton = true;
   @Input() entity: T | T[] = null;
   @Input() displayStatus = false;
   @Input() multiple = false;
@@ -43,7 +43,6 @@ export class EntitySearchSelectComponent<T extends PerunBean>
   @ViewChild('scrollViewport', { static: false }) scrollViewport: CdkVirtualScrollViewport;
   @Input() searchFunction: (entity: T) => string;
 
-  visibleDeselectButton = false;
   selectedEntities: T[] = [];
   entitiesCtrl: UntypedFormControl = new UntypedFormControl();
   entityFilterCtrl: UntypedFormControl = new UntypedFormControl();
@@ -143,7 +142,6 @@ export class EntitySearchSelectComponent<T extends PerunBean>
         this.entitySelected.emit(value);
       }
     }
-    this.visibleDeselectButton = !this.disableDeselectButton && this.selectedEntities.length !== 0;
   }
 
   openChange(): void {
@@ -202,7 +200,6 @@ export class EntitySearchSelectComponent<T extends PerunBean>
   }
 
   deselectEvent(): void {
-    this.visibleDeselectButton = false;
     this.selectedEntities = [];
     this.entitiesCtrl.setValue([]);
 

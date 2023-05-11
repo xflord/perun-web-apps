@@ -10,7 +10,6 @@ export class StringSearchSelectComponent {
   @Input() preselectedValues: string[];
   @Input() selectPlaceholder: string;
   @Input() mainTextFunction: (string) => string;
-  @Input() disableDeselectButton = false;
   @Output() valueSelection = new EventEmitter<string[]>();
   @Output() selectClosed = new EventEmitter<boolean>();
 

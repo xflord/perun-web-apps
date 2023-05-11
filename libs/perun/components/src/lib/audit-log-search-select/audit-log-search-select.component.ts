@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class AuditLogSearchSelectComponent {
   @Input() auditLogs: string[];
+  @Input() disableDeselectButton = true;
   @Output() auditLogsSelected = new EventEmitter<string[]>();
   @Output() selectClosed = new EventEmitter<boolean>();
 

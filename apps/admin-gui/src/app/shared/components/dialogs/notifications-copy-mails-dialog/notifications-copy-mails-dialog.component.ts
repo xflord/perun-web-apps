@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
 import { openClose } from '@perun-web-apps/perun/animations';
 import {
   Group,
@@ -9,6 +8,8 @@ import {
   Vo,
   VosManagerService,
 } from '@perun-web-apps/perun/openapi';
+import { compareFnName } from '@perun-web-apps/perun/utils';
+import { PerunTranslateService } from '@perun-web-apps/perun/services';
 
 export interface NotificationsCopyMailsDialogData {
   theme: string;
@@ -35,7 +36,7 @@ export class NotificationsCopyMailsDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<NotificationsCopyMailsDialogComponent>,
     private voService: VosManagerService,
     private groupService: GroupsManagerService,
-    private translateService: TranslateService,
+    private translateService: PerunTranslateService,
     private registrarService: RegistrarManagerService,
     private cd: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: NotificationsCopyMailsDialogData
@@ -46,8 +47,9 @@ export class NotificationsCopyMailsDialogComponent implements OnInit {
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.loading = true;
-    this.translateService.get('DIALOGS.NOTIFICATIONS_COPY_MAILS.NO_GROUP_SELECTED').subscribe(
-      (text: string) => {
+
+    this.translateService.get('DIALOGS.NOTIFICATIONS_COPY_MAILS.NO_GROUP_SELECTED').subscribe({
+      next: (text: string) => {
         this.fakeGroup = {
           id: -1,
           name: text,
@@ -62,10 +64,15 @@ export class NotificationsCopyMailsDialogComponent implements OnInit {
         this.voService.getAllVos().subscribe((vos) => {
           this.vos = vos;
           this.loading = false;
+          if (this.vos.length > 0) {
+            this.voSelected(this.vos.sort(compareFnName)[0]);
+          }
         });
       },
-      () => (this.loading = false)
-    );
+      error: () => {
+        this.loading = false;
+      },
+    });
   }
 
   cancel(): void {
@@ -79,39 +86,47 @@ export class NotificationsCopyMailsDialogComponent implements OnInit {
       if (this.selectedGroup === this.fakeGroup) {
         this.registrarService
           .copyMailsFromVoToGroup(this.selectedVo.id, this.data.groupId)
-          .subscribe(
-            () => {
+          .subscribe({
+            next: () => {
               this.dialogRef.close(true);
             },
-            () => (this.loading = false)
-          );
+            error: () => {
+              this.loading = false;
+            },
+          });
       } else {
         this.registrarService
           .copyMailsFromGroupToGroup(this.selectedGroup.id, this.data.groupId)
-          .subscribe(
-            () => {
+          .subscribe({
+            next: () => {
               this.dialogRef.close(true);
             },
-            () => (this.loading = false)
-          );
+            error: () => {
+              this.loading = false;
+            },
+          });
       }
     } else {
       if (this.selectedGroup === this.fakeGroup) {
-        this.registrarService.copyMailsFromVoToVo(this.selectedVo.id, this.data.voId).subscribe(
-          () => {
+        this.registrarService.copyMailsFromVoToVo(this.selectedVo.id, this.data.voId).subscribe({
+          next: () => {
             this.dialogRef.close(true);
           },
-          () => (this.loading = false)
-        );
+          error: () => {
+            this.loading = false;
+          },
+        });
       } else {
         this.registrarService
           .copyMailsFromGroupToVo(this.selectedGroup.id, this.data.voId)
-          .subscribe(
-            () => {
+          .subscribe({
+            next: () => {
               this.dialogRef.close(true);
             },
-            () => (this.loading = false)
-          );
+            error: () => {
+              this.loading = false;
+            },
+          });
       }
     }
   }
@@ -130,5 +145,6 @@ export class NotificationsCopyMailsDialogComponent implements OnInit {
     } else {
       this.groups = [this.fakeGroup];
     }
+    this.selectedGroup = this.fakeGroup;
   }
 }

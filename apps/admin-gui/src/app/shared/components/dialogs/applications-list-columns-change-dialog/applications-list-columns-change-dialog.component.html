@@ -10,8 +10,7 @@
           [values]="columnOptions"
           [preselectedValues]="selectedColumns"
           [selectPlaceholder]="'DIALOGS.APPLICATIONS_LIST_COLUMNS_CHANGE.FILTER_COLUMNS' | translate"
-          [mainTextFunction]="columnTranslation"
-          [disableDeselectButton]="true">
+          [mainTextFunction]="columnTranslation">
         </perun-web-apps-string-search-select>
 
         <button *ngIf="!this.templateAttribute" (click)="default()" mat-stroked-button>

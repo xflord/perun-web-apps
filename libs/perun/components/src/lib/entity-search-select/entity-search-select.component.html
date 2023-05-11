@@ -52,6 +52,9 @@
     </mat-select>
   </mat-form-field>
 
-  <perun-web-apps-deselect-button *ngIf="visibleDeselectButton" (deselect)="deselectEvent()">
+  <perun-web-apps-deselect-button
+    *ngIf="!disableDeselectButton"
+    [isDisabled]="selectedEntities.length === 0"
+    (deselect)="deselectEvent()">
   </perun-web-apps-deselect-button>
 </div>

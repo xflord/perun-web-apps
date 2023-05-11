@@ -21,6 +21,7 @@
       <perun-web-apps-group-search-select
         (groupSelected)="selectedGroup = ($event)"
         [groups]="groups"
+        [firstSelectedGroup]="selectedGroup"
         [disableAutoSelect]="true"
         class="long-input">
       </perun-web-apps-group-search-select>
@@ -34,7 +35,7 @@
         (click)="submit()"
         class="ms-2"
         color="accent"
-        [disabled]="selectedVo === null || selectedGroup === null || loading"
+        [disabled]="(!selectedVo && !selectedGroup) || loading"
         mat-flat-button>
         {{'DIALOGS.NOTIFICATIONS_COPY_MAILS.SUBMIT_BUTTON' | translate}}
       </button>

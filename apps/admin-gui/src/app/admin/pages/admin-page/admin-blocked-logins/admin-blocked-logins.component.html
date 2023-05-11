@@ -28,6 +28,7 @@
     [multiple]="true"
     (namespaceSelected)="toggleEvent($event)"
     [disableAutoSelect]="true"
+    [disableDeselectButton]="false"
     [customSelectPlaceholder]="'ADMIN.BLOCKED_LOGINS.FILTER_NAMESPACE' | translate"
     (selectClosed)="refreshOnClosed()">
   </perun-web-apps-namespace-search-select>

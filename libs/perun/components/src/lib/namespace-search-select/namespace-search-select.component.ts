@@ -12,7 +12,7 @@ export class NamespaceSearchSelectComponent implements OnChanges {
   @Input() namespaceOptions: string[];
   @Input() disableAutoSelect = false;
   @Input() multiple = false;
-  @Input() disableDeselectButton = false;
+  @Input() disableDeselectButton = true;
   @Input() customSelectPlaceholder: string;
   @Input() customFindPlaceholder: string;
 
