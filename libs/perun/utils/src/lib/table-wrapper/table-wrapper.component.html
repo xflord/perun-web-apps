@@ -15,19 +15,4 @@
   <div class="overflow-auto border-top table-height" #table>
     <ng-content></ng-content>
   </div>
-
-  <div class="d-flex justify-content-end align-items-center">
-    <mat-paginator
-      (page)="pageChangedBottom($event)"
-      [length]="paginator.length"
-      [pageIndex]="paginator.pageIndex"
-      [pageSizeOptions]="paginator.pageSizeOptions"
-      [pageSize]="paginator.pageSize">
-    </mat-paginator>
-    <perun-web-apps-table-options
-      (exportDisplayedData)="exportDisplayedData.emit($event)"
-      (exportAllData)="exportAllData.emit($event)"
-      [allowExportAll]="allowExportAll"
-      *ngIf="!hideExport"></perun-web-apps-table-options>
-  </div>
 </div>

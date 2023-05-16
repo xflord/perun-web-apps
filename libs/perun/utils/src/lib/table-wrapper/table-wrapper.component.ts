@@ -62,14 +62,4 @@ export class TableWrapperComponent implements OnInit {
       }); // scroll to top of table on page changes
     }
   }
-
-  pageChangedBottom(event: PageEvent): void {
-    this.paginator.pageSize = event.pageSize;
-    this.paginator.pageIndex = event.pageIndex;
-    this.paginator.page.emit(event);
-    this.pageSize = event.pageSize;
-    if (this.tableId) {
-      this.tableConfigService.setTablePageSize(this.tableId, event.pageSize);
-    }
-  }
 }
