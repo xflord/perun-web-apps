@@ -40,7 +40,7 @@
     "FILTER": "Filtrovat dle jména",
     "MEMBER_GROUPS": "Skupiny ve kterých jste členem",
     "ADMINS_GROUPS": "Skupiny ve kterých jste administrátorem",
-    "NO_GROUPS": "Nenalezeny žádné skupiny."
+    "NO_GROUPS": "Nebyly nalezeny žádné skupiny."
   },
   "SERVICES": {
     "TITLE": "Moje služby",
@@ -95,7 +95,6 @@
     "NAME": "Jméno",
     "DESCRIPTION": "Popis",
     "EXPIRATION": "Expirace členství",
-    "NO_MEMBERSHIPS": "Žádné výsledky nesplňují zadané vyhledávací parametry.",
     "EXTEND": "Prodloužit členství"
   },
   "SAMBA_PASSWORD": {

@@ -68,8 +68,6 @@
   </perun-web-apps-table-wrapper>
 </div>
 
-<perun-web-apps-alert
-  *ngIf="!dataSource.filteredData.length"
-  alert_type="warn"
-  >{{'MEMBERSHIP_LIST.NO_MEMBERSHIPS' | customTranslate | translate}}</perun-web-apps-alert
->
+<perun-web-apps-alert *ngIf="!dataSource.filteredData.length" alert_type="warn">
+  {{ noMembershipFoundAlert | customTranslate | translate}}
+</perun-web-apps-alert>

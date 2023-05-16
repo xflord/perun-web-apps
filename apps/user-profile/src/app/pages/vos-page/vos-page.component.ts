@@ -70,6 +70,7 @@ export class VosPageComponent implements OnInit {
 
   private fillMemberships(vos: Array<Vo>, memberships: Membership[]): void {
     this.membersService.getMembersByUser(this.userId).subscribe((members) => {
+      if (vos.length === 0) this.loading = false;
       vos.forEach((vo) => {
         const member = members.find((mem) => mem.voId === vo.id);
         if (!member) {

@@ -6,34 +6,26 @@
 
   <div class="mt-5">
     <h1 class="page-subtitle">{{'ORGANIZATIONS.IS_MEMBER' | customTranslate | translate}}</h1>
-    <div class="position-relative" *ngIf="userMemberships.length || loading">
+    <div class="position-relative">
       <perun-web-apps-membership-list
         *perunWebAppsLoader="loading; indicator: spinner"
         [members]="userMemberships"
         [filterValue]="filterValue"
+        [noMembershipFoundAlert]="'ORGANIZATIONS.NO_VOS_ALERT'"
         [displayedColumns]="['name', 'expirationAttribute', 'extend']"
         (extendMembership)="extendMembership($event)">
       </perun-web-apps-membership-list>
     </div>
-    <perun-web-apps-alert
-      alert_type="warn"
-      *ngIf="userMemberships.length === 0  && !loading"
-      >{{'ORGANIZATIONS.NO_VOS_ALERT' | customTranslate | translate}}</perun-web-apps-alert
-    >
   </div>
 
   <div class="mt-5">
     <h1 class="page-subtitle">{{'ORGANIZATIONS.IS_ADMIN' | customTranslate | translate}}</h1>
-    <perun-web-apps-alert
-      *ngIf="!adminMemberships.length && !loading"
-      alert_type="warn"
-      >{{'ORGANIZATIONS.NO_VOS_ALERT' | customTranslate | translate}}</perun-web-apps-alert
-    >
-    <div class="position-relative" *ngIf="adminMemberships.length || loading">
+    <div class="position-relative">
       <perun-web-apps-membership-list
         *perunWebAppsLoader="loading; indicator: spinner"
         [members]="adminMemberships"
         [filterValue]="filterValue"
+        [noMembershipFoundAlert]="'ORGANIZATIONS.NO_VOS_ALERT'"
         [displayedColumns]="['name']">
       </perun-web-apps-membership-list>
     </div>

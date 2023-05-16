@@ -68,14 +68,23 @@ export class GroupsPageComponent implements OnInit {
     this.userMembershipsTemp = [];
     this.adminMembershipsTemp = [];
     const allMemberIds = this.store.getPerunPrincipal().roles['SELF']['Member'];
-    if (!allMemberIds.length) {
+    // finish when the user has no membership
+    if (allMemberIds === undefined || !allMemberIds.length) {
       this.loading = false;
+      this.initialLoading = false;
+      return;
     } else {
       j = allMemberIds.length;
     }
     allMemberIds.forEach((memberId) => {
       j--;
       this.groupService.getMemberGroups(memberId).subscribe((groups) => {
+        // finish when the user has no group membership
+        if (groups.length === 0) {
+          this.initialLoading = false;
+          this.loading = false;
+          return;
+        }
         i += groups.length;
         groups.forEach((group) => {
           this.attributesManagerService
@@ -119,6 +128,10 @@ export class GroupsPageComponent implements OnInit {
       const vo: Vo = event.option.value as Vo;
       this.memberService.getMemberByUser(vo.id, this.userId).subscribe((member) => {
         this.groupService.getMemberGroups(member.id).subscribe((groups) => {
+          // refresh displayed data for vo where user has no group membership
+          if (groups.length === 0) {
+            this.addToLists();
+          }
           let i = groups.length;
           this.loading = i !== 0;
           groups.forEach((group) => {

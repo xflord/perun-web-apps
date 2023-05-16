@@ -95,7 +95,6 @@
     "NAME": "Name",
     "DESCRIPTION": "Description",
     "EXPIRATION": "Expiration",
-    "NO_MEMBERSHIPS": "No results match current filter",
     "EXTEND": "Extend"
   },
   "SAMBA_PASSWORD": {
