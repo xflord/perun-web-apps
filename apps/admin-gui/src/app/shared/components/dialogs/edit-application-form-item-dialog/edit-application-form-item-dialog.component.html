@@ -170,21 +170,20 @@
 
         <mat-tab
           *ngFor="let lang of languages"
-          label="{{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LANGUAGE_'+lang | uppercase | translate}}">
+          label="{{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LANGUAGE_'+lang | uppercase | translate}}"
+          [formGroup]="inputFormGroup">
           <div *ngIf="isApplicationFormItemOfType(['HEADING', 'HTML_COMMENT'])">
             <app-edit-application-form-item-line
               [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.CONTENT_DESCRIPTION' | translate"
               [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.CONTENT' | translate">
               <mat-form-field class="w-100" subscriptSizing="dynamic">
                 <textarea
+                  formControlName="{{lang}}-html-label"
                   [cdkTextareaAutosize]="true"
-                  [formControl]="htmlInput"
-                  [(ngModel)]="applicationFormItem.i18n[lang].label"
                   matInput></textarea>
-                <mat-error
-                  *ngIf="htmlInput.invalid && (htmlInput.dirty || htmlInput.touched)"
-                  >{{htmlInput.errors.invalidHtmlContent}}</mat-error
-                >
+                <mat-error *ngIf="inputFormGroup.controls[lang + '-html-label']?.invalid">
+                  {{inputFormGroup.controls[lang + '-html-label'].errors?.invalidHtmlContent}}
+                </mat-error>
               </mat-form-field>
             </app-edit-application-form-item-line>
           </div>
@@ -196,23 +195,21 @@
               [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL_DESCRIPTION' | translate"
               [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL' | translate">
               <mat-form-field class="w-100">
-                <textarea [(ngModel)]="applicationFormItem.i18n[lang].label" matInput></textarea>
+                <textarea formControlName="{{lang}}-plain-label" matInput></textarea>
               </mat-form-field>
             </app-edit-application-form-item-line>
             <app-edit-application-form-item-line
               [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.HELP_DESCRIPTION' | translate"
               [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.HELP' | translate">
               <mat-form-field class="w-100">
-                <textarea [(ngModel)]="applicationFormItem.i18n[lang].help" matInput></textarea>
+                <textarea formControlName="{{lang}}-plain-help" matInput></textarea>
               </mat-form-field>
             </app-edit-application-form-item-line>
             <app-edit-application-form-item-line
               [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.ERROR_DESCRIPTION' | translate"
               [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.ERROR' | translate">
               <mat-form-field class="w-100">
-                <textarea
-                  [(ngModel)]="applicationFormItem.i18n[lang].errorMessage"
-                  matInput></textarea>
+                <textarea formControlName="{{lang}}-plain-error-message" matInput></textarea>
               </mat-form-field>
             </app-edit-application-form-item-line>
           </div>
@@ -221,7 +218,7 @@
               [description]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL_BUTTON_DESCRIPTION' | translate"
               [label]="'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL' | translate">
               <mat-form-field class="w-100">
-                <textarea [(ngModel)]="applicationFormItem.i18n[lang].label" matInput></textarea>
+                <textarea formControlName="{{lang}}-plain-label" matInput></textarea>
               </mat-form-field>
             </app-edit-application-form-item-line>
           </div>
@@ -248,11 +245,11 @@
             <div *ngFor="let option of options[lang]">
               {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.VALUE' | translate}}:
               <mat-form-field>
-                <input [(ngModel)]="option[0]" matInput />
+                <input [(ngModel)]="option[0]" [ngModelOptions]="{standalone: true}" matInput />
               </mat-form-field>
               {{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.LABEL' | translate}}:
               <mat-form-field>
-                <input [(ngModel)]="option[1]" matInput />
+                <input [(ngModel)]="option[1]" [ngModelOptions]="{standalone: true}" matInput />
               </mat-form-field>
               <button
                 (click)="removeOption(option, lang)"
@@ -281,7 +278,7 @@
           (applicationFormItem.disabled !== 'ALWAYS' && applicationFormItem.hidden !== 'ALWAYS')"
         matTooltip="{{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.SUBMIT_BUTTON_DISABLED_TOOLTIP' | translate}}">
         <div
-          [matTooltipDisabled]="!htmlInput.invalid"
+          [matTooltipDisabled]="!inputFormGroup.invalid"
           [matTooltipPosition]="'above'"
           matTooltip="{{'DIALOGS.APPLICATION_FORM_EDIT_ITEM.HTML_INVALID_TAGS' | translate}}">
           <button
@@ -289,7 +286,7 @@
             class="ms-2 mt-auto"
             color="accent"
             data-cy="edit-form-item-button-dialog"
-            [disabled]="htmlInput.invalid || loading || (applicationFormItem.required &&
+            [disabled]="inputFormGroup.invalid || loading || (applicationFormItem.required &&
                     applicationFormItem.perunSourceAttribute === '' &&
                     applicationFormItem.federationAttribute === '' &&
                     (applicationFormItem.disabled === 'ALWAYS' || applicationFormItem.hidden === 'ALWAYS'))"

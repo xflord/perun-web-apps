@@ -14,7 +14,7 @@ import DisabledEnum = ApplicationFormItem.DisabledEnum;
 import HiddenEnum = ApplicationFormItem.HiddenEnum;
 import { ItemType, NO_FORM_ITEM, SelectionItem } from '@perun-web-apps/perun/components';
 import { HtmlEscapeService, StoreService } from '@perun-web-apps/perun/services';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 export interface EditApplicationFormItemDialogComponentData {
   theme: string;
@@ -41,7 +41,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
   hiddenValues: HiddenEnum[] = ['NEVER', 'ALWAYS', 'IF_EMPTY', 'IF_PREFILLED'];
   disabledValues: DisabledEnum[] = ['NEVER', 'ALWAYS', 'IF_EMPTY', 'IF_PREFILLED'];
   possibleDependencyItems: ApplicationFormItem[] = [];
-  htmlInput = new FormControl('', [this.escapeService.htmlContentValidator()]);
+  inputFormGroup: FormGroup<Record<string, FormControl<string>>> = null;
 
   typesWithUpdatable: Type[] = [
     'VALIDATED_EMAIL',
@@ -110,23 +110,32 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     this.possibleDependencyItems = this.getPossibleDepItems();
     this.applicationFormItem = createNewApplicationFormItem(this.languages);
     this.copy(this.data.applicationFormItem, this.applicationFormItem);
+    this.prepareFormControls();
     this.loading = true;
-    this.attributesManager.getAllAttributeDefinitions().subscribe(
-      (attributeDefinitions) => {
+    this.attributesManager.getAllAttributeDefinitions().subscribe({
+      next: (attributeDefinitions) => {
         const filteredAttributes = this.filterAttributesForWidget(attributeDefinitions);
-        this.sourceAttributes = filteredAttributes.concat(
-          this.findAttribute(attributeDefinitions, this.applicationFormItem.perunSourceAttribute)
+
+        const perunSourceAttrDef = this.findAttribute(
+          attributeDefinitions,
+          this.applicationFormItem.perunSourceAttribute
         );
-        this.destinationAttributes = filteredAttributes.concat(
-          this.findAttribute(
-            attributeDefinitions,
-            this.applicationFormItem.perunDestinationAttribute
-          )
+        this.sourceAttributes = perunSourceAttrDef
+          ? filteredAttributes.concat(perunSourceAttrDef)
+          : filteredAttributes;
+
+        const perunDestinationAttrDef = this.findAttribute(
+          attributeDefinitions,
+          this.applicationFormItem.perunDestinationAttribute
         );
+        this.destinationAttributes = perunDestinationAttrDef
+          ? filteredAttributes.concat(perunDestinationAttrDef)
+          : filteredAttributes;
+
         this.loading = false;
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
     if (this.applicationFormItem.perunDestinationAttribute === null) {
       this.applicationFormItem.perunDestinationAttribute = '';
     }
@@ -134,9 +143,6 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
       this.applicationFormItem.perunSourceAttribute = '';
     }
     this.getOptions();
-
-    this.htmlInput.markAsTouched();
-    this.htmlInput.setValue(this.applicationFormItem.i18n['en'].label);
   }
 
   cancel(): void {
@@ -149,16 +155,25 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     this.applicationFormItem.disabledDependencyItemId =
       this.disabledDependencyItem === NO_FORM_ITEM ? null : this.disabledDependencyItem.id;
 
-    // Escape forbidden strings
-    if (
-      this.applicationFormItem.type === 'HTML_COMMENT' ||
-      this.applicationFormItem.type === 'HEADING'
-    ) {
-      for (const lang in this.applicationFormItem.i18n) {
-        const o = this.applicationFormItem.i18n[lang];
+    for (const lang of this.languages) {
+      // check if (forbidden) input should be escaped
+      if (
+        this.applicationFormItem.type === 'HTML_COMMENT' ||
+        this.applicationFormItem.type === 'HEADING'
+      ) {
         this.applicationFormItem.i18n[lang].label = this.escapeService.escapeDangerousHtml(
-          o.label
+          this.inputFormGroup.get(`${lang}-html-label`).value
         ).escapedHtml;
+      } else {
+        this.applicationFormItem.i18n[lang].label = this.inputFormGroup.get(
+          `${lang}-plain-label`
+        ).value;
+        this.applicationFormItem.i18n[lang].errorMessage = this.inputFormGroup.get(
+          `${lang}-plain-error-message`
+        ).value;
+        this.applicationFormItem.i18n[lang].help = this.inputFormGroup.get(
+          `${lang}-plain-help`
+        ).value;
       }
     }
 
@@ -247,6 +262,41 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     to.hidden = from.hidden;
     to.disabledDependencyItemId = from.disabledDependencyItemId;
     to.hiddenDependencyItemId = from.hiddenDependencyItemId;
+  }
+
+  private prepareFormControls(): void {
+    const formGroupFields: { [key: string]: FormControl } = {};
+    for (const lang of this.languages) {
+      if (
+        this.applicationFormItem.type === 'HTML_COMMENT' ||
+        this.applicationFormItem.type === 'HEADING'
+      ) {
+        formGroupFields[`${lang}-html-label`] = new FormControl(
+          this.applicationFormItem.i18n[lang].label,
+          [this.escapeService.htmlContentValidator()]
+        );
+        formGroupFields[`${lang}-html-label`].markAsTouched();
+      } else {
+        // Plain
+        formGroupFields[`${lang}-plain-error-message`] = new FormControl(
+          this.applicationFormItem.i18n[lang].errorMessage,
+          []
+        );
+        formGroupFields[`${lang}-plain-help`] = new FormControl(
+          this.applicationFormItem.i18n[lang].help,
+          []
+        );
+        formGroupFields[`${lang}-plain-label`] = new FormControl(
+          this.applicationFormItem.i18n[lang].label,
+          []
+        );
+
+        formGroupFields[`${lang}-plain-label`].markAsTouched();
+        formGroupFields[`${lang}-plain-error-message`].markAsTouched();
+        formGroupFields[`${lang}-plain-help`].markAsTouched();
+      }
+    }
+    this.inputFormGroup = new FormGroup(formGroupFields);
   }
 
   private getOptions(): void {
