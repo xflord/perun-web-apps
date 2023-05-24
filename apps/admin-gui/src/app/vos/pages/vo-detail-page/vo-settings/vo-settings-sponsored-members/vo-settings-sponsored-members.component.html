@@ -38,6 +38,7 @@
     data-cy="sponsor-existing-button"
     *ngIf="setSponsorshipAuth"
     (click)="onSponsorExistingMember()"
+    [disabled]="findSponsorsAuth && voSponsors.length === 0"
     color="accent"
     class="me-2 action-button"
     mat-flat-button>
@@ -46,6 +47,7 @@
   <button
     *ngIf="setSponsorshipAuth"
     (click)="copySponsoredMembers()"
+    [disabled]="findSponsorsAuth && voSponsors.length === 0"
     color="accent"
     class="me-2 action-button"
     mat-flat-button>
