@@ -9,11 +9,11 @@
     <div mat-dialog-content class="dialog-container">
       <perun-web-apps-role-search-select [roles]="rules" (roleSelected)="resetSelection($event)">
       </perun-web-apps-role-search-select>
-      <perun-web-apps-immediate-filter
+      <perun-web-apps-debounce-filter
         *ngIf="selectedRule?.primaryObject"
         (filter)="filterValue = $event"
         [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.UNIVERSAL_OBJECTS_LIST.FILTER'"
-        class="font-size-1rem"></perun-web-apps-immediate-filter>
+        class="font-size-1rem"></perun-web-apps-debounce-filter>
       <perun-web-apps-vos-list
         [filterValue]="filterValue"
         *ngIf="selectedRule?.primaryObject === 'Vo'"

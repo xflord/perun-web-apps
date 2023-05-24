@@ -44,10 +44,10 @@
 </div>
 <div *ngIf="groupAssignment === 'existing'">
   <h5 class="mt-4">{{'DIALOGS.GENERATE_SPONSORED_MEMBERS.SELECT_EXISTING_GROUPS' | translate}}</h5>
-  <perun-web-apps-immediate-filter
+  <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
     [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'">
-  </perun-web-apps-immediate-filter>
+  </perun-web-apps-debounce-filter>
   <perun-web-apps-groups-list
     [groups]="assignableGroups"
     [selection]="selection"

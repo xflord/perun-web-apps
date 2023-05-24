@@ -19,10 +19,10 @@
         <perun-web-apps-alert alert_type="info">
           {{'DIALOGS.COPY_SPONSORED_MEMBERS.SPONSORED_MEMBERS_INFO' | translate}}
         </perun-web-apps-alert>
-        <perun-web-apps-immediate-filter
+        <perun-web-apps-debounce-filter
           (filter)="filter = $event"
           [placeholder]="'VO_DETAIL.SETTINGS.SPONSORED_MEMBERS.FILTER'">
-        </perun-web-apps-immediate-filter>
+        </perun-web-apps-debounce-filter>
         <app-sponsored-members-list
           *perunWebAppsLoader="tableLoading; indicator: spinner"
           [disableRouting]="true"
