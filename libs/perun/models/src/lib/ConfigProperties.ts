@@ -6,6 +6,7 @@ export interface OidcClient {
   oauth_redirect_uri: string;
   oauth_scopes: string;
   oauth_response_type: string;
+  oauth_resource: string;
   user_info_endpoint_url: string;
   filters: Record<string, string>;
   oauth_offline_access_consent_prompt: boolean;

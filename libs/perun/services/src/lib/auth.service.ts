@@ -140,6 +140,7 @@ export class AuthService {
       postLogoutRedirectUri: oidcClientProperties.oauth_post_logout_redirect_uri,
       responseType: oidcClientProperties.oauth_response_type,
       scope: oidcClientProperties.oauth_scopes,
+      resource: oidcClientProperties.oauth_resource,
       clockSkewInSec: clockSkewInSec,
       timeoutFactor: timeoutFactor,
       userinfoEndpoint: this.store.getProperty('oidc_client').user_info_endpoint_url,
