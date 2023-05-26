@@ -14,6 +14,6 @@ export class UserFullNamePipe implements PipeTransform {
       value.titleAfter,
     ];
 
-    return nameParts.join(' ');
+    return nameParts.filter((part) => !!part).join(' ');
   }
 }
