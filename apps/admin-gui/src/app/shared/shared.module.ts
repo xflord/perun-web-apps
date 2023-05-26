@@ -191,6 +191,8 @@ import { ApplicationsListColumnsChangeDialogComponent } from './components/dialo
 import { CopySponsoredMembersDialogComponent } from './components/dialogs/copy-sponsored-members-dialog/copy-sponsored-members-dialog.component';
 import { UnblockLoginsDialogComponent } from './components/dialogs/unblock-logins-dialog/unblock-logins-dialog.component';
 import { BlockLoginsDialogComponent } from './components/dialogs/block-logins-dialog/block-logins-dialog.component';
+import { AddGroupToVoRegistrationComponent } from './components/dialogs/add-group-to-vo-registration/add-group-to-vo-registration.component';
+import { AddGroupToGroupRegistrationComponent } from './components/dialogs/add-group-to-group-registration/add-group-to-group-registration.component';
 
 @NgModule({
   imports: [
@@ -472,6 +474,8 @@ import { BlockLoginsDialogComponent } from './components/dialogs/block-logins-di
     ApplicationsListColumnsChangeDialogComponent,
     UnblockLoginsDialogComponent,
     BlockLoginsDialogComponent,
+    AddGroupToVoRegistrationComponent,
+    AddGroupToGroupRegistrationComponent,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe, ConsentRelatedAttributePipe],
 })

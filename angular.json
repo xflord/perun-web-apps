@@ -19,7 +19,7 @@
             "outputPath": "dist/apps/admin-gui",
             "index": "apps/admin-gui/src/index.html",
             "main": "apps/admin-gui/src/main.ts",
-            "polyfills": [ "zone.js" ],
+            "polyfills": ["zone.js"],
             "tsConfig": "apps/admin-gui/tsconfig.app.json",
             "aot": true,
             "assets": [
@@ -33,9 +33,7 @@
               "apps/admin-gui/src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.css"
             ],
-            "scripts": [
-              "./node_modules/tinycolor2/dist/tinycolor-min.js"
-            ]
+            "scripts": ["./node_modules/tinycolor2/dist/tinycolor-min.js"]
           },
           "configurations": {
             "production": {
@@ -92,9 +90,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -120,14 +116,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/admin-gui/src/**/*.ts",
-              "apps/admin-gui/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/admin-gui/src/**/*.ts", "apps/admin-gui/src/**/*.html"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -135,9 +126,7 @@
             "jestConfig": "apps/admin-gui/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/apps/admin-gui"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/apps/admin-gui"]
         }
       },
       "tags": []
@@ -165,19 +154,13 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/admin-gui-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/admin-gui-e2e/**/*.{js,ts}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         }
       },
       "tags": [],
-      "implicitDependencies": [
-        "admin-gui"
-      ]
+      "implicitDependencies": ["admin-gui"]
     },
     "config": {
       "$schema": "../../node_modules/nx/schemas/project-schema.json",
@@ -189,14 +172,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/config/src/**/*.ts",
-              "libs/config/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/config/src/**/*.ts", "libs/config/src/**/*.html"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -204,9 +182,7 @@
             "jestConfig": "libs/config/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/config"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/config"]
         }
       },
       "schematics": {
@@ -231,9 +207,7 @@
               "libs/config/table-config/src/**/*.html"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -241,9 +215,7 @@
             "jestConfig": "libs/config/table-config/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/config/table-config"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/config/table-config"]
         }
       },
       "schematics": {
@@ -267,27 +239,20 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/consolidator",
             "index": "apps/consolidator/src/index.html",
             "main": "apps/consolidator/src/main.ts",
-            "polyfills": [ "zone.js" ],
+            "polyfills": ["zone.js"],
             "tsConfig": "apps/consolidator/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/consolidator/src/favicon.ico",
-              "apps/consolidator/src/assets"
-            ],
+            "assets": ["apps/consolidator/src/favicon.ico", "apps/consolidator/src/assets"],
             "styles": [
               "apps/consolidator/src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.css"
             ],
-            "scripts": [
-              "./node_modules/tinycolor2/dist/tinycolor-min.js"
-            ]
+            "scripts": ["./node_modules/tinycolor2/dist/tinycolor-min.js"]
           },
           "configurations": {
             "production": {
@@ -371,17 +336,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/consolidator/src/**/*.ts",
-              "apps/consolidator/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/consolidator/src/**/*.ts", "apps/consolidator/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "{workspaceRoot}/coverage/apps/consolidator"
-          ],
+          "outputs": ["{workspaceRoot}/coverage/apps/consolidator"],
           "options": {
             "jestConfig": "apps/consolidator/jest.config.ts",
             "passWithNoTests": true
@@ -412,9 +372,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/consolidator-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/consolidator-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -429,14 +387,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/general/src/**/*.ts",
-              "libs/general/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/general/src/**/*.ts", "libs/general/src/**/*.html"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -444,9 +397,7 @@
             "jestConfig": "libs/general/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/general"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/general"]
         }
       },
       "schematics": {
@@ -465,9 +416,7 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/lib-linker"
-          ],
+          "outputs": ["{workspaceRoot}/coverage/libs/lib-linker"],
           "options": {
             "jestConfig": "libs/lib-linker/jest.config.ts",
             "passWithNoTests": true
@@ -476,10 +425,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/lib-linker/src/**/*.ts",
-              "libs/lib-linker/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/lib-linker/src/**/*.ts", "libs/lib-linker/src/**/*.html"]
           }
         }
       }
@@ -493,27 +439,20 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/linker",
             "index": "apps/linker/src/index.html",
             "main": "apps/linker/src/main.ts",
-            "polyfills": [ "zone.js" ],
+            "polyfills": ["zone.js"],
             "tsConfig": "apps/linker/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "apps/linker/src/favicon.ico",
-              "apps/linker/src/assets"
-            ],
+            "assets": ["apps/linker/src/favicon.ico", "apps/linker/src/assets"],
             "styles": [
               "apps/linker/src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.css"
             ],
-            "scripts": [
-              "./node_modules/tinycolor2/dist/tinycolor-min.js"
-            ]
+            "scripts": ["./node_modules/tinycolor2/dist/tinycolor-min.js"]
           },
           "configurations": {
             "production": {
@@ -595,17 +534,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/linker/src/**/*.ts",
-              "apps/linker/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/linker/src/**/*.ts", "apps/linker/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "{workspaceRoot}/coverage/apps/linker"
-          ],
+          "outputs": ["{workspaceRoot}/coverage/apps/linker"],
           "options": {
             "jestConfig": "apps/linker/jest.config.ts",
             "passWithNoTests": true
@@ -636,9 +570,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/linker-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/linker-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -661,13 +593,10 @@
             "outputPath": "dist/apps/password-reset",
             "index": "apps/password-reset/src/index.html",
             "main": "apps/password-reset/src/main.ts",
-            "polyfills": [ "zone.js" ],
+            "polyfills": ["zone.js"],
             "tsConfig": "apps/password-reset/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/password-reset/src/favicon.ico",
-              "apps/password-reset/src/assets"
-            ],
+            "assets": ["apps/password-reset/src/favicon.ico", "apps/password-reset/src/assets"],
             "styles": [
               "apps/password-reset/src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.css"
@@ -730,9 +659,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -763,9 +690,7 @@
               "apps/password-reset/src/**/*.html"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -773,9 +698,7 @@
             "jestConfig": "apps/password-reset/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/apps/password-reset"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/apps/password-reset"]
         }
       },
       "tags": []
@@ -803,19 +726,13 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/password-reset-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/password-reset-e2e/**/*.{js,ts}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         }
       },
       "tags": [],
-      "implicitDependencies": [
-        "password-reset"
-      ]
+      "implicitDependencies": ["password-reset"]
     },
     "perun-animations": {
       "$schema": "../../../node_modules/nx/schemas/project-schema.json",
@@ -832,9 +749,7 @@
               "libs/perun/animations/src/**/*.html"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -842,9 +757,7 @@
             "jestConfig": "libs/perun/animations/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/perun/animations"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/perun/animations"]
         }
       },
       "schematics": {
@@ -869,9 +782,7 @@
               "libs/perun/components/src/**/*.html"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -879,9 +790,7 @@
             "jestConfig": "libs/perun/components/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/perun/components"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/perun/components"]
         }
       },
       "schematics": {
@@ -904,9 +813,7 @@
               "libs/perun/dialogs/src/**/*.html"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -914,9 +821,7 @@
             "jestConfig": "libs/perun/dialogs/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/perun/dialogs"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/perun/dialogs"]
         }
       },
       "schematics": {
@@ -941,9 +846,7 @@
               "libs/perun/directives/src/**/*.html"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -951,9 +854,7 @@
             "jestConfig": "libs/perun/directives/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/perun/directives"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/perun/directives"]
         }
       },
       "schematics": {
@@ -978,9 +879,7 @@
               "libs/perun/facility-services-config/src/**/*.html"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -988,9 +887,7 @@
             "jestConfig": "libs/perun/facility-services-config/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/perun/facility-services-config"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/perun/facility-services-config"]
         }
       },
       "schematics": {
@@ -1010,14 +907,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/perun/login/src/**/*.ts",
-              "libs/perun/login/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/perun/login/src/**/*.ts", "libs/perun/login/src/**/*.html"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -1025,9 +917,7 @@
             "jestConfig": "libs/perun/login/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/perun/login"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/perun/login"]
         }
       },
       "schematics": {
@@ -1047,14 +937,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/perun/models/src/**/*.ts",
-              "libs/perun/models/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/perun/models/src/**/*.ts", "libs/perun/models/src/**/*.html"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -1062,9 +947,7 @@
             "jestConfig": "libs/perun/models/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/perun/models"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/perun/models"]
         }
       },
       "tags": []
@@ -1077,9 +960,7 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/perun/multi-factor-authentication"
-          ],
+          "outputs": ["{workspaceRoot}/coverage/libs/perun/multi-factor-authentication"],
           "options": {
             "jestConfig": "libs/perun/multi-factor-authentication/jest.config.ts",
             "passWithNoTests": true
@@ -1106,9 +987,7 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/perun/namespace-password-form"
-          ],
+          "outputs": ["{workspaceRoot}/coverage/libs/perun/namespace-password-form"],
           "options": {
             "jestConfig": "libs/perun/namespace-password-form/jest.config.ts",
             "passWithNoTests": true
@@ -1122,9 +1001,7 @@
               "libs/perun/namespace-password-form/src/**/*.html"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         }
       },
       "tags": []
@@ -1144,9 +1021,7 @@
               "libs/perun/openapi/src/**/*.html"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -1154,9 +1029,7 @@
             "jestConfig": "libs/perun/openapi/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/perun/openapi"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/perun/openapi"]
         }
       },
       "schematics": {},
@@ -1172,14 +1045,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/perun/pipes/src/**/*.ts",
-              "libs/perun/pipes/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/perun/pipes/src/**/*.ts", "libs/perun/pipes/src/**/*.html"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -1187,9 +1055,7 @@
             "jestConfig": "libs/perun/pipes/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/perun/pipes"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/perun/pipes"]
         }
       },
       "schematics": {
@@ -1214,9 +1080,7 @@
               "libs/perun/services/src/**/*.html"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -1224,9 +1088,7 @@
             "jestConfig": "libs/perun/services/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/perun/services"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/perun/services"]
         }
       },
       "tags": []
@@ -1246,9 +1108,7 @@
               "libs/perun/session-expiration/src/**/*.html"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -1256,9 +1116,7 @@
             "jestConfig": "libs/perun/session-expiration/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/perun/session-expiration"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/perun/session-expiration"]
         }
       },
       "schematics": {
@@ -1278,14 +1136,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/perun/tokens/src/**/*.ts",
-              "libs/perun/tokens/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/perun/tokens/src/**/*.ts", "libs/perun/tokens/src/**/*.html"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -1293,9 +1146,7 @@
             "jestConfig": "libs/perun/tokens/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/perun/tokens"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/perun/tokens"]
         }
       },
       "tags": []
@@ -1310,14 +1161,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/perun/urns/src/**/*.ts",
-              "libs/perun/urns/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/perun/urns/src/**/*.ts", "libs/perun/urns/src/**/*.html"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -1325,9 +1171,7 @@
             "jestConfig": "libs/perun/urns/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/perun/urns"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/perun/urns"]
         }
       },
       "tags": []
@@ -1342,14 +1186,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/perun/utils/src/**/*.ts",
-              "libs/perun/utils/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/perun/utils/src/**/*.ts", "libs/perun/utils/src/**/*.html"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -1357,9 +1196,7 @@
             "jestConfig": "libs/perun/utils/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/perun/utils"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/perun/utils"]
         }
       },
       "tags": []
@@ -1404,20 +1241,15 @@
             "outputPath": "dist/apps/publications",
             "index": "apps/publications/src/index.html",
             "main": "apps/publications/src/main.ts",
-            "polyfills": [ "zone.js" ],
+            "polyfills": ["zone.js"],
             "tsConfig": "apps/publications/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/publications/src/favicon.ico",
-              "apps/publications/src/assets"
-            ],
+            "assets": ["apps/publications/src/favicon.ico", "apps/publications/src/assets"],
             "styles": [
               "apps/publications/src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.css"
             ],
-            "scripts": [
-              "./node_modules/tinycolor2/dist/tinycolor-min.js"
-            ]
+            "scripts": ["./node_modules/tinycolor2/dist/tinycolor-min.js"]
           },
           "configurations": {
             "production": {
@@ -1475,9 +1307,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -1503,14 +1333,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/publications/src/**/*.ts",
-              "apps/publications/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/publications/src/**/*.ts", "apps/publications/src/**/*.html"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -1518,9 +1343,7 @@
             "jestConfig": "apps/publications/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/apps/publications"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/apps/publications"]
         }
       },
       "tags": []
@@ -1548,19 +1371,13 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/publications-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/publications-e2e/**/*.{js,ts}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         }
       },
       "tags": [],
-      "implicitDependencies": [
-        "publications"
-      ]
+      "implicitDependencies": ["publications"]
     },
     "ui": {
       "$schema": "../../node_modules/nx/schemas/project-schema.json",
@@ -1572,14 +1389,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/ui/src/**/*.ts",
-              "libs/ui/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -1587,9 +1399,7 @@
             "jestConfig": "libs/ui/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/ui"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/ui"]
         }
       },
       "schematics": {
@@ -1609,14 +1419,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/ui/alerts/src/**/*.ts",
-              "libs/ui/alerts/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/ui/alerts/src/**/*.ts", "libs/ui/alerts/src/**/*.html"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -1624,9 +1429,7 @@
             "jestConfig": "libs/ui/alerts/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/ui/alerts"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/ui/alerts"]
         }
       },
       "tags": []
@@ -1641,14 +1444,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/ui/material/src/**/*.ts",
-              "libs/ui/material/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/ui/material/src/**/*.ts", "libs/ui/material/src/**/*.html"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -1656,9 +1454,7 @@
             "jestConfig": "libs/ui/material/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/libs/ui/material"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/libs/ui/material"]
         }
       },
       "schematics": {
@@ -1686,20 +1482,15 @@
             "outputPath": "dist/apps/user-profile",
             "index": "apps/user-profile/src/index.html",
             "main": "apps/user-profile/src/main.ts",
-            "polyfills": [ "zone.js" ],
+            "polyfills": ["zone.js"],
             "tsConfig": "apps/user-profile/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/user-profile/src/favicon.ico",
-              "apps/user-profile/src/assets"
-            ],
+            "assets": ["apps/user-profile/src/favicon.ico", "apps/user-profile/src/assets"],
             "styles": [
               "apps/user-profile/src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.css"
             ],
-            "scripts": [
-              "./node_modules/tinycolor2/dist/tinycolor-min.js"
-            ]
+            "scripts": ["./node_modules/tinycolor2/dist/tinycolor-min.js"]
           },
           "configurations": {
             "production": {
@@ -1758,9 +1549,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -1786,23 +1575,16 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/user-profile/src/**/*.ts",
-              "apps/user-profile/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/user-profile/src/**/*.ts", "apps/user-profile/src/**/*.html"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/user-profile/jest.config.ts"
           },
-          "outputs": [
-            "{workspaceRoot}/coverage/apps/user-profile"
-          ]
+          "outputs": ["{workspaceRoot}/coverage/apps/user-profile"]
         }
       },
       "tags": []
@@ -1830,13 +1612,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/user-profile-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/user-profile-e2e/**/*.{js,ts}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         }
       },
       "tags": []

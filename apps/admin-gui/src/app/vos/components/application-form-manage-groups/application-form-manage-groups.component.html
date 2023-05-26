@@ -6,8 +6,8 @@
   {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.HELP' | translate}}
 </perun-web-apps-alert>
 
-<perun-web-apps-refresh-button (refresh)="loadGroups()"></perun-web-apps-refresh-button>
-<button (click)="onAddGroup()" *ngIf="addAuth" class="me-2" color="accent" mat-flat-button>
+<perun-web-apps-refresh-button (refresh)="refreshEvent.emit()"></perun-web-apps-refresh-button>
+<button (click)="addEvent.emit()" *ngIf="addAuth" class="me-2" color="accent" mat-flat-button>
   {{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.ADD' | translate}}
 </button>
 <span
@@ -15,7 +15,7 @@
   [matTooltipDisabled]="selected.selected.length === 0 || auth.removeAuth"
   matTooltip="{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.MANAGE_GROUPS_PAGE.REMOVE_PERMISSION_HINT' | translate}}">
   <button
-    (click)="removeGroup()"
+    (click)="removeGroups()"
     color="warn"
     [disabled]="selected.selected.length === 0 || !auth.removeAuth"
     class="me-2"

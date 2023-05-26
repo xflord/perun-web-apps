@@ -1,0 +1,10 @@
+<app-application-form-manage-groups
+  [loading]="loading"
+  [groups]="groups"
+  [selected]="selected"
+  [addAuth]="addAuth"
+  [removeAuth$]="removeAuth$"
+  (refreshEvent)="loadGroups()"
+  (addEvent)="onAddGroup()"
+  (removeEvent)="removeGroup()">
+</app-application-form-manage-groups>

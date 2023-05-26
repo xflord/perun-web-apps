@@ -71,6 +71,8 @@ import { GroupAddMemberDialogComponent } from './components/group-add-member-dia
 import { GroupRolesComponent } from './pages/group-detail-page/group-roles/group-roles.component';
 import { VoSettingsBansComponent } from './pages/vo-detail-page/vo-settings/vo-settings-bans/vo-settings-bans.component';
 import { MemberBansComponent } from './pages/member-detail-page/member-bans/member-bans.component';
+import { VoSettingsManageEmbeddedGroupsComponent } from './pages/vo-detail-page/vo-settings/vo-settings-manage-embedded-groups/vo-settings-manage-embedded-groups.component';
+import { GroupSettingsManageEmbeddedGroupsComponent } from './pages/group-detail-page/group-settings/group-settings-manage-embedded-groups/group-settings-manage-embedded-groups.component';
 
 @NgModule({
   imports: [
@@ -154,6 +156,8 @@ import { MemberBansComponent } from './pages/member-detail-page/member-bans/memb
     GroupAddMemberDialogComponent,
     VoSettingsBansComponent,
     MemberBansComponent,
+    VoSettingsManageEmbeddedGroupsComponent,
+    GroupSettingsManageEmbeddedGroupsComponent,
   ],
 })
 export class VosModule {}

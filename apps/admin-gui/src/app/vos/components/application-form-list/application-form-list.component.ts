@@ -242,9 +242,23 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
   }
 
   openManagingGroups(): void {
-    void this.router.navigate(
-      ['/organizations', this.applicationForm.vo.id, 'settings', 'applicationForm', 'manageGroups'],
-      { queryParamsHandling: 'preserve' }
-    );
+    const path = this.applicationForm.group
+      ? [
+          '/organizations',
+          this.applicationForm.vo.id,
+          'groups',
+          this.applicationForm.group.id,
+          'settings',
+          'applicationForm',
+          'manageGroups',
+        ]
+      : [
+          '/organizations',
+          this.applicationForm.vo.id,
+          'settings',
+          'applicationForm',
+          'manageGroups',
+        ];
+    void this.router.navigate(path, { queryParamsHandling: 'preserve' });
   }
 }

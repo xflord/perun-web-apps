@@ -56,7 +56,6 @@ import { VoSettingsSponsoredMembersComponent } from './pages/vo-detail-page/vo-s
 import { GroupSettingsExtsourcesComponent } from './pages/group-detail-page/group-settings/group-settings-extsources/group-settings-extsources.component';
 import { VoStatisticsComponent } from './pages/vo-detail-page/vo-statistics/vo-statistics.component';
 import { GroupStatisticsComponent } from './pages/group-detail-page/group-statistics/group-statistics.component';
-import { ApplicationFormManageGroupsComponent } from './components/application-form-manage-groups/application-form-manage-groups.component';
 import { ResourceTagsComponent } from '../facilities/pages/resource-detail-page/resource-tags/resource-tags.component';
 import { VoSettingsServiceMembersComponent } from './pages/vo-detail-page/vo-settings/vo-settings-service-members/vo-settings-service-members.component';
 import { RouteAuthGuardService } from '../shared/route-auth-guard.service';
@@ -66,6 +65,8 @@ import { GroupRolesComponent } from './pages/group-detail-page/group-roles/group
 import { VoSettingsBansComponent } from './pages/vo-detail-page/vo-settings/vo-settings-bans/vo-settings-bans.component';
 import { MemberBansComponent } from './pages/member-detail-page/member-bans/member-bans.component';
 import { ResourceSettingsBansComponent } from '../facilities/pages/resource-detail-page/resource-settings/resource-settings-bans/resource-settings-bans.component';
+import { VoSettingsManageEmbeddedGroupsComponent } from './pages/vo-detail-page/vo-settings/vo-settings-manage-embedded-groups/vo-settings-manage-embedded-groups.component';
+import { GroupSettingsManageEmbeddedGroupsComponent } from './pages/group-detail-page/group-settings/group-settings-manage-embedded-groups/group-settings-manage-embedded-groups.component';
 
 const routes: Routes = [
   {
@@ -179,7 +180,7 @@ const routes: Routes = [
           },
           {
             path: 'applicationForm/manageGroups',
-            component: ApplicationFormManageGroupsComponent,
+            component: VoSettingsManageEmbeddedGroupsComponent,
           },
           {
             path: 'notifications',
@@ -324,6 +325,10 @@ const routes: Routes = [
           {
             path: 'applicationForm/preview',
             component: ApplicationFormPreviewComponent,
+          },
+          {
+            path: 'applicationForm/manageGroups',
+            component: GroupSettingsManageEmbeddedGroupsComponent,
           },
           {
             path: 'notifications',

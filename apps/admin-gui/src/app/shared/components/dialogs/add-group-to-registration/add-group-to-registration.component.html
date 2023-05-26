@@ -24,7 +24,7 @@
         {{'DIALOGS.ADD_GROUP_TO_REGISTRATION.CANCEL_BUTTON' | translate}}
       </button>
       <button
-        (click)="onAdd()"
+        (click)="addEvent.emit()"
         class="ms-2"
         color="accent"
         [disabled]="selection.selected.length === 0 || loading"
