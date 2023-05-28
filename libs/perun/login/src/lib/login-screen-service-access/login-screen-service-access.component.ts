@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '@perun-web-apps/perun/services';
+import { AuthService, InitAuthService } from '@perun-web-apps/perun/services';
 
 @Component({
   selector: 'perun-web-apps-login-screen-service-access',
@@ -13,16 +13,18 @@ export class LoginScreenServiceAccessComponent implements OnInit {
   usernameCtrl = new FormControl<string>(null, [Validators.required]);
   passwordCtrl = new FormControl<string>(null, [Validators.required]);
   wrongUsernameOrPassword = false;
+  afterLogout: boolean;
 
   constructor(
     private authzService: AuthzResolverService,
     private auth: AuthService,
+    private initAuth: InitAuthService,
     private router: Router
   ) {}
 
   startAuth(): void {
     if (this.usernameCtrl.invalid || this.passwordCtrl.invalid) return;
-
+    sessionStorage.removeItem('baAfterLogout');
     sessionStorage.setItem('basicUsername', this.usernameCtrl.value);
     sessionStorage.setItem('basicPassword', this.passwordCtrl.value);
     this.authzService.getPerunPrincipal().subscribe({
@@ -38,7 +40,18 @@ export class LoginScreenServiceAccessComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.auth.isLoggedIn() || sessionStorage.getItem('baPrincipal')) {
+      sessionStorage.removeItem('baAfterLogout');
       void this.router.navigate([''], { queryParamsHandling: 'merge' });
+    }
+
+    if (sessionStorage.getItem('baLogout')) {
+      this.initAuth.invalidateServiceAccess();
+      location.reload();
+    }
+
+    if (sessionStorage.getItem('baAfterLogout')) {
+      this.afterLogout = true;
+      sessionStorage.setItem('baAfterLogout', 'false');
     }
   }
 }
