@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Attribute, AttributesManagerService, RichMember } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import {
@@ -6,43 +6,46 @@ import {
   ChangeVoExpirationDialogComponent,
 } from '@perun-web-apps/perun/dialogs';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
 import {
   ApiRequestConfigurationService,
   GuiAuthResolver,
   NotificatorService,
+  PerunTranslateService,
 } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { TranslateService } from '@ngx-translate/core';
 import { RPCError } from '@perun-web-apps/perun/models';
+import { MemberStatusDisabledPipe } from '@perun-web-apps/perun/pipes';
 
 @Component({
   selector: 'perun-web-apps-member-overview-membership',
   templateUrl: './member-overview-membership.component.html',
   styleUrls: ['./member-overview-membership.component.css'],
+  providers: [MemberStatusDisabledPipe],
 })
-export class MemberOverviewMembershipComponent implements OnChanges {
+export class MemberOverviewMembershipComponent implements OnInit {
   @Input() member: RichMember;
   @Input() voId: number;
-  @Input() openedInDialog = false;
-  @Output() statusChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
-  voMembershipDataSource = new MatTableDataSource<string>();
-  voExpiration = '';
-  voExpirationAtt: Attribute;
   loading: boolean;
-  displayedColumns = ['attName', 'attValue'];
+  expiration = '';
+  expirationAtt: Attribute;
+  expirationAuth = true;
+  expirationRelevant = true;
+  editAuth = false;
 
   constructor(
     private dialog: MatDialog,
     public authResolver: GuiAuthResolver,
     private apiRequest: ApiRequestConfigurationService,
     private attributesManager: AttributesManagerService,
-    private translate: TranslateService,
-    private notificator: NotificatorService
+    private translate: PerunTranslateService,
+    private notificator: NotificatorService,
+    private disablePipe: MemberStatusDisabledPipe
   ) {}
 
-  ngOnChanges(): void {
-    this.voMembershipDataSource = new MatTableDataSource<string>(['Status', 'Expiration']);
+  ngOnInit(): void {
+    this.editAuth =
+      this.authResolver.isThisVoAdmin(this.voId) && !this.disablePipe.transform(this.member);
+    this.setExpirationRelevant();
     this.refreshVoExpiration();
   }
 
@@ -52,8 +55,7 @@ export class MemberOverviewMembershipComponent implements OnChanges {
     config.data = {
       member: this.member,
       voId: this.voId,
-      backButton: this.openedInDialog,
-      expirationAttr: this.voExpirationAtt,
+      expirationAttr: this.expirationAtt,
     };
 
     const dialogRef = this.dialog.open(ChangeMemberStatusDialogComponent, config);
@@ -61,20 +63,20 @@ export class MemberOverviewMembershipComponent implements OnChanges {
       if (member) {
         this.member = member;
         this.dialog.closeAll();
+        this.setExpirationRelevant();
         this.refreshVoExpiration();
       }
     });
   }
 
-  changeVoExpiration(): void {
+  changeExpiration(): void {
     const config = getDefaultDialogConfig();
     config.width = '400px';
     config.data = {
       voId: this.voId,
       memberId: this.member.id,
-      expirationAttr: this.voExpirationAtt,
+      expirationAttr: this.expirationAtt,
       status: this.member.status,
-      backButton: this.openedInDialog,
     };
 
     const dialogRef = this.dialog.open(ChangeVoExpirationDialogComponent, config);
@@ -96,20 +98,26 @@ export class MemberOverviewMembershipComponent implements OnChanges {
       .getMemberAttributeByName(this.member.id, Urns.MEMBER_DEF_EXPIRATION)
       .subscribe({
         next: (attr) => {
-          this.voExpirationAtt = attr;
-          this.voExpiration = !attr.value
-            ? (this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES') as string)
+          this.expirationAtt = attr;
+          this.expiration = !attr.value
+            ? this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES')
             : (attr.value as string);
           this.loading = false;
         },
         error: (error: RPCError) => {
+          // Can't evaluate Permission to retrieve expiration attribute beforehand
+          // Hide expiration if user is not authorized to READ
           if (error.name !== 'PrivilegeException') {
             this.notificator.showError(error.name);
           } else {
-            this.voMembershipDataSource = new MatTableDataSource<string>(['Status']);
+            this.expirationAuth = false;
           }
           this.loading = false;
         },
       });
+  }
+
+  private setExpirationRelevant(): void {
+    this.expirationRelevant = this.member.status === 'VALID' || this.member.status === 'EXPIRED';
   }
 }

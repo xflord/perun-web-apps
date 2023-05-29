@@ -1,23 +1,17 @@
 <div class="{{theme}}">
   <div class="dialog-container" mat-dialog-content>
-    <perun-web-apps-member-overview-membership
-      *ngIf="!groupId"
-      [member]="member"
-      [voId]="voId"
-      [openedInDialog]="true"
-      (statusChanged)="statusChanged = $event">
+    <perun-web-apps-member-overview-membership *ngIf="!groupId" [member]="member" [voId]="voId">
     </perun-web-apps-member-overview-membership>
     <perun-web-apps-member-overview-groups
       *ngIf="groupId"
       [member]="member"
       [voId]="voId"
-      [openedInDialog]="true"
-      (statusChanged)="statusChanged = $event">
+      [requiresGroupSelect]="false">
     </perun-web-apps-member-overview-groups>
   </div>
   <div mat-dialog-actions>
-    <button (click)="cancel()" class="ms-auto" mat-flat-button>
-      {{'DIALOGS.CHANGE_STATUS.CANCEL' | translate}}
+    <button (click)="close()" class="ms-auto" mat-flat-button>
+      {{'DIALOGS.CHANGE_STATUS.CLOSE' | translate}}
     </button>
   </div>
 </div>

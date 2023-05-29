@@ -1,0 +1,24 @@
+<div class="d-flex flex-row align-items-center justify-content-between field-height">
+  <b>{{'MEMBER_DETAIL.OVERVIEW.STATUS' | translate}}</b>
+  <div class="d-flex flex-row align-items-center justify-content-center">
+    <i class="material-icons me-1 {{(status | groupStatusIconColor)}}">
+      {{status | memberStatusIcon}}
+    </i>
+    <span class="me-2">{{status | transformMemberStatus}}</span>
+    <button *ngIf="editStatusAuth" (click)="onChangeStatus()" mat-icon-button>
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+</div>
+<mat-divider *ngIf="showExpiration"></mat-divider>
+<div
+  *ngIf="showExpiration"
+  class="d-flex flex-row align-items-center align-items-center justify-content-between field-height">
+  <b>{{'MEMBER_DETAIL.OVERVIEW.EXPIRATION' | translate}}</b>
+  <div class="d-flex flex-row align-items-center justify-content-center">
+    <i class="me-2"> {{expiration | parseDate}} </i>
+    <button *ngIf="editExpirationAuth" (click)="onChangeExpiration()" mat-icon-button>
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+</div>

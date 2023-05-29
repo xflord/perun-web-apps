@@ -6,7 +6,6 @@ import {
   StoreService,
 } from '@perun-web-apps/perun/services';
 import { MembersManagerService, RichMember, RichUser, User } from '@perun-web-apps/perun/openapi';
-import { formatDate } from '@angular/common';
 import { UntypedFormControl, Validators } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Urns } from '@perun-web-apps/perun/urns';
@@ -95,11 +94,7 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
   }
 
   setExpiration(newExpiration: string): void {
-    if (newExpiration === 'never') {
-      this.expiration = 'never';
-    } else {
-      this.expiration = formatDate(newExpiration, 'yyyy-MM-dd', 'en-GB');
-    }
+    this.expiration = newExpiration;
   }
 
   onSearchByString(): void {

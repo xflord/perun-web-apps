@@ -1,65 +1,33 @@
-<mat-card-header *ngIf="!openedInDialog">
-  <mat-card-title>
-    <h1 class="page-subtitle">{{'MEMBER_DETAIL.OVERVIEW.GROUP_MEMBERSHIP' | translate}}</h1>
-  </mat-card-title>
-</mat-card-header>
-<h1 *ngIf="openedInDialog" mat-dialog-title>
-  {{'MEMBER_DETAIL.OVERVIEW.GROUP_MEMBERSHIP' | translate}}
-</h1>
-<mat-card-content class="column-center">
-  <perun-web-apps-group-search-select
-    *ngIf="!initLoading && !openedInDialog"
-    (groupSelected)="groupIsSelected($event)"
-    [firstSelectedGroup]="selectedGroup"
-    [groups]="groups">
-  </perun-web-apps-group-search-select>
-  <mat-spinner *ngIf="(loading || initLoading) && !noGroups" class="me-auto ms-auto"></mat-spinner>
-  <perun-web-apps-alert
-    alert_type="warn"
-    *ngIf="noGroups"
-    >{{'MEMBER_DETAIL.OVERVIEW.NO_GROUPS_FOUND' | translate}}</perun-web-apps-alert
-  >
-  <div *ngIf="!loading">
-    <table
-      [dataSource]="groupMembershipDataSource"
-      [class]="openedInDialog ? 'me-auto' : 'ms-auto me-auto'"
-      mat-table>
-      <ng-container matColumnDef="attName">
-        <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let attribute" class="fw-bold" mat-cell>{{attribute}}:</td>
-      </ng-container>
-      <ng-container matColumnDef="attValue">
-        <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let attribute" class="column-center" mat-cell>
-          <div class="d-flex align-items-center" *ngIf="attribute === 'Status'">
-            <i
-              class="material-icons vert-center me-1 {{(selectedMember.groupStatus | groupStatusIconColor)}}">
-              {{selectedMember.groupStatus | memberStatusIcon}}
-            </i>
-            <b class="vert-top">
-              {{selectedMember.groupStatus | transformMemberStatus}}
-            </b>
-            <button
-              *ngIf="authResolver.isThisVoAdmin(voId) || authResolver.isThisGroupAdmin(selectedGroup.id)"
-              (click)="changeStatus()"
-              mat-icon-button>
-              <mat-icon>edit</mat-icon>
-            </button>
-          </div>
-          <div class="d-flex align-items-center" *ngIf="attribute === 'Expiration'">
-            <i class="column-center">
-              {{expiration | parseDate}}
-            </i>
-            <button
-              *ngIf="authResolver.isThisVoAdmin(voId) || authResolver.isThisGroupAdmin(selectedGroup.id)"
-              (click)="changeExpiration()"
-              mat-icon-button>
-              <mat-icon>edit</mat-icon>
-            </button>
-          </div>
-        </td>
-      </ng-container>
-      <tr *matRowDef="let attribute; columns: displayedColumns;" mat-row></tr>
-    </table>
+<div *perunWebAppsLoader="loading; indicator: spinner">
+  <mat-card-header>
+    <mat-card-title>
+      <h1 class="page-subtitle">{{'MEMBER_DETAIL.OVERVIEW.GROUP_MEMBERSHIP' | translate}}</h1>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <perun-web-apps-group-search-select
+      *ngIf="requiresGroupSelect"
+      (groupSelected)="groupIsSelected($event)"
+      [firstSelectedGroup]="selectedGroup"
+      [groups]="groups">
+    </perun-web-apps-group-search-select>
+    <perun-web-apps-alert *ngIf="groups.length === 0" alert_type="warn">
+      {{'MEMBER_DETAIL.OVERVIEW.NO_GROUPS_FOUND' | translate}}
+    </perun-web-apps-alert>
+    <perun-web-apps-membership-status-settings
+      *ngIf="groups.length !== 0 && selectedMember"
+      [status]="selectedMember.groupStatus"
+      [editStatusAuth]="editAuth"
+      [editExpirationAuth]="editAuth"
+      [expiration]="expiration"
+      [showExpiration]="showExpiration"
+      (changeStatus)="changeStatus()"
+      (changeExpiration)="changeExpiration()">
+    </perun-web-apps-membership-status-settings>
+  </mat-card-content>
+</div>
+<ng-template #spinner>
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
   </div>
-</mat-card-content>
+</ng-template>

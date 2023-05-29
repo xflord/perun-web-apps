@@ -148,11 +148,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   }
 
   setExpiration(newExpiration: string): void {
-    if (newExpiration === 'never') {
-      this.expiration = 'never';
-    } else {
-      this.expiration = formatDate(newExpiration, 'yyyy-MM-dd', 'en-GB');
-    }
+    this.expiration = newExpiration;
   }
 
   onSubmit(): void {

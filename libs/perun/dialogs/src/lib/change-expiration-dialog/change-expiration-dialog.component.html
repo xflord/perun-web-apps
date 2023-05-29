@@ -1,70 +1,27 @@
 <div class="member-theme">
   <div mat-dialog-content>
     <p>
-      <strong>{{'DIALOGS.CHANGE_EXPIRATION.CURRENT_EXPIRATION'|translate}}</strong>
+      <strong>
+        {{'DIALOGS.CHANGE_EXPIRATION.CURRENT_EXPIRATION' | translate}}
+      </strong>
       {{currentExpiration | parseDate}}
     </p>
-    <p>
-      <strong>{{'DIALOGS.CHANGE_EXPIRATION.NEW_EXPIRATION'|translate}}</strong>
-      {{newExpiration ? (newExpiration | parseDate) : 'never'}}
-    </p>
-
-    <mat-radio-group [(ngModel)]="newExpiration" class="d-flex flex-column">
-      <mat-radio-button value="{{expirationControl.value}}">
-        <mat-form-field color="primary" class="cursor-pointer" (click)="picker.open()">
-          <mat-label>{{'DIALOGS.CHANGE_EXPIRATION.DATE_LABEL'|translate}}</mat-label>
-          <input
-            (dateChange)="setExpiration()"
-            [min]="minDate"
-            [max]="maxDate"
-            [formControl]="expirationControl"
-            [matDatepicker]="picker"
-            class="disable"
-            readonly
-            matInput />
-          <mat-datepicker-toggle
-            [for]="picker"
-            [disabled]="false"
-            matSuffix></mat-datepicker-toggle>
-          <mat-datepicker #picker [disabled]="false"></mat-datepicker>
-        </mat-form-field>
-      </mat-radio-button>
-      <mat-radio-button
-        class="bottom-padding"
-        value="voRules"
-        *ngIf="canExtendMembership && mode === 'vo'">
-        {{'DIALOGS.CHANGE_EXPIRATION.VO_RULES'|translate}}
-      </mat-radio-button>
-      <mat-radio-button
-        class="bottom-padding"
-        value="groupRules"
-        *ngIf="canExtendMembership && mode === 'group'">
-        {{'DIALOGS.CHANGE_EXPIRATION.GROUP_RULES'|translate}}
-      </mat-radio-button>
-      <mat-radio-button value="never">
-        <span class="cursor-pointer">
-          {{'DIALOGS.CHANGE_EXPIRATION.EXPIRATION_NEVER'|translate}}
-        </span>
-      </mat-radio-button>
-    </mat-radio-group>
-    <perun-web-apps-alert
-      alert_type="info"
-      *ngIf="status === 'EXPIRED' && (newExpiration === 'never' || parseDate(expirationControl.value) > currentDate)"
-      >{{'DIALOGS.CHANGE_EXPIRATION.STATUS_CHANGE_INFO' | translate}}</perun-web-apps-alert
-    >
+    <p>{{'DIALOGS.CHANGE_EXPIRATION.SELECT_NEW' | translate}}</p>
+    <perun-web-apps-expiration-select
+      [expiration]="currentExpiration"
+      [allowNever]="status === 'VALID'"
+      [canExtendInVo]="canExtendInVo"
+      [canExtendInGroup]="canExtendInGroup"
+      [minDate]="minDate"
+      [maxDate]="maxDate"
+      (expirationSelected)="setExpiration($event)">
+    </perun-web-apps-expiration-select>
   </div>
   <div mat-dialog-actions>
-    <button (click)="onCancel()" class="ms-auto" mat-flat-button>
-      {{backButton ?
-      ('DIALOGS.CHANGE_EXPIRATION.BACK' | translate) :
-      ('DIALOGS.CHANGE_EXPIRATION.CANCEL' | translate)}}
+    <button (click)="onCancel()" class="ms-auto me-2" mat-flat-button>
+      {{'DIALOGS.CHANGE_EXPIRATION.CANCEL' | translate}}
     </button>
-    <button
-      (click)="onChange()"
-      [disabled]="expirationControl.invalid"
-      class="ms-2"
-      color="accent"
-      mat-flat-button>
+    <button (click)="onChangeExpiration()" color="accent" mat-flat-button>
       {{'DIALOGS.CHANGE_EXPIRATION.SAVE' | translate}}
     </button>
   </div>

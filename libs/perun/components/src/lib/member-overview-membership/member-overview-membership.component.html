@@ -1,55 +1,25 @@
-<mat-card-header *ngIf="!openedInDialog">
-  <mat-card-title>
-    <h1 class="page-subtitle">
-      {{'MEMBER_DETAIL.OVERVIEW.ORGANIZATION_MEMBERSHIP' | translate}}
-    </h1>
-  </mat-card-title>
-</mat-card-header>
-<h1 *ngIf="openedInDialog" mat-dialog-title>
-  {{'MEMBER_DETAIL.OVERVIEW.ORGANIZATION_MEMBERSHIP' | translate}}
-</h1>
-<mat-card-content>
-  <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
-  <div *ngIf="!loading">
-    <table
-      [dataSource]="voMembershipDataSource"
-      [class]="openedInDialog ? 'me-auto' : 'ms-auto me-auto'"
-      mat-table>
-      <ng-container matColumnDef="attName">
-        <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let attribute" class="fw-bold" mat-cell>{{attribute}}:</td>
-      </ng-container>
-      <ng-container matColumnDef="attValue">
-        <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let attribute" class="column-center" mat-cell>
-          <div class="d-flex align-items-center" *ngIf="attribute === 'Status'">
-            <i class="material-icons vert-center me-1 {{(member | memberStatusIconColor)}}">
-              {{member.status | memberStatusIcon}}
-            </i>
-            <b class="vert-top">
-              {{member.status | transformMemberStatus}}
-            </b>
-            <button
-              *ngIf="authResolver.isThisVoAdmin(voId) && !(member | memberStatusDisabled)"
-              (click)="changeStatus()"
-              mat-icon-button>
-              <mat-icon>edit</mat-icon>
-            </button>
-          </div>
-          <div class="d-flex align-items-center" *ngIf="attribute === 'Expiration'">
-            <i class="column-center">
-              {{voExpiration | parseDate}}
-            </i>
-            <button
-              *ngIf="authResolver.isThisVoAdmin(voId) && !(member | memberStatusDisabled)"
-              (click)="changeVoExpiration()"
-              mat-icon-button>
-              <mat-icon>edit</mat-icon>
-            </button>
-          </div>
-        </td>
-      </ng-container>
-      <tr *matRowDef="let attribute; columns: displayedColumns;" mat-row></tr>
-    </table>
+<div *perunWebAppsLoader="loading; indicator: spinner">
+  <mat-card-header>
+    <mat-card-title>
+      <h1 class="page-subtitle">
+        {{'MEMBER_DETAIL.OVERVIEW.ORGANIZATION_MEMBERSHIP' | translate}}
+      </h1>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <perun-web-apps-membership-status-settings
+      [status]="member.status"
+      [editStatusAuth]="editAuth"
+      [editExpirationAuth]="editAuth"
+      [expiration]="expiration"
+      [showExpiration]="expirationAuth && expirationRelevant"
+      (changeStatus)="changeStatus()"
+      (changeExpiration)="changeExpiration()">
+    </perun-web-apps-membership-status-settings>
+  </mat-card-content>
+</div>
+<ng-template #spinner>
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
   </div>
-</mat-card-content>
+</ng-template>

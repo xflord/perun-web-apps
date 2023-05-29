@@ -43,6 +43,7 @@ export class CopySponsoredMembersDialogComponent implements OnInit {
   sourceSponsorSelected = false;
   filter: string;
   expiration = 'never';
+  minDate = new Date();
   pickExpiration = false;
   disableSelf = false;
   isPerunAdmin = false;

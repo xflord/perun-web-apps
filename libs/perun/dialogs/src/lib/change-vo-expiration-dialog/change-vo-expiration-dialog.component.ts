@@ -5,16 +5,15 @@ import {
   MembersManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
 import { NotificatorService } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
+import { iif, mergeMap, of, switchMap } from 'rxjs';
 
 export interface ChangeVoExpirationDialogData {
-  voId?: number;
+  voId: number;
   memberId: number;
   expirationAttr: Attribute;
   status: string;
-  backButton?: boolean;
 }
 
 @Component({
@@ -24,15 +23,9 @@ export interface ChangeVoExpirationDialogData {
 })
 export class ChangeVoExpirationDialogComponent implements OnInit {
   loading = false;
-  maxDate: Date;
-  minDate: Date;
-  currentExpiration: string;
-  newExpiration: string;
+  expiration: string;
   status: string;
   canExtendMembership = false;
-  changeStatus: boolean;
-  backButton: boolean;
-  successMessage: string;
   private expirationAttr: Attribute = null;
 
   constructor(
@@ -40,52 +33,29 @@ export class ChangeVoExpirationDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: ChangeVoExpirationDialogData,
     private attributesManagerService: AttributesManagerService,
     private memberManager: MembersManagerService,
-    private translate: TranslateService,
     private notificator: NotificatorService
-  ) {
-    translate
-      .get('DIALOGS.CHANGE_EXPIRATION.SUCCESS')
-      .subscribe((res: string) => (this.successMessage = res));
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.status = this.data.status;
-    this.backButton = this.data.backButton;
     this.loading = true;
-    const currentDate = new Date();
-    if (this.data.status !== 'VALID') {
-      this.maxDate =
-        this.data.status === 'EXPIRED'
-          ? undefined
-          : new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
-    } else {
-      this.minDate = new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth(),
-        currentDate.getDate()
-      );
-    }
+    this.status = this.data.status;
 
     this.expirationAttr = this.data.expirationAttr;
-    this.currentExpiration = (this.expirationAttr?.value as string) ?? 'never';
-    this.newExpiration = this.currentExpiration;
+    this.expiration = (this.expirationAttr?.value as string) ?? 'never';
 
     if (this.data.status === 'VALID') {
       this.attributesManagerService
         .getVoAttributeByName(this.data.voId, Urns.VO_DEF_EXPIRATION_RULES)
+        .pipe(
+          switchMap((attr) => {
+            if (!attr.value) return of(false);
+            return this.memberManager.canExtendMembership(this.data.memberId);
+          })
+        )
         .subscribe({
-          next: (attr) => {
-            if (attr.value !== null) {
-              this.memberManager.canExtendMembership(this.data.memberId).subscribe({
-                next: (canExtend) => {
-                  this.canExtendMembership = !!canExtend;
-                  this.loading = false;
-                },
-                error: () => (this.loading = false),
-              });
-            } else {
-              this.loading = false;
-            }
+          next: (canExtend) => {
+            this.canExtendMembership = canExtend;
+            this.loading = false;
           },
           error: () => (this.loading = false),
         });
@@ -96,47 +66,23 @@ export class ChangeVoExpirationDialogComponent implements OnInit {
 
   onExpirationChanged(newExp: string): void {
     this.loading = true;
-    if (newExp === 'voRules') {
-      this.memberManager.extendMembership(this.data.memberId).subscribe({
+    this.expirationAttr.value = newExp === 'never' ? null : newExp;
+
+    const extend$ = this.memberManager.extendMembership(this.data.memberId);
+    const change$ = this.attributesManagerService.setMemberAttribute({
+      member: this.data.memberId,
+      attribute: this.expirationAttr,
+    });
+
+    of(newExp)
+      .pipe(mergeMap((exp) => iif(() => exp === 'voRules', extend$, change$)))
+      .subscribe({
         next: () => {
           this.loading = false;
-          this.notificator.showSuccess(this.successMessage);
+          this.notificator.showInstantSuccess('DIALOGS.CHANGE_EXPIRATION.SUCCESS');
           this.dialogRef.close({ success: true });
         },
         error: () => (this.loading = false),
       });
-    } else {
-      this.expirationAttr.value = newExp === 'never' ? null : newExp;
-
-      this.attributesManagerService
-        .setMemberAttribute({
-          member: this.data.memberId,
-          attribute: this.expirationAttr,
-        })
-        .subscribe({
-          next: () => {
-            if (this.changeStatus && this.status === 'EXPIRED') {
-              this.memberManager.setStatus(this.data.memberId, 'VALID').subscribe({
-                next: (member) => {
-                  this.translate
-                    .get('DIALOGS.CHANGE_STATUS.SUCCESS')
-                    .subscribe((success: string) => {
-                      this.notificator.showSuccess(success);
-                      this.loading = false;
-                      this.notificator.showSuccess(this.successMessage);
-                      this.dialogRef.close({ success: true, member: member });
-                    });
-                },
-                error: () => (this.loading = false),
-              });
-            } else {
-              this.loading = false;
-              this.notificator.showSuccess(this.successMessage);
-              this.dialogRef.close({ success: true });
-            }
-          },
-          error: () => (this.loading = false),
-        });
-    }
   }
 }

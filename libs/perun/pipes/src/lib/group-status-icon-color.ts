@@ -12,7 +12,7 @@ export class GroupStatusIconColorPipe implements PipeTransform {
         color = 'red';
         break;
       default:
-        color = '';
+        color = 'black';
     }
     return `${color}${isMembersGroup || membershipType ? ' cursor-default' : ''}`;
   }

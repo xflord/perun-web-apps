@@ -1,7 +1,4 @@
 <mat-radio-group [(ngModel)]="expiration" (change)="emitDate()" class="d-flex flex-column">
-  <mat-radio-button *ngIf="allowNever" value="never">
-    {{'DIALOGS.CHANGE_EXPIRATION.EXPIRATION_NEVER'|translate}}
-  </mat-radio-button>
   <mat-radio-button value="{{expirationControl.value}}">
     <mat-form-field color="primary" class="cursor-pointer me-3" (click)="picker.open()">
       <mat-label>{{'DIALOGS.CHANGE_EXPIRATION.DATE_LABEL'|translate}}</mat-label>
@@ -17,5 +14,14 @@
       <mat-datepicker-toggle [for]="picker" [disabled]="false" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #picker [disabled]="false"></mat-datepicker>
     </mat-form-field>
+  </mat-radio-button>
+  <mat-radio-button *ngIf="canExtendInVo" class="mb-2" value="voRules">
+    {{'DIALOGS.CHANGE_EXPIRATION.VO_RULES'|translate}}
+  </mat-radio-button>
+  <mat-radio-button *ngIf="canExtendInGroup" class="mb-2" value="groupRules">
+    {{'DIALOGS.CHANGE_EXPIRATION.GROUP_RULES'|translate}}
+  </mat-radio-button>
+  <mat-radio-button *ngIf="allowNever" value="never">
+    {{'DIALOGS.CHANGE_EXPIRATION.EXPIRATION_NEVER'|translate}}
   </mat-radio-button>
 </mat-radio-group>

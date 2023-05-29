@@ -18,7 +18,6 @@ export class ChangeMemberStatusOrExpirationDialogComponent implements OnInit {
   voId: number;
   groupId: number;
   member: RichMember;
-  statusChanged = false;
 
   constructor(
     public dialogRef: MatDialogRef<ChangeMemberStatusOrExpirationDialogComponent>,
@@ -32,11 +31,7 @@ export class ChangeMemberStatusOrExpirationDialogComponent implements OnInit {
     this.member = this.data.member;
   }
 
-  cancel(): void {
-    if (this.statusChanged) {
-      this.dialogRef.close();
-    } else {
-      this.dialogRef.close('closedWithoutChange');
-    }
+  close(): void {
+    this.dialogRef.close();
   }
 }

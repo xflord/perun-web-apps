@@ -51,7 +51,10 @@
         </perun-web-apps-alert>
         <h6>{{'DIALOGS.COPY_SPONSORED_MEMBERS.EXPIRATION' | translate}}</h6>
         <mat-checkbox [(ngModel)]="pickExpiration">Pick new expiration date</mat-checkbox>
-        <perun-web-apps-expiration-select *ngIf="pickExpiration" (datePicker)="expiration = $event">
+        <perun-web-apps-expiration-select
+          *ngIf="pickExpiration"
+          [minDate]="minDate"
+          (expirationSelected)="expiration = $event">
         </perun-web-apps-expiration-select>
       </div>
     </div>

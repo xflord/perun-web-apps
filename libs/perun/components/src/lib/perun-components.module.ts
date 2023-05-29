@@ -120,6 +120,7 @@ import { AuthorizedGroupsCellComponent } from './authorized-groups-cell/authoriz
 import { StringSearchSelectComponent } from './string-search-select/string-search-select.component';
 import { BlockedLoginsDynamicListComponent } from './blocked-logins-dynamic-list/blocked-logins-dynamic-list.component';
 import { NamespaceSearchSelectComponent } from './namespace-search-select/namespace-search-select.component';
+import { MembershipStatusSettingsComponent } from './membership-status-settings/membership-status-settings.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -272,6 +273,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     ShowNotificationHistoryDialogComponent,
     BlockedLoginsDynamicListComponent,
     NamespaceSearchSelectComponent,
+    MembershipStatusSettingsComponent,
   ],
   exports: [
     VosListComponent,

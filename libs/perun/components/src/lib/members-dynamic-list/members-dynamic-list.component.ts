@@ -198,15 +198,13 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
     } else if (!this.expireGroupAuth || this.isMembersGroup || indirect === 'INDIRECT') return;
 
     const config = getDefaultDialogConfig();
-    config.minWidth = '280px';
+    config.width = '400px';
     config.data = { member: member, voId: this.voId, groupId: groupId };
 
     const dialogRef = this.dialog.open(ChangeMemberStatusOrExpirationDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (!result) {
-        this.loadMembersPage();
-      }
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadMembersPage();
     });
   }
 

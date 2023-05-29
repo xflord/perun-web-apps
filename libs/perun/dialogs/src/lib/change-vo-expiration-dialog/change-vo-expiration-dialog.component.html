@@ -5,15 +5,9 @@
   <div *perunWebAppsLoader="loading; indicator: spinner">
     <h1 mat-dialog-title>{{'DIALOGS.CHANGE_VO_EXPIRATION.TITLE' | translate}}</h1>
     <perun-web-apps-change-expiration-dialog
-      [minDate]="minDate"
-      [maxDate]="maxDate"
-      [currentExpiration]="currentExpiration"
-      [newExpiration]="newExpiration"
-      [canExtendMembership]="canExtendMembership"
-      [mode]="'vo'"
       [status]="status"
-      [backButton]="backButton"
-      (statusChange)="changeStatus = true"
+      [currentExpiration]="expiration"
+      [canExtendInVo]="canExtendMembership"
       (expirationChanged)="onExpirationChanged($event)">
     </perun-web-apps-change-expiration-dialog>
   </div>

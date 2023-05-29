@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   Attribute,
   Group,
@@ -8,9 +8,7 @@ import {
 } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig, getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
 import { Urns } from '@perun-web-apps/perun/urns';
-import { MatTableDataSource } from '@angular/material/table';
-import { GuiAuthResolver } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
+import { GuiAuthResolver, PerunTranslateService } from '@perun-web-apps/perun/services';
 import {
   ChangeGroupExpirationDialogComponent,
   ChangeMemberStatusDialogComponent,
@@ -22,61 +20,56 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './member-overview-groups.component.html',
   styleUrls: ['./member-overview-groups.component.css'],
 })
-export class MemberOverviewGroupsComponent implements OnChanges {
+export class MemberOverviewGroupsComponent implements OnInit {
   @Input() voId: number;
   @Input() member: RichMember;
-  @Input() openedInDialog = false;
-  @Output() statusChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() requiresGroupSelect = true;
   loading: boolean;
-  initLoading: boolean;
-  groups: Group[];
-  recentIds: number[];
-  filterValue: string;
+  groups: Group[] = [];
   selectedGroup: Group;
   selectedMember: RichMember;
-  noGroups = false;
-  groupMembershipDataSource = new MatTableDataSource<string>();
   expiration = '';
   expirationAtt: Attribute;
-  displayedColumns = ['attName', 'attValue'];
+  editAuth = false;
+  showExpiration = true;
 
   constructor(
     private groupsManager: GroupsManagerService,
     public authResolver: GuiAuthResolver,
-    private translate: TranslateService,
+    private translate: PerunTranslateService,
     private dialog: MatDialog
   ) {}
 
-  ngOnChanges(): void {
+  ngOnInit(): void {
     this.loading = true;
-    this.initLoading = true;
-    this.groupMembershipDataSource = new MatTableDataSource<string>(['Status', 'Expiration']);
     this.groupsManager.getMemberGroups(this.member.id).subscribe((groups) => {
       this.groups = groups;
-      if (this.groups.length === 0) {
-        this.noGroups = true;
-        return;
+      if (this.groups.length !== 0) {
+        const initiallySelectedGroup = this.findInitiallySelectedGroupId();
+        this.groupIsSelected(initiallySelectedGroup);
       }
-      const initiallySelectedGroup = this.findInitiallySelectedGroupId();
-      this.groupIsSelected(initiallySelectedGroup);
-      this.initLoading = false;
+      this.loading = false;
     });
   }
 
   findInitiallySelectedGroupId(): Group {
-    this.recentIds = getRecentlyVisitedIds('groups');
-    if (this.recentIds) {
-      const foundedGroup = this.groups.find((group) => group.id === this.recentIds[0]);
-      if (foundedGroup) {
-        return foundedGroup;
+    const recentIds = getRecentlyVisitedIds('groups');
+    if (recentIds) {
+      const mostRecentGroup = this.groups.find((group) => group.id === recentIds[0]);
+      if (mostRecentGroup) {
+        return mostRecentGroup;
       }
     }
     return this.groups[0];
   }
 
-  groupIsSelected(event: RichGroup): void {
+  groupIsSelected(group: RichGroup): void {
     this.loading = true;
-    this.selectedGroup = event;
+    this.selectedGroup = group;
+    this.editAuth =
+      this.authResolver.isThisVoAdmin(this.voId) ||
+      this.authResolver.isThisGroupAdmin(this.selectedGroup.id);
+
     this.groupsManager
       .getGroupRichMembersByIds(
         this.selectedGroup.id,
@@ -89,12 +82,11 @@ export class MemberOverviewGroupsComponent implements OnChanges {
           (att) => att.baseFriendlyName === 'groupMembershipExpiration'
         );
         if (this.expirationAtt) {
-          this.groupMembershipDataSource = new MatTableDataSource<string>(['Status', 'Expiration']);
           this.expiration = !this.expirationAtt.value
-            ? (this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES') as string)
+            ? this.translate.instant('MEMBER_DETAIL.OVERVIEW.NEVER_EXPIRES')
             : (this.expirationAtt.value as string);
         } else {
-          this.groupMembershipDataSource = new MatTableDataSource<string>(['Status']);
+          this.showExpiration = false;
         }
         this.loading = false;
       });
@@ -107,14 +99,13 @@ export class MemberOverviewGroupsComponent implements OnChanges {
       memberId: this.member.id,
       groupId: this.selectedGroup.id,
       expirationAttr: this.expirationAtt,
-      backButton: this.openedInDialog,
+      status: this.selectedMember.groupStatus,
     };
 
     const dialogRef = this.dialog.open(ChangeGroupExpirationDialogComponent, config);
-    dialogRef.afterClosed().subscribe((result: { success: boolean; member: RichMember }) => {
-      if (result.success) {
+    dialogRef.afterClosed().subscribe((expChanged: boolean) => {
+      if (expChanged) {
         this.groupIsSelected(this.selectedGroup);
-        this.dialog.closeAll();
       }
     });
   }
@@ -127,7 +118,6 @@ export class MemberOverviewGroupsComponent implements OnChanges {
       voId: this.voId,
       groupId: this.selectedGroup.id,
       expirationAttr: this.expirationAtt,
-      backButton: this.openedInDialog,
     };
 
     const dialogRef = this.dialog.open(ChangeMemberStatusDialogComponent, config);
@@ -135,8 +125,6 @@ export class MemberOverviewGroupsComponent implements OnChanges {
       if (member) {
         this.selectedMember = member;
         this.groupIsSelected(this.selectedGroup);
-        this.dialog.closeAll();
-        this.statusChanged.emit(true);
       }
     });
   }

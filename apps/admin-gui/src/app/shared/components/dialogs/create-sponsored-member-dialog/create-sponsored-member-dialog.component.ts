@@ -24,7 +24,6 @@ import {
   StoreService,
 } from '@perun-web-apps/perun/services';
 import { UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { formatDate } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { CustomValidators, emailRegexString, enableFormControl } from '@perun-web-apps/perun/utils';
 import { loginAsyncValidator } from '@perun-web-apps/perun/namespace-password-form';
@@ -245,11 +244,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit, AfterViewIn
   }
 
   setExpiration(newExpiration: string): void {
-    if (newExpiration === 'never') {
-      this.expiration = 'never';
-    } else {
-      this.expiration = formatDate(newExpiration, 'yyyy-MM-dd', 'en-GB');
-    }
+    this.expiration = newExpiration;
   }
 
   getStepperNextConditions(): boolean {

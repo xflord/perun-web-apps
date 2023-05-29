@@ -95,11 +95,7 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
   }
 
   setExpiration(newExpiration: string): void {
-    if (newExpiration === 'never') {
-      this.expiration = 'never';
-    } else {
-      this.expiration = formatDate(newExpiration, 'yyyy-MM-dd', 'en-GB');
-    }
+    this.expiration = newExpiration;
   }
 
   cancel(): void {
@@ -120,10 +116,8 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
             })
             .subscribe({
               next: () => {
-                this.translate.get('DIALOGS.CHANGE_STATUS.SUCCESS').subscribe((success: string) => {
-                  this.notificatorService.showSuccess(success);
-                  this.dialogRef.close(member);
-                });
+                this.notificatorService.showInstantSuccess('DIALOGS.CHANGE_STATUS.SUCCESS');
+                this.dialogRef.close(member);
               },
               error: () => (this.loading = false),
             });
@@ -143,12 +137,8 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
               })
               .subscribe({
                 next: () => {
-                  this.translate
-                    .get('DIALOGS.CHANGE_STATUS.SUCCESS')
-                    .subscribe((success: string) => {
-                      this.notificatorService.showSuccess(success);
-                      this.dialogRef.close(member);
-                    });
+                  this.notificatorService.showInstantSuccess('DIALOGS.CHANGE_STATUS.SUCCESS');
+                  this.dialogRef.close(member);
                 },
                 error: () => (this.loading = false),
               });

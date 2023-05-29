@@ -23,11 +23,8 @@ export class MemberStatusIconColorPipe implements PipeTransform {
       case 'INVALID':
         color = 'red';
         break;
-      case 'DISABLED':
-        color = 'black';
-        break;
       default:
-        return ``;
+        return 'BLACK';
     }
 
     return `${color}${indirect === 'UNALTERABLE' ? ' cursor-default' : ''}`;
