@@ -1409,6 +1409,9 @@ textarea.cdk-textarea-autosize-measuring {
   polygon {
     fill: currentColor;
   }
+
+  min-width: 24px;
+  min-height: 24px;
 }
 
 .word-break-all {
