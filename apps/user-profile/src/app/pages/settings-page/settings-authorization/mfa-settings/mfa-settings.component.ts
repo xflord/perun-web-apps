@@ -28,7 +28,7 @@ export class MfaSettingsComponent implements OnInit {
 
   enforceMfa: boolean;
   originalMfa = false;
-  enableDetailSettings: boolean;
+  enableDetailSettings = true;
   loadingCategories = false;
   unchangedSettings = true;
   categorySelection: SelectionModel<string>;
@@ -62,7 +62,6 @@ export class MfaSettingsComponent implements OnInit {
 
     this.mfaUrl = this.translate.currentLang === 'en' ? mfa.url_en : mfa.url_cs;
     this.categorySelection = new SelectionModel<string>(true, []);
-    this.enableDetailSettings = this.store.getProperty('mfa').enable_detail_settings;
     this.mfaApiService.isMfaAvailable().subscribe({
       next: (isAvailable) => {
         this.mfaAvailable = isAvailable;
@@ -89,16 +88,10 @@ export class MfaSettingsComponent implements OnInit {
     const mfaRoute = sessionStorage.getItem('mfa_route');
     if (mfaRoute) {
       const enforceMfa = sessionStorage.getItem('enforce_mfa');
+      // This should propagate unfinished PUT action
       if (enforceMfa) {
-        this.mfaApiService.changeEnforceMfa(enforceMfa === 'true').subscribe({
-          next: () => {
-            this.loadingMfa = false;
-          },
-          error: () => {
-            this.loadingMfa = false;
-            this.loadingCategories = false;
-          },
-        });
+        const body = JSON.stringify({ all: enforceMfa === 'true' });
+        sessionStorage.setItem('settings_mfa', body);
       }
       const settingsMfa = sessionStorage.getItem('settings_mfa');
       if (settingsMfa) {
@@ -153,9 +146,13 @@ export class MfaSettingsComponent implements OnInit {
   }
 
   setSelections(): void {
+    // Check if the settings have categories
+    this.enableDetailSettings =
+      this.settings.categories && Object.keys(this.settings.categories).length > 0;
     this.categorySelection = new SelectionModel<string>(true, this.settings.includedCategories);
     this.allCategoriesKeys = Object.keys(this.settings.categories);
-    this.enforceMfa = this.settings.includedCategories.length > 0;
+    // Select if 'allEnforced' is true
+    this.enforceMfa = this.settings.includedCategories.length > 0 || this.settings.allEnforced;
     for (const category in this.settings.categories) {
       this.allRpsKeysByCategory.set(
         category,
@@ -227,7 +224,7 @@ export class MfaSettingsComponent implements OnInit {
   }
 
   /**
-   * This method fires logic for setting new values of enforceMfa and settings
+   * This method fires logic for setting new values of settings
    */
   saveSettings(enforceFirstMfa = false): void {
     this.loadingMfa = true;

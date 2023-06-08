@@ -50,6 +50,7 @@ export class MfaApiService {
    */
   getSettings(): Observable<MfaSettings> {
     const result: MfaSettings = {
+      allEnforced: false,
       categories: {},
       includedCategories: [],
       excludedRps: [],
@@ -76,6 +77,7 @@ export class MfaApiService {
                 next: (settings) => {
                   if (settings.length !== 0) {
                     if (settings.all) {
+                      result.allEnforced = settings.all;
                       result.includedCategories = Object.keys(result.categories);
                       for (const category in result.categories) {
                         result.includedRpsByCategory[category] = Object.keys(
@@ -148,48 +150,15 @@ export class MfaApiService {
     }
     sessionStorage.setItem('settings_mfa', body);
   }
-
-  changeEnforceMfa(enforceMfa: boolean): Observable<any> {
-    const body = `value=${String(enforceMfa)}`;
-    return new Observable<any>((res) => {
-      this.httpClient
-        .put(this.mfaApiUrl + 'mfaEnforced', body, {
-          headers: { Authorization: 'Bearer ' + this.oauthService.getAccessToken() },
-        })
-        .subscribe({
-          next: () => {
-            sessionStorage.removeItem('enforce_mfa');
-            sessionStorage.removeItem('mfa_route');
-            res.next();
-          },
-          error: (err) => {
-            // when token is valid, but user is logged in without MFA -> enforce MFA
-            if (err.error.error === 'MFA is required') {
-              this.saveSettings(null, true).subscribe();
-            } else {
-              res.error(err);
-            }
-          },
-        });
-    });
-  }
-
   /**
    * This method fires logic for setting new values of enforceMfa and settings
    */
   saveSettings(newEnforce: boolean, enforceFirstMfa = false): Observable<any> {
     return new Observable<any>((res) => {
       if (this.oauthService.getIdTokenExpiration() - now() > 0 && !enforceFirstMfa) {
-        this.changeEnforceMfa(newEnforce).subscribe({
+        this.updateDetailSettings().subscribe({
           next: () => {
-            this.updateDetailSettings().subscribe({
-              next: () => {
-                res.next();
-              },
-              error: (e) => {
-                res.error(e);
-              },
-            });
+            res.next();
           },
           error: (e) => {
             res.error(e);

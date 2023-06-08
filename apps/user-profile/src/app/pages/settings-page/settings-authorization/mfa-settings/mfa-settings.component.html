@@ -23,7 +23,7 @@
       <mat-expansion-panel [disabled]="!mfaAvailable || !enableDetailSettings">
         <mat-expansion-panel-header>
           <mat-checkbox
-            class="toggle-ellipsis mt-2 me-5"
+            class="toggle-ellipsis me-5"
             [disabled]="!mfaAvailable"
             (click)="$event.stopPropagation()"
             [(ngModel)]="enforceMfa"
@@ -40,7 +40,7 @@
             <mat-expansion-panel-header
               [class.cursor-default]="allRpsKeysByCategory.get(category).length === 0">
               <mat-checkbox
-                class="toggle-ellipsis mt-2 me-2"
+                class="toggle-ellipsis me-2"
                 (click)="$event.stopPropagation()"
                 [checked]="categorySelection.isSelected(category)"
                 [indeterminate]="categorySelection.isSelected(category) && rpsSelections.get(category).selected.length !== allRpsKeysByCategory.get(category).length"

@@ -1,4 +1,5 @@
 export interface MfaSettings {
+  allEnforced: boolean;
   categories: object;
   includedCategories: string[];
   excludedRps: string[];
