@@ -11,6 +11,11 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { AuthService } from './auth.service';
 import { StoreService } from './store.service';
 
+export type MfaExceptionType =
+  | 'MfaPrivilegeException'
+  | 'MfaRolePrivilegeException'
+  | 'MfaTimeoutException';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -30,20 +35,24 @@ export class MfaHandlerService {
    * opened another window and the user cannot continue in the original application
    * without finishing authentication/closing the second window
    */
-  openMfaWindow(mfaRoleException: boolean): Observable<boolean> {
+  openMfaWindow(mfaExceptionType: MfaExceptionType): Observable<boolean> {
     let newWindow: Window = null;
     let dialogRef: MatDialogRef<FocusOnMfaWindowComponent, void> = null;
 
     const configVerify = getDefaultDialogConfig();
     configVerify.width = '450px';
     configVerify.data = {
-      mfaRoleException: mfaRoleException,
+      mfaRoleException: mfaExceptionType === 'MfaRolePrivilegeException',
     };
     const dialogVerifyRef = this.dialog.open(MfaRequiredDialogComponent, configVerify);
     let verificationSkipped = false;
 
     dialogVerifyRef.afterClosed().subscribe((result) => {
       if (result) {
+        if (mfaExceptionType === 'MfaTimeoutException') {
+          localStorage.setItem('mfaTimeout', 'true');
+        }
+
         localStorage.setItem('mfaRequired', 'true');
 
         // save tokens - if MFA will NOT be successful, we will need to give them back to oauth storage
@@ -82,6 +91,7 @@ export class MfaHandlerService {
           dialogRef.close();
           localStorage.removeItem('mfaRequired');
           localStorage.removeItem('mfaProcessed');
+          localStorage.removeItem('mfaTimeout');
           // if the window is closed without successful MFA, then give back previous tokens to the oauth storage
           if (this.oauthService.getAccessToken() === null) {
             localStorage.setItem('access_token', sessionStorage.getItem('oldAccessToken'));
@@ -132,6 +142,7 @@ export class MfaHandlerService {
   closeMfaWindow(): void {
     if (localStorage.getItem('mfaProcessed') && !localStorage.getItem('mfaRequired')) {
       localStorage.removeItem('mfaProcessed');
+      localStorage.removeItem('mfaTimeout');
       window.close();
     }
   }
