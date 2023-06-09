@@ -11,6 +11,7 @@ export class VoSearchSelectComponent implements OnChanges {
   @Input() vo: Vo;
   @Input() vos: Vo[];
   @Input() disableAutoSelect = false;
+  @Input() required = false;
   @Output() voSelected = new EventEmitter<Vo>();
 
   nameFunction = (vo: Vo): string => vo.name;

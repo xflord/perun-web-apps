@@ -1645,6 +1645,7 @@
       "SUCCESS": "Selected services were removed from the resource"
     },
     "CREATE_RESOURCE": {
+      "TITLE": "Create resource",
       "NAME": "Name",
       "DESCRIPTION": "Description",
       "CANCEL": "Cancel",
