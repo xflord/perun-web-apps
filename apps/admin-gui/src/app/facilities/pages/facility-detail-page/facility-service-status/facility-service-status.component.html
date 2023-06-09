@@ -31,7 +31,7 @@
   <button
     *ngIf="deleteAuth"
     mat-flat-button
-    [disabled]="disableRemoveButton || loading"
+    [disabled]="selected.selected.length === 0 || disableRemoveButton || loading"
     [matMenuTriggerFor]="menu"
     [matTooltipDisabled]="!disableRemoveButton"
     class="me-2 dropdown-toggle"
