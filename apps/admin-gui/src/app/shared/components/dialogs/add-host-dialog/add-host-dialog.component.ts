@@ -107,7 +107,7 @@ export class AddHostDialogComponent implements OnInit {
       }
       nameParts = nameParts.concat([parts]);
     }
-    nameParts = nameParts.concat([prefixes[prefixes.length - 1]]);
+    nameParts = nameParts.concat([[prefixes[prefixes.length - 1]]]);
 
     return this.joinHostNames(nameParts, 0);
   }
