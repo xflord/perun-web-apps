@@ -172,7 +172,7 @@ export class InitAuthService {
       sessionStorage.setItem('auth:queryParams', queryParams);
       return Promise.resolve();
     } else if (this.storeService.getProperty('auto_auth_redirect')) {
-      if (!sessionStorage.getItem('mfaProcessed')) {
+      if (!localStorage.getItem('mfaProcessed')) {
         localStorage.setItem('routeAuthGuard', window.location.pathname);
       }
       return (

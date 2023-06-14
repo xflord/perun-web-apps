@@ -44,7 +44,7 @@ export class MfaHandlerService {
 
     dialogVerifyRef.afterClosed().subscribe((result) => {
       if (result) {
-        sessionStorage.setItem('mfaRequired', 'true');
+        localStorage.setItem('mfaRequired', 'true');
 
         // save tokens - if MFA will NOT be successful, we will need to give them back to oauth storage
         sessionStorage.setItem('oldAccessToken', this.oauthService.getAccessToken());
@@ -80,8 +80,8 @@ export class MfaHandlerService {
         if (newWindow?.closed) {
           clearInterval(timer);
           dialogRef.close();
-          sessionStorage.removeItem('mfaRequired');
-          sessionStorage.removeItem('mfaProcessed');
+          localStorage.removeItem('mfaRequired');
+          localStorage.removeItem('mfaProcessed');
           // if the window is closed without successful MFA, then give back previous tokens to the oauth storage
           if (this.oauthService.getAccessToken() === null) {
             localStorage.setItem('access_token', sessionStorage.getItem('oldAccessToken'));
@@ -115,13 +115,13 @@ export class MfaHandlerService {
    * multi factor authentication
    */
   mfaWindowForceLogout(): void {
-    if (sessionStorage.getItem('mfaRequired') && !sessionStorage.getItem('mfaProcessed')) {
-      sessionStorage.setItem('mfaProcessed', 'true');
+    if (localStorage.getItem('mfaRequired') && !localStorage.getItem('mfaProcessed')) {
+      localStorage.setItem('mfaProcessed', 'true');
       this.oauthService.logOut(true);
       this.authService.loadOidcConfigData();
       return void this.oauthService.loadDiscoveryDocumentAndLogin();
     } else {
-      sessionStorage.removeItem('mfaRequired');
+      localStorage.removeItem('mfaRequired');
     }
   }
 
@@ -130,8 +130,8 @@ export class MfaHandlerService {
    * If MFA is successfully done, then close the window
    */
   closeMfaWindow(): void {
-    if (sessionStorage.getItem('mfaProcessed') && !sessionStorage.getItem('mfaRequired')) {
-      sessionStorage.removeItem('mfaProcessed');
+    if (localStorage.getItem('mfaProcessed') && !localStorage.getItem('mfaRequired')) {
+      localStorage.removeItem('mfaProcessed');
       window.close();
     }
   }

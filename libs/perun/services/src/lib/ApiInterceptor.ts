@@ -52,7 +52,7 @@ export class ApiInterceptor implements HttpInterceptor {
       this.isCallToPerunApi(req.url) &&
       !this.isLoggedIn() &&
       !this.dialogRefSessionExpiration &&
-      !sessionStorage.getItem('mfaRequired')
+      !localStorage.getItem('mfaRequired')
     ) {
       const config = getDefaultDialogConfig();
       config.width = '450px';
