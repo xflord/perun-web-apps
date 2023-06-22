@@ -129,7 +129,8 @@ export class ApiInterceptor implements HttpInterceptor {
         if (
           e.type === 'MfaPrivilegeException' ||
           e.type === 'MfaRolePrivilegeException' ||
-          e.type === 'MfaTimeoutException'
+          e.type === 'MfaTimeoutException' ||
+          e.type === 'MfaRoleTimeoutException'
         ) {
           return this.mfaHandlerService.openMfaWindow(e.type).pipe(
             switchMap((verified) => {
