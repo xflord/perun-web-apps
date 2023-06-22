@@ -10,7 +10,8 @@
     "oauth_load_user_info": true,
     "oauth_scopes": "openid profile perun_api offline_access target user_identifiers",
     "oauth_response_type": "code",
-    "oauth_offline_access_consent_prompt": true
+    "oauth_offline_access_consent_prompt": true,
+    "oauth_acr_value": "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport https://refeds.org/profile/sfa https://refeds.org/profile/mfa"
   },
   "mfa": {
     "url_en": "https://mfa.id.muni.cz/"

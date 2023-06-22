@@ -11,7 +11,8 @@
     "oauth_scopes": "openid profile perun_api perun_admin offline_access target user_identifiers",
     "oauth_response_type": "code",
     "user_info_endpoint_url": "https://proxy.aai.muni.cz/OIDC/userinfo",
-    "oauth_offline_access_consent_prompt": true
+    "oauth_offline_access_consent_prompt": true,
+    "oauth_acr_value": "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport https://refeds.org/profile/sfa https://refeds.org/profile/mfa"
   },
   "proxy_logout": true,
   "mfa": {

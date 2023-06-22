@@ -18,7 +18,8 @@
     "oauth_redirect_uri": "http://localhost:4200/api-callback",
     "oauth_scopes": "openid profile perun_api offline_access",
     "oauth_response_type": "code",
-    "oauth_offline_access_consent_prompt": true
+    "oauth_offline_access_consent_prompt": true,
+    "oauth_acr_value": "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport https://refeds.org/profile/sfa https://refeds.org/profile/mfa"
   },
   "proxy_logout": true,
   "password_namespace_attributes": [

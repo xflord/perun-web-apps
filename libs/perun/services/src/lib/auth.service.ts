@@ -103,8 +103,11 @@ export class AuthService {
     //So the refreshing of the token is not triggered by multiple tabs at the same time
     const timeoutFactor = 0.5 + randomSalt;
 
-    const customQueryParams = !filterValue ? {} : { acr_values: filterValue };
     const oidcClientProperties: OidcClient = this.store.getProperty('oidc_client');
+    const acr = oidcClientProperties.oauth_acr_value;
+    const customQueryParams = !filterValue
+      ? { acr_values: acr }
+      : { acr_values: filterValue + ' ' + acr };
     if (
       oidcClientProperties.oauth_scopes.split(' ').includes('offline_access') &&
       oidcClientProperties.oauth_offline_access_consent_prompt

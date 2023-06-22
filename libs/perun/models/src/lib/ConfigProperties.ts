@@ -9,6 +9,7 @@ export interface OidcClient {
   user_info_endpoint_url: string;
   filters: Record<string, string>;
   oauth_offline_access_consent_prompt: boolean;
+  oauth_acr_value: string;
 }
 
 interface PerunTheme {
