@@ -46,13 +46,15 @@
         <mat-slide-toggle
           [checked]="service.enabled"
           (toggleChange)="changeServiceStatus()"
-          labelPosition="before">
+          labelPosition="before"
+          class="mb-25">
           {{'SERVICE_DETAIL.ENABLE' | translate}}
         </mat-slide-toggle>
         <mat-slide-toggle
           [checked]="service.useExpiredMembers"
           (toggleChange)="propagationChange()"
-          labelPosition="before">
+          labelPosition="before"
+          class="mb-25">
           {{'SERVICE_DETAIL.PROPAGATE' | translate}}
         </mat-slide-toggle>
         <button
