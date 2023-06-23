@@ -430,6 +430,10 @@ mat-form-field mat-icon {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
 }
 
+.mat-mdc-tab.mdc-tab--active {
+  background-color: #e8e4e4;
+}
+
 .mdc-data-table__cell {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
 }
