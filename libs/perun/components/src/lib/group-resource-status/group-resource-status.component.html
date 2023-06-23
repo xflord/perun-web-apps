@@ -1,5 +1,6 @@
 <div class="flex-container">
   <span
+    class="status-change"
     (click)="changeStatus()"
     *ngIf="status === 'ACTIVE'"
     matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_RESOURCE_STATUS.ACTIVE' | translate}}"
@@ -8,6 +9,7 @@
     <mat-icon class="green">check_circle_outline</mat-icon>
   </span>
   <span
+    class="status-change"
     (click)="changeStatus()"
     *ngIf="status === 'INACTIVE'"
     matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_RESOURCE_STATUS.INACTIVE' | translate}}"
@@ -16,6 +18,7 @@
     <mat-icon class="grey">block</mat-icon>
   </span>
   <span
+    class="status-change"
     (click)="changeStatus()"
     *ngIf="status === 'FAILED'"
     matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_RESOURCE_STATUS.FAILED' | translate}}: {{this.failureCause}}"
@@ -23,6 +26,7 @@
     <mat-icon class="red">report</mat-icon>
   </span>
   <span
+    class="status-change"
     *ngIf="status === 'PROCESSING'"
     matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_RESOURCE_STATUS.PROCESSING' | translate}}"
     matTooltipPosition="above">

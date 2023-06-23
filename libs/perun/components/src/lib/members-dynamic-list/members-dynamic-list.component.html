@@ -73,7 +73,7 @@
           <i
             (click)="openMembershipDialog($event, member)"
             [class.cursor-default]="!expireVoAuth"
-            class="material-icons {{(member | memberStatusIconColor)}}"
+            class="material-icons status-change {{(member | memberStatusIconColor)}}"
             matTooltip="{{member | memberStatusTooltip: false}}"
             matTooltipClass="status-tooltip"
             matTooltipPosition="left">
@@ -91,7 +91,7 @@
           <i
             (click)="openMembershipDialog($event, member, groupId)"
             [class.cursor-default]="!expireGroupAuth"
-            class="material-icons {{member.groupStatus | groupStatusIconColor: member.membershipType === 'INDIRECT' : isMembersGroup}}"
+            class="material-icons status-change {{member.groupStatus | groupStatusIconColor: member.membershipType === 'INDIRECT' : isMembersGroup}}"
             matTooltip="{{member | memberStatusTooltip: true: isMembersGroup}}"
             matTooltipClass="status-tooltip"
             matTooltipPosition="left">

@@ -139,7 +139,7 @@
           <i
             *ngIf="{status: group.attributes | findAttribute: 'groupStatus'} as groupStatus"
             (click)="$event.stopPropagation()"
-            class="material-icons {{groupStatus.status | groupStatusIconColor}} cursor-default"
+            class="material-icons status-change {{groupStatus.status | groupStatusIconColor}} cursor-default"
             matTooltip="{{groupStatus.status}}"
             matTooltipClass="status-tooltip"
             matTooltipPosition="left">
