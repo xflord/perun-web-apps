@@ -6,11 +6,7 @@
       class="settings-header">
       {{'VO_MANAGEMENT.SETTINGS.EXPIRATION.TITLE' | translate}}
     </h1>
-    <mat-slide-toggle
-      #mainToggle
-      class="ms-4"
-      [(ngModel)]="currentConfiguration.enabled"
-      color="primary">
+    <mat-slide-toggle #mainToggle class="ms-4" [(ngModel)]="currentConfiguration.enabled">
     </mat-slide-toggle>
   </div>
 

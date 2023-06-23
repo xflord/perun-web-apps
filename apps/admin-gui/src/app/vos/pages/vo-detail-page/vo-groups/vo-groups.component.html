@@ -31,12 +31,7 @@
   <label class="slide-label" (click)="labelToggle()"
     >{{'VO_DETAIL.GROUPS.TREE_VIEW' | translate}}
   </label>
-  <mat-slide-toggle
-    #toggle
-    (change)="removeAllGroups()"
-    [(ngModel)]="showGroupList"
-    class="me-1"
-    color="primary">
+  <mat-slide-toggle #toggle (change)="removeAllGroups()" [(ngModel)]="showGroupList" class="me-1">
   </mat-slide-toggle>
   <label class="slide-label" (click)="labelToggle()"
     >{{'VO_DETAIL.GROUPS.LIST_VIEW' | translate}}

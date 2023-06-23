@@ -1,6 +1,5 @@
 <mat-slide-toggle
   class="toggle-font"
-  color="accent"
   labelPosition="before"
   data-cy="toggle-read-critical"
   [(ngModel)]="readOperation"
@@ -10,7 +9,6 @@
 <br />
 <mat-slide-toggle
   class="toggle-font"
-  color="accent"
   labelPosition="before"
   [(ngModel)]="writeOperation"
   (toggleChange)="writeOperationChanged.emit(!writeOperation)">

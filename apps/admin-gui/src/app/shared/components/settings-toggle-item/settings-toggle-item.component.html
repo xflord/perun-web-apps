@@ -6,8 +6,7 @@
       class="setting-item clickable">
       {{title}}
     </label>
-    <mat-slide-toggle #toggle [(ngModel)]="modelValue" class="ms-4" color="primary">
-    </mat-slide-toggle>
+    <mat-slide-toggle #toggle [(ngModel)]="modelValue" class="ms-4"></mat-slide-toggle>
   </div>
   <div [@openClose]="toggle.checked ? 'open' : 'closed'" class="ms-1">
     <ng-content></ng-content>
