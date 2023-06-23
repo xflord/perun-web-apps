@@ -12,17 +12,11 @@
     </button>
   </mat-menu>
 
-  <button mat-button [matMenuTriggerFor]="menu">
-    <mat-icon class="mb-1 me-3" [ngStyle]="{'color': iconColor, 'font-size': '24px'}">
-      person
-    </mat-icon>
-    <span *ngIf="user !== null" [ngStyle]="{'color': textColor}" class="d-none d-lg-inline">
-      {{user | userFullName}}
-    </span>
+  <button
+    mat-icon-button
+    *ngIf="logoutEnabled"
+    (click)="onLogOut()"
+    [matTooltip]="'NAV.LOGOUT'|translate">
+    <mat-icon>logout</mat-icon>
   </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item *ngIf="logoutEnabled" (click)="onLogOut()">
-      {{'NAV.LOGOUT' | translate}}
-    </button>
-  </mat-menu>
 </div>

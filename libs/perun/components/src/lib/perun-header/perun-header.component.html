@@ -35,6 +35,13 @@
       </mat-menu>
     </div>
 
+    <span
+      *ngIf="principal.user !== null"
+      [ngStyle]="{'color': textColor}"
+      class="d-none d-lg-inline displayed-name me-1">
+      {{principal.user | userFullName}}
+    </span>
+
     <button
       *ngIf="showNotifications"
       [matTooltip]="'NAV.NOTIFICATIONS_TOOLTIP'|translate"
