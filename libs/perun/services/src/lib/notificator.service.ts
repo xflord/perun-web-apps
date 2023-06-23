@@ -10,8 +10,8 @@ export class NotificatorService {
   @Output() addNotification: EventEmitter<NotificationData> = new EventEmitter<NotificationData>();
   defaultAction: string;
   defaultRpcMessage: string;
-  defaultErrorDelayMs = 5_000;
-  defaultSuccessDelayMs = 3_000;
+  defaultErrorDelayMs = 10_000;
+  defaultSuccessDelayMs = 10_000;
   constructor(private translate: PerunTranslateService) {}
 
   getDefaultActionMessage(): string {
