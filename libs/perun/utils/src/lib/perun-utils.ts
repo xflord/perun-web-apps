@@ -26,7 +26,7 @@ import { saveAs } from 'file-saver';
 import { AbstractControl, AsyncValidatorFn, ValidatorFn } from '@angular/forms';
 import { Urns } from '@perun-web-apps/perun/urns';
 
-export const TABLE_ITEMS_COUNT_OPTIONS = [5, 10, 25, 100];
+export const TABLE_ITEMS_COUNT_OPTIONS = [5, 10, 25, 100, 1000];
 
 export const emailRegexString =
   /^(([^<>+()[\]\\.,;:\s@"-#$%&=]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]+))$/;
