@@ -29,7 +29,7 @@
         </div>
       </div>
       <div mat-dialog-actions>
-        <button mat-flat-button class="ms-auto" (click)="cancel.emit(false)">
+        <button mat-stroked-button class="ms-auto" (click)="cancel.emit(false)">
           {{'DIALOGS.ADD_MEMBERS.CANCEL' | translate}}
         </button>
         <span
@@ -101,7 +101,7 @@
         </table>
       </div>
       <div mat-dialog-actions *ngIf="!loading">
-        <button mat-flat-button class="ms-auto" (click)="cancel.emit(true)">
+        <button mat-stroked-button class="ms-auto" (click)="cancel.emit(true)">
           {{'DIALOGS.ADD_MEMBERS.CLOSE' | translate}}
         </button>
       </div>

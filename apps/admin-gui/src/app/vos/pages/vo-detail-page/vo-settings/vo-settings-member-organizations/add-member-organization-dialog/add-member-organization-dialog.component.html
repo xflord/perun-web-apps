@@ -49,7 +49,7 @@
       </mat-stepper>
     </div>
     <div mat-dialog-actions>
-      <button (click)="close()" mat-flat-button>
+      <button (click)="close()" mat-stroked-button>
         {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.CANCEL' | translate}}
       </button>
       <div class="ms-auto">
@@ -57,7 +57,7 @@
           *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
           (click)="stepperPrevious()"
           [disabled]="loading"
-          mat-flat-button>
+          mat-stroked-button>
           {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.BACK' | translate}}
         </button>
         <button

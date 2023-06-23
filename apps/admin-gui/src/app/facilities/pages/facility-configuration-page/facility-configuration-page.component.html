@@ -251,14 +251,14 @@
     </mat-step>
   </mat-stepper>
   <div class="actions">
-    <button (click)="onCancel()" mat-flat-button>
+    <button (click)="onCancel()" mat-stroked-button>
       {{'FACILITY_CONFIGURATION.CANCEL' | translate}}
     </button>
     <button
       *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
       (click)="back()"
       class="ms-auto me-2"
-      mat-flat-button>
+      mat-stroked-button>
       {{'FACILITY_CONFIGURATION.BACK' | translate}}
     </button>
     <button

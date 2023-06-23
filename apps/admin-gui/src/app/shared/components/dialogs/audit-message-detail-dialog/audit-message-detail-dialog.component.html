@@ -28,7 +28,7 @@
     </mat-tab-group>
   </div>
   <div mat-dialog-actions>
-    <button (click)="onClose()" class="ms-auto" mat-flat-button>
+    <button (click)="onClose()" class="ms-auto" mat-stroked-button>
       {{'DIALOGS.AUDIT_MESSAGE_DETAIL.CLOSE' | translate}}
     </button>
     <button (click)="tabIndex === 0 ? copyObjects() : copyMessage()" mat-button>

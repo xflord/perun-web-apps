@@ -4,10 +4,10 @@
 </div>
 <div mat-dialog-actions>
   <div class="ms-auto">
-    <button (click)="onBugReportClick()" [hidden]="data.type !== 'error'" mat-button>
+    <button (click)="onBugReportClick()" [hidden]="data.type !== 'error'" mat-stroked-button>
       {{'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.DIALOG_BUG_REPORT' | translate}}
     </button>
-    <button (click)="onCloseClick()" autofocus class="ms-2" mat-button>
+    <button (click)="onCloseClick()" autofocus class="ms-2" mat-stroked-button>
       {{'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.DIALOG_CLOSE' | translate}}
     </button>
   </div>

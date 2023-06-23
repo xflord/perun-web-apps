@@ -138,14 +138,14 @@
       </div>
     </div>
     <div *ngIf="stepper !== undefined && state !== 'results'" mat-dialog-actions>
-      <button (click)="onCancel()" mat-flat-button>
+      <button (click)="onCancel()" mat-stroked-button>
         {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.CANCEL' | translate}}
       </button>
       <button
         (click)="stepperPrevious()"
         *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
         class="ms-auto"
-        mat-flat-button>
+        mat-stroked-button>
         {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.BACK' | translate}}
       </button>
       <button
@@ -170,7 +170,7 @@
       </button>
     </div>
     <div *ngIf='state === "results"' mat-dialog-actions>
-      <button (click)="onClose()" mat-flat-button data-cy="close-button">
+      <button (click)="onClose()" mat-stroked-button data-cy="close-button">
         {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.CLOSE' | translate}}
       </button>
       <button

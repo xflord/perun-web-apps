@@ -4,7 +4,7 @@
     <i [innerHTML]="info | translate"></i>
   </div>
   <div *ngIf="!loading" matDialogActions>
-    <button (click)="onCancel()" class="me-2" mat-flat-button>
+    <button (click)="onCancel()" class="me-2" mat-stroked-button>
       {{'DIALOGS.CANCEL_CONFIG.CANCEL' | translate}}
     </button>
     <button (click)="onDelete()" class="ms-auto me-2" color="warn" mat-flat-button>

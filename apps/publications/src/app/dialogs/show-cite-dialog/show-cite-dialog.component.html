@@ -5,7 +5,7 @@
     {{publication.main}}
   </div>
   <div mat-dialog-actions>
-    <button mat-flat-button class="ms-auto" (click)="close()">
+    <button mat-stroked-button class="ms-auto" (click)="close()">
       {{'DIALOGS.SHOW_CITE.CANCEL' | translate}}
     </button>
     <button (click)="clipboard.copy(publication.main)" mat-button>

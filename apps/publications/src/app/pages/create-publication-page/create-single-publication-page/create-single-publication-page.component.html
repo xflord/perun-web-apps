@@ -175,12 +175,12 @@
       <div *ngIf="!innerLoading" class="actions">
         <button
           class="ms-2"
-          mat-flat-button
+          mat-stroked-button
           (click)="redirect(['create-publication'])"
           type="button">
           {{'CREATE_SINGLE_PUBLICATION.CANCEL' | translate}}
         </button>
-        <button class="ms-auto" mat-flat-button type="button" matStepperPrevious>
+        <button class="ms-auto" mat-stroked-button type="button" matStepperPrevious>
           {{'CREATE_SINGLE_PUBLICATION.PREV' | translate}}
         </button>
         <button class="ms-2" mat-flat-button color="accent" type="button" matStepperNext>

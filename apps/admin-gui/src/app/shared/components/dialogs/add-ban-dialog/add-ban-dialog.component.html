@@ -21,7 +21,7 @@
       </mat-stepper>
     </div>
     <div mat-dialog-actions>
-      <button mat-flat-button class="ms-auto me-2" (click)="cancel.emit()">
+      <button mat-stroked-button class="ms-auto me-2" (click)="cancel.emit()">
         {{'DIALOGS.ADD_BAN.CANCEL' | translate}}
       </button>
       <button
@@ -35,7 +35,7 @@
       </button>
       <button
         *ngIf="stepper.selectedIndex === stepper?._steps?.length - 1"
-        mat-flat-button
+        mat-stroked-button
         class="me-2"
         (click)="stepper.previous()">
         {{'DIALOGS.ADD_BAN.BACK' | translate}}

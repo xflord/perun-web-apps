@@ -71,14 +71,14 @@
       </mat-stepper>
     </div>
     <div mat-dialog-actions>
-      <button (click)="onCancel()" mat-flat-button>
+      <button (click)="onCancel()" mat-stroked-button>
         {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CANCEL' | translate}}
       </button>
       <button
         (click)="stepperPrevious()"
         *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
         class="ms-auto"
-        mat-flat-button>
+        mat-stroked-button>
         {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.BACK' | translate}}
       </button>
       <button

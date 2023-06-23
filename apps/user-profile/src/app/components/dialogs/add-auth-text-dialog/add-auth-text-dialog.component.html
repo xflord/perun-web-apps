@@ -15,7 +15,7 @@
     </perun-web-apps-alert>
   </div>
   <div matDialogActions>
-    <button (click)="cancel()" class="ms-auto me-2" mat-flat-button>
+    <button (click)="cancel()" class="ms-auto me-2" mat-stroked-button>
       {{'DIALOGS.ADD_AUTH_TEXT.CANCEL' | translate}}
     </button>
     <button [disabled]="securityText.trim() === ''" (click)="add()" color="accent" mat-flat-button>

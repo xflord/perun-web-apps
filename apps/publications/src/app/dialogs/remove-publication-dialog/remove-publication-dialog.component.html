@@ -13,7 +13,7 @@
       </perun-web-apps-publications-list>
     </div>
     <div mat-dialog-actions>
-      <button mat-flat-button class="ms-auto" (click)="cancel()">
+      <button mat-stroked-button class="ms-auto" (click)="cancel()">
         {{'DIALOGS.REMOVE_PUBLICATION.CANCEL' | translate}}
       </button>
       <button mat-flat-button color="warn" class="ms-2" [disabled]="loading" (click)="remove()">
